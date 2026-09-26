@@ -1,172 +1,205 @@
-<title>Prospector — prospecting agent on Exa</title>
+<title>Prospector</title>
 <style>
   :root{
-    --bg:#ffffff; --canvas:#fafbfc; --panel:#f5f6f8; --card:#ffffff;
-    --ink:#0f1016; --muted:#697086; --faint:#98a0b3; --line:#e7e9ee; --line2:#eef0f4;
-    --accent:#2b57f5; --accent-soft:#2b57f512; --accent-line:#2b57f533;
-    --green:#12a05a; --green-soft:#12a05a14; --amber:#c07a12; --amber-soft:#c07a1214;
-    --red:#d23f3f; --red-soft:#d23f3f14;
+    --side:#0e0f15; --side2:#161822; --side-ink:#e9ecf5; --side-mut:#8b93a9; --side-line:#22242f;
+    --bg:#ffffff; --canvas:#f7f8fa; --panel:#f2f3f6; --card:#ffffff;
+    --ink:#0f1016; --muted:#666d80; --faint:#98a0b3; --line:#e6e8ee; --line2:#eef0f4;
+    --accent:#2b57f5; --accent-soft:#2b57f512; --accent-line:#2b57f533; --accent-ink:#fff;
+    --green:#12a05a; --green-soft:#12a05a14; --amber:#c07a12; --amber-soft:#c07a1214; --red:#d23f3f;
     --sans:-apple-system,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
     --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
-    --shadow:0 1px 2px rgba(16,20,40,.04),0 12px 28px -20px rgba(16,20,40,.22);
+    --sh:0 1px 2px rgba(16,20,40,.05),0 10px 24px -18px rgba(16,20,40,.2);
   }
-  @media (prefers-color-scheme:dark){:root{
-    --bg:#0d0e13; --canvas:#0f1016; --panel:#161821; --card:#14151d;
-    --ink:#eef0f6; --muted:#98a0b3; --faint:#69708a; --line:#242734; --line2:#1d2029;
-    --accent:#5b7bff; --accent-soft:#5b7bff1c; --accent-line:#5b7bff44;
-    --green:#3fbd7c; --green-soft:#3fbd7c1c; --amber:#e0a24a; --amber-soft:#e0a24a1c;
-    --red:#e56767; --red-soft:#e567671c;
-    --shadow:0 1px 2px rgba(0,0,0,.3),0 16px 34px -22px rgba(0,0,0,.7);
-  }}
-  :root[data-theme="light"]{--bg:#ffffff;--canvas:#fafbfc;--panel:#f5f6f8;--card:#fff;--ink:#0f1016;--muted:#697086;--faint:#98a0b3;--line:#e7e9ee;--line2:#eef0f4;--accent:#2b57f5;--accent-soft:#2b57f512;--accent-line:#2b57f533;--green:#12a05a;--green-soft:#12a05a14;--amber:#c07a12;--amber-soft:#c07a1214;--red:#d23f3f;--red-soft:#d23f3f14;--shadow:0 1px 2px rgba(16,20,40,.04),0 12px 28px -20px rgba(16,20,40,.22);}
-  :root[data-theme="dark"]{--bg:#0d0e13;--canvas:#0f1016;--panel:#161821;--card:#14151d;--ink:#eef0f6;--muted:#98a0b3;--faint:#69708a;--line:#242734;--line2:#1d2029;--accent:#5b7bff;--accent-soft:#5b7bff1c;--accent-line:#5b7bff44;--green:#3fbd7c;--green-soft:#3fbd7c1c;--amber:#e0a24a;--amber-soft:#e0a24a1c;--red:#e56767;--red-soft:#e567671c;--shadow:0 1px 2px rgba(0,0,0,.3),0 16px 34px -22px rgba(0,0,0,.7);}
+  :root[data-theme="dark"]{--bg:#0c0d12;--canvas:#0c0d12;--panel:#14151d;--card:#111219;--ink:#eceff6;--muted:#98a0b3;--faint:#5f6678;--line:#20222c;--line2:#191b23;--accent:#5b7bff;--accent-soft:#5b7bff1c;--accent-line:#5b7bff44;--green:#3fbd7c;--green-soft:#3fbd7c1c;--amber:#e0a24a;--amber-soft:#e0a24a1c;--red:#e56767;--sh:0 1px 2px rgba(0,0,0,.3),0 14px 30px -20px rgba(0,0,0,.7);}
+  @media (prefers-color-scheme:dark){:root:not([data-theme]){--bg:#0c0d12;--canvas:#0c0d12;--panel:#14151d;--card:#111219;--ink:#eceff6;--muted:#98a0b3;--faint:#5f6678;--line:#20222c;--line2:#191b23;--accent:#5b7bff;--accent-soft:#5b7bff1c;--accent-line:#5b7bff44;--green:#3fbd7c;--green-soft:#3fbd7c1c;--amber:#e0a24a;--amber-soft:#e0a24a1c;--red:#e56767;--sh:0 1px 2px rgba(0,0,0,.3),0 14px 30px -20px rgba(0,0,0,.7);}}
   *{box-sizing:border-box}
-  body{margin:0;background:var(--canvas);color:var(--ink);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased;letter-spacing:-.006em}
-  a{color:var(--accent);text-decoration:none}
+  body{margin:0;background:var(--canvas);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;letter-spacing:-.005em}
   .mono{font-family:var(--mono)}
-  .wrap{max-width:1080px;margin:0 auto;padding:0 clamp(16px,4vw,28px)}
-  header{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-  .bar{display:flex;align-items:center;gap:12px;height:56px}
-  .logo{display:flex;align-items:center;gap:9px;font-weight:680;font-size:.98rem}
-  .mark{width:17px;height:17px;background:var(--accent);border-radius:4px;transform:rotate(45deg);box-shadow:0 0 0 3px var(--accent-soft)}
-  .chip{font-family:var(--mono);font-size:.66rem;letter-spacing:.02em;padding:.24em .5em;border-radius:5px;border:1px solid var(--accent-line);color:var(--accent);background:var(--accent-soft);white-space:nowrap}
-  .bar .right{margin-left:auto;display:flex;align-items:center;gap:14px}
-  .bar .right a{font-size:.82rem;color:var(--muted);font-family:var(--mono)}
-  .bar .right a:hover{color:var(--ink)}
-  .tt{font-family:var(--mono);font-size:.72rem;background:transparent;color:var(--muted);border:1px solid var(--line);border-radius:20px;padding:.32em .7em;cursor:pointer}
-  .tt:hover{color:var(--ink);border-color:var(--faint)}
-  .hero{padding:clamp(26px,5vw,44px) 0 20px}
-  h1{margin:0 0 10px;font-size:clamp(1.5rem,3.2vw,2.05rem);font-weight:760;letter-spacing:-.02em;line-height:1.08;text-wrap:balance;max-width:20ch}
-  .sub{color:var(--muted);font-size:1.02rem;max-width:58ch}
-  .pipe{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;align-items:center}
-  .step{font-size:.76rem;font-family:var(--mono);color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:7px;padding:.42em .7em}
-  .step b{color:var(--ink);font-weight:600}
-  .arw{color:var(--faint);font-size:.8rem}
-  .ctx{margin-top:16px;display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 10px;font-size:.86rem;color:var(--muted);background:var(--card);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;padding:11px 14px;max-width:74ch}
-  .ctx-k{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);white-space:nowrap}
-  .ctx b{color:var(--ink);font-weight:640}
-  .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden;margin-top:8px}
-  .tabs{display:flex;gap:2px;padding:6px;border-bottom:1px solid var(--line);background:var(--panel);overflow-x:auto}
-  .tab{flex:1;min-width:150px;text-align:left;padding:10px 12px;border-radius:9px;border:1px solid transparent;background:transparent;cursor:pointer;font-family:inherit;color:var(--muted)}
-  .tab .tk{font-size:.64rem;font-family:var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
-  .tab .tn{font-weight:640;font-size:.9rem;color:var(--ink);margin-top:2px}
-  .tab.on{background:var(--card);border-color:var(--line);box-shadow:0 1px 0 var(--line)}
-  .tab.on .tk{color:var(--accent)}
-  .tab:focus-visible,.tt:focus-visible,a:focus-visible,.seg button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-  .query{padding:16px clamp(14px,2.4vw,20px) 4px}
-  .qhead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:7px}
-  .qlabel{font-size:.68rem;font-family:var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+  button{font-family:inherit;cursor:pointer}
+  a{color:var(--accent);text-decoration:none}
+  input:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .app{display:grid;grid-template-columns:236px 1fr;min-height:100vh}
+
+  /* sidebar */
+  .side{background:var(--side);color:var(--side-ink);border-right:1px solid var(--side-line);display:flex;flex-direction:column;padding:14px 12px}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:680;font-size:.98rem;padding:6px 8px 14px}
+  .mark{width:16px;height:16px;background:var(--accent);border-radius:4px;transform:rotate(45deg);box-shadow:0 0 0 3px rgba(91,123,255,.18)}
+  .nav{display:flex;flex-direction:column;gap:2px}
+  .nav .lab{font-size:.6rem;font-family:var(--mono);letter-spacing:.12em;color:#5b6178;padding:12px 8px 5px}
+  .ni{display:flex;align-items:center;gap:9px;padding:7px 8px;border-radius:8px;color:var(--side-mut);font-size:.87rem;background:transparent;border:0;width:100%;text-align:left}
+  .ni:hover{background:var(--side2);color:var(--side-ink)}
+  .ni.on{background:var(--side2);color:var(--side-ink);font-weight:560}
+  .ni .g{width:15px;height:15px;flex:none;opacity:.85}
+  .side .foot{margin-top:auto;padding:8px;border-top:1px solid var(--side-line);font-family:var(--mono);font-size:.68rem;color:#5b6178;line-height:1.7}
+  .side .foot a{color:#8b93a9}
+  .side .foot a:hover{color:var(--side-ink)}
+
+  /* main */
+  .main{min-width:0;display:flex;flex-direction:column;background:var(--canvas)}
+  .top{display:flex;align-items:center;gap:12px;height:52px;padding:0 clamp(14px,2.6vw,24px);border-bottom:1px solid var(--line);background:var(--bg)}
+  .top .title{font-weight:640;font-size:.94rem}
+  .top .crumb{color:var(--faint);font-size:.86rem}
+  .top .right{margin-left:auto;display:flex;align-items:center;gap:9px}
   .seg{display:inline-flex;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:2px}
-  .seg button{font-family:var(--mono);font-size:.7rem;border:0;background:transparent;color:var(--muted);padding:.32em .7em;border-radius:6px;cursor:pointer}
-  .seg button.on{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.06)}
-  .qbox{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:10px;padding:11px 13px;background:var(--panel)}
-  .qbox .ico{width:15px;height:15px;border:2px solid var(--faint);border-radius:50%;position:relative;flex:none}
-  .qbox .ico::after{content:"";position:absolute;width:5px;height:2px;background:var(--faint);right:-3px;bottom:0;transform:rotate(45deg);border-radius:2px}
-  .qbox .qt{font-family:var(--mono);font-size:.86rem;color:var(--ink);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  .qbox .run{font-family:var(--mono);font-size:.74rem;font-weight:600;color:#fff;background:var(--accent);border:0;border-radius:7px;padding:.5em .9em;white-space:nowrap;cursor:pointer}
-  .qbox .run:disabled{opacity:.55;cursor:default}
-  .keyrow{display:flex;align-items:center;gap:9px;margin-top:9px}
-  .keyrow input{flex:1;font-family:var(--mono);font-size:.8rem;background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:9px 12px;color:var(--ink)}
-  .keyrow input::placeholder{color:var(--faint)}
-  .keyhint{font-size:.72rem;color:var(--faint);margin-top:6px}
-  .keyhint b{color:var(--muted);font-weight:600}
-  .meta{display:flex;flex-wrap:wrap;gap:14px;padding:10px clamp(14px,2.4vw,20px) 6px;font-size:.76rem;color:var(--muted)}
-  .meta b{color:var(--ink);font-weight:600}
-  .meta .dot{color:var(--faint)}
-  .status{padding:2px clamp(14px,2.4vw,20px);font-family:var(--mono);font-size:.74rem;min-height:1.1em}
-  .status.err{color:var(--red)} .status.ok{color:var(--green)} .status.load{color:var(--accent)}
-  .results{padding:4px clamp(10px,2vw,14px) 12px}
-  .row{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:start;padding:14px 12px;border-radius:11px;border:1px solid transparent}
-  .row+.row{border-top:1px solid var(--line2)}
-  .row:hover{background:var(--panel);border-color:var(--line)}
-  .co{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
-  .co .name{font-weight:660;font-size:.98rem}
-  .pill{font-family:var(--mono);font-size:.66rem;padding:.2em .5em;border-radius:5px;white-space:nowrap;border:1px solid transparent}
+  .seg button{font-family:var(--mono);font-size:.7rem;border:0;background:transparent;color:var(--muted);padding:.34em .68em;border-radius:6px}
+  .seg button.on{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.07)}
+  .icobtn{width:30px;height:30px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--muted);display:grid;place-items:center;font-size:.8rem}
+  .icobtn:hover{color:var(--ink);border-color:var(--faint)}
+  .avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#8a5bff);display:grid;place-items:center;color:#fff;font-size:.72rem;font-weight:640}
+
+  .body{padding:clamp(16px,2.6vw,26px);max-width:1120px;width:100%;margin:0 auto}
+
+  /* search */
+  .searchcard{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--sh);padding:14px}
+  .searchrow{display:flex;gap:10px;align-items:stretch}
+  .sinput{flex:1;display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:11px;padding:0 13px;background:var(--panel);min-width:0}
+  .sinput .lens{width:15px;height:15px;border:2px solid var(--faint);border-radius:50%;position:relative;flex:none}
+  .sinput .lens::after{content:"";position:absolute;width:5px;height:2px;background:var(--faint);right:-3px;bottom:0;transform:rotate(45deg);border-radius:2px}
+  .sinput input{flex:1;border:0;background:transparent;color:var(--ink);font-size:.92rem;padding:13px 0;min-width:0;font-family:inherit}
+  .sinput input::placeholder{color:var(--faint)}
+  .sbtn{background:var(--accent);color:var(--accent-ink);border:0;border-radius:11px;padding:0 18px;font-size:.88rem;font-weight:600;white-space:nowrap;display:flex;align-items:center;gap:7px}
+  .sbtn:disabled{opacity:.55}
+  .presets{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px;align-items:center}
+  .plab{font-size:.7rem;font-family:var(--mono);color:var(--faint);margin-right:2px}
+  .preset{font-size:.8rem;padding:.36em .7em;border-radius:20px;border:1px solid var(--line);background:var(--panel);color:var(--muted)}
+  .preset:hover{color:var(--ink);border-color:var(--faint)}
+  .preset.on{background:var(--accent-soft);border-color:var(--accent-line);color:var(--accent);font-weight:560}
+  .keybar{display:none;margin-top:11px;align-items:center;gap:9px}
+  .keybar.show{display:flex}
+  .keybar input{flex:1;font-family:var(--mono);font-size:.8rem;background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:9px 12px;color:var(--ink)}
+  .keybar .hint{font-family:var(--mono);font-size:.66rem;color:var(--faint);white-space:nowrap}
+
+  .filters{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:16px 2px 6px}
+  .fchip{font-size:.74rem;font-family:var(--mono);color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:7px;padding:.36em .6em}
+  .fchip b{color:var(--ink)}
+  .rcount{margin-left:auto;font-size:.78rem;color:var(--muted);font-family:var(--mono)}
+  .rcount b{color:var(--ink)}
+  .sort{font-size:.74rem;font-family:var(--mono);color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:7px;padding:.36em .5em}
+
+  /* results table */
+  .tbl{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--sh);overflow:hidden;margin-top:8px}
+  .thead,.trow{display:grid;grid-template-columns:minmax(200px,1.6fr) 184px 104px 126px 116px;gap:14px;align-items:center;padding:11px 16px}
+  .src .h{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:108px}
+  .thead{background:var(--panel);border-bottom:1px solid var(--line);font-family:var(--mono);font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+  .trow{border-top:1px solid var(--line2)}
+  .trow:hover{background:var(--panel)}
+  .cell-co .n{font-weight:620;font-size:.94rem;display:flex;align-items:center;gap:8px}
+  .ndot{width:7px;height:7px;border-radius:50%;background:var(--green);flex:none;box-shadow:0 0 0 3px var(--green-soft)}
+  .cell-co .w{color:var(--muted);font-size:.82rem;margin-top:3px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .pill{font-family:var(--mono);font-size:.66rem;padding:.24em .55em;border-radius:6px;border:1px solid transparent;white-space:nowrap;display:inline-block}
   .pill.strong{color:var(--accent);background:var(--accent-soft);border-color:var(--accent-line)}
   .pill.hire{color:var(--amber);background:var(--amber-soft);border-color:color-mix(in srgb,var(--amber) 30%,transparent)}
-  .pill.new{color:var(--green);background:var(--green-soft);border-color:color-mix(in srgb,var(--green) 30%,transparent)}
-  .why{color:var(--muted);font-size:.9rem;margin-top:6px;max-width:62ch}
-  .src{margin-top:7px;display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:.72rem;color:var(--accent)}
-  .src .host{color:var(--muted)}
-  .nourl{margin-top:7px;font-family:var(--mono);font-size:.7rem;color:var(--faint)}
-  .rmeta{text-align:right;min-width:132px;display:flex;flex-direction:column;gap:7px;align-items:flex-end}
-  .date{font-family:var(--mono);font-size:.74rem;color:var(--muted);font-variant-numeric:tabular-nums}
-  .scores{display:flex;flex-direction:column;gap:5px;width:130px}
-  .scr{display:grid;grid-template-columns:auto 1fr auto;gap:7px;align-items:center;font-family:var(--mono);font-size:.62rem;color:var(--faint)}
-  .track{height:5px;border-radius:3px;background:var(--line);overflow:hidden}
-  .fill{height:100%;border-radius:3px;background:var(--accent)}
-  .fill.g{background:var(--green)}
-  .scr .val{color:var(--muted);font-variant-numeric:tabular-nums}
-  .note{margin:8px clamp(14px,2.4vw,20px) 16px;font-size:.78rem;color:var(--muted);background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:0 9px 9px 0;padding:10px 13px}
-  .note b{color:var(--ink)}
-  footer{padding:26px 0 40px;color:var(--faint);font-size:.8rem;line-height:1.6}
-  footer a{color:var(--muted);text-decoration:underline;text-underline-offset:2px}
-  @media(max-width:620px){.row{grid-template-columns:1fr}.rmeta{align-items:flex-start;text-align:left}.scores{width:100%;max-width:220px}}
-  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+  .date{font-family:var(--mono);font-size:.78rem;color:var(--muted);font-variant-numeric:tabular-nums}
+  .conf{display:flex;flex-direction:column;gap:5px}
+  .cbar{display:grid;grid-template-columns:26px 1fr 30px;gap:6px;align-items:center;font-family:var(--mono);font-size:.6rem;color:var(--faint)}
+  .track{height:5px;border-radius:3px;background:var(--line)}
+  .fill{height:100%;border-radius:3px;background:var(--accent)} .fill.g{background:var(--green)}
+  .cbar .v{color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}
+  .src{font-family:var(--mono);font-size:.74rem;color:var(--accent);white-space:nowrap}
+  .src .h{color:var(--faint);display:block;font-size:.64rem;margin-top:1px}
+  .nosrc{font-family:var(--mono);font-size:.66rem;color:var(--faint)}
+
+  .status{font-family:var(--mono);font-size:.76rem;margin:10px 2px;min-height:1em}
+  .status.err{color:var(--red)} .status.ok{color:var(--green)} .status.load{color:var(--accent)}
+  .empty{padding:44px 20px;text-align:center;color:var(--faint);font-size:.9rem}
+  .empty .big{font-size:2rem;margin-bottom:8px;opacity:.5}
+  .skel{height:58px;border-top:1px solid var(--line2);background:linear-gradient(90deg,transparent,var(--panel),transparent);background-size:200% 100%;animation:sh 1.1s infinite}
+  @keyframes sh{0%{background-position:200% 0}100%{background-position:-200% 0}}
+  @media (prefers-reduced-motion:reduce){.skel{animation:none;background:var(--panel)}}
+
+  /* about popover */
+  .about{position:fixed;inset:0;background:rgba(10,12,20,.44);display:none;place-items:center;z-index:20;padding:20px}
+  .about.show{display:grid}
+  .aboutcard{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:0 30px 70px -30px rgba(0,0,0,.5);max-width:520px;width:100%;padding:22px}
+  .aboutcard h3{margin:0 0 4px;font-size:1.05rem}
+  .aboutcard p{color:var(--muted);font-size:.9rem;margin:8px 0}
+  .aboutcard .x{float:right;color:var(--faint);font-size:1.1rem;background:0;border:0}
+  .catrow{display:flex;justify-content:space-between;gap:12px;font-size:.82rem;padding:6px 0;border-top:1px solid var(--line2)}
+  .catrow b{color:var(--ink)} .catrow span{color:var(--muted);font-family:var(--mono);font-size:.72rem}
+
+  @media(max-width:860px){.app{grid-template-columns:1fr}.side{display:none}
+    .thead{display:none}.trow{grid-template-columns:1fr;gap:6px}.cell-conf,.cell-date{display:none}}
 </style>
 
-<header>
-  <div class="wrap bar">
-    <span class="logo"><span class="mark"></span> Prospector</span>
-    <span class="chip">built on Exa</span>
-    <span class="right">
-      <a href="https://github.com/thereisjosh/prospector" target="_blank" rel="noopener">github.com/thereisjosh/prospector ↗</a>
-      <button class="tt" id="tt" aria-label="Toggle theme">◐</button>
-    </span>
+<div class="app">
+  <aside class="side">
+    <div class="brand"><span class="mark"></span> Prospector</div>
+    <nav class="nav">
+      <div class="lab">WORKSPACE</div>
+      <button class="ni on"><svg class="g" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5 14 14"/></svg> Search</button>
+      <button class="ni"><svg class="g" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="12" height="10" rx="2"/><path d="M2 6h12"/></svg> Saved lists</button>
+      <button class="ni"><svg class="g" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 4v4l2.5 1.5"/><circle cx="8" cy="8" r="6"/></svg> History</button>
+      <div class="lab">ACCOUNT</div>
+      <button class="ni" id="navKey"><svg class="g" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="8" r="3"/><path d="M9 8h5M12 8v2.5"/></svg> API key</button>
+      <button class="ni" id="navAbout"><svg class="g" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 7.5v3.5M8 5.2v.2"/></svg> About</button>
+    </nav>
+    <div class="foot">Powered by Exa Search API<br><a href="https://github.com/thereisjosh/prospector" target="_blank" rel="noopener">github ↗</a> · v0.4</div>
+  </aside>
+
+  <main class="main">
+    <div class="top">
+      <span class="title">Search</span><span class="crumb">/ prospecting</span>
+      <span class="right">
+        <span class="seg"><button id="mDemo" class="on">Demo</button><button id="mLive">Live</button></span>
+        <button class="icobtn" id="tt" title="Theme">◐</button>
+        <span class="avatar">JA</span>
+      </span>
+    </div>
+
+    <div class="body">
+      <div class="searchcard">
+        <div class="searchrow">
+          <label class="sinput"><span class="lens"></span><input id="q" spellcheck="false" placeholder="Describe your ideal customer in plain English…"></label>
+          <button class="sbtn" id="run">Search</button>
+        </div>
+        <div class="presets">
+          <span class="plab">Presets</span>
+          <button class="preset on" data-i="0">Logistics · scaling ops</button>
+          <button class="preset" data-i="1">B2B SaaS · launched payments</button>
+          <button class="preset" data-i="2">Newly funded · first ops hire</button>
+        </div>
+        <div class="keybar" id="keybar">
+          <input id="key" type="password" autocomplete="off" spellcheck="false" placeholder="Your Exa API key (exa.ai — free tier)">
+          <span class="hint">stored in your browser · sent only to api.exa.ai</span>
+        </div>
+      </div>
+
+      <div class="filters">
+        <span class="fchip" id="fWindow">freshness: <b>last 3 months</b></span>
+        <span class="fchip">signal-first · <b>neural</b></span>
+        <span class="fchip">gate: <b>US · mid-market · on-domain</b></span>
+        <span class="rcount" id="rcount"></span>
+        <select class="sort" id="sort"><option value="conf">sort: confidence</option><option value="fresh">sort: freshness</option><option value="date">sort: date</option></select>
+      </div>
+      <div class="status" id="status"></div>
+
+      <div class="tbl">
+        <div class="thead"><span>Company</span><span>Why-now signal</span><span>Date</span><span>Confidence</span><span>Source</span></div>
+        <div id="rows"></div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="about" id="about">
+  <div class="aboutcard">
+    <button class="x" id="aboutX">✕</button>
+    <h3>Prospector</h3>
+    <p>A natural-language prospecting agent built on the <b style="color:var(--ink)">Exa Search API</b>. It finds companies by a fresh, cited <b style="color:var(--ink)">“why-now” trigger</b> — a new facility, a funding round, a hiring wave — using a signal-first pipeline (date-filtered signal search → company enrichment → fit-gated scoring).</p>
+    <p style="margin-top:12px"><b style="color:var(--ink)">Where this fits at Exa</b> — a working proof of the <b style="color:var(--ink)">Sales / Enrichment</b> category, the same web-sourced trigger prospecting Exa's own customers use:</p>
+    <div class="catrow"><b>Sales / Enrichment</b><span>11x · HubSpot · HockeyStack</span></div>
+    <div class="catrow"><b>Agents</b><span>Cognition · StackAI · monday</span></div>
+    <div class="catrow"><b>Coding</b><span>Cognition · CodeRabbit · Cursor</span></div>
+    <p style="margin-top:14px;font-size:.82rem">Built AI-assisted; architecture, API design, and evaluation by <b style="color:var(--ink)">Joshua Ang</b>. Code, eval harness &amp; write-up → <a href="https://github.com/thereisjosh/prospector" target="_blank" rel="noopener">github.com/thereisjosh/prospector</a></p>
   </div>
-</header>
-
-<main class="wrap">
-  <section class="hero">
-    <h1>Describe an ideal customer. Get companies with a reason to reach out.</h1>
-    <p class="sub">A natural-language prospecting agent built on the Exa Search API. It finds companies by a <b style="color:var(--ink)">fresh, cited “why-now” trigger</b> — a new facility, a funding round, a hiring wave — not just a keyword match.</p>
-    <div class="pipe">
-      <span class="step"><b>1.</b> Signal search <span style="color:var(--faint)">(date-filtered)</span></span>
-      <span class="arw">→</span>
-      <span class="step"><b>2.</b> Company enrichment <span style="color:var(--faint)">(firmographics)</span></span>
-      <span class="arw">→</span>
-      <span class="step"><b>3.</b> Fit-gated scoring <span style="color:var(--faint)">(size · geo · signal)</span></span>
-    </div>
-    <div class="ctx"><span class="ctx-k">Where this fits at Exa</span><span>The <b>Sales / Enrichment</b> use case — the same web-sourced, trigger-based prospecting <b>11x</b> and <b>HubSpot</b> use Exa for. A working proof in one of Exa's own customer categories.</span></div>
-  </section>
-
-  <section class="panel">
-    <div class="tabs" id="tabs"></div>
-    <div class="query">
-      <div class="qhead">
-        <span class="qlabel">Ideal-customer profile — plain English</span>
-        <span class="seg"><button id="mDemo" class="on" type="button">Demo</button><button id="mLive" type="button">Live · your key</button></span>
-      </div>
-      <div class="qbox">
-        <span class="ico"></span>
-        <span class="qt" id="qt"></span>
-        <button class="run" id="run" type="button">Run</button>
-      </div>
-      <div class="keyrow" id="keyrow" style="display:none">
-        <input id="key" type="password" autocomplete="off" spellcheck="false" placeholder="Paste your Exa API key (exa.ai — free tier)">
-      </div>
-      <div class="keyhint" id="keyhint" style="display:none">Your key is stored <b>only in this browser</b> (localStorage) and sent <b>only to api.exa.ai</b>. Live mode runs the signal search step; the full firmographic-gating pipeline is in the <a href="https://github.com/thereisjosh/prospector" target="_blank" rel="noopener">repo</a>.</div>
-    </div>
-    <div class="meta" id="meta"></div>
-    <div class="status" id="status"></div>
-    <div class="results" id="results"></div>
-    <div class="note" id="note"></div>
-  </section>
-
-  <footer>
-    <div class="wrap" style="max-width:none;padding:0">
-      Demo data captured from a live run on the Exa Search API — every ICP-1 source is a real, dated press release or job posting. Switch to <b style="color:var(--muted)">Live · your key</b> to run a real signal search on your own Exa account. ICP 1 (logistics) is the polished set; ICP 2 &amp; 3 are earlier-stage — see the <a href="https://github.com/thereisjosh/prospector" target="_blank" rel="noopener">repository</a> for the code, eval harness, and write-up. Built AI-assisted; architecture, API design, and evaluation by Joshua Ang.
-    </div>
-  </footer>
-</main>
+</div>
 
 <script>
 const ICPS=[
- {id:1,key:"ICP 01 · Logistics",name:"Scaling their ops",months:3,
+ {i:0,months:3,win:"last 3 months",
   query:"mid-market logistics / 3PL companies clearly scaling their operations — US, ~100–1,000 employees",
   signalQuery:"US logistics or 3PL company opening a new warehouse or distribution center, or hiring a wave of operations manager roles",
   trigger:"new facility, expansion, or operations hiring",
-  window:"last 3 months",count:"8 shown",strength:"facility / expansion signals",
   rows:[
    {co:"Roadway Moving",str:"new-facility",why:"Expanding its New York footprint with a new 117,000 sq ft Long Island City facility.",date:"2026-09-17",conf:.96,fresh:.92,url:"https://www.einpresswire.com/article/943305108/roadway-moving-expands-new-york-footprint-with-new-117-000-square-foot-long-island-city-facility"},
    {co:"States Logistics Services",str:"new-facility",why:"Establishing a Las Vegas distribution center to extend its Western U.S. network.",date:"2026-09-10",conf:.96,fresh:.84,url:"https://www.globenewswire.com/news-release/2026/09/11/3360527/0/en/states-logistics-distribution-center-coming-to-las-vegas.html"},
@@ -177,101 +210,90 @@ const ICPS=[
    {co:"PS Logistics",str:"hiring",why:"Cross-Dock Operations Manager role signals ongoing warehouse-services growth in Brownstown Township, MI.",date:"2026-09-03",conf:.90,fresh:.77,url:"https://jobs.smartrecruiters.com/pslogistics/744000147237799"},
    {co:"ShipMonk",str:"hiring",why:"Operations Manager opening in Las Vegas at the growing 3PL/fulfillment operator.",date:"2026-08-11",conf:.74,fresh:.52,url:"https://jobera.com/job/shipmonk-operations-manager-fefea266/"}
   ]},
- {id:2,key:"ICP 02 · Payments",name:"Launched payments / billing",months:3,
+ {i:1,months:3,win:"last 3 months",
   query:"B2B SaaS / marketplaces that just launched or expanded payments or billing — US, ~100–800 employees",
   signalQuery:"US B2B SaaS or marketplace that just launched or expanded embedded payments or billing, or is hiring billing or revenue operations",
   trigger:"payments or billing launch, billing-ops hire",
-  window:"last 3 months",count:"early",strength:"payments / billing signals",
   rows:[
-   {co:"Curri",str:"payments",why:"Recent billing / revenue-operations signal at the on-demand logistics marketplace.",date:"2026-08-06",conf:.87},
-   {co:"Sky Systemz",str:"payments",why:"Billing / revenue-ops hiring signal alongside a payments push.",date:"2026-09-01",conf:.87},
-   {co:"Antithesis",str:"payments",why:"Billing / revenue-operations role indicating monetization build-out.",date:"2026-09-06",conf:.87},
-   {co:"Healthmark Group",str:"payments",why:"Billing-operations signal in a scaling B2B services company.",date:"2026-08-27",conf:.87}
+   {co:"Curri",str:"strong",why:"Recent billing / revenue-operations signal at the on-demand logistics marketplace.",date:"2026-08-06",conf:.87,fresh:.62},
+   {co:"Sky Systemz",str:"strong",why:"Billing / revenue-ops hiring signal alongside a payments push.",date:"2026-09-01",conf:.87,fresh:.82},
+   {co:"Antithesis",str:"strong",why:"Billing / revenue-operations role indicating monetization build-out.",date:"2026-09-06",conf:.87,fresh:.86},
+   {co:"Healthmark Group",str:"strong",why:"Billing-operations signal in a scaling B2B services company.",date:"2026-08-27",conf:.87,fresh:.74}
   ]},
- {id:3,key:"ICP 03 · Funded",name:"Funded + first ops hire",months:6,
+ {i:2,months:6,win:"last 6 months",
   query:"B2B companies that raised seed / Series A in the last ~6 months and are hiring their first Ops/RevOps person",
   signalQuery:"recently funded seed or Series A US B2B startup hiring its first operations or RevOps person",
   trigger:"funding announcement + first ops hire",
-  window:"last 6 months",count:"early",strength:"funding + first-ops signals",
   rows:[
-   {co:"Oasive",str:"funding",why:"Recent funding (YC / Bond) paired with an early operations hire.",date:"2026-09-23",conf:.96,url:"https://runtimewire.com/article/oasive-yc-bond-research-launch"},
-   {co:"Numeral",str:"funding",why:"Recently funded, hiring into a small ops/RevOps team.",date:"2026-05-28",conf:.90}
+   {co:"Oasive",str:"strong",why:"Recent funding (YC / Bond) paired with an early operations hire.",date:"2026-09-23",conf:.96,fresh:.99,url:"https://runtimewire.com/article/oasive-yc-bond-research-launch"},
+   {co:"Numeral",str:"strong",why:"Recently funded, hiring into a small ops/RevOps team.",date:"2026-05-28",conf:.90,fresh:.35}
   ]}
 ];
-const strLabel={"new-facility":"strong · new facility / expansion","hiring":"ops hiring signal","payments":"payments / billing","funding":"funding + first-ops"};
+const LBL={"new-facility":"new facility / expansion","hiring":"ops hiring signal","strong":"trigger signal"};
 function host(u){try{return new URL(u).hostname.replace(/^www\./,"")}catch(e){return u}}
-function bar(v,green){return '<div class="track"><div class="fill'+(green?' g':'')+'" style="width:'+Math.round(Math.max(0,Math.min(1,v))*100)+'%"></div></div>';}
-let active=0, mode="demo";
-const tabsEl=document.getElementById("tabs"), statusEl=document.getElementById("status"), runBtn=document.getElementById("run");
-ICPS.forEach((icp,i)=>{
-  const b=document.createElement("button");
-  b.className="tab"+(i===0?" on":"");b.type="button";
-  b.innerHTML='<div class="tk">'+icp.key+'</div><div class="tn">'+icp.name+'</div>';
-  b.onclick=()=>{active=i;[...tabsEl.children].forEach((c,j)=>c.classList.toggle("on",j===i));statusEl.textContent="";render();};
-  tabsEl.appendChild(b);
-});
-function renderRows(rows,live){
-  document.getElementById("results").innerHTML=rows.map(r=>{
-    const pill='<span class="pill '+(r.str==="hiring"?"hire":"strong")+'">'+(strLabel[r.str]||"signal")+'</span>';
-    const src=r.url?'<a class="src" href="'+r.url+'" target="_blank" rel="noopener">Source ↗ <span class="host">'+host(r.url)+'</span></a>':'<div class="nourl">source generated at runtime — run the CLI for full links</div>';
-    const fresh=(r.fresh!=null)?'<div class="scr"><span>fresh</span>'+bar(r.fresh,true)+'<span class="val">'+r.fresh.toFixed(2)+'</span></div>':'';
-    const conf=(r.conf!=null)?'<div class="scr"><span>conf</span>'+bar(r.conf,false)+'<span class="val">'+r.conf.toFixed(2)+'</span></div>':'';
-    return '<div class="row"><div><div class="co"><span class="name">'+(r.co||"—")+'</span>'+pill+'<span class="pill new">net-new</span></div>'+
-      '<div class="why">'+(r.why||"")+'</div>'+src+'</div>'+
-      '<div class="rmeta"><span class="date">'+(r.date||"")+'</span><div class="scores">'+conf+fresh+'</div></div></div>';
-  }).join("")||'<div class="nourl" style="padding:18px 12px">No results.</div>';
+function bar(v,g){return '<div class="track"><div class="fill'+(g?' g':'')+'" style="width:'+Math.round(Math.max(0,Math.min(1,v))*100)+'%"></div></div>';}
+let active=0, mode="demo", current=[];
+const $=id=>document.getElementById(id), rowsEl=$("rows"), statusEl=$("status");
+function setPreset(i){active=i;document.querySelectorAll(".preset").forEach(p=>p.classList.toggle("on",+p.dataset.i===i));$("q").value=(mode==="live"?ICPS[i].signalQuery:ICPS[i].query);$("fWindow").innerHTML='freshness: <b>'+ICPS[i].win+'</b>';}
+document.querySelectorAll(".preset").forEach(p=>p.onclick=()=>{setPreset(+p.dataset.i);runSearch();});
+function drawRows(rows){
+  current=rows.slice();sortRows();
+  if(!rows.length){rowsEl.innerHTML='<div class="empty"><div class="big">🔍</div>No companies yet — pick a preset or hit Search.</div>';$("rcount").innerHTML="";return;}
 }
-function render(){
-  const icp=ICPS[active];
-  document.getElementById("qt").textContent=(mode==="live"?icp.signalQuery:icp.query);
-  document.getElementById("meta").innerHTML='Freshness window: <b>'+icp.window+'</b> <span class="dot">·</span> '+icp.strength+' <span class="dot">·</span> '+(mode==="live"?'live signal search on <b>your</b> Exa key':'results: <b>'+icp.count+'</b> <span class="dot">·</span> all rows <b>net-new</b> vs. the Apollo baseline');
-  const n=document.getElementById("note");
-  if(mode==="live"){n.style.display="none";}
-  else if(icp.id===1){n.style.display="block";n.innerHTML='<b>How to read this:</b> each company was found via a <b>press release or job posting</b> from the last 3 months (the “why-now”), then enrichment gates out enterprise giants (DHL, FedEx, GXO, RXO), non-US, and non-3PL companies <i>before</i> scoring. What’s left is who a rep would actually call this quarter.';}
-  else{n.style.display="block";n.innerHTML='<b>Earlier-stage.</b> The clean “facility-announcement” signal that nails logistics doesn’t transfer directly here — this ICP needs its own signal strategy (see the repo’s eval notes). Shown to demonstrate the config-driven, multi-ICP design.';}
-  if(mode==="demo") renderRows(icp.rows,false);
+function sortRows(){
+  const k=$("sort").value;
+  const r=current.slice().sort((a,b)=> k==="date" ? (a.date<b.date?1:-1) : ((b[k]||0)-(a[k]||0)));
+  rowsEl.innerHTML=r.map(x=>{
+    const cls=x.str==="hiring"?"hire":"strong";
+    const src=x.url?'<a class="src" href="'+x.url+'" target="_blank" rel="noopener">Source ↗<span class="h">'+host(x.url)+'</span></a>':'<span class="nosrc">at runtime</span>';
+    const fresh=x.fresh!=null?'<div class="cbar"><span>fr</span>'+bar(x.fresh,true)+'<span class="v">'+x.fresh.toFixed(2)+'</span></div>':'';
+    return '<div class="trow"><div class="cell-co"><div class="n"><span class="ndot" title="net-new"></span>'+x.co+'</div><div class="w">'+x.why+'</div></div>'+
+      '<div><span class="pill '+cls+'">'+(LBL[x.str]||"signal")+'</span></div>'+
+      '<div class="cell-date date">'+x.date+'</div>'+
+      '<div class="cell-conf conf"><div class="cbar"><span>cf</span>'+bar(x.conf,false)+'<span class="v">'+(x.conf!=null?x.conf.toFixed(2):"—")+'</span></div>'+fresh+'</div>'+
+      '<div>'+src+'</div></div>';
+  }).join("");
+  $("rcount").innerHTML='<b>'+current.length+'</b> companies';
 }
-// live search
-function isoDaysAgo(months){var d=new Date();d.setMonth(d.getMonth()-months);return d.toISOString().slice(0,10)+"T00:00:00.000Z";}
-async function runLive(){
-  const key=document.getElementById("key").value.trim();
-  if(!key){statusEl.className="status err";statusEl.textContent="Paste your Exa API key first.";return;}
+$("sort").onchange=sortRows;
+async function runSearch(){
+  statusEl.textContent="";
+  if(mode==="demo"){ $("rcount").innerHTML='<b>'+ICPS[active].rows.length+'</b> companies'; current=ICPS[active].rows.slice(); sortRows(); return; }
+  const key=$("key").value.trim();
+  if(!key){statusEl.className="status err";statusEl.textContent="Add your Exa API key (below the search box) to run live.";$("keybar").classList.add("show");return;}
   localStorage.setItem("exa_key",key);
-  const icp=ICPS[active];
-  runBtn.disabled=true;statusEl.className="status load";statusEl.textContent="Searching Exa…";
-  document.getElementById("results").innerHTML="";
+  const icp=ICPS[active];$("run").disabled=true;statusEl.className="status load";statusEl.textContent="Searching Exa…";
+  rowsEl.innerHTML='<div class="skel"></div><div class="skel"></div><div class="skel"></div>';
   try{
-    const body={query:icp.signalQuery,type:"neural",numResults:12,startPublishedDate:isoDaysAgo(icp.months),
-      contents:{highlights:{query:icp.trigger,numSentences:2},summary:{query:"the company name and its recent why-now signal with the date",schema:{type:"object",properties:{company_name:{type:"string"},signal_type:{type:"string"},signal_summary:{type:"string"},signal_date:{type:"string"}}}},livecrawl:"fallback"}};
+    const d=new Date();d.setMonth(d.getMonth()-icp.months);
+    const body={query:$("q").value.trim()||icp.signalQuery,type:"neural",numResults:12,startPublishedDate:d.toISOString().slice(0,10)+"T00:00:00.000Z",
+      contents:{highlights:{query:icp.trigger,numSentences:2},summary:{query:"the company name and its recent why-now signal with the date",schema:{type:"object",properties:{company_name:{type:"string"},signal_summary:{type:"string"},signal_date:{type:"string"}}}},livecrawl:"fallback"}};
     const res=await fetch("https://api.exa.ai/search",{method:"POST",headers:{"x-api-key":key,"Content-Type":"application/json"},body:JSON.stringify(body)});
-    if(res.status===401){statusEl.className="status err";statusEl.textContent="401 — that key was rejected.";runBtn.disabled=false;return;}
-    if(res.status===402){statusEl.className="status err";statusEl.textContent="402 — your Exa key is out of credits.";runBtn.disabled=false;return;}
-    if(!res.ok){const t=await res.text();statusEl.className="status err";statusEl.textContent="HTTP "+res.status+" — "+t.slice(0,120);runBtn.disabled=false;return;}
-    const data=await res.json();
-    const now=new Date(), winMs=icp.months*30*864e5;
-    const rows=(data.results||[]).map(r=>{
-      let s=r.summary;if(typeof s==="string"){try{s=JSON.parse(s)}catch(e){s={signal_summary:s}}}
-      s=s||{};
-      const date=(s.signal_date||r.publishedDate||"").slice(0,10);
-      const ageMs=date?Math.max(0,now-new Date(date)):winMs;
-      return {co:s.company_name||r.title||host(r.url),str:icp.id===1?"new-facility":(icp.id===2?"payments":"funding"),
-        why:s.signal_summary||(r.highlights&&r.highlights[0])||"",date:date,url:r.url,
-        conf:Math.round((r.score!=null?0.55+Math.min(0.4,r.score):0.8)*100)/100,
-        fresh:Math.round((1-Math.min(1,ageMs/winMs))*100)/100};
+    if(res.status===401){throw new Error("401 — that API key was rejected.")}
+    if(res.status===402){throw new Error("402 — that Exa key is out of credits.")}
+    if(!res.ok){throw new Error("HTTP "+res.status+" — "+(await res.text()).slice(0,120))}
+    const data=await res.json(), now=new Date(), win=icp.months*30*864e5;
+    const rows=(data.results||[]).map(r=>{let s=r.summary;if(typeof s==="string"){try{s=JSON.parse(s)}catch(e){s={signal_summary:s}}}s=s||{};
+      const date=(s.signal_date||r.publishedDate||"").slice(0,10);const age=date?Math.max(0,now-new Date(date)):win;
+      return {co:s.company_name||r.title||host(r.url),str:"strong",why:s.signal_summary||(r.highlights&&r.highlights[0])||"",date:date,url:r.url,
+        conf:Math.round((r.score!=null?0.55+Math.min(0.4,r.score):0.8)*100)/100,fresh:Math.round((1-Math.min(1,age/win))*100)/100};
     }).filter(r=>r.co).slice(0,10);
-    renderRows(rows,true);
-    const cost=data.costDollars&&data.costDollars.total;
-    statusEl.className="status ok";statusEl.textContent="Live · "+rows.length+" results"+(cost!=null?"  ·  $"+cost.toFixed(3)+" on your key":"")+"  ·  resolvedSearchType: "+(data.resolvedSearchType||"neural");
-  }catch(e){statusEl.className="status err";statusEl.textContent="Request failed: "+(e&&e.message||e);}
-  runBtn.disabled=false;
+    current=rows;sortRows();
+    const c=data.costDollars&&data.costDollars.total;
+    statusEl.className="status ok";statusEl.textContent="Live · "+rows.length+" results"+(c!=null?"  ·  $"+c.toFixed(3)+" on your key":"")+"  ·  "+(data.resolvedSearchType||"neural");
+  }catch(e){statusEl.className="status err";statusEl.textContent=(e&&e.message)||"Request failed";rowsEl.innerHTML='<div class="empty">No results.</div>';}
+  $("run").disabled=false;
 }
-document.getElementById("run").onclick=()=>{mode==="live"?runLive():render();};
-function setMode(m){mode=m;document.getElementById("mDemo").classList.toggle("on",m==="demo");document.getElementById("mLive").classList.toggle("on",m==="live");
-  document.getElementById("keyrow").style.display=m==="live"?"flex":"none";document.getElementById("keyhint").style.display=m==="live"?"block":"none";
-  statusEl.textContent="";render();}
-document.getElementById("mDemo").onclick=()=>setMode("demo");
-document.getElementById("mLive").onclick=()=>setMode("live");
-const saved=localStorage.getItem("exa_key");if(saved)document.getElementById("key").value=saved;
-render();
-(function(){var b=document.getElementById("tt");b.onclick=function(){var r=document.documentElement,c=r.getAttribute("data-theme");if(!c)c=matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light";r.setAttribute("data-theme",c==="dark"?"light":"dark");};})();
+$("run").onclick=runSearch;
+$("q").addEventListener("keydown",e=>{if(e.key==="Enter")runSearch();});
+function setMode(m){mode=m;$("mDemo").classList.toggle("on",m==="demo");$("mLive").classList.toggle("on",m==="live");$("keybar").classList.toggle("show",m==="live");setPreset(active);statusEl.textContent="";}
+$("mDemo").onclick=()=>setMode("demo");
+$("mLive").onclick=()=>{setMode("live");};
+$("navKey").onclick=()=>{setMode("live");$("key").focus();};
+$("navAbout").onclick=()=>$("about").classList.add("show");
+$("aboutX").onclick=()=>$("about").classList.remove("show");
+$("about").onclick=e=>{if(e.target===$("about"))$("about").classList.remove("show")};
+$("tt").onclick=()=>{var r=document.documentElement,c=r.getAttribute("data-theme");if(!c)c=matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light";r.setAttribute("data-theme",c==="dark"?"light":"dark");};
+const saved=localStorage.getItem("exa_key");if(saved)$("key").value=saved;
+setPreset(0);runSearch();
 </script>
