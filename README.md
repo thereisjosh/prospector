@@ -9,6 +9,18 @@ Built as a hands-on exploration of Exa's API against a self-authored customer sc
 
 ![Prospector demo](docs/screenshots/demo-light.png)
 
+## Where this fits at Exa
+Exa publishes its customers by use-case category. Prospector is a working proof of the **Sales / Enrichment** category — the same web-sourced, trigger-based prospecting Exa's own customers pay for:
+
+| Category | Exa customers | Use |
+|---|---|---|
+| **Sales / Enrichment** | **11x** · HubSpot · HockeyStack · Obvious | 11x *“identifies sales prospects through web-sourced trigger signals”* — exactly what Prospector does |
+| Agents | Cognition (Devin) · StackAI · monday.com | Exa as the web-search tool inside agents |
+| Coding | Cognition · CodeRabbit · Cursor | code / docs search for coding agents |
+| Research / grounding | Anara · OpenRouter · WhyHow · Firefox | paper discovery, cited answers, anti-hallucination |
+
+_Source: [exa.ai/customers](https://exa.ai/customers)._
+
 ## The result — ICP 1 (logistics ops, scaling)
 See [`sample_output.md`](./sample_output.md): US mid-market 3PLs, each with a dated, cited scaling signal (new distribution center, expansion, hiring wave) — scored ~8/10 against the scenario's acceptance bar, and specifically *not* the enterprise giants a keyword filter surfaces.
 
