@@ -1,5 +1,5 @@
 import "dotenv/config";
-import type { ExaSearchType, IcpConfig, IcpId } from "./types.js";
+import type { ExaSearchType, IcpConfig, IcpId } from "./types";
 
 export const VALID_SEARCH_TYPES = new Set<ExaSearchType>([
   "auto",

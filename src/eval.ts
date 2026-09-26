@@ -1,5 +1,5 @@
-import { ICP_1 } from "./config.js";
-import type { IcpConfig } from "./types.js";
+import { ICP_1 } from "./config";
+import type { IcpConfig } from "./types";
 
 export function normalizeName(value: string): string {
   return value

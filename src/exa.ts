@@ -1,5 +1,22 @@
-import { requireEnv } from "./config.js";
-import type { CompanySummary, ExaSearchResponse } from "./types.js";
+import { requireEnv } from "./config";
+import type { CompanySummary, ExaSearchResponse } from "./types";
+
+export type ExaCredentials = {
+  apiKey?: string;
+  baseUrl?: string;
+};
+
+export class ExaHttpError extends Error {
+  status: number;
+  body: string;
+
+  constructor(status: number, body: string) {
+    super(`Exa search failed HTTP ${status}: ${body}`);
+    this.name = "ExaHttpError";
+    this.status = status;
+    this.body = body;
+  }
+}
 
 export const SIGNAL_SCHEMA = {
   type: "object",
@@ -46,9 +63,12 @@ export const COMPANY_SCHEMA = {
   ],
 } as const;
 
-export async function exaSearch(body: Record<string, unknown>) {
-  const baseUrl = requireEnv("EXA_BASE_URL");
-  const apiKey = requireEnv("EXA_API_KEY");
+export async function exaSearch(
+  body: Record<string, unknown>,
+  credentials: ExaCredentials = {},
+) {
+  const baseUrl = (credentials.baseUrl ?? process.env.EXA_BASE_URL ?? "https://api.exa.ai").replace(/\/$/, "");
+  const apiKey = credentials.apiKey ?? requireEnv("EXA_API_KEY");
   const request = {
     method: "POST",
     headers: {
@@ -72,7 +92,7 @@ export async function exaSearch(body: Record<string, unknown>) {
   }
 
   if (!response.ok) {
-    throw new Error(`Exa search failed HTTP ${response.status}: ${text}`);
+    throw new ExaHttpError(response.status, text);
   }
 
   return json as ExaSearchResponse;
@@ -82,7 +102,11 @@ function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export async function lookupCompany(companyName: string, summaryQuery: string) {
+export async function lookupCompany(
+  companyName: string,
+  summaryQuery: string,
+  credentials: ExaCredentials = {},
+) {
   const response = await exaSearch({
     query: companyName,
     category: "company",
@@ -94,7 +118,7 @@ export async function lookupCompany(companyName: string, summaryQuery: string) {
       },
       livecrawl: "fallback",
     },
-  });
+  }, credentials);
 
   return {
     result: response.results[0],

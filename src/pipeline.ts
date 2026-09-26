@@ -1,17 +1,23 @@
-import { ICP_1, monthsAgoIso } from "./config.js";
-import { exaSearch, lookupCompany, SIGNAL_SCHEMA } from "./exa.js";
+import { getIcpConfig, ICP_1, monthsAgoIso, parseSearchType } from "./config";
+import {
+  exaSearch,
+  lookupCompany,
+  SIGNAL_SCHEMA,
+  type ExaCredentials,
+} from "./exa";
 import {
   parseSignalSummary,
   scoreAndRank,
   selectCompaniesForEnrichment,
-} from "./score.js";
-import { normalizeName } from "./eval.js";
+} from "./score";
+import { normalizeName } from "./eval";
 import type {
   ExaCostDollars,
   ExaSearchType,
   IcpConfig,
+  IcpId,
   ProspectRow,
-} from "./types.js";
+} from "./types";
 
 export type ProspectRun = {
   rows: ProspectRow[];
@@ -29,8 +35,35 @@ export async function runIcp1Prospecting(options: {
   type: ExaSearchType;
   numResults?: number;
   now?: Date;
+  credentials?: ExaCredentials;
 }): Promise<ProspectRun> {
   return runProspecting(ICP_1, options);
+}
+
+export async function runProspect(
+  icpId: IcpId,
+  options: {
+    exaKey: string;
+    signalQuery?: string;
+    type?: ExaSearchType;
+    numResults?: number;
+    maxCandidates?: number;
+    now?: Date;
+  },
+): Promise<{ rows: ProspectRow[]; costDollars: number }> {
+  const run = await runProspecting(getIcpConfig(icpId), {
+    type: parseSearchType(options.type),
+    numResults: options.numResults ?? 12,
+    maxCandidates: options.maxCandidates ?? 12,
+    signalQuery: options.signalQuery,
+    now: options.now,
+    credentials: { apiKey: options.exaKey },
+  });
+
+  return {
+    rows: run.rows,
+    costDollars: run.totalCostDollars,
+  };
 }
 
 export async function runProspecting(
@@ -38,16 +71,22 @@ export async function runProspecting(
   options: {
     type: ExaSearchType;
     numResults?: number;
+    maxCandidates?: number;
+    signalQuery?: string;
     now?: Date;
     enrichmentCache?: EnrichmentCache;
+    credentials?: ExaCredentials;
   },
 ): Promise<ProspectRun> {
   const now = options.now ?? new Date();
   const startPublishedDate = monthsAgoIso(icp.months, now);
   const numResults = options.numResults ?? 50;
+  const signalQueries = options.signalQuery?.trim()
+    ? [options.signalQuery.trim()]
+    : icp.signalQueries;
   let totalCostDollars = 0;
   const signalResponses = await Promise.all(
-    icp.signalQueries.map((query) =>
+    signalQueries.map((query) =>
       exaSearch({
         query,
         type: options.type,
@@ -62,7 +101,7 @@ export async function runProspecting(
           },
           livecrawl: "fallback",
         },
-      }),
+      }, options.credentials),
     ),
   );
 
@@ -82,27 +121,34 @@ export async function runProspecting(
     candidates,
     startPublishedDate,
     now,
-    icp.enrichmentLimit,
+    options.maxCandidates ?? icp.enrichmentLimit,
   );
   const cache = options.enrichmentCache ?? new Map();
   const companyMap = new Map<string, Awaited<ReturnType<typeof lookupCompany>>>();
 
-  for (const company of companiesToEnrich) {
+  const lookups = await Promise.all(companiesToEnrich.map(async (company) => {
     const key = normalizeName(company);
     const cached = cache.get(key);
     if (cached) {
-      companyMap.set(key, cached);
-      continue;
+      return { key, lookup: cached, fromCache: true };
     }
-    const lookup = await lookupCompany(company, icp.companySummaryQuery);
-    totalCostDollars += costTotal(lookup.costDollars);
+    const lookup = await lookupCompany(
+      company,
+      icp.companySummaryQuery,
+      options.credentials,
+    );
+    return { key, lookup, fromCache: false };
+  }));
+
+  for (const { key, lookup, fromCache } of lookups) {
+    if (!fromCache) totalCostDollars += costTotal(lookup.costDollars);
     cache.set(key, lookup);
     companyMap.set(key, lookup);
   }
 
   const opsHiringCandidates = [];
   if (icp.id === 3) {
-    for (const company of companiesToEnrich) {
+    const opsResponses = await Promise.all(companiesToEnrich.map(async (company) => {
       const query = `${company} hiring RevOps revenue operations business operations head of operations chief of staff`;
       const response = await exaSearch({
         query,
@@ -119,7 +165,11 @@ export async function runProspecting(
           },
           livecrawl: "fallback",
         },
-      });
+      }, options.credentials);
+      return { company, response };
+    }));
+
+    for (const { company, response } of opsResponses) {
       totalCostDollars += costTotal(response.costDollars);
       opsHiringCandidates.push(
         ...response.results.map((result) => {

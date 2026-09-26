@@ -1,12 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { getIcpConfig, monthsAgoIso } from "../src/config.js";
+import { getIcpConfig, monthsAgoIso } from "../src/config";
 import {
   companyFitChecks,
   dateInWindow,
   nameMatchesSignal,
   netNew,
-} from "../src/eval.js";
-import { scoreAndRank } from "../src/score.js";
+} from "../src/eval";
+import { scoreAndRank } from "../src/score";
 
 describe("deterministic evals", () => {
   const now = new Date("2026-09-24T12:00:00.000Z");

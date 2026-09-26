@@ -1,6 +1,6 @@
-import { getIcpConfig, ICP_CONFIGS, parseSearchType } from "./config.js";
-import { runProspecting, type EnrichmentCache } from "./pipeline.js";
-import type { IcpId, ProspectRow } from "./types.js";
+import { getIcpConfig, ICP_CONFIGS, parseSearchType, requireEnv } from "./config";
+import { runProspect } from "./pipeline";
+import type { IcpId, ProspectRow } from "./types";
 
 type Args = {
   icp: string;
@@ -11,17 +11,19 @@ async function main() {
   const args = parseArgs(process.argv.slice(2));
   const searchType = parseSearchType(args.type);
   const icps = parseIcpSelection(args.icp);
-  const enrichmentCache: EnrichmentCache = new Map();
+  const exaKey = requireEnv("EXA_API_KEY");
 
   for (const icp of icps) {
-    const run = await runProspecting(icp, {
+    const run = await runProspect(icp.id, {
+      exaKey,
       type: searchType,
-      enrichmentCache,
+      numResults: 50,
+      maxCandidates: icp.enrichmentLimit,
     });
     const rows = run.rows.slice(0, 15);
     console.log(`\nICP ${icp.id}: ${icp.name}`);
     printTable(rows.slice(0, Math.max(10, Math.min(15, rows.length))));
-    console.log(`costDollars.icp${icp.id}: ${run.totalCostDollars.toFixed(3)}`);
+    console.log(`costDollars.icp${icp.id}: ${run.costDollars.toFixed(3)}`);
   }
 }
 

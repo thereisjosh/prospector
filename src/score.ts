@@ -1,17 +1,17 @@
-import { ENTERPRISE_DENYLIST } from "./config.js";
+import { ENTERPRISE_DENYLIST } from "./config";
 import {
   companyFitChecks,
   nameMatchesSignal,
   netNew,
   normalizeName,
-} from "./eval.js";
+} from "./eval";
 import type {
   CompanySummary,
   ExaResult,
   IcpConfig,
   ProspectRow,
   SignalSummary,
-} from "./types.js";
+} from "./types";
 
 export type Candidate = {
   result: ExaResult;
