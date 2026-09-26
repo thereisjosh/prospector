@@ -4,6 +4,11 @@ A natural-language B2B prospecting agent built on the [Exa](https://exa.ai) Sear
 
 Built as a hands-on exploration of Exa's API against a self-authored customer scenario (a mid-market ops-software company that wants trigger-based outbound). AI-assisted build; the architecture, API decisions, and evaluation are mine.
 
+## Live demo
+**[thereisjosh.github.io/prospector](https://thereisjosh.github.io/prospector)** — cached results out of the box; flip to **Live · your key** to run a real signal search on your own Exa key. The key stays in your browser (`localStorage`) and is sent only to `api.exa.ai` — there is no server.
+
+![Prospector demo](docs/screenshots/demo-light.png)
+
 ## The result — ICP 1 (logistics ops, scaling)
 See [`sample_output.md`](./sample_output.md): US mid-market 3PLs, each with a dated, cited scaling signal (new distribution center, expansion, hiring wave) — scored ~8/10 against the scenario's acceptance bar, and specifically *not* the enterprise giants a keyword filter surfaces.
 

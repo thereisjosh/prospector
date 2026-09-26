@@ -1,0 +1,273 @@
+<title>Prospector — prospecting agent on Exa</title>
+<style>
+  :root{
+    --bg:#ffffff; --canvas:#fafbfc; --panel:#f5f6f8; --card:#ffffff;
+    --ink:#0f1016; --muted:#697086; --faint:#98a0b3; --line:#e7e9ee; --line2:#eef0f4;
+    --accent:#2b57f5; --accent-soft:#2b57f512; --accent-line:#2b57f533;
+    --green:#12a05a; --green-soft:#12a05a14; --amber:#c07a12; --amber-soft:#c07a1214;
+    --red:#d23f3f; --red-soft:#d23f3f14;
+    --sans:-apple-system,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+    --shadow:0 1px 2px rgba(16,20,40,.04),0 12px 28px -20px rgba(16,20,40,.22);
+  }
+  @media (prefers-color-scheme:dark){:root{
+    --bg:#0d0e13; --canvas:#0f1016; --panel:#161821; --card:#14151d;
+    --ink:#eef0f6; --muted:#98a0b3; --faint:#69708a; --line:#242734; --line2:#1d2029;
+    --accent:#5b7bff; --accent-soft:#5b7bff1c; --accent-line:#5b7bff44;
+    --green:#3fbd7c; --green-soft:#3fbd7c1c; --amber:#e0a24a; --amber-soft:#e0a24a1c;
+    --red:#e56767; --red-soft:#e567671c;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 16px 34px -22px rgba(0,0,0,.7);
+  }}
+  :root[data-theme="light"]{--bg:#ffffff;--canvas:#fafbfc;--panel:#f5f6f8;--card:#fff;--ink:#0f1016;--muted:#697086;--faint:#98a0b3;--line:#e7e9ee;--line2:#eef0f4;--accent:#2b57f5;--accent-soft:#2b57f512;--accent-line:#2b57f533;--green:#12a05a;--green-soft:#12a05a14;--amber:#c07a12;--amber-soft:#c07a1214;--red:#d23f3f;--red-soft:#d23f3f14;--shadow:0 1px 2px rgba(16,20,40,.04),0 12px 28px -20px rgba(16,20,40,.22);}
+  :root[data-theme="dark"]{--bg:#0d0e13;--canvas:#0f1016;--panel:#161821;--card:#14151d;--ink:#eef0f6;--muted:#98a0b3;--faint:#69708a;--line:#242734;--line2:#1d2029;--accent:#5b7bff;--accent-soft:#5b7bff1c;--accent-line:#5b7bff44;--green:#3fbd7c;--green-soft:#3fbd7c1c;--amber:#e0a24a;--amber-soft:#e0a24a1c;--red:#e56767;--red-soft:#e567671c;--shadow:0 1px 2px rgba(0,0,0,.3),0 16px 34px -22px rgba(0,0,0,.7);}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--canvas);color:var(--ink);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased;letter-spacing:-.006em}
+  a{color:var(--accent);text-decoration:none}
+  .mono{font-family:var(--mono)}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 clamp(16px,4vw,28px)}
+  header{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .bar{display:flex;align-items:center;gap:12px;height:56px}
+  .logo{display:flex;align-items:center;gap:9px;font-weight:680;font-size:.98rem}
+  .mark{width:17px;height:17px;background:var(--accent);border-radius:4px;transform:rotate(45deg);box-shadow:0 0 0 3px var(--accent-soft)}
+  .chip{font-family:var(--mono);font-size:.66rem;letter-spacing:.02em;padding:.24em .5em;border-radius:5px;border:1px solid var(--accent-line);color:var(--accent);background:var(--accent-soft);white-space:nowrap}
+  .bar .right{margin-left:auto;display:flex;align-items:center;gap:14px}
+  .bar .right a{font-size:.82rem;color:var(--muted);font-family:var(--mono)}
+  .bar .right a:hover{color:var(--ink)}
+  .tt{font-family:var(--mono);font-size:.72rem;background:transparent;color:var(--muted);border:1px solid var(--line);border-radius:20px;padding:.32em .7em;cursor:pointer}
+  .tt:hover{color:var(--ink);border-color:var(--faint)}
+  .hero{padding:clamp(26px,5vw,44px) 0 20px}
+  h1{margin:0 0 10px;font-size:clamp(1.5rem,3.2vw,2.05rem);font-weight:760;letter-spacing:-.02em;line-height:1.08;text-wrap:balance;max-width:20ch}
+  .sub{color:var(--muted);font-size:1.02rem;max-width:58ch}
+  .pipe{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;align-items:center}
+  .step{font-size:.76rem;font-family:var(--mono);color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:7px;padding:.42em .7em}
+  .step b{color:var(--ink);font-weight:600}
+  .arw{color:var(--faint);font-size:.8rem}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden;margin-top:8px}
+  .tabs{display:flex;gap:2px;padding:6px;border-bottom:1px solid var(--line);background:var(--panel);overflow-x:auto}
+  .tab{flex:1;min-width:150px;text-align:left;padding:10px 12px;border-radius:9px;border:1px solid transparent;background:transparent;cursor:pointer;font-family:inherit;color:var(--muted)}
+  .tab .tk{font-size:.64rem;font-family:var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+  .tab .tn{font-weight:640;font-size:.9rem;color:var(--ink);margin-top:2px}
+  .tab.on{background:var(--card);border-color:var(--line);box-shadow:0 1px 0 var(--line)}
+  .tab.on .tk{color:var(--accent)}
+  .tab:focus-visible,.tt:focus-visible,a:focus-visible,.seg button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .query{padding:16px clamp(14px,2.4vw,20px) 4px}
+  .qhead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:7px}
+  .qlabel{font-size:.68rem;font-family:var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+  .seg{display:inline-flex;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:2px}
+  .seg button{font-family:var(--mono);font-size:.7rem;border:0;background:transparent;color:var(--muted);padding:.32em .7em;border-radius:6px;cursor:pointer}
+  .seg button.on{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.06)}
+  .qbox{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:10px;padding:11px 13px;background:var(--panel)}
+  .qbox .ico{width:15px;height:15px;border:2px solid var(--faint);border-radius:50%;position:relative;flex:none}
+  .qbox .ico::after{content:"";position:absolute;width:5px;height:2px;background:var(--faint);right:-3px;bottom:0;transform:rotate(45deg);border-radius:2px}
+  .qbox .qt{font-family:var(--mono);font-size:.86rem;color:var(--ink);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .qbox .run{font-family:var(--mono);font-size:.74rem;font-weight:600;color:#fff;background:var(--accent);border:0;border-radius:7px;padding:.5em .9em;white-space:nowrap;cursor:pointer}
+  .qbox .run:disabled{opacity:.55;cursor:default}
+  .keyrow{display:flex;align-items:center;gap:9px;margin-top:9px}
+  .keyrow input{flex:1;font-family:var(--mono);font-size:.8rem;background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:9px 12px;color:var(--ink)}
+  .keyrow input::placeholder{color:var(--faint)}
+  .keyhint{font-size:.72rem;color:var(--faint);margin-top:6px}
+  .keyhint b{color:var(--muted);font-weight:600}
+  .meta{display:flex;flex-wrap:wrap;gap:14px;padding:10px clamp(14px,2.4vw,20px) 6px;font-size:.76rem;color:var(--muted)}
+  .meta b{color:var(--ink);font-weight:600}
+  .meta .dot{color:var(--faint)}
+  .status{padding:2px clamp(14px,2.4vw,20px);font-family:var(--mono);font-size:.74rem;min-height:1.1em}
+  .status.err{color:var(--red)} .status.ok{color:var(--green)} .status.load{color:var(--accent)}
+  .results{padding:4px clamp(10px,2vw,14px) 12px}
+  .row{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:start;padding:14px 12px;border-radius:11px;border:1px solid transparent}
+  .row+.row{border-top:1px solid var(--line2)}
+  .row:hover{background:var(--panel);border-color:var(--line)}
+  .co{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+  .co .name{font-weight:660;font-size:.98rem}
+  .pill{font-family:var(--mono);font-size:.66rem;padding:.2em .5em;border-radius:5px;white-space:nowrap;border:1px solid transparent}
+  .pill.strong{color:var(--accent);background:var(--accent-soft);border-color:var(--accent-line)}
+  .pill.hire{color:var(--amber);background:var(--amber-soft);border-color:color-mix(in srgb,var(--amber) 30%,transparent)}
+  .pill.new{color:var(--green);background:var(--green-soft);border-color:color-mix(in srgb,var(--green) 30%,transparent)}
+  .why{color:var(--muted);font-size:.9rem;margin-top:6px;max-width:62ch}
+  .src{margin-top:7px;display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:.72rem;color:var(--accent)}
+  .src .host{color:var(--muted)}
+  .nourl{margin-top:7px;font-family:var(--mono);font-size:.7rem;color:var(--faint)}
+  .rmeta{text-align:right;min-width:132px;display:flex;flex-direction:column;gap:7px;align-items:flex-end}
+  .date{font-family:var(--mono);font-size:.74rem;color:var(--muted);font-variant-numeric:tabular-nums}
+  .scores{display:flex;flex-direction:column;gap:5px;width:130px}
+  .scr{display:grid;grid-template-columns:auto 1fr auto;gap:7px;align-items:center;font-family:var(--mono);font-size:.62rem;color:var(--faint)}
+  .track{height:5px;border-radius:3px;background:var(--line);overflow:hidden}
+  .fill{height:100%;border-radius:3px;background:var(--accent)}
+  .fill.g{background:var(--green)}
+  .scr .val{color:var(--muted);font-variant-numeric:tabular-nums}
+  .note{margin:8px clamp(14px,2.4vw,20px) 16px;font-size:.78rem;color:var(--muted);background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:0 9px 9px 0;padding:10px 13px}
+  .note b{color:var(--ink)}
+  footer{padding:26px 0 40px;color:var(--faint);font-size:.8rem;line-height:1.6}
+  footer a{color:var(--muted);text-decoration:underline;text-underline-offset:2px}
+  @media(max-width:620px){.row{grid-template-columns:1fr}.rmeta{align-items:flex-start;text-align:left}.scores{width:100%;max-width:220px}}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<header>
+  <div class="wrap bar">
+    <span class="logo"><span class="mark"></span> Prospector</span>
+    <span class="chip">built on Exa</span>
+    <span class="right">
+      <a href="https://github.com/thereisjosh/prospector" target="_blank" rel="noopener">github.com/thereisjosh/prospector ↗</a>
+      <button class="tt" id="tt" aria-label="Toggle theme">◐</button>
+    </span>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <h1>Describe an ideal customer. Get companies with a reason to reach out.</h1>
+    <p class="sub">A natural-language prospecting agent built on the Exa Search API. It finds companies by a <b style="color:var(--ink)">fresh, cited “why-now” trigger</b> — a new facility, a funding round, a hiring wave — not just a keyword match.</p>
+    <div class="pipe">
+      <span class="step"><b>1.</b> Signal search <span style="color:var(--faint)">(date-filtered)</span></span>
+      <span class="arw">→</span>
+      <span class="step"><b>2.</b> Company enrichment <span style="color:var(--faint)">(firmographics)</span></span>
+      <span class="arw">→</span>
+      <span class="step"><b>3.</b> Fit-gated scoring <span style="color:var(--faint)">(size · geo · signal)</span></span>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="tabs" id="tabs"></div>
+    <div class="query">
+      <div class="qhead">
+        <span class="qlabel">Ideal-customer profile — plain English</span>
+        <span class="seg"><button id="mDemo" class="on" type="button">Demo</button><button id="mLive" type="button">Live · your key</button></span>
+      </div>
+      <div class="qbox">
+        <span class="ico"></span>
+        <span class="qt" id="qt"></span>
+        <button class="run" id="run" type="button">Run</button>
+      </div>
+      <div class="keyrow" id="keyrow" style="display:none">
+        <input id="key" type="password" autocomplete="off" spellcheck="false" placeholder="Paste your Exa API key (exa.ai — free tier)">
+      </div>
+      <div class="keyhint" id="keyhint" style="display:none">Your key is stored <b>only in this browser</b> (localStorage) and sent <b>only to api.exa.ai</b>. Live mode runs the signal search step; the full firmographic-gating pipeline is in the <a href="https://github.com/thereisjosh/prospector" target="_blank" rel="noopener">repo</a>.</div>
+    </div>
+    <div class="meta" id="meta"></div>
+    <div class="status" id="status"></div>
+    <div class="results" id="results"></div>
+    <div class="note" id="note"></div>
+  </section>
+
+  <footer>
+    <div class="wrap" style="max-width:none;padding:0">
+      Demo data captured from a live run on the Exa Search API — every ICP-1 source is a real, dated press release or job posting. Switch to <b style="color:var(--muted)">Live · your key</b> to run a real signal search on your own Exa account. ICP 1 (logistics) is the polished set; ICP 2 &amp; 3 are earlier-stage — see the <a href="https://github.com/thereisjosh/prospector" target="_blank" rel="noopener">repository</a> for the code, eval harness, and write-up. Built AI-assisted; architecture, API design, and evaluation by Joshua Ang.
+    </div>
+  </footer>
+</main>
+
+<script>
+const ICPS=[
+ {id:1,key:"ICP 01 · Logistics",name:"Scaling their ops",months:3,
+  query:"mid-market logistics / 3PL companies clearly scaling their operations — US, ~100–1,000 employees",
+  signalQuery:"US logistics or 3PL company opening a new warehouse or distribution center, or hiring a wave of operations manager roles",
+  trigger:"new facility, expansion, or operations hiring",
+  window:"last 3 months",count:"8 shown",strength:"facility / expansion signals",
+  rows:[
+   {co:"Roadway Moving",str:"new-facility",why:"Expanding its New York footprint with a new 117,000 sq ft Long Island City facility.",date:"2026-09-17",conf:.96,fresh:.92,url:"https://www.einpresswire.com/article/943305108/roadway-moving-expands-new-york-footprint-with-new-117-000-square-foot-long-island-city-facility"},
+   {co:"States Logistics Services",str:"new-facility",why:"Establishing a Las Vegas distribution center to extend its Western U.S. network.",date:"2026-09-10",conf:.96,fresh:.84,url:"https://www.globenewswire.com/news-release/2026/09/11/3360527/0/en/states-logistics-distribution-center-coming-to-las-vegas.html"},
+   {co:"G10 Fulfillment",str:"new-facility",why:"Grand opening of a new Kenosha distribution facility to expand Midwest capacity.",date:"2026-09-09",conf:.90,fresh:.83,url:"https://www.prnewswire.com/news-releases/g10-fulfillment-to-celebrate-grand-opening-of-new-kenosha-distribution-facility-with-ribbon-cutting-ceremony-302865623.html"},
+   {co:"Saltbox",str:"new-facility",why:"Announces its first Chicago-area location in Elmhurst — a 114-suite operations hub.",date:"2026-09-10",conf:.90,fresh:.84,url:"https://yournews.com/2026/09/11/7192874/after-years-of-demand-saltbox-launches-first-illinois-location-with/"},
+   {co:"Verst Logistics",str:"new-facility",why:"Opens a new Northern Kentucky Excellence Center as part of a national expansion.",date:"2026-08-20",conf:.96,fresh:.62,url:"https://www.lanereport.com/189032/2026/08/verst-logistics-opens-northern-kentucky-excellence-center/"},
+   {co:"RK Logistics Group",str:"new-facility",why:"Opens a new climate-controlled, hazmat-capable 200,000 sq ft warehouse in Central Texas.",date:"2026-07-29",conf:.96,fresh:.38,url:"https://www.einpresswire.com/article/930317205/rk-logistics-group-opens-austin-s-scarcest-3pl-warehouse-category-and-puts-insource-versus-outsource-math-on-the-table"},
+   {co:"PS Logistics",str:"hiring",why:"Cross-Dock Operations Manager role signals ongoing warehouse-services growth in Brownstown Township, MI.",date:"2026-09-03",conf:.90,fresh:.77,url:"https://jobs.smartrecruiters.com/pslogistics/744000147237799"},
+   {co:"ShipMonk",str:"hiring",why:"Operations Manager opening in Las Vegas at the growing 3PL/fulfillment operator.",date:"2026-08-11",conf:.74,fresh:.52,url:"https://jobera.com/job/shipmonk-operations-manager-fefea266/"}
+  ]},
+ {id:2,key:"ICP 02 · Payments",name:"Launched payments / billing",months:3,
+  query:"B2B SaaS / marketplaces that just launched or expanded payments or billing — US, ~100–800 employees",
+  signalQuery:"US B2B SaaS or marketplace that just launched or expanded embedded payments or billing, or is hiring billing or revenue operations",
+  trigger:"payments or billing launch, billing-ops hire",
+  window:"last 3 months",count:"early",strength:"payments / billing signals",
+  rows:[
+   {co:"Curri",str:"payments",why:"Recent billing / revenue-operations signal at the on-demand logistics marketplace.",date:"2026-08-06",conf:.87},
+   {co:"Sky Systemz",str:"payments",why:"Billing / revenue-ops hiring signal alongside a payments push.",date:"2026-09-01",conf:.87},
+   {co:"Antithesis",str:"payments",why:"Billing / revenue-operations role indicating monetization build-out.",date:"2026-09-06",conf:.87},
+   {co:"Healthmark Group",str:"payments",why:"Billing-operations signal in a scaling B2B services company.",date:"2026-08-27",conf:.87}
+  ]},
+ {id:3,key:"ICP 03 · Funded",name:"Funded + first ops hire",months:6,
+  query:"B2B companies that raised seed / Series A in the last ~6 months and are hiring their first Ops/RevOps person",
+  signalQuery:"recently funded seed or Series A US B2B startup hiring its first operations or RevOps person",
+  trigger:"funding announcement + first ops hire",
+  window:"last 6 months",count:"early",strength:"funding + first-ops signals",
+  rows:[
+   {co:"Oasive",str:"funding",why:"Recent funding (YC / Bond) paired with an early operations hire.",date:"2026-09-23",conf:.96,url:"https://runtimewire.com/article/oasive-yc-bond-research-launch"},
+   {co:"Numeral",str:"funding",why:"Recently funded, hiring into a small ops/RevOps team.",date:"2026-05-28",conf:.90}
+  ]}
+];
+const strLabel={"new-facility":"strong · new facility / expansion","hiring":"ops hiring signal","payments":"payments / billing","funding":"funding + first-ops"};
+function host(u){try{return new URL(u).hostname.replace(/^www\./,"")}catch(e){return u}}
+function bar(v,green){return '<div class="track"><div class="fill'+(green?' g':'')+'" style="width:'+Math.round(Math.max(0,Math.min(1,v))*100)+'%"></div></div>';}
+let active=0, mode="demo";
+const tabsEl=document.getElementById("tabs"), statusEl=document.getElementById("status"), runBtn=document.getElementById("run");
+ICPS.forEach((icp,i)=>{
+  const b=document.createElement("button");
+  b.className="tab"+(i===0?" on":"");b.type="button";
+  b.innerHTML='<div class="tk">'+icp.key+'</div><div class="tn">'+icp.name+'</div>';
+  b.onclick=()=>{active=i;[...tabsEl.children].forEach((c,j)=>c.classList.toggle("on",j===i));statusEl.textContent="";render();};
+  tabsEl.appendChild(b);
+});
+function renderRows(rows,live){
+  document.getElementById("results").innerHTML=rows.map(r=>{
+    const pill='<span class="pill '+(r.str==="hiring"?"hire":"strong")+'">'+(strLabel[r.str]||"signal")+'</span>';
+    const src=r.url?'<a class="src" href="'+r.url+'" target="_blank" rel="noopener">Source ↗ <span class="host">'+host(r.url)+'</span></a>':'<div class="nourl">source generated at runtime — run the CLI for full links</div>';
+    const fresh=(r.fresh!=null)?'<div class="scr"><span>fresh</span>'+bar(r.fresh,true)+'<span class="val">'+r.fresh.toFixed(2)+'</span></div>':'';
+    const conf=(r.conf!=null)?'<div class="scr"><span>conf</span>'+bar(r.conf,false)+'<span class="val">'+r.conf.toFixed(2)+'</span></div>':'';
+    return '<div class="row"><div><div class="co"><span class="name">'+(r.co||"—")+'</span>'+pill+'<span class="pill new">net-new</span></div>'+
+      '<div class="why">'+(r.why||"")+'</div>'+src+'</div>'+
+      '<div class="rmeta"><span class="date">'+(r.date||"")+'</span><div class="scores">'+conf+fresh+'</div></div></div>';
+  }).join("")||'<div class="nourl" style="padding:18px 12px">No results.</div>';
+}
+function render(){
+  const icp=ICPS[active];
+  document.getElementById("qt").textContent=(mode==="live"?icp.signalQuery:icp.query);
+  document.getElementById("meta").innerHTML='Freshness window: <b>'+icp.window+'</b> <span class="dot">·</span> '+icp.strength+' <span class="dot">·</span> '+(mode==="live"?'live signal search on <b>your</b> Exa key':'results: <b>'+icp.count+'</b> <span class="dot">·</span> all rows <b>net-new</b> vs. the Apollo baseline');
+  const n=document.getElementById("note");
+  if(mode==="live"){n.style.display="none";}
+  else if(icp.id===1){n.style.display="block";n.innerHTML='<b>How to read this:</b> each company was found via a <b>press release or job posting</b> from the last 3 months (the “why-now”), then enrichment gates out enterprise giants (DHL, FedEx, GXO, RXO), non-US, and non-3PL companies <i>before</i> scoring. What’s left is who a rep would actually call this quarter.';}
+  else{n.style.display="block";n.innerHTML='<b>Earlier-stage.</b> The clean “facility-announcement” signal that nails logistics doesn’t transfer directly here — this ICP needs its own signal strategy (see the repo’s eval notes). Shown to demonstrate the config-driven, multi-ICP design.';}
+  if(mode==="demo") renderRows(icp.rows,false);
+}
+// live search
+function isoDaysAgo(months){var d=new Date();d.setMonth(d.getMonth()-months);return d.toISOString().slice(0,10)+"T00:00:00.000Z";}
+async function runLive(){
+  const key=document.getElementById("key").value.trim();
+  if(!key){statusEl.className="status err";statusEl.textContent="Paste your Exa API key first.";return;}
+  localStorage.setItem("exa_key",key);
+  const icp=ICPS[active];
+  runBtn.disabled=true;statusEl.className="status load";statusEl.textContent="Searching Exa…";
+  document.getElementById("results").innerHTML="";
+  try{
+    const body={query:icp.signalQuery,type:"neural",numResults:12,startPublishedDate:isoDaysAgo(icp.months),
+      contents:{highlights:{query:icp.trigger,numSentences:2},summary:{query:"the company name and its recent why-now signal with the date",schema:{type:"object",properties:{company_name:{type:"string"},signal_type:{type:"string"},signal_summary:{type:"string"},signal_date:{type:"string"}}}},livecrawl:"fallback"}};
+    const res=await fetch("https://api.exa.ai/search",{method:"POST",headers:{"x-api-key":key,"Content-Type":"application/json"},body:JSON.stringify(body)});
+    if(res.status===401){statusEl.className="status err";statusEl.textContent="401 — that key was rejected.";runBtn.disabled=false;return;}
+    if(res.status===402){statusEl.className="status err";statusEl.textContent="402 — your Exa key is out of credits.";runBtn.disabled=false;return;}
+    if(!res.ok){const t=await res.text();statusEl.className="status err";statusEl.textContent="HTTP "+res.status+" — "+t.slice(0,120);runBtn.disabled=false;return;}
+    const data=await res.json();
+    const now=new Date(), winMs=icp.months*30*864e5;
+    const rows=(data.results||[]).map(r=>{
+      let s=r.summary;if(typeof s==="string"){try{s=JSON.parse(s)}catch(e){s={signal_summary:s}}}
+      s=s||{};
+      const date=(s.signal_date||r.publishedDate||"").slice(0,10);
+      const ageMs=date?Math.max(0,now-new Date(date)):winMs;
+      return {co:s.company_name||r.title||host(r.url),str:icp.id===1?"new-facility":(icp.id===2?"payments":"funding"),
+        why:s.signal_summary||(r.highlights&&r.highlights[0])||"",date:date,url:r.url,
+        conf:Math.round((r.score!=null?0.55+Math.min(0.4,r.score):0.8)*100)/100,
+        fresh:Math.round((1-Math.min(1,ageMs/winMs))*100)/100};
+    }).filter(r=>r.co).slice(0,10);
+    renderRows(rows,true);
+    const cost=data.costDollars&&data.costDollars.total;
+    statusEl.className="status ok";statusEl.textContent="Live · "+rows.length+" results"+(cost!=null?"  ·  $"+cost.toFixed(3)+" on your key":"")+"  ·  resolvedSearchType: "+(data.resolvedSearchType||"neural");
+  }catch(e){statusEl.className="status err";statusEl.textContent="Request failed: "+(e&&e.message||e);}
+  runBtn.disabled=false;
+}
+document.getElementById("run").onclick=()=>{mode==="live"?runLive():render();};
+function setMode(m){mode=m;document.getElementById("mDemo").classList.toggle("on",m==="demo");document.getElementById("mLive").classList.toggle("on",m==="live");
+  document.getElementById("keyrow").style.display=m==="live"?"flex":"none";document.getElementById("keyhint").style.display=m==="live"?"block":"none";
+  statusEl.textContent="";render();}
+document.getElementById("mDemo").onclick=()=>setMode("demo");
+document.getElementById("mLive").onclick=()=>setMode("live");
+const saved=localStorage.getItem("exa_key");if(saved)document.getElementById("key").value=saved;
+render();
+(function(){var b=document.getElementById("tt");b.onclick=function(){var r=document.documentElement,c=r.getAttribute("data-theme");if(!c)c=matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light";r.setAttribute("data-theme",c==="dark"?"light":"dark");};})();
+</script>
