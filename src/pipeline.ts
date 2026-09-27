@@ -43,7 +43,8 @@ export async function runIcp1Prospecting(options: {
 export async function runProspect(
   icpId: IcpId,
   options: {
-    exaKey: string;
+    /** Omit to fall back to the server-side EXA_API_KEY (see src/exa.ts). */
+    exaKey?: string;
     signalQuery?: string;
     type?: ExaSearchType;
     numResults?: number;
@@ -57,7 +58,7 @@ export async function runProspect(
     maxCandidates: options.maxCandidates ?? 12,
     signalQuery: options.signalQuery,
     now: options.now,
-    credentials: { apiKey: options.exaKey },
+    credentials: options.exaKey ? { apiKey: options.exaKey } : undefined,
   });
 
   return {

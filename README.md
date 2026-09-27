@@ -4,10 +4,12 @@ A natural-language B2B prospecting agent built on the [Exa](https://exa.ai) Sear
 
 Built as a hands-on exploration of Exa's API against a self-authored customer scenario (a mid-market ops-software company that wants trigger-based outbound). AI-assisted build; the architecture, API decisions, and evaluation are mine.
 
-## Full-stack demo
-Prospector is now a Vercel-ready **Next.js app**: the frontend is the product UI, and `/api/prospect` runs the real Exa-only backend pipeline. Demo mode works with committed cached results; Live mode sends your Exa key to the server for that request, runs signal search → company enrichment → firmographic gating → fit-weighted scoring, and returns real rows.
+## Full-stack app
+Prospector is a Vercel-ready **Next.js app**: the frontend is the product UI, and `/api/prospect` runs the real Exa-only backend pipeline on every request — signal search → company enrichment → firmographic gating → fit-weighted scoring.
 
-![Prospector demo](docs/screenshots/demo-light.png)
+**The Exa key lives only on the server** (`.env` locally, an env var in deployment). The browser never sends, stores, or holds a key — so there's no secret in `localStorage`, nothing to leak via XSS, and no "paste your API key" box. Each run uses the server-side key and returns real, cited rows.
+
+![Prospector](docs/screenshots/demo-light.png)
 
 ## Where this fits at Exa
 Exa publishes its customers by use-case category. Prospector is a working proof of the **Sales / Enrichment** category — the same web-sourced, trigger-based prospecting Exa's own customers pay for:
@@ -58,18 +60,19 @@ Deterministic checks (Vitest): signal date in window · source URL resolves · *
 - **Cost** scales with enrichment depth (~$0.06–$0.9 per ICP run by config) — a real build-vs-buy consideration, and a knob you tune.
 
 ## Run it locally
-Demo mode needs no key.
+The web app runs live against Exa, so it needs a server-side key:
+
 ```bash
 npm install
+cp .env.example .env      # add your EXA_API_KEY
 npm run dev
 ```
 
-Open `http://localhost:3000`, pick an ICP, and run Demo or Live.
+Open `http://localhost:3000`, pick a scenario, refine the description if you like, and hit **Find companies**. Every run queries Exa on the key in `.env` — the browser never sees it.
 
-For Live mode, paste an Exa API key in the app. The key is never committed or stored server-side; it is sent only with that runtime request. For CLI runs, use `.env`:
+The same `.env` key drives the CLI:
 
 ```bash
-cp .env.example .env      # add your EXA_API_KEY
 npm run prospect -- --icp 1     # or 2 | 3 | all
 ```
 
@@ -79,16 +82,13 @@ Connect the repo to Vercel and use the defaults:
 - Framework preset: Next.js
 - Build command: `npm run build`
 - Output directory: Next.js default
-- Environment variables: none required for Demo mode
-
-Live mode is BYO-key at runtime, so no Vercel secret is required unless you want the CLI or a private server-side default key later.
+- **Environment variable: `EXA_API_KEY`** — the only secret; it stays server-side and is never exposed to the client.
 
 ## Structure
-- [`app/page.tsx`](./app/page.tsx) — product UI ported from `docs/index.html`.
-- [`app/api/prospect/route.ts`](./app/api/prospect/route.ts) — POST API for cached Demo or live Exa pipeline runs.
-- [`data/demo-results.json`](./data/demo-results.json) — committed keyless demo rows for ICP 1/2/3.
-- [`src/pipeline.ts`](./src/pipeline.ts) — reusable async pipeline and CLI/API entrypoint.
-- [`src/exa.ts`](./src/exa.ts) — verified Exa `/search` request shapes and runtime-key support.
+- [`app/page.tsx`](./app/page.tsx) — product UI: scenario nav, search, live results table.
+- [`app/api/prospect/route.ts`](./app/api/prospect/route.ts) — POST API that runs the Exa pipeline on the server-side key.
+- [`src/pipeline.ts`](./src/pipeline.ts) — reusable async pipeline and CLI/API entrypoint (`runProspect`).
+- [`src/exa.ts`](./src/exa.ts) — verified Exa `/search` request shapes; resolves the key from `EXA_API_KEY`.
 
 ## More
 - [`SPEC.md`](./SPEC.md) — full build spec, including the verified Exa API shapes (§8).

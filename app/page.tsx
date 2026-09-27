@@ -1,52 +1,48 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { IcpId, ProspectRow } from "../src/types";
 
-type Mode = "demo" | "live";
-type SortKey = "conf" | "fresh" | "date";
-type StatusKind = "" | "err" | "ok" | "load";
+type SortKey = "conf" | "date";
 
-type Preset = {
+type Scenario = {
   id: IcpId;
-  months: number;
-  win: string;
-  query: string;
-  signalQuery: string;
+  name: string;
+  blurb: string;
+  window: string;
   gate: string;
+  /** Plain-English ICP shown in the search box. */
+  query: string;
 };
 
-const PRESETS: Preset[] = [
+const SCENARIOS: Scenario[] = [
   {
     id: 1,
-    months: 3,
-    win: "last 3 months",
-    query: "mid-market logistics / 3PL companies clearly scaling their operations - US, ~100-1,000 employees",
-    signalQuery: "US logistics or 3PL company opening a new warehouse or distribution center, or hiring a wave of operations manager roles",
-    gate: "US/UK · mid-market · on-domain",
+    name: "Logistics, scaling",
+    blurb: "3PLs opening facilities",
+    window: "last 3 months",
+    gate: "US · mid-market · on-domain",
+    query:
+      "mid-market logistics / 3PL companies clearly scaling their operations — US, ~100–1,000 employees",
   },
   {
     id: 2,
-    months: 3,
-    win: "last 3 months",
-    query: "B2B SaaS / marketplaces that just launched or expanded payments or billing - US, ~100-800 employees",
-    signalQuery: "US B2B SaaS or marketplace that just launched or expanded embedded payments or billing, or is hiring billing or revenue operations",
-    gate: "US · B2B SaaS · not PSP",
+    name: "Payments launch",
+    blurb: "SaaS shipping billing",
+    window: "last 3 months",
+    gate: "US · B2B SaaS · not a PSP",
+    query:
+      "B2B SaaS or marketplaces that just launched or expanded payments or billing — US, ~100–800 employees",
   },
   {
     id: 3,
-    months: 6,
-    win: "last 6 months",
-    query: "B2B companies that raised seed / Series A in the last ~6 months and are hiring their first Ops/RevOps person",
-    signalQuery: "recently funded seed or Series A US B2B startup hiring its first operations or RevOps person",
-    gate: "US · seed/Series A · ops hire",
+    name: "Newly funded",
+    blurb: "First ops / RevOps hire",
+    window: "last 6 months",
+    gate: "US · seed / Series A · ops hire",
+    query:
+      "B2B companies that raised seed / Series A in the last ~6 months and are hiring their first ops / RevOps person",
   },
-];
-
-const PRESET_LABELS = [
-  "Logistics · scaling ops",
-  "B2B SaaS · launched payments",
-  "Newly funded · first ops hire",
 ];
 
 function host(url: string): string {
@@ -61,72 +57,67 @@ function barWidth(value: number): string {
   return `${Math.round(Math.max(0, Math.min(1, value)) * 100)}%`;
 }
 
-function signalClass(row: ProspectRow): "hire" | "strong" {
-  return /hire|hiring|ops/i.test(row.signal_strength) ? "hire" : "strong";
+function isHiringSignal(row: ProspectRow): boolean {
+  return /hir|ops|role|posting/i.test(row.signal_strength);
+}
+
+/** Tighten the raw signal label for the pill: drop "new …" and "… signal" filler. */
+function signalLabel(raw: string): string {
+  return raw.replace(/^new\s+/i, "").replace(/\s+signal$/i, "").trim() || raw;
+}
+
+function relativeDate(iso: string): string {
+  const then = new Date(iso).getTime();
+  if (Number.isNaN(then)) return "";
+  const days = Math.round((Date.now() - then) / 86_400_000);
+  if (days <= 0) return "today";
+  if (days === 1) return "yesterday";
+  if (days < 7) return `${days}d ago`;
+  if (days < 30) return `${Math.round(days / 7)}w ago`;
+  if (days < 365) return `${Math.round(days / 30)}mo ago`;
+  return `${Math.round(days / 365)}y ago`;
 }
 
 function sortRows(rows: ProspectRow[], sort: SortKey): ProspectRow[] {
   return [...rows].sort((a, b) => {
     if (sort === "date") return a.signal_date < b.signal_date ? 1 : -1;
-    if (sort === "fresh") return b.freshness_score - a.freshness_score;
     return b.confidence_score - a.confidence_score;
   });
 }
 
+type RunStats = { count: number; cost: number; seconds: number } | null;
+
 export default function Page() {
   const [active, setActive] = useState(0);
-  const [mode, setModeState] = useState<Mode>("demo");
-  const [query, setQuery] = useState(PRESETS[0].query);
-  const [apiKey, setApiKey] = useState("");
+  const [query, setQuery] = useState(SCENARIOS[0].query);
   const [rows, setRows] = useState<ProspectRow[]>([]);
-  const [costDollars, setCostDollars] = useState(0);
   const [sort, setSort] = useState<SortKey>("conf");
   const [loading, setLoading] = useState(false);
-  const [status, setStatus] = useState<{ kind: StatusKind; text: string }>({
-    kind: "",
-    text: "",
-  });
+  const [error, setError] = useState("");
+  const [stats, setStats] = useState<RunStats>(null);
+  const [hasRun, setHasRun] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
+  const [dark, setDark] = useState(false);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
 
-  const preset = PRESETS[active];
+  const scenario = SCENARIOS[active];
   const sortedRows = useMemo(() => sortRows(rows, sort), [rows, sort]);
 
   const runSearch = useCallback(
-    async (overrides?: { index?: number; mode?: Mode; query?: string }) => {
-      const nextIndex = overrides?.index ?? active;
-      const nextMode = overrides?.mode ?? mode;
-      const nextPreset = PRESETS[nextIndex];
-      const nextQuery =
-        overrides?.query ??
-        query.trim() ??
-        (nextMode === "live" ? nextPreset.signalQuery : nextPreset.query);
-
-      setStatus({ kind: "", text: "" });
-
-      if (nextMode === "live" && !apiKey.trim()) {
-        setStatus({
-          kind: "err",
-          text: "Add your Exa API key (below the search box) to run live.",
-        });
-        return;
-      }
-
+    async (index: number, queryText: string) => {
+      const target = SCENARIOS[index];
+      const edited = queryText.trim() !== target.query.trim();
+      setError("");
       setLoading(true);
-      if (nextMode === "live") {
-        setStatus({ kind: "load", text: "Searching Exa..." });
-      }
 
+      const started = performance.now();
       try {
-        if (nextMode === "live") {
-          localStorage.setItem("exa_key", apiKey.trim());
-        }
         const response = await fetch("/api/prospect", {
           method: "POST",
           headers: { "content-type": "application/json" },
           body: JSON.stringify({
-            icpId: nextPreset.id,
-            apiKey: nextMode === "live" ? apiKey.trim() : "",
-            query: nextMode === "live" ? nextQuery : undefined,
+            icpId: target.id,
+            query: edited ? queryText.trim() : undefined,
           }),
         });
         const data = (await response.json()) as {
@@ -134,402 +125,404 @@ export default function Page() {
           costDollars?: number;
           error?: string;
         };
-        if (!response.ok) {
-          throw new Error(data.error ?? `HTTP ${response.status}`);
-        }
+        if (!response.ok) throw new Error(data.error ?? `Request failed (${response.status}).`);
+
         const nextRows = data.rows ?? [];
         setRows(nextRows);
-        setCostDollars(data.costDollars ?? 0);
-        if (nextMode === "live") {
-          setStatus({
-            kind: "ok",
-            text: `Live · ${nextRows.length} results · $${(data.costDollars ?? 0).toFixed(3)} on your key`,
-          });
-        }
-      } catch (error) {
-        setRows([]);
-        setStatus({
-          kind: "err",
-          text: error instanceof Error ? error.message : "Request failed.",
+        setStats({
+          count: nextRows.length,
+          cost: data.costDollars ?? 0,
+          seconds: (performance.now() - started) / 1000,
         });
+      } catch (err) {
+        setRows([]);
+        setStats(null);
+        setError(err instanceof Error ? err.message : "Request failed.");
       } finally {
         setLoading(false);
+        setHasRun(true);
       }
     },
-    [active, apiKey, mode, query],
+    [],
   );
 
   useEffect(() => {
-    const saved = localStorage.getItem("exa_key");
-    if (saved) setApiKey(saved);
-    void runSearch({ index: 0, mode: "demo", query: PRESETS[0].query });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const root = document.documentElement;
+    const current =
+      root.getAttribute("data-theme") ??
+      (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    setDark(current === "dark");
   }, []);
 
-  function handlePreset(index: number) {
-    const nextPreset = PRESETS[index];
-    const nextQuery = mode === "live" ? nextPreset.signalQuery : nextPreset.query;
+  function selectScenario(index: number) {
     setActive(index);
-    setQuery(nextQuery);
-    void runSearch({ index, query: nextQuery });
+    setQuery(SCENARIOS[index].query);
+    setError("");
   }
 
-  function handleMode(nextMode: Mode) {
-    const nextQuery = nextMode === "live" ? preset.signalQuery : preset.query;
-    setModeState(nextMode);
-    setQuery(nextQuery);
-    setStatus({ kind: "", text: "" });
-    if (nextMode === "demo") {
-      void runSearch({ mode: "demo", query: nextQuery });
-    }
-  }
-
-  function handleTheme() {
-    const root = document.documentElement;
-    let current = root.getAttribute("data-theme");
-    if (!current) {
-      current = matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light";
-    }
-    root.setAttribute("data-theme", current === "dark" ? "light" : "dark");
+  function toggleTheme() {
+    const next = dark ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", next);
+    setDark(!dark);
   }
 
   return (
     <div className="app">
-      <aside className="side">
+      <aside className="rail">
         <div className="brand">
-          <span className="mark" /> Prospector
+          <Crosshair />
+          <span>Prospector</span>
         </div>
-        <nav className="nav">
-          <div className="lab">WORKSPACE</div>
-          <button className="ni on" type="button">
-            <SearchIcon /> Search
-          </button>
-          <button className="ni" type="button">
-            <ListIcon /> Saved lists
-          </button>
-          <button className="ni" type="button">
-            <ClockIcon /> History
-          </button>
-          <div className="lab">ACCOUNT</div>
-          <button className="ni" type="button" onClick={() => handleMode("live")}>
-            <KeyIcon /> API key
-          </button>
-          <button className="ni" type="button" onClick={() => setAboutOpen(true)}>
-            <InfoIcon /> About
-          </button>
+
+        <nav className="scenarios" aria-label="Scenarios">
+          <p className="rail-label">Scenarios</p>
+          {SCENARIOS.map((item, index) => (
+            <button
+              key={item.id}
+              type="button"
+              className={`scenario ${active === index ? "is-active" : ""}`}
+              onClick={() => selectScenario(index)}
+            >
+              <span className="scenario-name">{item.name}</span>
+              <span className="scenario-blurb">{item.blurb}</span>
+            </button>
+          ))}
         </nav>
-        <div className="foot">
-          Powered by Exa Search API
-          <br />
+
+        <div className="rail-foot">
+          <button type="button" className="rail-link" onClick={() => setAboutOpen(true)}>
+            About this build
+          </button>
           <a
+            className="rail-link"
             href="https://github.com/thereisjosh/prospector"
             target="_blank"
             rel="noopener noreferrer"
           >
-            github ↗
-          </a>{" "}
-          · v0.5
+            View source <ArrowUpRight />
+          </a>
+          <p className="rail-powered">Powered by Exa Search</p>
         </div>
       </aside>
 
-      <main className="main">
-        <div className="top">
-          <span className="title">Search</span>
-          <span className="crumb">/ prospecting</span>
-          <span className="right">
-            <span className="seg">
-              <button
-                type="button"
-                className={mode === "demo" ? "on" : ""}
-                onClick={() => handleMode("demo")}
-              >
-                Demo
-              </button>
-              <button
-                type="button"
-                className={mode === "live" ? "on" : ""}
-                onClick={() => handleMode("live")}
-              >
-                Live
-              </button>
+      <div className="stage">
+        <header className="topbar">
+          <div className="topbar-title">
+            <h1>{scenario.name}</h1>
+            <p>Trigger-based prospecting</p>
+          </div>
+          <div className="topbar-actions">
+            <span className="live" title="Every run queries Exa live on the server key">
+              <span className="live-dot" /> Live on Exa
             </span>
             <button
-              className="icobtn"
               type="button"
-              title="Theme"
-              aria-label="Toggle theme"
-              onClick={handleTheme}
+              className="icon-btn"
+              onClick={toggleTheme}
+              aria-label={dark ? "Switch to light theme" : "Switch to dark theme"}
             >
-              ◐
+              {dark ? <Sun /> : <Moon />}
             </button>
-            <span className="avatar">JA</span>
-          </span>
-        </div>
+          </div>
+        </header>
 
-        <div className="body">
-          <div className="searchcard">
-            <div className="searchrow">
-              <label className="sinput">
-                <span className="lens" />
-                <input
-                  spellCheck={false}
-                  placeholder="Describe your ideal customer in plain English..."
-                  value={query}
-                  onChange={(event) => setQuery(event.target.value)}
-                  onKeyDown={(event) => {
-                    if (event.key === "Enter") void runSearch();
-                  }}
-                />
-              </label>
-              <button
-                className="sbtn"
-                type="button"
-                disabled={loading}
-                onClick={() => void runSearch()}
-              >
-                Search
-              </button>
-            </div>
-            <div className="presets">
-              <span className="plab">Presets</span>
-              {PRESET_LABELS.map((label, index) => (
-                <button
-                  className={`preset ${active === index ? "on" : ""}`}
-                  type="button"
-                  key={label}
-                  onClick={() => handlePreset(index)}
-                >
-                  {label}
-                </button>
-              ))}
-            </div>
-            <div className={`keybar ${mode === "live" ? "show" : ""}`}>
-              <input
-                type="password"
-                autoComplete="off"
+        <main className="content">
+          <section className="search" aria-label="Search">
+            <label className="search-field">
+              <textarea
+                ref={inputRef}
+                rows={2}
                 spellCheck={false}
-                placeholder="Your Exa API key (exa.ai - free tier)"
-                value={apiKey}
-                onChange={(event) => setApiKey(event.target.value)}
+                placeholder="Describe the customer you're looking for…"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" && !event.shiftKey) {
+                    event.preventDefault();
+                    void runSearch(active, query);
+                  }
+                }}
               />
-              <span className="hint">
-                stored in your browser · sent only to this backend run
+              <button
+                type="button"
+                className="search-go"
+                disabled={loading}
+                onClick={() => void runSearch(active, query)}
+              >
+                {loading ? "Searching…" : "Find companies"}
+              </button>
+            </label>
+
+            <p className="meta">
+              <span>
+                Freshness <b>{scenario.window}</b>
               </span>
-            </div>
-          </div>
+              <span className="meta-dot" />
+              <span>
+                Signal-first <b>neural</b>
+              </span>
+              <span className="meta-dot" />
+              <span>
+                Gate <b>{scenario.gate}</b>
+              </span>
+            </p>
+          </section>
 
-          <div className="filters">
-            <span className="fchip">
-              freshness: <b>{preset.win}</b>
-            </span>
-            <span className="fchip">
-              signal-first · <b>neural</b>
-            </span>
-            <span className="fchip">
-              gate: <b>{preset.gate}</b>
-            </span>
-            <span className="rcount">
-              {rows.length > 0 ? (
-                <>
-                  <b>{rows.length}</b> companies
-                </>
-              ) : null}
-            </span>
-            <select
-              className="sort"
-              value={sort}
-              onChange={(event) => setSort(event.target.value as SortKey)}
-            >
-              <option value="conf">sort: confidence</option>
-              <option value="fresh">sort: freshness</option>
-              <option value="date">sort: date</option>
-            </select>
-          </div>
-          <div className={`status ${status.kind}`}>{status.text}</div>
-
-          <div className="tbl">
-            <div className="thead">
-              <span>Company</span>
-              <span>Why-now signal</span>
-              <span>Date</span>
-              <span>Confidence</span>
-              <span>Source</span>
-            </div>
-            <div>
-              {loading ? (
-                <>
-                  <div className="skel" />
-                  <div className="skel" />
-                  <div className="skel" />
-                </>
-              ) : sortedRows.length > 0 ? (
-                sortedRows.map((row) => <ResultRow key={`${row.company}-${row.signal_source_url}-${row.signal_date}`} row={row} />)
-              ) : (
-                <div className="empty">
-                  <div className="big">⌕</div>
-                  No companies yet - pick a preset or hit Search.
-                </div>
+          {(rows.length > 0 || loading) && (
+            <div className="results-bar">
+              <span className="results-count">
+                {loading ? (
+                  "Querying Exa…"
+                ) : (
+                  <>
+                    <b>{rows.length}</b> {rows.length === 1 ? "company" : "companies"}
+                    {stats && (
+                      <span className="results-stats">
+                        {" "}
+                        · ${stats.cost.toFixed(3)} · {stats.seconds.toFixed(1)}s
+                      </span>
+                    )}
+                  </>
+                )}
+              </span>
+              {!loading && rows.length > 0 && (
+                <label className="sort">
+                  Sort
+                  <select
+                    value={sort}
+                    onChange={(event) => setSort(event.target.value as SortKey)}
+                  >
+                    <option value="conf">Confidence</option>
+                    <option value="date">Most recent</option>
+                  </select>
+                </label>
               )}
             </div>
-          </div>
-          {mode === "demo" && costDollars === 0 ? null : null}
-        </div>
-      </main>
+          )}
 
-      <div
-        className={`about ${aboutOpen ? "show" : ""}`}
-        onClick={(event) => {
-          if (event.target === event.currentTarget) setAboutOpen(false);
-        }}
-      >
-        <div className="aboutcard">
-          <button className="x" type="button" onClick={() => setAboutOpen(false)}>
-            ×
-          </button>
-          <h3>Prospector</h3>
-          <p>
-            A natural-language prospecting agent built on the{" "}
-            <b style={{ color: "var(--ink)" }}>Exa Search API</b>. It finds
-            companies by a fresh, cited{" "}
-            <b style={{ color: "var(--ink)" }}>“why-now” trigger</b> - a new
-            facility, a funding round, a hiring wave - using a signal-first
-            pipeline (date-filtered signal search → company enrichment →
-            fit-gated scoring).
-          </p>
-          <p style={{ marginTop: 12 }}>
-            <b style={{ color: "var(--ink)" }}>Where this fits at Exa</b> - a
-            working proof of the{" "}
-            <b style={{ color: "var(--ink)" }}>Sales / Enrichment</b> category,
-            the same web-sourced trigger prospecting Exa&apos;s own customers
-            use:
-          </p>
-          <div className="catrow">
-            <b>Sales / Enrichment</b>
-            <span>11x · HubSpot · HockeyStack</span>
-          </div>
-          <div className="catrow">
-            <b>Agents</b>
-            <span>Cognition · StackAI · monday</span>
-          </div>
-          <div className="catrow">
-            <b>Coding</b>
-            <span>Cognition · CodeRabbit · Cursor</span>
-          </div>
-          <p style={{ marginTop: 14, fontSize: ".82rem" }}>
-            Built AI-assisted; architecture, API design, and evaluation by{" "}
-            <b style={{ color: "var(--ink)" }}>Joshua Ang</b>. Code, eval
-            harness and write-up →{" "}
-            <a
-              href="https://github.com/thereisjosh/prospector"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              github.com/thereisjosh/prospector
-            </a>
-          </p>
-        </div>
+          {loading ? (
+            <ResultsTable>
+              {Array.from({ length: 5 }).map((_, index) => (
+                <div className="row row-skeleton" key={index}>
+                  <span className="sk sk-lg" />
+                  <span className="sk" />
+                  <span className="sk" />
+                  <span className="sk" />
+                  <span className="sk" />
+                </div>
+              ))}
+            </ResultsTable>
+          ) : error ? (
+            <div className="state state-error">
+              <AlertIcon />
+              <p>{error}</p>
+              <button type="button" className="ghost-btn" onClick={() => void runSearch(active, query)}>
+                Try again
+              </button>
+            </div>
+          ) : rows.length > 0 ? (
+            <ResultsTable>
+              {sortedRows.map((row, index) => (
+                <ResultRow
+                  key={`${row.company}-${row.signal_source_url}-${row.signal_date}`}
+                  row={row}
+                  index={index}
+                />
+              ))}
+            </ResultsTable>
+          ) : (
+            <div className="state state-empty">
+              <div className="state-icon">
+                <Crosshair />
+              </div>
+              <h2>{hasRun ? "No companies matched" : "Ready to prospect"}</h2>
+              <p>
+                {hasRun
+                  ? "No companies cleared the fit gate for this scenario. Try another scenario or widen the description."
+                  : "Pick a scenario, refine the description if you like, then find companies with a fresh, cited why-now signal."}
+              </p>
+              {!hasRun && (
+                <button
+                  type="button"
+                  className="primary-btn"
+                  onClick={() => void runSearch(active, query)}
+                >
+                  Find companies
+                </button>
+              )}
+            </div>
+          )}
+        </main>
       </div>
+
+      {aboutOpen && <AboutDialog onClose={() => setAboutOpen(false)} />}
     </div>
   );
 }
 
-function ResultRow({ row }: { row: ProspectRow }) {
+function ResultsTable({ children }: { children: React.ReactNode }) {
   return (
-    <div className="trow">
-      <div className="cell-co">
-        <div className="n">
-          {row.net_new ? <span className="ndot" title="net-new" /> : null}
+    <div className="results">
+      <div className="row row-head">
+        <span>Company &amp; why-now signal</span>
+        <span>Signal</span>
+        <span>Detected</span>
+        <span>Confidence</span>
+        <span>Source</span>
+      </div>
+      {children}
+    </div>
+  );
+}
+
+function ResultRow({ row, index }: { row: ProspectRow; index: number }) {
+  const rel = relativeDate(row.signal_date);
+  return (
+    <div className="row row-data" style={{ animationDelay: `${Math.min(index, 12) * 28}ms` }}>
+      <div className="cell-company">
+        <div className="company-name">
+          {row.net_new && <span className="net-new" title="Net-new vs the baseline list" />}
           {row.company}
         </div>
-        <div className="w">{row.why_now_signal}</div>
+        <div className="why-now">{row.why_now_signal}</div>
       </div>
-      <div>
-        <span className={`pill ${signalClass(row)}`}>{row.signal_strength}</span>
+      <div className="cell-signal">
+        <span className={`signal-tag ${isHiringSignal(row) ? "is-hire" : "is-strong"}`}>
+          {signalLabel(row.signal_strength)}
+        </span>
       </div>
-      <div className="cell-date date">{row.signal_date}</div>
-      <div className="cell-conf conf">
-        <div className="cbar">
-          <span>cf</span>
-          <div className="track">
-            <div
-              className="fill"
-              style={{ width: barWidth(row.confidence_score) }}
-            />
-          </div>
-          <span className="v">{row.confidence_score.toFixed(2)}</span>
+      <div className="cell-date">
+        <span className="date-abs">{row.signal_date}</span>
+        {rel && <span className="date-rel">{rel}</span>}
+      </div>
+      <div className="cell-conf">
+        <div className="conf-track">
+          <div className="conf-fill" style={{ width: barWidth(row.confidence_score) }} />
         </div>
-        <div className="cbar">
-          <span>fr</span>
-          <div className="track">
-            <div
-              className="fill g"
-              style={{ width: barWidth(row.freshness_score) }}
-            />
-          </div>
-          <span className="v">{row.freshness_score.toFixed(2)}</span>
-        </div>
+        <span className="conf-value">{row.confidence_score.toFixed(2)}</span>
       </div>
-      <div>
+      <div className="cell-source">
         {row.signal_source_url ? (
-          <a
-            className="src"
-            href={row.signal_source_url}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Source ↗<span className="h">{host(row.signal_source_url)}</span>
+          <a href={row.signal_source_url} target="_blank" rel="noopener noreferrer">
+            {host(row.signal_source_url)} <ArrowUpRight />
           </a>
         ) : (
-          <span className="nosrc">at runtime</span>
+          <span className="no-source">—</span>
         )}
       </div>
     </div>
   );
 }
 
-function SearchIcon() {
+function AboutDialog({ onClose }: { onClose: () => void }) {
+  useEffect(() => {
+    function onKey(event: KeyboardEvent) {
+      if (event.key === "Escape") onClose();
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
   return (
-    <svg className="g" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <circle cx="7" cy="7" r="4.5" />
-      <path d="M10.5 10.5 14 14" />
+    <div
+      className="scrim"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="about-title"
+      onClick={(event) => {
+        if (event.target === event.currentTarget) onClose();
+      }}
+    >
+      <div className="dialog">
+        <button type="button" className="icon-btn dialog-close" onClick={onClose} aria-label="Close">
+          <Close />
+        </button>
+        <h2 id="about-title">About this build</h2>
+        <p>
+          Prospector turns a plain-English customer profile into a shortlist of companies, each
+          matched by a fresh, cited <b>why-now trigger</b> — a new facility, a funding round, a
+          hiring wave. It runs a signal-first pipeline: a date-filtered trigger search, company
+          enrichment, a firmographic fit gate, then confidence scoring.
+        </p>
+        <p className="dialog-sub">Where this fits at Exa</p>
+        <ul className="fit-list">
+          <li>
+            <b>Sales / Enrichment</b>
+            <span>11x · HubSpot · HockeyStack</span>
+          </li>
+          <li>
+            <b>Agents</b>
+            <span>Cognition · StackAI · monday</span>
+          </li>
+          <li>
+            <b>Coding</b>
+            <span>Cognition · CodeRabbit · Cursor</span>
+          </li>
+        </ul>
+        <p className="dialog-foot">
+          Built AI-assisted; architecture, API design, and evaluation by Joshua Ang.{" "}
+          <a href="https://github.com/thereisjosh/prospector" target="_blank" rel="noopener noreferrer">
+            github.com/thereisjosh/prospector
+          </a>
+        </p>
+      </div>
+    </div>
+  );
+}
+
+/* ---------- icons ---------- */
+
+function Crosshair() {
+  return (
+    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+      <circle cx="10" cy="10" r="6.25" />
+      <path d="M10 1.5v3M10 15.5v3M1.5 10h3M15.5 10h3" strokeLinecap="round" />
+      <circle cx="10" cy="10" r="1.6" fill="currentColor" stroke="none" />
     </svg>
   );
 }
 
-function ListIcon() {
+function ArrowUpRight() {
   return (
-    <svg className="g" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <rect x="2" y="3" width="12" height="10" rx="2" />
-      <path d="M2 6h12" />
+    <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true">
+      <path d="M3.5 8.5 8.5 3.5M4.5 3.5h4v4" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
 
-function ClockIcon() {
+function Moon() {
   return (
-    <svg className="g" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <path d="M8 4v4l2.5 1.5" />
-      <circle cx="8" cy="8" r="6" />
+    <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+      <path d="M15 10.2A6.2 6.2 0 1 1 7.8 3a4.8 4.8 0 0 0 7.2 7.2Z" strokeLinejoin="round" />
     </svg>
   );
 }
 
-function KeyIcon() {
+function Sun() {
   return (
-    <svg className="g" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <circle cx="6" cy="8" r="3" />
-      <path d="M9 8h5M12 8v2.5" />
+    <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+      <circle cx="9" cy="9" r="3.4" />
+      <path
+        d="M9 1.5v2M9 14.5v2M1.5 9h2M14.5 9h2M3.6 3.6l1.4 1.4M13 13l1.4 1.4M14.4 3.6 13 5M5 13l-1.4 1.4"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
 
-function InfoIcon() {
+function Close() {
   return (
-    <svg className="g" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <circle cx="8" cy="8" r="6" />
-      <path d="M8 7.5v3.5M8 5.2v.2" />
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+      <path d="m4 4 8 8M12 4l-8 8" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function AlertIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 7.5v5M12 16h.01" strokeLinecap="round" />
     </svg>
   );
 }
