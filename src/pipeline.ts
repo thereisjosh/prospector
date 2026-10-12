@@ -100,9 +100,38 @@ export async function runProspect(
   };
 }
 
+/** Max concurrent enrichment lookups / follow-up searches; reservations still happen in ranked order. */
+const ENRICHMENT_CONCURRENCY = 4;
+
+/** Run `fn` over `items` with at most `limit` in flight, starting them in order. */
+async function mapLimit<T, R>(items: T[], limit: number, fn: (item: T, index: number) => Promise<R>): Promise<R[]> {
+  const out = new Array<R>(items.length);
+  let next = 0;
+  const worker = async () => {
+    while (next < items.length) {
+      const index = next++;
+      out[index] = await fn(items[index]!, index);
+    }
+  };
+  await Promise.all(Array.from({ length: Math.min(limit, items.length) }, worker));
+  return out;
+}
+
 export async function runProspecting(
   plan: SearchPlan,
-  options: {
+  options: RunOptions,
+): Promise<ProspectRun> {
+  const spent: { value: number; read?: () => number } = { value: 0 };
+  try {
+    return await runProspectingInner(plan, options, spent);
+  } catch (error) {
+    // Attach what was already spent so a harness can record it for a failed run.
+    if (error && typeof error === "object") (error as { spendDollars?: number }).spendDollars = spent.read?.() ?? spent.value;
+    throw error;
+  }
+}
+
+type RunOptions = {
     type: ExaSearchType;
     numResults?: number;
     /** Optional extra cap on companies enriched (the budget and MAX_ENRICHED_COMPANIES still apply). */
@@ -115,7 +144,12 @@ export async function runProspecting(
     now?: Date;
     enrichmentCache?: EnrichmentCache;
     credentials?: ExaCredentials;
-  },
+};
+
+async function runProspectingInner(
+  plan: SearchPlan,
+  options: RunOptions,
+  spent: { value: number; read?: () => number },
 ): Promise<ProspectRun> {
   const now = options.now ?? new Date();
   const startPublishedDate = monthsAgoIso(plan.months, now);
@@ -129,6 +163,8 @@ export async function runProspecting(
   const signalSummaryQuery = composeSignalSummaryQuery(plan, plan.signalSummaryQuery);
   let totalCostDollars = 0;
   const trace = createTrace();
+  const spentSoFar = () => Math.max(guard.spent, totalCostDollars);
+  spent.read = spentSoFar;
 
   // Requests are reserved against the cap synchronously, in query order, so a
   // refused query never blocks the ones before it.
@@ -167,6 +203,7 @@ export async function runProspecting(
   for (const response of signalResponses) {
     totalCostDollars += costTotal(response.costDollars);
   }
+  spent.value = spentSoFar();
 
   const candidates = signalResponses.flatMap((response) =>
     response.results.map((result) => ({
@@ -204,7 +241,7 @@ export async function runProspecting(
   const companyMap = new Map<string, Awaited<ReturnType<typeof lookupCompany>>>();
   const companySummaryQuery = composeCompanySummaryQuery(plan);
 
-  const lookups = await Promise.all(companiesToEnrich.map(async (company) => {
+  const lookups = await mapLimit(companiesToEnrich, ENRICHMENT_CONCURRENCY, async (company, index) => {
     const key = squashName(company);
     const cached = cache.get(key);
     if (cached) {
@@ -225,16 +262,21 @@ export async function runProspecting(
         return { key, lookup: undefined, fromCache: false };
       }
       if (error instanceof BudgetExceededError) {
-        trace.funnel.budgetStoppedAt ??= `enrichment:${companiesToEnrich.indexOf(company)}`;
+        // Out of budget: skip this lookup and keep going with what we have.
+        trace.funnel.skippedLookups += 1;
+        trace.funnel.budgetStoppedAt ??= `enrichment:${index}`;
         return { key, lookup: undefined, fromCache: false };
       }
       throw error;
     }
-  }));
+  });
 
   for (const { key, lookup, fromCache } of lookups) {
     if (!lookup) continue;
-    if (!fromCache) totalCostDollars += costTotal(lookup.costDollars);
+    if (!fromCache) {
+      totalCostDollars += costTotal(lookup.costDollars);
+      spent.value = spentSoFar();
+    }
     cache.set(key, lookup);
     companyMap.set(key, lookup);
     if (!lookup.result) trace.funnel.enrichmentNoResult += 1;
@@ -244,25 +286,43 @@ export async function runProspecting(
   if (plan.followUp) {
     const followUp = plan.followUp;
     const followUpSummaryQuery = composeSignalSummaryQuery(plan, followUp.summaryQuery);
-    const followUpResponses = await Promise.all(companiesToEnrich.map(async (company) => {
+    // Reserved in ranked order (best candidates first); once the guard refuses, the rest are skipped.
+    let budgetHit = false;
+    const followUpResponses = await mapLimit(companiesToEnrich, ENRICHMENT_CONCURRENCY, async (company, index) => {
+      if (budgetHit) {
+        trace.funnel.skippedFollowUps += 1;
+        return { company, response: undefined };
+      }
       const query = followUp.queryTemplate.split("{company}").join(company);
-      const response = await exaSearch({
-        query,
-        type: options.type,
-        startPublishedDate,
-        numResults: 3,
-        contents: {
-          text: { maxCharacters: 500 },
-          highlights: { query, numSentences: 2 },
-          summary: { query: followUpSummaryQuery, schema: signalSchema },
-          livecrawl: "fallback",
-        },
-      }, options.credentials, guard);
-      return { company, response };
-    }));
+      try {
+        const response = await exaSearch({
+          query,
+          type: options.type,
+          startPublishedDate,
+          numResults: 3,
+          contents: {
+            text: { maxCharacters: 500 },
+            highlights: { query, numSentences: 2 },
+            summary: { query: followUpSummaryQuery, schema: signalSchema },
+            livecrawl: "fallback",
+          },
+        }, options.credentials, guard);
+        return { company, response };
+      } catch (error) {
+        if (error instanceof BudgetExceededError) {
+          budgetHit = true;
+          trace.funnel.skippedFollowUps += 1;
+          trace.funnel.budgetStoppedAt ??= `follow_up:${index}`;
+          return { company, response: undefined };
+        }
+        throw error;
+      }
+    });
 
     for (const { company, response } of followUpResponses) {
+      if (!response) continue;
       totalCostDollars += costTotal(response.costDollars);
+      spent.value = spentSoFar();
       followUpCandidates.push(
         ...response.results.map((result) => {
           const summary = parseSignalSummary(result.summary, result);

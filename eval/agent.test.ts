@@ -939,4 +939,52 @@ describe("agent loop", () => {
       process.env.DAILY_SPEND_CAP_DOLLARS = oldCap;
     });
   });
+
+  describe("query-rewrite counter", () => {
+    const base = () => {
+      const s = state({ strategyApproved: true });
+      s.caches.searchQueries.push("first query");
+      return s;
+    };
+    const search = (query: string) => tool("s", "search_signals", { query, num_results: 5 });
+    const run = (s: RunState, c: ReturnType<typeof client>) =>
+      step(s, { client: c as never, checkLead: checker, now: NOW, exaSearch: vi.fn(async () => signalResult) as never, lookupCompany: vi.fn(async () => lookupResult) as never });
+
+    it("a lookup-stage screening in turn N then a new query in turn N+1 counts one rewrite", async () => {
+      const s = base();
+      s.caches.signalsByUrl["https://n.example/bad"] = { url: "https://n.example/bad", title: "BadCo", summary: { company_name: "BadCo", signal_type: "expansion", signal_summary: "BadCo expands", signal_date: "2026-10-01" } };
+      await run(s, client(msg("tool_use", [tool("l", "lookup_company", { name: "BadCo" })])));
+      expect(s.screened).toHaveLength(1);
+      await run(s, client(msg("tool_use", [search("a different approach")])));
+      expect(s.adaptive.queryRewrites).toBe(1);
+    });
+
+    it("a lookup with no reliable company page also counts", async () => {
+      const s = base();
+      const noPage = vi.fn(async () => ({ result: undefined, summary: {} }));
+      await step(s, { client: client(msg("tool_use", [tool("l", "lookup_company", { name: "GhostCo" })])) as never, checkLead: checker, now: NOW, lookupCompany: noPage as never });
+      expect(s.lookupMisses).toEqual([1]);
+      await run(s, client(msg("tool_use", [search("new angle")])));
+      expect(s.adaptive.queryRewrites).toBe(1);
+    });
+
+    it("no trouble, a repeated query, or trouble two turns earlier does not count", async () => {
+      const s = base();
+      await run(s, client(msg("tool_use", [search("brand new but nothing went wrong")])));
+      expect(s.adaptive.queryRewrites).toBe(0);
+      s.rejected.push({ company: "X", code: "size", reason: "r", turn: s.counters.turns });
+      await run(s, client(msg("tool_use", [search("first query")]))); // repeat -> no
+      expect(s.adaptive.queryRewrites).toBe(0);
+      await run(s, client(msg("tool_use", [tool("t", "update_todo", { markdown: "- x" })])));
+      await run(s, client(msg("tool_use", [search("late new query")]))); // trouble was 2 turns back
+      expect(s.adaptive.queryRewrites).toBe(0);
+    });
+
+    it("a submit-stage rejection in the previous turn still counts", async () => {
+      const s = base();
+      s.rejected.push({ company: "X", code: "size", reason: "r", turn: s.counters.turns });
+      await run(s, client(msg("tool_use", [search("rewritten")])));
+      expect(s.adaptive.queryRewrites).toBe(1);
+    });
+  });
 });

@@ -365,8 +365,14 @@ export async function executeTool(
       const query = String(input.query ?? "").trim();
       const months = Math.max(1, Math.min(12, Number(input.months ?? state.contract.months)));
       const numResults = Math.max(1, Math.min(25, Number(input.num_results ?? 10)));
-      const previousTurnRejected = state.rejected.some((r) => r.turn === state.counters.turns - 1);
-      if (previousTurnRejected && !state.caches.searchQueries.includes(query)) state.adaptive.queryRewrites += 1;
+      // A rewrite = a new query right after trouble: a submit-stage rejection, a lookup-stage
+      // screening ("Would be rejected"), or a lookup that found no reliable company page.
+      const previousTurn = state.counters.turns - 1;
+      const previousTurnTrouble =
+        state.rejected.some((r) => r.turn === previousTurn) ||
+        (state.screened ?? []).some((r) => r.turn === previousTurn) ||
+        (state.lookupMisses ?? []).includes(previousTurn);
+      if (previousTurnTrouble && !state.caches.searchQueries.includes(query)) state.adaptive.queryRewrites += 1;
       state.caches.searchQueries.push(query);
       const start = new Date(deps.now ?? new Date());
       start.setUTCMonth(start.getUTCMonth() - months);
@@ -422,6 +428,7 @@ export async function executeTool(
         );
         exaCost = actualCost(looked);
         if (!companyResultMatches(name, looked.result, looked.summary as CompanySummary)) {
+          (state.lookupMisses ??= []).push(state.counters.turns);
           content = `No reliable company page found for ${name}; try read_page on its site or submit with a different name`;
           syncExaSpend(state, guard);
           return { result: { type: "tool_result", tool_use_id: tool.id, content }, exaCost, acceptedLead, newCandidate, finish, verdictEvent };

@@ -447,4 +447,22 @@ describe("eval harness", () => {
     expect(result.records[0]).toMatchObject({ stopReason: "error", error: "boom", spend: { exa: 0.2, claude: 0.3, total: 0.5 } });
     expect(result.records[0]!.runId).toBeTruthy();
   });
+
+  it("a crashed workflow cell records the spend the pipeline attached to the error", async () => {
+    const root = tempRoot();
+    const runProspecting = vi.fn(async () => {
+      throw Object.assign(new Error("pipeline boom"), { spendDollars: 0.42 });
+    });
+    const result = await runMatrix({
+      setId: "wf-err", scenarios: [scenario], arms: ["A_workflow"], reps: 1,
+      deps: { runProspecting: runProspecting as never, resultsRoot: root },
+    });
+    expect(result.records[0]).toMatchObject({ stopReason: "error", error: "pipeline boom", spend: { exa: 0.42, claude: 0, total: 0.42 } });
+    expect(result.total).toBeCloseTo(0.42, 6);
+    const none = await runMatrix({
+      setId: "wf-err2", scenarios: [scenario], arms: ["A_workflow"], reps: 1,
+      deps: { runProspecting: vi.fn(async () => { throw new Error("no spend info"); }) as never, resultsRoot: root },
+    });
+    expect(none.records[0]!.spend.total).toBe(0);
+  });
 });

@@ -49,6 +49,8 @@ export type RunState = {
   rejected: Array<{ company: string; code: string; reason: string; turn: number }>;
   /** Companies the gates would reject, found at the lookup stage (never submitted). */
   screened?: ScreenedCompany[];
+  /** Turns in which a lookup found no reliable company page (counts as trouble for the rewrite counter). */
+  lookupMisses?: number[];
   todo: string;
   pendingApproval?: {
     toolUseId: string;

@@ -48,6 +48,9 @@ export type Funnel = {
   enrichmentNoResult: number;
   /** Company lookups missing from a lenient replay (eval script only). */
   replayMiss: number;
+  /** Company lookups / follow-up searches skipped because the cost guard refused them. */
+  skippedLookups: number;
+  skippedFollowUps: number;
   /** Where the cost budget stopped the run, e.g. "signal_search:7" or "enrichment:12"; null if it never did. */
   budgetStoppedAt: string | null;
   spentDollars: number;
@@ -70,6 +73,8 @@ export function createTrace(): Trace {
       cutByEnrichmentLimit: 0,
       enrichmentNoResult: 0,
       replayMiss: 0,
+      skippedLookups: 0,
+      skippedFollowUps: 0,
       budgetStoppedAt: null,
       spentDollars: 0,
       rejections: {},

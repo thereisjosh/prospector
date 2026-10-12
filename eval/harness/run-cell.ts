@@ -157,7 +157,9 @@ export async function runCell(scenario: Scenario, arm: Arm, rep: number, deps: R
   let record: RunRecord;
 
   if (arm === "A_workflow") {
-    const run = deps.workflowRows
+    let run: { rows: ProspectRow[]; totalCostDollars: number; funnel: unknown } & Record<string, unknown>;
+    try {
+    run = deps.workflowRows
       ? { rows: deps.workflowRows, totalCostDollars: 0, funnel: {}, rejected: [], enriched: [], enrichmentQueue: [], plan: scenario.plan, startPublishedDate: "" }
       : await (deps.runProspecting ?? runProspecting)(scenario.plan, {
         type: "auto",
@@ -165,6 +167,12 @@ export async function runCell(scenario: Scenario, arm: Arm, rep: number, deps: R
         maxCostDollars: scenario.maxCostDollars,
         now,
       });
+    } catch (error) {
+      // The pipeline attaches what it had spent; record that, not zero.
+      const spendDollars = (error as { spendDollars?: unknown } | null)?.spendDollars;
+      const spent = typeof spendDollars === "number" ? spendDollars : 0;
+      throw new CellError(error instanceof Error ? error.message : String(error), undefined, { exa: spent, claude: 0, total: spent });
+    }
     const spend = Number(run.totalCostDollars ?? 0);
     record = {
       scenarioId: scenario.id,
@@ -173,7 +181,7 @@ export async function runCell(scenario: Scenario, arm: Arm, rep: number, deps: R
       leads: run.rows.slice(0, scenario.targetLeads).map(rowToLead),
       spend: { exa: spend, claude: 0, total: spend },
       activeMs: Date.now() - started,
-      stopReason: (run.funnel as { budgetStoppedAt?: unknown }).budgetStoppedAt ? "budget" : run.rows.length >= scenario.targetLeads ? "target" : "finish",
+      stopReason: (run.funnel as { budgetStoppedAt?: unknown } | undefined)?.budgetStoppedAt ? "budget" : run.rows.length >= scenario.targetLeads ? "target" : "finish",
       startedAt,
       finishedAt: new Date().toISOString(),
       ...cellFields(scenario, now, deps),
