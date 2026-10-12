@@ -6,6 +6,8 @@ import {
   eventLine,
   groupRejections,
   leadsCsv,
+  plainText,
+  suggestionTitle,
   rejectionPhrase,
   suggestionPatch,
   type ContractView,
@@ -77,6 +79,13 @@ describe("plain-words copy", () => {
     expect(suggestionPatch({ field: "hqCountries", value: "any", why: "" }, cards, 1)?.cards.geo.hqCountries).toEqual([]);
     expect(suggestionPatch({ field: "maxCostDollars", value: 2, why: "" }, cards, 1)?.maxCost).toBe(2);
     expect(suggestionPatch({ field: "is_third_party_logistics", value: "relax", why: "" }, cards, 1)).toBeNull();
+  });
+
+  it("rewrites codes in harness text but leaves prose alone", () => {
+    expect(plainText("Rejections clustered around enterprise.", fixed)).toBe("Rejections clustered around large enterprise or public company.");
+    expect(plainText("Required gate required_gate:is_third_party_logistics blocked candidates.", fixed)).not.toMatch(/required_gate|_/);
+    expect(plainText("Several candidates missed the size range.", fixed)).toBe("Several candidates missed the size range.");
+    expect(suggestionTitle("scope", "review", fixed)).toBe("Review your targeting");
   });
 
   it("describes scope changes in words", () => {

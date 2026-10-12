@@ -15,11 +15,15 @@ import {
   leadSize,
   leadsCsv,
   money,
+  plainText,
   readScopeChange,
   reasonGroup,
   shortfallHeadline,
   stopSentence,
   suggestionPatch,
+  suggestionTitle,
+  droppedAfterLookup,
+  type Screened,
   type ContractView,
   type FeedLine,
   type SuggestionPatch,
@@ -35,6 +39,7 @@ type Props = {
   demo: boolean;
   snapshot: RunSnapshot | null;
   feed: FeedItem[];
+  screened: Screened;
   stepping: boolean;
   pausedByUser: boolean;
   runError: string;
@@ -108,7 +113,7 @@ export function RunView(props: Props) {
 
       <div className="run-grid">
         <section className="panel" aria-labelledby="todo-h">
-          <h2 id="todo-h" className="panel-title">The agent's checklist</h2>
+          <h2 id="todo-h" className="panel-title">{finished ? "The agent's last checklist update" : "The agent's checklist"}</h2>
           {snapshot.todo.trim() ? (
             <Checklist markdown={snapshot.todo} />
           ) : (
@@ -158,7 +163,16 @@ export function RunView(props: Props) {
         onFeedback={props.onFeedback}
       />
 
-      {snapshot.rejected.length > 0 && <Rejections rejected={snapshot.rejected} contract={contract} />}
+      <Rejections
+        rejected={snapshot.rejected}
+        contract={contract}
+        finished={finished}
+        dropped={droppedAfterLookup(props.screened, [...snapshot.leads.map((l) => l.company), ...snapshot.rejected.map((r) => r.company)])}
+        skipped={droppedAfterLookup(
+          { lookedUp: props.screened.skipped, skipped: [] },
+          [...props.screened.lookedUp, ...snapshot.leads.map((l) => l.company), ...snapshot.rejected.map((r) => r.company)],
+        )}
+      />
     </div>
   );
 }
@@ -199,11 +213,13 @@ function StatusBar(props: Props & { snapshot: RunSnapshot; finished: boolean; wa
 }
 
 function SpendMeter({ spend, cap }: { spend: RunSnapshot["spend"]; cap: number }) {
+  // Total = the two rounded parts, so the three figures on screen always add up.
+  const shownTotal = Math.round(spend.claude * 100) / 100 + Math.round(spend.exa * 100) / 100;
   const pct = (n: number) => `${Math.max(0, Math.min(100, (n / Math.max(cap, 0.01)) * 100))}%`;
   return (
     <div className="spend">
       <p className="spend-total">
-        <b>{money(spend.total)}</b> <span className="muted">of {money(cap)} limit</span>
+        <b>{money(shownTotal)}</b> <span className="muted">of {money(cap)} limit</span>
       </p>
       <div
         className="spend-track"
@@ -212,7 +228,7 @@ function SpendMeter({ spend, cap }: { spend: RunSnapshot["spend"]; cap: number }
         aria-valuemin={0}
         aria-valuemax={cap}
         aria-valuenow={Number(spend.total.toFixed(2))}
-        aria-valuetext={`${money(spend.total)} of ${money(cap)}`}
+        aria-valuetext={`${money(shownTotal)} of ${money(cap)}`}
       >
         <span className="spend-ai" style={{ width: pct(spend.claude) }} />
         <span className="spend-web" style={{ width: pct(spend.exa) }} />
@@ -521,8 +537,8 @@ function Handback({
             return (
               <li key={i} className="suggestion">
                 <div>
-                  <p className="suggestion-title">{patch ? patch.label : describeChange(s.field, s.value, contract)}</p>
-                  {s.why && <p className="muted">{s.why}</p>}
+                  <p className="suggestion-title">{patch ? patch.label : suggestionTitle(s.field, s.value, contract)}</p>
+                  {s.why && <p className="muted">{plainText(s.why, contract)}</p>}
                 </div>
                 {patch ? (
                   <button type="button" className="primary-btn small" disabled={applying} onClick={() => onApply(patch)}>
@@ -687,14 +703,35 @@ function LeadRow({
 
 /* ---------- rejections ---------- */
 
-function Rejections({ rejected, contract }: { rejected: RunSnapshot["rejected"]; contract: ContractView }) {
+function Rejections({
+  rejected,
+  contract,
+  finished,
+  dropped,
+  skipped,
+}: {
+  rejected: RunSnapshot["rejected"];
+  contract: ContractView;
+  finished: boolean;
+  dropped: string[];
+  skipped: string[];
+}) {
   const groups = groupRejections(rejected, contract);
   const [open, setOpen] = useState(true);
+  // Only after the run: mid-run, a looked-up company may still be about to be submitted.
+  const extra = finished
+    ? [
+        ...(dropped.length ? [{ label: "Looked up, then dropped by the agent as a poor fit", items: dropped }] : []),
+        ...(skipped.length ? [{ label: "Skipped as obvious non-fits, without a lookup", items: skipped }] : []),
+      ]
+    : [];
+  const total = rejected.length + extra.reduce((n, g) => n + g.items.length, 0);
+  if (total === 0) return null;
   return (
     <section className="rejections" aria-labelledby="rej-h">
       <div className="section-head">
         <h2 id="rej-h">
-          Considered but turned down <span className="count">{rejected.length}</span>
+          Considered but not added <span className="count">{total}</span>
         </h2>
         <button type="button" className="link-btn" aria-expanded={open} onClick={() => setOpen(!open)}>
           {open ? "Hide companies" : "Show companies"}
@@ -704,7 +741,7 @@ function Rejections({ rejected, contract }: { rejected: RunSnapshot["rejected"];
         {groups.map((g) => (
           <li key={g.label} className="rej-group">
             <p className="rej-label">
-              {g.label} <span className="count">{g.items.length}</span>
+              <span className="muted">Turned down by the checks:</span> {g.label} <span className="count">{g.items.length}</span>
             </p>
             {open && (
               <ul className="rej-items">
@@ -715,6 +752,14 @@ function Rejections({ rejected, contract }: { rejected: RunSnapshot["rejected"];
                 ))}
               </ul>
             )}
+          </li>
+        ))}
+        {extra.map((g) => (
+          <li key={g.label} className="rej-group">
+            <p className="rej-label">
+              {g.label} <span className="count">{g.items.length}</span>
+            </p>
+            {open && <p className="rej-names muted">{g.items.join(", ")}</p>}
           </li>
         ))}
       </ul>

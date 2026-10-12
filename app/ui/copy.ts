@@ -238,7 +238,8 @@ export function eventLine(event: AgentEvent, contract?: ContractView): FeedLine 
         const name = str(input.name);
         const skipped = Array.isArray(input.skipped_companies) ? input.skipped_companies.filter((s): s is string => typeof s === "string") : [];
         const look = name ? `Looking up ${name}` : "Looking up a candidate company";
-        return { text: skipped.length ? `${look}; skipped obvious non-fits: ${joinWords(skipped)}` : look, tone: "info" };
+        const shown = skipped.length > 4 ? [...skipped.slice(0, 3), `${skipped.length - 3} more`] : skipped;
+        return { text: skipped.length ? `${look}; skipped ${skipped.length} obvious non-fit${skipped.length === 1 ? "" : "s"} (${joinWords(shown)})` : look, tone: "info" };
       }
       if (event.tool === "read_page") {
         const url = str(input.url);
@@ -311,6 +312,25 @@ export function describeChange(field: string, value: unknown, contract?: Contrac
 }
 
 /* ---------- handback suggestions ---------- */
+
+/**
+ * Rewrites codes inside harness-written text into words: "Rejections clustered around enterprise."
+ * -> "...around large enterprise or public company.", "required_gate:x" and snake_case keys likewise.
+ * Plain prose is left alone (words like "size" or "duplicate" are not codes there).
+ */
+export function plainText(text: string, contract?: ContractView): string {
+  return text
+    .replace(/required_gate:[a-z0-9_]+/g, (code) => reasonGroup(code, "", contract).toLowerCase())
+    .replace(/(clustered around|reason:?)\s+([a-z_]+)(?=[.,;]|$)/g, (_m, lead: string, code: string) =>
+      `${lead} ${code in REASON_GROUPS || code === "size" ? reasonGroup(code, "", contract).toLowerCase() : humanize(code).toLowerCase()}`)
+    .replace(/\b[a-z]+(?:_[a-z0-9]+)+\b/g, (word) => humanize(word).toLowerCase());
+}
+
+/** Heading for a suggestion that has no one-click form. */
+export function suggestionTitle(field: string, value: unknown, contract?: ContractView): string {
+  if (["employeeRange", "months", "hqCountries", "industry", "maxCostDollars"].includes(field)) return describeChange(field, value, contract);
+  return "Review your targeting";
+}
 
 export type SuggestionPatch = { label: string; cards: CardSet; maxCost?: number };
 
@@ -404,4 +424,38 @@ export function leadsCsv(leads: AcceptedLead[], feedback: Record<string, { verdi
     ];
   });
   return [head, ...rows].map((row) => row.map((cell) => csvCell(String(cell ?? ""))).join(",")).join("\r\n");
+}
+
+/* ---------- screening (companies the agent passed over without submitting) ---------- */
+
+export type Screened = { skipped: string[]; lookedUp: string[] };
+
+export function uniq(items: string[]): string[] {
+  const seen = new Set<string>();
+  return items.filter((item) => {
+    const key = item.trim().toLowerCase();
+    if (!key || seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+/** Companies named in lookup_company calls: looked up, or listed as skipped without a lookup. */
+export function screenedFrom(events: AgentEvent[]): Screened {
+  const skipped: string[] = [];
+  const lookedUp: string[] = [];
+  for (const event of events) {
+    if (event.kind !== "tool_call" || event.tool !== "lookup_company" || event.is_error === true) continue;
+    const input = rec(event.input);
+    const name = str(input.name);
+    if (name) lookedUp.push(name);
+    if (Array.isArray(input.skipped_companies)) skipped.push(...input.skipped_companies.filter((v): v is string => typeof v === "string" && v.trim().length > 0));
+  }
+  return { skipped: uniq(skipped), lookedUp: uniq(lookedUp) };
+}
+
+/** Looked-up companies that never reached a verdict (the agent dropped them after the lookup). */
+export function droppedAfterLookup(screened: Screened, decided: string[]): string[] {
+  const done = new Set(decided.map((c) => c.trim().toLowerCase()));
+  return screened.lookedUp.filter((c) => !done.has(c.trim().toLowerCase()));
 }

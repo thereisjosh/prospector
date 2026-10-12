@@ -5,6 +5,7 @@ import type { AgentEvent } from "../src/agent/events";
 import type { CardSet } from "../src/planner/cards";
 import { CardsStep, applyAlternative } from "./ui/CardsStep";
 import { RunView, type Decision, type FeedItem } from "./ui/RunView";
+import { screenedFrom, uniq, type Screened } from "./ui/copy";
 import {
   countryList,
   eventLine,
@@ -101,6 +102,7 @@ export default function Page() {
   const [runId, setRunId] = useState("");
   const [snapshot, setSnapshot] = useState<RunSnapshot | null>(null);
   const [feed, setFeed] = useState<FeedItem[]>([]);
+  const [screened, setScreened] = useState<Screened>({ skipped: [], lookedUp: [] });
   const [stepping, setStepping] = useState(false);
   const [pausedByUser, setPausedByUser] = useState(false);
   const [runError, setRunError] = useState("");
@@ -238,6 +240,10 @@ export default function Page() {
       if (line) lines.push({ ...line, id: ++feedSeq.current });
     }
     if (lines.length) setFeed((f) => [...f, ...lines].slice(-300));
+    const add = screenedFrom(events);
+    if (add.skipped.length || add.lookedUp.length) {
+      setScreened((s) => ({ skipped: uniq([...s.skipped, ...add.skipped]), lookedUp: uniq([...s.lookedUp, ...add.lookedUp]) }));
+    }
   }, []);
 
   const refreshSnapshot = useCallback(async (id: string) => {
@@ -291,6 +297,7 @@ export default function Page() {
       setRunId(res.id);
       setSnapshot(null);
       setFeed([]);
+      setScreened({ skipped: [], lookedUp: [] });
       setFeedback({});
       contractRef.current = undefined;
       setStep("run");
@@ -354,6 +361,7 @@ export default function Page() {
     setRunId("");
     setSnapshot(null);
     setFeed([]);
+    setScreened({ skipped: [], lookedUp: [] });
     setInput(demo ? DEMO_INPUT : "");
   }
 
@@ -521,6 +529,7 @@ export default function Page() {
               demo={demo}
               snapshot={snapshot}
               feed={feed}
+              screened={screened}
               stepping={stepping}
               pausedByUser={pausedByUser}
               runError={runError}
