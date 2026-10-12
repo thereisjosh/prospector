@@ -8,7 +8,7 @@ import { squashName } from "../src/gates";
 import { eventInWindow, truthKey } from "./harness/truth";
 import type { SearchPlan } from "../src/plan";
 import { createBlindPool } from "./harness/blind";
-import { balancedJsonObjects, judgeBlind, judgeLead, parseJudgeJson, userPrompt } from "./harness/judge";
+import { balancedJsonObjects, judgeBlind, judgeLead, normalizeAnswer, parseJudgeJson, replayFailures, userPrompt } from "./harness/judge";
 import { CellError as CellErrorLike, normalizeArm, runCell, runMatrix } from "./harness/run-cell";
 import { scoreSet } from "./harness/score";
 import { applyFirstHandbackSuggestion } from "./harness/sim-user";
@@ -499,7 +499,7 @@ describe("eval harness", () => {
       expect(call.max_tokens).toBe(4000);
       expect(call.system).toBe("rubric");
       expect(call.messages[0]!.content.endsWith('"note": "..."}')).toBe(true);
-      expect(call.messages[0]!.content).toContain("Use web_search as needed (max 4), then reply with exactly one JSON object and nothing after it");
+      expect(call.messages[0]!.content).toContain("Use web_search as needed (max 3), then reply with exactly one JSON object and nothing after it");
       expect(userPrompt(lead())).toContain("GoodCo");
     });
 
@@ -552,6 +552,85 @@ describe("eval harness", () => {
       expect(String(err.mock.calls[0]![0])).toContain("overloaded");
       expect(log.mock.calls.some((c) => String(c[0]).includes("running total $12.0000"))).toBe(true);
       log.mockRestore();
+      err.mockRestore();
+    });
+  });
+
+  describe("judge round 2", () => {
+    // The shape of the saved pilot failure: correct and sourced, but "cannot verify" with a space.
+    const savedText = '{"q1": "no", "q1_source": "https://startup.jobs/company/spreetail", "q2": "cannot verify", "q2_source": "https://builtin.com/company/spreetail", "q3": "no", "q3_source": "https://www.ihirelogistics.com/jobs/view/539499978", "note": "Q1: a retailer running its own fulfillment centers. Q2: headcounts disagree. Q3: one role on an aggregator."}';
+
+    it("normalises answer spellings, case and whitespace", () => {
+      for (const v of ["cannot verify", "cannot-verify", "Cannot_Verify", " CANNOT VERIFY ", "unverifiable", "Unknown"]) {
+        expect(normalizeAnswer(v)).toBe("cannot_verify");
+      }
+      expect(normalizeAnswer(" YES ")).toBe("yes");
+      expect(normalizeAnswer("No")).toBe("no");
+      expect(normalizeAnswer("maybe")).toBeUndefined();
+      expect(normalizeAnswer(5)).toBeUndefined();
+      expect(parseJudgeJson(savedText)).toMatchObject({ q1: "no", q2: "cannot_verify", q3: "no", q2_source: "https://builtin.com/company/spreetail" });
+    });
+
+    it("--replay-failures re-parses saved failures for free, writes the verdict with its recorded cost, deletes the file, and counts the rest", async () => {
+      const root = tempRoot();
+      const truthRoot = tempRoot();
+      const leads = ["Away Team (Spreetail)", "StillBad", "Orphan"].map((c, i) => ({ id: `L${i}`, ...record("A_workflow", 1, [c]).leads[0]! }));
+      const dir = join(root, "set/S1");
+      await mkdir(join(dir, "judge-failures"), { recursive: true });
+      await writeFile(join(dir, "blind.json"), JSON.stringify(leads.slice(0, 2)), "utf8");
+      await writeFile(join(dir, "judge-cost.json"), JSON.stringify({ totalDollars: 0.27, leads: 1, perLead: [{ company: leads[0]!.company, signal_url: leads[0]!.signal_url, costDollars: 0.27094, webSearches: 6, usage: { input: 53080, output: 2931, cache_read: 0, cache_creation: 0 } }] }), "utf8");
+      const f = (l: (typeof leads)[number]) => join(dir, "judge-failures", `${truthKey(l.company, l.signal_url)}.txt`);
+      await writeFile(f(leads[0]!), `stop_reason: end_turn\n\n${savedText}\n`, "utf8");
+      await writeFile(f(leads[1]!), "stop_reason: max_tokens\n\nno verdict here\n", "utf8");
+      await writeFile(f(leads[2]!), `stop_reason: end_turn\n\n${savedText}\n`, "utf8");
+      const log = vi.spyOn(console, "log").mockImplementation(() => undefined);
+      const counts = await replayFailures({ setId: "set", resultsRoot: root, truthRoot, now: new Date("2026-10-12T00:00:00Z") });
+      log.mockRestore();
+      expect(counts).toEqual({ recovered: 1, stillFailing: 1, noLead: 1 });
+      const written = JSON.parse(await readFile(join(truthRoot, "S1", `${truthKey(leads[0]!.company, leads[0]!.signal_url)}.json`), "utf8")) as Verdict;
+      expect(written).toMatchObject({ q1: "no", q2: "cannot_verify", q3: "no", good: false, costDollars: 0.27094, webSearches: 6 });
+      const { existsSync } = await import("node:fs");
+      expect(existsSync(f(leads[0]!))).toBe(false); // deleted
+      expect(existsSync(f(leads[1]!))).toBe(true);
+      expect(existsSync(f(leads[2]!))).toBe(true);
+    });
+
+    it("the contract travels in blind.json (same for every arm) and reaches the judge prompt", async () => {
+      const root = tempRoot();
+      const sc = { ...scenario, plan: { ...plan, months: 3, hqCountries: ["US", "GB"], gateFields: [
+        { key: "is_3pl", question: "provides logistics services to other companies", required: true },
+        { key: "opt", question: "optional thing", required: false },
+      ] } };
+      const recs = [record("A_workflow", 1, ["GoodCo"], { now: "2026-10-12T00:00:00.000Z" }), record("B_agent_opus", 1, ["OtherCo"], { now: "2026-10-12T00:00:00.000Z" })];
+      const { blind } = await createBlindPool({ setId: "set1", scenarioId: "S1", resultsRoot: root, seed: "s", records: recs, scenario: sc });
+      expect(blind[0]!.contract).toEqual({
+        who: ["provides logistics services to other companies"],
+        size_band: "50\u2013500 employees",
+        hq_countries: ["US", "GB"],
+        recency_months: 3,
+        window: "2026-07-12..2026-10-12",
+      });
+      expect(blind.every((b) => JSON.stringify(b.contract) === JSON.stringify(blind[0]!.contract))).toBe(true);
+      const onDisk = await readFile(join(root, "set1/S1/blind.json"), "utf8");
+      expect(onDisk).not.toMatch(/A_workflow|B_agent/);
+      const prompt = userPrompt(blind[0]!);
+      expect(prompt).toContain('"who"');
+      expect(prompt).toContain("provides logistics services to other companies");
+      expect(prompt).toContain("2026-07-12..2026-10-12");
+    });
+
+    it("uses max_uses 3, counts only web_search_tool_result blocks, and logs when the API exceeds it", async () => {
+      const root = tempRoot();
+      const err = vi.spyOn(console, "error").mockImplementation(() => undefined);
+      const answer = '{"q1":"yes","q1_source":"a","q2":"yes","q2_source":"b","q3":"yes","q3_source":"c"}';
+      const results = Array.from({ length: 5 }, (_, i) => ({ type: "web_search_tool_result", tool_use_id: `s${i}`, content: [] }));
+      const uses = Array.from({ length: 5 }, (_, i) => ({ type: "server_tool_use", id: `s${i}`, name: "web_search", input: {} }));
+      const create = vi.fn().mockResolvedValue({ stop_reason: "end_turn", content: [...uses, ...results, { type: "text", text: answer }], usage: { input_tokens: 10, output_tokens: 10 } });
+      const lead = { id: "L1", ...record("A_workflow", 1, ["GoodCo"]).leads[0]! };
+      const v = await judgeLead({ scenarioId: "S1", lead, client: { messages: { create } } as never, rubricText: "r", truthRoot: root, setId: "j", resultsRoot: root });
+      expect((create.mock.calls[0]![0] as { tools: Array<{ max_uses: number }> }).tools[0]!.max_uses).toBe(3);
+      expect(v.webSearches).toBe(5);
+      expect(String(err.mock.calls[0]![0])).toContain("5 web searches for max_uses 3");
       err.mockRestore();
     });
   });

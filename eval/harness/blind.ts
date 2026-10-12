@@ -4,9 +4,30 @@ import { dirname, join } from "node:path";
 import { pathToFileURL } from "node:url";
 import { squashName } from "../../src/gates";
 import { truthKey } from "./truth";
-import type { Arm, LeadRecord, RunRecord } from "./types";
+import { windowStartIso } from "../../src/gates";
+import type { Arm, LeadRecord, RunRecord, Scenario } from "./types";
 
-export type BlindLead = LeadRecord & { id: string };
+/** What the judge needs to check Q1/Q2/Q3. Identical for every arm, so it never identifies one. */
+export type JudgeContract = {
+  who: string[];
+  size_band: string;
+  hq_countries: string[];
+  recency_months: number;
+  window: string;
+};
+
+export type BlindLead = LeadRecord & { id: string; contract?: JudgeContract };
+
+export function judgeContract(scenario: Scenario, now: Date): JudgeContract {
+  const plan = scenario.plan;
+  return {
+    who: plan.gateFields.filter((g) => g.required).map((g) => g.question),
+    size_band: `${plan.employeeRange.min}\u2013${plan.employeeRange.max} employees`,
+    hq_countries: plan.hqCountries,
+    recency_months: plan.months,
+    window: `${windowStartIso(plan.months, now).slice(0, 10)}..${now.toISOString().slice(0, 10)}`,
+  };
+}
 
 type MappingEntry = {
   id: string;
@@ -67,6 +88,8 @@ export async function createBlindPool(options: {
   resultsRoot?: string;
   seed?: string;
   records?: RunRecord[];
+  /** When given, every blind lead carries the scenario contract for the judge. */
+  scenario?: Scenario;
 }): Promise<{ blind: BlindLead[]; mapping: MappingEntry[] }> {
   const root = options.resultsRoot ?? "eval/results";
   const records = options.records ?? await readCells(root, options.setId, options.scenarioId);
@@ -81,12 +104,14 @@ export async function createBlindPool(options: {
       else byKey.set(key, { lead, sources: [source] });
     }
   }
+  const nowIso = records.find((r) => r.now)?.now;
+  const contract = options.scenario ? judgeContract(options.scenario, nowIso ? new Date(nowIso) : new Date()) : undefined;
   const shuffled = shuffle([...byKey.entries()], options.seed ?? `${options.setId}:${options.scenarioId}`);
   const blind: BlindLead[] = [];
   const mapping: MappingEntry[] = [];
   shuffled.forEach(([, entry], index) => {
     const id = `L${String(index + 1).padStart(3, "0")}`;
-    blind.push({ id, ...entry.lead });
+    blind.push({ id, ...entry.lead, ...(contract ? { contract } : {}) });
     mapping.push({ id, company: entry.lead.company, squashed: squashName(entry.lead.company), signal_url: entry.lead.signal_url, sources: entry.sources });
   });
   await writeJson(join(root, options.setId, options.scenarioId, "blind.json"), blind);
@@ -106,7 +131,14 @@ function parseArgs(argv: string[]): Record<string, string> {
 async function main() {
   const args = parseArgs(process.argv.slice(2));
   if (!args.set || !args.scenario) throw new Error("pass --set <id> --scenario <id>");
-  const result = await createBlindPool({ setId: args.set, scenarioId: args.scenario, seed: args.seed });
+  let scenario: Scenario | undefined;
+  try {
+    const { defaultScenario } = await import("./run-cell");
+    scenario = defaultScenario(args.scenario);
+  } catch (error) {
+    console.error(`blind: no scenario definition for ${args.scenario} (${error instanceof Error ? error.message : error}); blind.json will have no contract`);
+  }
+  const result = await createBlindPool({ setId: args.set, scenarioId: args.scenario, seed: args.seed, scenario });
   console.log(`blind pool: ${result.blind.length} deduped (company, signal) leads for ${args.scenario}`);
 }
 
