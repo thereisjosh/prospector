@@ -1,0 +1,271 @@
+# Prospector Agent — spec
+
+## GOAL (set 2026-10-12)
+
+Build the full Prospector agent end-to-end, with verified testing, so that a hiring manager at Manus can **assess the repo and use the product**. Concretely, "done" means all of:
+
+1. **Usable:** a deployed URL where someone can paste a website, approve cards, watch the agent run, approve a scope change, and get leads with evidence. Plus a `demo` mode on recorded data that works with no API keys, so a reviewer can run it locally in under 5 minutes.
+2. **Verified:** unit tests on every gate and the loop (mocked model + Exa), a replayable regression suite, and a live eval with pass^k results committed to the repo. No claim in the README without a command or file that backs it.
+3. **Assessable:** a README that reads as a case study (problem → decisions → evals → failures found → limits), an architecture diagram, the autonomy table, a 3-minute demo script, and trace logs from real runs checked in.
+4. **Honest:** what is not production-ready is listed, not hidden.
+
+Orchestration and code review: Fable (this session). Implementation: subagents (Sonnet 5.5, Opus 4.8, gpt-5.5 via Codex) per §11. Paid eval stages (§9) each need the user's go.
+
+Status: APPROVED 2026-10-12 · supersedes the "evaluator-optimizer later" idea in SPEC-v2
+Audience: Manus — **Agent Product Manager** (Singapore / Beijing), careers.manus.im/en/job/3b841ff5-ef2e-4ea7-92f0-d0fc3ef0cad6 (read 2026-10-12)
+Baseline: the v2 workflow engine (`v2-engine` branch) stays as the control arm.
+
+## 1. Why this build, mapped to the role
+
+The JD explicitly prefers *"representative AI agent projects that can be demonstrated."* Every responsibility and requirement maps to an artifact:
+
+| JD line (paraphrased) | What this build shows |
+|---|---|
+| Study user needs; set plans, priorities and **testable success criteria** | SPEC-v2 / this spec; a rubric and pass^k thresholds written *before* any run (§9) |
+| Prototype key flows independently: **task inputs, execution and result delivery** | Inputs: one field → cards. Execution: live agent view. Delivery: leads with evidence, rejections with reasons, CSV (§2) |
+| Refine with domain experts via practical scenarios | Scenarios grounded in real seller sites; v1's hand-tuned ICPs used as expert baselines |
+| Coordinate delivery: scope, acceptance criteria, trade-offs | Task table with a gate per task (§11); cost and quality trade-offs measured, not asserted |
+| **Review task outcomes after launch, find shortfalls, prioritise the next round** | Per-lead 👍/👎 feedback and the rejection log feed the next eval round (§2, §9); the funnel analysis that found the year-date and cost-tier bugs |
+| Understand agent mechanisms, **capabilities and limitations** | Workflow vs agent head-to-head; the documented limits of Exa extraction (wrong-year dates, unreliable sizes) and how code gates bound them |
+| Hands-on: test ideas through prototypes or technical experiments | The build itself: a harness written without a framework, a recorded and replayable eval, staged live experiments |
+
+The pitch in one line: **"I built the workflow and the agent, and measured when the agent earns its cost."**
+
+The pitch in one line: **"I built the workflow and the agent, and measured when the agent earns its cost."**
+
+## 2. User flow
+
+```
+[1] One input: website URL | @instagram | one sentence
+[2] Seller profile (Exa)            ── shown: "Is this you?" + what we think you sell
+[3] Claude suggests cards           ── who / why-now / size / stage / geo / recency / exclusions,
+                                       each with a one-line "why"
+[4] USER APPROVES THE PLAN          ── edits cards, sees target lead count + max spend; presses Run
+[5] Agent runs (live view)          ── todo list, each step in plain words, leads appearing,
+                                       spend meter; user can Stop
+[6] Results                         ── leads + evidence + source; "considered but rejected"
+                                       with reasons; CSV
+[7] Feedback                        ── 👍/👎 + optional reason per lead → stored with the run;
+                                       👎 cases become eval cases (post-launch iteration loop)
+```
+
+The human approves the **contract** (step 4), the agent's **opening strategy**, and any **scope change** mid-run (§5a), not each action. The agent can only read and propose; nothing leaves the system.
+
+**Plan = contract, not script.** In the workflow arm the plan is a script: fixed queries, run in order. In the agent arm the cards compile to a contract:
+- the goal (N leads)
+- what counts as a lead (gates, size, HQ, recency window, exclusions)
+- the budget
+
+The agent writes its own queries and decides what to look up, what to verify, when to change tactic and when to stop. `signalQueries` become optional seed ideas.
+
+## 2a. The loop
+
+```ts
+// Logical loop. Physically, each iteration is one POST /step request that
+// loads and saves state (§5a), so a run can pause for approval and resume.
+messages = [contract + memory (§6a)]               // append-only from here
+while (true) {
+  if (limitHit()) return handback()                // §5: budget, turns, time, no-progress
+  res = await claude.messages.create({ system, tools, messages })  // model decides
+  messages.push(assistant(res))
+  if (res.stop_reason === "end_turn") break
+  results = await Promise.all(res.toolUses.map(runTool))  // parallel tool calls;
+                                                     // approval tools pause here (§5a)
+  messages.push(user(toolResults(results)))        // rejections stay in context
+  emit(events)                                     // live UI + events.jsonl
+}
+```
+
+What the model decides that the workflow cannot, each logged as an **adaptive action** and counted in the eval (§9). If an agent trace is indistinguishable from the fixed sequence, the agent is not earning its cost:
+- **Query rewrites driven by rejection reasons:** e.g. "too big" ×3 leads to "family-owned regional 3PL"
+- **Lookups skipped:** obvious enterprises and job boards are not paid for
+- **Verification reads:** `read_page` before submitting an uncertain company
+- **When to stop:** at N leads, or when the remaining options are poor
+
+## 3. Architecture
+
+- **Harness:** a TypeScript, server-side Next.js route that streams progress events to the UI over SSE. A manual tool-use loop on `@anthropic-ai/sdk` `messages.create`. No agent framework, so every part of the loop is visible and explainable.
+- **Model:** `claude-opus-5-5`, effort `medium`, adaptive thinking (always on for this model), server-side `fallbacks: "default"` for refusals. The model is a config value, and **Opus 5.5 vs Sonnet 5.5 is an eval arm** (§9), because cost per lead is a headline metric.
+- **API constraints:**
+  - forced `tool_choice` returns a 400 on this model, so use `auto` and steer from the prompt
+  - history must be **append-only**, because Opus 5.5 thinking blocks are bound to the conversation; never edit or trim earlier turns
+- **Exa:** the existing client (`src/exa.ts`) with its CostGuard and record/replay.
+
+## 4. Tools (what the model sees)
+
+| Tool | Does | Returns (kept short: results are input tokens next turn) |
+|---|---|---|
+| `search_signals(query, months?, num_results≤25)` | Exa search with the plan's signal summary schema; `excludeDomains` applied automatically | ≤25 lines: company · signal_type · event date · url · one-line summary |
+| `lookup_company(name)` | Exa company lookup with the plan's generated schema; size must quote its source | description, industry, employee estimate + source quote, HQ, each gate verdict |
+| `read_page(url)` | Exa contents, text capped at 3,000 chars | title, date, text excerpt |
+| `submit_lead(company, signal_url, why_now)` | **Code checks every gate** (below) and accepts or rejects | `accepted` or `rejected: <reason>` the model can act on |
+| `update_todo(markdown)` | Replaces the agent's working checklist (shown live in the UI) | `ok` |
+| `propose_strategy(angles[], first_queries[], est_cost)` | **Required before any spend.** Pauses for user approval (§5a) | `approved` / `revised: <user note>` / `declined` |
+| `request_scope_change(change, reason, evidence)` | Asks to relax the contract (size, recency, geo, adjacent industry) or raise the budget. Pauses for approval | `approved` (contract updated by code) / `declined` |
+| `finish(summary, handback?)` | Ends the run; `handback` is required if fewer than N leads were accepted (§5) | — |
+
+No other write actions exist. `submit_lead` is the only way a lead enters the results. The results table is built **only from code-accepted `submit_lead` records**, never from the model's final text (the output check). The model may issue several tool calls in one turn; the harness runs them in parallel and returns all results in one message (the parallelisation pattern, logged as calls per turn).
+
+## 5a. Autonomy table and mid-run approval
+
+| Action | Agent alone | Needs user OK | Never |
+|---|---|---|---|
+| Search, look up, read pages within the contract | ✅ | | |
+| Opening strategy (angles, first queries, cost estimate) | | ✅ before any spend | |
+| Scope change: wider size, longer recency, new geography, adjacent industry | | ✅ with reason + evidence | |
+| Budget increase | | ✅ | |
+| Accepting a lead that fails a check | | | ✅ (code refuses) |
+| Contacting anyone / any external side effect | | | ✅ (no tool exists) |
+
+**Mechanism: durable pause by persisting the message history (no framework).** The Messages API is stateless, so a run's entire state is ours: `messages` (stored exactly as received, thinking blocks included), the contract, spend, and counters.
+- **One turn per request:** `POST /api/runs/:id/step` loads the state, makes one model call, runs its tools in parallel, appends the results, saves the state to `runs/<id>/state.json` (DB later), and returns events. The UI calls `step` again until the run ends. Each request is short (≈10–30 s), so it fits serverless limits.
+- **Approval:** when a turn contains `propose_strategy` or `request_scope_change`, the harness saves the state with status `awaiting_approval` and stops. That tool_use is left as the last entry and is not yet answered.
+- **Resume:** `POST /api/runs/:id/decision` loads the state, appends the user's decision as that tool's `tool_result` (any other tool results from that turn go in the same message), and continues with the next `step`. It works minutes or hours later, and across restarts.
+- **No decision:** the run stays paused, with no timeout and no spend. The wall clock counts only active time.
+- On approval, **code** updates the contract (gates, window, budget). The model never edits it directly.
+- This is what LangGraph's checkpointer plus `interrupt()` provides, built in about 30 lines so the mechanism stays explainable.
+
+Measured as: approval requests per run, approval rate, and whether approved scope changes produced accepted leads.
+
+## 5. Guardrails — the model proposes, code decides
+
+`submit_lead` runs these deterministic checks. All of them already exist from the v2 engine, or are fixes queued from the last eval:
+- **Event date** in the plan window, reconciled against the publish date (catches the year mistakes Exa's summaries make)
+- **Required gates** true on a `lookup_company` result for this company
+- **Size** within range; if the employee count contradicts its source quote it becomes unknown and the plan's unknown-size rule applies
+- **HQ** in the plan's countries
+- **Exclusions:** fuzzy name match against the exclusion list, job-board and placeholder filters
+- **Entity match:** the company name appears in the signal page
+- **Dedupe:** squashed name variants count as one company ("Diakon Logistics" = "Diakonlogistics")
+
+Budget and loop limits are enforced by the harness, never by the prompt. The run stops at whichever comes first:
+
+| Limit | Default |
+|---|---|
+| Combined spend cap (Exa + Claude) | $1.00, user-visible |
+| Accepted leads | target N = 10 |
+| Turns | 30 |
+| Wall clock | 6 minutes |
+| No progress | 4 turns with no new accepted lead and no new candidate |
+
+**Handback to the user (the handoff in this product).** If the run stops on budget, turns, time or no progress before reaching N leads, the agent does not loosen the criteria itself; the plan is the user's. Instead it ends with a structured handback, which the UI renders as one-click card changes:
+- the shortfall (e.g. "3 of 10")
+- the top rejection reasons with counts, from the `submit_lead` verdicts
+- at most 2 concrete card changes, e.g. "widen size to 50–5,000" or "recency 6 months"
+
+When the *harness* stops the run, the model cannot call `finish`. So $0.05 of the cap is reserved for one final call with tools disabled that writes the handback. The rejection counts are always computed by code, so the handback stays correct even if that call fails. The user applies one change and re-runs, or accepts the partial list. Measured as: share of runs ending in handback, and whether the re-run with the suggested change yields more good leads.
+
+**Agent-to-agent handoff (e.g. to an outreach agent) is out of scope.** It adds external side effects (sending email) and does not address the open problem, lead quality.
+
+**Prompt injection:** page text and search results are data. The system prompt says so, and the blast radius is bounded because the only effect a tool result can have is a `submit_lead` that still must pass every code check.
+
+Also kept: server-only keys, per-IP rate limit, generic errors, http(s)-only links.
+
+## 6. Context engineering (applying Manus's published lessons; verify against the original post)
+
+- **Stable prefix for caching:** system prompt and tool definitions never change mid-run; the plan goes in the first user message; tool lists are deterministic and sorted; `cache_control` on the prefix. Log `cache_read_input_tokens` to prove caching works.
+- **Append-only history:** never rewrite or trim. The turn cap keeps the context bounded, so no compaction is needed in v1.
+- **Keep failures visible:** rejected leads and tool errors stay in context, so the model stops repeating them.
+- **Recitation:** `update_todo` keeps the goal and the remaining work at the end of the context.
+- **Compact tool results:** fixed short formats, never raw page dumps.
+
+## 6a. Memory across runs
+
+Without memory, a second run for the same ICP returns the same leads, and the ones the user already rejected. So:
+- **Seen list:** companies delivered or rejected in earlier runs are excluded in code (`submit_lead` rejects `already_seen`), so every run is net-new.
+- **Preference notes:** the user's 👎 reasons, e.g. "e-commerce brand running its own warehouse, not a 3PL", are injected into the contract message of the next run. They are not written into the system prompt, so the cached prefix stays stable.
+- **Store:** `workspaces/<id>/memory.json` per anonymous workspace (no accounts). The user can view it and clear it from the UI.
+- **Kept:** company names, verdicts and reasons. **Not kept:** page text.
+
+## 7. Observability
+
+One event per step to `runs/<id>/events.jsonl`:
+- turn, kind (model_call | tool_call | submit_verdict | stop)
+- tool name and arguments, result summary
+- input, output and cache-read tokens; Claude cost; Exa cost
+- latency, prompt version
+
+The UI's live view reads the same stream. The run summary records: stop reason, accepted and rejected counts by reason, spend split by model and Exa, turns, and time to first lead.
+
+## 8. Prerequisite engine fixes (from the 2026-10-11 eval)
+
+These become tools and gates, so they ship first:
+- Look up every candidate within budget (no ranking guesswork)
+- Dedupe name variants
+- Size must quote its source; contradictions become unknown
+- Stricter 3PL gate question: "provides logistics services to other companies as its primary business"
+- Rewrite the ICP-1 fixture to 5 signal queries
+
+## 9. Evals — the experiment
+
+- **Scenarios (4):** ICP 1 (logistics), ICP 3 (funded B2B and first ops hire), plus 2 generated from real seller sites through the card flow.
+- **Arms:** (A) v2 workflow · (B) agent on Opus 5.5 · (C) agent on Sonnet 5.5.
+- **Rubric, written before any run:**
+  - a lead is *good* if the company type and size are confirmed from a cited source (its own site or LinkedIn), and the signal is real, specific and inside the window
+  - judged blind (arm labels hidden) by an Opus judge, with my spot-check of ≥20%
+  - ground-truth facts recorded with source URLs in `eval/truth/`
+- **Metrics:** good leads per run, precision, cost per good lead, p50 and p95 latency, stop-reason mix.
+- **pass^k:** each scenario × arm runs k = 3 times. *Pass* = ≥ 6 good leads at precision ≥ 0.8 within budget. Report pass^3 (it must work every time), alongside pass@1.
+- **Agency check:** count adaptive actions per run (§2a). An agent run with zero rewrites, skips or verification reads is flagged as "workflow-shaped".
+- **Simulated user (deterministic, no LLM):**
+  - approves the opening strategy
+  - approves scope changes that only widen one constraint
+  - on handback, applies suggestion #1 and re-runs once
+
+  This measures whether the agent's handback suggestions raise good leads.
+- **Regression:** the deterministic gates stay covered by the existing test suite, with Exa responses replayable. Agent decisions are not deterministic, so agent evals are always live, which is why they run in budgeted stages.
+- **Budget, staged, and each stage needs your go:**
+
+  | Stage | Runs | Est. cost |
+  |---|---|---|
+  | Smoke | 1 scenario × arm B × 1 | ≈ $1 |
+  | Pilot | 2 scenarios × arms A, B × 3 reps | ≈ $8 |
+  | Full | 4 × 3 arms × 3 | ≈ $25–35 |
+
+  Estimates: agent run ≈ Exa $0.3–0.6 + Claude ≈ $0.3–0.8 on Opus with caching. The smoke run replaces these guesses with measured numbers.
+
+## 10. Deliverables
+
+1. The app (cards → live agent → results), deployed.
+2. README rewritten as a case study:
+   - the problem
+   - the workflow vs agent decision
+   - where the human approves, and why
+   - code-enforced gates
+   - eval results with cost per good lead
+   - **two real failures found and fixed:** wrong-year dates, and cost tiers that broke the budget
+   - what is not production-ready
+3. A 3-minute demo script.
+
+## 11. Tasks & model routing
+
+| # | Task | Owner | Gate |
+|---|---|---|---|
+| A1 | Engine fixes (§8) + tests | sonnet-5.5 subagent | vitest/typecheck/build pass |
+| A2 | Agent harness: per-turn `step` endpoint, persisted state, parallel tool calls, limits, durable approval pause/resume (§5a), memory store (§6a), event log | gpt-5.5 (codex): clear spec | unit tests with mocked Claude + Exa, incl. resume after restart, and byte-identical history after save/load |
+| A3 | System prompt + tool descriptions | opus-4.8: copy the model reads, taste | reviewed by me |
+| A4 | Smoke run (stage 1) | me | measured cost; trace reviewed end-to-end |
+| A5 | Input resolver + seller profile + card suggestion/compile (SPEC-v2 T4–T5) | gpt-5.5 + opus-4.8 (prompts) | planner eval on 6 sellers |
+| A6 | UI: cards, live agent view, results + rejections, per-lead 👍/👎 feedback, CSV | opus-4.8: user-facing | usable without explanation by someone new |
+| A7 | Eval harness: rubric, truth files, blind judge, pass^k report | gpt-5.5 build; **I judge** | rubric frozen before runs |
+| A8 | Pilot → full eval (stages 2–3) | me | each stage approved |
+| A9 | Review of full diff | opus-4.8 + codex review | findings fixed |
+| A10 | README case study + demo script | opus-4.8 draft, me edit | — |
+
+Order: A1 → A2 + A3 → **A4 smoke (gate)** → A5 + A6 in parallel → A7 → A8 → A9 → A10.
+
+## 12. Out of scope (v1)
+
+- Memory across runs or saved ICPs
+- Multi-agent / subagents
+- Facebook groups as a source
+- Sending outreach
+- User accounts
+
+## 13. Open risks
+
+- **Hosting:** resolved by the one-turn-per-request design (§5a). Remaining risk: a single turn with slow Exa calls plus a long model response exceeding 60 s. Mitigations: stream the model call, cap parallel tools per turn, measure p95 turn time in the smoke run.
+
+- The agent may not beat the workflow on precision. If so, that is a valid finding, and the case study reports it.
+- Claude cost per good lead could exceed the value. That is a pricing question the eval answers.
+- Exa summary noise (wrong-year dates, unreliable sizes) is mitigated by code gates, not eliminated.
