@@ -4,7 +4,7 @@ import { CostGuard } from "../exa";
 import { CLAUDE_PRICES_PER_MILLION, claudeCostDollars, DEFAULT_LIMITS } from "./config";
 import { appendEvents, eventInput, makeEvent, type AgentEvent } from "./events";
 import { parseEmployeeEstimate } from "../gates";
-import { textInCountries } from "../geo";
+import { countryOfHq } from "../geo";
 import { appendRunToMemory, squashName } from "./memory";
 import { systemPrompt } from "./prompts";
 import type { RunState, Handback } from "./state";
@@ -439,11 +439,8 @@ export function rejectionCounts(state: RunState): Array<{ code: string; count: n
   return [...map.entries()].sort((a, b) => b[1] - a[1]).map(([code, count]) => ({ code, count }));
 }
 
-const COUNTRY_CODES = ["US", "GB", "CA", "AU", "NZ", "IE", "DE", "FR", "NL", "ES", "IT", "SE", "CH", "IN", "SG", "HK", "JP", "CN", "AE", "MX", "BR", "IL", "ZA"];
-
-function countryOf(hq: string): string | undefined {
-  return COUNTRY_CODES.find((code) => textInCountries(hq, [code], true));
-}
+// Country resolution lives in src/geo.ts (one table, state-code aware).
+const countryOf = countryOfHq;
 
 function enrichmentOf(state: RunState, company: string) {
   return state.caches.enrichmentByName[squashName(company)]?.summary;
