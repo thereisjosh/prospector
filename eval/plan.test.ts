@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   buildCompanySchema,
   buildSignalSchema,
+  composeCompanySummaryQuery,
   composeSignalSummaryQuery,
   normalizeNullish,
   normalizeSignalDate,
@@ -79,7 +80,7 @@ describe("validatePlan", () => {
     ).toMatch(/at most 6/);
     expect(errorsFor((p) => (p.gateFields = [gate("Bad-Key")])).join()).toMatch(/key must match/);
     expect(errorsFor((p) => (p.gateFields = [gate("x")])).join()).toMatch(/key must match/);
-    for (const core of ["description", "industry", "employee_estimate", "is_public_or_enterprise", "hq"]) {
+    for (const core of ["description", "industry", "employee_estimate", "employee_estimate_source", "is_public_or_enterprise", "hq"]) {
       expect(errorsFor((p) => (p.gateFields = [gate(core)])).join()).toMatch(/collides/);
     }
     expect(errorsFor((p) => (p.gateFields = [gate("dup_key"), gate("dup_key")])).join()).toMatch(/duplicated/);
@@ -132,7 +133,7 @@ describe("validatePlan", () => {
 
 describe("schema builders", () => {
   it("buildSignalSchema: enum = signalTypes + other, all required, closed", () => {
-    const schema = buildSignalSchema(basePlan(), { preScreen: false });
+    const schema = buildSignalSchema(basePlan());
     expect(schema.additionalProperties).toBe(false);
     expect(schema.required).toEqual(["company_name", "signal_type", "signal_summary", "signal_date"]);
     expect(Object.keys(schema.properties).sort()).toEqual([...schema.required].sort());
@@ -143,35 +144,19 @@ describe("schema builders", () => {
     expect(schema.properties.signal_date.type).toBe("string");
   });
 
-  it("buildSignalSchema pre-screen: scale guess + one pre_<gate> enum per REQUIRED gate only", () => {
+  it("buildSignalSchema has no pre-screen fields and the query is the plain composed text", () => {
     const plan = basePlan();
-    plan.gateFields.push({ key: "is_funded", question: "Funded?", required: false });
-    const schema = buildSignalSchema(plan);
-    expect(schema.required).toEqual([
+    expect(Object.keys(buildSignalSchema(plan).properties)).toEqual([
       "company_name", "signal_type", "signal_summary", "signal_date",
-      "company_scale_guess", "pre_is_operator",
     ]);
-    expect(schema.properties.company_scale_guess).toEqual({
-      type: "string",
-      enum: ["small", "mid", "enterprise", "unknown"],
-    });
-    expect(schema.properties.pre_is_operator).toEqual({ type: "string", enum: ["yes", "no", "unclear"] });
-    expect(schema.properties).not.toHaveProperty("pre_is_funded");
-    const q = composeSignalSummaryQuery(plan, "the signal");
-    expect(q).toContain("company_scale_guess");
-    expect(q).toContain("pre_is_operator");
-    expect(q).toContain("Is it an operator?");
-    expect(q).not.toContain("pre_is_funded");
-  });
-
-  it("preScreen:false leaves the v2.0 request byte-for-byte unchanged", () => {
-    const plan = basePlan();
-    expect(composeSignalSummaryQuery(plan, "the signal", { preScreen: false })).toBe(
+    expect(composeSignalSummaryQuery(plan, "the signal")).toBe(
       "the signal Set signal_date to the date the EVENT itself happened or was announced (not the article's publish date), in ISO format YYYY-MM-DD. Set signal_type to exactly one of: new_facility, ops_hire, other.",
     );
-    expect(Object.keys(buildSignalSchema(plan, { preScreen: false }).properties)).toEqual([
-      "company_name", "signal_type", "signal_summary", "signal_date",
-    ]);
+  });
+
+  it("composeCompanySummaryQuery asks for the employee-estimate source quote", () => {
+    expect(composeCompanySummaryQuery(basePlan())).toContain("employee_estimate_source");
+    expect(composeCompanySummaryQuery({ ...basePlan(), gateFields: [] })).toContain("employee_estimate_source");
   });
 
   it("buildCompanySchema: core props + one boolean per gate, all required, closed", () => {
@@ -184,6 +169,7 @@ describe("schema builders", () => {
       "description",
       "industry",
       "employee_estimate",
+      "employee_estimate_source",
       "is_public_or_enterprise",
       "hq",
       "is_operator",
@@ -192,6 +178,7 @@ describe("schema builders", () => {
     expect(props.is_operator).toEqual({ type: "boolean" });
     expect(props.is_funded).toEqual({ type: "boolean" });
     expect(props.is_public_or_enterprise).toEqual({ type: "boolean" });
+    expect(props.employee_estimate_source).toEqual({ type: "string" });
     expect(props.employee_estimate).toEqual({ anyOf: [{ type: "number" }, { type: "string" }] });
     expect([...schema.required].sort()).toEqual(Object.keys(props).sort());
   });

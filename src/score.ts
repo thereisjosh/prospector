@@ -1,18 +1,29 @@
-import { nameMatchesSignal, netNew, normalizeName } from "./eval";
-import { textInCountries } from "./geo";
+import { netNew } from "./eval";
 import {
-  normalizeNullish,
-  normalizeSignalDate,
-  OTHER_SIGNAL_TYPE,
-  PRESCREEN_PREFIX,
-  type SearchPlan,
-} from "./plan";
+  checkDate,
+  checkIdentity,
+  checkLead,
+  freshnessScore,
+  parseEmployeeEstimate,
+  resolveEventDate,
+  safeDomain,
+  squashName,
+  type GateCode,
+} from "./gates";
+import { normalizeNullish, OTHER_SIGNAL_TYPE, type SearchPlan } from "./plan";
 import type {
   CompanySummary,
   ExaResult,
   ProspectRow,
   SignalSummary,
 } from "./types";
+
+// Re-exported so existing imports keep working; the implementations live in gates.ts.
+export {
+  isNonCompanyName,
+  nameExcluded,
+  parseEmployeeEstimate,
+} from "./gates";
 
 export type Candidate = {
   result: ExaResult;
@@ -41,10 +52,8 @@ export type Funnel = {
   budgetStoppedAt: string | null;
   spentDollars: number;
   /** Rejection counts keyed by reason: excludeDomains, excludeNames, no_enrichment,
-   * enterprise, hq, unknown_size, size, required_gate:<key>, weak_why_now. */
+   * enterprise, hq, unknown_size, size, entity_mismatch, required_gate:<key>, weak_why_now. */
   rejections: Record<string, number>;
-  /** Not a rejection: confidence penalty applied when the company is absent from its own signal text. */
-  entityMismatchPenalised: number;
   finalRows: number;
 };
 
@@ -64,7 +73,6 @@ export function createTrace(): Trace {
       budgetStoppedAt: null,
       spentDollars: 0,
       rejections: {},
-      entityMismatchPenalised: 0,
       finalRows: 0,
     },
     rejected: [],
@@ -100,19 +108,11 @@ export function parseSignalSummary(
 ): SignalSummary {
   const build = (raw: Record<string, unknown>): SignalSummary => {
     const str = (v: unknown) => (typeof v === "string" ? normalizeNullish(v) : undefined);
-    const prescreen: Record<string, string> = {};
-    for (const [k, v] of Object.entries(raw)) {
-      const val = typeof v === "string" ? normalizeNullish(v)?.toLowerCase() : undefined;
-      if (k.startsWith(PRESCREEN_PREFIX) && val) prescreen[k.slice(PRESCREEN_PREFIX.length)] = val;
-    }
-    const scale = str(raw.company_scale_guess)?.toLowerCase();
     return {
       company_name: str(raw.company_name) ?? extractCompanyName(fallback),
       signal_type: str(raw.signal_type) ?? OTHER_SIGNAL_TYPE,
       signal_summary: str(raw.signal_summary) ?? fallback.title ?? "",
       signal_date: str(raw.signal_date) ?? "",
-      ...(scale ? { company_scale_guess: scale } : {}),
-      ...(Object.keys(prescreen).length > 0 ? { prescreen } : {}),
     };
   };
 
@@ -139,9 +139,8 @@ export function parseSignalSummary(
 }
 
 /**
- * Rank companies for enrichment (best first), before any lookup is paid for.
- * Enterprise-looking companies and any pre-screen "no" go to the back of the
- * queue (not dropped); within each tier: signal strength + freshness.
+ * Rank companies for enrichment (best first), before any lookup is paid for:
+ * signal strength + freshness only.
  */
 export function rankCompaniesForEnrichment(
   plan: SearchPlan,
@@ -150,12 +149,8 @@ export function rankCompaniesForEnrichment(
   now = new Date(),
 ): string[] {
   return aggregateCandidates(plan, candidates, startIso, now)
-    .map((group) => ({
-      group,
-      demoted: prescreenDemoted(group),
-      score: preliminaryScore(plan, group, startIso, now),
-    }))
-    .sort((a, b) => Number(a.demoted) - Number(b.demoted) || b.score - a.score)
+    .map((group) => ({ group, score: preliminaryScore(plan, group, startIso, now) }))
+    .sort((a, b) => b.score - a.score)
     .map(({ group }) => group.company);
 }
 
@@ -170,14 +165,6 @@ export function selectCompaniesForEnrichment(
   const ranked = rankCompaniesForEnrichment(plan, candidates, startIso, now);
   if (trace) trace.funnel.cutByEnrichmentLimit = Math.max(0, ranked.length - limit);
   return ranked.slice(0, limit);
-}
-
-function prescreenDemoted(group: CandidateGroup): boolean {
-  return group.candidates.some(
-    (c) =>
-      c.summary.company_scale_guess === "enterprise" ||
-      Object.values(c.summary.prescreen ?? {}).includes("no"),
-  );
 }
 
 export function scoreAndRank(
@@ -204,48 +191,21 @@ type CandidateGroup = {
   companyEnrichment?: CompanyEnrichment;
 };
 
-const DAY_MS = 86_400_000;
-
-function addMonthsIso(iso: string, months: number): number {
-  const d = new Date(`${iso}T00:00:00.000Z`);
-  d.setUTCMonth(d.getUTCMonth() + months);
-  return d.getTime();
-}
-
-/**
- * Resolve the EVENT date. Exa summaries sometimes hallucinate the year, so
- * signal_date is trusted only if publishedDate - 12 months <= signal_date <=
- * publishedDate + 7 days (and not after now + 1 day). Otherwise publishedDate
- * is used and date_source is "published_fallback". With no publishedDate, an
- * implausible signal_date (future, or > 24 months before now) is unparseable.
- */
-export function resolveEventDate(
-  candidate: Candidate,
-  now: Date,
-): { date: string; source: "signal" | "published_fallback" | "" } {
-  const sig = normalizeSignalDate(candidate.summary.signal_date);
-  const pub = normalizeSignalDate(candidate.result.publishedDate);
-  const sigMs = sig ? Date.parse(`${sig}T00:00:00.000Z`) : undefined;
-  const notFuture = sigMs !== undefined && sigMs <= now.getTime() + DAY_MS;
-
-  if (pub) {
-    const pubMs = Date.parse(`${pub}T00:00:00.000Z`);
-    const plausible =
-      sigMs !== undefined &&
-      notFuture &&
-      sigMs >= addMonthsIso(pub, -12) &&
-      sigMs <= pubMs + 7 * DAY_MS;
-    return plausible ? { date: sig!, source: "signal" } : { date: pub, source: "published_fallback" };
-  }
-  if (sig && notFuture && sigMs! >= addMonthsIso(now.toISOString().slice(0, 10), -24)) {
-    return { date: sig, source: "signal" };
-  }
-  return { date: "", source: "" };
+/** Resolve a candidate's EVENT date (see gates.resolveEventDate). */
+export function resolveCandidateDate(candidate: Candidate, now: Date) {
+  return resolveEventDate(signalDates(candidate), now);
 }
 
 /** The resolved event date (ISO) or "" if unparseable/implausible. */
 export function eventDate(candidate: Candidate, now: Date = new Date()): string {
-  return resolveEventDate(candidate, now).date;
+  return resolveEventDate(signalDates(candidate), now).date;
+}
+
+function signalDates(candidate: Candidate) {
+  return {
+    signal_date: candidate.summary.signal_date,
+    publishedDate: candidate.result.publishedDate,
+  };
 }
 
 function aggregateCandidates(
@@ -256,7 +216,6 @@ function aggregateCandidates(
   trace?: Trace,
 ): CandidateGroup[] {
   const groups = new Map<string, CandidateGroup>();
-  const excluded = plan.excludeNames.map(nameTokens).filter((t) => t.length > 0);
 
   for (const candidate of candidates) {
     const url = candidate.result.url;
@@ -264,27 +223,19 @@ function aggregateCandidates(
     const company = cleanCompanyName(
       candidate.summary.company_name || extractCompanyName(candidate.result),
     );
-    if (domainExcluded(url, plan.excludeDomains)) {
-      reject(trace, ["excludeDomains"], company, url, "excludeDomains: signal source domain excluded");
-      continue;
-    }
-    if (!company) continue;
-
-    // Freshness is judged on the event date, not the article's publish date.
-    if (freshnessScore(eventDate(candidate, now), startIso, now) <= 0) {
-      if (trace) trace.funnel.droppedStaleOrUnparseableDate += 1;
-      reject(trace, [], company, url, `stale_or_unparseable_date: "${candidate.summary.signal_date}" / published ${candidate.result.publishedDate ?? "n/a"}`);
-      continue;
-    }
-
-    const key = normalizeName(company);
+    const key = squashName(company);
     if (!key) continue;
-    if (isNonCompanyName(company)) {
-      reject(trace, ["non_company"], company, url, "non_company: placeholder, staffing or job-board name");
+
+    // Same gates the agent harness runs, applied before any lookup is paid for.
+    const identity = checkIdentity(plan, company, url);
+    if (identity) {
+      reject(trace, [funnelCode(identity.code)], company, url, `${funnelCode(identity.code)}: ${identity.reason}`);
       continue;
     }
-    if (nameExcluded(company, excluded)) {
-      reject(trace, ["excludeNames"], company, url, "excludeNames: company on plan denylist");
+    const date = checkDate(plan, signalDates(candidate), now);
+    if (!date.ok) {
+      if (trace) trace.funnel.droppedStaleOrUnparseableDate += 1;
+      reject(trace, [], company, url, `${date.code}: ${date.reason}`);
       continue;
     }
 
@@ -319,46 +270,45 @@ function toRow(
   now: Date,
   trace?: Trace,
 ): ProspectRow | undefined {
-  const best = bestCandidate(plan, group.candidates);
-  if (!best) return undefined;
-
-  const { result, summary } = best;
-  const resolved = resolveEventDate(best, now);
-  const signalDate = resolved.date;
+  const ranked = [...group.candidates].sort(
+    (a, b) => candidateStrength(plan, b) - candidateStrength(plan, a),
+  );
   const company = group.company;
   const enrichment = group.companyEnrichment;
 
-  if (
-    enrichment?.result &&
-    domainExcluded(enrichment.result.url, plan.excludeDomains)
-  ) {
-    reject(trace, ["excludeDomains"], group.company, best.result.url, "excludeDomains: company domain excluded");
-    return undefined;
+  // The strongest candidate that passes every gate becomes the row's evidence.
+  let best: Candidate | undefined;
+  let details: Extract<ReturnType<typeof checkLead>, { ok: true }>["details"] | undefined;
+  let firstFailure: Extract<ReturnType<typeof checkLead>, { ok: false }> | undefined;
+  for (const candidate of ranked) {
+    const verdict = checkLead(plan, {
+      company,
+      signal: {
+        url: candidate.result.url,
+        title: candidate.result.title,
+        text: [candidate.result.text, candidate.result.highlights?.join(" ")].filter(Boolean).join(" "),
+        summary: candidate.summary,
+        publishedDate: candidate.result.publishedDate,
+      },
+      enrichment: enrichment?.summary,
+      companyUrl: enrichment?.result?.url,
+      now,
+    });
+    if (verdict.ok) {
+      best = candidate;
+      details = verdict.details;
+      break;
+    }
+    firstFailure ??= verdict;
   }
-  if (enrichment?.result && isNonCompanyDomain(enrichment.result.url)) {
-    reject(trace, ["non_company"], group.company, best.result.url, "non_company: lookup resolved to a job-board/staffing domain");
+  if (!best || !details) {
+    const failure = firstFailure!;
+    const code = funnelCode(failure.code);
+    reject(trace, [code], company, ranked[0]!.result.url, `Excluded: ${failure.reason}.`);
     return undefined;
   }
 
-  const groupSourceText = group.candidates
-    .map((candidate) =>
-      [
-        candidate.result.title,
-        candidate.result.text,
-        candidate.result.highlights?.join(" "),
-        candidate.summary.signal_summary,
-      ]
-        .filter(Boolean)
-        .join(" "),
-    )
-    .join(" ");
-
-  const fit = evaluateFit(plan, enrichment, groupSourceText);
-  if (!fit.keep) {
-    reject(trace, fit.codes, company, result.url, fit.reason);
-    return undefined;
-  }
-
+  const { result, summary } = best;
   const aggregateCount = distinctSignalCount(group.candidates);
   if (isWeakWhyNow(summary.signal_summary) && aggregateCount < 2) {
     reject(trace, ["weak_why_now"], company, result.url, "weak_why_now: summary has no explicit signal");
@@ -366,16 +316,7 @@ function toRow(
   }
 
   const strength = groupStrength(plan, group.candidates, aggregateCount);
-  const wrongCompanyPenalty = nameMatchesSignal({
-    company,
-    title: result.title,
-    text: [result.text, result.highlights?.join(" ")].filter(Boolean).join(" "),
-    summary: summary.signal_summary,
-  })
-    ? 1
-    : 0.72;
-  if (wrongCompanyPenalty < 1 && trace) trace.funnel.entityMismatchPenalised += 1;
-  const confidence = clamp(fit.multiplier * strength.score * wrongCompanyPenalty);
+  const confidence = clamp(details.multiplier * strength.score);
   const whyNow =
     isWeakWhyNow(summary.signal_summary) && aggregateCount >= 2
       ? `${company} has ${aggregateCount} distinct recent signals; strongest dated source is ${result.title ?? result.url}.`
@@ -384,16 +325,23 @@ function toRow(
   return {
     company,
     one_liner: oneLiner(company, enrichment, strength.label),
-    fit_reason: fit.reason,
+    fit_reason: details.fit_reason,
     why_now_signal: whyNow,
     signal_strength: strength.label,
     signal_source_url: result.url,
-    signal_date: signalDate,
-    ...(resolved.source ? { date_source: resolved.source } : {}),
+    signal_date: details.event_date,
+    date_source: details.date_source,
     confidence_score: round(confidence),
-    freshness_score: round(freshnessScore(signalDate, startIso, now)),
+    freshness_score: round(freshnessScore(details.event_date, startIso, now)),
     net_new: netNew(company, plan.excludeNames),
   };
+}
+
+/** Gate codes -> the funnel rejection keys used since the first recorded runs. */
+function funnelCode(code: GateCode): string {
+  if (code === "exclude_name") return "excludeNames";
+  if (code === "exclude_domain") return "excludeDomains";
+  return code;
 }
 
 function isWeakWhyNow(value: string | undefined): boolean {
@@ -412,85 +360,6 @@ function preliminaryScore(
     groupStrength(plan, group.candidates, distinctSignalCount(group.candidates)).score * 0.75 +
     freshnessScore(eventDate(best, now), startIso, now) * 0.25
   );
-}
-
-// ---------------------------------------------------------------------------
-// Generic fit: required gates + size + geo + not enterprise.
-// ---------------------------------------------------------------------------
-
-function evaluateFit(
-  plan: SearchPlan,
-  enrichment: CompanyEnrichment | undefined,
-  signalText: string,
-): { keep: boolean; multiplier: number; reason: string; codes: string[] } {
-  const reject = (reason: string, ...codes: string[]) => ({
-    keep: false,
-    multiplier: 0,
-    reason: `Excluded: ${reason}`,
-    codes,
-  });
-
-  if (!enrichment || Object.keys(enrichment.summary).length === 0) {
-    return reject("no company lookup available to verify the fit gates.", "no_enrichment");
-  }
-  const summary = enrichment.summary;
-
-  if (summary.is_public_or_enterprise === true) {
-    return reject("company appears public/enterprise scale.", "enterprise");
-  }
-
-  const hq = typeof summary.hq === "string" ? summary.hq : "";
-  if (
-    !textInCountries(hq, plan.hqCountries, true) &&
-    !textInCountries(signalText, plan.hqCountries, false)
-  ) {
-    return reject(`HQ "${hq || "unknown"}" is outside ${plan.hqCountries.join("/")}.`, "hq");
-  }
-
-  const employees = parseEmployeeEstimate(summary.employee_estimate);
-  const { min, max, unknownPolicy } = plan.employeeRange;
-  if (employees === undefined) {
-    if (unknownPolicy === "reject") return reject("employee estimate unknown.", "unknown_size");
-  } else if (employees < min || employees > max) {
-    return reject(
-      `employee estimate ${employees.toLocaleString()} is outside the approximate ${min}-${max} target.`,
-      "size",
-    );
-  }
-
-  const required = plan.gateFields.filter((g) => g.required);
-  const optional = plan.gateFields.filter((g) => !g.required);
-  const failed = required.filter((g) => summary[g.key] !== true);
-  if (failed.length > 0) {
-    return reject(
-      `required gate(s) not satisfied: ${failed.map((g) => g.key).join(", ")}.`,
-      ...failed.map((g) => `required_gate:${g.key}`),
-    );
-  }
-
-  const optionalPassed = optional.filter((g) => summary[g.key] === true);
-  const optionalFrac = optional.length > 0 ? optionalPassed.length / optional.length : 1;
-  const multiplier = (employees === undefined ? 0.82 : 1) * (0.9 + 0.1 * optionalFrac);
-
-  const parts = [
-    required.length > 0
-      ? `required gates passed: ${required.map((g) => g.key).join(", ")}`
-      : "no required gates",
-  ];
-  if (optional.length > 0) {
-    parts.push(
-      optionalPassed.length > 0
-        ? `optional gates passed: ${optionalPassed.map((g) => g.key).join(", ")}`
-        : "no optional gates passed",
-    );
-  }
-  parts.push(
-    employees === undefined
-      ? "employee count not exposed by lookup"
-      : `${employees.toLocaleString()} estimated employees`,
-  );
-  parts.push(`HQ ${hq || "inferred from signal text"}`);
-  return { keep: true, multiplier, reason: `${parts.join("; ")}.`, codes: [] };
 }
 
 // ---------------------------------------------------------------------------
@@ -575,88 +444,6 @@ function cleanCompanyName(value: string): string {
     .trim();
 }
 
-function freshnessScore(value: string, startIso: string, now: Date): number {
-  const signal = new Date(value).getTime();
-  const start = new Date(startIso).getTime();
-  const end = now.getTime();
-  if (!Number.isFinite(signal) || signal < start || signal > end) return 0;
-  return clamp((signal - start) / (end - start));
-}
-
-function safeDomain(url: string): string | undefined {
-  try {
-    return new URL(url).hostname.replace(/^www\./, "");
-  } catch {
-    return undefined;
-  }
-}
-
-function nameTokens(name: string): string[] {
-  return normalizeName(name).split(" ").filter(Boolean);
-}
-
-/**
- * Fuzzy denylist match on normalised tokens: the whole name, or its leading
- * token(s), equals a denylisted name ("RXO (formerly XPO Logistics)" and
- * "RXO CORPORATE SOLUTIONS, LLC" vs "RXO"), or the strings are equal with all
- * spaces/punctuation stripped ("Chrobinson" vs "C.H. Robinson").
- */
-export function nameExcluded(company: string, excluded: string[][]): boolean {
-  const tokens = nameTokens(company);
-  if (tokens.length === 0) return false;
-  const squashed = tokens.join("");
-  return excluded.some(
-    (ex) =>
-      ex.join("") === squashed ||
-      (ex.length <= tokens.length && ex.every((t, i) => tokens[i] === t)),
-  );
-}
-
-// Generic non-company filter (not ICP-specific): staffing agencies and job
-// boards that show up as the "company" on hiring posts, plus placeholder
-// names the summariser emits when it finds no real company.
-const NON_COMPANY_NAME_PATTERNS: RegExp[] = [
-  /\bihire/,
-  /jobline/,
-  /\bjobrapido\b/,
-  /\bindeed\b/,
-  /\bziprecruiter\b/,
-  /\bglassdoor\b/,
-  /\blinkedin\b/,
-  /\bremote rush\b/,
-  /\bpeople group\b/,
-];
-const PLACEHOLDER_NAMES = new Set([
-  "", "unknown", "na", "none", "null", "role", "final mile", "last mile",
-  "company", "employer", "confidential", "undisclosed", "various", "multiple",
-]);
-// Job-board / staffing domains, checked against a company's own lookup domain.
-const NON_COMPANY_DOMAIN_PATTERNS: RegExp[] = [
-  /(^|\.)ihirelogistics\.com$/,
-  /jobline/,
-  /(^|\.)jobrapido\./,
-  /(^|\.)indeed\./,
-  /(^|\.)ziprecruiter\./,
-  /(^|\.)glassdoor\./,
-  /(^|\.)linkedin\.com$/,
-];
-
-export function isNonCompanyName(name: string): boolean {
-  const n = normalizeName(name);
-  return PLACEHOLDER_NAMES.has(n) || NON_COMPANY_NAME_PATTERNS.some((p) => p.test(n));
-}
-
-function isNonCompanyDomain(url: string): boolean {
-  const d = safeDomain(url);
-  return !!d && NON_COMPANY_DOMAIN_PATTERNS.some((p) => p.test(d));
-}
-
-function domainExcluded(url: string, excluded: readonly string[]): boolean {
-  const domain = safeDomain(url);
-  if (!domain) return false;
-  return excluded.some((d) => domain === d || domain.endsWith(`.${d}`));
-}
-
 function dedupeKey(url: string, companyKey: string): string {
   const domain = safeDomain(url) ?? companyKey;
   return isAggregatorDomain(domain) ? `${domain}:${companyKey}` : domain;
@@ -665,26 +452,9 @@ function dedupeKey(url: string, companyKey: string): string {
 function distinctSignalCount(candidates: Candidate[]): number {
   return new Set(
     candidates.map((candidate) =>
-      dedupeKey(candidate.result.url, normalizeName(candidate.summary.company_name)),
+      dedupeKey(candidate.result.url, squashName(candidate.summary.company_name)),
     ),
   ).size;
-}
-
-export function parseEmployeeEstimate(value: CompanySummary["employee_estimate"]): number | undefined {
-  if (typeof value === "number" && Number.isFinite(value)) return value;
-  if (typeof value !== "string") return undefined;
-
-  const normalized = value.toLowerCase().replace(/,/g, "");
-  const range = normalized.match(/(\d+)\s*[-–]\s*(\d+)/);
-  if (range?.[1] && range[2]) {
-    return Math.round((Number(range[1]) + Number(range[2])) / 2);
-  }
-
-  const plus = normalized.match(/(\d+)\s*\+/);
-  if (plus?.[1]) return Number(plus[1]);
-
-  const number = normalized.match(/\d+/);
-  return number ? Number(number[0]) : undefined;
 }
 
 function isAggregatorDomain(domain: string): boolean {

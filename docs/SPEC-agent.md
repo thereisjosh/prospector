@@ -132,7 +132,7 @@ Measured as: approval requests per run, approval rate, and whether approved scop
 `submit_lead` runs these deterministic checks. All of them already exist from the v2 engine, or are fixes queued from the last eval:
 - **Event date** in the plan window, reconciled against the publish date (catches the year mistakes Exa's summaries make)
 - **Required gates** true on a `lookup_company` result for this company
-- **Size** within range; if the employee count contradicts its source quote it becomes unknown and the plan's unknown-size rule applies
+- **Size:** the lookup must quote the phrase its employee estimate came from. A quoted estimate is checked against the exact band. An estimate its quote does not support is *weak evidence, not no evidence*: it is rejected if below min/2 or above 1.5× max, otherwise accepted with a confidence penalty. No estimate at all follows the plan's unknown-size rule. (Decided 2026-10-12 after a live run returned 356 and 3,560 for the same company; year-like numbers such as "founded 2004" cannot corroborate a headcount.)
 - **HQ** in the plan's countries
 - **Exclusions:** fuzzy name match against the exclusion list, job-board and placeholder filters
 - **Entity match:** the company name appears in the signal page

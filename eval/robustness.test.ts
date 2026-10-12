@@ -11,7 +11,7 @@ import {
   isNonCompanyName,
   nameExcluded,
   rankCompaniesForEnrichment,
-  resolveEventDate,
+  resolveCandidateDate,
   scoreAndRank,
   type Candidate,
 } from "../src/score";
@@ -25,8 +25,6 @@ const cand = (over: {
   pub?: string;
   type?: string;
   url?: string;
-  scale?: string;
-  prescreen?: Record<string, string>;
   enrichment?: Record<string, unknown>;
 }): Candidate => ({
   result: {
@@ -40,15 +38,13 @@ const cand = (over: {
     signal_type: over.type ?? "new_facility",
     signal_summary: `${over.company ?? "x"} opened a facility`,
     signal_date: over.sig ?? "",
-    ...(over.scale ? { company_scale_guess: over.scale } : {}),
-    ...(over.prescreen ? { prescreen: over.prescreen } : {}),
   },
   ...(over.enrichment ? { company: { summary: over.enrichment } } : {}),
 });
 
 describe("date reconciliation (Exa hallucinates the year)", () => {
   const r = (sig: string | undefined, pub: string | undefined) =>
-    resolveEventDate(cand({ sig, pub }), NOW);
+    resolveCandidateDate(cand({ sig, pub }), NOW);
 
   it("RGL: signal 2023-10-05 vs published 2026-10-05 -> published_fallback", () => {
     expect(r("2023-10-05", "2026-10-05")).toEqual({ date: "2026-10-05", source: "published_fallback" });
@@ -179,21 +175,20 @@ describe("generic non-company filter", () => {
   });
 });
 
-describe("pre-screen ranking", () => {
-  it("sends enterprise / pre_* = no to the back of the queue (not dropped), then by strength", () => {
+describe("enrichment ranking", () => {
+  it("ranks by signal strength then freshness only (no pre-screen demotion)", () => {
     const queue = rankCompaniesForEnrichment(
       V1_PLAN_1,
       [
-        cand({ company: "BigCo", pub: "2026-10-09", type: "new_facility", scale: "enterprise" }),
-        cand({ company: "NotOperator", pub: "2026-10-09", type: "new_facility", prescreen: { is_third_party_logistics: "no" } }),
-        cand({ company: "WeakSmall", pub: "2026-10-01", type: "ops_hire", scale: "small", prescreen: { is_third_party_logistics: "yes" } }),
-        cand({ company: "StrongMid", pub: "2026-10-09", type: "new_facility", scale: "mid", prescreen: { is_third_party_logistics: "unclear" } }),
+        cand({ company: "WeakOld", pub: "2026-09-01", type: "ops_hire" }),
+        cand({ company: "StrongNew", pub: "2026-10-09", type: "new_facility" }),
+        cand({ company: "StrongOlder", pub: "2026-09-15", type: "new_facility" }),
+        cand({ company: "WeakNew", pub: "2026-10-09", type: "ops_hire" }),
       ],
       monthsAgoIso(3, NOW),
       NOW,
     );
-    expect(queue.slice(0, 2)).toEqual(["StrongMid", "WeakSmall"]);
-    expect(queue.slice(2).sort()).toEqual(["BigCo", "NotOperator"]);
+    expect(queue).toEqual(["StrongNew", "StrongOlder", "WeakNew", "WeakOld"]);
   });
 });
 

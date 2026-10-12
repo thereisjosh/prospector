@@ -42,6 +42,7 @@ export const CORE_COMPANY_KEYS = [
   "description",
   "industry",
   "employee_estimate",
+  "employee_estimate_source",
   "is_public_or_enterprise",
   "hq",
 ] as const;
@@ -285,54 +286,18 @@ export function signalTypeEnum(plan: Pick<SearchPlan, "signalTypes">): string[] 
   return [...plan.signalTypes, OTHER_SIGNAL_TYPE];
 }
 
-export const SCALE_GUESSES = ["small", "mid", "enterprise", "unknown"] as const;
-export const PRESCREEN_ANSWERS = ["yes", "no", "unclear"] as const;
-export const PRESCREEN_PREFIX = "pre_";
-
-/** Required gates get a cheap yes/no/unclear pre-screen on the signal summary. */
-export function prescreenGates(plan: Pick<SearchPlan, "gateFields">): GateField[] {
-  return plan.gateFields.filter((g) => g.required);
-}
-
-/**
- * Signal summary schema. With preScreen (default), also asks for
- * company_scale_guess and one `pre_<gatekey>` enum per REQUIRED gate so the
- * engine can rank companies before paying for a lookup.
- */
-export function buildSignalSchema(
-  plan: Pick<SearchPlan, "signalTypes"> & Partial<Pick<SearchPlan, "gateFields">>,
-  options: { preScreen?: boolean } = {},
-) {
-  const properties: Record<string, unknown> = {
-    company_name: { type: "string" },
-    signal_type: { type: "string", enum: signalTypeEnum(plan) },
-    signal_summary: { type: "string" },
-    signal_date: { type: "string" },
-  };
-  const required = ["company_name", "signal_type", "signal_summary", "signal_date"];
-  if (options.preScreen ?? true) {
-    properties.company_scale_guess = { type: "string", enum: [...SCALE_GUESSES] };
-    required.push("company_scale_guess");
-    for (const gate of prescreenGates({ gateFields: plan.gateFields ?? [] })) {
-      const key = `${PRESCREEN_PREFIX}${gate.key}`;
-      properties[key] = { type: "string", enum: [...PRESCREEN_ANSWERS] };
-      required.push(key);
-    }
-  }
+export function buildSignalSchema(plan: Pick<SearchPlan, "signalTypes">) {
   return {
     type: "object",
     additionalProperties: false,
-    properties,
-    required,
-  } as {
-    type: "object";
-    additionalProperties: false;
-    properties: Record<string, unknown> & {
-      signal_type: { type: "string"; enum: string[] };
-      signal_date: { type: "string" };
-    };
-    required: string[];
-  };
+    properties: {
+      company_name: { type: "string" },
+      signal_type: { type: "string", enum: signalTypeEnum(plan) },
+      signal_summary: { type: "string" },
+      signal_date: { type: "string" },
+    },
+    required: ["company_name", "signal_type", "signal_summary", "signal_date"],
+  } as const;
 }
 
 export function buildCompanySchema(plan: Pick<SearchPlan, "gateFields">) {
@@ -340,6 +305,7 @@ export function buildCompanySchema(plan: Pick<SearchPlan, "gateFields">) {
     description: { type: "string" },
     industry: { type: "string" },
     employee_estimate: { anyOf: [{ type: "number" }, { type: "string" }] },
+    employee_estimate_source: { type: "string" },
     is_public_or_enterprise: { type: "boolean" },
     hq: { type: "string" },
   };
@@ -356,37 +322,31 @@ export function buildCompanySchema(plan: Pick<SearchPlan, "gateFields">) {
   };
 }
 
-/** The signal summary query actually sent to Exa: plan text + format rules (+ pre-screen questions). */
+/** The signal summary query actually sent to Exa: plan text + format rules. */
 export function composeSignalSummaryQuery(
-  plan: Pick<SearchPlan, "signalTypes"> & Partial<Pick<SearchPlan, "gateFields">>,
+  plan: Pick<SearchPlan, "signalTypes">,
   query: string,
-  options: { preScreen?: boolean } = {},
 ): string {
-  let out =
+  return (
     `${query} ` +
     `Set signal_date to the date the EVENT itself happened or was announced (not the article's publish date), ` +
     `in ISO format YYYY-MM-DD. ` +
-    `Set signal_type to exactly one of: ${signalTypeEnum(plan).join(", ")}.`;
-  if (options.preScreen ?? true) {
-    out +=
-      ` Set company_scale_guess to small, mid, enterprise or unknown ` +
-      `(enterprise = Fortune 500, global, or publicly traded giant).`;
-    for (const gate of prescreenGates({ gateFields: plan.gateFields ?? [] })) {
-      out += ` Set ${PRESCREEN_PREFIX}${gate.key} to yes, no or unclear: ${gate.question}`;
-    }
-  }
-  return out;
+    `Set signal_type to exactly one of: ${signalTypeEnum(plan).join(", ")}.`
+  );
 }
 
 /** The company summary query actually sent to Exa: plan text + gate questions. */
 export function composeCompanySummaryQuery(
   plan: Pick<SearchPlan, "companySummaryQuery" | "gateFields">,
 ): string {
-  if (plan.gateFields.length === 0) return plan.companySummaryQuery;
+  const source =
+    " For employee_estimate_source, quote the exact phrase from the page that the employee estimate came from " +
+    '(e.g. "350 employees"), or an empty string if no page states a headcount.';
+  if (plan.gateFields.length === 0) return `${plan.companySummaryQuery}${source}`;
   const gates = plan.gateFields
     .map((g) => `${g.key} (true/false): ${g.question}`)
     .join(" ");
-  return `${plan.companySummaryQuery} Answer each as a boolean. ${gates}`;
+  return `${plan.companySummaryQuery}${source} Answer each gate as a boolean. ${gates}`;
 }
 
 // ---------------------------------------------------------------------------

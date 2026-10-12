@@ -17,12 +17,9 @@ export const V1_PLAN_1: SearchPlan = {
   signalQueries: [
     "logistics or 3PL company hiring a wave of operations manager roles / opening a new warehouse",
     "third-party logistics provider opening a new warehouse fulfillment center",
-    "3PL fulfillment provider announced expansion new warehouse facility",
     "3PL fulfillment company hiring warehouse operations manager",
     "last-mile logistics company hiring operations manager",
-    "US 3PL fulfillment provider hiring operations manager multiple warehouse roles",
     "US third party logistics company opens distribution center expansion",
-    "regional logistics provider warehouse expansion operations hiring",
   ],
   signalSummaryQuery: "the why-now signal and its date",
   companySummaryQuery:
@@ -31,7 +28,7 @@ export const V1_PLAN_1: SearchPlan = {
     {
       key: "is_third_party_logistics",
       question:
-        "Is this company itself a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator (not a retailer, consumer brand, manufacturer, or software/robotics vendor)?",
+        "provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses)",
       required: true,
     },
   ],

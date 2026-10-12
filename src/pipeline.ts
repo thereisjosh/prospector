@@ -24,7 +24,7 @@ import {
   type Funnel,
   type Rejection,
 } from "./score";
-import { normalizeName } from "./eval";
+import { squashName } from "./gates";
 import { getV1Plan } from "../eval/fixtures/v1-plans";
 import type {
   ExaCostDollars,
@@ -74,7 +74,6 @@ export async function runProspect(
     numResults?: number;
     maxCandidates?: number;
     maxCostDollars?: number;
-    preScreen?: boolean;
     now?: Date;
   },
 ): Promise<{
@@ -88,7 +87,6 @@ export async function runProspect(
     numResults: options.numResults ?? 12,
     maxCandidates: options.maxCandidates,
     maxCostDollars: options.maxCostDollars,
-    preScreen: options.preScreen,
     signalQuery: options.signalQuery,
     now: options.now,
     credentials: options.exaKey ? { apiKey: options.exaKey } : undefined,
@@ -111,8 +109,6 @@ export async function runProspecting(
     maxCandidates?: number;
     /** Hard per-run spend cap, enforced in exaSearch. Default $0.60. */
     maxCostDollars?: number;
-    /** Ask the signal summary pre-screen questions (default true). */
-    preScreen?: boolean;
     /** Eval-script only: treat a replay miss on a company lookup as "no enrichment". */
     lenientReplay?: boolean;
     signalQuery?: string;
@@ -127,11 +123,10 @@ export async function runProspecting(
   const signalQueries = options.signalQuery?.trim()
     ? [options.signalQuery.trim()]
     : plan.signalQueries;
-  const preScreen = options.preScreen ?? true;
   const guard = new CostGuard(options.maxCostDollars ?? DEFAULT_MAX_COST_DOLLARS);
-  const signalSchema = buildSignalSchema(plan, { preScreen });
+  const signalSchema = buildSignalSchema(plan);
   const companySchema = buildCompanySchema(plan);
-  const signalSummaryQuery = composeSignalSummaryQuery(plan, plan.signalSummaryQuery, { preScreen });
+  const signalSummaryQuery = composeSignalSummaryQuery(plan, plan.signalSummaryQuery);
   let totalCostDollars = 0;
   const trace = createTrace();
 
@@ -194,7 +189,7 @@ export async function runProspecting(
   for (const company of queue) {
     if (companiesToEnrich.length >= hardCap) break;
     const cost =
-      (preCache.has(normalizeName(company)) ? 0 : COST_ESTIMATE.companyLookup) + followUpCost;
+      (preCache.has(squashName(company)) ? 0 : COST_ESTIMATE.companyLookup) + followUpCost;
     if (planned + cost > guard.remaining + 1e-9) {
       trace.funnel.budgetStoppedAt ??= `enrichment:${companiesToEnrich.length}`;
       break;
@@ -210,7 +205,7 @@ export async function runProspecting(
   const companySummaryQuery = composeCompanySummaryQuery(plan);
 
   const lookups = await Promise.all(companiesToEnrich.map(async (company) => {
-    const key = normalizeName(company);
+    const key = squashName(company);
     const cached = cache.get(key);
     if (cached) {
       return { key, lookup: cached, fromCache: true };
@@ -248,7 +243,7 @@ export async function runProspecting(
   const followUpCandidates = [];
   if (plan.followUp) {
     const followUp = plan.followUp;
-    const followUpSummaryQuery = composeSignalSummaryQuery(plan, followUp.summaryQuery, { preScreen: false });
+    const followUpSummaryQuery = composeSignalSummaryQuery(plan, followUp.summaryQuery);
     const followUpResponses = await Promise.all(companiesToEnrich.map(async (company) => {
       const query = followUp.queryTemplate.split("{company}").join(company);
       const response = await exaSearch({
@@ -284,7 +279,7 @@ export async function runProspecting(
   }
 
   const enrichedCandidates = [...candidates, ...followUpCandidates].map((candidate) => {
-    const companyName = normalizeName(candidate.summary.company_name);
+    const companyName = squashName(candidate.summary.company_name);
     const lookup = companyMap.get(companyName);
     return lookup
       ? {

@@ -4,9 +4,7 @@
  *   tsx eval/run-recorded.ts --icp 1 --num 25 --max 15 --max-cost 0.6 --record <dir>
  *   tsx eval/run-recorded.ts --icp 1 --num 25 --max 15 --replay <dir> [--now <iso>]
  *
- * Flags: --no-prescreen (don't add pre-screen fields to the signal request, so
- * hashes match recordings made before pre-screening existed), --replay-lenient
- * (replay only: a missing company-lookup recording counts as `replayMiss` and
+ * Flags: --replay-lenient (replay only: a missing company-lookup recording counts as `replayMiss` and
  * "no enrichment"; signal-search misses still throw).
  *
  * Record: every Exa request/response is saved under <dir>, and `now` is saved
@@ -25,7 +23,7 @@ function parseArgs(argv: string[]) {
   const a: Record<string, string> = {};
   for (let i = 0; i < argv.length; i += 1) {
     const arg = argv[i]!;
-    if (arg === "--no-prescreen" || arg === "--replay-lenient") a[arg.slice(2)] = "true";
+    if (arg === "--replay-lenient") a[arg.slice(2)] = "true";
     else if (arg.startsWith("--")) a[arg.slice(2)] = argv[++i] ?? "";
   }
   return a;
@@ -60,7 +58,6 @@ async function main() {
     numResults: num,
     maxCandidates: max,
     maxCostDollars: maxCost,
-    preScreen: !args["no-prescreen"],
     lenientReplay: !!args["replay-lenient"],
     now,
   });

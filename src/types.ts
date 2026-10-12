@@ -5,15 +5,14 @@ export type SignalSummary = {
   signal_type: string;
   signal_summary: string;
   signal_date: string;
-  /** Pre-screen answers from the signal summary (see buildSignalSchema). */
-  company_scale_guess?: string;
-  prescreen?: Record<string, string>;
 };
 
 export type CompanySummary = {
   description?: string;
   industry?: string;
   employee_estimate?: number | string;
+  /** Quoted phrase the employee estimate came from, or "". */
+  employee_estimate_source?: string;
   is_public_or_enterprise?: boolean;
   hq?: string;
   /** Plan-generated boolean gates (see SearchPlan.gateFields). */

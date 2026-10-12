@@ -227,7 +227,7 @@ describe("runProspecting (mocked fetch)", () => {
     expect(result.rejected.find((r) => r.company === "NotOperatorCo")).toMatchObject({
       signal_url: "https://news.example.com/notop",
     });
-    expect(result.rejected.find((r) => r.company === "StaleCo")?.reason).toMatch(/^stale_or_unparseable_date/);
+    expect(result.rejected.find((r) => r.company === "StaleCo")?.reason).toMatch(/^stale_date/);
   });
 
   it("counts companies cut by the enrichment limit", async () => {
