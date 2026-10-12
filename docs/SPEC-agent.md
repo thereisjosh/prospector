@@ -256,7 +256,6 @@ Order: A1 → A2 + A3 → **A4 smoke (gate)** → A5 + A6 in parallel → A7 →
 
 ## 12. Out of scope (v1)
 
-- Memory across runs or saved ICPs
 - Multi-agent / subagents
 - Facebook groups as a source
 - Sending outreach
@@ -269,3 +268,25 @@ Order: A1 → A2 + A3 → **A4 smoke (gate)** → A5 + A6 in parallel → A7 →
 - The agent may not beat the workflow on precision. If so, that is a valid finding, and the case study reports it.
 - Claude cost per good lead could exceed the value. That is a pricing question the eval answers.
 - Exa summary noise (wrong-year dates, unreliable sizes) is mitigated by code gates, not eliminated.
+
+## 14. Rollout plan
+
+**Stage 0: shadow.** The agent runs on real contracts next to the workflow (arm A) with the same contract and cap; only the workflow's results are shown. Both are pooled blind and judged with `eval/RUBRIC.md`. Nothing from the agent reaches a user.
+
+**Stage 1: small share.** The public URL defaults to demo mode (recorded replay, no spend). Live mode is on only for named users, under the per-run cap ($1.00) and the daily cap.
+
+**Ramp criteria (rubric-based).** Widen live mode only when, on the latest full eval (§9):
+- arm B has pass^3 = 1 on at least 3 of 4 scenarios
+- mean precision ≥ 0.8 in every scenario
+- cost per good lead is no worse than arm A's
+- shadow runs from the previous stage meet the same bar
+
+Any later eval that misses a criterion rolls back one stage.
+
+**Kill switch.** `DEMO_MODE=1` (every run becomes the recorded replay) plus `DAILY_SPEND_CAP_DOLLARS=0` (`POST /api/runs` returns 503; test `F1.11`). The owner of the deployment flips both in the host's environment settings and redeploys. Trigger: a confirmed bad lead pattern, a spend anomaly, or a prompt-injection report.
+
+**Weekly review** (from `events.jsonl`, run summaries and workspace feedback):
+- cost per good lead (judged sample)
+- handback rate, and whether re-runs with suggestion #1 added good leads
+- approval decline rate, split by strategy and scope change
+- 👎 reasons, grouped; recurring ones become eval cases (§2 step 7)
