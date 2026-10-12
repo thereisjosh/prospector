@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { InvalidIdError, assertRunId } from "../../../../src/agent/ids";
 import { readLastEvents } from "../../../../src/agent/events";
-import { loadState } from "../../../../src/agent/state";
+import { loadState, screenedByCode } from "../../../../src/agent/state";
 import { isDemoRunId } from "../../../../src/demo/mode";
 import { demoSnapshot } from "../../../../src/demo/replay";
 
@@ -26,6 +26,7 @@ export async function GET(_request: Request, { params }: { params: { id: string 
       counters: state.counters,
       leads: state.leads,
       rejected: state.rejected,
+      screened: screenedByCode(state),
       todo: state.todo,
       summary: state.summary,
       strategyApproved: state.strategyApproved,

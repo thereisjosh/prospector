@@ -23,6 +23,8 @@ export type Handback = {
   suggestions: Array<{ field: string; value: unknown; why: string }>;
 };
 
+export type ScreenedCompany = { company: string; code: string; reason: string; turn: number; stage: "lookup" };
+
 export type RunStatus = "running" | "awaiting_approval" | "done" | "stopped" | "error";
 
 export type RunState = {
@@ -43,6 +45,8 @@ export type RunState = {
   counters: { turns: number; activeMs: number; noProgressTurns: number; toolCalls: number };
   leads: AcceptedLead[];
   rejected: Array<{ company: string; code: string; reason: string; turn: number }>;
+  /** Companies the gates would reject, found at the lookup stage (never submitted). */
+  screened?: ScreenedCompany[];
   todo: string;
   pendingApproval?: {
     toolUseId: string;
@@ -94,6 +98,7 @@ export function createRunState(args: {
     counters: { turns: 0, activeMs: 0, noProgressTurns: 0, toolCalls: 0 },
     leads: [],
     rejected: [],
+    screened: [],
     todo: "",
     adaptive: { queryRewrites: 0, lookupsSkipped: 0, verificationReads: 0 },
     caches: {
@@ -115,4 +120,13 @@ export async function saveState(state: RunState): Promise<void> {
 export async function loadState(id: string): Promise<RunState> {
   const raw = await readFile(join(RUNS_DIR, assertRunId(id), "state.json"), "utf8");
   return JSON.parse(raw) as RunState;
+}
+
+/** Screened-at-lookup companies grouped by gate code, most common first. */
+export function screenedByCode(state: Pick<RunState, "screened">): Array<{ code: string; count: number; companies: string[] }> {
+  const map = new Map<string, string[]>();
+  for (const item of state.screened ?? []) map.set(item.code, [...(map.get(item.code) ?? []), item.company]);
+  return [...map.entries()]
+    .sort((a, b) => b[1].length - a[1].length)
+    .map(([code, companies]) => ({ code, count: companies.length, companies: companies.slice(0, 10) }));
 }

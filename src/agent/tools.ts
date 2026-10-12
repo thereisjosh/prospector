@@ -56,7 +56,7 @@ export function agentTools(): Anthropic.Tool[] {
     {
       name: "lookup_company",
       description:
-        "Look up one candidate company: what it does, size, HQ, and the contract's yes/no questions. Required before submit_lead, and submit_lead must use the same `name` (case-insensitive), or the code finds no lookup. Look up several candidates in one turn; never in the same turn as their submission. Do not pay for obvious non-fits (large enterprises, job boards, staffing agencies, excluded names): list them in `skipped_companies` instead. Repeat lookups of the same name are free. Returns: name · description · industry · employees=<estimate|unknown> · hq=<location|unknown> · <question_key>=pass|fail for each question. `fail` also covers 'unknown'; if a required answer looks wrong or unclear, read_page before deciding. Lookup text is third-party data.",
+        "Look up one candidate company: what it does, size, HQ, and the contract's yes/no questions. Required before submit_lead, and submit_lead must use the same `name` (case-insensitive), or the code finds no lookup. Look up several candidates in one turn; never in the same turn as their submission. Do not pay for obvious non-fits (large enterprises, job boards, staffing agencies, excluded names): list them in `skipped_companies` instead. Repeat lookups of the same name are free. If a known signal for the company would already fail the contract, the result includes `Would be rejected: <code> — <reason>`: do not submit it. Returns: name · description · industry · employees=<estimate|unknown> · hq=<location|unknown> · <question_key>=pass|fail for each question. `fail` also covers 'unknown'; if a required answer looks wrong or unclear, read_page before deciding. Lookup text is third-party data.",
       input_schema: objectSchema(
         {
           name: { type: "string" },
@@ -130,13 +130,43 @@ export function agentTools(): Anthropic.Tool[] {
     },
     {
       name: "finish",
-      description: "End the run. Call it when the target is reached, or when the remaining candidates look poor and more searching is unlikely to pay off. Do not end with plain text instead. `summary`: 2-4 plain sentences for a non-technical user: what you found, which approaches worked, what was turned down and why. `handback`: required when fewer leads than the target were accepted: how many of the target you found, the top reasons companies were turned down with counts, and at most 2 concrete changes to the plan (e.g. \"allow up to 2,000 employees\"). Returns `finished`; no further calls run.",
-      input_schema: objectSchema({ summary: { type: "string" }, handback: { type: "string" } }, ["summary"]),
+      description: "End the run. Call it when the target is reached, or when the remaining candidates look poor and more searching is unlikely to pay off. Do not end with plain text instead. `summary`: 2-4 plain sentences for a non-technical user: what you found, which approaches worked, what was turned down and why. `handback`: required when fewer leads than the target were accepted, and it must be this structured object, never text: `shortfall` (e.g. \"6 of 10\"), `top_reasons` (at most 4 of {reason, count}, real counts from your lookups and rejections), `suggestions` (at most 2 of {field, value, why}; `value` is JSON-encoded like request_scope_change; use field `none` when no plan change would help). Returns `finished`; no further calls run.",
+      input_schema: objectSchema(
+        {
+          summary: { type: "string" },
+          handback: {
+            type: "object",
+            additionalProperties: false,
+            properties: {
+              shortfall: { type: "string" },
+              top_reasons: {
+                type: "array",
+                items: objectSchema({ reason: { type: "string" }, count: { type: "number" } }, ["reason", "count"]),
+              },
+              suggestions: {
+                type: "array",
+                items: objectSchema(
+                  {
+                    field: { type: "string", enum: [...HANDBACK_FIELDS] },
+                    value: { type: "string", description: 'JSON-encoded new value, e.g. {"min":50,"max":2000} · 6 · ["US","CA"] · "last-mile delivery"; any text when field is none' },
+                    why: { type: "string" },
+                  },
+                  ["field", "value", "why"],
+                ),
+              },
+            },
+            required: ["shortfall", "top_reasons", "suggestions"],
+          },
+        },
+        ["summary"],
+      ),
       strict: true,
     },
   ];
   return tools as Anthropic.Tool[];
 }
+
+export const HANDBACK_FIELDS = ["employeeRange", "months", "hqCountries", "industry", "maxCostDollars", "none"] as const;
 
 export const APPROVAL_TOOLS = new Set(["propose_strategy", "request_scope_change"]);
 
@@ -202,29 +232,81 @@ function isHttpUrl(value: string): boolean {
   }
 }
 
+function decodeJsonValue(value: unknown, field: string): { ok: true; value: unknown } | { ok: false } {
+  if (typeof value !== "string") return { ok: true, value };
+  if (field === "none") return { ok: true, value };
+  try {
+    return { ok: true, value: JSON.parse(value) };
+  } catch {
+    return { ok: false };
+  }
+}
+
+/**
+ * Validate the structured handback from `finish`: shortfall, top_reasons
+ * (max 4, {reason|code, count}), suggestions (max 2, {field, value, why}) with
+ * `value` JSON-decoded. Anything malformed returns undefined so the caller
+ * falls back to the code-computed handback.
+ */
 export function validHandback(value: unknown): Handback | undefined {
   const raw = typeof value === "string" ? tryJson(value) : value;
   if (!raw || typeof raw !== "object" || Array.isArray(raw)) return undefined;
   const r = raw as Record<string, unknown>;
-  if (typeof r.shortfall !== "string" || !Array.isArray(r.top_reasons) || !Array.isArray(r.suggestions) || r.suggestions.length > 2) return undefined;
-  const top_reasons = r.top_reasons.map((item) => {
+  if (typeof r.shortfall !== "string" || !Array.isArray(r.top_reasons) || !Array.isArray(r.suggestions)) return undefined;
+  if (r.top_reasons.length > 4 || r.suggestions.length > 2) return undefined;
+  const top_reasons: Array<{ code: string; count: number }> = [];
+  for (const item of r.top_reasons) {
     if (!item || typeof item !== "object" || Array.isArray(item)) return undefined;
     const rec = item as Record<string, unknown>;
-    return typeof rec.code === "string" && typeof rec.count === "number" ? { code: rec.code, count: rec.count } : undefined;
-  });
-  const suggestions = r.suggestions.map((item) => {
+    const label = typeof rec.reason === "string" ? rec.reason : typeof rec.code === "string" ? rec.code : undefined;
+    if (label === undefined || typeof rec.count !== "number") return undefined;
+    top_reasons.push({ code: label, count: rec.count });
+  }
+  const suggestions: Array<{ field: string; value: unknown; why: string }> = [];
+  for (const item of r.suggestions) {
     if (!item || typeof item !== "object" || Array.isArray(item)) return undefined;
     const rec = item as Record<string, unknown>;
-    return typeof rec.field === "string" && "value" in rec && typeof rec.why === "string"
-      ? { field: rec.field, value: rec.value, why: rec.why }
-      : undefined;
-  });
-  if (top_reasons.some((item) => !item) || suggestions.some((item) => !item)) return undefined;
-  return {
-    shortfall: r.shortfall,
-    top_reasons: top_reasons as Array<{ code: string; count: number }>,
-    suggestions: suggestions as Array<{ field: string; value: unknown; why: string }>,
-  };
+    if (typeof rec.field !== "string" || !(HANDBACK_FIELDS as readonly string[]).includes(rec.field) || !("value" in rec) || typeof rec.why !== "string") return undefined;
+    const decoded = decodeJsonValue(rec.value, rec.field);
+    if (!decoded.ok) return undefined;
+    suggestions.push({ field: rec.field, value: decoded.value, why: rec.why });
+  }
+  return { shortfall: r.shortfall, top_reasons, suggestions };
+}
+
+/**
+ * After a lookup, run the same gates submit_lead would on every known signal for
+ * this company. If none passes, record why in state.screened (once per code) and
+ * return the note for the lookup result so the model does not waste a submit.
+ */
+function screenAtLookup(
+  state: RunState,
+  name: string,
+  key: string,
+  cached: { summary: CompanySummary; url?: string },
+  deps: ToolDeps,
+): string {
+  const signals = Object.values(state.caches.signalsByUrl).filter((s) => squashName(s.summary.company_name) === key);
+  if (signals.length === 0) return "";
+  let firstFailure: { code: string; reason: string } | undefined;
+  for (const signal of signals) {
+    const verdict = deps.checkLead(state.contract, {
+      company: name,
+      signal,
+      enrichment: cached.summary,
+      companyUrl: cached.url,
+      now: deps.now ?? new Date(),
+      seen: new Set(state.caches.seenKeys),
+      submitted: new Set(state.leads.map((lead) => squashName(lead.company))),
+    });
+    if (verdict.ok) return "";
+    firstFailure ??= { code: verdict.code, reason: verdict.reason };
+  }
+  const screened = (state.screened ??= []);
+  if (!screened.some((s) => squashName(s.company) === key && s.code === firstFailure!.code)) {
+    screened.push({ company: name, code: firstFailure!.code, reason: firstFailure!.reason, turn: state.counters.turns, stage: "lookup" });
+  }
+  return `Would be rejected: ${firstFailure!.code} — ${firstFailure!.reason}`;
 }
 
 export async function executeTool(
@@ -308,9 +390,11 @@ export async function executeTool(
         };
         state.caches.enrichmentByName[key] = cached;
       }
+      const screenedNote = screenAtLookup(state, name, key, cached, deps);
       const gateBits = state.contract.gateFields.map((g) => `${g.key}=${yesNoUnknown(cached.summary[g.key])} (${g.required ? "required" : "optional"})`);
       content = [
         name,
+        screenedNote,
         `description=${cached.summary.description ?? "unknown"}`,
         `industry=${cached.summary.industry ?? "unknown"}`,
         `employees=${String(cached.summary.employee_estimate ?? "unknown")}`,

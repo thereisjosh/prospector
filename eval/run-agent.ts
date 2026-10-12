@@ -24,7 +24,7 @@ import { AGENT_MODELS, isAgentModel, RUNS_DIR, type AgentModel } from "../src/ag
 import type { AgentEvent } from "../src/agent/events";
 import { decide, step, type LoopDeps } from "../src/agent/loop";
 import { loadMemory } from "../src/agent/memory";
-import { createRunState, loadState, saveState, type RunState } from "../src/agent/state";
+import { createRunState, loadState, saveState, screenedByCode, type RunState } from "../src/agent/state";
 import { checkLead } from "../src/gates";
 import { validatePlan, type SearchPlan } from "../src/plan";
 import { getV1Plan } from "./fixtures/v1-plans";
@@ -209,6 +209,9 @@ export function summarize(state: RunState): string[] {
   for (const r of state.rejected) byCode.set(r.code, (byCode.get(r.code) ?? 0) + 1);
   out.push(`rejected (${state.rejected.length}):`);
   for (const [code, n] of [...byCode.entries()].sort((a, b) => b[1] - a[1])) out.push(`  ${code}: ${n}`);
+  const screened = screenedByCode(state);
+  out.push(`screened at lookup (${(state.screened ?? []).length}):`);
+  for (const { code, count } of screened) out.push(`  ${code}: ${count}`);
   const a = state.adaptive;
   out.push(`adaptive: queryRewrites ${a.queryRewrites}, lookupsSkipped ${a.lookupsSkipped}, verificationReads ${a.verificationReads}`);
   out.push(`spend: total $${state.spend.total.toFixed(4)} = claude $${state.spend.claude.toFixed(4)} + exa $${state.spend.exa.toFixed(4)} (cap $${state.contract.maxCostDollars.toFixed(2)})`);

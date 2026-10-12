@@ -12,8 +12,9 @@ const tmp = vi.hoisted(() => {
   return { root, runs: join(root, "runs"), workspaces: join(root, "workspaces") };
 });
 import type { SearchPlan } from "../src/plan";
-import { createRunState, loadState, saveState, type RunState } from "../src/agent/state";
-import { decide, step, stopRun } from "../src/agent/loop";
+import { createRunState, loadState, saveState, screenedByCode, type RunState } from "../src/agent/state";
+import { codeHandback, decide, rejectionCounts, step, stopRun } from "../src/agent/loop";
+import { agentTools, validHandback } from "../src/agent/tools";
 import { InvalidIdError } from "../src/agent/ids";
 import { eventInput, readLastEvents, appendEvents } from "../src/agent/events";
 import { clearMemory, saveMemory as saveMem } from "../src/agent/memory";
@@ -627,5 +628,170 @@ describe("agent loop", () => {
     expect(resolveDataDirs({})).toEqual({ runs: "./runs", workspaces: "./workspaces" });
     expect(resolveDataDirs({ VERCEL: "1" })).toEqual({ runs: "/tmp/prospector/runs", workspaces: "/tmp/prospector/workspaces" });
     expect(resolveDataDirs({ VERCEL: "1", RUNS_DIR: "/data/r" })).toEqual({ runs: "/data/r", workspaces: "/tmp/prospector/workspaces" });
+  });
+
+  describe("A2c structured handback, lookup screening, data-driven suggestions", () => {
+    const structured = {
+      shortfall: "6 of 10",
+      top_reasons: [{ reason: "Too small", count: 10 }, { reason: "Too big", count: 20 }],
+      suggestions: [
+        { field: "employeeRange", value: '{"min":25,"max":500}', why: "many small" },
+        { field: "none", value: "n/a", why: "nothing else helps" },
+      ],
+    };
+
+    it("finish schema's handback is a strict-compatible object", () => {
+      const finish = agentTools().find((t) => t.name === "finish")!;
+      const handback = (finish.input_schema as { properties: { handback: Record<string, any> } }).properties.handback;
+      expect(handback.type).toBe("object");
+      expect(handback.additionalProperties).toBe(false);
+      expect(handback.required).toEqual(["shortfall", "top_reasons", "suggestions"]);
+      const sug = handback.properties.suggestions.items;
+      expect(sug.additionalProperties).toBe(false);
+      expect(sug.required).toEqual(["field", "value", "why"]);
+      expect(sug.properties.field.enum).toEqual(["employeeRange", "months", "hqCountries", "industry", "maxCostDollars", "none"]);
+      expect(sug.properties.value.type).toBe("string");
+      expect(JSON.stringify(handback)).not.toMatch(/maxItems|minItems/);
+    });
+
+    it("stores a structured handback (value JSON decoded) without a second model call", async () => {
+      const s = state();
+      const c = client(msg("tool_use", [tool("f", "finish", { summary: "done", handback: structured })]));
+      await step(s, { client: c as never, checkLead: checker, now: NOW });
+      expect(s.status).toBe("done");
+      expect(s.handback).toEqual({
+        shortfall: "6 of 10",
+        top_reasons: [{ code: "Too small", count: 10 }, { code: "Too big", count: 20 }],
+        suggestions: [
+          { field: "employeeRange", value: { min: 25, max: 500 }, why: "many small" },
+          { field: "none", value: "n/a", why: "nothing else helps" },
+        ],
+      });
+      expect(c.messages.create).toHaveBeenCalledTimes(1);
+    });
+
+    it("malformed handbacks (markdown string, bad field, non-JSON value, too many) are rejected -> fallback", async () => {
+      expect(validHandback("Found 6 of 10. Why: too small (10)")).toBeUndefined();
+      expect(validHandback({ ...structured, suggestions: [{ field: "scope", value: "1", why: "x" }] })).toBeUndefined();
+      expect(validHandback({ ...structured, suggestions: [{ field: "months", value: "six", why: "x" }] })).toBeUndefined();
+      expect(validHandback({ ...structured, top_reasons: Array.from({ length: 5 }, () => ({ reason: "r", count: 1 })) })).toBeUndefined();
+      expect(validHandback({ ...structured, suggestions: [structured.suggestions[0], structured.suggestions[0], structured.suggestions[0]] })).toBeUndefined();
+      expect(validHandback({ ...structured, top_reasons: [{ reason: "r" }] })).toBeUndefined();
+
+      const s = state({ rejected: [{ company: "X", code: "size", reason: "too big", turn: 1 }] });
+      const c = client(
+        msg("tool_use", [tool("f", "finish", { summary: "done", handback: "Found 6 of 10. Too small (10)" })]),
+        msg("end_turn", [text("not json")]),
+      );
+      await step(s, { client: c as never, checkLead: checker, now: NOW });
+      expect(s.handback?.top_reasons).toEqual([{ code: "size", count: 1 }]);
+    });
+
+    const withSignal = (company: string, url: string) => ({
+      url,
+      title: `${company} news`,
+      summary: { company_name: company, signal_type: "expansion", signal_summary: `${company} expands`, signal_date: "2026-10-01" },
+    });
+
+    it("lookup_company screens known signals with checkLead, reports it in the result, records once", async () => {
+      const s = state({ strategyApproved: true });
+      s.caches.signalsByUrl["https://n.example/bad"] = withSignal("BadCo Inc", "https://n.example/bad");
+      s.caches.signalsByUrl["https://n.example/good"] = withSignal("GoodCo", "https://n.example/good");
+      const deps = { checkLead: checker, now: NOW, lookupCompany: vi.fn(async () => lookupResult) as never };
+      const first = await step(s, { ...deps, client: client(msg("tool_use", [
+        tool("a", "lookup_company", { name: "BadCo" }),
+        tool("b", "lookup_company", { name: "GoodCo" }),
+        tool("c", "lookup_company", { name: "NoSignalCo" }),
+      ])) as never });
+      expect(first.events.filter((e) => e.kind === "tool_call")).toHaveLength(3);
+      const results = (s.messages.at(-1)!.content as Array<{ tool_use_id: string; content: string }>);
+      const byId = Object.fromEntries(results.filter((r) => r.tool_use_id).map((r) => [r.tool_use_id, r.content]));
+      expect(byId.a).toContain("Would be rejected: required_gate:is_operator — not an operator");
+      expect(byId.b).not.toContain("Would be rejected");
+      expect(byId.c).not.toContain("Would be rejected");
+      expect(s.screened).toEqual([{ company: "BadCo", code: "required_gate:is_operator", reason: "not an operator", turn: 1, stage: "lookup" }]);
+      expect(s.rejected).toEqual([]);
+      // repeat lookup: still flagged in the text, not duplicated in state
+      await step(s, { ...deps, client: client(msg("tool_use", [tool("d", "lookup_company", { name: "BadCo" })])) as never });
+      expect(s.screened).toHaveLength(1);
+      expect(screenedByCode(s)).toEqual([{ code: "required_gate:is_operator", count: 1, companies: ["BadCo"] }]);
+    });
+
+    it("rejectionCounts merges rejected + screened, one count per company and code", () => {
+      const s = state({
+        rejected: [{ company: "BadCo", code: "size", reason: "r", turn: 2 }, { company: "Other", code: "hq", reason: "r", turn: 2 }],
+        screened: [
+          { company: "Badco Inc", code: "size", reason: "r", turn: 1, stage: "lookup" },
+          { company: "Big1", code: "enterprise", reason: "r", turn: 1, stage: "lookup" },
+          { company: "Big2", code: "enterprise", reason: "r", turn: 1, stage: "lookup" },
+        ],
+      });
+      expect(rejectionCounts(s)).toEqual([
+        { code: "enterprise", count: 2 },
+        { code: "size", count: 1 },
+        { code: "hq", count: 1 },
+      ]);
+    });
+
+    describe("codeHandback suggestions are data-driven", () => {
+      const withCompanies = (code: string, items: Array<{ name: string; employees?: number; hq?: string }>, over: Partial<RunState> = {}) => {
+        const s = state(over);
+        for (const it of items) {
+          s.screened = [...(s.screened ?? []), { company: it.name, code, reason: "r", turn: 1, stage: "lookup" }];
+          s.caches.enrichmentByName[squashName(it.name)] = { summary: { employee_estimate: it.employees, hq: it.hq } };
+        }
+        return s;
+      };
+      const first = (s: RunState) => codeHandback(s).suggestions[0]!;
+
+      it("size: mostly below min -> min halves", () => {
+        const s = withCompanies("size", [{ name: "A", employees: 10 }, { name: "B", employees: 20 }, { name: "C", employees: 900 }]);
+        expect(first(s)).toMatchObject({ field: "employeeRange", value: { min: 25, max: 500 } });
+      });
+      it("size: mostly above max -> max x1.5", () => {
+        const s = withCompanies("size", [{ name: "A", employees: 3000 }, { name: "B", employees: 2000 }, { name: "C", employees: 20 }]);
+        expect(first(s)).toMatchObject({ field: "employeeRange", value: { min: 50, max: 750 } });
+      });
+      it("size: mixed or no data -> none", () => {
+        expect(first(withCompanies("size", [{ name: "A", employees: 10 }, { name: "B", employees: 3000 }])).field).toBe("none");
+        expect(first(withCompanies("size", [{ name: "A" }])).field).toBe("none");
+      });
+      it("stale_date: months + 3, capped at 12", () => {
+        expect(first(withCompanies("stale_date", [{ name: "A" }]))).toMatchObject({ field: "months", value: 6 });
+        const s = withCompanies("stale_date", [{ name: "A" }]);
+        s.contract.months = 11;
+        expect(first(s)).toMatchObject({ field: "months", value: 12 });
+        s.contract.months = 12;
+        expect(first(s).field).toBe("none");
+      });
+      it("hq: >=3 distinct countries -> any; fewer -> add the top country", () => {
+        const many = withCompanies("hq", [{ name: "A", hq: "Berlin, Germany" }, { name: "B", hq: "Toronto, Canada" }, { name: "C", hq: "Mumbai, India" }]);
+        expect(first(many)).toMatchObject({ field: "hqCountries", value: "any" });
+        const few = withCompanies("hq", [{ name: "A", hq: "Toronto, Canada" }, { name: "B", hq: "Vancouver, Canada" }, { name: "C", hq: "London, UK" }]);
+        expect(first(few)).toMatchObject({ field: "hqCountries", value: ["US", "CA"] });
+      });
+      it("required_gate: field none, explains the gate", () => {
+        const s = withCompanies("required_gate:is_operator", [{ name: "A" }, { name: "B" }]);
+        const sug = first(s);
+        expect(sug.field).toBe("none");
+        expect(sug.why).toContain("Is it an operator?");
+      });
+      it("enterprise: field none, contract working as intended", () => {
+        expect(first(withCompanies("enterprise", [{ name: "A" }]))).toMatchObject({ field: "none", why: "These are large companies; the contract is working as intended." });
+      });
+      it("never emits field 'scope'", () => {
+        const s = withCompanies("exclude_name", [{ name: "A" }]);
+        expect(codeHandback(s).suggestions.every((x) => x.field !== "scope")).toBe(true);
+        expect(first(s).field).toBe("none");
+      });
+    });
+
+    it("GET /api/runs/:id includes screened grouped by code", async () => {
+      const { GET } = await import("../app/api/runs/[id]/route");
+      const s = state({ screened: [{ company: "A", code: "size", reason: "r", turn: 1, stage: "lookup" }, { company: "B", code: "size", reason: "r", turn: 1, stage: "lookup" }] });
+      await saveState(s);
+      const body = await (await GET(new Request("http://x"), { params: { id: s.id } })).json();
+      expect(body.screened).toEqual([{ code: "size", count: 2, companies: ["A", "B"] }]);
+    });
   });
 });

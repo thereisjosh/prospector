@@ -3,7 +3,9 @@ import type { Message, ToolResultBlockParam, ToolUseBlock } from "@anthropic-ai/
 import { CostGuard } from "../exa";
 import { claudeCostDollars, DEFAULT_LIMITS } from "./config";
 import { appendEvents, eventInput, makeEvent, type AgentEvent } from "./events";
-import { appendRunToMemory } from "./memory";
+import { parseEmployeeEstimate } from "../gates";
+import { textInCountries } from "../geo";
+import { appendRunToMemory, squashName } from "./memory";
 import { systemPrompt } from "./prompts";
 import type { RunState, Handback } from "./state";
 import { APPROVAL_TOOLS, agentTools, executeTool, type ToolDeps } from "./tools";
@@ -349,23 +351,89 @@ export async function handback(state: RunState, deps: LoopDeps): Promise<Handbac
   return fallback;
 }
 
-function rejectionCounts(state: RunState): Array<{ code: string; count: number }> {
+/** Submit-stage rejections plus lookup-stage screening, one count per (company, code). */
+export function rejectionCounts(state: RunState): Array<{ code: string; count: number }> {
+  const seen = new Set<string>();
   const map = new Map<string, number>();
-  for (const r of state.rejected) map.set(r.code, (map.get(r.code) ?? 0) + 1);
+  for (const r of [...state.rejected, ...(state.screened ?? [])]) {
+    const id = `${squashName(r.company)}|${r.code}`;
+    if (seen.has(id)) continue;
+    seen.add(id);
+    map.set(r.code, (map.get(r.code) ?? 0) + 1);
+  }
   return [...map.entries()].sort((a, b) => b[1] - a[1]).map(([code, count]) => ({ code, count }));
 }
 
-function codeHandback(state: RunState, top: Array<{ code: string; count: number }>): Handback {
+const COUNTRY_CODES = ["US", "GB", "CA", "AU", "NZ", "IE", "DE", "FR", "NL", "ES", "IT", "SE", "CH", "IN", "SG", "HK", "JP", "CN", "AE", "MX", "BR", "IL", "ZA"];
+
+function countryOf(hq: string): string | undefined {
+  return COUNTRY_CODES.find((code) => textInCountries(hq, [code], true));
+}
+
+function enrichmentOf(state: RunState, company: string) {
+  return state.caches.enrichmentByName[squashName(company)]?.summary;
+}
+
+function companiesWithCode(state: RunState, code: string): string[] {
+  const names = new Map<string, string>();
+  for (const r of [...state.rejected, ...(state.screened ?? [])]) {
+    if (r.code === code) names.set(squashName(r.company), r.company);
+  }
+  return [...names.values()];
+}
+
+function suggestionFor(state: RunState, code: string): Handback["suggestions"][number] {
+  const c = state.contract;
+  const companies = companiesWithCode(state, code);
+  if (code === "size") {
+    const counts = companies
+      .map((name) => parseEmployeeEstimate(enrichmentOf(state, name)?.employee_estimate))
+      .filter((n): n is number => n !== undefined);
+    const below = counts.filter((n) => n < c.employeeRange.min).length;
+    const above = counts.filter((n) => n > c.employeeRange.max).length;
+    if (counts.length > 0 && below > counts.length / 2) {
+      return { field: "employeeRange", value: { min: Math.floor(c.employeeRange.min / 2), max: c.employeeRange.max }, why: `Most candidates turned down on size (${below} of ${counts.length}) were smaller than ${c.employeeRange.min} employees.` };
+    }
+    if (counts.length > 0 && above > counts.length / 2) {
+      return { field: "employeeRange", value: { min: c.employeeRange.min, max: Math.ceil(c.employeeRange.max * 1.5) }, why: `Most candidates turned down on size (${above} of ${counts.length}) were larger than ${c.employeeRange.max} employees.` };
+    }
+    return { field: "none", value: "", why: counts.length > 0 ? "Candidates turned down on size fall on both sides of the range, so one change would not help." : "Not enough size data on the turned-down candidates to suggest a new range." };
+  }
+  if (code === "stale_date") {
+    return c.months >= 12
+      ? { field: "none", value: "", why: "Several signals were too old, but the look-back is already the 12-month maximum." }
+      : { field: "months", value: Math.min(12, c.months + 3), why: "Several otherwise relevant signals were older than the look-back window." };
+  }
+  if (code === "hq") {
+    const tally = new Map<string, number>();
+    for (const name of companies) {
+      const hq = enrichmentOf(state, name)?.hq;
+      const country = typeof hq === "string" ? countryOf(hq) : undefined;
+      if (country) tally.set(country, (tally.get(country) ?? 0) + 1);
+    }
+    if (tally.size >= 3) return { field: "hqCountries", value: "any", why: `Turned-down candidates were headquartered in ${tally.size} different countries.` };
+    const top = [...tally.entries()].sort((a, b) => b[1] - a[1])[0]?.[0];
+    if (top && !c.hqCountries.includes(top)) {
+      return { field: "hqCountries", value: [...c.hqCountries, top], why: `Most candidates turned down on location are headquartered in ${top}.` };
+    }
+    return { field: "none", value: "", why: "Candidates turned down on location are not concentrated in one country." };
+  }
+  if (code.startsWith("required_gate:")) {
+    const key = code.slice("required_gate:".length);
+    const question = c.gateFields.find((g) => g.key === key)?.question;
+    return { field: "none", value: "", why: `${companies.length} candidates failed the required question "${question ?? key}". If it is too strict, edit that question in the plan.` };
+  }
+  if (code === "enterprise") {
+    return { field: "none", value: "", why: "These are large companies; the contract is working as intended." };
+  }
+  return { field: "none", value: "", why: `Candidates were turned down for ${code}; no single plan change addresses it.` };
+}
+
+export function codeHandback(state: RunState, top: Array<{ code: string; count: number }> = rejectionCounts(state)): Handback {
   return {
     shortfall: `${state.leads.length} of ${state.contract.targetLeads}`,
     top_reasons: top.slice(0, 2),
-    suggestions: top.slice(0, 2).map(({ code }) => {
-      if (code === "size") return { field: "employeeRange", value: { ...state.contract.employeeRange, max: state.contract.employeeRange.max * 2 }, why: "Several candidates missed the size range." };
-      if (code === "stale_date") return { field: "months", value: Math.min(12, state.contract.months + 3), why: "Several otherwise relevant signals were stale." };
-      if (code === "hq") return { field: "hqCountries", value: "any", why: "Several candidates were outside the current HQ countries." };
-      if (code.startsWith("required_gate:")) return { field: code.slice("required_gate:".length), value: "relax", why: `Required gate ${code.slice("required_gate:".length)} blocked candidates.` };
-      return { field: "scope", value: "review", why: `Rejections clustered around ${code}.` };
-    }),
+    suggestions: top.slice(0, 2).map(({ code }) => suggestionFor(state, code)),
   };
 }
 
