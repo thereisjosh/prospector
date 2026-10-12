@@ -4,7 +4,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { pathToFileURL } from "node:url";
-import { squashName } from "../../src/gates";
+import { eventInWindow, truthKey } from "./truth";
 import type { BlindLead } from "./blind";
 import type { RubricAnswer, Verdict } from "./types";
 
@@ -22,8 +22,8 @@ type JudgeJson = {
 
 const ANSWERS = new Set(["yes", "no", "cannot_verify"]);
 
-function truthPath(scenarioId: string, company: string, truthRoot = "eval/truth"): string {
-  return join(truthRoot, scenarioId, `${squashName(company)}.json`);
+function truthPath(scenarioId: string, company: string, signalUrl: string, truthRoot = "eval/truth"): string {
+  return join(truthRoot, scenarioId, `${truthKey(company, signalUrl)}.json`);
 }
 
 async function writeJson(path: string, value: unknown) {
@@ -96,9 +96,12 @@ function fallback(lead: BlindLead, scenarioId: string): Verdict {
   };
 }
 
-function toVerdict(lead: BlindLead, scenarioId: string, parsed: JudgeJson): Verdict {
+function toVerdict(lead: BlindLead, scenarioId: string, parsed: JudgeJson, now: Date): Verdict {
   return {
     company: lead.company,
+    signal_url: lead.signal_url,
+    event_date: lead.event_date,
+    now: now.toISOString().slice(0, 10),
     scenarioId,
     q1: parsed.q1,
     q1_source: parsed.q1_source,
@@ -131,9 +134,17 @@ export async function judgeLead(options: {
   rubricText?: string;
   truthRoot?: string;
   force?: boolean;
+  /** The set's "now" and the scenario's window; a cached verdict is reused only while the window still contains the event date. */
+  now?: Date;
+  months?: number;
 }): Promise<Verdict> {
-  const file = truthPath(options.scenarioId, options.lead.company, options.truthRoot);
-  if (!options.force && existsSync(file)) return JSON.parse(await readFile(file, "utf8")) as Verdict;
+  const file = truthPath(options.scenarioId, options.lead.company, options.lead.signal_url, options.truthRoot);
+  const now = options.now ?? new Date();
+  if (!options.force && existsSync(file)) {
+    const cached = JSON.parse(await readFile(file, "utf8")) as Verdict;
+    const windowKnown = options.now !== undefined && options.months !== undefined;
+    if (!windowKnown || eventInWindow(options.lead.event_date, options.now!, options.months!)) return cached;
+  }
 
   const client = options.client ?? new Anthropic();
   const rubric = options.rubricText ?? readFileSync("eval/RUBRIC.md", "utf8");
@@ -148,14 +159,13 @@ export async function judgeLead(options: {
     } as never);
     const parsed = parseJudgeJson(firstTextBlock(response));
     if (parsed) {
-      const verdict = toVerdict(options.lead, options.scenarioId, parsed);
+      const verdict = toVerdict(options.lead, options.scenarioId, parsed, now);
       await writeJson(file, verdict);
       return verdict;
     }
   }
-  const verdict = fallback(options.lead, options.scenarioId);
-  await writeJson(file, verdict);
-  return verdict;
+  // The all-cannot_verify fallback is returned but never cached: a transient judge failure must not become truth.
+  return fallback(options.lead, options.scenarioId);
 }
 
 export async function judgeBlind(options: {
@@ -165,12 +175,14 @@ export async function judgeBlind(options: {
   truthRoot?: string;
   client?: JudgeClient;
   force?: boolean;
+  now?: Date;
+  months?: number;
 }): Promise<Verdict[]> {
   const blindFile = join(options.resultsRoot ?? "eval/results", options.setId, options.scenarioId, "blind.json");
   const leads = JSON.parse(await readFile(blindFile, "utf8")) as BlindLead[];
   const verdicts: Verdict[] = [];
   for (const lead of leads) {
-    verdicts.push(await judgeLead({ scenarioId: options.scenarioId, lead, client: options.client, truthRoot: options.truthRoot, force: options.force }));
+    verdicts.push(await judgeLead({ scenarioId: options.scenarioId, lead, client: options.client, truthRoot: options.truthRoot, force: options.force, now: options.now, months: options.months }));
   }
   return verdicts;
 }
@@ -178,6 +190,7 @@ export async function judgeBlind(options: {
 export async function writeHumanVerdict(options: {
   scenarioId: string;
   company: string;
+  signalUrl: string;
   q1: RubricAnswer;
   q1_source: string;
   q2: RubricAnswer;
@@ -188,6 +201,7 @@ export async function writeHumanVerdict(options: {
 }): Promise<Verdict> {
   const verdict: Verdict = {
     company: options.company,
+    signal_url: options.signalUrl,
     scenarioId: options.scenarioId,
     q1: options.q1,
     q1_source: options.q1_source,
@@ -199,7 +213,7 @@ export async function writeHumanVerdict(options: {
     judgedAt: new Date().toISOString(),
     judge: "human",
   };
-  await writeJson(truthPath(options.scenarioId, options.company, options.truthRoot), verdict);
+  await writeJson(truthPath(options.scenarioId, options.company, options.signalUrl, options.truthRoot), verdict);
   return verdict;
 }
 
@@ -218,11 +232,12 @@ function parseArgs(argv: string[]): Record<string, string | boolean> {
 async function main() {
   const args = parseArgs(process.argv.slice(2));
   if (args.human) {
-    const required = ["scenario", "company", "q1", "q1-source", "q2", "q2-source", "q3", "q3-source"];
+    const required = ["scenario", "company", "signal-url", "q1", "q1-source", "q2", "q2-source", "q3", "q3-source"];
     for (const key of required) if (!args[key]) throw new Error(`--human requires --${key}`);
     await writeHumanVerdict({
       scenarioId: String(args.scenario),
       company: String(args.company),
+      signalUrl: String(args["signal-url"]),
       q1: args.q1 as RubricAnswer,
       q1_source: String(args["q1-source"]),
       q2: args.q2 as RubricAnswer,
@@ -234,7 +249,13 @@ async function main() {
     return;
   }
   if (!args.set || !args.scenario) throw new Error("pass --set <id> --scenario <id>");
-  const verdicts = await judgeBlind({ setId: String(args.set), scenarioId: String(args.scenario), force: !!args.force });
+  const verdicts = await judgeBlind({
+    setId: String(args.set),
+    scenarioId: String(args.scenario),
+    force: !!args.force,
+    now: args.now ? new Date(String(args.now)) : undefined,
+    months: args.months ? Number(args.months) : undefined,
+  });
   console.log(`judged ${verdicts.length} leads for ${args.scenario}`);
 }
 

@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
 import {
   checkLead,
+  parseEmployeeEstimate,
+  resolveEventDate,
   sizeQuoteSupports,
   squashName,
   type LeadInput,
@@ -8,6 +10,8 @@ import {
 import { scoreAndRank, type Candidate } from "../src/score";
 import { monthsAgoIso } from "../src/config";
 import type { SearchPlan } from "../src/plan";
+import { nameMatchesSignal } from "../src/eval";
+import { COUNTRY_CODES, countryOfHq, textInCountries } from "../src/geo";
 import { V1_PLAN_1 } from "./fixtures/v1-plans";
 
 const NOW = new Date("2026-10-11T03:00:00.000Z");
@@ -307,5 +311,124 @@ describe("year-like numbers in size quotes", () => {
   it("does not affect non-year numbers", () => {
     expect(sizeQuoteSupports(1800, "1800 in total")).toBe(true);
     expect(sizeQuoteSupports(350, "founded 2004, 350 employees")).toBe(true);
+  });
+});
+
+describe("F2 G1: inclusive window boundary", () => {
+  // now 2026-10-11T03:00Z, 3 months -> window starts 2026-07-11T00:00Z
+  const at = (date: string) => {
+    const l = lead();
+    l.signal.summary.signal_date = date;
+    l.signal.publishedDate = `${date}T12:00:00.000Z`;
+    return l;
+  };
+  it("an event exactly on the window start day is fresh; the day before is stale", () => {
+    expect(code(at("2026-07-11"))).toBe("ok");
+    expect(code(at("2026-07-10"))).toBe("stale_date");
+  });
+  it("an event today is fresh", () => {
+    expect(code(at("2026-10-11"))).toBe("ok");
+  });
+});
+
+describe("F2 G2: substitute publishedDate only for a year-slip", () => {
+  it("year-slips (RGL / FST / G10) still fall back to the publish date", () => {
+    expect(resolveEventDate({ signal_date: "2023-10-05", publishedDate: "2026-10-05" }, NOW)).toEqual({ date: "2026-10-05", source: "published_fallback" });
+    expect(resolveEventDate({ signal_date: "2023-12-05", publishedDate: "2026-09-25" }, NOW).source).toBe("published_fallback");
+    expect(resolveEventDate({ signal_date: "2024-10-24", publishedDate: "2026-09-11" }, NOW).source).toBe("published_fallback");
+  });
+  it("'opened its facility in March 2024' in a Sept 2026 article is stale, not fresh", () => {
+    expect(resolveEventDate({ signal_date: "2024-03-15", publishedDate: "2026-09-20" }, NOW)).toEqual({ date: "2024-03-15", source: "signal" });
+    const l = lead();
+    l.signal.summary.signal_date = "2024-03-15";
+    l.signal.publishedDate = "2026-09-20T00:00:00.000Z";
+    expect(code(l)).toBe("stale_date");
+  });
+  it("future dates still fall back; with no publish date they stay unparseable", () => {
+    expect(resolveEventDate({ signal_date: "2026-12-07", publishedDate: "2026-10-02" }, NOW).source).toBe("published_fallback");
+    expect(resolveEventDate({ signal_date: "2026-12-07" }, NOW).source).toBe("");
+    expect(resolveEventDate({ signal_date: "2023-01-01" }, NOW).source).toBe("");
+  });
+});
+
+describe("F2 G3: HQ evidence and country codes", () => {
+  it("a known foreign HQ rejects even if the signal text names a US place", () => {
+    const l = lead();
+    l.enrichment!.hq = "Mumbai, India";
+    l.signal.text = "ShipCo opened a warehouse in Ohio, United States.";
+    expect(code(l)).toBe("hq");
+  });
+  it("signal text is used only when the lookup has no HQ, with hq_basis and a 0.9 multiplier", () => {
+    const base = checkLead(plan(), lead());
+    const l = lead();
+    l.enrichment!.hq = "";
+    const v = checkLead(plan(), l); // text says "in Ohio"
+    expect(v.ok && v.details.hq_basis).toBe("signal_text");
+    expect(base.ok && base.details.hq_basis).toBe("enrichment");
+    expect(v.ok && base.ok && v.details.multiplier / base.details.multiplier).toBeCloseTo(0.9, 6);
+    l.signal.text = "ShipCo opened a warehouse.";
+    l.signal.title = "ShipCo expands";
+    expect(code(l)).toBe("hq");
+    const unk = lead();
+    unk.enrichment!.hq = "unknown";
+    expect(checkLead(plan(), unk).ok && true).toBe(true);
+  });
+  it("2-letter codes: only the last token, never a US state code", () => {
+    expect(countryOfHq("San Francisco, CA")).toBe("US");
+    expect(textInCountries("San Francisco, CA", ["CA"], true)).toBe(false);
+    expect(countryOfHq("Indianapolis, IN")).toBe("US");
+    expect(textInCountries("Indianapolis, IN", ["IN"], true)).toBe(false);
+    expect(countryOfHq("Wilmington, DE")).toBe("US");
+    expect(textInCountries("Wilmington, DE", ["DE"], true)).toBe(false);
+    expect(countryOfHq("Calgary, AB, CA")).toBe("CA");
+    expect(textInCountries("Calgary, AB, CA", ["US"], true)).toBe(false);
+    expect(textInCountries("Calgary, AB, CA", ["CA"], true)).toBe(true);
+    expect(countryOfHq("Austin, TX, United States")).toBe("US");
+    expect(countryOfHq("Toronto, ON, Canada")).toBe("CA");
+    expect(countryOfHq("Berlin, Germany")).toBe("DE");
+    expect(countryOfHq("Sydney, NSW, AU")).toBe("AU");
+    expect(countryOfHq("")).toBeUndefined();
+    expect(COUNTRY_CODES).toContain("US");
+    expect(COUNTRY_CODES).toContain("GB");
+  });
+});
+
+describe("F2 G4: entity match", () => {
+  it("word boundaries: 'UPS' does not match 'startups'", () => {
+    expect(nameMatchesSignal({ company: "UPS", text: "Startups are hiring" })).toBe(false);
+    expect(nameMatchesSignal({ company: "UPS", text: "UPS opens a hub" })).toBe(true);
+  });
+  it("squashed substring only for names of 8+ characters", () => {
+    expect(nameMatchesSignal({ company: "Diakonlogistics", text: "Diakon Logistics is hiring" })).toBe(true);
+    expect(nameMatchesSignal({ company: "Ship Co", text: "Shipco expands" })).toBe(false); // 6 chars
+    expect(nameMatchesSignal({ company: "Northwind Freight", text: "northwindfreight announced" })).toBe(true); // 16 chars
+  });
+  it("signal_summary does not self-confirm the entity", () => {
+    const l = lead();
+    l.signal.title = "Warehouse news";
+    l.signal.text = "A warehouse opened in Ohio.";
+    l.signal.summary.signal_summary = "ShipCo opened a new warehouse.";
+    expect(code(l)).toBe("entity_mismatch");
+  });
+  it("no page text -> entity_mismatch with the explicit reason", () => {
+    const l = lead();
+    delete l.signal.title;
+    delete l.signal.text;
+    const v = checkLead(plan(), l);
+    expect(v).toMatchObject({ ok: false, code: "entity_mismatch", reason: "no page text to verify the company name" });
+  });
+});
+
+describe("F2 G5: parseEmployeeEstimate", () => {
+  it.each([
+    ["1.2k", 1200], ["10k+", 10000], ["~350", 350], ["350+", 350], ["200-500", 350], ["3,560", 3560],
+    ["2000", 2000], ["201–500 employees", 351], ["1-2k", 1500], ["about 350 people", 350],
+  ])("%s -> %d", (input, expected) => {
+    expect(parseEmployeeEstimate(input)).toBe(expected);
+  });
+  it("numbers pass through; junk is undefined", () => {
+    expect(parseEmployeeEstimate(120)).toBe(120);
+    expect(parseEmployeeEstimate("unknown")).toBeUndefined();
+    expect(parseEmployeeEstimate(undefined)).toBeUndefined();
   });
 });

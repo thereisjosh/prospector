@@ -37,13 +37,24 @@ export type RunRecord = {
   handback?: RunState["handback"];
   startedAt: string;
   finishedAt: string;
-  handback_rerun?: { good_leads_before: number; after: number };
+  /** Cell budget and lead target, so scoring never guesses the cap. */
+  maxCostDollars: number;
+  targetLeads: number;
+  /** ISO time the cell treated as "now" (the recency window is relative to it). */
+  now?: string;
+  /** For a handback re-run: "<scenarioId>/<arm>/<rep>" of the original cell. */
+  rerunOf?: string;
 };
 
 export type RubricAnswer = "yes" | "no" | "cannot_verify";
 
 export type Verdict = {
   company: string;
+  /** The signal this verdict judged; the unit of judgment is (company, signal_url). */
+  signal_url?: string;
+  /** The lead's event date and the date ("now") the window was judged against. */
+  event_date?: string;
+  now?: string;
   scenarioId: string;
   q1: RubricAnswer;
   q1_source: string;
@@ -74,4 +85,6 @@ export type RunCellDeps = {
   maxIterations?: number;
   workflowRows?: ProspectRow[];
   approvePolicy?: ApprovePolicy;
+  /** Set when this cell is a handback re-run of another cell. */
+  rerunOf?: string;
 };

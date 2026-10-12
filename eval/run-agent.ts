@@ -53,6 +53,15 @@ function proposedChanges(input: unknown): Array<{ field: string; value: unknown 
   return [];
 }
 
+function decodeValue(raw: unknown): unknown {
+  if (typeof raw !== "string") return raw;
+  try {
+    return JSON.parse(raw);
+  } catch {
+    return raw;
+  }
+}
+
 /**
  * --approve auto: approve propose_strategy, and a request_scope_change that
  * widens exactly one constraint (more months, a wider employee band, more HQ
@@ -65,7 +74,9 @@ export function autoDecision(state: RunState, pending: Pending): Decision {
 
   const changes = proposedChanges(pending.input);
   if (changes.length !== 1) return { approve: false, why: `auto: request changes ${changes.length} fields; only exactly one is auto-approved` };
-  const { field, value } = changes[0]!;
+  const { field } = changes[0]!;
+  // request_scope_change.value is a JSON-encoded string; decode it (keep the string if it is not JSON).
+  const value = decodeValue(changes[0]!.value);
   const c = state.contract;
   if (field === "months") {
     if (typeof value === "number" && Number.isInteger(value) && value > c.months && value <= 12) {

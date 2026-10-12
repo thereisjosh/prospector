@@ -3,6 +3,7 @@ import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { pathToFileURL } from "node:url";
 import { squashName } from "../../src/gates";
+import { truthKey } from "./truth";
 import type { Arm, LeadRecord, RunRecord } from "./types";
 
 export type BlindLead = LeadRecord & { id: string };
@@ -11,6 +12,7 @@ type MappingEntry = {
   id: string;
   company: string;
   squashed: string;
+  signal_url: string;
   sources: Array<{ arm: Arm; rep: number; runId?: string }>;
 };
 
@@ -71,7 +73,8 @@ export async function createBlindPool(options: {
   const byKey = new Map<string, { lead: LeadRecord; sources: MappingEntry["sources"] }>();
   for (const record of records) {
     for (const lead of record.leads) {
-      const key = squashName(lead.company);
+      // The unit of judgment is (company, signal_url), not the company alone.
+      const key = truthKey(lead.company, lead.signal_url);
       const existing = byKey.get(key);
       const source = { arm: record.arm, rep: record.rep, runId: record.runId };
       if (existing) existing.sources.push(source);
@@ -81,10 +84,10 @@ export async function createBlindPool(options: {
   const shuffled = shuffle([...byKey.entries()], options.seed ?? `${options.setId}:${options.scenarioId}`);
   const blind: BlindLead[] = [];
   const mapping: MappingEntry[] = [];
-  shuffled.forEach(([squashed, entry], index) => {
+  shuffled.forEach(([, entry], index) => {
     const id = `L${String(index + 1).padStart(3, "0")}`;
     blind.push({ id, ...entry.lead });
-    mapping.push({ id, company: entry.lead.company, squashed, sources: entry.sources });
+    mapping.push({ id, company: entry.lead.company, squashed: squashName(entry.lead.company), signal_url: entry.lead.signal_url, sources: entry.sources });
   });
   await writeJson(join(root, options.setId, options.scenarioId, "blind.json"), blind);
   await writeJson(join(root, options.setId, options.scenarioId, "mapping.json"), mapping);
@@ -104,7 +107,7 @@ async function main() {
   const args = parseArgs(process.argv.slice(2));
   if (!args.set || !args.scenario) throw new Error("pass --set <id> --scenario <id>");
   const result = await createBlindPool({ setId: args.set, scenarioId: args.scenario, seed: args.seed });
-  console.log(`blind pool: ${result.blind.length} deduped leads for ${args.scenario}`);
+  console.log(`blind pool: ${result.blind.length} deduped (company, signal) leads for ${args.scenario}`);
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {

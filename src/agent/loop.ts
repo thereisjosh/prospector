@@ -1,7 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 import type { Message, ToolResultBlockParam, ToolUseBlock } from "@anthropic-ai/sdk/resources/messages";
 import { CostGuard } from "../exa";
-import { claudeCostDollars, DEFAULT_LIMITS } from "./config";
+import { CLAUDE_PRICES_PER_MILLION, claudeCostDollars, DEFAULT_LIMITS } from "./config";
 import { appendEvents, eventInput, makeEvent, type AgentEvent } from "./events";
 import { parseEmployeeEstimate } from "../gates";
 import { textInCountries } from "../geo";
@@ -33,7 +33,36 @@ function addClaudeCost(state: RunState, response: Message): number {
   const cost = claudeCostDollars(state.model, response.usage);
   state.spend.claude += cost;
   state.spend.total = state.spend.claude + state.spend.exa;
+  state.counters.lastModelInputTokens = (response.usage.input_tokens ?? 0) + (response.usage.cache_read_input_tokens ?? 0);
   return cost;
+}
+
+function modelCostDollars(state: RunState, usage: { input_tokens?: number; output_tokens?: number; cache_read_input_tokens?: number; cache_creation_input_tokens?: number }): number {
+  return claudeCostDollars(state.model, usage);
+}
+
+function maxTokensForTurn(state: RunState): number | undefined {
+  const p = CLAUDE_PRICES_PER_MILLION[state.model];
+  const remaining = state.contract.maxCostDollars - state.spend.total;
+  const cacheReadCost = ((state.counters.lastModelInputTokens ?? 0) * p.cache_read) / 1_000_000;
+  const cacheWriteCost = (3000 * p.cache_write) / 1_000_000;
+  const available = remaining - DEFAULT_LIMITS.handbackReserveDollars - 0.05 - cacheReadCost - cacheWriteCost;
+  const raw = Math.floor((available * 1_000_000) / p.output);
+  if (raw < 1500) return undefined;
+  return Math.max(1500, Math.min(8000, raw));
+}
+
+function handbackFits(state: RunState): boolean {
+  return state.contract.maxCostDollars - state.spend.total >= modelCostDollars(state, {
+    cache_read_input_tokens: state.counters.lastModelInputTokens ?? 0,
+    output_tokens: 1500,
+  });
+}
+
+function isRetryableModelError(error: unknown): boolean {
+  const rec = error && typeof error === "object" ? error as { name?: unknown; status?: unknown } : {};
+  const status = typeof rec.status === "number" ? rec.status : undefined;
+  return rec.name === "APIConnectionError" || rec.name === "RateLimitError" || status === 529 || (status !== undefined && status >= 500);
 }
 
 function stop(state: RunState, status: "done" | "stopped" | "error", reason: string) {
@@ -100,6 +129,17 @@ async function finishRun(state: RunState, events: AgentEvent[], status: "done" |
 export async function step(state: RunState, deps: LoopDeps): Promise<StepResult> {
   const events: AgentEvent[] = [];
   if (state.status !== "running") return { state, events };
+  if (state.stopRequested) {
+    delete state.stopRequested;
+    if (state.leads.length < state.contract.targetLeads && !state.handback) {
+      state.handback = codeHandback(state, rejectionCounts(state));
+    }
+    stop(state, "stopped", "user");
+    events.push(makeEvent(state, "stop", { reason: "user", status: "stopped" }));
+    await appendRunToMemory(state);
+    await appendEvents(state.id, events);
+    return { state, events };
+  }
 
   const hit = limitReason(state);
   if (hit) {
@@ -114,9 +154,17 @@ export async function step(state: RunState, deps: LoopDeps): Promise<StepResult>
   delete state.resumedFromDecision;
   state.counters.turns += 1;
   try {
+    const maxTokens = maxTokensForTurn(state);
+    if (maxTokens === undefined) {
+      state.handback = codeHandback(state, rejectionCounts(state));
+      stop(state, "stopped", "budget");
+      events.push(makeEvent(state, "stop", { reason: "budget", status: "stopped" }));
+      await appendRunToMemory(state);
+      return { state, events };
+    }
     const response = (await deps.client.messages.create({
       model: state.model,
-      max_tokens: 8000,
+      max_tokens: maxTokens,
       system: [{ type: "text", text: systemPrompt(), cache_control: { type: "ephemeral" } }],
       tools: agentTools(),
       messages: state.messages,
@@ -126,6 +174,7 @@ export async function step(state: RunState, deps: LoopDeps): Promise<StepResult>
     const latencyMs = Date.now() - started;
     state.messages.push({ role: "assistant", content: response.content } as Anthropic.MessageParam);
     const claudeCost = addClaudeCost(state, response);
+    state.counters.consecutiveErrors = 0;
     events.push(makeEvent(state, "model_call", { tokens: usageOf(response), claudeCost, latencyMs }));
 
     if (response.stop_reason === "end_turn") {
@@ -159,7 +208,7 @@ export async function step(state: RunState, deps: LoopDeps): Promise<StepResult>
         } as ToolResultBlockParam,
         exaCost: 0,
       }));
-      const guard = new CostGuard(Math.max(0, state.contract.maxCostDollars - state.spend.claude));
+      const guard = new CostGuard(Math.max(0, state.contract.maxCostDollars - state.spend.claude - DEFAULT_LIMITS.handbackReserveDollars));
       guard.spent = state.spend.exa;
       const executedPreSubmit = await Promise.all(cappedPreSubmit.map((tool) => executeTool(state, { id: tool.id, name: tool.name, input: tool.input }, deps, { guard })));
       const submitExecuted: Awaited<ReturnType<typeof executeTool>>[] = [];
@@ -168,6 +217,13 @@ export async function step(state: RunState, deps: LoopDeps): Promise<StepResult>
       }
       state.spend.exa = guard.spent;
       state.spend.total = state.spend.claude + state.spend.exa;
+      if (guard.breached) {
+        state.handback = codeHandback(state, rejectionCounts(state));
+        stop(state, "stopped", "budget");
+        events.push(makeEvent(state, "stop", { reason: "budget", status: "stopped" }));
+        await appendRunToMemory(state);
+        return { state, events };
+      }
       const all = [...executedPreSubmit, ...submitExecuted, ...overflowPreSubmit];
       const allResults = [...all.map((item) => item.result), ...extraApprovalResults];
       const ordered = orderedResults(uses, allResults);
@@ -196,9 +252,24 @@ export async function step(state: RunState, deps: LoopDeps): Promise<StepResult>
       stop(state, "error", `unknown_stop:${String(response.stop_reason)}`);
     }
   } catch (error) {
-    stop(state, "error", "model_or_loop_error");
     events.push(makeEvent(state, "error", { message: error instanceof Error ? error.message : "unknown error" }));
+    if (isRetryableModelError(error)) {
+      state.counters.consecutiveErrors = (state.counters.consecutiveErrors ?? 0) + 1;
+      if (state.counters.consecutiveErrors >= 3) stop(state, "error", "model_or_loop_error");
+      else state.status = "running";
+    } else {
+      stop(state, "error", "model_or_loop_error");
+    }
   } finally {
+    if (state.stopRequested && state.status === "running") {
+      delete state.stopRequested;
+      if (state.leads.length < state.contract.targetLeads && !state.handback) {
+        state.handback = codeHandback(state, rejectionCounts(state));
+      }
+      stop(state, "stopped", "user");
+      events.push(makeEvent(state, "stop", { reason: "user", status: "stopped" }));
+      await appendRunToMemory(state);
+    }
     const elapsed = Date.now() - started;
     state.counters.activeMs += elapsed;
     const progress = madeProgress(state, beforeProgress, decisionResumed);
@@ -210,11 +281,14 @@ export async function step(state: RunState, deps: LoopDeps): Promise<StepResult>
 
 export async function decide(
   state: RunState,
-  decision: { approve: boolean; note?: string; revisedValue?: unknown },
+  decision: { approve: boolean; note?: string; revisedValue?: unknown; toolUseId?: string },
 ): Promise<StepResult> {
   const events: AgentEvent[] = [];
   const pending = state.pendingApproval;
   if (!pending) throw new Error("no pending approval");
+  if (state.status !== "awaiting_approval" || (decision.toolUseId !== undefined && decision.toolUseId !== pending.toolUseId)) {
+    throw new Error("stale approval decision");
+  }
   let content = decision.approve ? `approved${decision.note ? `: ${decision.note}` : ""}` : `declined${decision.note ? `: ${decision.note}` : ""}`;
   let decisionError: string | undefined;
   if (decision.approve && decision.revisedValue !== undefined) content = `revised${decision.note ? `: ${decision.note}` : ""}`;
@@ -321,7 +395,7 @@ export async function stopRun(state: RunState): Promise<StepResult> {
 export async function handback(state: RunState, deps: LoopDeps): Promise<Handback> {
   const counts = rejectionCounts(state);
   const fallback = codeHandback(state, counts);
-  if (state.spend.total < state.contract.maxCostDollars) {
+  if (handbackFits(state)) {
     try {
       // History contains tool_use blocks, so the tool list must still be sent;
       // tool_choice "none" forces a text answer.
@@ -338,7 +412,8 @@ export async function handback(state: RunState, deps: LoopDeps): Promise<Handbac
         cache_control: { type: "ephemeral" },
         output_config: { effort: "medium" },
       } as Parameters<typeof deps.client.messages.create>[0])) as Message;
-      addClaudeCost(state, response);
+      const claudeCost = addClaudeCost(state, response);
+      await appendEvents(state.id, [makeEvent(state, "model_call", { tokens: usageOf(response), claudeCost, latencyMs: 0, handback: true })]);
       const text = response.content.find((b) => b.type === "text")?.text ?? "";
       state.handback = parseHandback(text) ?? fallback;
       return state.handback;

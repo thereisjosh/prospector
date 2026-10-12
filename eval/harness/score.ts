@@ -2,7 +2,7 @@ import { existsSync } from "node:fs";
 import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { pathToFileURL } from "node:url";
-import { squashName } from "../../src/gates";
+import { truthKey } from "./truth";
 import type { Arm, RunRecord, Verdict } from "./types";
 
 type CellMetric = {
@@ -18,6 +18,8 @@ type CellMetric = {
   adaptive_actions: number;
   workflow_shaped: boolean;
   pass: boolean;
+  /** Handback re-run: good leads in this cell vs. in the re-run with suggestion #1 applied (judged, same counting). */
+  handback_rerun?: { good_leads_before: number; after: number };
 };
 
 type ArmSummary = {
@@ -25,7 +27,8 @@ type ArmSummary = {
   arm: Arm;
   n: number;
   pass_at_1: number;
-  pass_3: number;
+  /** 1 only when the group has exactly 3 runs and all pass; null otherwise (see n). */
+  pass_3: number | null;
   mean_good_leads: number;
   mean_precision: number;
   mean_cost_per_good_lead: number | "Infinity";
@@ -52,8 +55,8 @@ async function readCells(root: string, setId: string): Promise<RunRecord[]> {
   return records;
 }
 
-async function readTruth(truthRoot: string, scenarioId: string, company: string): Promise<Verdict | undefined> {
-  const file = join(truthRoot, scenarioId, `${squashName(company)}.json`);
+async function readTruth(truthRoot: string, scenarioId: string, company: string, signalUrl: string): Promise<Verdict | undefined> {
+  const file = join(truthRoot, scenarioId, `${truthKey(company, signalUrl)}.json`);
   if (!existsSync(file)) return undefined;
   return JSON.parse(await readFile(file, "utf8")) as Verdict;
 }
@@ -87,21 +90,31 @@ export async function scoreSet(options: {
   resultsRoot?: string;
   truthRoot?: string;
   records?: RunRecord[];
+  reruns?: RunRecord[];
 }): Promise<{ cells: CellMetric[]; summaries: ArmSummary[] }> {
   const root = options.resultsRoot ?? "eval/results";
   const truthRoot = options.truthRoot ?? "eval/truth";
   const records = options.records ?? await readCells(root, options.setId);
+  const reruns = options.reruns ?? (options.records ? [] : await readCells(root, `${options.setId}-handback`));
   const cells: CellMetric[] = [];
-  for (const record of records) {
+  const countGood = async (record: RunRecord): Promise<number> => {
     const q2CannotUsed = { value: false };
     let good = 0;
     for (const lead of record.leads) {
-      const verdict = await readTruth(truthRoot, record.scenarioId, lead.company);
+      const verdict = await readTruth(truthRoot, record.scenarioId, lead.company, lead.signal_url);
       if (leadGood(verdict, q2CannotUsed)) good += 1;
     }
+    return good;
+  };
+  for (const record of records) {
+    if (typeof record.maxCostDollars !== "number" || !(record.maxCostDollars > 0)) {
+      throw new Error(`run record ${record.scenarioId}/${record.arm}/${record.rep} has no maxCostDollars; cannot apply the cost cap`);
+    }
+    const good = await countGood(record);
     const accepted = record.leads.length;
     const precision = accepted === 0 ? 0 : good / accepted;
-    const cap = (record as RunRecord & { maxCostDollars?: number }).maxCostDollars ?? 1;
+    const cap = record.maxCostDollars;
+    const rerun = reruns.find((r) => r.rerunOf === `${record.scenarioId}/${record.arm}/${record.rep}`);
     const adaptive = record.adaptive
       ? record.adaptive.queryRewrites + record.adaptive.lookupsSkipped + record.adaptive.verificationReads
       : 0;
@@ -118,6 +131,7 @@ export async function scoreSet(options: {
       adaptive_actions: adaptive,
       workflow_shaped: record.arm !== "A_workflow" && adaptive === 0,
       pass: good >= 6 && precision >= 0.8 && record.spend.total <= cap,
+      ...(record.handback && rerun ? { handback_rerun: { good_leads_before: good, after: await countGood(rerun) } } : {}),
     });
   }
 
@@ -131,8 +145,8 @@ export async function scoreSet(options: {
       scenarioId,
       arm,
       n: group.length,
-      pass_at_1: group.length === 0 ? 0 : group.filter((c) => c.pass).length / 3,
-      pass_3: group.length === 3 && group.every((c) => c.pass) ? 1 : 0,
+      pass_at_1: group.length === 0 ? 0 : group.filter((c) => c.pass).length / group.length,
+      pass_3: group.length === 3 ? (group.every((c) => c.pass) ? 1 : 0) : null,
       mean_good_leads: mean(group.map((c) => c.good_leads)),
       mean_precision: mean(group.map((c) => c.precision)),
       mean_cost_per_good_lead: finiteCosts.length === group.length ? mean(finiteCosts) : "Infinity",
@@ -157,7 +171,7 @@ async function writeReport(root: string, setId: string, cells: CellMetric[], sum
     "",
     "| Scenario | Arm | n | pass@1 | pass^3 | mean good | mean precision | mean cost/good | p50 ms | p95 ms | workflow-shaped |",
     "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
-    ...summaries.map((s) => `| ${s.scenarioId} | ${s.arm} | ${s.n} | ${s.pass_at_1.toFixed(2)} | ${s.pass_3} | ${s.mean_good_leads.toFixed(2)} | ${s.mean_precision.toFixed(2)} | ${typeof s.mean_cost_per_good_lead === "number" ? s.mean_cost_per_good_lead.toFixed(4) : "Infinity"} | ${Math.round(s.p50_latency)} | ${Math.round(s.p95_latency)} | ${s.workflow_shaped_share.toFixed(2)} |`),
+    ...summaries.map((s) => `| ${s.scenarioId} | ${s.arm} | ${s.n} | ${s.pass_at_1.toFixed(2)} | ${s.pass_3 === null ? `n/a (n=${s.n})` : s.pass_3} | ${s.mean_good_leads.toFixed(2)} | ${s.mean_precision.toFixed(2)} | ${typeof s.mean_cost_per_good_lead === "number" ? s.mean_cost_per_good_lead.toFixed(4) : "Infinity"} | ${Math.round(s.p50_latency)} | ${Math.round(s.p95_latency)} | ${s.workflow_shaped_share.toFixed(2)} |`),
     "",
     "## Cells",
     "",

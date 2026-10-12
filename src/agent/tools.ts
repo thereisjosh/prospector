@@ -206,6 +206,10 @@ function compactSignalLine(result: ExaResult, summary: SignalSummary): string {
   ].join(" · ");
 }
 
+function actualCost(value: { costDollars?: { total?: unknown } } | undefined): number {
+  return typeof value?.costDollars?.total === "number" ? value.costDollars.total : 0;
+}
+
 function syncExaSpend(state: RunState, guard: CostGuard): void {
   state.spend.exa = guard.spent;
   state.spend.total = state.spend.exa + state.spend.claude;
@@ -240,6 +244,36 @@ function decodeJsonValue(value: unknown, field: string): { ok: true; value: unkn
   } catch {
     return { ok: false };
   }
+}
+
+function nameTokensForMatch(name: string): string[] {
+  return name
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .replace(/([a-z])([A-Z])/g, "$1 $2")
+    .toLowerCase()
+    .split(/[^a-z0-9]+/)
+    .filter((token) => token.length > 1 && !["inc", "llc", "ltd", "limited", "corp", "corporation", "co", "company", "group"].includes(token));
+}
+
+function hostContainsNameToken(url: string | undefined, tokens: string[]): boolean {
+  if (!url) return false;
+  try {
+    const hostTokens = new URL(url).hostname.toLowerCase().replace(/^www\./, "").split(/[^a-z0-9]+/).filter(Boolean);
+    return tokens.some((token) => token.length >= 5 && hostTokens.includes(token));
+  } catch {
+    return false;
+  }
+}
+
+function companyResultMatches(requested: string, result: ExaResult | undefined, summary?: CompanySummary): boolean {
+  if (!result) return false;
+  const requestedTokens = nameTokensForMatch(requested);
+  if (!result.title) return true;
+  if (requestedTokens.length === 0) return false;
+  const titleTokens = nameTokensForMatch([result.title, summary?.description].filter(Boolean).join(" "));
+  const shared = requestedTokens.filter((token) => titleTokens.includes(token)).length;
+  return shared / requestedTokens.length >= 0.6 || (requestedTokens[0] !== undefined && titleTokens[0] === requestedTokens[0]) || hostContainsNameToken(result.url, requestedTokens);
 }
 
 /**
@@ -321,6 +355,7 @@ export async function executeTool(
   let acceptedLead = false;
   let newCandidate = false;
   let finish = false;
+  let exaCost = 0;
   let verdictEvent: { company: string; code: string; reason: string; ok: boolean } | undefined;
 
   try {
@@ -344,12 +379,14 @@ export async function executeTool(
           ...(state.contract.excludeDomains.length ? { excludeDomains: state.contract.excludeDomains } : {}),
           contents: {
             summary: { query: composeSignalSummaryQuery(state.contract, query), schema: buildSignalSchema(state.contract) },
+            text: { maxCharacters: 1200 },
             livecrawl: "fallback",
           },
         },
         deps.credentials,
         guard,
       )) as ExaSearchResponse;
+      exaCost = actualCost(response);
       const lines: string[] = [];
       for (const result of response.results.slice(0, 25)) {
         const summary = parseSignalSummary(result.summary);
@@ -383,6 +420,12 @@ export async function executeTool(
           deps.credentials,
           guard,
         );
+        exaCost = actualCost(looked);
+        if (!companyResultMatches(name, looked.result, looked.summary as CompanySummary)) {
+          content = `No reliable company page found for ${name}; try read_page on its site or submit with a different name`;
+          syncExaSpend(state, guard);
+          return { result: { type: "tool_result", tool_use_id: tool.id, content }, exaCost, acceptedLead, newCandidate, finish, verdictEvent };
+        }
         cached = {
           result: looked.result,
           summary: looked.summary as CompanySummary,
@@ -408,6 +451,7 @@ export async function executeTool(
       const url = String(input.url ?? "").trim();
       if (!isHttpUrl(url)) throw new Error("read_page url must be http(s)");
       const page = await (deps.readExaContents ?? readExaContents)(url, deps.credentials, guard);
+      exaCost = actualCost(page);
       state.adaptive.verificationReads += 1;
       if (state.caches.signalsByUrl[url]) {
         state.caches.signalsByUrl[url] = { ...state.caches.signalsByUrl[url]!, text: page.text ?? state.caches.signalsByUrl[url]!.text };
@@ -453,11 +497,10 @@ export async function executeTool(
       throw new Error(`unknown tool: ${tool.name}`);
     }
     syncExaSpend(state, guard);
-    const exaCost = Math.max(0, guard.spent - beforeSpent);
     return { result: { type: "tool_result", tool_use_id: tool.id, content }, exaCost, acceptedLead, newCandidate, finish, verdictEvent };
   } catch (error) {
     syncExaSpend(state, guard);
-    const exaCost = Math.max(0, guard.spent - beforeSpent);
+    exaCost ||= Math.max(0, guard.spent - beforeSpent);
     return {
       result: {
         type: "tool_result",

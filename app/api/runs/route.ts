@@ -7,13 +7,17 @@ import { createRunState, saveState } from "../../../src/agent/state";
 import { validatePlan } from "../../../src/plan";
 import { isDemoMode } from "../../../src/demo/mode";
 import { createDemoRun } from "../../../src/demo/replay";
+import { clampTargetLeads, dailyBudgetReached, rateLimit, readJsonBody, RequestValidationError } from "../_shared";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
 
 export async function POST(request: Request) {
   try {
-    const body = (await request.json()) as Record<string, unknown>;
+    const limited = rateLimit(request);
+    if (limited) return limited;
+    if (await dailyBudgetReached()) return NextResponse.json({ error: "Daily budget reached." }, { status: 503 });
+    const body = (await readJsonBody(request)) as Record<string, unknown>;
     const validation = validatePlan(body.plan);
     if (!validation.ok) return NextResponse.json({ error: "Invalid plan." }, { status: 400 });
     const workspaceId = typeof body.workspaceId === "string" && body.workspaceId ? body.workspaceId : randomUUID();
@@ -26,7 +30,7 @@ export async function POST(request: Request) {
       workspaceId,
       plan: validation.plan,
       model: isAgentModel(body.model) ? body.model : undefined,
-      targetLeads: typeof body.targetLeads === "number" ? body.targetLeads : undefined,
+      targetLeads: clampTargetLeads(body.targetLeads),
       maxCostDollars: maxCost,
       preferenceNotes: memory.preferenceNotes,
       seenKeys: memory.seen.map((s) => s.squashed),
@@ -35,6 +39,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ id: state.id });
   } catch (error) {
     if (error instanceof InvalidIdError) return NextResponse.json({ error: "Invalid request." }, { status: 400 });
+    if (error instanceof RequestValidationError) return NextResponse.json({ error: "Invalid request." }, { status: 400 });
     console.error("[api/runs] create failed:", error);
     return NextResponse.json({ error: "Request failed." }, { status: 500 });
   }

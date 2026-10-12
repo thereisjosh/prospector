@@ -2,6 +2,11 @@ import { claudeCostDollars, DEFAULT_MODEL, type AgentModel } from "../agent/conf
 
 export type PlannerClient = {
   messages: {
+    countTokens?(args: {
+      model: AgentModel;
+      system: string;
+      messages: { role: "user" | "assistant"; content: string }[];
+    }): Promise<{ input_tokens?: number }>;
     create(args: {
       model: AgentModel;
       max_tokens: number;
@@ -31,6 +36,13 @@ export class PlannerError extends Error {
   }
 }
 
+export class PlannerTokenLimitError extends Error {
+  constructor(public readonly tokens: number) {
+    super("Planner input is too large.");
+    this.name = "PlannerTokenLimitError";
+  }
+}
+
 export type PlannerModelDeps = {
   client: PlannerClient;
   model?: AgentModel;
@@ -55,8 +67,10 @@ export function responseText(response: { content?: unknown }): string {
 }
 
 export function extractFirstJsonObject(text: string): unknown {
-  const start = text.indexOf("{");
-  if (start < 0) throw new PlannerError("Model did not return a JSON object.", "model_json_invalid");
+  const starts = [...text.matchAll(/\{/g)].map((m) => m.index).filter((i): i is number => i !== undefined);
+  if (starts.length === 0) throw new PlannerError("Model did not return a JSON object.", "model_json_invalid");
+  let lastError: unknown;
+  for (const start of starts) {
   let depth = 0;
   let inString = false;
   let escaped = false;
@@ -76,15 +90,14 @@ export function extractFirstJsonObject(text: string): unknown {
         try {
           return JSON.parse(text.slice(start, i + 1)) as unknown;
         } catch (error) {
-          throw new PlannerError(
-            error instanceof Error ? error.message : "Invalid JSON.",
-            "model_json_invalid",
-          );
+          lastError = error;
+          break;
         }
       }
     }
   }
-  throw new PlannerError("Model JSON object was not balanced.", "model_json_invalid");
+  }
+  throw new PlannerError(lastError instanceof Error ? lastError.message : "Model JSON object was not balanced.", "model_json_invalid");
 }
 
 export async function callClaudeJson<T>(
@@ -104,6 +117,10 @@ export async function callClaudeJson<T>(
         ? user
         : `${user}\n\nYour previous JSON failed validation. Return one corrected JSON object only. Errors:\n${lastErrors.join("\n")}`,
     }];
+    if (deps.client.messages.countTokens) {
+      const counted = await deps.client.messages.countTokens({ model, system, messages });
+      if ((counted.input_tokens ?? 0) > 20_000) throw new PlannerTokenLimitError(counted.input_tokens ?? 0);
+    }
     const response = await deps.client.messages.create({
       model,
       max_tokens: 4000,

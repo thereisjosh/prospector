@@ -12,7 +12,7 @@ const tmp = vi.hoisted(() => {
   return { root, runs: join(root, "runs"), workspaces: join(root, "workspaces") };
 });
 import type { SearchPlan } from "../src/plan";
-import { createRunState, loadState, saveState, screenedByCode, type RunState } from "../src/agent/state";
+import { createRunState, loadState, saveState, screenedByCode, StaleStateError, type RunState } from "../src/agent/state";
 import { codeHandback, decide, rejectionCounts, step, stopRun } from "../src/agent/loop";
 import { agentTools, validHandback } from "../src/agent/tools";
 import { InvalidIdError } from "../src/agent/ids";
@@ -21,6 +21,8 @@ import { clearMemory, saveMemory as saveMem } from "../src/agent/memory";
 import { resolveDataDirs } from "../src/agent/config";
 import type { LeadChecker } from "../src/agent/gate-port";
 import { appendRunToMemory, loadMemory, saveMemory, squashName } from "../src/agent/memory";
+import { CostGuard, estimateExaCost, ReplayMissError } from "../src/exa";
+import { readExaContents } from "../src/agent/exa-contents";
 
 const NOW = new Date("2026-10-12T00:00:00.000Z");
 
@@ -324,7 +326,8 @@ describe("agent loop", () => {
     });
     await step(capped, { client: client(msg("tool_use", [tool("s", "search_signals", { query: "x" })])) as never, checkLead: checker, now: NOW, exaSearch: overCap as never });
     expect(fetched).toBe(0);
-    expect(toolResults(capped)[0]).toMatchObject({ tool_use_id: "s", is_error: true });
+    expect(capped.status).toBe("stopped");
+    expect(capped.stopReason).toBe("budget");
   });
 
   it("A2b #2 runs lookup before submit in the same turn while preserving original result order", async () => {
@@ -792,6 +795,148 @@ describe("agent loop", () => {
       await saveState(s);
       const body = await (await GET(new Request("http://x"), { params: { id: s.id } })).json();
       expect(body.screened).toEqual([{ code: "size", count: 2, companies: ["A", "B"] }]);
+    });
+  });
+
+  describe("F1 regressions", () => {
+    it("F1.1 rejects stale state saves and honours stopRequested before a model call", async () => {
+      const s = state();
+      await saveState(s);
+      const a = await loadState(s.id);
+      const b = await loadState(s.id);
+      a.todo = "first";
+      b.todo = "second";
+      await saveState(a, a.version);
+      await expect(saveState(b, b.version)).rejects.toBeInstanceOf(StaleStateError);
+
+      const stopState = state({ stopRequested: true });
+      const c = client(new Error("must not call"));
+      await step(stopState, { client: c as never, checkLead: checker, now: NOW });
+      expect(stopState.status).toBe("stopped");
+      expect(stopState.stopReason).toBe("user");
+      expect(c.messages.create).not.toHaveBeenCalled();
+    });
+
+    it("F1.2 reserves Claude spend and stops on budget before a model call", async () => {
+      const s = state({ contract: { ...state().contract, maxCostDollars: 0.06 } });
+      const c = client(msg("end_turn", [text("should not run")]));
+      await step(s, { client: c as never, checkLead: checker, now: NOW });
+      expect(c.messages.create).not.toHaveBeenCalled();
+      expect(s.status).toBe("stopped");
+      expect(s.stopReason).toBe("budget");
+    });
+
+    it("F1.3 stops with code handback when CostGuard is breached after settle", async () => {
+      const guard = new CostGuard(0.01);
+      guard.reserve(0.005);
+      guard.settle(0.005, 0.02);
+      expect(guard.breached).toBe(true);
+
+      const s = state({ strategyApproved: true });
+      const exaSearchMock = vi.fn(async (_body: unknown, _credentials: unknown, g: CostGuard) => {
+        g.reserve(0.001);
+        g.settle(0.001, 2);
+        return signalResult;
+      });
+      await step(s, { client: client(msg("tool_use", [tool("s", "search_signals", { query: "x" })])) as never, checkLead: checker, now: NOW, exaSearch: exaSearchMock as never });
+      expect(s.status).toBe("stopped");
+      expect(s.stopReason).toBe("budget");
+    });
+
+    it("F1.4 reports per-call Exa costs and records handback model calls", async () => {
+      const s = state({ strategyApproved: true });
+      const exaSearchMock = vi.fn(async (body: Record<string, unknown>, _credentials: unknown, guard: CostGuard) => {
+        guard.reserve(0.001);
+        const actual = String(body.query) === "a" ? 0.011 : 0.022;
+        guard.settle(0.001, actual);
+        return { ...signalResult, costDollars: { total: actual } };
+      });
+      const result = await step(s, { client: client(msg("tool_use", [tool("a", "search_signals", { query: "a" }), tool("b", "search_signals", { query: "b" })])) as never, checkLead: checker, now: NOW, exaSearch: exaSearchMock as never });
+      expect(result.events.filter((e) => e.kind === "tool_call").reduce((sum, e) => sum + Number(e.exaCost ?? 0), 0)).toBeCloseTo(s.spend.exa, 6);
+
+      const h = state({ spend: { exa: 0.96, claude: 0, total: 0.96 } });
+      await step(h, { client: client(msg("end_turn", [text(JSON.stringify({ shortfall: "0 of 10", top_reasons: [], suggestions: [] }))])) as never, checkLead: checker, now: NOW });
+      expect((await readLastEvents(h.id)).some((e) => e.kind === "model_call" && e.handback === true)).toBe(true);
+    });
+
+    it("F1.5 requires decisions to target the pending tool_use id", async () => {
+      const s = state({ status: "awaiting_approval", pendingApproval: { toolUseId: "right", tool: "propose_strategy", input: {}, otherToolResults: [] } });
+      await expect(decide(s, { approve: true, toolUseId: "wrong" })).rejects.toThrow("stale approval decision");
+    });
+
+    it("F1.6 keeps retryable model errors running until the third consecutive error", async () => {
+      const retryable = Object.assign(new Error("busy"), { status: 529 });
+      const s = state();
+      await step(s, { client: client(retryable) as never, checkLead: checker, now: NOW });
+      expect(s.status).toBe("running");
+      expect(s.counters.consecutiveErrors).toBe(1);
+      await step(s, { client: client(Object.assign(new Error("busy"), { status: 500 })) as never, checkLead: checker, now: NOW });
+      await step(s, { client: client(Object.assign(new Error("busy"), { name: "RateLimitError" })) as never, checkLead: checker, now: NOW });
+      expect(s.status).toBe("error");
+    });
+
+    it("F1.7 read_page uses Exa record/replay for contents", async () => {
+      const oldReplay = process.env.EXA_REPLAY_DIR;
+      const oldRecord = process.env.EXA_RECORD_DIR;
+      process.env.EXA_REPLAY_DIR = tmp.runs;
+      await expect(readExaContents("https://x.example", { apiKey: "test" })).rejects.toBeInstanceOf(ReplayMissError);
+      delete process.env.EXA_REPLAY_DIR;
+      process.env.EXA_RECORD_DIR = tmp.runs;
+      vi.stubGlobal("fetch", vi.fn(async () => new Response(JSON.stringify({ results: [{ url: "https://x.example", text: "page" }], costDollars: { total: 0.002 } }), { status: 200 })));
+      await expect(readExaContents("https://x.example", { apiKey: "test" })).resolves.toMatchObject({ text: "page" });
+      const { readdir } = await import("node:fs/promises");
+      expect((await readdir(tmp.runs)).some((f) => f.endsWith(".json"))).toBe(true);
+      process.env.EXA_REPLAY_DIR = oldReplay;
+      process.env.EXA_RECORD_DIR = oldRecord;
+    });
+
+    it("F1.8 lookup_company rejects mismatched entities and accepts clear matches", async () => {
+      const reject = state({ strategyApproved: true });
+      await step(reject, { client: client(msg("tool_use", [tool("l", "lookup_company", { name: "AUKLogis" })])) as never, checkLead: checker, now: NOW, lookupCompany: vi.fn(async () => ({ result: { url: "https://auklogistics.com", title: "AUK Logistics" }, summary: { description: "AUK Logistics" }, costDollars: { total: 0.01 } })) as never });
+      expect(toolResults(reject)[0]?.content).toContain("No reliable company page found for AUKLogis");
+      expect(Object.keys(reject.caches.enrichmentByName)).toEqual([]);
+
+      const accept = state({ strategyApproved: true });
+      await step(accept, { client: client(msg("tool_use", [tool("l", "lookup_company", { name: "Allegro" })])) as never, checkLead: checker, now: NOW, lookupCompany: vi.fn(async () => ({ result: { url: "https://allegro.eu", title: "Allegro" }, summary: { description: "Allegro" }, costDollars: { total: 0.01 } })) as never });
+      expect(Object.keys(accept.caches.enrichmentByName)).toEqual([squashName("Allegro")]);
+    });
+
+    it("F1.9 search_signals requests text and estimates text cost", async () => {
+      const bodySeen: Record<string, unknown>[] = [];
+      const s = state({ strategyApproved: true });
+      await step(s, { client: client(msg("tool_use", [tool("s", "search_signals", { query: "warehouse", num_results: 10 })])) as never, checkLead: checker, now: NOW, exaSearch: vi.fn(async (body: Record<string, unknown>) => { bodySeen.push(body); return signalResult; }) as never });
+      expect(bodySeen[0]?.contents).toMatchObject({ text: { maxCharacters: 1200 } });
+      expect(s.caches.signalsByUrl["https://news.example/good"]?.text).toBe("GoodCo expands.");
+      expect(estimateExaCost({ query: "x", numResults: 10, contents: { summary: {}, text: { maxCharacters: 1200 } } })).toBeGreaterThan(estimateExaCost({ query: "x", numResults: 10, contents: { summary: {} } }));
+    });
+
+    it("F1.10 event trimmer preserves replay-critical tool input fields", () => {
+      expect(eventInput("update_todo", { markdown: "x".repeat(700) }).markdown).toHaveLength(600);
+      expect(eventInput("submit_lead", { company: "GoodCo", signal_url: "https://news.example/good", why_now: "x" })).toEqual({ company: "GoodCo", signal_url: "https://news.example/good" });
+    });
+
+    it("F1.11 run routes clamp targetLeads, rate-limit by first forwarded IP, and enforce the daily ledger", async () => {
+      const { POST } = await import("../app/api/runs/route");
+      const res = await POST(new Request("http://x/api/runs", {
+        method: "POST",
+        headers: { "x-forwarded-for": "198.51.100.10, 10.0.0.1" },
+        body: JSON.stringify({ plan: plan(), targetLeads: 99, workspaceId: "route_ws" }),
+      }));
+      expect(res.status).toBe(200);
+      const created = await res.json();
+      expect((await loadState(created.id)).contract.targetLeads).toBe(50);
+
+      for (let i = 0; i < 30; i += 1) {
+        await POST(new Request("http://x/api/runs", { method: "POST", headers: { "x-forwarded-for": "203.0.113.77" }, body: JSON.stringify({ plan: plan(), workspaceId: `rl_${i}` }) }));
+      }
+      const limited = await POST(new Request("http://x/api/runs", { method: "POST", headers: { "x-forwarded-for": "203.0.113.77" }, body: JSON.stringify({ plan: plan(), workspaceId: "rl_x" }) }));
+      expect(limited.status).toBe(429);
+
+      const oldCap = process.env.DAILY_SPEND_CAP_DOLLARS;
+      process.env.DAILY_SPEND_CAP_DOLLARS = "0";
+      const capped = await POST(new Request("http://x/api/runs", { method: "POST", headers: { "x-forwarded-for": "192.0.2.55" }, body: JSON.stringify({ plan: plan(), workspaceId: "cap_ws" }) }));
+      expect(capped.status).toBe(503);
+      process.env.DAILY_SPEND_CAP_DOLLARS = oldCap;
     });
   });
 });

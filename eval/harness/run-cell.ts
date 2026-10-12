@@ -6,7 +6,7 @@ import { copyFile, mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { pathToFileURL } from "node:url";
 import { AGENT_MODELS, RUNS_DIR } from "../../src/agent/config";
-import { checkLead, squashName } from "../../src/gates";
+import { checkLead } from "../../src/gates";
 import { validatePlan, type SearchPlan } from "../../src/plan";
 import { runProspecting } from "../../src/pipeline";
 import type { ProspectRow } from "../../src/types";
@@ -64,25 +64,43 @@ export function parseScenario(input: unknown): Scenario {
   };
 }
 
-function rowToLead(row: ProspectRow): LeadRecord {
+const WHY_NOW_MAX = 200;
+
+/** Both arms emit the same normalised fields: why_now <= 200 chars, size_basis "quoted" | "unverified". */
+function normalizeLead(fields: { company: string; signal_url: string; why_now: string; event_date: string; size_basis: string }): LeadRecord {
   return {
+    company: fields.company,
+    signal_url: fields.signal_url,
+    why_now: fields.why_now.trim().slice(0, WHY_NOW_MAX),
+    event_date: fields.event_date,
+    size_basis: fields.size_basis === "quoted" ? "quoted" : "unverified",
+  };
+}
+
+/**
+ * Workflow rows carry no structured details, only the fit_reason sentence the
+ * shared gate wrote; "(quoted)" appears in it exactly when details.size_basis
+ * was "quoted". The sentence itself is not recorded (it would reveal the arm).
+ */
+function rowToLead(row: ProspectRow): LeadRecord {
+  return normalizeLead({
     company: row.company,
     signal_url: row.signal_source_url,
     why_now: row.why_now_signal,
     event_date: row.signal_date,
-    size_basis: row.fit_reason,
-  };
+    size_basis: /\(quoted\)/.test(row.fit_reason) ? "quoted" : "unverified",
+  });
 }
 
 function stateLeadToLead(lead: RunState["leads"][number]): LeadRecord {
   const details = lead.details as { event_date?: unknown; size_basis?: unknown };
-  return {
+  return normalizeLead({
     company: lead.company,
     signal_url: lead.signal_url,
     why_now: lead.why_now,
     event_date: typeof details.event_date === "string" ? details.event_date : "",
-    size_basis: typeof details.size_basis === "string" ? details.size_basis : "",
-  };
+    size_basis: typeof details.size_basis === "string" ? details.size_basis : "unverified",
+  });
 }
 
 async function writeJson(path: string, value: unknown) {
@@ -104,32 +122,23 @@ function outputDir(scenario: Scenario, arm: Arm, rep: number, deps: RunCellDeps)
   return join(deps.resultsRoot ?? DEFAULT_RESULTS_ROOT, deps.runSetId ?? "local", scenario.id, arm, String(rep));
 }
 
-function countGoodLeads(record: RunRecord, truthRoot = "eval/truth"): number {
-  let q2CannotUsed = false;
-  let good = 0;
-  for (const lead of record.leads) {
-    const file = join(truthRoot, record.scenarioId, `${squashName(lead.company)}.json`);
-    if (!existsSync(file)) continue;
-    const verdict = JSON.parse(readFileSync(file, "utf8")) as { q1?: string; q2?: string; q3?: string };
-    if (verdict.q1 !== "yes" || verdict.q3 !== "yes") continue;
-    if (verdict.q2 === "yes") good += 1;
-    else if (verdict.q2 === "cannot_verify" && !q2CannotUsed) {
-      q2CannotUsed = true;
-      good += 1;
-    }
-  }
-  return good;
+/**
+ * Run the handback re-run cell (suggestion #1 applied). It is only recorded here,
+ * tagged with `rerunOf`; scoring computes good-lead counts after judging.
+ */
+async function runHandbackRerun(record: RunRecord, scenario: Scenario, arm: Arm, rep: number, deps: RunCellDeps, setId: string): Promise<RunRecord | undefined> {
+  if (!record.handback) return undefined;
+  const rerunScenario = applyFirstHandbackSuggestion(scenario, record);
+  return runCell(rerunScenario, arm, rep, { ...deps, runSetId: `${setId}-handback`, rerunOf: `${scenario.id}/${arm}/${rep}` });
 }
 
-async function runHandbackRerun(record: RunRecord, scenario: Scenario, arm: Arm, rep: number, deps: RunCellDeps, setId: string) {
-  if (!record.handback) return;
-  const rerunScenario = applyFirstHandbackSuggestion(scenario, record);
-  const rerun = await runCell(rerunScenario, arm, rep, { ...deps, runSetId: `${setId}-handback` });
-  record.handback_rerun = {
-    good_leads_before: countGoodLeads(record),
-    after: countGoodLeads(rerun),
+function cellFields(scenario: Scenario, now: Date, deps: RunCellDeps) {
+  return {
+    maxCostDollars: scenario.maxCostDollars,
+    targetLeads: scenario.targetLeads,
+    now: now.toISOString(),
+    ...(deps.rerunOf ? { rerunOf: deps.rerunOf } : {}),
   };
-  await writeJson(join(outputDir(scenario, arm, rep, deps), "run.json"), record);
 }
 
 export async function runCell(scenario: Scenario, arm: Arm, rep: number, deps: RunCellDeps = {}): Promise<RunRecord> {
@@ -153,12 +162,13 @@ export async function runCell(scenario: Scenario, arm: Arm, rep: number, deps: R
       scenarioId: scenario.id,
       arm,
       rep,
-      leads: run.rows.map(rowToLead),
+      leads: run.rows.slice(0, scenario.targetLeads).map(rowToLead),
       spend: { exa: spend, claude: 0, total: spend },
       activeMs: Date.now() - started,
       stopReason: (run.funnel as { budgetStoppedAt?: unknown }).budgetStoppedAt ? "budget" : run.rows.length >= scenario.targetLeads ? "target" : "finish",
       startedAt,
       finishedAt: new Date().toISOString(),
+      ...cellFields(scenario, now, deps),
     };
   } else {
     const state = createRunState({
@@ -195,6 +205,7 @@ export async function runCell(scenario: Scenario, arm: Arm, rep: number, deps: R
       handback: final.handback,
       startedAt,
       finishedAt: new Date().toISOString(),
+      ...cellFields(scenario, now, deps),
     };
     await mkdir(outDir, { recursive: true });
     await copyAgentArtifacts(final, outDir, deps);
@@ -221,7 +232,9 @@ export async function runMatrix(options: MatrixOptions): Promise<{ records: RunR
   for (const scenario of options.scenarios) {
     for (const arm of options.arms) {
       for (let rep = 1; rep <= options.reps; rep += 1) {
-        if (options.maxTotalDollars !== undefined && total >= options.maxTotalDollars) {
+        // Worst case for this cell (and its handback re-run) must still fit under the total cap.
+        const worstCase = scenario.maxCostDollars * (options.handback ? 2 : 1);
+        if (options.maxTotalDollars !== undefined && total + worstCase > options.maxTotalDollars) {
           return { records, total, stopped: true };
         }
         const record = await runCell(scenario, arm, rep, deps);
@@ -229,12 +242,8 @@ export async function runMatrix(options: MatrixOptions): Promise<{ records: RunR
         total += record.spend.total;
         deps.log?.(`running total $${total.toFixed(4)} after ${scenario.id}/${arm}/${rep}`);
         if (options.handback && record.handback) {
-          await runHandbackRerun(record, scenario, arm, rep, deps, options.setId);
-          const rerunFile = join(deps.resultsRoot ?? DEFAULT_RESULTS_ROOT, `${options.setId}-handback`, scenario.id, arm, String(rep), "run.json");
-          if (existsSync(rerunFile)) {
-            const rerun = JSON.parse(readFileSync(rerunFile, "utf8")) as RunRecord;
-            total += rerun.spend.total;
-          }
+          const rerun = await runHandbackRerun(record, scenario, arm, rep, deps, options.setId);
+          if (rerun) total += rerun.spend.total;
         }
       }
     }

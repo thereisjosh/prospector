@@ -88,5 +88,19 @@ export function eventInput(tool: string | undefined, input: unknown): Record<str
       .slice(0, 20)
       .map((v) => v.slice(0, INPUT_LIMIT));
   }
+  if (tool === "update_todo") {
+    const markdown = clip600(rec.markdown);
+    if (markdown !== undefined) out.markdown = markdown;
+  }
+  if (tool === "submit_lead") {
+    const company = clip(rec.company);
+    const signalUrl = clip(rec.signal_url);
+    if (company !== undefined) out.company = company;
+    if (signalUrl !== undefined) out.signal_url = signalUrl;
+  }
   return out;
+}
+
+function clip600(value: unknown): string | undefined {
+  return typeof value === "string" ? value.slice(0, 600) : undefined;
 }

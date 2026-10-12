@@ -20,6 +20,12 @@ export function dateInWindow(
   return Number.isFinite(date.getTime()) && date >= start && date <= now;
 }
 
+/**
+ * Is the company named in the page text? Word-boundary match on normalised
+ * tokens ("UPS" does not match "startups"); a squashed substring match
+ * ("Diakonlogistics" vs "Diakon Logistics") is allowed only for names of 8+
+ * characters.
+ */
 export function nameMatchesSignal(args: {
   company: string;
   title?: string;
@@ -31,7 +37,9 @@ export function nameMatchesSignal(args: {
   const haystack = normalizeName(
     [args.title, args.text, args.summary].filter(Boolean).join(" "),
   );
-  return haystack.includes(company);
+  if (` ${haystack} `.includes(` ${company} `)) return true;
+  const squashed = company.replace(/ /g, "");
+  return squashed.length >= 8 && haystack.replace(/ /g, "").includes(squashed);
 }
 
 export function netNew(

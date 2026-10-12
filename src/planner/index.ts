@@ -1,4 +1,4 @@
-export { PlannerError } from "./claude";
+export { PlannerError, PlannerTokenLimitError } from "./claude";
 export type { PlannerClient, PlannerModelDeps } from "./claude";
 export { classifyInput, resolveInstagram } from "./resolve";
 export type { ClassifiedInput, InstagramCandidate, ResolveDeps } from "./resolve";

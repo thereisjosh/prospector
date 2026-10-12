@@ -3,6 +3,7 @@ import { describe, expect, it, vi } from "vitest";
 import { validatePlan } from "../src/plan";
 import { CostGuard } from "../src/exa";
 import { classifyInput, compilePlan, profileSeller, resolveInstagram, suggestCards, type CardSet } from "../src/planner";
+import { extractFirstJsonObject, PlannerTokenLimitError } from "../src/planner/claude";
 
 function probeUrls(id: string): string[] {
   const p = probe.probes.find((item) => item.id === id);
@@ -152,5 +153,30 @@ describe("compilePlan", () => {
     expect(result.plan.signalTypes).toEqual(["new_location", "hiring_ops"]);
     expect(result.cost).toBeCloseTo(0.028, 6);
     expect(result.estimatedRunCost).toBeGreaterThan(0.3);
+  });
+
+  it("F1.11 refuses planner Claude calls above 20k input tokens before create", async () => {
+    const client = {
+      messages: {
+        countTokens: vi.fn(async () => ({ input_tokens: 20_001 })),
+        create: vi.fn(),
+      },
+    };
+    await expect(compilePlan(validCards(), { client: client as never })).rejects.toBeInstanceOf(PlannerTokenLimitError);
+    expect(client.messages.create).not.toHaveBeenCalled();
+  });
+
+  it("F1.11 planner routes reject oversized shapes before model work", async () => {
+    const { POST } = await import("../app/api/planner/plan/route");
+    const res = await POST(new Request("http://x/api/planner/plan", {
+      method: "POST",
+      headers: { "x-forwarded-for": "198.51.100.200" },
+      body: JSON.stringify({ cards: { ...validCards(), who: { industry: "x".repeat(2001), descriptor: "cafes" } } }),
+    }));
+    expect(res.status).toBe(400);
+  });
+
+  it("F1.12 extractFirstJsonObject tries each opening brace until one parses", () => {
+    expect(extractFirstJsonObject("ignore {not json} then {\"ok\":true}")).toEqual({ ok: true });
   });
 });

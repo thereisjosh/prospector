@@ -63,3 +63,4 @@ An agent run with `adaptive_actions = 0` is flagged **workflow-shaped**. It stil
 ## Change log
 
 - 2026-10-12: frozen.
+- 2026-10-12: judging unit clarified as (company, signal_url); verdict reuse limited to the same window

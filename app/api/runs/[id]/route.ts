@@ -4,12 +4,15 @@ import { readLastEvents } from "../../../../src/agent/events";
 import { loadState, screenedByCode } from "../../../../src/agent/state";
 import { isDemoRunId } from "../../../../src/demo/mode";
 import { demoSnapshot } from "../../../../src/demo/replay";
+import { rateLimit } from "../../_shared";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
 
-export async function GET(_request: Request, { params }: { params: { id: string } }) {
+export async function GET(request: Request, { params }: { params: { id: string } }) {
   try {
+    const limited = rateLimit(request);
+    if (limited) return limited;
     assertRunId(params.id);
     if (isDemoRunId(params.id)) return NextResponse.json(await demoSnapshot(params.id));
     const state = await loadState(params.id);

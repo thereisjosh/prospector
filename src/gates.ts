@@ -57,6 +57,8 @@ export type LeadDetails = {
   required_gates_passed: string[];
   optional_gates_passed: string[];
   hq: string;
+  /** Where the HQ country evidence came from: the lookup, or (only when the lookup had no HQ) the signal page text. */
+  hq_basis?: "enrichment" | "signal_text";
   /** Confidence multiplier from fit (size known? optional gates). */
   multiplier: number;
   fit_reason: string;
@@ -184,11 +186,28 @@ export function windowStartIso(months: number, now: Date): string {
   return d.toISOString();
 }
 
+/** A signal_date this close (in days) to the publish date's month/day, in another year, is a year-slip. */
+const YEAR_SLIP_DAYS = 90;
+
+function isYearSlip(sig: string, pub: string): boolean {
+  const [sy, sm, sd] = sig.split("-").map(Number) as [number, number, number];
+  const [py, pm, pd] = pub.split("-").map(Number) as [number, number, number];
+  if (sy === py) return false;
+  const sigMs = Date.UTC(sy, sm - 1, sd);
+  // The publish month/day placed in the signal's year and its neighbours (Dec/Jan wrap).
+  return [sy - 1, sy, sy + 1].some(
+    (y) => Math.abs(sigMs - Date.UTC(y, pm - 1, pd)) <= YEAR_SLIP_DAYS * DAY_MS,
+  );
+}
+
 /**
- * Resolve the EVENT date. Exa summaries sometimes hallucinate the year, so
- * signal_date is trusted only if it falls within publishedDate minus 12 months
- * to plus 7 days (and not after now + 1 day). Otherwise publishedDate is used
- * and date_source is "published_fallback". With no publishedDate, an
+ * Resolve the EVENT date. Exa summaries sometimes hallucinate the YEAR, so
+ * signal_date is trusted if it falls within publishedDate minus 12 months to
+ * plus 7 days (and not after now + 1 day). If it does not, publishedDate
+ * replaces it only for an apparent year-slip (same time of year as the publish
+ * date, different year) or a future / after-publish date; otherwise the window
+ * is judged on the signal date itself, so "opened its facility in March 2024"
+ * in a 2026-09 article is stale, not fresh. With no publishedDate, an
  * implausible signal_date (future, or > 24 months before now) is unparseable.
  */
 export function resolveEventDate(
@@ -202,12 +221,14 @@ export function resolveEventDate(
 
   if (pub) {
     const pubMs = Date.parse(`${pub}T00:00:00.000Z`);
-    const plausible =
-      sigMs !== undefined &&
-      notFuture &&
-      sigMs >= addMonthsMs(pub, -12) &&
-      sigMs <= pubMs + 7 * DAY_MS;
-    return plausible ? { date: sig!, source: "signal" } : { date: pub, source: "published_fallback" };
+    if (sig && sigMs !== undefined && notFuture && sigMs <= pubMs + 7 * DAY_MS) {
+      if (sigMs >= addMonthsMs(pub, -12)) return { date: sig, source: "signal" };
+      // Older than 12 months before publication: a year-slip, or a genuinely old event.
+      return isYearSlip(sig, pub)
+        ? { date: pub, source: "published_fallback" }
+        : { date: sig, source: "signal" };
+    }
+    return { date: pub, source: "published_fallback" };
   }
   if (sig && notFuture && sigMs! >= addMonthsMs(now.toISOString().slice(0, 10), -24)) {
     return { date: sig, source: "signal" };
@@ -227,41 +248,50 @@ export function freshnessScore(value: string, startIso: string, now: Date): numb
 // Size
 // ---------------------------------------------------------------------------
 
-export function parseEmployeeEstimate(value: CompanySummary["employee_estimate"]): number | undefined {
-  if (typeof value === "number" && Number.isFinite(value)) return value;
-  if (typeof value !== "string") return undefined;
-
-  const normalized = value.toLowerCase().replace(/,/g, "");
-  const range = normalized.match(/(\d+)\s*[-–]\s*(\d+)/);
-  if (range?.[1] && range[2]) {
-    return Math.round((Number(range[1]) + Number(range[2])) / 2);
-  }
-
-  const plus = normalized.match(/(\d+)\s*\+/);
-  if (plus?.[1]) return Number(plus[1]);
-
-  const number = normalized.match(/\d+/);
-  return number ? Number(number[0]) : undefined;
-}
-
 const HEADCOUNT_WORD = /^\s*(?:\S+\s+){0,2}?(?:employees|staff|people|headcount|team\s+members)\b/i;
 
 /**
- * All numbers in a quote: "3,560", "350+", "~350", "1.2k", "200-500". Bare
- * 4-digit numbers in 1900-2099 look like years ("founded 2004"), so they are
- * ignored unless a headcount word follows within two words.
+ * All numbers in a text: "3,560", "350+", "~350", "1.2k", "10k+". With
+ * `keepYears` false, bare 4-digit numbers in 1900-2099 look like years
+ * ("founded 2004") and are ignored unless a headcount word follows within two
+ * words.
  */
-function numbersIn(quote: string): number[] {
-  const out: number[] = [];
-  for (const m of quote.matchAll(/(\d[\d,]*(?:\.\d+)?)\s*([kK])?/g)) {
+function extractNumbers(quote: string, keepYears: boolean): Array<{ value: number; index: number; end: number }> {
+  const out: Array<{ value: number; index: number; end: number }> = [];
+  for (const m of quote.matchAll(/(\d[\d,]*(?:\.\d+)?)\s*([kK])?(?![a-zA-Z])/g)) {
     const raw = m[1]!.replace(/,+$/, "");
     const n = Number(raw.replace(/,/g, ""));
     if (!Number.isFinite(n)) continue;
     const yearLike = /^(19|20)\d\d$/.test(raw) && !m[2];
-    if (yearLike && !HEADCOUNT_WORD.test(quote.slice(m.index! + m[0].length))) continue;
-    out.push(m[2] ? n * 1000 : n);
+    if (!keepYears && yearLike && !HEADCOUNT_WORD.test(quote.slice(m.index! + m[0].length))) continue;
+    out.push({ value: m[2] ? n * 1000 : n, index: m.index!, end: m.index! + m[0].length });
   }
   return out;
+}
+
+function numbersIn(quote: string): number[] {
+  return extractNumbers(quote, false).map((n) => n.value);
+}
+
+/**
+ * Employee count from Exa's free-form estimate: 350, "~350", "350+", "1.2k",
+ * "10k+", "3,560", "200-500" (midpoint 350).
+ */
+export function parseEmployeeEstimate(value: CompanySummary["employee_estimate"]): number | undefined {
+  if (typeof value === "number" && Number.isFinite(value)) return value;
+  if (typeof value !== "string") return undefined;
+  const nums = extractNumbers(value, true);
+  if (nums.length === 0) return undefined;
+  const first = nums[0]!;
+  const second = nums[1];
+  if (second && /^\s*[-\u2013\u2014]\s*$/.test(value.slice(first.end, second.index))) {
+    // "1-2k": a trailing k applies to both ends when the first has none.
+    const secondK = /k\s*$/i.test(value.slice(second.index, second.end));
+    const firstK = /k\s*$/i.test(value.slice(first.index, first.end));
+    const a = secondK && !firstK && first.value < 1000 ? first.value * 1000 : first.value;
+    return Math.round((a + second.value) / 2);
+  }
+  return Math.round(first.value);
 }
 
 /**
@@ -327,7 +357,9 @@ export function checkDate(
     );
   }
   const start = windowStartIso(plan.months, now);
-  if (freshnessScore(resolved.date, start, now) <= 0) {
+  const eventMs = Date.parse(`${resolved.date}T00:00:00.000Z`);
+  // Inclusive window: start <= event <= now (the start day itself is fresh).
+  if (!(eventMs >= Date.parse(start) && eventMs <= now.getTime())) {
     return fail(
       "stale_date",
       `event date ${resolved.date} is outside the ${plan.months}-month window starting ${start.slice(0, 10)}`,
@@ -337,12 +369,7 @@ export function checkDate(
 }
 
 function entityMatches(company: string, haystack: string): boolean {
-  if (nameMatchesSignal({ company, text: haystack })) return true;
-  // "Diakonlogistics" vs a page that says "Diakon Logistics": compare squashed,
-  // but only for names long enough that a substring match is meaningful.
-  const key = squashName(company);
-  if (key.length < 6) return false;
-  return haystack.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "").includes(key);
+  return nameMatchesSignal({ company, text: haystack });
 }
 
 /**
@@ -366,7 +393,11 @@ export function checkLead(plan: SearchPlan, input: LeadInput): LeadVerdict {
   );
   if (!date.ok) return date;
 
-  const haystack = [signal.title, signal.text, signal.summary.signal_summary].filter(Boolean).join(" ");
+  // Page evidence only: signal_summary is Exa's own LLM output and would confirm itself.
+  const haystack = [signal.title, signal.text].filter(Boolean).join(" ").trim();
+  if (!haystack) {
+    return fail("entity_mismatch", "no page text to verify the company name");
+  }
   if (!entityMatches(company, haystack)) {
     return fail("entity_mismatch", `"${company}" does not appear in the signal page`);
   }
@@ -379,11 +410,19 @@ export function checkLead(plan: SearchPlan, input: LeadInput): LeadVerdict {
   }
 
   const hq = typeof enrichment.hq === "string" ? normalizeNullish(enrichment.hq) ?? "" : "";
-  if (
-    !textInCountries(hq, plan.hqCountries, true) &&
-    !textInCountries(`${haystack}`, plan.hqCountries, false)
-  ) {
-    return fail("hq", `HQ "${hq || "unknown"}" is outside ${plan.hqCountries.join("/")}`);
+  const hqKnown = hq !== "" && !/^unknown$/i.test(hq);
+  let hqBasis: "enrichment" | "signal_text" = "enrichment";
+  if (hqKnown) {
+    // A known HQ decides, whatever the signal page says.
+    if (!textInCountries(hq, plan.hqCountries, true)) {
+      return fail("hq", `HQ "${hq}" is outside ${plan.hqCountries.join("/")}`);
+    }
+  } else if (plan.hqCountries.length > 0) {
+    // No HQ from the lookup: fall back to the page text, at a confidence penalty.
+    if (!textInCountries(haystack, plan.hqCountries, false)) {
+      return fail("hq", `HQ unknown and the signal page does not place the company in ${plan.hqCountries.join("/")}`);
+    }
+    hqBasis = "signal_text";
   }
 
   // Size: the estimate counts only if its quoted source backs it up.
@@ -431,7 +470,7 @@ export function checkLead(plan: SearchPlan, input: LeadInput): LeadVerdict {
 
   const optionalPassed = optional.filter((g) => enrichment[g.key] === true).map((g) => g.key);
   const optionalFrac = optional.length > 0 ? optionalPassed.length / optional.length : 1;
-  const multiplier = (employees === undefined ? 0.82 : 1) * (0.9 + 0.1 * optionalFrac);
+  const multiplier = (employees === undefined ? 0.82 : 1) * (0.9 + 0.1 * optionalFrac) * (hqBasis === "signal_text" ? 0.9 : 1);
 
   const parts = [
     required.length > 0
@@ -452,7 +491,7 @@ export function checkLead(plan: SearchPlan, input: LeadInput): LeadVerdict {
         ? `employee count ${claimed.toLocaleString()} unverified by its source`
         : "employee count not exposed by lookup",
   );
-  parts.push(`HQ ${hq || "inferred from signal text"}`);
+  parts.push(hqBasis === "signal_text" ? "HQ inferred from signal text" : `HQ ${hq}`);
 
   return {
     ok: true,
@@ -465,6 +504,7 @@ export function checkLead(plan: SearchPlan, input: LeadInput): LeadVerdict {
       required_gates_passed: required.map((g) => g.key),
       optional_gates_passed: optionalPassed,
       hq,
+      hq_basis: hqBasis,
       multiplier,
       fit_reason: `${parts.join("; ")}.`,
     },

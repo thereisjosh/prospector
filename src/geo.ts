@@ -59,32 +59,62 @@ function hasPhrase(haystack: string, phrase: string): boolean {
   return ` ${haystack} `.includes(` ${phrase} `);
 }
 
+/** ISO-2 codes this module knows how to recognise. */
+export const COUNTRY_CODES: readonly string[] = Object.keys(COUNTRY_ALIASES);
+
+/**
+ * Country from a 2-letter code in a structured HQ string. Only the LAST
+ * comma-separated token counts, and never when that token is also a US state
+ * code ("San Francisco, CA" is not Canada, "Indianapolis, IN" is not India,
+ * "Wilmington, DE" is not Germany) - those resolve to the US. The exception is
+ * a non-US region token right before it ("Calgary, AB, CA" is Canada).
+ */
+function codeFromLastToken(hq: string): string | undefined {
+  const tokens = hq.split(",").map((t) => t.trim()).filter(Boolean);
+  const last = tokens[tokens.length - 1];
+  if (!last || !/^[A-Z]{2}$/.test(last)) return undefined;
+  if (US_STATE_ABBREVIATIONS.has(last)) {
+    const prev = tokens.length >= 3 ? tokens[tokens.length - 2] : undefined;
+    const prevIsForeignRegion = !!prev && /^[A-Z]{2,3}$/.test(prev) && !US_STATE_ABBREVIATIONS.has(prev);
+    if (prevIsForeignRegion && COUNTRY_CODES.includes(last)) return last;
+    return "US";
+  }
+  return COUNTRY_CODES.includes(last) ? last : undefined;
+}
+
+/** Best-effort country of a free-text HQ string ("Austin, TX", "Calgary, AB, CA", "Berlin, Germany"). */
+export function countryOfHq(hq: string): string | undefined {
+  const n = norm(hq);
+  if (!n) return undefined;
+  const fromCode = codeFromLastToken(hq);
+  if (fromCode === "US" && /\b(United States|USA)\b/i.test(hq)) return "US";
+  // Spelled-out countries and well-known cities win over abbreviations.
+  for (const code of COUNTRY_CODES) {
+    if ((COUNTRY_ALIASES[code] ?? []).some((alias) => hasPhrase(n, alias))) return code;
+  }
+  if (US_STATE_NAMES.some((state) => hasPhrase(n, state))) return "US";
+  return fromCode;
+}
+
 /**
  * Does free text (an HQ string, or - weaker - a signal blurb) place the
  * company in one of `countries`? Empty `countries` means any country, so true.
- * `allowAbbreviations` enables 2-letter US state codes and is meant only for a
- * structured HQ string, not prose.
+ * `structuredHq` is for an HQ field: it also understands state/country codes.
+ * Prose only matches spelled-out country names and well-known cities.
  */
 export function textInCountries(
   text: string,
   countries: readonly string[],
-  allowAbbreviations = false,
+  structuredHq = false,
 ): boolean {
   if (countries.length === 0) return true;
   const n = norm(text);
   if (!n) return false;
+  const codeCountry = structuredHq ? codeFromLastToken(text) : undefined;
   for (const code of countries) {
-    if (allowAbbreviations && hasPhrase(n, code.toLowerCase())) return true;
-    for (const alias of COUNTRY_ALIASES[code] ?? []) {
-      if (hasPhrase(n, alias)) return true;
-    }
-    if (code === "US") {
-      if (US_STATE_NAMES.some((state) => hasPhrase(n, state))) return true;
-      if (allowAbbreviations) {
-        const tokens = text.match(/\b[A-Z]{2}\b/g) ?? [];
-        if (tokens.some((t) => US_STATE_ABBREVIATIONS.has(t))) return true;
-      }
-    }
+    if (codeCountry === code) return true;
+    if ((COUNTRY_ALIASES[code] ?? []).some((alias) => hasPhrase(n, alias))) return true;
+    if (code === "US" && US_STATE_NAMES.some((state) => hasPhrase(n, state))) return true;
   }
   return false;
 }

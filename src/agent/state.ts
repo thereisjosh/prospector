@@ -1,4 +1,4 @@
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, open, readFile, rename, rm, stat, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import type Anthropic from "@anthropic-ai/sdk";
 import { DEFAULT_LIMITS, DEFAULT_MODEL, RUNS_DIR, type AgentModel } from "./config";
@@ -28,6 +28,7 @@ export type ScreenedCompany = { company: string; code: string; reason: string; t
 export type RunStatus = "running" | "awaiting_approval" | "done" | "stopped" | "error";
 
 export type RunState = {
+  version: number;
   id: string;
   createdAt: string;
   workspaceId: string;
@@ -38,11 +39,12 @@ export type RunState = {
   messages: Anthropic.MessageParam[];
   status: RunStatus;
   stopReason?: string;
+  stopRequested?: boolean;
   strategyApproved: boolean;
   resumedFromDecision?: boolean;
   summary?: string;
   spend: { exa: number; claude: number; total: number };
-  counters: { turns: number; activeMs: number; noProgressTurns: number; toolCalls: number };
+  counters: { turns: number; activeMs: number; noProgressTurns: number; toolCalls: number; consecutiveErrors?: number; lastModelInputTokens?: number };
   leads: AcceptedLead[];
   rejected: Array<{ company: string; code: string; reason: string; turn: number }>;
   /** Companies the gates would reject, found at the lookup stage (never submitted). */
@@ -86,6 +88,7 @@ export function createRunState(args: {
   };
   return {
     id: args.id,
+    version: 0,
     createdAt,
     workspaceId: args.workspaceId,
     model: args.model ?? DEFAULT_MODEL,
@@ -111,15 +114,76 @@ export function createRunState(args: {
   };
 }
 
-export async function saveState(state: RunState): Promise<void> {
+export class StaleStateError extends Error {
+  constructor(message = "Run state changed before save") {
+    super(message);
+    this.name = "StaleStateError";
+  }
+}
+
+export class RunBusyError extends Error {
+  constructor(message = "Run is busy.") {
+    super(message);
+    this.name = "RunBusyError";
+  }
+}
+
+export async function saveState(state: RunState, expectedVersion?: number): Promise<void> {
   const dir = join(RUNS_DIR, assertRunId(state.id));
   await mkdir(dir, { recursive: true });
-  await writeFile(join(dir, "state.json"), JSON.stringify(state, null, 2), "utf8");
+  const path = join(dir, "state.json");
+  if (expectedVersion !== undefined) {
+    let currentVersion = 0;
+    try {
+      const current = JSON.parse(await readFile(path, "utf8")) as { version?: unknown };
+      currentVersion = typeof current.version === "number" ? current.version : 0;
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
+    }
+    if (currentVersion !== expectedVersion) throw new StaleStateError();
+    state.version = expectedVersion + 1;
+  } else {
+    state.version = typeof state.version === "number" ? state.version : 0;
+  }
+  const temp = join(dir, `.state.${process.pid}.${Date.now()}.${Math.random().toString(16).slice(2)}.tmp`);
+  await writeFile(temp, JSON.stringify(state, null, 2), "utf8");
+  await rename(temp, path);
 }
 
 export async function loadState(id: string): Promise<RunState> {
   const raw = await readFile(join(RUNS_DIR, assertRunId(id), "state.json"), "utf8");
-  return JSON.parse(raw) as RunState;
+  const state = JSON.parse(raw) as RunState;
+  state.version = typeof state.version === "number" ? state.version : 0;
+  state.counters.consecutiveErrors ??= 0;
+  return state;
+}
+
+export async function withRunLock<T>(id: string, fn: () => Promise<T>): Promise<T> {
+  const runId = assertRunId(id);
+  const dir = join(RUNS_DIR, runId);
+  await mkdir(dir, { recursive: true });
+  const lock = join(dir, ".lock");
+  try {
+    const s = await stat(lock);
+    if (Date.now() - s.mtimeMs > 90_000) await rm(lock, { force: true });
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
+  }
+  let handle;
+  try {
+    handle = await open(lock, "wx");
+    await handle.writeFile(String(process.pid), "utf8");
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === "EEXIST") throw new RunBusyError();
+    throw error;
+  } finally {
+    await handle?.close();
+  }
+  try {
+    return await fn();
+  } finally {
+    await rm(lock, { force: true });
+  }
 }
 
 /** Screened-at-lookup companies grouped by gate code, most common first. */

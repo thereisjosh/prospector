@@ -43,10 +43,10 @@ export const COST_ESTIMATE = {
 export function estimateExaCost(body: Record<string, unknown>): number {
   const e = COST_ESTIMATE;
   if (body.category === "company") return e.companyLookup * e.margin;
-  const contents = body.contents as { summary?: unknown } | undefined;
+  const contents = body.contents as { summary?: unknown; text?: unknown } | undefined;
   const n = typeof body.numResults === "number" ? body.numResults : 10;
   const search = n <= 25 ? e.searchUpTo25 : e.searchAt50 * Math.max(1, n / 50);
-  return (search + (contents?.summary ? e.perSummaryResult * n : 0)) * e.margin;
+  return (search + (contents?.summary ? e.perSummaryResult * n : 0) + (contents?.text ? e.perSummaryResult * n : 0)) * e.margin;
 }
 
 /**
@@ -57,6 +57,7 @@ export function estimateExaCost(body: Record<string, unknown>): number {
 export class CostGuard {
   spent = 0;
   inflight = 0;
+  breached = false;
   constructor(public readonly capDollars: number) {}
 
   reserve(estimate: number): void {
@@ -71,6 +72,7 @@ export class CostGuard {
   settle(estimate: number, actual: number | undefined): void {
     this.inflight = Math.max(0, this.inflight - estimate);
     this.spent += actual ?? estimate;
+    if (this.spent > this.capDollars + 1e-9) this.breached = true;
   }
 
   get remaining(): number {
@@ -118,10 +120,19 @@ export async function exaSearch(
   credentials: ExaCredentials = {},
   guard?: CostGuard,
 ) {
+  return exaPost("/search", body, credentials, guard) as Promise<ExaSearchResponse>;
+}
+
+export async function exaPost(
+  path: string,
+  body: Record<string, unknown>,
+  credentials: ExaCredentials = {},
+  guard?: CostGuard,
+): Promise<ExaSearchResponse> {
   const estimate = estimateExaCost(body);
   guard?.reserve(estimate);
   try {
-    const json = await exaSearchUnguarded(body, credentials);
+    const json = await exaPostUnguarded(path, body, credentials);
     guard?.settle(estimate, responseCost(json));
     return json;
   } catch (error) {
@@ -130,13 +141,15 @@ export async function exaSearch(
   }
 }
 
-async function exaSearchUnguarded(
+async function exaPostUnguarded(
+  path: string,
   body: Record<string, unknown>,
   credentials: ExaCredentials,
 ) {
   const replayDir = process.env.EXA_REPLAY_DIR;
   const recordDir = process.env.EXA_RECORD_DIR;
-  const hash = replayDir || recordDir ? requestHash(body) : "";
+  const hashBody = path === "/search" ? body : { path, ...body };
+  const hash = replayDir || recordDir ? requestHash(hashBody) : "";
 
   // Replay never falls through to the network.
   if (replayDir) {
@@ -159,7 +172,8 @@ async function exaSearchUnguarded(
     },
     body: JSON.stringify(body),
   };
-  let response = await fetch(`${baseUrl}/search`, request);
+  const endpoint = path.startsWith("/") ? path : `/${path}`;
+  let response = await fetch(`${baseUrl}${endpoint}`, request);
   for (let attempt = 0; response.status === 429 && attempt < 3; attempt += 1) {
     await sleep(1000 * (attempt + 1));
     response = await fetch(`${baseUrl}/search`, request);

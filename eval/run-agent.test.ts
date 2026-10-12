@@ -186,4 +186,16 @@ describe("driveRun", () => {
     expect(saved.counters.turns).toBe(5);
     expect((await loadState(s.id)).status).toBe("done");
   });
+
+  it("H3: change.value is a JSON-encoded string; it is decoded before the widening checks", () => {
+    const s = newState();
+    const req = (change: unknown) => ({ toolUseId: "x", tool: "request_scope_change", input: { change, reason: "", evidence: "" }, otherToolResults: [] });
+    expect(autoDecision(s, req({ field: "months", value: "6" })).approve).toBe(true);
+    expect(autoDecision(s, req({ field: "months", value: "2" })).approve).toBe(false);
+    expect(autoDecision(s, req({ field: "employeeRange", value: '{"min":50,"max":2000}' })).approve).toBe(true);
+    expect(autoDecision(s, req({ field: "employeeRange", value: '{"min":100,"max":400}' })).approve).toBe(false); // narrows
+    expect(autoDecision(s, req({ field: "employeeRange", value: '{"min":50,"max":500}' })).approve).toBe(false); // no change
+    expect(autoDecision(s, req({ field: "hqCountries", value: '["US","GB"]' })).approve).toBe(true);
+    expect(autoDecision(s, req({ field: "months", value: "not json" })).approve).toBe(false);
+  });
 });
