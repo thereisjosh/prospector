@@ -1,6 +1,7 @@
 import { mkdir, readFile, appendFile } from "node:fs/promises";
 import { join } from "node:path";
 import { RUNS_DIR } from "./config";
+import { assertRunId } from "./ids";
 import { PROMPT_VERSION } from "./prompts";
 import type { RunState } from "./state";
 
@@ -30,7 +31,7 @@ export function makeEvent(
 
 export async function appendEvents(runId: string, events: AgentEvent[]): Promise<void> {
   if (events.length === 0) return;
-  const dir = join(RUNS_DIR, runId);
+  const dir = join(RUNS_DIR, assertRunId(runId));
   await mkdir(dir, { recursive: true });
   await appendFile(
     join(dir, "events.jsonl"),
@@ -40,6 +41,7 @@ export async function appendEvents(runId: string, events: AgentEvent[]): Promise
 }
 
 export async function readLastEvents(runId: string, count = 50): Promise<AgentEvent[]> {
+  assertRunId(runId);
   try {
     const raw = await readFile(join(RUNS_DIR, runId, "events.jsonl"), "utf8");
     return raw
@@ -51,4 +53,40 @@ export async function readLastEvents(runId: string, count = 50): Promise<AgentEv
   } catch {
     return [];
   }
+}
+
+const INPUT_LIMIT = 200;
+
+function clip(value: unknown): string | undefined {
+  return typeof value === "string" ? value.slice(0, INPUT_LIMIT) : undefined;
+}
+
+/**
+ * A short description of what a tool call asked for, for the UI feed:
+ * query / name / url / change only, each capped at 200 chars, never page text.
+ */
+export function eventInput(tool: string | undefined, input: unknown): Record<string, unknown> {
+  const rec = input && typeof input === "object" && !Array.isArray(input) ? (input as Record<string, unknown>) : {};
+  const out: Record<string, unknown> = {};
+  const query = clip(rec.query);
+  if (query !== undefined) out.query = query;
+  const name = clip(rec.name);
+  if (name !== undefined) out.name = name;
+  const url = clip(rec.url);
+  if (url !== undefined) out.url = url;
+  if (rec.change && typeof rec.change === "object") {
+    const change = rec.change as { field?: unknown; value?: unknown };
+    const raw = typeof change.value === "string" ? change.value : JSON.stringify(change.value ?? null);
+    out.change = {
+      field: clip(change.field),
+      value: typeof change.value !== "string" && raw.length <= INPUT_LIMIT ? change.value : raw.slice(0, INPUT_LIMIT),
+    };
+  }
+  if (tool === "lookup_company" && Array.isArray(rec.skipped_companies)) {
+    out.skipped_companies = rec.skipped_companies
+      .filter((v): v is string => typeof v === "string")
+      .slice(0, 20)
+      .map((v) => v.slice(0, INPUT_LIMIT));
+  }
+  return out;
 }

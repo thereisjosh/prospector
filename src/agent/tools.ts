@@ -46,8 +46,8 @@ export function agentTools(): Anthropic.Tool[] {
       input_schema: objectSchema(
         {
           query: { type: "string" },
-          months: { type: "number", minimum: 1, maximum: 12 },
-          num_results: { type: "number", minimum: 1, maximum: 25 },
+          months: { type: "number" },
+          num_results: { type: "number" },
         },
         ["query"],
       ),
@@ -113,7 +113,11 @@ export function agentTools(): Anthropic.Tool[] {
                 type: "string",
                 enum: ["employeeRange", "months", "hqCountries", "industry", "maxCostDollars"],
               },
-              value: {},
+              value: {
+                type: "string",
+                description:
+                  'The new value, JSON-encoded. Examples: {"min":50,"max":2000} · 6 · ["US","CA"] · "last-mile delivery" · 2',
+              },
             },
             required: ["field", "value"],
           },

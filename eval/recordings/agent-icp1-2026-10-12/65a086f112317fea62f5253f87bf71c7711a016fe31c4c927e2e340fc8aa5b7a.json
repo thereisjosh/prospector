@@ -1,0 +1,204 @@
+{
+  "request": {
+    "query": "MIURA Logistics",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the exact phrase from the page that the employee estimate came from (e.g. \"350 employees\"), or an empty string if no page states a headcount. Answer each gate as a boolean. is_third_party_logistics (true/false): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses)",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "is_third_party_logistics"
+          ]
+        }
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "99896bfb047a0b1d2ce93f626a621485",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/09y2txvrqjs",
+        "title": "Miura",
+        "url": "https://miuraops.com/",
+        "summary": "{\"description\":\"Miura is a Transportation, Logistics, Supply Chain and Storage company that empowers global trade with tailored logistics, customs compliance, import/export management, and end-to-end supply chain services. It provides cross-border transportation, warehousing, picking/packing, real-time inventory management, and specialized loads (e.g., vacuum pneumatic trailers and chemical transportation) with a focus on global trade and compliance, including CTPAT certification.\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"employee_estimate\":11,\"employee_estimate_source\":\"Employees: 5\\n- Company Size: 11-50 employees\",\"is_public_or_enterprise\":false,\"hq\":\"Calexico, United States\",\"is_third_party_logistics\":true}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQHBYwzMAOEBHw/company-logo_200_200/company-logo_200_200/0/1728150879428/miuralogistics_logo?e=2147483647&v=beta&t=X9hPbo9BA1a-WpO9MxcDGnaE6LLl00wT1XURjuo3maY",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/09y2txvrqjs",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Miura",
+              "foundedYear": 2018,
+              "description": "At Miura, we specialize in providing seamless global trade solutions tailored to meet the evolving needs of businesses engaged in international commerce. From import and export management to comprehensive logistics, brokerage, and consulting services, Annex 24 software and management we ensure that our clients' operations run smoothly and efficiently across borders.\n\nOur strength lies in our end-to-end services, where we handle everything from cross-border transportation and warehouse management to distribution and compliance. We leverage our expertise to manage specialized loads, including vacuum pneumatic trailers and chemical transportation, offering innovative and secure solutions that align with global standards such as CTPAT certification.\n\nSince our founding, we've continually expanded our capabilities, providing advanced warehouse services such as picking, packing, and real-time inventory management, ensuring our clients have full visibility and control over their supply chain.\n\nAt Miura, our mission is to simplify global trade, empower our clients, and provide reliable, secure, and innovative logistics solutions that keep businesses moving forward.",
+              "workforce": {
+                "total": 5
+              },
+              "headquarters": {
+                "address": "420 Cesar Chavez Blvd, Calexico, California 92231, US",
+                "city": "Calexico",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 1688,
+                "countryRank": null,
+                "avgDurationSeconds": 9,
+                "history": [
+                  {
+                    "value": 1339,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 1376,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 1536,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 2708,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 1416,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 1688,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/3b7k54ytjy4",
+        "title": "三浦工业设备有限公司",
+        "url": "https://miura-cn.com/",
+        "summary": "{\"description\":\"三浦工业设备有限公司 (Miura Industrial Equipment Co., Ltd.) specializes in the production of energy-saving boilers.\",\"industry\":\"Boilers / energy-saving equipment\",\"employee_estimate\":15,\"employee_estimate_source\":\"Employees: 15\",\"is_public_or_enterprise\":true,\"hq\":\"Qingdao, Shandong Province, China\",\"is_third_party_logistics\":false}",
+        "image": "https://static.licdn.com/aero-v1/sc/h/cs8pjfgyw96g44ln9r7tct85f",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/3b7k54ytjy4",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "三浦工业设备有限公司",
+              "foundedYear": null,
+              "description": "三浦工业（中国）有限公司 is a company that specializes in the production of energy-saving boilers.",
+              "workforce": {
+                "total": 15
+              },
+              "headquarters": {
+                "address": "no.10 Xianggang Rd; ,Qingdao, Shandong Province 266071, China",
+                "city": ",Qingdao",
+                "postalCode": null,
+                "country": "China"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 1585,
+                "countryRank": 644198,
+                "avgDurationSeconds": 20,
+                "history": [
+                  {
+                    "value": 1573,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 1751,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 1716,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 1796,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 1692,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 1585,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 3201.6,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

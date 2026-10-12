@@ -1,6 +1,8 @@
 import { rm, mkdir, readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { WORKSPACES_DIR } from "./config";
+import { assertWorkspaceId, isWorkspaceId } from "./ids";
+export { isWorkspaceId };
 import type { RunState } from "./state";
 
 export type WorkspaceMemory = {
@@ -14,6 +16,7 @@ import { squashName } from "../gates";
 export { squashName };
 
 export async function loadMemory(workspaceId: string): Promise<WorkspaceMemory> {
+  assertWorkspaceId(workspaceId);
   try {
     return JSON.parse(await readFile(join(WORKSPACES_DIR, workspaceId, "memory.json"), "utf8")) as WorkspaceMemory;
   } catch {
@@ -22,13 +25,13 @@ export async function loadMemory(workspaceId: string): Promise<WorkspaceMemory> 
 }
 
 export async function saveMemory(workspaceId: string, memory: WorkspaceMemory): Promise<void> {
-  const dir = join(WORKSPACES_DIR, workspaceId);
+  const dir = join(WORKSPACES_DIR, assertWorkspaceId(workspaceId));
   await mkdir(dir, { recursive: true });
   await writeFile(join(dir, "memory.json"), JSON.stringify(memory, null, 2), "utf8");
 }
 
 export async function clearMemory(workspaceId: string): Promise<void> {
-  await rm(join(WORKSPACES_DIR, workspaceId, "memory.json"), { force: true });
+  await rm(join(WORKSPACES_DIR, assertWorkspaceId(workspaceId), "memory.json"), { force: true });
 }
 
 export async function appendRunToMemory(state: RunState): Promise<void> {
@@ -55,13 +58,6 @@ export async function appendRunToMemory(state: RunState): Promise<void> {
     });
   }
   await saveMemory(state.workspaceId, memory);
-}
-
-const WORKSPACE_ID_RE = /^[A-Za-z0-9_-]{1,64}$/;
-
-/** Workspace ids become directory names; anything else is refused. */
-export function isWorkspaceId(id: string): boolean {
-  return WORKSPACE_ID_RE.test(id);
 }
 
 /**

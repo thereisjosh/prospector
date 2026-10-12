@@ -2,7 +2,7 @@ import Anthropic from "@anthropic-ai/sdk";
 import type { Message, ToolResultBlockParam, ToolUseBlock } from "@anthropic-ai/sdk/resources/messages";
 import { CostGuard } from "../exa";
 import { claudeCostDollars, DEFAULT_LIMITS } from "./config";
-import { appendEvents, makeEvent, type AgentEvent } from "./events";
+import { appendEvents, eventInput, makeEvent, type AgentEvent } from "./events";
 import { appendRunToMemory } from "./memory";
 import { systemPrompt } from "./prompts";
 import type { RunState, Handback } from "./state";
@@ -173,7 +173,7 @@ export async function step(state: RunState, deps: LoopDeps): Promise<StepResult>
       const useById = new Map(uses.map((tool) => [tool.id, tool]));
       for (const item of all) {
         const original = useById.get(item.result.tool_use_id);
-        events.push(makeEvent(state, "tool_call", { tool: original?.name, is_error: item.result.is_error === true, exaCost: item.exaCost }));
+        events.push(makeEvent(state, "tool_call", { tool: original?.name, input: eventInput(original?.name, original?.input), is_error: item.result.is_error === true, exaCost: item.exaCost }));
         if (item.verdictEvent) events.push(makeEvent(state, "submit_verdict", item.verdictEvent));
       }
       if (approval) {
@@ -219,6 +219,8 @@ export async function decide(
   if (pending.tool === "propose_strategy") {
     state.strategyApproved = decision.approve;
   }
+  let before: unknown;
+  if (pending.tool === "request_scope_change") before = contractFieldBefore(state, pending.input);
   if (decision.approve && pending.tool === "request_scope_change") {
     try {
       applyScopeChange(state, pending.input, decision.revisedValue);
@@ -243,15 +245,33 @@ export async function decide(
   state.status = "running";
   state.counters.noProgressTurns = 0;
   state.resumedFromDecision = true;
-  events.push(makeEvent(state, "decision", { approve: decision.approve, note: decision.note, revisedValue: decision.revisedValue, ...(decisionError ? { error: decisionError } : {}) }));
+  events.push(makeEvent(state, "decision", { approve: decision.approve, note: decision.note, revisedValue: decision.revisedValue, ...(pending.tool === "request_scope_change" ? { before } : {}), ...(decisionError ? { error: decisionError } : {}) }));
   await appendEvents(state.id, events);
   return { state, events };
+}
+
+/** The contract field's value before a scope change (null for fields with no stored value, e.g. industry). */
+function contractFieldBefore(state: RunState, input: unknown): unknown {
+  const field = (input as { change?: { field?: unknown } } | null)?.change?.field;
+  if (field === "employeeRange" || field === "months" || field === "hqCountries" || field === "maxCostDollars") {
+    return structuredClone(state.contract[field]);
+  }
+  return null;
 }
 
 function applyScopeChange(state: RunState, input: unknown, revisedValue?: unknown) {
   const record = input && typeof input === "object" ? (input as { change?: { field?: string; value?: unknown } }) : {};
   const field = record.change?.field;
-  const value = revisedValue ?? record.change?.value;
+  let value = revisedValue ?? record.change?.value;
+  // The tool schema carries `value` as a JSON-encoded string (strict schemas
+  // cannot express "any"); decode it, keeping plain strings (e.g. industry).
+  if (typeof value === "string") {
+    try {
+      value = JSON.parse(value);
+    } catch {
+      /* not JSON: keep the string */
+    }
+  }
   if (field === "employeeRange") {
     if (!value || typeof value !== "object") throw new Error("invalid employeeRange");
     const range = value as { min?: unknown; max?: unknown; unknownPolicy?: unknown };
@@ -276,6 +296,24 @@ function applyScopeChange(state: RunState, input: unknown, revisedValue?: unknow
   } else {
     throw new Error("invalid scope change field");
   }
+}
+
+/**
+ * Server-side stop (the user's Stop button). No model call: the handback is
+ * computed from the recorded rejections. Idempotent on finished runs.
+ */
+export async function stopRun(state: RunState): Promise<StepResult> {
+  const events: AgentEvent[] = [];
+  if (state.status !== "running" && state.status !== "awaiting_approval") return { state, events };
+  if (state.leads.length < state.contract.targetLeads && !state.handback) {
+    state.handback = codeHandback(state, rejectionCounts(state));
+  }
+  delete state.pendingApproval;
+  stop(state, "stopped", "user");
+  events.push(makeEvent(state, "stop", { reason: "user", status: "stopped" }));
+  await appendEvents(state.id, events);
+  await appendRunToMemory(state);
+  return { state, events };
 }
 
 export async function handback(state: RunState, deps: LoopDeps): Promise<Handback> {

@@ -2,6 +2,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import type Anthropic from "@anthropic-ai/sdk";
 import { DEFAULT_LIMITS, DEFAULT_MODEL, RUNS_DIR, type AgentModel } from "./config";
+import { assertRunId } from "./ids";
 import { firstUserMessage } from "./prompts";
 import type { SearchPlan } from "../plan";
 import type { CompanySummary, SignalSummary } from "../types";
@@ -30,6 +31,8 @@ export type RunState = {
   workspaceId: string;
   model: AgentModel;
   contract: SearchPlan & { targetLeads: number; maxCostDollars: number; preferenceNotes: string[] };
+  /** Deep copy of the contract at creation, so the UI can show what scope changes altered. */
+  initialContract?: SearchPlan & { targetLeads: number; maxCostDollars: number; preferenceNotes: string[] };
   messages: Anthropic.MessageParam[];
   status: RunStatus;
   stopReason?: string;
@@ -83,6 +86,7 @@ export function createRunState(args: {
     workspaceId: args.workspaceId,
     model: args.model ?? DEFAULT_MODEL,
     contract,
+    initialContract: structuredClone(contract),
     messages: [{ role: "user", content: firstUserMessage(contract, { today: createdAt.slice(0, 10) }) }],
     status: "running",
     strategyApproved: false,
@@ -103,12 +107,12 @@ export function createRunState(args: {
 }
 
 export async function saveState(state: RunState): Promise<void> {
-  const dir = join(RUNS_DIR, state.id);
+  const dir = join(RUNS_DIR, assertRunId(state.id));
   await mkdir(dir, { recursive: true });
   await writeFile(join(dir, "state.json"), JSON.stringify(state, null, 2), "utf8");
 }
 
 export async function loadState(id: string): Promise<RunState> {
-  const raw = await readFile(join(RUNS_DIR, id, "state.json"), "utf8");
+  const raw = await readFile(join(RUNS_DIR, assertRunId(id), "state.json"), "utf8");
   return JSON.parse(raw) as RunState;
 }

@@ -1,0 +1,176 @@
+{
+  "request": {
+    "query": "Allegro",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the exact phrase from the page that the employee estimate came from (e.g. \"350 employees\"), or an empty string if no page states a headcount. Answer each gate as a boolean. is_third_party_logistics (true/false): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses)",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "is_third_party_logistics"
+          ]
+        }
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "02f7cf623e2b55fb6800aca9e79a3f63",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/jrhxv45dljj",
+        "title": "Allegro",
+        "url": "https://allegro.eu/",
+        "summary": "{\"description\":\"Allegro is a vibrant international marketplace platform and the most popular shopping platform in Poland, operating a marketplace model with over 135,000 merchants and offering services like Allegro Pay and Allegro Smart! with wide delivery and pickup options.\",\"industry\":\"Technology, Information and Internet\",\"employee_estimate\":5474,\"employee_estimate_source\":\"Employees: 5,474\",\"is_public_or_enterprise\":false,\"hq\":\"Poznań, Poland\",\"is_third_party_logistics\":false}",
+        "image": "https://media.licdn.com/dms/image/v2/D4D0BAQE5y2gZe-WbFg/company-logo_200_200/B4DZud8WW6LoAI-/0/1767881402261/allegro_pl_logo?e=2147483647&v=beta&t=MjgGUXrYKZo8qj0LblK-Swfq_ZG5IbJUOQuf5AsqwR8",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/jrhxv45dljj",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Allegro",
+              "foundedYear": 1999,
+              "description": "Allegro is the most popular shopping platform in Poland and the largest e-commerce platform of European origin.\nWe operate a marketplace model which means that customers can buy whatever they need from over 135,000 merchants, who can list an unlimited number of offers on our platform.\n\nWe offer products in all key categories including Automotive, Fashion, Home&Garden, Electronics, Books and Collectibles, Kids or Health and Beauty. Each month, 22 million customers visit our platform, which is equivalent to almost 80% of all Internet users in Poland. They can choose from over 250m offers at the most attractive prices with maximum convenience including fast and free deliveries under the Allegro Smart! programme, modern financial services (Allegro Pay), as well as Poland’s widest 50k pickup points network.\n\nIn 2019 we celebrated the 20th anniversary of Allegro in Poland.\nFor over two decades, we have been serving consumers and promoting the idea of entrepreneurship in one of the most innovative areas of the economy. We have come a long way from an auction site for private individuals looking for a modern alternative to their local flea market. Today, we are a vibrant international marketplace platform for professional sellers and a must-have sales channel for top international brands and retailers.\n\nWe currently employ more than 7000 employees and each of us ranks among the best experts in their field. Whether it’s in Technology, Customer Experience, Commerce, Delivery Experience or many other teams, we’re all proud to say that Allegro employs the best people on the market and all of us are ready to admit that it’s #goodtobehere.\n\nESG Report 2022: https://allegro.pl/zobacz/esg\n\nCareer at Allegro: https://jobs.allegro.eu/ Allegro Tech: https://allegro.tech/\n\nBrand Journal: magazyn.allegro.pl\n\nSupport & help: pomoc.allegro.pl // facebook.com/allegro",
+              "workforce": {
+                "total": 5474
+              },
+              "headquarters": {
+                "address": "ul. Wierzbięcice 1B, Nowy Rynek, Poznań, 61-569, PL",
+                "city": "Poznań",
+                "postalCode": null,
+                "country": "Poland"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": null,
+                "fundingLatestRound": {
+                  "name": "Post ipo debt",
+                  "date": "2026-06-01",
+                  "amount": null
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 125849,
+                "countryRank": 11630,
+                "avgDurationSeconds": 37,
+                "history": [
+                  {
+                    "value": 131560,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 119297,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 126661,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 137473,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 126414,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 125849,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/08zgqd8sl7w",
+        "title": "Allegro.eu SA",
+        "url": "https://about.allegro.eu/",
+        "summary": "{\"description\":\"Allegro.eu SA is a Technology, Information and Internet company and Allegro is an online shopping destination and largest e-commerce platform in Poland with operations across Central Europe.\",\"industry\":\"Technology, Information and Internet\",\"employee_estimate\":10,\"employee_estimate_source\":\"Employees: 10\",\"is_public_or_enterprise\":true,\"hq\":\"Luxembourg (parent Allegro.eu S.A.) with operations in Poland and distributed workforce across Luxembourg, Poland, Ireland, and United States\",\"is_third_party_logistics\":false}",
+        "image": "https://media.licdn.com/dms/image/v2/C4E0BAQHZjQtyECsdMA/company-logo_200_200/company-logo_200_200/0/1634113448261?e=2147483647&v=beta&t=zrXdm7BxiLqNEyzX8Yfz14nj_pgE2YWx2LKpPQ3i0Sg",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/08zgqd8sl7w",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Allegro.eu SA",
+              "foundedYear": 1999,
+              "description": "Allegro (Polish pronunciation: [aˈlɛɡrɔ]) is a Polish online marketplace and e-commerce platform headquartered in Poznań. It is the largest e-commerce platform in Poland and operates marketplaces in Poland, the Czech Republic, Slovakia and Hungary. The platform is operated by Allegro sp. z o.o., while its parent company, Allegro.eu S.A., is incorporated in Luxembourg and listed on the Warsaw Stock Exchange.\nFounded in Poznań in 1999 as an online auction website, Allegro developed into Poland's leading online marketplace. After a series of ownership changes, Naspers sold the business in 2016 to a private-equity consortium for US$3.25 billion. Allegro debuted on the Warsaw Stock Exchange in October 2020. In 2022, it acquired Mall Group and logistics company WE|DO, accelerating its expansion into Central Europe.",
+              "workforce": {
+                "total": 10
+              },
+              "headquarters": {
+                "address": null,
+                "city": null,
+                "postalCode": null,
+                "country": "Poland"
+              },
+              "financials": null,
+              "webTraffic": null,
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 4917,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

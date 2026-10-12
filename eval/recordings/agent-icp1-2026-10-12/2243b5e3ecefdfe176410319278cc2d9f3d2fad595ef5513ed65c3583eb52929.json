@@ -1,0 +1,220 @@
+{
+  "request": {
+    "query": "ColdTrack",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the exact phrase from the page that the employee estimate came from (e.g. \"350 employees\"), or an empty string if no page states a headcount. Answer each gate as a boolean. is_third_party_logistics (true/false): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses)",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "is_third_party_logistics"
+          ]
+        }
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "45f9ad9c7d1bf540314240136ffc9647",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/j98xww90qbt",
+        "title": "ColdTrack - Perishable Fulfillment Solutions",
+        "url": "https://coldtrack.com/",
+        "summary": "{\"description\":\"ColdTrack is a tech-enabled third-party fulfillment platform offering perishable shipping, cold chain fulfillment, and eCommerce integration for food, beverage, and pet food brands. It provides bespoke pick-and-pack, proprietary route optimization, and enterprise shipping across national and regional carriers, with multiple U.S. office locations and partner facilities.\",\"industry\":\"Food & Beverages\",\"employee_estimate\":106,\"employee_estimate_source\":\"Employees: 106\",\"is_public_or_enterprise\":true,\"hq\":\"Edison, New Jersey, United States\",\"is_third_party_logistics\":true}",
+        "image": "https://media.licdn.com/dms/image/v2/C4E0BAQE-zvZEtkH5QQ/company-logo_200_200/company-logo_200_200/0/1676562098003/shipcoldtrack_logo?e=2147483647&v=beta&t=H_iuSQLHhND-wmnMYprB0pTfqVM5xWPfn-88NbjgGW8",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/j98xww90qbt",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "ColdTrack - Perishable Fulfillment Solutions",
+              "foundedYear": 2014,
+              "description": "ColdTrack is the leading tech-enabled third-party fulfillment platform for B2C and B2B eCommerce businesses with capabilities that include: bespoke pick-and-pack fulfillment, proprietary route optimization software, and enterprise shipping services across national and regional carriers.\n\nHeadquartered in New York City and with locations in Edison, NJ, Stockton, CA, Patterson, CA, and Indianapolis, IN, plus 8 additional nationwide partner facilities, ColdTrack enables coveted ground shipping of 48 hours or less time-in-transit to more than 99% of the US population for its clients.\n\nIf you're frustrated with diminishing service levels with your current provider, outgrowing them, or even outgrowing your current in-house solution, or just need better value, then let's chat: https://coldtrack.com/contact/\n\n#DeliveringTheCoolestThings #ColdTrack",
+              "workforce": {
+                "total": 106
+              },
+              "headquarters": {
+                "address": "145 Talmadge Road, Edison, New Jersey 08817, US",
+                "city": "Edison",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": null,
+                "fundingLatestRound": {
+                  "name": "Private equity",
+                  "date": "2021-03-10",
+                  "amount": null
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 2231,
+                "countryRank": 2415691,
+                "avgDurationSeconds": 49,
+                "history": [
+                  {
+                    "value": 1376,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 681,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 2640,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 3367,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 1979,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 2231,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/w1cfry3q21j",
+        "title": "Coldcart",
+        "url": "https://coldcart.ai/",
+        "summary": "{\"description\":\"Coldcart (Coldcart, Inc.) is a perishable logistics technology company that provides control, efficiency, and certainty for healthcare, food, and industrial shipments. It operates as an operating system for perishable parcel logistics, orchestrating packaging, routing, carriers, warehouses, and vendors in real time to automate SOPs and create a system of record for planned, executed, and delivered shipments.\",\"industry\":\"Technology, Information and Internet\",\"employee_estimate\":9,\"employee_estimate_source\":\"Employees: 9\",\"is_public_or_enterprise\":true,\"hq\":\"Chicago, Illinois, United States\",\"is_third_party_logistics\":true}",
+        "image": "https://media.licdn.com/dms/image/v2/D4D0BAQG68Jvvent7Yw/company-logo_200_200/company-logo_200_200/0/1721356830281/coldcart_inc_logo?e=2147483647&v=beta&t=yo2PbdJGckwD4eM5sgrZHvEy5R0V_8nbzF5zYtY3ajI",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/w1cfry3q21j",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Coldcart",
+              "foundedYear": null,
+              "description": "Coldcart is the operating system for perishable parcel logistics. We automate, execute, and optimize temperature-sensitive shipping across food, healthcare, and other high-risk categories where delivery integrity, compliance, and cost are mission critical.\n\nPerishable fulfillment has long forced a trade-off between cost and reliability. Companies overpack and expedite to reduce spoilage, or incorrectly standardize and consolidate to reduce spend, often refunding 5–15%+ of perishable sales due to late or compromised deliveries.\n\nColdcart eliminates that trade-off by treating every shipment as an individual decision - fully automated, without adding process steps or requiring interaction.\n\nOur platform orchestrates packaging, routing, carriers, warehouses, and vendors in real time, automating complex SOPs and creating a system of record for what was planned, executed, and delivered.\n\nCustomers use Coldcart to reduce total cost per shipment by 20–50% and cut late and spoiled shipment refunds by 40–60%, while gaining full visibility and control across their fulfillment network.\n\nColdcart fits into any existing tech stacks and combination of vendors.\n\nColdcart was founded by Jason Park (created and scaled Allstate Identity Protection, ex-Bain, ex-McMaster-Carr), Matt Salzberg (Blue Apron founder/former CEO), and Andy Salamon (Hims & Hers co-founder).",
+              "workforce": {
+                "total": 9
+              },
+              "headquarters": {
+                "address": "Chicago, Illinois, US",
+                "city": "Chicago",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 6546893,
+                "fundingLatestRound": {
+                  "name": "Seed",
+                  "date": "2024-06-27",
+                  "amount": 6546893
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": 2844283,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 1325,
+                    "dateFrom": "2025-10",
+                    "dateTo": "2025-10"
+                  },
+                  {
+                    "value": 1431,
+                    "dateFrom": "2025-11",
+                    "dateTo": "2025-11"
+                  },
+                  {
+                    "value": 1431,
+                    "dateFrom": "2025-12",
+                    "dateTo": "2025-12"
+                  },
+                  {
+                    "value": 2331,
+                    "dateFrom": "2026-01",
+                    "dateTo": "2026-01"
+                  },
+                  {
+                    "value": 1944,
+                    "dateFrom": "2026-02",
+                    "dateTo": "2026-02"
+                  },
+                  {
+                    "value": 1964,
+                    "dateFrom": "2026-03",
+                    "dateTo": "2026-03"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 3958.9,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

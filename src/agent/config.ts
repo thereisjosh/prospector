@@ -25,8 +25,24 @@ export const DEFAULT_LIMITS = {
   maxParallelTools: 6,
 } as const;
 
-export const RUNS_DIR = process.env.RUNS_DIR ?? "./runs";
-export const WORKSPACES_DIR = process.env.WORKSPACES_DIR ?? "./workspaces";
+/**
+ * Where runs and workspace memory live. Explicit RUNS_DIR / WORKSPACES_DIR win;
+ * on Vercel the filesystem is read-only except /tmp; otherwise ./runs and
+ * ./workspaces.
+ */
+export function resolveDataDirs(env: Record<string, string | undefined> = process.env): {
+  runs: string;
+  workspaces: string;
+} {
+  const base = env.VERCEL ? "/tmp/prospector" : ".";
+  return {
+    runs: env.RUNS_DIR ?? `${base}/runs`,
+    workspaces: env.WORKSPACES_DIR ?? `${base}/workspaces`,
+  };
+}
+
+export const RUNS_DIR = resolveDataDirs().runs;
+export const WORKSPACES_DIR = resolveDataDirs().workspaces;
 
 export function claudeCostDollars(
   model: AgentModel,

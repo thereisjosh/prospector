@@ -1,8 +1,23 @@
 import { rm } from "node:fs/promises";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+
+// Every test that writes state uses a temp RUNS_DIR / WORKSPACES_DIR, never the real ./runs.
+const tmp = vi.hoisted(() => {
+  const { mkdtempSync } = require("node:fs") as typeof import("node:fs");
+  const { tmpdir } = require("node:os") as typeof import("node:os");
+  const { join } = require("node:path") as typeof import("node:path");
+  const root = mkdtempSync(join(tmpdir(), "agent-test-"));
+  process.env.RUNS_DIR = join(root, "runs");
+  process.env.WORKSPACES_DIR = join(root, "workspaces");
+  return { root, runs: join(root, "runs"), workspaces: join(root, "workspaces") };
+});
 import type { SearchPlan } from "../src/plan";
 import { createRunState, loadState, saveState, type RunState } from "../src/agent/state";
-import { decide, step } from "../src/agent/loop";
+import { decide, step, stopRun } from "../src/agent/loop";
+import { InvalidIdError } from "../src/agent/ids";
+import { eventInput, readLastEvents, appendEvents } from "../src/agent/events";
+import { clearMemory, saveMemory as saveMem } from "../src/agent/memory";
+import { resolveDataDirs } from "../src/agent/config";
 import type { LeadChecker } from "../src/agent/gate-port";
 import { appendRunToMemory, loadMemory, saveMemory, squashName } from "../src/agent/memory";
 
@@ -107,16 +122,18 @@ function lastText(s: RunState) {
   return (s.messages.at(-1)!.content as Array<{ type: string; text?: string }>).filter((r) => r.type === "text").at(-1)?.text;
 }
 
+afterAll(() => rm(tmp.root, { recursive: true, force: true }));
+
 beforeEach(async () => {
   vi.unstubAllGlobals();
-  await rm("./runs", { recursive: true, force: true });
-  await rm("./workspaces", { recursive: true, force: true });
+  await rm(tmp.runs, { recursive: true, force: true });
+  await rm(tmp.workspaces, { recursive: true, force: true });
 });
 
 afterEach(async () => {
   vi.unstubAllGlobals();
-  await rm("./runs", { recursive: true, force: true });
-  await rm("./workspaces", { recursive: true, force: true });
+  await rm(tmp.runs, { recursive: true, force: true });
+  await rm(tmp.workspaces, { recursive: true, force: true });
 });
 
 describe("agent loop", () => {
@@ -509,5 +526,106 @@ describe("agent loop", () => {
   it("A2b #14 createRunState includes the created date in the first user message", async () => {
     const s = createRunState({ id: "dated", workspaceId: "w", plan: plan(), createdAt: "2026-10-12T23:59:00.000Z" });
     expect(String(s.messages[0]?.content)).toContain("Today is 2026-10-12.");
+  });
+
+  it("rejects path-traversal ids in every storage function", async () => {
+    for (const bad of ["../x", "..", "a/b", "", "x".repeat(40)]) {
+      await expect(loadState(bad)).rejects.toBeInstanceOf(InvalidIdError);
+      await expect(saveState({ ...state(), id: bad })).rejects.toBeInstanceOf(InvalidIdError);
+      await expect(readLastEvents(bad)).rejects.toBeInstanceOf(InvalidIdError);
+      await expect(appendEvents(bad, [{ ts: "", runId: bad, turn: 0, kind: "stop", promptVersion: "x" }])).rejects.toBeInstanceOf(InvalidIdError);
+    }
+    for (const bad of ["../x", "a/b", "", "x".repeat(65), "..\\x"]) {
+      await expect(loadMemory(bad)).rejects.toBeInstanceOf(InvalidIdError);
+      await expect(saveMem(bad, { seen: [], preferenceNotes: [] })).rejects.toBeInstanceOf(InvalidIdError);
+      await expect(clearMemory(bad)).rejects.toBeInstanceOf(InvalidIdError);
+    }
+    // valid shapes still work
+    await expect(loadMemory("ok_ws-1")).resolves.toEqual({ seen: [], preferenceNotes: [] });
+    const demoId = `demo-${crypto.randomUUID()}`;
+    await expect(readLastEvents(demoId)).resolves.toEqual([]);
+  });
+
+  it("stopRun stops server-side with a code handback and no model call; step() then returns immediately", async () => {
+    const s = state();
+    s.rejected.push({ company: "X", code: "size", reason: "too big", turn: 1 });
+    s.status = "awaiting_approval";
+    s.pendingApproval = { toolUseId: "a", tool: "propose_strategy", input: {}, otherToolResults: [] };
+    const result = await stopRun(s);
+    expect(s.status).toBe("stopped");
+    expect(s.stopReason).toBe("user");
+    expect(s.pendingApproval).toBeUndefined();
+    expect(s.handback?.top_reasons).toEqual([{ code: "size", count: 1 }]);
+    expect(result.events.map((e) => e.kind)).toEqual(["stop"]);
+    expect(result.events[0]).toMatchObject({ reason: "user", status: "stopped" });
+    expect((await readLastEvents(s.id)).at(-1)).toMatchObject({ kind: "stop", reason: "user" });
+    const c = client(new Error("must not be called"));
+    const stepped = await step(s, { client: c as never, checkLead: checker, now: NOW });
+    expect(stepped.events).toEqual([]);
+    expect(c.messages.create).not.toHaveBeenCalled();
+    // idempotent
+    expect((await stopRun(s)).events).toEqual([]);
+  });
+
+  it("tool_call events carry a trimmed input (query/name/url/change, skipped_companies), never page text", async () => {
+    const long = "q".repeat(500);
+    expect(eventInput("search_signals", { query: long, months: 3 })).toEqual({ query: "q".repeat(200) });
+    expect(eventInput("read_page", { url: "https://x.example/a", text: "PAGE TEXT" })).toEqual({ url: "https://x.example/a" });
+    expect(eventInput("lookup_company", { name: "GoodCo", skipped_companies: ["Amazon", 5, "Nike"] })).toEqual({ name: "GoodCo", skipped_companies: ["Amazon", "Nike"] });
+    expect(eventInput("request_scope_change", { change: { field: "months", value: 6 }, reason: "r" })).toEqual({ change: { field: "months", value: 6 } });
+    const s = state({ strategyApproved: true });
+    const c = client(msg("tool_use", [
+      tool("s", "search_signals", { query: "warehouse expansion", num_results: 10 }),
+      tool("l", "lookup_company", { name: "GoodCo", skipped_companies: ["Nike"] }),
+    ]));
+    const result = await step(s, { client: c as never, checkLead: checker, now: NOW, exaSearch: vi.fn(async () => signalResult) as never, lookupCompany: vi.fn(async () => lookupResult) as never });
+    const calls = result.events.filter((e) => e.kind === "tool_call");
+    expect(calls.find((e) => e.tool === "search_signals")?.input).toEqual({ query: "warehouse expansion" });
+    expect(calls.find((e) => e.tool === "lookup_company")?.input).toEqual({ name: "GoodCo", skipped_companies: ["Nike"] });
+  });
+
+  it("decision events record `before` for scope changes, and createRunState keeps a deep initialContract", async () => {
+    const s = state();
+    expect(s.initialContract).toEqual(s.contract);
+    expect(s.initialContract).not.toBe(s.contract);
+    s.status = "awaiting_approval";
+    s.pendingApproval = {
+      toolUseId: "a",
+      tool: "request_scope_change",
+      input: { change: { field: "employeeRange", value: { min: 10, max: 900 } }, reason: "r", evidence: "e" },
+      otherToolResults: [],
+    };
+    const { events } = await decide(s, { approve: true });
+    expect(events[0]).toMatchObject({ kind: "decision", approve: true, before: { min: 50, max: 500, unknownPolicy: "allow-if-not-enterprise" } });
+    expect(s.contract.employeeRange.max).toBe(900);
+    expect(s.initialContract?.employeeRange.max).toBe(500); // unaffected by the change
+  });
+
+  it("GET /api/runs/:id returns summary and strategyApproved; bad ids get 400", async () => {
+    const { GET } = await import("../app/api/runs/[id]/route");
+    const s = state({ summary: "Found two leads.", strategyApproved: true });
+    await saveState(s);
+    const res = await GET(new Request("http://x"), { params: { id: s.id } });
+    const body = await res.json();
+    expect(body).toMatchObject({ summary: "Found two leads.", strategyApproved: true, id: s.id });
+    const bad = await GET(new Request("http://x"), { params: { id: "../etc" } });
+    expect(bad.status).toBe(400);
+    expect(await bad.json()).toEqual({ error: "Invalid request." });
+  });
+
+  it("POST /api/runs/:id/stop stops and persists", async () => {
+    const { POST } = await import("../app/api/runs/[id]/stop/route");
+    const s = state();
+    await saveState(s);
+    const res = await POST(new Request("http://x", { method: "POST" }), { params: { id: s.id } });
+    expect(await res.json()).toMatchObject({ status: "stopped", stopReason: "user" });
+    expect((await loadState(s.id)).status).toBe("stopped");
+    expect((await POST(new Request("http://x"), { params: { id: "a/b" } })).status).toBe(400);
+  });
+
+  it("resolveDataDirs: ./runs by default, /tmp/prospector on Vercel, explicit env wins", () => {
+    expect(resolveDataDirs({})).toEqual({ runs: "./runs", workspaces: "./workspaces" });
+    expect(resolveDataDirs({ VERCEL: "1" })).toEqual({ runs: "/tmp/prospector/runs", workspaces: "/tmp/prospector/workspaces" });
+    expect(resolveDataDirs({ VERCEL: "1", RUNS_DIR: "/data/r" })).toEqual({ runs: "/data/r", workspaces: "/tmp/prospector/workspaces" });
   });
 });

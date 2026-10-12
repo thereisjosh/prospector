@@ -1,0 +1,127 @@
+{
+  "request": {
+    "query": "Davidson Logistics",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the exact phrase from the page that the employee estimate came from (e.g. \"350 employees\"), or an empty string if no page states a headcount. Answer each gate as a boolean. is_third_party_logistics (true/false): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses)",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "is_third_party_logistics"
+          ]
+        }
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "dc14b86e93199213380670ee4d1ac7cc",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/c7fgm29kn45",
+        "title": "Davidson Logistics",
+        "url": "https://davidsonsurfaceair.com/",
+        "summary": "{\"description\":\"Davidson Logistics is a Transportation, Logistics, Supply Chain and Storage company.\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"employee_estimate\":50,\"employee_estimate_source\":\"Employees: 50\",\"is_public_or_enterprise\":false,\"hq\":\"saint louis, missouri, united states (US)\",\"is_third_party_logistics\":true}",
+        "image": "https://media.licdn.com/dms/image/v2/C4E0BAQEtp4lKQ-hAqw/company-logo_200_200/company-logo_200_200/0/1631335783578?e=2147483647&v=beta&t=369naBn6uMQ-Ne0R3fnUMsqDseigAel_0xjLQ_AZl4k",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/c7fgm29kn45",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Davidson Logistics",
+              "foundedYear": 1981,
+              "description": null,
+              "workforce": {
+                "total": 50
+              },
+              "headquarters": {
+                "address": "11990 Missouri Bottom Road, Saint Louis, Missouri 63042, US",
+                "city": "Saint Louis",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": null,
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/yr14ktgyx0t",
+        "title": "Davidson Logistics, Inc.",
+        "url": "https://linkedin.com/company/davidson-logistics-inc.",
+        "summary": "{\"description\":\"Davidson Logistics, Inc. is a small company with a disclosed headcount and basic company details listed on LinkedIn.\",\"industry\":\"Logistics / Transportation\",\"employee_estimate\":3,\"employee_estimate_source\":\"Employees: 3\",\"is_public_or_enterprise\":false,\"hq\":\"United States\",\"is_third_party_logistics\":true}",
+        "image": "https://static.licdn.com/aero-v1/sc/h/cs8pjfgyw96g44ln9r7tct85f",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/yr14ktgyx0t",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Davidson Logistics, Inc.",
+              "foundedYear": null,
+              "description": null,
+              "workforce": {
+                "total": 3
+              },
+              "headquarters": null,
+              "financials": null,
+              "webTraffic": null,
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 3838.6,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

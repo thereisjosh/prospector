@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { InvalidIdError } from "../../../../../src/agent/ids";
 import { addFeedback, isWorkspaceId } from "../../../../../src/agent/memory";
 
 export const runtime = "nodejs";
@@ -17,6 +18,7 @@ export async function POST(request: Request, { params }: { params: { id: string 
     });
     return NextResponse.json({ ok: true, preferenceNotes: memory.preferenceNotes });
   } catch (error) {
+    if (error instanceof InvalidIdError) return NextResponse.json({ error: "Invalid request." }, { status: 400 });
     console.error("[api/workspaces/:id/feedback] failed:", error);
     return NextResponse.json({ error: "Request failed." }, { status: 500 });
   }
