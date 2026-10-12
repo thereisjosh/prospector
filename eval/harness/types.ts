@@ -42,6 +42,8 @@ export type RunRecord = {
   targetLeads: number;
   /** ISO time the cell treated as "now" (the recency window is relative to it). */
   now?: string;
+  /** Set when the cell crashed: the run is recorded with zero leads and stopReason "error". */
+  error?: string;
   /** For a handback re-run: "<scenarioId>/<arm>/<rep>" of the original cell. */
   rerunOf?: string;
 };

@@ -9,7 +9,7 @@ import { eventInWindow, truthKey } from "./harness/truth";
 import type { SearchPlan } from "../src/plan";
 import { createBlindPool } from "./harness/blind";
 import { judgeLead } from "./harness/judge";
-import { normalizeArm, runCell, runMatrix } from "./harness/run-cell";
+import { CellError as CellErrorLike, normalizeArm, runCell, runMatrix } from "./harness/run-cell";
 import { scoreSet } from "./harness/score";
 import { applyFirstHandbackSuggestion } from "./harness/sim-user";
 import type { Arm, RunRecord, Scenario, Verdict } from "./harness/types";
@@ -408,5 +408,43 @@ describe("eval harness", () => {
     await expect(
       scoreSet({ setId: "h5d", resultsRoot, truthRoot, records: [{ ...record("B_agent_opus", 1, six), maxCostDollars: undefined as never }] }),
     ).rejects.toThrow(/maxCostDollars/);
+  });
+
+  it("matrix continues after a crashed cell, records it as an error with known spend, and reports ok/error", async () => {
+    const root = tempRoot();
+    const logs: string[] = [];
+    let call = 0;
+    const cell = vi.fn(async (sc: Scenario, arm: Arm, rep: number) => {
+      call += 1;
+      if (call === 2) throw new CellErrorLike("Exa HTTP 429", "run-id-2", { exa: 0.05, claude: 0.1, total: 0.15 });
+      return record(arm, rep, [], { scenarioId: sc.id, spend: { exa: 0.1, claude: 0, total: 0.1 } });
+    });
+    const result = await runMatrix({
+      setId: "err", scenarios: [scenario], arms: ["A_workflow"], reps: 3, maxTotalDollars: 50,
+      cell: cell as never, deps: { resultsRoot: root, log: (l) => logs.push(l) },
+    });
+    expect(cell).toHaveBeenCalledTimes(3);
+    expect(result).toMatchObject({ ok: 2, errors: 1, stopped: false });
+    expect(result.records[1]).toMatchObject({ stopReason: "error", error: "Exa HTTP 429", leads: [], runId: "run-id-2", spend: { total: 0.15 } });
+    const written = JSON.parse(await readFile(join(root, "err/S1/A_workflow/2/run.json"), "utf8"));
+    expect(written.stopReason).toBe("error");
+    expect(result.total).toBeCloseTo(0.35, 6);
+    expect(logs).toContain("cells ok/error: 2/1");
+    expect(logs.some((l) => l.includes("FAILED: Exa HTTP 429"))).toBe(true);
+  });
+
+  it("a crashed agent cell carries the partial spend from the live state", async () => {
+    const root = tempRoot();
+    const fakeDrive = vi.fn(async (state: RunState) => {
+      state.spend = { exa: 0.2, claude: 0.3, total: 0.5 };
+      throw new Error("boom");
+    });
+    const result = await runMatrix({
+      setId: "err2", scenarios: [scenario], arms: ["B_agent_opus"], reps: 1,
+      deps: { driveRun: fakeDrive as never, createClient: () => ({ messages: { create: vi.fn() } }) as never, checkLead: vi.fn() as never, resultsRoot: root },
+    });
+    expect(result.errors).toBe(1);
+    expect(result.records[0]).toMatchObject({ stopReason: "error", error: "boom", spend: { exa: 0.2, claude: 0.3, total: 0.5 } });
+    expect(result.records[0]!.runId).toBeTruthy();
   });
 });

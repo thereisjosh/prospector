@@ -12,8 +12,10 @@ beforeEach(() => {
   dir = mkdtempSync(join(tmpdir(), "exa-rr-"));
   delete process.env.EXA_RECORD_DIR;
   delete process.env.EXA_REPLAY_DIR;
+  process.env.EXA_RETRY_BASE_MS = "1"; // 5xx is retried now; keep the backoff tiny
 });
 afterEach(() => {
+  delete process.env.EXA_RETRY_BASE_MS;
   delete process.env.EXA_RECORD_DIR;
   delete process.env.EXA_REPLAY_DIR;
   vi.unstubAllGlobals();

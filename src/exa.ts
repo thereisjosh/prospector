@@ -173,22 +173,16 @@ async function exaPostUnguarded(
     body: JSON.stringify(body),
   };
   const endpoint = path.startsWith("/") ? path : `/${path}`;
-  let response = await fetch(`${baseUrl}${endpoint}`, request);
-  for (let attempt = 0; response.status === 429 && attempt < 3; attempt += 1) {
-    await sleep(1000 * (attempt + 1));
-    response = await fetch(`${baseUrl}/search`, request);
-  }
-
-  const text = await response.text();
+  const { status, text } = await fetchWithRetry(`${baseUrl}${endpoint}`, request);
   let json: unknown;
   try {
     json = text ? JSON.parse(text) : {};
   } catch {
-    throw new Error(`Exa returned non-JSON HTTP ${response.status}: ${text}`);
+    throw new Error(`Exa returned non-JSON HTTP ${status}: ${text}`);
   }
 
-  if (!response.ok) {
-    throw new ExaHttpError(response.status, text);
+  if (status < 200 || status >= 300) {
+    throw new ExaHttpError(status, text);
   }
 
   if (recordDir) {
@@ -204,6 +198,71 @@ async function exaPostUnguarded(
 
 function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+// ---------------------------------------------------------------------------
+// Concurrency limit + retry. Exa rate-limits at ~10 requests/second; a process-
+// wide semaphore keeps bursts (25 parallel company lookups) under it, and
+// 429/5xx responses back off exponentially with full jitter.
+// ---------------------------------------------------------------------------
+
+const MAX_ATTEMPTS = 6;
+const MAX_WAIT_MS = 10_000;
+
+function maxConcurrency(): number {
+  const n = Number(process.env.EXA_MAX_CONCURRENCY);
+  return Number.isInteger(n) && n > 0 ? n : 4;
+}
+
+let active = 0;
+const waiters: Array<() => void> = [];
+
+async function acquireSlot(): Promise<void> {
+  if (active < maxConcurrency()) {
+    active += 1;
+    return;
+  }
+  await new Promise<void>((resolve) => waiters.push(resolve));
+}
+
+function releaseSlot(): void {
+  const next = waiters.shift();
+  if (next) next(); // the slot passes directly to the next waiter
+  else active -= 1;
+}
+
+/** `retry-after`: seconds (up to 60) or milliseconds ("1500", "250ms"); capped at 10 s. */
+export function retryAfterMs(header: string | null | undefined): number | undefined {
+  if (!header) return undefined;
+  const m = header.trim().match(/^(\d+(?:\.\d+)?)\s*(ms)?$/i);
+  if (!m) return undefined;
+  const n = Number(m[1]);
+  const ms = m[2] ? n : n <= 60 ? n * 1000 : n;
+  return Math.min(MAX_WAIT_MS, Math.max(0, ms));
+}
+
+function backoffMs(attempt: number): number {
+  const base = Number(process.env.EXA_RETRY_BASE_MS) || 500;
+  return Math.random() * Math.min(MAX_WAIT_MS, base * 2 ** attempt);
+}
+
+async function fetchWithRetry(url: string, request: RequestInit): Promise<{ status: number; text: string }> {
+  let last = { status: 0, text: "" };
+  for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt += 1) {
+    let retryAfter: number | undefined;
+    await acquireSlot();
+    try {
+      const response = await fetch(url, request);
+      last = { status: response.status, text: await response.text() };
+      retryAfter = retryAfterMs(response.headers?.get?.("retry-after"));
+    } finally {
+      releaseSlot();
+    }
+    const retriable = last.status === 429 || last.status >= 500;
+    if (!retriable || attempt === MAX_ATTEMPTS - 1) break;
+    await sleep(retryAfter ?? backoffMs(attempt));
+  }
+  return last;
 }
 
 export async function lookupCompany(

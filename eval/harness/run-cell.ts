@@ -18,6 +18,14 @@ import type { Arm, LeadRecord, RunCellDeps, RunRecord, Scenario } from "./types"
 
 const DEFAULT_RESULTS_ROOT = "eval/results";
 
+/** A cell that crashed mid-run; carries whatever the run had spent so far. */
+export class CellError extends Error {
+  constructor(message: string, readonly runId?: string, readonly spend?: RunRecord["spend"]) {
+    super(message);
+    this.name = "CellError";
+  }
+}
+
 export function normalizeArm(value: string): Arm {
   if (value === "A" || value === "A_workflow") return "A_workflow";
   if (value === "B" || value === "B_agent_opus") return "B_agent_opus";
@@ -182,16 +190,22 @@ export async function runCell(scenario: Scenario, arm: Arm, rep: number, deps: R
       seenKeys: [],
       createdAt: startedAt,
     });
-    const final = await (deps.driveRun ?? driveRun)(
-      state,
-      {
-        client: deps.createClient ? deps.createClient() : new Anthropic(),
-        checkLead: deps.checkLead ?? checkLead,
-        now,
-      },
-      deps.approvePolicy ?? "auto",
-      { log: deps.log ?? (() => undefined), maxIterations: deps.maxIterations },
-    );
+    let final: RunState;
+    try {
+      final = await (deps.driveRun ?? driveRun)(
+        state,
+        {
+          client: deps.createClient ? deps.createClient() : new Anthropic(),
+          checkLead: deps.checkLead ?? checkLead,
+          now,
+        },
+        deps.approvePolicy ?? "auto",
+        { log: deps.log ?? (() => undefined), maxIterations: deps.maxIterations },
+      );
+    } catch (error) {
+      // The state object is updated in place by the driver, so its spend is what was incurred before the crash.
+      throw new CellError(error instanceof Error ? error.message : String(error), state.id, { ...state.spend });
+    }
     record = {
       scenarioId: scenario.id,
       arm,
@@ -223,32 +237,78 @@ export type MatrixOptions = {
   maxTotalDollars?: number;
   handback?: boolean;
   deps?: RunCellDeps;
+  /** Test seam: replaces runCell. */
+  cell?: typeof runCell;
 };
 
-export async function runMatrix(options: MatrixOptions): Promise<{ records: RunRecord[]; total: number; stopped: boolean }> {
+function errorRecord(scenario: Scenario, arm: Arm, rep: number, error: unknown, deps: RunCellDeps): RunRecord {
+  const message = error instanceof Error ? error.message : String(error);
+  const spend = error instanceof CellError && error.spend ? error.spend : { exa: 0, claude: 0, total: 0 };
+  const at = new Date().toISOString();
+  return {
+    scenarioId: scenario.id,
+    arm,
+    rep,
+    ...(error instanceof CellError && error.runId ? { runId: error.runId } : {}),
+    leads: [],
+    spend,
+    activeMs: 0,
+    stopReason: "error",
+    error: message,
+    startedAt: at,
+    finishedAt: at,
+    ...cellFields(scenario, deps.now ?? new Date(), deps),
+  };
+}
+
+export type MatrixResult = { records: RunRecord[]; total: number; stopped: boolean; ok: number; errors: number };
+
+export async function runMatrix(options: MatrixOptions): Promise<MatrixResult> {
   const records: RunRecord[] = [];
   let total = 0;
+  let ok = 0;
+  let errors = 0;
   const deps = { ...(options.deps ?? {}), runSetId: options.setId };
+  const cell = options.cell ?? runCell;
+  const finish = (stopped: boolean): MatrixResult => {
+    deps.log?.(`cells ok/error: ${ok}/${errors}`);
+    return { records, total, stopped, ok, errors };
+  };
   for (const scenario of options.scenarios) {
     for (const arm of options.arms) {
       for (let rep = 1; rep <= options.reps; rep += 1) {
         // Worst case for this cell (and its handback re-run) must still fit under the total cap.
         const worstCase = scenario.maxCostDollars * (options.handback ? 2 : 1);
         if (options.maxTotalDollars !== undefined && total + worstCase > options.maxTotalDollars) {
-          return { records, total, stopped: true };
+          return finish(true);
         }
-        const record = await runCell(scenario, arm, rep, deps);
+        let record: RunRecord;
+        try {
+          record = await cell(scenario, arm, rep, deps);
+          ok += 1;
+        } catch (error) {
+          // One crashed cell (e.g. an Exa 429 that outlived the retries) must not end the matrix.
+          record = errorRecord(scenario, arm, rep, error, deps);
+          errors += 1;
+          deps.log?.(`cell ${scenario.id}/${arm}/${rep} FAILED: ${record.error}`);
+          await writeJson(join(outputDir(scenario, arm, rep, deps), "run.json"), record);
+        }
         records.push(record);
         total += record.spend.total;
         deps.log?.(`running total $${total.toFixed(4)} after ${scenario.id}/${arm}/${rep}`);
         if (options.handback && record.handback) {
-          const rerun = await runHandbackRerun(record, scenario, arm, rep, deps, options.setId);
-          if (rerun) total += rerun.spend.total;
+          try {
+            const rerun = await runHandbackRerun(record, scenario, arm, rep, deps, options.setId);
+            if (rerun) total += rerun.spend.total;
+          } catch (error) {
+            errors += 1;
+            deps.log?.(`handback re-run ${scenario.id}/${arm}/${rep} FAILED: ${error instanceof Error ? error.message : String(error)}`);
+          }
         }
       }
     }
   }
-  return { records, total, stopped: false };
+  return finish(false);
 }
 
 function parseArgs(argv: string[]): Record<string, string | boolean> {
@@ -275,7 +335,8 @@ async function main() {
     const arms = String(args.arms ?? "A,B,C").split(",").filter(Boolean).map(normalizeArm);
     const reps = Number(args.reps ?? 3);
     const result = await runMatrix({ setId, scenarios, arms, reps, maxTotalDollars, handback: !!args.handback, deps: { log } });
-    console.log(`matrix ${result.stopped ? "stopped" : "finished"}: ${result.records.length} cells, total $${result.total.toFixed(4)}`);
+    console.log(`matrix ${result.stopped ? "stopped" : "finished"}: ${result.records.length} cells, total $${result.total.toFixed(4)}; cells ok/error: ${result.ok}/${result.errors}`);
+    if (result.errors > 0) process.exitCode = 1;
     return;
   }
 
