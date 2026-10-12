@@ -56,3 +56,28 @@ export async function appendRunToMemory(state: RunState): Promise<void> {
   }
   await saveMemory(state.workspaceId, memory);
 }
+
+const WORKSPACE_ID_RE = /^[A-Za-z0-9_-]{1,64}$/;
+
+/** Workspace ids become directory names; anything else is refused. */
+export function isWorkspaceId(id: string): boolean {
+  return WORKSPACE_ID_RE.test(id);
+}
+
+/**
+ * Per-lead feedback from the results table. A 👎 becomes a preference note
+ * ("User rejected <company>: <reason>") that the next run's contract carries.
+ */
+export async function addFeedback(
+  workspaceId: string,
+  feedback: { company: string; verdict: "up" | "down"; reason?: string },
+): Promise<WorkspaceMemory> {
+  const memory = await loadMemory(workspaceId);
+  const company = feedback.company.trim().slice(0, 120);
+  const reason = feedback.reason?.trim().slice(0, 300);
+  const verb = feedback.verdict === "down" ? "rejected" : "liked";
+  const note = reason ? `User ${verb} ${company}: ${reason}` : `User ${verb} ${company}`;
+  if (!memory.preferenceNotes.includes(note)) memory.preferenceNotes.push(note);
+  await saveMemory(workspaceId, memory);
+  return memory;
+}

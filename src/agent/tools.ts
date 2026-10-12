@@ -5,6 +5,7 @@ import {
   lookupCompany,
   type ExaCredentials,
 } from "../exa";
+import { squashName } from "../gates";
 import {
   buildCompanySchema,
   buildSignalSchema,
@@ -16,8 +17,7 @@ import {
 import type { CompanySummary, ExaResult, ExaSearchResponse, SignalSummary } from "../types";
 import { readExaContents } from "./exa-contents";
 import type { LeadChecker } from "./gate-port";
-import { squashName } from "./memory";
-import type { RunState } from "./state";
+import type { Handback, RunState } from "./state";
 
 export type ToolDeps = {
   checkLead: LeadChecker;
@@ -26,6 +26,10 @@ export type ToolDeps = {
   exaSearch?: typeof exaSearch;
   lookupCompany?: typeof lookupCompany;
   readExaContents?: typeof readExaContents;
+};
+
+export type ToolExecutionContext = {
+  guard: CostGuard;
 };
 
 const objectSchema = (
@@ -136,10 +140,6 @@ function asRecord(input: unknown): Record<string, unknown> {
   return input && typeof input === "object" && !Array.isArray(input) ? (input as Record<string, unknown>) : {};
 }
 
-function lowerName(name: string): string {
-  return name.trim().toLowerCase();
-}
-
 function parseSignalSummary(summary: unknown): SignalSummary | undefined {
   const raw = typeof summary === "string" ? tryJson(summary) : summary;
   if (!raw || typeof raw !== "object" || Array.isArray(raw)) return undefined;
@@ -172,20 +172,65 @@ function compactSignalLine(result: ExaResult, summary: SignalSummary): string {
   ].join(" · ");
 }
 
-function exaSpendDelta(state: RunState, guard: CostGuard): number {
-  const delta = Math.max(0, guard.spent - state.spend.exa);
+function syncExaSpend(state: RunState, guard: CostGuard): void {
   state.spend.exa = guard.spent;
   state.spend.total = state.spend.exa + state.spend.claude;
-  return delta;
+}
+
+function requireStrategy(state: RunState): void {
+  if (!state.strategyApproved) {
+    throw new Error("Call propose_strategy and wait for approval before spending");
+  }
+}
+
+function yesNoUnknown(value: unknown): "yes" | "no" | "unknown" {
+  if (value === true) return "yes";
+  if (value === false) return "no";
+  return "unknown";
+}
+
+function isHttpUrl(value: string): boolean {
+  try {
+    const url = new URL(value);
+    return url.protocol === "http:" || url.protocol === "https:";
+  } catch {
+    return false;
+  }
+}
+
+export function validHandback(value: unknown): Handback | undefined {
+  const raw = typeof value === "string" ? tryJson(value) : value;
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) return undefined;
+  const r = raw as Record<string, unknown>;
+  if (typeof r.shortfall !== "string" || !Array.isArray(r.top_reasons) || !Array.isArray(r.suggestions) || r.suggestions.length > 2) return undefined;
+  const top_reasons = r.top_reasons.map((item) => {
+    if (!item || typeof item !== "object" || Array.isArray(item)) return undefined;
+    const rec = item as Record<string, unknown>;
+    return typeof rec.code === "string" && typeof rec.count === "number" ? { code: rec.code, count: rec.count } : undefined;
+  });
+  const suggestions = r.suggestions.map((item) => {
+    if (!item || typeof item !== "object" || Array.isArray(item)) return undefined;
+    const rec = item as Record<string, unknown>;
+    return typeof rec.field === "string" && "value" in rec && typeof rec.why === "string"
+      ? { field: rec.field, value: rec.value, why: rec.why }
+      : undefined;
+  });
+  if (top_reasons.some((item) => !item) || suggestions.some((item) => !item)) return undefined;
+  return {
+    shortfall: r.shortfall,
+    top_reasons: top_reasons as Array<{ code: string; count: number }>,
+    suggestions: suggestions as Array<{ field: string; value: unknown; why: string }>,
+  };
 }
 
 export async function executeTool(
   state: RunState,
   tool: { id: string; name: string; input: unknown },
   deps: ToolDeps,
+  ctx: ToolExecutionContext,
 ): Promise<{ result: Anthropic.ToolResultBlockParam; exaCost: number; acceptedLead?: boolean; newCandidate?: boolean; finish?: boolean; verdictEvent?: { company: string; code: string; reason: string; ok: boolean } }> {
-  const guard = new CostGuard(Math.max(0, state.contract.maxCostDollars - state.spend.claude));
-  guard.spent = state.spend.exa;
+  const { guard } = ctx;
+  const beforeSpent = guard.spent;
   let content = "ok";
   let acceptedLead = false;
   let newCandidate = false;
@@ -195,6 +240,7 @@ export async function executeTool(
   try {
     const input = asRecord(tool.input);
     if (tool.name === "search_signals") {
+      requireStrategy(state);
       const query = String(input.query ?? "").trim();
       const months = Math.max(1, Math.min(12, Number(input.months ?? state.contract.months)));
       const numResults = Math.max(1, Math.min(25, Number(input.num_results ?? 10)));
@@ -237,10 +283,11 @@ export async function executeTool(
       }
       content = lines.join("\n") || "no results";
     } else if (tool.name === "lookup_company") {
+      requireStrategy(state);
       const name = String(input.name ?? "").trim();
       const skipped = Array.isArray(input.skipped_companies) ? input.skipped_companies.filter((v) => typeof v === "string") : [];
       state.adaptive.lookupsSkipped += skipped.length;
-      const key = lowerName(name);
+      const key = squashName(name);
       let cached = state.caches.enrichmentByName[key];
       if (!cached) {
         const looked = await (deps.lookupCompany ?? lookupCompany)(
@@ -257,17 +304,21 @@ export async function executeTool(
         };
         state.caches.enrichmentByName[key] = cached;
       }
-      const gateBits = state.contract.gateFields.map((g) => `${g.key}=${cached.summary[g.key] === true ? "pass" : "fail"}`);
+      const gateBits = state.contract.gateFields.map((g) => `${g.key}=${yesNoUnknown(cached.summary[g.key])} (${g.required ? "required" : "optional"})`);
       content = [
         name,
-        cached.summary.description,
-        cached.summary.industry,
+        `description=${cached.summary.description ?? "unknown"}`,
+        `industry=${cached.summary.industry ?? "unknown"}`,
         `employees=${String(cached.summary.employee_estimate ?? "unknown")}`,
+        `employee_source_quote=${cached.summary.employee_estimate_source || "no source quote"}`,
+        `is_public_or_enterprise=${yesNoUnknown(cached.summary.is_public_or_enterprise)}`,
         `hq=${String(cached.summary.hq ?? "unknown")}`,
         ...gateBits,
       ].filter(Boolean).join(" · ");
     } else if (tool.name === "read_page") {
+      requireStrategy(state);
       const url = String(input.url ?? "").trim();
+      if (!isHttpUrl(url)) throw new Error("read_page url must be http(s)");
       const page = await (deps.readExaContents ?? readExaContents)(url, deps.credentials, guard);
       state.adaptive.verificationReads += 1;
       if (state.caches.signalsByUrl[url]) {
@@ -279,12 +330,14 @@ export async function executeTool(
       const signalUrl = String(input.signal_url ?? "").trim();
       const whyNow = String(input.why_now ?? "").trim();
       const signal = state.caches.signalsByUrl[signalUrl];
-      const enrichment = state.caches.enrichmentByName[lowerName(company)]?.summary;
+      const cached = state.caches.enrichmentByName[squashName(company)];
+      const enrichment = cached?.summary;
       if (!signal) throw new Error("signal_url was not returned by search_signals");
       const verdict = deps.checkLead(state.contract, {
         company,
         signal,
         enrichment,
+        companyUrl: cached?.url,
         now: deps.now ?? new Date(),
         seen: new Set(state.caches.seenKeys),
         submitted: new Set(state.leads.map((lead) => squashName(lead.company))),
@@ -303,15 +356,20 @@ export async function executeTool(
       state.todo = String(input.markdown ?? "");
       content = "ok";
     } else if (tool.name === "finish") {
+      state.summary = String(input.summary ?? "");
+      const handback = validHandback(input.handback);
+      if (handback) state.handback = handback;
       content = "finished";
       finish = true;
     } else {
       throw new Error(`unknown tool: ${tool.name}`);
     }
-    const exaCost = exaSpendDelta(state, guard);
+    syncExaSpend(state, guard);
+    const exaCost = Math.max(0, guard.spent - beforeSpent);
     return { result: { type: "tool_result", tool_use_id: tool.id, content }, exaCost, acceptedLead, newCandidate, finish, verdictEvent };
   } catch (error) {
-    const exaCost = exaSpendDelta(state, guard);
+    syncExaSpend(state, guard);
+    const exaCost = Math.max(0, guard.spent - beforeSpent);
     return {
       result: {
         type: "tool_result",

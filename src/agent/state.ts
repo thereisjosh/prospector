@@ -33,6 +33,9 @@ export type RunState = {
   messages: Anthropic.MessageParam[];
   status: RunStatus;
   stopReason?: string;
+  strategyApproved: boolean;
+  resumedFromDecision?: boolean;
+  summary?: string;
   spend: { exa: number; claude: number; total: number };
   counters: { turns: number; activeMs: number; noProgressTurns: number; toolCalls: number };
   leads: AcceptedLead[];
@@ -43,6 +46,7 @@ export type RunState = {
     tool: string;
     input: unknown;
     otherToolResults: Anthropic.ToolResultBlockParam[];
+    toolUseOrder?: string[];
   };
   handback?: Handback;
   adaptive: { queryRewrites: number; lookupsSkipped: number; verificationReads: number };
@@ -66,6 +70,7 @@ export function createRunState(args: {
   seenKeys?: string[];
   createdAt?: string;
 }): RunState {
+  const createdAt = args.createdAt ?? new Date().toISOString();
   const contract = {
     ...args.plan,
     targetLeads: args.targetLeads ?? DEFAULT_LIMITS.targetLeads,
@@ -74,12 +79,13 @@ export function createRunState(args: {
   };
   return {
     id: args.id,
-    createdAt: args.createdAt ?? new Date().toISOString(),
+    createdAt,
     workspaceId: args.workspaceId,
     model: args.model ?? DEFAULT_MODEL,
     contract,
-    messages: [{ role: "user", content: firstUserMessage(contract) }],
+    messages: [{ role: "user", content: firstUserMessage(contract, { today: createdAt.slice(0, 10) }) }],
     status: "running",
+    strategyApproved: false,
     spend: { exa: 0, claude: 0, total: 0 },
     counters: { turns: 0, activeMs: 0, noProgressTurns: 0, toolCalls: 0 },
     leads: [],

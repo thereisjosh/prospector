@@ -1,5 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk";
 import type { Message, ToolResultBlockParam, ToolUseBlock } from "@anthropic-ai/sdk/resources/messages";
+import { CostGuard } from "../exa";
 import { claudeCostDollars, DEFAULT_LIMITS } from "./config";
 import { appendEvents, makeEvent, type AgentEvent } from "./events";
 import { appendRunToMemory } from "./memory";
@@ -38,6 +39,44 @@ function stop(state: RunState, status: "done" | "stopped" | "error", reason: str
   state.stopReason = reason;
 }
 
+function spendLine(state: RunState): string {
+  return `Spend: $${state.spend.total.toFixed(2)} of $${state.contract.maxCostDollars.toFixed(2)} · Leads: ${state.leads.length}/${state.contract.targetLeads} · Turn ${state.counters.turns}/${DEFAULT_LIMITS.maxTurns}`;
+}
+
+function userToolResultsMessage(state: RunState, results: ToolResultBlockParam[]): Anthropic.MessageParam {
+  return {
+    role: "user",
+    content: [
+      ...results,
+      { type: "text", text: spendLine(state) },
+    ],
+  } as Anthropic.MessageParam;
+}
+
+function orderedResults(uses: ToolUseBlock[], results: ToolResultBlockParam[]): ToolResultBlockParam[] {
+  const byId = new Map(results.map((result) => [result.tool_use_id, result]));
+  return uses.map((tool) => byId.get(tool.id)).filter((result): result is ToolResultBlockParam => !!result);
+}
+
+function noProgressSnapshot(state: RunState) {
+  return {
+    leads: state.leads.length,
+    candidates: state.caches.candidateCompanies.length,
+    enrichments: Object.keys(state.caches.enrichmentByName).length,
+    reads: state.adaptive.verificationReads,
+  };
+}
+
+function madeProgress(state: RunState, before: ReturnType<typeof noProgressSnapshot>, decisionResumed: boolean): boolean {
+  return (
+    decisionResumed ||
+    state.leads.length > before.leads ||
+    state.caches.candidateCompanies.length > before.candidates ||
+    Object.keys(state.caches.enrichmentByName).length > before.enrichments ||
+    state.adaptive.verificationReads > before.reads
+  );
+}
+
 function limitReason(state: RunState): { status: "done" | "stopped"; reason: string } | undefined {
   if (state.spend.total + DEFAULT_LIMITS.handbackReserveDollars >= state.contract.maxCostDollars) return { status: "stopped", reason: "budget" };
   if (state.counters.turns >= DEFAULT_LIMITS.maxTurns) return { status: "stopped", reason: "max_turns" };
@@ -68,8 +107,9 @@ export async function step(state: RunState, deps: LoopDeps): Promise<StepResult>
   }
 
   const started = Date.now();
-  const beforeLeadCount = state.leads.length;
-  const beforeCandidates = state.caches.candidateCompanies.length;
+  const beforeProgress = noProgressSnapshot(state);
+  const decisionResumed = state.resumedFromDecision === true;
+  delete state.resumedFromDecision;
   state.counters.turns += 1;
   try {
     const response = (await deps.client.messages.create({
@@ -78,6 +118,7 @@ export async function step(state: RunState, deps: LoopDeps): Promise<StepResult>
       system: [{ type: "text", text: systemPrompt(), cache_control: { type: "ephemeral" } }],
       tools: agentTools(),
       messages: state.messages,
+      cache_control: { type: "ephemeral" },
       output_config: { effort: "medium" },
     } as Parameters<typeof deps.client.messages.create>[0])) as Message;
     const latencyMs = Date.now() - started;
@@ -95,10 +136,19 @@ export async function step(state: RunState, deps: LoopDeps): Promise<StepResult>
       events.push(makeEvent(state, "stop", { reason: "refusal", stop_details: (response as { stop_details?: unknown }).stop_details }));
     } else if (response.stop_reason === "tool_use") {
       const uses = toolUses(response);
-      const approval = uses.find((tool) => APPROVAL_TOOLS.has(tool.name));
+      const approvalUses = uses.filter((tool) => APPROVAL_TOOLS.has(tool.name));
+      const approval = approvalUses[0];
+      const extraApprovalResults: ToolResultBlockParam[] = approvalUses.slice(1).map((tool) => ({
+        type: "tool_result",
+        tool_use_id: tool.id,
+        content: "one approval request per turn",
+        is_error: true,
+      }));
       const runnable = uses.filter((tool) => !APPROVAL_TOOLS.has(tool.name));
-      const capped = runnable.slice(0, DEFAULT_LIMITS.maxParallelTools);
-      const overflow: Awaited<ReturnType<typeof executeTool>>[] = runnable.slice(DEFAULT_LIMITS.maxParallelTools).map((tool) => ({
+      const preSubmit = runnable.filter((tool) => tool.name !== "submit_lead");
+      const submit = runnable.filter((tool) => tool.name === "submit_lead");
+      const cappedPreSubmit = preSubmit.slice(0, DEFAULT_LIMITS.maxParallelTools);
+      const overflowPreSubmit: Awaited<ReturnType<typeof executeTool>>[] = preSubmit.slice(DEFAULT_LIMITS.maxParallelTools).map((tool) => ({
         result: {
           type: "tool_result",
           tool_use_id: tool.id,
@@ -107,11 +157,22 @@ export async function step(state: RunState, deps: LoopDeps): Promise<StepResult>
         } as ToolResultBlockParam,
         exaCost: 0,
       }));
-      const executed: Awaited<ReturnType<typeof executeTool>>[] = await Promise.all(capped.map((tool) => executeTool(state, { id: tool.id, name: tool.name, input: tool.input }, deps)));
-      const all = [...executed, ...overflow];
+      const guard = new CostGuard(Math.max(0, state.contract.maxCostDollars - state.spend.claude));
+      guard.spent = state.spend.exa;
+      const executedPreSubmit = await Promise.all(cappedPreSubmit.map((tool) => executeTool(state, { id: tool.id, name: tool.name, input: tool.input }, deps, { guard })));
+      const submitExecuted: Awaited<ReturnType<typeof executeTool>>[] = [];
+      for (const tool of submit) {
+        submitExecuted.push(await executeTool(state, { id: tool.id, name: tool.name, input: tool.input }, deps, { guard }));
+      }
+      state.spend.exa = guard.spent;
+      state.spend.total = state.spend.claude + state.spend.exa;
+      const all = [...executedPreSubmit, ...submitExecuted, ...overflowPreSubmit];
+      const allResults = [...all.map((item) => item.result), ...extraApprovalResults];
+      const ordered = orderedResults(uses, allResults);
       state.counters.toolCalls += uses.length;
-      for (const [i, item] of all.entries()) {
-        const original = runnable[i];
+      const useById = new Map(uses.map((tool) => [tool.id, tool]));
+      for (const item of all) {
+        const original = useById.get(item.result.tool_use_id);
         events.push(makeEvent(state, "tool_call", { tool: original?.name, is_error: item.result.is_error === true, exaCost: item.exaCost }));
         if (item.verdictEvent) events.push(makeEvent(state, "submit_verdict", item.verdictEvent));
       }
@@ -120,12 +181,13 @@ export async function step(state: RunState, deps: LoopDeps): Promise<StepResult>
           toolUseId: approval.id,
           tool: approval.name,
           input: approval.input,
-          otherToolResults: all.map((item) => item.result),
+          otherToolResults: ordered.filter((result) => result.tool_use_id !== approval.id),
+          toolUseOrder: uses.map((tool) => tool.id),
         };
         state.status = "awaiting_approval";
         events.push(makeEvent(state, "approval_request", { tool: approval.name, input: approval.input }));
       } else {
-        state.messages.push({ role: "user", content: all.map((item) => item.result) } as Anthropic.MessageParam);
+        state.messages.push(userToolResultsMessage(state, ordered));
         if (all.some((item) => item.finish)) await finishRun(state, events, "done", "finish", deps);
       }
     } else {
@@ -137,7 +199,7 @@ export async function step(state: RunState, deps: LoopDeps): Promise<StepResult>
   } finally {
     const elapsed = Date.now() - started;
     state.counters.activeMs += elapsed;
-    const progress = state.leads.length > beforeLeadCount || state.caches.candidateCompanies.length > beforeCandidates;
+    const progress = madeProgress(state, beforeProgress, decisionResumed);
     state.counters.noProgressTurns = progress ? 0 : state.counters.noProgressTurns + 1;
     await appendEvents(state.id, events);
   }
@@ -151,21 +213,37 @@ export async function decide(
   const events: AgentEvent[] = [];
   const pending = state.pendingApproval;
   if (!pending) throw new Error("no pending approval");
-  let content = decision.approve ? "approved" : "declined";
-  if (decision.approve && decision.revisedValue !== undefined) content = `revised: ${decision.note ?? ""}`.trim();
-  if (decision.approve && pending.tool === "request_scope_change") {
-    applyScopeChange(state, pending.input, decision.revisedValue);
+  let content = decision.approve ? `approved${decision.note ? `: ${decision.note}` : ""}` : `declined${decision.note ? `: ${decision.note}` : ""}`;
+  let decisionError: string | undefined;
+  if (decision.approve && decision.revisedValue !== undefined) content = `revised${decision.note ? `: ${decision.note}` : ""}`;
+  if (pending.tool === "propose_strategy") {
+    state.strategyApproved = decision.approve;
   }
+  if (decision.approve && pending.tool === "request_scope_change") {
+    try {
+      applyScopeChange(state, pending.input, decision.revisedValue);
+    } catch (error) {
+      decisionError = error instanceof Error ? error.message : "invalid value";
+      content = `declined: invalid value — ${decisionError}`;
+    }
+  }
+  const approvalResult = { type: "tool_result", tool_use_id: pending.toolUseId, content } as ToolResultBlockParam;
+  const otherById = new Map(pending.otherToolResults.map((result) => [result.tool_use_id, result]));
+  const results = pending.toolUseOrder
+    ? pending.toolUseOrder.map((id) => (id === pending.toolUseId ? approvalResult : otherById.get(id))).filter((result): result is ToolResultBlockParam => !!result)
+    : [...pending.otherToolResults, approvalResult];
   state.messages.push({
     role: "user",
     content: [
-      ...pending.otherToolResults,
-      { type: "tool_result", tool_use_id: pending.toolUseId, content } as ToolResultBlockParam,
+      ...results,
+      { type: "text", text: spendLine(state) },
     ],
   } as Anthropic.MessageParam);
   delete state.pendingApproval;
   state.status = "running";
-  events.push(makeEvent(state, "decision", { approve: decision.approve, note: decision.note, revisedValue: decision.revisedValue }));
+  state.counters.noProgressTurns = 0;
+  state.resumedFromDecision = true;
+  events.push(makeEvent(state, "decision", { approve: decision.approve, note: decision.note, revisedValue: decision.revisedValue, ...(decisionError ? { error: decisionError } : {}) }));
   await appendEvents(state.id, events);
   return { state, events };
 }
@@ -215,8 +293,9 @@ export async function handback(state: RunState, deps: LoopDeps): Promise<Handbac
         tool_choice: { type: "none" },
         messages: [
           ...state.messages,
-          { role: "user", content: `Return only JSON for this handback: ${JSON.stringify({ shortfall: fallback.shortfall, top_reasons: fallback.top_reasons })}` },
+          { role: "user", content: `Return only JSON with exactly this shape: {"shortfall": string, "top_reasons": [{"code","count"}], "suggestions": [{"field","value","why"}] max 2}. Use these computed rejection counts: ${JSON.stringify({ shortfall: fallback.shortfall, top_reasons: fallback.top_reasons })}` },
         ],
+        cache_control: { type: "ephemeral" },
         output_config: { effort: "medium" },
       } as Parameters<typeof deps.client.messages.create>[0])) as Message;
       addClaudeCost(state, response);
@@ -256,7 +335,10 @@ function parseHandback(text: string): Handback | undefined {
   try {
     const parsed = JSON.parse(text) as Handback;
     if (typeof parsed.shortfall !== "string" || !Array.isArray(parsed.top_reasons) || !Array.isArray(parsed.suggestions)) return undefined;
-    return { shortfall: parsed.shortfall, top_reasons: parsed.top_reasons.slice(0, 2), suggestions: parsed.suggestions.slice(0, 2) };
+    if (parsed.suggestions.length > 2) return undefined;
+    if (!parsed.top_reasons.every((r) => typeof r?.code === "string" && typeof r.count === "number")) return undefined;
+    if (!parsed.suggestions.every((s) => typeof s?.field === "string" && "value" in s && typeof s.why === "string")) return undefined;
+    return parsed;
   } catch {
     return undefined;
   }
