@@ -8,7 +8,7 @@ import { squashName } from "../src/gates";
 import { eventInWindow, truthKey } from "./harness/truth";
 import type { SearchPlan } from "../src/plan";
 import { createBlindPool } from "./harness/blind";
-import { judgeLead } from "./harness/judge";
+import { balancedJsonObjects, judgeBlind, judgeLead, parseJudgeJson, userPrompt } from "./harness/judge";
 import { CellError as CellErrorLike, normalizeArm, runCell, runMatrix } from "./harness/run-cell";
 import { scoreSet } from "./harness/score";
 import { applyFirstHandbackSuggestion } from "./harness/sim-user";
@@ -464,5 +464,95 @@ describe("eval harness", () => {
       deps: { runProspecting: vi.fn(async () => { throw new Error("no spend info"); }) as never, resultsRoot: root },
     });
     expect(none.records[0]!.spend.total).toBe(0);
+  });
+
+  describe("judge with web_search responses", () => {
+    const answer = '{"q1":"yes","q1_source":"https://a.example","q2":"cannot_verify","q2_source":"","q3":"yes","q3_source":"https://c.example","note":"ok"}';
+    const webSearchResponse = (finalText = `Here is my verdict: ${answer}`, over: Record<string, unknown> = {}) => ({
+      stop_reason: "end_turn",
+      content: [
+        { type: "text", text: "Let me check {the site} first." },
+        { type: "server_tool_use", id: "srv1", name: "web_search", input: { query: "GoodCo headcount" } },
+        { type: "web_search_tool_result", tool_use_id: "srv1", content: [{ type: "web_search_result", url: "https://x.example", title: "t", text: '{"q1":"no"}' }] },
+        { type: "text", text: "The results show the company is a 3PL." },
+        { type: "server_tool_use", id: "srv2", name: "web_search", input: { query: "GoodCo warehouse" } },
+        { type: "web_search_tool_result", tool_use_id: "srv2", content: [] },
+        { type: "text", text: finalText },
+      ],
+      usage: { input_tokens: 1_000_000, output_tokens: 100_000, cache_read_input_tokens: 0, cache_creation_input_tokens: 0 },
+      ...over,
+    });
+    const lead = () => ({ id: "L1", ...record("A_workflow", 1, ["GoodCo"]).leads[0]! });
+
+    it("reads ALL text blocks and takes the LAST valid JSON object (ignoring braces in commentary)", async () => {
+      expect(balancedJsonObjects('x {"a":1} y {"b":"}"} z')).toEqual(['{"a":1}', '{"b":"}"}']);
+      const parsed = parseJudgeJson('Let me check {the site}.\n{"q1":"no","q1_source":"","q2":"no","q2_source":"","q3":"no","q3_source":""}\nfinal: ' + answer);
+      expect(parsed).toMatchObject({ q1: "yes", q2: "cannot_verify", q3: "yes", q3_source: "https://c.example" });
+      expect(parseJudgeJson('{"q1":"maybe","q2":"yes","q3":"yes"}')).toBeUndefined();
+      expect(parseJudgeJson("no json at all")).toBeUndefined();
+      const root = tempRoot();
+      const client = { messages: { create: vi.fn().mockResolvedValue(webSearchResponse()) } };
+      const v = await judgeLead({ scenarioId: "S1", lead: lead(), client: client as never, rubricText: "rubric", truthRoot: root, setId: "j", resultsRoot: root });
+      expect(v).toMatchObject({ q1: "yes", q2: "cannot_verify", q3: "yes", good: true });
+      expect(client.messages.create).toHaveBeenCalledTimes(1);
+      const call = client.messages.create.mock.calls[0]![0] as { max_tokens: number; system: string; messages: Array<{ content: string }> };
+      expect(call.max_tokens).toBe(4000);
+      expect(call.system).toBe("rubric");
+      expect(call.messages[0]!.content.endsWith('"note": "..."}')).toBe(true);
+      expect(call.messages[0]!.content).toContain("Use web_search as needed (max 4), then reply with exactly one JSON object and nothing after it");
+      expect(userPrompt(lead())).toContain("GoodCo");
+    });
+
+    it("records usage, Opus-priced cost and web-search count on the verdict", async () => {
+      const root = tempRoot();
+      const client = { messages: { create: vi.fn().mockResolvedValue(webSearchResponse()) } };
+      const v = await judgeLead({ scenarioId: "S1", lead: lead(), client: client as never, rubricText: "r", truthRoot: root, setId: "j", resultsRoot: root });
+      expect(v.usage).toEqual({ input: 1_000_000, output: 100_000, cache_read: 0, cache_creation: 0 });
+      expect(v.webSearches).toBe(2);
+      expect(v.costDollars).toBeCloseTo(4 + 2, 6); // $4/M in + $20/M out x 0.1M
+    });
+
+    it("parse failure: raw text + stop_reason saved to judge-failures, one stderr line, uncached fallback, cost still counted", async () => {
+      const root = tempRoot();
+      const err = vi.spyOn(console, "error").mockImplementation(() => undefined);
+      const client = { messages: { create: vi.fn().mockResolvedValue(webSearchResponse("I could not decide.", { stop_reason: "max_tokens" })) } };
+      const l = lead();
+      const v = await judgeLead({ scenarioId: "S1", lead: l, client: client as never, rubricText: "r", truthRoot: root, setId: "j", resultsRoot: root });
+      expect(v.q1).toBe("cannot_verify");
+      expect(v.costDollars).toBeCloseTo(12, 6); // two attempts
+      expect(client.messages.create).toHaveBeenCalledTimes(2);
+      const raw = await readFile(join(root, "j/S1/judge-failures", `${truthKey(l.company, l.signal_url)}.txt`), "utf8");
+      expect(raw).toContain("stop_reason: max_tokens");
+      expect(raw).toContain("I could not decide.");
+      expect(raw).toContain("Let me check");
+      expect(err).toHaveBeenCalledTimes(1);
+      expect(String(err.mock.calls[0]![0])).toContain("GoodCo");
+      err.mockRestore();
+    });
+
+    it("judgeBlind: --limit, running total + judge-cost.json, and an API error does not abort the scenario", async () => {
+      const root = tempRoot();
+      const truthRoot = tempRoot();
+      const log = vi.spyOn(console, "log").mockImplementation(() => undefined);
+      const err = vi.spyOn(console, "error").mockImplementation(() => undefined);
+      const names = ["Aco", "Bco", "Cco", "Dco"];
+      const leads = names.map((n, i) => ({ id: `L${i}`, ...record("A_workflow", 1, [n]).leads[0]! }));
+      await mkdir(join(root, "j/S1"), { recursive: true });
+      await writeFile(join(root, "j/S1/blind.json"), JSON.stringify(leads), "utf8");
+      const create = vi.fn()
+        .mockRejectedValueOnce(new Error("overloaded"))
+        .mockResolvedValue(webSearchResponse());
+      const limited = await judgeBlind({ setId: "j", scenarioId: "S1", resultsRoot: root, truthRoot, client: { messages: { create } } as never, limit: 3 });
+      expect(create).toHaveBeenCalledTimes(3); // only the first 3 leads; lead 1 errored, 2 and 3 judged
+      expect(limited).toHaveLength(2);
+      const cost = JSON.parse(await readFile(join(root, "j/S1/judge-cost.json"), "utf8"));
+      expect(cost.totalDollars).toBeCloseTo(12, 6);
+      expect(cost.perLead).toHaveLength(3);
+      expect(cost.perLead[0].error).toBe("overloaded");
+      expect(String(err.mock.calls[0]![0])).toContain("overloaded");
+      expect(log.mock.calls.some((c) => String(c[0]).includes("running total $12.0000"))).toBe(true);
+      log.mockRestore();
+      err.mockRestore();
+    });
   });
 });

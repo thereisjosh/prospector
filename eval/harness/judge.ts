@@ -6,6 +6,7 @@ import { dirname, join } from "node:path";
 import { pathToFileURL } from "node:url";
 import { eventInWindow, truthKey } from "./truth";
 import type { BlindLead } from "./blind";
+import { claudeCostDollars } from "../../src/agent/config";
 import type { RubricAnswer, Verdict } from "./types";
 
 type JudgeClient = Pick<Anthropic, "messages">;
@@ -31,7 +32,12 @@ async function writeJson(path: string, value: unknown) {
   await writeFile(path, `${JSON.stringify(value, null, 2)}\n`, "utf8");
 }
 
-function firstTextBlock(response: unknown): string {
+/**
+ * All text of a response, in order. A web_search response interleaves several
+ * text blocks (commentary, then the answer) with server_tool_use and
+ * web_search_tool_result blocks; only the text blocks are read.
+ */
+export function allText(response: unknown): string {
   const content = (response as { content?: unknown }).content;
   if (!Array.isArray(content)) return "";
   return content
@@ -40,13 +46,14 @@ function firstTextBlock(response: unknown): string {
     .join("\n");
 }
 
-export function firstBalancedJson(text: string): string | undefined {
-  const start = text.indexOf("{");
-  if (start < 0) return undefined;
+/** Every top-level balanced {...} object in `text`, in order (string- and escape-aware). */
+export function balancedJsonObjects(text: string): string[] {
+  const out: string[] = [];
   let depth = 0;
+  let start = -1;
   let inString = false;
   let escaped = false;
-  for (let i = start; i < text.length; i += 1) {
+  for (let i = 0; i < text.length; i += 1) {
     const ch = text[i]!;
     if (inString) {
       if (escaped) escaped = false;
@@ -54,34 +61,84 @@ export function firstBalancedJson(text: string): string | undefined {
       else if (ch === "\"") inString = false;
       continue;
     }
-    if (ch === "\"") inString = true;
-    else if (ch === "{") depth += 1;
-    else if (ch === "}") {
+    if (ch === "\"" && depth > 0) inString = true;
+    else if (ch === "{") {
+      if (depth === 0) start = i;
+      depth += 1;
+    } else if (ch === "}" && depth > 0) {
       depth -= 1;
-      if (depth === 0) return text.slice(start, i + 1);
+      if (depth === 0) out.push(text.slice(start, i + 1));
     }
+  }
+  return out;
+}
+
+export function firstBalancedJson(text: string): string | undefined {
+  return balancedJsonObjects(text)[0];
+}
+
+/** The LAST balanced JSON object that carries valid q1/q2/q3 answers. */
+export function parseJudgeJson(text: string): JudgeJson | undefined {
+  const candidates = balancedJsonObjects(text);
+  for (let i = candidates.length - 1; i >= 0; i -= 1) {
+    let parsed: Partial<JudgeJson>;
+    try {
+      parsed = JSON.parse(candidates[i]!) as Partial<JudgeJson>;
+    } catch {
+      continue;
+    }
+    if (!parsed || typeof parsed !== "object") continue;
+    if (!ANSWERS.has(parsed.q1 ?? "") || !ANSWERS.has(parsed.q2 ?? "") || !ANSWERS.has(parsed.q3 ?? "")) continue;
+    return {
+      q1: parsed.q1!,
+      q1_source: String(parsed.q1_source ?? ""),
+      q2: parsed.q2!,
+      q2_source: String(parsed.q2_source ?? ""),
+      q3: parsed.q3!,
+      q3_source: String(parsed.q3_source ?? ""),
+      note: typeof parsed.note === "string" ? parsed.note : undefined,
+    };
   }
   return undefined;
 }
 
-function parseJudgeJson(text: string): JudgeJson | undefined {
-  const balanced = firstBalancedJson(text);
-  if (!balanced) return undefined;
-  const parsed = JSON.parse(balanced) as Partial<JudgeJson>;
-  if (!ANSWERS.has(parsed.q1 ?? "") || !ANSWERS.has(parsed.q2 ?? "") || !ANSWERS.has(parsed.q3 ?? "")) return undefined;
+type JudgeUsage = { input: number; output: number; cache_read: number; cache_creation: number };
+
+/** Token usage, dollar cost (Opus price table) and web-search count of one response. */
+export function responseCost(response: unknown): { usage: JudgeUsage; costDollars: number; webSearches: number } {
+  const u = (response as { usage?: Record<string, number | null | undefined> }).usage ?? {};
+  const usage = {
+    input: u.input_tokens ?? 0,
+    output: u.output_tokens ?? 0,
+    cache_read: u.cache_read_input_tokens ?? 0,
+    cache_creation: u.cache_creation_input_tokens ?? 0,
+  };
+  const content = (response as { content?: unknown }).content;
+  const webSearches = Array.isArray(content)
+    ? content.filter((b) => b && typeof b === "object" && (b as { type?: unknown }).type === "web_search_tool_result").length
+    : 0;
+  return { usage, costDollars: claudeCostDollars("claude-opus-5-5", u), webSearches };
+}
+
+type Spent = ReturnType<typeof responseCost>;
+
+function addSpent(a: Spent | undefined, b: Spent): Spent {
+  if (!a) return b;
   return {
-    q1: parsed.q1!,
-    q1_source: String(parsed.q1_source ?? ""),
-    q2: parsed.q2!,
-    q2_source: String(parsed.q2_source ?? ""),
-    q3: parsed.q3!,
-    q3_source: String(parsed.q3_source ?? ""),
-    note: typeof parsed.note === "string" ? parsed.note : undefined,
+    usage: {
+      input: a.usage.input + b.usage.input,
+      output: a.usage.output + b.usage.output,
+      cache_read: a.usage.cache_read + b.usage.cache_read,
+      cache_creation: a.usage.cache_creation + b.usage.cache_creation,
+    },
+    costDollars: a.costDollars + b.costDollars,
+    webSearches: a.webSearches + b.webSearches,
   };
 }
 
-function fallback(lead: BlindLead, scenarioId: string): Verdict {
+function fallback(lead: BlindLead, scenarioId: string, spent?: Spent): Verdict {
   return {
+    ...(spent ?? {}),
     company: lead.company,
     scenarioId,
     q1: "cannot_verify",
@@ -96,8 +153,9 @@ function fallback(lead: BlindLead, scenarioId: string): Verdict {
   };
 }
 
-function toVerdict(lead: BlindLead, scenarioId: string, parsed: JudgeJson, now: Date): Verdict {
+function toVerdict(lead: BlindLead, scenarioId: string, parsed: JudgeJson, now: Date, spent?: Spent): Verdict {
   return {
+    ...(spent ?? {}),
     company: lead.company,
     signal_url: lead.signal_url,
     event_date: lead.event_date,
@@ -115,8 +173,11 @@ function toVerdict(lead: BlindLead, scenarioId: string, parsed: JudgeJson, now: 
   };
 }
 
-function userPrompt(lead: BlindLead): string {
-  return JSON.stringify({
+const JUDGE_INSTRUCTION =
+  'Use web_search as needed (max 4), then reply with exactly one JSON object and nothing after it: {"q1":..., "q1_source":..., "q2":..., "q2_source":..., "q3":..., "q3_source":..., "note": "..."}';
+
+export function userPrompt(lead: BlindLead): string {
+  return `${JSON.stringify({
     company: lead.company,
     signal_url: lead.signal_url,
     why_now: lead.why_now,
@@ -124,7 +185,15 @@ function userPrompt(lead: BlindLead): string {
       event_date: lead.event_date,
       size_basis: lead.size_basis,
     },
-  }, null, 2);
+  }, null, 2)}\n\n${JUDGE_INSTRUCTION}`;
+}
+
+/** Keep the raw reply when parsing fails, and say so on stderr: a judge failure is never silent. */
+async function recordFailure(options: { resultsRoot?: string; setId?: string; scenarioId: string; lead: BlindLead }, text: string, stopReason: unknown) {
+  const file = join(options.resultsRoot ?? "eval/results", options.setId ?? "adhoc", options.scenarioId, "judge-failures", `${truthKey(options.lead.company, options.lead.signal_url)}.txt`);
+  await mkdir(dirname(file), { recursive: true });
+  await writeFile(file, `stop_reason: ${String(stopReason)}\n\n${text}\n`, "utf8");
+  console.error(`judge: could not parse a verdict for ${options.lead.company} (stop_reason ${String(stopReason)}); raw reply saved to ${file}`);
 }
 
 export async function judgeLead(options: {
@@ -137,6 +206,9 @@ export async function judgeLead(options: {
   /** The set's "now" and the scenario's window; a cached verdict is reused only while the window still contains the event date. */
   now?: Date;
   months?: number;
+  /** Where judge-failures/ is written. */
+  setId?: string;
+  resultsRoot?: string;
 }): Promise<Verdict> {
   const file = truthPath(options.scenarioId, options.lead.company, options.lead.signal_url, options.truthRoot);
   const now = options.now ?? new Date();
@@ -148,24 +220,28 @@ export async function judgeLead(options: {
 
   const client = options.client ?? new Anthropic();
   const rubric = options.rubricText ?? readFileSync("eval/RUBRIC.md", "utf8");
+  let spent: Spent | undefined;
   for (let attempt = 0; attempt < 2; attempt += 1) {
     const response = await client.messages.create({
       model: "claude-opus-5-5",
-      max_tokens: 1600,
+      max_tokens: 4000,
       system: rubric,
       messages: [{ role: "user", content: userPrompt(options.lead) }],
       output_config: { effort: "medium" },
       tools: [{ type: "web_search_20260209", name: "web_search", max_uses: 4 }],
     } as never);
-    const parsed = parseJudgeJson(firstTextBlock(response));
+    spent = addSpent(spent, responseCost(response));
+    const text = allText(response);
+    const parsed = parseJudgeJson(text);
     if (parsed) {
-      const verdict = toVerdict(options.lead, options.scenarioId, parsed, now);
+      const verdict = toVerdict(options.lead, options.scenarioId, parsed, now, spent);
       await writeJson(file, verdict);
       return verdict;
     }
+    if (attempt === 1) await recordFailure(options, text, (response as { stop_reason?: unknown }).stop_reason);
   }
   // The all-cannot_verify fallback is returned but never cached: a transient judge failure must not become truth.
-  return fallback(options.lead, options.scenarioId);
+  return fallback(options.lead, options.scenarioId, spent);
 }
 
 export async function judgeBlind(options: {
@@ -177,12 +253,35 @@ export async function judgeBlind(options: {
   force?: boolean;
   now?: Date;
   months?: number;
+  /** Judge only the first N blind leads. */
+  limit?: number;
 }): Promise<Verdict[]> {
-  const blindFile = join(options.resultsRoot ?? "eval/results", options.setId, options.scenarioId, "blind.json");
-  const leads = JSON.parse(await readFile(blindFile, "utf8")) as BlindLead[];
+  const root = options.resultsRoot ?? "eval/results";
+  const blindFile = join(root, options.setId, options.scenarioId, "blind.json");
+  let leads = JSON.parse(await readFile(blindFile, "utf8")) as BlindLead[];
+  if (options.limit !== undefined) leads = leads.slice(0, options.limit);
   const verdicts: Verdict[] = [];
+  const perLead: Array<{ company: string; signal_url: string; costDollars: number; webSearches: number; usage?: Verdict["usage"]; error?: string }> = [];
+  let total = 0;
+  const writeCost = () => writeJson(join(root, options.setId, options.scenarioId, "judge-cost.json"), { totalDollars: total, leads: perLead.length, perLead });
   for (const lead of leads) {
-    verdicts.push(await judgeLead({ scenarioId: options.scenarioId, lead, client: options.client, truthRoot: options.truthRoot, force: options.force, now: options.now, months: options.months }));
+    try {
+      const verdict = await judgeLead({
+        scenarioId: options.scenarioId, lead, client: options.client, truthRoot: options.truthRoot,
+        force: options.force, now: options.now, months: options.months, setId: options.setId, resultsRoot: root,
+      });
+      verdicts.push(verdict);
+      const cost = verdict.costDollars ?? 0;
+      total += cost;
+      perLead.push({ company: lead.company, signal_url: lead.signal_url, costDollars: cost, webSearches: verdict.webSearches ?? 0, usage: verdict.usage });
+      console.log(`judge: ${lead.company} q1=${verdict.q1} q2=${verdict.q2} q3=${verdict.q3} $${cost.toFixed(4)} (running total $${total.toFixed(4)})`);
+    } catch (error) {
+      // An API error on one lead must not abort the scenario.
+      const message = error instanceof Error ? error.message : String(error);
+      console.error(`judge: API error on ${lead.company}: ${message}`);
+      perLead.push({ company: lead.company, signal_url: lead.signal_url, costDollars: 0, webSearches: 0, error: message });
+    }
+    await writeCost();
   }
   return verdicts;
 }
@@ -223,7 +322,7 @@ function parseArgs(argv: string[]): Record<string, string | boolean> {
     const arg = argv[i]!;
     if (!arg.startsWith("--")) continue;
     const key = arg.slice(2);
-    if (key === "force" || key === "human") out[key] = true;
+    if (key === "force" || key === "human" || key === "dry-run") out[key] = true;
     else out[key] = argv[++i] ?? "";
   }
   return out;
@@ -249,7 +348,15 @@ async function main() {
     return;
   }
   if (!args.set || !args.scenario) throw new Error("pass --set <id> --scenario <id>");
+  if (args["dry-run"]) {
+    const blindFile = join("eval/results", String(args.set), String(args.scenario), "blind.json");
+    const first = (JSON.parse(await readFile(blindFile, "utf8")) as BlindLead[])[0];
+    if (!first) throw new Error("blind pool is empty");
+    console.log(`--- system (rubric) ---\n${readFileSync("eval/RUBRIC.md", "utf8")}\n--- user ---\n${userPrompt(first)}`);
+    return;
+  }
   const verdicts = await judgeBlind({
+    limit: args.limit ? Number(args.limit) : undefined,
     setId: String(args.set),
     scenarioId: String(args.scenario),
     force: !!args.force,

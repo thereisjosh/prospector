@@ -65,6 +65,10 @@ export type Verdict = {
   q3: RubricAnswer;
   q3_source: string;
   good: boolean;
+  /** Judge spend for this verdict: tokens, dollars (Opus prices) and web searches used. */
+  usage?: { input: number; output: number; cache_read: number; cache_creation: number };
+  costDollars?: number;
+  webSearches?: number;
   judgedAt: string;
   judge: "opus" | "human";
 };
