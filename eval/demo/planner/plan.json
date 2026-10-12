@@ -1,0 +1,54 @@
+{
+  "plan": {
+    "label": "Mid-sized 3PL, warehousing and fulfillment providers with a new warehouse, an expansion, or a wave of operations hiring",
+    "months": 3,
+    "signalQueries": [
+      "logistics or 3PL company hiring a wave of operations manager roles / opening a new warehouse",
+      "third-party logistics provider opening a new warehouse fulfillment center",
+      "3PL fulfillment company hiring warehouse operations manager",
+      "last-mile logistics company hiring operations manager",
+      "US third party logistics company opens distribution center expansion"
+    ],
+    "signalSummaryQuery": "the why-now signal and its date",
+    "companySummaryQuery": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters.",
+    "gateFields": [
+      {
+        "key": "is_third_party_logistics",
+        "question": "provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses)",
+        "required": true
+      }
+    ],
+    "employeeRange": {
+      "min": 100,
+      "max": 1000,
+      "unknownPolicy": "allow-if-not-enterprise"
+    },
+    "hqCountries": [
+      "US",
+      "GB"
+    ],
+    "excludeDomains": [],
+    "excludeNames": [
+      "RXO",
+      "XPO",
+      "XPO Logistics",
+      "GXO",
+      "GXO Logistics",
+      "C.H. Robinson",
+      "J.B. Hunt",
+      "DHL",
+      "DHL Supply Chain",
+      "FedEx",
+      "FedEx Logistics",
+      "UPS"
+    ],
+    "signalTypes": [
+      "new_facility",
+      "expansion",
+      "ops_hiring_wave",
+      "ops_hire"
+    ]
+  },
+  "cost": 0.009,
+  "estimatedRunCost": 0.84
+}

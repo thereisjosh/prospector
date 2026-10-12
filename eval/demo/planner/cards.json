@@ -1,0 +1,87 @@
+{
+  "cards": {
+    "who": {
+      "industry": "Third-party logistics",
+      "descriptor": "Mid-sized 3PL, warehousing and fulfillment providers"
+    },
+    "whyNow": {
+      "signalTypes": [
+        "new_facility",
+        "expansion",
+        "ops_hiring_wave",
+        "ops_hire"
+      ],
+      "description": "a new warehouse, an expansion, or a wave of operations hiring"
+    },
+    "size": {
+      "min": 100,
+      "max": 1000,
+      "unknownPolicy": "allow-if-not-enterprise"
+    },
+    "stage": "any",
+    "geo": {
+      "hqCountries": [
+        "US",
+        "GB"
+      ]
+    },
+    "recency": {
+      "months": 3
+    },
+    "exclusions": {
+      "names": [
+        "RXO",
+        "XPO",
+        "XPO Logistics",
+        "GXO",
+        "GXO Logistics",
+        "C.H. Robinson",
+        "J.B. Hunt",
+        "DHL",
+        "DHL Supply Chain",
+        "FedEx",
+        "FedEx Logistics",
+        "UPS"
+      ],
+      "domains": []
+    },
+    "rationale": {
+      "who": "Scheduling pain is sharpest for 3PLs running several client accounts in one building.",
+      "whyNow": "A new site or a hiring wave means new shifts to staff, which is when scheduling breaks.",
+      "size": "Below ~100 staff a spreadsheet works; above ~1,000 they usually run an enterprise suite.",
+      "stage": "Funding stage matters little for logistics operators, so no filter.",
+      "geo": "Your site serves the US and UK.",
+      "recency": "Three months keeps the event fresh enough to open a conversation.",
+      "exclusions": "National carriers and giants already run enterprise tools."
+    },
+    "alternatives": [
+      {
+        "label": "Smaller regional 3PLs",
+        "cards": {
+          "size": {
+            "min": 20,
+            "max": 300,
+            "unknownPolicy": "allow-if-not-enterprise"
+          }
+        }
+      },
+      {
+        "label": "Last-mile delivery firms",
+        "cards": {
+          "who": {
+            "industry": "Last-mile delivery",
+            "descriptor": "Regional last-mile and courier companies"
+          },
+          "whyNow": {
+            "signalTypes": [
+              "new_facility",
+              "ops_hiring_wave"
+            ],
+            "description": "a new depot or a wave of driver and dispatch hiring"
+          }
+        }
+      }
+    ]
+  },
+  "cost": 0.012
+}

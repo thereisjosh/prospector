@@ -1,180 +1,382 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import type { IcpId, ProspectRow } from "../src/types";
+import { useCallback, useEffect, useRef, useState } from "react";
+import type { AgentEvent } from "../src/agent/events";
+import type { CardSet } from "../src/planner/cards";
+import { CardsStep, applyAlternative } from "./ui/CardsStep";
+import { RunView, type Decision, type FeedItem } from "./ui/RunView";
+import {
+  countryList,
+  eventLine,
+  joinWords,
+  money,
+  type ContractView,
+  type SuggestionPatch,
+} from "./ui/copy";
+import { AlertIcon, ArrowUpRight, Close, Crosshair, Moon, Spinner, Sun } from "./ui/parts";
+import {
+  api,
+  type Feedback,
+  type InstagramCandidate,
+  type MemoryView,
+  type PlanResult,
+  type ProfileResponse,
+  type RunSnapshot,
+  type SellerProfile,
+  type StepResponse,
+} from "./ui/types";
 
-type SortKey = "conf" | "date";
+type Step = "start" | "cards" | "contract" | "run";
 
-type Scenario = {
-  id: IcpId;
-  name: string;
-  blurb: string;
-  window: string;
-  gate: string;
-  /** Plain-English ICP shown in the search box. */
-  query: string;
-};
-
-const SCENARIOS: Scenario[] = [
-  {
-    id: 1,
-    name: "Logistics, scaling",
-    blurb: "3PLs opening facilities",
-    window: "last 3 months",
-    gate: "US · mid-market · on-domain",
-    query:
-      "mid-market logistics / 3PL companies clearly scaling their operations — US, ~100–1,000 employees",
-  },
-  {
-    id: 2,
-    name: "Payments launch",
-    blurb: "SaaS shipping billing",
-    window: "last 3 months",
-    gate: "US · B2B SaaS · not a PSP",
-    query:
-      "B2B SaaS or marketplaces that just launched or expanded payments or billing — US, ~100–800 employees",
-  },
-  {
-    id: 3,
-    name: "Newly funded",
-    blurb: "First ops / RevOps hire",
-    window: "last 6 months",
-    gate: "US · seed / Series A · ops hire",
-    query:
-      "B2B companies that raised seed / Series A in the last ~6 months and are hiring their first ops / RevOps person",
-  },
+const STEPS: Array<{ id: Step; label: string; title: string; sub: string }> = [
+  { id: "start", label: "Describe", title: "What do you sell?", sub: "One line is enough. We'll work out who to look for." },
+  { id: "cards", label: "Target", title: "Who should we look for?", sub: "Suggested from what you sell. Change anything." },
+  { id: "contract", label: "Approve", title: "Approve the plan", sub: "This is what the agent is allowed to do." },
+  { id: "run", label: "Run", title: "Finding leads", sub: "Live view of the agent's work." },
 ];
 
-function host(url: string): string {
+const DEMO_INPUT = "We sell labor-scheduling software to mid-sized 3PL warehouses in the US and UK";
+const STEP_PAUSE_MS = 400;
+const WS_KEY = "prospector.workspaceId";
+
+function newId(): string {
   try {
-    return new URL(url).hostname.replace(/^www\./, "");
+    return crypto.randomUUID();
   } catch {
-    return url;
+    return `ws-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
   }
 }
 
-/** Only http(s) URLs may become links; anything else (javascript:, data:, ...) renders as text. */
-function isHttpUrl(url: string): boolean {
+function readWorkspaceId(): string {
   try {
-    const { protocol } = new URL(url);
-    return protocol === "http:" || protocol === "https:";
+    const existing = localStorage.getItem(WS_KEY);
+    if (existing && /^[A-Za-z0-9_-]{1,64}$/.test(existing)) return existing;
+    const id = newId();
+    localStorage.setItem(WS_KEY, id);
+    return id;
   } catch {
-    return false;
+    return newId();
   }
 }
 
-function barWidth(value: number): string {
-  return `${Math.round(Math.max(0, Math.min(1, value)) * 100)}%`;
-}
-
-function isHiringSignal(row: ProspectRow): boolean {
-  return /hir|ops|role|posting/i.test(row.signal_strength);
-}
-
-/** Tighten the raw signal label for the pill: drop "new …" and "… signal" filler. */
-function signalLabel(raw: string): string {
-  return raw.replace(/^new\s+/i, "").replace(/\s+signal$/i, "").trim() || raw;
-}
-
-function relativeDate(iso: string): string {
-  const then = new Date(iso).getTime();
-  if (Number.isNaN(then)) return "";
-  const days = Math.round((Date.now() - then) / 86_400_000);
-  if (days <= 0) return "today";
-  if (days === 1) return "yesterday";
-  if (days < 7) return `${days}d ago`;
-  if (days < 30) return `${Math.round(days / 7)}w ago`;
-  if (days < 365) return `${Math.round(days / 30)}mo ago`;
-  return `${Math.round(days / 365)}y ago`;
-}
-
-function sortRows(rows: ProspectRow[], sort: SortKey): ProspectRow[] {
-  return [...rows].sort((a, b) => {
-    if (sort === "date") return a.signal_date < b.signal_date ? 1 : -1;
-    return b.confidence_score - a.confidence_score;
-  });
-}
-
-type RunStats = { count: number; cost: number; seconds: number } | null;
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 export default function Page() {
-  const [active, setActive] = useState(0);
-  const [query, setQuery] = useState(SCENARIOS[0].query);
-  const [rows, setRows] = useState<ProspectRow[]>([]);
-  const [sort, setSort] = useState<SortKey>("conf");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [stats, setStats] = useState<RunStats>(null);
-  const [hasRun, setHasRun] = useState(false);
-  const [aboutOpen, setAboutOpen] = useState(false);
+  const [demo, setDemo] = useState(false);
   const [dark, setDark] = useState(false);
-  const inputRef = useRef<HTMLTextAreaElement>(null);
+  const [aboutOpen, setAboutOpen] = useState(false);
+  const [workspaceId, setWorkspaceId] = useState("");
+  const [memory, setMemory] = useState<MemoryView | null>(null);
+  const [memoryError, setMemoryError] = useState(false);
 
-  const scenario = SCENARIOS[active];
-  const sortedRows = useMemo(() => sortRows(rows, sort), [rows, sort]);
+  const [step, setStep] = useState<Step>("start");
 
-  const runSearch = useCallback(
-    async (index: number, queryText: string) => {
-      const target = SCENARIOS[index];
-      const edited = queryText.trim() !== target.query.trim();
-      setError("");
-      setLoading(true);
+  // Step 1
+  const [input, setInput] = useState("");
+  const [profileBusy, setProfileBusy] = useState(false);
+  const [profileError, setProfileError] = useState("");
+  const [candidates, setCandidates] = useState<InstagramCandidate[] | null>(null);
+  const [askDescription, setAskDescription] = useState(false);
+  const [description, setDescription] = useState("");
+  const [profile, setProfile] = useState<SellerProfile | null>(null);
+  const [editingProfile, setEditingProfile] = useState(false);
 
-      const started = performance.now();
-      try {
-        const response = await fetch("/api/prospect", {
-          method: "POST",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify({
-            icpId: target.id,
-            query: edited ? queryText.trim() : undefined,
-          }),
-        });
-        const data = (await response.json()) as {
-          rows?: ProspectRow[];
-          costDollars?: number;
-          error?: string;
-        };
-        if (!response.ok) throw new Error(data.error ?? `Request failed (${response.status}).`);
+  // Step 2
+  const [baseCards, setBaseCards] = useState<CardSet | null>(null);
+  const [cards, setCards] = useState<CardSet | null>(null);
+  const [activeAlt, setActiveAlt] = useState(-1);
+  const [cardsBusy, setCardsBusy] = useState(false);
+  const [cardsError, setCardsError] = useState("");
 
-        const nextRows = data.rows ?? [];
-        setRows(nextRows);
-        setStats({
-          count: nextRows.length,
-          cost: data.costDollars ?? 0,
-          seconds: (performance.now() - started) / 1000,
-        });
-      } catch (err) {
-        setRows([]);
-        setStats(null);
-        setError(err instanceof Error ? err.message : "Request failed.");
-      } finally {
-        setLoading(false);
-        setHasRun(true);
-      }
-    },
-    [],
-  );
+  // Step 3
+  const [plan, setPlan] = useState<PlanResult | null>(null);
+  const [planBusy, setPlanBusy] = useState(false);
+  const [planError, setPlanError] = useState("");
+  const [targetLeads, setTargetLeads] = useState(10);
+  const [maxSpend, setMaxSpend] = useState(1);
+  const [creating, setCreating] = useState(false);
+  const [createError, setCreateError] = useState("");
+
+  // Step 4
+  const [runId, setRunId] = useState("");
+  const [snapshot, setSnapshot] = useState<RunSnapshot | null>(null);
+  const [feed, setFeed] = useState<FeedItem[]>([]);
+  const [stepping, setStepping] = useState(false);
+  const [pausedByUser, setPausedByUser] = useState(false);
+  const [runError, setRunError] = useState("");
+  const [deciding, setDeciding] = useState(false);
+  const [decisionError, setDecisionError] = useState("");
+  const [feedback, setFeedback] = useState<Record<string, Feedback>>({});
+  const [applying, setApplying] = useState(false);
+
+  const stopRef = useRef(false);
+  const loopRef = useRef(false);
+  const feedSeq = useRef(0);
+  const contractRef = useRef<ContractView | undefined>(undefined);
+  const headingRef = useRef<HTMLHeadingElement>(null);
+
+  /* ---------- boot ---------- */
 
   useEffect(() => {
     const root = document.documentElement;
-    const current =
-      root.getAttribute("data-theme") ??
-      (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    const current = root.getAttribute("data-theme") ?? (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
     setDark(current === "dark");
+    setWorkspaceId(readWorkspaceId());
+    api<{ demo: boolean }>("/api/mode")
+      .then((m) => {
+        setDemo(m.demo);
+        if (m.demo) setInput((v) => v || DEMO_INPUT);
+      })
+      .catch(() => undefined);
   }, []);
 
-  function selectScenario(index: number) {
-    setActive(index);
-    setQuery(SCENARIOS[index].query);
-    setError("");
-  }
+  const refreshMemory = useCallback(async (id: string) => {
+    if (!id) return;
+    try {
+      setMemory(await api<MemoryView>(`/api/workspaces/${encodeURIComponent(id)}/memory`));
+      setMemoryError(false);
+    } catch {
+      setMemoryError(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    void refreshMemory(workspaceId);
+  }, [workspaceId, refreshMemory]);
+
+  useEffect(() => {
+    headingRef.current?.focus({ preventScroll: false });
+  }, [step]);
 
   function toggleTheme() {
     const next = dark ? "light" : "dark";
     document.documentElement.setAttribute("data-theme", next);
     setDark(!dark);
   }
+
+  /* ---------- step 1: profile ---------- */
+
+  async function submitProfile(text: string, opts: { fromDescription?: boolean } = {}) {
+    const value = text.trim();
+    if (!value) return;
+    setProfileBusy(true);
+    setProfileError("");
+    try {
+      const res = await api<ProfileResponse>("/api/planner/profile", { body: { input: value } });
+      if (res.kind === "instagram") {
+        setCandidates(res.candidates);
+        setAskDescription(false);
+        setProfile(null);
+      } else if (res.needsDescription) {
+        setCandidates(null);
+        setAskDescription(true);
+        setProfile(null);
+      } else {
+        const origin = opts.fromDescription ? profile?.origin : undefined;
+        setProfile(origin ? { ...res.profile, origin } : res.profile);
+        setCandidates(null);
+        setAskDescription(false);
+        setEditingProfile(false);
+      }
+    } catch {
+      setProfileError("We couldn't read that just now. Check the address, or describe what you sell in one sentence.");
+    } finally {
+      setProfileBusy(false);
+    }
+  }
+
+  async function loadCards() {
+    if (!profile) return;
+    setStep("cards");
+    setCardsBusy(true);
+    setCardsError("");
+    setBaseCards(null);
+    setCards(null);
+    try {
+      const res = await api<{ cards: CardSet }>("/api/planner/cards", { body: { profile } });
+      setBaseCards(res.cards);
+      setCards(res.cards);
+      setActiveAlt(-1);
+      setPlan(null);
+    } catch {
+      setCardsError("We couldn't suggest targeting right now.");
+    } finally {
+      setCardsBusy(false);
+    }
+  }
+
+  function pickAlternative(index: number) {
+    if (!baseCards) return;
+    setActiveAlt(index);
+    setCards(index === -1 ? baseCards : applyAlternative(baseCards, baseCards.alternatives[index]?.cards ?? {}));
+  }
+
+  /* ---------- step 3: plan ---------- */
+
+  async function buildPlan(from: CardSet) {
+    setPlanBusy(true);
+    setPlanError("");
+    try {
+      const res = await api<PlanResult>("/api/planner/plan", { body: { cards: from } });
+      setPlan(res);
+      setStep("contract");
+      return true;
+    } catch {
+      setPlanError("We couldn't turn these cards into a plan. Try again, or loosen a card.");
+      return false;
+    } finally {
+      setPlanBusy(false);
+    }
+  }
+
+  /* ---------- step 4: run loop ---------- */
+
+  const pushEvents = useCallback((events: AgentEvent[]) => {
+    const lines: FeedItem[] = [];
+    for (const event of events) {
+      const line = eventLine(event, contractRef.current);
+      if (line) lines.push({ ...line, id: ++feedSeq.current });
+    }
+    if (lines.length) setFeed((f) => [...f, ...lines].slice(-300));
+  }, []);
+
+  const refreshSnapshot = useCallback(async (id: string) => {
+    const snap = await api<RunSnapshot>(`/api/runs/${encodeURIComponent(id)}`);
+    contractRef.current = snap.contract;
+    setSnapshot(snap);
+    return snap;
+  }, []);
+
+  const runLoop = useCallback(
+    async (id: string) => {
+      if (loopRef.current) return;
+      loopRef.current = true;
+      stopRef.current = false;
+      setStepping(true);
+      setPausedByUser(false);
+      setRunError("");
+      let finished = false;
+      try {
+        if (!contractRef.current) await refreshSnapshot(id);
+        while (!stopRef.current) {
+          const res = await api<StepResponse>(`/api/runs/${encodeURIComponent(id)}/step`, { body: {} });
+          pushEvents(res.events);
+          const snap = await refreshSnapshot(id);
+          if (snap.status !== "running") {
+            finished = snap.status !== "awaiting_approval";
+            break;
+          }
+          await sleep(STEP_PAUSE_MS);
+        }
+        if (stopRef.current) setPausedByUser(true);
+      } catch {
+        setRunError("Lost contact with the agent. Your results so far are safe.");
+      } finally {
+        loopRef.current = false;
+        setStepping(false);
+        if (finished) void refreshMemory(workspaceId);
+      }
+    },
+    [pushEvents, refreshSnapshot, refreshMemory, workspaceId],
+  );
+
+  async function startRun() {
+    if (!plan) return;
+    setCreating(true);
+    setCreateError("");
+    try {
+      const res = await api<{ id: string }>("/api/runs", {
+        body: { plan: plan.plan, workspaceId, targetLeads, maxCostDollars: maxSpend },
+      });
+      setRunId(res.id);
+      setSnapshot(null);
+      setFeed([]);
+      setFeedback({});
+      contractRef.current = undefined;
+      setStep("run");
+      void runLoop(res.id);
+    } catch {
+      setCreateError("The agent couldn't start. Try again in a moment.");
+    } finally {
+      setCreating(false);
+    }
+  }
+
+  async function decide(decision: Decision) {
+    if (!runId) return;
+    setDeciding(true);
+    setDecisionError("");
+    try {
+      const res = await api<StepResponse>(`/api/runs/${encodeURIComponent(runId)}/decision`, { body: decision });
+      pushEvents(res.events);
+      await refreshSnapshot(runId);
+      void runLoop(runId);
+    } catch {
+      setDecisionError("That didn't go through. Try again.");
+    } finally {
+      setDeciding(false);
+    }
+  }
+
+  async function sendFeedback(company: string, next: Feedback, send: boolean) {
+    setFeedback((f) => ({ ...f, [company]: { ...next, error: false } }));
+    if (!send || !next.verdict) return;
+    setFeedback((f) => ({ ...f, [company]: { ...next, sending: true } }));
+    try {
+      await api(`/api/workspaces/${encodeURIComponent(workspaceId)}/feedback`, {
+        body: { company, verdict: next.verdict, reason: next.reason?.trim() || undefined },
+      });
+      setFeedback((f) => ({ ...f, [company]: { ...next, sending: false, sent: true, open: false } }));
+      void refreshMemory(workspaceId);
+    } catch {
+      setFeedback((f) => ({ ...f, [company]: { ...next, sending: false, error: true } }));
+    }
+  }
+
+  async function applySuggestion(patch: SuggestionPatch) {
+    setApplying(true);
+    setCards(patch.cards);
+    if (patch.maxCost !== undefined) setMaxSpend(Math.min(5, patch.maxCost));
+    const ok = await buildPlan(patch.cards);
+    setApplying(false);
+    if (!ok) setStep("cards");
+  }
+
+  function newSearch() {
+    stopRef.current = true;
+    setStep("start");
+    setProfile(null);
+    setCandidates(null);
+    setAskDescription(false);
+    setCards(null);
+    setBaseCards(null);
+    setPlan(null);
+    setRunId("");
+    setSnapshot(null);
+    setFeed([]);
+    setInput(demo ? DEMO_INPUT : "");
+  }
+
+  async function clearMemory() {
+    try {
+      await api(`/api/workspaces/${encodeURIComponent(workspaceId)}/memory`, { method: "DELETE" });
+      await refreshMemory(workspaceId);
+    } catch {
+      setMemoryError(true);
+    }
+  }
+
+  /* ---------- render ---------- */
+
+  const runActive = step === "run" && (stepping || snapshot?.status === "running" || snapshot?.status === "awaiting_approval") && !pausedByUser;
+  const reached: Record<Step, boolean> = {
+    start: true,
+    cards: !!cards,
+    contract: !!plan,
+    run: !!runId,
+  };
+  const meta = STEPS.find((s) => s.id === step)!;
+  const finishedRun = snapshot && ["done", "stopped", "error"].includes(snapshot.status);
 
   return (
     <div className="app">
@@ -184,183 +386,160 @@ export default function Page() {
           <span>Prospector</span>
         </div>
 
-        <nav className="scenarios" aria-label="Scenarios">
-          <p className="rail-label">Scenarios</p>
-          {SCENARIOS.map((item, index) => (
-            <button
-              key={item.id}
-              type="button"
-              className={`scenario ${active === index ? "is-active" : ""}`}
-              onClick={() => selectScenario(index)}
-            >
-              <span className="scenario-name">{item.name}</span>
-              <span className="scenario-blurb">{item.blurb}</span>
-            </button>
-          ))}
+        <nav className="steps" aria-label="Steps">
+          <ol>
+            {STEPS.map((s, i) => (
+              <li key={s.id}>
+                <button
+                  type="button"
+                  className={`step-link ${step === s.id ? "is-active" : ""}`}
+                  aria-current={step === s.id ? "step" : undefined}
+                  disabled={!reached[s.id] || runActive || step === s.id}
+                  onClick={() => setStep(s.id)}
+                >
+                  <span className="step-num">{i + 1}</span>
+                  <span>{s.label}</span>
+                </button>
+              </li>
+            ))}
+          </ol>
         </nav>
+
+        <MemoryPanel memory={memory} error={memoryError} onClear={clearMemory} disabled={runActive} />
 
         <div className="rail-foot">
           <button type="button" className="rail-link" onClick={() => setAboutOpen(true)}>
             About this build
           </button>
-          <a
-            className="rail-link"
-            href="https://github.com/thereisjosh/prospector"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a className="rail-link" href="https://github.com/thereisjosh/prospector" target="_blank" rel="noopener noreferrer">
             View source <ArrowUpRight />
           </a>
-          <p className="rail-powered">Powered by Exa Search</p>
         </div>
       </aside>
 
       <div className="stage">
         <header className="topbar">
           <div className="topbar-title">
-            <h1>{scenario.name}</h1>
-            <p>Trigger-based prospecting</p>
+            <h1 ref={headingRef} tabIndex={-1}>
+              {step === "run" && finishedRun ? "Results" : meta.title}
+            </h1>
+            <p>{step === "run" && finishedRun ? "Leads with evidence, and what was turned down." : meta.sub}</p>
           </div>
           <div className="topbar-actions">
-            <span className="live" title="Every run queries Exa live on the server key">
-              <span className="live-dot" /> Live on Exa
-            </span>
-            <button
-              type="button"
-              className="icon-btn"
-              onClick={toggleTheme}
-              aria-label={dark ? "Switch to light theme" : "Switch to dark theme"}
-            >
+            {demo ? (
+              <span className="live is-demo" title="No API keys needed: this replays a recorded agent run">
+                <span className="live-dot" /> Demo: replaying a recorded run
+              </span>
+            ) : (
+              <span className="live">
+                <span className="live-dot" /> Live
+              </span>
+            )}
+            <button type="button" className="icon-btn" onClick={toggleTheme} aria-label={dark ? "Switch to light theme" : "Switch to dark theme"}>
               {dark ? <Sun /> : <Moon />}
             </button>
           </div>
         </header>
 
         <main className="content">
-          <section className="search" aria-label="Search">
-            <label className="search-field">
-              <textarea
-                ref={inputRef}
-                rows={2}
-                spellCheck={false}
-                placeholder="Describe the customer you're looking for…"
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-                onKeyDown={(event) => {
-                  if (event.key === "Enter" && !event.shiftKey) {
-                    event.preventDefault();
-                    void runSearch(active, query);
-                  }
-                }}
-              />
-              <button
-                type="button"
-                className="search-go"
-                disabled={loading}
-                onClick={() => void runSearch(active, query)}
-              >
-                {loading ? "Searching…" : "Find companies"}
-              </button>
-            </label>
-
-            <p className="meta">
-              <span>
-                Freshness <b>{scenario.window}</b>
-              </span>
-              <span className="meta-dot" />
-              <span>
-                Signal-first <b>neural</b>
-              </span>
-              <span className="meta-dot" />
-              <span>
-                Gate <b>{scenario.gate}</b>
-              </span>
-            </p>
-          </section>
-
-          {(rows.length > 0 || loading) && (
-            <div className="results-bar">
-              <span className="results-count">
-                {loading ? (
-                  "Querying Exa…"
-                ) : (
-                  <>
-                    <b>{rows.length}</b> {rows.length === 1 ? "company" : "companies"}
-                    {stats && (
-                      <span className="results-stats">
-                        {" "}
-                        · ${stats.cost.toFixed(3)} · {stats.seconds.toFixed(1)}s
-                      </span>
-                    )}
-                  </>
-                )}
-              </span>
-              {!loading && rows.length > 0 && (
-                <label className="sort">
-                  Sort
-                  <select
-                    value={sort}
-                    onChange={(event) => setSort(event.target.value as SortKey)}
-                  >
-                    <option value="conf">Confidence</option>
-                    <option value="date">Most recent</option>
-                  </select>
-                </label>
-              )}
-            </div>
+          {step === "start" && (
+            <StartStep
+              demo={demo}
+              input={input}
+              setInput={setInput}
+              busy={profileBusy}
+              error={profileError}
+              candidates={candidates}
+              askDescription={askDescription}
+              description={description}
+              setDescription={setDescription}
+              profile={profile}
+              setProfile={setProfile}
+              editing={editingProfile}
+              setEditing={setEditingProfile}
+              onSubmit={() => submitProfile(input)}
+              onPickCandidate={(domain) => submitProfile(domain)}
+              onDescribeInstead={() => {
+                setCandidates(null);
+                setAskDescription(true);
+              }}
+              onDescribe={() => submitProfile(description, { fromDescription: true })}
+              onContinue={loadCards}
+            />
           )}
 
-          {loading ? (
-            <ResultsTable>
-              {Array.from({ length: 5 }).map((_, index) => (
-                <div className="row row-skeleton" key={index}>
-                  <span className="sk sk-lg" />
-                  <span className="sk" />
-                  <span className="sk" />
-                  <span className="sk" />
-                  <span className="sk" />
-                </div>
-              ))}
-            </ResultsTable>
-          ) : error ? (
-            <div className="state state-error">
-              <AlertIcon />
-              <p>{error}</p>
-              <button type="button" className="ghost-btn" onClick={() => void runSearch(active, query)}>
-                Try again
-              </button>
-            </div>
-          ) : rows.length > 0 ? (
-            <ResultsTable>
-              {sortedRows.map((row, index) => (
-                <ResultRow
-                  key={`${row.company}-${row.signal_source_url}-${row.signal_date}`}
-                  row={row}
-                  index={index}
-                />
-              ))}
-            </ResultsTable>
-          ) : (
-            <div className="state state-empty">
-              <div className="state-icon">
-                <Crosshair />
+          {step === "cards" &&
+            (cards && baseCards ? (
+              <CardsStep
+                cards={cards}
+                base={baseCards}
+                activeAlt={activeAlt}
+                onPickAlt={pickAlternative}
+                onChange={(c) => {
+                  setCards(c);
+                  setPlan(null);
+                }}
+                onContinue={() => void buildPlan(cards)}
+                onBack={() => setStep("start")}
+                busy={planBusy}
+                error={planError}
+              />
+            ) : cardsBusy ? (
+              <div className="state" aria-live="polite">
+                <Spinner />
+                <p>Suggesting who to target…</p>
               </div>
-              <h2>{hasRun ? "No companies matched" : "Ready to prospect"}</h2>
-              <p>
-                {hasRun
-                  ? "No companies cleared the fit gate for this scenario. Try another scenario or widen the description."
-                  : "Pick a scenario, refine the description if you like, then find companies with a fresh, cited why-now signal."}
-              </p>
-              {!hasRun && (
-                <button
-                  type="button"
-                  className="primary-btn"
-                  onClick={() => void runSearch(active, query)}
-                >
-                  Find companies
-                </button>
-              )}
-            </div>
+            ) : (
+              <div className="state state-error" role="alert">
+                <AlertIcon />
+                <p>{cardsError || "Nothing to show yet."}</p>
+                <div className="actions center">
+                  <button type="button" className="ghost-btn" onClick={() => setStep("start")}>Back</button>
+                  {profile && <button type="button" className="primary-btn" onClick={() => void loadCards()}>Try again</button>}
+                </div>
+              </div>
+            ))}
+
+          {step === "contract" && plan && cards && (
+            <ContractStep
+              demo={demo}
+              cards={cards}
+              plan={plan}
+              targetLeads={targetLeads}
+              setTargetLeads={setTargetLeads}
+              maxSpend={maxSpend}
+              setMaxSpend={setMaxSpend}
+              busy={creating}
+              error={createError}
+              onRun={startRun}
+              onBack={() => setStep("cards")}
+            />
+          )}
+
+          {step === "run" && (
+            <RunView
+              demo={demo}
+              snapshot={snapshot}
+              feed={feed}
+              stepping={stepping}
+              pausedByUser={pausedByUser}
+              runError={runError}
+              deciding={deciding}
+              decisionError={decisionError}
+              onStop={() => {
+                stopRef.current = true;
+              }}
+              onResume={() => runId && void runLoop(runId)}
+              onDecide={decide}
+              feedback={feedback}
+              onFeedback={sendFeedback}
+              cards={cards}
+              maxSpend={maxSpend}
+              onApply={applySuggestion}
+              applying={applying || planBusy}
+              onEditTargeting={() => setStep("cards")}
+              onNewSearch={newSearch}
+            />
           )}
         </main>
       </div>
@@ -370,61 +549,334 @@ export default function Page() {
   );
 }
 
-function ResultsTable({ children }: { children: React.ReactNode }) {
+/* ---------- step 1 ---------- */
+
+function profileSentence(p: SellerProfile): string {
+  const offering = p.offering?.trim().replace(/\.$/, "") ?? "something we couldn't pin down";
+  const buyers = p.buyer_roles.length ? ` to ${joinWords(p.buyer_roles.slice(0, 3))}` : "";
+  const where = p.geo_served.length ? ` in ${joinWords(p.geo_served.slice(0, 4))}` : "";
+  return `We think you sell ${offering.charAt(0).toLowerCase()}${offering.slice(1)}${buyers}${where}.`;
+}
+
+function splitList(text: string): string[] {
+  return text.split(",").map((s) => s.trim()).filter(Boolean);
+}
+
+function StartStep(props: {
+  demo: boolean;
+  input: string;
+  setInput: (v: string) => void;
+  busy: boolean;
+  error: string;
+  candidates: InstagramCandidate[] | null;
+  askDescription: boolean;
+  description: string;
+  setDescription: (v: string) => void;
+  profile: SellerProfile | null;
+  setProfile: (p: SellerProfile) => void;
+  editing: boolean;
+  setEditing: (v: boolean) => void;
+  onSubmit: () => void;
+  onPickCandidate: (domain: string) => void;
+  onDescribeInstead: () => void;
+  onDescribe: () => void;
+  onContinue: () => void;
+}) {
+  const { profile } = props;
   return (
-    <div className="results">
-      <div className="row row-head">
-        <span>Company &amp; why-now signal</span>
-        <span>Signal</span>
-        <span>Detected</span>
-        <span>Confidence</span>
-        <span>Source</span>
-      </div>
-      {children}
+    <div className="step narrow">
+      <form
+        className="search-field"
+        onSubmit={(e) => {
+          e.preventDefault();
+          props.onSubmit();
+        }}
+      >
+        <label htmlFor="seller-input" className="sr-only">
+          Your website, Instagram handle, or one sentence about what you sell
+        </label>
+        <textarea
+          id="seller-input"
+          rows={2}
+          spellCheck={false}
+          placeholder="Your website, Instagram handle, or one sentence about what you sell"
+          value={props.input}
+          onChange={(e) => props.setInput(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && !e.shiftKey) {
+              e.preventDefault();
+              props.onSubmit();
+            }
+          }}
+        />
+        <button type="submit" className="search-go" disabled={props.busy || !props.input.trim()}>
+          {props.busy ? "Reading…" : "Continue"}
+        </button>
+      </form>
+      <p className="hint">
+        e.g. <i>acme-logistics.com</i>, <i>@acmecoffee</i>, or <i>We sell payment terminals to cafes in Singapore</i>
+      </p>
+      {props.demo && (
+        <p className="demo-note">Demo mode replays one recorded seller, so any input leads to the same example.</p>
+      )}
+
+      {props.error && (
+        <p className="inline-error" role="alert">{props.error}</p>
+      )}
+
+      {props.candidates && (
+        <section className="panel" aria-labelledby="iyou-h">
+          <h2 id="iyou-h" className="panel-title">Is this you?</h2>
+          {props.candidates.length === 0 ? (
+            <p className="muted">We couldn't find a website for that handle.</p>
+          ) : (
+            <ul className="candidates">
+              {props.candidates.slice(0, 5).map((c) => (
+                <li key={c.domain}>
+                  <button type="button" className="candidate" disabled={props.busy} onClick={() => props.onPickCandidate(c.domain)}>
+                    <span className="candidate-domain">{c.domain}</span>
+                    <span className="muted small">Yes, this is our site</span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+          <button type="button" className="link-btn" onClick={props.onDescribeInstead}>
+            None of these. I'll describe it instead
+          </button>
+        </section>
+      )}
+
+      {props.askDescription && (
+        <section className="panel" aria-labelledby="desc-h">
+          <h2 id="desc-h" className="panel-title">Tell us in one sentence</h2>
+          <p className="muted">What do you sell, and to whom?</p>
+          <form
+            className="row-form"
+            onSubmit={(e) => {
+              e.preventDefault();
+              props.onDescribe();
+            }}
+          >
+            <label htmlFor="desc-input" className="sr-only">What you sell, in one sentence</label>
+            <input id="desc-input" className="input" value={props.description} placeholder="We sell … to …" onChange={(e) => props.setDescription(e.target.value)} />
+            <button type="submit" className="primary-btn" disabled={props.busy || !props.description.trim()}>
+              {props.busy ? "Reading…" : "Continue"}
+            </button>
+          </form>
+        </section>
+      )}
+
+      {props.busy && !profile && (
+        <div className="state slim" aria-live="polite">
+          <Spinner />
+          <p>Reading about your business…</p>
+        </div>
+      )}
+
+      {profile && (
+        <section className="panel profile" aria-labelledby="profile-h">
+          <h2 id="profile-h" className="panel-title">Here's what we understood</h2>
+          {props.editing ? (
+            <div className="editor">
+              <div className="field">
+                <label htmlFor="p-offering">What you sell</label>
+                <input id="p-offering" className="input" value={profile.offering ?? ""} onChange={(e) => props.setProfile({ ...profile, offering: e.target.value })} />
+              </div>
+              <div className="field">
+                <label htmlFor="p-buyers">Who buys it (comma separated)</label>
+                <input id="p-buyers" className="input" defaultValue={profile.buyer_roles.join(", ")} onChange={(e) => props.setProfile({ ...profile, buyer_roles: splitList(e.target.value) })} />
+              </div>
+              <div className="field">
+                <label htmlFor="p-geo">Where you sell (comma separated)</label>
+                <input id="p-geo" className="input" defaultValue={profile.geo_served.join(", ")} onChange={(e) => props.setProfile({ ...profile, geo_served: splitList(e.target.value) })} />
+              </div>
+              <div className="actions">
+                <button type="button" className="ghost-btn" onClick={() => props.setEditing(false)} disabled={!profile.offering?.trim()}>Done</button>
+              </div>
+            </div>
+          ) : (
+            <p className="profile-line">
+              {profileSentence(profile)}{" "}
+              <button type="button" className="link-btn" onClick={() => props.setEditing(true)}>Edit</button>
+            </p>
+          )}
+          <div className="actions">
+            <button type="button" className="primary-btn" onClick={props.onContinue} disabled={props.editing || !profile.offering?.trim()}>
+              Suggest who to target
+            </button>
+          </div>
+        </section>
+      )}
     </div>
   );
 }
 
-function ResultRow({ row, index }: { row: ProspectRow; index: number }) {
-  const rel = relativeDate(row.signal_date);
+/* ---------- step 3 ---------- */
+
+function ContractStep(props: {
+  demo: boolean;
+  cards: CardSet;
+  plan: PlanResult;
+  targetLeads: number;
+  setTargetLeads: (n: number) => void;
+  maxSpend: number;
+  setMaxSpend: (n: number) => void;
+  busy: boolean;
+  error: string;
+  onRun: () => void;
+  onBack: () => void;
+}) {
+  const { plan, cards } = props;
+  const p = plan.plan;
+  const required = p.gateFields.filter((g) => g.required);
+  const optional = p.gateFields.filter((g) => !g.required);
+  const spendValid = props.maxSpend >= 0.1 && props.maxSpend <= 5;
+  const targetValid = Number.isInteger(props.targetLeads) && props.targetLeads >= 1 && props.targetLeads <= 50;
+  const overBudget = plan.estimatedRunCost > props.maxSpend;
+  const range = `${p.employeeRange.min.toLocaleString("en-US")}–${p.employeeRange.max.toLocaleString("en-US")}`;
+  const question = (q: string) => q.replace(/\?$/, "");
+
   return (
-    <div className="row row-data" style={{ animationDelay: `${Math.min(index, 12) * 28}ms` }}>
-      <div className="cell-company">
-        <div className="company-name">
-          {row.net_new && <span className="net-new" title="Net-new vs the baseline list" />}
-          {row.company}
+    <div className="step narrow">
+      <section className="panel contract" aria-labelledby="contract-h">
+        <h2 id="contract-h" className="sr-only">The plan</h2>
+        <div className="contract-goal">
+          <label htmlFor="target">Find</label>
+          <input id="target" className="input num" type="number" min={1} max={50} value={props.targetLeads}
+            onChange={(e) => props.setTargetLeads(Number(e.target.value))} aria-describedby="target-sub" />
+          <span id="target-sub">companies that are</span>
         </div>
-        <div className="why-now">{row.why_now_signal}</div>
-      </div>
-      <div className="cell-signal">
-        <span className={`signal-tag ${isHiringSignal(row) ? "is-hire" : "is-strong"}`}>
-          {signalLabel(row.signal_strength)}
-        </span>
-      </div>
-      <div className="cell-date">
-        <span className="date-abs">{row.signal_date}</span>
-        {rel && <span className="date-rel">{rel}</span>}
-      </div>
-      <div className="cell-conf">
-        <div className="conf-track">
-          <div className="conf-fill" style={{ width: barWidth(row.confidence_score) }} />
+        <p className="contract-who">
+          <b>{cards.who.descriptor}</b> <span className="muted">({cards.who.industry})</span>
+        </p>
+        <dl className="terms">
+          <div>
+            <dt>Why now</dt>
+            <dd>{cards.whyNow.description}, in the last {p.months} month{p.months === 1 ? "" : "s"}</dd>
+          </div>
+          <div>
+            <dt>Size</dt>
+            <dd>
+              About {range} employees.{" "}
+              {p.employeeRange.unknownPolicy === "allow-if-not-enterprise"
+                ? "Companies that don't publish their size are kept unless they look like a large enterprise."
+                : "Companies that don't publish their size are left out."}
+            </dd>
+          </div>
+          <div>
+            <dt>Based in</dt>
+            <dd>{p.hqCountries.length ? countryList(p.hqCountries) : "Anywhere"}</dd>
+          </div>
+          {required.length > 0 && (
+            <div>
+              <dt>Must be true</dt>
+              <dd>
+                <ul className="plain-list">{required.map((g) => <li key={g.key}>{question(g.question)}</li>)}</ul>
+              </dd>
+            </div>
+          )}
+          {optional.length > 0 && (
+            <div>
+              <dt>Nice to have</dt>
+              <dd>
+                <ul className="plain-list">{optional.map((g) => <li key={g.key}>{question(g.question)}</li>)}</ul>
+              </dd>
+            </div>
+          )}
+          <div>
+            <dt>Leave out</dt>
+            <dd>
+              {p.excludeNames.length === 0 && p.excludeDomains.length === 0
+                ? "Nothing"
+                : [
+                    p.excludeNames.length ? `${p.excludeNames.length} compan${p.excludeNames.length === 1 ? "y" : "ies"} (${p.excludeNames.slice(0, 4).join(", ")}${p.excludeNames.length > 4 ? ", …" : ""})` : "",
+                    p.excludeDomains.length ? `${p.excludeDomains.length} website${p.excludeDomains.length === 1 ? "" : "s"}` : "",
+                  ].filter(Boolean).join(" and ")}
+            </dd>
+          </div>
+        </dl>
+        <details className="why">
+          <summary>Starting search ideas</summary>
+          <p className="muted small">The agent writes its own searches. These are ideas it may start from.</p>
+          <ul className="plain-list quotes">{p.signalQueries.map((q) => <li key={q}>{q}</li>)}</ul>
+        </details>
+      </section>
+
+      <section className="panel budget" aria-labelledby="budget-h">
+        <h2 id="budget-h" className="panel-title">Budget</h2>
+        <div className="budget-row">
+          <label htmlFor="spend">Stop spending at</label>
+          <span className="money-input">
+            <span aria-hidden="true">$</span>
+            <input id="spend" className="input num" type="number" min={0.1} max={5} step={0.25} value={props.maxSpend}
+              onChange={(e) => props.setMaxSpend(Number(e.target.value))} />
+          </span>
+          <span className="muted">Estimated cost: about {money(plan.estimatedRunCost)}</span>
         </div>
-        <span className="conf-value">{row.confidence_score.toFixed(2)}</span>
-      </div>
-      <div className="cell-source">
-        {row.signal_source_url && isHttpUrl(row.signal_source_url) ? (
-          <a href={row.signal_source_url} target="_blank" rel="noopener noreferrer">
-            {host(row.signal_source_url)} <ArrowUpRight />
-          </a>
-        ) : row.signal_source_url ? (
-          <span className="no-source">{host(row.signal_source_url) || "unsafe link"}</span>
-        ) : (
-          <span className="no-source">—</span>
+        {!spendValid && <p className="inline-error">Choose a limit between $0.10 and $5.00.</p>}
+        {!targetValid && <p className="inline-error">Ask for between 1 and 50 leads.</p>}
+        {spendValid && overBudget && (
+          <p className="note">The estimate is above your limit. The agent stops at the limit and tells you what it found.</p>
         )}
+        <p className="muted small">
+          Before it spends anything, the agent shows you its opening plan for an OK. It also asks before changing any of the above.
+        </p>
+      </section>
+
+      {props.demo && <p className="demo-note">Demo: the run that follows is a recording, so changes here won't change it.</p>}
+      {props.error && <p className="inline-error" role="alert">{props.error}</p>}
+
+      <div className="actions">
+        <button type="button" className="ghost-btn" onClick={props.onBack} disabled={props.busy}>Edit targeting</button>
+        <button type="button" className="primary-btn" onClick={props.onRun} disabled={props.busy || !spendValid || !targetValid}>
+          {props.busy ? "Starting…" : "Run agent"}
+        </button>
       </div>
     </div>
   );
 }
+
+/* ---------- memory ---------- */
+
+function MemoryPanel({ memory, error, onClear, disabled }: { memory: MemoryView | null; error: boolean; onClear: () => void; disabled: boolean }) {
+  const [confirming, setConfirming] = useState(false);
+  const empty = memory && memory.seenCount === 0 && memory.preferenceNotes.length === 0;
+  return (
+    <details className="memory">
+      <summary>What I remember</summary>
+      {error ? (
+        <p className="memory-text">Couldn't load memory.</p>
+      ) : !memory ? (
+        <p className="memory-text">Loading…</p>
+      ) : empty ? (
+        <p className="memory-text">Nothing yet. After a run I skip companies you've already seen and keep your feedback.</p>
+      ) : (
+        <>
+          <p className="memory-text">
+            <b>{memory.seenCount}</b> compan{memory.seenCount === 1 ? "y" : "ies"} already seen. Future runs skip them.
+          </p>
+          {memory.preferenceNotes.length > 0 && (
+            <ul className="memory-notes">
+              {memory.preferenceNotes.slice(-5).map((n) => <li key={n}>{n}</li>)}
+            </ul>
+          )}
+          {confirming ? (
+            <div className="memory-confirm">
+              <span>Forget everything?</span>
+              <button type="button" className="rail-btn danger" onClick={() => { setConfirming(false); onClear(); }}>Clear</button>
+              <button type="button" className="rail-btn" onClick={() => setConfirming(false)}>Cancel</button>
+            </div>
+          ) : (
+            <button type="button" className="rail-btn" disabled={disabled} onClick={() => setConfirming(true)}>Clear memory</button>
+          )}
+        </>
+      )}
+    </details>
+  );
+}
+
+/* ---------- about ---------- */
 
 function AboutDialog({ onClose }: { onClose: () => void }) {
   useEffect(() => {
@@ -436,105 +888,28 @@ function AboutDialog({ onClose }: { onClose: () => void }) {
   }, [onClose]);
 
   return (
-    <div
-      className="scrim"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="about-title"
-      onClick={(event) => {
-        if (event.target === event.currentTarget) onClose();
-      }}
-    >
+    <div className="scrim" role="dialog" aria-modal="true" aria-labelledby="about-title" onClick={(e) => e.target === e.currentTarget && onClose()}>
       <div className="dialog">
-        <button type="button" className="icon-btn dialog-close" onClick={onClose} aria-label="Close">
+        <button type="button" className="icon-btn dialog-close" onClick={onClose} aria-label="Close" autoFocus>
           <Close />
         </button>
         <h2 id="about-title">About this build</h2>
         <p>
-          Prospector turns a plain-English customer profile into a shortlist of companies, each
-          matched by a fresh, cited <b>why-now trigger</b> — a new facility, a funding round, a
-          hiring wave. It runs a signal-first pipeline: a date-filtered trigger search, company
-          enrichment, a firmographic fit gate, then confidence scoring.
+          Prospector finds companies that are ready to buy what you sell, each backed by a recent, cited <b>why-now event</b>: a
+          new facility, a funding round, a hiring wave.
         </p>
-        <p className="dialog-sub">Where this fits at Exa</p>
-        <ul className="fit-list">
-          <li>
-            <b>Sales / Enrichment</b>
-            <span>11x · HubSpot · HockeyStack</span>
-          </li>
-          <li>
-            <b>Agents</b>
-            <span>Cognition · StackAI · monday</span>
-          </li>
-          <li>
-            <b>Coding</b>
-            <span>Cognition · CodeRabbit · Cursor</span>
-          </li>
-        </ul>
+        <p>
+          You approve the plan; an AI agent then searches, checks and decides on its own within it. It asks before it spends
+          anything and before it changes your targeting. Every lead must pass checks written in code (date, size, location,
+          exclusions), so the agent can't talk a bad lead into the results.
+        </p>
         <p className="dialog-foot">
-          Built AI-assisted; architecture, API design, and evaluation by Joshua Ang.{" "}
+          Built AI-assisted; product, architecture and evaluation by Joshua Ang.{" "}
           <a href="https://github.com/thereisjosh/prospector" target="_blank" rel="noopener noreferrer">
             github.com/thereisjosh/prospector
           </a>
         </p>
       </div>
     </div>
-  );
-}
-
-/* ---------- icons ---------- */
-
-function Crosshair() {
-  return (
-    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
-      <circle cx="10" cy="10" r="6.25" />
-      <path d="M10 1.5v3M10 15.5v3M1.5 10h3M15.5 10h3" strokeLinecap="round" />
-      <circle cx="10" cy="10" r="1.6" fill="currentColor" stroke="none" />
-    </svg>
-  );
-}
-
-function ArrowUpRight() {
-  return (
-    <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true">
-      <path d="M3.5 8.5 8.5 3.5M4.5 3.5h4v4" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function Moon() {
-  return (
-    <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-      <path d="M15 10.2A6.2 6.2 0 1 1 7.8 3a4.8 4.8 0 0 0 7.2 7.2Z" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function Sun() {
-  return (
-    <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-      <circle cx="9" cy="9" r="3.4" />
-      <path
-        d="M9 1.5v2M9 14.5v2M1.5 9h2M14.5 9h2M3.6 3.6l1.4 1.4M13 13l1.4 1.4M14.4 3.6 13 5M5 13l-1.4 1.4"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
-function Close() {
-  return (
-    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-      <path d="m4 4 8 8M12 4l-8 8" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function AlertIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
-      <circle cx="12" cy="12" r="9" />
-      <path d="M12 7.5v5M12 16h.01" strokeLinecap="round" />
-    </svg>
   );
 }

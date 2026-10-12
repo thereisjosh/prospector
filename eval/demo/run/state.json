@@ -1,0 +1,415 @@
+{
+  "id": "recorded-demo-run",
+  "createdAt": "2026-10-11T06:00:00.000Z",
+  "workspaceId": "demo",
+  "model": "claude-opus-5-5",
+  "contract": {
+    "label": "Mid-sized 3PL, warehousing and fulfillment providers with a new warehouse, an expansion, or a wave of operations hiring",
+    "months": 3,
+    "signalQueries": [
+      "logistics or 3PL company hiring a wave of operations manager roles / opening a new warehouse",
+      "third-party logistics provider opening a new warehouse fulfillment center",
+      "3PL fulfillment company hiring warehouse operations manager",
+      "last-mile logistics company hiring operations manager",
+      "US third party logistics company opens distribution center expansion"
+    ],
+    "signalSummaryQuery": "the why-now signal and its date",
+    "companySummaryQuery": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters.",
+    "gateFields": [
+      {
+        "key": "is_third_party_logistics",
+        "question": "provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses)",
+        "required": true
+      }
+    ],
+    "employeeRange": {
+      "min": 100,
+      "max": 2000,
+      "unknownPolicy": "allow-if-not-enterprise"
+    },
+    "hqCountries": [
+      "US",
+      "GB"
+    ],
+    "excludeDomains": [],
+    "excludeNames": [
+      "RXO",
+      "XPO",
+      "XPO Logistics",
+      "GXO",
+      "GXO Logistics",
+      "C.H. Robinson",
+      "J.B. Hunt",
+      "DHL",
+      "DHL Supply Chain",
+      "FedEx",
+      "FedEx Logistics",
+      "UPS"
+    ],
+    "signalTypes": [
+      "new_facility",
+      "expansion",
+      "ops_hiring_wave",
+      "ops_hire"
+    ],
+    "targetLeads": 10,
+    "maxCostDollars": 1,
+    "preferenceNotes": []
+  },
+  "initialContract": {
+    "label": "Mid-sized 3PL, warehousing and fulfillment providers with a new warehouse, an expansion, or a wave of operations hiring",
+    "months": 3,
+    "signalQueries": [
+      "logistics or 3PL company hiring a wave of operations manager roles / opening a new warehouse",
+      "third-party logistics provider opening a new warehouse fulfillment center",
+      "3PL fulfillment company hiring warehouse operations manager",
+      "last-mile logistics company hiring operations manager",
+      "US third party logistics company opens distribution center expansion"
+    ],
+    "signalSummaryQuery": "the why-now signal and its date",
+    "companySummaryQuery": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters.",
+    "gateFields": [
+      {
+        "key": "is_third_party_logistics",
+        "question": "provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses)",
+        "required": true
+      }
+    ],
+    "employeeRange": {
+      "min": 100,
+      "max": 1000,
+      "unknownPolicy": "allow-if-not-enterprise"
+    },
+    "hqCountries": [
+      "US",
+      "GB"
+    ],
+    "excludeDomains": [],
+    "excludeNames": [
+      "RXO",
+      "XPO",
+      "XPO Logistics",
+      "GXO",
+      "GXO Logistics",
+      "C.H. Robinson",
+      "J.B. Hunt",
+      "DHL",
+      "DHL Supply Chain",
+      "FedEx",
+      "FedEx Logistics",
+      "UPS"
+    ],
+    "signalTypes": [
+      "new_facility",
+      "expansion",
+      "ops_hiring_wave",
+      "ops_hire"
+    ],
+    "targetLeads": 10,
+    "maxCostDollars": 1,
+    "preferenceNotes": []
+  },
+  "messages": [],
+  "status": "done",
+  "stopReason": "finish",
+  "strategyApproved": true,
+  "summary": "Found 6 of the 10 leads you asked for. New-warehouse announcements worked best; hiring posts mostly surfaced companies that were too small or outside the US and UK. Most rejections were on size, in both directions.",
+  "spend": {
+    "exa": 0.42824999999999985,
+    "claude": 0.4086,
+    "total": 0.8368499999999999
+  },
+  "counters": {
+    "turns": 12,
+    "activeMs": 0,
+    "noProgressTurns": 0,
+    "toolCalls": 39
+  },
+  "leads": [
+    {
+      "company": "Verst Logistics",
+      "signal_url": "https://www.lanereport.com/189032/2026/08/verst-logistics-opens-northern-kentucky-excellence-center/",
+      "why_now": "Opened a new Northern Kentucky excellence center in August, adding warehouse space and shifts to staff.",
+      "summary": {
+        "company_name": "Verst Logistics",
+        "signal_type": "new_facility",
+        "signal_summary": "Verst Logistics opens a new 20,119-square-foot Excellence Center in Northern Kentucky (CirclePort, Boone County), uniting leadership and 75 employees as part of national expansion.",
+        "signal_date": "2026-08-20"
+      },
+      "enrichment": {
+        "description": "Verst Logistics is a Transportation, Logistics, Supply Chain and Storage company offering 3PL, contract packaging, omnichannel fulfillment, and warehousing solutions built around the supply chain.",
+        "industry": "Transportation, Logistics, Supply Chain and Storage",
+        "employee_estimate": 507,
+        "is_public_or_enterprise": false,
+        "hq": "Walton, Kentucky, United States",
+        "is_third_party_logistics": true
+      },
+      "details": {
+        "key": "verstlogistics",
+        "event_date": "2026-08-20",
+        "date_source": "signal",
+        "size_basis": "unverified",
+        "required_gates_passed": [
+          "is_third_party_logistics"
+        ],
+        "optional_gates_passed": [],
+        "hq": "Walton, Kentucky, United States",
+        "multiplier": 0.82,
+        "fit_reason": "required gates passed: is_third_party_logistics; employee count 507 unverified by its source; HQ Walton, Kentucky, United States."
+      },
+      "turn": 4
+    },
+    {
+      "company": "G10 Fulfillment",
+      "signal_url": "https://www.prnewswire.com/news-releases/g10-fulfillment-to-celebrate-grand-opening-of-new-kenosha-distribution-facility-with-ribbon-cutting-ceremony-302865623.html",
+      "why_now": "Opened a 315,000 sq ft distribution facility in Kenosha in September.",
+      "summary": {
+        "company_name": "G10 Fulfillment",
+        "signal_type": "new_facility",
+        "signal_summary": "Grand opening of a new Kenosha distribution facility with ribbon-cutting ceremony; 315,000-square-foot facility replacing Twin Lakes location, expanding Midwest capacity, with local officials attending.",
+        "signal_date": "2026-09-10"
+      },
+      "enrichment": {
+        "description": "G10 Fulfillment is a Transportation, Logistics, Supply Chain and Storage company offering e-commerce fulfillment, retail fulfillment, hazmat fulfillment, wholesale fulfillment, and same day shipping with custom capabilities and integrations, as well as channelpoint and edi solutions. They provide a full suite of fulfillment services for DTC and B2B across key U.S. markets with over 1.5 million sq. ft. of warehouse space.",
+        "industry": "Transportation, Logistics, Supply Chain and Storage",
+        "employee_estimate": 93,
+        "is_public_or_enterprise": false,
+        "hq": "Delavan, Wisconsin, United States",
+        "is_third_party_logistics": true
+      },
+      "details": {
+        "key": "g10fulfillment",
+        "event_date": "2026-09-01",
+        "date_source": "published_fallback",
+        "size_basis": "unverified",
+        "required_gates_passed": [
+          "is_third_party_logistics"
+        ],
+        "optional_gates_passed": [],
+        "hq": "Delavan, Wisconsin, United States",
+        "multiplier": 0.82,
+        "fit_reason": "required gates passed: is_third_party_logistics; employee count 93 unverified by its source; HQ Delavan, Wisconsin, United States."
+      },
+      "turn": 4
+    },
+    {
+      "company": "RGL Logistics",
+      "signal_url": "https://thebusinessnews.com/northeast/rgl-logistics-unveils-new-warehouse-in-appleton/",
+      "why_now": "Unveiled a new warehouse in Appleton, Wisconsin in October.",
+      "summary": {
+        "company_name": "RGL Logistics",
+        "signal_type": "new_facility",
+        "signal_summary": "RGL Logistics unveils a new warehouse at its Appleton campus, expanding total footprint to over 4 million square feet across Neenah, Green Bay, and Appleton.",
+        "signal_date": "2023-10-05"
+      },
+      "enrichment": {
+        "description": "RGL Logistics is a Transportation, Logistics, Supply Chain and Storage company providing full-warehousing, distribution, and transportation management services.",
+        "industry": "Transportation, Logistics, Supply Chain and Storage",
+        "employee_estimate": 232,
+        "is_public_or_enterprise": false,
+        "hq": "Green Bay, Wisconsin, United States",
+        "is_third_party_logistics": true
+      },
+      "details": {
+        "key": "rgllogistics",
+        "event_date": "2026-10-05",
+        "date_source": "published_fallback",
+        "size_basis": "unverified",
+        "required_gates_passed": [
+          "is_third_party_logistics"
+        ],
+        "optional_gates_passed": [],
+        "hq": "Green Bay, Wisconsin, United States",
+        "multiplier": 0.82,
+        "fit_reason": "required gates passed: is_third_party_logistics; employee count 232 unverified by its source; HQ Green Bay, Wisconsin, United States."
+      },
+      "turn": 4
+    },
+    {
+      "company": "Diakon Logistics",
+      "signal_url": "https://diakonlogistics.bamboohr.com/careers/155",
+      "why_now": "Hiring a 3PL operations manager for its Fredericksburg site in September.",
+      "summary": {
+        "company_name": "Diakonlogistics",
+        "signal_type": "ops_hiring_wave",
+        "signal_summary": "Operations Manager - Cleveland role posted by Diakonlogistics in the Cleveland department; no explicit why-now signal or event date provided on the page.",
+        "signal_date": "null"
+      },
+      "enrichment": {
+        "description": "Diakon Logistics is a national third-party logistics provider focused on complex home delivery, offering white-glove final mile delivery, installation, assembly, warehousing, and customer-focused service for appliance, furniture, and big/bulky retailers.",
+        "industry": "Transportation, Logistics, Supply Chain and Storage",
+        "employee_estimate": 150,
+        "is_public_or_enterprise": false,
+        "hq": "Austin, United States",
+        "is_third_party_logistics": true
+      },
+      "details": {
+        "key": "diakonlogistics",
+        "event_date": "2026-09-02",
+        "date_source": "published_fallback",
+        "size_basis": "unverified",
+        "required_gates_passed": [
+          "is_third_party_logistics"
+        ],
+        "optional_gates_passed": [],
+        "hq": "Austin, United States",
+        "multiplier": 0.82,
+        "fit_reason": "required gates passed: is_third_party_logistics; employee count 150 unverified by its source; HQ Austin, United States."
+      },
+      "turn": 7
+    },
+    {
+      "company": "Meyer Logistics Inc.",
+      "signal_url": "https://theshopmag.com/news/meyer-logistics-cross-dock-rochester-minnesota/",
+      "why_now": "Opened a new cross-dock in Rochester, Minnesota in October.",
+      "summary": {
+        "company_name": "Meyer Logistics Inc.",
+        "signal_type": "new_facility",
+        "signal_summary": "Meyer Logistics opens a new cross-dock facility in Rochester, Minnesota, expanding its delivery network across the Upper Midwest for aftermarket, marine, RV and powersports dealers.",
+        "signal_date": "2026-10-09"
+      },
+      "enrichment": {
+        "description": "Meyer Logistics Inc. is a Transportation, Logistics, Supply Chain and Storage company offering services focused on fast, flexible and reliable logistics solutions.",
+        "industry": "Transportation, Logistics, Supply Chain and Storage",
+        "employee_estimate": 87,
+        "is_public_or_enterprise": false,
+        "hq": "Jasper, Indiana, United States",
+        "is_third_party_logistics": true
+      },
+      "details": {
+        "key": "meyerlogistics",
+        "event_date": "2026-10-09",
+        "date_source": "signal",
+        "size_basis": "unverified",
+        "required_gates_passed": [
+          "is_third_party_logistics"
+        ],
+        "optional_gates_passed": [],
+        "hq": "Jasper, Indiana, United States",
+        "multiplier": 0.82,
+        "fit_reason": "required gates passed: is_third_party_logistics; employee count 87 unverified by its source; HQ Jasper, Indiana, United States."
+      },
+      "turn": 7
+    },
+    {
+      "company": "Davidson Logistics",
+      "signal_url": "https://www.firstalert4.com/2026/10/08/davidson-logistics-opens-new-warehouse-bridgeton/",
+      "why_now": "Opened a new warehouse in Bridgeton, Missouri in October.",
+      "summary": {
+        "company_name": "Davidson Logistics",
+        "signal_type": "new_facility",
+        "signal_summary": "Davidson Logistics opened a new warehouse in Bridgeton as part of its expansion and potential future hires tied to Boeing contracts.",
+        "signal_date": "2026-10-08"
+      },
+      "enrichment": {
+        "description": "Davidson Logistics is a Transportation, Logistics, Supply Chain and Storage company.",
+        "industry": "Transportation, Logistics, Supply Chain and Storage",
+        "employee_estimate": 50,
+        "is_public_or_enterprise": false,
+        "hq": "Saint Louis, Missouri, United States",
+        "is_third_party_logistics": true
+      },
+      "details": {
+        "key": "davidsonlogistics",
+        "event_date": "2026-10-08",
+        "date_source": "signal",
+        "size_basis": "unverified",
+        "required_gates_passed": [
+          "is_third_party_logistics"
+        ],
+        "optional_gates_passed": [],
+        "hq": "Saint Louis, Missouri, United States",
+        "multiplier": 0.82,
+        "fit_reason": "required gates passed: is_third_party_logistics; employee count 50 unverified by its source; HQ Saint Louis, Missouri, United States."
+      },
+      "turn": 11
+    }
+  ],
+  "rejected": [
+    {
+      "company": "A. Duie Pyle",
+      "code": "size",
+      "reason": "unverified estimate 3,560 is far outside 100–1000",
+      "turn": 4
+    },
+    {
+      "company": "Averitt",
+      "code": "enterprise",
+      "reason": "company appears public/enterprise scale",
+      "turn": 4
+    },
+    {
+      "company": "TSS, Inc.",
+      "code": "required_gate:is_third_party_logistics",
+      "reason": "required gate(s) not satisfied: is_third_party_logistics",
+      "turn": 7
+    },
+    {
+      "company": "Shipbobinc",
+      "code": "size",
+      "reason": "unverified estimate 1,707 is far outside 100–1000",
+      "turn": 7
+    },
+    {
+      "company": "QE Dynamics LLC",
+      "code": "size",
+      "reason": "unverified estimate 2 is far outside 100–2000",
+      "turn": 11
+    },
+    {
+      "company": "Clark Distributing Co.",
+      "code": "size",
+      "reason": "unverified estimate 23 is far outside 100–2000",
+      "turn": 11
+    },
+    {
+      "company": "Delivery One LLC",
+      "code": "hq",
+      "reason": "HQ \"Amman, Jordan\" is outside US/GB",
+      "turn": 11
+    }
+  ],
+  "todo": "**Leads: 6 of 10**\n- [x] New-warehouse search: best source of fits\n- [x] Hiring search: mostly too small or outside the US/UK\n- [x] Size range widened to 100–2,000\n- [ ] Suggest: allow smaller companies, or look back 6 months",
+  "handback": {
+    "shortfall": "6 of 10",
+    "top_reasons": [
+      {
+        "code": "size",
+        "count": 4
+      },
+      {
+        "code": "enterprise",
+        "count": 1
+      }
+    ],
+    "suggestions": [
+      {
+        "field": "employeeRange",
+        "value": {
+          "min": 20,
+          "max": 2000,
+          "unknownPolicy": "allow-if-not-enterprise"
+        },
+        "why": "Several active regional 3PLs had fewer than 100 employees."
+      },
+      {
+        "field": "months",
+        "value": 6,
+        "why": "Most fresh announcements in the last 3 months were already checked."
+      }
+    ]
+  },
+  "adaptive": {
+    "queryRewrites": 2,
+    "lookupsSkipped": 4,
+    "verificationReads": 1
+  },
+  "caches": {
+    "signalsByUrl": {},
+    "enrichmentByName": {},
+    "candidateCompanies": [],
+    "searchQueries": [],
+    "seenKeys": []
+  },
+  "_placeholder": "Scripted placeholder: real Exa data and real gate verdicts, scripted agent turns. Replace with a live recording (see eval/demo/build-placeholder.ts)."
+}

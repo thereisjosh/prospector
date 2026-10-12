@@ -1,6 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { NextResponse } from "next/server";
 import { suggestCards, type SellerProfile } from "../../../../src/planner";
+import { isDemoMode, readDemoJson } from "../../../../src/demo/mode";
 
 export const runtime = "nodejs";
 
@@ -10,6 +11,7 @@ export async function POST(request: Request) {
     if (!body.profile || typeof body.profile !== "object" || Array.isArray(body.profile)) {
       return NextResponse.json({ error: "Invalid request." }, { status: 400 });
     }
+    if (isDemoMode()) return NextResponse.json(await readDemoJson("planner/cards.json"));
     const client = new Anthropic();
     const result = await suggestCards(body.profile as SellerProfile, { client });
     return NextResponse.json(result);
