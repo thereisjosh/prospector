@@ -501,11 +501,29 @@ function suggestionFor(state: RunState, code: string): Handback["suggestions"][n
   return { field: "none", value: "", why: `Candidates were turned down for ${code}; no single plan change addresses it.` };
 }
 
+const UNVERIFIABLE_CODES = new Set(["no_enrichment", "entity_mismatch"]);
+export const UNVERIFIABLE_WHY = "Most candidates couldn't be verified from public sources (no reliable company page, or records matched a similarly named company elsewhere). Widening size or recency won't help; this buyer type needs a different evidence source.";
+
 export function codeHandback(state: RunState, top: Array<{ code: string; count: number }> = rejectionCounts(state)): Handback {
+  const all = rejectionCounts(state);
+  const unverifiable = all.filter((r) => UNVERIFIABLE_CODES.has(r.code)).reduce((n, r) => n + r.count, 0);
+  const size = all.find((r) => r.code === "size")?.count ?? 0;
+  const topTwo = top.slice(0, 2);
+  if (unverifiable > size) {
+    // Unverifiable candidates dominate size rejections: widening the range cannot help.
+    const rest = topTwo
+      .filter((r) => !UNVERIFIABLE_CODES.has(r.code) && r.code !== "size")
+      .map(({ code }) => suggestionFor(state, code));
+    return {
+      shortfall: `${state.leads.length} of ${state.contract.targetLeads}`,
+      top_reasons: topTwo,
+      suggestions: [{ field: "none", value: "", why: UNVERIFIABLE_WHY }, ...rest].slice(0, 2),
+    };
+  }
   return {
     shortfall: `${state.leads.length} of ${state.contract.targetLeads}`,
-    top_reasons: top.slice(0, 2),
-    suggestions: top.slice(0, 2).map(({ code }) => suggestionFor(state, code)),
+    top_reasons: topTwo,
+    suggestions: topTwo.map(({ code }) => suggestionFor(state, code)),
   };
 }
 

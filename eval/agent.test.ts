@@ -18,7 +18,7 @@ const tmp = vi.hoisted(() => {
 });
 import type { SearchPlan } from "../src/plan";
 import { createRunState, loadState, saveState, screenedByCode, StaleStateError, type RunState } from "../src/agent/state";
-import { codeHandback, decide, rejectionCounts, step, stopRun } from "../src/agent/loop";
+import { codeHandback, UNVERIFIABLE_WHY, decide, rejectionCounts, step, stopRun } from "../src/agent/loop";
 import { agentTools, validHandback } from "../src/agent/tools";
 import { InvalidIdError } from "../src/agent/ids";
 import { eventInput, readLastEvents, appendEvents } from "../src/agent/events";
@@ -787,6 +787,20 @@ describe("agent loop", () => {
       });
       it("enterprise: field none, contract working as intended", () => {
         expect(first(withCompanies("enterprise", [{ name: "A" }]))).toMatchObject({ field: "none", why: "These are large companies; the contract is working as intended." });
+      });
+      it("unverifiable (lookup misses) outnumbering size -> first suggestion is none with the evidence-source why", () => {
+        const s = withCompanies("no_enrichment", ["A", "B", "C", "D", "E"].map((name) => ({ name: `Miss${name}` })));
+        s.rejected = [{ company: "S1", code: "size", reason: "r", turn: 1 }, { company: "S2", code: "size", reason: "r", turn: 1 }];
+        s.caches.enrichmentByName[squashName("S1")] = { summary: { employee_estimate: 10 } };
+        s.caches.enrichmentByName[squashName("S2")] = { summary: { employee_estimate: 12 } };
+        const h = codeHandback(s);
+        expect(h.suggestions[0]).toEqual({ field: "none", value: "", why: UNVERIFIABLE_WHY });
+        expect(h.suggestions.every((x) => x.field !== "employeeRange")).toBe(true);
+      });
+      it("size outnumbering lookup misses -> size suggestion as before", () => {
+        const s = withCompanies("size", ["A", "B", "C", "D", "E"].map((name) => ({ name: `Small${name}`, employees: 10 })));
+        s.screened = [...(s.screened ?? []), { company: "Miss", code: "no_enrichment", reason: "r", turn: 1, stage: "lookup" }];
+        expect(first(s)).toMatchObject({ field: "employeeRange", value: { min: 25, max: 500 } });
       });
       it("never emits field 'scope'", () => {
         const s = withCompanies("exclude_name", [{ name: "A" }]);
