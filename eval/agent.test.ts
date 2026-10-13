@@ -9,6 +9,11 @@ const tmp = vi.hoisted(() => {
   const root = mkdtempSync(join(tmpdir(), "agent-test-"));
   process.env.RUNS_DIR = join(root, "runs");
   process.env.WORKSPACES_DIR = join(root, "workspaces");
+  // Live-route tests must not depend on the machine having real keys (CI has none;
+  // without keys the API falls back to demo mode and /api/runs creates demo-… runs).
+  process.env.ANTHROPIC_API_KEY ??= "test-key";
+  process.env.EXA_API_KEY ??= "test-key";
+  delete process.env.DEMO_MODE;
   return { root, runs: join(root, "runs"), workspaces: join(root, "workspaces") };
 });
 import type { SearchPlan } from "../src/plan";
