@@ -8,9 +8,9 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    env:
-      # Tests mock every model and Exa call; demo mode needs no keys.
-      DEMO_MODE: "1"
+    # Tests mock every model and Exa call and set their own data dirs; no keys or
+    # DEMO_MODE here — DEMO_MODE=1 would route /api/runs to the demo replay and
+    # break the live-route tests (that is what turned the first CI run red).
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
