@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import Anthropic from "@anthropic-ai/sdk";
 import type { Message, ToolResultBlockParam, ToolUseBlock } from "@anthropic-ai/sdk/resources/messages";
 import { CostGuard } from "../exa";
@@ -22,6 +23,91 @@ function usageOf(response: Message) {
     output: response.usage.output_tokens,
     cache_read: response.usage.cache_read_input_tokens ?? 0,
     cache_creation: response.usage.cache_creation_input_tokens ?? 0,
+  };
+}
+
+const RESPONSE_TEXT_LIMIT = 2000;
+const TOOL_INPUT_LIMIT = 200;
+
+function sha256(value: string): string {
+  return createHash("sha256").update(value).digest("hex");
+}
+
+/**
+ * The system prompt and tool list are the same on almost every call, so their hashes are
+ * cached per slot and recomputed only when the text changes (compared by length, then content).
+ */
+const hashCache = new Map<"system" | "tools", { text: string; hash: string }>();
+const hashCacheStats = { hits: 0, misses: 0 };
+
+function cachedSha256(slot: "system" | "tools", text: string): string {
+  const cached = hashCache.get(slot);
+  if (cached && cached.text.length === text.length && cached.text === text) {
+    hashCacheStats.hits += 1;
+    return cached.hash;
+  }
+  hashCacheStats.misses += 1;
+  const hash = sha256(text);
+  hashCache.set(slot, { text, hash });
+  return hash;
+}
+
+/** Tests only. */
+export function __promptHashCacheStats(): { hits: number; misses: number } {
+  return { ...hashCacheStats };
+}
+
+/**
+ * Trace fields for a model_call event (SPEC-observability §2–§3): model, stop_reason,
+ * hashes of the system prompt and tool list (their text is in git), how many messages
+ * were sent (history itself stays in state.json), and the response clipped
+ * (text 2,000 chars, each tool_use input 200). Thinking text is never recorded (§3).
+ */
+function modelCallFields(
+  state: RunState,
+  request: { system: string; tools: unknown; messageCount: number },
+  response: Message,
+): Record<string, unknown> {
+  const blocks = Array.isArray(response.content) ? response.content : [];
+  const text = blocks.flatMap((b) => (b.type === "text" ? [b.text] : [])).join("\n");
+  const uses = blocks.filter((b): b is ToolUseBlock => b.type === "tool_use");
+  return {
+    model: state.model,
+    ...(typeof response.id === "string" ? { responseId: response.id } : {}),
+    stop_reason: response.stop_reason ?? null,
+    systemSha256: cachedSha256("system", request.system),
+    toolsSha256: cachedSha256("tools", JSON.stringify(request.tools)),
+    messages: request.messageCount,
+    response: {
+      text: text.slice(0, RESPONSE_TEXT_LIMIT),
+      tool_uses: uses.map((u) => ({ id: u.id, name: u.name, input: (JSON.stringify(u.input ?? null) ?? "null").slice(0, TOOL_INPUT_LIMIT) })),
+    },
+  };
+}
+
+function clipText(value: string, limit: number): string {
+  return value.length > limit ? `${value.slice(0, limit - 1)}…` : value;
+}
+
+function statusSnapshot(state: RunState) {
+  return {
+    status: state.status,
+    turn: state.counters.turns,
+    spend: { total: state.spend.total, claude: state.spend.claude, exa: state.spend.exa },
+    leads: state.leads.length,
+  };
+}
+
+function policySnapshot(state: RunState) {
+  return {
+    spend: state.spend.total,
+    maxCostDollars: state.contract.maxCostDollars,
+    turns: state.counters.turns,
+    maxTurns: DEFAULT_LIMITS.maxTurns,
+    activeMs: state.counters.activeMs,
+    noProgressTurns: state.counters.noProgressTurns,
+    leads: state.leads.length,
+    targetLeads: state.contract.targetLeads,
   };
 }
 
@@ -119,7 +205,7 @@ function limitReason(state: RunState): { status: "done" | "stopped"; reason: str
 
 async function finishRun(state: RunState, events: AgentEvent[], status: "done" | "stopped", reason: string, deps: LoopDeps) {
   if (state.leads.length < state.contract.targetLeads && !state.handback) {
-    await handback(state, deps);
+    await handback(state, deps, events);
   }
   stop(state, status, reason);
   events.push(makeEvent(state, "stop", { reason, status }));
@@ -143,6 +229,7 @@ export async function step(state: RunState, deps: LoopDeps): Promise<StepResult>
 
   const hit = limitReason(state);
   if (hit) {
+    events.push(makeEvent(state, "policy", { scope: "loop", check: "limits", outcome: "stop", reason: hit.reason, status: hit.status, snapshot: policySnapshot(state) }));
     await finishRun(state, events, hit.status, hit.reason, deps);
     await appendEvents(state.id, events);
     return { state, events };
@@ -150,23 +237,29 @@ export async function step(state: RunState, deps: LoopDeps): Promise<StepResult>
 
   const started = Date.now();
   const beforeProgress = noProgressSnapshot(state);
+  const before = statusSnapshot(state);
   const decisionResumed = state.resumedFromDecision === true;
   delete state.resumedFromDecision;
   state.counters.turns += 1;
+  events.push(makeEvent(state, "policy", { scope: "loop", check: "limits", outcome: "pass", snapshot: policySnapshot(state) }));
   try {
     const maxTokens = maxTokensForTurn(state);
     if (maxTokens === undefined) {
+      events.push(makeEvent(state, "policy", { scope: "loop", check: "max_tokens", outcome: "stop", reason: "budget", snapshot: policySnapshot(state) }));
       state.handback = codeHandback(state, rejectionCounts(state));
       stop(state, "stopped", "budget");
       events.push(makeEvent(state, "stop", { reason: "budget", status: "stopped" }));
       await appendRunToMemory(state);
       return { state, events };
     }
+    const system = systemPrompt();
+    const tools = agentTools();
+    const messageCount = state.messages.length;
     const response = (await deps.client.messages.create({
       model: state.model,
       max_tokens: maxTokens,
-      system: [{ type: "text", text: systemPrompt(), cache_control: { type: "ephemeral" } }],
-      tools: agentTools(),
+      system: [{ type: "text", text: system, cache_control: { type: "ephemeral" } }],
+      tools,
       messages: state.messages,
       cache_control: { type: "ephemeral" },
       output_config: { effort: "medium" },
@@ -175,7 +268,7 @@ export async function step(state: RunState, deps: LoopDeps): Promise<StepResult>
     state.messages.push({ role: "assistant", content: response.content } as Anthropic.MessageParam);
     const claudeCost = addClaudeCost(state, response);
     state.counters.consecutiveErrors = 0;
-    events.push(makeEvent(state, "model_call", { tokens: usageOf(response), claudeCost, latencyMs }));
+    events.push(makeEvent(state, "model_call", { tokens: usageOf(response), claudeCost, latencyMs, ...modelCallFields(state, { system, tools, messageCount }, response) }));
 
     if (response.stop_reason === "end_turn") {
       await finishRun(state, events, "done", "end_turn", deps);
@@ -218,6 +311,7 @@ export async function step(state: RunState, deps: LoopDeps): Promise<StepResult>
       state.spend.exa = guard.spent;
       state.spend.total = state.spend.claude + state.spend.exa;
       if (guard.breached) {
+        events.push(makeEvent(state, "policy", { scope: "loop", check: "exa_guard", outcome: "stop", reason: "budget", snapshot: policySnapshot(state) }));
         state.handback = codeHandback(state, rejectionCounts(state));
         stop(state, "stopped", "budget");
         events.push(makeEvent(state, "stop", { reason: "budget", status: "stopped" }));
@@ -231,19 +325,29 @@ export async function step(state: RunState, deps: LoopDeps): Promise<StepResult>
       const useById = new Map(uses.map((tool) => [tool.id, tool]));
       for (const item of all) {
         const original = useById.get(item.result.tool_use_id);
-        events.push(makeEvent(state, "tool_call", { tool: original?.name, input: eventInput(original?.name, original?.input), is_error: item.result.is_error === true, exaCost: item.exaCost }));
+        events.push(makeEvent(state, "tool_call", {
+          tool: original?.name,
+          input: eventInput(original?.name, original?.input),
+          is_error: item.result.is_error === true,
+          exaCost: item.exaCost,
+          toolUseId: item.result.tool_use_id,
+          latencyMs: item.latencyMs ?? 0,
+          resultSummary: item.resultSummary ?? clipText(String(item.result.content ?? ""), 300),
+        }));
         if (item.verdictEvent) events.push(makeEvent(state, "submit_verdict", item.verdictEvent));
       }
       if (approval) {
+        const request = makeEvent(state, "approval_request", { tool: approval.name, input: approval.input });
         state.pendingApproval = {
           toolUseId: approval.id,
           tool: approval.name,
           input: approval.input,
           otherToolResults: ordered.filter((result) => result.tool_use_id !== approval.id),
           toolUseOrder: uses.map((tool) => tool.id),
+          requestedAt: request.ts,
         };
         state.status = "awaiting_approval";
-        events.push(makeEvent(state, "approval_request", { tool: approval.name, input: approval.input }));
+        events.push(request);
       } else {
         state.messages.push(userToolResultsMessage(state, ordered));
         if (all.some((item) => item.finish)) await finishRun(state, events, "done", "finish", deps);
@@ -274,6 +378,14 @@ export async function step(state: RunState, deps: LoopDeps): Promise<StepResult>
     state.counters.activeMs += elapsed;
     const progress = madeProgress(state, beforeProgress, decisionResumed);
     state.counters.noProgressTurns = progress ? 0 : state.counters.noProgressTurns + 1;
+    events.push(makeEvent(state, "turn_end", {
+      durationMs: elapsed,
+      before,
+      status: state.status,
+      ...(state.stopReason !== undefined ? { stopReason: state.stopReason } : {}),
+      spend: { total: state.spend.total, claude: state.spend.claude, exa: state.spend.exa },
+      leads: state.leads.length,
+    }));
     await appendEvents(state.id, events);
   }
   return { state, events };
@@ -321,7 +433,13 @@ export async function decide(
   state.status = "running";
   state.counters.noProgressTurns = 0;
   state.resumedFromDecision = true;
-  events.push(makeEvent(state, "decision", { approve: decision.approve, note: decision.note, revisedValue: decision.revisedValue, ...(pending.tool === "request_scope_change" ? { before } : {}), ...(decisionError ? { error: decisionError } : {}) }));
+  const decidedAt = new Date().toISOString();
+  events.push({
+    ...makeEvent(state, "decision", { approve: decision.approve, note: decision.note, revisedValue: decision.revisedValue, ...(pending.tool === "request_scope_change" ? { before } : {}), ...(decisionError ? { error: decisionError } : {}) }),
+    ts: decidedAt,
+    tool: pending.tool,
+    ...(pending.requestedAt ? { requestTs: pending.requestedAt, waitMs: Math.max(0, Date.parse(decidedAt) - Date.parse(pending.requestedAt)) } : {}),
+  });
   await appendEvents(state.id, events);
   return { state, events };
 }
@@ -392,28 +510,39 @@ export async function stopRun(state: RunState): Promise<StepResult> {
   return { state, events };
 }
 
-export async function handback(state: RunState, deps: LoopDeps): Promise<Handback> {
+/**
+ * Ask the model for a structured handback. With `events`, the model_call event joins the
+ * caller's batch (so it lands in the same append, in order); without, it is appended now.
+ */
+export async function handback(state: RunState, deps: LoopDeps, events?: AgentEvent[]): Promise<Handback> {
   const counts = rejectionCounts(state);
   const fallback = codeHandback(state, counts);
   if (handbackFits(state)) {
     try {
       // History contains tool_use blocks, so the tool list must still be sent;
       // tool_choice "none" forces a text answer.
+      const system = systemPrompt();
+      const tools = agentTools();
+      const messages = [
+        ...state.messages,
+        { role: "user", content: `Return only JSON with exactly this shape: {"shortfall": string, "top_reasons": [{"code","count"}], "suggestions": [{"field","value","why"}] max 2}. Use these computed rejection counts: ${JSON.stringify({ shortfall: fallback.shortfall, top_reasons: fallback.top_reasons })}` },
+      ];
+      const started = Date.now();
       const response = (await deps.client.messages.create({
         model: state.model,
         max_tokens: 1500,
-        system: [{ type: "text", text: systemPrompt(), cache_control: { type: "ephemeral" } }],
-        tools: agentTools(),
+        system: [{ type: "text", text: system, cache_control: { type: "ephemeral" } }],
+        tools,
         tool_choice: { type: "none" },
-        messages: [
-          ...state.messages,
-          { role: "user", content: `Return only JSON with exactly this shape: {"shortfall": string, "top_reasons": [{"code","count"}], "suggestions": [{"field","value","why"}] max 2}. Use these computed rejection counts: ${JSON.stringify({ shortfall: fallback.shortfall, top_reasons: fallback.top_reasons })}` },
-        ],
+        messages,
         cache_control: { type: "ephemeral" },
         output_config: { effort: "medium" },
       } as Parameters<typeof deps.client.messages.create>[0])) as Message;
+      const latencyMs = Date.now() - started;
       const claudeCost = addClaudeCost(state, response);
-      await appendEvents(state.id, [makeEvent(state, "model_call", { tokens: usageOf(response), claudeCost, latencyMs: 0, handback: true })]);
+      const event = makeEvent(state, "model_call", { tokens: usageOf(response), claudeCost, latencyMs, handback: true, ...modelCallFields(state, { system, tools, messageCount: messages.length }, response) });
+      if (events) events.push(event);
+      else await appendEvents(state.id, [event]);
       const text = response.content.find((b) => b.type === "text")?.text ?? "";
       state.handback = parseHandback(text) ?? fallback;
       return state.handback;

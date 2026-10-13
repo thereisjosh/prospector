@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { PlannerTokenLimitError, suggestCards, type SellerProfile } from "../../../../src/planner";
 import { isDemoMode, readDemoJson } from "../../../../src/demo/mode";
 import { addVisitorSpend } from "../../../../src/agent/quota";
+import { tracePlanner } from "../../../../src/agent/trace";
 import { addDailySpend, allowanceResponse, dailyBudgetReached, dailyBudgetResponse, missingWorkspaceResponse, rateLimit, readJsonBody, RequestValidationError, validateSmallShape, workspaceIdFromRequest } from "../../_shared";
 
 export const runtime = "nodejs";
@@ -23,7 +24,13 @@ export async function POST(request: Request) {
     const exhausted = await allowanceResponse(workspaceId);
     if (exhausted) return exhausted;
     const client = new Anthropic();
-    const result = await suggestCards(body.profile as SellerProfile, { client });
+    const result = await tracePlanner(
+      "cards",
+      workspaceId,
+      { profile: body.profile },
+      () => suggestCards(body.profile as SellerProfile, { client }),
+      (r) => ({ cards: r.cards, cost: r.cost }),
+    );
     await addDailySpend(result.cost);
     await addVisitorSpend(workspaceId, result.cost);
     return NextResponse.json(result);

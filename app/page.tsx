@@ -361,9 +361,16 @@ export default function Page() {
     setFeedback((f) => ({ ...f, [company]: { ...next, error: false } }));
     if (!send || !next.verdict) return;
     setFeedback((f) => ({ ...f, [company]: { ...next, sending: true } }));
+    const lead = snapshot?.leads.find((l) => l.company === company);
     try {
       await api(`/api/workspaces/${encodeURIComponent(workspaceId)}/feedback`, {
-        body: { company, verdict: next.verdict, reason: next.reason?.trim() || undefined },
+        body: {
+          company,
+          verdict: next.verdict,
+          reason: next.reason?.trim() || undefined,
+          // Ties the vote to the lead's trace (user_feedback score); omitted for demo runs.
+          ...(lead && runId && !runId.startsWith("demo-") ? { runId, signal_url: lead.signal_url } : {}),
+        },
       });
       setFeedback((f) => ({ ...f, [company]: { ...next, sending: false, sent: true, open: false } }));
       void refreshMemory(workspaceId);

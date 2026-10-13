@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import type Anthropic from "@anthropic-ai/sdk";
 import {
   CostGuard,
@@ -343,14 +344,57 @@ function screenAtLookup(
   return `Would be rejected: ${firstFailure!.code} — ${firstFailure!.reason}`;
 }
 
+const SUMMARY_LIMIT = 300;
+const PAGE_HASH_PREFIX = 4096;
+
+/** Prefix hash for the trace: sha256 of the first 4,096 chars (16 hex). With `chars=` it identifies a page without hashing all of it. */
+export function pagePrefixHash(text: string): string {
+  return createHash("sha256").update(text.slice(0, PAGE_HASH_PREFIX)).digest("hex").slice(0, 16);
+}
+
+function clipSummary(value: string): string {
+  return value.length > SUMMARY_LIMIT ? `${value.slice(0, SUMMARY_LIMIT - 1)}…` : value;
+}
+
+export type ToolExecution = {
+  result: Anthropic.ToolResultBlockParam;
+  exaCost: number;
+  /** Wall time of this call, for the trace. */
+  latencyMs?: number;
+  /** ≤ 300 chars for the trace: counts, codes, names, URLs; never page text. */
+  resultSummary?: string;
+  acceptedLead?: boolean;
+  newCandidate?: boolean;
+  finish?: boolean;
+  verdictEvent?: { company: string; code: string; reason: string; ok: boolean };
+};
+
 export async function executeTool(
   state: RunState,
   tool: { id: string; name: string; input: unknown },
   deps: ToolDeps,
   ctx: ToolExecutionContext,
-): Promise<{ result: Anthropic.ToolResultBlockParam; exaCost: number; acceptedLead?: boolean; newCandidate?: boolean; finish?: boolean; verdictEvent?: { company: string; code: string; reason: string; ok: boolean } }> {
+): Promise<ToolExecution> {
+  const started = Date.now();
+  const executed = await executeToolInner(state, tool, deps, ctx);
+  const summary = executed.summary ?? String(executed.result.content ?? "");
+  const { summary: _summary, ...rest } = executed;
+  return {
+    ...rest,
+    latencyMs: Date.now() - started,
+    resultSummary: clipSummary(executed.result.is_error === true ? `error: ${summary}` : summary),
+  };
+}
+
+async function executeToolInner(
+  state: RunState,
+  tool: { id: string; name: string; input: unknown },
+  deps: ToolDeps,
+  ctx: ToolExecutionContext,
+): Promise<Omit<ToolExecution, "latencyMs" | "resultSummary"> & { summary?: string }> {
   const { guard } = ctx;
   const beforeSpent = guard.spent;
+  let summary: string | undefined;
   let content = "ok";
   let acceptedLead = false;
   let newCandidate = false;
@@ -411,6 +455,8 @@ export async function executeTool(
         lines.push(compactSignalLine(result, summary));
       }
       content = lines.join("\n") || "no results";
+      const companies = lines.map((line) => line.split(" · ")[0]).filter(Boolean);
+      summary = `${lines.length} result${lines.length === 1 ? "" : "s"} of ${response.results.length}${companies.length ? `: ${companies.join(", ")}` : ""}`;
     } else if (tool.name === "lookup_company") {
       requireStrategy(state);
       const name = String(input.name ?? "").trim();
@@ -430,8 +476,9 @@ export async function executeTool(
         if (!companyResultMatches(name, looked.result, looked.summary as CompanySummary)) {
           (state.lookupMisses ??= []).push(state.counters.turns);
           content = `No reliable company page found for ${name}; try read_page on its site or submit with a different name`;
+          summary = `no_match: ${name}${looked.result?.url ? ` · ${looked.result.url}` : ""}`;
           syncExaSpend(state, guard);
-          return { result: { type: "tool_result", tool_use_id: tool.id, content }, exaCost, acceptedLead, newCandidate, finish, verdictEvent };
+          return { result: { type: "tool_result", tool_use_id: tool.id, content }, exaCost, acceptedLead, newCandidate, finish, verdictEvent, summary };
         }
         cached = {
           result: looked.result,
@@ -453,6 +500,16 @@ export async function executeTool(
         `hq=${String(cached.summary.hq ?? "unknown")}`,
         ...gateBits,
       ].filter(Boolean).join(" · ");
+      const screenedCode = screenedNote ? screenedNote.replace(/^Would be rejected: /, "").split(" — ")[0] : undefined;
+      summary = [
+        name,
+        `employees=${String(cached.summary.employee_estimate ?? "unknown")}`,
+        `hq=${String(cached.summary.hq ?? "unknown")}`,
+        ...state.contract.gateFields.map((g) => `${g.key}=${yesNoUnknown(cached.summary[g.key])}`),
+        screenedCode ? `screened=${screenedCode}` : undefined,
+        skipped.length ? `skipped=${skipped.length}` : undefined,
+        cached.url,
+      ].filter(Boolean).join(" · ");
     } else if (tool.name === "read_page") {
       requireStrategy(state);
       const url = String(input.url ?? "").trim();
@@ -464,6 +521,8 @@ export async function executeTool(
         state.caches.signalsByUrl[url] = { ...state.caches.signalsByUrl[url]!, text: page.text ?? state.caches.signalsByUrl[url]!.text };
       }
       content = [`title=${page.title ?? ""}`, `date=${page.publishedDate ?? ""}`, (page.text ?? "").slice(0, 3000)].join("\n");
+      const text = page.text ?? "";
+      summary = `${url} · title=${(page.title ?? "").slice(0, 80)} · date=${page.publishedDate ?? ""} · chars=${text.length} · sha256_4k=${pagePrefixHash(text)}`;
     } else if (tool.name === "submit_lead") {
       const company = String(input.company ?? "").trim();
       const signalUrl = String(input.signal_url ?? "").trim();
@@ -499,12 +558,13 @@ export async function executeTool(
       const handback = validHandback(input.handback);
       if (handback) state.handback = handback;
       content = "finished";
+      summary = `finished${handback ? ` · handback shortfall=${handback.shortfall}` : input.handback !== undefined ? " · handback invalid" : ""}`;
       finish = true;
     } else {
       throw new Error(`unknown tool: ${tool.name}`);
     }
     syncExaSpend(state, guard);
-    return { result: { type: "tool_result", tool_use_id: tool.id, content }, exaCost, acceptedLead, newCandidate, finish, verdictEvent };
+    return { result: { type: "tool_result", tool_use_id: tool.id, content }, exaCost, acceptedLead, newCandidate, finish, verdictEvent, ...(summary !== undefined ? { summary } : {}) };
   } catch (error) {
     syncExaSpend(state, guard);
     exaCost ||= Math.max(0, guard.spent - beforeSpent);

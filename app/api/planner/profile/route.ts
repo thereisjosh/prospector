@@ -3,6 +3,7 @@ import { classifyInput, profileFromText, profileSeller, resolveInstagram } from 
 import { CostGuard } from "../../../../src/exa";
 import { isDemoMode, readDemoJson } from "../../../../src/demo/mode";
 import { addVisitorSpend } from "../../../../src/agent/quota";
+import { tracePlanner } from "../../../../src/agent/trace";
 import { addDailySpend, allowanceResponse, dailyBudgetReached, dailyBudgetResponse, missingWorkspaceResponse, rateLimit, readJsonBody, RequestValidationError, validateSmallShape, workspaceIdFromRequest } from "../../_shared";
 
 export const runtime = "nodejs";
@@ -30,7 +31,13 @@ export async function POST(request: Request) {
     if (exhausted) return exhausted;
     const guard = new CostGuard(0.10);
     if (classified.kind === "instagram") {
-      const { candidates } = await resolveInstagram(classified.value, { guard });
+      const { candidates } = await tracePlanner(
+        "profile",
+        workspaceId,
+        { kind: "instagram", input: classified.value },
+        () => resolveInstagram(classified.value, { guard }),
+        (r) => ({ kind: "instagram", candidates: r.candidates.length, exaCost: guard.spent }),
+      );
       await addDailySpend(guard.spent);
       await addVisitorSpend(workspaceId, guard.spent);
       return NextResponse.json({ kind: "instagram", candidates });
@@ -43,7 +50,13 @@ export async function POST(request: Request) {
         cost: 0,
       });
     }
-    const result = await profileSeller(classified.value, { guard });
+    const result = await tracePlanner(
+      "profile",
+      workspaceId,
+      { kind: "url", input: classified.value },
+      () => profileSeller(classified.value, { guard }),
+      (r) => ({ kind: "url", profile: r.profile, needsDescription: r.needsDescription, cost: r.cost }),
+    );
     await addDailySpend(guard.spent);
     await addVisitorSpend(workspaceId, guard.spent);
     return NextResponse.json({ kind: "url", ...result });

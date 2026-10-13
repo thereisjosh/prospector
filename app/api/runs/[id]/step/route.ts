@@ -7,7 +7,8 @@ import { addVisitorSpend, dollarsExhausted, loadQuota } from "../../../../../src
 import { loadState, RunBusyError, saveState, StaleStateError, withRunLock } from "../../../../../src/agent/state";
 import { isDemoRunId } from "../../../../../src/demo/mode";
 import { demoStep } from "../../../../../src/demo/replay";
-import { addDailySpend, dailyBudgetReached, dailyBudgetResponse, rateLimit } from "../../../_shared";
+import { appendEvents } from "../../../../../src/agent/events";
+import { addDailySpend, dailyBudgetReached, dailyBudgetResponse, rateLimit, recordRoutePolicy, routePolicyEvent } from "../../../_shared";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -15,10 +16,16 @@ export const maxDuration = 60;
 export async function POST(request: Request, { params }: { params: { id: string } }) {
   try {
     const limited = rateLimit(request);
-    if (limited) return limited;
+    if (limited) {
+      await recordRoutePolicy(params.id, "rate_limit");
+      return limited;
+    }
     assertRunId(params.id);
     if (isDemoRunId(params.id)) return NextResponse.json(await demoStep(params.id));
-    if (await dailyBudgetReached()) return dailyBudgetResponse();
+    if (await dailyBudgetReached()) {
+      await recordRoutePolicy(params.id, "daily_cap");
+      return dailyBudgetResponse();
+    }
     const response = await withRunLock(params.id, async () => {
       const state = await loadState(params.id);
       const loadedVersion = state.version;
@@ -27,8 +34,10 @@ export async function POST(request: Request, { params }: { params: { id: string 
         state.handback ??= allowanceHandback(state);
         state.status = "stopped";
         state.stopReason = "visitor_allowance";
+        const events = [routePolicyEvent(state, "visitor_allowance", "stop")];
+        await appendEvents(state.id, events);
         await saveState(state, loadedVersion);
-        return routeStepResponse(state);
+        return routeStepResponse(state, events);
       }
       const before = state.spend.total;
       const result = await step(state, { client: new Anthropic(), checkLead });
@@ -39,6 +48,9 @@ export async function POST(request: Request, { params }: { params: { id: string 
         result.state.handback ??= allowanceHandback(result.state);
         result.state.status = "stopped";
         result.state.stopReason = "visitor_allowance";
+        const policy = routePolicyEvent(result.state, "visitor_allowance", "stop");
+        await appendEvents(result.state.id, [policy]);
+        result.events.push(policy);
       }
       await saveState(result.state, loadedVersion);
       return routeStepResponse(result.state, result.events);

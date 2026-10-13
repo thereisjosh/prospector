@@ -4,12 +4,23 @@ import { RUNS_DIR } from "./config";
 import { assertRunId } from "./ids";
 import { PROMPT_VERSION } from "./prompts";
 import type { RunState } from "./state";
+import { emit as emitTrace } from "./trace";
 
 export type AgentEvent = {
   ts: string;
   runId: string;
   turn: number;
-  kind: "model_call" | "tool_call" | "submit_verdict" | "approval_request" | "decision" | "stop" | "error";
+  kind:
+    | "model_call"
+    | "tool_call"
+    | "submit_verdict"
+    | "approval_request"
+    | "decision"
+    | "stop"
+    | "error"
+    | "policy"
+    | "turn_end"
+    | "feedback";
   promptVersion: string;
   [key: string]: unknown;
 };
@@ -29,6 +40,11 @@ export function makeEvent(
   };
 }
 
+/**
+ * The single choke point for run events: append to `runs/<id>/events.jsonl`, then hand
+ * the same events to the trace layer (fire-and-forget, a no-op with LANGFUSE_* unset).
+ * Nothing reaches Langfuse that is not in the file.
+ */
 export async function appendEvents(runId: string, events: AgentEvent[]): Promise<void> {
   if (events.length === 0) return;
   const dir = join(RUNS_DIR, assertRunId(runId));
@@ -38,6 +54,7 @@ export async function appendEvents(runId: string, events: AgentEvent[]): Promise
     events.map((event) => JSON.stringify(event)).join("\n") + "\n",
     "utf8",
   );
+  emitTrace(events);
 }
 
 export async function readLastEvents(runId: string, count = 50): Promise<AgentEvent[]> {

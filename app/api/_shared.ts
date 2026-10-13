@@ -2,7 +2,9 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { NextResponse } from "next/server";
 import { DATA_DIR } from "../../src/agent/config";
-import { isWorkspaceId } from "../../src/agent/ids";
+import { appendEvents, makeEvent } from "../../src/agent/events";
+import { isRunId, isWorkspaceId } from "../../src/agent/ids";
+import { loadState, type RunState } from "../../src/agent/state";
 import { withFileLock, writeFileAtomic } from "../../src/agent/fslock";
 import { dollarsExhausted, loadQuota, remainingAllowance, type VisitorQuota } from "../../src/agent/quota";
 
@@ -149,4 +151,34 @@ export function clampTargetLeads(value: unknown): number | undefined {
   const n = Math.trunc(Number(value));
   if (!Number.isFinite(n)) return undefined;
   return Math.max(1, Math.min(50, n));
+}
+
+export type RoutePolicyCheck = "rate_limit" | "daily_cap" | "visitor_allowance";
+
+/** A route-level `policy` event for the run's trace (SPEC-observability §2). */
+export function routePolicyEvent(state: RunState, check: RoutePolicyCheck, outcome: "blocked" | "stop") {
+  return makeEvent(state, "policy", { scope: "route", check, outcome, reason: check });
+}
+
+const routePolicyLogged = new Map<string, number>();
+const ROUTE_POLICY_THROTTLE_MS = 60_000;
+
+/**
+ * Record that a route check blocked a request for this run. At most one line per
+ * (run, check) per minute, so a flood of refused requests cannot grow the log.
+ * Never throws: a refused request must stay refused, not become a 500.
+ */
+export async function recordRoutePolicy(runId: string, check: RoutePolicyCheck): Promise<void> {
+  try {
+    if (!isRunId(runId) || runId.startsWith("demo-")) return;
+    const key = `${runId}|${check}`;
+    const now = Date.now();
+    if (now - (routePolicyLogged.get(key) ?? 0) < ROUTE_POLICY_THROTTLE_MS) return;
+    routePolicyLogged.set(key, now);
+    if (routePolicyLogged.size > 10_000) routePolicyLogged.clear();
+    const state = await loadState(runId);
+    await appendEvents(runId, [routePolicyEvent(state, check, "blocked")]);
+  } catch {
+    /* no state yet, or disk trouble: the refusal itself still stands */
+  }
 }

@@ -22,6 +22,13 @@ Environment variables:
 | `VISITOR_MAX_DOLLARS` | `2.50` | Per anonymous workspace live/planner spend allowance. |
 | `DEMO_MODE` | unset | Set `1` to force recorded demo mode. |
 | `LIVE_MODE` | unset | Set `off` to pause live mode. |
+| `LANGFUSE_PUBLIC_KEY` | unset | Langfuse project key. Tracing is on only when both keys are set; unset = no tracing, identical behaviour. |
+| `LANGFUSE_SECRET_KEY` | unset | Langfuse project secret. |
+| `LANGFUSE_BASE_URL` | `https://cloud.langfuse.com` | Langfuse region (EU cloud). |
+| `LANGFUSE_TRACING_ENVIRONMENT` | `default` | Set `production` on Railway. `eval` for harness runs and backfills, `ci` for CI. |
+| `TRACE_HMAC_SECRET` | unset | HMAC key that turns the workspace id into the trace `userId`. Without it traces carry no user. Keep it stable: rotating it splits users. |
+
+Tracing (SPEC-observability §2–§3): every line appended to `runs/<id>/events.jsonl` is also sent to Langfuse, masked, from `src/agent/trace.ts`. Spans are flushed every second; Next.js exits on SIGTERM without waiting, so a redeploy can drop up to about the last second of spans. `npx tsx eval/trace-backfill.ts <run-dir> --environment production` restores a run's missing observations and scores without duplicating the ones Langfuse already has.
 
 Kill switch: set `DAILY_SPEND_CAP_DOLLARS=0` or `LIVE_MODE=off`. The API behaves as demo-only, and `/api/status` reports `{ "mode": "demo", "reason": "paused" }`.
 

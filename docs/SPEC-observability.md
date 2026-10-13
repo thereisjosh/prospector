@@ -37,19 +37,23 @@ Status: proposed 2026-10-13 · branch `v2-engine` @ `c7f213d` · extends SPEC-ag
 
 **Why events.jsonl stays the source of truth.** The demo replay (`eval/demo/run/events.jsonl` is byte-identical to a pilot run), the eval harness, the UI feed and the README's evidence all read it today. It lives on our volume with no retention clock. It works offline and in CI. If Langfuse disappears or its free tier changes, we lose a viewer, not data. The rule is that **the trace is a function of the events**: `toObservations(events)` in `src/agent/trace.ts` is the only mapping. The live path and the backfill path both call it, and §5's completeness grader checks that every `(runId, turn)` in the events has a trace. Any field the trace needs is added to the event first.
 
-**Integration points.** The Langfuse TS SDK's trace/span API is wrapped in our own thin module, so the agent runs identically with `LANGFUSE_*` unset.
+**Integration points.** The Langfuse TS SDK's trace/span API is wrapped in our own thin module, so the agent runs identically with `LANGFUSE_*` unset. As built in O1: JS/TS SDK v5 (`@langfuse/tracing`, `@langfuse/otel`, `@langfuse/client` 5.13.1), loaded lazily on an isolated OpenTelemetry `BasicTracerProvider` (`setLangfuseTracerProvider`), so nothing global is touched and nothing loads with tracing off.
 
 | File | Function | Change |
 |---|---|---|
-| `src/agent/trace.ts` (new) | `enabled()`, `toObservations(events)`, `emit(events)`, `score(target, name, value)`, `mask(payload)`, `flush()` | Only file that imports the SDK. `emit` is fire-and-forget and never throws into the loop. It counts export failures, which the completeness grader exposes rather than hides |
+| `src/agent/trace.ts` (new) | `enabled()`, `toObservations(events)`, `emit(events)`, `score(target, name, value)`, `mask(payload)`, `flush()`, plus `backfill()`, `tracePlanner()`, `traceStats()` | Only file that imports the SDK. `emit` is fire-and-forget and never throws into the loop. It counts span export failures (OTel global error handler; `traceStats()`), which the completeness grader exposes rather than hides. Score export errors are only logged by the SDK. Root = the turn's `turn_end` event; correlating attributes (session = runId, user = HMAC(workspaceId), trace name, tags, version, metadata) go on every observation via `propagateAttributes`. Run-level values (workspace id, model, contract label) come from the run's `state.json`, the one input besides the events |
 | `src/agent/events.ts` | `appendEvents` | After the append succeeds: `trace.emit(events)`. One choke point, so nothing reaches Langfuse that is not in the file |
-| `src/agent/loop.ts` | `step()`, `handback()`, `decide()`, `stopRun()` | Add the missing fields to existing events. New `policy` event (from `limitReason`) and `turn_end` event (`durationMs`). `handback()` records real latency |
+| `src/agent/loop.ts` | `step()`, `handback()`, `decide()`, `stopRun()` | Add the missing fields to existing events. New `policy` event (from `limitReason`, plus the in-turn budget stops) and `turn_end` event (`durationMs`). `handback()` records real latency, and its `model_call` now joins the step's batch instead of a separate append. `decision` carries `tool`, `requestTs`, `waitMs` (`pendingApproval.requestedAt`) |
 | `src/agent/tools.ts` | `executeTool` | Return `latencyMs` and a ≤ 300-char result summary (counts, codes, URLs; never page text) |
-| `app/api/runs/[id]/step/route.ts` | `POST` | Route-level `policy` event (rate limit / daily cap / allowance) |
-| `app/api/workspaces/[id]/feedback/route.ts` | `POST` | Accept `runId` + `signal_url`, append a `feedback` event to that run's `events.jsonl`, `trace.score(...)` |
-| `app/api/planner/*` | each route | One `planner` trace per call, session = HMAC(workspaceId) |
+| `app/api/runs/[id]/step/route.ts` | `POST` | Route-level `policy` event (rate limit / daily cap / allowance). Refusals log at most one line per run and check per minute |
+| `app/api/workspaces/[id]/feedback/route.ts` | `POST` | Accept `runId` + `signal_url` (run must belong to the workspace, lead must be accepted), append a `feedback` event carrying the lead's `turn` and submit `toolUseId`. `emit` turns it into the `user_feedback` score on the submit span, so the backfill recreates it too |
+| `app/api/planner/*` | each route | One `planner-<route>` trace per call, session = user = HMAC(workspaceId), one `planner-model` generation per Claude call (`callClaudeJson`). The free text-only profile path is not traced |
 | `app/api/admin/runs/export/route.ts` (new) | `GET` | Bearer `ADMIN_TOKEN`; returns runs updated since `?since=` (state summary + events) |
 | `app/api/admin/pause/route.ts` (new) | `POST` | Writes `/data/paused`, which makes the service demo-only, the same as `LIVE_MODE=off` (§5) |
+
+**Ids and duplicates (found in O1).** Trace id = `createTraceId("<environment>:<runId>:<turn>")` (sha256, first 32 hex), environment = `LANGFUSE_TRACING_ENVIRONMENT` (`default` when unset). The environment is in the id so an `eval` backfill never shares ids with the `production` trace of the same turn; the backfill's existing-id lookup is also filtered by environment. A `production` backfill reproduces the live ids, so it repairs live gaps. Observation ids are deterministic too (sha256 of trace id + the event's key: Anthropic `tool_use` id, response id, or kind + `ts`), set through a custom OTel `IdGenerator`; scores use deterministic `id`s. But Langfuse v4 treats observations as immutable and does **not** deduplicate a re-ingested id ([docs](https://langfuse.com/faq/all/tracing-data-updates)), so deterministic ids alone do not stop duplicates. Two rules do: live, each event is appended and emitted exactly once; the backfill lists the trace's existing observation and score ids first and exports only the missing ones. Explicit start/end timestamps are supported (`startTime`, `end(endTime)`).
+
+**Delivery.** Spans are batched and flushed every second. Next.js exits on SIGTERM without waiting for exporters, so a redeploy can drop about the last second of spans; the backfill restores them.
 
 **Env vars:** `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, `LANGFUSE_BASE_URL` (`https://cloud.langfuse.com`) and `LANGFUSE_TRACING_ENVIRONMENT` (`production` / `eval` / `ci`), plus our own `TRACE_HMAC_SECRET`, `ADMIN_TOKEN` and `ONLINE_JUDGE_DAILY_CAP_DOLLARS`. Tracing is on only when both keys are set. CI sets none of them.
 
@@ -69,6 +73,8 @@ Masking happens in `trace.mask()`, before anything leaves the process. It applie
 | System prompt and tool schemas | **Hash** (sha256) + `promptVersion`; the text is in git | Anyone (repo) | Permanent (git) |
 | Message history | **Drop**; keep length and token counts. Full history is in `state.json` | Volume only | 90 days |
 | Model response text / tool_use input | Store, clipped (2,000 / 200 chars) | Project members | Tier window |
+| Model thinking text | **Drop** (not in events, not in traces) | — | — |
+| `read_page` result | URL, title (80), date, length and a prefix hash (sha256 of the first 4,096 chars) only | Project members | Tier window |
 | Workspace id | **Hash**: HMAC-SHA256 with `TRACE_HMAC_SECRET` → `userId` | Project members | Tier window |
 | Run id | Store (random, carries no identity) | Project members | Tier window |
 | Client IP | **Never traced**. Used only in memory by `rateLimit` | — | — |
@@ -184,4 +190,4 @@ Order: O1 → O2 → O3 → O4 → O5. Each gate is reviewed by the orchestrator
 - **Free-tier retention.** Langfuse Hobby keeps data for a limited window (verify the current terms in O1). Anything older is reconstructed from `events.jsonl` by backfill, which is why the deterministic trace ids matter.
 - **One developer.** The annotation queue has one reviewer, alerts go to one inbox, and "on call" means when he next looks. That is acceptable at demo traffic, not with paying users.
 
-**Assumptions to confirm in O1:** the current Langfuse TS SDK accepts explicit start/end timestamps and caller-chosen trace ids for backfill; the Hobby tier's unit quota, retention and annotation-queue availability; Railway volumes still mount to a single service.
+**Assumptions to confirm in O1:** the current Langfuse TS SDK accepts explicit start/end timestamps and caller-chosen trace ids for backfill (confirmed, see §2 "Ids and duplicates"; re-ingesting an id duplicates, so the backfill checks first); the Hobby tier's unit quota, retention and annotation-queue availability (not checked in O1); Railway volumes still mount to a single service (not checked in O1).

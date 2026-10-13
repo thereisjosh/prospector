@@ -58,6 +58,8 @@ export type RunState = {
     input: unknown;
     otherToolResults: Anthropic.ToolResultBlockParam[];
     toolUseOrder?: string[];
+    /** ts of the approval_request event, so the decision can report the wait. */
+    requestedAt?: string;
   };
   handback?: Handback;
   adaptive: { queryRewrites: number; lookupsSkipped: number; verificationReads: number };

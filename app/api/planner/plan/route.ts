@@ -5,6 +5,7 @@ import { validateCards } from "../../../../src/planner/cards";
 import { demoPlan } from "../../../../src/demo/planner";
 import { isDemoMode } from "../../../../src/demo/mode";
 import { addVisitorSpend } from "../../../../src/agent/quota";
+import { tracePlanner } from "../../../../src/agent/trace";
 import { addDailySpend, allowanceResponse, dailyBudgetReached, dailyBudgetResponse, missingWorkspaceResponse, rateLimit, readJsonBody, RequestValidationError, validateSmallShape, workspaceIdFromRequest } from "../../_shared";
 
 export const runtime = "nodejs";
@@ -27,7 +28,13 @@ export async function POST(request: Request) {
     const exhausted = await allowanceResponse(workspaceId);
     if (exhausted) return exhausted;
     const client = new Anthropic();
-    const result = await compilePlan(validCards.value, { client });
+    const result = await tracePlanner(
+      "plan",
+      workspaceId,
+      { cards: validCards.value },
+      () => compilePlan(validCards.value, { client }),
+      (r) => ({ plan: r.plan, cost: r.cost, estimatedRunCost: r.estimatedRunCost }),
+    );
     await addDailySpend(result.cost);
     await addVisitorSpend(workspaceId, result.cost);
     return NextResponse.json(result);

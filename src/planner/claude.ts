@@ -1,4 +1,5 @@
 import { claudeCostDollars, DEFAULT_MODEL, type AgentModel } from "../agent/config";
+import { recordPlannerGeneration } from "../agent/trace";
 
 export type PlannerClient = {
   messages: {
@@ -122,6 +123,7 @@ export async function callClaudeJson<T>(
       const counted = await deps.client.messages.countTokens({ model, system, messages });
       if ((counted.input_tokens ?? 0) > 20_000) throw new PlannerTokenLimitError(counted.input_tokens ?? 0);
     }
+    const startTime = new Date();
     const response = await deps.client.messages.create({
       model,
       max_tokens: 4000,
@@ -129,7 +131,19 @@ export async function callClaudeJson<T>(
       messages,
       output_config: { effort: "medium" },
     });
-    totalCost += claudeCostDollars(model, response.usage);
+    const callCost = claudeCostDollars(model, response.usage);
+    totalCost += callCost;
+    recordPlannerGeneration({
+      model,
+      startTime,
+      endTime: new Date(),
+      system,
+      user: messages[0]!.content,
+      outputText: responseText(response),
+      usage: response.usage,
+      cost: callCost,
+      attempt,
+    });
 
     let json: unknown;
     try {
