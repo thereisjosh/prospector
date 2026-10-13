@@ -15,13 +15,13 @@
 | 9 | No subagents; no agent-to-agent handoff | Lookup subagents; outreach handoff | Handoff adds external side effects and does not address lead quality (§5). Smoke's last turn read 42.5k cached tokens; the 30-turn cap bounds context (§6) | Larger targets (e.g. 50 leads) degrading quality as context grows |
 | 10 | Exa is the only retrieval layer | Multiple search APIs; scraping | Every output fact comes from Exa (SPEC-v2 §1), behind one cost guard and record/replay (`src/exa.ts`) | Exa extraction errors that gates cannot bound (§13) |
 | 11 | Hard combined Exa + Claude $ cap, enforced by the harness | Prompt-stated budget; Exa-only cap | §5 limits; Claude spend reserved per call (`F1.2`); CostGuard breach stops the run (`F1.3`); $0.05 handback reserve. Pilot agent runs all ≤ $0.86 of $1.00; S2 workflow aborted 3/3 on the cap pre-check → graceful degradation (f2bd783) | `budget` stops dominating runs that were still finding good leads |
-| 12 | pass^3 headline, pass@1 alongside | Mean good leads; pass@1 only | "A user needs it to work every time" (RUBRIC §3); math tested (`H5`). Pilot: it separates the arms on S1 (agent 1, workflow 0, `report.md`) | pass^3 = 0 for every arm (no signal at n = 3, RUBRIC §7) |
+| 12 | pass^3 headline, pass@1 alongside | Mean good leads; pass@1 only | "A user needs it to work every time" (RUBRIC §3); math tested (`H5`). Pilot: it separates the arms on both scenarios (agent 1, workflow 0, `report.md`) | pass^3 = 0 for every arm (no signal at n = 3, RUBRIC §7) |
 | 13 | Free `count_tokens` preflight | Discover schema errors on a paid turn 1 | `eval/check-tool-schemas.ts`; the strict-schema fixes in 9ff1b21 (`minimum`/`maximum` unsupported) are the class it catches at $0 | An error that passes `count_tokens` but fails `create` |
 | 14 | Judge = Opus 5.5 with `web_search` (max 3) + `web_fetch` (max 2), signal page fetched first; corroboration allowed when the page blocks fetches | Search-only judge (v2); Sonnet judge; human-only labels | The search-only judge could not open signal URLs: S1 8/22, S2 10/23 good. Re-judging its Q3 "cannot verify" verdicts with fetch: S1 14/22, S2 15/23 (FAILURES #10). Cost: v2 $8.64 for 45 verdicts (≈ $0.19 each, `*/judge-cost.json`); v3 $5.75 for 17 re-judges (≈ $0.34 each, `costDollars` in the `v3-fetch` verdicts). Human spot-checks 10/45 (22%) agree with the final verdicts; the one disagreement (RGL, v2) triggered v3 (`eval/truth/SPOT-CHECKS.md`) | Spot-checks disagreeing with v3 verdicts; a cheaper judge matching Opus on the spot-checked set |
 
 ## Notes
 
-- **Pilot is judged** (`eval/results/pilot-2026-10-12/report.md`). Good leads per rep: S1 workflow 2/2/2, agent 9/7/6 (pass^3 1); S2 workflow 0/1/0, agent 6/6/6 (pass^3 0). The S2 agent row undercounts: 2 judged-good leads per rep are missed by a verdict-key bug; recounted, 8/8/8 at precision 0.80, which would pass (FAILURES #11, not yet re-scored).
+- **Pilot is judged** (`eval/results/pilot-2026-10-12/report.md`). Good leads per rep: S1 workflow 2/2/2, agent 9/7/6 (pass^3 1); S2 workflow 0/1/0, agent 8/8/8 at precision 0.80 (pass^3 1). The agent passes both scenarios; the workflow passes neither. S2 is exactly at the 0.8 bar (FAILURES #11 covers the re-score that corrected an earlier 6/6/6).
 - **No agent run, smoke or pilot, made a verification read**, so #4 rests on rewrites and skips.
 - **Spec inconsistency:** §12 lists "Memory across runs" as out of scope; §6a and the code ship it. §6a is current.
 
@@ -31,5 +31,5 @@
 - #2: arm C (Sonnet) has not run, so Opus vs Sonnet is unmeasured; the Opus default is a prior.
 - #9: "no subagents" is only an out-of-scope line (§12).
 - #10: no comparison against other retrieval providers.
-- #12: pass^3 now exists (`eval/results/pilot-2026-10-12/report.md`), but n = 3 per cell and 2 scenarios; S2's value is pending the FAILURES #11 re-score.
+- #12: pass^3 now exists (`eval/results/pilot-2026-10-12/report.md`), but n = 3 per cell and 2 scenarios, and the S2 pass sits exactly on the 0.8 precision bar.
 - #14: no cheaper judge was compared; agreement rests on 10 human spot-checks.

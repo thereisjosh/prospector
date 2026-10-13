@@ -2,7 +2,7 @@
 
 Prospector finds B2B sales leads for a seller who doesn't know where to start. You paste your website, approve a short plan, and an agent searches the web for companies with a recent, cited "why now" event (a new warehouse, a funding round, a hiring wave). It checks each one against your plan in code and returns leads with evidence, the companies it turned down and why, and a CSV. It is built for small sales teams that can't afford a data vendor. The same repo contains a fixed-pipeline workflow, which serves as the control arm.
 
-**I built the workflow and the agent, and measured when the agent earns its cost.** On the logistics scenario the agent passed all 3 judged reps at $0.12 per good lead, and the workflow passed none. On the funded-B2B scenario the agent is limited by precision (see [Evals](#6-evals)).
+**I built the workflow and the agent, and measured when the agent earns its cost.** The agent passed all 3 judged reps on both scenarios (pass^3 = 1), at $0.09–$0.12 per good lead. The workflow, with the same contract and cap, passed none (see [Evals](#6-evals)).
 
 ## Documents
 
@@ -123,19 +123,17 @@ Before building, I probed Exa's live API and found that `category: "company"` se
 | S1 ICP-1 logistics | A workflow | 2 / 2 / 2 (of 4 / 9 / 6) | 0.35 | $0.38 | 0.00 | 0 |
 | S1 ICP-1 logistics | B agent | 9 / 7 / 6 (of 10 / 8 / 7) | 0.88 | $0.12 | 1.00 | **1** |
 | S2 ICP-3 funded B2B | A workflow | 0 / 1 / 0 (of 4 / 4 / 4) | 0.08 | n/a (no good lead in 2 of 3 reps; $0.90 in rep 2) | 0.00 | 0 |
-| S2 ICP-3 funded B2B | B agent | 6 / 6 / 6 (of 10 / 10 / 10) ‡ | 0.60 ‡ | $0.12 | 0.00 | 0 ‡ |
+| S2 ICP-3 funded B2B | B agent | 8 / 8 / 8 (of 10 / 10 / 10) | 0.80 | $0.09 | 1.00 | **1** |
 
-‡ **Under-counted; re-score pending.** Two leads per rep that the judge scored good (Avarra.ai, Reo.Dev) are counted as misses because their verdict files were keyed before `squashName` started stripping ".ai"/".dev" (FAILURES #11). Recounted from the verdict files under the scorer's own rule, the S2 agent has 8 / 8 / 8 good at precision 0.80, which meets the pass bar. The table shows `report.md` until it is re-scored.
 
-**Reading.** The agent passed S1 in every rep (pass^3 = 1) at $0.12 per good lead, while the workflow, with the same contract and cap, never reached 6 good leads on either scenario. On S2 the agent reached 6 good leads every rep, but `report.md` puts its precision at 0.60, below the 0.8 bar. Of its 12 non-good lead slots, 6 are the scoring bug above. The other 6 come from the verdict files:
+**Reading.** The agent passed every rep on both scenarios (pass^3 = 1) at $0.12 (S1) and $0.09 (S2) per good lead. The workflow, with the same contract and cap, passed none: it never reached 6 good leads, and its precision was 0.35 on S1 and 0.08 on S2. On S2 the agent sits exactly on the 0.8 precision bar: 8 good of 10 in every rep. Its 6 non-good lead slots, from the verdict files:
 - **Q1 no, wrong stage (2):** Miter (rep 1) and Sybill (rep 2) passed the "recently raised seed or Series A" gate, but the judge found later-stage funding.
-- **Q2 (3):** Scaffold (rep 3) is outside 30–200 staff. SubBase (reps 1 and 3) was the run's second "cannot verify" on size, and the rubric tolerates only one per run (OuterSignal used it).
+- **Q2 (3):** Scaffold (rep 3) is outside 30–200 staff. SubBase (reps 1 and 3) was the run's second "cannot verify" on size. The rubric tolerates one per run, and OuterSignal (all 3 reps) used it.
 - **Q3 not verifiable (1):** Henry AI (rep 2). The judge's fetch of the signal page failed, and it found no corroborating source.
 
-Recency was not the problem: no agent lead failed Q3 for an out-of-window event. LinkedIn hosting hurt the workflow, not the agent. All 5 pooled S2 workflow leads cite a LinkedIn URL, and the 4 not-good ones all fail Q3. Only one agent miss (Sybill) is LinkedIn-hosted, and it failed on Q1. The next iteration would, in order:
-1. Fix the verdict key and re-score. This needs no new runs.
-2. Make the funding round a quoted fact checked in code, the way size already needs its quoted source (`size_basis`), so the stage comes from the page, not a yes/no summary.
-3. Exclude `linkedin.com` as a signal host. The judge cannot open it, and it accounts for all of the workflow's S2 leads.
+Recency was not the problem: no agent lead failed Q3 for an out-of-window event. LinkedIn hosting hurt the workflow, not the agent. All 5 pooled S2 workflow leads cite a LinkedIn URL, and the 4 not-good ones all fail Q3. Only one agent miss (Sybill) is LinkedIn-hosted, and it failed on Q1. With no margin above the bar, one more miss per rep fails S2. The next iteration would therefore:
+1. Make the funding round a quoted fact checked in code, the way size already needs its quoted source (`size_basis`), so the stage comes from the page, not a yes/no summary.
+2. Exclude `linkedin.com` as a signal host. The judge cannot open it, and it accounts for all of the workflow's S2 leads.
 
 **Judging.** The blind judge is Opus 5.5 with web search (max 3) and web fetch (max 2). The first, search-only version could not open signal pages and scored S1 8/22 and S2 10/23 good. Its Q3 "cannot verify" verdicts were re-judged with fetch: 8 in S1 (6 flipped to good) and 9 in S2 (5 flipped), giving 14/22 and 15/23. The superseded verdicts are kept as `*.prev.json` (FAILURES #10, RUBRIC change log). I spot-checked 10 of 45 verdicts (22%, `eval/truth/SPOT-CHECKS.md`). All 10 agree with the final verdicts. The one that disagreed with the search-only judge (RGL Logistics) is what triggered the fetch fix.
 
@@ -171,7 +169,7 @@ Full write-ups: [docs/FAILURES.md](docs/FAILURES.md).
 - **Storage:** run state, memory and the daily-spend ledger are JSON files. On Vercel they live in `/tmp`, which is per instance and ephemeral, so the daily cap and memory are not global there.
 - **Rate limit** is an in-memory map per process.
 - **No auth.** A workspace is an id in `localStorage`, and anyone holding the id can read or clear its memory.
-- **Evidence is thin.** n = 3 per cell over 2 scenarios. Arm C and scenarios S3/S4 have not run. 10 of 45 verdicts are human spot-checked. The S2 agent row awaits a re-score (FAILURES #11).
+- **Evidence is thin.** n = 3 per cell over 2 scenarios. Arm C and scenarios S3/S4 have not run. 10 of 45 verdicts are human spot-checked.
 - **Exa extraction noise** (wrong-year dates, conflicting headcounts such as 356 vs 3,560 for one company) is bounded by gates, not eliminated (SPEC-agent §13).
 - **Hosting:** each route has `maxDuration = 60`. A turn with slow Exa calls and a long model response could exceed it, and p95 turn time has not been measured.
 - The old `eval/recordings/icp1-2026-10-11b` replay no longer matches current request hashes ("replay miss").
@@ -204,6 +202,6 @@ npm run eval:score -- --set <id>                       # → eval/results/<id>/r
 
 ## 10. Build notes
 
-This build was AI-assisted. I orchestrated it with coding agents and subagents (Claude models and Codex), and the commit trailers say so. The product decisions are mine: the architecture, the autonomy boundaries, the rubric and eval design, which failures to chase, and what to claim. The live-API probes behind them are mine too. Every number above comes from a file in this repo or is marked "author's log", and anything not yet measured or re-scored is marked as such.
+This build was AI-assisted. I orchestrated it with coding agents and subagents (Claude models and Codex), and the commit trailers say so. The product decisions are mine: the architecture, the autonomy boundaries, the rubric and eval design, which failures to chase, and what to claim. The live-API probes behind them are mine too. Every number above comes from a file in this repo or is marked "author's log", and anything not yet measured is marked as such.
 
 Stack: Next.js 14 · React 18 · TypeScript · `@anthropic-ai/sdk` (Messages API, no framework) · Exa · Vitest.

@@ -81,13 +81,13 @@ Per failure: symptom · layer · root cause · fix (commit, test) · before → 
 - **Before → after:** S1 8 → 14 good (8 re-judged, 6 flipped); S2 10 → 15 (9 re-judged, 5 flipped). Two S2 re-judges still ended `q3_basis: none`. Re-judge cost $5.75, ≈ 1.8× a v2 verdict.
 - **Earlier:** spot-check a handful of "cannot verify" verdicts before the full pass.
 
-## 11. Scorer missed judged leads after a name-normalisation change (open)
+## 11. Scorer missed judged leads after a name-normalisation change [measured]
 
-- **Symptom:** `report.md` scores the S2 agent 6/6/6 good, precision 0.60. Recounting from the verdict files under the scorer's own rule gives 8/8/8, precision 0.80.
-- **Layer:** eval. **Root cause:** 41c272b made `squashName` strip domain suffixes ("Avarra.ai" → `avarra`, "Reo.Dev" → `reo`), but the verdicts were keyed `avarraai__…` and `reodev__…`. `readTruth` finds no file and the lead counts as not good: 2 judged-good leads per S2 agent rep.
-- **Fix:** not yet. Re-key the verdicts, or key on the URL hash alone, then re-run `eval:score`.
-- **Before → after:** expected 6/6/6 → 8/8/8, pass^3 0 → 1 for the S2 agent; not yet re-scored.
-- **Earlier:** fail the scorer when a pooled lead has no verdict, instead of treating it as not good.
+- **Symptom:** `report.md` scored the S2 agent 6/6/6 good; its verdict files give 8/8/8.
+- **Layer:** eval. **Root cause:** 41c272b made `squashName` strip domain suffixes ("Avarra.ai" → `avarra`, "Reo.Dev" → `reo`), but the verdicts were keyed `avarraai__…` and `reodev__…`. Unfound, 2 judged-good leads per rep scored not good.
+- **Fix:** truth lookup falls back to the URL hash plus the stored URL; old keys migrated (`eval/harness/migrate-truth-keys.ts`); re-scored (0a60098). Tests: `a verdict saved under an older squash is still found (URL hash + stored URL), never by hash alone`, `the scorer's result is unchanged by migrating old-squash truth files, and migration is idempotent`.
+- **Before → after:** S2 agent 6/6/6 → 8/8/8, precision 0.60 → 0.80, pass^3 0 → 1.
+- **Earlier:** fail the scorer on a lead with no verdict (still not done).
 
 ## 12. Unanchored `.gitignore` hid the API routes
 
