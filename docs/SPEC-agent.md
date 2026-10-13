@@ -187,6 +187,8 @@ One event per step to `runs/<id>/events.jsonl`:
 
 The UI's live view reads the same stream. The run summary records: stop reason, accepted and rejected counts by reason, spend split by model and Exa, turns, and time to first lead.
 
+Production tracing (Langfuse), trace data policy, and offline/online evals: see [SPEC-observability.md](SPEC-observability.md).
+
 ## 8. Prerequisite engine fixes (from the 2026-10-11 eval)
 
 These become tools and gates, so they ship first:
