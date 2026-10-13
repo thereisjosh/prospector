@@ -69,6 +69,12 @@ export type Verdict = {
   usage?: { input: number; output: number; cache_read: number; cache_creation: number };
   costDollars?: number;
   webSearches?: number;
+  webFetches?: number;
+  tools?: { webSearches: number; webFetches: number };
+  /** Which judge produced this verdict: "v3-fetch" = could open the signal URL. */
+  judgeVersion?: string;
+  /** How Q3 was verified: the page was fetched, a different site corroborated the event, or neither. */
+  q3_basis?: "fetched" | "corroborated" | "none";
   judgedAt: string;
   judge: "opus" | "human";
 };

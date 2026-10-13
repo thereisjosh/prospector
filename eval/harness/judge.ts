@@ -115,8 +115,17 @@ export function parseJudgeJson(text: string): JudgeJson | undefined {
 
 type JudgeUsage = { input: number; output: number; cache_read: number; cache_creation: number };
 
-/** Token usage, dollar cost (Opus price table) and web-search count of one response. */
-export function responseCost(response: unknown): { usage: JudgeUsage; costDollars: number; webSearches: number } {
+/** Does this web_fetch_tool_result carry an error (content is an error object, not a document)? */
+function fetchErrorCode(block: unknown): string | undefined {
+  const content = (block as { content?: unknown }).content;
+  if (!content || typeof content !== "object" || Array.isArray(content)) return undefined;
+  const c = content as { type?: unknown; error_code?: unknown };
+  if (typeof c.error_code === "string") return c.error_code;
+  return c.type === "web_fetch_tool_error" ? "unknown_error" : undefined;
+}
+
+/** Token usage, dollar cost (Opus prices), web-search and web-fetch counts of one response. */
+export function responseCost(response: unknown): { usage: JudgeUsage; costDollars: number; webSearches: number; webFetches: number; fetchErrors: string[] } {
   const u = (response as { usage?: Record<string, number | null | undefined> }).usage ?? {};
   const usage = {
     input: u.input_tokens ?? 0,
@@ -125,10 +134,16 @@ export function responseCost(response: unknown): { usage: JudgeUsage; costDollar
     cache_creation: u.cache_creation_input_tokens ?? 0,
   };
   const content = (response as { content?: unknown }).content;
-  const webSearches = Array.isArray(content)
-    ? content.filter((b) => b && typeof b === "object" && (b as { type?: unknown }).type === "web_search_tool_result").length
-    : 0;
-  return { usage, costDollars: claudeCostDollars("claude-opus-5-5", u), webSearches };
+  const blocks = Array.isArray(content) ? content.filter((b) => b && typeof b === "object") : [];
+  const ofType = (type: string) => blocks.filter((b) => (b as { type?: unknown }).type === type);
+  const fetches = ofType("web_fetch_tool_result");
+  return {
+    usage,
+    costDollars: claudeCostDollars("claude-opus-5-5", u),
+    webSearches: ofType("web_search_tool_result").length,
+    webFetches: fetches.length,
+    fetchErrors: fetches.map(fetchErrorCode).filter((c): c is string => c !== undefined),
+  };
 }
 
 type Spent = ReturnType<typeof responseCost>;
@@ -144,12 +159,45 @@ function addSpent(a: Spent | undefined, b: Spent): Spent {
     },
     costDollars: a.costDollars + b.costDollars,
     webSearches: a.webSearches + b.webSearches,
+    webFetches: a.webFetches + b.webFetches,
+    fetchErrors: [...a.fetchErrors, ...b.fetchErrors],
   };
+}
+
+/** Cost and tool-use fields recorded on every verdict. */
+function spentFields(spent?: Spent): Partial<Verdict> {
+  if (!spent) return { judgeVersion: JUDGE_VERSION };
+  return {
+    usage: spent.usage,
+    costDollars: spent.costDollars,
+    webSearches: spent.webSearches,
+    webFetches: spent.webFetches,
+    tools: { webSearches: spent.webSearches, webFetches: spent.webFetches },
+    judgeVersion: JUDGE_VERSION,
+  };
+}
+
+/**
+ * How Q3 was verified. "fetched": the judge opened the signal page. "corroborated": the page
+ * was blocked/not opened but another site's search result describes the same event (the
+ * judge says "via corroborating source" in its note). "none": neither. A "yes" with no
+ * basis cannot stand: Q3 becomes cannot_verify and the fetch error is noted.
+ */
+export function settleQ3(parsed: JudgeJson, one: Pick<Spent, "webFetches" | "fetchErrors">): "fetched" | "corroborated" | "none" {
+  const fetched = one.webFetches - one.fetchErrors.length > 0;
+  if (fetched) return "fetched";
+  if (/via corroborating source/i.test(parsed.note ?? "")) return "corroborated";
+  if (parsed.q3 === "yes") {
+    parsed.q3 = "cannot_verify";
+    const why = one.fetchErrors.length > 0 ? `web_fetch failed (${one.fetchErrors.join(", ")})` : "signal page not fetched";
+    parsed.q3_source = `${why}; no corroborating source. ${parsed.q3_source}`.trim();
+  }
+  return "none";
 }
 
 function fallback(lead: BlindLead, scenarioId: string, spent?: Spent): Verdict {
   return {
-    ...(spent ?? {}),
+    ...spentFields(spent),
     company: lead.company,
     scenarioId,
     q1: "cannot_verify",
@@ -166,7 +214,7 @@ function fallback(lead: BlindLead, scenarioId: string, spent?: Spent): Verdict {
 
 function toVerdict(lead: BlindLead, scenarioId: string, parsed: JudgeJson, now: Date, spent?: Spent): Verdict {
   return {
-    ...(spent ?? {}),
+    ...spentFields(spent),
     company: lead.company,
     signal_url: lead.signal_url,
     event_date: lead.event_date,
@@ -186,9 +234,13 @@ function toVerdict(lead: BlindLead, scenarioId: string, parsed: JudgeJson, now: 
 
 /** Cuts cost; the rubric allows "cannot_verify". The API can still return more, which is logged. */
 const MAX_SEARCHES = 3;
+const MAX_FETCHES = 2;
+
+/** v3: the judge can open the signal URL (web_fetch), so Q3 no longer defaults to cannot_verify. */
+export const JUDGE_VERSION = "v3-fetch";
 
 const JUDGE_INSTRUCTION =
-  'Use web_search as needed (max 3), then reply with exactly one JSON object and nothing after it: {"q1":..., "q1_source":..., "q2":..., "q2_source":..., "q3":..., "q3_source":..., "note": "..."}';
+  'First fetch the signal_url with web_fetch to answer Q3; use web_search (max 3) for Q1/Q2 (company site, LinkedIn). If web_fetch of the signal_url fails or is blocked, Q3 may still be \'yes\' when a web_search result from a different site describes the same company and the same event with a date inside the window; cite that result as q3_source and say \'via corroborating source\' in the note. If no corroboration exists, answer cannot_verify. Then reply with exactly one JSON object and nothing after it: {"q1":..., "q1_source":..., "q2":..., "q2_source":..., "q3":..., "q3_source":..., "note": "..."}';
 
 export function userPrompt(lead: BlindLead): string {
   return `${JSON.stringify({
@@ -243,7 +295,10 @@ export async function judgeLead(options: {
       system: rubric,
       messages: [{ role: "user", content: userPrompt(options.lead) }],
       output_config: { effort: "medium" },
-      tools: [{ type: "web_search_20260209", name: "web_search", max_uses: MAX_SEARCHES }],
+      tools: [
+        { type: "web_search_20260209", name: "web_search", max_uses: MAX_SEARCHES },
+        { type: "web_fetch_20260209", name: "web_fetch", max_uses: MAX_FETCHES, max_content_tokens: 6000 },
+      ],
     } as never);
     const one = responseCost(response);
     if (one.webSearches > MAX_SEARCHES) {
@@ -253,7 +308,8 @@ export async function judgeLead(options: {
     const text = allText(response);
     const parsed = parseJudgeJson(text);
     if (parsed) {
-      const verdict = toVerdict(options.lead, options.scenarioId, parsed, now, spent);
+      const q3Basis = settleQ3(parsed, one);
+      const verdict = { ...toVerdict(options.lead, options.scenarioId, parsed, now, spent), q3_basis: q3Basis };
       await writeJson(file, verdict);
       return verdict;
     }
@@ -280,7 +336,7 @@ export async function judgeBlind(options: {
   let leads = JSON.parse(await readFile(blindFile, "utf8")) as BlindLead[];
   if (options.limit !== undefined) leads = leads.slice(0, options.limit);
   const verdicts: Verdict[] = [];
-  const perLead: Array<{ company: string; signal_url: string; costDollars: number; webSearches: number; usage?: Verdict["usage"]; error?: string }> = [];
+  const perLead: Array<{ company: string; signal_url: string; costDollars: number; webSearches: number; webFetches?: number; usage?: Verdict["usage"]; error?: string }> = [];
   let total = 0;
   const writeCost = () => writeJson(join(root, options.setId, options.scenarioId, "judge-cost.json"), { totalDollars: total, leads: perLead.length, perLead });
   for (const lead of leads) {
@@ -292,7 +348,7 @@ export async function judgeBlind(options: {
       verdicts.push(verdict);
       const cost = verdict.costDollars ?? 0;
       total += cost;
-      perLead.push({ company: lead.company, signal_url: lead.signal_url, costDollars: cost, webSearches: verdict.webSearches ?? 0, usage: verdict.usage });
+      perLead.push({ company: lead.company, signal_url: lead.signal_url, costDollars: cost, webSearches: verdict.webSearches ?? 0, webFetches: verdict.webFetches ?? 0, usage: verdict.usage });
       console.log(`judge: ${lead.company} q1=${verdict.q1} q2=${verdict.q2} q3=${verdict.q3} $${cost.toFixed(4)} (running total $${total.toFixed(4)})`);
     } catch (error) {
       // An API error on one lead must not abort the scenario.
@@ -303,6 +359,63 @@ export async function judgeBlind(options: {
     await writeCost();
   }
   return verdicts;
+}
+
+const hasCannotVerify = (v: Pick<Verdict, "q1" | "q2" | "q3">) => v.q1 === "cannot_verify" || v.q2 === "cannot_verify" || v.q3 === "cannot_verify";
+
+/**
+ * Re-judge (force) only the truth files where any answer is cannot_verify. The old
+ * verdict is kept as `<key>.prev.json` for the audit trail (never overwritten once it exists).
+ */
+export async function rejudgeCannotVerify(options: {
+  setId: string;
+  scenarioId: string;
+  resultsRoot?: string;
+  truthRoot?: string;
+  client?: JudgeClient;
+  now?: Date;
+  months?: number;
+  limit?: number;
+}): Promise<{ selected: number; before: { cannotVerify: number; good: number }; after: { cannotVerify: number; good: number }; failed: number }> {
+  const root = options.resultsRoot ?? "eval/results";
+  let leads = JSON.parse(await readFile(join(root, options.setId, options.scenarioId, "blind.json"), "utf8")) as BlindLead[];
+  const targets: Array<{ lead: BlindLead; old: Verdict }> = [];
+  for (const lead of leads) {
+    const file = truthPath(options.scenarioId, lead.company, lead.signal_url, options.truthRoot);
+    if (!existsSync(file)) continue;
+    const old = JSON.parse(await readFile(file, "utf8")) as Verdict;
+    if (old.judge !== "human" && hasCannotVerify(old)) targets.push({ lead, old });
+  }
+  leads = [];
+  const chosen = options.limit !== undefined ? targets.slice(0, options.limit) : targets;
+  const before = { cannotVerify: chosen.length, good: chosen.filter((t) => t.old.good).length };
+  const after = { cannotVerify: 0, good: 0 };
+  let failed = 0;
+  let total = 0;
+  for (const { lead, old } of chosen) {
+    const file = truthPath(options.scenarioId, lead.company, lead.signal_url, options.truthRoot);
+    const prev = file.replace(/\.json$/, ".prev.json");
+    if (!existsSync(prev)) await writeJson(prev, old);
+    try {
+      const verdict = await judgeLead({
+        scenarioId: options.scenarioId, lead, client: options.client, truthRoot: options.truthRoot, force: true,
+        now: options.now, months: options.months, setId: options.setId, resultsRoot: root,
+      });
+      // judgeLead leaves the old file in place when it falls back, so re-read what is on disk.
+      const current = JSON.parse(await readFile(file, "utf8")) as Verdict;
+      if (current.judgedAt !== verdict.judgedAt) failed += 1;
+      if (hasCannotVerify(current)) after.cannotVerify += 1;
+      if (current.good) after.good += 1;
+      total += verdict.costDollars ?? 0;
+    } catch (error) {
+      failed += 1;
+      if (hasCannotVerify(old)) after.cannotVerify += 1;
+      if (old.good) after.good += 1;
+      console.error(`judge: API error on ${lead.company}: ${error instanceof Error ? error.message : String(error)}`);
+    }
+  }
+  console.log(`rejudge-cannot-verify: ${chosen.length} re-judged ($${total.toFixed(4)}); with a cannot_verify ${before.cannotVerify} -> ${after.cannotVerify}; good ${before.good} -> ${after.good}; failed ${failed}`);
+  return { selected: chosen.length, before, after, failed };
 }
 
 /**
@@ -329,7 +442,7 @@ export async function replayFailures(options: {
     const leads = existsSync(blindFile) ? (JSON.parse(await readFile(blindFile, "utf8")) as BlindLead[]) : [];
     const costFile = join(setDir, scenarioId, "judge-cost.json");
     const perLead = existsSync(costFile)
-      ? ((JSON.parse(await readFile(costFile, "utf8")) as { perLead?: Array<{ company: string; signal_url: string; costDollars?: number; webSearches?: number; usage?: JudgeUsage }> }).perLead ?? [])
+      ? ((JSON.parse(await readFile(costFile, "utf8")) as { perLead?: Array<{ company: string; signal_url: string; costDollars?: number; webSearches?: number; webFetches?: number; usage?: JudgeUsage }> }).perLead ?? [])
       : [];
     for (const file of files) {
       const key = file.replace(/\.txt$/, "");
@@ -345,7 +458,7 @@ export async function replayFailures(options: {
         continue;
       }
       const entry = perLead.find((p) => p.company === lead.company && p.signal_url === lead.signal_url);
-      const spent: Spent = { usage: entry?.usage ?? { input: 0, output: 0, cache_read: 0, cache_creation: 0 }, costDollars: entry?.costDollars ?? 0, webSearches: entry?.webSearches ?? 0 };
+      const spent: Spent = { usage: entry?.usage ?? { input: 0, output: 0, cache_read: 0, cache_creation: 0 }, costDollars: entry?.costDollars ?? 0, webSearches: entry?.webSearches ?? 0, webFetches: 0, fetchErrors: [] };
       const verdict = toVerdict(lead, scenarioId, parsed, options.now ?? new Date(), spent);
       await writeJson(truthPath(scenarioId, lead.company, lead.signal_url, options.truthRoot), verdict);
       await unlink(join(failDir, file));
@@ -393,7 +506,7 @@ function parseArgs(argv: string[]): Record<string, string | boolean> {
     const arg = argv[i]!;
     if (!arg.startsWith("--")) continue;
     const key = arg.slice(2);
-    if (key === "force" || key === "human" || key === "dry-run" || key === "replay-failures") out[key] = true;
+    if (key === "force" || key === "human" || key === "dry-run" || key === "replay-failures" || key === "rejudge-cannot-verify") out[key] = true;
     else out[key] = argv[++i] ?? "";
   }
   return out;
@@ -424,6 +537,15 @@ async function main() {
     return;
   }
   if (!args.set || !args.scenario) throw new Error("pass --set <id> --scenario <id>");
+  if (args["rejudge-cannot-verify"]) {
+    await rejudgeCannotVerify({
+      setId: String(args.set), scenarioId: String(args.scenario),
+      now: args.now ? new Date(String(args.now)) : undefined,
+      months: args.months ? Number(args.months) : undefined,
+      limit: args.limit ? Number(args.limit) : undefined,
+    });
+    return;
+  }
   if (args["dry-run"]) {
     const blindFile = join("eval/results", String(args.set), String(args.scenario), "blind.json");
     const first = (JSON.parse(await readFile(blindFile, "utf8")) as BlindLead[])[0];

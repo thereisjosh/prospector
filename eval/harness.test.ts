@@ -8,7 +8,7 @@ import { squashName } from "../src/gates";
 import { eventInWindow, truthKey } from "./harness/truth";
 import type { SearchPlan } from "../src/plan";
 import { createBlindPool } from "./harness/blind";
-import { balancedJsonObjects, judgeBlind, judgeLead, normalizeAnswer, parseJudgeJson, replayFailures, userPrompt } from "./harness/judge";
+import { balancedJsonObjects, judgeBlind, judgeLead, normalizeAnswer, parseJudgeJson, rejudgeCannotVerify, replayFailures, userPrompt } from "./harness/judge";
 import { CellError as CellErrorLike, normalizeArm, runCell, runMatrix } from "./harness/run-cell";
 import { scoreSet } from "./harness/score";
 import { applyFirstHandbackSuggestion } from "./harness/sim-user";
@@ -180,7 +180,7 @@ describe("eval harness", () => {
     const lead = record("A_workflow", 1, ["GoodCo"]).leads[0]!;
     const client = { messages: { create: vi.fn()
       .mockResolvedValueOnce({ content: [{ type: "text", text: "not json" }] })
-      .mockResolvedValueOnce({ content: [{ type: "text", text: 'prefix {"q1":"yes","q1_source":"https://a","q2":"yes","q2_source":"https://b","q3":"yes","q3_source":"https://c","note":"ok"} suffix' }] }) } };
+      .mockResolvedValueOnce({ content: [{ type: "text", text: 'prefix {"q1":"yes","q1_source":"https://a","q2":"yes","q2_source":"https://b","q3":"yes","q3_source":"https://c","note":"ok via corroborating source"} suffix' }] }) } };
     const first = await judgeLead({ scenarioId: "S1", lead: { id: "L001", ...lead }, client: client as never, rubricText: "rubric", truthRoot: root });
     expect(first.good).toBe(true);
     expect(client.messages.create).toHaveBeenCalledTimes(2);
@@ -467,7 +467,7 @@ describe("eval harness", () => {
   });
 
   describe("judge with web_search responses", () => {
-    const answer = '{"q1":"yes","q1_source":"https://a.example","q2":"cannot_verify","q2_source":"","q3":"yes","q3_source":"https://c.example","note":"ok"}';
+    const answer = '{"q1":"yes","q1_source":"https://a.example","q2":"cannot_verify","q2_source":"","q3":"yes","q3_source":"https://c.example","note":"ok via corroborating source"}';
     const webSearchResponse = (finalText = `Here is my verdict: ${answer}`, over: Record<string, unknown> = {}) => ({
       stop_reason: "end_turn",
       content: [
@@ -499,7 +499,7 @@ describe("eval harness", () => {
       expect(call.max_tokens).toBe(4000);
       expect(call.system).toBe("rubric");
       expect(call.messages[0]!.content.endsWith('"note": "..."}')).toBe(true);
-      expect(call.messages[0]!.content).toContain("Use web_search as needed (max 3), then reply with exactly one JSON object and nothing after it");
+      expect(call.messages[0]!.content).toContain("First fetch the signal_url with web_fetch to answer Q3; use web_search (max 3) for Q1/Q2");
       expect(userPrompt(lead())).toContain("GoodCo");
     });
 
@@ -632,6 +632,71 @@ describe("eval harness", () => {
       expect(v.webSearches).toBe(5);
       expect(String(err.mock.calls[0]![0])).toContain("5 web searches for max_uses 3");
       err.mockRestore();
+    });
+  });
+
+  describe("judge round 3: web_fetch", () => {
+    const json = (q3: string, note = "", q1 = "yes", q2 = "yes") =>
+      `{"q1":"${q1}","q1_source":"a","q2":"${q2}","q2_source":"b","q3":"${q3}","q3_source":"https://signal.example/article","note":"${note}"}`;
+    const fetchOk = { type: "web_fetch_tool_result", tool_use_id: "f1", content: { type: "web_fetch_result", url: "https://signal.example/article", content: { type: "document", source: { type: "text", media_type: "text/plain", data: "GoodCo opened a warehouse on 2026-10-01." } } } };
+    const fetchBlocked = { type: "web_fetch_tool_result", tool_use_id: "f1", content: { type: "web_fetch_tool_error", error_code: "url_not_accessible" } };
+    const resp = (blocks: unknown[], text: string) => ({
+      stop_reason: "end_turn",
+      content: [{ type: "server_tool_use", id: "f1", name: "web_fetch", input: { url: "x" } }, ...blocks, { type: "web_search_tool_result", tool_use_id: "s1", content: [] }, { type: "text", text }],
+      usage: { input_tokens: 1000, output_tokens: 100 },
+    });
+    const lead = () => ({ id: "L1", ...record("A_workflow", 1, ["GoodCo"]).leads[0]! });
+    const run = async (response: unknown) => {
+      const root = tempRoot();
+      const create = vi.fn().mockResolvedValue(response);
+      const v = await judgeLead({ scenarioId: "S1", lead: lead(), client: { messages: { create } } as never, rubricText: "r", truthRoot: root, setId: "j", resultsRoot: root });
+      return { v, create };
+    };
+
+    it("sends web_fetch next to web_search; a fetched document is counted, Q3 yes stands (basis fetched)", async () => {
+      const { v, create } = await run(resp([fetchOk], json("yes")));
+      const tools = (create.mock.calls[0]![0] as { tools: Array<Record<string, unknown>> }).tools;
+      expect(tools).toContainEqual({ type: "web_fetch_20260209", name: "web_fetch", max_uses: 2, max_content_tokens: 6000 });
+      expect(tools.some((t) => t.name === "web_search")).toBe(true);
+      expect(create.mock.calls[0]![0].messages[0].content).toContain("web_fetch of the signal_url fails or is blocked");
+      expect(v).toMatchObject({ q3: "yes", q3_basis: "fetched", webFetches: 1, webSearches: 1, tools: { webSearches: 1, webFetches: 1 }, judgeVersion: "v3-fetch" });
+    });
+
+    it("a blocked fetch with a 'yes' and no corroboration becomes cannot_verify (basis none), error noted", async () => {
+      const { v } = await run(resp([fetchBlocked], json("yes", "page looked fine")));
+      expect(v).toMatchObject({ q3: "cannot_verify", q3_basis: "none", webFetches: 1 });
+      expect(v.q3_source).toContain("url_not_accessible");
+    });
+
+    it("a blocked fetch with a corroborating source keeps Q3 yes (basis corroborated)", async () => {
+      const { v } = await run(resp([fetchBlocked], json("yes", "Q3 via corroborating source: another outlet reports the same opening")));
+      expect(v).toMatchObject({ q3: "yes", q3_basis: "corroborated" });
+    });
+
+    it("--rejudge-cannot-verify selects only verdicts with a cannot_verify, keeps .prev.json, force re-judges", async () => {
+      const root = tempRoot();
+      const truthRoot = tempRoot();
+      const mk = (c: string, q3: "yes" | "cannot_verify"): Verdict => ({ ...verdict(c), judge: "opus", q3, good: q3 === "yes" });
+      const leads = ["Done", "Needs", "AlsoNeeds"].map((c, i) => ({ id: `L${i}`, ...record("A_workflow", 1, [c]).leads[0]! }));
+      await mkdir(join(root, "set/S1"), { recursive: true });
+      await writeFile(join(root, "set/S1/blind.json"), JSON.stringify(leads), "utf8");
+      await writeTruth(truthRoot, mk("Done", "yes"));
+      await writeTruth(truthRoot, mk("Needs", "cannot_verify"));
+      await writeTruth(truthRoot, mk("AlsoNeeds", "cannot_verify"));
+      const create = vi.fn().mockResolvedValue(resp([fetchOk], json("yes")));
+      const log = vi.spyOn(console, "log").mockImplementation(() => undefined);
+      const out = await rejudgeCannotVerify({ setId: "set", scenarioId: "S1", resultsRoot: root, truthRoot, client: { messages: { create } } as never });
+      expect(out).toMatchObject({ selected: 2, before: { cannotVerify: 2, good: 0 }, after: { cannotVerify: 0, good: 2 }, failed: 0 });
+      expect(log.mock.calls.some((c) => String(c[0]).includes("cannot_verify 2 -> 0"))).toBe(true);
+      log.mockRestore();
+      expect(create).toHaveBeenCalledTimes(2); // "Done" was not re-judged
+      const keyOf = (l: (typeof leads)[number]) => join(truthRoot, "S1", truthKey(l.company, l.signal_url));
+      const { existsSync } = await import("node:fs");
+      expect(existsSync(`${keyOf(leads[0]!)}.prev.json`)).toBe(false);
+      for (const l of leads.slice(1)) {
+        expect(JSON.parse(await readFile(`${keyOf(l)}.prev.json`, "utf8")).q3).toBe("cannot_verify");
+        expect(JSON.parse(await readFile(`${keyOf(l)}.json`, "utf8"))).toMatchObject({ q3: "yes", judgeVersion: "v3-fetch" });
+      }
     });
   });
 });
