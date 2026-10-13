@@ -11,7 +11,7 @@ import type { SearchPlan } from "../src/plan";
 import { createBlindPool } from "./harness/blind";
 import { balancedJsonObjects, judgeBlind, judgeLead, writeHumanVerdict, normalizeAnswer, parseJudgeJson, rejudgeCannotVerify, replayFailures, userPrompt } from "./harness/judge";
 import { CellError as CellErrorLike, normalizeArm, runCell, runMatrix } from "./harness/run-cell";
-import { scoreSet } from "./harness/score";
+import { scoreExitCode, scoreSet, unjudgedMessage } from "./harness/score";
 import { applyFirstHandbackSuggestion } from "./harness/sim-user";
 import type { Arm, RunRecord, Scenario, Verdict } from "./harness/types";
 
@@ -741,6 +741,27 @@ describe("eval harness", () => {
       for (const c of ["A", "B", "C"]) await writeTruth(truthRoot, verdict(c, "cannot_verify"));
       const report = await scoreSet({ setId: "q2", resultsRoot, truthRoot, records: [record("B_agent_opus", 1, ["A", "B", "C"])] });
       expect(report.cells[0]).toMatchObject({ good_leads: 1, q2_tolerated: "A", q2_scored_no: ["B", "C"] });
+    });
+
+    it("a lead with no verdict makes the group incomplete: null pass metrics, named in the message, exit code 2", async () => {
+      const resultsRoot = tempRoot();
+      const truthRoot = tempRoot();
+      const six = ["A", "B", "C", "D", "E", "F"];
+      for (const c of six.filter((c) => c !== "F")) await writeTruth(truthRoot, verdict(c)); // F is unjudged
+      const records = [1, 2, 3].map((rep) => record("B_agent_opus", rep, six));
+      const complete = await scoreSet({ setId: "u0", resultsRoot, truthRoot, records: [1, 2, 3].map((rep) => record("C_agent_sonnet", rep, ["A", "B"])) });
+      expect(scoreExitCode(complete.cells)).toBe(0);
+      expect(complete.summaries[0]!.incomplete).toBeUndefined();
+
+      const report = await scoreSet({ setId: "u1", resultsRoot, truthRoot, records });
+      expect(report.cells[0]!.unjudged).toMatchObject({ count: 1, companies: ["F"] });
+      expect(report.summaries[0]).toMatchObject({ pass_at_1: null, pass_3: null, incomplete: "incomplete: 3 unjudged" });
+      expect(scoreExitCode(report.cells)).toBe(2);
+      expect(unjudgedMessage(report.cells)).toContain("S1/B_agent_opus/1: F");
+      const md = await readFile(join(resultsRoot, "u1/report.md"), "utf8");
+      expect(md).toContain("n/a (incomplete: 3 unjudged)");
+      const json = JSON.parse(await readFile(join(resultsRoot, "u1/report.json"), "utf8"));
+      expect(json.summaries[0]).toMatchObject({ pass_at_1: null, pass_3: null, incomplete: "incomplete: 3 unjudged" });
     });
 
     it("--fields restricts --rejudge-cannot-verify to the chosen answers and prints the match count first", async () => {

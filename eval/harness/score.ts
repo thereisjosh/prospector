@@ -21,6 +21,8 @@ type CellMetric = {
   /** The one Q2 cannot_verify lead tolerated as a pass in this run, and any later ones scored as no. */
   q2_tolerated?: string;
   q2_scored_no?: string[];
+  /** Leads with no verdict file. They count as not good, so a cell with any is incomplete. */
+  unjudged: { count: number; companies: string[]; signal_urls: string[] };
   /** Handback re-run: good leads in this cell vs. in the re-run with suggestion #1 applied (judged, same counting). */
   handback_rerun?: { good_leads_before: number; after: number };
 };
@@ -29,9 +31,12 @@ type ArmSummary = {
   scenarioId: string;
   arm: Arm;
   n: number;
-  pass_at_1: number;
+  /** null when any cell in the group has unjudged leads (see `incomplete`). */
+  pass_at_1: number | null;
   /** 1 only when the group has exactly 3 runs and all pass; null otherwise (see n). */
   pass_3: number | null;
+  /** Set when the group cannot be scored: "incomplete: N unjudged". */
+  incomplete?: string;
   mean_good_leads: number;
   mean_precision: number;
   mean_cost_per_good_lead: number | "Infinity";
@@ -76,7 +81,7 @@ function mean(values: number[]): number {
   return values.reduce((a, b) => a + b, 0) / values.length;
 }
 
-type Q2State = { value: boolean; tolerated?: string; scoredNo: string[] };
+type Q2State = { value: boolean; tolerated?: string; scoredNo: string[]; unjudged: Array<{ company: string; signal_url: string }> };
 
 function leadGood(verdict: Verdict | undefined, q2: Q2State, company: string): boolean {
   if (!verdict) return false;
@@ -106,10 +111,11 @@ export async function scoreSet(options: {
   const reruns = options.reruns ?? (options.records ? [] : await readCells(root, `${options.setId}-handback`));
   const cells: CellMetric[] = [];
   const countDetailed = async (record: RunRecord): Promise<{ good: number; q2: Q2State }> => {
-    const q2: Q2State = { value: false, scoredNo: [] };
+    const q2: Q2State = { value: false, scoredNo: [], unjudged: [] };
     let good = 0;
     for (const lead of record.leads) {
       const verdict = await readTruth(truthRoot, record.scenarioId, lead.company, lead.signal_url);
+      if (!verdict) q2.unjudged.push({ company: lead.company, signal_url: lead.signal_url });
       if (leadGood(verdict, q2, lead.company)) good += 1;
     }
     return { good, q2 };
@@ -140,6 +146,7 @@ export async function scoreSet(options: {
       adaptive_actions: adaptive,
       workflow_shaped: record.arm !== "A_workflow" && adaptive === 0,
       pass: good >= 6 && precision >= 0.8 && record.spend.total <= cap,
+      unjudged: { count: q2.unjudged.length, companies: q2.unjudged.map((u) => u.company), signal_urls: q2.unjudged.map((u) => u.signal_url) },
       ...(q2.tolerated ? { q2_tolerated: q2.tolerated } : {}),
       ...(q2.scoredNo.length > 0 ? { q2_scored_no: q2.scoredNo } : {}),
       ...(record.handback && rerun ? { handback_rerun: { good_leads_before: good, after: await countGood(rerun) } } : {}),
@@ -151,13 +158,16 @@ export async function scoreSet(options: {
   for (const key of [...keys].sort()) {
     const [scenarioId, arm] = key.split("\t") as [string, Arm];
     const group = cells.filter((c) => c.scenarioId === scenarioId && c.arm === arm);
+    const unjudged = group.reduce((sum, c) => sum + c.unjudged.count, 0);
+    const incomplete = unjudged > 0 ? `incomplete: ${unjudged} unjudged` : undefined;
     const finiteCosts = group.map((c) => c.cost_per_good_lead).filter((v): v is number => typeof v === "number" && Number.isFinite(v));
     summaries.push({
       scenarioId,
       arm,
       n: group.length,
-      pass_at_1: group.length === 0 ? 0 : group.filter((c) => c.pass).length / group.length,
-      pass_3: group.length === 3 ? (group.every((c) => c.pass) ? 1 : 0) : null,
+      pass_at_1: incomplete ? null : group.length === 0 ? 0 : group.filter((c) => c.pass).length / group.length,
+      pass_3: incomplete ? null : group.length === 3 ? (group.every((c) => c.pass) ? 1 : 0) : null,
+      ...(incomplete ? { incomplete } : {}),
       mean_good_leads: mean(group.map((c) => c.good_leads)),
       mean_precision: mean(group.map((c) => c.precision)),
       mean_cost_per_good_lead: finiteCosts.length === group.length ? mean(finiteCosts) : "Infinity",
@@ -171,6 +181,17 @@ export async function scoreSet(options: {
   return { cells, summaries };
 }
 
+/** One line naming every unjudged lead, or undefined when the set is fully judged. */
+export function unjudgedMessage(cells: CellMetric[]): string | undefined {
+  const parts = cells.flatMap((c) => c.unjudged.companies.map((company) => `${c.scenarioId}/${c.arm}/${c.rep}: ${company}`));
+  return parts.length === 0 ? undefined : `incomplete: ${parts.length} unjudged lead(s) (${parts.join("; ")}); pass metrics withheld`;
+}
+
+/** 2 when any lead is unjudged (the pass metrics are withheld), else 0. */
+export function scoreExitCode(cells: CellMetric[]): 0 | 2 {
+  return unjudgedMessage(cells) ? 2 : 0;
+}
+
 async function writeReport(root: string, setId: string, cells: CellMetric[], summaries: ArmSummary[]) {
   const dir = join(root, setId);
   await mkdir(dir, { recursive: true });
@@ -182,7 +203,7 @@ async function writeReport(root: string, setId: string, cells: CellMetric[], sum
     "",
     "| Scenario | Arm | n | pass@1 | pass^3 | mean good | mean precision | mean cost/good | p50 ms | p95 ms | workflow-shaped |",
     "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
-    ...summaries.map((s) => `| ${s.scenarioId} | ${s.arm} | ${s.n} | ${s.pass_at_1.toFixed(2)} | ${s.pass_3 === null ? `n/a (n=${s.n})` : s.pass_3} | ${s.mean_good_leads.toFixed(2)} | ${s.mean_precision.toFixed(2)} | ${typeof s.mean_cost_per_good_lead === "number" ? s.mean_cost_per_good_lead.toFixed(4) : "Infinity"} | ${Math.round(s.p50_latency)} | ${Math.round(s.p95_latency)} | ${s.workflow_shaped_share.toFixed(2)} |`),
+    ...summaries.map((s) => `| ${s.scenarioId} | ${s.arm} | ${s.n} | ${s.pass_at_1 === null ? `n/a (${s.incomplete})` : s.pass_at_1.toFixed(2)} | ${s.incomplete ? `n/a (${s.incomplete})` : s.pass_3 === null ? `n/a (n=${s.n})` : s.pass_3} | ${s.mean_good_leads.toFixed(2)} | ${s.mean_precision.toFixed(2)} | ${typeof s.mean_cost_per_good_lead === "number" ? s.mean_cost_per_good_lead.toFixed(4) : "Infinity"} | ${Math.round(s.p50_latency)} | ${Math.round(s.p95_latency)} | ${s.workflow_shaped_share.toFixed(2)} |`),
     "",
     "## Cells",
     "",
@@ -210,11 +231,16 @@ async function main() {
   console.log(`scored ${report.cells.length} cells; wrote eval/results/${args.set}/report.md`);
   console.log("\nScenario x Arm");
   for (const s of report.summaries) {
-    console.log(`${s.scenarioId} ${s.arm}: n=${s.n} pass@1=${s.pass_at_1.toFixed(2)} pass^3=${s.pass_3 === null ? "n/a" : s.pass_3} mean good=${s.mean_good_leads.toFixed(2)} precision=${s.mean_precision.toFixed(2)}`);
+    console.log(`${s.scenarioId} ${s.arm}: n=${s.n} pass@1=${s.pass_at_1 === null ? "n/a" : s.pass_at_1.toFixed(2)} pass^3=${s.pass_3 === null ? "n/a" : s.pass_3}${s.incomplete ? ` (${s.incomplete})` : ""} mean good=${s.mean_good_leads.toFixed(2)} precision=${s.mean_precision.toFixed(2)}`);
   }
   console.log("\nPer rep (good leads, Q2 cannot_verify tolerance)");
   for (const c of report.cells) {
     console.log(`${c.scenarioId} ${c.arm} rep ${c.rep}: good ${c.good_leads}/${c.n}; q2 tolerated: ${c.q2_tolerated ?? "none"}; q2 scored as no: ${c.q2_scored_no?.join(", ") ?? "none"}`);
+  }
+  const incomplete = unjudgedMessage(report.cells);
+  if (incomplete) {
+    console.error(incomplete);
+    process.exitCode = scoreExitCode(report.cells);
   }
 }
 
