@@ -101,3 +101,34 @@ describe("plain-words copy", () => {
     expect(csv).toContain("https://");
   });
 });
+
+describe("HTTP error copy", () => {
+  it("maps 402 on planner routes to the allowance message, never a card/validation message", async () => {
+    const { httpErrorMessage } = await import("../app/ui/copy");
+    const msg = httpErrorMessage(402, "planner", { code: "allowance_exhausted", limitDollars: 2.5 })!;
+    expect(msg).toBe("You've used your free allowance on this site ($2.50). Run it locally with your own keys (see README) or try a private window.");
+    expect(msg).not.toMatch(/cards|loosen|plan/i);
+  });
+  it("maps 402 on run creation to the free-runs message with N", async () => {
+    const { httpErrorMessage } = await import("../app/ui/copy");
+    expect(httpErrorMessage(402, "run", { runLimit: 3 })).toBe("You've used your 3 free runs here.");
+  });
+  it("maps 503 daily_budget_reached, 429, and leaves real 5xx / 400 to the generic copy", async () => {
+    const { httpErrorMessage } = await import("../app/ui/copy");
+    expect(httpErrorMessage(503, "planner", { code: "daily_budget_reached" })).toBe("This site has reached its daily budget; try tomorrow or run locally.");
+    expect(httpErrorMessage(429, "run")).toBe("Too many requests; wait a moment.");
+    expect(httpErrorMessage(500, "planner")).toBeUndefined();
+    expect(httpErrorMessage(503, "planner", { code: "other" })).toBeUndefined();
+    expect(httpErrorMessage(400, "planner")).toBeUndefined();
+  });
+  it("every 4xx/503 status the API documents has a specific message", async () => {
+    const { httpErrorMessage } = await import("../app/ui/copy");
+    for (const [status, code] of [[402, "allowance_exhausted"], [429, "Too many requests."], [503, "daily_budget_reached"]] as const) {
+      for (const where of ["planner", "run"] as const) expect(httpErrorMessage(status, where, { code })).toBeTruthy();
+    }
+  });
+  it("shows the remaining allowance line", async () => {
+    const { allowanceLine } = await import("../app/ui/copy");
+    expect(allowanceLine({ remainingRuns: 2, remainingDollars: 1.63 })).toBe("Free runs left on this site: 2 · $1.63");
+  });
+});

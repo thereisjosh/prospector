@@ -73,12 +73,15 @@ export async function api<T>(url: string, init?: { method?: string; body?: unkno
   } catch {
     // fall through to the status check
   }
-  if (!response.ok) throw new HttpError(response.status);
+  if (!response.ok) {
+    const code = data && typeof data === "object" && typeof (data as { error?: unknown }).error === "string" ? (data as { error: string }).error : undefined;
+    throw new HttpError(response.status, code);
+  }
   return data as T;
 }
 
 export class HttpError extends Error {
-  constructor(public readonly status: number) {
+  constructor(public readonly status: number, public readonly code?: string) {
     super(`HTTP ${status}`);
   }
 }

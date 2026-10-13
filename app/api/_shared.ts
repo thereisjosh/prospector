@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 import { DATA_DIR } from "../../src/agent/config";
 import { isWorkspaceId } from "../../src/agent/ids";
 import { withFileLock, writeFileAtomic } from "../../src/agent/fslock";
-import { allowanceExhausted, loadQuota, remainingAllowance, type VisitorQuota } from "../../src/agent/quota";
+import { dollarsExhausted, loadQuota, remainingAllowance, type VisitorQuota } from "../../src/agent/quota";
 
 const buckets = new Map<string, { tokens: number; updated: number }>();
 const CAPACITY = 30;
@@ -117,9 +117,13 @@ export function workspaceIdFromRequest(request: Request, body?: Record<string, u
   return workspaceIdFrom(body?.workspaceId) ?? workspaceIdFrom(request.headers.get("x-workspace-id")) ?? workspaceIdFrom(url.searchParams.get("workspaceId"));
 }
 
+/**
+ * Planner-route gate: DOLLARS only. Planner calls never take a run slot, so a visitor with
+ * 0 runs left but dollars remaining must still get through; only `POST /api/runs` gates on runs.
+ */
 export async function allowanceResponse(workspaceId: string): Promise<Response | undefined> {
   const quota = await loadQuota(workspaceId);
-  if (!allowanceExhausted(quota)) return undefined;
+  if (!dollarsExhausted(quota)) return undefined;
   return allowanceDeniedResponse(quota);
 }
 

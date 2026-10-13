@@ -467,3 +467,37 @@ export function droppedAfterLookup(screened: Screened, decided: string[]): strin
   const done = new Set(decided.map((c) => c.trim().toLowerCase()));
   return screened.lookedUp.filter((c) => !done.has(c.trim().toLowerCase()));
 }
+
+/* ---------- HTTP errors ---------- */
+
+export type HttpErrorKind = "planner" | "run" | "other";
+
+export type AllowanceView = { remainingRuns: number; remainingDollars: number };
+
+const dollars = (n: number) => `$${n.toFixed(2)}`;
+
+/**
+ * One specific sentence for every non-validation status the API documents. Returns undefined
+ * for statuses that keep the caller's own generic copy (400, real 5xx).
+ * 402 is an allowance problem, never a card/validation problem.
+ */
+export function httpErrorMessage(
+  status: number,
+  where: HttpErrorKind,
+  opts: { code?: string; limitDollars?: number; runLimit?: number } = {},
+): string | undefined {
+  if (status === 402) {
+    if (where === "run") {
+      const n = opts.runLimit;
+      return n !== undefined ? `You've used your ${n} free runs here.` : "You've used your free runs here.";
+    }
+    return `You've used your free allowance on this site (${dollars(opts.limitDollars ?? 2.5)}). Run it locally with your own keys (see README) or try a private window.`;
+  }
+  if (status === 503 && opts.code === "daily_budget_reached") return "This site has reached its daily budget; try tomorrow or run locally.";
+  if (status === 429) return "Too many requests; wait a moment.";
+  return undefined;
+}
+
+export function allowanceLine(v: AllowanceView): string {
+  return `Free runs left on this site: ${v.remainingRuns} \u00b7 ${dollars(v.remainingDollars)}`;
+}

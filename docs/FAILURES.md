@@ -112,6 +112,14 @@ Per failure: symptom · layer · cause · fix · before → after or evidence ·
 - **Fix:** `dollarsExhausted` for both mid-run checks; `allowanceExhausted` only at creation. The handback now names the reason (`allowanceHandback`). Test: `eval/allowance.test.ts › second of two runs keeps stepping while dollars remain…`.
 - **Earlier:** an allowance test on the LAST permitted run, not the first.
 
+## 17. Planner routes gated on run count; 402 shown as a card problem
+
+- **Symptom:** production `POST /api/planner/plan 402 37ms` for a visitor with `remainingRuns` 0 and `remainingDollars` 1.63; the UI said "We couldn't turn these cards into a plan. Try again, or loosen a card."
+- **Layer:** policy + UI copy. **Cause:** (a) the three planner routes used `allowanceExhausted` (runs OR dollars), although planner calls never take a run slot; (b) every planner `catch` in the UI printed its validation-style message whatever the status, so a 402 read as a card problem.
+- **Fix:** planner routes gate on `dollarsExhausted` only (daily cap kept); only `POST /api/runs` gates on runs. The UI maps 402 (allowance), 503 `daily_budget_reached`, 429 to specific messages (`httpErrorMessage`, `app/ui/copy.ts`; `HttpError` now carries the body's error code), keeping generic copy for real 5xx. The Approve step shows "Free runs left on this site: X · $Y" from `GET /api/status` before Run.
+- **Tests:** `eval/allowance.test.ts › a visitor with 0 runs left but dollars remaining can call all three planner routes (200) and gets 402 only at run creation`; `eval/ui-copy.test.ts › HTTP error copy` (402 planner/run, 503, 429, 5xx unchanged, every documented status has a message).
+- **Earlier:** an allowance test for the planner routes with 0 runs left (#16's test covered only run creation); a UI test that every 4xx/503 the API documents has its own message.
+
 Also fixed: Exa 429s under load (aac0a20: ≤ 4 in flight, jittered retry); an unanchored `.gitignore` hid `app/api/runs/**` and `app/api/workspaces/**` until d8248dc.
 
 ## What we would monitor weekly

@@ -18,7 +18,7 @@ Environment variables:
 | `ANTHROPIC_API_KEY` | unset | Required for live mode. |
 | `EXA_API_KEY` | unset | Required for live mode. |
 | `DAILY_SPEND_CAP_DOLLARS` | `10` | Global daily live spend cap. |
-| `VISITOR_MAX_LIVE_RUNS` | `2` | Per anonymous workspace live-run allowance. |
+| `VISITOR_MAX_LIVE_RUNS` | `2` (production: `3`) | Per anonymous workspace live-run allowance. Production decision: 3 runs or $2.50, whichever comes first. |
 | `VISITOR_MAX_DOLLARS` | `2.50` | Per anonymous workspace live/planner spend allowance. |
 | `DEMO_MODE` | unset | Set `1` to force recorded demo mode. |
 | `LIVE_MODE` | unset | Set `off` to pause live mode. |

@@ -5,7 +5,7 @@ import type { AgentEvent } from "../src/agent/events";
 import type { CardSet } from "../src/planner/cards";
 import { CardsStep, applyAlternative } from "./ui/CardsStep";
 import { RunView, type Decision, type FeedItem } from "./ui/RunView";
-import { screenedFrom, uniq, type Screened } from "./ui/copy";
+import { allowanceLine, httpErrorMessage, screenedFrom, uniq, type AllowanceView, type HttpErrorKind, type Screened } from "./ui/copy";
 import {
   countryList,
   eventLine,
@@ -17,6 +17,7 @@ import {
 import { AlertIcon, ArrowUpRight, Close, Crosshair, Moon, Spinner, Sun } from "./ui/parts";
 import {
   api,
+  HttpError,
   withRateLimitRetry,
   type Feedback,
   type InstagramCandidate,
@@ -60,6 +61,9 @@ function readWorkspaceId(): string {
     return newId();
   }
 }
+
+type Caps = { visitorRuns: number; visitorDollars: number };
+type StatusResponse = { visitor?: AllowanceView; caps?: Caps };
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
@@ -107,6 +111,8 @@ export default function Page() {
   const [stepping, setStepping] = useState(false);
   const [pausedByUser, setPausedByUser] = useState(false);
   const [runError, setRunError] = useState("");
+  const [visitor, setVisitor] = useState<AllowanceView | null>(null);
+  const [caps, setCaps] = useState<Caps | null>(null);
   const [deciding, setDeciding] = useState(false);
   const [decisionError, setDecisionError] = useState("");
   const [feedback, setFeedback] = useState<Record<string, Feedback>>({});
@@ -131,6 +137,8 @@ export default function Page() {
         if (m.demo) setInput((v) => v || DEMO_INPUT);
       })
       .catch(() => undefined);
+    void refreshStatus();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const refreshMemory = useCallback(async (id: string) => {
@@ -150,6 +158,26 @@ export default function Page() {
   useEffect(() => {
     headingRef.current?.focus({ preventScroll: false });
   }, [step]);
+
+  async function refreshStatus() {
+    try {
+      const s = await api<StatusResponse>("/api/status");
+      if (s.visitor) setVisitor(s.visitor);
+      if (s.caps) setCaps(s.caps);
+    } catch {
+      // the allowance line is informational; the routes enforce it
+    }
+  }
+
+  /** Specific copy for 402/503/429; otherwise the caller's generic text. */
+  function errorCopy(error: unknown, where: HttpErrorKind, generic: string): string {
+    if (error instanceof HttpError) {
+      // Run creation can also 402 on dollars alone (runs left, money gone): say so.
+      const dollarsOnly = where === "run" && visitor !== null && visitor.remainingRuns > 0 && visitor.remainingDollars <= 0;
+      return httpErrorMessage(error.status, dollarsOnly ? "planner" : where, { code: error.code, limitDollars: caps?.visitorDollars, runLimit: caps?.visitorRuns }) ?? generic;
+    }
+    return generic;
+  }
 
   function toggleTheme() {
     const next = dark ? "light" : "dark";
@@ -181,8 +209,8 @@ export default function Page() {
         setAskDescription(false);
         setEditingProfile(false);
       }
-    } catch {
-      setProfileError("We couldn't read that just now. Check the address, or describe what you sell in one sentence.");
+    } catch (error) {
+      setProfileError(errorCopy(error, "planner", "We couldn't read that just now. Check the address, or describe what you sell in one sentence."));
     } finally {
       setProfileBusy(false);
     }
@@ -201,8 +229,8 @@ export default function Page() {
       setCards(res.cards);
       setActiveAlt(-1);
       setPlan(null);
-    } catch {
-      setCardsError("We couldn't suggest targeting right now.");
+    } catch (error) {
+      setCardsError(errorCopy(error, "planner", "We couldn't suggest targeting right now."));
     } finally {
       setCardsBusy(false);
     }
@@ -224,8 +252,8 @@ export default function Page() {
       setPlan(res);
       setStep("contract");
       return true;
-    } catch {
-      setPlanError("We couldn't turn these cards into a plan. Try again, or loosen a card.");
+    } catch (error) {
+      setPlanError(errorCopy(error, "planner", "We couldn't turn these cards into a plan. Try again, or loosen a card."));
       return false;
     } finally {
       setPlanBusy(false);
@@ -303,8 +331,9 @@ export default function Page() {
       contractRef.current = undefined;
       setStep("run");
       void runLoop(res.id);
-    } catch {
-      setCreateError("The agent couldn't start. Try again in a moment.");
+    } catch (error) {
+      setCreateError(errorCopy(error, "run", "The agent couldn't start. Try again in a moment."));
+      void refreshStatus();
     } finally {
       setCreating(false);
     }
@@ -522,6 +551,7 @@ export default function Page() {
               setMaxSpend={setMaxSpend}
               busy={creating}
               error={createError}
+              allowance={visitor}
               onRun={startRun}
               onBack={() => setStep("cards")}
             />
@@ -736,6 +766,7 @@ function ContractStep(props: {
   setMaxSpend: (n: number) => void;
   busy: boolean;
   error: string;
+  allowance: AllowanceView | null;
   onRun: () => void;
   onBack: () => void;
 }) {
@@ -831,6 +862,7 @@ function ContractStep(props: {
         {spendValid && overBudget && (
           <p className="note">The estimate is above your limit. The agent stops at the limit and tells you what it found.</p>
         )}
+        {props.allowance && <p className="muted small" data-testid="allowance-line">{allowanceLine(props.allowance)}</p>}
         <p className="muted small">
           Before it spends anything, the agent shows you its opening plan for an OK. It also asks before changing any of the above.
         </p>

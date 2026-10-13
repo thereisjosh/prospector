@@ -109,4 +109,32 @@ describe("visitor allowance on the LAST permitted run", () => {
     const third = await create(jsonRequest("http://x/api/runs", { workspaceId, plan: plan() }));
     expect(third.status).toBe(402);
   });
+
+  it("a visitor with 0 runs left but dollars remaining can call all three planner routes (200) and gets 402 only at run creation", async () => {
+    process.env.VISITOR_MAX_DOLLARS = "5";
+    vi.doMock("../src/planner", async (importOriginal) => ({
+      ...(await importOriginal<typeof import("../src/planner")>()),
+      profileFromText: vi.fn(async () => ({ profile: { offering: "x" }, cost: 0.01 })),
+      suggestCards: vi.fn(async () => ({ cards: { ok: true }, cost: 0.01 })),
+      compilePlan: vi.fn(async () => ({ plan: plan(), estimatedRunCost: 0.5, cost: 0.01 })),
+    }));
+    const workspaceId = "zero-runs-ws";
+    const { recordLiveRun, loadQuota, remainingAllowance } = await import("../src/agent/quota");
+    await recordLiveRun(workspaceId);
+    await recordLiveRun(workspaceId);
+    const left = remainingAllowance(await loadQuota(workspaceId));
+    expect(left.remainingRuns).toBe(0);
+    expect(left.remainingDollars).toBeGreaterThan(0);
+
+    const { POST: profile } = await import("../app/api/planner/profile/route");
+    const { POST: cardsRoute } = await import("../app/api/planner/cards/route");
+    const { POST: planRoute } = await import("../app/api/planner/plan/route");
+    expect((await profile(jsonRequest("http://x/api/planner/profile", { workspaceId, input: "we sell scheduling software to warehouses" }))).status).toBe(200);
+    expect((await cardsRoute(jsonRequest("http://x/api/planner/cards", { workspaceId, profile: { offering: "x" } }))).status).toBe(200);
+    const cards = JSON.parse((await import("node:fs")).readFileSync(join(import.meta.dirname, "demo", "planner", "cards.json"), "utf8")).cards;
+    expect((await planRoute(jsonRequest("http://x/api/planner/plan", { workspaceId, cards }))).status).toBe(200);
+
+    const { POST: runs } = await import("../app/api/runs/route");
+    expect((await runs(jsonRequest("http://x/api/runs", { workspaceId, plan: plan() }))).status).toBe(402);
+  });
 });
