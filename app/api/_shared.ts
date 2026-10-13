@@ -1,9 +1,10 @@
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { NextResponse } from "next/server";
 import { DATA_DIR } from "../../src/agent/config";
 import { isWorkspaceId } from "../../src/agent/ids";
-import { allowanceExhausted, loadQuota, remainingAllowance } from "../../src/agent/quota";
+import { withFileLock, writeFileAtomic } from "../../src/agent/fslock";
+import { allowanceExhausted, loadQuota, remainingAllowance, type VisitorQuota } from "../../src/agent/quota";
 
 const buckets = new Map<string, { tokens: number; updated: number }>();
 const CAPACITY = 30;
@@ -79,9 +80,11 @@ export async function dailyBudgetReached(): Promise<boolean> {
 
 export async function addDailySpend(delta: number): Promise<void> {
   if (delta <= 0) return;
-  await mkdir(DATA_DIR, { recursive: true });
-  const total = await readDailySpend() + delta;
-  await writeFile(ledgerPath(), JSON.stringify({ total }, null, 2), "utf8");
+  // Read-modify-write under a lock so concurrent steps cannot lose an update.
+  await withFileLock(join(DATA_DIR, ".spend.lock"), async () => {
+    const total = await readDailySpend() + delta;
+    await writeFileAtomic(ledgerPath(), JSON.stringify({ total }, null, 2));
+  });
 }
 
 export function dailySpendCapDollars(): number {
@@ -117,6 +120,11 @@ export function workspaceIdFromRequest(request: Request, body?: Record<string, u
 export async function allowanceResponse(workspaceId: string): Promise<Response | undefined> {
   const quota = await loadQuota(workspaceId);
   if (!allowanceExhausted(quota)) return undefined;
+  return allowanceDeniedResponse(quota);
+}
+
+/** The 402 for an exhausted allowance (used after an atomic reserveLiveRun is refused). */
+export function allowanceDeniedResponse(quota: VisitorQuota): Response {
   const remaining = remainingAllowance(quota);
   return NextResponse.json(
     { error: "allowance_exhausted", remainingRuns: remaining.remainingRuns, remainingDollars: roundCents(remaining.remainingDollars) },
