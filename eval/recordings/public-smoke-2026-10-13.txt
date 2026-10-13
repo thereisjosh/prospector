@@ -1,12 +1,86 @@
 [0s] status: mode=live liveAvailable=true visitor={"remainingRuns":2,"remainingDollars":2.5} today=$0
-[5s] profile: AI-Native WMS Software for 3PLs, Brands & Retailers (AI-powered supply chain and warehouse management system with foreca
-file:///Users/joshua/Downloads/Coding/prospector/eval/smoke-public.mjs:27
-  if (!res.ok) throw new Error(`${method} ${path} → ${res.status} ${JSON.stringify(json).slice(0, 200)}`);
-                     ^
+[5s] profile: AI-Native WMS Software with AI-powered fulfillment, automation, forecasting, 3PL client portal, and extensive integratio
+[20s] cards: who=third-party logistics (3PL) providers and omnichannel retail | size 50-2000 | geo US,GB,CA | months 6 | signals new_warehouse_opening,warehouse_expansion,new_3pl_client_win,hiring_fulfillment_ops,wms_migration,omnichannel_launch
+[37s] plan: 5 queries, est. run $0.84
+[38s] run 770cd4e5-7a47-4af9-91d4-2a2d230e1f80
+  t1 approval_request APPROVAL propose_strategy
+[42s] turn 1 status=awaiting_approval spend=$0.038 leads=0
+[42s] decision on propose_strategy: approved → status=running
+  t2 tool_call search_signals {"query":"regional third-party logistics provider opens new warehouse or fulfill
+  t2 tool_call search_signals {"query":"DTC ecommerce brand opens new fulfillment center or expands its distri
+  t2 tool_call search_signals {"query":"independent 3PL fulfillment company expands warehouse square footage i
+[47s] turn 2 status=running spend=$0.109 leads=0
+  t3 tool_call lookup_company {"name":"Hollingsworth Logistics","skipped_companies":["Arvato","SHEIN","Walmart
+  t3 tool_call lookup_company {"name":"Davinci Micro Fulfillment"}
+  t3 tool_call lookup_company {"name":"G10 Fulfillment"}
+  t3 tool_call lookup_company {"name":"SCEND"}
+  t3 tool_call lookup_company {"name":"Allegro"}
+  t3 tool_call lookup_company {"name":"Packaging & Distribution Resources"}
+[59s] turn 3 status=running spend=$0.206 leads=0
+  t4 tool_call search_signals {"query":"3PL fulfillment provider signs new ecommerce brand client partnership"
+  t4 tool_call search_signals {"query":"UK ecommerce fulfilment company opens new warehouse"}
+  t4 tool_call submit_lead {"company":"Hollingsworth Logistics","signal_url":"https://northatlantastar.com/
+  t4 submit_verdict Hollingsworth Logistics: accepted
+  t4 tool_call submit_lead {"company":"G10 Fulfillment","signal_url":"https://www.prnewswire.com/news-relea
+  t4 submit_verdict G10 Fulfillment: accepted
+  t4 tool_call submit_lead {"company":"Packaging & Distribution Resources","signal_url":"https://www.ajot.c
+  t4 submit_verdict Packaging & Distribution Resources: accepted
+[68s] turn 4 status=running spend=$0.284 leads=3
+  t5 tool_call lookup_company {"name":"Barrett Distribution Centers","skipped_companies":["Maersk","Yusen Logi
+  t5 tool_call lookup_company {"name":"Online Home Shop"}
+  t5 tool_call lookup_company {"name":"SJH Fulfilment"}
+  t5 tool_call lookup_company {"name":"Kase"}
+  t5 tool_call lookup_company {"name":"VB Distribution"}
+  t5 tool_call lookup_company {"name":"Fulfillrite"}
+[79s] turn 5 status=running spend=$0.377 leads=3
+  t6 tool_call search_signals {"query":"family-owned logistics and warehousing company announces new distribut
+  t6 tool_call search_signals {"query":"consumer brand moves ecommerce fulfillment in-house into new warehouse
+  t6 tool_call submit_lead {"company":"Barrett Distribution Centers","signal_url":"https://www.prnewswire.c
+  t6 submit_verdict Barrett Distribution Centers: accepted
+[95s] turn 6 status=running spend=$0.449 leads=4
+  t7 tool_call lookup_company {"name":"Fraser Direct Distribution Services Ltd.","skipped_companies":["East Pe
+  t7 tool_call lookup_company {"name":"Metropolitan Warehouse and Delivery"}
+  t7 tool_call lookup_company {"name":"EBIN NEW YORK"}
+  t7 tool_call lookup_company {"name":"A. Duie Pyle"}
+  t7 tool_call search_signals {"query":"ecommerce fulfillment center hiring warehouse operations director or f
+  t7 tool_call search_signals {"query":"Canadian 3PL opens new fulfillment centre in Ontario, Alberta or Briti
+[114s] turn 7 status=running spend=$0.557 leads=4
+  t8 tool_call lookup_company {"name":"NLI International","skipped_companies":["GLS Canada","Walmart Canada","
+  t8 tool_call lookup_company {"name":"Maev"}
+  t8 tool_call search_signals {"query":"mid-sized 3PL announces new warehouse lease to support ecommerce clien
+  t8 tool_call submit_lead {"company":"Fraser Direct Distribution Services Ltd.","signal_url":"https://www.
+  t8 submit_verdict Fraser Direct Distribution Services Ltd.: accepted
+  t8 tool_call submit_lead {"company":"Metropolitan Warehouse and Delivery","signal_url":"https://re-nj.com
+  t8 submit_verdict Metropolitan Warehouse and Delivery: accepted
+[127s] turn 8 status=running spend=$0.642 leads=6
+  t9 tool_call lookup_company {"name":"LEGACY Supply Chain","skipped_companies":["SEKO Logistics","CJ Logistic
+  t9 tool_call search_signals {"query":"UK 3PL fulfilment provider wins new brand client contract or expands w
+[134s] turn 9 status=running spend=$0.700 leads=6
+  t10 tool_call lookup_company {"name":"3PL Logistics","skipped_companies":["THG Fulfil","Bleckmann","Maersk","
+  t10 tool_call lookup_company {"name":"Prolog Fulfilment"}
+  t10 tool_call lookup_company {"name":"Haul&Store"}
+  t10 tool_call submit_lead {"company":"LEGACY Supply Chain","signal_url":"https://hoodline.com/2026/06/logi
+  t10 submit_verdict LEGACY Supply Chain: accepted
+[143s] turn 10 status=running spend=$0.756 leads=7
+  t11 tool_call read_page {"url":"https://www.3p-logistics.co.uk/news/3pl-welcomes-jim-jam-the-label/"}
+  t11 tool_call submit_lead {"company":"Prolog Fulfilment","signal_url":"https://motortransport.co.uk/operat
+  t11 submit_verdict Prolog Fulfilment: accepted
+[148s] turn 11 status=running spend=$0.779 leads=8
+  t12 tool_call lookup_company {"name":"3PL"}
+[153s] turn 12 status=running spend=$0.804 leads=8
+  t13 tool_call finish {}
+  t13 stop STOP finish
+[161s] turn 13 status=done spend=$0.827 leads=8
 
-Error: POST /api/planner/cards → 500 {"error":"Request failed."}
-    at call (file:///Users/joshua/Downloads/Coding/prospector/eval/smoke-public.mjs:27:22)
-    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
-    at async file:///Users/joshua/Downloads/Coding/prospector/eval/smoke-public.mjs:40:19
-
-Node.js v22.22.2
+RESULT status=done stop=finish turns=13 spend={"exa":0.43600000000000017,"claude":0.39069280000000006,"total":0.8266928000000002} leads=8
+  - Hollingsworth Logistics | 2026-10-12 | 805 emp (quoted) | Hollingsworth is adding a 340,000 sq ft warehouse in Schertz, Texas with 150 new jobs, so 
+  - G10 Fulfillment | 2026-09-01 | 93 emp (quoted) | G10 Fulfillment just opened a new Kenosha distribution facility, expanding its Midwest ful
+  - Packaging & Distribution Resources | 2026-09-29 | 51 emp (quoted) | PDR just made a new Toronto fulfillment facility fully operational, its first expansion in
+  - Barrett Distribution Centers | 2026-08-28 | 698 emp (quoted) | Barrett just won STOKE Shoes as an omnichannel fulfillment client, adding to a run of new 
+  - Fraser Direct Distribution Services Ltd. | 2026-09-17 | 87 emp (quoted) | Fraser Direct just opened a new 141,000 sq ft distribution centre in Acton, Ontario.
+  - Metropolitan Warehouse and Delivery | 2026-09-23 | 541 emp (quoted) | Metropolitan Warehouse and Delivery signed a 530,000 sq ft lease at the new Carneys Point 
+  - LEGACY Supply Chain | 2026-06-05 | 848 emp (quoted) | LEGACY Supply Chain leased a large new warehouse near Indianapolis in June 2026 to grow it
+  - Prolog Fulfilment | 2026-09-07 | 147 emp (quoted) | Prolog Fulfilment just won Birdie Fortescue's warehousing and distribution, including frag
+screened: size:9 required_gate:is_3pl_or_omnichannel_brand:2 hq:1 entity_mismatch:1
+handback: {"shortfall":"8 of 10","top_reasons":[{"code":"Too small (under 50 staff)","count":10},{"code":"Not a fulfillment provider or online-first brand","count":2},{"code":"Headquartered outside US, UK or Canada","count":1},{"code":"News page did not name the company in a way the check could match","count"
+visitor after: {"remainingRuns":1,"remainingDollars":1.62} | today $0.88

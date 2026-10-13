@@ -59,3 +59,7 @@ Inspect a visitor quota file:
 ```sh
 cat /data/workspaces/<anonymous-id>/quota.json
 ```
+
+## Verified
+
+Public smoke run 2026-10-13 from the deployed URL: 13 turns, 8 leads, $0.83 (eval/recordings/public-smoke-2026-10-13.txt)

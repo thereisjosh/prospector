@@ -19,7 +19,8 @@ Prospector finds B2B sales leads for a seller who doesn't know where to start. Y
 
 ## 1. Try it
 
-**Hosted:** https://web-production-2b8f6.up.railway.app. The public URL runs LIVE: each anonymous visitor gets 2 runs / $2.50, with a $10/day global cap, and the agent pauses for your approval of its opening strategy. Demo mode (a replay of a real recorded agent run, no spend) remains available locally.
+**Hosted:** https://web-production-2b8f6.up.railway.app. It runs LIVE: each anonymous visitor gets 2 runs / $2.50, $10/day global cap, and the agent pauses for your approval of its opening strategy. Demo mode (recorded replay, no spend) remains available locally.
+Public smoke run 2026-10-13 from the deployed URL: 13 turns, 8 leads, $0.83 (eval/recordings/public-smoke-2026-10-13.txt)
 
 **Local, no keys, about 5 minutes:**
 
