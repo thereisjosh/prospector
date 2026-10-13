@@ -2,7 +2,7 @@ import { existsSync } from "node:fs";
 import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { pathToFileURL } from "node:url";
-import { truthKey } from "./truth";
+import { findVerdictFile } from "./truth";
 import type { Arm, RunRecord, Verdict } from "./types";
 
 type CellMetric = {
@@ -18,6 +18,9 @@ type CellMetric = {
   adaptive_actions: number;
   workflow_shaped: boolean;
   pass: boolean;
+  /** The one Q2 cannot_verify lead tolerated as a pass in this run, and any later ones scored as no. */
+  q2_tolerated?: string;
+  q2_scored_no?: string[];
   /** Handback re-run: good leads in this cell vs. in the re-run with suggestion #1 applied (judged, same counting). */
   handback_rerun?: { good_leads_before: number; after: number };
 };
@@ -56,8 +59,8 @@ async function readCells(root: string, setId: string): Promise<RunRecord[]> {
 }
 
 async function readTruth(truthRoot: string, scenarioId: string, company: string, signalUrl: string): Promise<Verdict | undefined> {
-  const file = join(truthRoot, scenarioId, `${truthKey(company, signalUrl)}.json`);
-  if (!existsSync(file)) return undefined;
+  const file = findVerdictFile(join(truthRoot, scenarioId), company, signalUrl);
+  if (!file) return undefined;
   return JSON.parse(await readFile(file, "utf8")) as Verdict;
 }
 
@@ -73,15 +76,20 @@ function mean(values: number[]): number {
   return values.reduce((a, b) => a + b, 0) / values.length;
 }
 
-function leadGood(verdict: Verdict | undefined, q2CannotUsed: { value: boolean }): boolean {
+type Q2State = { value: boolean; tolerated?: string; scoredNo: string[] };
+
+function leadGood(verdict: Verdict | undefined, q2: Q2State, company: string): boolean {
   if (!verdict) return false;
   if (verdict.q1 !== "yes" || verdict.q3 !== "yes") return false;
   if (verdict.q2 === "yes") return true;
   if (verdict.q2 === "no") return false;
-  if (!q2CannotUsed.value) {
-    q2CannotUsed.value = true;
+  // Q2 cannot_verify is tolerated once per run (RUBRIC section 1); a second one scores as no.
+  if (!q2.value) {
+    q2.value = true;
+    q2.tolerated = company;
     return true;
   }
+  q2.scoredNo.push(company);
   return false;
 }
 
@@ -97,20 +105,21 @@ export async function scoreSet(options: {
   const records = options.records ?? await readCells(root, options.setId);
   const reruns = options.reruns ?? (options.records ? [] : await readCells(root, `${options.setId}-handback`));
   const cells: CellMetric[] = [];
-  const countGood = async (record: RunRecord): Promise<number> => {
-    const q2CannotUsed = { value: false };
+  const countDetailed = async (record: RunRecord): Promise<{ good: number; q2: Q2State }> => {
+    const q2: Q2State = { value: false, scoredNo: [] };
     let good = 0;
     for (const lead of record.leads) {
       const verdict = await readTruth(truthRoot, record.scenarioId, lead.company, lead.signal_url);
-      if (leadGood(verdict, q2CannotUsed)) good += 1;
+      if (leadGood(verdict, q2, lead.company)) good += 1;
     }
-    return good;
+    return { good, q2 };
   };
+  const countGood = async (record: RunRecord): Promise<number> => (await countDetailed(record)).good;
   for (const record of records) {
     if (typeof record.maxCostDollars !== "number" || !(record.maxCostDollars > 0)) {
       throw new Error(`run record ${record.scenarioId}/${record.arm}/${record.rep} has no maxCostDollars; cannot apply the cost cap`);
     }
-    const good = await countGood(record);
+    const { good, q2 } = await countDetailed(record);
     const accepted = record.leads.length;
     const precision = accepted === 0 ? 0 : good / accepted;
     const cap = record.maxCostDollars;
@@ -131,6 +140,8 @@ export async function scoreSet(options: {
       adaptive_actions: adaptive,
       workflow_shaped: record.arm !== "A_workflow" && adaptive === 0,
       pass: good >= 6 && precision >= 0.8 && record.spend.total <= cap,
+      ...(q2.tolerated ? { q2_tolerated: q2.tolerated } : {}),
+      ...(q2.scoredNo.length > 0 ? { q2_scored_no: q2.scoredNo } : {}),
       ...(record.handback && rerun ? { handback_rerun: { good_leads_before: good, after: await countGood(rerun) } } : {}),
     });
   }
@@ -197,6 +208,14 @@ async function main() {
   if (!args.set) throw new Error("pass --set <id>");
   const report = await scoreSet({ setId: args.set });
   console.log(`scored ${report.cells.length} cells; wrote eval/results/${args.set}/report.md`);
+  console.log("\nScenario x Arm");
+  for (const s of report.summaries) {
+    console.log(`${s.scenarioId} ${s.arm}: n=${s.n} pass@1=${s.pass_at_1.toFixed(2)} pass^3=${s.pass_3 === null ? "n/a" : s.pass_3} mean good=${s.mean_good_leads.toFixed(2)} precision=${s.mean_precision.toFixed(2)}`);
+  }
+  console.log("\nPer rep (good leads, Q2 cannot_verify tolerance)");
+  for (const c of report.cells) {
+    console.log(`${c.scenarioId} ${c.arm} rep ${c.rep}: good ${c.good_leads}/${c.n}; q2 tolerated: ${c.q2_tolerated ?? "none"}; q2 scored as no: ${c.q2_scored_no?.join(", ") ?? "none"}`);
+  }
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {

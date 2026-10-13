@@ -5,7 +5,8 @@ import { join } from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createRunState, type RunState } from "../src/agent/state";
 import { squashName } from "../src/gates";
-import { eventInWindow, truthKey } from "./harness/truth";
+import { eventInWindow, findVerdictFile, truthKey, urlHash } from "./harness/truth";
+import { migrateTruthKeys } from "./harness/migrate-truth-keys";
 import type { SearchPlan } from "../src/plan";
 import { createBlindPool } from "./harness/blind";
 import { balancedJsonObjects, judgeBlind, judgeLead, writeHumanVerdict, normalizeAnswer, parseJudgeJson, rejudgeCannotVerify, replayFailures, userPrompt } from "./harness/judge";
@@ -687,6 +688,59 @@ describe("eval harness", () => {
       expect(noNote).not.toHaveProperty("note"); // json("yes") carries note ""
       const human = await writeHumanVerdict({ scenarioId: "S1", company: "HumanCo", signalUrl: "https://h.example", q1: "yes", q1_source: "a", q2: "yes", q2_source: "b", q3: "yes", q3_source: "c", note: " checked by hand ", truthRoot: root });
       expect(human.note).toBe("checked by hand");
+    });
+
+    it("a verdict saved under an older squash is still found (URL hash + stored URL), never by hash alone", async () => {
+      const dir = join(tempRoot(), "S1");
+      await mkdir(dir, { recursive: true });
+      const url = "https://news.example/avarra-launch";
+      const old = join(dir, `avarraai__${urlHash(url)}.json`);
+      await writeFile(old, JSON.stringify({ company: "Avarra.ai", signal_url: url, q1: "yes" }), "utf8");
+      expect(truthKey("Avarra.ai", url).startsWith("avarra__")).toBe(true); // current squash
+      expect(findVerdictFile(dir, "Avarra.ai", url)).toBe(old);
+      expect(findVerdictFile(dir, "Avarra", url)).toBe(old);
+      // same hash suffix, but the stored URL differs -> not a match
+      const other = join(dir, `somethingelse__${urlHash("https://x.example/other")}.json`);
+      await writeFile(other, JSON.stringify({ company: "Other", signal_url: "https://not-the-same.example" }), "utf8");
+      expect(findVerdictFile(dir, "Other", "https://x.example/other")).toBeUndefined();
+      // the exact current key wins when both exist
+      const exact = join(dir, `${truthKey("Avarra.ai", url)}.json`);
+      await writeFile(exact, JSON.stringify({ company: "Avarra.ai", signal_url: url }), "utf8");
+      expect(findVerdictFile(dir, "Avarra.ai", url)).toBe(exact);
+      expect(findVerdictFile(join(dir, "missing"), "A", "u")).toBeUndefined();
+    });
+
+    it("the scorer's result is unchanged by migrating old-squash truth files, and migration is idempotent", async () => {
+      const resultsRoot = tempRoot();
+      const truthRoot = tempRoot();
+      const names = ["Avarra.ai", "Reo.Dev", "Plain", "Other", "More", "Last"];
+      const recs = [record("B_agent_opus", 1, names), record("B_agent_opus", 2, names), record("B_agent_opus", 3, names)];
+      await mkdir(join(truthRoot, "S1"), { recursive: true });
+      for (const c of names) {
+        const url = recs[0]!.leads.find((l) => l.company === c)!.signal_url;
+        // files written under the OLD squash ("avarraai", "reodev") for the domain-style names
+        const oldName = c === "Avarra.ai" ? "avarraai" : c === "Reo.Dev" ? "reodev" : squashName(c);
+        const v = { ...verdict(c), signal_url: url };
+        await writeFile(join(truthRoot, "S1", `${oldName}__${urlHash(url)}.json`), JSON.stringify(v), "utf8");
+        await writeFile(join(truthRoot, "S1", `${oldName}__${urlHash(url)}.prev.json`), JSON.stringify(v), "utf8");
+      }
+      const before = await scoreSet({ setId: "m", resultsRoot, truthRoot, records: recs });
+      expect(before.cells.map((c) => c.good_leads)).toEqual([6, 6, 6]); // old keys are found
+      const renames = migrateTruthKeys(truthRoot);
+      expect(renames.filter((r) => r.status === "renamed").map((r) => r.to.split("/").pop()!.split("__")[0]).sort()).toContain("avarra");
+      expect(renames.some((r) => r.from.endsWith(".prev.json"))).toBe(true);
+      const after = await scoreSet({ setId: "m", resultsRoot, truthRoot, records: recs });
+      expect(after.cells).toEqual(before.cells);
+      expect(after.summaries).toEqual(before.summaries);
+      expect(migrateTruthKeys(truthRoot)).toEqual([]); // idempotent
+    });
+
+    it("scoring reports which lead used the one-time Q2 cannot_verify tolerance", async () => {
+      const resultsRoot = tempRoot();
+      const truthRoot = tempRoot();
+      for (const c of ["A", "B", "C"]) await writeTruth(truthRoot, verdict(c, "cannot_verify"));
+      const report = await scoreSet({ setId: "q2", resultsRoot, truthRoot, records: [record("B_agent_opus", 1, ["A", "B", "C"])] });
+      expect(report.cells[0]).toMatchObject({ good_leads: 1, q2_tolerated: "A", q2_scored_no: ["B", "C"] });
     });
 
     it("--fields restricts --rejudge-cannot-verify to the chosen answers and prints the match count first", async () => {

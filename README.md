@@ -2,14 +2,14 @@
 
 Prospector finds B2B sales leads for a seller who doesn't know where to start. You paste your website, approve a short plan, and an agent searches the web for companies with a recent, cited "why now" event (a new warehouse, a funding round, a hiring wave). It checks each one against your plan in code and returns leads with evidence, the companies it turned down and why, and a CSV. It is built for small sales teams that can't afford a data vendor. The same repo contains a fixed-pipeline workflow, which serves as the control arm.
 
-**I built the workflow and the agent, and measured when the agent earns its cost.** The measuring is only partly done. Accepted-lead counts and costs are in. Judged quality is not (see [Evals](#6-evals)).
+**I built the workflow and the agent, and measured when the agent earns its cost.** On the logistics scenario the agent passed all 3 judged reps at $0.12 per good lead, and the workflow passed none. On the funded-B2B scenario the agent is limited by precision (see [Evals](#6-evals)).
 
 ## Documents
 
 | Document | What it is |
 |---|---|
 | [docs/SPEC-agent.md](docs/SPEC-agent.md) | Agent spec: goal, flow, tools, autonomy, guardrails, evals, [§14 rollout](docs/SPEC-agent.md#14-rollout-plan) |
-| [docs/DECISIONS.md](docs/DECISIONS.md) | 13 decisions with alternatives, evidence and what would change them |
+| [docs/DECISIONS.md](docs/DECISIONS.md) | 14 decisions with alternatives, evidence and what would change them |
 | [docs/FAILURES.md](docs/FAILURES.md) | Failures found in this build: symptom, layer, root cause, fix, before → after |
 | [docs/DEMO.md](docs/DEMO.md) | 3-minute demo script |
 | [docs/prompts.md](docs/prompts.md) | The system prompt and tool descriptions, and why each section exists |
@@ -27,9 +27,9 @@ Prospector finds B2B sales leads for a seller who doesn't know where to start. Y
 npm install && DEMO_MODE=1 npm run dev     # open http://localhost:3000
 ```
 
-Demo mode turns on when `DEMO_MODE=1` is set, or when either API key is missing (`src/demo/mode.ts`). The planner returns fixtures from `eval/demo/planner/`, and runs replay `eval/demo/run/`, which is byte-identical to the smoke run's `events.jsonl`. A badge marks the replay.
+Demo mode turns on when `DEMO_MODE=1` is set, or when either API key is missing (`src/demo/mode.ts`). The planner returns fixtures from `eval/demo/planner/`, and runs replay `eval/demo/run/`, whose `events.jsonl` is byte-identical to pilot S1 agent rep 2 (`eval/results/pilot-2026-10-12/S1/B_agent_opus/2/`: 8 leads, budget stop, structured handback). A badge marks the replay.
 
-**Live, with keys:** put `ANTHROPIC_API_KEY` and `EXA_API_KEY` in `.env`. (`.env.example` predates v2 and lists only the Exa key.) Then run `npm run dev`.
+**Live, with keys:** copy `.env.example` to `.env` and fill in `ANTHROPIC_API_KEY` and `EXA_API_KEY`. Then run `npm run dev`.
 
 | Control | Default | Where |
 |---|---|---|
@@ -110,28 +110,44 @@ Before building, I probed Exa's live API and found that `category: "company"` se
 
 **Arms:** A = workflow (fixed queries), B = agent on Opus 5.5, with the same contract and the same $1.00 cap. Arm C (Sonnet 5.5) and scenarios S3/S4 have not run.
 
-**Smoke run** (`eval/recordings/agent-icp1-2026-10-12/agent/`, ICP-1 logistics, arm B, 1 run):
+**Pre-pilot smoke run** (`eval/recordings/agent-icp1-2026-10-12/agent/`, ICP-1 logistics, arm B, 1 run, before the pilot):
 
 | Turns | Tool calls | Spend (Exa + Claude) | Accepted | Good (author's manual read against the rubric, not the blind judge) | Lookups skipped | Query rewrites | Verification reads |
 |---|---|---|---|---|---|---|---|
 | 12 | 43 | $0.87 ($0.455 + $0.417) | 6 | 5 | 41 | 2 | 0 |
 
-**Pilot** (`eval/results/pilot-2026-10-12/*/*/*/run.json`). These are **accepted, not yet judged**. An accepted lead passed the code gates, and that is not a quality score.
+**Pilot, judged** (`eval/results/pilot-2026-10-12/report.md`; per-rep accepted counts and spend from `*/*/*/run.json`; verdicts in `eval/truth/S1/`, `eval/truth/S2/`). Target 10 leads, $1.00 cap, n = 3 reps per cell.
 
-| Scenario | Arm | Accepted per rep (target 10) | Spend per rep | Stop reasons |
-|---|---|---|---|---|
-| S1 ICP-1 logistics | A workflow | 4 / 9 / 6 | $0.75 / $0.77 / $0.76 (Exa only) | finish ×3 |
-| S1 ICP-1 logistics | B agent | 10 / 8 / 7 | $0.81 / $0.85 / $0.85 | target, budget, finish |
-| S2 ICP-3 funded B2B | A workflow | 0 / 0 / 0 | $0 recorded (the error text shows $0.548 already spent) | error ×3: the budget pre-check threw. Fixed since (f2bd783), not re-run |
-| S2 ICP-3 funded B2B | B agent | 10 / 10 / 10 | $0.85 / $0.52 / $0.78 | target ×3 |
+| Scenario | Arm | Good leads per rep (of accepted) | Precision (mean) | Cost per good lead (mean) | pass@1 | pass^3 |
+|---|---|---|---|---|---|---|
+| S1 ICP-1 logistics | A workflow | 2 / 2 / 2 (of 4 / 9 / 6) | 0.35 | $0.38 | 0.00 | 0 |
+| S1 ICP-1 logistics | B agent | 9 / 7 / 6 (of 10 / 8 / 7) | 0.88 | $0.12 | 1.00 | **1** |
+| S2 ICP-3 funded B2B | A workflow | 0 / 1 / 0 (of 4 / 4 / 4) | 0.08 | n/a (no good lead in 2 of 3 reps; $0.90 in rep 2) | 0.00 | 0 |
+| S2 ICP-3 funded B2B | B agent | 6 / 6 / 6 (of 10 / 10 / 10) ‡ | 0.60 ‡ | $0.12 | 0.00 | 0 ‡ |
 
-<!-- PENDING: judged pass^3 table from eval/results/pilot-2026-10-12/report.md -->
-> **Pending:** good leads, precision, cost per good lead, pass@1, pass^3 and the workflow-shaped flag per cell, from `eval/results/pilot-2026-10-12/report.md` (not yet generated). So far 1 of the 22 pooled S1 leads has been judged (`eval/truth/S1/`): *Away Team (Spreetail)*, from arm A, which the judge scored **not good** (a brand running its own fulfilment network, not a 3PL).
-<!-- /PENDING -->
+‡ **Under-counted; re-score pending.** Two leads per rep that the judge scored good (Avarra.ai, Reo.Dev) are counted as misses because their verdict files were keyed before `squashName` started stripping ".ai"/".dev" (FAILURES #11). Recounted from the verdict files under the scorer's own rule, the S2 agent has 8 / 8 / 8 good at precision 0.80, which meets the pass bar. The table shows `report.md` until it is re-scored.
+
+**Reading.** The agent passed S1 in every rep (pass^3 = 1) at $0.12 per good lead, while the workflow, with the same contract and cap, never reached 6 good leads on either scenario. On S2 the agent reached 6 good leads every rep, but `report.md` puts its precision at 0.60, below the 0.8 bar. Of its 12 non-good lead slots, 6 are the scoring bug above. The other 6 come from the verdict files:
+- **Q1 no, wrong stage (2):** Miter (rep 1) and Sybill (rep 2) passed the "recently raised seed or Series A" gate, but the judge found later-stage funding.
+- **Q2 (3):** Scaffold (rep 3) is outside 30–200 staff. SubBase (reps 1 and 3) was the run's second "cannot verify" on size, and the rubric tolerates only one per run (OuterSignal used it).
+- **Q3 not verifiable (1):** Henry AI (rep 2). The judge's fetch of the signal page failed, and it found no corroborating source.
+
+Recency was not the problem: no agent lead failed Q3 for an out-of-window event. LinkedIn hosting hurt the workflow, not the agent. All 5 pooled S2 workflow leads cite a LinkedIn URL, and the 4 not-good ones all fail Q3. Only one agent miss (Sybill) is LinkedIn-hosted, and it failed on Q1. The next iteration would, in order:
+1. Fix the verdict key and re-score. This needs no new runs.
+2. Make the funding round a quoted fact checked in code, the way size already needs its quoted source (`size_basis`), so the stage comes from the page, not a yes/no summary.
+3. Exclude `linkedin.com` as a signal host. The judge cannot open it, and it accounts for all of the workflow's S2 leads.
+
+**Judging.** The blind judge is Opus 5.5 with web search (max 3) and web fetch (max 2). The first, search-only version could not open signal pages and scored S1 8/22 and S2 10/23 good. Its Q3 "cannot verify" verdicts were re-judged with fetch: 8 in S1 (6 flipped to good) and 9 in S2 (5 flipped), giving 14/22 and 15/23. The superseded verdicts are kept as `*.prev.json` (FAILURES #10, RUBRIC change log). I spot-checked 10 of 45 verdicts (22%, `eval/truth/SPOT-CHECKS.md`). All 10 agree with the final verdicts. The one that disagreed with the search-only judge (RGL Logistics) is what triggered the fetch fix.
+
+**What it cost.** About $40 across the build:
+- **Exa ≈ $14** (author's log). Files back $11.22 of it: $7.68 for the 12 pilot cells (`run.json`), $1.89 for the three recordings in `eval/recordings/`, and at least $1.64 for the three crashed S2 workflow cells ($0.548 each in their error text, FAILURES #7).
+- **Claude agent and planner ≈ $8** (author's log). Files back $2.38: $1.96 for the pilot and $0.42 for the smoke run.
+- **Judging: $14.39 recorded.** The search-only pass cost $8.64 (`S1/judge-cost.json` $4.08 + `S2/judge-cost.json` $4.56). The fetch re-judges cost $5.75 (the sum of `costDollars` over the 17 `v3-fetch` verdicts).
+- **≈ $3.50 lost** to the first judge run, which parsed 0 of 22 verdicts and left no record (author's log, FAILURES #8).
 
 **Agency check.** Every pilot agent run skipped lookups (S1: 39 / 49 / 53, S2: 11 / 17 / 22), so none trips the rubric's "workflow-shaped" flag. That flag is weak. Query rewrites were 0 / 0 / 0 on S1 and 1 / 0 / 1 on S2, and **no agent run, smoke or pilot, used `read_page`**.
 
-**What the agent did that the workflow couldn't** (from the smoke run's `events.jsonl`):
+**What the agent did that the workflow couldn't** (from the pre-pilot smoke run's `events.jsonl`):
 1. **It proposed a strategy before spending.** At turn 1 it proposed three angles and wrote its own first queries, for example *"UK 3PL logistics company opens new distribution centre warehouse"*, with an estimate of $0.95. The actual spend was $0.87.
 2. **It skipped lookups it shouldn't pay for.** On turn 3 it skipped 15 names before any lookup, including *Walmart, Maersk, XPO, CEVA Logistics, A. Duie Pyle*. For comparison, the S1 workflow accepted A. Duie Pyle in rep 2 on an unverified size estimate.
 3. **It rewrote its queries.** After the first batch surfaced mostly large firms, it searched *"independent family-owned 3PL warehousing company opens new warehouse, hiring dozens of workers"*, then looked up *Metropolitan Warehouse and Delivery* (541 staff, quoted), which was accepted at turn 5. Its todo list recorded the lesson: *"hiring ads (mostly giant firms)"*.
@@ -155,11 +171,10 @@ Full write-ups: [docs/FAILURES.md](docs/FAILURES.md).
 - **Storage:** run state, memory and the daily-spend ledger are JSON files. On Vercel they live in `/tmp`, which is per instance and ephemeral, so the daily cap and memory are not global there.
 - **Rate limit** is an in-memory map per process.
 - **No auth.** A workspace is an id in `localStorage`, and anyone holding the id can read or clear its memory.
-- **Evidence is thin.** The pilot is unjudged (1 of 22 S1 verdicts so far), there is no human spot-check yet, n = 3 per cell, arm C and scenarios S3/S4 have not run, and the S2 workflow cells need a re-run after the budget fix.
+- **Evidence is thin.** n = 3 per cell over 2 scenarios. Arm C and scenarios S3/S4 have not run. 10 of 45 verdicts are human spot-checked. The S2 agent row awaits a re-score (FAILURES #11).
 - **Exa extraction noise** (wrong-year dates, conflicting headcounts such as 356 vs 3,560 for one company) is bounded by gates, not eliminated (SPEC-agent §13).
 - **Hosting:** each route has `maxDuration = 60`. A turn with slow Exa calls and a long model response could exceed it, and p95 turn time has not been measured.
-- **Demo replay** uses the smoke recording made before the cost-logging fix. Mid-replay, the step responses report up to $1.67 of spend, then $0.87 at the end.
-- `.env.example` predates v2. The old `eval/recordings/icp1-2026-10-11b` replay no longer matches current request hashes ("replay miss").
+- The old `eval/recordings/icp1-2026-10-11b` replay no longer matches current request hashes ("replay miss").
 
 ## 9. Repo map and commands
 
@@ -189,6 +204,6 @@ npm run eval:score -- --set <id>                       # → eval/results/<id>/r
 
 ## 10. Build notes
 
-This build was AI-assisted. I orchestrated it with coding agents and subagents (Claude models and Codex), and the commit trailers say so. The product decisions are mine: the architecture, the autonomy boundaries, the rubric and eval design, which failures to chase, and what to claim. The live-API probes behind them are mine too. Every number above comes from a file in this repo, and anything not yet measured is marked as pending.
+This build was AI-assisted. I orchestrated it with coding agents and subagents (Claude models and Codex), and the commit trailers say so. The product decisions are mine: the architecture, the autonomy boundaries, the rubric and eval design, which failures to chase, and what to claim. The live-API probes behind them are mine too. Every number above comes from a file in this repo or is marked "author's log", and anything not yet measured or re-scored is marked as such.
 
 Stack: Next.js 14 · React 18 · TypeScript · `@anthropic-ai/sdk` (Messages API, no framework) · Exa · Vitest.

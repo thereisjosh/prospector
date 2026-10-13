@@ -7,7 +7,7 @@
 | S1 | A_workflow | 3 | 0.00 | 0 | 2.00 | 0.35 | 0.3805 | 55153 | 57469 | 0.00 |
 | S1 | B_agent_opus | 3 | 1.00 | 1 | 7.33 | 0.88 | 0.1179 | 132147 | 135423 | 0.00 |
 | S2 | A_workflow | 3 | 0.00 | 0 | 0.33 | 0.08 | Infinity | 68754 | 91011 | 0.00 |
-| S2 | B_agent_opus | 3 | 0.00 | 0 | 6.00 | 0.60 | 0.1194 | 102122 | 153419 | 0.00 |
+| S2 | B_agent_opus | 3 | 1.00 | 1 | 8.00 | 0.80 | 0.0896 | 102122 | 153419 | 0.00 |
 
 ## Cells
 
@@ -22,6 +22,6 @@
 | S2 | A_workflow | 1 | 0 | 0.00 | Infinity | 91011 | budget | 0 | no | no |
 | S2 | A_workflow | 2 | 1 | 0.25 | 0.8980 | 68754 | budget | 0 | no | no |
 | S2 | A_workflow | 3 | 0 | 0.00 | Infinity | 60342 | budget | 0 | no | no |
-| S2 | B_agent_opus | 1 | 6 | 0.60 | 0.1414 | 153419 | target_leads | 12 | no | no |
-| S2 | B_agent_opus | 2 | 6 | 0.60 | 0.0867 | 73027 | target_leads | 17 | no | no |
-| S2 | B_agent_opus | 3 | 6 | 0.60 | 0.1303 | 102122 | target_leads | 23 | no | no |
+| S2 | B_agent_opus | 1 | 8 | 0.80 | 0.1060 | 153419 | target_leads | 12 | no | yes |
+| S2 | B_agent_opus | 2 | 8 | 0.80 | 0.0650 | 73027 | target_leads | 17 | no | yes |
+| S2 | B_agent_opus | 3 | 8 | 0.80 | 0.0977 | 102122 | target_leads | 23 | no | yes |

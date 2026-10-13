@@ -5,7 +5,7 @@ import { readdir, unlink } from "node:fs/promises";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { pathToFileURL } from "node:url";
-import { eventInWindow, truthKey } from "./truth";
+import { eventInWindow, findVerdictFile, truthKey } from "./truth";
 import type { BlindLead } from "./blind";
 import { claudeCostDollars } from "../../src/agent/config";
 import type { RubricAnswer, Verdict } from "./types";
@@ -22,8 +22,10 @@ type JudgeJson = {
   note?: string;
 };
 
+/** The existing verdict file (even under an older squash of the name), else the current key's path. */
 function truthPath(scenarioId: string, company: string, signalUrl: string, truthRoot = "eval/truth"): string {
-  return join(truthRoot, scenarioId, `${truthKey(company, signalUrl)}.json`);
+  const dir = join(truthRoot, scenarioId);
+  return findVerdictFile(dir, company, signalUrl) ?? join(dir, `${truthKey(company, signalUrl)}.json`);
 }
 
 async function writeJson(path: string, value: unknown) {
