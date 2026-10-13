@@ -84,7 +84,7 @@ What the model decides that the workflow cannot, each logged as an **adaptive ac
 
 ## 3. Architecture
 
-- **Harness:** a TypeScript, server-side Next.js route that streams progress events to the UI over SSE. A manual tool-use loop on `@anthropic-ai/sdk` `messages.create`. No agent framework, so every part of the loop is visible and explainable.
+- **Harness:** TypeScript, server-side Next.js routes; the UI drives the run one turn per `POST /step` and reads each turn's events from the response (polling, not SSE — see §5a). A manual tool-use loop on `@anthropic-ai/sdk` `messages.create`. No agent framework, so every part of the loop is visible and explainable.
 - **Model:** `claude-opus-5-5`, effort `medium`, adaptive thinking (always on for this model), server-side `fallbacks: "default"` for refusals. The model is a config value, and **Opus 5.5 vs Sonnet 5.5 is an eval arm** (§9), because cost per lead is a headline metric.
 - **API constraints:**
   - forced `tool_choice` returns a 400 on this model, so use `auto` and steer from the prompt
