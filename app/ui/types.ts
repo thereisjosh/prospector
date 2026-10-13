@@ -28,7 +28,7 @@ export type RunSnapshot = {
   screened?: Array<{ code: string; count: number; companies: string[] }>;
   todo: string;
   handback?: Handback;
-  pendingApproval?: { tool: string; input: unknown };
+  pendingApproval?: { toolUseId?: string; tool: string; input: unknown };
 };
 
 /** POST /api/runs/:id/step and /decision */
@@ -47,10 +47,23 @@ export type MemoryView = { seenCount: number; preferenceNotes: string[] };
 
 export type { SellerProfile, InstagramCandidate };
 
+/** The anonymous workspace id the page stores; live routes use it for the visitor allowance. */
+function workspaceHeader(): Record<string, string> {
+  try {
+    const id = typeof window !== "undefined" ? window.localStorage.getItem("prospector.workspaceId") : null;
+    return id ? { "x-workspace-id": id } : {};
+  } catch {
+    return {};
+  }
+}
+
 export async function api<T>(url: string, init?: { method?: string; body?: unknown }): Promise<T> {
   const response = await fetch(url, {
     method: init?.method ?? (init?.body !== undefined ? "POST" : "GET"),
-    headers: init?.body !== undefined ? { "content-type": "application/json" } : undefined,
+    headers: {
+      ...workspaceHeader(),
+      ...(init?.body !== undefined ? { "content-type": "application/json" } : {}),
+    },
     body: init?.body !== undefined ? JSON.stringify(init.body) : undefined,
     cache: "no-store",
   });

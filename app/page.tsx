@@ -315,7 +315,9 @@ export default function Page() {
     setDeciding(true);
     setDecisionError("");
     try {
-      const res = await api<StepResponse>(`/api/runs/${encodeURIComponent(runId)}/decision`, { body: decision });
+      // The decision route binds the answer to the specific pending request.
+      const toolUseId = snapshot?.pendingApproval?.toolUseId;
+      const res = await api<StepResponse>(`/api/runs/${encodeURIComponent(runId)}/decision`, { body: { ...decision, toolUseId } });
       pushEvents(res.events);
       await refreshSnapshot(runId);
       void runLoop(runId);

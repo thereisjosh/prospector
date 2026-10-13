@@ -17,7 +17,7 @@ export async function suggestCards(profile: SellerProfile, deps: PlannerModelDep
   const system = [
     "You suggest lead-search cards for a B2B prospecting tool.",
     "Reply with ONE JSON object and nothing else.",
-    "Cards: who describes target industry and company descriptor; whyNow lists ordered snake_case signal types and a human description; size is employee range and unknown-size policy; stage is optional; geo is HQ ISO-2 countries; recency is months; exclusions are customer/competitor names and domains.",
+    "Cards: who describes target industry and company descriptor; whyNow lists ordered snake_case signal types and a human description; size is employee range and unknown-size policy; stage is optional and must be exactly one of any | seed | series_a | series_b_plus | bootstrapped (use any when funding stage does not matter for this buyer); geo is HQ ISO-2 countries; recency is months; exclusions are customer/competitor names and domains.",
     "Exa levers: recency is a hard startPublishedDate filter; size, geo, and stage are estimated from retrieved company evidence; signal types become search and summary prompts.",
     "Output must be realistic for a B2B seller of this offering.",
   ].join("\n");
@@ -36,18 +36,26 @@ export function validateCards(input: unknown) {
   const exclusions = object(input.exclusions, "exclusions", errors);
   const rationale = object(input.rationale, "rationale", errors);
 
-  const stage = input.stage;
-  if (stage !== undefined && !["any", "seed", "series_a", "series_b_plus", "bootstrapped"].includes(String(stage))) {
-    errors.push("stage must be any, seed, series_a, series_b_plus, or bootstrapped");
-  }
+  // stage is optional and advisory: an unknown value (e.g. "growth", "established")
+  // is coerced to "any" rather than failing the whole card set.
+  const STAGES = ["any", "seed", "series_a", "series_b_plus", "bootstrapped"];
+  const rawStage = input.stage === undefined || input.stage === null ? undefined : String(input.stage).toLowerCase().replace(/[\s-]+/g, "_");
+  const stage = rawStage === undefined ? undefined : STAGES.includes(rawStage) ? rawStage : "any";
 
-  const signalTypes = stringArray(whyNow?.signalTypes, "whyNow.signalTypes", errors);
+  // Model output is normalised, not rejected, where the intent is unambiguous:
+  // "New facility" / "new-facility" → "new_facility"; a missing descriptor falls back to the industry.
+  const signalTypes = stringArray(whyNow?.signalTypes, "whyNow.signalTypes", errors)
+    .map((s) => s.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, "").slice(0, 40))
+    .filter((s) => s.length >= 2);
+  if (who && typeof who === "object" && !cleanString((who as { descriptor?: unknown }).descriptor) && cleanString((who as { industry?: unknown }).industry)) {
+    (who as { descriptor?: unknown }).descriptor = (who as { industry?: unknown }).industry;
+  }
   if (!cleanString(who?.industry)) errors.push("who.industry must be a non-empty string");
   if (!cleanString(who?.descriptor)) errors.push("who.descriptor must be a non-empty string");
   if (!cleanString(whyNow?.description)) errors.push("whyNow.description must be a non-empty string");
   if (signalTypes.length < 2 || signalTypes.length > 6) errors.push("whyNow.signalTypes must have 2-6 items");
   signalTypes.forEach((s, i) => {
-    if (!/^[a-z][a-z0-9_]{1,40}$/.test(s)) errors.push(`whyNow.signalTypes[${i}] must be snake_case`);
+    if (!/^[a-z0-9][a-z0-9_]{1,40}$/.test(s)) errors.push(`whyNow.signalTypes[${i}] must be snake_case`);
   });
 
   const min = numberField(size?.min, "size.min", errors);
