@@ -63,6 +63,12 @@ export function remainingAllowance(quota: VisitorQuota): VisitorAllowance {
   };
 }
 
+/** Mid-run check: dollars only. The run slot was already taken at creation, so run count must not stop a running run. */
+export function dollarsExhausted(quota: VisitorQuota): boolean {
+  return quota.spentDollars >= visitorDollarLimit();
+}
+
+/** Run CREATION check: runs OR dollars. Never use this to stop a run that is already going. */
 export function allowanceExhausted(quota: VisitorQuota): boolean {
   return quota.liveRuns >= visitorRunLimit() || quota.spentDollars >= visitorDollarLimit();
 }

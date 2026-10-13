@@ -4,24 +4,23 @@ Per failure: symptom · layer · cause · fix · before → after or evidence ·
 
 ## 1. Wrong-year event dates [measured]
 
-- **Symptom:** the 2026-10-11 ICP-1 workflow run dropped 14 candidates as stale (`eval/recordings/icp1-2026-10-11/run.json`); Exa gave "2023-10-05" for a 2026-10-05 article.
+- **Symptom:** the 2026-10-11 ICP-1 workflow run dropped 14 candidates as stale (`eval/recordings/icp1-2026-10-11/run.json`).
 - **Layer:** tool (Exa extraction). **Cause:** freshness judged on a year-slipped date.
 - **Fix:** publish date used only for a year-slip within ±90 days (8e50801, e17043f). Test: `year-slips (RGL / FST / G10) still fall back to the publish date`.
-- **Before → after:** 14 → 1 drops on the same recording (`run.replay.json`).
+- **Before → after:** 14 → 1 drops on the same recording.
 
 ## 2. Cost-tier mis-estimate broke the budget
 
-- **Symptom:** at 50 results a search cost $0.094, not the probe's $0.007 (SPEC-v2 §8). The 2026-10-11 run spent $0.887, enriched 15 of 130 candidates, returned 1 row.
+- **Symptom:** at 50 results a search cost $0.094, not the probe's $0.007 (SPEC-v2 §8). The 2026-10-11 run spent $0.887, enriched 15 of 130, returned 1 row.
 - **Layer:** harness. **Cause:** one assumed price; Exa prices by result-count tier.
 - **Fix:** observed tiers + 25% margin; CostGuard reserves the worst case and settles actuals (8e50801). Test: `cost guard › estimates conservatively`.
-- **Before → after:** 25 results, $0.60 cap (`icp1-2026-10-11b/run.json`): stopped at lookup 27, $0.55 spent, 6 rows. Not controlled.
-- **Earlier:** assert estimate ≥ recorded cost per call.
+- **Before → after:** $0.60 cap (`icp1-2026-10-11b/run.json`): stopped at lookup 27, $0.55 spent, 6 rows.
 
 ## 3. Strict tool-schema rejections
 
-- **Symptom:** the API rejected `minimum`/`maximum` and an untyped `{}` in strict tools. Cost: $0.
+- **Symptom:** the API rejected `minimum`/`maximum` and an untyped `{}` in strict tools.
 - **Layer:** tool. **Cause:** schemas written for full JSON Schema.
-- **Fix:** keywords removed; free `count_tokens` preflight (9ff1b21). Test: `finish schema's handback is a strict-compatible object`.
+- **Fix:** keywords removed; free `count_tokens` preflight. Test: `finish schema's handback is a strict-compatible object`.
 - **Before → after:** caught by the preflight, not a paid turn.
 
 ## 4. Parallel Exa cost double-counted in events [measured]
@@ -39,17 +38,17 @@ Per failure: symptom · layer · cause · fix · before → after or evidence ·
 
 ## 6. Handback returned as prose [measured]
 
-- **Symptom:** smoke `finish.handback` was markdown; the fallback stored `enterprise: 1` and an un-actionable `scope` suggestion.
+- **Symptom:** smoke `finish.handback` was markdown; the fallback stored `enterprise: 1` and a `scope` suggestion.
 - **Layer:** tool (schema). **Cause:** free-string handback.
 - **Fix:** strict object, lookup-stage counts, data-driven suggestions (8f33f2b). Tests: `malformed handbacks … are rejected -> fallback`, `never emits field 'scope'`.
-- **Before → after:** "1 enterprise" → pilot S1 agent rep 2: `size 13, enterprise 3`, suggesting 50–1,000 staff because "11 of 13" were under 100 (`eval/demo/run/state.json`). Residual: rep 3's `code` fields hold prose.
+- **Before → after:** "1 enterprise" → pilot S1 agent rep 2: `size 13, enterprise 3` (`eval/demo/run/state.json`).
 
 ## 7. Workflow threw on budget mid-run (S2) [measured]
 
 - **Symptom:** all 3 S2 workflow cells errored, "budget cap $1.000 would be exceeded (spent $0.548 …)": 0 leads, $0 recorded.
 - **Layer:** harness. **Cause:** the guard's refusal escaped the pipeline.
 - **Fix:** skip remaining lookups, score, record spend (f2bd783). Test: `a guard that refuses mid-way (tight cap) …`.
-- **Before → after:** 3/3 crashes → 3/3 `budget` stops, 4 accepted and $0.90 recorded each (`S2/A_workflow/*/run.json`).
+- **Before → after:** 3/3 crashes → 3/3 `budget` stops, 4 accepted, $0.90 each (`S2/A_workflow/*/run.json`).
 
 ## 8. Judge parsed nothing on its first run [measured]
 
@@ -63,14 +62,14 @@ Per failure: symptom · layer · cause · fix · before → after or evidence ·
 
 - **Symptom:** after #8, the first lead still failed on a non-exact `cannot_verify`. **Layer:** eval. **Cause:** exact matching.
 - **Fix:** answer normalisation, contract in the prompt, free `--replay-failures` (4bb5629). Test: `normalises answer spellings, case and whitespace`.
-- **Before → after:** 0/1 → 1/1, recovered at $0 (Away Team; 6 searches against a cap of 3).
+- **Before → after:** 0/1 → 1/1, recovered at $0 (Away Team).
 
 ## 10. Search-only judge under-verified Q3 [measured]
 
-- **Symptom:** the v2 judge scored S1 8/22 and S2 10/23 good, with many Q3 `cannot_verify`; spot-check #1 (RGL) fetched the page and found the event (`eval/truth/SPOT-CHECKS.md`).
+- **Symptom:** the v2 judge scored S1 8/22 and S2 10/23 good, with many Q3 `cannot_verify`; spot-check #1 (RGL) found the event on the page (`eval/truth/SPOT-CHECKS.md`).
 - **Layer:** eval. **Cause:** the judge could not open signal URLs.
 - **Fix:** v3: `web_fetch` (max 2, plus 3 searches), corroboration rule for blocked pages, `q3_basis`, `--rejudge-cannot-verify` keeping `*.prev.json` (a1e0b0b; RUBRIC change log).
-- **Before → after:** S1 8 → 14 good (8 re-judged, 6 flipped); S2 10 → 15 (9 re-judged, 5 flipped). Two still `q3_basis: none`. Re-judge cost $5.75, ≈ 1.8× a v2 verdict.
+- **Before → after:** S1 8 → 14 good (8 re-judged, 6 flipped); S2 10 → 15 (9 re-judged, 5 flipped). Re-judge cost $5.75.
 
 ## 11. Scorer missed judged leads after a name-normalisation change [measured]
 
@@ -82,13 +81,13 @@ Per failure: symptom · layer · cause · fix · before → after or evidence ·
 
 ## 12. Planner rejected a valid stage
 
-- **Symptom:** first live walkthrough (deposco.com): `POST /api/planner/cards` 500 in 41,137 ms after two 20-second attempts; dev log `stage must be any, seed, series_a, series_b_plus, or bootstrapped`.
+- **Symptom:** first live walkthrough (deposco.com): `POST /api/planner/cards` 500 in 41,137 ms; dev log `stage must be any, seed, …`.
 - **Layer:** harness (validation). **Cause:** a "growth"-style stage; the enum was enforced in code, never stated in the prompt.
 - **Fix:** enum in the prompt; unknown stage coerced to `any` (413b66b). **Evidence:** the dev-log 500; no test.
 
 ## 13. Planner rejected descriptor and signal types
 
-- **Symptom:** the next attempts: 500 in 34,221 ms, then 30,573 ms. Empty `who.descriptor`; signal types like "New facility" or digit-leading "3pl_…".
+- **Symptom:** next attempts: 500 in 34,221 ms, then 30,573 ms. Empty `who.descriptor`; signal types like "New facility" or digit-leading "3pl_…".
 - **Layer:** harness (validation). **Cause:** strict format checks on unambiguous model output.
 - **Fix:** snake_case normalisation (leading digit allowed); descriptor falls back to industry (413b66b). **Evidence:** third attempt 200 in 30,842 ms; no test.
 
@@ -102,15 +101,22 @@ Per failure: symptom · layer · cause · fix · before → after or evidence ·
 
 - **Symptom:** `POST /api/runs/…/decision 409` on strategy approval.
 - **Layer:** harness (client). **Cause:** the route binds a decision to the pending `toolUseId` (review fix F1.5); the UI sent `{approve}` only.
-- **Fix:** the UI sends `snapshot.pendingApproval.toolUseId` (413b66b). **Evidence:** 409 → 200; the run finished with 10 leads for $0.73 (planner ≈ $0.11; day ledger $0.84, `spend-2026-10-13.json`).
+- **Fix:** the UI sends `snapshot.pendingApproval.toolUseId` (413b66b). **Evidence:** 409 → 200; the run finished with 10 leads for $0.73.
 
-**#12–15, shared cause:** a server contract change (stricter validation, a new required field) never reached the client: server and UI were built by different agents against the spec, not each other, and mocked tests passed on both sides. **Earlier:** a contract test driving the real routes from the UI's own request builders (no model), and a live `--limit 1` walkthrough before any batch, the same rule as for the judge (#8).
+**#12–15, shared cause:** a server contract change (stricter validation, a new required field) never reached the client: server and UI were built separately against the spec, and mocked tests passed on both sides. **Earlier:** a contract test driving the real routes from the UI's own request builders, and a live `--limit 1` walkthrough (as in #8).
 
-Also fixed, no number: Exa 429s under load (aac0a20: ≤ 4 in flight, jittered retry), and an unanchored `.gitignore` that hid `app/api/runs/**` and `app/api/workspaces/**` from every commit before d8248dc.
+## 16. Last permitted run stopped at its first spend
+
+- **Symptom:** production run `10665d83…` (a visitor's second live run) stopped at turn 2 with $0.08 spent and `remainingDollars` 1.63; empty handback (`top_reasons: []`).
+- **Layer:** harness / policy. **Cause:** run creation had already taken the second slot (`liveRuns` 2 = limit); the post-step check used `allowanceExhausted` (runs OR dollars), so it fired on any spend.
+- **Fix:** `dollarsExhausted` for both mid-run checks; `allowanceExhausted` only at creation. The handback now names the reason (`allowanceHandback`). Test: `eval/allowance.test.ts › second of two runs keeps stepping while dollars remain…`.
+- **Earlier:** an allowance test on the LAST permitted run, not the first.
+
+Also fixed: Exa 429s under load (aac0a20: ≤ 4 in flight, jittered retry); an unanchored `.gitignore` hid `app/api/runs/**` and `app/api/workspaces/**` until d8248dc.
 
 ## What we would monitor weekly
 
-Extends the SPEC-agent §14 weekly review; a breach rolls back one stage.
+Extends SPEC-agent §14; a breach rolls back one stage.
 
 | Metric | Why | Failure |
 |---|---|---|
@@ -122,6 +128,6 @@ Extends the SPEC-agent §14 weekly review; a breach rolls back one stage.
 | Share of leads dated by `published_fallback`; stale drops | Year-slip drift | 1 |
 | Lookup entity mismatches; `hq` rejections after lookup | Wrong-company enrichment | 5 |
 | Exa 429/retry count; p95 turn time vs the 60 s route limit | Load and hosting | — |
-| Judge parse failures; share of "cannot verify" and `q3_basis: none`; pooled leads with no verdict | Eval health | 8–11 |
-| Runs with 0 verification reads (all 7 agent runs so far) | The agent is not verifying | — |
+| Judge parse failures; share of "cannot verify"; leads with no verdict | Eval health | 8–11 |
+| Runs with 0 verification reads  | The agent is not verifying | — |
 | Planner 5xx and decision 409 rates | Client/server contract drift | 12–15 |

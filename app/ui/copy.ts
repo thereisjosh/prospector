@@ -156,6 +156,7 @@ const REASON_GROUPS: Record<string, string> = {
   non_company: "Job board, staffing agency or placeholder",
   already_seen: "Already seen in an earlier run",
   duplicate: "Already in this run's leads",
+  visitor_allowance: "Your free allowance was reached",
 };
 
 /** One short clause for a single rejection, e.g. "too large (3,560 employees)". */

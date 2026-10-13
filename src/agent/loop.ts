@@ -509,6 +509,12 @@ export function codeHandback(state: RunState, top: Array<{ code: string; count: 
   };
 }
 
+/** Handback for a run stopped because the visitor's dollar allowance ran out. */
+export function allowanceHandback(state: RunState): Handback {
+  const base = codeHandback(state, rejectionCounts(state));
+  return { ...base, top_reasons: [{ code: "visitor_allowance", count: 1 }, ...base.top_reasons].slice(0, 2) };
+}
+
 function parseHandback(text: string): Handback | undefined {
   try {
     const parsed = JSON.parse(text) as Handback;

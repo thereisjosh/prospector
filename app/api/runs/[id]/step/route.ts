@@ -2,8 +2,8 @@ import Anthropic from "@anthropic-ai/sdk";
 import { NextResponse } from "next/server";
 import { InvalidIdError, assertRunId } from "../../../../../src/agent/ids";
 import { checkLead } from "../../../../../src/gates";
-import { codeHandback, rejectionCounts, step } from "../../../../../src/agent/loop";
-import { addVisitorSpend, allowanceExhausted, loadQuota, visitorDollarLimit } from "../../../../../src/agent/quota";
+import { allowanceHandback, step } from "../../../../../src/agent/loop";
+import { addVisitorSpend, dollarsExhausted, loadQuota } from "../../../../../src/agent/quota";
 import { loadState, RunBusyError, saveState, StaleStateError, withRunLock } from "../../../../../src/agent/state";
 import { isDemoRunId } from "../../../../../src/demo/mode";
 import { demoStep } from "../../../../../src/demo/replay";
@@ -23,8 +23,8 @@ export async function POST(request: Request, { params }: { params: { id: string 
       const state = await loadState(params.id);
       const loadedVersion = state.version;
       const quota = await loadQuota(state.workspaceId);
-      if (quota.spentDollars >= visitorDollarLimit() && state.status === "running") {
-        state.handback ??= codeHandback(state, rejectionCounts(state));
+      if (dollarsExhausted(quota) && state.status === "running") {
+        state.handback ??= allowanceHandback(state);
         state.status = "stopped";
         state.stopReason = "visitor_allowance";
         await saveState(state, loadedVersion);
@@ -35,8 +35,8 @@ export async function POST(request: Request, { params }: { params: { id: string 
       const delta = Math.max(0, result.state.spend.total - before);
       await addDailySpend(delta);
       const updatedQuota = await addVisitorSpend(result.state.workspaceId, delta);
-      if (allowanceExhausted(updatedQuota) && result.state.status === "running") {
-        result.state.handback ??= codeHandback(result.state, rejectionCounts(result.state));
+      if (dollarsExhausted(updatedQuota) && result.state.status === "running") {
+        result.state.handback ??= allowanceHandback(result.state);
         result.state.status = "stopped";
         result.state.stopReason = "visitor_allowance";
       }
