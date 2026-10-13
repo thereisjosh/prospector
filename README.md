@@ -29,12 +29,12 @@ npm install && DEMO_MODE=1 npm run dev     # open http://localhost:3000
 
 Demo mode turns on when `DEMO_MODE=1` is set, or when either API key is missing (`src/demo/mode.ts`). The planner returns fixtures from `eval/demo/planner/`, and runs replay `eval/demo/run/`, whose `events.jsonl` is byte-identical to pilot S1 agent rep 2 (`eval/results/pilot-2026-10-12/S1/B_agent_opus/2/`: 8 leads, budget stop, structured handback). A badge marks the replay.
 
-**Live, with keys:** copy `.env.example` to `.env` and fill in `ANTHROPIC_API_KEY` and `EXA_API_KEY`. Then run `npm run dev`.
+**Live, with keys:** copy `.env.example` to `.env` and fill in `ANTHROPIC_API_KEY` and `EXA_API_KEY`. Then run `npm run dev`. A run from a pasted website costs about $0.85 all-in: the planner is about $0.11, and the run is held under the $1.00 cap. The first live walkthrough (deposco.com, 12 turns, 10 leads) cost $0.73 for the run, and $0.84 in the day's spend ledger. It found four client/server contract defects, all fixed: [FAILURES #12–15](docs/FAILURES.md#12-planner-rejected-a-valid-stage).
 
 | Control | Default | Where |
 |---|---|---|
 | Per-run cap (Exa + Claude combined) | $1.00, editable in the UI, clamped to $5 | `app/api/runs/route.ts`, `src/agent/config.ts` |
-| Daily cap across all runs | `DAILY_SPEND_CAP_DOLLARS`, default $25; when reached, `POST /api/runs` returns 503 | `app/api/_shared.ts` |
+| Daily cap across all runs | `DAILY_SPEND_CAP_DOLLARS`, default $10; when reached, `POST /api/runs` returns 503 | `app/api/_shared.ts` |
 | Rate limit | 30 requests/min per IP | `app/api/_shared.ts` |
 
 ## 2. The product flow
