@@ -673,6 +673,25 @@ describe("eval harness", () => {
       expect(v).toMatchObject({ q3: "yes", q3_basis: "corroborated" });
     });
 
+    it("--fields restricts --rejudge-cannot-verify to the chosen answers and prints the match count first", async () => {
+      const root = tempRoot();
+      const truthRoot = tempRoot();
+      const leads = ["Q3cv", "Q2cv", "Clean"].map((c, i) => ({ id: `L${i}`, ...record("A_workflow", 1, [c]).leads[0]! }));
+      await mkdir(join(root, "set/S1"), { recursive: true });
+      await writeFile(join(root, "set/S1/blind.json"), JSON.stringify(leads), "utf8");
+      await writeTruth(truthRoot, { ...verdict("Q3cv"), judge: "opus", q3: "cannot_verify", good: false });
+      await writeTruth(truthRoot, { ...verdict("Q2cv", "cannot_verify"), judge: "opus" });
+      await writeTruth(truthRoot, { ...verdict("Clean"), judge: "opus" });
+      const create = vi.fn().mockResolvedValue(resp([fetchOk], json("yes")));
+      const log = vi.spyOn(console, "log").mockImplementation(() => undefined);
+      const out = await rejudgeCannotVerify({ setId: "set", scenarioId: "S1", resultsRoot: root, truthRoot, client: { messages: { create } } as never, fields: ["q3"] });
+      const lines = log.mock.calls.map((c) => String(c[0]));
+      log.mockRestore();
+      expect(out.selected).toBe(1); // only the Q3 cannot_verify, not the Q2 one
+      expect(create).toHaveBeenCalledTimes(1);
+      expect(lines[0]).toContain("1 verdicts have cannot_verify in q3; judging 1");
+    });
+
     it("--rejudge-cannot-verify selects only verdicts with a cannot_verify, keeps .prev.json, force re-judges", async () => {
       const root = tempRoot();
       const truthRoot = tempRoot();

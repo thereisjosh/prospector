@@ -361,6 +361,14 @@ export async function judgeBlind(options: {
   return verdicts;
 }
 
+function parseFields(value: string): Array<"q1" | "q2" | "q3"> {
+  const fields = value.split(",").map((f) => f.trim()).filter(Boolean);
+  if (fields.length === 0 || !fields.every((f): f is "q1" | "q2" | "q3" => f === "q1" || f === "q2" || f === "q3")) {
+    throw new Error("--fields takes a comma list of q1,q2,q3");
+  }
+  return fields;
+}
+
 const hasCannotVerify = (v: Pick<Verdict, "q1" | "q2" | "q3">) => v.q1 === "cannot_verify" || v.q2 === "cannot_verify" || v.q3 === "cannot_verify";
 
 /**
@@ -376,18 +384,22 @@ export async function rejudgeCannotVerify(options: {
   now?: Date;
   months?: number;
   limit?: number;
+  /** Which answers to look at (default q1, q2, q3): only verdicts with a cannot_verify in one of these are re-judged. */
+  fields?: Array<"q1" | "q2" | "q3">;
 }): Promise<{ selected: number; before: { cannotVerify: number; good: number }; after: { cannotVerify: number; good: number }; failed: number }> {
   const root = options.resultsRoot ?? "eval/results";
   let leads = JSON.parse(await readFile(join(root, options.setId, options.scenarioId, "blind.json"), "utf8")) as BlindLead[];
+  const fields = options.fields ?? ["q1", "q2", "q3"];
   const targets: Array<{ lead: BlindLead; old: Verdict }> = [];
   for (const lead of leads) {
     const file = truthPath(options.scenarioId, lead.company, lead.signal_url, options.truthRoot);
     if (!existsSync(file)) continue;
     const old = JSON.parse(await readFile(file, "utf8")) as Verdict;
-    if (old.judge !== "human" && hasCannotVerify(old)) targets.push({ lead, old });
+    if (old.judge !== "human" && fields.some((f) => old[f] === "cannot_verify")) targets.push({ lead, old });
   }
   leads = [];
   const chosen = options.limit !== undefined ? targets.slice(0, options.limit) : targets;
+  console.log(`rejudge-cannot-verify: ${targets.length} verdicts have cannot_verify in ${fields.join(",")}; judging ${chosen.length}`);
   const before = { cannotVerify: chosen.length, good: chosen.filter((t) => t.old.good).length };
   const after = { cannotVerify: 0, good: 0 };
   let failed = 0;
@@ -543,6 +555,7 @@ async function main() {
       now: args.now ? new Date(String(args.now)) : undefined,
       months: args.months ? Number(args.months) : undefined,
       limit: args.limit ? Number(args.limit) : undefined,
+      fields: args.fields ? parseFields(String(args.fields)) : undefined,
     });
     return;
   }
