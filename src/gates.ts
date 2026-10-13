@@ -77,7 +77,8 @@ const CORPORATE_SUFFIXES = new Set([
 ]);
 
 /**
- * Dedupe key for a company name: lowercase, accents stripped, trailing
+ * Dedupe key for a company name: lowercase, accents stripped, a trailing
+ * domain suffix (".ai", ".io", ".com"...) dropped, trailing
  * corporate suffixes (inc/llc/ltd/corp/co/group...) dropped, then all
  * non-alphanumerics removed. "Diakon Logistics" == "Diakonlogistics".
  */
@@ -86,6 +87,9 @@ export function squashName(name: string): string {
     .normalize("NFD")
     .replace(/[̀-ͯ]/g, "")
     .toLowerCase()
+    .trim()
+    // "Avarra.ai" == "Avarra": drop a trailing domain suffix attached to the last word.
+    .replace(/(?<=[a-z0-9])\.(?:ai|io|com|co|app|dev|net|org|tech|so|xyz)$/, "")
     .replace(/&/g, " and ")
     .split(/[^a-z0-9]+/)
     .filter(Boolean);

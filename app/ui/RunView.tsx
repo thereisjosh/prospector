@@ -22,6 +22,7 @@ import {
   stopSentence,
   suggestionPatch,
   suggestionTitle,
+  isChangeField,
   droppedAfterLookup,
   type Screened,
   type ContractView,
@@ -165,9 +166,15 @@ export function RunView(props: Props) {
 
       <Rejections
         rejected={snapshot.rejected}
+        screenedGroups={snapshot.screened}
         contract={contract}
         finished={finished}
-        dropped={droppedAfterLookup(props.screened, [...snapshot.leads.map((l) => l.company), ...snapshot.rejected.map((r) => r.company)])}
+        dropped={
+          // Recordings with lookup-stage screening say why each lookup failed; older ones don't.
+          snapshot.screened
+            ? []
+            : droppedAfterLookup(props.screened, [...snapshot.leads.map((l) => l.company), ...snapshot.rejected.map((r) => r.company)])
+        }
         skipped={droppedAfterLookup(
           { lookedUp: props.screened.skipped, skipped: [] },
           [...props.screened.lookedUp, ...snapshot.leads.map((l) => l.company), ...snapshot.rejected.map((r) => r.company)],
@@ -490,9 +497,7 @@ function Outcome({
       {snapshot.summary && <p className="outcome-summary">{snapshot.summary}</p>}
       {handback && <Handback handback={handback} contract={contract} cards={cards} maxSpend={maxSpend} onApply={onApply} applying={applying} onEditTargeting={onEditTargeting} />}
       <div className="actions">
-        {!handback && (
-          <button type="button" className="ghost-btn" onClick={onEditTargeting}>Adjust targeting and run again</button>
-        )}
+        <button type="button" className="ghost-btn" onClick={onEditTargeting}>Adjust targeting and run again</button>
         <button type="button" className="link-btn" onClick={onNewSearch}>Start a new search</button>
       </div>
     </section>
@@ -534,6 +539,14 @@ function Handback({
         <ul className="suggestions">
           {handback.suggestions.map((s, i) => {
             const patch = cards ? suggestionPatch(s, cards, maxSpend) : null;
+            if (!patch && !isChangeField(s.field)) {
+              // "none" / "scope": advice, not a change. Show it as a note.
+              return s.why ? (
+                <li key={i} className="suggestion is-note">
+                  <p className="muted">{plainText(s.why, contract)}</p>
+                </li>
+              ) : null;
+            }
             return (
               <li key={i} className="suggestion">
                 <div>
@@ -705,12 +718,14 @@ function LeadRow({
 
 function Rejections({
   rejected,
+  screenedGroups = [],
   contract,
   finished,
   dropped,
   skipped,
 }: {
   rejected: RunSnapshot["rejected"];
+  screenedGroups?: NonNullable<RunSnapshot["screened"]>;
   contract: ContractView;
   finished: boolean;
   dropped: string[];
@@ -719,13 +734,20 @@ function Rejections({
   const groups = groupRejections(rejected, contract);
   const [open, setOpen] = useState(true);
   // Only after the run: mid-run, a looked-up company may still be about to be submitted.
+  const atLookup = screenedGroups
+    .filter((g) => g.count > 0)
+    .map((g) => ({
+      label: `Ruled out at lookup: ${reasonGroup(g.code, "", contract).replace(/^./, (c) => c.toLowerCase())}`,
+      items: g.companies,
+      count: g.count,
+    }));
   const extra = finished
     ? [
         ...(dropped.length ? [{ label: "Looked up, then dropped by the agent as a poor fit", items: dropped }] : []),
         ...(skipped.length ? [{ label: "Skipped as obvious non-fits, without a lookup", items: skipped }] : []),
       ]
     : [];
-  const total = rejected.length + extra.reduce((n, g) => n + g.items.length, 0);
+  const total = rejected.length + atLookup.reduce((n, g) => n + g.count, 0) + extra.reduce((n, g) => n + g.items.length, 0);
   if (total === 0) return null;
   return (
     <section className="rejections" aria-labelledby="rej-h">
@@ -751,6 +773,19 @@ function Rejections({
                   </li>
                 ))}
               </ul>
+            )}
+          </li>
+        ))}
+        {atLookup.map((g) => (
+          <li key={g.label} className="rej-group">
+            <p className="rej-label">
+              {g.label} <span className="count">{g.count}</span>
+            </p>
+            {open && (
+              <p className="rej-names muted">
+                {g.items.join(", ")}
+                {g.count > g.items.length ? ` and ${g.count - g.items.length} more` : ""}
+              </p>
             )}
           </li>
         ))}

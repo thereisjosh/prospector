@@ -17,6 +17,7 @@ import {
 import { AlertIcon, ArrowUpRight, Close, Crosshair, Moon, Spinner, Sun } from "./ui/parts";
 import {
   api,
+  withRateLimitRetry,
   type Feedback,
   type InstagramCandidate,
   type MemoryView,
@@ -247,7 +248,7 @@ export default function Page() {
   }, []);
 
   const refreshSnapshot = useCallback(async (id: string) => {
-    const snap = await api<RunSnapshot>(`/api/runs/${encodeURIComponent(id)}`);
+    const snap = await withRateLimitRetry(() => api<RunSnapshot>(`/api/runs/${encodeURIComponent(id)}`));
     contractRef.current = snap.contract;
     setSnapshot(snap);
     return snap;
@@ -265,7 +266,7 @@ export default function Page() {
       try {
         if (!contractRef.current) await refreshSnapshot(id);
         while (!stopRef.current) {
-          const res = await api<StepResponse>(`/api/runs/${encodeURIComponent(id)}/step`, { body: {} });
+          const res = await withRateLimitRetry(() => api<StepResponse>(`/api/runs/${encodeURIComponent(id)}/step`, { body: {} }));
           pushEvents(res.events);
           const snap = await refreshSnapshot(id);
           if (snap.status !== "running") {

@@ -24,6 +24,8 @@ export type RunSnapshot = {
   contract: ContractView;
   leads: AcceptedLead[];
   rejected: Array<{ company: string; code: string; reason: string; turn: number }>;
+  /** Companies screened out at lookup, grouped by reason (companies capped per group). */
+  screened?: Array<{ code: string; count: number; companies: string[] }>;
   todo: string;
   handback?: Handback;
   pendingApproval?: { tool: string; input: unknown };
@@ -58,6 +60,27 @@ export async function api<T>(url: string, init?: { method?: string; body?: unkno
   } catch {
     // fall through to the status check
   }
-  if (!response.ok) throw new Error(`HTTP ${response.status}`);
+  if (!response.ok) throw new HttpError(response.status);
   return data as T;
+}
+
+export class HttpError extends Error {
+  constructor(public readonly status: number) {
+    super(`HTTP ${status}`);
+  }
+}
+
+/**
+ * The API rate-limits per IP (30 requests, refilling 1 every 2 s). A run polls twice per
+ * turn, so a long run can outpace the refill: on 429, wait and retry instead of failing.
+ */
+export async function withRateLimitRetry<T>(call: () => Promise<T>, tries = 8): Promise<T> {
+  for (let attempt = 1; ; attempt += 1) {
+    try {
+      return await call();
+    } catch (error) {
+      if (!(error instanceof HttpError) || error.status !== 429 || attempt >= tries) throw error;
+      await new Promise((r) => setTimeout(r, 2500 * attempt));
+    }
+  }
 }

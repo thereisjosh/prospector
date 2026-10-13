@@ -193,6 +193,18 @@ describe("squashName / dedupe", () => {
     expect(squashName("C.H. Robinson")).toBe(squashName("Chrobinson"));
     expect(squashName("Rohlík")).toBe(squashName("Rohlik"));
   });
+  it("domain-style names collapse onto the plain name; lookalikes do not", () => {
+    expect(squashName("Avarra.ai")).toBe(squashName("Avarra"));
+    expect(squashName("Baselayer")).toBe(squashName("baselayer.io"));
+    expect(squashName("Acme.com")).toBe("acme");
+    expect(squashName("Acme Co.")).toBe("acme"); // unchanged: corporate suffix
+    expect(squashName("Monk")).not.toBe(squashName("Monkeys"));
+    expect(squashName("Open AI")).not.toBe(squashName("Openly"));
+    expect(squashName("Open AI")).toBe("openai");
+    expect(squashName("C.H. Robinson")).toBe("chrobinson");
+    expect(squashName("Ship.co")).toBe("ship");
+    expect(squashName(".ai")).toBe("ai"); // nothing before the dot: untouched
+  });
   it("does not over-strip", () => {
     expect(squashName("Costco")).toBe("costco");
     expect(squashName("Group")).toBe("group");

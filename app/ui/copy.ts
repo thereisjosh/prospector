@@ -326,6 +326,13 @@ export function plainText(text: string, contract?: ContractView): string {
     .replace(/\b[a-z]+(?:_[a-z0-9]+)+\b/g, (word) => humanize(word).toLowerCase());
 }
 
+const CHANGE_FIELDS = ["employeeRange", "months", "hqCountries", "industry", "maxCostDollars"];
+
+/** Whether a handback suggestion names a contract field (vs advice like "scope" / "none"). */
+export function isChangeField(field: string): boolean {
+  return CHANGE_FIELDS.includes(field);
+}
+
 /** Heading for a suggestion that has no one-click form. */
 export function suggestionTitle(field: string, value: unknown, contract?: ContractView): string {
   if (["employeeRange", "months", "hqCountries", "industry", "maxCostDollars"].includes(field)) return describeChange(field, value, contract);
