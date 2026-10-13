@@ -212,6 +212,13 @@ function fallback(lead: BlindLead, scenarioId: string, spent?: Spent): Verdict {
   };
 }
 
+const NOTE_MAX = 1500;
+
+function cleanNote(note: unknown): { note: string } | Record<string, never> {
+  const trimmed = typeof note === "string" ? note.trim().slice(0, NOTE_MAX).trim() : "";
+  return trimmed ? { note: trimmed } : {};
+}
+
 function toVerdict(lead: BlindLead, scenarioId: string, parsed: JudgeJson, now: Date, spent?: Spent): Verdict {
   return {
     ...spentFields(spent),
@@ -226,6 +233,7 @@ function toVerdict(lead: BlindLead, scenarioId: string, parsed: JudgeJson, now: 
     q2_source: parsed.q2_source,
     q3: parsed.q3,
     q3_source: parsed.q3_source,
+    ...cleanNote(parsed.note),
     good: parsed.q1 === "yes" && parsed.q3 === "yes" && parsed.q2 !== "no",
     judgedAt: new Date().toISOString(),
     judge: "opus",
@@ -492,6 +500,7 @@ export async function writeHumanVerdict(options: {
   q2_source: string;
   q3: RubricAnswer;
   q3_source: string;
+  note?: string;
   truthRoot?: string;
 }): Promise<Verdict> {
   const verdict: Verdict = {
@@ -504,6 +513,7 @@ export async function writeHumanVerdict(options: {
     q2_source: options.q2_source,
     q3: options.q3,
     q3_source: options.q3_source,
+    ...cleanNote(options.note),
     good: options.q1 === "yes" && options.q3 === "yes" && options.q2 !== "no",
     judgedAt: new Date().toISOString(),
     judge: "human",
@@ -539,6 +549,7 @@ async function main() {
       q2_source: String(args["q2-source"]),
       q3: args.q3 as RubricAnswer,
       q3_source: String(args["q3-source"]),
+      note: args.note ? String(args.note) : undefined,
     });
     console.log(`human verdict wrote ${args.company}`);
     return;

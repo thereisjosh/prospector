@@ -64,6 +64,8 @@ export type Verdict = {
   q2_source: string;
   q3: RubricAnswer;
   q3_source: string;
+  /** The judge's (or human's) reasoning, trimmed to 1,500 characters. */
+  note?: string;
   good: boolean;
   /** Judge spend for this verdict: tokens, dollars (Opus prices) and web searches used. */
   usage?: { input: number; output: number; cache_read: number; cache_creation: number };

@@ -8,7 +8,7 @@ import { squashName } from "../src/gates";
 import { eventInWindow, truthKey } from "./harness/truth";
 import type { SearchPlan } from "../src/plan";
 import { createBlindPool } from "./harness/blind";
-import { balancedJsonObjects, judgeBlind, judgeLead, normalizeAnswer, parseJudgeJson, rejudgeCannotVerify, replayFailures, userPrompt } from "./harness/judge";
+import { balancedJsonObjects, judgeBlind, judgeLead, writeHumanVerdict, normalizeAnswer, parseJudgeJson, rejudgeCannotVerify, replayFailures, userPrompt } from "./harness/judge";
 import { CellError as CellErrorLike, normalizeArm, runCell, runMatrix } from "./harness/run-cell";
 import { scoreSet } from "./harness/score";
 import { applyFirstHandbackSuggestion } from "./harness/sim-user";
@@ -671,6 +671,22 @@ describe("eval harness", () => {
     it("a blocked fetch with a corroborating source keeps Q3 yes (basis corroborated)", async () => {
       const { v } = await run(resp([fetchBlocked], json("yes", "Q3 via corroborating source: another outlet reports the same opening")));
       expect(v).toMatchObject({ q3: "yes", q3_basis: "corroborated" });
+    });
+
+    it("the judge's note is stored (trimmed, capped at 1,500 chars); human verdicts take a note too", async () => {
+      const root = tempRoot();
+      const long = "n".repeat(2000);
+      const reply = `{"q1":"yes","q1_source":"a","q2":"yes","q2_source":"b","q3":"yes","q3_source":"c","note":"  Q1: a 3PL. ${long}  "}`;
+      const create = vi.fn().mockResolvedValue(resp([fetchOk], reply));
+      const v = await judgeLead({ scenarioId: "S1", lead: lead(), client: { messages: { create } } as never, rubricText: "r", truthRoot: root, setId: "j", resultsRoot: root });
+      expect(v.note!.startsWith("Q1: a 3PL.")).toBe(true);
+      expect(v.note!.length).toBeLessThanOrEqual(1500);
+      const onDisk = JSON.parse(await readFile(join(root, "S1", `${truthKey(lead().company, lead().signal_url)}.json`), "utf8"));
+      expect(onDisk.note).toBe(v.note);
+      const noNote = await judgeLead({ scenarioId: "S2", lead: lead(), client: { messages: { create: vi.fn().mockResolvedValue(resp([fetchOk], json("yes"))) } } as never, rubricText: "r", truthRoot: root, setId: "j", resultsRoot: root });
+      expect(noNote).not.toHaveProperty("note"); // json("yes") carries note ""
+      const human = await writeHumanVerdict({ scenarioId: "S1", company: "HumanCo", signalUrl: "https://h.example", q1: "yes", q1_source: "a", q2: "yes", q2_source: "b", q3: "yes", q3_source: "c", note: " checked by hand ", truthRoot: root });
+      expect(human.note).toBe("checked by hand");
     });
 
     it("--fields restricts --rejudge-cannot-verify to the chosen answers and prints the match count first", async () => {
