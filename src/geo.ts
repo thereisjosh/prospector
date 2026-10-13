@@ -118,3 +118,18 @@ export function textInCountries(
   }
   return false;
 }
+
+/**
+ * Map a country name or code ("Singapore", "uk", "sg", "United States") to its
+ * ISO-2 code. Returns undefined when the input is not a recognised country.
+ */
+export function countryCodeFromName(name: string): string | undefined {
+  const trimmed = name.trim();
+  if (/^[A-Za-z]{2}$/.test(trimmed) && COUNTRY_CODES.includes(trimmed.toUpperCase())) return trimmed.toUpperCase();
+  const n = norm(trimmed);
+  if (!n) return undefined;
+  for (const code of COUNTRY_CODES) {
+    if ((COUNTRY_ALIASES[code] ?? []).includes(n)) return code;
+  }
+  return undefined;
+}

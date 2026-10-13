@@ -19,7 +19,7 @@ Prospector finds B2B sales leads for a seller who doesn't know where to start. Y
 
 ## 1. Try it
 
-**Hosted:** `<DEPLOY_URL>`. The public URL runs in demo mode: a replay of a real recorded agent run (below), with no spend. You'll see the full flow, and the agent pauses for your approval of its opening strategy.
+**Hosted:** https://web-production-2b8f6.up.railway.app. The public URL runs LIVE: each anonymous visitor gets 2 runs / $2.50, with a $10/day global cap, and the agent pauses for your approval of its opening strategy. Demo mode (a replay of a real recorded agent run, no spend) remains available locally.
 
 **Local, no keys, about 5 minutes:**
 

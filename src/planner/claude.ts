@@ -105,6 +105,7 @@ export async function callClaudeJson<T>(
   system: string,
   user: string,
   validate: (json: unknown) => JsonValidation<T>,
+  example?: string,
 ): Promise<{ value: T; cost: number }> {
   const model = deps.model ?? DEFAULT_MODEL;
   let totalCost = 0;
@@ -115,7 +116,7 @@ export async function callClaudeJson<T>(
       role: "user" as const,
       content: attempt === 0
         ? user
-        : `${user}\n\nYour previous JSON failed validation. Return one corrected JSON object only. Errors:\n${lastErrors.join("\n")}`,
+        : `${user}\n\nYour previous JSON failed validation. Return one corrected JSON object only. Errors:\n${lastErrors.join("\n")}${example ? `\n\nThe exact JSON shape expected:\n${example}` : ""}`,
     }];
     if (deps.client.messages.countTokens) {
       const counted = await deps.client.messages.countTokens({ model, system, messages });

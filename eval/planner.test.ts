@@ -119,6 +119,133 @@ describe("suggestCards", () => {
   });
 });
 
+type CreateArgs = { system: string; messages: { content: string }[] };
+const profileStub = { offering: "Payment terminals for cafes", buyer_roles: [], geo_served: [], competitors: [], existing_customers: [] };
+
+async function cardsFrom(raw: unknown) {
+  const client = fakeClient([raw]);
+  const result = await suggestCards(profileStub, { client });
+  expect(client.messages.create).toHaveBeenCalledTimes(1);
+  return result.cards;
+}
+
+describe("suggestCards shape tolerance", () => {
+  it("accepts signal types as an array of objects (type/name/label/id)", async () => {
+    const cards = await cardsFrom({
+      ...validCards(),
+      whyNow: {
+        description: "d",
+        signalTypes: [{ type: "New Location" }, { name: "hiring-ops" }, { label: "Menu relaunch" }, { id: "3pl_switch" }],
+      },
+    });
+    expect(cards.whyNow.signalTypes).toEqual(["new_location", "hiring_ops", "menu_relaunch", "3pl_switch"]);
+  });
+
+  it("accepts signal types as a comma or newline separated string and truncates beyond 6", async () => {
+    const comma = await cardsFrom({ ...validCards(), whyNow: { description: "d", signalTypes: "new_location, hiring ops" } });
+    expect(comma.whyNow.signalTypes).toEqual(["new_location", "hiring_ops"]);
+    const lines = await cardsFrom({ ...validCards(), whyNow: { description: "d", signalTypes: "a1\nb2\nc3\nd4\ne5\nf6\ng7\nh8" } });
+    expect(lines.whyNow.signalTypes).toEqual(["a1", "b2", "c3", "d4", "e5", "f6"]);
+  });
+
+  it("still errors when fewer than 2 signal types remain", async () => {
+    const client = fakeClient([
+      { ...validCards(), whyNow: { description: "d", signalTypes: "only_one" } },
+      { ...validCards(), whyNow: { description: "d", signalTypes: [{ type: "only_one" }] } },
+    ]);
+    await expect(suggestCards(profileStub, { client })).rejects.toMatchObject({ errors: ["whyNow.signalTypes must have 2-6 items"] });
+  });
+
+  it("maps country names to ISO-2 and uppercases codes", async () => {
+    const cards = await cardsFrom({ ...validCards(), geo: { hqCountries: ["Singapore", "united kingdom", "my", "USA"] } });
+    expect(cards.geo.hqCountries).toEqual(["SG", "GB", "MY", "US"]);
+    const csv = await cardsFrom({ ...validCards(), geo: { hqCountries: "Singapore, Malaysia" } });
+    expect(csv.geo.hqCountries).toEqual(["SG", "MY"]);
+  });
+
+  it("parses recency.months from '6 months' and size from comma strings", async () => {
+    const cards = await cardsFrom({
+      ...validCards(),
+      recency: { months: "6 months" },
+      size: { min: "1,000", max: "5,000", unknownPolicy: "allow-if-not-enterprise" },
+    });
+    expect(cards.recency.months).toBe(6);
+    expect(cards.size).toEqual({ min: 1000, max: 5000, unknownPolicy: "allow-if-not-enterprise" });
+  });
+
+  it("accepts who as a string, comma-string exclusions, missing rationale, and ignores extra keys", async () => {
+    const { rationale: _r, ...rest } = validCards();
+    const cards = await cardsFrom({
+      ...rest,
+      who: "independent cafes",
+      exclusions: { names: "Starbucks, Costa", domains: "starbucks.com\ncosta.com" },
+      surprise: { anything: true },
+    });
+    expect(cards.who).toEqual({ industry: "independent cafes", descriptor: "independent cafes" });
+    expect(cards.exclusions).toEqual({ names: ["Starbucks", "Costa"], domains: ["starbucks.com", "costa.com"] });
+    expect(cards.rationale).toEqual({});
+    expect(cards).not.toHaveProperty("surprise");
+  });
+
+  it("prompt contains the example object, enums, and the no-markdown-fences instruction", async () => {
+    const client = fakeClient([validCards()]);
+    await suggestCards(profileStub, { client });
+    const { system } = (client.messages.create.mock.calls[0] as unknown as [CreateArgs])[0];
+    expect(system).toContain("Reply with one JSON object with exactly these keys; arrays of plain strings where shown; no markdown fences.");
+    expect(system).toContain('"signalTypes": [');
+    expect(system).toContain('"unknownPolicy": "allow-if-not-enterprise"');
+    expect(system).toContain("series_b_plus");
+    expect(system).toContain('"hqCountries": [');
+  });
+
+  it("retry message includes both the error list and the example object", async () => {
+    const client = fakeClient([{ ...validCards(), size: { min: 5, max: 200, unknownPolicy: "maybe" } }, validCards()]);
+    await suggestCards(profileStub, { client });
+    const retry = (client.messages.create.mock.calls[1] as unknown as [CreateArgs])[0].messages[0]!.content;
+    expect(retry).toContain("size.unknownPolicy must be allow-if-not-enterprise or reject");
+    expect(retry).toContain('"signalTypes": [');
+    expect(retry).toContain('"unknownPolicy": "allow-if-not-enterprise"');
+  });
+});
+
+describe("compilePlan shape tolerance", () => {
+  const goodQueries = ["q one", "q two", "q three", "q four", "q five"];
+  const base = { signalSummaryQuery: "s", companySummaryQuery: "c" };
+
+  it("accepts signalQueries as objects and gate required as yes/true strings", async () => {
+    const client = fakeClient([{
+      ...base,
+      signalQueries: goodQueries.map((q, i) => (i % 2 ? { query: q } : { text: q })),
+      gateFields: [
+        { key: "Is Cafe", question: "Is it a cafe?", required: "yes" },
+        { key: "sells_food", question: "Does it sell food?", required: "false" },
+      ],
+      extra: 1,
+    }]);
+    const { plan } = await compilePlan(validCards(), { client });
+    expect(client.messages.create).toHaveBeenCalledTimes(1);
+    expect(plan.signalQueries).toEqual(goodQueries);
+    expect(plan.gateFields).toEqual([
+      { key: "is_cafe", question: "Is it a cafe?", required: true },
+      { key: "sells_food", question: "Does it sell food?", required: false },
+    ]);
+  });
+
+  it("prompt has the example and fence instruction; retry repeats errors and example", async () => {
+    const client = fakeClient([
+      { ...base, signalQueries: ["one"], gateFields: [] },
+      { ...base, signalQueries: goodQueries, gateFields: [{ key: "is_cafe", question: "Is it a cafe?", required: true }] },
+    ]);
+    await compilePlan(validCards(), { client });
+    const calls = client.messages.create.mock.calls as unknown as [CreateArgs][];
+    expect(calls[0]![0].system).toContain("no markdown fences.");
+    expect(calls[0]![0].system).toContain('"signalQueries": [');
+    const retry = calls[1]![0].messages[0]!.content;
+    expect(retry).toContain("signalQueries must have exactly 5 items");
+    expect(retry).toContain('"gateFields": [');
+  });
+});
+
 describe("compilePlan", () => {
   it("produces a validated SearchPlan and retries once after invalid output", async () => {
     const first = {

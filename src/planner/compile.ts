@@ -2,6 +2,30 @@ import { estimateExaCost } from "../exa";
 import { validatePlan, type GateField, type SearchPlan } from "../plan";
 import { callClaudeJson, cleanString, isRecord, type PlannerModelDeps } from "./claude";
 import type { CardSet } from "./cards";
+import { coercePlanOutput } from "./coerce";
+
+export const COMPILE_EXAMPLE = JSON.stringify({
+  signalQueries: [
+    "cafes announcing a new outlet opening",
+    "cafes hiring an operations or outlet manager",
+    "restaurants expanding to additional locations",
+    "food businesses launching a new branch or concept",
+    "cafes upgrading point-of-sale or payment systems",
+  ],
+  gateFields: [
+    { key: "is_independent_cafe", question: "Is this company an independent cafe or restaurant?", required: true },
+    { key: "sells_food_to_consumers", question: "Does this company sell food or drinks directly to consumers?", required: false },
+  ],
+  signalSummaryQuery: "Extract the company, signal type, event date, and a concise signal summary.",
+  companySummaryQuery: "Extract firmographics, HQ, employee estimate, and answer the gate questions.",
+}, null, 2);
+
+export const COMPILE_FORMAT_INSTRUCTIONS = [
+  "Reply with one JSON object with exactly these keys; arrays of plain strings where shown; no markdown fences.",
+  "signalQueries is an array of exactly 5 plain strings (not objects); gateFields is an array of at most 4 objects with key (snake_case string), question (string ending in ?) and required (JSON boolean true/false, not a string); the first gate has required true.",
+  "EXAMPLE (shape only; use values that fit these cards):",
+  COMPILE_EXAMPLE,
+].join("\n");
 
 type CompileModelOutput = {
   signalQueries: string[];
@@ -21,12 +45,14 @@ export async function compilePlan(cards: CardSet, deps: PlannerModelDeps): Promi
     "Return signalQueries: exactly 5 meaning-phrased search queries, each targeting one chosen signal type.",
     "Return gateFields: at most 4 positively phrased yes/no questions. The first gate is required and expresses the who target.",
     "Return signalSummaryQuery and companySummaryQuery for Exa summaries.",
+    COMPILE_FORMAT_INSTRUCTIONS,
   ].join("\n");
   const { value, cost } = await callClaudeJson(
     deps,
     system,
     JSON.stringify(cards),
     (json) => validateCompileOutput(json, cards),
+    COMPILE_FORMAT_INSTRUCTIONS,
   );
   const plan: SearchPlan = {
     label: `${cards.who.descriptor} with ${cards.whyNow.description}`.slice(0, 160),
@@ -48,8 +74,9 @@ export async function compilePlan(cards: CardSet, deps: PlannerModelDeps): Promi
   return { plan: valid.plan, cost, estimatedRunCost: estimateRunCost() };
 }
 
-function validateCompileOutput(input: unknown, cards: CardSet) {
+function validateCompileOutput(raw: unknown, cards: CardSet) {
   const errors: string[] = [];
+  const input = coercePlanOutput(raw);
   if (!isRecord(input)) return { ok: false as const, errors: ["output must be an object"] };
   const signalQueries = Array.isArray(input.signalQueries)
     ? input.signalQueries.filter((q): q is string => typeof q === "string" && q.trim().length > 0).map((q) => q.trim())

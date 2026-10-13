@@ -1,5 +1,33 @@
 import { callClaudeJson, cleanString, isRecord, type PlannerModelDeps } from "./claude";
+import { coerceCardSet } from "./coerce";
 import type { SellerProfile } from "./profile";
+
+export const CARDS_EXAMPLE = JSON.stringify({
+  who: { industry: "independent restaurants and cafes", descriptor: "owner-operated cafes with 1-5 outlets" },
+  whyNow: {
+    signalTypes: ["new_location", "hiring_ops", "menu_relaunch"],
+    description: "opening outlets or changing operations in a way that creates a need for new payment hardware",
+  },
+  size: { min: 5, max: 200, unknownPolicy: "allow-if-not-enterprise" },
+  stage: "any",
+  geo: { hqCountries: ["SG", "MY"] },
+  recency: { months: 6 },
+  exclusions: { names: ["Starbucks"], domains: ["starbucks.com"] },
+  rationale: {
+    who: "why this buyer fits the offering",
+    whyNow: "why these signals mean they are buying now",
+    size: "why this employee range",
+    geo: "why these countries",
+  },
+  alternatives: [],
+}, null, 2);
+
+export const CARDS_FORMAT_INSTRUCTIONS = [
+  "Reply with one JSON object with exactly these keys; arrays of plain strings where shown; no markdown fences.",
+  "Enums: stage is one of any | seed | series_a | series_b_plus | bootstrapped; size.unknownPolicy is one of allow-if-not-enterprise | reject; geo.hqCountries are uppercase ISO-2 codes; whyNow.signalTypes is 2-6 snake_case strings (plain strings, not objects); size.min and size.max and recency.months are integers (months 1-12); alternatives is an array of at most 2 items (use [] if none).",
+  "EXAMPLE (shape and enum values only; use values that fit this seller):",
+  CARDS_EXAMPLE,
+].join("\n");
 
 export type CardSet = {
   who: { industry: string; descriptor: string };
@@ -20,13 +48,15 @@ export async function suggestCards(profile: SellerProfile, deps: PlannerModelDep
     "Cards: who describes target industry and company descriptor; whyNow lists ordered snake_case signal types and a human description; size is employee range and unknown-size policy; stage is optional and must be exactly one of any | seed | series_a | series_b_plus | bootstrapped (use any when funding stage does not matter for this buyer); geo is HQ ISO-2 countries; recency is months; exclusions are customer/competitor names and domains.",
     "Exa levers: recency is a hard startPublishedDate filter; size, geo, and stage are estimated from retrieved company evidence; signal types become search and summary prompts.",
     "Output must be realistic for a B2B seller of this offering.",
+    CARDS_FORMAT_INSTRUCTIONS,
   ].join("\n");
-  const { value, cost } = await callClaudeJson(deps, system, JSON.stringify(profile), validateCards);
+  const { value, cost } = await callClaudeJson(deps, system, JSON.stringify(profile), validateCards, CARDS_FORMAT_INSTRUCTIONS);
   return { cards: value, cost };
 }
 
-export function validateCards(input: unknown) {
+export function validateCards(raw: unknown) {
   const errors: string[] = [];
+  const input = coerceCardSet(raw);
   if (!isRecord(input)) return { ok: false as const, errors: ["cards must be an object"] };
   const who = object(input.who, "who", errors);
   const whyNow = object(input.whyNow, "whyNow", errors);
