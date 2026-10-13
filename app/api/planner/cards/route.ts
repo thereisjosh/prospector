@@ -2,7 +2,8 @@ import Anthropic from "@anthropic-ai/sdk";
 import { NextResponse } from "next/server";
 import { PlannerTokenLimitError, suggestCards, type SellerProfile } from "../../../../src/planner";
 import { isDemoMode, readDemoJson } from "../../../../src/demo/mode";
-import { addDailySpend, rateLimit, readJsonBody, RequestValidationError, validateSmallShape } from "../../_shared";
+import { addVisitorSpend } from "../../../../src/agent/quota";
+import { addDailySpend, allowanceResponse, dailyBudgetReached, dailyBudgetResponse, missingWorkspaceResponse, rateLimit, readJsonBody, RequestValidationError, validateSmallShape, workspaceIdFromRequest } from "../../_shared";
 
 export const runtime = "nodejs";
 
@@ -16,9 +17,15 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Invalid request." }, { status: 400 });
     }
     if (isDemoMode()) return NextResponse.json(await readDemoJson("planner/cards.json"));
+    if (await dailyBudgetReached()) return dailyBudgetResponse();
+    const workspaceId = workspaceIdFromRequest(request, body as Record<string, unknown>);
+    if (!workspaceId) return missingWorkspaceResponse();
+    const exhausted = await allowanceResponse(workspaceId);
+    if (exhausted) return exhausted;
     const client = new Anthropic();
     const result = await suggestCards(body.profile as SellerProfile, { client });
     await addDailySpend(result.cost);
+    await addVisitorSpend(workspaceId, result.cost);
     return NextResponse.json(result);
   } catch (error) {
     if (error instanceof RequestValidationError || error instanceof PlannerTokenLimitError) return NextResponse.json({ error: "Invalid request." }, { status: 400 });

@@ -2,11 +2,12 @@ import Anthropic from "@anthropic-ai/sdk";
 import { NextResponse } from "next/server";
 import { InvalidIdError, assertRunId } from "../../../../../src/agent/ids";
 import { checkLead } from "../../../../../src/gates";
-import { step } from "../../../../../src/agent/loop";
+import { codeHandback, rejectionCounts, step } from "../../../../../src/agent/loop";
+import { addVisitorSpend, allowanceExhausted, loadQuota, visitorDollarLimit } from "../../../../../src/agent/quota";
 import { loadState, RunBusyError, saveState, StaleStateError, withRunLock } from "../../../../../src/agent/state";
 import { isDemoRunId } from "../../../../../src/demo/mode";
 import { demoStep } from "../../../../../src/demo/replay";
-import { addDailySpend, dailyBudgetReached, rateLimit } from "../../../_shared";
+import { addDailySpend, dailyBudgetReached, dailyBudgetResponse, rateLimit } from "../../../_shared";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -16,24 +17,31 @@ export async function POST(request: Request, { params }: { params: { id: string 
     const limited = rateLimit(request);
     if (limited) return limited;
     assertRunId(params.id);
-    if (await dailyBudgetReached()) return NextResponse.json({ error: "Daily budget reached." }, { status: 503 });
     if (isDemoRunId(params.id)) return NextResponse.json(await demoStep(params.id));
+    if (await dailyBudgetReached()) return dailyBudgetResponse();
     const response = await withRunLock(params.id, async () => {
       const state = await loadState(params.id);
-      const before = state.spend.total;
       const loadedVersion = state.version;
+      const quota = await loadQuota(state.workspaceId);
+      if (quota.spentDollars >= visitorDollarLimit() && state.status === "running") {
+        state.handback ??= codeHandback(state, rejectionCounts(state));
+        state.status = "stopped";
+        state.stopReason = "visitor_allowance";
+        await saveState(state, loadedVersion);
+        return routeStepResponse(state);
+      }
+      const before = state.spend.total;
       const result = await step(state, { client: new Anthropic(), checkLead });
+      const delta = Math.max(0, result.state.spend.total - before);
+      await addDailySpend(delta);
+      const updatedQuota = await addVisitorSpend(result.state.workspaceId, delta);
+      if (allowanceExhausted(updatedQuota) && result.state.status === "running") {
+        result.state.handback ??= codeHandback(result.state, rejectionCounts(result.state));
+        result.state.status = "stopped";
+        result.state.stopReason = "visitor_allowance";
+      }
       await saveState(result.state, loadedVersion);
-      await addDailySpend(Math.max(0, result.state.spend.total - before));
-      return {
-      status: result.state.status,
-      turn: result.state.counters.turns,
-      spend: result.state.spend,
-      leadsCount: result.state.leads.length,
-      pendingApproval: result.state.pendingApproval,
-      events: result.events,
-      handback: result.state.handback,
-      };
+      return routeStepResponse(result.state, result.events);
     });
     return NextResponse.json(response);
   } catch (error) {
@@ -42,4 +50,16 @@ export async function POST(request: Request, { params }: { params: { id: string 
     console.error("[api/runs/:id/step] failed:", error);
     return NextResponse.json({ error: "Request failed." }, { status: 500 });
   }
+}
+
+function routeStepResponse(state: Awaited<ReturnType<typeof loadState>>, events: unknown[] = []) {
+  return {
+    status: state.status,
+    turn: state.counters.turns,
+    spend: state.spend,
+    leadsCount: state.leads.length,
+    pendingApproval: state.pendingApproval,
+    events,
+    handback: state.handback,
+  };
 }

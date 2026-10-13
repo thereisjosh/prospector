@@ -628,9 +628,10 @@ describe("agent loop", () => {
   });
 
   it("resolveDataDirs: ./runs by default, /tmp/prospector on Vercel, explicit env wins", () => {
-    expect(resolveDataDirs({})).toEqual({ runs: "./runs", workspaces: "./workspaces" });
-    expect(resolveDataDirs({ VERCEL: "1" })).toEqual({ runs: "/tmp/prospector/runs", workspaces: "/tmp/prospector/workspaces" });
-    expect(resolveDataDirs({ VERCEL: "1", RUNS_DIR: "/data/r" })).toEqual({ runs: "/data/r", workspaces: "/tmp/prospector/workspaces" });
+    expect(resolveDataDirs({})).toEqual({ data: ".", runs: "./runs", workspaces: "./workspaces" });
+    expect(resolveDataDirs({ VERCEL: "1" })).toEqual({ data: "/tmp/prospector", runs: "/tmp/prospector/runs", workspaces: "/tmp/prospector/workspaces" });
+    expect(resolveDataDirs({ DATA_DIR: "/data" })).toEqual({ data: "/data", runs: "/data/runs", workspaces: "/data/workspaces" });
+    expect(resolveDataDirs({ VERCEL: "1", RUNS_DIR: "/data/r" })).toEqual({ data: "/tmp/prospector", runs: "/data/r", workspaces: "/tmp/prospector/workspaces" });
   });
 
   describe("A2c structured handback, lookup screening, data-driven suggestions", () => {
@@ -915,7 +916,7 @@ describe("agent loop", () => {
       expect(eventInput("submit_lead", { company: "GoodCo", signal_url: "https://news.example/good", why_now: "x" })).toEqual({ company: "GoodCo", signal_url: "https://news.example/good" });
     });
 
-    it("F1.11 run routes clamp targetLeads, rate-limit by first forwarded IP, and enforce the daily ledger", async () => {
+    it("F1.11 run routes clamp targetLeads, rate-limit by first forwarded IP, and pause live when the cap is zero", async () => {
       const { POST } = await import("../app/api/runs/route");
       const res = await POST(new Request("http://x/api/runs", {
         method: "POST",
@@ -935,7 +936,8 @@ describe("agent loop", () => {
       const oldCap = process.env.DAILY_SPEND_CAP_DOLLARS;
       process.env.DAILY_SPEND_CAP_DOLLARS = "0";
       const capped = await POST(new Request("http://x/api/runs", { method: "POST", headers: { "x-forwarded-for": "192.0.2.55" }, body: JSON.stringify({ plan: plan(), workspaceId: "cap_ws" }) }));
-      expect(capped.status).toBe(503);
+      expect(capped.status).toBe(200);
+      expect(await capped.json()).toMatchObject({ id: expect.stringMatching(/^demo-/) });
       process.env.DAILY_SPEND_CAP_DOLLARS = oldCap;
     });
   });

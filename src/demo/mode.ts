@@ -8,6 +8,7 @@ import { join } from "node:path";
  */
 export function isDemoMode(): boolean {
   if (process.env.DEMO_MODE === "1" || process.env.NEXT_PUBLIC_DEMO === "1") return true;
+  if (process.env.LIVE_MODE === "off" || Number(process.env.DAILY_SPEND_CAP_DOLLARS) === 0) return true;
   return !process.env.ANTHROPIC_API_KEY || !process.env.EXA_API_KEY;
 }
 

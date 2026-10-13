@@ -31,16 +31,19 @@ export const DEFAULT_LIMITS = {
  * ./workspaces.
  */
 export function resolveDataDirs(env: Record<string, string | undefined> = process.env): {
+  data: string;
   runs: string;
   workspaces: string;
 } {
-  const base = env.VERCEL ? "/tmp/prospector" : ".";
+  const base = env.DATA_DIR ?? (env.VERCEL ? "/tmp/prospector" : ".");
   return {
+    data: base,
     runs: env.RUNS_DIR ?? `${base}/runs`,
     workspaces: env.WORKSPACES_DIR ?? `${base}/workspaces`,
   };
 }
 
+export const DATA_DIR = resolveDataDirs().data;
 export const RUNS_DIR = resolveDataDirs().runs;
 export const WORKSPACES_DIR = resolveDataDirs().workspaces;
 
