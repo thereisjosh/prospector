@@ -147,11 +147,11 @@ status = awaiting_approval → POST /api/runs/:id/decision appends the tool_resu
 
 | Piece | What exists | Where |
 |---|---|---|
-| Traces | Session = run, trace = one turn: the model generation, one span per tool, approvals, policy checks. Page text, message history and IPs are dropped; the workspace id is HMAC'd | `src/agent/trace.ts` |
+| Traces | Session = run, trace = one turn: the model generation, one span per tool, approvals, policy checks. Page text, message history and IPs are dropped (except the ≤ 1,500-char signal excerpt in a judged lead's evidence); the workspace id is HMAC'd | `src/agent/trace.ts` |
 | Prompts | Agent system prompt and 2 planner prompts under label `production`, pinned per run, repo text as fallback; `diff` exits 1 on drift | `src/agent/prompt-store.ts`, `eval/langfuse-prompts.ts` |
-| Datasets, experiments | `prospector-scenarios` (2 items), `prospector-cases` (24); the pilot as 6 runs × 2 items with judge and grader scores | `eval/datasets/`, `eval/langfuse/` |
+| Datasets, experiments | `prospector-scenarios` (2 items), `prospector-cases` (26 in `eval/datasets/`; synced to Langfuse by `eval/langfuse-sync.ts`); the pilot as 6 runs × 2 items with judge and grader scores | `eval/datasets/`, `eval/langfuse/` |
 | Code graders | 10 must-pass graders at every run end, posted as scores; an hourly worker opens one issue per failing run | `eval/graders/`, `src/agent/online-eval.ts`, `eval/online/worker.ts` |
-| Online judge | Managed `judge_q1..q3` evaluators on a capped lead sample: **paused** (the project has no LLM connection), rule disabled until a calibration round (≤ $0.62, not run) is reviewed | `eval/online/` |
+| Online judge | Managed `judge_q1..q3` evaluators on a capped lead sample. Each lead carries the evidence the gate accepted it on (page excerpt, company lookup, gate result) and the judge answers from that evidence only; the offline judge also checks the web. **Not calibrated**: round 1 scored 4/10 (Q1) and 2/10 (Q2) when the payload had no evidence (FAILURES #19); the evidence-backed round is not run yet. Rule **disabled**, so no evaluator runs on production (2026-10-14 status: judge_q2/q3 active, judge_q1 paused with `EVAL_MODEL_CONFIG_INVALID`) | `eval/online/` |
 | Review queue | `review-queue`: 👎 leads, handbacks, errors, must-pass failures, judge "no" | `eval/online/setup-langfuse.ts` |
 | Dashboard | "Prospector — weekly", 12 widgets, created by API | `eval/online/dashboard.ts` |
 | CI gate | Prompt diff, then the workflow arm replayed on the scenarios dataset as experiment `ci-<sha>` | `.github/workflows/experiment-gate.yml`, `eval/ci/` |

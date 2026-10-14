@@ -65,3 +65,4 @@ An agent run with `adaptive_actions = 0` is flagged **workflow-shaped**. It stil
 - 2026-10-12: frozen.
 - 2026-10-12: judging unit clarified as (company, signal_url); verdict reuse limited to the same window
 - 2026-10-13: judge given web_fetch for the signal URL; cannot_verify verdicts from the search-only judge re-judged
+- 2026-10-14: the judge payload (`src/agent/judge-input.ts`) now carries `evidence`: the signal page's title, date and a ≤ 1,500-char excerpt, the company lookup and the gate result the code accepted the lead on. The online (tool-less) judge answers from that evidence only, treating the excerpt as the loaded signal page; the offline judge receives the same evidence and still verifies on the web (web_fetch / web_search). Scoring rules unchanged.

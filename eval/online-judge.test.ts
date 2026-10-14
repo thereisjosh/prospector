@@ -1,7 +1,8 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it, vi } from "vitest";
-import { calibrationDatasetName, calibrationItems, SPOT_CHECKS } from "./online/calibration-set";
-import { compile, estimateCallDollars, judgeOnce, outputCorrect, summaryLine, trackErrors } from "./online/calibrate-judge";
+import { calibrationDatasetName, calibrationItems, SPOT_CHECKS, type EvidenceSource } from "./online/calibration-set";
+import { emptyJudgeEvidence } from "../src/evidence";
+import { compile, estimateCallDollars, judgeOnce, MAX_OUTPUT_TOKENS, outputCorrect, summaryLine, trackErrors } from "./online/calibrate-judge";
 import { JUDGE_QUESTIONS, judgeMessages, judgeOutputDefinition, judgeUserPrompt } from "./online/judge-prompt";
 import { evaluatorBody, ruleFilter, RULE_NAME } from "./online/setup-langfuse";
 import { judgePayload } from "../src/agent/judge-input";
@@ -20,8 +21,12 @@ describe("managed online judges (config as code)", () => {
       expect(body.modelConfig).toEqual({ provider: "anthropic", model: "claude-opus-5-5" });
       expect(body.outputDefinition).toMatchObject({ dataType: "CATEGORICAL", categories: ["yes", "no", "cannot_verify"], shouldAllowMultipleMatches: false });
     }
-    // Q3 needs the page to load; without web access it may only say no / cannot_verify.
-    expect(judgeUserPrompt("judge_q3")).toMatch(/never answer "yes"/);
+    // The online judge decides from the attached evidence; cannot_verify only when it is silent.
+    for (const q of JUDGE_QUESTIONS) {
+      expect(judgeUserPrompt(q)).toMatch(/supported by this evidence/);
+      expect(judgeUserPrompt(q)).toMatch(/"cannot_verify" only when/);
+    }
+    expect(judgeUserPrompt("judge_q3")).toMatch(/signal_excerpt is the signal page's text/);
   });
 
   it("the rule only matches lead-judge observations in production (selection and cap are ours)", () => {
@@ -42,7 +47,7 @@ describe("judge calibration set (SPOT-CHECKS.md)", () => {
         expect(items).toHaveLength(10);
         expect(new Set(items.map((i) => i.id)).size).toBe(10);
         for (const item of items) {
-          expect(Object.keys(item.input)).toEqual(["company", "signal_url", "why_now", "contract", "contract_summary"]);
+          expect(Object.keys(item.input)).toEqual(["company", "signal_url", "why_now", "contract", "contract_summary", "evidence"]);
           expect(item.input).toEqual(judgePayload({ ...item.input, ...item.input.contract_summary }));
         }
         const counts: Record<string, number> = {};
@@ -56,6 +61,43 @@ describe("judge calibration set (SPOT-CHECKS.md)", () => {
       judge_q3: { yes: 9, no: 1 },
     });
     expect(calibrationDatasetName("judge_q2")).toBe("judge-calibration/judge_q2");
+  });
+
+  it("every item carries the evidence recovered from the pilot's artifacts; the one unrecoverable item is named, not invented", () => {
+    for (const q of JUDGE_QUESTIONS) {
+      const items = calibrationItems(q);
+      const byCompany = Object.fromEntries(items.map((i) => [i.metadata.company as string, i]));
+      // Agent-arm leads: excerpt + lookup + gate result from the rep's state.json.
+      for (const i of items.filter((x) => (x.metadata.evidenceSource as EvidenceSource).kind === "agent_state")) {
+        expect(i.input.evidence.signal_excerpt.length).toBeGreaterThan(200);
+        expect(i.input.evidence.signal_excerpt.length).toBeLessThanOrEqual(1500);
+        expect(i.input.evidence.company_lookup).not.toBeNull();
+        expect(i.input.evidence.gate_result).not.toBeNull();
+      }
+      expect(items.filter((x) => (x.metadata.evidenceSource as EvidenceSource).kind === "agent_state")).toHaveLength(8);
+      // Workflow-arm Away Team: the same URL from an Exa recording; its lookup was not recorded.
+      const away = byCompany["Away Team (Spreetail)"]!;
+      expect(away.metadata.evidenceSource).toMatchObject({ kind: "exa_recording", lookup: "not_recorded" });
+      expect(away.input.evidence.signal_excerpt).toContain("Spreetail");
+      expect(away.input.evidence.signal_published_date.slice(0, 10)).toBe(away.input.contract_summary.event_date);
+      expect(away.input.evidence.company_lookup).toBeNull();
+      // Workflow-arm Hollingsworth: nothing recorded anywhere; evidence stays empty.
+      const holl = byCompany["Hollingsworth Logistics"]!;
+      expect(holl.metadata.evidenceSource).toMatchObject({ kind: "none" });
+      expect(holl.input.evidence).toEqual(emptyJudgeEvidence());
+      expect(items.filter((i) => i.input.evidence.signal_excerpt === "").map((i) => i.metadata.company)).toEqual(["Hollingsworth Logistics"]);
+    }
+  });
+
+  it("the cost estimate is an upper bound for the measured 2026-10-14 judge_q1 round ($0.236 on the evidence-free payloads)", () => {
+    // That round's inputs: today's items minus evidence. Today's prompt is longer than that round's, so this is generous only on the prompt side.
+    const items = calibrationItems("judge_q1");
+    const total = items.reduce((n, i) => {
+      const { evidence: _e, ...old } = i.input;
+      return n + estimateCallDollars(compile(judgeMessages("judge_q1", rubric), old)).dollars;
+    }, 0);
+    expect(total).toBeGreaterThanOrEqual(0.236);
+    expect(MAX_OUTPUT_TOKENS).toBe(1000);
   });
 
   it("compiles the stored prompt like the evaluator, estimates cost from it, and scores exact matches", async () => {

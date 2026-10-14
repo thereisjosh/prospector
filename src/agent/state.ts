@@ -6,6 +6,7 @@ import { assertRunId } from "./ids";
 import { firstUserMessage } from "./prompts";
 import type { PinnedPrompt } from "./prompt-store";
 import type { SearchPlan } from "../plan";
+import type { SignalEvidence } from "../evidence";
 import type { CompanySummary, SignalSummary } from "../types";
 
 export type AcceptedLead = {
@@ -15,6 +16,11 @@ export type AcceptedLead = {
   summary: SignalSummary;
   enrichment?: CompanySummary;
   details: Record<string, unknown>;
+  /**
+   * What the gate read from the signal page when it accepted the lead (title, Exa date, ≤ 1,500-char
+   * excerpt; src/evidence.ts), for the lead judge. Absent on runs persisted before 2026-10-14.
+   */
+  evidence?: SignalEvidence;
   turn: number;
 };
 

@@ -376,10 +376,17 @@ describe("offline and online judges read the same lead JSON", () => {
     expect(state.leads.length).toBe(record.leads.length);
     state.leads.forEach((lead, i) => {
       const online = judgePayload({ ...judgeLeadFromState(lead), contract });
-      const offline: BlindLead = { id: "L000", ...record.leads[i]!, contract };
+      // The pilot's run.json predates evidence (2026-10-14); a new cell records judgeLeadFromState(lead) itself (run-cell stateLeadToLead).
+      const offline: BlindLead = { id: "L000", ...record.leads[i]!, evidence: judgeLeadFromState(lead).evidence, contract };
       expect(online).toEqual(judgePayload(offline));
       // The offline user prompt is exactly this JSON, pretty-printed, before the tool instruction.
       expect(userPrompt(offline).startsWith(`${JSON.stringify(online, null, 2)}\n\n`)).toBe(true);
+      // Old persisted state (no AcceptedLead.evidence) still judges: empty signal fields, lookup + gate result from enrichment/details.
+      expect(online.evidence).toMatchObject({ signal_title: "", signal_published_date: "", signal_excerpt: "" });
+      expect(online.evidence.company_lookup?.description).toBeTruthy();
+      expect(online.evidence.gate_result?.checks_passed).toContain("entity_mismatch");
+      const { evidence: _e, ...withoutEvidence } = online;
+      expect(withoutEvidence).toEqual((({ evidence: _x, ...rest }) => rest)(judgePayload({ id: "L000", ...record.leads[i]!, contract } as BlindLead)));
     });
   });
 });

@@ -1,3 +1,4 @@
+import { judgeEvidence, signalEvidence, type JudgeEvidence } from "./evidence";
 import { netNew } from "./eval";
 import {
   checkDate,
@@ -60,7 +61,16 @@ export type Funnel = {
   finalRows: number;
 };
 
-export type Trace = { funnel: Funnel; rejected: Rejection[] };
+/**
+ * `evidence` (optional; set by the caller that wants it, e.g. runProspecting): per accepted row,
+ * keyed by `rowEvidenceKey(company, signal_url)`, the evidence the gate accepted it on, for the
+ * lead judge (src/evidence.ts). Kept off ProspectRow so the API rows do not carry page text.
+ */
+export type Trace = { funnel: Funnel; rejected: Rejection[]; evidence?: Map<string, JudgeEvidence> };
+
+export function rowEvidenceKey(company: string, signalUrl: string): string {
+  return `${company}\u0000${signalUrl}`;
+}
 
 export function createTrace(): Trace {
   return {
@@ -326,6 +336,16 @@ function toRow(
     isWeakWhyNow(summary.signal_summary) && aggregateCount >= 2
       ? `${company} has ${aggregateCount} distinct recent signals; strongest dated source is ${result.title ?? result.url}.`
       : summary.signal_summary || result.title || "";
+
+  trace?.evidence?.set(
+    rowEvidenceKey(company, result.url),
+    judgeEvidence({
+      // Exactly the haystack checkLead read above (text + highlights).
+      signal: signalEvidence({ title: result.title, publishedDate: result.publishedDate, text: [result.text, result.highlights?.join(" ")].filter(Boolean).join(" ") }, company, whyNow),
+      enrichment: enrichment?.summary,
+      details,
+    }),
+  );
 
   return {
     company,

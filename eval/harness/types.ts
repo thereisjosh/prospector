@@ -3,6 +3,7 @@ import type { LoopDeps } from "../../src/agent/loop";
 import type { RunState } from "../../src/agent/state";
 import type { SearchPlan } from "../../src/plan";
 import type { ProspectRun } from "../../src/pipeline";
+import type { JudgeEvidence } from "../../src/evidence";
 import type { ProspectRow } from "../../src/types";
 import type { ApprovePolicy, driveRun as driveRunFn } from "../run-agent";
 
@@ -22,6 +23,8 @@ export type LeadRecord = {
   why_now: string;
   event_date: string;
   size_basis: string;
+  /** What the gate accepted the lead on (src/evidence.ts), same shape for every arm. Absent in run.json files written before 2026-10-14. */
+  evidence?: JudgeEvidence;
 };
 
 export type RunRecord = {

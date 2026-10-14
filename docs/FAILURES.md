@@ -129,6 +129,13 @@ Also fixed: Exa 429s under load (aac0a20: ≤ 4 in flight, jittered retry); an u
 - **Fix:** no forced tool_choice; the prompt ends "Answer by calling the `verdict` tool exactly once."; no `tool_use` block gives `score: "invalid"` (no text parsing). The task is wrapped to log item id + message and count errors; summary prints `N/M correct, K errors` and exits non-zero when K > 0. Tests: `eval/online-judge.test.ts`.
 - **Earlier:** `--limit 1` with raw-output inspection before a full paid pass.
 
+## 19. Online judge given claims without evidence; calibration 4/10 and 2/10 [measured]
+
+- **Symptom:** 2026-10-14 calibration round 1 ($0.43, Opus 5.5, prompt v2): judge_q1 4/10, judge_q2 2/10. The managed judge answered cannot_verify to nearly every lead, including the two the human labelled "no"; one verdict came back "invalid" with empty reasoning.
+- **Layer:** eval. **Cause:** the judge payload carried only the agent's claim (company, signal_url, why_now, event_date, size_basis "quoted"/"unverified"). The managed evaluator has no web tools, so it had nothing to check the claim against; cannot_verify was the correct answer. The offline judge had passed on the same leads because it could fetch and search. The "invalid" verdict was most likely the tool-call JSON truncated at the 600-token output budget (adaptive thinking is always on for Opus 5.5 and shares that budget). The cost estimate was also low ($0.21 vs $0.236 for Q1): 3.2 chars/token under-counted the input.
+- **Fix:** the payload's new `evidence` carries what `checkLead` accepted the lead on: signal title, Exa date, a ≤ 1,500-char excerpt around the company's mention and the event (`src/evidence.ts`), the company lookup and the gate result. It is stored on the accepted lead at submit time (`AcceptedLead.evidence`) and built the same way for the workflow arm (`score.ts` → `ProspectRun.evidence`). The online prompts (v3) answer from the evidence and say cannot_verify only when it is silent. The calibration sets were rebuilt from the pilot's state files and recordings (one item, Hollingsworth, has no recoverable evidence). Output budget 1,000; estimate 2.2 chars/token + 500 tokens per call. Tests: `eval/judge-evidence.test.ts`, `eval/online-judge.test.ts`.
+- **Earlier:** look at one compiled calibration input before a paid round and ask "could a judge with no tools answer this from what is here?".
+
 ## What we would monitor weekly
 
 Extends SPEC-agent §14; a breach rolls back one stage.

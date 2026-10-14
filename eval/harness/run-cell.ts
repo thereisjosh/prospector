@@ -7,7 +7,9 @@ import { copyFile, mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { pathToFileURL } from "node:url";
 import { AGENT_MODELS, RUNS_DIR } from "../../src/agent/config";
+import { emptyJudgeEvidence, type JudgeEvidence } from "../../src/evidence";
 import { checkLead } from "../../src/gates";
+import { rowEvidenceKey } from "../../src/score";
 import { validatePlan, type SearchPlan } from "../../src/plan";
 import { runProspecting } from "../../src/pipeline";
 import type { ProspectRow } from "../../src/types";
@@ -80,14 +82,17 @@ const normalizeLead = (fields: LeadRecord): LeadRecord => normalizeJudgeLead(fie
  * Workflow rows carry no structured details, only the fit_reason sentence the
  * shared gate wrote; "(quoted)" appears in it exactly when details.size_basis
  * was "quoted". The sentence itself is not recorded (it would reveal the arm).
+ * The evidence comes from the run's per-row evidence map (score.ts toRow), built
+ * by the same src/evidence.ts builder the agent's submit path uses.
  */
-function rowToLead(row: ProspectRow): LeadRecord {
+function rowToLead(row: ProspectRow, evidence?: Record<string, JudgeEvidence>): LeadRecord {
   return normalizeLead({
     company: row.company,
     signal_url: row.signal_source_url,
     why_now: row.why_now_signal,
     event_date: row.signal_date,
     size_basis: /\(quoted\)/.test(row.fit_reason) ? "quoted" : "unverified",
+    evidence: evidence?.[rowEvidenceKey(row.company, row.signal_source_url)] ?? emptyJudgeEvidence(),
   });
 }
 
@@ -141,7 +146,7 @@ export async function runCell(scenario: Scenario, arm: Arm, rep: number, deps: R
   let record: RunRecord;
 
   if (arm === "A_workflow") {
-    let run: { rows: ProspectRow[]; totalCostDollars: number; funnel: unknown } & Record<string, unknown>;
+    let run: { rows: ProspectRow[]; totalCostDollars: number; funnel: unknown; evidence?: Record<string, JudgeEvidence> } & Record<string, unknown>;
     try {
     run = deps.workflowRows
       ? { rows: deps.workflowRows, totalCostDollars: 0, funnel: {}, rejected: [], enriched: [], enrichmentQueue: [], plan: scenario.plan, startPublishedDate: "" }
@@ -162,7 +167,7 @@ export async function runCell(scenario: Scenario, arm: Arm, rep: number, deps: R
       scenarioId: scenario.id,
       arm,
       rep,
-      leads: run.rows.slice(0, scenario.targetLeads).map(rowToLead),
+      leads: run.rows.slice(0, scenario.targetLeads).map((row) => rowToLead(row, run.evidence)),
       spend: { exa: spend, claude: 0, total: spend },
       activeMs: Date.now() - started,
       stopReason: (run.funnel as { budgetStoppedAt?: unknown } | undefined)?.budgetStoppedAt ? "budget" : run.rows.length >= scenario.targetLeads ? "target" : "finish",

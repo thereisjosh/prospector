@@ -22,10 +22,21 @@ import { createLangfuseClient, projectId, uiLink } from "../langfuse/client";
 import { calibrationDatasetName } from "./calibration-set";
 import { JUDGE_CATEGORIES, JUDGE_MODEL, JUDGE_QUESTIONS, LEAD_VARIABLE, judgeOutputDefinition, type JudgeAnswer, type JudgeQuestion } from "./judge-prompt";
 
-/** Output budget per verdict (reasoning + label). */
-export const MAX_OUTPUT_TOKENS = 600;
-/** Conservative characters-per-token for English + JSON (no tokenizer call: that would be an Anthropic request). */
-export const CHARS_PER_TOKEN = 3.2;
+/**
+ * Output budget per verdict: adaptive thinking (always on for claude-opus-5-5) + reasoning + the
+ * verdict tool call. 600 truncated one 2026-10-14 verdict mid tool call ("invalid", empty reasoning).
+ */
+export const MAX_OUTPUT_TOKENS = 1000;
+/**
+ * Characters per input token, and the per-call input the prompt text does not show (the API's
+ * tool-use system prompt + the verdict tool schema). No tokenizer call (that is an Anthropic
+ * request). Calibrated on the 2026-10-14 judge_q1 round: 67,786 prompt chars over 10 calls cost
+ * $0.236, while 3.2 chars/token + 400 chars estimated $0.21 even with every output at its 600
+ * budget, so input was under-counted (the Opus 4.7+ tokenizer uses more tokens per char). With
+ * these values that round estimates $0.26, an upper bound unless outputs averaged < ~430 tokens.
+ */
+export const CHARS_PER_TOKEN = 2.2;
+export const PER_CALL_OVERHEAD_TOKENS = 500;
 
 type Message = { role: "system" | "user"; content: string };
 
@@ -36,8 +47,8 @@ export function compile(messages: Message[], lead: unknown): Message[] {
 
 /** Upper-bound cost of one verdict: estimated input tokens + the whole output budget. */
 export function estimateCallDollars(messages: Message[], model = JUDGE_MODEL.model): { inputTokens: number; dollars: number } {
-  const chars = messages.reduce((n, m) => n + m.content.length, 0) + 400; // + the structured-output tool schema
-  const inputTokens = Math.ceil(chars / CHARS_PER_TOKEN);
+  const chars = messages.reduce((n, m) => n + m.content.length, 0);
+  const inputTokens = Math.ceil(chars / CHARS_PER_TOKEN) + PER_CALL_OVERHEAD_TOKENS;
   const p = CLAUDE_PRICES_PER_MILLION[model as keyof typeof CLAUDE_PRICES_PER_MILLION];
   return { inputTokens, dollars: (inputTokens * p.input + MAX_OUTPUT_TOKENS * p.output) / 1_000_000 };
 }

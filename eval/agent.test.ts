@@ -165,6 +165,8 @@ describe("agent loop", () => {
     expect(s.status).toBe("done");
     expect(s.leads).toHaveLength(1);
     expect(s.leads[0]?.company).toBe("GoodCo");
+    // The submit path stores the page evidence the gate checked, for the lead judge.
+    expect(s.leads[0]?.evidence).toEqual({ signal_title: "GoodCo expands", signal_published_date: "2026-10-01T00:00:00.000Z", signal_excerpt: "GoodCo expands." });
   });
 
   it("parallel tool_use blocks produce one user message with matching tool_result ids", async () => {

@@ -24,6 +24,7 @@ import {
   type Funnel,
   type Rejection,
 } from "./score";
+import type { JudgeEvidence } from "./evidence";
 import { squashName } from "./gates";
 import { getV1Plan } from "../eval/fixtures/v1-plans";
 import type {
@@ -48,6 +49,8 @@ export type ProspectRun = {
   enriched: string[];
   /** Full ranked enrichment queue (before the budget cut). */
   enrichmentQueue: string[];
+  /** Per row, keyed by score.rowEvidenceKey(company, signal_source_url): the evidence the gate accepted it on (for the lead judge). */
+  evidence?: Record<string, JudgeEvidence>;
 };
 
 export type EnrichmentCache = Map<
@@ -163,6 +166,7 @@ async function runProspectingInner(
   const signalSummaryQuery = composeSignalSummaryQuery(plan, plan.signalSummaryQuery);
   let totalCostDollars = 0;
   const trace = createTrace();
+  trace.evidence = new Map();
   const spentSoFar = () => Math.max(guard.spent, totalCostDollars);
   spent.read = spentSoFar;
 
@@ -365,6 +369,7 @@ async function runProspectingInner(
     rejected: trace.rejected,
     enriched: companiesToEnrich,
     enrichmentQueue: queue,
+    evidence: Object.fromEntries(trace.evidence),
   };
 }
 

@@ -6,6 +6,7 @@ import {
   lookupCompany,
   type ExaCredentials,
 } from "../exa";
+import { signalEvidence } from "../evidence";
 import { squashName } from "../gates";
 import {
   buildCompanySchema,
@@ -541,7 +542,9 @@ async function executeToolInner(
         submitted: new Set(state.leads.map((lead) => squashName(lead.company))),
       });
       if (verdict.ok) {
-        state.leads.push({ company, signal_url: signalUrl, why_now: whyNow, summary: signal.summary, enrichment, details: verdict.details, turn: state.counters.turns });
+        // The evidence is the page text the gate just checked (title + text), bounded for state size and the judge.
+        const evidence = signalEvidence(signal, company, whyNow);
+        state.leads.push({ company, signal_url: signalUrl, why_now: whyNow, summary: signal.summary, enrichment, details: verdict.details, evidence, turn: state.counters.turns });
         content = "accepted";
         acceptedLead = true;
         verdictEvent = { company, code: "accepted", reason: "accepted", ok: true };

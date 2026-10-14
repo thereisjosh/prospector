@@ -9,6 +9,8 @@ import { eventInWindow, findVerdictFile, truthKey, urlHash } from "./harness/tru
 import { migrateTruthKeys } from "./harness/migrate-truth-keys";
 import type { SearchPlan } from "../src/plan";
 import { createBlindPool } from "./harness/blind";
+import { emptyJudgeEvidence, gateResultEvidence, judgeEvidence, signalEvidence } from "../src/evidence";
+import { rowEvidenceKey } from "../src/score";
 import { balancedJsonObjects, judgeBlind, judgeLead, writeHumanVerdict, normalizeAnswer, parseJudgeJson, rejudgeCannotVerify, replayFailures, userPrompt } from "./harness/judge";
 import { CellError as CellErrorLike, normalizeArm, runCell, runMatrix } from "./harness/run-cell";
 import { scoreExitCode, scoreSet, unjudgedMessage } from "./harness/score";
@@ -176,6 +178,39 @@ describe("eval harness", () => {
     expect(mapping).toContain("A_workflow");
   });
 
+  it("blind pooling carries the evidence, same shape for both arms, and still hides the arm", async () => {
+    const root = tempRoot();
+    const ev = (company: string) =>
+      judgeEvidence({
+        signal: signalEvidence({ title: `${company} opens DC`, publishedDate: "2026-10-01", text: `${company} opened a 200,000 sq ft DC. Contact press@${company.toLowerCase()}.example.` }, company, "opened DC"),
+        enrichment: { description: `${company} is a 3PL`, employee_estimate: 300, employee_estimate_source: "300 employees", hq: "Austin, US", is_public_or_enterprise: false, is_3pl: true },
+        details: { key: company.toLowerCase(), event_date: "2026-10-01", date_source: "signal", employees: 300, size_basis: "quoted", required_gates_passed: ["is_3pl"], optional_gates_passed: [], hq: "Austin, US", hq_basis: "enrichment", multiplier: 1, fit_reason: "required gates passed: is_3pl." },
+      });
+    const withEvidence = (r: RunRecord) => ({ ...r, leads: r.leads.map((l) => ({ ...l, evidence: ev(l.company) })) });
+    const result = await createBlindPool({
+      setId: "set-ev",
+      scenarioId: "S1",
+      resultsRoot: root,
+      seed: "seed",
+      records: [withEvidence(record("A_workflow", 1, ["WfCo"])), withEvidence(record("B_agent_opus", 1, ["AgCo"]))],
+    });
+    const blind = await readFile(join(root, "set-ev/S1/blind.json"), "utf8");
+    expect(blind).not.toMatch(/A_workflow|B_agent|fit_reason|multiplier/);
+    expect(result.blind.map((b) => b.evidence?.signal_excerpt)).toEqual(expect.arrayContaining([expect.stringContaining("WfCo opened"), expect.stringContaining("AgCo opened")]));
+    const shape = (v: unknown): unknown => (v && typeof v === "object" && !Array.isArray(v) ? Object.fromEntries(Object.entries(v).map(([k, x]) => [k, shape(x)])) : typeof v);
+    expect(shape(result.blind[0]!.evidence)).toEqual(shape(result.blind[1]!.evidence));
+    expect(userPrompt(result.blind[0]!)).toContain('"signal_excerpt"');
+  });
+
+  it("H1: workflow leads take their evidence from the pipeline's per-row map (same builder as the agent)", async () => {
+    const root = tempRoot();
+    const rows = [rowFor("EvCo", "required gates passed: is_operator; 300 estimated employees (quoted); HQ Austin.")];
+    const evidence = { [rowEvidenceKey("EvCo", rows[0]!.signal_source_url)]: judgeEvidence({ signal: { signal_title: "EvCo opens DC", signal_published_date: "2026-10-01", signal_excerpt: "EvCo opened a DC." } }) };
+    const run = vi.fn(async () => ({ rows, totalCostDollars: 0.1, startPublishedDate: "", plan, funnel: {}, rejected: [], enriched: [], enrichmentQueue: [], evidence }));
+    const out = await runCell({ ...scenario, targetLeads: 2 }, "A_workflow", 1, { runProspecting: run as never, resultsRoot: root, runSetId: "h1ev" });
+    expect(out.leads[0]!.evidence).toEqual(Object.values(evidence)[0]);
+  });
+
   it("judge parses, retries once, falls back, and reuses truth", async () => {
     const root = tempRoot();
     const lead = record("A_workflow", 1, ["GoodCo"]).leads[0]!;
@@ -274,7 +309,9 @@ describe("eval harness", () => {
     expect(out.leads[0]!.why_now).toHaveLength(200);
     expect(JSON.stringify(out)).not.toContain("required gates passed");
     expect(out).toMatchObject({ maxCostDollars: 0.7, targetLeads: 2 });
-    expect(Object.keys(out.leads[0]!).sort()).toEqual(["company", "event_date", "signal_url", "size_basis", "why_now"]);
+    expect(Object.keys(out.leads[0]!).sort()).toEqual(["company", "event_date", "evidence", "signal_url", "size_basis", "why_now"]);
+    // No evidence map from the pipeline (a stub): empty evidence, never invented.
+    expect(out.leads[0]!.evidence).toEqual(emptyJudgeEvidence());
   });
 
   it("H1: agent leads use the same field shape and store maxCostDollars / targetLeads", async () => {
@@ -299,7 +336,15 @@ describe("eval harness", () => {
       resultsRoot: root,
       runSetId: "h1",
     });
-    expect(out.leads[0]).toEqual({ company: "AgentCo", signal_url: "https://news.example/agent", why_now: "y".repeat(200), event_date: "2026-10-01", size_basis: "unverified" });
+    expect(out.leads[0]).toEqual({
+      company: "AgentCo",
+      signal_url: "https://news.example/agent",
+      why_now: "y".repeat(200),
+      event_date: "2026-10-01",
+      size_basis: "unverified",
+      // A state lead without stored evidence (pre-2026-10-14 shape): empty signal fields; details still give a gate result.
+      evidence: { ...emptyJudgeEvidence(), gate_result: gateResultEvidence({ event_date: "2026-10-01", size_basis: "unverified" }) },
+    });
     expect(out).toMatchObject({ maxCostDollars: 0.5, targetLeads: 3 });
   });
 
