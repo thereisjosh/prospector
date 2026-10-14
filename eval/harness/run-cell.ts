@@ -1,4 +1,5 @@
 import "dotenv/config";
+import { judgeLeadFromState, normalizeJudgeLead } from "../../src/agent/judge-input";
 import Anthropic from "@anthropic-ai/sdk";
 import { randomUUID } from "node:crypto";
 import { existsSync, readFileSync } from "node:fs";
@@ -72,18 +73,8 @@ export function parseScenario(input: unknown): Scenario {
   };
 }
 
-const WHY_NOW_MAX = 200;
-
-/** Both arms emit the same normalised fields: why_now <= 200 chars, size_basis "quoted" | "unverified". */
-function normalizeLead(fields: { company: string; signal_url: string; why_now: string; event_date: string; size_basis: string }): LeadRecord {
-  return {
-    company: fields.company,
-    signal_url: fields.signal_url,
-    why_now: fields.why_now.trim().slice(0, WHY_NOW_MAX),
-    event_date: fields.event_date,
-    size_basis: fields.size_basis === "quoted" ? "quoted" : "unverified",
-  };
-}
+/** Both arms emit the same normalised fields: why_now <= 200 chars, size_basis "quoted" | "unverified" (src/agent/judge-input.ts). */
+const normalizeLead = (fields: LeadRecord): LeadRecord => normalizeJudgeLead(fields);
 
 /**
  * Workflow rows carry no structured details, only the fit_reason sentence the
@@ -101,14 +92,7 @@ function rowToLead(row: ProspectRow): LeadRecord {
 }
 
 function stateLeadToLead(lead: RunState["leads"][number]): LeadRecord {
-  const details = lead.details as { event_date?: unknown; size_basis?: unknown };
-  return normalizeLead({
-    company: lead.company,
-    signal_url: lead.signal_url,
-    why_now: lead.why_now,
-    event_date: typeof details.event_date === "string" ? details.event_date : "",
-    size_basis: typeof details.size_basis === "string" ? details.size_basis : "unverified",
-  });
+  return judgeLeadFromState(lead);
 }
 
 async function writeJson(path: string, value: unknown) {

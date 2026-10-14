@@ -4,6 +4,7 @@ import { InvalidIdError, isRunId } from "../../../../../src/agent/ids";
 import { addFeedback, isWorkspaceId } from "../../../../../src/agent/memory";
 import { PROMPT_VERSION } from "../../../../../src/agent/prompts";
 import { loadState } from "../../../../../src/agent/state";
+import { findAcceptedSubmit, leadFeedback } from "../../../../../src/agent/online-eval";
 
 export const runtime = "nodejs";
 
@@ -44,7 +45,9 @@ export async function POST(request: Request, { params }: { params: { id: string 
 /**
  * Attach a 👍/👎 to the accepted lead it is about: append a `feedback` event to that run's
  * events.jsonl (turn = the lead's turn, toolUseId = its submit_lead call). The trace layer
- * turns the event into a `user_feedback` score on the lead's submit span. Only runs owned
+ * turns the event into a `user_feedback` score on the lead's submit span, with the reason as
+ * the score comment; a 👎 also selects the lead for the online judge and adds its trace to the
+ * `review-queue` annotation queue (src/agent/online-eval.ts). Only runs owned
  * by this workspace, only accepted leads; anything else is ignored (the preference note
  * above is still stored).
  */
@@ -64,7 +67,7 @@ async function recordLeadFeedback(
     ?? state.leads.find((l) => l.signal_url === feedback.signalUrl);
   if (!lead) return;
   const events = await readLastEvents(runId, Number.POSITIVE_INFINITY);
-  const submit = findAcceptedSubmit(events, lead.turn, lead.company, lead.signal_url);
+  const submit = findAcceptedSubmit(events, lead);
   const event: AgentEvent = {
     ts: new Date().toISOString(),
     runId,
@@ -78,18 +81,6 @@ async function recordLeadFeedback(
     ...(submit ? { toolUseId: submit } : {}),
   };
   await appendEvents(runId, [event]);
-}
-
-/** The toolUseId of the submit_lead call whose verdict accepted this lead. */
-function findAcceptedSubmit(events: AgentEvent[], turn: number, company: string, signalUrl: string): string | undefined {
-  for (let i = 0; i < events.length - 1; i += 1) {
-    const e = events[i]!;
-    const next = events[i + 1]!;
-    if (e.turn !== turn || e.kind !== "tool_call" || e.tool !== "submit_lead") continue;
-    const input = (e.input ?? {}) as { company?: unknown; signal_url?: unknown };
-    if (next.kind !== "submit_verdict" || next.ok !== true) continue;
-    if (input.company !== company.slice(0, 200) || input.signal_url !== signalUrl.slice(0, 200)) continue;
-    return typeof e.toolUseId === "string" ? e.toolUseId : undefined;
-  }
-  return undefined;
+  // 👎: judge this lead online (priority, under the daily cap) and queue its trace for review.
+  leadFeedback(state, lead, feedback.verdict);
 }

@@ -4,29 +4,15 @@ import { dirname, join } from "node:path";
 import { pathToFileURL } from "node:url";
 import { squashName } from "../../src/gates";
 import { truthKey } from "./truth";
-import { windowStartIso } from "../../src/gates";
+import { judgeContractFromPlan, type JudgeContract } from "../../src/agent/judge-input";
 import type { Arm, LeadRecord, RunRecord, Scenario } from "./types";
 
-/** What the judge needs to check Q1/Q2/Q3. Identical for every arm, so it never identifies one. */
-export type JudgeContract = {
-  who: string[];
-  size_band: string;
-  hq_countries: string[];
-  recency_months: number;
-  window: string;
-};
+export type { JudgeContract } from "../../src/agent/judge-input";
 
 export type BlindLead = LeadRecord & { id: string; contract?: JudgeContract };
 
 export function judgeContract(scenario: Scenario, now: Date): JudgeContract {
-  const plan = scenario.plan;
-  return {
-    who: plan.gateFields.filter((g) => g.required).map((g) => g.question),
-    size_band: `${plan.employeeRange.min}\u2013${plan.employeeRange.max} employees`,
-    hq_countries: plan.hqCountries,
-    recency_months: plan.months,
-    window: `${windowStartIso(plan.months, now).slice(0, 10)}..${now.toISOString().slice(0, 10)}`,
-  };
+  return judgeContractFromPlan(scenario.plan, now);
 }
 
 type MappingEntry = {

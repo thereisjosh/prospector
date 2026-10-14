@@ -8,6 +8,7 @@ import { pathToFileURL } from "node:url";
 import { eventInWindow, findVerdictFile, truthKey } from "./truth";
 import type { BlindLead } from "./blind";
 import { claudeCostDollars } from "../../src/agent/config";
+import { judgePayload } from "../../src/agent/judge-input";
 import type { RubricAnswer, Verdict } from "./types";
 
 type JudgeClient = Pick<Anthropic, "messages">;
@@ -252,17 +253,9 @@ export const JUDGE_VERSION = "v3-fetch";
 const JUDGE_INSTRUCTION =
   'First fetch the signal_url with web_fetch to answer Q3; use web_search (max 3) for Q1/Q2 (company site, LinkedIn). If web_fetch of the signal_url fails or is blocked, Q3 may still be \'yes\' when a web_search result from a different site describes the same company and the same event with a date inside the window; cite that result as q3_source and say \'via corroborating source\' in the note. If no corroboration exists, answer cannot_verify. Then reply with exactly one JSON object and nothing after it: {"q1":..., "q1_source":..., "q2":..., "q2_source":..., "q3":..., "q3_source":..., "note": "..."}';
 
+/** The lead JSON (src/agent/judge-input.ts, shared with the online evaluators) plus the tool instruction. */
 export function userPrompt(lead: BlindLead): string {
-  return `${JSON.stringify({
-    company: lead.company,
-    signal_url: lead.signal_url,
-    why_now: lead.why_now,
-    ...(lead.contract ? { contract: lead.contract } : {}),
-    contract_summary: {
-      event_date: lead.event_date,
-      size_basis: lead.size_basis,
-    },
-  }, null, 2)}\n\n${JUDGE_INSTRUCTION}`;
+  return `${JSON.stringify(judgePayload(lead), null, 2)}\n\n${JUDGE_INSTRUCTION}`;
 }
 
 /** Keep the raw reply when parsing fails, and say so on stderr: a judge failure is never silent. */

@@ -8,7 +8,8 @@ import { loadState, RunBusyError, saveState, StaleStateError, withRunLock } from
 import { isDemoRunId } from "../../../../../src/demo/mode";
 import { demoStep } from "../../../../../src/demo/replay";
 import { appendEvents } from "../../../../../src/agent/events";
-import { addDailySpend, dailyBudgetReached, dailyBudgetResponse, rateLimit, recordRoutePolicy, routePolicyEvent } from "../../../_shared";
+import { runEnded } from "../../../../../src/agent/online-eval";
+import { addDailySpend, dailyBudgetReached, dailyBudgetResponse, livePaused, rateLimit, recordRoutePolicy, routePolicyEvent } from "../../../_shared";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -22,6 +23,12 @@ export async function POST(request: Request, { params }: { params: { id: string 
     }
     assertRunId(params.id);
     if (isDemoRunId(params.id)) return NextResponse.json(await demoStep(params.id));
+    // Kill switch (LIVE_MODE=off, DAILY_SPEND_CAP_DOLLARS=0, or <DATA_DIR>/paused written by
+    // POST /api/admin/pause): in-flight live runs stop spending too; they resume when unpaused.
+    if (livePaused()) {
+      await recordRoutePolicy(params.id, "paused");
+      return NextResponse.json({ error: "paused" }, { status: 503 });
+    }
     if (await dailyBudgetReached()) {
       await recordRoutePolicy(params.id, "daily_cap");
       return dailyBudgetResponse();
@@ -37,9 +44,11 @@ export async function POST(request: Request, { params }: { params: { id: string 
         const events = [routePolicyEvent(state, "visitor_allowance", "stop")];
         await appendEvents(state.id, events);
         await saveState(state, loadedVersion);
+        runEnded(state);
         return routeStepResponse(state, events);
       }
       const before = state.spend.total;
+      let allowanceStop = false;
       const result = await step(state, { client: new Anthropic(), checkLead });
       const delta = Math.max(0, result.state.spend.total - before);
       await addDailySpend(delta);
@@ -51,8 +60,10 @@ export async function POST(request: Request, { params }: { params: { id: string 
         const policy = routePolicyEvent(result.state, "visitor_allowance", "stop");
         await appendEvents(result.state.id, [policy]);
         result.events.push(policy);
+        allowanceStop = true;
       }
       await saveState(result.state, loadedVersion);
+      if (allowanceStop) runEnded(result.state);
       return routeStepResponse(result.state, result.events);
     });
     return NextResponse.json(response);

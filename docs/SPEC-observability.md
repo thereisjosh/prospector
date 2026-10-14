@@ -127,29 +127,77 @@ Masking happens in `trace.mask()`, before anything leaves the process. It applie
 
 **Not built here:** running the `live` cases (adversarial, Singapore) through the agent. They need paid runs, so for now they are dataset items with code graders ready to score them. Online evaluators, annotation queue and CI gate are covered by §5–§6.
 
-## 5. Online evals
+## 5. Online evals (L2)
 
-Each production run's events become traces (§2). A worker scores them.
+**Built** per the Langfuse agent skill (`references/setting-up-evals.md`, `user-feedback.md`, `judge-calibration.md`) and the current docs (LLM-as-a-Judge, Evaluate Production Traffic, Evaluators and Evaluation Rules API v2, Annotation Queues, Scores API v3), JS/TS SDK `@langfuse/client` 5.13.1. Everything Langfuse-side is configuration as code: `npx tsx eval/online/setup-langfuse.ts [--dry-run] [--enable-rule]` finds each object by name and creates or updates it (a second run changes nothing).
 
-| Grader | Coverage | Must-pass |
+| Signal | Runs where | Langfuse-native part | Our code |
+|---|---|---|---|
+| 10 code graders (§4) + `must_pass` | In-process at run end (`runEnded`, `src/agent/online-eval.ts`), 100% of runs, any environment | Boolean scores on the run's last trace; score configs; filters, dashboards | `gradeRun(state, events)`; deterministic score ids (`runScoreId`), so the worker's hourly re-post is an upsert |
+| Outcomes without a judge: `accepted_leads`, `run_cost_dollars`, `stop_reason`, `handback` | Same | Numeric / categorical / boolean scores | `runEndScores` (pure, shared with the worker) |
+| `user_feedback` | Feedback route → `feedback` event (O1) | Score on the lead's `tool:submit_lead` span, the 👎 reason as the score comment | A 👎 also selects that lead for the judge and adds its trace to `review-queue` |
+| Judge `judge_q1/q2/q3` (RUBRIC §1) | **Langfuse**: three managed LLM-as-a-judge evaluators, rule `lead-judge (production)` | Evaluators (prompt, model `claude-opus-5-5`, categorical yes/no/cannot_verify, `{{lead}}` ← observation input), observation-level rule, execution traces in environment `langfuse-llm-as-a-judge`, cost per evaluator | Which leads get judged, and the dollar cap (below) |
+| `judge_good` | Worker | Boolean score on the same observation | Derived from the three managed answers (below) |
+| Review queue | Langfuse annotation queue `review-queue` | Queue with score configs `review_outcome` (new_case / wont_fix) + `judge_q1..q3` + `judge_good` | Items added by the app (👎, handback, error, must-pass failure) and the worker (any judge "no") |
+| Alerts, kill switch | GitHub Actions worker (hourly) | — | Issues for must-pass failures; pause when the day's event cost exceeds the cap |
+
+**Why the code graders are not Langfuse code evaluators.** A code evaluator sees one observation; the graders need the whole run (`state.json` plus every event), e.g. Σ event cost vs state spend. They run where the run ends and post scores; Langfuse stores, filters and charts them.
+
+**Score names** are the offline names (§4): the same `judge_q1..q3` and `judge_good` the offline judge writes in experiments, the same grader names, `stop_reason` as in the experiment items. Score configs exist for `judge_q1..q3`, `judge_good`, `user_feedback` and `review_outcome`. The managed evaluators are named exactly `judge_q1..q3` (the evaluator name is the score name; verify on the first real execution).
+
+### Which leads are judged, and the dollar cap
+
+The judge target is a dedicated `lead-judge` observation (type event), a child of the lead's `tool:submit_lead` span in the lead's turn trace. Its input is the judge payload from `src/agent/judge-input.ts`, the exact JSON the offline judge reads (`userPrompt` pretty-prints the same object; a test checks it on a pilot run), so the judge sees the contract, which the submit span does not carry. Metadata: `eval_priority` (`high` / `sample`), `eval_reason`, `lead_key`. The rule matches environment `production` + name `lead-judge` (only our code emits that name), sampling 1, so **Langfuse judges exactly what our code emits** and nothing else.
+
+Why our code decides: rule filters see only the matched observation, and Langfuse v4 observations are immutable, so a submit span cannot be re-tagged when its run later ends in a handback or error or gets a 👎. Langfuse's native sampling fraction cannot be capped in dollars, and its evaluator cost alerts notify after the money is spent. So:
+
+- **Run end** (production environment only): every accepted lead of a run that ended with `status = error` or with a handback is `high` priority (reason `error` / `handback`). Otherwise a lead is sampled at 20%, deterministically (sha256 of run id + lead key), as `sample`.
+- **👎**: that lead is `high` (reason `thumbs_down`) unless it was already selected.
+- **Cap**: a selection must reserve a slot in `<DATA_DIR>/online-judge-<UTC date>.json` (file lock). Slots per day = floor(`ONLINE_JUDGE_DAILY_CAP_DOLLARS` ÷ `ONLINE_JUDGE_COST_PER_LEAD_DOLLARS`), default floor($3 ÷ $0.34) = 8. Samples may take at most half of them, so flagged leads are never crowded out by the random sample. A lead that finds no slot is logged as `judge_skipped: daily_cap`. `ONLINE_JUDGE_DAILY_CAP_DOLLARS=0` turns the judge off.
+- $0.34 is the measured cost of one offline fetch verdict, kept as the default per-lead cost because it is an upper bound: the three tool-less managed calls are estimated at ≤ $0.021 each (≈ 1.7k input tokens, ≤ 600 output on Opus 5.5), ≤ $0.07 per lead. Once Langfuse shows the evaluators' real cost, set `ONLINE_JUDGE_COST_PER_LEAD_DOLLARS` to it (at $0.07 the $3 cap judges ~42 leads/day). A Langfuse evaluator cost alert is a useful second line, but it only notifies.
+- Every selection, skip, review enqueue and the once-per-run guard are appended to `runs/<id>/online-evals.jsonl`. `state.json` and `events.jsonl` are untouched (the masking test's byte-identity with tracing on/off still holds), and nothing happens with `LANGFUSE_*` unset or on `demo-…` runs.
+
+### What the managed judge can and cannot verify
+
+| | Offline judge (`eval/harness/judge.ts`, v3-fetch) | Managed online judge |
 |---|---|---|
-| `caps_respected` (spend ≤ run cap, turns ≤ 30, active ≤ 6 min) | 100% | yes |
-| `approval_before_spend` (no `exaCost > 0` before the strategy is approved) | 100% | yes |
-| `gates_consistent` (each lead ↔ one `accepted` verdict; rejections carry codes) | 100% | yes |
-| `cost_reconciles` (Σ event cost = `state.spend.total` ± $0.001) | 100% | yes |
-| `no_secrets_in_payload` (re-scan of the exported projection) | 100% | yes |
-| `trace_complete` (every `(runId, turn)` has a trace) | 100% | yes |
-| `stop_reason` in the allowed set (`unknown_stop:*` fails) | 100% | yes |
-| Cost per run, `turn_end` p95, verification reads = 0, todo drift | 100% | no (trend) |
-| Opus judge Q1–Q3 (`v3-fetch`, reusing `eval/truth/` verdicts) | Priority: every lead in a 👎 / handback / error run, then 20% of other accepted leads, until `ONLINE_JUDGE_DAILY_CAP_DOLLARS` (default $3) | no |
+| Tools | `web_fetch` (signal URL) + `web_search` (≤ 3) | None: the lead JSON and what the model knows with certainty |
+| Q1 fit | Company site / LinkedIn / press | **no** when the JSON or certain knowledge contradicts `contract.who` (retailer running its own warehouses, an internal team, a later-stage company for a "recent seed/A" gate); **yes** only for a company it knows; else cannot_verify |
+| Q2 size | Cited headcount | **no** only for a company it knows is far outside the band; `size_basis: quoted` alone is not evidence |
+| Q3 signal | Fetches the page (or corroborates elsewhere) | **Never yes** (RUBRIC Q3 requires the page to load). **no** when `event_date` is missing or outside `contract.window`, `why_now` has no concrete event or names another company, or the signal is a single-role job post off the company's site |
+| `judge_good` | Q1 yes ∧ Q3 yes ∧ Q2 ≠ no | Worker posts `0` when any answer is "no", `1` only for yes/≠no/yes (unreachable while Q3 cannot be yes), and **nothing** when the result hinges on a cannot_verify that only the web judge can settle |
 
-Scores are written to Langfuse and appended to `runs/<id>/scores.jsonl`. The **review queue** is a Langfuse annotation queue fed by every 👎, every judge "no", and every must-pass failure. Reviewing an item ends in one of two outcomes: a new case, or "won't fix" with a reason.
+So online, `judge_good = 0` is a definite "not good" (and the trace goes to `review-queue`), while a missing `judge_good` means "not settled online". **The offline judge stays the authority for experiment numbers** (precision, good leads, pass^k); the online judge is a cheap detector of leads that are definitely wrong, which is what the review queue needs.
 
-**Where the worker runs: GitHub Actions cron (hourly)** calls `GET /api/admin/runs/export?since=` and runs `eval/online/worker.ts`. I chose it over a Railway cron service for three reasons. A Railway volume mounts to one service, so a separate cron service could not read `/data` and would need the same export endpoint anyway. Actions can open GitHub issues with no extra credentials. And the run history is visible next to the code. Secrets: `ADMIN_TOKEN`, `LANGFUSE_*`, `ANTHROPIC_API_KEY` (judge).
+### Judge calibration (`references/judge-calibration.md`)
 
-**Alerting:**
-- Must-pass violations > 0 → open a GitHub issue labelled `must-pass` (run id, grader, trace link). The issue notification is the email.
-- If the cost recomputed from events for the UTC day exceeds `DAILY_SPEND_CAP_DOLLARS`, the in-app cap did not hold. The worker calls `POST /api/admin/pause` (the kill switch, no redeploy) and opens an issue. Un-pausing is manual.
+- **Sets**: one Langfuse dataset per judge, `judge-calibration/judge_q1`, `…/judge_q2`, `…/judge_q3` (the reference's per-judge naming), 10 items each: the human spot-checks of `eval/truth/SPOT-CHECKS.md`. Input = the judge payload built from the pilot's blind pool (the production input shape); expected output = the verdict file's answer in the judge's vocabulary (`eval/online/calibration-set.ts`). Labels: Q1 7 yes / 3 no; Q2 8 yes / 2 cannot_verify (Q2 was confirmed only at verdict level, not re-checked); Q3 9 yes / 1 no. SPOT-CHECKS lists Capacity LLC under S2; its lead and verdict are in S1, which the set uses.
+- **Candidate prompts**: `judge-calibration/judge_q1..q3` in Prompt Management (chat: system = `eval/RUBRIC.md`, user = `eval/online/judge-prompt.ts`), without the `production` label.
+- **Evaluators** are created and **paused** (`LLM_CONNECTION_MISSING`: the project has no LLM connection), and the rule is **disabled**, as the reference prescribes for an uncalibrated judge.
+- **Not run.** A round is paid (Anthropic, Opus 5.5, 30 calls): `npx tsx eval/online/calibrate-judge.ts` estimates **≤ $0.62** (≈ 66k input tokens; 600 output tokens budgeted per verdict); `--run --max-dollars 1` runs it with the Experiments SDK (`dataset.runExperiment`, Boolean evaluator `judge_qN-judge-output-correct` = exact match), prints accuracy and every mismatch.
+- **Expected result, stated before running**: exact-match agreement is capped by design. Q3 has 9 "yes" labels a web-less judge must not give, so its ceiling is 1/10; Q1 and Q2 can match "yes" only for companies the model knows. The numbers that matter are the "no" cells: does it catch Away Team (Q1 no, Q3 no), Sybill and Miter (Q1 no), and does it never say "no" to a lead humans called good. The 85% benchmark in the reference does not apply to the yes rows; decide on the no-precision and no-recall.
+- **Deploy after approval**: copy the approved prompt into the evaluators (`setup-langfuse.ts` does this from `judge-prompt.ts`), label the prompt version `production`, add the Anthropic LLM connection, `setup-langfuse.ts --enable-rule`.
+
+### Review queue
+
+`review-queue` receives: every 👎 lead's turn trace (feedback route), the last trace of every run that ended with a handback, an error or a failed must-pass grader (run end), and every trace whose `lead-judge` got a "no" from a managed judge (worker, deduplicated against the queue's items). The reviewer labels `review_outcome` (`new_case` → add it to `eval/datasets/prospector-cases.jsonl`; `wont_fix` → say why in the comment) and may label `judge_q1..q3` / `judge_good`; those human scores share the judges' names, so Score Analytics shows human-vs-judge agreement natively.
+
+### Worker, alerts and the kill switch
+
+`.github/workflows/online-evals.yml` runs `eval/online/worker.ts` hourly (and on demand, `--since`, `--dry-run`). Secrets by name only: `ADMIN_TOKEN`, `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`; variables `APP_URL`, `LANGFUSE_BASE_URL`, `DAILY_SPEND_CAP_DOLLARS`. No Anthropic key: the judge runs inside Langfuse.
+
+1. `GET /api/admin/runs/export?since=` (Bearer `ADMIN_TOKEN`, timing-safe compare; 503 when the token is unset): runs whose `state.json`/`events.jsonl` changed since, without messages, caches, workspace id or the pinned prompt.
+2. Runs that changed in the last 3 h are re-graded and their scores upserted (same ids as the app; the window bounds re-posts, since every score write is a billable unit).
+3. A failed must-pass grader opens one GitHub issue per run (labels `must-pass`, `online-evals`; trace link), skipped if an open issue already names the run.
+4. If Σ(`claudeCost` + `exaCost`) of today's (UTC) events exceeds `DAILY_SPEND_CAP_DOLLARS`, the in-app cap did not hold: the worker calls `POST /api/admin/pause` and opens a `spend-cap` issue. Pause writes `<DATA_DIR>/paused` (`/data/paused`); `isDemoMode()` and `livePaused()` honour it, `/api/status` reports `paused`, and the step route answers 503 `paused`, so in-flight runs stop spending too. Un-pausing is manual (`rm /data/paused`).
+5. Managed-judge follow-up: reads `judge_q1..q3` scores (source `EVAL`, production) since the window start, posts `judge_good` as above, queues traces with a "no".
+
+### To go live (not done here)
+
+1. Langfuse: add an Anthropic LLM connection (Settings → LLM Connections). The evaluators pin `anthropic` / `claude-opus-5-5`.
+2. Run and review the calibration (≤ $0.62 per round); iterate on `judge-prompt.ts`; then `setup-langfuse.ts --enable-rule`.
+3. Railway: `LANGFUSE_TRACING_ENVIRONMENT=production`, `ADMIN_TOKEN` (the generated value in `.env`), optionally `ONLINE_JUDGE_*`.
+4. GitHub: the secrets and variables above.
 
 ## 6. Triggers
 
@@ -187,6 +235,7 @@ Scores are written to Langfuse and appended to `runs/<id>/scores.jsonl`. The **r
 | O1 | `trace.ts` wrapper, event field additions, Langfuse Cloud project, masking test | gpt-5.5 (codex): clear spec | 1–1.5 d | Masking test green. Byte-identical state/events with tracing on/off. One real turn shown correctly in Langfuse (screenshot) |
 | O2 | Case format, shared grader module, migrate the 17 FAILURES entries, feedback `runId`/`signal_url` + 👎 → case, production Exa recording | gpt-5.5 (codex) | 1.5 d | Every FAILURES entry has a case. CI runs the must-pass set |
 | L1 (done) | Offline evals in Langfuse Datasets and Experiments: `eval/datasets/*.jsonl` + `eval/langfuse-sync.ts`, `eval/graders/` (`gradeRun`), pilot import (`eval/langfuse-import-pilot.ts`), `run-cell`/`score` `--langfuse-experiment` (§4). Covers O2's case format, grader module and FAILURES migration; 👎 → case, CI must-pass job and production Exa recording remain in O2 | opus-5.5 (orchestrator-delegated subagent) | — | Both datasets and the 6 pilot runs (12 items) visible with scores; sync and import idempotent (second run creates nothing); vitest/typecheck/build green |
+| L2 (done, not deployed) | Online evals (§5): run-end graders + outcome scores (`src/agent/online-eval.ts`), `lead-judge` selection with the daily cap, managed evaluators `judge_q1..q3` + disabled rule + score configs + `review-queue` + calibration sets/prompts (`eval/online/setup-langfuse.ts`), calibration runner (`eval/online/calibrate-judge.ts`, not run: ≤ $0.62), admin pause/export, kill switch in the step route, hourly worker + Action. Covers O3 and O4 | opus-5.5 orchestrating; admin routes, worker, Action by gpt-5.5 (codex) | — | Mocked tests for run-end scoring (once per run, never on demo runs, nothing with Langfuse unset), the cap, worker issues/pause/judge_good/queue, admin auth/pause/export; plumbing verified live in a scratch environment; vitest/typecheck/build green |
 | O3 | Admin export + pause endpoints, `eval/online/worker.ts`, hourly Action, issue alerts | gpt-5.5 (codex) | 1 d | Worker on a seeded volume opens one issue per planted violation and none otherwise. Pause verified in a mocked test |
 | O4 | Online judge, priority sampling, daily cap, score write-back, annotation queue | sonnet-5 | 0.5–1 d | Judge spend never exceeds cap in a mocked run. Verdicts match offline `judgeLead` on the same leads |
 | O5 | Dashboards, weekly report template, README section | opus-4.8: user-facing copy | 0.5 d | Author reviews; the three repo artifacts exist |
@@ -197,6 +246,7 @@ Order: O1 → O2 → O3 → O4 → O5. Each gate is reviewed by the orchestrator
 
 ## 9. Honest limits
 
+- **Online judge is weaker than the offline one by construction** (no web access, §5): it finds definite failures, it cannot confirm good leads. Precision numbers come only from the offline judge.
 - **Judge cost scales with traffic.** One fetch verdict (~$0.34) is about 40% of a whole run (~$0.83). At 12 runs/day, 20% sampling alone is ~$6.50/day. The cap means coverage shrinks as traffic grows: flagged runs get judged and the random sample thins. A cheaper judge would have to be calibrated against Opus on stored verdicts before it is trusted.
 - **Pattern masking reduces risk; it does not guarantee anything.** It catches known formats. A key in an unknown format, or personal data in free text, can get through. The real control is dropping whole field classes (page text, history, IPs).
 - **Free-tier retention.** Langfuse Hobby keeps data for a limited window (verify the current terms in O1). Anything older is reconstructed from `events.jsonl` by backfill, which is why the deterministic trace ids matter.

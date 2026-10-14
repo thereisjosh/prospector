@@ -1,0 +1,48 @@
+name: online-evals
+
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+    inputs:
+      since:
+        description: "ISO timestamp to export runs since"
+        required: false
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: online-evals
+  cancel-in-progress: false
+
+jobs:
+  online-evals:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      APP_URL: ${{ vars.APP_URL }}
+      ADMIN_TOKEN: ${{ secrets.ADMIN_TOKEN }}
+      LANGFUSE_PUBLIC_KEY: ${{ secrets.LANGFUSE_PUBLIC_KEY }}
+      LANGFUSE_SECRET_KEY: ${{ secrets.LANGFUSE_SECRET_KEY }}
+      LANGFUSE_BASE_URL: ${{ vars.LANGFUSE_BASE_URL || 'https://cloud.langfuse.com' }}
+      LANGFUSE_TRACING_ENVIRONMENT: production
+      DAILY_SPEND_CAP_DOLLARS: ${{ vars.DAILY_SPEND_CAP_DOLLARS || '10' }}
+      GITHUB_TOKEN: ${{ github.token }}
+      GITHUB_REPOSITORY: ${{ github.repository }}
+      ONLINE_EVALS_SINCE: ${{ inputs.since }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Run online evals worker
+        run: |
+          if [ -n "$ONLINE_EVALS_SINCE" ]; then
+            npx tsx eval/online/worker.ts --since "$ONLINE_EVALS_SINCE"
+          else
+            npx tsx eval/online/worker.ts
+          fi

@@ -7,6 +7,7 @@ import { isRunId, isWorkspaceId } from "../../src/agent/ids";
 import { loadState, type RunState } from "../../src/agent/state";
 import { withFileLock, writeFileAtomic } from "../../src/agent/fslock";
 import { dollarsExhausted, loadQuota, remainingAllowance, type VisitorQuota } from "../../src/agent/quota";
+import { isPausedByFile } from "../../src/demo/mode";
 
 const buckets = new Map<string, { tokens: number; updated: number }>();
 const CAPACITY = 30;
@@ -95,7 +96,7 @@ export function dailySpendCapDollars(): number {
 }
 
 export function livePaused(): boolean {
-  return process.env.LIVE_MODE === "off" || dailySpendCapDollars() === 0;
+  return process.env.LIVE_MODE === "off" || dailySpendCapDollars() === 0 || isPausedByFile();
 }
 
 export function liveKeysPresent(): boolean {
@@ -153,7 +154,7 @@ export function clampTargetLeads(value: unknown): number | undefined {
   return Math.max(1, Math.min(50, n));
 }
 
-export type RoutePolicyCheck = "rate_limit" | "daily_cap" | "visitor_allowance";
+export type RoutePolicyCheck = "rate_limit" | "daily_cap" | "visitor_allowance" | "paused";
 
 /** A route-level `policy` event for the run's trace (SPEC-observability §2). */
 export function routePolicyEvent(state: RunState, check: RoutePolicyCheck, outcome: "blocked" | "stop") {

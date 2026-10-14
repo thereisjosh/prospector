@@ -661,6 +661,8 @@ export type TraceTestHooks = {
   onScore?: (body: Record<string, unknown>) => void;
   /** Score client used instead of a real LangfuseClient. */
   client?: { score: { create(body: never): unknown }; flush(): Promise<unknown> };
+  /** Receives every annotation-queue item instead of the Langfuse API. */
+  onQueueItem?: (item: { queue: string; objectId: string; objectType: "TRACE" | "OBSERVATION" | "SESSION" }) => void;
 };
 
 let testHooks: TraceTestHooks | undefined;
@@ -676,6 +678,7 @@ export async function __setTraceTestHooks(hooks: TraceTestHooks | undefined): Pr
     await sdk?.provider.shutdown().catch(() => undefined);
   }
   sdkPromise = undefined;
+  queueIds.clear();
   testHooks = hooks;
   stats.emitted = 0;
   stats.exportFailures = 0;
@@ -925,6 +928,123 @@ export function score(
   } catch (error) {
     stats.emitErrors += 1;
     warnOnce("trace score failed", error);
+  }
+}
+
+/* ---------- online evaluation (SPEC-observability §5) ---------- */
+
+/** Name of the observation the managed lead judges (Langfuse evaluators judge_q1..q3) run on. */
+export const LEAD_JUDGE_OBSERVATION = "lead-judge";
+
+/** Observation id of a lead's judge request: a child of its `tool:submit_lead` span, at most one per lead. */
+export function leadJudgeObservationId(traceId: string, toolUseId: string): string {
+  return observationIdFor(traceId, `lead-judge:${toolUseId}`);
+}
+
+/**
+ * Emit the observation the managed LLM-as-a-judge evaluators run on: input = the judge
+ * payload (src/agent/judge-input.ts, the same object the offline judge reads), metadata =
+ * why it was selected. Its parent is the lead's submit span in the lead's turn trace, so
+ * the judge scores sit under the lead they judge. Fire-and-forget; never throws.
+ */
+export function emitLeadJudge(request: {
+  runId: string;
+  turn: number;
+  toolUseId: string;
+  input: unknown;
+  metadata: Record<string, string>;
+  state?: unknown;
+  ts?: string;
+}): { traceId: string; observationId: string } | undefined {
+  try {
+    if (!enabled()) return undefined;
+    const traceId = traceIdFor(request.runId, request.turn);
+    const observationId = leadJudgeObservationId(traceId, request.toolUseId);
+    const ts = request.ts ?? new Date().toISOString();
+    const ctx = runContextFromState(request.state);
+    const trace: TurnTrace = {
+      traceId,
+      runId: request.runId,
+      turn: request.turn,
+      sessionId: request.runId,
+      observations: [
+        {
+          id: observationId,
+          traceId,
+          parentId: observationIdFor(traceId, toolObservationKey(request.toolUseId)),
+          name: LEAD_JUDGE_OBSERVATION,
+          type: "event",
+          startTime: ts,
+          endTime: ts,
+          input: request.input,
+          metadata: request.metadata,
+        },
+      ],
+      scores: [],
+    };
+    track(
+      (async () => {
+        const sdk = await init();
+        exportObservations(sdk, [trace], ctx);
+      })(),
+    );
+    return { traceId, observationId };
+  } catch (error) {
+    stats.emitErrors += 1;
+    warnOnce("lead judge emit failed", error);
+    return undefined;
+  }
+}
+
+/** Langfuse annotation queue that collects production runs for review. */
+export const REVIEW_QUEUE_NAME = "review-queue";
+const queueIds = new Map<string, Promise<string | undefined>>();
+
+async function queueId(sdk: Sdk, name: string): Promise<string | undefined> {
+  let id = queueIds.get(name);
+  if (!id) {
+    id = (async () => {
+      for (let page = 1; page <= 10; page += 1) {
+        const res = await sdk.client!.api.annotationQueues.listQueues({ page, limit: 100 });
+        const hit = res.data.find((q) => q.name === name);
+        if (hit) return hit.id;
+        if (page >= (res.meta?.totalPages ?? 1)) break;
+      }
+      return undefined;
+    })();
+    queueIds.set(name, id);
+    // A miss (queue not created yet) or an error is retried next time instead of cached.
+    id.then((v) => (v ? undefined : queueIds.delete(name)), () => queueIds.delete(name));
+  }
+  return id;
+}
+
+/**
+ * Add a trace (or observation/session) to the review annotation queue. Fire-and-forget;
+ * a missing queue or an API error is logged once, never thrown.
+ */
+export function enqueueForReview(objectId: string, objectType: "TRACE" | "OBSERVATION" | "SESSION" = "TRACE", queue = REVIEW_QUEUE_NAME): void {
+  try {
+    if (!enabled()) return;
+    if (testHooks?.onQueueItem) {
+      testHooks.onQueueItem({ queue, objectId, objectType });
+      return;
+    }
+    track(
+      (async () => {
+        const sdk = await init();
+        if (!sdk.client) return;
+        const id = await queueId(sdk, queue);
+        if (!id) {
+          warnOnce(`annotation queue "${queue}" not found; run eval/online/setup-langfuse.ts`);
+          return;
+        }
+        await sdk.client.api.annotationQueues.createQueueItem(id, { objectId, objectType } as never);
+      })(),
+    );
+  } catch (error) {
+    stats.emitErrors += 1;
+    warnOnce("review enqueue failed", error);
   }
 }
 

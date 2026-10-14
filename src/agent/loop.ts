@@ -9,6 +9,7 @@ import { countryOfHq } from "../geo";
 import { appendRunToMemory, squashName } from "./memory";
 import { ensureAgentPrompt } from "./prompts";
 import { promptLink } from "./prompt-store";
+import { runEnded } from "./online-eval";
 import type { RunState, Handback } from "./state";
 import { APPROVAL_TOOLS, agentTools, executeTool, type ToolDeps } from "./tools";
 
@@ -215,7 +216,18 @@ async function finishRun(state: RunState, events: AgentEvent[], status: "done" |
   await appendRunToMemory(state);
 }
 
+/**
+ * One agent turn. When this turn ends the run (done/stopped/error), the online evaluation
+ * starts in the background (src/agent/online-eval.ts: code graders, judge selection, review queue).
+ */
 export async function step(state: RunState, deps: LoopDeps): Promise<StepResult> {
+  const wasRunning = state.status === "running";
+  const result = await stepTurn(state, deps);
+  if (wasRunning && result.state.status !== "running" && result.state.status !== "awaiting_approval") runEnded(result.state);
+  return result;
+}
+
+async function stepTurn(state: RunState, deps: LoopDeps): Promise<StepResult> {
   const events: AgentEvent[] = [];
   if (state.status !== "running") return { state, events };
   // Pin before the first event so every event of the run carries the same promptVersion.
@@ -512,6 +524,7 @@ export async function stopRun(state: RunState): Promise<StepResult> {
   events.push(makeEvent(state, "stop", { reason: "user", status: "stopped" }));
   await appendEvents(state.id, events);
   await appendRunToMemory(state);
+  runEnded(state);
   return { state, events };
 }
 
