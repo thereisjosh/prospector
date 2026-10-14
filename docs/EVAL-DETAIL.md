@@ -49,6 +49,45 @@ About $40 in total:
 - **≈ $3.50 lost** to the first judge run, which parsed 0 of 22 verdicts and left no record (author's log, FAILURES #8).
 - Live walkthroughs after that: deposco.com $0.73 (`eval/recordings/live-deposco-2026-10-13/state.json`), public smoke $0.83 run / $0.88 ledger (`eval/recordings/public-smoke-2026-10-13.txt`).
 
+## Live quote gates run (2026-10-14)
+
+`eval/results/live-quotes-2026-10-14/` (report `report.md`, cells under `S1|S2/B_agent_opus/{1,2}`), recordings in `eval/recordings/live-quotes-2026-10-14/`. Agent arm only (Opus 5.5), S1 and S2, 2 reps each, $1.00 cap, after the evidence-required gates (`522252a`). Rep 1 ran before the quote-matcher fix (`5e88d4f`), rep 2 after it. Not a pilot repeat: no workflow arm, 2 reps, so no pass^3.
+
+| Scen. | Rep | Leads | Good | Precision | Spend (Exa + Claude) | Time | Stop | Skips / rewrites / verification reads |
+|---|---|---|---|---|---|---|---|---|
+| S1 | 1 | 4 | 4 | 1.00 | $0.872 ($0.456 + $0.416) | 275 s | finish | 60 / 9 / 2 |
+| S1 | 2 | 6 | 5 | 0.83 | $0.853 ($0.483 + $0.370) | 319 s | finish | 47 / 9 / 0 |
+| S2 | 1 | 0 | 0 | n/a | $0.565 ($0.314 + $0.251) | 177 s | finish | 12 / 2 / 2 |
+| S2 | 2 | 3 | 3 | 1.00 | $0.820 ($0.475 + $0.345) | 281 s | finish | 21 / 5 / 1 |
+
+Run spend total $3.11. Counters from each `run.json` `adaptive` field; verification reads are 2, 0, 2, 1, against 0 in 8 of the 9 earlier recorded runs (README §2 flaw 1). Cells fail the pilot pass bar (6 good leads) in all four: `pass` is "no" in `report.md`.
+
+**Judge.** Opus 5.5 with web search and fetch (`v3-fetch`, same as the pilot's final pass). Verdicts are keyed by company and signal URL, so a lead already judged is not judged again. Of the 13 lead-reps, 6 (Wagner x2, Hollingsworth x2, RBW, Clueso) came from 4 verdicts written on 2026-10-14, which cost $1.38 together (sum of `costDollars`). The other 7 reuse verdicts written on 2026-10-13 (Metropolitan, FreezPak, RGL, RK, Verst, Avarra, Agave): same company and signal URL, but the judge's date reference was 2026-10-12. The ≈ $3.02 judge spend quoted in the session is not traceable to files; only $1.38 is.
+
+**Per-lead verdicts** (`eval/truth/S1/`, `eval/truth/S2/`). Q1 fit, Q2 size, Q3 signal. Good = Q1 yes, Q3 yes, Q2 not no (RUBRIC §1; one Q2 cannot-verify per run is tolerated).
+
+| Scen. | Rep | Company | Signal host | Q1 | Q2 | Q3 | Good |
+|---|---|---|---|---|---|---|---|
+| S1 | 1 | Metropolitan Warehouse and Delivery | re-nj.com | yes | yes | yes | yes |
+| S1 | 1 | Wagner Logistics | www.prnewswire.com | yes | yes | yes | yes |
+| S1 | 1 | Hollingsworth Logistics | northatlantastar.com | yes | yes | yes | yes |
+| S1 | 1 | FreezPak Logistics | www.refrigeratedfrozenfood.com | yes | cannot_verify | yes | yes (the run's one tolerated Q2 cannot-verify) |
+| S1 | 2 | Wagner Logistics | www.prnewswire.com | yes | yes | yes | yes |
+| S1 | 2 | Hollingsworth Logistics | northatlantastar.com | yes | yes | yes | yes |
+| S1 | 2 | RGL Logistics | thebusinessnews.com | yes | yes | yes | yes |
+| S1 | 2 | RK Logistics Group | www.einpresswire.com | yes | yes | yes | yes |
+| S1 | 2 | RBW Logistics | rbwlogistics.com | yes | yes | yes | yes |
+| S1 | 2 | Verst Logistics | www.lanereport.com | yes | **no** | yes | **no** |
+| S2 | 2 | Clueso | www.unite.ai | yes | yes | yes | yes |
+| S2 | 2 | Avarra.ai | www.prnewswire.com | yes | yes | yes | yes |
+| S2 | 2 | Agave | www.businesswire.com | yes | yes | yes | yes |
+
+S2 rep 1 accepted no lead, so it has no rows. Total 12 good of 13 (0.92). n = 13 cannot test a 98% bar: even 13 of 13 gives a 95% Wilson lower bound of 0.77.
+
+**The miss: Verst Logistics, Q2.** The gate accepted it on a size quote "Employees: 507" copied from Exa's company profile (`evidence.company_lookup.employee_estimate_source` in S1 rep 2's `run.json`); the S1 range is 100–1000. The judge's Q2 is "no", with source `builtin.com/company/verst-logistics`. The verdict file stores no reasoning or number, so what the right headcount is cannot be read from the repo. The same signal URL was accepted in all 3 pilot agent reps, so Verst is a known size miss that the quote gates did not catch (FAILURES #23).
+
+**Recall.** 0 to 6 leads per run (0 to 5 good), against 7 to 10 accepted (6 to 9 good) per pilot agent run. Lookups now fetch page text and a quote that is rejected costs a turn. S2 rep 1's handback lists 11 rejections for "funding round or business type couldn't be confirmed from the company's public profile"; rep 1 predates the matcher fix, so some of those are the matcher, not the pages.
+
 ## Why signal-first (kept from v1)
 
 Exa's `category: "company"` search rejects `startPublishedDate`, so a company search cannot be date-filtered (probed on the live API). Freshness is what the buyer needs, so both arms search dated news and job pages for the **trigger**, then look up the named company for size, HQ and type. Claude decides what to ask; every fact in the output comes from Exa (SPEC-v2 §1).
@@ -60,7 +99,7 @@ Offline evals live in Langfuse Datasets and Experiments (project "My Project", e
 | What | Where | Count |
 |---|---|---|
 | Dataset `prospector-scenarios` | [cloud.langfuse.com/…/datasets/cmv7hfwfm00x2ad0j9e5fpycl](https://cloud.langfuse.com/project/cmv6skia0015xad0efzgcpwzz/datasets/cmv7hfwfm00x2ad0j9e5fpycl) · `eval/datasets/prospector-scenarios.jsonl` | 2 (S1, S2; kind task-outcome) |
-| Dataset `prospector-cases` | [cloud.langfuse.com/…/datasets/cmv7hfxbd012tad0ea9y2wfx3](https://cloud.langfuse.com/project/cmv6skia0015xad0efzgcpwzz/datasets/cmv7hfxbd012tad0ea9y2wfx3) · `eval/datasets/prospector-cases.jsonl` | 24: reliability 9, policy 3, safety-adversarial 3, tool-use 2, quality 2, escalation 2, cost 2, task-outcome 1 |
+| Dataset `prospector-cases` | [cloud.langfuse.com/…/datasets/cmv7hfxbd012tad0ea9y2wfx3](https://cloud.langfuse.com/project/cmv6skia0015xad0efzgcpwzz/datasets/cmv7hfxbd012tad0ea9y2wfx3) · `eval/datasets/prospector-cases.jsonl` | 30: reliability 12, policy 3, safety-adversarial 3, tool-use 2, quality 5, escalation 2, cost 2, task-outcome 1 |
 | Pilot experiment runs | [cloud.langfuse.com/…/experiments](https://cloud.langfuse.com/project/cmv6skia0015xad0efzgcpwzz/experiments): `pilot-2026-10-12:<arm>:r<rep>` | 6 runs (A_workflow, B_agent_opus × r1–r3) × 2 items (S1, S2) = 12 items |
 | Agent turn traces of the pilot | Sessions in environment `eval`, one per agent run id (backfilled from `events.jsonl`) | 6 sessions, 77 turn traces |
 
