@@ -4,6 +4,7 @@ import { join } from "node:path";
 import { requireEnv } from "./config";
 import { normalizeNullish } from "./plan";
 import type { CompanySummary, ExaSearchResponse } from "./types";
+import { EXCERPT_MAX } from "./evidence";
 
 export type ExaCredentials = {
   apiKey?: string;
@@ -40,10 +41,22 @@ export const COST_ESTIMATE = {
   margin: 1.25,
 } as const;
 
+/**
+ * Company-lookup page text window. Exa bills `contents.text` per page (the
+ * estimate below uses `perSummaryResult` per page, never per character) and
+ * `maxCharacters` only truncates what is returned, so a wide window costs the
+ * same as a narrow one. It must cover what Exa's summariser read, otherwise a
+ * genuine quote from deep in the page looks fabricated to the gate.
+ */
+export const LOOKUP_TEXT_MAX = 20000;
+
 export function estimateExaCost(body: Record<string, unknown>): number {
   const e = COST_ESTIMATE;
-  if (body.category === "company") return e.companyLookup * e.margin;
   const contents = body.contents as { summary?: unknown; text?: unknown } | undefined;
+  if (body.category === "company") {
+    const pages = typeof body.numResults === "number" ? body.numResults : 2;
+    return (e.companyLookup + (contents?.text ? e.perSummaryResult * pages : 0)) * e.margin;
+  }
   const n = typeof body.numResults === "number" ? body.numResults : 10;
   const search = n <= 25 ? e.searchUpTo25 : e.searchAt50 * Math.max(1, n / 50);
   return (search + (contents?.summary ? e.perSummaryResult * n : 0) + (contents?.text ? e.perSummaryResult * n : 0)) * e.margin;
@@ -281,13 +294,21 @@ export async function lookupCompany(
         query: summaryQuery,
         schema,
       },
+      text: { maxCharacters: LOOKUP_TEXT_MAX },
       livecrawl: "fallback",
     },
   }, credentials, guard);
+  const result = response.results[0];
+  const summary = parseCompanySummary(result?.summary);
+  if (result?.text) {
+    summary.source_excerpt = result.text.replace(/\s+/g, " ").trim().slice(0, EXCERPT_MAX);
+    // Text at the window limit was cut off: a quote missing from it is unverified, not necessarily fabricated.
+    summary.lookup_text_truncated = result.text.length >= LOOKUP_TEXT_MAX;
+  }
 
   return {
-    result: response.results[0],
-    summary: parseCompanySummary(response.results[0]?.summary),
+    result,
+    summary,
     costDollars: response.costDollars,
   };
 }

@@ -57,7 +57,44 @@ Prospector finds B2B sales leads. A seller pastes their website and approves a s
 | 2 | **It rarely changes tactics.** "Adaptive" behaviour is mostly skipping lookups. The rubric's "workflow-shaped" flag (`adaptive = 0`, `eval/harness/score.ts:147`) is weak because skips alone clear it. | Pilot query rewrites: S1 0 / 0 / 0, S2 1 / 0 / 1. Skips: S1 39 / 49 / 53, S2 11 / 17 / 22. These used the original counter (a new query after a submit rejection): the pilot ran 14:44–14:59Z and `f2bd783`, which also counts lookup-stage trouble, was committed at 15:03Z (inferred from timestamps). Under the wider counter deposco counted 6. | Open (flag); counter fixed |
 | 3 | **It doesn't keep its checklist.** The prompt asks for `update_todo` "whenever the picture changes"; the user watches that list. | `update_todo` called 0 times in deposco and the public smoke, 1–2 times in the other 7. In all 7 the final todo understates accepted leads: smoke "4 of 10" (written turn 6) vs 6 accepted; S1 rep 3 "2 of 10" vs 7; S2 rep 2 "3 of 10" vs 10. | Open |
 | 4 | **Signal-type drift.** A COO appointment passes as a why-now because the contract lists an ops-hire type. In both cases it was the run's last accepted lead, filling the quota with the weakest type. | Smoke: Ascent Global Logistics, "named Gal Dayan as its new Chief Operating Officer", type `ops_hire`; the author's manual read counted it not good (author's log). Deposco: RBW Logistics COO appointment, type `hiring_operations_leadership`, unjudged. | Open (a contract problem the gates cannot see) |
-| 5 | **Precision sits on the bar.** | S2 precision 0.80 = 8/10 in all 3 reps (§1). | Open |
+| 5 | **Precision sits on the bar, and the bar is now 98%.** | S2 precision 0.80 = 8/10 in all 3 reps (§1); S1 0.88. | Open; 5a and 5b are the code changes aimed at it |
+| 5a | **The gate trusted unquoted fit booleans.** Required company facts such as funding stage or "is a 3PL" came from Exa yes/no summaries with no page quote. | Root cause of Sybill/Miter false positives. Fix in code: required gates and HQ are nullable plus verbatim quotes; a missing quote is a `candidate` (`unquoted_gate`), a quote not on the captured page is `quote_not_in_page`. Replay (`eval/results/gate-replay-2026-10-14.md`) can only show what would now need evidence: all 75 rules-passing pilot lead-reps lack a `signal_quote` (22 bad, 53 good). Not measured: whether a fresh run's pages state the facts. | Fixed in code (#21); effect on precision and recall unmeasured, needs a paid run |
+| 5b | **Non-event pages counted as signals.** Job boards, personal profiles and company-profile/newsletter pages could fill a why-now slot. | Pilot bad sources included snagajob, tealhq, ihirelogistics, Ashby jobs, LinkedIn profiles and a Miter profile. Fix in code: built-in job-board domain list (`exclude_domain`), LinkedIn `/in/` profile URLs (`non_event_page`), `weak_hiring_signal`, and the quote rules. Replay of the deterministic rules alone: 11 bad lead-reps newly rejected, 0 good lost; precision S1 agent 0.88 -> 0.88, S2 agent 0.80 -> 0.83, S1 workflow 0.32 -> 0.43, S2 workflow 0.08 -> 0.14. Still below 98% on every arm. | Fixed in code (#22) for the pilot's observed cases; other non-event page shapes still open |
+| 6 | 2 | 0.33 | $0.764 | $0.38 | 57 s | finish | no |
+| S1 | B | 1 | 10 | 9 | 0.90 | $0.812 ($0.443 + $0.369) | $0.09 | 135 s | target | yes |
+| S1 | B | 2 | 8 | 7 | 0.88 | $0.853 ($0.504 + $0.349) | $0.12 | 120 s | budget | yes |
+| S1 | B | 3 | 7 | 6 | 0.86 | $0.850 ($0.474 + $0.376) | $0.14 | 132 s | finish | yes |
+| S2 | A | 1 | 4 | 0 | 0.00 | $0.899 | n/a | 91 s | budget | no |
+| S2 | A | 2 | 4 | 1 | 0.25 | $0.898 | $0.90 | 69 s | budget | no |
+| S2 | A | 3 | 4 | 0 | 0.00 | $0.898 | n/a | 60 s | budget | no |
+| S2 | B | 1 | 10 | 8 | 0.80 | $0.848 ($0.492 + $0.356) | $0.11 | 153 s | target | yes |
+| S2 | B | 2 | 10 | 8 | 0.80 | $0.520 ($0.312 + $0.208) | $0.07 | 73 s | target | yes |
+| S2 | B | 3 | 10 | 8 | 0.80 | $0.782 ($0.477 + $0.305) | $0.10 | 102 s | target | yes |
+
+| Cell | Mean good | Mean precision | Mean $/good | pass@1 | pass^3 |
+|---|---|---|---|---|---|
+| S1 workflow | 2.00 | 0.35 | $0.38 | 0.00 | 0 |
+| S1 agent | 7.33 | 0.88 | $0.12 | 1.00 | 1 |
+| S2 workflow | 0.33 | 0.08 | n/a | 0.00 | 0 |
+| S2 agent | 8.00 | 0.80 | $0.09 | 1.00 | 1 |
+
+**Reading.** The agent's margin over the workflow is large on both scenarios; its margin over the pass bar is not. S2 is 8/10 in every rep, so one more miss per rep fails it, and S1 rep 3 had exactly the 6 good leads the bar requires. The S2 misses were 2 wrong funding stage, 3 size, 1 unverifiable signal ([detail](docs/EVAL-DETAIL.md#s2-agent-misses-6-non-good-slots-across-3-reps)). The report reproduces at $0: `npm run eval:score -- --set pilot-2026-10-12` rewrites `report.md` with no diff.
+
+**Live runs since the pilot** (not judged): deposco.com walkthrough, 12 turns, 10 leads, $0.73 (`eval/recordings/live-deposco-2026-10-13/state.json`); public smoke from the deployed URL, 13 turns, 8 leads, $0.83 (`eval/recordings/public-smoke-2026-10-13.txt`).
+
+## 2. What's wrong with the agent (observed)
+
+"Runs" below means the 9 recorded agent runs: the pre-pilot smoke run (`eval/recordings/agent-icp1-2026-10-12/agent/`), the 6 pilot runs (`eval/results/pilot-2026-10-12/S*/B_agent_opus/*/`), the deposco walkthrough and the public smoke. Counters come from each `state.json` `adaptive` field; tool counts from each `events.jsonl`.
+
+| # | Flaw | Evidence | Status |
+|---|---|---|---|
+| 1 | **It almost never verifies.** The prompt says "Verify when in doubt … `read_page` the signal URL first" (`docs/prompts.md`, Working). It trusts lookup summaries it could have checked. | `verificationReads` = 0 in 8 of 9 runs (smoke, 6 pilot, deposco). The public smoke made 1 `read_page` call (turn 11) and submitted nothing from it. | Open |
+| 2 | **It rarely changes tactics.** "Adaptive" behaviour is mostly skipping lookups. The rubric's "workflow-shaped" flag (`adaptive = 0`, `eval/harness/score.ts:147`) is weak because skips alone clear it. | Pilot query rewrites: S1 0 / 0 / 0, S2 1 / 0 / 1. Skips: S1 39 / 49 / 53, S2 11 / 17 / 22. These used the original counter (a new query after a submit rejection): the pilot ran 14:44–14:59Z and `f2bd783`, which also counts lookup-stage trouble, was committed at 15:03Z (inferred from timestamps). Under the wider counter deposco counted 6. | Open (flag); counter fixed |
+| 3 | **It doesn't keep its checklist.** The prompt asks for `update_todo` "whenever the picture changes"; the user watches that list. | `update_todo` called 0 times in deposco and the public smoke, 1–2 times in the other 7. In all 7 the final todo understates accepted leads: smoke "4 of 10" (written turn 6) vs 6 accepted; S1 rep 3 "2 of 10" vs 7; S2 rep 2 "3 of 10" vs 10. | Open |
+| 4 | **Signal-type drift.** A COO appointment passes as a why-now because the contract lists an ops-hire type. In both cases it was the run's last accepted lead, filling the quota with the weakest type. | Smoke: Ascent Global Logistics, "named Gal Dayan as its new Chief Operating Officer", type `ops_hire`; the author's manual read counted it not good (author's log). Deposco: RBW Logistics COO appointment, type `hiring_operations_leadership`, unjudged. | Open (a contract problem the gates cannot see) |
+| 5 | **Precision sits on the bar, and the bar is now 98%.** | S2 precision 0.80 = 8/10 in all 3 reps (§1); S1 0.88. | Open; 5a and 5b are the code changes aimed at it |
+| 5a | **The gate trusted unquoted fit booleans.** Required company facts such as funding stage or "is a 3PL" came from Exa yes/no summaries with no page quote. | Root cause of Sybill/Miter false positives; replay projection in `eval/results/gate-replay-2026-10-14.md`. Fix: required gates are nullable plus verbatim quotes, missing proof becomes a candidate, and quotes are checked against captured page text. | Fixed (#21); needs fresh pilot |
+| 5b | **Non-event pages counted as signals.** Job boards, personal profiles and company-profile/newsletter pages could fill a why-now slot. | Pilot bad sources included snagajob, tealhq, ihirelogistics, Ashby jobs, LinkedIn profiles and a Miter profile. Fix: built-in job-board exclusions, `non_event_page`, signal quotes and `weak_hiring_signal`. | Fixed (#22); needs fresh pilot |
 | 6 | **Lookups matched the wrong company.** The entity check that fixed it is a heuristic. | Smoke: "AUKLogis" (UK) was enriched as Australia's AUK Logistics; the HQ gate rejected it by luck (FAILURES #5). The fix (`companyResultMatches`, `src/agent/tools.ts:269–277`) accepts ≥ 60% name-token overlap, a matching first token, or a name token in the host, and passes any result with no title. "AUK Logis" would pass on first token. Test: `F1.8`. | Fixed (#5); heuristic open |
 | 7 | **Handback advice can be wrong for the buyer type.** | A Singapore pet-business run (2026-10-13) got 3 of 10 leads; the blocker was companies with no verifiable public record, and the code-built suggestion was to widen size (server run, not in the repo). Fix: when lookup misses outnumber size rejections, the suggestion is "needs a different evidence source" (1985bdb; test `unverifiable (lookup misses) outnumbering size …`). | Fixed |
 | 8 | **Cost and latency structure.** Claude is 39–48% of a run. About half of Claude's cost is cache writes: the history is append-only, so each turn's tool results are written to cache, and the whole prefix is re-read every turn. One model turn per HTTP request. | Claude $0.21–$0.42 of $0.52–$0.87 per run (`state.json` spend). Repriced from `events.jsonl` tokens at `src/agent/config.ts` rates: cache writes 46–54%, output 31–40%, cache reads 10–22%. Shares are over the 8 runs with token logs (the public smoke has none). Pilot runs took 73–153 s; model calls p50 5.2 s, p95 9.3 s, max 19.5 s (100 calls). | By design; open |
@@ -69,6 +106,8 @@ Prospector finds B2B sales leads. A seller pastes their website and approves a s
 | 14 | **Limits by design.** | Memory is per browser (workspace id in `localStorage`, `app/ui/types.ts:53`); state and ledger are JSON files on one Railway volume (`docs/DEPLOY.md`); rate limit is an in-process `Map` (`app/api/_shared.ts:9`); no auth: anyone with a workspace id can read or clear its memory. | By design |
 | 15 | **Langfuse's per-lead `judge_good` disagrees with the scored good-lead count.** `judge_good` is each verdict's own `good`; the scorer also applies RUBRIC §1's one-Q2-`cannot_verify`-per-run tolerance. | Pilot agent leads in Langfuse (environment `eval`): 48 `judge_good` true of 55. `report.json`: 46 good (S1 9 + 7 + 6, S2 8 + 8 + 8). The 2 are SubBase in S2 reps 1 and 3 (`eval/truth/S2/subbase__ec8a88dd4e.json`, `good: true`), scored no as each run's second size `cannot_verify` (`eval/harness/score.ts` `leadGood`). Experiment-level `precision` and `cost_per_good_lead` use the scorer and agree with the report. | Open |
 
+The quote rule (flaws 5a/5b) is unproven on live Exa until a paid run: the pilot predates quote fields and recorded no lookup page text, so the replay shows only which accepted leads would now need evidence, not whether fresh summaries supply it.
+
 Code bounded the damage in each case above: across the 9 runs `submit_lead` rejected only 3 submissions (1 `enterprise`, 2 `entity_mismatch`), because lookups had already screened 0–19 candidates per run.
 
 ## 3. Where it stops working
@@ -79,7 +118,7 @@ Local small businesses (cafés, clinics, pet shops) have no press coverage and t
 
 | What | Cost | Command or URL |
 |---|---|---|
-| Tests (mocked model and Exa) | $0 | `npm test`: 422 tests, 26 files, about 3 s |
+| Tests (mocked model and Exa) | $0 | `npm test`: 455 tests, 29 files, about 5 s |
 | Type check | $0 | `npm run typecheck` |
 | Demo replay, no keys | $0 | `npm install && DEMO_MODE=1 npm run dev`, open http://localhost:3000 |
 | Re-score the pilot from committed verdicts | $0 | `npm run eval:score -- --set pilot-2026-10-12` |
@@ -128,7 +167,7 @@ status = awaiting_approval → POST /api/runs/:id/decision appends the tool_resu
 | Observability | One event per step with tokens, Claude and Exa cost, latency, prompt version | `src/agent/events.ts`, `runs/<id>/events.jsonl` |
 | Evals | Cell runner, blind pooling, Opus judge, scorer, simulated user | `eval/harness/`, `eval/RUBRIC.md`, `eval/truth/` |
 
-`checkLead` runs in order: non-company or job board · excluded name · excluded domain · seen in an earlier run · duplicate · event date in the window (publish date substituted only for a year-slip) · company named on the signal page · lookup exists · not enterprise · HQ country · size (the estimate must be backed by its quoted source) · required yes/no questions. The results table is built only from accepted `submit_lead` records, never from the model's text.
+`checkLead` runs in order: non-company or built-in job-board source · excluded name/domain · personal/non-event pages · seen in an earlier run · duplicate · event date in the window (publish date substituted only for a year-slip) · company named on the signal page · signal quote found on the page · lookup exists · not enterprise · HQ country with quote · size (the estimate must be backed by its quoted source) · required yes/no questions with quotes. Missing required proof is stored as a candidate, not an accepted lead. The results table is built only from accepted `submit_lead` records, never from the model's text.
 
 **Autonomy** (SPEC-agent §5a), with what the 9 runs actually did:
 
@@ -149,7 +188,7 @@ status = awaiting_approval → POST /api/runs/:id/decision appends the tool_resu
 |---|---|---|
 | Traces | Session = run, trace = one turn: the model generation, one span per tool, approvals, policy checks. Page text, message history and IPs are dropped (except the ≤ 1,500-char signal excerpt in a judged lead's evidence); the workspace id is HMAC'd | `src/agent/trace.ts` |
 | Prompts | Agent system prompt and 2 planner prompts under label `production`, pinned per run, repo text as fallback; `diff` exits 1 on drift | `src/agent/prompt-store.ts`, `eval/langfuse-prompts.ts` |
-| Datasets, experiments | `prospector-scenarios` (2 items), `prospector-cases` (26 in `eval/datasets/`; synced to Langfuse by `eval/langfuse-sync.ts`); the pilot as 6 runs × 2 items with judge and grader scores | `eval/datasets/`, `eval/langfuse/` |
+| Datasets, experiments | `prospector-scenarios` (2 items), `prospector-cases` (28 in `eval/datasets/`; synced to Langfuse by `eval/langfuse-sync.ts`); the pilot as 6 runs × 2 items with judge and grader scores | `eval/datasets/`, `eval/langfuse/` |
 | Code graders | 10 must-pass graders at every run end, posted as scores; an hourly worker opens one issue per failing run | `eval/graders/`, `src/agent/online-eval.ts`, `eval/online/worker.ts` |
 | Online judge | Managed `judge_q1..q3` evaluators on a capped lead sample. Each lead carries the evidence the gate accepted it on (page excerpt, company lookup, gate result) and the judge answers from that evidence only; the offline judge also checks the web. **Not calibrated**: round 1 scored 4/10 (Q1) and 2/10 (Q2) when the payload had no evidence (FAILURES #19); the evidence-backed round is not run yet. Rule **disabled**, so no evaluator runs on production (2026-10-14 status: judge_q2/q3 active, judge_q1 paused with `EVAL_MODEL_CONFIG_INVALID`) | `eval/online/` |
 | Review queue | `review-queue`: 👎 leads, handbacks, errors, must-pass failures, judge "no" | `eval/online/setup-langfuse.ts` |
@@ -160,7 +199,7 @@ Not live yet: the app does not run with `LANGFUSE_TRACING_ENVIRONMENT=production
 
 ## 7. Failures found and fixed
 
-17 entries in [docs/FAILURES.md](docs/FAILURES.md); the ones that changed measured numbers:
+22 entries in [docs/FAILURES.md](docs/FAILURES.md); the ones that changed measured numbers:
 
 | Symptom | Root cause | Fix | Before → after |
 |---|---|---|---|

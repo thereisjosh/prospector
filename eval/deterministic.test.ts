@@ -22,6 +22,7 @@ type CandidateArgs = {
 };
 
 function candidate(a: CandidateArgs): Candidate {
+  const enrichment = a.enrichment ? evidenceEnrichment(a.enrichment) : undefined;
   return {
     result: { url: a.url, title: a.title, publishedDate: a.publishedDate, text: a.text },
     summary: {
@@ -29,9 +30,24 @@ function candidate(a: CandidateArgs): Candidate {
       signal_type: a.signalType,
       signal_summary: a.summary,
       signal_date: a.signalDate,
+      signal_quote: a.title,
+      signal_date_quote: "",
     },
-    ...(a.enrichment ? { company: { summary: a.enrichment } } : {}),
+    ...(enrichment ? { company: { summary: enrichment } } : {}),
   };
+}
+
+function evidenceEnrichment(raw: Record<string, unknown>): Record<string, unknown> {
+  const out = { ...raw };
+  if (out.employee_estimate !== undefined && out.employee_estimate_source === undefined) out.employee_estimate_source = `${out.employee_estimate} employees`;
+  if (typeof out.hq === "string" && out.hq_quote === undefined) out.hq_quote = out.hq;
+  if (typeof out.description !== "string") out.description = "company description";
+  for (const [key, value] of Object.entries(out)) {
+    if (typeof value === "boolean" && !["is_public_or_enterprise"].includes(key) && out[`${key}_quote`] === undefined) {
+      out[`${key}_quote`] = String(out.description);
+    }
+  }
+  return out;
 }
 
 const fulfillmentCompany = (hq: string, employees: number | string) => ({
@@ -324,13 +340,13 @@ describe("deterministic evals", () => {
       icp3,
       [
         candidate({
-          url: "https://news.example.com/nova",
+          url: "https://novacrm.com/news",
           title: "NovaCRM raises Series A and hires founding RevOps",
           publishedDate: "2026-07-10T00:00:00.000Z",
-          text: "NovaCRM raised Series A funding and is hiring its first RevOps lead.",
+          text: "NovaCRM raised Series A funding and is hiring its first RevOps lead and operations manager.",
           company: "NovaCRM",
           signalType: "first_ops_hire",
-          summary: "NovaCRM raised Series A funding and is hiring its first RevOps lead.",
+          summary: "NovaCRM raised Series A funding and is hiring its first RevOps lead and operations manager.",
           signalDate: "2026-07-10",
           enrichment: b2b(80, "Boston, MA, United States", true),
         }),

@@ -23,6 +23,8 @@ export type RunSnapshot = {
   counters?: { turns?: number };
   contract: ContractView;
   leads: AcceptedLead[];
+  /** Unverified candidates; absent on older runs (treat as []). */
+  candidates?: UnverifiedCandidate[];
   rejected: Array<{ company: string; code: string; reason: string; turn: number }>;
   /** Companies screened out at lookup, grouped by reason (companies capped per group). */
   screened?: Array<{ code: string; count: number; companies: string[] }>;
@@ -100,3 +102,7 @@ export async function withRateLimitRetry<T>(call: () => Promise<T>, tries = 8): 
     }
   }
 }
+
+/** A company the agent found but could not verify against a required fact. Never counted as a lead. */
+// TODO(contract): replace with the src type once it exists.
+export type UnverifiedCandidate = { company: string; signal_url: string; why_now: string; code: string; missing: string };

@@ -135,7 +135,7 @@ describe("schema builders", () => {
   it("buildSignalSchema: enum = signalTypes + other, all required, closed", () => {
     const schema = buildSignalSchema(basePlan());
     expect(schema.additionalProperties).toBe(false);
-    expect(schema.required).toEqual(["company_name", "signal_type", "signal_summary", "signal_date"]);
+    expect(schema.required).toEqual(["company_name", "signal_type", "signal_summary", "signal_date", "signal_quote", "signal_date_quote"]);
     expect(Object.keys(schema.properties).sort()).toEqual([...schema.required].sort());
     expect(schema.properties.signal_type).toEqual({
       type: "string",
@@ -144,14 +144,13 @@ describe("schema builders", () => {
     expect(schema.properties.signal_date.type).toBe("string");
   });
 
-  it("buildSignalSchema has no pre-screen fields and the query is the plain composed text", () => {
+  it("buildSignalSchema has no pre-screen fields and the query requires verbatim evidence quotes", () => {
     const plan = basePlan();
     expect(Object.keys(buildSignalSchema(plan).properties)).toEqual([
-      "company_name", "signal_type", "signal_summary", "signal_date",
+      "company_name", "signal_type", "signal_summary", "signal_date", "signal_quote", "signal_date_quote",
     ]);
-    expect(composeSignalSummaryQuery(plan, "the signal")).toBe(
-      "the signal Set signal_date to the date the EVENT itself happened or was announced (not the article's publish date), in ISO format YYYY-MM-DD. Set signal_type to exactly one of: new_facility, ops_hire, other.",
-    );
+    expect(composeSignalSummaryQuery(plan, "the signal")).toContain("For signal_quote, copy the exact sentence");
+    expect(composeSignalSummaryQuery(plan, "the signal")).toContain("For signal_date_quote, copy the exact date phrase");
   });
 
   it("composeCompanySummaryQuery asks for the employee-estimate source quote", () => {
@@ -172,11 +171,16 @@ describe("schema builders", () => {
       "employee_estimate_source",
       "is_public_or_enterprise",
       "hq",
+      "hq_quote",
       "is_operator",
+      "is_operator_quote",
       "is_funded",
+      "is_funded_quote",
     ]);
-    expect(props.is_operator).toEqual({ type: "boolean" });
-    expect(props.is_funded).toEqual({ type: "boolean" });
+    expect(props.is_operator).toEqual({ anyOf: [{ type: "boolean" }, { type: "null" }] });
+    expect(props.is_operator_quote).toEqual({ type: "string" });
+    expect(props.is_funded).toEqual({ anyOf: [{ type: "boolean" }, { type: "null" }] });
+    expect(props.is_funded_quote).toEqual({ type: "string" });
     expect(props.is_public_or_enterprise).toEqual({ type: "boolean" });
     expect(props.employee_estimate_source).toEqual({ type: "string" });
     expect(props.employee_estimate).toEqual({ anyOf: [{ type: "number" }, { type: "string" }] });

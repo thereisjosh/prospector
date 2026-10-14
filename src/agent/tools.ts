@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto";
+import type { SearchPlan } from "../plan";
 import type Anthropic from "@anthropic-ai/sdk";
 import {
   CostGuard,
@@ -76,7 +77,7 @@ export function agentTools(): Anthropic.Tool[] {
     },
     {
       name: "submit_lead",
-      description: "Submit one company as a lead. Code checks it against the contract and is the only way a lead reaches the results. Call it only after this company's lookup_company result is back (separate, earlier turn) and looks like a fit. `company`: exactly the name you looked up. `signal_url`: a URL returned by search_signals that names this company (any other URL is an error). `why_now`: one plain sentence a salesperson could use. Returns `accepted`, or `rejected: <code> — <reason>` (codes include size, stale_date, unparseable_date, hq, enterprise, unknown_size, entity_mismatch, no_enrichment, required_gate:<key>, exclude_name, exclude_domain, non_company, already_seen, duplicate). Act on the reason; never resubmit a rejected company.",
+      description: "Submit one company as a lead. Code checks it against the contract and is the only way a lead reaches the results. Call it only after this company's lookup_company result is back (separate, earlier turn) and looks like a fit. `company`: exactly the name you looked up. `signal_url`: a URL returned by search_signals that names this company (any other URL is an error). `why_now`: one plain sentence a salesperson could use. Returns `accepted`, `rejected: <code> — <reason>`, or a structured candidate result with `unverified` when a required fact was not stated. Codes include size, stale_date, unparseable_date, hq, enterprise, unknown_size, entity_mismatch, no_enrichment, required_gate:<key>, unquoted_gate, quote_not_in_page, non_event_page, weak_hiring_signal, exclude_name, exclude_domain, non_company, already_seen, duplicate. Act on the reason; never resubmit a rejected company.",
       input_schema: objectSchema(
         { company: { type: "string" }, signal_url: { type: "string" }, why_now: { type: "string" } },
         ["company", "signal_url", "why_now"],
@@ -184,10 +185,19 @@ function parseSignalSummary(summary: unknown): SignalSummary | undefined {
   const type = normalizeNullish(r.signal_type);
   const signal = normalizeNullish(r.signal_summary);
   const date = normalizeNullish(r.signal_date);
+  const signalQuote = normalizeNullish(r.signal_quote);
+  const signalDateQuote = normalizeNullish(r.signal_date_quote);
   if (typeof company !== "string" || typeof type !== "string" || typeof signal !== "string" || typeof date !== "string") {
     return undefined;
   }
-  return { company_name: company, signal_type: type, signal_summary: signal, signal_date: date };
+  return {
+    company_name: company,
+    signal_type: type,
+    signal_summary: signal,
+    signal_date: date,
+    ...(typeof signalQuote === "string" ? { signal_quote: signalQuote } : {}),
+    ...(typeof signalDateQuote === "string" ? { signal_date_quote: signalDateQuote } : {}),
+  };
 }
 
 function tryJson(value: string): unknown {
@@ -278,6 +288,50 @@ function companyResultMatches(requested: string, result: ExaResult | undefined, 
   return shared / requestedTokens.length >= 0.6 || (requestedTokens[0] !== undefined && titleTokens[0] === requestedTokens[0]) || hostContainsNameToken(result.url, requestedTokens);
 }
 
+function displayHost(url: string | undefined): string {
+  if (!url) return "the lookup page";
+  try {
+    return new URL(url).hostname.toLowerCase().replace(/^www\./, "") || "the lookup page";
+  } catch {
+    return "the lookup page";
+  }
+}
+
+/** Plan gate question, lowercased and trimmed to <= 60 chars, quoted. */
+function gateLabel(plan: SearchPlan | undefined, key: string): string {
+  const question = plan?.gateFields.find((g) => g.key === key)?.question.trim().toLowerCase();
+  if (!question) return key.replace(/_/g, " ");
+  const clipped = question.length > 60 ? `${question.slice(0, 59).trimEnd()}\u2026` : question;
+  return `"${clipped}"`;
+}
+
+/** Human reason a candidate is "not counted"; names the page host rather than the machine gate key. */
+export function missingFromCandidateVerdict(
+  verdict: { code?: string; details?: Record<string, unknown>; reason: string },
+  ctx: { plan?: SearchPlan; lookupUrl?: string; signalUrl?: string } = {},
+): string {
+  if (verdict.code === "unquoted_signal") return `no event sentence found on ${displayHost(ctx.signalUrl)}`;
+  const key = typeof verdict.details?.key === "string" ? verdict.details.key : "required evidence";
+  const host = displayHost(ctx.lookupUrl);
+  if (key === "hq") return `headquarters not stated on ${host}`;
+  if (key === "size" || key === "employee_estimate" || key === "headcount") return `headcount not stated on ${host}`;
+  return `${gateLabel(ctx.plan, key)} not stated on ${host}`;
+}
+
+function rememberCandidate(
+  state: RunState,
+  lead: Omit<RunState["candidates"][number], "code" | "missing">,
+  code: RunState["candidates"][number]["code"],
+  missing: string,
+): boolean {
+  const key = squashName(lead.company);
+  const candidates = (state.candidates ??= []);
+  if (candidates.some((c) => squashName(c.company) === key)) return false;
+  candidates.push({ ...lead, code, missing });
+  if (candidates.length > 20) candidates.splice(0, candidates.length - 20);
+  return true;
+}
+
 /**
  * Validate the structured handback from `finish`: shortfall, top_reasons
  * (max 4, {reason|code, count}), suggestions (max 2, {field, value, why}) with
@@ -319,7 +373,7 @@ function screenAtLookup(
   state: RunState,
   name: string,
   key: string,
-  cached: { summary: CompanySummary; url?: string },
+  cached: { summary: CompanySummary; url?: string; result?: unknown },
   deps: ToolDeps,
 ): string {
   const signals = Object.values(state.caches.signalsByUrl).filter((s) => squashName(s.summary.company_name) === key);
@@ -331,6 +385,7 @@ function screenAtLookup(
       signal,
       enrichment: cached.summary,
       companyUrl: cached.url,
+      lookupText: typeof (cached.result as { text?: unknown } | undefined)?.text === "string" ? (cached.result as { text: string }).text : undefined,
       now: deps.now ?? new Date(),
       seen: new Set(state.caches.seenKeys),
       submitted: new Set(state.leads.map((lead) => squashName(lead.company))),
@@ -537,6 +592,7 @@ async function executeToolInner(
         signal,
         enrichment,
         companyUrl: cached?.url,
+        lookupText: typeof (cached?.result as { text?: unknown } | undefined)?.text === "string" ? (cached!.result as { text: string }).text : undefined,
         now: deps.now ?? new Date(),
         seen: new Set(state.caches.seenKeys),
         submitted: new Set(state.leads.map((lead) => squashName(lead.company))),
@@ -548,6 +604,18 @@ async function executeToolInner(
         content = "accepted";
         acceptedLead = true;
         verdictEvent = { company, code: "accepted", reason: "accepted", ok: true };
+      } else if (verdict.tier === "candidate") {
+        const evidence = signalEvidence(signal, company, whyNow);
+        const missing = missingFromCandidateVerdict(verdict, { plan: state.contract, lookupUrl: cached?.url, signalUrl });
+        const added = rememberCandidate(
+          state,
+          { company, signal_url: signalUrl, why_now: whyNow, summary: signal.summary, enrichment, details: verdict.details ?? {}, evidence, turn: state.counters.turns },
+          verdict.code,
+          missing,
+        );
+        content = JSON.stringify({ accepted: false, candidate: true, unverified: missing });
+        newCandidate = added;
+        verdictEvent = { company, code: verdict.code, reason: verdict.reason, ok: false };
       } else {
         state.rejected.push({ company, code: verdict.code, reason: verdict.reason, turn: state.counters.turns });
         content = `rejected: ${verdict.code} — ${verdict.reason}`;

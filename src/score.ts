@@ -128,6 +128,8 @@ export function parseSignalSummary(
       signal_type: str(raw.signal_type) ?? OTHER_SIGNAL_TYPE,
       signal_summary: str(raw.signal_summary) ?? fallback.title ?? "",
       signal_date: str(raw.signal_date) ?? "",
+      ...(str(raw.signal_quote) ? { signal_quote: str(raw.signal_quote) } : {}),
+      ...(str(raw.signal_date_quote) ? { signal_date_quote: str(raw.signal_date_quote) } : {}),
     };
   };
 
@@ -307,6 +309,7 @@ function toRow(
       },
       enrichment: enrichment?.summary,
       companyUrl: enrichment?.result?.url,
+      lookupText: enrichment?.result?.text,
       now,
     });
     if (verdict.ok) {

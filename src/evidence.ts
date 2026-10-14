@@ -32,9 +32,13 @@ export type JudgeCompanyLookup = {
   description: string;
   industry: string;
   hq: string;
+  /** Verbatim phrase from the lookup page stating HQ/location ("" = none). */
+  hq_quote: string;
   employee_estimate: number | string | null;
   /** The quoted phrase the estimate came from ("" = none). */
   employee_estimate_source: string;
+  /** ≤ EXCERPT_MAX chars of the lookup page text Exa summarised ("" = not captured). */
+  source_excerpt: string;
   is_public_or_enterprise: boolean | null;
   /** The plan's gate-field booleans the lookup returned (e.g. is_third_party_logistics), keys sorted. */
   gate_fields: Record<string, boolean>;
@@ -187,7 +191,7 @@ export function signalEvidence(signal: { title?: string; publishedDate?: string;
   };
 }
 
-const LOOKUP_KEYS = new Set(["description", "industry", "employee_estimate", "employee_estimate_source", "is_public_or_enterprise", "hq", "company_name"]);
+const LOOKUP_KEYS = new Set(["description", "industry", "employee_estimate", "employee_estimate_source", "is_public_or_enterprise", "hq", "hq_quote", "source_excerpt", "lookup_text_truncated", "company_name"]);
 
 /** The company lookup as the gate read it (CompanySummary), bounded. null = no lookup. */
 export function companyLookupEvidence(enrichment: CompanySummary | undefined): JudgeCompanyLookup | null {
@@ -201,8 +205,10 @@ export function companyLookupEvidence(enrichment: CompanySummary | undefined): J
     description: str(enrichment.description, DESCRIPTION_MAX),
     industry: str(enrichment.industry, SHORT_MAX),
     hq: str(enrichment.hq, SHORT_MAX),
+    hq_quote: str(enrichment.hq_quote, QUOTE_MAX),
     employee_estimate: typeof estimate === "number" && Number.isFinite(estimate) ? estimate : typeof estimate === "string" && estimate.trim() ? str(estimate, 60) : null,
     employee_estimate_source: str(enrichment.employee_estimate_source, QUOTE_MAX),
+    source_excerpt: str(enrichment.source_excerpt, EXCERPT_MAX),
     is_public_or_enterprise: typeof enrichment.is_public_or_enterprise === "boolean" ? enrichment.is_public_or_enterprise : null,
     gate_fields: gateFields,
   };

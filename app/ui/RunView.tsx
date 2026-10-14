@@ -4,7 +4,9 @@ import { useId, useState } from "react";
 import type { AcceptedLead, Handback } from "../../src/agent/state";
 import type { CardSet } from "../../src/planner/cards";
 import { CountryPicker } from "./CardsStep";
+import { Candidates } from "./Candidates";
 import {
+  UNVERIFIED_SUFFIX,
   describeChange,
   formatDate,
   groupRejections,
@@ -163,6 +165,8 @@ export function RunView(props: Props) {
         feedback={props.feedback}
         onFeedback={props.onFeedback}
       />
+
+      <Candidates candidates={snapshot.candidates ?? []} />
 
       <Rejections
         rejected={snapshot.rejected}
@@ -493,6 +497,7 @@ function Outcome({
           : snapshot.leads.length > 0
             ? `Found ${snapshot.leads.length} lead${snapshot.leads.length === 1 ? "" : "s"}`
             : "No leads this time"}
+        {UNVERIFIED_SUFFIX((snapshot.candidates ?? []).length)}
       </h2>
       {snapshot.summary && <p className="outcome-summary">{snapshot.summary}</p>}
       {handback && <Handback handback={handback} contract={contract} cards={cards} maxSpend={maxSpend} onApply={onApply} applying={applying} onEditTargeting={onEditTargeting} />}

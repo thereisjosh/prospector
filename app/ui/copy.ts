@@ -501,3 +501,14 @@ export function httpErrorMessage(
 export function allowanceLine(v: AllowanceView): string {
   return `Free runs left on this site: ${v.remainingRuns} \u00b7 ${dollars(v.remainingDollars)}`;
 }
+
+/* ---------- unverified candidates ---------- */
+
+export const CANDIDATES_HEADING = "Unverified candidates";
+export const CANDIDATES_INTRO = "Not counted as leads. The page the agent found does not state something this search requires.";
+export const UNVERIFIED_SUFFIX = (n: number): string => (n > 0 ? ` · ${n} unverified` : "");
+
+/** Muted per-row reason, e.g. "Not counted: funding stage not stated on sybill.ai". */
+export function candidateReason(missing: string): string {
+  return `Not counted: ${missing.trim().replace(/[.\s]+$/, "")}`;
+}

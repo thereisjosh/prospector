@@ -15,7 +15,7 @@ import { join } from "node:path";
 import { RUNS_DIR } from "../agent/config";
 import type { AgentEvent } from "../agent/events";
 import { appendRunToMemory, squashName } from "../agent/memory";
-import { screenedByCode, type AcceptedLead, type Handback, type RunState, type RunStatus } from "../agent/state";
+import { screenedByCode, type AcceptedLead, type CandidateLead, type Handback, type RunState, type RunStatus } from "../agent/state";
 import { DEMO_RUN_PREFIX, demoDelay, demoDir } from "./mode";
 
 /** The fields of a recorded RunState the replay reads. Extra fields are ignored. */
@@ -31,6 +31,7 @@ type RecordedState = {
   summary?: string;
   spend: RunState["spend"];
   leads: AcceptedLead[];
+  candidates?: CandidateLead[];
   rejected: RunState["rejected"];
   /** Lookup-stage screening (newer recordings); each item carries the turn it happened in. */
   screened?: RunState["screened"];
@@ -122,6 +123,7 @@ function snapshotAt(session: Session, rec: { state: RecordedState; events: Agent
   const consumed = rec.events.slice(0, session.cursor);
   const finished = session.status !== "running" && session.status !== "awaiting_approval";
   const leads: AcceptedLead[] = [];
+  const candidates: CandidateLead[] = [];
   const rejected: RunState["rejected"] = [];
   let claude = 0;
   let exa = 0;
@@ -173,6 +175,7 @@ function snapshotAt(session: Session, rec: { state: RecordedState; events: Agent
     spend,
     counters: { turns },
     leads: finished ? rec.state.leads : leads,
+    candidates: finished ? rec.state.candidates ?? [] : candidates,
     rejected: finished ? rec.state.rejected : rejected,
     // Same grouped shape as the live GET /api/runs/:id.
     screened: screenedByCode({ screened: (rec.state.screened ?? []).filter((s) => finished || s.turn <= turns) }),

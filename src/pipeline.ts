@@ -2,7 +2,6 @@ import { monthsAgoIso, parseSearchType } from "./config";
 import {
   BudgetExceededError,
   CostGuard,
-  COST_ESTIMATE,
   estimateExaCost,
   exaSearch,
   lookupCompany,
@@ -230,7 +229,7 @@ async function runProspectingInner(
   for (const company of queue) {
     if (companiesToEnrich.length >= hardCap) break;
     const cost =
-      (preCache.has(squashName(company)) ? 0 : COST_ESTIMATE.companyLookup) + followUpCost;
+      (preCache.has(squashName(company)) ? 0 : estimateExaCost({ query: company, category: "company", numResults: 2, contents: { summary: true, text: true } })) + followUpCost;
     if (planned + cost > guard.remaining + 1e-9) {
       trace.funnel.budgetStoppedAt ??= `enrichment:${companiesToEnrich.length}`;
       break;

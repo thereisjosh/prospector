@@ -182,7 +182,7 @@ function orderedResults(uses: ToolUseBlock[], results: ToolResultBlockParam[]): 
 function noProgressSnapshot(state: RunState) {
   return {
     leads: state.leads.length,
-    candidates: state.caches.candidateCompanies.length,
+    candidates: state.caches.candidateCompanies.length + (state.candidates?.length ?? 0),
     enrichments: Object.keys(state.caches.enrichmentByName).length,
     reads: state.adaptive.verificationReads,
   };
@@ -192,7 +192,7 @@ function madeProgress(state: RunState, before: ReturnType<typeof noProgressSnaps
   return (
     decisionResumed ||
     state.leads.length > before.leads ||
-    state.caches.candidateCompanies.length > before.candidates ||
+    state.caches.candidateCompanies.length + (state.candidates?.length ?? 0) > before.candidates ||
     Object.keys(state.caches.enrichmentByName).length > before.enrichments ||
     state.adaptive.verificationReads > before.reads
   );

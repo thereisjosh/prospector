@@ -40,6 +40,8 @@ const sig = (s: Sig) => ({
     signal_type: s.type ?? "new_facility",
     signal_summary: `${s.company} opened a new facility.`,
     signal_date: s.date,
+    signal_quote: `${s.company} news`,
+    signal_date_quote: "",
   }),
 });
 
@@ -73,7 +75,12 @@ function mockFetch(opts: { signalResults: unknown[]; followUpResults?: unknown[]
                   industry: "X",
                   is_public_or_enterprise: false,
                   ...COMPANY_DB[name],
+                  employee_estimate_source: `${COMPANY_DB[name]?.employee_estimate ?? 200} employees`,
+                  hq_quote: String(COMPANY_DB[name]?.hq ?? ""),
+                  is_operator_quote: `${name} is an operator`,
+                  is_growing_quote: `${name} is growing`,
                 }),
+                text: `${name} is an operator. ${name} is growing. ${COMPANY_DB[name]?.employee_estimate ?? 200} employees. ${COMPANY_DB[name]?.hq ?? ""}.`,
               },
             ],
             costDollars: { total: 0.001 },

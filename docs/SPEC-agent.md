@@ -132,11 +132,31 @@ Measured as: approval requests per run, approval rate, and whether approved scop
 `submit_lead` runs these deterministic checks. All of them already exist from the v2 engine, or are fixes queued from the last eval:
 - **Event date** in the plan window (inclusive), judged on the signal's own event date. The article's publish date is substituted only for an apparent *year-slip*: a signal date in a different year whose month/day falls within ±90 days of the publish date (Exa's observed failure: "2023-10-05" for an article published 2026-10-05; the real FST/G10 cases were 43–81 days off, which is why ±7 was too tight). Future dates and dates >24 months old with no publish date are unparseable. Residual risk, left to the judge's Q3: a fresh retrospective article about a year-old event.
 - **Required gates** true on a `lookup_company` result for this company
+- **Evidence-required gates:** every required lookup gate is `true | null` plus `<key>_quote`; `null` or an empty quote returns `unquoted_gate` as a candidate, not an accepted lead. Quotes must be literal substrings of the lookup page text after normalising case, whitespace, smart quotes and HTML entities, otherwise `quote_not_in_page`. Optional gates without a verified quote simply do not add confidence.
 - **Size:** the lookup must quote the phrase its employee estimate came from. A quoted estimate is checked against the exact band. An estimate its quote does not support is unverified. Under the plan's unknown-size rule `reject` (the user asked for known sizes), an unverified estimate is rejected as `unknown_size`. Under `allow-if-not-enterprise`, the weak-evidence rule applies: *weak evidence, not no evidence*, so it is rejected if below min/2 or above 1.5× max, otherwise accepted with a confidence penalty. No estimate at all follows the plan's unknown-size rule. (Decided 2026-10-12 after a live run returned 356 and 3,560 for the same company; year-like numbers such as "founded 2004" cannot corroborate a headcount.)
+- **Signal evidence:** a signal summary carries `signal_quote` and `signal_date_quote`. An empty `signal_quote` is `unquoted_signal` (candidate tier); a `signal_quote` or non-empty `signal_date_quote` that is not a substring of the signal page text is a hard `quote_not_in_page`. A LinkedIn personal profile URL (`linkedin.com/in/<name>`) is `non_event_page`. Job/career-board sources are `exclude_domain` by a built-in list (`BUILTIN_EXCLUDED_SIGNAL_DOMAINS` in `src/gates.ts`), in addition to the plan's `excludeDomains`: indeed.com, glassdoor.com, snagajob.com, tealhq.com, ihire.com, ihirelogistics.com, ziprecruiter.com, linkedin.com/jobs, jobs.ashbyhq.com, boards.greenhouse.io, job-boards.greenhouse.io, jobs.lever.co, apply.workable.com, builtin.com, wellfound.com/jobs, simplyhired.com, monster.com, careerbuilder.com, jobvite.com, smartrecruiters.com, workdayjobs.com, greenhouse.io, lever.co, ashbyhq.com, breezy.hr, recruitee.com, comeet.com, jobberman.com, jobrapido.com, jobera.com, intern-flow.in, zerogtalent.com (subdomains match; entries with a path match that prefix). A *hiring signal* is one whose `signal_type` contains a hire/hiring/job/role/career/recruit token, or whose URL path (`/jobs`, `/careers`, `/openings`, `/positions`, `/vacancies`) or title is itself a job post; incidental words such as "jobs" in a facility or lease article do not count. A hiring signal must be on the company's own registrable domain or name at least two distinct roles, otherwise `weak_hiring_signal`.
 - **HQ** in the plan's countries
 - **Exclusions:** fuzzy name match against the exclusion list, job-board and placeholder filters
 - **Entity match:** the company name appears in the signal page
 - **Dedupe:** squashed name variants count as one company ("Diakon Logistics" = "Diakonlogistics")
+
+**Gate codes and tiers.** `checkLead` returns `{ ok: true, details }` or `{ ok: false, code, reason, tier? }`. Only `unquoted_signal` and `unquoted_gate` carry `tier: "candidate"` (missing proof, worth a better source); every other code is a hard reject.
+
+| Code | Tier | Meaning |
+|---|---|---|
+| `stale_date`, `unparseable_date` | reject | event date outside the window, or no plausible date |
+| `exclude_name`, `exclude_domain`, `non_company` | reject | plan exclusions, built-in job-board domains, placeholder/staffing names and lookup domains |
+| `non_event_page` | reject | personal LinkedIn profile as the signal |
+| `already_seen`, `duplicate` | reject | earlier run / this run |
+| `entity_mismatch` | reject | company name not on the signal page (or no page text) |
+| `weak_hiring_signal` | reject | hiring signal off the company's domain with fewer than two distinct roles |
+| `unquoted_signal` | candidate | no `signal_quote` |
+| `no_enrichment`, `enterprise`, `hq`, `size`, `unknown_size`, `required_gate:<key>` | reject | lookup missing or fit gate failed |
+| `unquoted_gate` | candidate | required gate null or true without `<key>_quote`, or known HQ without `hq_quote` |
+| `unquoted_gate` (truncated page) | candidate | a lookup quote (HQ, employee source, gate) is absent from the lookup text and `lookup_text_truncated` is true: the page was cut at 20,000 characters, so the quote is unproven rather than false |
+| `quote_not_in_page` | reject | a signal, date, HQ, employee-source or gate quote is not in the captured page text (lookup quotes can only be checked when `lookupText` was captured, and only on an untruncated page) |
+
+`checkLead(plan, input, { evidenceMode: "skip-quotes" })` disables the quote-dependent rules (`unquoted_*`, `quote_not_in_page`). It exists for replaying old runs only (`eval/replay-gates.ts`); the production default is full enforcement. Unproven on live Exa until a paid run.
 
 Budget and loop limits are enforced by the harness, never by the prompt. The run stops at whichever comes first:
 
@@ -147,6 +167,8 @@ Budget and loop limits are enforced by the harness, never by the prompt. The run
 | Turns | 30 |
 | Wall clock | 6 minutes |
 | No progress | 4 turns with no new accepted lead and no new candidate |
+
+**Candidate tier.** When a lead fails only because a required lookup gate is not stated or is unquoted (`unquoted_gate`), `submit_lead` returns a structured `unverified` result so the model can look for a better source. The run persists up to 20 deduped candidates separately from accepted leads. They never count toward `state.leads`, target lead count, precision or scores. The API/export contract exposes them as `candidates: Array<{ company, signal_url, why_now, code, missing }>`.
 
 **Handback to the user (the handoff in this product).** If the run stops on budget, turns, time or no progress before reaching N leads, the agent does not loosen the criteria itself; the plan is the user's. Instead it ends with a structured handback, which the UI renders as one-click card changes:
 - the shortfall (e.g. "3 of 10")

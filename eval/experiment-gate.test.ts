@@ -147,14 +147,14 @@ describe("runReplay (mocked Exa recording)", () => {
       const b = JSON.parse(init.body) as { category?: string };
       const results =
         b.category === "company"
-          ? [{ url: "https://shipco.com", title: "ShipCo", summary: JSON.stringify({ description: "3PL", employee_estimate: 300, is_third_party_logistics: true, is_public_or_enterprise: false, hq: "Ohio, US" }) }]
+          ? [{ url: "https://shipco.com", title: "ShipCo", text: "3PL. 300 employees. Ohio, US.", summary: JSON.stringify({ description: "3PL", employee_estimate: 300, employee_estimate_source: "300 employees", is_third_party_logistics: true, is_third_party_logistics_quote: "3PL", is_public_or_enterprise: false, hq: "Ohio, US", hq_quote: "Ohio, US" }) }]
           : [
               {
                 url: signalUrl,
                 title: "ShipCo opens warehouse",
                 publishedDate: "2026-09-01T00:00:00.000Z",
                 text: "ShipCo opened a warehouse.",
-                summary: JSON.stringify({ company_name: "ShipCo", signal_type: "new_facility", signal_summary: "ShipCo opened a new warehouse.", signal_date: "2026-09-01" }),
+                summary: JSON.stringify({ company_name: "ShipCo", signal_type: "new_facility", signal_summary: "ShipCo opened a new warehouse.", signal_date: "2026-09-01", signal_quote: "ShipCo opens warehouse", signal_date_quote: "" }),
               },
             ];
       return new Response(JSON.stringify({ results, costDollars: { total: 0.01 } }), { status: 200 });

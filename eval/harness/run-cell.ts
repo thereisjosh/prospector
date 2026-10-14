@@ -209,6 +209,7 @@ export async function runCell(scenario: Scenario, arm: Arm, rep: number, deps: R
       rep,
       runId: final.id,
       leads: final.leads.map(stateLeadToLead),
+      candidates: (final.candidates ?? []).map((c) => ({ company: c.company, signal_url: c.signal_url, why_now: c.why_now, code: c.code, missing: c.missing })),
       spend: final.spend,
       activeMs: final.counters.activeMs,
       stopReason: final.stopReason ?? final.status,

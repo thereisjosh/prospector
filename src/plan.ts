@@ -295,8 +295,10 @@ export function buildSignalSchema(plan: Pick<SearchPlan, "signalTypes">) {
       signal_type: { type: "string", enum: signalTypeEnum(plan) },
       signal_summary: { type: "string" },
       signal_date: { type: "string" },
+      signal_quote: { type: "string" },
+      signal_date_quote: { type: "string" },
     },
-    required: ["company_name", "signal_type", "signal_summary", "signal_date"],
+    required: ["company_name", "signal_type", "signal_summary", "signal_date", "signal_quote", "signal_date_quote"],
   } as const;
 }
 
@@ -308,11 +310,13 @@ export function buildCompanySchema(plan: Pick<SearchPlan, "gateFields">) {
     employee_estimate_source: { type: "string" },
     is_public_or_enterprise: { type: "boolean" },
     hq: { type: "string" },
+    hq_quote: { type: "string" },
   };
-  const required: string[] = [...CORE_COMPANY_KEYS];
+  const required: string[] = [...CORE_COMPANY_KEYS, "hq_quote"];
   for (const gate of plan.gateFields) {
-    properties[gate.key] = { type: "boolean" };
-    required.push(gate.key);
+    properties[gate.key] = { anyOf: [{ type: "boolean" }, { type: "null" }] };
+    properties[`${gate.key}_quote`] = { type: "string" };
+    required.push(gate.key, `${gate.key}_quote`);
   }
   return {
     type: "object",
@@ -331,7 +335,9 @@ export function composeSignalSummaryQuery(
     `${query} ` +
     `Set signal_date to the date the EVENT itself happened or was announced (not the article's publish date), ` +
     `in ISO format YYYY-MM-DD. ` +
-    `Set signal_type to exactly one of: ${signalTypeEnum(plan).join(", ")}.`
+    `Set signal_type to exactly one of: ${signalTypeEnum(plan).join(", ")}. ` +
+    `For signal_quote, copy the exact sentence from the page that states the event; use "" if no sentence states an event. ` +
+    `For signal_date_quote, copy the exact date phrase from the page; use "" if no date phrase is stated.`
   );
 }
 
@@ -341,12 +347,13 @@ export function composeCompanySummaryQuery(
 ): string {
   const source =
     " For employee_estimate_source, quote the exact phrase from the page that the employee estimate came from " +
-    '(e.g. "350 employees"), or an empty string if no page states a headcount.';
+    '(e.g. "350 employees"), or an empty string if no page states a headcount.' +
+    " For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated.";
   if (plan.gateFields.length === 0) return `${plan.companySummaryQuery}${source}`;
   const gates = plan.gateFields
-    .map((g) => `${g.key} (true/false): ${g.question}`)
+    .map((g) => `${g.key} (true/false/null): ${g.question} ${g.key}_quote: copy the exact phrase or sentence from the page that supports the answer; use "" when the page does not state it.`)
     .join(" ");
-  return `${plan.companySummaryQuery}${source} Answer each gate as a boolean. ${gates}`;
+  return `${plan.companySummaryQuery}${source} Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. ${gates}`;
 }
 
 // ---------------------------------------------------------------------------

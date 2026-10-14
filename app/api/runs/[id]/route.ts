@@ -28,6 +28,8 @@ export async function GET(request: Request, { params }: { params: { id: string }
       spend: state.spend,
       counters: state.counters,
       leads: state.leads,
+      // TODO(contract): state.candidates is added by the engine; old runs have none.
+      candidates: (state as { candidates?: unknown[] }).candidates ?? [],
       rejected: state.rejected,
       screened: screenedByCode(state),
       todo: state.todo,

@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   checkLead,
   parseEmployeeEstimate,
+  quoteInText,
   resolveEventDate,
   sizeQuoteSupports,
   squashName,
@@ -37,6 +38,8 @@ function lead(over: Partial<LeadInput> & { enrichment?: Record<string, unknown> 
         signal_type: "new_facility",
         signal_summary: `${company} opened a new warehouse.`,
         signal_date: "2026-09-20",
+        signal_quote: `${company} opens new warehouse`,
+        signal_date_quote: "",
       },
       publishedDate: "2026-09-21T00:00:00.000Z",
     },
@@ -46,7 +49,9 @@ function lead(over: Partial<LeadInput> & { enrichment?: Record<string, unknown> 
       employee_estimate: 300,
       employee_estimate_source: "300 employees",
       hq: "Columbus, Ohio, United States",
+      hq_quote: "Columbus, Ohio, United States",
       [GATE]: true,
+      [`${GATE}_quote`]: "3PL",
     },
     now: NOW,
     ...over,
@@ -163,6 +168,8 @@ describe("checkLead: one test per gate code", () => {
     l.signal.title = "Diakon Logistics hiring in Ohio";
     l.signal.text = "Diakon Logistics is hiring.";
     l.signal.summary.signal_summary = "Diakon Logistics is hiring.";
+    l.signal.summary.signal_quote = "Diakon Logistics is hiring.";
+    l.companyUrl = "https://news.example.com";
     expect(code(l)).toBe("ok");
   });
 
@@ -178,11 +185,132 @@ describe("checkLead: one test per gate code", () => {
     expect(code(lead({ seen: new Set(["otherco"]) }))).toBe("ok");
   });
 
+  it("unquoted_gate returns the candidate tier for required gates with no page quote", () => {
+    const l = lead();
+    delete (l.enrichment as Record<string, unknown>)[`${GATE}_quote`];
+    const v = checkLead(plan(), l);
+    expect(v).toMatchObject({ ok: false, code: "unquoted_gate", tier: "candidate", details: { key: GATE } });
+  });
+
+  it("quote_not_in_page rejects required gate, signal and size quotes not found in captured text", () => {
+    const l = lead({ lookupText: "300 employees Columbus, Ohio, United States but no gate evidence" });
+    expect(checkLead(plan(), l)).toMatchObject({ ok: false, code: "quote_not_in_page", details: { key: GATE } });
+
+    const signalBad = lead();
+    signalBad.signal.summary.signal_quote = "a sentence that is not there";
+    expect(checkLead(plan(), signalBad)).toMatchObject({ ok: false, code: "quote_not_in_page" });
+
+    const sizeBad = lead({ lookupText: "Columbus, Ohio, United States 3PL" });
+    expect(checkLead(plan(), sizeBad)).toMatchObject({ ok: false, code: "quote_not_in_page", details: { key: "employee_estimate_source" } });
+  });
+
+  it("lookup quote missing from a truncated page is a candidate (unquoted_gate); untruncated stays quote_not_in_page", () => {
+    const text = "300 employees Columbus, Ohio, United States but no gate evidence";
+    const trunc = lead({ lookupText: text });
+    (trunc.enrichment as Record<string, unknown>).lookup_text_truncated = true;
+    expect(checkLead(plan(), trunc)).toMatchObject({
+      ok: false, code: "unquoted_gate", tier: "candidate", details: { key: GATE },
+      reason: `${GATE} quote not found in the first 20,000 characters of the lookup page (page was truncated)`,
+    });
+    const sizeTrunc = lead({ lookupText: "Columbus, Ohio, United States 3PL" });
+    (sizeTrunc.enrichment as Record<string, unknown>).lookup_text_truncated = true;
+    expect(checkLead(plan(), sizeTrunc)).toMatchObject({ code: "unquoted_gate", tier: "candidate", details: { key: "employee_estimate_source" } });
+    const hqTrunc = lead({ lookupText: "300 employees 3PL" });
+    (hqTrunc.enrichment as Record<string, unknown>).lookup_text_truncated = true;
+    expect(checkLead(plan(), hqTrunc)).toMatchObject({ code: "unquoted_gate", tier: "candidate", details: { key: "hq" } });
+    const full = lead({ lookupText: text });
+    (full.enrichment as Record<string, unknown>).lookup_text_truncated = false;
+    expect(checkLead(plan(), full)).toMatchObject({ ok: false, code: "quote_not_in_page", details: { key: GATE } });
+  });
+
+  it("non_event_page rejects personal profile URLs", () => {
+    const profile = lead();
+    profile.signal.url = "https://www.linkedin.com/in/jane-doe/";
+    expect(code(profile)).toBe("non_event_page");
+  });
+
+  it("unquoted_signal: an empty signal quote is a candidate, not a hard reject", () => {
+    const noQuote = lead();
+    noQuote.signal.summary.signal_quote = "";
+    expect(checkLead(plan(), noQuote)).toMatchObject({ ok: false, code: "unquoted_signal", tier: "candidate" });
+  });
+
+  it("evidenceMode skip-quotes disables only the quote-dependent rules", () => {
+    const noQuote = lead();
+    noQuote.signal.summary.signal_quote = "";
+    delete (noQuote.enrichment as Record<string, unknown>)[`${GATE}_quote`];
+    expect(checkLead(plan(), noQuote, { evidenceMode: "skip-quotes" }).ok).toBe(true);
+    const profile = lead();
+    profile.signal.url = "https://www.linkedin.com/in/jane-doe/";
+    expect(checkLead(plan(), profile, { evidenceMode: "skip-quotes" })).toMatchObject({ ok: false, code: "non_event_page" });
+  });
+
+  it("weak_hiring_signal rejects third-party hiring pages with fewer than two roles", () => {
+    const l = lead();
+    l.signal.summary.signal_type = "ops_hire";
+    l.signal.summary.signal_summary = "ShipCo is hiring one courier.";
+    l.signal.summary.signal_quote = "ShipCo is hiring one courier.";
+    l.signal.text = "ShipCo is hiring one courier.";
+    expect(code(l)).toBe("weak_hiring_signal");
+    l.signal.text = "ShipCo is hiring an operations manager and a warehouse supervisor.";
+    l.signal.summary.signal_quote = "ShipCo is hiring an operations manager and a warehouse supervisor.";
+    expect(code(l)).toBe("ok");
+  });
+
+  it("isHiringSignal keys on signal_type / job-post shape, not incidental words (Metropolitan Warehouse lease shape)", () => {
+    // A facility/lease article that mentions jobs and staffing in prose is NOT a hiring signal.
+    const lease = lead({ company: "Metropolitan Warehouse and Delivery" });
+    lease.signal.url = "https://re-nj.com/rockefeller-group-metropolitan-warehouse-and-delivery-ink-530000-sq-ft-lease/";
+    lease.signal.title = "Rockefeller Group, Metropolitan Warehouse and Delivery ink 530,000 sq. ft. lease at new Carneys Point logistics campus";
+    lease.signal.text = `${lease.signal.title}. The building will bring jobs, talent and new roles to Salem County, with planned staffing.`;
+    lease.signal.summary.signal_type = "new_facility";
+    lease.signal.summary.signal_summary = "Metropolitan Warehouse and Delivery leases 530,000 sq ft; the project will create 150 jobs and careers.";
+    lease.signal.summary.signal_quote = "Metropolitan Warehouse and Delivery ink 530,000 sq. ft. lease";
+    expect(code(lease)).toBe("ok");
+  });
+
+  it("a genuine third-party hiring post (hiring signal_type, or job-post URL/title) with <2 roles is weak", () => {
+    const byType = lead();
+    byType.signal.summary.signal_type = "ops_hiring_wave";
+    byType.signal.text = "ShipCo is hiring one courier.";
+    byType.signal.summary.signal_quote = "ShipCo is hiring one courier.";
+    expect(code(byType)).toBe("weak_hiring_signal");
+
+    const byUrl = lead();
+    byUrl.signal.url = "https://news.example.com/careers/shipco-courier";
+    byUrl.signal.text = "ShipCo needs one courier.";
+    byUrl.signal.summary.signal_quote = "ShipCo needs one courier.";
+    expect(code(byUrl)).toBe("weak_hiring_signal");
+
+    const byTitle = lead();
+    byTitle.signal.title = "ShipCo is hiring";
+    byTitle.signal.text = "ShipCo is hiring a courier.";
+    byTitle.signal.summary.signal_quote = "ShipCo is hiring a courier.";
+    expect(code(byTitle)).toBe("weak_hiring_signal");
+  });
+
+  it("built-in signal domains reject on exclude_domain", () => {
+    const l = lead();
+    l.signal.url = "https://jobs.ashbyhq.com/shipco/123";
+    expect(code(l)).toBe("exclude_domain");
+  });
+
   it("is pure: does not mutate seen/submitted", () => {
     const seen = new Set<string>();
     const submitted = new Set<string>();
     checkLead(plan(), lead({ seen, submitted }));
     expect(seen.size + submitted.size).toBe(0);
+  });
+});
+
+describe("quoteInText", () => {
+  it("tolerates case, smart quotes, HTML entities and collapsed whitespace", () => {
+    expect(quoteInText("ShipCo “opened” & expanded", "shipco &ldquo;opened&rdquo; &amp;   expanded yesterday")).toBe(true);
+    expect(quoteInText("300 employees", "About\n300   employees in Ohio")).toBe(true);
+  });
+  it("is strict beyond normalisation", () => {
+    expect(quoteInText("300 employees", "300 contractors")).toBe(false);
+    expect(quoteInText("", "300 employees")).toBe(false);
   });
 });
 
@@ -214,8 +342,8 @@ describe("squashName / dedupe", () => {
   it("scoreAndRank groups variants into one row", () => {
     const mk = (company: string, url: string): Candidate => ({
       result: { url, title: `${company} hiring`, publishedDate: "2026-09-20T00:00:00.000Z", text: `${company} Diakon Logistics is hiring` },
-      summary: { company_name: company, signal_type: "ops_hire", signal_summary: `${company} is hiring`, signal_date: "2026-09-20" },
-      company: { summary: { employee_estimate: 150, employee_estimate_source: "150 employees", hq: "Austin, TX, United States", is_public_or_enterprise: false, [GATE]: true } },
+      summary: { company_name: company, signal_type: "ops_hire", signal_summary: `${company} is hiring`, signal_date: "2026-09-20", signal_quote: `${company} Diakon Logistics is hiring`, signal_date_quote: "" },
+      company: { result: { url: "https://jobs.example.com", text: "150 employees Austin, TX, United States 3PL" }, summary: { employee_estimate: 150, employee_estimate_source: "150 employees", hq: "Austin, TX, United States", hq_quote: "Austin, TX, United States", is_public_or_enterprise: false, [GATE]: true, [`${GATE}_quote`]: "3PL" } },
     });
     const rows = scoreAndRank(
       plan(),
@@ -380,6 +508,7 @@ describe("F2 G3: HQ evidence and country codes", () => {
     expect(v.ok && base.ok && v.details.multiplier / base.details.multiplier).toBeCloseTo(0.9, 6);
     l.signal.text = "ShipCo opened a warehouse.";
     l.signal.title = "ShipCo expands";
+    l.signal.summary.signal_quote = "ShipCo opened a warehouse.";
     expect(code(l)).toBe("hq");
     const unk = lead();
     unk.enrichment!.hq = "unknown";

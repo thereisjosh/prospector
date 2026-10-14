@@ -33,6 +33,7 @@ export type RunRecord = {
   rep: number;
   runId?: string;
   leads: LeadRecord[];
+  candidates?: Array<Pick<LeadRecord, "company" | "signal_url" | "why_now"> & { code: string; missing: string }>;
   spend: { exa: number; claude: number; total: number };
   activeMs: number;
   stopReason: string;

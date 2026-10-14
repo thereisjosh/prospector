@@ -19,7 +19,8 @@ const tmp = vi.hoisted(() => {
 import type { SearchPlan } from "../src/plan";
 import { createRunState, loadState, saveState, screenedByCode, StaleStateError, type RunState } from "../src/agent/state";
 import { codeHandback, UNVERIFIABLE_WHY, decide, rejectionCounts, step, stopRun } from "../src/agent/loop";
-import { agentTools, validHandback } from "../src/agent/tools";
+import { candidateReason } from "../app/ui/copy";
+import { agentTools, missingFromCandidateVerdict, validHandback } from "../src/agent/tools";
 import { InvalidIdError } from "../src/agent/ids";
 import { eventInput, readLastEvents, appendEvents } from "../src/agent/events";
 import { clearMemory, saveMemory as saveMem } from "../src/agent/memory";
@@ -112,14 +113,16 @@ const signalResult = {
       signal_type: "expansion",
       signal_summary: "GoodCo opened a warehouse.",
       signal_date: "2026-10-01",
+      signal_quote: "GoodCo expands.",
+      signal_date_quote: "",
     }),
   }],
   costDollars: { total: 0.01 },
 };
 
 const lookupResult = {
-  result: { url: "https://good.example" },
-  summary: { description: "GoodCo", industry: "Logistics", employee_estimate: 200, employee_estimate_source: "200 employees", is_public_or_enterprise: false, hq: "Austin, TX", is_operator: true },
+  result: { url: "https://good.example", text: "GoodCo has 200 employees and is headquartered in Austin, TX. GoodCo is an operator." },
+  summary: { description: "GoodCo", industry: "Logistics", employee_estimate: 200, employee_estimate_source: "200 employees", is_public_or_enterprise: false, hq: "Austin, TX", hq_quote: "Austin, TX", is_operator: true, is_operator_quote: "GoodCo is an operator" },
 };
 
 function toolResults(s: RunState) {
@@ -266,6 +269,66 @@ describe("agent loop", () => {
     await step(s, { client: client(msg("tool_use", [tool("sub", "submit_lead", { company: "BadCo", signal_url: "https://news.example/bad", why_now: "x" })])) as never, checkLead: checker, now: NOW });
     expect(s.rejected[0]).toMatchObject({ company: "BadCo", code: "required_gate:is_operator" });
     expect(JSON.stringify(s.messages.at(-1))).toContain("rejected: required_gate:is_operator");
+  });
+
+  it("submit_lead persists unquoted required-gate failures as bounded candidates, not accepted leads", async () => {
+    const candidateChecker: LeadChecker = (_p, input) => ({
+      ok: false,
+      code: "unquoted_gate",
+      reason: "required gate is not stated",
+      tier: "candidate",
+      details: { key: "is_operator", company: input.company },
+    });
+    const s = state();
+    s.caches.signalsByUrl["https://news.example/candidate"] = {
+      url: "https://news.example/candidate",
+      title: "CandidateCo expands",
+      text: "CandidateCo expands.",
+      summary: { company_name: "CandidateCo", signal_type: "expansion", signal_summary: "CandidateCo expands.", signal_date: "2026-10-01", signal_quote: "CandidateCo expands.", signal_date_quote: "" },
+    };
+    s.caches.enrichmentByName.candidateco = { summary: { description: "CandidateCo" } };
+    await step(s, { client: client(msg("tool_use", [tool("sub", "submit_lead", { company: "CandidateCo", signal_url: "https://news.example/candidate", why_now: "x" })])) as never, checkLead: candidateChecker, now: NOW });
+    expect(s.leads).toHaveLength(0);
+    expect(s.rejected).toHaveLength(0);
+    expect(s.candidates[0]).toMatchObject({ company: "CandidateCo", code: "unquoted_gate", missing: '"is it an operator?" not stated on the lookup page' });
+    expect(toolResults(s)[0]?.content).toContain('"unverified":"\\"is it an operator?\\" not stated on the lookup page"');
+  });
+
+  it("candidate reasons are human: gate question + page host, per code", () => {
+    const plan = { ...state().contract, gateFields: [
+      { key: "recently_funded_seed_or_series_a", question: "Has the company recently raised a seed or Series A round of funding?", required: true },
+      { key: "is_operator", question: "Is it an operator?", required: true },
+    ] };
+    const ctx = { plan, lookupUrl: "https://www.sybill.ai/about", signalUrl: "https://news.example.com/x" };
+    const gate = (key: string) => ({ code: "unquoted_gate", reason: "r", details: { key } });
+    expect(missingFromCandidateVerdict(gate("is_operator"), ctx)).toBe('"is it an operator?" not stated on sybill.ai');
+    expect(missingFromCandidateVerdict(gate("recently_funded_seed_or_series_a"), ctx)).toBe('"has the company recently raised a seed or series a round of\u2026" not stated on sybill.ai');
+    expect(missingFromCandidateVerdict(gate("unknown_key"), ctx)).toBe("unknown key not stated on sybill.ai");
+    expect(missingFromCandidateVerdict(gate("hq"), ctx)).toBe("headquarters not stated on sybill.ai");
+    expect(missingFromCandidateVerdict(gate("size"), ctx)).toBe("headcount not stated on sybill.ai");
+    expect(missingFromCandidateVerdict({ code: "unquoted_signal", reason: "r" }, ctx)).toBe("no event sentence found on news.example.com");
+    expect(missingFromCandidateVerdict(gate("hq"), { plan })).toBe("headquarters not stated on the lookup page");
+    expect(candidateReason(missingFromCandidateVerdict(gate("hq"), ctx))).toBe("Not counted: headquarters not stated on sybill.ai");
+  });
+
+  it("candidates dedupe by squashed name and stay bounded to 20", async () => {
+    const s = state();
+    for (let i = 0; i < 22; i += 1) {
+      s.candidates.push({
+        company: `Candidate ${i}`,
+        signal_url: `https://news.example/${i}`,
+        why_now: "x",
+        summary: { company_name: `Candidate ${i}`, signal_type: "expansion", signal_summary: "x", signal_date: "2026-10-01" },
+        details: {},
+        turn: i,
+        code: "unquoted_gate",
+        missing: "is_operator not stated on lookup page",
+      });
+    }
+    // The submit path enforces the bound; old state loading preserves the field shape.
+    s.candidates.splice(0, s.candidates.length - 20);
+    expect(s.candidates).toHaveLength(20);
+    expect(s.candidates[0]?.company).toBe("Candidate 2");
   });
 
   it("state.leads only contains checker-accepted leads even if final text claims more", async () => {

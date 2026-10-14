@@ -8,6 +8,7 @@ import type { PinnedPrompt } from "./prompt-store";
 import type { SearchPlan } from "../plan";
 import type { SignalEvidence } from "../evidence";
 import type { CompanySummary, SignalSummary } from "../types";
+import type { GateCode } from "../gates";
 
 export type AcceptedLead = {
   company: string;
@@ -23,6 +24,8 @@ export type AcceptedLead = {
   evidence?: SignalEvidence;
   turn: number;
 };
+
+export type CandidateLead = AcceptedLead & { code: GateCode; missing: string };
 
 export type Handback = {
   shortfall: string;
@@ -59,6 +62,8 @@ export type RunState = {
   spend: { exa: number; claude: number; total: number };
   counters: { turns: number; activeMs: number; noProgressTurns: number; toolCalls: number; consecutiveErrors?: number; lastModelInputTokens?: number };
   leads: AcceptedLead[];
+  /** Unverified fits missing required page evidence; bounded to 20, not counted as accepted leads. */
+  candidates: CandidateLead[];
   rejected: Array<{ company: string; code: string; reason: string; turn: number }>;
   /** Companies the gates would reject, found at the lookup stage (never submitted). */
   screened?: ScreenedCompany[];
@@ -117,6 +122,7 @@ export function createRunState(args: {
     spend: { exa: 0, claude: 0, total: 0 },
     counters: { turns: 0, activeMs: 0, noProgressTurns: 0, toolCalls: 0 },
     leads: [],
+    candidates: [],
     rejected: [],
     screened: [],
     todo: "",
@@ -172,6 +178,7 @@ export async function loadState(id: string): Promise<RunState> {
   const state = JSON.parse(raw) as RunState;
   state.version = typeof state.version === "number" ? state.version : 0;
   state.counters.consecutiveErrors ??= 0;
+  state.candidates ??= [];
   return state;
 }
 

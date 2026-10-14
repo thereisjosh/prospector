@@ -19,6 +19,11 @@ export type GateCode =
   | "exclude_name"
   | "exclude_domain"
   | "non_company"
+  | "non_event_page"
+  | "weak_hiring_signal"
+  | "unquoted_signal"
+  | "unquoted_gate"
+  | "quote_not_in_page"
   | "entity_mismatch"
   | "no_enrichment"
   | "already_seen"
@@ -39,11 +44,18 @@ export type LeadInput = {
   enrichment?: CompanySummary;
   /** URL of the page the lookup resolved to; used for exclude-domain / job-board checks. */
   companyUrl?: string;
+  /** Text of the lookup page Exa summarised, when captured. */
+  lookupText?: string;
   now: Date;
   /** Squashed keys (see squashName) of companies from earlier runs -> `already_seen`. */
   seen?: Set<string>;
   /** Squashed keys of companies already accepted in this run -> `duplicate`. */
   submitted?: Set<string>;
+};
+
+export type CheckLeadOptions = {
+  /** Production default: enforce verbatim quotes. Replay can skip quote-only gates to project deterministic rules. */
+  evidenceMode?: "full" | "skip-quotes";
 };
 
 export type LeadDetails = {
@@ -62,11 +74,13 @@ export type LeadDetails = {
   /** Confidence multiplier from fit (size known? optional gates). */
   multiplier: number;
   fit_reason: string;
+  /** True when a quote was checked against an estimate but the lookup page text was not captured. */
+  size_quote_unverified?: true;
 };
 
 export type LeadVerdict =
   | { ok: true; details: LeadDetails }
-  | { ok: false; code: GateCode; reason: string };
+  | { ok: false; code: GateCode; reason: string; tier?: "candidate"; details?: Record<string, unknown> };
 
 // ---------------------------------------------------------------------------
 // Names
@@ -147,6 +161,41 @@ const NON_COMPANY_DOMAIN_PATTERNS: RegExp[] = [
   /(^|\.)linkedin\.com$/,
 ];
 
+export const BUILTIN_EXCLUDED_SIGNAL_DOMAINS = [
+  "indeed.com",
+  "glassdoor.com",
+  "snagajob.com",
+  "tealhq.com",
+  "ihire.com",
+  "ihirelogistics.com",
+  "ziprecruiter.com",
+  "linkedin.com/jobs",
+  "jobs.ashbyhq.com",
+  "boards.greenhouse.io",
+  "job-boards.greenhouse.io",
+  "jobs.lever.co",
+  "apply.workable.com",
+  "builtin.com",
+  "wellfound.com/jobs",
+  "simplyhired.com",
+  "monster.com",
+  "careerbuilder.com",
+  "jobvite.com",
+  "smartrecruiters.com",
+  "workdayjobs.com",
+  "greenhouse.io",
+  "lever.co",
+  "ashbyhq.com",
+  "breezy.hr",
+  "recruitee.com",
+  "comeet.com",
+  "jobberman.com",
+  "jobrapido.com",
+  "jobera.com",
+  "intern-flow.in",
+  "zerogtalent.com",
+] as const;
+
 export function isNonCompanyName(name: string): boolean {
   const n = normalizeName(name);
   return PLACEHOLDER_NAMES.has(n) || NON_COMPANY_NAME_PATTERNS.some((p) => p.test(n));
@@ -169,6 +218,113 @@ export function domainExcluded(url: string, excluded: readonly string[]): boolea
   const domain = safeDomain(url);
   if (!domain) return false;
   return excluded.some((d) => domain === d || domain.endsWith(`.${d}`));
+}
+
+function builtInSignalDomainExcluded(url: string): boolean {
+  let parsed: URL;
+  try {
+    parsed = new URL(url);
+  } catch {
+    return false;
+  }
+  const domain = parsed.hostname.replace(/^www\./, "");
+  const path = parsed.pathname.toLowerCase();
+  return BUILTIN_EXCLUDED_SIGNAL_DOMAINS.some((entry) => {
+    const [host, ...pathParts] = entry.split("/");
+    const domainMatch = domain === host || domain.endsWith(`.${host}`);
+    if (!domainMatch) return false;
+    const pathPrefix = pathParts.join("/");
+    return !pathPrefix || path.startsWith(`/${pathPrefix}`);
+  });
+}
+
+function isPersonalProfileUrl(url: string): boolean {
+  try {
+    const parsed = new URL(url);
+    const domain = parsed.hostname.replace(/^www\./, "");
+    return (domain === "linkedin.com" || domain.endsWith(".linkedin.com")) && /^\/in\/[^/]+\/?$/i.test(parsed.pathname);
+  } catch {
+    return false;
+  }
+}
+
+function registrableDomain(url: string | undefined): string | undefined {
+  if (!url) return undefined;
+  const domain = safeDomain(url);
+  if (!domain) return undefined;
+  const parts = domain.split(".");
+  if (parts.length <= 2) return domain;
+  const twoPartSuffixes = new Set(["co.uk", "com.au", "co.nz", "com.sg", "co.in"]);
+  const suffix = parts.slice(-2).join(".");
+  return twoPartSuffixes.has(suffix) && parts.length >= 3 ? parts.slice(-3).join(".") : suffix;
+}
+
+// A hiring signal is declared by the summariser's signal_type (a snake_case
+// plan type such as ops_hire / ops_hiring_wave) or is an explicit job-post
+// shape (job-board style URL path, or a title that IS a hiring notice). It is
+// NOT inferred from incidental words in the summary: a facility/lease article
+// that mentions "jobs" or "planned staffing" is not a job post.
+const HIRING_TYPE_TOKENS = new Set([
+  "hire", "hires", "hiring", "recruit", "recruiting", "recruitment", "job", "jobs", "role", "roles", "career", "careers",
+]);
+const JOB_POST_PATH = /\/(?:jobs?|careers?|openings?|vacancies|positions?)(?:\/|$)/i;
+const JOB_POST_TITLE = /^\s*(?:we(?:'|’)re hiring|now hiring|hiring[:\s-])|\bis hiring\b|\bjob (?:posting|opening|listing)s?\b|\bapply now\b/i;
+
+function isHiringSignal(signal: LeadSignal): boolean {
+  const type = (signal.summary.signal_type ?? "").toLowerCase();
+  if (type.split(/[^a-z0-9]+/).some((tok) => HIRING_TYPE_TOKENS.has(tok))) return true;
+  try {
+    if (JOB_POST_PATH.test(new URL(signal.url).pathname)) return true;
+  } catch {
+    // unparseable URL: no path evidence
+  }
+  return JOB_POST_TITLE.test(signal.title ?? "");
+}
+
+const ROLE_WORDS = [
+  "manager", "director", "engineer", "developer", "operator", "associate", "coordinator",
+  "specialist", "analyst", "representative", "lead", "supervisor", "driver", "technician",
+  "sales", "marketing", "operations", "warehouse", "accountant", "designer", "recruiter",
+];
+
+function distinctRoles(text: string): Set<string> {
+  const lower = text.toLowerCase();
+  const roles = new Set<string>();
+  for (const role of ROLE_WORDS) {
+    if (new RegExp(`\\b${role}\\b`).test(lower)) roles.add(role);
+  }
+  for (const m of lower.matchAll(/\b([a-z][a-z-]+(?:\s+[a-z][a-z-]+){0,3})\s+(?:role|position|job|opening)s?\b/g)) {
+    if (m[1]) roles.add(m[1]);
+  }
+  return roles;
+}
+
+function decodeHtmlEntities(value: string): string {
+  return value
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/&quot;/gi, '"')
+    .replace(/&#39;|&apos;/gi, "'")
+    .replace(/&ldquo;|&rdquo;/gi, '"')
+    .replace(/&lsquo;|&rsquo;/gi, "'")
+    .replace(/&#(\d+);/g, (_m, n) => String.fromCodePoint(Number(n)))
+    .replace(/&#x([0-9a-f]+);/gi, (_m, n) => String.fromCodePoint(parseInt(n, 16)));
+}
+
+function quoteNorm(value: string): string {
+  return decodeHtmlEntities(value)
+    .normalize("NFKC")
+    .replace(/[\u2018\u2019\u201A\u201B]/g, "'")
+    .replace(/[\u201C\u201D\u201E\u201F]/g, '"')
+    .replace(/\s+/g, " ")
+    .trim()
+    .toLowerCase();
+}
+
+export function quoteInText(quote: string | undefined, text: string | undefined): boolean {
+  const q = quoteNorm(quote ?? "");
+  const t = quoteNorm(text ?? "");
+  return q.length > 0 && t.includes(q);
 }
 
 // ---------------------------------------------------------------------------
@@ -316,6 +472,13 @@ export function sizeQuoteSupports(estimate: number, quote: string | undefined): 
 
 type Fail = { ok: false; code: GateCode; reason: string };
 const fail = (code: GateCode, reason: string): Fail => ({ ok: false, code, reason });
+const candidate = (key: string, reason: string) => ({
+  ok: false as const,
+  code: "unquoted_gate" as const,
+  reason,
+  tier: "candidate" as const,
+  details: { key },
+});
 
 /** Name / domain checks that need no lookup. */
 export function checkIdentity(
@@ -324,6 +487,12 @@ export function checkIdentity(
   signalUrl: string,
   companyUrl?: string,
 ): Fail | undefined {
+  if (isPersonalProfileUrl(signalUrl)) {
+    return fail("non_event_page", "signal source is a personal profile, not an event page");
+  }
+  if (builtInSignalDomainExcluded(signalUrl)) {
+    return fail("exclude_domain", "signal source is a built-in excluded job-board domain");
+  }
   if (isNonCompanyName(company)) {
     return fail("non_company", "placeholder, staffing or job-board name");
   }
@@ -372,6 +541,20 @@ export function checkDate(
   return { ok: true, date: resolved.date, source: resolved.source };
 }
 
+/** A lookup quote missing from a truncated page is unproven, not false: candidate tier instead of a hard reject. */
+function lookupQuoteMissing(enrichment: { lookup_text_truncated?: boolean }, key: string, reason: string): LeadVerdict {
+  if (enrichment.lookup_text_truncated === true) {
+    return {
+      ok: false,
+      code: "unquoted_gate",
+      reason: `${key} quote not found in the first 20,000 characters of the lookup page (page was truncated)`,
+      tier: "candidate",
+      details: { key },
+    };
+  }
+  return { ok: false, code: "quote_not_in_page", reason, details: { key } };
+}
+
 function entityMatches(company: string, haystack: string): boolean {
   return nameMatchesSignal({ company, text: haystack });
 }
@@ -380,8 +563,9 @@ function entityMatches(company: string, haystack: string): boolean {
  * Run every deterministic gate for one lead. Pure: it never mutates `seen` or
  * `submitted`; on `ok`, callers add `details.key` themselves.
  */
-export function checkLead(plan: SearchPlan, input: LeadInput): LeadVerdict {
+export function checkLead(plan: SearchPlan, input: LeadInput, options: CheckLeadOptions = {}): LeadVerdict {
   const { company, signal, enrichment, now } = input;
+  const enforceQuotes = options.evidenceMode !== "skip-quotes";
   const key = squashName(company);
 
   const identity = checkIdentity(plan, company, signal.url, input.companyUrl);
@@ -405,6 +589,23 @@ export function checkLead(plan: SearchPlan, input: LeadInput): LeadVerdict {
   if (!entityMatches(company, haystack)) {
     return fail("entity_mismatch", `"${company}" does not appear in the signal page`);
   }
+  if (isHiringSignal(signal)) {
+    const sameDomain = registrableDomain(signal.url) !== undefined && registrableDomain(signal.url) === registrableDomain(input.companyUrl);
+    if (!sameDomain && distinctRoles(haystack).size < 2) {
+      return fail("weak_hiring_signal", "hiring signal is not on the company's own domain and does not name at least two distinct roles");
+    }
+  }
+  const signalQuote = typeof signal.summary.signal_quote === "string" ? signal.summary.signal_quote : "";
+  if (enforceQuotes && !signalQuote.trim()) {
+    return { ok: false, code: "unquoted_signal", reason: "summary gives no verbatim sentence stating an event", tier: "candidate" };
+  }
+  if (enforceQuotes && !quoteInText(signalQuote, haystack)) {
+    return fail("quote_not_in_page", "signal_quote was not found in the signal page text");
+  }
+  const dateQuote = typeof signal.summary.signal_date_quote === "string" ? signal.summary.signal_date_quote : "";
+  if (enforceQuotes && dateQuote.trim() && !quoteInText(dateQuote, haystack)) {
+    return fail("quote_not_in_page", "signal_date_quote was not found in the signal page text");
+  }
 
   if (!enrichment || Object.keys(enrichment).length === 0) {
     return fail("no_enrichment", "no company lookup available to verify the fit gates");
@@ -421,6 +622,13 @@ export function checkLead(plan: SearchPlan, input: LeadInput): LeadVerdict {
     if (!textInCountries(hq, plan.hqCountries, true)) {
       return fail("hq", `HQ "${hq}" is outside ${plan.hqCountries.join("/")}`);
     }
+    const hqQuote = typeof enrichment.hq_quote === "string" ? enrichment.hq_quote : "";
+    if (enforceQuotes && plan.hqCountries.length > 0 && !hqQuote.trim()) {
+      return candidate("hq", `HQ "${hq}" is not backed by a verbatim lookup-page quote`);
+    }
+    if (enforceQuotes && plan.hqCountries.length > 0 && input.lookupText && !quoteInText(hqQuote, input.lookupText)) {
+      return lookupQuoteMissing(enrichment, "hq", "hq_quote was not found in the lookup page text");
+    }
   } else if (plan.hqCountries.length > 0) {
     // No HQ from the lookup: fall back to the page text, at a confidence penalty.
     if (!textInCountries(haystack, plan.hqCountries, false)) {
@@ -435,6 +643,13 @@ export function checkLead(plan: SearchPlan, input: LeadInput): LeadVerdict {
     typeof enrichment.employee_estimate_source === "string"
       ? enrichment.employee_estimate_source
       : undefined;
+  let sizeQuoteUnverified: true | undefined;
+  if (quote?.trim()) {
+    if (enforceQuotes && input.lookupText && !quoteInText(quote, input.lookupText)) {
+      return lookupQuoteMissing(enrichment, "employee_estimate_source", "employee_estimate_source was not found in the lookup page text");
+    }
+    if (!input.lookupText) sizeQuoteUnverified = true;
+  }
   const quoted = claimed !== undefined && sizeQuoteSupports(claimed, quote);
   const employees = quoted ? claimed : undefined;
   const { min, max, unknownPolicy } = plan.employeeRange;
@@ -464,6 +679,19 @@ export function checkLead(plan: SearchPlan, input: LeadInput): LeadVerdict {
 
   const required = plan.gateFields.filter((g) => g.required);
   const optional = plan.gateFields.filter((g) => !g.required);
+  for (const gate of required) {
+    const value = enrichment[gate.key];
+    const quote = typeof enrichment[`${gate.key}_quote`] === "string" ? String(enrichment[`${gate.key}_quote`]) : "";
+    if (enforceQuotes && value !== true && (value === null || value === undefined || !quote.trim())) {
+      return candidate(gate.key, `required gate "${gate.key}" was not stated on the lookup page`);
+    }
+    if (enforceQuotes && value === true && !quote.trim()) {
+      return candidate(gate.key, `required gate "${gate.key}" is not backed by a verbatim lookup-page quote`);
+    }
+    if (enforceQuotes && quote.trim() && input.lookupText && !quoteInText(quote, input.lookupText)) {
+      return lookupQuoteMissing(enrichment, gate.key, `quote for required gate "${gate.key}" was not found in the lookup page text`);
+    }
+  }
   const failed = required.filter((g) => enrichment[g.key] !== true);
   if (failed.length > 0) {
     return fail(
@@ -472,7 +700,12 @@ export function checkLead(plan: SearchPlan, input: LeadInput): LeadVerdict {
     );
   }
 
-  const optionalPassed = optional.filter((g) => enrichment[g.key] === true).map((g) => g.key);
+  const optionalPassed = optional.filter((g) => {
+    if (enrichment[g.key] !== true) return false;
+    const quote = typeof enrichment[`${g.key}_quote`] === "string" ? String(enrichment[`${g.key}_quote`]) : "";
+    if (!quote.trim()) return false;
+    return !input.lookupText || quoteInText(quote, input.lookupText);
+  }).map((g) => g.key);
   const optionalFrac = optional.length > 0 ? optionalPassed.length / optional.length : 1;
   const multiplier = (employees === undefined ? 0.82 : 1) * (0.9 + 0.1 * optionalFrac) * (hqBasis === "signal_text" ? 0.9 : 1);
 
@@ -511,6 +744,7 @@ export function checkLead(plan: SearchPlan, input: LeadInput): LeadVerdict {
       hq_basis: hqBasis,
       multiplier,
       fit_reason: `${parts.join("; ")}.`,
+      ...(sizeQuoteUnverified ? { size_quote_unverified: true } : {}),
     },
   };
 }

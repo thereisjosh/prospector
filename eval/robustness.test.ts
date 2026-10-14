@@ -26,21 +26,32 @@ const cand = (over: {
   type?: string;
   url?: string;
   enrichment?: Record<string, unknown>;
-}): Candidate => ({
+}): Candidate => {
+  const company = over.company ?? "x";
+  const enrichment = over.enrichment ? { ...over.enrichment } : undefined;
+  if (enrichment) {
+    enrichment.employee_estimate_source ??= `${enrichment.employee_estimate ?? 300} employees`;
+    if (typeof enrichment.hq === "string") enrichment.hq_quote ??= enrichment.hq;
+    enrichment.is_third_party_logistics_quote ??= "Third-party logistics fulfillment and warehousing provider";
+  }
+  return {
   result: {
-    url: over.url ?? `https://news.example.com/${over.company ?? "x"}`,
-    title: `${over.company ?? "x"} news`,
+    url: over.url ?? `https://news.example.com/${company}`,
+    title: `${company} news`,
     ...(over.pub ? { publishedDate: `${over.pub}T00:00:00.000Z` } : {}),
-    text: `${over.company ?? "x"} did a thing`,
+    text: `${company} did a thing`,
   },
   summary: {
-    company_name: over.company ?? "x",
+    company_name: company,
     signal_type: over.type ?? "new_facility",
-    signal_summary: `${over.company ?? "x"} opened a facility`,
+    signal_summary: `${company} opened a facility`,
     signal_date: over.sig ?? "",
+    signal_quote: `${company} news`,
+    signal_date_quote: "",
   },
-  ...(over.enrichment ? { company: { summary: over.enrichment } } : {}),
-});
+  ...(enrichment ? { company: { summary: enrichment } } : {}),
+  };
+};
 
 describe("date reconciliation (Exa hallucinates the year)", () => {
   const r = (sig: string | undefined, pub: string | undefined) =>
@@ -244,7 +255,7 @@ const sigResult = (company: string, date = "2026-09-20") => ({
   title: `${company} news`,
   publishedDate: `${date}T00:00:00.000Z`,
   text: `${company} text`,
-  summary: JSON.stringify({ company_name: company, signal_type: "new_facility", signal_summary: `${company} opened a facility`, signal_date: date }),
+  summary: JSON.stringify({ company_name: company, signal_type: "new_facility", signal_summary: `${company} opened a facility`, signal_date: date, signal_quote: `${company} news`, signal_date_quote: "" }),
 });
 
 function stubExa(signals: unknown[]) {
@@ -254,7 +265,7 @@ function stubExa(signals: unknown[]) {
     calls.push(body);
     if (body.category === "company") {
       return new Response(JSON.stringify({
-        results: [{ url: `https://${body.query.toLowerCase()}.com`, summary: JSON.stringify({ is_operator: true, employee_estimate: 200, hq: "Austin, TX", is_public_or_enterprise: false }) }],
+        results: [{ url: `https://${body.query.toLowerCase()}.com`, text: `${body.query} is an operator. 200 employees. Austin, TX.`, summary: JSON.stringify({ is_operator: true, is_operator_quote: `${body.query} is an operator`, employee_estimate: 200, employee_estimate_source: "200 employees", hq: "Austin, TX", hq_quote: "Austin, TX", is_public_or_enterprise: false }) }],
         costDollars: { total: 0.009 },
       }), { status: 200 });
     }

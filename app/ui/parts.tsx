@@ -1,3 +1,5 @@
+/** @jsxRuntime automatic */
+/** @jsxImportSource react */
 import type { ReactNode } from "react";
 
 /* ---------- checklist markdown (the agent's todo) ---------- */

@@ -64,6 +64,8 @@ Every rejection says why. Change what you do next; repeating the same kind of qu
 - `size`, repeatedly: your queries reach the wrong tier. Rephrase toward it: "family-owned", "regional", "independent", a mid-size metro, trade and local press instead of national headlines (or the reverse if too small).
 - `stale_date` or `unparseable_date`: aim for fresher events ("opens", "announces", local news this quarter) and check each search line's date before submitting.
 - `required_gate:<key>`: re-read that question in the contract. Your candidates are probably the wrong kind of company; search for the kind it describes and confirm with a page read before the next submission.
+- `unquoted_gate`: the company may fit, but the lookup page did not state the required fact. Treat it as an unverified candidate and look for a better company page or source before trying again.
+- `quote_not_in_page`, `non_event_page`, `weak_hiring_signal`: use a source that states the event in its own text. For hiring signals, prefer the company's own careers/news page or a page naming multiple roles.
 - `hq`: put the country or region into your queries.
 - `entity_mismatch`: the page does not name the company. Use a URL that does, or `read_page` it first so its full text is on record.
 - `enterprise`, `exclude_name`, `non_company`, `already_seen`, `duplicate`: tighten triage so you stop paying for lookups like it.
@@ -171,7 +173,7 @@ Read the text of a page (first 3,000 characters) to settle a question that decid
 ### `submit_lead` (103 words)
 
 ```text
-Submit one company as a lead. Code checks it against the contract and is the only way a lead reaches the results. Call it only after this company's lookup_company result is back (separate, earlier turn) and looks like a fit. `company`: exactly the name you looked up. `signal_url`: a URL returned by search_signals that names this company (any other URL is an error). `why_now`: one plain sentence a salesperson could use. Returns `accepted`, or `rejected: <code> — <reason>` (codes include size, stale_date, unparseable_date, hq, enterprise, unknown_size, entity_mismatch, no_enrichment, required_gate:<key>, exclude_name, exclude_domain, non_company, already_seen, duplicate). Act on the reason; never resubmit a rejected company.
+Submit one company as a lead. Code checks it against the contract and is the only way a lead reaches the results. Call it only after this company's lookup_company result is back (separate, earlier turn) and looks like a fit. `company`: exactly the name you looked up. `signal_url`: a URL returned by search_signals that names this company (any other URL is an error). `why_now`: one plain sentence a salesperson could use. Returns `accepted`, `rejected: <code> — <reason>`, or a structured candidate result with `unverified` when a required fact was not stated. Codes include size, stale_date, unparseable_date, hq, enterprise, unknown_size, entity_mismatch, no_enrichment, required_gate:<key>, unquoted_gate, quote_not_in_page, non_event_page, weak_hiring_signal, exclude_name, exclude_domain, non_company, already_seen, duplicate. Act on the reason; never resubmit a rejected company.
 ```
 
 **Why:** Lists every rejection code the gates can return so the system prompt's tactics have names to attach to, and states both failure modes that are not gate rejections (URL not from a search; name not matching the lookup).

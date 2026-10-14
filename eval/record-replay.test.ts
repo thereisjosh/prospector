@@ -90,6 +90,8 @@ describe("record / replay", () => {
         signal_type: "new_facility",
         signal_summary: "ShipCo opened a new warehouse.",
         signal_date: "2026-09-01",
+        signal_quote: "ShipCo opens warehouse",
+        signal_date_quote: "",
       }),
     };
     vi.stubGlobal(
@@ -97,7 +99,7 @@ describe("record / replay", () => {
       vi.fn(async (_u: string, init: { body: string }) => {
         const b = JSON.parse(init.body) as { category?: string };
         const results = b.category === "company"
-          ? [{ url: "https://shipco.com", summary: JSON.stringify({ description: "3PL", employee_estimate: 300, is_third_party_logistics: true, is_public_or_enterprise: false, hq: "Ohio, US" }) }]
+          ? [{ url: "https://shipco.com", text: "3PL. 300 employees. Ohio, US.", summary: JSON.stringify({ description: "3PL", employee_estimate: 300, employee_estimate_source: "300 employees", is_third_party_logistics: true, is_third_party_logistics_quote: "3PL", is_public_or_enterprise: false, hq: "Ohio, US", hq_quote: "Ohio, US" }) }]
           : [sigResult];
         return new Response(JSON.stringify({ results, costDollars: { total: 0.01 } }), { status: 200 });
       }),
