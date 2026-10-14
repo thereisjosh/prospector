@@ -1,5 +1,20 @@
 import { claudeCostDollars, DEFAULT_MODEL, type AgentModel } from "../agent/config";
+import type { PinnedPrompt } from "../agent/prompt-store";
+import { promptLink } from "../agent/prompt-store";
 import { recordPlannerGeneration } from "../agent/trace";
+
+/**
+ * Both planner prompts end with a format section that starts with this sentence; the
+ * retry message repeats that section. `eval/langfuse-prompts.ts push|pull` refuses a
+ * planner prompt without it, so a Langfuse edit cannot silently drop the retry hint.
+ */
+export const FORMAT_MARKER = "Reply with one JSON object with exactly these keys";
+
+/** The format section of a planner system prompt (from FORMAT_MARKER to the end). */
+export function formatSection(system: string): string | undefined {
+  const at = system.indexOf(FORMAT_MARKER);
+  return at >= 0 ? system.slice(at) : undefined;
+}
 
 export type PlannerClient = {
   messages: {
@@ -101,14 +116,20 @@ export function extractFirstJsonObject(text: string): unknown {
   throw new PlannerError(lastError instanceof Error ? lastError.message : "Model JSON object was not balanced.", "model_json_invalid");
 }
 
+/**
+ * One planner model call (plus one validation retry), both with the same pinned prompt:
+ * the caller resolves it once, so the retry can never run a different version.
+ */
 export async function callClaudeJson<T>(
   deps: PlannerModelDeps,
-  system: string,
+  prompt: PinnedPrompt,
   user: string,
   validate: (json: unknown) => JsonValidation<T>,
-  example?: string,
 ): Promise<{ value: T; cost: number }> {
   const model = deps.model ?? DEFAULT_MODEL;
+  const system = prompt.text;
+  const example = formatSection(system);
+  const link = promptLink(prompt);
   let totalCost = 0;
   let lastErrors: string[] = [];
 
@@ -143,6 +164,7 @@ export async function callClaudeJson<T>(
       usage: response.usage,
       cost: callCost,
       attempt,
+      ...(link ? { prompt: link } : {}),
     });
 
     let json: unknown;

@@ -1,33 +1,73 @@
-import { callClaudeJson, cleanString, isRecord, type PlannerModelDeps } from "./claude";
+import { resolvePrompt, type PromptConfig, type PromptDef } from "../agent/prompt-store";
+import { callClaudeJson, cleanString, formatSection, isRecord, type PlannerModelDeps } from "./claude";
 import { coerceCardSet } from "./coerce";
 import type { SellerProfile } from "./profile";
 
-export const CARDS_EXAMPLE = JSON.stringify({
-  who: { industry: "independent restaurants and cafes", descriptor: "owner-operated cafes with 1-5 outlets" },
-  whyNow: {
-    signalTypes: ["new_location", "hiring_ops", "menu_relaunch"],
-    description: "opening outlets or changing operations in a way that creates a need for new payment hardware",
+// <langfuse-prompt name="prospector-planner-cards"> repo copy and runtime fallback; sync with `npx tsx eval/langfuse-prompts.ts push|pull|diff` (docs/prompts.md)
+export const CARDS_SYSTEM_PROMPT = `You suggest lead-search cards for a B2B prospecting tool.
+Reply with ONE JSON object and nothing else.
+Cards: who describes target industry and company descriptor; whyNow lists ordered snake_case signal types and a human description; size is employee range and unknown-size policy; stage is optional and must be exactly one of any | seed | series_a | series_b_plus | bootstrapped (use any when funding stage does not matter for this buyer); geo is HQ ISO-2 countries; recency is months; exclusions are customer/competitor names and domains.
+Exa levers: recency is a hard startPublishedDate filter; size, geo, and stage are estimated from retrieved company evidence; signal types become search and summary prompts.
+Output must be realistic for a B2B seller of this offering.
+Reply with one JSON object with exactly these keys; arrays of plain strings where shown; no markdown fences.
+Enums: stage is one of any | seed | series_a | series_b_plus | bootstrapped; size.unknownPolicy is one of allow-if-not-enterprise | reject; geo.hqCountries are uppercase ISO-2 codes; whyNow.signalTypes is 2-6 snake_case strings (plain strings, not objects); size.min and size.max and recency.months are integers (months 1-12); alternatives is an array of at most 2 items (use [] if none).
+EXAMPLE (shape and enum values only; use values that fit this seller):
+{
+  "who": {
+    "industry": "independent restaurants and cafes",
+    "descriptor": "owner-operated cafes with 1-5 outlets"
   },
-  size: { min: 5, max: 200, unknownPolicy: "allow-if-not-enterprise" },
-  stage: "any",
-  geo: { hqCountries: ["SG", "MY"] },
-  recency: { months: 6 },
-  exclusions: { names: ["Starbucks"], domains: ["starbucks.com"] },
-  rationale: {
-    who: "why this buyer fits the offering",
-    whyNow: "why these signals mean they are buying now",
-    size: "why this employee range",
-    geo: "why these countries",
+  "whyNow": {
+    "signalTypes": [
+      "new_location",
+      "hiring_ops",
+      "menu_relaunch"
+    ],
+    "description": "opening outlets or changing operations in a way that creates a need for new payment hardware"
   },
-  alternatives: [],
-}, null, 2);
+  "size": {
+    "min": 5,
+    "max": 200,
+    "unknownPolicy": "allow-if-not-enterprise"
+  },
+  "stage": "any",
+  "geo": {
+    "hqCountries": [
+      "SG",
+      "MY"
+    ]
+  },
+  "recency": {
+    "months": 6
+  },
+  "exclusions": {
+    "names": [
+      "Starbucks"
+    ],
+    "domains": [
+      "starbucks.com"
+    ]
+  },
+  "rationale": {
+    "who": "why this buyer fits the offering",
+    "whyNow": "why these signals mean they are buying now",
+    "size": "why this employee range",
+    "geo": "why these countries"
+  },
+  "alternatives": []
+}`;
+export const CARDS_PROMPT_CONFIG: PromptConfig = {"model":"claude-opus-5-5","effort":"medium","max_tokens":4000};
+// </langfuse-prompt>
 
-export const CARDS_FORMAT_INSTRUCTIONS = [
-  "Reply with one JSON object with exactly these keys; arrays of plain strings where shown; no markdown fences.",
-  "Enums: stage is one of any | seed | series_a | series_b_plus | bootstrapped; size.unknownPolicy is one of allow-if-not-enterprise | reject; geo.hqCountries are uppercase ISO-2 codes; whyNow.signalTypes is 2-6 snake_case strings (plain strings, not objects); size.min and size.max and recency.months are integers (months 1-12); alternatives is an array of at most 2 items (use [] if none).",
-  "EXAMPLE (shape and enum values only; use values that fit this seller):",
-  CARDS_EXAMPLE,
-].join("\n");
+export const CARDS_PROMPT_DEF: PromptDef = {
+  name: "prospector-planner-cards",
+  text: CARDS_SYSTEM_PROMPT,
+  config: CARDS_PROMPT_CONFIG,
+  repoVersionId: "prospector-planner-cards@repo",
+};
+
+/** The format section the retry message repeats (also inside the system prompt). */
+export const CARDS_FORMAT_INSTRUCTIONS = formatSection(CARDS_SYSTEM_PROMPT)!;
 
 export type CardSet = {
   who: { industry: string; descriptor: string };
@@ -42,15 +82,8 @@ export type CardSet = {
 };
 
 export async function suggestCards(profile: SellerProfile, deps: PlannerModelDeps): Promise<{ cards: CardSet; cost: number }> {
-  const system = [
-    "You suggest lead-search cards for a B2B prospecting tool.",
-    "Reply with ONE JSON object and nothing else.",
-    "Cards: who describes target industry and company descriptor; whyNow lists ordered snake_case signal types and a human description; size is employee range and unknown-size policy; stage is optional and must be exactly one of any | seed | series_a | series_b_plus | bootstrapped (use any when funding stage does not matter for this buyer); geo is HQ ISO-2 countries; recency is months; exclusions are customer/competitor names and domains.",
-    "Exa levers: recency is a hard startPublishedDate filter; size, geo, and stage are estimated from retrieved company evidence; signal types become search and summary prompts.",
-    "Output must be realistic for a B2B seller of this offering.",
-    CARDS_FORMAT_INSTRUCTIONS,
-  ].join("\n");
-  const { value, cost } = await callClaudeJson(deps, system, JSON.stringify(profile), validateCards, CARDS_FORMAT_INSTRUCTIONS);
+  const prompt = await resolvePrompt(CARDS_PROMPT_DEF);
+  const { value, cost } = await callClaudeJson(deps, prompt, JSON.stringify(profile), validateCards);
   return { cards: value, cost };
 }
 

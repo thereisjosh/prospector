@@ -7,7 +7,8 @@ import { appendEvents, eventInput, makeEvent, type AgentEvent } from "./events";
 import { parseEmployeeEstimate } from "../gates";
 import { countryOfHq } from "../geo";
 import { appendRunToMemory, squashName } from "./memory";
-import { systemPrompt } from "./prompts";
+import { ensureAgentPrompt } from "./prompts";
+import { promptLink } from "./prompt-store";
 import type { RunState, Handback } from "./state";
 import { APPROVAL_TOOLS, agentTools, executeTool, type ToolDeps } from "./tools";
 
@@ -76,6 +77,8 @@ function modelCallFields(
     ...(typeof response.id === "string" ? { responseId: response.id } : {}),
     stop_reason: response.stop_reason ?? null,
     systemSha256: cachedSha256("system", request.system),
+    // Links the generation to its Langfuse prompt version (absent for the repo fallback).
+    ...(promptLink(state.prompt) ? { prompt: promptLink(state.prompt) } : {}),
     toolsSha256: cachedSha256("tools", JSON.stringify(request.tools)),
     messages: request.messageCount,
     response: {
@@ -215,6 +218,8 @@ async function finishRun(state: RunState, events: AgentEvent[], status: "done" |
 export async function step(state: RunState, deps: LoopDeps): Promise<StepResult> {
   const events: AgentEvent[] = [];
   if (state.status !== "running") return { state, events };
+  // Pin before the first event so every event of the run carries the same promptVersion.
+  const prompt = await ensureAgentPrompt(state);
   if (state.stopRequested) {
     delete state.stopRequested;
     if (state.leads.length < state.contract.targetLeads && !state.handback) {
@@ -252,7 +257,7 @@ export async function step(state: RunState, deps: LoopDeps): Promise<StepResult>
       await appendRunToMemory(state);
       return { state, events };
     }
-    const system = systemPrompt();
+    const system = prompt.text;
     const tools = agentTools();
     const messageCount = state.messages.length;
     const response = (await deps.client.messages.create({
@@ -521,7 +526,7 @@ export async function handback(state: RunState, deps: LoopDeps, events?: AgentEv
     try {
       // History contains tool_use blocks, so the tool list must still be sent;
       // tool_choice "none" forces a text answer.
-      const system = systemPrompt();
+      const system = (await ensureAgentPrompt(state)).text;
       const tools = agentTools();
       const messages = [
         ...state.messages,

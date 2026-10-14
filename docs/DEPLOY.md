@@ -26,9 +26,13 @@ Environment variables:
 | `LANGFUSE_SECRET_KEY` | unset | Langfuse project secret. |
 | `LANGFUSE_BASE_URL` | `https://cloud.langfuse.com` | Langfuse region (EU cloud). |
 | `LANGFUSE_TRACING_ENVIRONMENT` | `default` | Set `production` on Railway. `eval` for harness runs and backfills, `ci` for CI. |
+| `LANGFUSE_PROMPT_LABEL` | `production` | Langfuse prompt label the app fetches (docs/prompts.md). Set `staging` on a staging service to run the staged prompts. |
+| `LANGFUSE_PROMPTS` | unset | Set `off` to ignore Langfuse prompts and run the in-repo text (kill switch; tracing is unaffected). |
 | `TRACE_HMAC_SECRET` | unset | HMAC key that turns the workspace id into the trace `userId`. Without it traces carry no user. Keep it stable: rotating it splits users. |
 
 Tracing (SPEC-observability §2–§3): every line appended to `runs/<id>/events.jsonl` is also sent to Langfuse, masked, from `src/agent/trace.ts`. Spans are flushed every second; Next.js exits on SIGTERM without waiting, so a redeploy can drop up to about the last second of spans. `npx tsx eval/trace-backfill.ts <run-dir> --environment production` restores a run's missing observations and scores without duplicating the ones Langfuse already has.
+
+Prompts (docs/prompts.md): with the Langfuse keys set, the agent and planner prompts come from Langfuse Prompt Management (label `LANGFUSE_PROMPT_LABEL`), cached in-process for 60 s; promoting a version in Langfuse reaches the service within about a minute, without a deploy. Runs already in flight keep the version they started with. If Langfuse is unreachable on a cold start the service runs the in-repo text, so a deploy must never ship a repo copy that differs from `production`: run `npx tsx eval/langfuse-prompts.ts diff` before deploying (exit 1 = out of sync).
 
 Kill switch: set `DAILY_SPEND_CAP_DOLLARS=0` or `LIVE_MODE=off`. The API behaves as demo-only, and `/api/status` reports `{ "mode": "demo", "reason": "paused" }`.
 

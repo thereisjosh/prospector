@@ -1,14 +1,22 @@
 import { DEFAULT_LIMITS } from "./config";
 import type { SearchPlan } from "../plan";
+import { repoPin, resolvePrompt, type PinnedPrompt, type PromptConfig, type PromptDef } from "./prompt-store";
+import type { RunState } from "./state";
 
+/**
+ * Version id of the in-repo system prompt. A run that fetched its prompt from Langfuse
+ * records `prospector-agent-system@<n>` instead (RunState.prompt.id); see promptVersionOf().
+ */
 export const PROMPT_VERSION = "agent-a3-2026-10-12";
 
 /**
  * The system prompt is the cached prefix: it must not contain dates, run ids,
  * contract values or anything else that varies between runs. Run-specific
- * content belongs in firstUserMessage().
+ * content belongs in firstUserMessage(). It is managed in Langfuse as
+ * `prospector-agent-system`; this block is the repo copy and the runtime fallback.
  */
-const SYSTEM_PROMPT = `You are the research agent inside Prospector. You find companies that are good sales leads for one seller, each backed by a recent public "why now" event: a new facility, a funding round, a hiring wave, a launch. The first message holds the contract the user approved: how many leads, what counts as a lead, and the budget. Meet it as accurately and cheaply as you can; how is your call.
+// <langfuse-prompt name="prospector-agent-system"> repo copy and runtime fallback; sync with `npx tsx eval/langfuse-prompts.ts push|pull|diff` (docs/prompts.md)
+export const AGENT_SYSTEM_PROMPT = `You are the research agent inside Prospector. You find companies that are good sales leads for one seller, each backed by a recent public "why now" event: a new facility, a funding round, a hiring wave, a launch. The first message holds the contract the user approved: how many leads, what counts as a lead, and the budget. Meet it as accurately and cheaply as you can; how is your call.
 
 ## How results are judged
 Only \`submit_lead\` puts a company in the results, and code, not you, checks each one against the contract: event date, size, HQ country, the required yes/no questions, exclusions, the company being named on the signal page, duplicates. Your own text never counts as a result. Every search, lookup, page read and turn costs money, so one accepted lead beats many rejected ones.
@@ -51,9 +59,37 @@ Todo format, under 120 words:
 **Tried:** new-warehouse news (good); job ads (mostly large firms)
 **Checking:** Acme Freight, Northline 3PL
 **Next:** regional trade press for family-owned providers`;
+export const AGENT_SYSTEM_CONFIG: PromptConfig = {"model":"claude-opus-5-5","effort":"medium"};
+// </langfuse-prompt>
 
+export const AGENT_SYSTEM_PROMPT_DEF: PromptDef = {
+  name: "prospector-agent-system",
+  text: AGENT_SYSTEM_PROMPT,
+  config: AGENT_SYSTEM_CONFIG,
+  repoVersionId: PROMPT_VERSION,
+};
+
+/** The in-repo system prompt (the fallback; a run uses its pinned RunState.prompt). */
 export function systemPrompt(): string {
-  return SYSTEM_PROMPT;
+  return AGENT_SYSTEM_PROMPT;
+}
+
+/** The prompt-version id events carry: the run's pinned prompt, else the in-repo constant. */
+export function promptVersionOf(state: Pick<RunState, "prompt">): string {
+  return state.prompt?.id ?? PROMPT_VERSION;
+}
+
+/**
+ * The run's system prompt, pinned on first use and reused verbatim on every later turn
+ * and the handback, so the cached prefix and the append-only history never mix versions.
+ * A run that already talked to the model without a pin (state from before prompt
+ * management) is pinned to the in-repo text it has been using, never to a fresh fetch.
+ */
+export async function ensureAgentPrompt(state: Pick<RunState, "prompt" | "messages" | "counters">): Promise<PinnedPrompt> {
+  if (state.prompt) return state.prompt;
+  const started = state.counters.turns > 0 || state.messages.some((m) => m.role === "assistant");
+  state.prompt = started ? repoPin(AGENT_SYSTEM_PROMPT_DEF) : await resolvePrompt(AGENT_SYSTEM_PROMPT_DEF);
+  return state.prompt;
 }
 
 type Contract = SearchPlan & {

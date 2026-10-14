@@ -180,6 +180,8 @@ export type TraceObservation = {
   model?: string;
   usageDetails?: Record<string, number>;
   costDetails?: Record<string, number>;
+  /** Langfuse prompt version a generation used (prompt management link; never set for the repo fallback). */
+  prompt?: { name: string; version: number };
 };
 
 export type TraceScore = {
@@ -225,6 +227,13 @@ function str(value: unknown): string | undefined {
 
 function rec(value: unknown): Record<string, unknown> {
   return value && typeof value === "object" && !Array.isArray(value) ? (value as Record<string, unknown>) : {};
+}
+
+/** A model_call event's `prompt` link, if well-formed. */
+function promptLinkOf(value: unknown): { name: string; version: number } | undefined {
+  const r = rec(value);
+  const name = str(r.name);
+  return name && typeof r.version === "number" && Number.isInteger(r.version) && r.version > 0 ? { name, version: r.version } : undefined;
 }
 
 function minusMs(ts: string, ms: number): string {
@@ -325,6 +334,7 @@ export function toObservations(events: AgentEvent[], options: ToObservationsOpti
           const model = str(e.model) ?? options.model;
           const handback = e.handback === true;
           const stopReason = str(e.stop_reason);
+          const prompt = promptLinkOf(e.prompt);
           child({
             id: idFor(str(e.responseId) ? `model:${str(e.responseId)}` : `model:${e.ts}:${handback ? "handback" : "loop"}`),
             name: "model",
@@ -353,6 +363,7 @@ export function toObservations(events: AgentEvent[], options: ToObservationsOpti
               promptVersion: e.promptVersion,
             },
             ...(stopReason === "max_tokens" || stopReason === "refusal" ? { level: "WARNING" as const, statusMessage: `stop_reason=${stopReason}` } : {}),
+            ...(prompt ? { prompt } : {}),
           });
           lastModelCallTs = e.ts;
           cumulativeSpend += num(e.claudeCost);
@@ -742,6 +753,9 @@ function observationAttributes(obs: TraceObservation, maskOptions: MaskOptions):
   if (obs.model) attrs.model = obs.model;
   if (obs.usageDetails) attrs.usageDetails = obs.usageDetails;
   if (obs.costDetails) attrs.costDetails = obs.costDetails;
+  // SDK prompt link (docs: prompt-management/features/link-to-traces): sets
+  // langfuse.observation.prompt.name/.version, which drive per-version metrics.
+  if (obs.prompt && obs.type === "generation") attrs.prompt = { name: obs.prompt.name, version: obs.prompt.version, isFallback: false };
   return attrs;
 }
 
@@ -977,6 +991,8 @@ export function recordPlannerGeneration(call: {
   usage?: { input_tokens?: number | null; output_tokens?: number | null; cache_read_input_tokens?: number | null; cache_creation_input_tokens?: number | null } | null;
   cost: number;
   attempt: number;
+  /** Langfuse prompt version used (absent when the repo fallback ran). */
+  prompt?: { name: string; version: number };
 }): void {
   try {
     if (!enabled() || !sdkPromise) return;
@@ -999,6 +1015,7 @@ export function recordPlannerGeneration(call: {
             },
             costDetails: costBreakdown(call.model, tokens, call.cost),
             metadata: { attempt: call.attempt },
+            ...(call.prompt ? { prompt: { name: call.prompt.name, version: call.prompt.version, isFallback: false } } : {}),
           },
           { asType: "generation", startTime: call.startTime },
         );

@@ -4,6 +4,7 @@ import type Anthropic from "@anthropic-ai/sdk";
 import { DEFAULT_LIMITS, DEFAULT_MODEL, RUNS_DIR, type AgentModel } from "./config";
 import { assertRunId } from "./ids";
 import { firstUserMessage } from "./prompts";
+import type { PinnedPrompt } from "./prompt-store";
 import type { SearchPlan } from "../plan";
 import type { CompanySummary, SignalSummary } from "../types";
 
@@ -29,6 +30,12 @@ export type RunStatus = "running" | "awaiting_approval" | "done" | "stopped" | "
 
 export type RunState = {
   version: number;
+  /**
+   * The system prompt this run uses, pinned on its first step (prompts.ensureAgentPrompt):
+   * Langfuse name/version (or the repo fallback) plus the exact text, so every turn sends a
+   * byte-identical cached prefix even if the Langfuse label moves or Langfuse is down.
+   */
+  prompt?: PinnedPrompt;
   id: string;
   createdAt: string;
   workspaceId: string;

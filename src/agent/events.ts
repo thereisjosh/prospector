@@ -2,7 +2,7 @@ import { mkdir, readFile, appendFile } from "node:fs/promises";
 import { join } from "node:path";
 import { RUNS_DIR } from "./config";
 import { assertRunId } from "./ids";
-import { PROMPT_VERSION } from "./prompts";
+import { promptVersionOf } from "./prompts";
 import type { RunState } from "./state";
 import { emit as emitTrace } from "./trace";
 
@@ -35,7 +35,7 @@ export function makeEvent(
     runId: state.id,
     turn: state.counters.turns,
     kind,
-    promptVersion: PROMPT_VERSION,
+    promptVersion: promptVersionOf(state),
     ...payload,
   };
 }
