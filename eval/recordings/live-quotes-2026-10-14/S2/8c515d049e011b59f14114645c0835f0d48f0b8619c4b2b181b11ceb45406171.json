@@ -1,0 +1,231 @@
+{
+  "request": {
+    "query": "Meticulous",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the exact phrase from the page that the employee estimate came from (e.g. \"350 employees\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "2edac833deb1bbb7b3424fd22f4462a1",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/f920fnywqwx",
+        "title": "Meticulous",
+        "url": "https://meticulous.ai/",
+        "text": "# Meticulous\n\nMeticulous is a Software Development company. Meticulous AI is an automated frontend testing platform that provides visual frontend browser tests with automated verification and precise verification. It is built for the world's most complex codebases and is trusted by over 100 organizations. Meticulous employs 29 people (+123.1% YoY, +16 people). Headquartered in London, England, United Kingdom, with presence in United States. Its workforce is distributed across United Kingdom, United States, Canada, and India.\n\n## About\n\nMeticulous enables teams to leverage AI agents to ship fast without breaking things. \n\nAs agents write more of the codebase, the bottleneck has shifted from writing code to trusting it. Meticulous closes that gap - automatically testing every flow, edge case and permutation, without any developer effort. We watch how developers and agents actually use the product, turn those sessions into thousands of tests, and show developers the full impact of their code change in minutes. \n\nMeticulous tests more than 90k pull requests across 1.5 billion snapshots every month, and runs in production for leading AI-driven engineering teams, including Notion, ElevenLabs, Dropbox, Wiz, Mercor, LaunchDarkly and CoreWeave. We're proud to have been named to AI Disruptors 60 and Redpoint's 2026 InfraRed 100.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: London, United Kingdom\n- Homepage: meticulous.ai\n- Aliases: meticulous, meticulous ai limited, Meticulous AI\n- LinkedIn: linkedin.com/company/alwaysmeticulous\n- Linkedin Followers: 2,276\n\n## Financials\n- Total Funding: USD 19,125,000\n  - Series a (2026-07-01): USD 15.0M\n  - Seed (2023-02-01): USD 4.0M\n  - Venture (2022-01-01)\n  - Seed (2021-09-01): USD 125,000\n\n## Workforce\n- Employees: 29\n- Company Size: 11-50 employees\n  - Yearly Growth: +123.1%\n- Key Executives:\n  - Gabriel Spencer-Harper: CEO and co-founder (hiring #3 founding engineer)\n  - Nicole Wojakovski: Founding GTM Operator\n  - Tyler Zick: Founding Account Executive\n- Breakdown:\n  - By Country: United Kingdom: 17 (59%), United States: 4 (14%), Canada: 1 (3%), India: 1 (3%)\n  - By Department: Technical: 13 (45%), Consulting: 2 (7%), Operations: 2 (7%), Other Department: 2 (7%), Design: 1 (3%), Finance: 1 (3%), General Management: 1 (3%), Sales: 1 (3%)\n  - By Seniority: Other Management: 12 (41%), Specialist: 7 (24%), Founder: 3 (10%), Manager: 1 (3%)\n- Active job postings: 1\n- Talent Sources: Thread (1), Pru Life UK (1), Lightfield (1), Lacework (1), ION (1), Flare (1), Chapter (1), Certora (1), Blossom Capital (1), Bloomberg (1)\n- Alumni Go To: Swiss Data Science Center (1), Sierra (1), New Look (1), Miter (1), Mahindra Group (1), Jack & Jill (1), Fiverr (1), CollegeVine (1), AthenaHQ (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: adobe, amazon business, datadog, discord, dropbox, github, google sheets, intercom, javascript, launchdarkly, linkedin, logrocket, openai, pagerduty, palantir, ramp, reddit, scribd, twilio, twitch, vercel, impact, segment, sentry\n\n## Web presence\n\n- Twitter: x.com/meticulousgabe\n- Web traffic:\n  - Monthly visits: 34,703\n  - Global rank: 898,490\n  - Bounce rate: 37.0%\n  - Pages per visit: 1.7\n  - Average visit duration: 19s\n\n## Categories\n\nai frontend testing, automated frontend testing, automated testing software, automated verification, complex codebases, computers_electronics_and_technology/programming_and_developer_software, frontend integration testing, no code test automation, precise verification, qa automation, technology/software, visual frontend browser tests\n\n## Recent News\n- [2026-10-02]\n  - The Malaysian Reserve: Discovering Indonesia Through Experiences Beyond the Ordinary\n  - Big News Network.com: Wellness, Culture and Island Adventures: Experiencing Indonesia Through a Different Lens\n- [2026-09-24]\n  - ANTARA News: Indonesia strengthens AI use in event tourism, MICE sector\n  - FinAi News: Out with old: A modernization playbook for lending in AI era\n- [2026-09-22] https://www.manifest-media.in/: Why Hector AI's Meher Patel thinks dashboards alone can't solve quick commerce\n- [2026-09-16] All Israel News: 'Slow and meticulous': Israeli soldiers refute ‘NAZA’ film’s claims about AI-powered targeting decisions in Gaza\n- [2026-09-06] GetLatka: Meticulous Revenue 2024: $1M Est. ARR\n- [2026-08-30] Forbes: Using AI Personas To Explore The Psychological Landscape Underlying The Langer Mindfulness Scale\n- [2026-08-09] https://streamlinefeed.co.ke/: Inside the Meticulous Global Subculture of Vintage Computer Restoration\n- [2026-07-22] [Meticulous, Functionize and SmartBear: the latest vendor and product news - QA Financial](https://qa-financial.com/meticulous-functionize-and-smartbear-the-latest-vendor-and-product-news/)\n- [2026-07-17] [Meticulous Raises $15 Million Series A To Accelerate AI-Powered Software Development](https://pulse2.com/meticulous-raises-15-million-series-a-to-accelerate-ai-powered-software-development/)\n- [2026-07-16] [Meticulous Raises $15M Series A](https://www.thesaasnews.com/news/meticulous-raises-15m-series-a/)\n- [2026-07-15] [Meticulous raises $15m to accelerate the pace of software development](https://www.meticulous.ai/blog/series-a)\n- [2026-07-06] [Biohacker Bryan Johnson Reveals Dreadful Diagnosis Despite Meticulous And Intense Health Regimen \\| Bored Panda](https://www.boredpanda.com/biohacker-bryan-johnson-reveals-he-has-incurable-stomach-disease/)\n- [2026-07-04] [My Press - United Kingdom - The Northern Echo - 'Meticulous' £2.75m Old Vicarage near Kilburn White Horse hits the market](https://mypresstoday.com/gb/en/post/2863/349337425/meticulous-275m-old-vicarage-near-kilburn-white-horse-hits-the-market.html)\n- [2026-06-30] [Step Into INHE’s Inverter Manufacturing Base: Decoding Its Core Strengths and Meticulous Craftsmanship – Express Press Release Distribution](https://express-press-release.net/news/2026/06/30/1761057)\n- [2026-06-25] [Inside Japan's 100-year plan: Meticulous mission for World Cup glory launched in 1992 is ahead of schedule, with new crop of stars impressing Pep Guardiola and lighting up tournament \\| Daily Mail Online](https://www.dailymail.com/sport/football/article-15927103/Japan-World-Cup-100-year-plan.html)\n- [2026-06-18] [\"Danfoss Was Right,\" Comedy Master Jang Jin Presents a Meticulous Psychological Drama \\[LIVE\\] - MK](https://www.mk.co.kr/en/hot-issues/12077653)\n- [2026-06-17] [Letter: Praise for 'Meticulous reporting' \\| The Daily Press](https://www.timminspress.com/opinion/praise-meticulous-reporting)\n- [2026-01-17] NewsBytes: Apple's AI‑powered Siri expected to debut by April\n- [2026-01-03] The Globe and Mail: 1 Artificial Intelligence \\(AI\\) Stock I'd Buy on Every Dip and Never Sell\n- [2025-10-31] The Spec: Movie Review: ‘Nouvelle Vague’ is a meticulous ode to the French New Wave\n- [2025-10-30] FinancialContent: The AI Paradox: Commercial Real Estate Grapples with High Adoption, Low Achievement\n- [2025-10-18]\n  - FinancialContent: Rockford Register Star: Local News, Politics & Sports in Rockford, IL\n  - FinancialContent: Vanderbilt Unveils Critical Breakthroughs in Combating AI-Driven Propaganda and Misinformation\n- [2025-09-20] Cobble Hill Blog: 7 Video Game Villains Scarier Than Anything In Resident Evil\n- [2025-04-03] Analytics Insight: XRP's ExoraPad Presale Surges, Raises Over 60,000 XRP - The Next XRP DeFi Superstar?\n\n## Social\n\n### Linkedin\n\n- [2026-07-23 · 354 reactions, 35 comments] Meticulous has raised $15 million in Series A funding to help software teams test AI-generated code and ship it faster. AI is making it much faster to write code, but reviewing and testing that cod...\n\n- [2026-07-16 · 136 reactions, 11 comments] You haven't really gotten to know a founder until you've tried to close a deal over the noise emanating from a 7-piece mariachi band. Back when we were first getting to know Gabriel Spencer-Harper...\n\n- [2026-07-15 · 110 reactions, 10 comments] Today, we're thrilled to announce our $15m Series A, led by our friends at Chemistry, with participation from Menlo Ventures. AI has broken software development. Agents are writing code faster than...\n\n- [2026-06-18 · 20 reactions] The Deputy Head of Eng at the Ministry of Justice just said \"Meticulous feels like the answer to a problem she's seen every engineering team face\". Teams are shipping more code than ever - and a gr...\n\n- [2026-05-27 · 80 reactions, 4 comments] 🎉 We're thrilled to be named to Redpoint's 2026 InfraRed 100 list, joining our customers ElevenLabs, LaunchDarkly, Wiz, Outtake, Weights & Biases who have also been featured across the years. Each...\n\n- [2026-05-15 · 52 reactions, 3 comments] Most startup strategy decks cite Paul Graham or McKinsey. Ours cites a 1997 medieval conquest game. If that caught your eye, we're hiring our first GTM Operator at Meticulous 👀 What's the TLDR? - W...\n\n- [2025-11-07 · 34 reactions, 3 comments] We’re thrilled to share we’ve been named to the 2025 #Disruptors60 list! ✨ Curated by Greenfield Partners and TechCrunch, this list spotlights the most groundbreaking startups turning AI into real-...\n\n- [2025-06-12 · 98 reactions, 2 comments] 🚀 Join us and redefine software development - as #7 in one of the fastest growing startups in Europe*. --- We’re investing heavily into hiring (both engineering and chief of staff/head of ops). If...\n\n- [2024-06-12 · 115 reactions, 8 comments] So, about dinner last night... 😁 Julianna Lamb and I co-hosted an engineering leaders dinner on behalf of her team at Stytch and our team at Orb alongside guests from Bardeen, MongoDB, Pinecone, Lo...\n\n- [2024-06-11 · 28 reactions, 2 comments] We'll be hosting an open bar at the Old Red Cow pub next to the Barbican tomorrow night (11th June, 5pm to 10pm). Come pop by if you’re curious about Meticulous.ai (exhaustive frontend coverage wit...\n\n## Locations\n- Headquarters: london, england, united kingdom (GB)\n- Offices: london, england ec1v 9dd, united kingdom (GB), san francisco, california, united states (US)",
+        "summary": "{\"description\":\"Meticulous is a Software Development company specializing in automated frontend testing with visual verification, trusted by over 100 organizations, and built for complex codebases.\",\"employee_estimate\":29,\"employee_estimate_source\":\"Employees: 29\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"London, United Kingdom\",\"hq_quote\":\"Headquartered in London, England, United Kingdom\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Meticulous is a Software Development company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 19,125,000\\n  - Series a (2026-07-01): USD 15.0M\\n  - Seed (2023-02-01): USD 4.0M\\n  - Venture (2022-01-01)\\n  - Seed (2021-09-01): USD 125,000\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQEhoowWmLUKBQ/company-logo_200_200/company-logo_200_200/0/1699623376156/alwaysmeticulous_logo?e=2147483647&v=beta&t=I5Ceul7-dAsscQ55OHooJJ5a0VdTQvPzXeUQHboWkxg",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/f920fnywqwx",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Meticulous",
+              "foundedYear": null,
+              "description": "Meticulous enables teams to leverage AI agents to ship fast without breaking things. \n\nAs agents write more of the codebase, the bottleneck has shifted from writing code to trusting it. Meticulous closes that gap - automatically testing every flow, edge case and permutation, without any developer effort. We watch how developers and agents actually use the product, turn those sessions into thousands of tests, and show developers the full impact of their code change in minutes. \n\nMeticulous tests more than 90k pull requests across 1.5 billion snapshots every month, and runs in production for leading AI-driven engineering teams, including Notion, ElevenLabs, Dropbox, Wiz, Mercor, LaunchDarkly and CoreWeave. We're proud to have been named to AI Disruptors 60 and Redpoint's 2026 InfraRed 100.",
+              "workforce": {
+                "total": 29
+              },
+              "headquarters": {
+                "address": "256-260 Old Street, Albert House, London, England EC1V 9DD, GB",
+                "city": "London",
+                "postalCode": null,
+                "country": "United Kingdom"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 19125000,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2026-07-01",
+                  "amount": 15000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 34703,
+                "countryRank": 421041,
+                "avgDurationSeconds": 19,
+                "history": [
+                  {
+                    "value": 51799,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 42427,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 55661,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 52867,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 63701,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 34703,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/gwvnhndxrwp",
+        "title": "Meticulous, LLC",
+        "url": "https://meticulous.com/",
+        "text": "# Meticulous, LLC\n\nMeticulous, LLC is a Design Services company. Meticulous LLC is a company that provides brand-to-product continuity services for B2B companies navigating corporate inflection points. They have been working since 1997. Meticulous, LLC employs 5 people (+66.7% YoY, +2 people), founded in 1997. Headquartered in Charlottesville, Virginia, United States, with an office in Alexandria.\n\n## About\n\nMeticulous is a multi-disciplinary design firm primarily focused on fixing bad experiences, be it in an application, a website, a print piece, a film/video, in audio, or in a space. We like to look at problems holistically for a brand and come up with comprehensive solutions that provide measured results.\n\n## Company Details\n- Industry: Design Services\n- Type: Privately held\n- Headquarters: Charlottesville, United States\n- Founded Year: 1997\n- Homepage: meticulous.com\n- Aliases: meticulous, meticulous design group, llc, meticulous, llc\n- LinkedIn: linkedin.com/company/meticulous-llc\n- Linkedin Followers: 140\n- Emails: info@meticlous.com\n- Phone: 202-285-3544, 202.285.3544\n\n## Workforce\n- Employees: 5\n- Company Size: 1-10 employees\n  - Yearly Growth: +66.7%\n- Key Executives:\n  - John Athayde: Owner\n- Breakdown:\n  - By Country: United States: 2 (40%)\n  - By Department: Design: 1 (20%), General Management: 1 (20%)\n  - By Seniority: Owner: 1 (20%), Specialist: 1 (20%)\n- Talent Sources: Order of the Arrow, Scouting America (1), Ocufii, Inc. (1), C-VILLE Weekly (1), AECOM (1)\n- Alumni Go To: The Hook (1), TCG (1), Justin Hankins Photography (1), Cavalier Computers (1)\n\n## Products & Technology\n- Tech Stack: angular, elastic, figma, gitlab, mvc, procore, ruby, wordpress, sandbox\n\n## Web presence\n\n- Crunchbase: crunchbase.com/organization/meticulous-llc\n- Web traffic:\n  - Monthly visits: 1,477\n  - Global rank: 13,011,273\n  - Bounce rate: 38.0%\n  - Pages per visit: 1.1\n  - Average visit duration: 0s\n\n## Categories\n\n997, architectural visualization, audio post & mixing, b2b companies, brand-to-product continuity, business services, corporate inflection points, film/video production, graphic design, print design, user experience, virginia, visual design, visual effects\n\n## Social\n\n### Linkedin\n\n- [2025-04-04 · 4 reactions] The work is meticulous and important.\n\n- [2025-03-14 · 5 reactions, 1 comment] We're putting the finishing touches on our first DeveloperUX course: \"Typography for Developers\" and we should be launching it by the end of the month! Over 3 hours of delicious content to help mak...\n\n- [2024-12-12 · 2 reactions] It's been a pleasure working with the Rails Foundation team on the guides earlier this year, and now the new Docs home and rolling out stories about how companies use Ruby on Rails to ship amazing...\n\n- [2023-12-24 · 3 reactions] Merry Christmas & Happy Holidays to all our friends and colleagues. We wish you a successful and radiant new year!\n\n- [2023-09-11 · 2 reactions] We'll see you there!\n\n- [2023-05-23 · 2 reactions] We've really enjoyed designing the experience for Derive on this product. Making an impact at scale on fleet efficiency is a huge win for both the bottom line and the environment.\n\n- [2022-12-20 · 3 reactions] Get a jump start on your usability and product design issues after the holiday. Get Meticulous' Usability Prix Fixe offering and level up your product without breaking the bank. #productdesign #ux...\n\n- [2022-12-20 · 3 reactions] Check out John's interview with Melissa Perri about Internal Tools and design systems from his time at LivingSocial #design #interview #internaltools #designsystems\n\n- [2022-11-05] Designing by day. Canning by night.\n\n- [2022-09-13 · 1 reaction] See John speak in Richmond this fall on an often overlooked aspect of UX: APIs. They need love too.\n\n## Locations\n- Headquarters: charlottesville, virginia, united states (US)\n- Offices: charlottesville, virginia, united states (US), alexandria, united states (US)",
+        "summary": "{\"description\":\"Meticulous, LLC is a Design Services company focusing on brand-to-product continuity for B2B companies, with multi-disciplinary design work across digital and physical media. Based in Charlottesville, Virginia, with an office in Alexandria.\",\"employee_estimate\":5,\"employee_estimate_source\":\"Employees: 5 / Company Size: 1-10 employees\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Charlottesville, Virginia, United States\",\"hq_quote\":\"Headquartered in Charlottesville, Virginia, United States, with an office in Alexandria.\",\"industry\":\"Design Services\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"- Industry: Design Services\\n- Type: Privately held\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":false,\"recently_funded_seed_or_series_a_quote\":\"- There is no mention of seed or Series A funding on the page; funding status not stated as raised recently.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4E0BAQHHzE3iwZuE6w/company-logo_200_200/company-logo_200_200/0/1631306255034?e=2147483647&v=beta&t=IiB8f4ul5u-4fmvxTIRmwcphu2aAfr3hazeClPqOPS0",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/gwvnhndxrwp",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Meticulous, LLC",
+              "foundedYear": 1997,
+              "description": "Meticulous is a multi-disciplinary design firm primarily focused on fixing bad experiences, be it in an application, a website, a print piece, a film/video, in audio, or in a space. We like to look at problems holistically for a brand and come up with comprehensive solutions that provide measured results.",
+              "workforce": {
+                "total": 5
+              },
+              "headquarters": {
+                "address": "3775 Stony Point Rd, Charlottesville, VA, US",
+                "city": "Charlottesville",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 1477,
+                "countryRank": 4778859,
+                "avgDurationSeconds": 0,
+                "history": []
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 17215.2,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

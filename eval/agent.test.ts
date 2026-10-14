@@ -107,13 +107,13 @@ const signalResult = {
     url: "https://news.example/good",
     title: "GoodCo expands",
     publishedDate: "2026-10-01T00:00:00.000Z",
-    text: "GoodCo expands.",
+    text: "GoodCo expands its network.",
     summary: JSON.stringify({
       company_name: "GoodCo",
       signal_type: "expansion",
       signal_summary: "GoodCo opened a warehouse.",
       signal_date: "2026-10-01",
-      signal_quote: "GoodCo expands.",
+      signal_quote: "GoodCo expands its network.",
       signal_date_quote: "",
     }),
   }],
@@ -169,7 +169,7 @@ describe("agent loop", () => {
     expect(s.leads).toHaveLength(1);
     expect(s.leads[0]?.company).toBe("GoodCo");
     // The submit path stores the page evidence the gate checked, for the lead judge.
-    expect(s.leads[0]?.evidence).toEqual({ signal_title: "GoodCo expands", signal_published_date: "2026-10-01T00:00:00.000Z", signal_excerpt: "GoodCo expands." });
+    expect(s.leads[0]?.evidence).toEqual({ signal_title: "GoodCo expands", signal_published_date: "2026-10-01T00:00:00.000Z", signal_excerpt: "GoodCo expands its network." });
   });
 
   it("parallel tool_use blocks produce one user message with matching tool_result ids", async () => {
@@ -283,8 +283,8 @@ describe("agent loop", () => {
     s.caches.signalsByUrl["https://news.example/candidate"] = {
       url: "https://news.example/candidate",
       title: "CandidateCo expands",
-      text: "CandidateCo expands.",
-      summary: { company_name: "CandidateCo", signal_type: "expansion", signal_summary: "CandidateCo expands.", signal_date: "2026-10-01", signal_quote: "CandidateCo expands.", signal_date_quote: "" },
+      text: "CandidateCo expands its network.",
+      summary: { company_name: "CandidateCo", signal_type: "expansion", signal_summary: "CandidateCo expands its network.", signal_date: "2026-10-01", signal_quote: "CandidateCo expands its network.", signal_date_quote: "" },
     };
     s.caches.enrichmentByName.candidateco = { summary: { description: "CandidateCo" } };
     await step(s, { client: client(msg("tool_use", [tool("sub", "submit_lead", { company: "CandidateCo", signal_url: "https://news.example/candidate", why_now: "x" })])) as never, checkLead: candidateChecker, now: NOW });
@@ -991,7 +991,7 @@ describe("agent loop", () => {
       const s = state({ strategyApproved: true });
       await step(s, { client: client(msg("tool_use", [tool("s", "search_signals", { query: "warehouse", num_results: 10 })])) as never, checkLead: checker, now: NOW, exaSearch: vi.fn(async (body: Record<string, unknown>) => { bodySeen.push(body); return signalResult; }) as never });
       expect(bodySeen[0]?.contents).toMatchObject({ text: { maxCharacters: 1200 } });
-      expect(s.caches.signalsByUrl["https://news.example/good"]?.text).toBe("GoodCo expands.");
+      expect(s.caches.signalsByUrl["https://news.example/good"]?.text).toBe("GoodCo expands its network.");
       expect(estimateExaCost({ query: "x", numResults: 10, contents: { summary: {}, text: { maxCharacters: 1200 } } })).toBeGreaterThan(estimateExaCost({ query: "x", numResults: 10, contents: { summary: {} } }));
     });
 

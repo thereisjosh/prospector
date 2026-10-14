@@ -147,7 +147,7 @@ describe("runReplay (mocked Exa recording)", () => {
       const b = JSON.parse(init.body) as { category?: string };
       const results =
         b.category === "company"
-          ? [{ url: "https://shipco.com", title: "ShipCo", text: "3PL. 300 employees. Ohio, US.", summary: JSON.stringify({ description: "3PL", employee_estimate: 300, employee_estimate_source: "300 employees", is_third_party_logistics: true, is_third_party_logistics_quote: "3PL", is_public_or_enterprise: false, hq: "Ohio, US", hq_quote: "Ohio, US" }) }]
+          ? [{ url: "https://shipco.com", title: "ShipCo", text: "third party logistics provider. 300 employees. Ohio, US.", summary: JSON.stringify({ description: "third party logistics provider", employee_estimate: 300, employee_estimate_source: "300 employees", is_third_party_logistics: true, is_third_party_logistics_quote: "third party logistics provider", is_public_or_enterprise: false, hq: "Ohio, US", hq_quote: "Ohio, US" }) }]
           : [
               {
                 url: signalUrl,

@@ -58,7 +58,7 @@ const checker: LeadChecker = (_p, input) => ({
 
 const signalResult = {
   results: [{
-    url: "https://news.example/good", title: "GoodCo expands", publishedDate: "2026-10-01T00:00:00.000Z", text: "GoodCo expands.",
+    url: "https://news.example/good", title: "GoodCo expands", publishedDate: "2026-10-01T00:00:00.000Z", text: "GoodCo expands its network.",
     summary: JSON.stringify({ company_name: "GoodCo", signal_type: "expansion", signal_summary: "GoodCo opened a warehouse.", signal_date: "2026-10-01" }),
   }],
   costDollars: { total: 0.01 },

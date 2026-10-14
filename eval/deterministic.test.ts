@@ -30,7 +30,7 @@ function candidate(a: CandidateArgs): Candidate {
       signal_type: a.signalType,
       signal_summary: a.summary,
       signal_date: a.signalDate,
-      signal_quote: a.title,
+      signal_quote: a.text,
       signal_date_quote: "",
     },
     ...(enrichment ? { company: { summary: enrichment } } : {}),
@@ -125,10 +125,10 @@ describe("deterministic evals", () => {
           url: "https://jobs.example.com/a",
           title: "Operations Manager at ShipMonk",
           publishedDate: "2026-08-13T00:00:00.000Z",
-          text: "ShipMonk 3PL fulfillment network is hiring operations manager roles.",
+          text: "ShipMonk third party logistics provider fulfillment network is hiring operations manager roles.",
           company: "ShipMonk",
           signalType: "ops_hiring_wave",
-          summary: "ShipMonk is hiring operations managers for its 3PL fulfillment network.",
+          summary: "ShipMonk is hiring operations managers for its third party logistics provider fulfillment network.",
           signalDate: "2026-08-13",
           enrichment: fulfillmentCompany("Fort Lauderdale, FL", 650),
         }),
@@ -136,7 +136,7 @@ describe("deterministic evals", () => {
           url: "https://jobs.example.com/b",
           title: "Older Operations Manager at ShipMonk",
           publishedDate: "2026-07-01T00:00:00.000Z",
-          text: "ShipMonk 3PL operations role.",
+          text: "ShipMonk third party logistics provider operations role.",
           company: "ShipMonk",
           signalType: "ops_hire",
           summary: "ShipMonk posted an operations role.",
@@ -153,7 +153,7 @@ describe("deterministic evals", () => {
     expect(rows[0]?.fit_reason).toContain("is_third_party_logistics");
   });
 
-  it("hard-gates enterprise and non-3PL company enrichments", () => {
+  it("hard-gates enterprise and non-third party logistics provider company enrichments", () => {
     const rows = scoreAndRank(
       icp1,
       [
@@ -195,10 +195,10 @@ describe("deterministic evals", () => {
           url: "https://jobs.example.com/shipmonk",
           title: "Operations Manager at ShipMonk",
           publishedDate: "2026-08-15T00:00:00.000Z",
-          text: "ShipMonk 3PL fulfillment network is hiring operations manager roles.",
+          text: "ShipMonk third party logistics provider fulfillment network is hiring operations manager roles.",
           company: "ShipMonk",
           signalType: "ops_hiring_wave",
-          summary: "ShipMonk is hiring operations managers for its 3PL fulfillment network.",
+          summary: "ShipMonk is hiring operations managers for its third party logistics provider fulfillment network.",
           signalDate: "2026-08-15",
           enrichment: fulfillmentCompany("Fort Lauderdale, FL", 650),
         }),
@@ -218,7 +218,7 @@ describe("deterministic evals", () => {
           url: "https://jobs.example.com/emiza",
           title: "Operations Manager at Emiza",
           publishedDate: "2026-08-15T00:00:00.000Z",
-          text: "Emiza 3PL fulfillment network is hiring operations manager roles.",
+          text: "Emiza third party logistics provider fulfillment network is hiring operations manager roles.",
           company: "Emiza",
           signalType: "ops_hire",
           summary: "Emiza is hiring operations managers.",
@@ -250,7 +250,7 @@ describe("deterministic evals", () => {
     expect(rows).toHaveLength(0);
   });
 
-  it("keeps unknown-size mid-market-looking 3PLs unless they are enterprise denied", () => {
+  it("keeps unknown-size mid-market-looking third party logistics providers unless they are enterprise denied", () => {
     const rows = scoreAndRank(
       icp1,
       [
@@ -258,11 +258,11 @@ describe("deterministic evals", () => {
           url: "https://jobs.example.com/regional-fulfill",
           title: "Operations Manager at Regional Fulfill",
           publishedDate: "2026-08-17T00:00:00.000Z",
-          text: "Regional Fulfill is a 3PL fulfillment company hiring warehouse operations managers.",
+          text: "Regional Fulfill is a third party logistics provider fulfillment company hiring warehouse operations managers.",
           company: "Regional Fulfill",
           signalType: "ops_hiring_wave",
           summary:
-            "Regional Fulfill is hiring warehouse operations managers for its 3PL fulfillment network.",
+            "Regional Fulfill is hiring warehouse operations managers for its third party logistics provider fulfillment network.",
           signalDate: "2026-08-17",
           enrichment: {
             ...fulfillmentCompany("Columbus, OH, United States", "unknown"),

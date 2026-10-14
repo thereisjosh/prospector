@@ -326,6 +326,10 @@ export function buildCompanySchema(plan: Pick<SearchPlan, "gateFields">) {
   };
 }
 
+const QUOTE_RULE =
+  ' Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, ' +
+  'never joined from different lines or sections; use "" when the page does not state it.';
+
 /** The signal summary query actually sent to Exa: plan text + format rules. */
 export function composeSignalSummaryQuery(
   plan: Pick<SearchPlan, "signalTypes">,
@@ -337,7 +341,8 @@ export function composeSignalSummaryQuery(
     `in ISO format YYYY-MM-DD. ` +
     `Set signal_type to exactly one of: ${signalTypeEnum(plan).join(", ")}. ` +
     `For signal_quote, copy the exact sentence from the page that states the event; use "" if no sentence states an event. ` +
-    `For signal_date_quote, copy the exact date phrase from the page; use "" if no date phrase is stated.`
+    `For signal_date_quote, copy the exact date phrase from the page; use "" if no date phrase is stated.` +
+    QUOTE_RULE
   );
 }
 
@@ -348,7 +353,8 @@ export function composeCompanySummaryQuery(
   const source =
     " For employee_estimate_source, quote the exact phrase from the page that the employee estimate came from " +
     '(e.g. "350 employees"), or an empty string if no page states a headcount.' +
-    " For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated.";
+    " For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated." +
+    QUOTE_RULE;
   if (plan.gateFields.length === 0) return `${plan.companySummaryQuery}${source}`;
   const gates = plan.gateFields
     .map((g) => `${g.key} (true/false/null): ${g.question} ${g.key}_quote: copy the exact phrase or sentence from the page that supports the answer; use "" when the page does not state it.`)

@@ -1,0 +1,262 @@
+{
+  "request": {
+    "query": "Othello",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the exact phrase from the page that the employee estimate came from (e.g. \"350 employees\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "313feeebbdeb0143ef7714c71aa90290",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/q6jt0gtfbrw",
+        "title": "Othello",
+        "url": "https://othello.ai/",
+        "text": "# Othello\n\nOthello is a Software Development company. Othello is a company that provides real-time mission control for sales calls. They offer features such as blind spots cover, execution, and automate busy work. Othello employs 24 people (+200.0% YoY, +16 people), founded in 2025. Headquartered in New York, New York, United States. Its workforce is distributed across United States, Israel, Bolivia, and Nigeria.\n\n## About\n\nAugmenting sales calls in real-time, to maximize every seller's potential.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: New York, United States\n- Founded Year: 2025\n- Homepage: othello.ai\n- Aliases: Cicero Inc, othello\n- LinkedIn: linkedin.com/company/othelloai\n- Linkedin Followers: 2,180\n- Emails: jared@heycicero.com\n- Phone: +1 917-328-4999\n\n## Financials\n- Total Funding: USD 6,850,000\n  - Seed (2026-08-01): USD 6.8M\n\n## Workforce\n- Employees: 24\n- Company Size: 11-50 employees\n  - Monthly Growth: +9.1%\n  - Yearly Growth: +200.0%\n- Key Executives:\n  - Alon Niv: Head of Frontend\n  - Brandon Ray: Chief Revenue Officer\n  - Raphael Assor: Co-Founder\n- Breakdown:\n  - By Country: United States: 10 (42%), Israel: 2 (8%), Bolivia: 1 (4%), Nigeria: 1 (4%)\n  - By Department: Other Department: 6 (25%), Technical: 5 (21%), Consulting: 3 (12%), Research: 1 (4%), Sales: 1 (4%)\n  - By Seniority: Other Management: 6 (25%), Specialist: 4 (17%), Senior: 3 (12%), Clevel: 1 (4%), Founder: 1 (4%), Head: 1 (4%)\n- Talent Sources: US Congress (1), Topstep (1), Solara AI (1), Saro Chiropractic Health Ctr (1), Riverside (1), Palo Alto Networks (1), Macabacus (1), Israeli Military Intelligence - Unit 8200 (1), Institute of International Economic Law (1), Goldman Sachs (1)\n- Alumni Go To: Tabs (1), T Engineering (1), Sullivan & Cromwell LLP (1), Stealth Startup (1), MetLife Investment Management (1), Lowell Five Bank (1), Independent (1), Fidelity Investments (1), Corgi (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: dell, dell technologies, macos, react\n\n## Web presence\n\n- Crunchbase: crunchbase.com/organization/cicero-adcd\n- Web traffic:\n  - Monthly visits: 10,406\n  - Global rank: 2,081,221\n  - Bounce rate: 31.0%\n  - Pages per visit: 2.8\n  - Average visit duration: 195s\n\n## Categories\n\nartificial intelligence (ai), blind spots, busy work, corporate training, execution, machine learning, real-time mission control, saas, sales, sales automation\n\n## Recent News\n- [2026-10-04] Real Estate: 40 Othello Avenue, Rosemeadow, NSW 2560\n- [2026-09-25] Professional Planner: Escala founder’s opening move in AI-driven advice for UHNWs\n- [2026-09-20] Multifamily Dive: Advice from apartment pros you might have missed\n- [2026-08-30] Real Estate: 7 Othello Place, St Clair, NSW 2759\n- [2026-08-28]\n  - People.com: Kimi Cunningham Grant’s Delicate Creatures Is an Appalachian Othello Retelling — See the Cover\\! \\(Exclusive\\)\n  - KOMO: Link 1 Line delayed after MLK Jr Way S crash disrupts traffic\n  - Columbia Basin Herald: Othello Huskies new coach begins his journey -- following a legendary coach\n  - Source ONE News: Othello Schools Drop 40% Grade Floor, Bring Back Zeros\n- [2026-08-27] NewsRadio 560 KPQ: Othello Hit-&-Run Suspect Identified, Turns Himself In To Police\n- [2026-08-26] Northampton Chronicle and Echo: Shakespeare’s Othello reimagined in 1980s Britain for Northampton stage\n- [2026-08-25] CBC: Search for B.C.'s best roadside attraction: Semifinal 1, Othello Tunnels vs. Cathedral Grove\n- [2026-08-24] Source ONE News: Moses Lake Woman Killed, Othello Man Injured in Head-On Crash Near Warden\n- [2026-08-22]\n  - AppleValleyNewsNow.com: Othello splash pad nearing completion with additional park improvements planned\n  - BroadwayWorld: SOMM Recordings to Release TELEMANN \"PARIS\" QUARTETS, VOL. 2 and OTHELLO Album\n- [2026-08-15]\n  - GO Magazine: Black Lesbian ‘Othello’ on Hold as Star Actress Undergoes Cancer Treatment\n  - Britannica: Character analysis of William Shakespeare's Othello\n  - Metro.co.uk: Doctor Who's Sharon D Clarke thanks fans for 'tidal wave of love' after cancer diagnosis\n  - Source ONE News: Moses Lake Man Arrested After Othello-Area Robbery, Assault\n  - IMDb: Othello \\(1995\\)\n- [2026-08-08] Real Estate: 3 Othello Lane, Officer, Vic 3809\n- [2026-07-01] [OTHELLO With Sharon D Clarke and More Join The RSC's 2026-27 Season](https://www.broadwayworld.com/westend/article/OTHELLO-With-Sharon-D-Clarke-and-More-Join-The-RSCs-2026-27-Season-20260701)\n\n## Social\n\n### Linkedin\n\n- [2026-09-02 · 2 reactions, 1 comment] Steven Jow you are one of our favorite people on the planet, now and for forever.\n\n- [2026-08-26] One of the CROs we admire most wrote sat down with Revenue Brew and shared some awesome insights about what needs to change in revenue orgs. Check it out!\n\n- [2026-08-26] Anyone in our network know someone looking for a role like this? Great company, great team, great leader.\n\n- [2026-08-25] Congratulations to our friend Mollie Sonnenberg (Gardner) over at Synthesia on the promotion!\n\n- [2026-08-06 · 10 reactions] Excited to officially welcome Dion Travagliante to Othello as an Advisor! Dion brings a strong track record as a consultative salesperson and leader, with experience driving significant revenue in...\n\n- [2026-07-28 · 11 reactions, 1 comment] We're thrilled to welcome Dan Lawrence to our team as an Advisor! Dan is a revenue executive with 20+ years of experience building and scaling global go-to-market organizations across SaaS, cloud,...\n\n- [2026-07-23 · 1 reaction, 1 comment] September is Childhood Cancer Awareness Month. Huge shoutout to Amy Walker and what she's doing with the MaxLove Project. If you can donate, whatever amount big or small, Amy will match you up to $...\n\n- [2026-07-22 · 2 reactions] Saddened for all of our friends over at Monday. If you know anyone impacted, please send them our way and let's help make sure they land on their feet.\n\n- [2026-07-20 · 12 reactions, 1 comment] 🎉 We just hit 2,000 followers on LinkedIn, and we are genuinely buzzing about it. When we started this page, we weren't sure anyone outside our own team would care about what we were building. Turn...\n\n- [2026-07-16 · 11 reactions, 3 comments] 🌟 Spotlight: Top Chief of Staff (Office of the CIO): Priya Udeshi, CMBA™, PMP We had the chance to sit down with Priya, Chief of Staff to the CIO at MongoDB, as part of our Top 26 Chiefs of Staff s...\n\n- [2026-07-15 · 6 reactions] Who's got something good? Our CEO Jared is in buying mode!\n\n- [2026-07-13 · 2 reactions, 1 comment] Love having you steering the GTM org over here Brandon Ray!\n\n- [2026-07-07 · 26 reactions, 11 comments] Congratulations to Justin Le Sar and the rest of the BDR team at Morae!\n\n- [2026-07-06 · 3 reactions] Look at our GTM leadership team go. Sounds like they've really got their priorities straight.\n\n- [2026-07-02] Woo! Go Jared Zelman and Brandon Ray. Love seeing feedback like this. Keep it up!\n\n- [2026-06-30 · 3 reactions, 1 comment] Thanks for the shoutout Olivia Wainhouse and the entire Sybill team! Brandon Ray talks about you in the office all the time so it's nice to finally be formally acquainted.\n\n- [2026-06-25 · 3 reactions] Brandon's right - we're hiring for tons of roles across GTM and engineering and we don't care if you went to an Ivy League school or not. If you know anyone looking to join our team in NYC or SF, h...\n\n- [2026-06-23 · 138 reactions, 56 comments] We spent Q1 and Q2 asking everyone - who are the best CROs on the planet? Here are some more folks who kept coming up: Amilcar Perez Micki Howl Sean Munafo Paul Ohls David Ranucci Philip Lacor Ryan...\n\n- [2026-06-22 · 37 reactions, 1 comment] Excited to share that Othello has updated our engineering leader hiring criteria. Technical skills: nice to have. Looking like Sam Altman: non-negotiable. The logic is simple... investors see Sam's...\n\n- [2026-06-22 · 6 reactions, 1 comment] Everyone wants more efficiency. But what sales leaders really want is better outcomes. In this episode, Jared Zelman shares why effectiveness matters more than efficiency when it comes to driving r...\n\n## Locations\n- Headquarters: new york, new york, united states (US)\n- Offices: new york, new york, united states (US)",
+        "summary": "{\"description\":\"Othello is a Software Development company providing real-time mission control for sales calls, with features like blind spots cover, execution, and automating busy work.\",\"employee_estimate\":24,\"employee_estimate_source\":\"Employees: 24\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Brandon's right - we're hiring for tons of roles across GTM and engineering and we don't care if you went to an Ivy League school or not.\",\"hq\":\"New York, United States\",\"hq_quote\":\"Headquartered in New York, New York, United States.\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Othello is a Software Development company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 6,850,000 - Seed (2026-08-01): USD 6.8M\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4D0BAQEZOIczMfwXmg/company-logo_200_200/B4DZwR8DGmJcAI-/0/1769827480285/othelloai_logo?e=2147483647&v=beta&t=TTYKJpUu6z-fqrnpojT_cTWb7RSnCm54QrmM41OZXWo",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/q6jt0gtfbrw",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Othello",
+              "foundedYear": 2025,
+              "description": "Augmenting sales calls in real-time, to maximize every seller's potential.",
+              "workforce": {
+                "total": 24
+              },
+              "headquarters": {
+                "address": "New York, NY, US",
+                "city": "New York",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 6850000,
+                "fundingLatestRound": {
+                  "name": "Seed",
+                  "date": "2026-08-01",
+                  "amount": 6850000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 10406,
+                "countryRank": 1087231,
+                "avgDurationSeconds": 195,
+                "history": [
+                  {
+                    "value": 2848,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 3376,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 3215,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 4771,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 4241,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 10406,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/b69k20qlh74",
+        "title": "World Othello Federation",
+        "url": "https://worldothello.org/",
+        "text": "# World Othello Federation\n\nWorld Othello Federation is a nonprofit organization. The World Othello Federation (W.O.F.) is a federation of countries that seek to promote the game of Othello. World Othello Federation employs 3 people, founded in 2005. Headquartered in Stockholm, Sweden, with an office in Ekerö. Its workforce is distributed across Sweden and Belgium.\n\n## About\n\nThe World Othello Federation (W.O.F.) is a federation of countries that seek to promote the game of Othello.\r\n\r\nThe first Othello tournament was the Japan Othello Championship 1973. Four years later, in 1977, the first World Othello Championship (W.O.C.) was held. There were only five nations at the first W.O.C. Since then the World of Othello has grown. In 2005 the World Othello Federation was started in Reykjavik, Iceland. Twenty-two nations founded the World Othello Federation (W.O.F.). By now the World Othello Federation has over 60 member nations!\r\n\r\nThe World Othello Federation arranges the World Othello Championship every year, and the W.O.F. rating list, helps nations to arrange tourneys if needed, contacts sponsors and a lot more: all this is the responsibility of the W.O.F.\r\n\r\nThe main gathering of the World Othello Federation is the W.O.F. annual meeting, which is held every year at the same time as the World Othello Championship.\n\n## Company Details\n- Industry: Spectator Sports\n- Type: Nonprofit\n- Headquarters: Stockholm, Sweden\n- Founded Year: 2005\n- Homepage: worldothello.org\n- Aliases: world othello federation\n- LinkedIn: linkedin.com/company/world-othello-federation\n- Linkedin Followers: 22\n- Emails: info@worldothello.org\n- Phone: +46 720 16 52 22\n\n## Workforce\n- Employees: 3\n- Company Size: 1-10 employees\n- Breakdown:\n  - By Country: Sweden: 2 (67%), Belgium: 1 (33%)\n  - By Department: Administrative: 1 (33%), Finance: 1 (33%), Other Department: 1 (33%)\n  - By Seniority: Specialist: 2 (67%), Other Management: 1 (33%)\n- Talent Sources: Region Stockholm (1)\n- Alumni Go To: TomTom (1), Karolinska Institutet (1)\n\n## Products & Technology\n- Features: Mobile App\n\n## Web presence\n\n- Twitter: twitter.com/othellonews\n- Facebook: facebook.com/worldothello\n- Instagram: instagram.com/worldothello\n- YouTube: youtube.com/channel/uc8oqvltbyrvcl6iepk635yw\n- Web traffic:\n  - Monthly visits: 21,899\n  - Global rank: 1,278,882\n  - Bounce rate: 45.0%\n  - Pages per visit: 1.8\n  - Average visit duration: 50s\n\n## Categories\n\ncountries, federation, game, games/board_and_card_games, promote, sports, world othello federation\n\n## Locations\n- Headquarters: stockholm, sweden (SE)\n- Offices: sweden (SE), ekerö, sweden (SE), stockholm, sweden (SE)",
+        "summary": "{\"description\":\"World Othello Federation is a nonprofit federation of countries promoting the game of Othello. Founded in 2005, headquartered in Stockholm, Sweden, with an office in Ekerö; workforce distributed across Sweden and Belgium.\",\"employee_estimate\":3,\"employee_estimate_source\":\"Employees: 3\",\"hiring_first_ops_or_revops\":false,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Stockholm, Sweden\",\"hq_quote\":\"Headquartered in Stockholm, Sweden, with an office in Ekerö.\",\"industry\":\"Spectator Sports\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"The World Othello Federation is a federation of countries that seek to promote the game of Othello.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":false,\"recently_funded_seed_or_series_a_quote\":\"There is no mention of seed or Series A funding in the page.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C560BAQGmxjG8LWTcgQ/company-logo_200_200/company-logo_200_200/0/1631368028052?e=2147483647&v=beta&t=BPIUnDh8YElSc-y9k4MTlvYjkjeb1caTvrB5_j47oUM",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/b69k20qlh74",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "World Othello Federation",
+              "foundedYear": 2005,
+              "description": "The World Othello Federation (W.O.F.) is a federation of countries that seek to promote the game of Othello.\r\n\r\nThe first Othello tournament was the Japan Othello Championship 1973. Four years later, in 1977, the first World Othello Championship (W.O.C.) was held. There were only five nations at the first W.O.C. Since then the World of Othello has grown. In 2005 the World Othello Federation was started in Reykjavik, Iceland. Twenty-two nations founded the World Othello Federation (W.O.F.). By now the World Othello Federation has over 60 member nations!\r\n\r\nThe World Othello Federation arranges the World Othello Championship every year, and the W.O.F. rating list, helps nations to arrange tourneys if needed, contacts sponsors and a lot more: all this is the responsibility of the W.O.F.\r\n\r\nThe main gathering of the World Othello Federation is the W.O.F. annual meeting, which is held every year at the same time as the World Othello Championship.",
+              "workforce": {
+                "total": 3
+              },
+              "headquarters": {
+                "address": "Västerlånggatan 56, Inre gården 1001, Stockholm, 11129, SE",
+                "city": "Stockholm",
+                "postalCode": null,
+                "country": "Sweden"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 21899,
+                "countryRank": 979852,
+                "avgDurationSeconds": 50,
+                "history": [
+                  {
+                    "value": 17591,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 31009,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 47097,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 30752,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 30772,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 21899,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 9306.5,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

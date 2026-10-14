@@ -1,0 +1,257 @@
+{
+  "request": {
+    "query": "Graph AI",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the exact phrase from the page that the employee estimate came from (e.g. \"350 employees\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "0d0746bc40a65b4b8c605383fe436865",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/gs3r6fywjdk",
+        "title": "Graph AI",
+        "url": "https://graphsafety.ai/",
+        "text": "# Graph AI\n\nGraph AI is a Technology, Information and Internet company. Graph Safety is an AI-native operating system for patient safety, unifying source, intake, case processing, aggregate reporting, signal detection, risk management, and regulatory compliance. Graph AI employs 22 people (+120.0% YoY, +12 people), founded in 2024. Headquartered in Pleasanton, California, United States, with an office in Hyderabad. Its workforce is distributed across India, United States, Canada, and Colombia.\n\n## About\n\nGraph AI is the pioneer of the industry's first AI-native Patient Safety Operating System (OS), engineered to unify the fragmented pharmacovigilance (PV) landscape into a single, cohesive infrastructure for both biopharma enterprises and Contract Research Organizations (CROs). Founded by enterprise technology veterans, the company replaces legacy, labor-intensive workflows with a deterministic, inspection-ready AI architecture that explicitly aligns with the FDA’s AI Credibility Assessment Framework, the EU AI Act's high-risk data governance controls, and the CIOMS Working Group XIV recommendations. Rather than acting as a traditional \"black-box\" point-solution, this Patient Safety OS delivers mathematical reproducibility and absolute data transparency across a comprehensive lifecycle portfolio: Graph Safety /intake for multi-channel ingestion; Graph Safety /nucleus for touchless case processing and multi-algorithm causality validation; Graph Safety /report for adaptive generative medical writing; Graph Safety /signal for predictive safety surveillance; and Graph Safety /assure & /comply for strict QPPV governance.\n\nFrom global biopharma companies and emerging biotechs to consumer healthcare, medical device manufacturers, and CROs, Graph AI combines deep industry expertise with agentic AI to help organizations streamline operations, uncover meaningful insights, strengthen compliance, and deliver measurable business outcomes.\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Headquarters: Pleasanton, United States\n- Founded Year: 2024\n- Homepage: graphsafety.ai\n- Aliases: Graph AI Services Inc., graph ai\n- LinkedIn: linkedin.com/company/graphsafety\n- Linkedin Followers: 1,702\n- Emails: info@graphsafety.ai\n- Phone: +1 925-399-6\n\n## Financials\n- Total Funding: USD 16,300,000\n  - Series a (2026-09-01): USD 13.3M\n  - Seed (2025-11-15): USD 3.0M\n\n## Workforce\n- Employees: 22\n- Company Size: 11-50 employees\n  - Monthly Growth: +22.2%\n  - Yearly Growth: +120.0%\n- Key Executives:\n  - Anupreet Pandher: Director - Customer Success\n  - Ashish Batheja: Head of Customer Experience\n  - Ashish Pedaprolu: VP Customer Success\n  - Ashutosh Bordekar: Co-founder & CFO\n  - Mohan Konyala: Chief Product Officer & Co-Founder\n  - Rajan Raghavan: Associate Director\n  - Suresh Balusu: Enterprise Growth Partner\n  - Vijay Ponukumati: CTO & Co-Founder\n- Breakdown:\n  - By Country: India: 13 (59%), United States: 6 (27%), Canada: 1 (5%), Colombia: 1 (5%)\n  - By Department: Technical: 6 (27%), Customer Service: 4 (18%), Other Department: 3 (14%), Consulting: 2 (9%), General Management: 2 (9%), Finance: 1 (5%), Hr: 1 (5%), Marketing: 1 (5%), Project Management: 1 (5%)\n  - By Seniority: Other Management: 4 (18%), Clevel: 3 (14%), Manager: 3 (14%), Senior: 3 (14%), Specialist: 3 (14%), Director: 2 (9%), Head: 1 (5%), Partner: 1 (5%), Vp: 1 (5%)\n- Talent Sources: apiphani (1), Tech For Good Inc (1), Syoft (1), Simeio (1), Sierra-Cedar (1), Salesforce (1), Pluro Fertility and IVF (1), Mastek (1), Deloitte (1), DBMS Consulting, Inc. (1)\n- Alumni Go To: amana (1), Insight Partners (1), Aivar Innovations (1)\n\n## Products & Technology\n- Tech Stack: odoo, zoho\n\n## Web presence\n\n- YouTube: youtube.com/@graphsafety\n- Crunchbase: crunchbase.com/organization/graph-ai\n- Web traffic:\n  - Monthly visits: 4,275\n  - Global rank: 4,146,455\n  - Bounce rate: 50.0%\n  - Pages per visit: 1.5\n  - Average visit duration: 105s\n\n## Categories\n\naggregate & periodic reporting (psur, ai native pv os, ai-native operating system, ai-native platform, artificial intelligence (ai), biopharma, case processing, cioms working group xiv recommendations, compliance, consumer care, cosmetovigilance, data governance, drug safety, drug safety monitoring, e2b r3, enterprise ai solutions, eu ai act's high-risk data governance controls, fda’s ai credibility assessment framework, gen ai agentic platform, healthcare, healthcare ai solutions, intelligent case processing, knowledge-driven decision support, llmops, machine learning & nlp, meddra, medical device safety, meteriovigilance, patient safety, pbrer), pharmaceutical, pharmaceuticals, pharmacovigilance, regulatory compliance, regulatory intelligence, rems), risk management, risk management planning (rmp, safety data management, safety signal detection, signal detection, software, source processing, unified safety workflows, who drug\n\n## Recent News\n- [2026-09-17] [Graph AI Highlights New Pharmacovigilance Reporting Module and Conference Engagement - TipRanks.com](https://www.tipranks.com/news/private-companies/graph-ai-highlights-new-pharmacovigilance-reporting-module-and-conference-engagement)\n- [2026-09-14]\n  - [Graph AI Raises $13.3 Mn for AI Drug Safety Platform](https://www.digitalhealthnews.com/graph-ai-raises-13-3-mn-to-scale-ai-drug-safety-platform-across-the-us-europe)\n  - [Graph AI Secures $13.3 Mn Series A To Scale AI Drug Safety Platform - BW Disrupt](https://www.bwdisrupt.com/article/graph-ai-secures-13-3-mn-series-a-to-scale-ai-drug-safety-platform-623535)\n- [2026-09-13]\n  - Business Standard: Graph AI raises $13.3 million in Series A round to fuel global expansion\n  - Dealroom: Graph AI raises $13.3M Series A to automate drug safety work\n- [2026-09-12]\n  - [Weekly funding roundup: The startup deals you may have missed in week of September 13](https://www.moneycontrol.com/news/business/funding/weekly-funding-roundup-the-startup-deals-you-may-have-missed-in-week-of-september-13-14028355.html)\n  - [Healthcare Startup Funding Archives - Entrepreneur India](https://india.entrepreneur.com/topic/healthcare-startup-funding)\n- [2026-09-11]\n  - Indian Startup News: [AI-native patient safety startup Graph AI raises $13.3 million in funding from Insight Partners](https://indianstartupnews.com/funding/ai-native-patient-safety-startup-graph-ai-raises-133-million-in-funding-from-insight-partners-12518961)\n  - Pulse 2.0: [Graph AI Raises $13.3 Million Series A To Scale AI-Native Patient Safety Platform](https://pulse2.com/graph-ai-raises-13-3-million-series-a-to-scale-ai-native-patient-safety-platform/)\n  - [Graph AI funding: Graph AI raises $13.3 million from Insight Partners, Bessemer to scale AI-native patient-safety platform - The Economic Times](https://economictimes.indiatimes.com/tech/funding/graph-ai-raises-13-3-million-from-insight-partners-bessemer-to-scale-ai-native-patient-safety-platform/articleshow/134047175.cms)\n  - Entrepreneur India: [Graph AI Raises USD 13.3 Mn in Series A](https://india.entrepreneur.com/business-news/graph-ai-raises-usd-13-3-mn-in-series-a)\n  - [AI-native patient-safety platform: Proven benefits for healthcare](https://www.blogarama.com/blogging-blogs/1390416-benefits-billing-invoicing-software-blog/80153522-native-patient-safety-platform-proven-for-healthcare)\n  - [Graph AI raises $13.3â€¯Mn Series A led by Insight Partners to boost patient safety in India](https://www.blogarama.com/technology-blogs/418446-tamiltech-blog/80149249-graph-raises-133amn-series-led-insight-partners-boost-patient-safety-india)\n  - AI Insider: Graph AI Announces $13.3M Series A to Scale the First AI-Native Operating System for Patient Safety\n  - citybiz: Graph AI Raises $13.3 Million Series A to Scale Patient Safety Platform\n- [2026-09-10]\n  - DealStreetAsia: [India Digest: Piston, Graph AI secure fresh funding](https://www.dealstreetasia.com/stories/piston-graph-ai-494857)\n  - [Graph AI raises $13.3 million in Series A round to fuel global expansion \\| Artificial Intelligence News - Business Standard](https://www.business-standard.com/technology/artificial-intelligence/graph-ai-raises-13-3-million-in-series-a-round-to-fuel-global-expansion-126091001530_1.html)\n  - Entrackr: [Graph AI raises $13.3 Mn in Series A round led by Insight Partners](https://entrackr.com/snippets/graph-ai-raises-133-mn-in-series-a-round-led-by-insight-partners-12516422)\n  - [Graph AI Raises $13.3M in Series A Funding](https://www.finsmes.com/2026/09/graph-ai-raises-13-3m-in-series-a-funding.html)\n  - PR Newswire: [Graph AI Raises $13.3M Series A to Scale the First AI-Native Operating System for Patient Safety](https://uk.advfn.com/stock-market/share-news/Graph-AI-Raises-13-3M-Series-A-to-Scale-the-First/99284765)\n  - [Graph AI raises $13.3 mn to expand in US, Europe \\| India Business News - The Times of India](https://timesofindia.indiatimes.com/business/india-business/graph-ai-raises-13-3-mn-to-expand-in-us-europe/articleshow/134017914.cms)\n  - [Graph AI Secures $13.3M Series A to Scale AI-Native Patient Safety Platform - TipRanks.com](https://www.tipranks.com/news/private-companies/graph-ai-secures-13-3m-series-a-to-scale-ai-native-patient-safety-platform)\n  - [Graph AI Secures $13.3 Million in Series A to Enhance Patient Safety with Innovative AI Solutions - Third News](https://third-news.com/article/54ee87f6-ad1b-11f1-8d99-9ca3ba08e13f)\n- [2026-08-28] TipRanks: Graph AI Teases New Graph Safety Capability Ahead of Pharmacovigilance USA\n- [2026-08-21] GetLatka: graph ai Revenue 2025: $1.2M Est. ARR\n- [2026-08-20] [graph-ai-targets-pharmacovigilance-market-with-expanded-conference-presence](https://www.tipranks.com/news/private-companies/graph-ai-targets-pharmacovigilance-market-with-expanded-conference-presence)\n- [2025-11-10] GetLatka: graph ai Revenue 2025: $1.2M Est. ARR, $3.6M Valuation\n- [2025-10-16] The Economic Times: Graph AI raises $3 million seed funding for drug safety platform\n\n## Social\n\n### Linkedin\n\n- [2026-09-30 · Posted · 22 reactions] [Graph AI is heading to DIA Canada, October 26–27 in Gatineau. After...](https://www.linkedin.com/posts/graphsafety_graphai-graphsafety-diacanada-activity-7511058635054026752-PA8_)\n  > Graph AI is heading to DIA Canada, October 26–27 in Gatineau.\n  >\n  > After a strong response in Amsterdam and the launch of /report, we're bringing Graph Safety to Canada's pharmacovigilance community as we continue bringing AI-native drug safety to teams worldwide.\n  >\n  > #GraphAI #GraphSafety #DIACanada #Pharmacovigilance #DrugSafety\n\n- [2026-09-29 · Posted · 27 reactions] [Amsterdam brought packed booth conversations and serious interest...](https://www.linkedin.com/posts/graphsafety_patientsafety-pharmacovigilance-wpsc-activity-7510700813959368706-4Uw4)\n  > Amsterdam brought packed booth conversations and serious interest from safety leaders across Europe. Next up: Boston.\n  >\n  > Graph Safety will be at the World Patient Safety Congress (formerly World Drug Safety Congress) Americas on October 14–15, Booth 435.\n  >\n  > Come and see why PV teams are moving from manual case processing to an AI-native Patient Safety Operating System.\n  >\n  > DM us to reserve a meeting slot.\n  >\n  > #PatientSafety #Pharmacovigilance #WPSC #GraphAI\n\n- [2026-09-24 · Reshared · 8 reactions] [Thank you, World Patient Safety Congress (formerly World Drug...](https://www.linkedin.com/posts/graphsafety_worldpatientsafetycongress-patientsafety-activity-7508931240788561920-q85u): Thank you, World Patient Safety Congress (formerly World Drug Safety Congress), for the opportunity to be part of this year's event in Amsterdam. We spent two days among the people shaping the futu...\n\n- [2026-09-24 · Posted · 63 reactions] [Leaving Amsterdam after a brilliant few days at the World Patient...](https://www.linkedin.com/posts/graphsafety_worldpatientsafetycongress-patientsafety-activity-7508933232286121984-NGrt)\n  > Leaving Amsterdam after a brilliant few days at the World Patient Safety Congress (formerly World Drug Safety Congress).\n  >\n  > The conversations here proved one thing: the industry is past debating if patient safety tech should evolve; everyone wants to see how. Huge thanks to everyone who spent the time with us to check out our live demos and chat with the team.\n  >\n  > Boston is next, this October.\n  >\n  > Raghavendra Parvataraju, Vijay Ponukumati, Ashutosh Bordekar, Nathalia Srinivasan, Ashish Pedaprolu, Ashish Batheja, Sesha Krishna Sai Gentela\n  >\n  > #WorldPatientSafetyCongress #PatientSafety #Pharmacovigilance #GraphAI\n\n- [2026-09-24 · 62 reactions] Leaving Amsterdam after a brilliant few days at the World Patient Safety Congress (formerly World Drug Safety Congress). The conversations here proved one thing: the industry is past debating if pa...\n\n- [2026-09-23 · Posted · 20 reactions] [Day one at the World Patient Safety Congress (formerly World Drug...](https://www.linkedin.com/posts/graphsafety_worldpatientsafetycongress-patientsafety-activity-7508562932750905345-72tG)\n  > Day one at the World Patient Safety Congress (formerly World Drug Safety Congress) in Amsterdam, we had some of the sharpest conversations we have had at any event this year.\n  >\n  > Safety leaders stopped by our booth, ready to talk specifics, not small talk; the questions went straight to how soon an AI-native approach to pharmacovigilance can arrive.\n  >\n  > We also sent a few people off with one of our branded water bottles, a small gesture, but a good conversation came with each one.\n  >\n  > If you are at RAI Amsterdam tomorrow, come find us at booth 300. We would love to meet you, hear what you are working on, and continue the conversation into day two.\n  >\n  > Raghavendra Parvataraju, Vijay Ponukumati, Ashutosh Bordekar, Vanita Nathalia Srinivasan, Ashish Pedaprolu, Ashish Batheja, Sesha Krishna Sai Gentela\n  >\n  > #WorldPatientSafetyCongress #PatientSafety #Pharmacovigilance #GraphAI #WPSC2026 #WPSCEU2026\n\n- [2026-09-23 · 67 reactions] Day one at the World Patient Safety Congress (formerly World Drug Safety Congress) in Amsterdam, we had some of the sharpest conversations we have had at any event this year. Safety leaders stopped...\n\n- [2026-09-22 · Posted · 12 reactions] [Graph AI will be at the World Patient Safety Congress (formerly...](https://www.linkedin.com/posts/graphsafety_meet-graph-ai-at-wpsc-eu-2026-activity-7508254973479075840-Wy25)\n  > Graph AI will be at the World Patient Safety Congress (formerly World Drug Safety Congress) Europe, RAI Amsterdam, September 23-24, as a Gold Sponsor.\n  >\n  > At Booth 300, three modules of the Graph Safety Suite will be running live: Intake, Nucleus, and Report. If you handle case intake or reporting and want to see how an AI-native workflow compares to what you're running today, stop by. We'll walk you through it.\n  >\n  > 📍 Booth 300 | Sept 23-24\n  >\n  > #WPSCEurope  #Pharmacovigilance  #PatientSafety  #GraphAI\n\n- [2026-09-22 · 12 reactions, 2 comments] Graph AI will be at the World Patient Safety Congress (formerly World Drug Safety Congress) Europe, RAI Amsterdam, September 23-24, as a Gold Sponsor. At Booth 300, three modules of the Graph Safet...\n\n- [2026-09-18 · Posted · 16 reactions] [Graph Safety will be at the World Patient Safety Congress (formerly...](https://www.linkedin.com/posts/graphsafety_graph-safety-will-be-at-the-world-patient-activity-7506664805194326018-Gvdt)\n  > Graph Safety will be at the World Patient Safety Congress (formerly World Drug Safety Congress), Europe. September 22–24, Amsterdam. Booth 300.\n  >\n  > Come see the product in action.\n  >\n  > Live demos of /intake, /nucleus, and /report: multi-channel intake with intelligent triage and routing, touchless case processing in the safety database, and automated periodic reporting, all running end-to-end.\n  >\n  > Not slideware. Not a roadmap. AI doing the work, with every output traceable to source and inspection-ready from day zero.\n  >\n  > Our domain and technology leadership will be on the floor throughout the event if you want to go deeper.\n  >\n  > Raghavendra Parvataraju, Vijay Ponukumati, Ashutosh Bordekar, Vanita Nathalia Srinivasan, Ashish Pedaprolu, Ashish Batheja, Sesha Krishna Sai Gentela\n\n- [2026-09-18 · 16 reactions, 1 comment] Graph Safety will be at the World Patient Safety Congress (formerly World Drug Safety Congress), Europe. September 22–24, Amsterdam. Booth 300. Come see the product in action. Live demos of /intake...\n\n- [2026-09-17 · Posted · 9 reactions] [Today is World Patient Safety Day. Ask what makes a life sciences...](https://www.linkedin.com/posts/graphsafety_worldpatientsafetyday-safecareforlife-activity-7506384029961781248-1BdO)\n  > Today is World Patient Safety Day.\n  >\n  > Ask what makes a life sciences company trustworthy, and most people point to the science that made the product.\n  >\n  > That's an incomplete picture. The more telling answer is everything built around that science to watch over it.\n  >\n  > It begins with the first volunteer in a Phase I unit and the people whose job is to know, that same day, what that dose did. It runs through every phase, every site, and every expedited assessment made against a clock. It does not stop at approval. It carries through every label change, new indication, new population, and new market. It continues for as long as anyone, anywhere, is still taking it—across millions of patients for decades after launch.\n  > Every enterprise that brings a drug, biologic, or device to patients commits real weight to this. Physicians and scientists. Governance that reaches the board. Obligations that outlive the people who first signed them. A standing commitment to keep questioning their own product and to act on what they learn—especially when it is inconvenient.\n  >\n  > That is an extraordinary thing to have built into an industry. It isn't just expressed as a statement of values. It shows up as a job someone does on a Tuesday.\n  > And the job looks like this:\n  > A case that arrives late on a Friday.\n  > An expedited assessment while the study is still enrolling and sites are waiting.\n  > A narrative that doesn't quite sit right, read three times before anyone can say why.\n  > A line in a literature screen that is probably nothing, and gets chased anyway.\n  > A judgment about whether a pattern across eleven reports is a signal or a coincidence—made by someone who knows a regulator will read it, and a patient will care about it, even if they'll never know their name.\n  >\n  > Nobody does this work casually.\n  > Now ask a safety professional where the week actually went. Reconciling. Chasing. Re-keying what one system already knew into another that won't accept it. Hunting for the version that was current at the time.\n  >\n  > The scarce resource in patient safety was never expertise. It's the attention of the experts.\n  > That is why we build. Not to replace judgment—the judgment is the entire point. Our work is to clear the hours around it, so more of a safety professional's day belongs to the science.\n  > When the people responsible for patient safety are free to do what only they can do, the whole industry grows stronger. And ultimately, the patient is the one who gains.\n  >\n  > AI assists. Humans decide.\n  > Today we celebrate the life sciences enterprises that invest in this work, and the safety professionals who carry it.\n  >\n  > Safe care for life.\n  >\n  > Raghavendra Parvataraju Vijay Ponukumati Mohan Konyala Ashutosh Bordekar Vanita Nathalia Srinivasan Suresh Balusu\n  >\n  > #WorldPatientSafetyDay #SafeCareForLife #PatientSafety #Pharmacovigilance #DrugSafety #GraphSafety\n\n- [2026-09-17 · Posted · 40 reactions] [Concluding day two at Pharmacovigilance USA #Boston, and it has...](https://www.linkedin.com/posts/graphsafety_pharmacovigilance-patientsafety-pvamericas2026-activity-7506204398478557184-ld8V)\n  > Concluding day two at Pharmacovigilance USA #Boston, and it has been two days worth remembering.\n  >\n  > Our CTO,",
+        "summary": "{\"description\":\"Graph Safety is an AI-native operating system for patient safety, unifying source, intake, case processing, aggregate reporting, signal detection, risk management, and regulatory compliance.\",\"employee_estimate\":22,\"employee_estimate_source\":\"Employees: 22\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Pleasanton, California, United States\",\"hq_quote\":\"Headquartered in Pleasanton, California, United States, with an office in Hyderabad.\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"- Industry: Technology, Information and Internet\\n- Type: Privately held\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 16,300,000 - Series a (2026-09-01): USD 13.3M - Seed (2025-11-15): USD 3.0M - ...\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQGgE-dBuV4Guw/company-logo_200_200/B56Z7CLDx2IoAE-/0/1781374139793/graphsafety_logo?e=2147483647&v=beta&t=i9s_PPB4r7oX7WAgLHdUl49r6NGrOqb28-qh-sq4dAM",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/gs3r6fywjdk",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Graph AI",
+              "foundedYear": 2024,
+              "description": "Graph AI is the pioneer of the industry's first AI-native Patient Safety Operating System (OS), engineered to unify the fragmented pharmacovigilance (PV) landscape into a single, cohesive infrastructure for both biopharma enterprises and Contract Research Organizations (CROs). Founded by enterprise technology veterans, the company replaces legacy, labor-intensive workflows with a deterministic, inspection-ready AI architecture that explicitly aligns with the FDA’s AI Credibility Assessment Framework, the EU AI Act's high-risk data governance controls, and the CIOMS Working Group XIV recommendations. Rather than acting as a traditional \"black-box\" point-solution, this Patient Safety OS delivers mathematical reproducibility and absolute data transparency across a comprehensive lifecycle portfolio: Graph Safety /intake for multi-channel ingestion; Graph Safety /nucleus for touchless case processing and multi-algorithm causality validation; Graph Safety /report for adaptive generative medical writing; Graph Safety /signal for predictive safety surveillance; and Graph Safety /assure & /comply for strict QPPV governance.\n\nFrom global biopharma companies and emerging biotechs to consumer healthcare, medical device manufacturers, and CROs, Graph AI combines deep industry expertise with agentic AI to help organizations streamline operations, uncover meaningful insights, strengthen compliance, and deliver measurable business outcomes.",
+              "workforce": {
+                "total": 22
+              },
+              "headquarters": {
+                "address": "6200 Stoneridge Mall Rd, Pleasanton, California 94588, US",
+                "city": "Pleasanton",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 16300000,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2026-09-01",
+                  "amount": 13300000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 4275,
+                "countryRank": 285576,
+                "avgDurationSeconds": 105,
+                "history": [
+                  {
+                    "value": 2417,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 852,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 537,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 1961,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 2496,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 4275,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/f16046nq2w4",
+        "title": "Graph AI",
+        "url": "https://graphapp.ai/",
+        "text": "# Graph AI\n\nGraph AI is a Software Development company. Graph delivers AI-powered engineering insights and updates directly in Slack, so that you can focus on what matters — Building great products. Graph AI employs 3 people.\n\n## About\n\nGraph delivers AI-powered engineering insights and updates directly in Slack, so that you can focus on what matters — Building great products.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Homepage: graphapp.ai\n- Aliases: graph ai\n- LinkedIn: linkedin.com/company/graphhq\n- Linkedin Followers: 52\n\n## Workforce\n- Employees: 3\n- Company Size: 11-50 employees\n- Key Executives:\n  - Jake Brereton: Founder & COO\n  - Tyler Davis: Chief Executive Officer\n- Breakdown:\n  - By Country: United States: 3 (100%)\n  - By Department: General Management: 2 (67%), Technical: 1 (33%)\n  - By Seniority: Clevel: 2 (67%), Senior: 1 (33%)\n- Talent Sources: LaunchNotes (3), Stripe (1), GeoControl Systems (1), Alumshares (1)\n- Alumni Go To: LaunchNotes (3), Clarify (1)\n\n## Products & Technology\n- Features: Demo Available\n\n## Web presence\n\n- Web traffic:\n  - Monthly visits: 17,242\n  - Global rank: 1,509,682\n  - Bounce rate: 41.0%\n  - Pages per visit: 1.7\n  - Average visit duration: 19s\n\n## Categories\n\nai-powered engineering insights, build great products, computers_electronics_and_technology/programming_and_developer_software, engineering, engineering leaders, slack\n\n## Social\n\n### Linkedin\n\n- [2025-03-21 · 6 reactions] Honored to have the opportunity to show off Graph AI at Amazon Web Services (AWS)'s Built on Bedrock Demo night earlier this week! 🚀 Our very own Gregory Dame did a fantastic live demo of Graph, hi...",
+        "summary": "{\"description\":\"Graph AI is a Software Development company delivering AI-powered engineering insights and updates directly in Slack to help teams build products.\",\"employee_estimate\":3,\"employee_estimate_source\":\"Employees: 3\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"United States\",\"hq_quote\":\"By Country: United States: 3 (100%)\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Software Development\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":false,\"recently_funded_seed_or_series_a_quote\":\"-\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQHgeSfYx0WX3w/company-logo_200_200/B56ZUbAeBAGUAI-/0/1739914862909/graphhq_logo?e=2147483647&v=beta&t=6cHvRQcOf1CC_Y7GcqU-KCz_Cp9a2nJjCn84xR_WX-8",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/f16046nq2w4",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Graph AI",
+              "foundedYear": null,
+              "description": "Graph delivers AI-powered engineering insights and updates directly in Slack, so that you can focus on what matters — Building great products.",
+              "workforce": {
+                "total": 3
+              },
+              "headquarters": null,
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 17242,
+                "countryRank": 857641,
+                "avgDurationSeconds": 19,
+                "history": [
+                  {
+                    "value": 38045,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 35925,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 31489,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 23773,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 18784,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 16142,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 10418.2,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

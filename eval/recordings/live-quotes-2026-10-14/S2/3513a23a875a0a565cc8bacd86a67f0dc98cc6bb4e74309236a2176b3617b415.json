@@ -1,0 +1,242 @@
+{
+  "request": {
+    "query": "OuterSignal",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the exact phrase from the page that the employee estimate came from (e.g. \"350 employees\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "e0c89e660436f0043709b3a703176460",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/mnv72lfnlkg",
+        "title": "OuterSignal",
+        "url": "https://outersignal.com/",
+        "text": "# OuterSignal\n\nOuterSignal is a Marketing Services company. OuterSignal is a company that turns e-commerce order data into rich customer intelligence, including VIP detection, B2B leads in DTC, automated personas, and precision segments synced to Meta and Klaviyo. OuterSignal employs 31 people. Headquartered in Wilmington, Delaware, United States.\n\n## About\n\nOuterSignal provides brands with instant VIP-customer detection and real-time, fully enriched customer profile data on every single order. It quickly, securely, and compliantly integrates with any eCommerce platform, allowing brands to monitor and segment customers based on age, gender, location, profession, income, social following, and more.\n\nWhether it’s flagging celebrities, athletes, investors, podcasters, buyers at large retail chains, or simply identifying micro-influencers within a target cohort (i.e. college-aged influencers), OuterSignal finds, flags and activates the customers that matter most while providing unprecedented visibility into the actual customers behind a brand.\n\n## Company Details\n- Industry: Marketing Services\n- Type: Privately held\n- Headquarters: Wilmington, United States\n- Homepage: outersignal.com\n- Aliases: OuterSignal, Inc., outersignal\n- LinkedIn: linkedin.com/company/outersignal\n- Linkedin Followers: 2,158\n- Emails: contact@outersignal.com\n\n## Financials\n  - Seed (2026-01-01)\n\n## Acquisitions\n- Acquired Monocle\n\n## Workforce\n- Employees: 31\n- Company Size: 11-50 employees\n  - Monthly Growth: +3.3%\n- Key Executives:\n  - Alex Seibel: Head of Customer Experience\n  - Donna Felix: Vice President of Operations\n  - Dov Quint: Founding Team, Operations\n  - Hannah Wendt: VP of GTM Operations\n  - Hunter Simmons: Head of Sales\n  - Kassidy Lankford: Director of Customer Success\n  - Michael Shen: Head of Growth\n  - Noah Sanborn Friedman: Co-Founder\n  - Zach Zelner: Founder\n- Breakdown:\n  - By Country: United States: 26 (84%)\n  - By Department: Consulting: 6 (19%), Technical: 5 (16%), Customer Service: 3 (10%), Operations: 3 (10%), Other Department: 3 (10%), Sales: 2 (6%), General Management: 1 (3%), Marketing: 1 (3%), Product: 1 (3%), Real Estate: 1 (3%)\n  - By Seniority: Specialist: 8 (26%), Other Management: 4 (13%), Founder: 3 (10%), Senior: 3 (10%), Head: 2 (6%), Manager: 2 (6%), Vp: 2 (6%), Director: 1 (3%), Owner: 1 (3%)\n- Active job postings: 8\n- Talent Sources: Wyllo (1), Vetcove (1), Top Shelf Ventures (1), Spectrum Business for enterprise (1), Pack Leashes (1), IBM (1), GNOMI (1), Fluz (1), Datadog (1), Citi (1)\n- Alumni Go To: Recharge (1), Notes.fm (1), MoonBrew (1), Creator Authority (1)\n\n## Products & Technology\n- Features: Free Trial\n- Tech Stack: clickhouse, docker, gorgias, hubspot, hugging face, iterable, jupyter, klaviyo, kubernetes, linkedin, martech, microservices, mlflow, persona, prototype, python, pytorch, redis, rippling, shopify, time matters, typescript, vercel, zapier\n\n## Web presence\n\n- Twitter: twitter.com/adam_wilbanks/status/1952502429477491084\n- Instagram: instagram.com/getoutersignal\n- Crunchbase: crunchbase.com/organization/outersignal\n- Web traffic:\n  - Monthly visits: 20,030\n  - Global rank: 1,173,870\n  - Bounce rate: 48.0%\n  - Pages per visit: 2.6\n  - Average visit duration: 90s\n\n## Categories\n\nai software, analytics, artificial intelligence (ai), automated personas, b2b leads, customer data platform (cdp), customer data platforms (cdp), customer intelligence, customer segmentation, customer service, data integration, dtc brand growth, e-commerce platforms, ecommerce optimization, high-value customer alerts, influencer detection, marketing automation, outersignal, precision segments, real-time order intelligence, saas for ecommerce, vip customer identification, vip detection\n\n## Recent News\n- [2026-10-03] The Business Journals: OuterSignal raises $22M for AI customer intelligence platform — plus 7 more NYC VC deals to know\n- [2026-10-02]\n  - Pulse 2.0: OuterSignal Raises $22 Million Series A To Expand Agentic Customer Personalization Platform\n  - Yahoo Finance: OuterSignal Raises $22 Million in Series A Funding Round: NYSE Content Update\n  - PR Newswire: OuterSignal Raises $22M Series A to Bring Agentic Personalization to Every Consumer Brand\n  - citybiz: OuterSignal Raises $22M Series A to Expand AI-Powered Personalization Marketing\n  - Dealroom: OuterSignal lands $22M Series A for agentic customer personalization\n- [2026-09-10] YouTube: The Re-Hire Nobody Saw Coming\n- [2026-07-10] Yahoo Finance: Uncharted: OuterSignal CEO Zach Zelner on What it Takes to Be a Founder\n\n## Social\n\n### Linkedin\n\n- [2026-09-14 · 40 reactions, 12 comments] The OuterSignal team is in New York this week, come hang with us! We’re co-hosting an After Hours Club Tuesday (9/15) with Shoplift bringing together ~50 of DTC’s best founders, operators, and ecom...\n\n- [2026-09-08 · 25 reactions, 4 comments] BFCM advice is everywhere. Useful, operator-led advice is harder to find. We collaborated with the team at 1800DTC on a new playbook designed to give founders, operators, and marketers practical id...\n\n- [2026-09-01 · 155 reactions, 24 comments] OuterSignal is growing explosively and hiring across nearly every function. Two especially massive roles we’ve just opened: → Head of Marketing → Head of Partnerships Both incredible opportunities...\n\n- [2026-08-25 · 61 reactions, 11 comments] We just got an email from our recruiter sharing feedback that I’ve never seen before…The OuterSignal team is growing at an insane pace and hiring aggressively. First off, major props to Donna Felix...\n\n- [2026-08-24 · 34 reactions, 2 comments] Catch our next webinar with OuterSignal this Wednesday! Your best potential affiliates are already buying from you. But how do you identify who actually has an audience? Sarah Crow is chatting to A...\n\n- [2026-08-21 · 17 reactions, 8 comments] OuterSignal is hiring across every department. If you've talked to me over the past few months, you know the bar here is extremely high and the pace is unlike anything I've seen. DM me if you know...\n\n- [2026-08-20 · 56 reactions, 10 comments] Graymatter just shared that 10,500+ CEOs and founders drink their product. As well as 1,900+ engineers and tech workers. 1,800+ doctors and clinicians. 450+ scientists and PhDs. And 45+ professiona...\n\n- [2026-08-18 · 104 reactions, 26 comments] Pumped to announce I’ll be hosting a webinar with Superfiliate on August 26 alongside my friend Andy Cloyd. We’re digging into one of the most overlooked places to recruit affiliates: Your existing...\n\n- [2026-08-12 · 47 reactions, 7 comments] You don't need to be an Olympian to care about your brain. But it says something that they do. Every customer featured here is a real Graymatter customer, and every credential is verified through O...\n\n- [2026-08-12 · 159 reactions, 25 comments] Last year I attended the first ever Camp Commerce. OuterSignal was 1 week old. Last Friday, I had the pleasure of returning for the second edition… now sponsored by OuterSignal. What an insane ride...\n\n- [2026-08-07 · 15 reactions, 3 comments] When we launched I could describe our customer in one sentence. Young, urban, female, found us on Instagram. That sentence was wrong. I figured it out by looking at where the boxes were actually go...\n\n- [2026-08-07 · 23 reactions, 5 comments] Really cool to see OuterSignal get features in the Operators Podcast newsletter this week. Being able to understand WHO your customers actually are is a major unlock for any business. There's no be...\n\n- [2026-08-07 · 76 reactions, 11 comments] OuterSignal just shipped a product intelligence feature telling you who EXACTLY is buying each product, and what they’ll probably buy next. Click into any product in OuterSignal and you'll now see...\n\n- [2026-07-31 · 111 reactions, 11 comments] Thrilled to announce OuterSignal is sponsoring Camp Commerce on August 7. We’re also giving away an incredible luxury experience to one attendee, including a helicopter ride to and from the event....\n\n- [2026-07-28 · 251 reactions, 56 comments] Surreal to write this, but OuterSignal has officially celebrated its 1-year anniversary. In twelve months, we’ve: 1) Grown from 0 → 1,000 merchants using our product 2) Bought an incredible company...\n\n- [2026-07-13 · 19 reactions, 8 comments] Most brands have gotten very good at using data that doesn’t actually tell them much about the customer. A customer viewed a hoodie, so the hoodie now follows them around the internet like a Victor...\n\n- [2026-07-06 · 47 reactions, 15 comments] Personalization might be the biggest lie we told ourselves this decade. Not because the idea was wrong. Because we never actually had the thing it required. Personalization assumes you know who's b...\n\n- [2026-07-02 · 45 reactions, 20 comments] Spent last Thursday at the Ecom Founders AI Summit in NYC, wonderful event! Here’s what I took away: 🤖 Media buying agents are running $50k/day — autonomously Zach Duncan has been buying ads for ~1...\n\n- [2026-07-01 · 16 reactions, 1 comment] OuterSignal is building something rare: a generational product and a world-class team to match it. If your aspirations are as bold as ours, we'd like to meet you. Six roles open now: - Head of Cust...\n\n- [2026-07-01 · 77 reactions, 13 comments] OuterSignal is a rocketship. On top of bringing a (truly) revolutionary product to market, I’m incredibly proud of the world class sales team we’re building. A massive shoutout to Hunter Simmons, T...\n\n## Locations\n- Headquarters: wilmington, delaware, united states (US)\n- Offices: wilmington, delaware, united states (US)",
+        "summary": "{\"description\":\"OuterSignal is a Marketing Services company that turns e-commerce order data into rich customer intelligence, including VIP detection, B2B leads in DTC, automated personas, and precision segments synced to Meta and Klaviyo.\",\"employee_estimate\":31,\"employee_estimate_source\":\"Employees: 31\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Two especially massive roles we’ve just opened: → Head of Marketing → Head of Partnerships\",\"hq\":\"Wilmington, Delaware, United States\",\"hq_quote\":\"Headquartered in Wilmington, Delaware, United States.\",\"industry\":\"Marketing Services\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"- B2B leads in DTC\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"[2026-10-02] Pulse 2.0: OuterSignal Raises $22 Million Series A To Expand Agentic Customer Personalization Platform; PR Newswire: OuterSignal Raises $22M Series A to Bring Agentic Personalization to Every Consumer Brand; citybiz: OuterSignal Raises $22M Series A to Expand AI-Powered Personalization Marketing; Dealroom: OuterSignal lands $22M Series A for agentic customer personalization\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQERJG1gG8Clfw/company-logo_200_200/B4EZukXBjrIkAI-/0/1767989058180/outersignal_logo?e=2147483647&v=beta&t=qeutJj5I-6KIY57j26p9YqAsViGAibX53oKOk__xe70",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/mnv72lfnlkg",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "OuterSignal",
+              "foundedYear": null,
+              "description": "OuterSignal provides brands with instant VIP-customer detection and real-time, fully enriched customer profile data on every single order. It quickly, securely, and compliantly integrates with any eCommerce platform, allowing brands to monitor and segment customers based on age, gender, location, profession, income, social following, and more.\n\nWhether it’s flagging celebrities, athletes, investors, podcasters, buyers at large retail chains, or simply identifying micro-influencers within a target cohort (i.e. college-aged influencers), OuterSignal finds, flags and activates the customers that matter most while providing unprecedented visibility into the actual customers behind a brand.",
+              "workforce": {
+                "total": 31
+              },
+              "headquarters": {
+                "address": "Wilmington, Delaware, United States",
+                "city": "Wilmington",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": null,
+                "fundingLatestRound": {
+                  "name": "Seed",
+                  "date": "2026-01-01",
+                  "amount": null
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 20030,
+                "countryRank": 350608,
+                "avgDurationSeconds": 90,
+                "history": [
+                  {
+                    "value": 22185,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 34162,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 31077,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 38312,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 28869,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 20030,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/1jhrzdspjms",
+        "title": "B2B Signals",
+        "url": "https://b2bsignals.ai/",
+        "text": "# B2B Signals\n\nB2B Signals is a Software Development company. B2B Signals is a company that keeps watching your audience, connected to you or not yet, and reach out the day there's a real reason. They provide weekly feed, drafts ready, approval, and land in your inbox. B2B Signals employs 3 people. Headquartered in Newark, Delaware, United States. Its workforce is distributed across Ukraine and Spain.\n\n## About\n\nMost B2B teams waste 80% of outreach on prospects who aren't buying. B2BSignals fixes that.\n\nWe aggregate intent signals across LinkedIn engagement, hiring activity, job changes, website visits, tech installs, and event attendance, then use AI to score, prioritize, and trigger outreach to the accounts that are actually in-market.\n\nNo guesswork. No hallucinated scores. Just real signals converted into real pipeline.\n\nFrom signal detection to booked meeting - one platform.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: Newark, United States\n- Homepage: b2bsignals.ai\n- Aliases: b2b signals\n- LinkedIn: linkedin.com/company/b2b-signals\n- Linkedin Followers: 19\n- Emails: v.erhard@b2bsignals.ai\n\n## Workforce\n- Employees: 3\n- Company Size: 1-10 employees\n- Key Executives:\n  - Vadym Erhard: Co-Founder\n  - Vladyslav Dehtiarov: Chief Technology Officer, Co-Founder\n- Breakdown:\n  - By Country: Ukraine: 2 (67%), Spain: 1 (33%)\n  - By Department: Consulting: 1 (33%), Project Management: 1 (33%), Technical: 1 (33%)\n  - By Seniority: Clevel: 1 (33%), Founder: 1 (33%), Manager: 1 (33%)\n- Talent Sources: Leadera (2), Robot_dreams (1)\n- Alumni Go To: Sommo (1)\n\n## Products & Technology\n- Features: Free Trial\n\n## Web presence\n\n- YouTube: youtube.com/channel/uccoq0ewc0kq4xmhaa66vvlq\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Categories\n\napproval, audience, b2b data, b2b signals, buying signals, drafts, feed, intent data provider, intent signals, lead generation software, marketing, marketing software, outbound data, outbound software\n\n## Social\n\n### Linkedin\n\n- [2026-09-21 · 7 reactions, 2 comments] 85% of people would rather talk to a human. 5% prefer the bot. Those two numbers move further apart every year, and most of B2B is building for the 5%. A 6,000 person study across the US, UK and Ca...\n\n- [2026-09-16 · 7 reactions, 1 comment] I do not look at a target account once. I look at it every month... Most people build the list, run the sequence, and never open those companies again. I built a watcher agent in Claude Code. It ke...\n\n- [2026-08-25 · 14 reactions, 3 comments] I've tested Opus 5 and great news for everyone doing outbound. Because now you don't need a big stack for ABM. You need only 2 things: B2B Signals. Finds people who are ready to buy and runs the ou...\n\n- [2026-08-11 · 20 reactions, 3 comments] I am excited to share that we shipped Smart Agent. 🚀 Real-time signals, live in 5 minutes. A year ago that same setup needed a GTM engineer, a Clay seat and someone maintaining the tables every wee...\n\n- [2026-06-10 · 8 reactions, 1 comment] Your competitor's best post is your best lead list. Not their followers. One specific post. The one that blew up. A viral post in your category collects 200-500 reactions. Every reaction is a perso...\n\n- [2026-05-27 · 1 reaction] 🎉 Big drop in B2B Signals today. We just shipped 6 new Add-ons. On-demand operations to pull leads from a specific signal you pick. Each add-on does one job, fast: 🔹 Single Post Scraper - Drop a Li...\n\n- [2026-05-21 · 17 reactions, 4 comments] A cybersecurity founder DM'd me yesterday: \"It's insane.\" Then he sent the numbers. Series A B2B SaaS. Head of Growth running outbound. Before B2B Signals: 🔹 20,000 cold emails / month 🔹 4-tool sta...\n\n- [2026-05-20 · 11 reactions] Want a list of people who liked your competitor's last 10 LinkedIn posts? The build is straightforward. The validation is what kills it. 🔹 Step 1. Apify Run scraping_solutions/linkedin-posts-engage...\n\n- [2026-05-20 · 8 reactions, 2 comments] Event attendee scraping is the cleanest B2B signal most teams miss in 2026. Every conference hands you a matchmaking tool with 4,000+ attendees. 90% are fluff. Lookers, vendors selling to vendors,...\n\n- [2026-04-29 · 13 reactions, 2 comments] This is what my morning looks like. ☕ Open the laptop. Open B2B Signals. Review today's numbers. 📌 410 total leads 📌 447 signals detected 📌 Intent score: 75 📌 Conversion: 82.2% Signal mix this week...\n\n- [2026-04-20 · 9 reactions] A client came to us last month. IT outsourcing niche. Here's what their stack looked like: 📌 n8n subscription 📌 Apify scrapers 📌 TheirStack for tech detection 📌 Trigify for LinkedIn signals 📌 RB2B...\n\n- [2026-04-02 · 11 reactions, 2 comments] To not feel FOMO around AI Outbound, do this. I'm making this post because 90% of LinkedIn is FOMO bullsh*t. \"Generated 350 calls last week with new Claude model on autopilot.\" \"Gemini just dropped...\n\n- [2026-04-02 · 10 reactions, 2 comments] MCP is quietly changing how sales teams operate. And almost nobody in outbound is talking about it yet. MCP (Model Context Protocol) is how AI agents (in my case Anthropic Claude Code) connect to t...\n\n- [2026-04-02 · 9 reactions] Everyone's suddenly an expert on \"signal-based outreach.\" But I've been tracking buying signals since 2019. Back then, we called it \"not being lazy about prospecting.\" Most people collect signals l...\n\n- [2026-04-02 · 8 reactions, 4 comments] \"Congrats on your funding!\" Please. Stop. 🛑 I've seen this playbook a hundred times. Someone finds a list of companies that raised this year → loads them into a sequence → hits send on 2,000 emails...\n\n- [2026-03-24 · 13 reactions, 2 comments] AI made outbound easier. It didn't make it smarter. Writing emails? Solved. Personalizing at scale? Solved. Finding the RIGHT person at the RIGHT time? Still broken. Your outbound needs two engines...\n\n## Locations\n- Headquarters: newark, delaware, united states (US)\n- Offices: newark, delaware, united states (US)",
+        "summary": "{\"description\":\"B2B Signals is a Software Development company that monitors your audience and reaches out when there is a real reason. It provides weekly feeds, drafts, approvals, and inbox delivery.\",\"employee_estimate\":3,\"employee_estimate_source\":\"Employees: 3\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Newark, United States\",\"hq_quote\":\"Headquartered in Newark, Delaware, United States.\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"B2B Signals is a Software Development company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":null,\"recently_funded_seed_or_series_a_quote\":\"\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4D0BAQHVC2SDX_hKmQ/company-logo_200_200/B4DZz7H5U1GYAI-/0/1773739677399?e=2147483647&v=beta&t=OiGeIPZu_tjl1q1S6PKcxUU193ca4Awk4xoc8v3IloQ",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/1jhrzdspjms",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "B2B Signals",
+              "foundedYear": null,
+              "description": "Most B2B teams waste 80% of outreach on prospects who aren't buying. B2BSignals fixes that.\n\nWe aggregate intent signals across LinkedIn engagement, hiring activity, job changes, website visits, tech installs, and event attendance, then use AI to score, prioritize, and trigger outreach to the accounts that are actually in-market.\n\nNo guesswork. No hallucinated scores. Just real signals converted into real pipeline.\n\nFrom signal detection to booked meeting - one platform.",
+              "workforce": {
+                "total": 3
+              },
+              "headquarters": {
+                "address": "131 Continental Dr, Newark, Delaware 19713, US",
+                "city": "Newark",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 515,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 9732.9,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

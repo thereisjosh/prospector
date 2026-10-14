@@ -25,8 +25,8 @@ const signal = (company: string) => ({
   url: `https://news.example/${company}`,
   title: `${company} expands`,
   publishedDate: "2026-10-01T00:00:00.000Z",
-  text: `${company} expanded in Ohio.`,
-  summary: JSON.stringify({ company_name: company, signal_type: "expansion", signal_summary: `${company} expanded`, signal_date: "2026-10-01", signal_quote: `${company} expands`, signal_date_quote: "" }),
+  text: `${company} expanded in Ohio this quarter.`,
+  summary: JSON.stringify({ company_name: company, signal_type: "expansion", signal_summary: `${company} expanded`, signal_date: "2026-10-01", signal_quote: `${company} expanded in Ohio this quarter.`, signal_date_quote: "" }),
 });
 
 afterEach(() => vi.unstubAllGlobals());
@@ -47,7 +47,7 @@ function stub(opts: { lookupCost?: number; followUpCost?: number; failLookupWith
       calls.push(`lookup:${body.query}`);
       if (opts.failLookupWith) return new Response("{}", { status: opts.failLookupWith });
       return new Response(JSON.stringify({
-        results: [{ url: `https://${String(body.query).toLowerCase()}.com`, text: `${body.query} is an operator. 200 employees. Austin, TX.`, summary: JSON.stringify({ is_operator: true, is_operator_quote: `${body.query} is an operator`, employee_estimate: 200, employee_estimate_source: "200 employees", hq: "Austin, TX", hq_quote: "Austin, TX", is_public_or_enterprise: false }) }],
+        results: [{ url: `https://${String(body.query).toLowerCase()}.com`, text: `${body.query} is an operator. 200 employees. Austin, TX.`, summary: JSON.stringify({ is_operator: true, is_operator_quote: `${body.query} is an operator. 200 employees`, employee_estimate: 200, employee_estimate_source: "200 employees", hq: "Austin, TX", hq_quote: "Austin, TX", is_public_or_enterprise: false }) }],
         costDollars: { total: opts.lookupCost ?? 0.009 },
       }), { status: 200 });
     }

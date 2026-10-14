@@ -1,0 +1,260 @@
+{
+  "request": {
+    "query": "Baselayer",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the exact phrase from the page that the employee estimate came from (e.g. \"350 employees\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "47025f562de84d35c60d67597eb06d2a",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/9m9xfpxbt7k",
+        "title": "Baselayer",
+        "url": "https://baselayer.com/",
+        "text": "# Baselayer\n\nBaselayer is a Technology, Information and Internet company. Baselayer is a company that provides business identity verification, risk, and fraud solutions. They combine credit, identity, and fraud checks into one AI-powered system to boost auto-approvals and reduce manual reviews. Baselayer employs 34 people (+57.1% YoY, +12 people) and has an annual revenue of $540M. Headquartered in New York, New York, United States, with offices in Mesa and San Francisco. Its workforce is distributed across United States, Netherlands, and Sri Lanka.\n\n## About\n\nBaselayer empowers over 2,200 financial institutions and government agencies to trust the small and medium-sized businesses they serve. \n\nWe use proprietary machine learning to search government records, the web, and private databases to answer questions about Compliance, Risk, or Fraud about any business in the United States.\n\nOur solution suite includes tools for identity verification (Know Your Business), enhanced due diligence, fraud prevention, risk profiling, lien filing, and portfolio monitoring. Our platform also offers unique credit stacking capabilities and an advanced repeat fraud prevention system.\n\nBaselayer is integrated into companies with over 30 million accounts, rating and verifying real-time applications. \n\nBaselayer.com\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Headquarters: New York, United States\n- Homepage: baselayer.com\n- Aliases: Osiris Ratings, Inc., baselayer, baselayer technology, baselayer technology, llc\n- LinkedIn: linkedin.com/company/baselayer\n- Linkedin Followers: 27,589\n- Emails: support@baselayer.com\n- Phone: +1 (602) 783-1112, 435-637-716\n\n## Financials\n- Annual Revenue: USD 540,000,000\n  - Angel (2014-01-01)\n  - Seed (2012-01-01)\n\n## Workforce\n- Employees: 34\n- Company Size: 51-200 employees\n  - Yearly Growth: +57.1%\n- Key Executives:\n  - Blake Watters: Founding Engineer, Principal\n  - Emmet Galvin: General Counsel\n  - Hanna Judson: Marketing Lead\n  - Jared Farber: Head of Operations and Finance\n  - Jonathan Awad: Co-Founder, CEO\n  - Timothy Hyde: Co-Founder & CTO\n- Breakdown:\n  - By Country: United States: 31 (94%), Netherlands: 1 (3%), Sri Lanka: 1 (3%)\n  - By Department: Technical: 8 (24%), Product: 6 (18%), Marketing: 4 (12%), Consulting: 2 (6%), Finance: 2 (6%), General Management: 2 (6%), Operations: 2 (6%), Other Department: 2 (6%), Sales: 2 (6%), Design: 1 (3%) (+2 more)\n  - By Seniority: Specialist: 13 (39%), Other Management: 8 (24%), Head: 3 (9%), Manager: 3 (9%), Senior: 3 (9%), Founder: 2 (6%), Clevel: 1 (3%)\n- Salary ranges:\n  - Vice President Finance: median $285,531.58 per year\n  - VP Product Management: median $243,527.49 per year\n  - Director of Product Management: median $204,915.29 per year\n  - Engineering Manager: median $159,181.15 per year\n  - Lead Software Engineer: median $155,383.39 per year\n  - Automation Manager: median $138,696.47 per year\n  - Product Manager: median $126,399.39 per year\n  - Business Operations Manager: median $117,712.7 per year\n  - Devops Engineer: median $112,154.99 per year\n  - Manufacturing Systems Engineer: median $108,155.79 per year\n  - Mechanical Engineer: median $98,792.37 per year\n  - Senior Technical Writer: median $97,724.95 per year\n  - Senior Accountant: median $87,151.96 per year\n  - Configuration Management Specialist: median $80,417.55 per year\n  - Construction Professional: median $75,183.43 per year\n  - Instructor: median $74,405.34 per year\n  - Accounts Payable Specialist: median $49,542.47 per year\n- Talent Sources: IO (5), Palo Alto Networks (2), Village Capital (1), Stealth Startup (1), Snap Inc. (1), Microchip Technology Inc. (1), Bowery Farming (1), Arup (1), Alation (1), Airbnb (1)\n- Alumni Go To: United Technologies (1), UPS (1), MIT Sloan School of Management (1), CoCENTRIX (1), Christie Digital Systems (1), Checkout.com (1), Bosch Security and Safety Systems (1), Basis (1), Andeavor (1), Altruist (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: apache, docker, google cloud, postgresql, python, sqlalchemy, clever, dbt, fintech, hubspot, javascript, snowflake, sql, typescript, angular, react, figma, github, playwright, pytest, c, crisp, impact, recharge, slack, zoom, medium, graphql, postman, xcode\n\n## Web presence\n\n- Twitter: twitter.com/baselayerhq\n- Facebook: facebook.com/baselayertech\n- Crunchbase: crunchbase.com/organization/baselayer-f1bf\n- Web traffic:\n  - Monthly visits: 10,593\n  - Global rank: 1,793,973\n  - Bounce rate: 34.0%\n  - Pages per visit: 2.9\n  - Average visit duration: 45s\n\n## Reviews & Ratings\n- Employer Rating: 3.6/5.0 (19 reviews)\n  - Breakdown: Work-Life: 3.4, Compensation: 3.8, Culture: 2.8, Career: 2.8\n\n## Categories\n\nai-powered system, auto-approvals, business identity verification, business intelligence, computers_electronics_and_technology/computers_electronics_and_technology, cyber security, fraud, fraud detection, identity management, information technology, intelligent systems, risk, software\n\n## Competitors\n\ncyrusone, vertiv, stulz, eaton, ifortress, siemens , mitsubishi electric, leviton, emerson, johnson controls, hubbell, danfoss, tripp lite\n\n## Recent News\n- [2026-09-24] [Baselayer raises $35m for new agentic identity suite](https://www.fintechfutures.com/ai-in-fintech/baselayer-35m-series-a-funding-round)\n- [2026-09-23]\n  - [NYC startup Baselayer launches identity tech for AI agents after $35M Series A - New York Business Journal](https://www.bizjournals.com/newyork/news/2026/09/23/baselayer-raises-35m.html)\n  - [Baselayer - News, Articles & Research - Finextra](https://www.finextra.com/company-news/13443/baselayer)\n  - [Baselayer raises $35 million; rolls out agentic identtity suite](https://www.finextra.com/pressarticle/110994/baselayer-raises-35-million-rolls-out-agentic-identtity-suite)\n  - [Baselayer lands $35m to verify AI agents before fraud hits](https://fintech.global/2026/09/23/baselayer-lands-35m-to-verify-ai-agents-before-fraud-hits/)\n- [2026-09-22]\n  - [Techmeme: Baselayer, which uses AI to help financial institutions verify businesses and assess fraud risk, raised a $35M Series A led by M13, for ~$40M in total funding \\(Mary Ann Azevedo/Crunchbase News\\)](https://www.techmeme.com/260922/p22)\n  - [Baselayer Raises $35M in Series A Funding](https://www.finsmes.com/2026/09/baselayer-raises-35m-in-series-a-funding.html)\n  - PR Newswire: [Baselayer Raises $35M Series A Led by M13, Launches Identity Infrastructure for AI Agents](https://www.prnewswire.com/news-releases/baselayer-raises-35m-series-a-led-by-m13-launches-identity-infrastructure-for-ai-agents-302885670.html)\n  - [Baselayer raises $35M led by M13 to build the trust layer for AI agents — TFN](https://techfundingnews.com/baselayer-raises-35m-led-by-m13-to-build-the-trust-layer-for-ai-agents/)\n  - [USA Archives - Page 3 of 5147 - FinSMEs](https://www.finsmes.com/category/usa/page/3)\n  - [Baselayer Secures $35 Million to Build Identity Infrastructure for AI Agents - TipRanks.com](https://www.tipranks.com/news/private-companies/baselayer-secures-35-million-to-build-identity-infrastructure-for-ai-agents)\n  - [Venture Capital & Startup Funding Roundup, September 22, 2026: General Catalyst, Goldman Sachs, Greylock, M13, Y Combinator & More - Tech Startups](https://techstartups.com/2026/09/22/venture-capital-startup-funding-roundup-september-22-2026-general-catalyst-goldman-sachs-greylock-m13-y-combinator-more/)\n- [2026-08-14] citybiz: Baselayer Secures $20M Series A to Enhance AI-Driven Business Verification\n- [2026-08-12] [Baselayer Raises $20M Series A](https://www.thesaasnews.com/news/baselayer-raises-20m-series-a/)\n- [2026-08-10] [Baselayer Secures $20M Series A to Enhance AI-Driven Business Verification \\| citybiz](https://www.citybiz.co/article/886247/baselayer-secures-20m-series-a-to-enhance-ai-driven-business-verification/)\n- [2026-06-29] [Prove & Baselayer team up on business verification](https://securitybrief.news/story/prove-baselayer-team-up-on-business-verification)\n- [2025-08-08] Financial IT: Socure and Baselayer Partner to Deliver Next-Gen Business Identity Verification via RiskOS™\n- [2024-04-24] Primary VC: Focal Fintech: 25 Startups to Watch \\(Baselayer Featured\\)\n\n## Social\n\n### Linkedin\n\n- [2026-09-25 · Reshared · 18 reactions] [Excited to announce that LendPathway has partnered with Baselayer...](https://www.linkedin.com/posts/baselayer_activity-7509294651099758592-TAgj): Excited to announce that LendPathway has partnered with Baselayer to bring bulletproof KYB checks into our underwriting studio. Baselayer verifies a business against primary-source records: its Sec...\n\n- [2026-09-24 · Reshared · 40 reactions] [Baselayer is partnering with TinyFish as a founding member of their...](https://www.linkedin.com/posts/baselayer_activity-7508945666551881729-y9KC): Baselayer is partnering with TinyFish as a founding member of their Data Partner Alliance. AI agents are the majority of web traffic and need trusted data alongside the open web. The Alliance bring...\n\n- [2026-09-24 · Reshared · 60 reactions] [Baselayer is partnering with Parallel Web Systems to connect...](https://www.linkedin.com/posts/baselayer_activity-7508913701970702336-3MsE): Baselayer is partnering with Parallel Web Systems to connect agentic web research with leading business and risk intelligence. Agents are now the internet’s primary users, but the web was built for...\n\n- [2026-09-22 · Reshared · 31 reactions] [Excited to be teaming up with our friends at Baselayer for an...](https://www.linkedin.com/posts/baselayer_activity-7507965574526898177-Afj_): Excited to be teaming up with our friends at Baselayer for an exclusive happy hour bringing together leaders across eCommerce, payments, fintech, and lending! Join us for craft martinis, elevated b...\n\n- [2026-09-19 · Reshared · 39 reactions] [AI has moved from answering questions to automating entire...](https://www.linkedin.com/posts/baselayer_activity-7507175394861776896-8YP7): AI has moved from answering questions to automating entire financial workflows, and San Francisco FTW: The Official Fintech Week Conference is the best place to discover how it's reshaping banking...\n\n- [2026-09-19 · Reshared · 53 reactions] [Baselayer is throwing me a two week workaversary party! Okay, no...](https://www.linkedin.com/posts/baselayer_activity-7507175524985667584-IhYI): Baselayer is throwing me a two week workaversary party! Okay, no. But there is a party, and we're celebrating something very exciting. Rooftop in SoMa, Wednesday the 23rd. Drinks, food, golden hour...\n\n- [2026-09-18 · Reshared · 35 reactions] [Hands down, my favorite moment so far at Baselayer ... Kaylin Hiatt...](https://www.linkedin.com/posts/baselayer_activity-7506756718962454530-jeY7): Hands down, my favorite moment so far at Baselayer ... Kaylin Hiatt was walking the team through our new MCP, showing how it works and where it could be useful in customer workflows... A few people...\n\n- [2026-09-16 · Reshared · 60 reactions] [Baselayer has exciting news to share, and we’re bringing together...](https://www.linkedin.com/posts/baselayer_activity-7505997288343855105-buj3): Baselayer has exciting news to share, and we’re bringing together friends across the industry to celebrate! If you’re in San Francisco next week, join us for Agents, Assets, & Aperitifs: an evening...\n\n- [2026-09-15 · Reshared · 58 reactions] [Baselayer is partnering with Nevermined to bring identity and...](https://www.linkedin.com/posts/baselayer_activity-7505661871958503424-jmBW): Baselayer is partnering with Nevermined to bring identity and payments together for trusted agentic commerce. As AI agents move from making recommendations to autonomous purchases, businesses need...\n\n- [2026-09-09 · Reshared · 25 reactions] [LangChain is now a Nevermined partner! Below is how everything runs...](https://www.linkedin.com/posts/baselayer_activity-7503593607954690048-GBnk): LangChain is now a Nevermined partner! Below is how everything runs today... (Full details in the blog in the first comment, but I have wanted this one for years.) LangChain is where agents get bui...\n\n- [2026-09-09 · Posted · 33 reactions] [Introducing Baselayer's MCP: verified business identity and risk...](https://www.linkedin.com/posts/baselayer_introducing-baselayers-mcp-verified-business-activity-7503470173388001282-o3tK)\n  > Introducing Baselayer's MCP: verified business identity and risk intelligence for AI agents.\n  >\n  > Agents can now access the same intelligence that 2,300+ financial institutions already rely on, directly in their workflows.\n  >\n  > As enterprises move AI from answering questions to taking action, the bar for trust increases.\n  >\n  > Baselayer's MCP is built for where being right matters: turning verified business data into agent-ready context, reducing hallucination, and making AI decisions easier to trust.\n  >\n  > Teams are already using Baselayer's MCP to power agentic workflows across Compliance, Onboarding, Underwriting, Procurement, Financial Analysis, Sales, and Deep Research.\n  >\n  > Full announcement in the first comment below.\n\n- [2026-09-02 · Reshared · 120 reactions] [ON INTERVIEW QUESTIONS I've interviewed 300+ people in 2026 so far...](https://www.linkedin.com/posts/baselayer_activity-7500922113227264000-w9Yv): ON INTERVIEW QUESTIONS I've interviewed 300+ people in 2026 so far at Baselayer and the best interviews all have one thing in common: the person asks me amazing questions Hot take: there is such a...\n\n- [2026-08-17 · Reshared · 174 reactions] [Friday was my last day at Baselayer . On my first day, Jonathan...](https://www.linkedin.com/posts/baselayer_activity-7495186197963694081-08x_): Friday was my last day at Baselayer . On my first day, Jonathan Awad asked what I wanted out of the summer. I said I wanted to wear many hats. That's why I'd come to a startup. I got what I asked f...\n\n- [2026-08-12 · Reshared · 251 reactions] [We're running out of office space... AGAIN. → Team 3x'd in the past...](https://www.linkedin.com/posts/baselayer_activity-7493316053616193538-ldNZ): We're running out of office space... AGAIN. → Team 3x'd in the past year → Hiring across every function, NYC & SF, in office → Adding desks anywhere we can fit them Our first NYC office was a Brook...\n\n- [2026-08-10 · Reshared · 228 reactions] [A year ago, people were skeptical that agents would ever move...](https://www.linkedin.com/posts/baselayer_activity-7492670758285094912-iHxq): A year ago, people were skeptical that agents would ever move money. Last Monday, 120+ builders showed up and delegated a credit card. The interesting problem has already moved up the stack: once a...\n\n- [2026-08-03 · Reshared · 15 reactions] [What a great evening!🍷 A big thank you to everyone who joined us...](https://www.linkedin.com/posts/baselayer_activity-7490078588659122176-aT8-): What a great evening!🍷 A big thank you to everyone who joined us for Glasses Up, Pitch Decks Down. It was a pleasure catching up with familiar faces, meeting new ones, and enjoying great conversati...\n\n- [2026-08-03 · Reshared · 51 reactions] [Glasses up, pitch decks down. 🍷 Not every hero makes it to the...](https://www.linkedin.com/posts/baselayer_activity-7490078507184685056-YNC8): Glasses up, pitch decks down. 🍷 Not every hero makes it to the party on time, or at all. Ryan Maitre and Dustin Q. literally circled JFK for 30 minutes before their airline decided the weather wasn...\n\n- [2026-07-31 · Reshared · 73 reactions] [Great to hang out and have proper conversations with friends, old...](https://www.linkedin.com/posts/baselayer_activity-7488763251783122944-1vub): Great to hang out and have proper conversations with friends, old and new, including William Morales , Brian Chin , Nicole Paikoff , Dennis Owusu-Sem , Stephanie Barron , Jeff Tennenbaum , Duncan C...\n\n- [2026-07-30 · Reshared · 64 reactions] [The best industry events are all about the people you meet and the...](https://www.linkedin.com/posts/baselayer_activity-7488678313608167424-Op2A): The best industry events are all about the people you meet and the conversations you share. Yesterday, Carlos Buchaca, CFA and Casey Ignizio from our Underwriting team attended a wine tasting at Ci...\n\n- [2026-07-30 · Reshared · 78 reactions] [Baselayer just passed 200 customers and partners, and we're...](https://www.linkedin.com/posts/baselayer_activity-7488595091532582913-WiF0): Baselayer just passed 200 customers and partners, and we're building out account management to catch up. Sales has been running hot. We need someone to make sure the customers they're closing stay...\n\n## Locations\n- Headquarters: new york, new york, united states (US)\n- Offices: mesa, arizona, united states (US), san francisco, california, united states (US), new york, new york, united states (US)",
+        "summary": "{\"description\":\"Baselayer is a Technology, Information and Internet company that provides business identity verification, risk, and fraud solutions, combining credit, identity, and fraud checks into one AI-powered system to boost auto-approvals and reduce manual reviews.\",\"employee_estimate\":34,\"employee_estimate_source\":\"Employees: 34\",\"hiring_first_ops_or_revops\":false,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"New York, United States\",\"hq_quote\":\"Headquartered in New York, New York, United States\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Baselayer is a Technology, Information and Internet company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"- Yearly Growth: +57.1% (Employees: 34) - Annual Revenue: USD 540,000,000 - Yearly Growth: +57.1%\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQGWjzTbZfDIeA/company-logo_200_200/B4EZuP5r70IQAI-/0/1767645822976/baselayer_logo?e=2147483647&v=beta&t=xib9BeVsnlGBLUHeJGieUlIoN5MbWqfFrEj4_muC260",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/9m9xfpxbt7k",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Baselayer",
+              "foundedYear": null,
+              "description": "Baselayer empowers over 2,200 financial institutions and government agencies to trust the small and medium-sized businesses they serve. \n\nWe use proprietary machine learning to search government records, the web, and private databases to answer questions about Compliance, Risk, or Fraud about any business in the United States.\n\nOur solution suite includes tools for identity verification (Know Your Business), enhanced due diligence, fraud prevention, risk profiling, lien filing, and portfolio monitoring. Our platform also offers unique credit stacking capabilities and an advanced repeat fraud prevention system.\n\nBaselayer is integrated into companies with over 30 million accounts, rating and verifying real-time applications. \n\nBaselayer.com",
+              "workforce": {
+                "total": 34
+              },
+              "headquarters": {
+                "address": "245 W 17th St, New York, NY 10011, US",
+                "city": "New York",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 540000000,
+                "fundingTotal": null,
+                "fundingLatestRound": {
+                  "name": "Angel",
+                  "date": "2014-01-01",
+                  "amount": null
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 10593,
+                "countryRank": 487872,
+                "avgDurationSeconds": 45,
+                "history": [
+                  {
+                    "value": 10032,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 9487,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 10663,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 17952,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 14623,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 10593,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/1wwfsxdh9b2",
+        "title": "Baselayer Biosciences",
+        "url": "https://baselayerbiosci.com/",
+        "text": "# Baselayer Biosciences\n\nBaselayer Biosciences is a Biotechnology Research company. Baselayer Biosciences provides high-resolution protein dynamics analysis for epitope mapping, conformational stability, and binding interface localization. They support biologics programs from discovery through regulatory submission and are trusted by teams advancing therapies from discovery through regulatory submission. Baselayer Biosciences employs 3 people. Headquartered in Seattle, Washington, United States.\n\n## About\n\nBaselayer Biosciences provides advanced protein analytics powered by state-of-the-art mass spectrometry. Our services include HDX-MS for higher-order structure and epitope mapping, intact mass and peptide mapping, native MS, glycan profiling, proteomics, and developability and comparability assessments for biologics.\n\nAll work is performed in the U.S. on industry-leading high-resolution mass spectrometry platforms, with workflows validated to retain significantly more deuterium than competing approaches. Our PhD-level scientists deliver expert interpretation and direct support, trusted by leading biopharma partners for frontier applications, from membrane proteins to complex sera.\n\nWe combine rigor, speed, and clear communication to move your program forward—whether you need a single study or a long-term CRO partner. Expect fast turnarounds, data-driven reports that inform critical decisions, and collaboration that accelerates your path from discovery through IND and formulation.\n\n(Services currently for research use only.)\n\n## Company Details\n- Industry: Biotechnology Research\n- Type: Privately held\n- Headquarters: Seattle, United States\n- Homepage: baselayerbiosci.com\n- Aliases: baselayer biosciences\n- LinkedIn: linkedin.com/company/baselayerbio\n- Linkedin Followers: 6\n- Emails: clint@baselayerbiosci.com\n\n## Financials\n  - Corporate round (2023-01-01)\n\n## Workforce\n- Employees: 3\n- Company Size: 1-10 employees\n- Key Executives:\n  - Christopher Tannock: Chief Engineer\n  - Clint Vorauer: Founder and CEO\n- Breakdown:\n  - By Country: United States: 2 (67%)\n  - By Department: General Management: 1 (33%), Technical: 1 (33%)\n  - By Seniority: Founder: 1 (33%), Head: 1 (33%)\n- Talent Sources: University of Washington (1), Revvity (1)\n- Alumni Go To: SRAM (1)\n\n## Web presence\n\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Categories\n\nbinding interface localization, biologics characterization, biotechnology, conformational stability, epitope mapping, mass spectrometry\n\n## Locations\n- Headquarters: seattle, washington, united states (US)\n- Offices: seattle, washington, united states (US)",
+        "summary": "{\"description\":\"Baselayer Biosciences is a biotechnology research company focusing on high-resolution protein dynamics analysis for epitope mapping, conformational stability, and binding interface localization, serving biologics programs from discovery through regulatory submission.\",\"employee_estimate\":3,\"employee_estimate_source\":\"Employees: 3\",\"hiring_first_ops_or_revops\":false,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Seattle, United States\",\"hq_quote\":\"Headquartered in Seattle, Washington, United States.\",\"industry\":\"Biotechnology Research\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Baselayer Biosciences is a Biotechnology Research company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":null,\"recently_funded_seed_or_series_a_quote\":\"\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQEPn_2sdfHZ2A/company-logo_200_200/B4EZlXWrN1KcAM-/0/1758107186499/baselayerbio_logo?e=2147483647&v=beta&t=buP58lqbKzOm_K2DxH41E1NR_DFGzfsoMOCmPGM2uQY",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/1wwfsxdh9b2",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Baselayer Biosciences",
+              "foundedYear": null,
+              "description": "Baselayer Biosciences provides advanced protein analytics powered by state-of-the-art mass spectrometry. Our services include HDX-MS for higher-order structure and epitope mapping, intact mass and peptide mapping, native MS, glycan profiling, proteomics, and developability and comparability assessments for biologics.\n\nAll work is performed in the U.S. on industry-leading high-resolution mass spectrometry platforms, with workflows validated to retain significantly more deuterium than competing approaches. Our PhD-level scientists deliver expert interpretation and direct support, trusted by leading biopharma partners for frontier applications, from membrane proteins to complex sera.\n\nWe combine rigor, speed, and clear communication to move your program forward—whether you need a single study or a long-term CRO partner. Expect fast turnarounds, data-driven reports that inform critical decisions, and collaboration that accelerates your path from discovery through IND and formulation.\n\n(Services currently for research use only.)",
+              "workforce": {
+                "total": 3
+              },
+              "headquarters": {
+                "address": "4000 NE Mason Rd, Suite 300, Seattle, WA 98195, US",
+                "city": "Seattle",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": null,
+                "fundingLatestRound": {
+                  "name": "Corporate round",
+                  "date": "2023-01-01",
+                  "amount": null
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": 3406345,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 192,
+                    "dateFrom": "2026-01",
+                    "dateTo": "2026-01"
+                  },
+                  {
+                    "value": 192,
+                    "dateFrom": "2026-02",
+                    "dateTo": "2026-02"
+                  },
+                  {
+                    "value": 1532,
+                    "dateFrom": "2026-03",
+                    "dateTo": "2026-03"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 9571.7,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

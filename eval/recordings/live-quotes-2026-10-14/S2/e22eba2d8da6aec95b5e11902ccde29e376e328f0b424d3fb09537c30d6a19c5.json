@@ -1,0 +1,266 @@
+{
+  "request": {
+    "query": "Clueso",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the exact phrase from the page that the employee estimate came from (e.g. \"350 employees\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "1d3af23addbb7c2eb2ec58e47b574c28",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/xsndtgjvh28",
+        "title": "Clueso",
+        "url": "https://clueso.io/",
+        "text": "# Clueso\n\nClueso is a Software Development company. Clueso is a company that provides product videos and training content in minutes. They offer AI voiceovers, one-click translation, and effortless editing. Clueso employs 41 people (+127.8% YoY, +23 people) and has an annual revenue of $200K, founded in 2023. Headquartered in San Francisco, United States, with an office in Campbell. Its workforce is distributed across India, United States, Kuwait, and Saudi Arabia.\n\n## About\n\nClueso is the fastest and easiest way to create stunning product videos. It converts raw screen recordings into studio-quality videos and step-by-step articles in minutes. No editing or design skills needed.\n\nHere’s how it works: \nSimply record/upload a rough screen recording of your product, and Clueso will instantly transform it into a studio-quality explainer video and a step-by-step how-to article. \n\nHere are some of the top features:\n\nCreate videos\nClueso handles every step of the video production process. It writes your video’s script and generates a professional AI-voiceover that stays perfectly in sync with your video. Clueso also enhances your video with stunning zoom effects, highlights, captions, music, and branding!\n\nCreate SOPs/help articles\nFrom any screen recording, Clueso’s AI automatically generates a step-by-step article with perfectly crafted steps and screenshots/GIFs. Use our AI agent to get the tone and formatting you want.\n\nTranslate your content\nTranslate your videos into 40+ languages. Use the translation glossary feature to fine-tune terms and ensure translation accuracy.\n\nEasily update out-of-date content\nWhenever your videos go out of date, you don’t need to remake them from scratch! Clueso makes it super-easy to replace outdated clips and voiceovers.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: San Francisco, United States\n- Founded Year: 2023\n- Homepage: clueso.io\n- Aliases: Desklamp, Inc., clueso\n- LinkedIn: linkedin.com/company/clueso\n- Linkedin Followers: 14,818\n\n## Financials\n- Annual Revenue: USD 200,000\n- Total Funding: USD 1,900,000\n  - Seed (2024-04-23): USD 1.4M\n  - Pre seed (2023-03-24): USD 500,000\n\n## Workforce\n- Employees: 41\n- Company Size: 11-50 employees\n  - Monthly Growth: -2.4%\n  - Yearly Growth: +127.8%\n- Key Executives:\n  - Akash Anand: Co-founder & CEO\n  - Krish Gandhi: Growth & GTM Engineering Lead\n  - Neel Balar: Co-Founder\n  - Prajwal Prakash: Founder CTO\n  - Srihari BT: Angel Investor\n- Breakdown:\n  - By Country: India: 25 (61%), United States: 4 (10%), Kuwait: 1 (2%), Saudi Arabia: 1 (2%)\n  - By Department: Technical: 11 (27%), Design: 5 (12%), Marketing: 5 (12%), General Management: 3 (7%), Other Department: 3 (7%), Customer Service: 2 (5%), Consulting: 1 (2%), Trades: 1 (2%)\n  - By Seniority: Specialist: 16 (39%), Other Management: 8 (20%), Founder: 4 (10%), Head: 1 (2%), Manager: 1 (2%), Senior: 1 (2%)\n- Talent Sources: Desklamp (3), Fluent Health (2), Fello (2), ZS (1), WarmCall (1), Ministry of Comedy (1), Karagre Softwares Pvt. Ltd. (1), ClearFeed (1), Cheiron (1), Attentive.ai (1)\n- Alumni Go To: Whatfix (1), SpotDraft (1), Reo.Dev (1), Otel AI (1), Humantic AI (1), ElevenLabs (1), Brivio (1), Birla Institute of Technology and Science, Pilani (1), Adobe (1)\n\n## Products & Technology\n- Features: Free Trial, Demo Available\n- Tech Stack: applitools, bash, browserstack, chrome, davinci resolve, docker, github, github actions, gitlab, grafana, hubspot, jenkins, jest, lambdatest, linkedin, playwright, postgresql, pytest, python, razorpay, rds, react, redis, selenium, smartsheet, terraform, time matters, twitter, typescript, uipath, youtube, zendesk\n\n## Web presence\n\n- Twitter: twitter.com/_clueso\n- YouTube: youtube.com/@cluesoai\n- Crunchbase: crunchbase.com/organization/clueso\n- Web traffic:\n  - Monthly visits: 157,843\n  - Global rank: 233,630\n  - Bounce rate: 36.0%\n  - Pages per visit: 3.3\n  - Average visit duration: 89s\n\n## Reviews & Ratings\n- Product Reviews: 4.8/5.0 (128 reviews)\n\n## Categories\n\nai video generators, ai voiceovers, artificial intelligence (ai), clueso, computers_electronics_and_technology/graphics_multimedia_and_web_design, customer education, editing, product videos, saas, screen and video capture, screen and video capture software, software, technology/software, training content, translation, video editing, work instructions\n\n## Competitors\n\nrephrase ai, trainn, hippo video, justbaat\n\n## Recent News\n- [2026-09-05] WEB.DE: Clueso über sein Tourleben: \"Es ist wie eine kleine Familie\"\n- [2026-08-31] ZDFheute: Sänger Clueso: Zwischen Bühnenrituale und Tourstress\n- [2026-08-30]\n  - NWZonline: Clueso im Beachclub Nethen: Vorverkauf gestartet\n  - News.at: Clueso lässt Sommer mit \"Hitzewelle\" ausklingen\n  - Oberösterreichische Nachrichten: Clueso lässt den Sommer mit \"Hitzewelle\"-Song ausklingen\n  - LifeOnStage®: OK KID veröffentlichen zusammen mit Clueso die gemeinsame Single \"Heatwave\"\n- [2026-08-16]\n  - brisant.de: \"Finde ich geil\": Mitten im Song zieht Clueso den Stecker - so still genießt er den \"Chicago\"-Moment\n  - SWR3: Diese Acts spielen kostenlose Konzerte beim New Pop\\!\n- [2026-08-09] Ostsee Zeitung: Traditionshotel wird nach Insolvenz verkauft + Besonderer Strandkorb + Konzert von Clueso\n- [2026-08-06] ARD Mediathek: Clueso live in Bremen\n- [2026-07-26]\n  - Stimme: Clueso begeistert bei Haigern Live: Emotionen, Fan-Nähe und Festivalmagie in Talheim\n  - Stimme: Küsschen für Haigern Live: Clueso sorgt für emotionale Momente am dritten Festival-Tag\n- [2026-07-25]\n  - Schwarzwälder Bote: Ferienzauber Rottweil: Von „Chicago“ bis „Gewinner“ – Clueso sorgt für Gänsehautmomente im Kraftwerk\n  - wirtschaft.com: Video: Clueso sorgt für Gänsehautmomente im Kraftwerk Rottweil\n- [2026-07-19]\n  - MSN: Clueso und Mark Forster in Dortmund: Veranstalter ändert kurz vor Konzerten die Regeln\n  - Lippische Landes-Zeitung: Paderborn: Konzert von Clueso\n- [2026-07-18] Lippische Landes-Zeitung: Clueso tanzt mit Tausenden in Paderborn – und macht einen 13-Jährigen besonders glücklich\n- [2026-07-17] News.de: Clueso auf Tour 2026/2027: Diese Termine dürfen Sie nicht verpassen\n- [2026-07-15] RTL Today: Clueso at Neimënster Abbey \\(12 July 2026\\)\n- [2026-07-07] MDR.de: Domplatz Open Air 2027\n- [2026-07-05] [ZurÃ¼ck auf dem Domplatz: Clueso lÃ¤dt 2027 wieder zum Erfurter Heimspiel â€“ Vorverkauf startet in KÃ¼rze](https://www.blogarama.com/journalism-blogs/328012-tha-14ringen-blick-nachrichten-und-meldungen-blog/77826618-zura14ck-auf-dem-domplatz-clueso-ladt-2027-wieder-zum-erfurter-heimspiel-vorverkauf-startet-ka14rze)\n\n## Social\n\n### Linkedin\n\n- [2026-09-24 · Posted · 9 reactions] [Most training videos start with a script. Someone tries to write...](https://www.linkedin.com/posts/clueso_turn-recordings-into-training-videos-workflow-activity-7508885978904887297-PR_p)\n  > Most training videos start with a script. Someone tries to write out every click before they've even recorded anything.\n  >\n  > Then they sit down to record, and half of it doesn't match what's on screen anymore.\n  >\n  > So we made a simple workflow that starts the other way around, record first, script after.\n  >\n  > With Clueso MCP, you can trigger video creation from Claude, ChatGPT, or Gemini and turn your product workflows into finished training content.\n  >\n  > Check the comments to see how it works 👇\n\n- [2026-09-21 · Reshared · 2 reactions] [We've come full circle! Prajwal Prakash made the MCP launch video...](https://www.linkedin.com/posts/clueso_weve-come-full-circle-prajwal-prakash-activity-7507811709433249793-4J5V): We've come full circle! Prajwal Prakash made the MCP launch video using the MCP. Every element in this video is a real Clueso element someone can still open and edit, and the MCP put them all there...\n\n- [2026-09-21 · Posted · 4 reactions] [Making a great video is now just a conversation with Claude or...](https://www.linkedin.com/posts/clueso_making-a-great-video-is-now-just-a-conversation-activity-7507766462627950592-5tN5)\n  > Making a great video is now just a conversation with Claude or ChatGPT.\n  >\n  > For years, video meant juggling a screen recorder, an editor, and design software, then stitching the result together by hand. Our customers stopped doing that. They build their entire video workflow inside Claude and ChatGPT now, using the Clueso MCP, and it changed how much they can make.\n  >\n  > Here is how it works:\n  >\n  > → 𝗕𝗿𝗶𝗻𝗴 𝗮𝗻𝘆𝘁𝗵𝗶𝗻𝗴. Give the agent an idea, a script, a screen recording, a few screenshots, or a doc.\n  > → 𝗧𝗵𝗲 𝗮𝗴𝗲𝗻𝘁 𝗯𝘂𝗶𝗹𝗱𝘀 𝘁𝗵𝗲 𝘄𝗵𝗼𝗹𝗲 𝘃𝗶𝗱𝗲𝗼. It plans the storyboard, generates the scenes, adds the voiceover, and edits the whole thing on your brand.\n  > → 𝗬𝗼𝘂 𝗷𝘂𝘀𝘁 𝗸𝗲𝗲𝗽 𝘁𝗮𝗹𝗸𝗶𝗻𝗴. Tell it what to change, and it keeps working with you until the video is exactly right.\n  >\n  > Product marketing videos, explainers, training, demos, and formats we did not even see coming. And the agent is far more capable than the one we first shipped. It now takes a video all the way to polished, marketing quality, from start to finish.\n  >\n  > Last year, Clueso was voted the #1 Product of the Month on Product Hunt. A year later, the product looks completely different, and we are going again.\n  >\n  > We are launching the Clueso MCP on Product Hunt on Tuesday, September 22. Come see what it can do, and if you like it, we would love your support.\n\n- [2026-09-21 · 4 reactions] Making a great video is now just a conversation with Claude or ChatGPT. For years, video meant juggling a screen recorder, an editor, and design software, then stitching the result together by hand...\n\n- [2026-09-18 · Reshared · 107 reactions] [Trading isn’t about always being right. It’s about being right...](https://www.linkedin.com/posts/clueso_activity-7506699802332684288-zfPk): Trading isn’t about always being right. It’s about being right enough that you make a ton of money. At the start of my time as a trader in Hong Kong, I was in an environment that was completely for...\n\n- [2026-09-18 · Posted · 12 reactions] [Nothing ages faster than a product walkthrough 💀](https://www.linkedin.com/posts/clueso_nothing-ages-faster-than-a-product-walkthrough-activity-7506709068984582144-Mgsv)\n  > Nothing ages faster than a product walkthrough 💀\n\n- [2026-09-18 · Posted · 9 reactions] [PowerPoints are so boring! But what if you could turn your PPTs...](https://www.linkedin.com/posts/clueso_powerpoints-are-so-boring-but-what-if-you-activity-7506668701815914497-yQ-6)\n  > PowerPoints are so boring! But what if you could turn your PPTs into engaging videos?\n  >\n  > We've seen teams use it for sales demos, HR onboarding, training videos, and internal comms.\n  >\n  > Basically, anywhere a static deck was doing the job, a video would do it better.\n  >\n  > If you've got a presentation sitting around, give this a try!\n  >\n  > Link in the comments 👇\n\n- [2026-09-18 · 9 reactions, 1 comment] PowerPoints are so boring! But what if you could turn your PPTs into engaging videos? We've seen teams use it for sales demos, HR onboarding, training videos, and internal comms. Basically, anywher...\n\n- [2026-09-17 · Reshared · 111 reactions] [We're launching the Clueso MCP on Product Hunt on September 22nd...](https://www.linkedin.com/posts/clueso_activity-7506317294730465280-lrpL): We're launching the Clueso MCP on Product Hunt on September 22nd. Over the last few weeks, we've seen incredible adoption of our MCP, and the videos customers are creating with it have been genuine...\n\n- [2026-09-17 · Posted · 10 reactions] [You finally got the new system live. Big win, right? Except now...](https://www.linkedin.com/posts/clueso_managing-system-change-with-sops-guide-activity-7506295183316054016-yc2C)\n  > You finally got the new system live. Big win, right?\n  >\n  > Except now half the team is stuck. The old shortcuts are gone, approvals work differently, and something that used to take a minute now takes ten.\n  >\n  > It becomes guesswork; mistakes go up, and work slows down right when you need it to move.\n  >\n  > That's where good SOPs help. But the ones that actually work aren't just a list of clicks. You get them by talking to the people who do the job, working out what really changed, and writing down the why behind each step so it still makes sense the next time the tool updates.\n  >\n  > So we put together a simple guide to build SOPs that help your team settle into a new system, not just document it.\n  >\n  > With Clueso, you can record the process once and turn it into a clear SOP with screenshots, steps, and visuals.\n  >\n  > Check the comments to see how it works 👇\n\n- [2026-09-17 · Posted · 36 reactions] [Your product speaks a dozen languages. Your product videos speak...](https://www.linkedin.com/posts/clueso_your-product-speaks-a-dozen-languages-your-activity-7506258019941277698-T6dC)\n  > Your product speaks a dozen languages. Your product videos speak one.\n  >\n  > Every walkthrough you have made is frozen in whichever language it was recorded in, while your UI has already moved on to German, Japanese, Portuguese, and more. Dubbing the voiceover never fixed this, because your customer is still staring at an English screen underneath a translated voice. The only way around it was re-recording the entire video by hand, market by market.\n  >\n  > Clueso Agents ends that trade-off. It is the first way to generate fully native product videos, screens included, in every language your product already supports.\n  >\n  > 𝗥𝗲𝗮𝗹 𝗨𝗜, 𝗻𝗼𝘁 𝗴𝘂𝗲𝘀𝘀𝘄𝗼𝗿𝗸: The agent records your actual shipped UI translations, so every screen it captures is accurate.\n  >\n  > 𝗡𝗮𝘁𝗶𝘃𝗲 𝘃𝗼𝗶𝗰𝗲 𝗮𝗻𝗱 𝗰𝗮𝗽𝘁𝗶𝗼𝗻𝘀: Voiceover and captions are generated in that same language, so nothing about the video feels dubbed.\n  >\n  > 𝗢𝗻𝗲 𝗽𝗿𝗼𝗺𝗽𝘁, 𝗺𝗮𝗻𝘆 𝗹𝗮𝗻𝗴𝘂𝗮𝗴𝗲𝘀: Ask for Japanese, German, and Portuguese in the same run, and get three finished videos back.\n  >\n  > This is what it looks like when video finally keeps pace with a global product.\n  >\n  > See it live with Clueso Agents → clueso[dot]io/agent\n\n- [2026-09-17 · 37 reactions] Your product speaks a dozen languages. Your product videos speak one. Every walkthrough you have made is frozen in whichever language it was recorded in, while your UI has already moved on to Germa...\n\n- [2026-09-17 · 10 reactions, 1 comment] You finally got the new system live. Big win, right? Except now half the team is stuck. The old shortcuts are gone, approvals work differently, and something that used to take a minute now takes te...\n\n- [2026-09-16 · Posted · 20 reactions] [What if there was a third button? With Clueso, you can fix the typo...](https://www.linkedin.com/posts/clueso_what-if-there-was-a-third-button-with-clueso-activity-7505987396925140992-YaWm)\n  > What if there was a third button?\n  >\n  > With Clueso, you can fix the typo and the video gets updated automatically.\n  >\n  > Check the comments to see how it works👇\n\n- [2026-09-15 · 146 reactions, 15 comments] Today, we’re introducing automatic UI translations for product videos. Most SaaS products today aren’t just in English. Products exist in a dozen languages, but their videos usually don’t. Even tea...\n\n- [2026-09-04 · Reshared · 326 reactions] [August 2026 was Clueso’s biggest month ever for self-serve growth...](https://www.linkedin.com/posts/clueso_activity-7501568351987548160-PO07): August 2026 was Clueso’s biggest month ever for self-serve growth. We added more ARR through our self-serve/PLG motion than in any previous month in our history. This growth was primarily driven by...\n\n- [2026-09-03 · Posted · 13 reactions] [Making a handful of training videos is easy. The real test is what...](https://www.linkedin.com/posts/clueso_scaling-training-video-production-evaluation-activity-7501218030597861376-dIcE)\n  > Making a handful of training videos is easy. The real test is what happens when you need fifty.\n  >\n  > That's usually where things fall apart.\n  >\n  > Every video has to go through the one person who knows the brand rules, branding gets applied by hand each time, and the effort per video keeps climbing as the volume does. What worked for a small pilot quietly stops working at scale.\n  >\n  > So before you commit to a workflow, it's worth checking if it can actually grow with you.\n  >\n  > We put together a simple checklist to help you figure out whether your setup will hold up, or buckle the moment you scale.\n  >\n  > You can use Clueso to build branded training videos and keep scaling without design slowing you down.\n  >\n  > Link in comments👇\n\n- [2026-09-03 · 13 reactions, 3 comments] Making a handful of training videos is easy. The real test is what happens when you need fifty. That's usually where things fall apart. Every video has to go through the one person who knows the br...\n\n- [2026-09-02 · Reshared · 192 reactions] [Lately, a lot of people have been asking me how we make our launch...](https://www.linkedin.com/posts/clueso_activity-7500912721203425280-eMEv): Lately, a lot of people have been asking me how we make our launch videos. We’ve found that two formats perform best for product launches: 1/ polished DSLR footage featuring a speaker, and 2/ motio...\n\n- [2026-09-02 · Posted · 29 reactions] [Kevin finally learns how to tie a tie 👔 He also taught Todd how to...](https://www.linkedin.com/posts/clueso_kevin-finally-learns-how-to-tie-a-tie-activity-7500855427702808576-g8SI)\n  > Kevin finally learns how to tie a tie 👔\n  >\n  > He also taught Todd how to convert any PPT into an engaging video in minutes using Clueso.\n  >\n  > Try it today for free. Link in the comments 👇\n\n## Locations\n- Headquarters: san francisco, united states (US)\n- Offices: san francisco, california, united states (US), campbell, california, united states (US), san francisco, united states (US)",
+        "summary": "{\"description\":\"Clueso is a Software Development company that provides product videos and training content in minutes, including AI voiceovers, one-click translation, and editing.\",\"employee_estimate\":41,\"employee_estimate_source\":\"Employees: 41\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"San Francisco, United States\",\"hq_quote\":\"Headquartered in San Francisco, United States, with an office in Campbell.\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 1,900,000; Seed (2024-04-23): USD 1.4M; Pre seed (2023-03-24): USD 500,000\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQE9z5Ku000ScQ/company-logo_200_200/B56Zb2Tb1CGoAI-/0/1747889012683/clueso_logo?e=2147483647&v=beta&t=NiUuYETCKMHEjo0CvYLrFPUKELRGFGhGaxG185269iA",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/xsndtgjvh28",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Clueso",
+              "foundedYear": 2023,
+              "description": "Clueso is the fastest and easiest way to create stunning product videos. It converts raw screen recordings into studio-quality videos and step-by-step articles in minutes. No editing or design skills needed.\n\nHere’s how it works: \nSimply record/upload a rough screen recording of your product, and Clueso will instantly transform it into a studio-quality explainer video and a step-by-step how-to article. \n\nHere are some of the top features:\n\nCreate videos\nClueso handles every step of the video production process. It writes your video’s script and generates a professional AI-voiceover that stays perfectly in sync with your video. Clueso also enhances your video with stunning zoom effects, highlights, captions, music, and branding!\n\nCreate SOPs/help articles\nFrom any screen recording, Clueso’s AI automatically generates a step-by-step article with perfectly crafted steps and screenshots/GIFs. Use our AI agent to get the tone and formatting you want.\n\nTranslate your content\nTranslate your videos into 40+ languages. Use the translation glossary feature to fine-tune terms and ensure translation accuracy.\n\nEasily update out-of-date content\nWhenever your videos go out of date, you don’t need to remake them from scratch! Clueso makes it super-easy to replace outdated clips and voiceovers.",
+              "workforce": {
+                "total": 41
+              },
+              "headquarters": {
+                "address": "San Francisco, US",
+                "city": "San Francisco",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 200000,
+                "fundingTotal": 1900000,
+                "fundingLatestRound": {
+                  "name": "Seed",
+                  "date": "2024-04-23",
+                  "amount": 1400000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 157843,
+                "countryRank": 41555,
+                "avgDurationSeconds": 89,
+                "history": [
+                  {
+                    "value": 149566,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 163239,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 161105,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 167070,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 187422,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 157843,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/4qrnz06fwp5",
+        "title": "CLUSE",
+        "url": "https://cluse.com/",
+        "text": "# CLUSE\n\nCLUSE is a Retail Apparel and Fashion company. CLUSE is a company that specializes in modern watches, jewellery, and bags for men and women. They offer a wide range of watches including bestsellers, women's watches, gold watches, silver watches, and black watches. They also provide free shipping and a 2-year guarantee. CLUSE employs 64 people (-8.6% YoY, -6 people) and has an annual revenue of $2M, founded in 2013. Headquartered in Amsterdam, Noord-Holland, Netherlands, with an office in Noord-Holland. Its workforce is distributed across 7 countries (including Netherlands, France, Ireland, Spain, and China).\n\n## About\n\nWe are CLUSE, a watch and lifestyle brand from Amsterdam. We are a young, dynamic and ambitious company with a strong passion for the Parisian way of living. Leading the way with modern and minimal designs that empower people and inspire them to express their uniqueness. Trying new things. Sharing moments. We're all about the simple things. Because there is beauty in simplicity. We embrace different nationalities within our company, and enjoy an open and informal culture.\n\nAre you driven and curious? Would you like to be challenged in an international and informal environment? Are you excited to take the next step in your career? Have a look at our opportunities and join the #CLUSEclub now!\n\n## Company Details\n- Industry: Retail Apparel and Fashion\n- Type: Privately held\n- Headquarters: Amsterdam, Netherlands\n- Founded Year: 2013\n- Homepage: cluse.com\n- Aliases: cluse\n- LinkedIn: linkedin.com/company/cluse-watches\n- Linkedin Followers: 16,106\n- Emails: care@cluse.com\n\n## Financials\n- Annual Revenue: USD 2,000,000\n\n## Workforce\n- Employees: 64\n- Company Size: 11-50 employees\n  - Monthly Growth: +1.6%\n  - Yearly Growth: -8.6%\n- Key Executives:\n  - Barbara Kleijn: Logistics Director\n  - Emil Tereanu: Chief Technology Officer\n  - Freddy Zweevel: Chief Financial Officer\n  - Ramon Woldendorp: Chief Operational Officer (COO)\n- Breakdown:\n  - By Country: Netherlands: 36 (56%), France: 2 (3%), Ireland: 2 (3%), Spain: 2 (3%), China: 1 (2%), Italy: 1 (2%), United States: 1 (2%)\n  - By Department: Sales: 12 (19%), Marketing: 9 (14%), Customer Service: 6 (9%), Design: 3 (5%), Finance: 3 (5%), Technical: 3 (5%), Other Department: 2 (3%), Product: 2 (3%), General Management: 1 (2%), Hr: 1 (2%) (+3 more)\n  - By Seniority: Specialist: 21 (33%), Manager: 10 (16%), Other Management: 6 (9%), Intern: 4 (6%), Clevel: 3 (5%), Director: 1 (2%), Senior: 1 (2%)\n- Active job postings: 2\n- Salary ranges (20 of 28 roles):\n  - General Counsel: median 99,949 EUR per year\n  - Product Development: median 86,000 EUR per year\n  - Management: median 54,701.35 EUR per year\n  - sales manager France suisse: median 50,123.25 EUR per year\n  - Global Sales Director: median 49,863.75 EUR per year\n  - Senior Designer: median 48,692.54 EUR per year\n  - Senior Social Media Manager: median 41,984.88 EUR per year\n  - Brand Partnerships Manager: median 35,789.94 EUR per year\n  - Customer Service: median 30,365.92 EUR per year\n  - Customer Facing Role: median 25,120.67 EUR per year\n  - Marketing: median 5,975.67 EUR per year\n  - IT Director: median 69,938.48 EUR per month\n  - Sales Manager: median 63,526.13 EUR per month\n  - CustomerService Manager: median 59,832.6 EUR per month\n  - Account Manager: median 34,757.55 EUR per month\n  - Sales Support: median 30,780.98 EUR per month\n  - Logistics: median 29,507.19 EUR per month\n  - Influencer Marketing Specialist: median 29,451.19 EUR per month\n  - Stagiaire: median 6,419.39 EUR per month\n  - Internship: median 6,411.07 EUR per month\n- Talent Sources: TravelBird (3), TomTom (3), Pandora (3), Deloitte (3), سامانه های کاربردی کلان همگام (2), fonq.nl (2), Sun Enterprises B.V. (2), Royal Asscher Diamond Company (2), Philips (2), Midi Libre (2)\n- Alumni Go To: The HEINEKEN Company (4), Monks (3), Just Eat Takeaway.com (3), HEMA (3), ASICS EMEA (3), TI SENTO (2), PVH Corp. (2), LOAVIES ® OFFICIAL (2), L'Oréal (2), Esprit (2)\n\n## Products & Technology\n- Tech Stack: adobe, adobe creative suite, bamboohr, deel, gorgias, json, microsoft, microsoft 365, netsuite, okta, oracle, shopify, shopify plus, tiktok, youtube, adroll, google ads, google data studio, klaviyo, opent, elk, netsuite erp, freshdesk, amp, box, instagram, mix, workable, microsoft excel, microsoft office, well, windows 10, zoom, lucanet, facebook, impact\n\n## Web presence\n\n- Twitter: twitter.com/clusewatches\n- Facebook: facebook.com/clusewatches\n- Instagram: instagram.com/cluse\n- YouTube: youtube.com/channel/uccb_ectjne1zp2vvo2lbobg\n- Crunchbase: crunchbase.com/organization/cluse\n- Web traffic:\n  - Monthly visits: 371,761\n  - Global rank: 118,027\n  - Bounce rate: 48.0%\n  - Pages per visit: 3.5\n  - Average visit duration: 110s\n\n## Reviews & Ratings\n- Employer Rating: 3.1/5.0 (26 reviews)\n  - Breakdown: Work-Life: 3.6, Compensation: 2.6, Culture: 2.9, Career: 2.6\n\n## Categories\n\nbags, e-commerce, ecommerce, fashion, jewellery, lifestyle, lifestyle/jewelry_and_luxury_products, men and women, modern, retail, watches\n\n## Competitors\n\nwallace bishop, fraser hart, de grisogono\n\n## Recent News\n- [2026-09-10] [Paum’s 34 : Le concept-store montpelliérain qui allie écoresponsabilité et petits prix](https://claap.fr/paums-34-le-concept-store-montpellierain-qui-allie-ecoresponsabilite-et-petits-prix/)\n- [2026-07-08] [Questlove Unveils Young Blue Eyed New GF … At Taylor Swift Wedding\\!](https://mediatakeout.com/questlove-unveils-young-blue-eyed-new-gf-at-taylor-swift-wedding/)\n\n## Social\n\n### Linkedin\n\n- [2026-02-20 · 10 reactions] Our sales team is at Inhorgenta fair in Munich this weekend to show you our new SS26 collection. Looking great, isn't it?! Say hi to our team or visit our website for the new collection! ✨\n\n- [2026-02-05 · 18 reactions, 3 comments] Bold refinement. Timeless rhythm. Our new CLUSE collection launched yesterday, where modern elegance meets untamed beauty. Defined by neutral tones and sharp silhouettes. Designed for those who emb...\n\n- [2025-12-24 · 30 reactions, 1 comment] Last office day before Christmas 🎄 Wrapping things up, catching up with colleagues, and keeping a small Dutch tradition alive with oliebollen and our signature Christmas tree with CLUSE watches and...\n\n- [2025-12-18 · 32 reactions, 1 comment] 🎄✨ CLUSE x Marie Stella Maris! ✨🎄 This holiday season, we have teamed up with Marie-Stella-Maris (B Corp) to surprise our employees with a festive Christmas package. Inside, we carefully selected g...\n\n- [2025-12-02 · 9 reactions, 1 comment] Op zoek naar jouw droombaan? 🚀 Dit zijn de nieuwste vacatures op een rijtje. Check onze website en solliciteer direct, go go go! 💜 VACATURES: ON A DAILY BASIS - Graphic Designer Dutch Walltextile C...\n\n- [2025-11-21 · 6 reactions] 🎉 Black Friday Starts TODAY! 🎉 It’s time to elevate your accessory game with our must-haves ✨⌚🎒 Treat yourself or start checking off your holiday gift list! 🎁 💥 Enjoy up to 70% OFF on selected favo...\n\n- [2025-11-05 · 19 reactions] 🚀 Help jij ons groeien in Nederland? CLUSE zoekt een nieuwe aanwinst om onze B2B-ambities een stap verder te brengen! ✨ Account Manager – Nederland - Bezoek klanten door heel Nederland - Sluit deal...\n\n- [2025-10-10 · 32 reactions, 2 comments] 🚀 Help jij ons groeien in Nederland? CLUSE zoekt twee nieuwe aanwinsten om onze B2B-ambities een stap verder te brengen! Zit jij daar bij? ✨ Junior Account Manager – Nederland - Bezoek klanten door...\n\n- [2025-09-04 · 27 reactions, 3 comments] Our new FW25 collection is now live! ✨ Art framed in minutes!🤍 www.cluse.com #newcollection #CLUSE #FW25\n\n- [2025-08-28 · 6 reactions] We can't wait to see and meet you at our fairs! 🙋\n\n## Locations\n- Headquarters: amsterdam, noord-holland, netherlands (NL)\n- Offices: amsterdam, north holland, netherlands (NL), netherlands (NL), amsterdam, noord-holland, netherlands (NL)",
+        "summary": "{\"description\":\"CLUSE is a Retail Apparel and Fashion company that specializes in modern watches, jewellery, and bags for men and women. It offers a range of watches (bestsellers, women’s watches, gold/silver/black variants), free shipping, and a 2-year guarantee. Headquarters in Amsterdam, Netherlands with a presence in 7 countries.\",\"employee_estimate\":64,\"employee_estimate_source\":\"Employees: 64\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Active job postings: 2\",\"hq\":\"Amsterdam, Netherlands\",\"hq_quote\":\"Headquarters: amsterdam, noord-holland, netherlands (NL)\",\"industry\":\"Retail Apparel and Fashion\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"- Industry: Retail Apparel and Fashion\\n- Type: Privately held\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":false,\"recently_funded_seed_or_series_a_quote\":\"(no seed or Series A funding information stated)\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4D0BAQEt3VFMbAYLIg/company-logo_200_200/company-logo_200_200/0/1631329496737?e=2147483647&v=beta&t=dm89B2h28fc6A7yMjAPRXD3RXxw0Q8pK5IvnaSJZcOI",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/4qrnz06fwp5",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "CLUSE",
+              "foundedYear": 2013,
+              "description": "We are CLUSE, a watch and lifestyle brand from Amsterdam. We are a young, dynamic and ambitious company with a strong passion for the Parisian way of living. Leading the way with modern and minimal designs that empower people and inspire them to express their uniqueness. Trying new things. Sharing moments. We're all about the simple things. Because there is beauty in simplicity. We embrace different nationalities within our company, and enjoy an open and informal culture.\n\nAre you driven and curious? Would you like to be challenged in an international and informal environment? Are you excited to take the next step in your career? Have a look at our opportunities and join the #CLUSEclub now!",
+              "workforce": {
+                "total": 64
+              },
+              "headquarters": {
+                "address": "Danzigerkade 16 E, Amsterdam, Noord-Holland 1013 AP, NL",
+                "city": "Amsterdam",
+                "postalCode": null,
+                "country": "Netherlands"
+              },
+              "financials": {
+                "revenueAnnual": 2000000,
+                "fundingTotal": null,
+                "fundingLatestRound": null
+              },
+              "webTraffic": {
+                "visitsMonthly": 371761,
+                "countryRank": 9858,
+                "avgDurationSeconds": 110,
+                "history": [
+                  {
+                    "value": 258089,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 276190,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 298262,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 399745,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 274516,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 371761,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 9253.9,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

@@ -311,21 +311,100 @@ function decodeHtmlEntities(value: string): string {
     .replace(/&#x([0-9a-f]+);/gi, (_m, n) => String.fromCodePoint(parseInt(n, 16)));
 }
 
-function quoteNorm(value: string): string {
+/** Letters and digits only, after NFKC / entity decoding / lowercasing. */
+function quoteStrip(value: string): string {
   return decodeHtmlEntities(value)
     .normalize("NFKC")
-    .replace(/[\u2018\u2019\u201A\u201B]/g, "'")
-    .replace(/[\u201C\u201D\u201E\u201F]/g, '"')
-    .replace(/\s+/g, " ")
-    .trim()
-    .toLowerCase();
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}]+/gu, "");
 }
 
-export function quoteInText(quote: string | undefined, text: string | undefined): boolean {
-  const q = quoteNorm(quote ?? "");
-  const t = quoteNorm(text ?? "");
-  return q.length > 0 && t.includes(q);
+const QUOTE_MAX_TEXT = 20_000;
+const QUOTE_MAX_QUOTE = 500;
+const QUOTE_MIN_SEGMENT = 12;
+const QUOTE_MIN_TOTAL = 20;
+
+export interface QuoteMatch {
+  ok: boolean;
+  reason?: "too_short" | "segment_missing" | "empty";
 }
+
+export interface QuoteMatchOptions {
+  /** Minimum alphanumeric characters per segment (default 12). */
+  minSegment?: number;
+  /** Minimum alphanumeric characters across the whole quote (default 20). */
+  minTotal?: number;
+}
+
+/** Max distance (stripped chars) between the starts of consecutive clause matches. */
+const QUOTE_LOCALITY = 600;
+
+/**
+ * Split on clause punctuation (not the dot inside "17.5M"), strip each piece,
+ * then merge pieces shorter than `minClause` into the next one (a short tail
+ * joins the previous clause).
+ */
+function quoteClauses(quote: string, minClause: number): string[] {
+  const pieces = quote
+    .split(/\.{3}|\u2026|(?<!\d)\.|\.(?!\d)|[,;:"\u201C\u201D\n]/)
+    .map(quoteStrip)
+    .filter((x) => x.length > 0);
+  const out: string[] = [];
+  let buf = "";
+  for (const p of pieces) {
+    buf += p;
+    if (buf.length >= minClause) { out.push(buf); buf = ""; }
+  }
+  if (buf) {
+    if (out.length > 0) out[out.length - 1] += buf;
+    else out.push(buf);
+  }
+  return out;
+}
+
+/**
+ * Does `quote` appear in `text`, ignoring case, punctuation, bullets, whitespace
+ * and symbols? The quote is cut into clauses (at . , ; : " newline and ...);
+ * every clause must occur in the text, in order, each starting within
+ * QUOTE_LOCALITY stripped characters of the previous clause's start. That
+ * tolerates a summariser dropping an attribution or flattening a list, but
+ * rejects clauses that are reordered, absent, or pulled from distant sections.
+ */
+export function quoteMatch(
+  quote: string | undefined,
+  text: string | undefined,
+  opts: QuoteMatchOptions = {},
+): QuoteMatch {
+  const minSegment = opts.minSegment ?? QUOTE_MIN_SEGMENT;
+  const minTotal = opts.minTotal ?? QUOTE_MIN_TOTAL;
+  const clauses = quoteClauses((quote ?? "").slice(0, QUOTE_MAX_QUOTE), minSegment);
+  if (clauses.length === 0) return { ok: false, reason: "empty" };
+  if (clauses.some((x) => x.length < minSegment) || clauses.reduce((n, x) => n + x.length, 0) < minTotal) {
+    return { ok: false, reason: "too_short" };
+  }
+  const haystack = quoteStrip((text ?? "").slice(0, QUOTE_MAX_TEXT));
+  const place = (i: number, prevStart: number, prevEnd: number): boolean => {
+    if (i === clauses.length) return true;
+    const c = clauses[i]!;
+    const limit = i === 0 ? Infinity : prevStart + QUOTE_LOCALITY;
+    for (let at = haystack.indexOf(c, prevEnd); at >= 0 && at <= limit; at = haystack.indexOf(c, at + 1)) {
+      if (place(i + 1, at, at + c.length)) return true;
+    }
+    return false;
+  };
+  return place(0, 0, 0) ? { ok: true } : { ok: false, reason: "segment_missing" };
+}
+
+export function quoteInText(
+  quote: string | undefined,
+  text: string | undefined,
+  opts?: QuoteMatchOptions,
+): boolean {
+  return quoteMatch(quote, text, opts).ok;
+}
+
+/** Short, inherently compact quotes (a headcount, date or location phrase). */
+const SHORT_QUOTE: QuoteMatchOptions = { minSegment: 6, minTotal: 6 };
 
 // ---------------------------------------------------------------------------
 // Dates
@@ -603,7 +682,7 @@ export function checkLead(plan: SearchPlan, input: LeadInput, options: CheckLead
     return fail("quote_not_in_page", "signal_quote was not found in the signal page text");
   }
   const dateQuote = typeof signal.summary.signal_date_quote === "string" ? signal.summary.signal_date_quote : "";
-  if (enforceQuotes && dateQuote.trim() && !quoteInText(dateQuote, haystack)) {
+  if (enforceQuotes && dateQuote.trim() && !quoteInText(dateQuote, haystack, SHORT_QUOTE)) {
     return fail("quote_not_in_page", "signal_date_quote was not found in the signal page text");
   }
 
@@ -626,7 +705,7 @@ export function checkLead(plan: SearchPlan, input: LeadInput, options: CheckLead
     if (enforceQuotes && plan.hqCountries.length > 0 && !hqQuote.trim()) {
       return candidate("hq", `HQ "${hq}" is not backed by a verbatim lookup-page quote`);
     }
-    if (enforceQuotes && plan.hqCountries.length > 0 && input.lookupText && !quoteInText(hqQuote, input.lookupText)) {
+    if (enforceQuotes && plan.hqCountries.length > 0 && input.lookupText && !quoteInText(hqQuote, input.lookupText, SHORT_QUOTE)) {
       return lookupQuoteMissing(enrichment, "hq", "hq_quote was not found in the lookup page text");
     }
   } else if (plan.hqCountries.length > 0) {
@@ -645,7 +724,7 @@ export function checkLead(plan: SearchPlan, input: LeadInput, options: CheckLead
       : undefined;
   let sizeQuoteUnverified: true | undefined;
   if (quote?.trim()) {
-    if (enforceQuotes && input.lookupText && !quoteInText(quote, input.lookupText)) {
+    if (enforceQuotes && input.lookupText && !quoteInText(quote, input.lookupText, SHORT_QUOTE)) {
       return lookupQuoteMissing(enrichment, "employee_estimate_source", "employee_estimate_source was not found in the lookup page text");
     }
     if (!input.lookupText) sizeQuoteUnverified = true;

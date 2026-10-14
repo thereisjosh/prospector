@@ -3,6 +3,7 @@ import {
   checkLead,
   parseEmployeeEstimate,
   quoteInText,
+  quoteMatch,
   resolveEventDate,
   sizeQuoteSupports,
   squashName,
@@ -44,14 +45,14 @@ function lead(over: Partial<LeadInput> & { enrichment?: Record<string, unknown> 
       publishedDate: "2026-09-21T00:00:00.000Z",
     },
     enrichment: {
-      description: "3PL",
+      description: "third party logistics provider",
       is_public_or_enterprise: false,
       employee_estimate: 300,
       employee_estimate_source: "300 employees",
       hq: "Columbus, Ohio, United States",
       hq_quote: "Columbus, Ohio, United States",
       [GATE]: true,
-      [`${GATE}_quote`]: "3PL",
+      [`${GATE}_quote`]: "third party logistics provider",
     },
     now: NOW,
     ...over,
@@ -200,7 +201,7 @@ describe("checkLead: one test per gate code", () => {
     signalBad.signal.summary.signal_quote = "a sentence that is not there";
     expect(checkLead(plan(), signalBad)).toMatchObject({ ok: false, code: "quote_not_in_page" });
 
-    const sizeBad = lead({ lookupText: "Columbus, Ohio, United States 3PL" });
+    const sizeBad = lead({ lookupText: "Columbus, Ohio, United States third party logistics provider" });
     expect(checkLead(plan(), sizeBad)).toMatchObject({ ok: false, code: "quote_not_in_page", details: { key: "employee_estimate_source" } });
   });
 
@@ -212,10 +213,10 @@ describe("checkLead: one test per gate code", () => {
       ok: false, code: "unquoted_gate", tier: "candidate", details: { key: GATE },
       reason: `${GATE} quote not found in the first 20,000 characters of the lookup page (page was truncated)`,
     });
-    const sizeTrunc = lead({ lookupText: "Columbus, Ohio, United States 3PL" });
+    const sizeTrunc = lead({ lookupText: "Columbus, Ohio, United States third party logistics provider" });
     (sizeTrunc.enrichment as Record<string, unknown>).lookup_text_truncated = true;
     expect(checkLead(plan(), sizeTrunc)).toMatchObject({ code: "unquoted_gate", tier: "candidate", details: { key: "employee_estimate_source" } });
-    const hqTrunc = lead({ lookupText: "300 employees 3PL" });
+    const hqTrunc = lead({ lookupText: "300 employees third party logistics provider" });
     (hqTrunc.enrichment as Record<string, unknown>).lookup_text_truncated = true;
     expect(checkLead(plan(), hqTrunc)).toMatchObject({ code: "unquoted_gate", tier: "candidate", details: { key: "hq" } });
     const full = lead({ lookupText: text });
@@ -306,11 +307,75 @@ describe("checkLead: one test per gate code", () => {
 describe("quoteInText", () => {
   it("tolerates case, smart quotes, HTML entities and collapsed whitespace", () => {
     expect(quoteInText("ShipCo “opened” & expanded", "shipco &ldquo;opened&rdquo; &amp;   expanded yesterday")).toBe(true);
-    expect(quoteInText("300 employees", "About\n300   employees in Ohio")).toBe(true);
+    expect(quoteInText("about 300 employees in Ohio", "About\n300   employees in Ohio")).toBe(true);
   });
   it("is strict beyond normalisation", () => {
-    expect(quoteInText("300 employees", "300 contractors")).toBe(false);
+    expect(quoteInText("about 300 employees in Ohio", "About 300 contractors in Ohio")).toBe(false);
     expect(quoteInText("", "300 employees")).toBe(false);
+  });
+
+  const axlePage = [
+    "## Financials",
+    "- Total Funding: USD 26,060,000",
+    "  - Series a (2026-08-01): USD 17.5M",
+    "  - Seed (2023-04-10): USD 4.0M",
+    "",
+    "## Workforce",
+    "- Employees: 34",
+  ].join("\n");
+  const outerPage = [
+    "- [2026-10-02]",
+    "  - Pulse 2.0: OuterSignal Raises $22 Million Series A To Expand Agentic Customer Personalization Platform",
+    "  - Yahoo Finance: OuterSignal Raises $22 Million in Series A Funding Round",
+    "  - PR Newswire: OuterSignal Raises $22M Series A to Bring Agentic Personalization to Every Consumer Brand",
+  ].join("\n");
+
+  it("accepts a flattened list block (bullets vs semicolons)", () => {
+    const q = "Total Funding: USD 26,060,000 - Series a (2026-08-01): USD 17.5M; Seed (2023-04-10): USD 4.0M";
+    expect(quoteMatch(q, axlePage)).toEqual({ ok: true });
+    expect(quoteInText(q, axlePage)).toBe(true);
+  });
+  it("accepts a news item flattened from a nested list, skipping an unquoted line", () => {
+    const q =
+      "[2026-10-02] Pulse 2.0: OuterSignal Raises $22 Million Series A To Expand Agentic Customer Personalization Platform; PR Newswire: OuterSignal Raises $22M Series A to Bring Agentic Personalization to Every Consumer Brand";
+    expect(quoteMatch(q, outerPage).ok).toBe(true);
+  });
+  it("accepts a genuine quote that dropped an attribution (Southern AG)", () => {
+    const page =
+      'This new terminal represents much more than a new facility," said Lem Goodpasture, Chief Executive Officer at Southern AG Holdings, LLC. "It represents the continued growth of Southern AG Holdings and our commitment to the people and customers who have helped us get here."';
+    const q =
+      "This new terminal represents much more than a new facility, it represents the continued growth of Southern AG Holdings and our commitment to the people and customers who have helped us get here.";
+    expect(quoteMatch(q, page).ok).toBe(true);
+  });
+  it("rejects a synthesised quote from non-adjacent / reordered lines (Baselayer)", () => {
+    const page = [
+      "## Workforce",
+      "- Employees: 34",
+      "- Yearly Growth: +57.1%",
+      "## Financials",
+      "- Annual Revenue: USD 540,000,000",
+      "- Industry: Technology",
+    ].join("\n");
+    const q = "- Yearly Growth: +57.1% (Employees: 34) - Annual Revenue: USD 540,000,000 - Yearly Growth: +57.1%";
+    expect(quoteMatch(q, page)).toEqual({ ok: false, reason: "segment_missing" });
+  });
+  it("rejects an invented parenthetical clause (Zenskar)", () => {
+    const page = "We're hiring an Engineering Manager at Zenskar. Billing gets complicated fast.";
+    const q = "We're hiring an Engineering Manager at Zenskar. (context implying ongoing hiring post funding)";
+    expect(quoteMatch(q, page).ok).toBe(false);
+  });
+  it("rejects clauses beyond the locality window", () => {
+    const page = "The company opened a brand new facility. " + "x".repeat(700) + " It employs three hundred people.";
+    expect(quoteMatch("The company opened a brand new facility. It employs three hundred people.", page).ok).toBe(false);
+  });
+  it("handles ellipsis: in order passes, out of order fails", () => {
+    const page = "Acme Robotics has opened a new plant in Ohio and it will hire two hundred workers by spring.";
+    expect(quoteMatch("Acme Robotics has opened a new plant ... hire two hundred workers by spring", page).ok).toBe(true);
+    expect(quoteMatch("hire two hundred workers by spring ... Acme Robotics has opened a new plant", page).ok).toBe(false);
+  });
+  it("rejects too-short and empty quotes", () => {
+    expect(quoteMatch("300 people.", "300 people.")).toEqual({ ok: false, reason: "too_short" });
+    expect(quoteMatch("  --- ", "x")).toEqual({ ok: false, reason: "empty" });
   });
 });
 
@@ -343,7 +408,7 @@ describe("squashName / dedupe", () => {
     const mk = (company: string, url: string): Candidate => ({
       result: { url, title: `${company} hiring`, publishedDate: "2026-09-20T00:00:00.000Z", text: `${company} Diakon Logistics is hiring` },
       summary: { company_name: company, signal_type: "ops_hire", signal_summary: `${company} is hiring`, signal_date: "2026-09-20", signal_quote: `${company} Diakon Logistics is hiring`, signal_date_quote: "" },
-      company: { result: { url: "https://jobs.example.com", text: "150 employees Austin, TX, United States 3PL" }, summary: { employee_estimate: 150, employee_estimate_source: "150 employees", hq: "Austin, TX, United States", hq_quote: "Austin, TX, United States", is_public_or_enterprise: false, [GATE]: true, [`${GATE}_quote`]: "3PL" } },
+      company: { result: { url: "https://jobs.example.com", text: "150 employees Austin, TX, United States third party logistics provider" }, summary: { employee_estimate: 150, employee_estimate_source: "150 employees", hq: "Austin, TX, United States", hq_quote: "Austin, TX, United States", is_public_or_enterprise: false, [GATE]: true, [`${GATE}_quote`]: "third party logistics provider" } },
     });
     const rows = scoreAndRank(
       plan(),

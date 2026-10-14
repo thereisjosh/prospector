@@ -1,0 +1,257 @@
+{
+  "request": {
+    "query": "Agave",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the exact phrase from the page that the employee estimate came from (e.g. \"350 employees\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "9fcaadd6984351db4a81a09a0478a1ad",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/jhm88zlflc3",
+        "title": "Agave",
+        "url": "https://useagave.com/",
+        "text": "# Agave\n\nAgave is a Software Development company. Agave is an AI financial operations company that connects construction software systems, automates Accounts Payable workflows, and gives field and finance teams real-time visibility across projects without replacing ERP or PM systems. Agave employs 95 people (+61.0% YoY, +36 people), founded in 2021. Headquartered in San Francisco, California, United States. Its workforce is distributed across United States, Canada, and Mexico.\n\n## About\n\nWe're building the AI infrastructure construction has been waiting for, so the contractors building our skylines, schools, hospitals, and homes can finally move as fast as the world around them.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: San Francisco, United States\n- Founded Year: 2021\n- Homepage: useagave.com\n- Aliases: Agave Tech Inc., agave\n- LinkedIn: linkedin.com/company/agave-api\n- Linkedin Followers: 7,611\n- Emails: contact@agaveapi.com\n- Phone: +1 805-394-3112\n\n## Financials\n- Total Funding: USD 18,525,000\n  - Series a (2026-07-01): USD 15.0M\n  - Seed (2023-08-30): USD 2.9M\n  - Seed (2022-07-01): USD 125,000\n  - Pre seed (2022-01-18): USD 500,000\n\n## Workforce\n- Employees: 95\n- Company Size: 51-200 employees\n  - Monthly Growth: +6.7%\n  - Yearly Growth: +61.0%\n- Key Executives:\n  - Blake Graham: Founding Technical Support Engineer\n  - Carina Cazares: People Operations Lead\n  - John Zucchi: Co-Founder\n  - Pooria Azimi: Co-Founder\n  - Sean McCarthy: Founding Account Executive\n  - TJ Brown: Founding Technical Support Engineer\n  - Vincent Saldaña: Founding Account Executive\n- Breakdown:\n  - By Country: United States: 43 (45%), Canada: 9 (9%), Mexico: 1 (1%)\n  - By Department: Technical: 31 (33%), Product: 6 (6%), Sales: 6 (6%), Hr: 4 (4%), Consulting: 2 (2%), General Management: 2 (2%), Customer Service: 1 (1%), Operations: 1 (1%)\n  - By Seniority: Specialist: 19 (20%), Other Management: 15 (16%), Manager: 9 (9%), Founder: 6 (6%), Intern: 3 (3%), Head: 1 (1%)\n- Active job postings: 9\n- Talent Sources: Amazon (5), University of Michigan (2), Governo do Estado do Rio Grande do Sul (2), ezyCollect by Sidetrade (1), VivaLaWaffle (1), NEXGEN Asset Management (1), Kojo (1), Kahua (1), Hive (1), BASICS @ Berkeley (1)\n- Alumni Go To: Loft (2), Two Dots (1), Rillet (1), Prelim (1), Lafayette Power Sports (1), FOUR PEAKS LANDSCAPE MANAGEMENT, INC (1), Exa (1), Embedder (1), Dealpath (1), Columbia University (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: alexa, ams, autodesk, blockchain, capterra, doordash, fieldwire, fintech, google analytics, graphiq, html, hubspot, json, linkedin, mobx, plangrid, postman, procore, prototype, ramp, react, redis, salesforce, sandbox, sql, stitch, stripe, stripe billing, typescript, user interviews, webflow, impact, mix, plaid, visa, zoom, signal, upkeep, well, crisp, slack, ups, laravel, php\n\n## Web presence\n\n- Twitter: twitter.com/useagave\n- Crunchbase: crunchbase.com/organization/agave-api\n- Web traffic:\n  - Monthly visits: 25,241\n  - Global rank: 1,094,638\n  - Bounce rate: 33.0%\n  - Pages per visit: 2.0\n  - Average visit duration: 49s\n\n## Categories\n\naccount payable workflows, accounting, accounting automation, ai financial operations, analytics, artificial intelligence (ai), construction, construction software, construction software systems, data syncing, developer apis, enterprise resource planning (erp), erps, field and finance teams, finance, fintech, job costing, jobs_and_career/human_resources, real-time visibility, saas\n\n## Recent News\n- [2026-08-24] [Agave has raised $15 Million in new Series A funding - intelligence360](https://www.intelligence360.news/agave-has-raised-15-million-in-new-series-a-funding/)\n- [2026-07-16] [Agave Secures $15M Series A to Bring AI to Construction Financials](https://theaiinsider.tech/2026/07/16/agave-secures-15m-series-a-to-bring-ai-to-construction-financials/)\n- [2026-07-07]\n  - [Construction tech startup Agave raises $15M](https://www.axios.com/pro/enterprise-software-deals/2026/07/07/construction-tech-startup-agave-software)\n  - [Agave Raises $15M in Series A Funding](https://www.finsmes.com/2026/07/agave-raises-15m-in-series-a-funding.html)\n- [2023-08-31] accel.com: Our Investment in Agave: The Future of the Construction Cloud\n- [2023-08-30] TechCrunch: Accel-backed Agave lets construction software talk to one another \\| TechCrunch\n- [2023-02-15] Verticalized: Agave and the Rise of Vertical iPaaS platforms\n\n## Social\n\n### Linkedin\n\n- [2026-10-01 · Posted · 27 reactions] [From happy hour to morning coffee, we brought a little Agave to...](https://www.linkedin.com/posts/agave-api_from-happy-hour-to-morning-coffee-we-brought-activity-7511485447181799425-0Dw2)\n  > From happy hour to morning coffee, we brought a little Agave to Austin.\n  >\n  > During the CFMA Lone Star Conference, we hosted contractors from across the Austin area for happy hour, complete with Agave-themed drinks.\n  >\n  > The next morning, we rolled our Agave coffee cart into the Procore Technologies office and served custom drinks to their team.\n  >\n  > Thanks to everyone who joined us for a drink - coffee or otherwise!\n\n- [2026-09-22 · Posted · 51 reactions] [The Agave team is posted up at the CFMA Southwest Regional...](https://www.linkedin.com/posts/agave-api_the-agave-team-is-posted-up-at-the-cfma-southwest-activity-7508179429093851137-Y79i)\n  > The Agave team is posted up at the CFMA Southwest Regional Conference! 👋\n  >\n  > Come stop by to our booth chat with Sean McCarthy & Cameron Sajjadi about all things construction finance (and maybe get a free shot glass or two).\n\n- [2026-09-18 · Reshared · 3 reactions] [Manual financial processes can make it harder to see what’s...](https://www.linkedin.com/posts/agave-api_activity-7506772661134503937-NddD): Manual financial processes can make it harder to see what’s happening across projects and act on information quickly. On September 24 at 2:00 PM ET, see how new capabilities from Agave can help con...\n\n- [2026-09-17 · Posted · 14 reactions] [The Agave team is headed to another CFMA regional conference, this...](https://www.linkedin.com/posts/agave-api_the-agave-team-is-headed-to-another-cfma-activity-7506487196233834497-SsMK)\n  > The Agave team is headed to another CFMA regional conference, this time in San Diego, which happens to be home base for Sean McCarthy, one of our founding AEs.\n  >\n  > Sean and Cameron Sajjadi will be there ready to chat about how you can use Agave to get more out of your project data.\n  >\n  > P.S. We're sponsoring the San Diego Padres vs. Miami Marlins game on the 20th. Go Padres!\n\n- [2026-09-17 · 14 reactions] The Agave team is headed to another CFMA regional conference, this time in San Diego, which happens to be home base for Sean McCarthy, one of our founding AEs. Sean and Cameron Sajjadi will be ther...\n\n- [2026-09-15 · Posted · 32 reactions] [Day 1 at Autodesk University, and already ran into a few Agave...](https://www.linkedin.com/posts/agave-api_day-1-at-autodesk-university-and-already-activity-7505716263063650304-lpUN)\n  > Day 1 at Autodesk University, and already ran into a few Agave customers: Fortis Construction, Inc. & Kalb Construction. 🤝\n  >\n  > Tom Reno and Spencer Carlson are here until the 17th.\n  >\n  > Come find us!\n\n- [2026-09-11 · Posted · 39 reactions] [We're excited to share another new and incredible team member -...](https://www.linkedin.com/posts/agave-api_were-excited-to-share-another-new-and-incredible-activity-7504210967333879808-MgpR)\n  > We're excited to share another new and incredible team member - Luke Barrett! 👋\n  >\n  > Luke joins us as a Product Manager, and we couldn't have asked for a better fit. Luke has vast experience working across early-stage startups.\n  >\n  > Outside of work, Luke is hard to keep indoors. He snowboards, climbs, plays spikeball and basketball, and this year he ran a 100k. Next year he's going for a 100 miler. He's also a big live music fan. Techno, rock, bluegrass, and jazz.\n  >\n  > Welcome to the team, Luke!\n\n- [2026-09-11 · 39 reactions, 5 comments] We're excited to share another new and incredible team member - Luke Barrett! 👋 Luke joins us as a Product Manager, and we couldn't have asked for a better fit. Luke has vast experience working acr...\n\n- [2026-09-10 · Posted · 48 reactions] [Join us in welcoming Rohit Grover to the Agave team! 🚀 Rohit joins...](https://www.linkedin.com/posts/agave-api_join-us-in-welcoming-rohit-grover-to-the-activity-7503846330495176704-i44x)\n  > Join us in welcoming Rohit Grover to the Agave team! 🚀\n  >\n  > Rohit joins us as a Founding Account Manager. He was with his last company from seed all the way through acquisition, wearing just about every hat along the way. Rohit moved to Los Angeles a few years ago to spearhead their U.S. expansion.\n  >\n  > He grew up between Sydney, New Delhi, and Hong Kong, and earned his Bachelor of Economics and Masters in Commerce at the University of Sydney where he also competed as a state, national, and collegiate level sprinter in the 100m.\n  >\n  > Rohit just moved from Los Angeles to join our team in San Francisco. Outside of work you'll find him at the beach and cheering on the Lakers (don't worry, he'll be a Warriors fan before you know it).\n  >\n  > Welcome, Rohit. We're glad you're here!\n\n- [2026-09-10 · 49 reactions, 9 comments] Join us in welcoming Rohit Grover to the Agave team! 🚀 Rohit joins us as a Founding Account Manager. He was with his last company from seed all the way through acquisition, wearing just about every...\n\n- [2026-09-09 · Posted · 49 reactions] [Before we signed anything with Topcon Solutions Store, their...](https://www.linkedin.com/posts/agave-api_before-we-signed-anything-with-topcon-solutions-activity-7503483846244405248-4v9h)\n  > Before we signed anything with Topcon Solutions Store, their consultants had already spent a year in the field with us.\n  >\n  > Now it's official: Topcon Solutions is an Agave partner.\n  >\n  > Contractors know them as the team that's been putting technology on jobsites since 1965. Today that spans everything from positioning hardware to the software running your projects.\n  >\n  > Topcon consultants can now bring their clients all of Agave: sync, AP automation, AI Analytics, and more on top of the systems contractors already run.\n\n- [2026-09-09 · 50 reactions, 1 comment] Before we signed anything with Topcon Solutions Store, their consultants had already spent a year in the field with us. Now it's official: Topcon Solutions is an Agave partner. Contractors know the...\n\n- [2026-09-07 · Posted · 24 reactions] [A supplier double-billed Walker Masonry & Sons. Agave caught the...](https://www.linkedin.com/posts/agave-api_a-supplier-double-billed-walker-masonry-activity-7502795394683428864-XgGz)\n  > A supplier double-billed Walker Masonry & Sons. Agave caught the $68,000 error.\n  >\n  > Walker Masonry is a family-owned specialty contractor in Northwest Arkansas: 170 employees, 16 field crews, and about 1,000 invoices a month.\n  >\n  > Before Agave, every one of those invoices meant manual matching and duplicate entry between Procore and Foundation.\n  >\n  > Now the whole flow runs automatically. Job costs update 120x faster, data accuracy sits at 99%, and President Eric Walker estimates he's avoided two office hires and saves days of manual work every month.\n  >\n  > 👉  Read the full case study here: https://lnkd.in/g9NNRdWt\n\n- [2026-09-07 · 24 reactions] A supplier double-billed Walker Masonry & Sons. Agave caught the $68,000 error. Walker Masonry is a family-owned specialty contractor in Northwest Arkansas: 170 employees, 16 field crews, and about...\n\n- [2026-09-03 · Posted · 15 reactions] [A key question contractors ask about Agave AI Analytics: how do we...](https://www.linkedin.com/posts/agave-api_a-key-question-contractors-ask-about-agave-activity-7501311042153803776-0obQ)\n  > A key question contractors ask about Agave AI Analytics: how do we keep sensitive data out of reports?\n  >\n  > With Agave AI Analytics, you configure what data enters reports, and exclude sensitive records like employee and payroll data.\n  >\n  > Everything is role-based, so each person only queries the data they're cleared for.\n  >\n  > When AI can query your data directly, controlling access becomes critical. Access-level control is what makes it safe to put AI in more hands, and it's built directly into Agave.\n\n- [2026-09-03 · 15 reactions] A key question contractors ask about Agave AI Analytics: how do we keep sensitive data out of reports? With Agave AI Analytics, you configure what data enters reports, and exclude sensitive records...\n\n- [2026-09-02 · Posted · 3 reactions] [It's officially conference season. The Agave team is headed to 5...](https://www.linkedin.com/posts/agave-api_its-officially-conference-season-the-agave-activity-7500946178897784832-MdjN)\n  > It's officially conference season.\n  >\n  > The Agave team is headed to 5 conferences across 5 states in the next 16 days. There's a good chance we'll be in your city.\n  >\n  > See you soon! 👋\n\n- [2026-09-01 · Posted · 96 reactions] [We're excited to share yet another incredible Product Analyst to...](https://www.linkedin.com/posts/agave-api_were-excited-to-share-yet-another-incredible-activity-7500583754051174401-ltz7)\n  > We're excited to share yet another incredible Product Analyst to the team: William Zambito!\n  >\n  > Will grew up in Montreal and went to Middlebury College in Vermont, where he was an offensive lineman on the football team.\n  >\n  > Outside of work, you'll find him exploring the city, trying new food spots, catching live music, working out, hiking, and golfing. He's a big sports fan, and especially loves football and hockey (Go Habs Go!).\n  >\n  > We're glad you're here, Will! 🤝\n\n- [2026-09-01 · 96 reactions, 6 comments] We're excited to share yet another incredible Product Analyst to the team: William Zambito! Will grew up in Montreal and went to Middlebury College in Vermont, where he was an offensive lineman on...\n\n- [2026-08-31 · Posted · 43 reactions] [We are hiring a Head of Sales. 500 contractors across North America...](https://www.linkedin.com/posts/agave-api_we-are-hiring-a-head-of-sales-500-contractors-activity-7500209920365981697-zHZs)\n  > We are hiring a Head of Sales.\n  >\n  > 500 contractors across North America run their finances on Agave. We're hiring the person who gets us to 10x that.\n  >\n  > It's our first sales leadership hire, which means owning the entire go-to-market: pipeline, process, and eventually the team.\n  >\n  > Link in the comments below to apply.\n\n## Locations\n- Headquarters: san francisco, california, united states (US)\n- Offices: san francisco, california, united states (US)",
+        "summary": "{\"description\":\"Agave is an AI financial operations company that connects construction software systems, automates Accounts Payable workflows, and provides real-time visibility across projects without replacing ERP or PM systems.\",\"employee_estimate\":95,\"employee_estimate_source\":\"Employees: 95\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"We are hiring the Head of Sales.\",\"hq\":\"San Francisco, United States\",\"hq_quote\":\"Headquartered in San Francisco, California, United States.\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Agave is a Software Development company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 18,525,000 - Series a (2026-07-01): USD 15.0M; Seed (2023-08-30): USD 2.9M; Seed (2022-07-01): USD 125,000; Pre seed (2022-01-18): USD 500,000\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQFA_neG-RC6Jg/company-logo_200_200/B4EZiWvAD6GYAI-/0/1754875560676/agave_api_logo?e=2147483647&v=beta&t=aqLZPmpYjo--fbPrRfJTS_Hrp1qzya4L_0GWMVFK5S0",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/jhm88zlflc3",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Agave",
+              "foundedYear": 2021,
+              "description": "We're building the AI infrastructure construction has been waiting for, so the contractors building our skylines, schools, hospitals, and homes can finally move as fast as the world around them.",
+              "workforce": {
+                "total": 95
+              },
+              "headquarters": {
+                "address": "San Francisco, CA, US",
+                "city": "San Francisco",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 18525000,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2026-07-01",
+                  "amount": 15000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 25241,
+                "countryRank": 341175,
+                "avgDurationSeconds": 49,
+                "history": [
+                  {
+                    "value": 11398,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 18821,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 12261,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 13869,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 28512,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 25241,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/z2nc2zgg6l8",
+        "title": "Agave Conquista",
+        "url": "https://agaveconquista.com/",
+        "text": "# Agave Conquista\n\nAgave Conquista is a Food & Beverages company. Agave Conquista is a distillery located in Tequila Jalisco. The company produces 1519 tequila 100% Agave. Agave Conquista employs 18 people (+5.9% YoY, +1 person).\n\n## About\n\nHeadquartered in Jalisco Mexico, Agave Conquista is a producer of premium Tequilas. \r\nIt's state of the art distillery, located in the Valley of Tequila, is certified as capable of producing 100% Organic products such as its main brand: 1519 Tequila.\n\n## Company Details\n- Industry: Food & Beverages\n- Type: Privately held\n- Homepage: agaveconquista.com\n- Aliases: agave conquista\n- LinkedIn: linkedin.com/company/agave-conquista\n- Linkedin Followers: 202\n\n## Workforce\n- Employees: 18\n- Company Size: 51-200 employees\n  - Yearly Growth: +5.9%\n- Breakdown:\n  - By Country: Mexico: 6 (33%)\n  - By Department: Operations: 2 (11%), Finance: 1 (6%), General Management: 1 (6%), Research: 1 (6%), Sales: 1 (6%)\n  - By Seniority: Manager: 4 (22%), Specialist: 2 (11%)\n- Talent Sources: Jose Cuervo (1), Innophos (1), Grupo Anderson's (1), Destiladora Rubio (1), Consejo Regulador del Tequila, A.C (1)\n- Alumni Go To: Universidad Autónoma Agraria Antonio Narro (UAAAN) (1), The TJX Companies, Inc. (1), Natbee Blue (1)\n\n## Web presence\n\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Reviews & Ratings\n- Employer Rating: 0.0/5.0\n  - Breakdown: Work-Life: -0.1, Compensation: -0.1, Culture: -0.1, Career: -0.1\n\n## Categories\n\n100%, 1519, agave, beverage, destillery, tequila jalisco",
+        "summary": "{\"description\":\"Agave Conquista is a Food & Beverages company and a Tequila distillery based in Jalisco, Mexico, producing 1519 Tequila 100% Agave. It lists 18 employees and a company size of 51-200.\",\"employee_estimate\":18,\"employee_estimate_source\":\"Employees: 18\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Valley of Tequila, Jalisco, Mexico\",\"hq_quote\":\"Headquartered in Jalisco Mexico\",\"industry\":\"Food & Beverages\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Food & Beverages\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":false,\"recently_funded_seed_or_series_a_quote\":\"N/A or not stated in page; no seed/Series A funding mentioned\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C510BAQGgPQnchMsueQ/company-logo_200_200/company-logo_200_200/0/1631388459766?e=2147483647&v=beta&t=ryzIpBY2COzj7jht3m84XmMqbG0YBALRIuZipYHSQEE",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/z2nc2zgg6l8",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Agave Conquista",
+              "foundedYear": null,
+              "description": "Headquartered in Jalisco Mexico, Agave Conquista is a producer of premium Tequilas. \r\nIt's state of the art distillery, located in the Valley of Tequila, is certified as capable of producing 100% Organic products such as its main brand: 1519 Tequila.",
+              "workforce": {
+                "total": 18
+              },
+              "headquarters": null,
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 0,
+                    "dateFrom": "2025-05",
+                    "dateTo": "2025-05"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2025-06",
+                    "dateTo": "2025-06"
+                  },
+                  {
+                    "value": 153,
+                    "dateFrom": "2026-01",
+                    "dateTo": "2026-01"
+                  },
+                  {
+                    "value": 153,
+                    "dateFrom": "2026-02",
+                    "dateTo": "2026-02"
+                  },
+                  {
+                    "value": 245,
+                    "dateFrom": "2026-03",
+                    "dateTo": "2026-03"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 10443.8,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

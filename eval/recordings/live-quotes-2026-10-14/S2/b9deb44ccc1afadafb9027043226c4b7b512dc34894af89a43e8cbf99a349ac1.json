@@ -1,0 +1,242 @@
+{
+  "request": {
+    "query": "Arzana",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the exact phrase from the page that the employee estimate came from (e.g. \"350 employees\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "fb32eddaaee4376209c746b8127ab96a",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/zbg6108vt47",
+        "title": "Arzana (YC P26)",
+        "url": "https://arzana.com/",
+        "text": "# Arzana (YC P26)\n\nArzana (YC P26) is a Software Development company. Arzana is a company that provides self-learning AI agents for ERP automation. They offer custom solutions based on shop data and tribal knowledge. They cater to leading industrial companies and industries served tailored to their industry. Arzana (YC P26) employs 6 people. Headquartered in New York, New York, United States, with an office in San Francisco.\n\n## About\n\nArzana trains custom AI models to automate quoting, order entry, invoicing, and other mundane office work for American manufacturers. We let our customers scale faster without needing to hire more office staff.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: New York, United States\n- Homepage: arzana.com\n- Aliases: arzana, arzana (yc p26)\n- LinkedIn: linkedin.com/company/arzana-ai\n- Linkedin Followers: 676\n- Emails: support@arzana.ai\n\n## Financials\n- Total Funding: USD 4,925,000\n  - Seed (2026-07-01): USD 4.3M\n  - Pre seed (2026-06-01): USD 500,000\n  - Seed (2026-03-01): USD 125,000\n\n## Workforce\n- Employees: 6\n- Company Size: 1-10 employees\n  - Monthly Growth: -100.0%\n- Key Executives:\n  - Brad Keats: VP Sales\n  - Joseph Politi: Lead Founding Engineer\n  - Sriram Narlapati: Founding Forward Deployed Engineer\n  - William Alexander: Co-Founder\n- Breakdown:\n  - By Country: United States: 6\n  - By Department: Technical: 4, Consulting: 1, Sales: 1\n  - By Seniority: Founder: 3, Specialist: 2, Vp: 1\n- Talent Sources: micro1 (1), Virginia Tech (1), Keats Manufacturing Co. (1), John Deere (1), ChatEDU (1)\n- Alumni Go To: NASA - National Aeronautics and Space Administration (1)\n\n## Products & Technology\n- Features: Demo Available\n\n## Web presence\n\n- Instagram: instagram.com/arzana_automation\n- YouTube: youtube.com/@arzana.automation\n- Crunchbase: crunchbase.com/organization/arzana\n- Web traffic:\n  - Monthly visits: 4,039\n  - Global rank: 3,775,115\n  - Bounce rate: 42.0%\n  - Pages per visit: 2.1\n  - Average visit duration: 24s\n\n## Categories\n\nai agents, artificial intelligence (ai), automation, business process automation (bpa), custom, erp automation, industrial companies, information technology, software\n\n## Recent News\n- [2026-09-29] Business Record: Arzana raises $4.3M to automate factory paperwork\n- [2026-09-25] [Arzana raises $4.3M to automate factory paperwork - Business Record](https://www.businessrecord.com/arzana-raises-4-3m-to-automate-factory-paperwork/)\n- [2026-09-02] L'Unione Sarda.it: Fire halts the Green Train: line blocked between Arzana and Elini\n- [2026-08-26] L'Unione Sarda.it: Serious fire on the Nuoro-Lanusei state road 389; helicopter on the way.\n- [2026-07-26]\n  - L'Unione Sarda.it: Assalti ai portavalori, vasta operazione di polizia nel Cagliaritano e nel Nuorese\n  - ANSA: Ipotizzavano assalto a caveau dell'oro in Sardegna, 11 arresti\n  - L'Unione Sarda.it: La banda puntava ai lingotti della fonderia della Portovesme srl: i nomi degli 11 arrestati\n  - L'Unione Sarda.it: Pianificavano l’assalto a un portavalori carico di lingotti d’oro e a un caveau: 11 arresti in Sardegna\n\n## Social\n\n### Linkedin\n\n- [2026-08-10 · 83 reactions, 3 comments] Maybe the real exit is the friends we make along the way... Ok, not really, but there's a whole lot more to running a startup than the pie-in-the-sky outcome we're all aiming for. Honestly, it neve...\n\n- [2026-07-29 · 30 reactions, 4 comments] We’re excited to partner with E.C. Styberg Engineering & Manufacturing an Employee Owned Company, a nearly 100-year-old stamping & metal fabrication manufacturer based in Racine, Wisconsin. Styberg...\n\n- [2026-06-19 · 130 reactions, 15 comments] We almost didn't make it to Demo Day: Arzana (YC P26) nearly hit a breaking point during the batch, and I'm still amazed at how we broke through it. We figured out that our manufacturing customers...\n\n- [2026-05-04 · 9 reactions, 1 comment] Exciting times for the Arzana (YC P26) team!\n\n- [2026-04-21 · 77 reactions, 24 comments] American Manufacturing will NEVER BE THE SAME Marshall Kools and I founded Arzana (YC X26) to make U.S. manufacturing businesses 100x more efficient by automating error-prone and time-consuming dat...\n\n- [2026-03-26 · 68 reactions, 7 comments] You're probably a few feet away from something Arzana helped manufacture... Mason Vander Pol and I spent last week in Belle Plaine, Iowa (population: 2,000) at IOWA MOLD & ENGINEERING, INC. impleme...\n\n- [2026-02-20 · 31 reactions, 5 comments] Our crew just got bigger, badder, and whole lot smarter: We're excited to announce that we've brought Founding Engineer Joseph Politi and Founding GTM Engineer Mason Vander Pol onto the Arzana team...\n\n- [2026-02-16 · 60 reactions, 1 comment] Stats and takeaways from Arzana's first forward deployment at MillTown Paper, Inc. (powered by Culver's Restaurants ButterBurgers): 12 paper cuts endured 41 Culver's cheese curds enjoyed 0 bears fa...\n\n- [2025-11-11 · 41 reactions, 21 comments] We're excited to announce the launch of Arzana's Office Execution System (OES), a new service category for manufacturers and industrial distributors. For decades, the industrial office has relied o...\n\n- [2025-10-13 · 5 reactions, 1 comment] It's almost time... For MD&M Midwest! This amazing show brings together key players and content focused on the challenges and innovations shaping the medical, critical and advanced manufacturing in...\n\n- [2025-10-11 · 15 reactions, 5 comments] Put yourself in your customers’ shoes (or welding helmet) before assuming you understand their pain points… User interviews only get you so far, and honestly, not very far at all. Its not until you...\n\n- [2025-08-27 · 10 reactions] \"I wish my supplier's customer service reps replied slower\" Said no OEM ever. In my years working in contract manufacturing, the #1 most frustrating thing was waiting for suppliers to respond to my...\n\n- [2025-08-14 · 18 reactions, 8 comments] \"Where's my order?\" \"What's the lead time?\" \"Did pricing change?\" \"When will it ship?\" Sound like your inbox? Sales teams waste 4 hours every day answering these instead of selling. Across four sal...\n\n## Locations\n- Headquarters: new york, new york, united states (US)\n- Offices: new york, new york, united states (US), san francisco, california, united states (US)",
+        "summary": "{\"description\":\"Arzana (YC P26) is a Software Development company that provides self-learning AI agents for ERP automation, offering custom solutions based on shop data and tribal knowledge for leading industrial companies.\",\"employee_estimate\":6,\"employee_estimate_source\":\"Employees: 6\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"New York, United States\",\"hq_quote\":\"Headquartered in New York, New York, United States, with an office in San Francisco.\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"- Industry: Software Development\\n- Type: Privately held\\n- Headquarters: New York, United States\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 4,925,000\\n  - Seed (2026-07-01): USD 4.3M\\n  - Pre seed (2026-06-01): USD 500,000\\n  - Seed (2026-03-01): USD 125,000\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQHF8HjWV9r00g/company-logo_200_200/B56ZsNpQPzJAAM-/0/1765460477489/arzana_ai_logo?e=2147483647&v=beta&t=aGby0kigIbQ5F7wZrMFAMR7tvggtBRAIsMmvIewdjL0",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/zbg6108vt47",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Arzana (YC P26)",
+              "foundedYear": null,
+              "description": "Arzana trains custom AI models to automate quoting, order entry, invoicing, and other mundane office work for American manufacturers. We let our customers scale faster without needing to hire more office staff.",
+              "workforce": {
+                "total": 6
+              },
+              "headquarters": {
+                "address": "12 E 49th St, New York, NY 10017, US",
+                "city": "New York",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 4925000,
+                "fundingLatestRound": {
+                  "name": "Seed",
+                  "date": "2026-07-01",
+                  "amount": 4300000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 4039,
+                "countryRank": 1151598,
+                "avgDurationSeconds": 24,
+                "history": [
+                  {
+                    "value": 8852,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 4039,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/t8p9s5dsk76",
+        "title": "Arzanà",
+        "url": "https://arzana.eu/",
+        "text": "# Arzanà\n\nArzanà is a Public Relations and Communications Services company. Arzanà is a communication, events, and digital agency based in Venezia. They specialize in branding strategies, corporate events, and digital projects for companies and institutions. Arzanà employs 28 people (+3.7% YoY, +1 person), founded in 2005. Headquartered in Italy, with an office in Mestre.\n\n## About\n\nAgenzia di comunicazione ed eventi a Venezia.\nBranding & Advertising\nEvent Design & Management\nDigital & Social Media Communication\nPR & Media relations\n\nIdeiamo, elaboriamo e realizziamo progetti di comunicazione integrata ed eventi per raccontare nel modo più efficace il carattere di ogni brand, e lo facciamo da oltre 20 anni! \nSiamo competenti e flessibili, siamo creativi e concreti, siamo Arzanà: l’Arsenale, la “casa del mestiere”, un cantiere dove costruiamo idee.\n\nAbbiamo il cuore a Venezia ma il nostro sguardo arriva lontano.\n\n## Company Details\n- Industry: Public Relations and Communications Services\n- Type: Privately held\n- Founded Year: 2005\n- Homepage: arzana.eu\n- Aliases: arzanà\n- LinkedIn: linkedin.com/company/arzana\n- Linkedin Followers: 2,940\n- Phone: +390412750223\n\n## Workforce\n- Employees: 28\n- Company Size: 11-50 employees\n  - Monthly Growth: +3.7%\n  - Yearly Growth: +3.7%\n- Key Executives:\n  - Gabriele Chiamenti: Titolare\n  - Giada Bastianel: Head of Digital\n  - Linda Scroccaro: Chief Business Development & Marketing Officer\n  - Sara Lorenzon: Head of Communications & Development\n- Breakdown:\n  - By Country: Italy: 20 (71%)\n  - By Department: Marketing: 5 (18%), Design: 4 (14%), Customer Service: 3 (11%), Sales: 3 (11%), General Management: 2 (7%), Other Department: 2 (7%), Project Management: 2 (7%), Finance: 1 (4%)\n  - By Seniority: Specialist: 10 (36%), Senior: 4 (14%), Head: 2 (7%), Manager: 2 (7%), Other Management: 2 (7%), Clevel: 1 (4%), Owner: 1 (4%)\n- Talent Sources: Linkness (2), Università degli Studi di Bergamo (1), MEETINGWORKS srl (1), Italian Ho.St. (1), GYS Italia (1), Evisole - Digital Marketing (1), DOPPELGÄNGER ROMA (1), Community (1), BJN Design (1), ANIA Servizi e Formazione - ANIA SAFE (1)\n- Alumni Go To: Venice Hostess (2), INFORMEST (2), Venice Green (1), PETTENON COSMETICS (1), Milk adv (1), KLN Freight (Italy) S.p.A. (1), Generali Business Solutions (1), Fondazione La Biennale di Venezia (1), Coin (1), Ca’ Pagan (1)\n\n## Products & Technology\n- Tech Stack: dell, microsoft, microsoft 365, persona, adobe, ami, ecc, google ads\n\n## Web presence\n\n- Facebook: facebook.com/arzanacomunicazioneeventi\n- Instagram: instagram.com/arzanavenezia\n- Web traffic:\n  - Monthly visits: 165\n  - Global rank: 10,059,501\n  - Bounce rate: 13.0%\n  - Pages per visit: 3.4\n  - Average visit duration: 40s\n\n## Reviews & Ratings\n- Employer Rating: 5.0/5.0 (1 reviews)\n  - Breakdown: Work-Life: 4.0, Compensation: 4.0, Culture: 4.0, Career: 4.0\n\n## Categories\n\nadvertising, branding, brands, brmanagement, communication, communication agency, conferences, corporate events management, cultural events management, digital, event management, events, marketing, marketing/advertising, project management, promotion, social media management, web agency, web developing, wedding planning\n\n## Recent News\n- [2026-09-25] Business Record: Arzana raises $4.3M to automate factory paperwork\n- [2026-09-02] L'Unione Sarda.it: Fire halts the Green Train: line blocked between Arzana and Elini\n- [2026-08-31] L'Unione Sarda.it: Fire in Arzana, damage estimate worsens: between 250 and 300 hectares burned - L'Unione Sarda English\n- [2026-08-30]\n  - L'Unione Sarda.it: A fiery inferno erupts between Arzana and Elini: the Prosecutor's Office opens an investigation into the environmental disaster. - L'Unione Sarda English\n  - L'Unione Sarda.it: After the Arzana fire, Councilor Laconi, wearing the Forestas jersey, visited the site: \"We're a fantastic team.\"\n- [2026-08-29] L'Unione Sarda.it: Arzana, the fight against the fire continues: Canadair aircraft in action\n- [2026-08-28] L'Unione Sarda.it: Serious fire on the Nuoro-Lanusei state road 389; helicopter on the way.\n- [2025-07-27] Tuttocampo: Promozione B/La Tuttavista accoglie un nuovo talento: Raffaele Biscu arriva dall'Idolo Arzana\n- [2025-07-21] TG Poste: Arzana, l’ufficio postale ha riaperto nella nuova veste Polis\n- [2025-07-14] Sardegna24.News: Riapre l’Ufficio Postale di Arzana dopo i lavori di ristrutturazione\n- [2025-06-26] L'Unione Sarda.it: Marongiu Murder in Arzana: The Review Court Cancels All Precautionary Orders\n- [2025-06-19] Telegrafi: Reactions of art stars to the death of director Arzana Kraja\n- [2025-06-18] L'Unione Sarda.it: Lanusei, bishop's round of appointments: new parish priests in Arzana, Jerzu and Perdasdefogu\n- [2025-06-05] KosovaPress: Director Arzana Kraja remembered\n- [2025-05-28] L'Unione Sarda.it: Gang war in Arzana, between drug trafficking and murders. Marongiu murder: video of the execution emerges\n- [2025-05-18] Tuttocampo: Giornata 34 Promozione /La Tharros saluta mister Lai,dimissioni del patron dell Idolo Arzana\n- [2025-05-13]\n  - MSN: Arzana, giovane si schianta sulla 389 e finisce in ospedale\n  - Sardegna Ieri-Oggi-Domani: Arzana: incidente stradale sulla statale 389, una persona in ospedale\n  - Oggi Nuoro: L’auto si ribalta in piena notte ad Arzana, ferito un giovane di Villagrande\n  - Virgilio: Si ribalta con l'auto lungo la 389, grave un giovane ad Arzana\n\n## Social\n\n### Linkedin\n\n- [2026-08-27 · 10 reactions] Venezia sta per cambiare ritmo. Il Lido torna sotto i riflettori, le luci si spengono in sala e si accendono nei palazzi sul Canal Grande, mentre attori, ospiti e produzioni prendono possesso della...\n\n- [2026-07-29 · 11 reactions] Arzanà.Communication ha curato l'ideazione creativa e la realizzazione del primo Bilancio di Sostenibilità di Enpav - Ente Nazionale di Previdenza e Assistenza Veterinari, un progetto editoriale di...\n\n- [2026-07-14 · 14 reactions] Un nome, quando ha dietro generazioni di storia, va trattato con cura. La famiglia Vidal, custode da generazioni dell'arte del merletto di Burano, ci ha chiesto di dare identità a un nuovo progetto...\n\n- [2026-07-09 · 11 reactions] Ci occupiamo di raccontare i brand degli altri. Ogni tanto, però, è giusto fermarsi e ripensare anche al proprio racconto. Negli ultimi anni Arzanà è cresciuta. Si è evoluta. Ha ampliato competenze...\n\n- [2026-07-06 · 14 reactions, 1 comment] Unitron Global, brand del gruppo Sonova Group Italia, ha scelto ancora una volta Arzanà per il lancio di MOXI SRX, il nuovo prodotto presentato ai propri clienti. Il punto di partenza era già nel n...\n\n- [2026-07-03 · 12 reactions] Design, storyboard, direzione creativa: per il video corporate di Alpacem Italia abbiamo lavorato dietro la macchina da presa per dare forma a un racconto autentico che rispecchiasse l'identità e i...\n\n- [2026-06-30 · 16 reactions] Comunicare è sempre una scelta. Ogni contenuto che un brand pubblica è il risultato di un lavoro che resta nascosto. Ascolto, lettura del contesto, definizione della strategia, scelta del tono, cos...\n\n- [2026-06-29 · 13 reactions] Il Lago Maggiore ha fatto da cornice a una tappa di Vette e Onde Experience che difficilmente dimenticheremo. Due giorni al Castello Dal Pozzo, dimora storica ottocentesca immersa in un parco secol...\n\n- [2026-06-26 · 22 reactions] Una giornata fuori dall'ufficio. Ma soprattutto fuori dalla routine. Ogni tanto serve cambiare prospettiva. Spegnere le notifiche, mettere in pausa le to do list e ritrovarsi insieme in un contesto...\n\n- [2026-06-09 · 10 reactions] Il Brand Manual di ANAS SpA supera il concetto tradizionale di manuale d'identità visiva per diventare una piattaforma digitale dinamica. Un unico ambiente dove vengono raccolti strumenti, regole e...\n\n- [2026-06-05 · 21 reactions, 2 comments] Un Brand Manual digitale che ridefinisce il modo in cui un'identità visiva viene vissuta ogni giorno: Paolo Bonaccorsi, Senior Graphic Designer & Communication Manager, ha ricevuto lo Special Star...\n\n- [2026-06-04 · 31 reactions] Alessandro Maggioni, CEO and Head of Events di Arzanà, racconta l'importanza di essere presenti a un evento di grande rilevanza per la città come il Salone Nautico Venezia, soprattutto nell'anno in...\n\n- [2026-06-01 · 22 reactions, 3 comments] 30.000 visitatori, oltre 300 imbarcazioni, 53 delegazioni internazionali e quasi 2.000 persone al lavoro dietro le quinte. Il Salone Nautico Venezia 2026 si è confermato un appuntamento di respiro...\n\n- [2026-05-29 · 10 reactions] Connessioni, idee, progettualità sono il vero motore del mare. Per questo, al Salone Nautico Venezia, abbiamo creato uno spazio che ci rappresenta: la Arzanà Lounge. Un luogo in cui incontrarsi, fe...\n\n- [2026-05-26 · 11 reactions] Ci siamo quasi... Dal 27 al 31 maggio Arzanà vi aspetta al Salone Nautico Venezia con una lounge presso la Tesa 89. Cinque giorni dedicati al networking e allo scambio di idee, per fermarsi e parla...\n\n- [2026-05-22 · 11 reactions] Ad Ancona, il 14 e 15 maggio, la prima tappa di Vette e Onde Experience 2026 — Destinazioni Insolite ha preso forma. Il pomeriggio del 14 è iniziato con la visita al Cantiere Palumbo, per toccare c...\n\n- [2026-05-15 · 25 reactions] Arzanà sarà presente dal 27 al 31 maggio al Salone Nautico Venezia con una propria lounge presso la Tesa 89. Uno spazio dedicato all’incontro e alla condivisione, dove prenderà forma un palinsesto...\n\n- [2026-05-13 · 36 reactions] Prende avvio ad Ancona, il 14 e 15 maggio, la prima tappa di Vette e Onde Experience 2026 – Destinazioni Insolite, un format di Arzanà e MC International. La sera del 14 maggio, il convegno sarà pr...\n\n## Locations\n- Headquarters: mestre, venezia, italy\n- Offices: mestre, venezia, italy, mestre, veneto, italy",
+        "summary": "{\"description\":\"Arzanà is a Public Relations and Communications Services company, a communication, events, and digital agency based in Venezia. They specialize in branding strategies, corporate events, and digital projects for companies and institutions.\",\"employee_estimate\":28,\"employee_estimate_source\":\"Employees: 28\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Mestre, Venezia, Italy\",\"hq_quote\":\"Headquarters: mestre, venezia, italy\",\"industry\":\"Public Relations and Communications Services\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"- Industry: Public Relations and Communications Services\\n- Type: Privately held\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":null,\"recently_funded_seed_or_series_a_quote\":\"—  [2026-09-25] Business Record: Arzana raises $4.3M to automate factory paperwork — ...\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4D0BAQFcV_mlfjJptQ/company-logo_200_200/B4DZx7m7ziHAAI-/0/1771600330720?e=2147483647&v=beta&t=LJew-d0smFrM5x04AvUpA2p5zZ1IxO77YjspaqtNVjQ",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/t8p9s5dsk76",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Arzanà",
+              "foundedYear": 2005,
+              "description": "Agenzia di comunicazione ed eventi a Venezia.\nBranding & Advertising\nEvent Design & Management\nDigital & Social Media Communication\nPR & Media relations\n\nIdeiamo, elaboriamo e realizziamo progetti di comunicazione integrata ed eventi per raccontare nel modo più efficace il carattere di ogni brand, e lo facciamo da oltre 20 anni! \nSiamo competenti e flessibili, siamo creativi e concreti, siamo Arzanà: l’Arsenale, la “casa del mestiere”, un cantiere dove costruiamo idee.\n\nAbbiamo il cuore a Venezia ma il nostro sguardo arriva lontano.",
+              "workforce": {
+                "total": 28
+              },
+              "headquarters": {
+                "address": "Viale Ancona 15, Mestre, VE 30172, IT",
+                "city": null,
+                "postalCode": null,
+                "country": "Italy"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 165,
+                "countryRank": 312205,
+                "avgDurationSeconds": 40,
+                "history": [
+                  {
+                    "value": 983,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 878,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 1155,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 1621,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 1511,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 165,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 11039.2,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}
