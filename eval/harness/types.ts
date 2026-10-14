@@ -101,4 +101,8 @@ export type RunCellDeps = {
   approvePolicy?: ApprovePolicy;
   /** Set when this cell is a handback re-run of another cell. */
   rerunOf?: string;
+  /** `--langfuse-experiment <name>`: record the cell as a Langfuse experiment item (run `<name>:<arm>:r<rep>`). */
+  langfuseExperiment?: string;
+  /** Test seam: replaces the Langfuse recorder. */
+  recordExperiment?: (experimentName: string, cell: { record: RunRecord; dir: string }) => Promise<void>;
 };

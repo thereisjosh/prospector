@@ -234,7 +234,31 @@ export async function runCell(scenario: Scenario, arm: Arm, rep: number, deps: R
   }
 
   await writeJson(join(outDir, "run.json"), record);
+  if (deps.langfuseExperiment) await recordInLangfuse(deps.langfuseExperiment, { record, dir: outDir }, deps);
   return record;
+}
+
+/**
+ * `--langfuse-experiment`: the cell becomes an item of run `<name>:<arm>:r<rep>` on the
+ * prospector-scenarios dataset, with its scores (eval/langfuse/experiment.ts). Outcome
+ * scores need verdicts; until the leads are judged only stop_reason and the code graders
+ * are written, and `npm run eval:score -- --set <id> --langfuse-experiment <name>` adds the
+ * rest after judging. A Langfuse failure never loses the paid cell: run.json is already
+ * written; it is logged and the exit code is set.
+ */
+async function recordInLangfuse(name: string, cell: { record: RunRecord; dir: string }, deps: RunCellDeps): Promise<void> {
+  const log = deps.log ?? (() => undefined);
+  try {
+    if (deps.recordExperiment) await deps.recordExperiment(name, cell);
+    else {
+      const { recordCellDirs } = await import("../langfuse/cells");
+      await recordCellDirs(name, [cell], { log });
+    }
+    log(`langfuse: recorded ${cell.record.scenarioId}/${cell.record.arm}/${cell.record.rep} in ${name}:${cell.record.arm}:r${cell.record.rep}`);
+  } catch (error) {
+    log(`langfuse: recording ${cell.record.scenarioId}/${cell.record.arm}/${cell.record.rep} FAILED (run.json kept): ${error instanceof Error ? error.message : String(error)}`);
+    process.exitCode = 1;
+  }
 }
 
 export type MatrixOptions = {
@@ -335,6 +359,10 @@ async function main() {
   const args = parseArgs(process.argv.slice(2));
   const setId = String(args.set ?? "");
   if (!setId) throw new Error("pass --set <id>");
+  const langfuseExperiment = args["langfuse-experiment"] ? String(args["langfuse-experiment"]) : undefined;
+  // Live agent traces and the experiment items of an eval go to the `eval` environment
+  // unless the caller chose one (read lazily when tracing first initialises).
+  if (langfuseExperiment) process.env.LANGFUSE_TRACING_ENVIRONMENT ||= "eval";
   const maxTotalDollars = args["max-total-dollars"] === undefined ? undefined : Number(args["max-total-dollars"]);
   const log = (line: string) => console.log(line);
 
@@ -342,7 +370,7 @@ async function main() {
     const scenarios = String(args.matrix).split(",").filter(Boolean).map(defaultScenario);
     const arms = String(args.arms ?? "A,B,C").split(",").filter(Boolean).map(normalizeArm);
     const reps = Number(args.reps ?? 3);
-    const result = await runMatrix({ setId, scenarios, arms, reps, maxTotalDollars, handback: !!args.handback, deps: { log } });
+    const result = await runMatrix({ setId, scenarios, arms, reps, maxTotalDollars, handback: !!args.handback, deps: { log, langfuseExperiment } });
     console.log(`matrix ${result.stopped ? "stopped" : "finished"}: ${result.records.length} cells, total $${result.total.toFixed(4)}; cells ok/error: ${result.ok}/${result.errors}`);
     if (result.errors > 0) process.exitCode = 1;
     return;
@@ -354,7 +382,7 @@ async function main() {
   if (!scenarioId || !armArg) throw new Error("pass --scenario <id> --arm <A|B|C> --rep <n>, or --matrix");
   const scenario = defaultScenario(scenarioId);
   const arm = normalizeArm(armArg);
-  const deps: RunCellDeps = { runSetId: setId, log };
+  const deps: RunCellDeps = { runSetId: setId, log, langfuseExperiment };
   const record = await runCell(scenario, arm, rep, deps);
   if (args.handback) await runHandbackRerun(record, scenario, arm, rep, deps, setId);
   console.log(`cell wrote ${scenarioId}/${record.arm}/${rep}; spend $${record.spend.total.toFixed(4)}; leads ${record.leads.length}`);

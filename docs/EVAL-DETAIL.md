@@ -52,3 +52,27 @@ About $40 in total:
 ## Why signal-first (kept from v1)
 
 Exa's `category: "company"` search rejects `startPublishedDate`, so a company search cannot be date-filtered (probed on the live API). Freshness is what the buyer needs, so both arms search dated news and job pages for the **trigger**, then look up the named company for size, HQ and type. Claude decides what to ask; every fact in the output comes from Exa (SPEC-v2 §1).
+
+## Langfuse
+
+Offline evals live in Langfuse Datasets and Experiments (project "My Project", environment `eval`). The repo is the source of truth, and Langfuse is the view. How it works: [SPEC-observability §4](SPEC-observability.md#4-offline-evals-langfuse-datasets-and-experiments-l1).
+
+| What | Where | Count |
+|---|---|---|
+| Dataset `prospector-scenarios` | [cloud.langfuse.com/…/datasets/cmv7hfwfm00x2ad0j9e5fpycl](https://cloud.langfuse.com/project/cmv6skia0015xad0efzgcpwzz/datasets/cmv7hfwfm00x2ad0j9e5fpycl) · `eval/datasets/prospector-scenarios.jsonl` | 2 (S1, S2; kind task-outcome) |
+| Dataset `prospector-cases` | [cloud.langfuse.com/…/datasets/cmv7hfxbd012tad0ea9y2wfx3](https://cloud.langfuse.com/project/cmv6skia0015xad0efzgcpwzz/datasets/cmv7hfxbd012tad0ea9y2wfx3) · `eval/datasets/prospector-cases.jsonl` | 24: reliability 9, policy 3, safety-adversarial 3, tool-use 2, quality 2, escalation 2, cost 2, task-outcome 1 |
+| Pilot experiment runs | [cloud.langfuse.com/…/experiments](https://cloud.langfuse.com/project/cmv6skia0015xad0efzgcpwzz/experiments): `pilot-2026-10-12:<arm>:r<rep>` | 6 runs (A_workflow, B_agent_opus × r1–r3) × 2 items (S1, S2) = 12 items |
+| Agent turn traces of the pilot | Sessions in environment `eval`, one per agent run id (backfilled from `events.jsonl`) | 6 sessions, 77 turn traces |
+
+**Scores on each item:** `good_leads`, `precision`, `cost_per_good_lead` (left out for the two S2 workflow reps with 0 good leads), `pass`, `stop_reason` and `workflow_shaped`. The agent items also get the 8–9 applicable code graders (`caps_respected`, `approval_before_spend`, `tool_order`, …), and all of them pass. Every one of the 55 accepted agent leads has `judge_q1`/`judge_q2`/`judge_q3`/`judge_good` on its `tool:submit_lead` observation, next to the existing `gate_verdict`. `judge_good` is the raw verdict: 48 of 55. The run-level `good_leads` applies RUBRIC §1's "one Q2 cannot-verify per run" rule, which turns SubBase (S2 reps 1 and 3) into not-good, so the 6 agent runs total 46. The two numbers measure different things and are both correct.
+
+**Why 6 runs and not one run with 12 items.** Langfuse assumes each dataset item appears once per experiment run (no repetitions). So one run = one arm × one rep. To see the workflow and the agent side by side per scenario, open the Experiments page and Compare, e.g. `:A_workflow:r1` against `:B_agent_opus:r1`.
+
+**Reproduce ($0):**
+
+```
+npx tsx eval/langfuse-sync.ts                  # datasets; a second run: created 0 · updated 0
+npx tsx eval/langfuse-import-pilot.ts          # re-score (must equal report.json), backfill, runs; a second run: 0 written
+```
+
+Future paid evals land there directly: `npm run eval:cell -- … --langfuse-experiment <set>` writes each cell's item as it finishes, and `npm run eval:score -- --set <set> --langfuse-experiment <set>` adds the judged scores.

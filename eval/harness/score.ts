@@ -2,10 +2,12 @@ import { existsSync } from "node:fs";
 import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { pathToFileURL } from "node:url";
+import type { AgentEvent } from "../../src/agent/events";
+import { gradeRun, type GradeReport, type GraderState } from "../graders";
 import { findVerdictFile } from "./truth";
 import type { Arm, RunRecord, Verdict } from "./types";
 
-type CellMetric = {
+export type CellMetric = {
   scenarioId: string;
   arm: Arm;
   rep: number;
@@ -25,9 +27,11 @@ type CellMetric = {
   unjudged: { count: number; companies: string[]; signal_urls: string[] };
   /** Handback re-run: good leads in this cell vs. in the re-run with suggestion #1 applied (judged, same counting). */
   handback_rerun?: { good_leads_before: number; after: number };
+  /** Code graders (eval/graders) over the cell's state.json + events.jsonl; agent cells only. */
+  graders?: { must_pass: boolean; failed: string[] };
 };
 
-type ArmSummary = {
+export type ArmSummary = {
   scenarioId: string;
   arm: Arm;
   n: number;
@@ -45,22 +49,47 @@ type ArmSummary = {
   workflow_shaped_share: number;
 };
 
-async function readCells(root: string, setId: string): Promise<RunRecord[]> {
+/** A cell's run.json, plus the directory it was read from (state.json + events.jsonl live next to it). */
+export type CellRecord = { record: RunRecord; dir?: string };
+
+export async function readCellRecords(root: string, setId: string): Promise<CellRecord[]> {
   const setDir = join(root, setId);
   if (!existsSync(setDir)) return [];
-  const records: RunRecord[] = [];
+  const cells: CellRecord[] = [];
   for (const scenario of await readdir(setDir)) {
     const scenarioDir = join(setDir, scenario);
     if (scenario === "report.md" || scenario === "report.json") continue;
     for (const arm of await readdir(scenarioDir).catch(() => [])) {
       const armDir = join(scenarioDir, arm);
       for (const rep of await readdir(armDir).catch(() => [])) {
-        const file = join(armDir, rep, "run.json");
-        if (existsSync(file)) records.push(JSON.parse(await readFile(file, "utf8")) as RunRecord);
+        const dir = join(armDir, rep);
+        const file = join(dir, "run.json");
+        if (existsSync(file)) cells.push({ record: JSON.parse(await readFile(file, "utf8")) as RunRecord, dir });
       }
     }
   }
-  return records;
+  return cells;
+}
+
+async function readCells(root: string, setId: string): Promise<RunRecord[]> {
+  return (await readCellRecords(root, setId)).map((c) => c.record);
+}
+
+/** state.json + events.jsonl of an agent cell, or undefined when the cell has none (workflow arm, crashed cell). */
+export async function readRunFiles(dir: string | undefined): Promise<{ state: GraderState; events: AgentEvent[] } | undefined> {
+  if (!dir || !existsSync(join(dir, "state.json")) || !existsSync(join(dir, "events.jsonl"))) return undefined;
+  const state = JSON.parse(await readFile(join(dir, "state.json"), "utf8")) as GraderState;
+  const events = (await readFile(join(dir, "events.jsonl"), "utf8"))
+    .split("\n")
+    .filter(Boolean)
+    .map((line) => JSON.parse(line) as AgentEvent);
+  return { state, events };
+}
+
+/** Code-grader report for a cell directory, or undefined without state/events. */
+export async function gradeCellDir(dir: string | undefined): Promise<GradeReport | undefined> {
+  const files = await readRunFiles(dir);
+  return files ? gradeRun(files.state, files.events) : undefined;
 }
 
 async function readTruth(truthRoot: string, scenarioId: string, company: string, signalUrl: string): Promise<Verdict | undefined> {
@@ -106,9 +135,25 @@ export async function scoreSet(options: {
   reruns?: RunRecord[];
 }): Promise<{ cells: CellMetric[]; summaries: ArmSummary[] }> {
   const root = options.resultsRoot ?? "eval/results";
-  const truthRoot = options.truthRoot ?? "eval/truth";
-  const records = options.records ?? await readCells(root, options.setId);
+  const cellRecords: CellRecord[] = options.records ? options.records.map((record) => ({ record })) : await readCellRecords(root, options.setId);
   const reruns = options.reruns ?? (options.records ? [] : await readCells(root, `${options.setId}-handback`));
+  const result = await scoreRecords(cellRecords, { truthRoot: options.truthRoot, reruns });
+  await writeReport(root, options.setId, result.cells, result.summaries);
+  return result;
+}
+
+/**
+ * Score cells against the cached verdicts (no I/O besides reading eval/truth and the
+ * cells' state/events). The single scoring path: scoreSet, run-cell's Langfuse recording
+ * and the pilot import all use it, so a metric means the same thing everywhere.
+ */
+export async function scoreRecords(
+  cellRecords: CellRecord[],
+  options: { truthRoot?: string; reruns?: RunRecord[] } = {},
+): Promise<{ cells: CellMetric[]; summaries: ArmSummary[] }> {
+  const truthRoot = options.truthRoot ?? "eval/truth";
+  const reruns = options.reruns ?? [];
+  const records = cellRecords.map((c) => c.record);
   const cells: CellMetric[] = [];
   const countDetailed = async (record: RunRecord): Promise<{ good: number; q2: Q2State }> => {
     const q2: Q2State = { value: false, scoredNo: [], unjudged: [] };
@@ -121,7 +166,7 @@ export async function scoreSet(options: {
     return { good, q2 };
   };
   const countGood = async (record: RunRecord): Promise<number> => (await countDetailed(record)).good;
-  for (const record of records) {
+  for (const [index, record] of records.entries()) {
     if (typeof record.maxCostDollars !== "number" || !(record.maxCostDollars > 0)) {
       throw new Error(`run record ${record.scenarioId}/${record.arm}/${record.rep} has no maxCostDollars; cannot apply the cost cap`);
     }
@@ -150,6 +195,7 @@ export async function scoreSet(options: {
       ...(q2.tolerated ? { q2_tolerated: q2.tolerated } : {}),
       ...(q2.scoredNo.length > 0 ? { q2_scored_no: q2.scoredNo } : {}),
       ...(record.handback && rerun ? { handback_rerun: { good_leads_before: good, after: await countGood(rerun) } } : {}),
+      ...(await gradersField(cellRecords[index]!.dir)),
     });
   }
 
@@ -177,8 +223,12 @@ export async function scoreSet(options: {
     });
   }
 
-  await writeReport(root, options.setId, cells, summaries);
   return { cells, summaries };
+}
+
+async function gradersField(dir: string | undefined): Promise<Pick<CellMetric, "graders">> {
+  const report = await gradeCellDir(dir);
+  return report ? { graders: { must_pass: report.pass, failed: report.failed } } : {};
 }
 
 /** One line naming every unjudged lead, or undefined when the set is fully judged. */
@@ -241,6 +291,13 @@ async function main() {
   if (incomplete) {
     console.error(incomplete);
     process.exitCode = scoreExitCode(report.cells);
+  }
+  if (args["langfuse-experiment"]) {
+    // Judged scores for the set's cells, on the items run-cell created (same deterministic ids; scores upsert).
+    process.env.LANGFUSE_TRACING_ENVIRONMENT ||= "eval";
+    const { recordCellDirs } = await import("../langfuse/cells");
+    const r = await recordCellDirs(args["langfuse-experiment"], await readCellRecords("eval/results", args.set), { log: console.log });
+    console.log(`langfuse: experiment items ${r.spans.exported} written / ${r.spans.existing} already there; ${r.scores} scores upserted`);
   }
 }
 
