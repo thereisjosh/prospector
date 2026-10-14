@@ -1,0 +1,230 @@
+{
+  "request": {
+    "query": "benefitbay",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the exact phrase from the page that the employee estimate came from (e.g. \"350 employees\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "1985ca3d2703e58bdbb2efcab0c24698",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/k66s79l39f5",
+        "title": "benefitbay®",
+        "url": "https://benefitbay.com/",
+        "text": "# benefitbay®\n\nbenefitbay® is a Insurance company. Benefitbay® employs 76 people (+61.7% YoY, +29 people), founded in 2021. Headquartered in Kansas City, Missouri, United States, with offices including Omaha, Charlotte, Cleveland, Denver, and Milwaukee. Its workforce is distributed across United States, Poland, Costa Rica, and Spain.\n\n## About\n\nBenefitbay is the chosen platform for brokers, employers, and employees that supports secure SOC II Type II end-to-end ICHRA deployment for companies of all sizes. \n\n\n \nFirst available in January of 2020, ICHRA (pronounced ICK-RA), stands for Individual Coverage Health Reimbursement Arrangement. With ICHRA, employers can provide an allowance of tax free dollars to their employees who then use those dollars to shop for a health plan that meets their own specific needs. No more one-size-fits-all group package. Employers can provide wonderful health plans for their team, individually tailored to each person’s needs, with a fixed, predictable cost. \n \nExperts anticipate a seismic shift in the benefits industry from group to individual as ICHRA plans will become a critical company feature when recruiting top talent. The best candidates will expect the freedom and portability that ICHRA allows. They will expect to be able to change jobs without having to change doctors. And benefitbay is touted as the solution that will finally set this shift in motion by solving the inefficiencies that have slowed ICHRA adoption thus far.\n\nBenefitbay is the first-of its-kind, end-to-end solution that enables employers to easily model, deploy and oversee their ICHRA plans, in full compliance with regulation and with full confidence that their employees will have tools and support to select and enroll in the plan that’s right for them.\n\n## Company Details\n- Industry: Insurance\n- Type: Privately held\n- Headquarters: Kansas City, United States\n- Founded Year: 2021\n- Homepage: benefitbay.com\n- Aliases: Benefitbay Inc., benefitbay, benefitbay, inc., benefitbay®\n- LinkedIn: linkedin.com/company/benefitbay\n- Linkedin Followers: 4,463\n- Emails: info@benefitbay.com, support@benefitbay.com\n- Phone: 1-913-954-2363\n\n## Financials\n- Total Funding: USD 32,027,393\n  - Series a (2026-05-01): USD 18.0M\n  - Venture (2025-09-25): USD 5.0M\n  - Seed (2024-08-01): USD 1.5M\n  - Seed (2024-04-09): USD 1.2M\n  - Seed (2023-03-09): USD 2.5M\n\n## Workforce\n- Employees: 76\n- Company Size: 51-200 employees\n  - Monthly Growth: +1.3%\n  - Yearly Growth: +61.7%\n- Key Executives:\n  - Addison Gilliam, MBA: Director of Assurance Services\n  - Aditi K. Erdman: VP of Finance\n  - Ben Crist: Chief Operating Officer\n  - Bill Dudley: VP of Information Technology\n  - Dan Duncan: Director of Product\n  - Hunter Foster RN, BSN: Vice President Agency Operations & Strategy\n  - James Wiley: Director - Agency Strategy & Compliance\n  - Kelly L. Hall, B.A., M.A.s: Chief Operating Officer\n  - Kevin Mullins: President and CFO\n  - Kevin Nichols: Vice President of Sales Enablement\n- Breakdown:\n  - By Country: United States: 59 (78%), Poland: 3 (4%), Costa Rica: 1 (1%), Spain: 1 (1%)\n  - By Department: Customer Service: 13 (17%), Technical: 10 (13%), Other Department: 9 (12%), Hr: 7 (9%), Finance: 6 (8%), Administrative: 4 (5%), General Management: 4 (5%), Sales: 4 (5%), Consulting: 2 (3%), Education: 2 (3%) (+5 more)\n  - By Seniority: Manager: 17 (22%), Specialist: 17 (22%), Other Management: 11 (14%), Senior: 8 (11%), Vp: 6 (8%), Director: 5 (7%), Clevel: 2 (3%), Head: 1 (1%), Intern: 1 (1%)\n- Talent Sources: Take Command (3), Ease (3), Milliman (2), Lockton (2), Veterans United Home Loans (1), Sojern (1), ReBiz (1), Mortgage Connect, LP (1), La Tipica Restaurant (1), Coding Temple (1)\n- Alumni Go To: Fusion Benefit Holdings (2), Ease (2), WorldWide HealthStaff Solutions (1), TEKsystems (1), Saint Luke's (1), Mesa (1), MACC (Mid America Computer Corporation) (1), Hudl (1), Gallup (1), Allstate (1)\n\n## Products & Technology\n- Tech Stack: addigy, css, domo, fintech, git, hubspot, jira, macos, microsoft, microsoft 365, microsoft entra, microsoft office, mysql, netsuite, postgresql, quickbooks, rds, rippling, ruby, sidekiq, sql, terraform, user interviews, aircall, humanity, amp, well, salesforce, segment, seismic, adobe, html, intercom, javascript, jquery, ruby on rails, youtube\n\n## Web presence\n\n- Twitter: twitter.com/benefitbay\n- Facebook: facebook.com/benefitbay\n- Instagram: instagram.com/benefitbay\n- YouTube: youtube.com/channel/ucrvxopl6o6bfgo4tzrgkfla\n- Crunchbase: crunchbase.com/organization/benefitbay\n- Web traffic:\n  - Monthly visits: 7,080\n  - Global rank: 2,641,562\n  - Bounce rate: 46.0%\n  - Pages per visit: 2.1\n  - Average visit duration: 110s\n\n## Categories\n\naca, benefitbay, benefits administration, benefits administration software, bentech, business services, compliance, employee benefits, employee enrollment systems, end-to-end, enterprise-software, fintech, group benefits, health care, healthcare reform, healthtech, hra, hris, ichra, ichra administration, individual insurance, insurtech, plan choices, platform, seamless, software, subsidy opportunities, technology, unique employee benefit solutions\n\n## Competitors\n\nrca, oeconnection, fast enterprises, beijing advanced datacom information technology\n\n## Recent News\n- [2026-09-24] [Helping employees select the right healthcare during open enrollment \\| Employee Benefit News](https://www.benefitnews.com/news/helping-employees-select-the-right-healthcare-during-open-enrollment)\n- [2026-09-19] [Community Sponsorship Highlights benefitbay’s Local Engagement Strategy - TipRanks.com](https://www.tipranks.com/news/private-companies/community-sponsorship-highlights-benefitbays-local-engagement-strategy)\n- [2026-09-06] [The Rise of ICHRA: Flexibility, Choice and the Future of Health Benefits with Hunter Foster - Becker's Hospital Review](https://www.beckershospitalreview.com/podcasts/uncategorized/the-rise-of-ichra-flexibility-choice-and-the-future-of-health-benefits-with-hunter-foster-2/)\n- [2026-09-03] TipRanks: Regulatory Shift to CHOICE Arrangement Highlights benefitbay’s Positioning in Flexible Health Benefits\n- [2026-08-18] [benefitbay-bolsters-financial-planning-team-amid-growth-phase](https://www.tipranks.com/news/private-companies/benefitbay-bolsters-financial-planning-team-amid-growth-phase)\n- [2026-08-12] [benefitbay-expands-transfer-group-operations-team-amid-growth](https://www.tipranks.com/news/private-companies/benefitbay-expands-transfer-group-operations-team-amid-growth)\n- [2026-08-10] [Session Details: Becker's 5th Annual Spring Payer Issues Roundtable](https://conferences.beckershospitalreview.com/spring-payer-2027/session/4310825/b.-outlook-for-health-plan-consolidation-and-growth)\n- [2026-07-11]\n  - [benefitbay Expands DevOps and Security Capacity With Remote Contract Role](https://www.tipranks.com/news/private-companies/benefitbay-expands-devops-and-security-capacity-with-remote-contract-role)\n  - TipRanks: Benefitbay Targets South Region Growth With New Sales Hire\n- [2026-06-03] TipRanks: benefitbay Recognized on Inc. Magazine Best Workplaces 2026 List\n- [2026-06-02] TipRanks: benefitbay – Weekly Recap\n- [2026-03-25] TipRanks: benefitbay Positions ICHRA Platform Within Structural Shift in Employer Health Benefits\n- [2026-03-11]\n  - TipRanks: Diverse Leadership Emphasis Supports benefitbay’s Position in Healthcare Benefits\n  - TipRanks: benefitbay Emphasizes Women’s Leadership and Diversity in Benefits Market Positioning\n- [2025-09-05] HR Executive: ICHRA: Personalized Choice for a Modern Workforce\n- [2025-08-25] Seattle TechFlash: Benefitbay secures $5M seed round, plans C-suite expansion\n- [2025-06-17] EIN Presswire: Benefitbay® Named to Inc.’s 2025 Best Workplaces List\n- [2024-04-19] The Business Journals: Health tech company closes new seed round, charts fast growth after relocating to KC - Kansas City Business Journal\n- [2024-01-25] Tech Times: AI in ICHRA: benefitbay®'s Effective Strategy to Amplify Customer Experience\n- [2023-11-27] USA Today: Change in the Air: Unraveling ICHRA and Its Impact on Your ...\n\n## Social\n\n### Linkedin\n\n- [2026-09-18 · 35 reactions, 4 comments] We were proud to sponsor the Kansas City Sports Commission & Foundation's Annual Emerging Leaders Pickleball Tournament at Chicken N Pickle Kansas City last night. The event brought together young...\n\n- [2026-09-16 · 36 reactions, 3 comments] At renewal, the question cannot simply be: How much more can employers absorb? It has to be: How do we protect both the business and the people whose paychecks are already under pressure? In a conv...\n\n- [2026-09-08 · 32 reactions] Health insurance is the most expensive benefit most employers provide, and historically the one they've had the least control over. We believe ICHRA is changing that, and benefitbay® is the platfor...\n\n- [2026-09-03 · 67 reactions, 4 comments] Today, CMS officially took the ick out of ICHRA and renamed it the CHOICE arrangement. We love the direction because at benefitbay, choice is not just part of the benefit. It is our purpose. We cha...\n\n- [2026-08-21 · 99 reactions, 4 comments] Honored to share that our founder & CEO, Brandy Thompson, was recognized by Digital Health KC as a 2026 Lumi Award winner. Under her stewardship, benefitbay has achieved 900% growth over the past 3...\n\n- [2026-08-17 · 18 reactions] 📊 We're Hiring: FP&A Analyst / Senior FP&A Analyst 📊 Are you passionate about turning data into strategic insights? Do you thrive in a fast-paced environment where your analysis directly influences...\n\n- [2026-08-11 · 41 reactions, 3 comments] When you've been working in the ICHRA space for a while, it's easy to forget that the funding model has only been around officially since 2020. It makes sense, then, that most ICHRA case studies—es...\n\n- [2026-08-11 · 18 reactions] We're Growing! Join Our Transfer Group Operations Team at benefitbay! As benefitbay continues to grow, we're expanding our Transfer Group Operations Team and looking for motivated, detail-oriented...\n\n- [2026-08-05 · 97 reactions] benefitbay® in the field, or more accurately, ON the field! Great night at the Kansas City Royals Fountain Gala benefiting the Royals Foundation to support youth and strengthen the KC community thr...\n\n- [2026-07-28 · 20 reactions, 1 comment] Choosing an ICHRA is important. Choosing the right ICHRA administrator can make all the difference. Implementing an ICHRA isn't just about technology—it's about having a partner that helps employer...\n\n- [2026-07-21 · 23 reactions, 2 comments] Join us tomorrow, July 22 at 12:00 PM ET, for a conversation on what evaluating an ICHRA actually looks like - hosted by HR.com. Rather than another \"What is an ICHRA?\" presentation, we'll dive int...\n\n- [2026-07-18 · 36 reactions, 2 comments] Some things shouldn't cost extra. Lately, I've noticed more client conversations around \"white glove\" service in our industry. And every time I hear it, I find myself asking the same question. When...\n\n- [2026-07-16 · 70 reactions, 9 comments] Last night, the benefitbay team hit the bowling lanes to support Big Brothers Big Sisters Kansas City! 🎳 14 people were bowling in a \"competitive\" nature: OG v Intern 14 people raised more than $7,...\n\n- [2026-07-12 · 65 reactions, 4 comments] You didn’t think the FIFA World Cup 2026™ - Canada, Mexico and the United States was coming to Kansas City and we weren’t going to go, did you? Hunter Foster RN, BSN and Addison Gilliam, MBA hosted...\n\n- [2026-07-11 · 9 reactions] \"Before anything else, preparation is the key to success.\" — Alexander Graham Bell\n\n- [2026-07-10 · 3 reactions] Outbound Sales Executive - South Region Do you love connecting with people, building relationships, and helping businesses find solutions? If so, we’d love to meet you! We're looking for an Outboun...\n\n- [2026-07-10 · 35 reactions, 2 comments] National Open Enrollment is just around the corner (what? how!?), which is the benefits equivalent of our Super Bowl (IYKYK). To gear up, we brought our product and leadership teams together for a...\n\n- [2026-07-10 · 4 reactions] DevOps Platform & Security Engineer (Contract | Remote | North or South America) We are looking for a DevOps and Platform Engineer to ensure platform availability and operational coverage during US...\n\n- [2026-07-07 · 131 reactions, 4 comments] It was great to be back at SHRM in Orlando last month and part of such a dynamic conversation on ICHRA. What stood out most wasn’t just the level of engagement—but how far the conversation has evol...\n\n- [2026-07-06 · 280 reactions] Wishing you a Happy 4th of July! 🇺🇸\n\n## Locations\n- Headquarters: kansas city, missouri, united states (US)\n- Offices: kansas city, missouri, united states (US), charlotte, north carolina, united states (US), st pete beach, florida, united states (US), oklahoma city, oklahoma, united states (US), omaha, nebraska, united states (US), redding, california, united states (US), denver, colorado, united states (US), milwaukee, wisconsin, united states (US), cleveland, ohio, united states (US), mount pleasant, south carolina, united states (US), overland park, kansas, united states (US)",
+        "summary": "{\"description\":\"Benefitbay is an Insurance platform that supports secure SOC II Type II end-to-end ICHRA deployment for companies of all sizes. It provides employee benefits and enrollment software solutions with a distributed workforce.\",\"employee_estimate\":76,\"employee_estimate_source\":\"Employees: 76\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Platform & Security Engineer (Contract | Remote | North or South America) - We are looking for a DevOps and Platform Engineer to ensure platform availability and operational coverage during US...\",\"hq\":\"Kansas City, United States\",\"hq_quote\":\"Headquarters: kansas city, missouri, united states (US)\",\"industry\":\"Insurance\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Insurance\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 32,027,393 - Series a (2026-05-01): USD 18.0M\\n  - Venture (2025-09-25): USD 5.0M\\n  - Seed (2024-08-01): USD 1.5M\\n  - Seed (2024-04-09): USD 1.2M\\n  - Seed (2023-03-09): USD 2.5M\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQFd78X1CsYLqg/company-logo_200_200/B4EZ9riaw8JUAE-/0/1784215612722/benefitbay_logo?e=2147483647&v=beta&t=0WmAMDVJjfXOO7axhN7TdrOthd6qI0BVlyxO9u3fvUI",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/k66s79l39f5",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "benefitbay®",
+              "foundedYear": 2021,
+              "description": "Benefitbay is the chosen platform for brokers, employers, and employees that supports secure SOC II Type II end-to-end ICHRA deployment for companies of all sizes. \n\n\n \nFirst available in January of 2020, ICHRA (pronounced ICK-RA), stands for Individual Coverage Health Reimbursement Arrangement. With ICHRA, employers can provide an allowance of tax free dollars to their employees who then use those dollars to shop for a health plan that meets their own specific needs. No more one-size-fits-all group package. Employers can provide wonderful health plans for their team, individually tailored to each person’s needs, with a fixed, predictable cost. \n \nExperts anticipate a seismic shift in the benefits industry from group to individual as ICHRA plans will become a critical company feature when recruiting top talent. The best candidates will expect the freedom and portability that ICHRA allows. They will expect to be able to change jobs without having to change doctors. And benefitbay is touted as the solution that will finally set this shift in motion by solving the inefficiencies that have slowed ICHRA adoption thus far.\n\nBenefitbay is the first-of its-kind, end-to-end solution that enables employers to easily model, deploy and oversee their ICHRA plans, in full compliance with regulation and with full confidence that their employees will have tools and support to select and enroll in the plan that’s right for them.",
+              "workforce": {
+                "total": 76
+              },
+              "headquarters": {
+                "address": "Kansas City, MO, US",
+                "city": "Kansas City",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 32027393,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2026-05-01",
+                  "amount": 18000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 7080,
+                "countryRank": 839804,
+                "avgDurationSeconds": 110,
+                "history": [
+                  {
+                    "value": 10546,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 11154,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 4506,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 7648,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 7963,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 7080,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/lb98mw7r7mm",
+        "title": "BASE - Benefit Administration",
+        "url": "https://baseonline.com/",
+        "text": "# BASE - Benefit Administration\n\nBASE - Benefit Administration is a Insurance company. BASE® is an employee benefit administration company that offers tax-advantaged plans, health savings accounts, compliance, non-discrimination testing, and human resources. BASE - Benefit Administration employs 12 people (-7.7% YoY, -1 person) and has an annual revenue of $6.8M, founded in 1999. Headquartered in Adel, Iowa, United States.\n\n## About\n\nThe BASE® commitment begins by offering small business owners plans that are customized to meet their specific needs. We offer a variety of plans including Health Reimbursement Arrangements (Section 105 HRA, Integrated HRA, ICHRA, QSEHRA & EBHRA), 125 Cafeteria Plan (FSA, DCAP, POP, LPFSA), Lifestyle Spending Account, ERISA Wrap, NonDiscrimintation Testing, and 5500 Filing & Submission. Whether clients are looking to enrich current benefit plans, offset benefit cutbacks, or implement cost saving measures, our highly trained sales staff will work diligently to ensure that each plan is customized to meet the specific needs of our clients.\n\n## Company Details\n- Industry: Insurance\n- Type: Privately held\n- Headquarters: Adel, United States\n- Founded Year: 1999\n- Homepage: baseonline.com\n- Aliases: base, base - benefit administration, base online\n- LinkedIn: linkedin.com/company/base-benefit-administration-for-the-self-employed-\n- Linkedin Followers: 135\n- Phone: (888) 386 968, 888-227-3105, 888.386.9680\n\n## Financials\n- Annual Revenue: USD 6,821,303\n\n## Workforce\n- Employees: 12\n- Company Size: 11-50 employees\n  - Yearly Growth: -7.7%\n- Key Executives:\n  - Jodi Benetti: Director of Sales and Service\n- Breakdown:\n  - By Country: United States: 4 (33%)\n  - By Department: Sales: 3 (25%), Research: 1 (8%)\n  - By Seniority: Specialist: 3 (25%), Director: 1 (8%)\n- Talent Sources: Northwest Communications -  Havelock, Iowa (1), Holmes Murphy (1), Delta Dental of Iowa (1), Bath & Body Works (1)\n- Alumni Go To: YMCA of Greater Des Moines (1), Wells Fargo (1), North Risk Partners (1), KHI Solutions (1), Holmes Murphy (1), Firehouse Software Corporation (1), Farm Bureau Financial Services (1), Des Moines Christian Schools (1)\n\n## Web presence\n\n- Twitter: twitter.com/basehra\n- Facebook: facebook.com/basetaxsavings\n- YouTube: youtube.com/channel/uczwwwrb2y887leqemkvp16q\n- Crunchbase: crunchbase.com/organization/base-41fa\n\n## Categories\n\nbusiness-services, compliance, employee benefit administration, health savings accounts, healthtech, insurance, non-discrimination testing, tax-advantaged plans\n\n## Competitors\n\ntasc, peoplekeep, take command, lumity, maestro health, businessplans, horizon software, fusionhealth, benefitfocus, businessolver, bswift, ameriflex, benefitbay, zorro, gusto, hixme, discovery benefits, ease, gravie, venteur, healthequity, healthsource ri, benecaid, hcentive, gsc, greenshield, great west life, validant, pinnacle, maxgrip, careallies\n\n## Recent News\n- [2024-10-28] Coin Telegraph: Base stablecoin transaction volume briefly tops all other chains\n- [2024-10-27] The Block Crypto: Base one-day stablecoin transfer volume outranks all other chains for first time\n- [2024-10-24] The Block Crypto: Base plans to introduce fault proofs this month, aiming for decentralization\n- [2024-10-18] pv magazine USA: S\\_Base simplifies commercial solar rooftops\n- [2024-10-10] AMBCrypto: Base liquidity inflows rise as TVL beats Ethereum mainnet\n- [2024-10-08] Benzinga: Robinhood Eyes Major Growth With New Trading Features, While Coinbase Rides Crypto Surge: Analyst\n- [2024-10-03] The Block Crypto: Aerodrome tops $1 billion in deposits, dominating DeFi on Base\n- [2024-09-30] Globe Newswire: Dypius Launches 3 New and Exciting Mini-Games with Direct Rewards on Base\n- [2024-09-27] The Block Crypto: Base’s total value locked crosses $2 billion for the first time amid sustained user activity\n- [2024-09-12] Coinspeaker: Solv Protocol Brings Bitcoin Staking to Base with New Liquid Staking Options, Expanding Bitcoin’s Role in the Onchain Economy\n\n## Social\n\n### Linkedin\n\n- [2025-09-01] Enjoy the day!\n\n- [2025-08-28 · 2 reactions] It has been great to be a part of NAIFA-Iowa's #CampNAIFA this year and sharing how BASE can help these agents pack for success ahead of open enrollment season with benefit saving and compliance so...\n\n- [2025-08-20 · 6 reactions] Looking forward to a fun Group Benefits, Ltd. 2025 Annual Convention to share the creative health care saving and compliance products BASE has to offer as solutions during open enrollment season an...\n\n- [2025-08-01 · 2 reactions] Individual Coverage HRAs: The Next Chapter in Employment-Based Health Benefits? BASE continues to work with employers interested in shifting to the #ICHRA. https://lnkd.in/gtbcS_Cw\n\n- [2025-07-30 · 4 reactions, 1 comment] Annual Dependent Care FSA Limit Gets ‘Long-Awaited’ Boost, which is win for employees. BASE DCAP limit is now $7,500 for plans starting January 1, 2026! https://lnkd.in/g_SiyDDk\n\n- [2025-07-21 · 2 reactions] Individual Coverage HRAs (#ICHRA): The Next Chapter in Employment-Based Health Benefits? They have re-opened the conversation about defined contribution health benefits in a serious way. https://ln...\n\n- [2025-06-23 · 9 reactions] Great #DayofService at BASE when 23 employees come together to make, bake, freeze, & deliver 150 breakfast casseroles for The Salvation Army Iowa Capital Area Command, supplying 1500 meals for thos...\n\n- [2025-05-14 · 2 reactions] Bill includes generous provisions for #ICHRA, #HSA, #FSA. https://lnkd.in/gbddwNfy\n\n- [2025-05-06] It's #TestimonialTuesday! We couldn't be happier to have John as a Partner and satisfied #HSA client! #PositiveFeedback\n\n- [2025-05-01 · 1 reaction] IRS has released 2026 Inflation-Adjusted Amounts for #HSAs, HDHPs, & #EBHRAs: https://lnkd.in/gMnbDD65 If you have questions about HSAs or Excepted Benefit HRAs, just reach out to BASE 1-888-386-9680.\n\n## Locations\n- Headquarters: adel, iowa, united states (US)\n- Offices: adel, iowa, united states (US)",
+        "summary": "{\"description\":\"BASE® is an employee benefit administration company that offers tax-advantaged plans, health savings accounts, compliance, non-discrimination testing, and human resources.\",\"employee_estimate\":12,\"employee_estimate_source\":\"Employees: 12\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Adel, Iowa, United States\",\"hq_quote\":\"Headquartered in Adel, Iowa, United States.\",\"industry\":\"Insurance\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"BASE - Benefit Administration is a Insurance company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":null,\"recently_funded_seed_or_series_a_quote\":\"\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4D0BAQETTgYFSdwGlg/company-logo_200_200/company-logo_200_200/0/1631345096831?e=2147483647&v=beta&t=z0u0Z8TJ6AF50ZzrDnmgnnbCYqOLnP-hQ64ci3lrU1o",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/lb98mw7r7mm",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "BASE - Benefit Administration",
+              "foundedYear": 1999,
+              "description": "The BASE® commitment begins by offering small business owners plans that are customized to meet their specific needs. We offer a variety of plans including Health Reimbursement Arrangements (Section 105 HRA, Integrated HRA, ICHRA, QSEHRA & EBHRA), 125 Cafeteria Plan (FSA, DCAP, POP, LPFSA), Lifestyle Spending Account, ERISA Wrap, NonDiscrimintation Testing, and 5500 Filing & Submission. Whether clients are looking to enrich current benefit plans, offset benefit cutbacks, or implement cost saving measures, our highly trained sales staff will work diligently to ensure that each plan is customized to meet the specific needs of our clients.",
+              "workforce": {
+                "total": 12
+              },
+              "headquarters": {
+                "address": "601 Visions Pkwy, Adel, Iowa 50003, US",
+                "city": "Adel",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 6821303,
+                "fundingTotal": null,
+                "fundingLatestRound": null
+              },
+              "webTraffic": null,
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 9619.2,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

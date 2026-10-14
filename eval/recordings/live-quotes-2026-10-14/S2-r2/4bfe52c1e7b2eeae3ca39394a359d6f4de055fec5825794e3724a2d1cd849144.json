@@ -1,0 +1,229 @@
+{
+  "request": {
+    "query": "Readily",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the exact phrase from the page that the employee estimate came from (e.g. \"350 employees\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "6d669160a4c806fa7d98bf6803ed71b5",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/4684wrzy4w2",
+        "title": "Readily",
+        "url": "https://readily.ai/",
+        "text": "# Readily\n\nReadily is a Information Services company. Readily is an AI-native compliance software for healthcare that connects regulatory change to policies and operations, ensuring audit-ready teams. Readily employs 24 people, founded in 2023. Headquartered in San Francisco, United States.\n\n## About\n\nReadily is the AI-native compliance platform for healthcare. By connecting regulatory change to an organization’s own policies, contracts, and operations, Readily helps compliance teams monitor change, prepare for audits, and close gaps in a fraction of the time — automating the manual work so experts can focus on the judgment and risk decisions that matter most.\n\n## Company Details\n- Industry: Information Services\n- Type: Privately held\n- Headquarters: San Francisco, United States\n- Founded Year: 2023\n- Homepage: readily.ai\n- Aliases: pandanai, inc, readily\n- LinkedIn: linkedin.com/company/readilyai\n- Linkedin Followers: 979\n- Emails: founders@readily.co\n\n## Workforce\n- Employees: 24\n- Company Size: 11-50 employees\n  - Monthly Growth: +9.1%\n- Key Executives:\n  - Aditi Gaur: Head of Growth\n  - Andrew Liddell, CISSP, PMP, CSM, PMI-ACP: Chief Information Security Officer\n  - Chelsea Hardy: VP of Compliance\n  - Edward T.: Co-Founder\n  - Eileen Moscaritolo: VP of Compliance\n  - Gabriel Nio: Head of Operations\n  - Saadullah Saeed: Head of Engineering\n  - Susan Arcidiacono: Fractional Chief Marketing Officer\n- Breakdown:\n  - By Country: United States: 17 (71%)\n  - By Department: Technical: 8 (33%), Legal: 2 (8%), Marketing: 2 (8%), Other Department: 2 (8%), Consulting: 1 (4%), Customer Service: 1 (4%), Operations: 1 (4%)\n  - By Seniority: Specialist: 4 (17%), Head: 3 (12%), Clevel: 2 (8%), Other Management: 2 (8%), Vp: 2 (8%), Founder: 1 (4%), Intern: 1 (4%), Manager: 1 (4%), Senior: 1 (4%)\n- Active job postings: 4\n- Talent Sources: Community Health Plan of Imperial Valley (2), qordata Inc. (1), VSP Ventures (1), Stealth AI Startup (1), NUS Hackers (1), Morphik (YC P25) (1), Mind & Match (1), LogicMonitor (1), Graticule, Inc. (1), AKASA (1)\n- Alumni Go To: Caseflood.ai (YC W25) (1)\n\n## Products & Technology\n- Features: Demo Available\n\n## Web presence\n\n- Crunchbase: crunchbase.com/organization/readily\n- Web traffic:\n  - Monthly visits: 2,724\n  - Global rank: 6,890,591\n  - Bounce rate: 31.0%\n  - Pages per visit: 1.2\n  - Average visit duration: 0s\n\n## Categories\n\nai-native compliance software, artificial intelligence (ai), audit-ready, compliance, enterprise software, health care, health diagnostics, health insurance, healthcare, healthcare compliance, medical, policies, regulatory change, saas, software\n\n## Recent News\n- [2026-10-02] News4JAX: Duval school board considers allowing guns in locked vehicles on school property\n- [2026-09-24] https://www.ingame.com/: CFTC Warns Mention Markets May Be ‘Susceptible To Manipulation’\n- [2026-09-23] Investopedia: Cash and Cash Equivalents: Overview and Practical Examples\n- [2026-09-21] 매일경제: \"Are you a middle class?\"Not many people readily say \"yes\" to this question.Even if the income is hi..\n- [2026-09-16]\n  - Techzine Global: Major flaw in AI neocloud’s security found by prospective customer\n  - 재경일보: Occidental Petroleum Shares Decline Sharply Without Clear Catalyst : 기업주식정보 : JKN\n- [2026-09-14] Financial Times: Thiel-backed start-up to mass-produce ‘deep strike’ missiles in Europe and US\n- [2026-09-13] SBS 뉴스: Readily Lending 700 Million Won to Nephew Born in 1996? Controversy Arises Over 'Aunt and Uncle's Favor'\n- [2026-09-06] Energy Update: Nepra Makes BESS Mandatory in First Electricity Wheeling Auction\n- [2026-09-04] JoCo Report: Johnston County Telework Records Raise Questions About Who Is Really Working From Home\n- [2026-09-03] Denbighshire Free Press: Psychoactive substances readily available throughout North Wales prison, says report\n- [2026-09-01] Dealroom: Readily Diagnostics wins €811K Gates Foundation grant for affordable STI test\n- [2026-08-31] BBC: Wales' papers: High value cars stolen to order and forbidden drugs 'readily available' in prison\n- [2026-08-11] Daily Monitor: Why Uganda is eating more imported rice\n- [2026-08-04] The Block: 'Shifted the vibes:' Stablecoin deal revives crypto bill despite lingering ethics disputes\n- [2026-08-01] GameRant: PS5 Gamers Have 4 Big New Co-Op Games to Play This Month\n- [2026-02-02] Andover Advertiser: Firearms amnesty in place for five newly illegal \"blank-firing guns\" in Hampshire\n- [2025-12-01] The Independent: Former Man Utd boss calls for readily accessible prostate cancer tests\n- [2025-10-28]\n  - Citizen Portal AI: Madison County board hosts ADA walkthrough at annex; liaison recommends countywide self-evaluation and phased fixes\n  - UK News in Pictures: Nottingham Man Jailed in County’s First Readily Convertible Firearm Case\n\n## Social\n\n### Linkedin\n\n- [2026-09-29 · Reshared] [See Readily In Action - making compliance simpler, smarter and...](https://www.linkedin.com/posts/readilyai_healthcareai-complianceai-readilyai-activity-7510700812830957568-Das4): See Readily In Action - making compliance simpler, smarter and actionable. #HealthcareAI #ComplianceAI #ReadilyAI\n\n- [2026-09-28 · Posted · 13 reactions] [See Readily in action and discover how health plans, IPAs, and MSOs...](https://www.linkedin.com/posts/readilyai_see-readily-in-action-and-discover-how-health-activity-7510375096784535552-UuwD)\n  > See Readily in action and discover how health plans, IPAs, and MSOs are simplifying compliance, staying ahead of regulatory change, and turning complex requirements into action.\n\n- [2026-09-24 · Posted · 3 reactions] [What changes when healthcare organizations move from exploring AI...](https://www.linkedin.com/posts/readilyai_inside-the-c-suite-payer-provider-leaders-activity-7509004189713301504-2Mye)\n  > What changes when healthcare organizations move from exploring AI to buying it?\n  >\n  > Define Ventures’ new report suggests the conversation is shifting. More payer and provider leaders expect to purchase AI solutions, while change management has become a leading challenge to putting them to work.\n  >\n  > These findings reinforce an important opportunity for Readily: helping healthcare organizations turn AI investments into practical, accountable, and effective workflows.\n  >\n  > Adopting a useful tool is only the beginning. Organizations also need clarity about where the tool fits into daily work, who is accountable for its use, and how to measure whether it is delivering the intended results.\n  >\n  > For compliance teams, those questions are familiar. New capabilities bring new opportunities, but they also require clear ownership and a way to make decisions with confidence. As healthcare AI moves into everyday operations, supporting the people who use it will be essential to realizing its full value.\n  >\n  > We appreciate Define Ventures for giving the industry a clearer view of this moment. What has helped your organization move from AI adoption to effective use?\n  >\n  > Read the report: https://lnkd.in/gYDGdD4h\n  >\n  > #HealthcareAI #HealthPlans #AIGovernance #DefineVentures\n\n- [2026-09-23 · Posted · 26 reactions] [The Readily team is heading to #MHPA26! Stop by booth 412 to talk...](https://www.linkedin.com/posts/readilyai_mhpa26-activity-7508587244992086016-l7RV)\n  > The Readily team is heading to #MHPA26! Stop by booth 412 to talk audit readiness, delegation oversight and what's next in Medicaid compliance.\n\n- [2026-05-14 · Reshared · 5 reactions] [Welcome aboard, Eileen! We’re thrilled to have her deep expertise...](https://www.linkedin.com/posts/readilyai_readily-activity-7460821462908760065-uYyY): Welcome aboard, Eileen! We’re thrilled to have her deep expertise in compliance operations on the Readily team. 🎉\n\n## Locations\n- Headquarters: san francisco, united states (US)\n- Offices: san francisco, united states (US), san francisco, california, united states (US)",
+        "summary": "{\"description\":\"Readily is the AI-native compliance software for healthcare that connects regulatory change to policies, contracts, and operations to monitor change, prepare for audits, and close gaps quickly.\",\"employee_estimate\":24,\"employee_estimate_source\":\"Employees: 24\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Active job postings: 4\",\"hq\":\"San Francisco, United States\",\"hq_quote\":\"Headquarters: San Francisco, United States\",\"industry\":\"Information Services\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Information Services\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Founded in 2023\\\" and \\\"Headquartered in San Francisco, United States.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQFpvC6OKXdDNA/company-logo_200_200/B56Z9yDepqHYAE-/0/1784324942672/readilyai_logo?e=2147483647&v=beta&t=Vs7CG_oOVDOWHmFrgOrFqMUUFHWtR-z2OGkUMUv19EY",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/4684wrzy4w2",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Readily",
+              "foundedYear": 2023,
+              "description": "Readily is the AI-native compliance platform for healthcare. By connecting regulatory change to an organization’s own policies, contracts, and operations, Readily helps compliance teams monitor change, prepare for audits, and close gaps in a fraction of the time — automating the manual work so experts can focus on the judgment and risk decisions that matter most.",
+              "workforce": {
+                "total": 24
+              },
+              "headquarters": {
+                "address": "San Francisco, US",
+                "city": "San Francisco",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 2724,
+                "countryRank": 4368106,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 2724,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/3v848csb4b6",
+        "title": "READily",
+        "url": "https://readily-app.com/",
+        "text": "# READily\n\nREADily is a E-Learning Providers company. READily is a portal to generate reading comprehension exercises according to any articles in one click. With READily, we hope to provide tailor-made language learning experiences to students. READily employs 3 people (+50.0% YoY, +1 person). Headquartered in Hong Kong, Hong Kong.\n\n## About\n\nREADily is a portal to generate reading comprehension exercises according to any articles in one click. With READily, we hope to provide tailor-made language learning experiences to students.\n\n## Company Details\n- Industry: E-Learning Providers\n- Type: Privately held\n- Headquarters: Hong Kong, Hong Kong\n- Homepage: readily-app.com\n- Aliases: readily\n- LinkedIn: linkedin.com/company/readily-hk\n- Linkedin Followers: 34\n- Emails: readily@readily-app.com\n- Phone: +852 68035526\n\n## Workforce\n- Employees: 3\n- Company Size: 1-10 employees\n  - Yearly Growth: +50.0%\n\n## Categories\n\neducation, portal, readily, reading comprehension exercises, students, tailor-made language learning experiences\n\n## Social\n\n### Linkedin\n\n- [2023-10-20] 📚 Exciting News! Introducing READily: Revolutionizing Language Learning! 🌍 I am thrilled to announce the launch of READily, an innovative portal designed to transform the way students engage with r...\n\n- [2023-10-20] We’ve just updated our Page. Visit our Page to see the latest updates.\n\n## Locations\n- Headquarters: hong kong, hong kong (HK)\n- Offices: innocentre at kowloon tong, hong kong (HK)",
+        "summary": "{\"description\":\"READily is a E-Learning Providers company. READily is a portal to generate reading comprehension exercises according to any articles in one click. With READily, we hope to provide tailor-made language learning experiences to students.\",\"employee_estimate\":3,\"employee_estimate_source\":\"Employees: 3\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Hong Kong, Hong Kong\",\"hq_quote\":\"Headquartered in Hong Kong, Hong Kong.\",\"industry\":\"E-Learning Providers\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"READily is a E-Learning Providers company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":null,\"recently_funded_seed_or_series_a_quote\":\"\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQFvpNWGZ_7ycw/company-logo_200_200/company-logo_200_200/0/1697378935316/readily_hk_logo?e=2147483647&v=beta&t=yMEon6RzFG36H6y-z4WuH8Sl-asU3y3aJIbh0lvL8FA",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/3v848csb4b6",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "READily",
+              "foundedYear": null,
+              "description": "READily is a portal to generate reading comprehension exercises according to any articles in one click. With READily, we hope to provide tailor-made language learning experiences to students.",
+              "workforce": {
+                "total": 3
+              },
+              "headquarters": {
+                "address": "LION ROCK 72 CO-WORKING SPACE, INNOCENTRE AT KOWLOON TONG, Hong Kong, HK",
+                "city": "Hong Kong",
+                "postalCode": null,
+                "country": "Hong Kong"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 459,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 387,
+                    "dateFrom": "2026-01",
+                    "dateTo": "2026-01"
+                  },
+                  {
+                    "value": 387,
+                    "dateFrom": "2026-02",
+                    "dateTo": "2026-02"
+                  },
+                  {
+                    "value": 1041,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 237,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 1065,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 459,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 17112.7,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

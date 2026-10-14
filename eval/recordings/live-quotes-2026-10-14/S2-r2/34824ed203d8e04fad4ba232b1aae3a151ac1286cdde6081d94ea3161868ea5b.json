@@ -1,0 +1,250 @@
+{
+  "request": {
+    "query": "Avarra.ai",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the exact phrase from the page that the employee estimate came from (e.g. \"350 employees\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "8749fdd4c6f8f2a29d9c63b8c3b4b331",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/wm339gwx24f",
+        "title": "Avarra",
+        "url": "https://avarra.ai/",
+        "text": "# Avarra\n\nAvarra is a Software Development company. Avarra is an AI avatar platform that turns your team's expertise into avatars who train teams, support deals, and help customers. Avarra employs 31 people (+55.0% YoY, +11 people). Headquartered in San Mateo, California, United States. Its workforce is distributed across United States, Canada, and South Korea.\n\n## About\n\nThe Avatar Platform to Scale Your People, Plays, and Revenue\nBuild and deploy AI avatar coaches, product experts, sellers, CSMs and more in less than​ 1 hour.\n\nCoaching & Ramp Execution.\nTrain and reinforcing your methodologies and best practices while accelerating ramp time and reducing manager oversight. \n\nOnboarding & Implementation Support.\nAvatars guide internal teams and customers through onboarding and implementation, ensuring consistent execution. \n\nProduct, Pricing & Competitive Expertise.\nPut product, pricing, and competitive experts on every deal so teams act with confidence and consistency in live situations.\n\nCustomer Success & Retention Execution.\nAvatars support CSMs through renewals, expansions, and escalations to navigate sensitive moments.\n\nMeeting Preparation & Execution Readiness.\nPrepare for critical meetings with the right context, deep research, guidance, and execution focus. \n\nExecution Visibility & Consistency at Scale.\nTrack real execution across the revenue org so you can find what works, fix what doesn’t, and scale consistency.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: San Mateo, United States\n- Homepage: avarra.ai\n- Aliases: avarra\n- LinkedIn: linkedin.com/company/avarra\n- Linkedin Followers: 1,108\n- Emails: david@avarra.org\n\n## Financials\n- Total Funding: USD 8,000,000\n  - Seed (2024-10-03): USD 8.0M\n\n## Workforce\n- Employees: 31\n- Company Size: 11-50 employees\n  - Yearly Growth: +55.0%\n- Key Executives:\n  - Arlo Rose: Head of Design\n  - Bruce Bonke: Director of Sales\n  - Christopher Iezzoni: Head of Artificial Intelligence, Co-Founder\n  - Christy Archuleta: Regional Sales Director\n  - Dan Strauss: VP Sales\n  - Daniel Cmejla: VP of Marketing (Fractional)\n  - David Knight: Co-Founder and CEO\n  - Matt Huang: Co-Founder, COO and Head of Product\n  - Michael Rucker: Head of Customer Support\n  - Scot McIntosh: Co-Founder, Head of Engineering\n- Breakdown:\n  - By Country: United States: 23 (74%), Canada: 1 (3%), South Korea: 1 (3%)\n  - By Department: Technical: 11 (35%), General Management: 3 (10%), Sales: 3 (10%), Marketing: 2 (6%), Other Department: 2 (6%), Consulting: 1 (3%), Customer Service: 1 (3%), Design: 1 (3%), Legal: 1 (3%), Product: 1 (3%)\n  - By Seniority: Other Management: 8 (26%), Specialist: 6 (19%), Founder: 3 (10%), Head: 3 (10%), Director: 2 (6%), Manager: 2 (6%), Vp: 2 (6%)\n- Talent Sources: Veza (2), Proofpoint (2), TuneIn (1), The Forge (1), The Community Marketing Company (1), Prove (1), Lacework (1), Kickstarter (1), Herra Health (1), Draper Dragon (1)\n- Alumni Go To: Pebble (1), Opre (1), BayCare Health System (1), Amazon (1), Almanac (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: emotive, ramp, transunion, verizon\n\n## Web presence\n\n- Crunchbase: crunchbase.com/organization/avarra\n- Web traffic:\n  - Monthly visits: 1,319\n  - Global rank: 12,305,471\n  - Bounce rate: 39.0%\n  - Pages per visit: 1.4\n  - Average visit duration: 7s\n\n## Categories\n\nai avatar platform, ar training simulator, artificial intelligence (ai), augmented reality (ar) training simulator software, augmented reality software, avarra, gtm performance, help customers, simulation, support deals, teams, technology/gaming, training\n\n## Recent News\n- [2026-07-18] TipRanks: Avarra Deepens AI-Driven Sales Training Efforts and Academic Partnerships\n- [2026-07-12] TipRanks: Avarra – Weekly Recap\n- [2026-05-24] TipRanks: Avarra Showcases Sales Enablement Consistency and Faster Ramp Times in New Case Studies\n- [2026-05-14] TipRanks: Avarra Engages With Evolving Go-To-Market Strategies Amid Tighter Budgets\n- [2024-10-04] The SaaS News: Avarra Raises $8 Million in Seed Round\n- [2024-10-03]\n  - VentureCapital.com: Avarra Secures $8M Seed Funding Led by Lightspeed Venture Partners\n  - Venture Capital Access Online: Avarra exits stealth, announces $8M seed funding and general availability of industry's first AI-avatar-based enterprise application\n\n## Social\n\n### Linkedin\n\n- [2026-08-26 · 69 reactions, 5 comments] Our very own Christy Archuleta is hosting a Pavilion event TODAY (August 26th) in San Mateo with Jessica Ashar and Leela Gill on, \"What's working in AI Adoption\" for women leaders in GTM. Huge than...\n\n- [2026-08-07 · 8 reactions, 1 comment] What you get when you don't run the sales play... Sellers, IYKYK re: Tommy Boy. ALSO, we are hiring FIVE account executives! Join Dan Strauss, featured below, to help sellers at enterprise companie...\n\n- [2026-07-31 · 3 reactions, 1 comment] Last day of the month and we wonder... would you have hit your revenue goals is new rep ramp had been cut by 50%? - Extrerro cut their ramp from 18 months to 6 months using our interactive coaching...\n\n- [2026-07-29 · 3 reactions, 1 comment] One week until our battle of the Sox event with QuotaPath at Fenway! 🚨 Boston Area Customers & Enablement Leaders🚨 comment below if you want an invite or tag a friend to send a friend our way. Lobs...\n\n- [2026-07-22 · 18 reactions, 3 comments] We had a multi-department meeting the other day to share exciting news. Perfect 5X5 square. 100% of participants on camera by default. All of us pointing AI at up-leveling humans like us. #hiring #...\n\n- [2026-07-17 · 11 reactions, 5 comments] Avarra is going to Bean-Town for a battle of the Soxs on August 4th! Partnering with our friends at QuotaPath, we are bringing 10 lucky GTM practitioners to a Red Sox versus White Soxs. Attendees j...\n\n- [2026-07-16 · 5 reactions, 2 comments] Dan Strauss is hiring AEs. Avarra is hiring AEs Our current reps are out here closing six and seven figure deals. If you are an AE and reading this, we are hiring. Apply by emailing hiring @ avarra...\n\n- [2026-07-14 · 19 reactions, 6 comments] At Avarra we firmly believe that AI Agents should up-level humans, instead of replace them. The TCU Sales Center agrees... The TCU Neeley School of Business, and the TCU Sales Center trains the nex...\n\n- [2026-07-09 · 4 reactions, 1 comment] Hot take... Most LLMs won't work as trainers because they are obsequious sycophants. They will just tell you that, \"you did great\" because humans love to be validated, and that validation loop has...\n\n- [2026-07-07 · 6 reactions, 1 comment] Misha McPherson is a self-ascribed \"Enablement Nerd.\" When you see the results her coaching plays have brought Betterworks, it's clear the moniker is well earned. Below find proof that Avarra is TH...\n\n- [2026-07-06 · 6 reactions, 2 comments] \"Congrats on finishing Q2! Now eat some hotdogs, watch some fireworks, and start over...\" It's a NEW QUARTER for ~10 million quota-carrying sales reps. In the U.S. alone, ~150,000 people start a ne...\n\n- [2026-07-05 · 7 reactions, 1 comment] This weekend is a great time to declare independence from the job you don’t like. We might have a bias but believe you should work at Avarra instead. And we are hiring for many roles: - Solutions E...\n\n- [2026-07-02 · 9 reactions, 1 comment] Last month, in one day, Avarra provided a coaching simulation over 1,500 times. This represents a fundamental shift in how knowledge can be transferred. In 1984, Benjamin Bloom, the educational psy...\n\n- [2026-05-19 · 8 reactions] Consistency is one of the hardest problems in sales enablement. At Forescout Technologies Inc., Renee Yetterdahl and her team were managing: – Too many tools – Too many manual processes – Too many...\n\n- [2026-05-13 · 16 reactions, 3 comments] Last month we had the opportunity to team up with James Kaikis and GTMshift to bring together a group of the smartest operators at the LinkedIn head quarters to talk about what's actually working r...\n\n- [2026-05-05 · 9 reactions, 2 comments] Winning deals shouldn’t depend on hiring more “unicorn” reps. You need to scale the expertise you already have. That's why we're excited for the Hard Skill Exchange Systems of Record >> Action even...\n\n- [2026-05-05 · 9 reactions] Win rate is the metric every sales leader cares about. At Mangomint, Marchelle Renee Mooney (VP of Sales) saw a meaningful improvement: Her team went from 29% to 35% win rate in a single year. That...\n\n- [2026-04-30 · 14 reactions, 2 comments] Winning deals shouldn’t depend on hiring more “unicorn” reps. You need to scale the expertise you already have, and there’s no better way to do that than with AI. But most GTM teams are still using...\n\n- [2026-04-28 · 5 reactions] Most sales training feels two-dimensional. That’s exactly what Steve Brown, SVP and Head of Brokerage Sales at Broadridge, was trying to move beyond. They had already invested in traditional L&D: –...\n\n- [2026-04-21 · 4 reactions] When reps start sim training at 9p.m. on their fourth day, you know you’re onto something. It’s every manager’s dream. That’s what happened at Owner.com after Kyle Norton rolled out Avarra. Reps to...\n\n## Locations\n- Headquarters: san mateo, california, united states (US)\n- Offices: san mateo, california, united states (US)",
+        "summary": "{\"description\":\"Avarra is an AI avatar platform that turns your team's expertise into avatars who train teams, support deals, and help customers.\",\"employee_estimate\":31,\"employee_estimate_source\":\"Employees: 31\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"we are hiring for many roles: - Solutions E... (posted 2026-07-05)\",\"hq\":\"San Mateo, United States\",\"hq_quote\":\"Headquartered in San Mateo, California, United States.\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Avarra is a Software Development company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 8,000,000 - Seed (2024-10-03): USD 8.0M\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQFV930zSKgZfg/company-logo_200_200/company-logo_200_200/0/1727930385118/avarra_logo?e=2147483647&v=beta&t=hjkvVinaeMsgQskyOtnDxamfk1-b2Ujcjfw2gmlak6Q",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/wm339gwx24f",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Avarra",
+              "foundedYear": null,
+              "description": "The Avatar Platform to Scale Your People, Plays, and Revenue\nBuild and deploy AI avatar coaches, product experts, sellers, CSMs and more in less than​ 1 hour.\n\nCoaching & Ramp Execution.\nTrain and reinforcing your methodologies and best practices while accelerating ramp time and reducing manager oversight. \n\nOnboarding & Implementation Support.\nAvatars guide internal teams and customers through onboarding and implementation, ensuring consistent execution. \n\nProduct, Pricing & Competitive Expertise.\nPut product, pricing, and competitive experts on every deal so teams act with confidence and consistency in live situations.\n\nCustomer Success & Retention Execution.\nAvatars support CSMs through renewals, expansions, and escalations to navigate sensitive moments.\n\nMeeting Preparation & Execution Readiness.\nPrepare for critical meetings with the right context, deep research, guidance, and execution focus. \n\nExecution Visibility & Consistency at Scale.\nTrack real execution across the revenue org so you can find what works, fix what doesn’t, and scale consistency.",
+              "workforce": {
+                "total": 31
+              },
+              "headquarters": {
+                "address": "., San Mateo, California, US",
+                "city": "San Mateo",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 8000000,
+                "fundingLatestRound": {
+                  "name": "Seed",
+                  "date": "2024-10-03",
+                  "amount": 8000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 1319,
+                "countryRank": 579991,
+                "avgDurationSeconds": 7,
+                "history": [
+                  {
+                    "value": 7594,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 7216,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 16214,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 12100,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 4446,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 1319,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/64nkrq45zsf",
+        "title": "Avra",
+        "url": "https://avra.ai/",
+        "text": "# Avra\n\nAvra is a Technology, Information and Internet company. Avra is a frontier AI lab that builds predictive models for enterprise decisions. They pre-train a Graph Foundation Model on the relational economy and fine-tune inside workspaces for credit, fraud, marketing, growth, and any task with a graph underneath it. Avra employs 30 people (+25.0% YoY, +6 people), founded in 2024. Headquartered in São Paulo, São Paulo, Brazil. Its workforce is distributed across Brazil and United Kingdom.\n\n## About\n\nAvra is a frontier AI lab building predictive models for enterprise decisions. \n\nWe build the Graph Foundation Model for the economy. We see the economy as it is — not rows in a table, but nodes in a network. \n\nThe same foundation powers credit, fraud, growth, and any decision that depends on understanding the relationships between them.\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Headquarters: São Paulo, Brazil\n- Founded Year: 2024\n- Homepage: avra.ai\n- Aliases: Bloom Tecnologia Ltda, avra\n- LinkedIn: linkedin.com/company/useavra\n- Linkedin Followers: 3,096\n- Emails: bruno@avra.com.br, press@avra.ai, support@avra.ai\n\n## Financials\n- Total Funding: USD 2,000,000\n  - Non equity assistance (2024-09-13)\n  - Seed (2024-07-16): USD 2.0M\n\n## Workforce\n- Employees: 30\n- Company Size: 11-50 employees\n  - Monthly Growth: +7.1%\n  - Yearly Growth: +25.0%\n- Key Executives:\n  - Bruno Alano: CTO & Co-Founder\n  - Francesca Cartier: COO\n  - Jonas Rodrigues Lima Gonçalves: Founding Team - Engineering\n  - Júlia Jordão: Chief Product Officer\n  - Luana Alahmar: Head of Marketing\n  - Lucas Afonso: GTM Lead\n  - Lucas Golino: Head of Engineering\n  - Matheus Henrique Bonin Cangussu: Head of Legal, Privacy and Compliance\n  - Viviane Meister: Co-founder & CEO\n- Breakdown:\n  - By Country: Brazil: 25 (83%), United Kingdom: 1 (3%)\n  - By Department: Technical: 12 (40%), Product: 3 (10%), Consulting: 2 (7%), General Management: 2 (7%), Other Department: 2 (7%), Administrative: 1 (3%), Legal: 1 (3%), Marketing: 1 (3%), Research: 1 (3%), Sales: 1 (3%)\n  - By Seniority: Specialist: 8 (27%), Other Management: 6 (20%), Head: 4 (13%), Clevel: 3 (10%), Founder: 2 (7%), Manager: 2 (7%), Senior: 1 (3%)\n- Active job postings: 6\n- Talent Sources: isaac (2), idwall (2), Mastercard (2), IESE Business School (2), Embraer (2), Nextar, Tecnologia de Software (1), Loft (1), FARFETCH (1), Experian DataLabs (1), Epsilon (1)\n- Alumni Go To: Wellhub (1), The Muse (1), The House Creative (1), Stone (1), Mytos (1), Infleqtion (1), GR8 Ventures (1), FEA Angels (1), EloGroup (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: aos, ativa, comit, concep, cuda, dbt, fintech, helm, influential, integra, kubernetes, linkedin, mlops, nvidia, openai, owasp, prototype, python, pytorch, react, sophos, sql, terraform, typescript, palantir, apache, apache iceberg, bash, dom, harness, iam, linux, neos, pico, saml, venda, amazon elastic kubernetes, docker, elastic, elk, google kubernetes engine, grafana, prometheus, c, impact, ups, postgresql, publica, figma\n\n## Web presence\n\n- Crunchbase: crunchbase.com/organization/avra-a496\n- GitHub: github.com/useavra\n- Web traffic:\n  - Monthly visits: 3,373\n  - Global rank: 5,310,253\n  - Bounce rate: 31.0%\n  - Pages per visit: 1.6\n  - Average visit duration: 37s\n\n## Categories\n\nai lab, ai/technology, credit bureau, enterprise decisions, graph foundation model, information technology, predictive models, relationshipal economy\n\n## Recent News\n- [2026-10-06] FWDStart: Saudi AI company Echelon targets enterprise deployments with backing from RAED Ventures, Avra and Ben Horowitz\n- [2026-10-02] News at IU: Luddy researchers take first in international computer vision challenge\n- [2026-09-20] Legacy \\| Obituary: Avra Beth Friedfeld Obituary Sep 15, 2026\n- [2026-08-09] Fortune: In AI-obsessed Silicon Valley, live commerce platform Whatnot just notched a new funding round valuing it at $20 billion\n- [2025-06-24] thesaasnews.com: Decagon Raises $131 Million in Series C\n- [2025-06-23] Venture Capital Firms: Decagon Raises $131M at $1.5B Valuation to Deliver Concierge Customer Experience with AI Agents\n- [2025-05-29]\n  - thesaasnews.com: Hex Raises $70 Million in Series C\n  - Techmeme: Hex, which provides a tool for finding correlations between data points, building predictive models, and running experiments, raised a $70M Series C led by Avra \\(Allie Garfinkle/Fortune\\)\n- [2025-05-28]\n  - TecHR: Hex Lands $70M to Transform Data Science and Analytics With AI\n  - vcnewsdaily.com: Hex Technologies Lands $70M Series C\n- [2025-04-16] Hindu Business Line: Zepto changes name of its parent company Kiranakart ahead of IPO\n- [2025-02-07] vcnewsdaily.com: Whatnot Bags $265M Funding\n- [2025-01-28] FinTech Futures: Financial connectivity fintech Method raises $41.5m Series B\n- [2025-01-27]\n  - FinTech Global: 10 insurance industry predictions for 2025\n  - FinTech Global: Method Financial raises $41.5m Series B to expand financial connectivity\n- [2025-01-09] South China Morning Post: TikTok Shop rival raises funds at US$5 billion valuation\n- [2025-01-08]\n  - Tubefilter: Investors deliver $265 million funding round to Whatnot as live shopping gets hotter\n  - Bloomberg.com: TikTok Shop Rival Raises Funds at $5 Billion Valuation\n  - Crunchbase News: TikTok Shop Rival Whatnot Bags $265M At $5B Valuation For Live Shopping Platform\n  - PYMNTS.com: Whatnot Raises $265 Million to Bring Live Shopping Mainstream\n\n## Social\n\n### Linkedin\n\n- [2026-09-08 · 17 reactions, 1 comment] Em nosso novo artigo, nossa CPO Júlia Jordão fala sobre por que modelos de linguagem não funcionam para prever o comportamento de clientes. Submeter os dados de um cliente a um LLM produz uma respo...\n\n- [2026-09-03 · 79 reactions, 8 comments] Ontem reunimos cerca de 60 empresários e executivos de FIDCs, em São Paulo, para uma conversa sobre o futuro do crédito, com um pouco da nossa origem também presente na sala. Transformamos o espaço...\n\n- [2026-09-03 · 65 reactions, 4 comments] Esta semana, a Avra subiu ao palco diante dos maiores FIDCs do Brasil. Estivemos no UY3 Experience, no Palácio Tangará, um jantar exclusivo às vésperas do Encontro Nacional da ANFIDC que reuniu ges...\n\n- [2026-08-29 · 31 reactions, 2 comments] Como um Graph Foundation Model entrega valor em produção? A resposta está na Parte 3, publicada hoje. Com ela, fechamos a série de três posts da Avra sobre como um GFM é construído e o que ele prod...\n\n- [2026-08-27 · 34 reactions, 2 comments] Talvez estejamos fazendo a pergunta errada sobre IA. A discussão normalmente começa por: como aplicar IA ao negócio que temos hoje? Mas uma pergunta mais interessante começa a aparecer: o que preci...\n\n- [2026-08-27 · 126 reactions, 6 comments] Nessa representei a Avra participando de mais uma FEBRABAN TECH Participei de um painel sobre \"A nova esteira do crédito na era da IA - da análise de risco à decisão\", moderado pelo Bruno Diniz e a...\n\n- [2026-08-27 · 84 reactions, 4 comments] Esta semana a Avra marcou presença na Arena Fintech da FEBRABAN TECH com a Viviane Meister em um painel ao lado de Elias Sfeir (ANBC - Associação Nacional dos Bureaus de Crédito), Henrique Seije No...\n\n- [2026-08-27 · 63 reactions] Essa semana estive na FEBRABAN TECH : o maior encontro de tecnologia financeira da América Latina. A agenda deste ano girou em torno de agentes de IA, identidade digital, cibersegurança e Open Fina...\n\n- [2026-08-19 · 97 reactions, 2 comments] Na próxima segunda, CEO da Avra, Viviane Meister, sobe ao palco da FEBRABAN TECH para falar sobre AI no núcleo das decisões de crédito, em um painel que reúne bancos, bureaus de crédito e startups....\n\n- [2026-08-18 · 40 reactions] 08 de Julho, 08h30am. Um salão no Rosewood Hotel Group lotado. Clientes, investidores, decision makers. No palco, 3 pessoas que admiramos - profissionalmente e pessoalmente - Cintia Camargo, Romina...\n\n- [2026-08-12 · 5 reactions] If you want to learn how a foundation model gets built, start here. We've just released Part 2 of Avra's Graph Foundation Model series. Part 1 was about why relational data matters. Part 2 is about...\n\n- [2026-08-03 · 31 reactions] A company applies for credit. The balance sheet looks clean, steady revenue, no delinquencies. What it doesn't show: the main shareholder sits on the boards of three other companies. Two defaulted...\n\n- [2026-07-13 · 57 reactions, 4 comments] The next wave of AI is in the operating model of the enterprise. Last week, senior leaders from across Latin America joined Avra for breakfast at the Rosewood in São Paulo. We talked about how rela...\n\n- [2026-06-11 · 162 reactions, 15 comments] Tive o prazer de participar do Web Summit ontem para falar sobre AI e inclusão financeira no Brasil 🇧🇷 No palco, o Driss Temsamani trouxe décadas de conhecimento e uma perspectiva institucional do...\n\n- [2026-06-09 · 47 reactions, 1 comment] Meet the Avra team! And join us. This is a short video from inside our AI frontier lab filmed over the last month. It's a sneak peak into our culture, people and the work we do. We’re currently hir...\n\n- [2026-06-03 · 26 reactions] 🇧🇷 Next Tuesday, we're taking the stage at Web Summit Rio. Our CPO Júlia Jordão will be speaking on how AI is reshaping the financial landscape across LatAm. And why we believe the next leap in cre...\n\n- [2026-05-28 · 127 reactions, 6 comments] Quando entrei na Avra, um ex-Palantir me deu um conselho: se puder, não inclua FDEs na sua estratégia de go-to-market. O principal argumento era sobre escalabilidade, além do risco de construir um...\n\n- [2026-05-02 · 75 reactions, 1 comment] 🇧🇷 Brazil hosted the International Conference on Learning Representations in Rio last week. ICLR is a major annual academic conference in machine learning and AI with a focus on deep learning, neur...\n\n- [2026-04-24 · 60 reactions, 1 comment] Avra is at ICLR in Rio 🇧🇷 come talk to us about graph foundation models, pfns, gnns, temporal knowledge graphs, and frontier ai for relational data. reach out if you’re around.\n\n- [2026-04-08 · 55 reactions, 1 comment] Quando surgiu, ainda em meados de 2024, a Avra tinha um foco específico: oferecer um modelo fundacional de IA para entender as pequenas e médias empresas, apoiando a concessão de crédito para esses...\n\n## Locations\n- Headquarters: são paulo, são paulo, brazil\n- Offices: são paulo, são paulo, brazil",
+        "summary": "{\"description\":\"Avra is a frontier AI lab that builds predictive models for enterprise decisions, pre-training a Graph Foundation Model on the relational economy and fine-tuning inside workspaces for credit, fraud, marketing, growth, and any task with a graph underneath it.\",\"employee_estimate\":30,\"employee_estimate_source\":\"Employees: 30\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Active job postings: 6\",\"hq\":\"São Paulo, Brazil\",\"hq_quote\":\"Headquarters: São Paulo, São Paulo, Brazil\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"- Industry: Technology, Information and Internet\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 2,000,000\\\\n  - Seed (2024-07-16): USD 2.0M\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4D0BAQGAAduOd4TuUQ/company-logo_200_200/B4DZiAMpghGgAI-/0/1754497456807/useavra_logo?e=2147483647&v=beta&t=ki7SWmMspbSBK9E7ub_3lcHUPfjMEKiclxO_s5L95iY",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/64nkrq45zsf",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Avra",
+              "foundedYear": 2024,
+              "description": "Avra is a frontier AI lab building predictive models for enterprise decisions. \n\nWe build the Graph Foundation Model for the economy. We see the economy as it is — not rows in a table, but nodes in a network. \n\nThe same foundation powers credit, fraud, growth, and any decision that depends on understanding the relationships between them.",
+              "workforce": {
+                "total": 30
+              },
+              "headquarters": {
+                "address": "Rua Cardeal Arcoverde 2811, São Paulo, SP 05407-004, BR",
+                "city": "São Paulo",
+                "postalCode": null,
+                "country": "Brazil"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 2000000,
+                "fundingLatestRound": {
+                  "name": "Non equity assistance",
+                  "date": "2024-09-13",
+                  "amount": null
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 3373,
+                "countryRank": 2482580,
+                "avgDurationSeconds": 37,
+                "history": [
+                  {
+                    "value": 4931,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 3373,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 9216,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

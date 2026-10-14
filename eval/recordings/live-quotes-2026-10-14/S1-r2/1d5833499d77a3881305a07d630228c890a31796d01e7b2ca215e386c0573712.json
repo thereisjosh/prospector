@@ -1,0 +1,196 @@
+{
+  "request": {
+    "query": "Allegro",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the exact phrase from the page that the employee estimate came from (e.g. \"350 employees\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "ee10ab1bb214d2952f2bdee651e31199",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/jrhxv45dljj",
+        "title": "Allegro",
+        "url": "https://allegro.eu/",
+        "text": "# Allegro\n\nAllegro (ALE.WA) is a Technology, Information and Internet company. A Allegro ensures privacy through cookies and related technologies and the processing of data. They tailor the content displayed to customers and allow them to access and process their data. The administrator of their data will be allegro and partners with whom they operate. Allegro employs 5,474 people (+7.3% YoY, +372 people) and has an annual revenue of PLN11.8B, founded in 1999. Headquartered in Poznań, Poland, with offices in Poznan, Kraków, Warszawa, and Toruń. Its workforce is distributed across 28 countries (including Poland, Czechia, Slovakia, United States, and Belgium).\n\n## About\n\nAllegro is the most popular shopping platform in Poland and the largest e-commerce platform of European origin.\nWe operate a marketplace model which means that customers can buy whatever they need from over 135,000 merchants, who can list an unlimited number of offers on our platform.\n\nWe offer products in all key categories including Automotive, Fashion, Home&Garden, Electronics, Books and Collectibles, Kids or Health and Beauty. Each month, 22 million customers visit our platform, which is equivalent to almost 80% of all Internet users in Poland. They can choose from over 250m offers at the most attractive prices with maximum convenience including fast and free deliveries under the Allegro Smart! programme, modern financial services (Allegro Pay), as well as Poland’s widest 50k pickup points network.\n\nIn 2019 we celebrated the 20th anniversary of Allegro in Poland.\nFor over two decades, we have been serving consumers and promoting the idea of entrepreneurship in one of the most innovative areas of the economy. We have come a long way from an auction site for private individuals looking for a modern alternative to their local flea market. Today, we are a vibrant international marketplace platform for professional sellers and a must-have sales channel for top international brands and retailers.\n\nWe currently employ more than 7000 employees and each of us ranks among the best experts in their field. Whether it’s in Technology, Customer Experience, Commerce, Delivery Experience or many other teams, we’re all proud to say that Allegro employs the best people on the market and all of us are ready to admit that it’s #goodtobehere.\n\nESG Report 2022: https://allegro.pl/zobacz/esg\n\nCareer at Allegro: https://jobs.allegro.eu/ Allegro Tech: https://allegro.tech/\n\nBrand Journal: magazyn.allegro.pl\n\nSupport & help: pomoc.allegro.pl // facebook.com/allegro\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Headquarters: Poznań, Poland\n- Founded Year: 1999\n- Homepage: allegro.eu\n- Aliases: allegro\n- LinkedIn: linkedin.com/company/allegro-pl\n- Linkedin Followers: 135,708\n- Stock Symbols: ALE.WA\n- Stock Symbols: ALE (WSE)\n\n## Financials\n- Annual Revenue: PLN 11,813,399,552\n  - Post ipo debt (2026-06-01): PLN 1.0B\n  - Post ipo debt (2025-11-01)\n  - Post ipo debt (2025-07-01): PLN 1.0B\n  - Debt financing (2017-01-01): PLN 50.0M\n  - Private equity (2016-10-01): USD 3.2B\n\n## Workforce\n- Employees: 5,474\n  - Monthly Growth: +0.3%\n  - Yearly Growth: +7.3%\n- Key Executives:\n  - Abhinav Choudhary: Group Director, Catalog & Pricing\n  - Adam Adamiak: Group Director - Health & Beauty, Grocery, Baby, Pets, Cleaning\n  - Adam Pawelczak: Director of Distribution Center\n  - Agata Zych: Content Marketing Leader\n  - Agnieszka Chwalińska: Group Accounting Director (Allegro, Ceneo, Allegro Pay, eBilet, Mall, Wedo)\n  - Agnieszka Jagusiak: Product and Engineering Director\n  - Aleksander Wawer: Machine Learning Team Leader\n  - Aleksandra Grodzka: Advertising Business Partner\n  - Aleksandra Grzesiak: Category Owner\n  - Aleksandra Mitraszewska: Category Owner\n- Breakdown:\n  - By Country: Poland: 3,313 (61%), Czechia: 139 (3%), Slovakia: 9, United States: 4, Belgium: 3, France: 3, Switzerland: 3, United Kingdom: 3, Canada: 2, Georgia: 2 (+18 more)\n  - By Department: Technical: 1,118 (20%), Product: 407 (7%), Other Department: 232 (4%), Operations: 230 (4%), Customer Service: 218 (4%), Research: 216 (4%), Marketing: 191 (3%), Project Management: 166 (3%), Finance: 157 (3%), Sales: 137 (3%) (+10 more)\n  - By Seniority: Specialist: 1,189 (22%), Senior: 914 (17%), Manager: 753 (14%), Other Management: 609 (11%), Director: 55 (1%), Intern: 42 (1%), Partner: 38 (1%), Head: 27, Owner: 15, Vp: 9 (+1 more)\n- Active job postings: 99\n- Salary ranges (20 of 32 roles):\n  - Senior Manager: median 640,489.38 PLN per year\n  - Legal Counsel: median 24,493.09 PLN per year\n  - Team Leader: median 503,602.94 PLN per month\n  - Key Account Manager: median 481,331.81 PLN per month\n  - Product Team Manager: median 405,756.25 PLN per month\n  - Senior Engineering Manager: median 396,000 PLN per month\n  - Team Manager: median 390,867.64 PLN per month\n  - Business Unit Manager: median 325,434.69 PLN per month\n  - Senior Product Manager: median 323,307.86 PLN per month\n  - IT Operations Manager: median 318,794.97 PLN per month\n  - Senior Android Developer: median 302,166.08 PLN per month\n  - Senior Software Engineer: median 301,981.97 PLN per month\n  - Senior Data Scientist: median 272,890.23 PLN per month\n  - UX Designer: median 229,740.78 PLN per month\n  - Mobile Software Engineer: median 227,717.94 PLN per month\n  - Machine Learning Engineer: median 222,000 PLN per month\n  - Product Manager: median 219,395.09 PLN per month\n  - Senior Frontend Software Engineer: median 206,705.42 PLN per month\n  - User Experience Designer: median 193,167.74 PLN per month\n  - Data Scientist: median 187,189.4 PLN per month\n- Talent Sources: MallGroup (74), Santander Bank Polska (71), Comarch (53), QXL (43), Capgemini (43), Empik Group (40), Edge One Solutions (40), Internet Mall, a.s. (38), Żabka Polska (36), PKO Bank Polski (31)\n- Alumni Go To: OLX (79), PayU (44), Naspers Limited (34), Żabka Polska (28), MODIVO (27), InPost (27), Revolut (26), Google (23), GSK (23), Empik Group (22)\n\n## Products & Technology\n- Tech Stack (showing 50 of 388): 4d, ada, adform, adtech, akka, allegra, altium, ami, android studio, angular, angular 2, angularjs, ansible, apache, apache airflow, apache druid, apache http server, apache kafka, apache solr, apache spark, appium, apple pay, argocd, asana, asp, autocad, automated insights, bash, bing ads, bitbucket, bpmn, canva, celery, ceph, cisco routers, classifier, clickable, clickhouse, clickup, cognos, confluence, constant contact, core hr, couchbase, css, culture amp, dbt, dell, discourse, docker\n\n## Web presence\n\n- Twitter: twitter.com/allegro_group\n- Facebook: facebook.com/allegro\n- Instagram: instagram.com/allegrodobrzetubyc\n- YouTube: youtube.com/c/allegrotechblog\n- Web traffic:\n  - Monthly visits: 125,849\n  - Global rank: 309,415\n  - Bounce rate: 39.0%\n  - Pages per visit: 2.3\n  - Average visit duration: 37s\n\n## Reviews & Ratings\n- Employer Rating: 4.1/5.0 (274 reviews)\n  - Breakdown: Work-Life: 4.2, Compensation: 3.6, Culture: 4.1, Career: 4.5\n\n## Categories\n\nbooks, cookies, data processing, ecommerce, electronics, fashion, home-garden, partner, privacy, retail, sports/cycling_and_biking, tailored content, technology/internet services\n\n## Competitors\n\ntelemart, malik's lebanon, komrz, bni building news\n\n## Recent News\n- [2026-10-03] https://www.big4news.com/: Who Audits the WIG20?\n- [2026-10-02] Yahoo Finance UK: Allegro MicroSystems, Inc. \\(ALGM\\) stock price, news, quote and history\n- [2026-10-01] www.marketscreener.com: Allegro eu S A : 1. Convening Notice and Agenda OGM EGM 2026\n- [2026-09-29] EWM Interactive: 10Y Yield Rally Approaching Its Elliott Wave End Near 6%\n- [2026-09-26]\n  - EWM Interactive: Meta Stock Out of Triangle Pattern and Into Fifth Wave\n  - EWM Interactive: Seek Stock Bears Took Their Time, But Eventually Delivered\n- [2026-09-25] [Akcje Kęty, Creotech i KGHM w zagrożeniu. GPW czeka na raporty PlayWay i Vigo Photonics - Polska](https://www.europesays.com/pl/712802/)\n- [2026-09-24]\n  - [Vinted i Allegro: nowe zasady podatku od używanych rzeczy. Limit wzrośnie trzykrotnie](https://businessinsider.com.pl/prawo/podatki/vinted-i-allegro-nowe-zasady-podatku-od-uzywanych-rzeczy-limit-wzrosnie-trzykrotnie/pl6m1pf)\n  - [Networking Engagement Underscores 7Learnings’ Focus on E‑Commerce Ecosystem - TipRanks.com](https://www.tipranks.com/news/private-companies/networking-engagement-underscores-7learnings-focus-on-ecommerce-ecosystem)\n  - [JSW, Unimot i Orlen mocno w dół. Co dalej z Allegro i KGHM? Analiza](https://comparic.pl/akcje-kghm-orlen-jsw-allegro-unimot-kto-zyska-a-kto-straci-wyniki-wyceny-shorty-analiza-gigantow-gpw/)\n  - [Akcje Orlenu, Allegro i Erste w górę\\! W dół ciągną spółki: Modivo, PGE i Dino - Polska](https://www.europesays.com/pl/711786/)\n  - [realme GT 8 Pro: flagowiec z 16 GB RAM za ~3500 zł z Allegro - Polska](https://www.europesays.com/pl/711446/)\n- [2026-09-23]\n  - [To warto wiedzieć przed sesją na GPW 23 IX 2026 - Puls Biznesu - pb.pl](https://www.pb.pl/to-warto-wiedziec-przed-sesja-na-gpw-23-ix-2026-1267459)\n  - [Poland shares lower at close of trade; WIG30 down 0.79% By Investing.com](https://in.investing.com/news/stock-market-news/poland-shares-lower-at-close-of-trade-wig30-down-079-5603441)\n  - [Własny sklep w kilka dni i sprzedaż na Allegro. Jak Sky‑Shop obniża próg wejścia w dropshipping?](https://antyweb.pl/wlasny-sklep-w-kilka-dni-i-sprzedaz-na-allegro-jak-sky-shop-obniza-prog-wejscia-w-dropshipping)\n  - [DZIEŃ NA GPW: Na giełdzie korekta; JSW jedną z najsłabszych spółek na rynku - Polska](https://www.europesays.com/pl/708978/)\n- [2026-09-22]\n  - [Allegro uruchamia drugą fazę skupu akcji. Przeznaczy na nią do 800 mln zł - Puls Biznesu - pb.pl](https://www.pb.pl/allegro-uruchamia-druga-faze-skupu-akcji-przeznaczy-na-nia-do-800-mln-zl-1267446)\n  - [To warto wiedzieć przed sesją na GPW 22 IX 2026 - Puls Biznesu - pb.pl](https://www.pb.pl/to-warto-wiedziec-przed-sesja-na-gpw-22-ix-2026-1267398)\n  - [Allegro eu S A : SBB program open market Phase II \\| MarketScreener India](https://in.marketscreener.com/news/allegro-eu-s-a-sbb-program-open-market-phase-ii-ce785ad8df81f225)\n- [2026-09-21]\n  - [Allegro podniosło cenę w skupie akcji własnych - Puls Biznesu - pb.pl](https://www.pb.pl/allegro-podnioslo-cene-w-skupie-akcji-wlasnych-1267328)\n  - [Allegro idzie za ciosem na giełdzie. Podnosi limit w gigantycznym skupie akcji do 50 zł - Bankier.pl](https://www.bankier.pl/wiadomosc/Allegro-eu-podwyzsza-cene-maksymalna-nabywania-akcji-wlasnych-do-50-zl-w-ramach-pierwszej-fazy-skupu-9199917.html)\n  - [Allegro powiąże warunki przyszłego finansowania z celami ESG Przez ISBnews](https://pl.investing.com/news/stock-market-news/allegro-powiaze-warunki-przyszlego-finansowania-z-celami-esg-1572518)\n- [2026-09-20] [Kupuj, trzymaj, sprzedaj. Rekomendacje dla akcji z GPW 38/2026 - Puls Biznesu - pb.pl](https://www.pb.pl/kupuj-trzymaj-sprzedaj-rekomendacje-dla-akcji-z-gpw-38-2026-1267307)\n- [2026-09-19]\n  - [DZIEŃ NA GPW: Na giełdzie dobre nastroje; rynek ciągną w górę m. in. Allegro i KGHM - Polska](https://www.europesays.com/pl/699598/)\n  - Yahoo Finance: ALLEGRO.EU SA \\(ALEGF\\) Q2 FY2026 earnings call transcript\n  - AD HOC NEWS: Allegro stock rises on higher 2026 guidance\n  - Yahoo Finance: Allegro.EU SA \\(ALEGF\\) \\(Q2 2026\\) Earnings Call Highlights: International GMV Surges 82% as ...\n  - Seeking Alpha: Allegro.eu S.A. 2026 Q2 - Results - Earnings Call Presentation \\(OTCMKTS:ALEUY\\) 2026-09-17\n  - EWM Interactive: Allegro.eu Stock to Decelerate as Business Does the Opposite\n- [2026-09-18] [To warto wiedzieć przed sesją na GPW 18 IX 2026 - Puls Biznesu - pb.pl](https://www.pb.pl/to-warto-wiedziec-przed-sesja-na-gpw-18-ix-2026-1267245)\n- [2026-09-17] [allegro-e-commerce-raises-its-gmv-and-adjusted-ebitda-growth-forecasts-2026](https://biznes.pap.pl/wiadomosci/firmy/allegro-e-commerce-raises-its-gmv-and-adjusted-ebitda-growth-forecasts-2026)\n- [2026-09-15] Real Estate NJ: PGIM, Allegro sell 173-unit senior living community in Bergen County, JLL says\n- [2026-09-14] Ecommerce News - Europe: Allegro brings tools and services to sellers’ stores\n- [2026-09-12]\n  - Seeking Alpha: Allegro MicroSystems: Three Tailwinds, One Stock \\(NASDAQ:ALGM\\)\n  - EWM Interactive: Philip Morris Stock Much Riskier Than Six Years Ago\n- [2026-09-11] Yahoo Finance: Unpacking Q2 Earnings: Allegro MicroSystems \\(NASDAQ:ALGM\\) In The Context Of Other Processors and Graphics Chips Stocks\n- [2026-09-10] Finimize: Morgan Stanley Sees Allegro Margins Getting A Hand From InPost\n- [2026-09-05]\n  - AD HOC NEWS: Allegro stock edges higher as buyback program continues\n  - Simply Wall Street: Allegro.eu \\(WSE:ALE\\) Stock Forecast & Analyst Predictions\n  - OperaWire: Coro Allegro to Present Premiere of Andrew Yee’s ‘Trans Requiem’\n\n## Social\n\n### Linkedin\n\n- [2026-09-25 · Posted · 206 reactions] [🚀 Za nami pierwszy, w 100% poświęcony sztucznej inteligencji...](https://www.linkedin.com/posts/allegro-pl_allegro-allegroaiday-artificialintelligence-activity-7509227142782615554-Ku_1)\n  > 🚀 Za nami pierwszy, w 100% poświęcony sztucznej inteligencji Allegro AI Day - wewnętrzne wydarzenie, które udowadnia, że AI u nas to już dawno nie tylko podstawowe prompty, ale działająca na wielką skalę produkcyjna rzeczywistość!\n  >\n  > 💪🏻 Jak zaznaczył podczas wstępu nasz CEO Marcin Kusmierz Kuśmierz, dzięki naszemu podejściu do AI, każdy pracownik w Allegro ma szansę zyskać więcej czasu na innowacje, ludzkie wyczucie i podejmowanie kluczowych biznesowych decyzji.\n  >\n  > 📈 Nasza transformacja już trwa:\n  >\n  > 1️⃣~2500 widzów śledziło nas na żywo! David Roberts i Filip Lewandowski zaprezentowali strategię AI. Mateusz Chrobok otworzył nam oczy na to, dlaczego przy wdrażaniu AI „intuicja to nie dowód”, a o doskonały klimat zadbał konferansjer-robot Edward Warchocki MERA Robotics.\n  > 2️⃣W całej organizacji działa już ponad 300 systemów AI. Pokazaliśmy kulisy naszych flagowych wdrożeń (m.in. Asystentów dla Klientów, Partnerów i CX), które działają w pełnej synergii z naszymi pracownikami nieustannie nadzorującymi jakość ich pracy.\n  > 3️⃣Finał poprzedziła 3-miesięczna kampania Road to AI Day - ponad 2500 naszych pracowników podjęło 9000+ aktywności AI! Wygenerowaliśmy wspólnie ponad 400 automatyzacji, oszczędzając setki roboczogodzin.\n  >\n  > 🙏🏻 Dziękujemy prelegentom za merytoryczną wiedzę, Jacek Kułakowski za organizację, a uczestnikom za zaangażowanie! Jesteśmy na samym froncie technologicznej rewolucji AI!\n  >\n  > ENG\n  >\n  > 🚀 We hosted the first-ever 100% AI-focused internal Allegro AI Day - proving that artificial intelligence at our company has long moved beyond basic prompts to become a full-scale, production reality!\n  >\n  > 💪🏻 As our CEO Marcin Kusmierz Kuśmierz emphasized, thanks to our AI approach, every Allegro employee has the opportunity to gain more time for innovation, human empathy, and key business decision-making.\n  >\n  > 📈 Our transformation is already underway:\n  >\n  > 1️⃣~2,500 viewers tuned in live! David Roberts and Filip Lewandowski presented Allegro's AI strategy. Special guest Mateusz Chrobok opened our eyes to why \"intuition is not proof\" when implementing AI, while the atmosphere was kept lively by our guest-host - Edward Warchocki MERA Robotics.\n  > 2️⃣More than 300 AI systems are operational across the entire organization. We showcased behind-the-scenes looks at our flagship implementations (incl. Partner, Customer & CX Assistants), which work in complete synergy with our employees who continuously oversee the quality of their work.\n  > 3️⃣Finale was preceded by the 3-month gamified campaign \"Road to AI Day.\" Over 2,500 of our employees engaged in 9,000+ AI activities! Together we generated over 400 workflow automations, saving hundreds of work hours on repetitive duties\n  >\n  > 🙏🏻 Thank you to all our speakers for expert knowledge, to Jacek Kułakowski for organizing and to the participants for your engagement! We are at the very forefront of the AI technological revolution!\n  >\n  > #Allegro #AllegroAIDay #ArtificialIntelligence #EcommerceTech #TechInPoland #GenerativeAI #AIinBusiness\n\n- [2026-09-18 · Posted · 42 reactions] [🤝🏻 Zrównoważone finansowanie napędza strategiczny wzrost Allegro! Z...](https://www.linkedin.com/posts/allegro-pl_allegro-esg-sustainablefinance-activity-7506712803240644608-2owE)\n  > 🤝🏻 Zrównoważone finansowanie napędza strategiczny wzrost Allegro!\n  >\n  > Z dumą prezentujemy nasze nowe ramy finansowania powiązanego ze zrównoważonym rozwojem (Sustainability-Linked Financing Framework). Pozwalają nam one łączyć koszty finansowania dłużnego z realizacją naszych celów ESG do 2030 roku.\n  >\n  > 💪🏻 Udowadniamy, że dynamiczny rozwój biznesu i odpowiedzialność społeczno-środowiskowa mogą – i muszą – iść w parze. Realizacja tych trzech ambitnych celów pozwoli Allegro obniżyć koszty obsługi zadłużenia:\n  > 1️⃣ Dekarbonizacja: Bezwzględna redukcja emisji gazów cieplarnianych w Zakresach 1 i 2 o 43% do 2030 roku (vs 2024).\n  > 2️⃣ Gospodarka obiegu zamkniętego: Osiągnięcie 7 mld zł GMV z re-commerce do 2030 roku (ponad dwukrotny wzrost wobec 3,48 mld zł w 2025 r.).\n  > 3️⃣ Różnorodność: Zwiększenie udziału kobiet na stanowiskach zarządczych wyższego szczebla do 33% do 2030 roku (vs 26% w 2024).\n  >\n  > 👍🏻 Nasz model otrzymał pozytywną ocenę („good”) w ramach zewnętrznej opinii agencji ratingowej Moody's Ratings.\n  >\n  > 🙏🏻 Podziękowania dla naszych koordynatorów – Erste Bank Polska oraz mBank S.A. – za wsparcie w przygotowaniu tego projektu! Nowe ramy zostały już zastosowane do zeszłorocznej Umowy Kredytów Senioralnych Allegro o wartości 6,0 mld zł, co oznacza, że jej marża finansowa będzie korygowana zgodnie z tempem osiągania celów ESG.\n  >\n  > --\n  >\n  > 🤝🏻 Sustainable Financing meets Growth Strategy at Allegro!\n  > We are proud to launch our new Sustainability-Linked Financing Framework, allowing us to tie our corporate financing terms to our 2030 ESG goals.\n  >\n  > 💪🏻 We believe that double-digit business growth and environmental responsibility can - and must - go hand-in-hand. By meeting these three ambitious targets, Allegro can lower its financing margins:\n  > 1️⃣ Decarbonisation: A 43% absolute reduction in Scope 1 & 2 greenhouse gas emissions by 2030 (vs 2024).\n  > 2️⃣ Circular Economy: Reaching PLN 7 billion in GMV from re-commerce by 2030 (more than doubling our 2025 baseline of PLN 3.48 billion).\n  > 3️⃣ Diversity: Increasing the share of women in senior management to 33% by 2030 (vs 26% in 2024).\n  >\n  > 👍🏻 Our framework has received a \"good\" sustainability quality score from Moody's Ratings.\n  >\n  > 🙏🏻 Special thanks to our coordinators, Erste Bank Polska and mBank, for preparing this framework with us! It has already been applied to Allegro’s PLN 6.0 billion Senior Facilities Agreement from 2025, which means it’s classified as sustainability-linked, and its financing margin will be adjusted to reflect the progress on meeting the targets.\n  >\n  > #Allegro #ESG #SustainableFinance #CircularEconomy #DiversityInLeadership #GreenEcommerce #ecommerce\n\n- [2026-09-18 · Posted · 24 reactions] [Czasem wystarczą trzy nuty, by otworzyć drogę do wielkich emocji. 🎶...](https://www.linkedin.com/posts/allegro-pl_czasem-wystarcz%C4%85-trzy-nuty-by-otworzy%C4%87-drog%C4%99-activity-7506623665858469888-MUVn)\n  > Czasem wystarczą trzy nuty, by otworzyć drogę do wielkich emocji. 🎶\n  >\n  > Dźwięk skanera eBilet, który miliony fanów słyszą tuż przed wejściem na koncert czy festiwal, został nagrodzony podczas International Sound Awards 2026. To międzynarodowe wyróżnienie dla projektu „Sonic Gateway\" pokazuje, że doświadczenie marki można budować nie tylko obrazem, ale także dźwiękiem.\n  >\n  > Nagrodę Winner w kategorii Audio Branding w imieniu eBilet podczas gali odebrali Mateusz Zawada i Jan Kaliński. Gratulujemy zespołowi eBilet oraz Soundize Audio Branding Agency. 🧡\n  >\n  > Cieszymy się, że innowacje tworzone w Grupie Allegro s",
+        "summary": "{\"description\":\"Allegro is a technology, information and internet company operating a large online marketplace and e-commerce platform, headquartered in Poznań, Poland.\",\"employee_estimate\":5474,\"employee_estimate_source\":\"Employees: 5,474\",\"hq\":\"Poznań, Poland\",\"hq_quote\":\"Headquartered in Poznań, Poland, with offices in Poznan, Kraków, Warszawa, and Toruń.\",\"industry\":\"Technology, Information and Internet\",\"is_public_or_enterprise\":true,\"is_third_party_logistics\":false,\"is_third_party_logistics_quote\":\"The page does not state Allegro provides third-party logistics services as its primary business; it describes being a marketplace and e-commerce platform for buyers and sellers.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4D0BAQE5y2gZe-WbFg/company-logo_200_200/B4DZud8WW6LoAI-/0/1767881402261/allegro_pl_logo?e=2147483647&v=beta&t=MjgGUXrYKZo8qj0LblK-Swfq_ZG5IbJUOQuf5AsqwR8",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/jrhxv45dljj",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Allegro",
+              "foundedYear": 1999,
+              "description": "Allegro is the most popular shopping platform in Poland and the largest e-commerce platform of European origin.\nWe operate a marketplace model which means that customers can buy whatever they need from over 135,000 merchants, who can list an unlimited number of offers on our platform.\n\nWe offer products in all key categories including Automotive, Fashion, Home&Garden, Electronics, Books and Collectibles, Kids or Health and Beauty. Each month, 22 million customers visit our platform, which is equivalent to almost 80% of all Internet users in Poland. They can choose from over 250m offers at the most attractive prices with maximum convenience including fast and free deliveries under the Allegro Smart! programme, modern financial services (Allegro Pay), as well as Poland’s widest 50k pickup points network.\n\nIn 2019 we celebrated the 20th anniversary of Allegro in Poland.\nFor over two decades, we have been serving consumers and promoting the idea of entrepreneurship in one of the most innovative areas of the economy. We have come a long way from an auction site for private individuals looking for a modern alternative to their local flea market. Today, we are a vibrant international marketplace platform for professional sellers and a must-have sales channel for top international brands and retailers.\n\nWe currently employ more than 7000 employees and each of us ranks among the best experts in their field. Whether it’s in Technology, Customer Experience, Commerce, Delivery Experience or many other teams, we’re all proud to say that Allegro employs the best people on the market and all of us are ready to admit that it’s #goodtobehere.\n\nESG Report 2022: https://allegro.pl/zobacz/esg\n\nCareer at Allegro: https://jobs.allegro.eu/ Allegro Tech: https://allegro.tech/\n\nBrand Journal: magazyn.allegro.pl\n\nSupport & help: pomoc.allegro.pl // facebook.com/allegro",
+              "workforce": {
+                "total": 5474
+              },
+              "headquarters": {
+                "address": "ul. Wierzbięcice 1B, Nowy Rynek, Poznań, 61-569, PL",
+                "city": "Poznań",
+                "postalCode": null,
+                "country": "Poland"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": null,
+                "fundingLatestRound": {
+                  "name": "Post ipo debt",
+                  "date": "2026-06-01",
+                  "amount": null
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 125849,
+                "countryRank": 11630,
+                "avgDurationSeconds": 37,
+                "history": [
+                  {
+                    "value": 131560,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 119297,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 126661,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 137473,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 126414,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 125849,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/08zgqd8sl7w",
+        "title": "Allegro.eu SA",
+        "url": "https://about.allegro.eu/",
+        "text": "# Allegro.eu SA\n\nAllegro.eu SA is a Technology, Information and Internet company. Allegro is an online shopping destination for millions of consumers and the biggest e-commerce player of European origin. They promote the idea of entrepreneurship and are the go-to online shopping destination for millions of consumers. Allegro.eu SA employs 10 people, founded in 1999. Headquartered in Poland. Its workforce is distributed across Luxembourg, Poland, Ireland, and United States.\n\n## About\n\nAllegro (Polish pronunciation: [aˈlɛɡrɔ]) is a Polish online marketplace and e-commerce platform headquartered in Poznań. It is the largest e-commerce platform in Poland and operates marketplaces in Poland, the Czech Republic, Slovakia and Hungary. The platform is operated by Allegro sp. z o.o., while its parent company, Allegro.eu S.A., is incorporated in Luxembourg and listed on the Warsaw Stock Exchange.\nFounded in Poznań in 1999 as an online auction website, Allegro developed into Poland's leading online marketplace. After a series of ownership changes, Naspers sold the business in 2016 to a private-equity consortium for US$3.25 billion. Allegro debuted on the Warsaw Stock Exchange in October 2020. In 2022, it acquired Mall Group and logistics company WE|DO, accelerating its expansion into Central Europe.\n\n| Field | Value |\n| --- | --- |\n| Website type | e-commerce platform |\n| Area served | Poland, Czech Republic, Slovakia, Hungary, Croatia, Slovenia |\n| Owners | Cinven, Permira, Mid Europa Partners |\n| Key people | Roy Perticucci President of the Management Board |\n| Products | Online auction hosting, Online payment systems, Price comparison service, Online classified adverts |\n| Operating income | US$870 million (2025) |\n| Registration | required to buy and sell |\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Public company\n- Legal name: ALLEGRO.EU SA/ADR\n- Founded Year: 1999\n- Homepage: about.allegro.eu\n- Aliases: allegro.eu sa, Allegro, Allegro sp. z o.o., Allegro.eu S.A.\n- LinkedIn: linkedin.com/company/allegro-eu-sa\n- Linkedin Followers: 46\n\n## Legal entities\n- ALLEGRO.EU SA/ADR — SEC CIK 0002046098; (principal)\n\n## Workforce\n- Employees: 10\n- Company Size: 1-10 employees\n- Key Executives:\n  - Jon Eastick: Group Chief Financial Officer and Board Member\n  - Lauren Mccall: Director Of Maintenance\n  - Michał Wierucki: CSO\n  - Tom Ruhan: Group General Counsel, Company Secretary\n- Breakdown:\n  - By Country: Luxembourg: 2 (20%), Poland: 2 (20%), Ireland: 1 (10%), United States: 1 (10%)\n  - By Department: Finance: 2 (20%), General Management: 1 (10%), Legal: 1 (10%), Operations: 1 (10%), Other Department: 1 (10%)\n  - By Seniority: Clevel: 2 (20%), Director: 1 (10%), Head: 1 (10%), Manager: 1 (10%), Other Management: 1 (10%)\n- Talent Sources: Allegro (2), SISK Group (1), EY (1), Ceneo.pl (1)\n- Alumni Go To: CSO Council (1)\n\n## Categories\n\ne-commerce, entrepreneurship, european origin, online shopping\n\n## Recent News\n- [2026-09-22]\n  - [Allegro eu S A : SBB program open market Phase II \\| MarketScreener India](https://in.marketscreener.com/news/allegro-eu-s-a-sbb-program-open-market-phase-ii-ce785ad8df81f225)\n  - [Allegro eu S A : Buy-back programmes - Attachment - EN,PL \\| MarketScreener Australia](https://au.marketscreener.com/news/allegro-eu-s-a-buy-back-programmes-attachment-en-pl-ce785ad8df81f724)\n- [2026-09-21]\n  - [Allegro eu S A : Buy-back transactions - Attachment - EN,PL \\| MarketScreener Canada](https://ca.marketscreener.com/news/allegro-eu-s-a-buy-back-transactions-attachment-en-pl-ce785adbde8ef52d)\n  - [Allegro idzie za ciosem na giełdzie. Podnosi limit w gigantycznym skupie akcji do 50 zł - Bankier.pl](https://www.bankier.pl/wiadomosc/Allegro-eu-podwyzsza-cene-maksymalna-nabywania-akcji-wlasnych-do-50-zl-w-ramach-pierwszej-fazy-skupu-9199917.html)\n- [2026-09-19]\n  - [Allegro.EU SA \\(ALEGF\\) \\(Q2 2026\\) Earnings Call Highlights: International GMV Surges 82% as ...](https://finance.yahoo.com/markets/stocks/articles/allegro-eu-sa-alegf-q2-010039087.html)\n  - [Allegro.EU SA \\(ALEGF\\) \\(Q2 2026\\) Earnings Call Highlights: International GMV Surges 82% as EBITDA Tops PLN1 Billion for the First Time](https://www.gurufocus.com/news/9088846/allegroeu-sa-alegf-q2-2026-earnings-call-highlights-international-gmv-surges-82-as-ebitda-tops-pln1-billion-for-the-first-time)\n- [2026-09-18]\n  - [Allegro.eu: revisione al rialzo degli utili per azione \\(2026: +10,6%, 2027: +1,5%\\) \\| MarketScreener Italia](https://it.marketscreener.com/notizie/allegro-eu-revisione-al-rialzo-degli-utili-per-azione-2026-10-6-2027-1-5--ce785adadd80ff26)\n  - [Allegro.eu: opwaartse bijstelling winst per aandeel \\(2026: +10,6 %, 2027: +1,5 %\\) \\| MarketScreener België](https://be.marketscreener.com/beursnieuws/allegro-eu-opwaartse-bijstelling-winst-per-aandeel-2026-10-6-2027-1-5--ce785adadd80ff26)\n  - [Allegro.eu :  Révision à la hausse du BNPA \\(2026](https://ch.zonebourse.com/actualite-bourse/allegro-eu-revision-a-la-hausse-du-bnpa-2026-10-6-2027-1-5--ce785adadd80ff26)\n  - [Allegro.eu:  Revisión al alza del beneficio por acción \\(2026](https://es.marketscreener.com/noticias/allegro-eu-revisi-n-al-alza-del-beneficio-por-acci-n-2026-10-6-2027-1-5--ce785adadd80ff26)\n- [2026-09-17]\n  - [Европейские акции в плюсе: нефть отступает, бонды взяли передышку](https://ru.themoscowtimes.com/2026/09/17/evropeyskie-aktsii-v-plyuse-neft-otstupaet-bondy-vzyali-peredyshku-a206313)\n  - [Allegro: przychody, GMV i zysk netto wzrosły dwucyfrowo w II kwartale i I półroczu - Puls Biznesu - pb.pl](https://www.pb.pl/allegro-przychody-gmv-i-zysk-netto-wzrosly-dwucyfrowo-w-ii-kwartale-i-i-polroczu-1267171)\n  - [Allegro.eu:  Uitstekende resultaten over het eerste halfjaar](https://nl.marketscreener.com/beursnieuws/allegro-eu-uitstekende-resultaten-over-het-eerste-halfjaar-verhoging-van-de-prognose-voor-2026-ce785bd3df8df12c)\n  - [Allegro.eu:  Ausgezeichnete H1-Ergebnisse](https://ch.marketscreener.com/boerse-nachrichten/allegro-eu-ausgezeichnete-h1-ergebnisse-hoehere-prognose-fuer-2026-ce785bd3df8df12c)\n- [2026-09-15]\n  - [allegro-tackles-quality-control-with-new-office-in-china](https://tvpworld.com/95402311/allegro-tackles-quality-control-with-new-office-in-china)\n  - [Allegro otwiera biuro w Shenzhen i powołuje spółkę w Chinach](https://businessinsider.com.pl/gospodarka/allegro-otwiera-biuro-w-shenzhen-i-powoluje-spolke-w-chinach/1dmqqzx)\n- [2026-09-14]\n  - [allegroeu-sa-452026-allegro-informuje-o-transakcjach-zwiazanych-z-programem-skupu](https://biznes.pap.pl/wiadomosci/firmy/allegroeu-sa-452026-allegro-informuje-o-transakcjach-zwiazanych-z-programem-skupu)\n  - [Bedrijfskalender van 14 tot 18 september 2026](https://nl.marketscreener.com/beursnieuws/bedrijfskalender-van-14-tot-18-september-2026-ce785bdfdc8df720)\n- [2026-09-12] [Mediapanel: Grupa Allegro pozostaje największym polskim wydawcą internetowym - Press.pl - najnowsze informacje z branży medialnej, marketingowej, reklamowej i public relations](https://www.press.pl/tresc/95019,mediapanel_-grupa-allegro-pozostaje-najwiekszym-polskim-wydawca-internetowym)\n- [2025-06-30] Investing.com: Morgan Stanley upgrades Allegro to “overweight,” price target raised\n- [2025-06-27] AIM Group: CEO Kuśmierz appointed executive director of Allegro.eu\n- [2023-11-26]\n  - GlobeNewswire: Allegro MicroSystems Reports Second Quarter 2024 Results\n  - Yahoo Finance: Earnings To Watch: Allegro MicroSystems \\(ALGM\\) Reports Q2 ...\n- [2023-08-01] Yahoo Finance: Allegro MicroSystems Reports First Quarter 2024 Results",
+        "summary": "{\"description\":\"Allegro.eu SA is a Technology, Information and Internet company. Allegro is an online shopping destination and largest e-commerce player of European origin. It operates as an online marketplace with presence across Central Europe.\",\"employee_estimate\":10,\"employee_estimate_source\":\"Employees: 10\",\"hq\":\"Headquartered in Poland\",\"hq_quote\":\"Headquartered in Poland.\",\"industry\":\"Technology, Information and Internet\",\"is_public_or_enterprise\":true,\"is_third_party_logistics\":null,\"is_third_party_logistics_quote\":\"\\\"The page describes Allegro.eu SA as a Technology, Information and Internet company...\\\"\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4E0BAQHZjQtyECsdMA/company-logo_200_200/company-logo_200_200/0/1634113448261?e=2147483647&v=beta&t=zrXdm7BxiLqNEyzX8Yfz14nj_pgE2YWx2LKpPQ3i0Sg",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/08zgqd8sl7w",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Allegro.eu SA",
+              "foundedYear": 1999,
+              "description": "Allegro (Polish pronunciation: [aˈlɛɡrɔ]) is a Polish online marketplace and e-commerce platform headquartered in Poznań. It is the largest e-commerce platform in Poland and operates marketplaces in Poland, the Czech Republic, Slovakia and Hungary. The platform is operated by Allegro sp. z o.o., while its parent company, Allegro.eu S.A., is incorporated in Luxembourg and listed on the Warsaw Stock Exchange.\nFounded in Poznań in 1999 as an online auction website, Allegro developed into Poland's leading online marketplace. After a series of ownership changes, Naspers sold the business in 2016 to a private-equity consortium for US$3.25 billion. Allegro debuted on the Warsaw Stock Exchange in October 2020. In 2022, it acquired Mall Group and logistics company WE|DO, accelerating its expansion into Central Europe.",
+              "workforce": {
+                "total": 10
+              },
+              "headquarters": {
+                "address": null,
+                "city": null,
+                "postalCode": null,
+                "country": "Poland"
+              },
+              "financials": null,
+              "webTraffic": null,
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 8904.2,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

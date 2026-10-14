@@ -1,0 +1,262 @@
+{
+  "request": {
+    "query": "Daptic",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the exact phrase from the page that the employee estimate came from (e.g. \"350 employees\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "c7cbbc85ab03e4cecb84514e75b32a2a",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/3kt73q7btfs",
+        "title": "Daptic (formerly DiploAI)",
+        "url": "https://daptic.com/",
+        "text": "# Daptic (formerly DiploAI)\n\nDaptic (formerly DiploAI) is a Technology, Information and Media company. Daptic is an AI-powered regulatory compliance company that builds and sells compliant products fast and accurately. They bring together product compliance and engineering teams to ensure compliance. Daptic (formerly DiploAI) employs 28 people (+40.0% YoY, +8 people). Headquartered in New York, New York, United States. Its workforce is distributed across United States, Peru, Japan, and Ukraine.\n\n## About\n\nRegulatory change moves fast, and the stakes are high: a single missed alert can trigger costly delays, product recalls, or multimillion-dollar penalties.\n\nDaptic (formerly DiploAI) is the #1 regulatory intelligence platform built for large, global manufacturers. The platform captures and analyzes over 1 million data points/day across 10,000+ global, national, and sub-national sources in 125+ jurisdictions, translating non-English content and flagging emerging signals like government meetings and draft guidance.\n\nWithin 24 hours of publication, enabled by the power of machine learning and artificial intelligence, Daptic transforms regulatory notices into: (1) Pre-filtered, de-duplicated alerts mapped to your product portfolio. (2) Ready-to-use internal briefs detailing what changed, why it matters, what's impacted, and what to do next. (3) Traceable tasks and workflows with assigned owners and due dates.\n\nNo more spreadsheets. No more fragmented sources. No more uncertainty.\n\nWith Daptic, compliance, R&D, and product teams can collaborate in one platform to guarantee coverage, cut manual tracking, and accelerate regulatory reviews. \n\nWe're proud to be currently supporting the development of products used by over 100 million people worldwide.\n\n## Company Details\n- Industry: Technology, Information and Media\n- Type: Privately held\n- Headquarters: New York, United States\n- Homepage: daptic.com\n- Aliases: DAPTIC, Inc., daptic, daptic (formerly diploai), diploai\n- LinkedIn: linkedin.com/company/daptic\n- Linkedin Followers: 1,770\n- Emails: contact@daptic.com\n- Phone: 105-6415\n\n## Financials\n- Total Funding: USD 150,000\n  - Seed (2023-12-16)\n  - Seed (2023-06-20): USD 150,000\n\n## Workforce\n- Employees: 28\n- Company Size: 11-50 employees\n  - Monthly Growth: +7.7%\n  - Yearly Growth: +40.0%\n- Key Executives:\n  - Alex Wenckus: Founding Principal Data Engineer\n  - Baptiste Bouvier: CEO\n  - Gabby Finear: COO\n  - Hannah Collins: CTO\n  - Steven Rapp: Founding Architect\n- Breakdown:\n  - By Country: United States: 14 (50%), Peru: 2 (7%), Japan: 1 (4%), Ukraine: 1 (4%)\n  - By Department: Technical: 8 (29%), Other Department: 6 (21%), General Management: 2 (7%), Research: 1 (4%), Sales: 1 (4%)\n  - By Seniority: Other Management: 8 (29%), Clevel: 3 (11%), Specialist: 3 (11%), Founder: 2 (7%), Senior: 2 (7%)\n- Talent Sources: OJO (3), McKinsey & Company (3), Nuvocargo (2), Stimara (1), Reserve (1), PwC (1), Massachusetts Institute of Technology (1), Brandsolo™ (1), BetterMe (1), Alvarez & Marsal Consumer and Retail Group (1)\n- Alumni Go To: Sezzle (1), PwC (1), Profound (1), One River School of Art + Design (1), Motorcycle Industry Council (1), MIT Computer Science and Artificial Intelligence Laboratory (CSAIL) (1), Independent (1), Helios (1), Datalab (1), Cognition (1)\n\n## Products & Technology\n- Tech Stack: linkedin, impact, notion, sage, zoom, python, c, hugging face, openai, visa, well, docker, electric, google translate, graphql, javascript, recognize, kubernetes, react\n\n## Web presence\n\n- Crunchbase: crunchbase.com/organization/diploai\n- Web traffic:\n  - Monthly visits: 1,554\n  - Global rank: 9,076,357\n  - Bounce rate: 26.0%\n  - Pages per visit: 2.4\n  - Average visit duration: 52s\n\n## Categories\n\nai-powered, artificial intelligence (ai), compliant products, data center, engineering teams, global manufacturers, regulatory compliance, saas, technology/manufacturing\n\n## Recent News\n- [2026-10-02]\n  - Pulse 2.0: Daptic Raises $15 Million Series A For Product Compliance Platform\n  - Dealroom: Daptic raises $15M Series A to build compliance into product design\n  - it boltwise: NYC-Startup-Funding: Daptic, Biotia und Tangent Robotics erhalten Millionen\n  - AlleyWatch: The AlleyWatch Startup Daily Funding Report: 10/1/2026\n- [2026-10-01]\n  - FinSMEs: Daptic Raises $15M in Series A Funding\n  - EIN News: Daptic Raises $22M From Canvas Ventures, IA Ventures, 8VC and Others to Bring Compliance Into Product Development\n  - Axios: Exclusive: Compliance startup Daptic raises $15M\n- [2026-07-08]\n  - [Fastly entra a far parte di DIMPACT per collaborare alla sostenibilità digitale](https://www.businesswire.com/news/home/20260708858206/it)\n  - [Fastly une fuerzas con DIMPACT para una colaboración en sostenibilidad digital](https://www.businesswire.com/news/home/20260708767349/es)\n  - [Fastly rejoint DIMPACT pour collaborer en matière de développement durable numérique](https://www.businesswire.com/news/home/20260708027826/fr)\n  - [Fastly schließt sich DIMPACT für eine Zusammenarbeit im Bereich der digitalen Nachhaltigkeit an \\| MarketScreener Deutschland](https://de.marketscreener.com/boerse-nachrichten/fastly-schliesst-sich-dimpact-fuer-eine-zusammenarbeit-im-bereich-der-digitalen-nachhaltigkeit-an-ce7f5ed9dc8ef323)\n  - [Fastly schließt sich DIMPACT für eine Zusammenarbeit im Bereich der digitalen Nachhaltigkeit an \\| MarketScreener Schweiz](https://ch.marketscreener.com/boerse-nachrichten/fastly-schliesst-sich-dimpact-fuer-eine-zusammenarbeit-im-bereich-der-digitalen-nachhaltigkeit-an-ce7f5ed9dc8ef323)\n  - [Fastly schließt sich DIMPACT für eine Zusammenarbeit im Bereich der digitalen Nachhaltigkeit an](http://de.advfn.com/borse/NASDAQ/FSLY/nachrichten/98891065/fastly-schlie-t-sich-dimpact-fur-eine-zusammenarbe)\n  - [Fastly rejoint DIMPACT pour collaborer en matière de développement durable numérique \\| Zonebourse](https://www.zonebourse.com/actualite-bourse/fastly-rejoint-dimpact-pour-collaborer-en-matiere-de-developpement-durable-numerique-ce7f5ed9dc8ef520)\n  - [Fastly Joins DIMPACT to Collaborate on Digital Sustainability](https://hk.marketscreener.com/news/fastly-joins-dimpact-to-collaborate-on-digital-sustainability-ce7f5ed9d980f725)\n  - [Fastly joins DIMPACT coalition to track digital emissions](https://itbrief.news/story/fastly-joins-dimpact-coalition-to-track-digital-emissions)\n  - [Fastly \\(FSLY\\) Joins DIMPACT to Promote Sustainable Digital Media](https://www.gurufocus.com/news/8949230/fastly-fsly-joins-dimpact-to-promote-sustainable-digital-media-solutions)\n  - [Fastly joins DIMPACT on digital sustainability \\| FSLY Stock News](https://www.stocktitan.net/news/FSLY/fastly-joins-dimpact-to-collaborate-on-digital-y4ez7e0jp2m8.html)\n  - [Fastly schließt sich DIMPACT für eine Zusammenarbeit im Bereich der digitalen Nachhaltigkeit an \\| wallstreetONLINE - 09.07.2026](https://www.wallstreet-online.de/nachricht/21089877-fastly-schliesst-dimpact-zusammenarbeit-bereich-digitalen-nachhaltigkeit)\n- [2026-07-07] [Absorbant minéral : vermiculite pour fuites d'électrolyte \\| Contact DIFOPE](https://www.usinenouvelle.com/expo/absorbant-mineral-vermiculite-pour-fu-p494954221.html)\n- [2026-07-06] [Duplin entrepreneurs get leg up on competition \\| News \\| reflector.com](https://www.reflector.com/duplin/news/local/duplin-entrepreneurs-get-leg-up-on-competition/article_8719607b-c5eb-4724-9386-c4c282206b8f.html)\n- [2026-06-30]\n  - [Diapo\\| Merchandising : les meilleures mises en avant de juin 2026 - Actionco.fr](https://www.actionco.fr/diaporamas/diapo-merchandising-les-meilleures-mises-en-avant-de-juin-2026)\n  - [Нелегальных золотодобытчиков задержали в ВКО — Datification](https://datification.org/lajfstajl/nelegalnyh-zolotodobytchikov-zaderjali-v-vko.html)\n- [2026-06-29]\n  - [Oncotelic Therapeutics, Inc. et Sapu Nano annoncent la validation par les pairs de la plateforme Deciparticle, soutenant le développement clinique du Sapu003 \\| Zonebourse](https://www.zonebourse.com/actualite-bourse/oncotelic-therapeutics-inc-et-sapu-nano-annoncent-la-validation-par-les-pairs-de-la-plateforme-dec-ce7f5fdfd98bf227)\n  - [Oncotelic Therapeutics, Inc. et Sapu Nano annoncent la validation par les pairs de la plateforme Deciparticle, soutenant le développement clinique du Sapu003](https://ch.zonebourse.com/actualite-bourse/oncotelic-therapeutics-inc-et-sapu-nano-annoncent-la-validation-par-les-pairs-de-la-plateforme-dec-ce7f5fdfd98bf227)\n\n## Social\n\n### Linkedin\n\n- [2026-02-17 · 8 reactions] 🚀 We’re hiring! Join the team at DiploAI We’re on a mission to transform how global manufacturers navigate regulatory complexity with cutting-edge AI — helping bring products to market faster and w...\n\n- [2026-02-10 · 3 reactions] Renewable energy procurement rules are evolving fast. Here's a brief primer on what companies need to know 👇\n\n- [2026-01-19 · 1 reaction] Looking forward to connecting with policy and industry leaders at SAE’s 2026 Government/Industry Meeting in Washington, DC.!\n\n- [2025-12-17 · 20 reactions] In this clip from the 2025 MIT Research and Development Conference, DiploAI Founder & CEO Baptiste Bouvier shares how a top 10 OEM (>$100B annual revenue) transformed its regulatory monitoring with...\n\n- [2025-12-09 · 14 reactions] Most teams don’t need more regulatory alerts. They need the right ones, at the right time, in front of the right people. In this clip from the 2025 MIT Research and Development Conference, DiploAI...\n\n- [2025-12-02 · 8 reactions, 1 comment] We're attending CTI Symposium in Berlin this week — stop by the booth and learn more about how we're supercharging regulatory intelligence for mobility and automotive. CTI SYMPOSIUM - Automotive •...\n\n- [2025-12-02 · 72 reactions, 1 comment] Before the break, I had a chance to catch up with Andrew Hahn on the DiploAI team about what regulatory trends are top of mind. We talked about what might lie around the corner as far as the next P...\n\n- [2025-11-18 · 9 reactions] Come see us in the exhibition hall at the MIT Research and Development Conference! Thanks MIT Industrial Liaison Program and MIT Startup Exchange for hosting so many innovative startups this week....\n\n- [2025-10-23 · 13 reactions] It's been a busy conference season, and we're still going strong 🏃 Meet the team at the MIT x OPmobility Symposium today: CEO Baptiste Bouvier and Dan Weinberger from GTM are here and ready to chat...\n\n- [2025-10-22 · 8 reactions] Dan W. from our GTM team is at Automotive Testing Expo today! If you're attending and want to discuss regulatory intelligence, send us a DM here to get connected.\n\n- [2025-10-17 · 6 reactions] We're attending Science Fair virtually today! If you're interested in meeting with us but didn't have a chance to schedule time, send us a DM here to get connected.\n\n- [2025-10-08 · 12 reactions] Great conversations are already underway at AIAG - Automotive Industry Action Group IMDS! Our team is at booth 2 the rest of the week — stop by to talk regulatory intelligence, AI, or just connect...\n\n- [2025-09-26 · 14 reactions] Regulations on the circular economy are evolving fast. Here's a brief primer on what companies need to know 👇\n\n- [2025-09-11 · 26 reactions, 1 comment] The team will be on the ground at MOVE: Mobility Re-imagined 2025 in Motor City later this month! Stop by our booth to see how we're already helping product compliance teams at half of the top 10 m...\n\n- [2025-09-02 · 19 reactions] We’re proud to be featured on Inc. Magazine’s Best Workplaces of 2025! Interested in joining our award-winning team? Send us a message here or at contact@diplo-ai.com.\n\n- [2025-08-25 · 15 reactions] The smartest companies see beyond compliance. Global regulatory monitoring, when done right, reveals emerging patterns, and can turn reactive approaches into proactive strategy. Whether you're sell...\n\n- [2025-08-21 · 40 reactions] Thanks to Avid Ventures, Headline, and Bain Capital Ventures for naming us to their 2025 Vertical SaaS 50 list! We’re in great company with other honorees like &AI, Charta Health, and Atomic Canyon...\n\n## Locations\n- Headquarters: new york, new york, united states (US)\n- Offices: new york, united states (US), new york, new york, united states (US)",
+        "summary": "{\"description\":\"Daptic (formerly DiploAI) is an AI-powered regulatory compliance company that builds and sells compliant products fast and accurately, bringing together product compliance and engineering teams to ensure compliance.\",\"employee_estimate\":28,\"employee_estimate_source\":\"Employees: 28\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"New York, New York, United States\",\"hq_quote\":\"Headquartered in New York, New York, United States.\",\"industry\":\"Technology, Information and Media\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"is a Privately held; Industry: Technology, Information and Media\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 150,000 - Seed (2023-12-16); Seed (2023-06-20): USD 150,000\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQF7KEGiTbhYlQ/company-logo_200_200/B4EZytDa2tJIAI-/0/1772429881079/diploai_logo?e=2147483647&v=beta&t=d42kx3x3p59_h7yL4orvkLT7IyMmSGnbkaE80yvb5u8",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/3kt73q7btfs",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Daptic (formerly DiploAI)",
+              "foundedYear": null,
+              "description": "Regulatory change moves fast, and the stakes are high: a single missed alert can trigger costly delays, product recalls, or multimillion-dollar penalties.\n\nDaptic (formerly DiploAI) is the #1 regulatory intelligence platform built for large, global manufacturers. The platform captures and analyzes over 1 million data points/day across 10,000+ global, national, and sub-national sources in 125+ jurisdictions, translating non-English content and flagging emerging signals like government meetings and draft guidance.\n\nWithin 24 hours of publication, enabled by the power of machine learning and artificial intelligence, Daptic transforms regulatory notices into: (1) Pre-filtered, de-duplicated alerts mapped to your product portfolio. (2) Ready-to-use internal briefs detailing what changed, why it matters, what's impacted, and what to do next. (3) Traceable tasks and workflows with assigned owners and due dates.\n\nNo more spreadsheets. No more fragmented sources. No more uncertainty.\n\nWith Daptic, compliance, R&D, and product teams can collaborate in one platform to guarantee coverage, cut manual tracking, and accelerate regulatory reviews. \n\nWe're proud to be currently supporting the development of products used by over 100 million people worldwide.",
+              "workforce": {
+                "total": 28
+              },
+              "headquarters": {
+                "address": "New York, US",
+                "city": "New York",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 150000,
+                "fundingLatestRound": {
+                  "name": "Seed",
+                  "date": "2023-12-16",
+                  "amount": null
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 1554,
+                "countryRank": 3445516,
+                "avgDurationSeconds": 52,
+                "history": [
+                  {
+                    "value": 9420,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 6048,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 10883,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 3819,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 3639,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 1554,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/8ts4yylhngz",
+        "title": "Daptics",
+        "url": "https://daptics.ai/",
+        "text": "# Daptics\n\nDaptics is a Software Development company. daptics is a company that builds web tools that enable scientists to make revolutionary gains in research outcomes using proprietary machine learning algorithms and a streamlined web interface and api. They exponentially boost efficiency with huge experimental campaigns. Daptics employs 2 people, founded in 2004. Headquartered in San Francisco, California, United States.\n\n## About\n\nDaptics provides adaptive analytics to drive efficiency and reduce costs in your research, incorporating machine learning into your high throughput experimental explorations. Daptics algorithms have established a successful track record for formulations and protein synthesis protocols, but can be more generally applied to any complex high throughput experiment.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: San Francisco, United States\n- Founded Year: 2004\n- Homepage: daptics.ai\n- Aliases: daptics, protolife\n- LinkedIn: linkedin.com/company/daptics\n- Linkedin Followers: 374\n\n## Workforce\n- Employees: 2\n- Company Size: 1-10 employees\n- Key Executives:\n  - Norman Packard: CEO\n  - Peter Zingg: Chief Technology Officer\n- Breakdown:\n  - By Country: United States: 2 (100%)\n  - By Department: General Management: 1 (50%), Technical: 1 (50%)\n  - By Seniority: Clevel: 2 (100%)\n- Salary ranges:\n  - CEO-Founder: median $124,193.65 per year\n  - Software Engineer: median $118,424.84 per year\n  - Sales Representative: median $91,809.51 per year\n- Talent Sources: Sama (1), Business Consultant (1)\n- Alumni Go To: 3852.ai (2), iGEM Competition (1), The University of Osaka (1), INSEAD Summer Start-Up Tour (SSUP!) (1)\n\n## Web presence\n\n- Web traffic:\n  - Monthly visits: 983\n  - Global rank: 6,172,055\n  - Bounce rate: 34.0%\n  - Pages per visit: 2.1\n  - Average visit duration: 50s\n\n## Reviews & Ratings\n- Employer Rating: 5.0/5.0 (1 reviews)\n  - Breakdown: Work-Life: 5.0, Compensation: 1.0, Culture: 5.0, Career: 5.0\n\n## Categories\n\nautomated complex decisions, automation software as a service, biotechnology, data science as a service, design of experiments meets artificial intelligence, efficiency, experimental campaigns, experimental design, high throughput experiments, machine learning algorithms, optimization and discovery for complex systems, scientific experimentation, streamlined web interface, technology/research, web tools\n\n## Recent News\n- [2026-10-02]\n  - Pulse 2.0: Daptic Raises $15 Million Series A For Product Compliance Platform\n  - Dealroom: Daptic raises $15M Series A to build compliance into product design\n  - it boltwise: NYC-Startup-Funding: Daptic, Biotia und Tangent Robotics erhalten Millionen\n  - AlleyWatch: The AlleyWatch Startup Daily Funding Report: 10/1/2026\n- [2026-10-01]\n  - FinSMEs: Daptic Raises $15M in Series A Funding\n  - EIN News: Daptic Raises $22M From Canvas Ventures, IA Ventures, 8VC and Others to Bring Compliance Into Product Development\n  - Axios: Exclusive: Compliance startup Daptic raises $15M\n\n## Social\n\n### Linkedin\n\n- [2023-11-15] Test event\n\n## Locations\n- Headquarters: san francisco, california, united states (US)\n- Offices: san francisco, california, united states (US)",
+        "summary": "{\"description\":\"Daptics is a software development company that builds web tools enabling scientists to achieve gains in research outcomes using proprietary ML algorithms and a streamlined web interface and API.\",\"employee_estimate\":2,\"employee_estimate_source\":\"Employees: 2\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"San Francisco, California, United States\",\"hq_quote\":\"Headquartered in San Francisco, California, United States.\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Daptics is a Software Development company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Pulse 2.0: Daptic Raises $15 Million Series A For Product Compliance Platform\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C560BAQHiAsB-u6iDzQ/company-logo_200_200/company-logo_200_200/0/1630608945000/protolifepdt_logo?e=2147483647&v=beta&t=v27X1NloCiyZN6l-JR27mJNhuudyvClXJaAGWC19R3k",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/8ts4yylhngz",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Daptics",
+              "foundedYear": 2004,
+              "description": "Daptics provides adaptive analytics to drive efficiency and reduce costs in your research, incorporating machine learning into your high throughput experimental explorations. Daptics algorithms have established a successful track record for formulations and protein synthesis protocols, but can be more generally applied to any complex high throughput experiment.",
+              "workforce": {
+                "total": 2
+              },
+              "headquarters": {
+                "address": "57 Post St, San Francisco, California 94104, US",
+                "city": "San Francisco",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 983,
+                "countryRank": 860522,
+                "avgDurationSeconds": 50,
+                "history": [
+                  {
+                    "value": 1037,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 1522,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 1377,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 1678,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 2550,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 983,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 11029.7,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

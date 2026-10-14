@@ -1,0 +1,249 @@
+{
+  "request": {
+    "query": "Forgepoint",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the exact phrase from the page that the employee estimate came from (e.g. \"350 employees\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "8b4886add9de3267e50d816f89d2ed6a",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/x5zb10q4sh3",
+        "title": "Forgepoint",
+        "url": "https://forgepoint.ai/",
+        "text": "# Forgepoint\n\nForgepoint is a Software Development company. Forgepoint employs 7 people (+600.0% YoY, +6 people). Its workforce is distributed across United States and Australia.\n\n## About\n\nForgepoint builds AI coworkers for the manufacturing back office. Our mission is to give American manufacturers an edge by putting the best technology in the world in their hands.\n\nOur first product, Frank, is an AI inside sales rep that handles the RFQ-to-quote process end to end. He's already deployed with hundreds of reps, estimators, and engineers at shops across the country, cutting their time-to-quote by up to 90%.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Homepage: forgepoint.ai\n- Aliases: forgepoint\n- LinkedIn: linkedin.com/company/forgepointai\n- Linkedin Followers: 566\n\n## Workforce\n- Employees: 7\n- Company Size: 11-50 employees\n  - Yearly Growth: +600.0%\n- Key Executives:\n  - .Nathan Chang.: Founding Product Engineer\n  - Alex Pareto: Co-Founder & CTO\n  - Brett Orsay: Founding GTM\n  - Jack Strauss: Co-Founder CEO\n- Breakdown:\n  - By Country: United States: 5 (71%), Australia: 1 (14%)\n  - By Department: Technical: 4 (57%), General Management: 2 (29%)\n  - By Seniority: Founder: 4 (57%), Other Management: 1 (14%), Specialist: 1 (14%)\n- Active job postings: 12\n- Talent Sources: Stanford University Graduate School of Business (1), PayPal (1), Lyra (1), Cisco Foundation AI (1), Check Point Software (1), Brex (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: acer, brex, canva, figma, kubernetes, linkedin, nodejs, openai, postgresql, precision software, react, typescript\n\n## Web presence\n\n- Twitter: twitter.com/forgepointai\n- Web traffic:\n  - Monthly visits: 89,408\n  - Global rank: 488,550\n  - Bounce rate: 35.0%\n  - Pages per visit: 4.5\n  - Average visit duration: 513s\n\n## Categories\n\nai, customer service, manufacturing, sales, sales and manufacturing\n\n## Recent News\n- [2026-10-06]\n  - Tech Funding News: Amsterdam’s Hadrian lands $40M to build an AI hacker policed by a second AI\n  - EU-Startups: Cybersecurity startup Hadrian raises €35.68 million to scale its agentic AI offensive security platform\n  - Konsulteer: Hadrian Raises $40M for AI Offensive Security\n  - n24.com.tr: Hadrian Raises $40M for Dual AI Cybersecurity Platform\n  - Dealroom: Hadrian raises $40M co-led by Forgepoint Capital International and SmartFin\n- [2026-09-18] [Base Power, EliseAI, and Cursor are all hiring - across marketing, product, brand, and partnerships](https://a16zjobs.substack.com/p/base-power-cursor-and-eliseai-are)\n- [2026-09-16] Pulse 2.0: Hackuity Raises $19 Million For AI-Powered Vulnerability Management\n- [2026-09-15] Tech Funding News: Hackuity scoops $19M as AI models start finding vulnerabilities faster than humans can fix them\n- [2026-08-20] Michigan Advance: After data center investments revealed, Rogers backs statewide moratorium\n- [2026-08-19] Michigan Democratic Party: Mike Rogers Stands To Make A Fortune From Data Center Expansion in Michigan\n\n## Social\n\n### Linkedin\n\n- [2026-08-24 · 7 reactions, 6 comments] Manufacturers: how much business do you suspect you lose because it takes too long to turn around quotes? For as long as I've been in manufacturing and then some, we've accepted slow, cumbersome RF...\n\n- [2026-07-30 · 3 reactions] \"The hours it's given back go straight into serving the people we make parts for.\" Our mission is to give American manufacturers time back to do what they do best. Excal Inc said it better than we...\n\n- [2026-07-29 · 220 reactions, 78 comments] Excal Inc is the most customer-obsessed manufacturer I've ever worked with. For 35 years, they've poured brass, bronze, and stainless steel castings in Wyoming, serving customers across pump and va...\n\n- [2026-07-28 · 5 reactions, 3 comments] We are thrilled to be sponsoring this year's Foundry Industry 4.0 Conference! Foundries run some of the most complex manufacturing operations, and this is the room where the people modernizing them...\n\n- [2026-07-24 · 19 reactions, 5 comments] This week we launched Frank: an AI Inside Sales Rep for manufacturers. He reads messy RFQs, parses models and prints, drafts the quote based on your shop's cost model, and follows up until the job...",
+        "summary": "{\"description\":\"Forgepoint builds AI coworkers for the manufacturing back office, aiming to give American manufacturers an edge by putting the best technology in their hands.\",\"employee_estimate\":7,\"employee_estimate_source\":\"Employees: 7\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"United States and Australia (headquarters not explicitly stated)\",\"hq_quote\":\"\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Forgepoint is a Software Development company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Yearly Growth: +600.0% (and other funding context appears in tech funding/news mentions)\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQER8sC-s6KX7g/company-logo_200_200/B4EZ.EhVnfIAAI-/0/1784634759865/forgepointai_logo?e=2147483647&v=beta&t=L3y0lVioSBCgNNMDXLGzLaEDHI2kzZ2clDysEG42ebc",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/x5zb10q4sh3",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Forgepoint",
+              "foundedYear": null,
+              "description": "Forgepoint builds AI coworkers for the manufacturing back office. Our mission is to give American manufacturers an edge by putting the best technology in the world in their hands.\n\nOur first product, Frank, is an AI inside sales rep that handles the RFQ-to-quote process end to end. He's already deployed with hundreds of reps, estimators, and engineers at shops across the country, cutting their time-to-quote by up to 90%.",
+              "workforce": {
+                "total": 7
+              },
+              "headquarters": null,
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 89408,
+                "countryRank": 104468,
+                "avgDurationSeconds": 513,
+                "history": [
+                  {
+                    "value": 10768,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 7084,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 10153,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 24333,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 66348,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 89408,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/kcr8b92rm0x",
+        "title": "Forgepoint Capital",
+        "url": "https://forgepointcap.com/",
+        "text": "# Forgepoint Capital\n\nForgepoint Capital is a Venture Capital and Private Equity Principals company. Forgepoint Capital is a global early-stage venture capital firm that backs transformative cybersecurity, artificial intelligence, and infrastructure software companies, from first call to exit. Forgepoint Capital employs 75 people (+2.7% YoY, +2 people), founded in 2015. Headquartered in San Mateo, California, United States, with presence in United Kingdom. Its workforce is distributed across 6 countries (including United States, Spain, United Kingdom, Canada, and Sweden).\n\n## About\n\nForgepoint Capital is a leading venture capital firm that invests in transformative cybersecurity, artificial intelligence, and infrastructure software companies protecting the digital future. With $1B+ AUM, the largest sector-focused investment team, and portfolio of more than 40 companies, the firm brings over 100 years of proven company-building experience and its Global Advisory Council of more than 100 leaders to support entrepreneurs advancing innovation globally. Founded in 2015 and headquartered in the San Francisco Bay Area and London, Forgepoint is proud to help category-defining companies reach their market potential and to cultivate a diverse community dedicated to backing builders of the digital future. \n\nFor more information about Forgepoint and our family of companies, visit forgepointcap.com. For all other inquiries, including investment, career, and partnership opportunities, please contact info@forgepointcap.com. Generic and automated emails will not be viewed favorably.\n\n## Company Details\n- Industry: Venture Capital and Private Equity Principals\n- Type: Partnership\n- Headquarters: San Mateo, United States\n- Founded Year: 2015\n- Homepage: forgepointcap.com\n- Aliases: forgepoint capital\n- LinkedIn: linkedin.com/company/forgepoint-capital\n- Linkedin Followers: 40,510\n- Emails: fraud-alert@forgepointcap.com, tloh@forgepointcap.com\n- Phone: +1 650 289 4455, -650-289-4455, 650 289 4455\n\n## Workforce\n- Employees: 75\n- Company Size: 11-50 employees\n  - Monthly Growth: +1.4%\n  - Yearly Growth: +2.7%\n- Key Executives:\n  - Alberto Yépez: Co-Founder and Managing Director\n  - Casilda Angulo Obieta: Vice President\n  - Conor Higgins: Content Director\n  - Damien Henault: Managing Director & Partner, Forgepoint Capital International\n  - Don Dixon: Co-Founder\n  - Ernie B.: Managing Director\n  - Jaime Goyarrola: Investor & CFO\n  - Jimmy Park: Vice President\n  - Kathryn Shih: Venture Partner\n  - Lisa Lee: Chief Financial Officer\n- Breakdown:\n  - By Country: United States: 41 (55%), Spain: 2 (3%), United Kingdom: 2 (3%), Canada: 1 (1%), Sweden: 1 (1%), Switzerland: 1 (1%)\n  - By Department: Other Department: 20 (27%), Consulting: 15 (20%), General Management: 7 (9%), Finance: 2 (3%), Marketing: 2 (3%), Administrative: 1 (1%), Education: 1 (1%)\n  - By Seniority: Other Management: 23 (31%), Specialist: 12 (16%), Director: 3 (4%), Clevel: 2 (3%), Founder: 2 (3%), Partner: 2 (3%), Senior: 2 (3%), Vp: 2 (3%)\n- Talent Sources: Constella Intelligence (2), Ballistic Ventures (2), The Honeynet Project (1), TA Associates (1), Startups (1), Private Company (1), Next Stage Design + Build (1), Lockton (1), Cisco (1), Ashoka España (1)\n- Alumni Go To: Security Tinkerers (2), Y Combinator (1), Vectra AI (1), United States Air Force (1), Tencent Americas (1), Sophos (1), SPHERE (1), Oplnet LLC (1), NetDiligence® (1), Coppel (1)\n\n## Products & Technology\n- Tech Stack (showing 50 of 58): google workspace, microsoft, microsoft office, bash, docker, git, jenkins, kubernetes, linux, pci, python, google cloud, accenture, datadog, dynatrace, elastic, elk, grafana, hubspot, marketo, new relic, pardot, prometheus, recognize, sis, splunk, source intelligence, netsmart, c, ey, hunter, impact, market leader, segment, ups, zoom, google analytics, linkedin, salesforce, upkeep, well, java, javascript, mongodb, mysql, symantec, angular, bootstrap, amp, twitter\n\n## Web presence\n\n- Twitter: twitter.com/forgepointcap\n- Facebook: facebook.com/p/forgepoint-capital-100063619675452\n- Instagram: instagram.com/forgepointcapital\n- YouTube: youtube.com/@forgepointcapital\n- Crunchbase: crunchbase.com/organization/forgepoint-capital\n- Web traffic:\n  - Monthly visits: 8,855\n  - Global rank: 2,489,454\n  - Bounce rate: 44.0%\n  - Pages per visit: 1.7\n  - Average visit duration: 13s\n\n## Categories\n\nagi, ai governance, ai/gen ai security, artificial intelligence, aspm, business development, cyber risk management, cyber security, cybersecurity, data infrastructure, data security, dei/esg, devsecops, dspm, enterprise ai, finance, finance/investing, financial services, global innovation, grc, growth equity, identity, information technology, infrastructure software, internships, investment, professional development, public-private sector partnerships, security log data management, series a, series b, smb security, software supply chain, transformative companies, venture capital, venture-capital, vip events\n\n## Competitors\n\nsummit partners, sosv, nextgen venture partners, mensa brands, kptl, kleiner perkins, flagship pioneering, bain capital private equity, andreessen horowitz, 500 global\n\n## Recent News\n- [2026-09-24] [Hackuity Raises $19 Million to Help Enterprises Prepare for the AI-Driven Vulnerability Explosion - StorageNewsletter](https://www.storagenewsletter.com/2026/09/24/hackuity-raises-19-million-to-help-enterprises-prepare-for-the-ai-driven-vulnerability-explosion/)\n- [2026-09-17]\n  - [French Tech : l'outil de cybersécurité d'Hackuity séduit le fonds américain Forgepoint Capital - Les Echos](https://www.lesechos.fr/start-up/deals/french-tech-loutil-de-cybersecurite-dhackuity-seduit-le-fonds-americain-forgepoint-capital-2252159)\n  - [Hackuity lands $19m as AI fuels a vulnerability tsunami](https://fintech.global/2026/09/17/hackuity-lands-19m-as-ai-fuels-a-vulnerability-tsunami/)\n- [2026-09-16]\n  - [Hackuity raises $19M to help security teams sort through AI-found vulnerabilities](https://thenextweb.com/news/hackuity-raises-19m-forgepoint-vulnerability-management)\n  - [Hackuity secures $19M to address rising AI-driven security vulnerabilities - Tech.eu](https://tech.eu/2026/09/16/hackuity-secures-19m-to-address-rising-ai-driven-security-vulnerabilities/)\n  - [“Vulnerability tsunami” prompts France's Hackuity to land €16 million for automated cyber remediation \\| EU-Startups](https://www.eu-startups.com/2026/09/vulnerability-tsunami-prompts-frances-hackuity-to-land-e16-million-for-automated-cyber-remediation/)\n  - [Hackuity Raises $19M in Funding](https://www.finsmes.com/2026/09/hackuity-raises-19m-in-funding.html)\n  - [Hackuity scoops $19M as AI models start finding vulnerabilities faster than humans can fix them — TFN](https://techfundingnews.com/hackuity-raises-19m-series-b-forgepoint-capital-vulnerability-management/)\n  - The National Law Review: Hackuity Raises $19 Million to Help Enterprises Prepare for the AI-Driven Vulnerability Explosion\n- [2026-09-15] [Exclusive: Hackuity raises $19 million for vulnerability operations](https://www.axios.com/pro/enterprise-software-deals/2026/09/15/cyber-startup-hackuity-anthropic)\n- [2026-09-02] [What a $7 Million Startup's \"AI Circuit Breaker\" Reveals About Nvidia's Next Move](https://www.ainvest.com/news/7-million-startup-ai-circuit-breaker-reveals-nvidia-move-2609/)\n- [2026-08-21] [VC funding news: Discern Security, Passionfroot, Crystalys Therapeutics - InfotechLead](https://infotechlead.com/tech/vc-funding-news-discern-security-passionfroot-crystalys-therapeutics-97903?amp=1)\n- [2026-08-02] [Enrique Lizaso: “Multiverse va a acelerar la inversión en infraestructura de gigafactorías de IA soberana”](https://cincodias.elpais.com/companias/2026-08-02/enrique-lizaso-multiverse-va-a-acelerar-la-inversion-en-infraestructura-de-gigafactorias-de-ia-soberana.html)\n- [2026-07-30]\n  - [discern-security-secures-13-million-series-a-to-scale-ai-driven-security-control-optimization](https://www.tipranks.com/news/private-companies/discern-security-secures-13-million-series-a-to-scale-ai-driven-security-control-optimization)\n  - [Discern Security Secures 3 Million to Transform AI-Powered Cyber Defense Amid Rising Enterprise Security Challenges + Video - UNDERCODE NEWS](https://undercodenews.com/discern-security-secures-3-million-to-transform-ai-powered-cyber-defense-amid-rising-enterprise-security-challenges-video/)\n- [2026-07-28] [Multiverse Computing secures $570m funding to develop efficient AI models](https://www.verdict.co.uk/multiverse-computing-570m-funding/)\n- [2026-07-27]\n  - [Multiverse Computing targeting €500m round at unicorn valuation \\| Sifted](https://sifted.eu/articles/multiverse-computing-series-c-unicorn)\n  - [Multiverse Computing anuncia una ronda Serie C de hasta 500M€](https://elreferente.es/inversiones/multiverse-computing-anuncia-una-ronda-serie-c-de-hasta-500-millones-de-euros/)\n  - [Spain's Multiverse Computing Raises $570m at $1.7bn Valuation](https://ground.news/article/multiverse-computing-announces-series-c-fundraising-targeting-up-to-570m-500m-to-power-efficient-ai-from-edge-to-cloud)\n- [2026-07-06]\n  - [Sherpa.ai cierra una ronda de 15 millones con la entrada de Forgepoint Capital y la participación de la SETT](https://www.europapress.es/economia/finanzas-00340/noticia-sherpaai-cierra-ronda-15-millones-entrada-forgepoint-capital-participacion-sett-20260706080450.html)\n  - [Sherpa.ai levanta 16 millones para su plataforma de IA con Forgepoint, Mundi Ventures, Ekarpen, Allegra Holdings y la ‘Sepi digital’ \\| Empresas \\| Cinco Días](https://cincodias.elpais.com/companias/2026-07-06/sherpaai-levanta-16-millones-para-su-plataforma-de-ia-con-forgepoint-mundi-ventures-ekarpen-allegra-holdings-y-la-sepi-digital.html)\n- [2025-09-02] Business Wire: CyberCube Launches Exposure Manager, Enabling a New Standard of Cyber Health and Exposure Data Across the Insurance Value Chain\n- [2025-08-30]\n  - IndiaTimes: ETtech Deals Digest: Startups raise $914 million in August, down 48% on-year\n  - Silicon Canals: In other news this week: ProVerum raises €68.4M, M0 bags €34.2M, Maisa lands €21.4M funding and more\n- [2025-08-29] capital-riesgo.es: Maisa, headquartered in Valencia, closes $25 million funding round led by Creandum\n- [2025-08-28]\n  - Venture Capital: Rising star of agentic AI delivering trustworthy ‘digital workers’ raises $25M from Creandum and Forgepoint\n  - EU-Startups: Spain’s Maisa raises over €21 million to deliver trustworthy ‘digital workers’ and reduce hallucinations\n- [2025-08-22] BiometricUpdate.com: How do you raise $57M? 1Kosmos, Forgepoint share series B insight with BU Podcast\n- [2025-08-15] Crunchbase News: The Week’s 10 Biggest Funding Rounds: Therapeutics And AI Lead, While Megarounds Took A Breather\n- [2025-08-14] IndiaTimes: ETtech Deals Digest: Startups raise $338 million this week, up 65% on-year\n- [2025-08-13] FinTech Global: Passwordless ID firm 1Kosmos bags $57m funding\n- [2025-06-27]\n  - thesaasnews.com: DataBahn.ai Raises $17 Million in Series A\n  - vcnewsdaily.com: DataBahn.ai Scores $17M Series A\n- [2025-06-26]\n  - Dallas Innovates: Dallas’ DataBahn.ai Raises $17M Series A ‘To Redefine Enterprise Data Pipelines’\n  - PR Newswire: DataBahn.ai Raises $17M Series A to Redefine Enterprise Data Pipelines for Security, Observability and AI\n  - FinSMEs: DataBahn.ai Raises $17M in Series A Funding\n- [2025-06-12] Tech Startups - Startups and Technology news: Spanish AI startup Multiverse raises $217M to shrink LLMs and cut inference costs by 80%\n- [2025-05-06] Crunchbase News: Reporter’s Notebook: Optimism Runs Wild At RSA Cybersecurity Confab\n- [2025-04-07] SC Media: Best of Cyber April Fools, Tons of Free Tools, runZero positioned to disrupt? – ESW #401\n- [2025-04-02] Business Wire: CyberCube Releases New Report Highlighting Cyber Risk Exposure for Small Businesses\n\n## Social\n\n### Linkedin\n\n- [2026-09-30 · Posted · 14 reactions] [Nudge Security is introducing a new approach to adaptive risk...](https://www.linkedin.com/posts/forgepoint-capital_forgepointfamily-activity-7511061910855839745-BLzQ)\n  > Nudge Security is introducing a new approach to adaptive risk management for the rapidly evolving world of SaaS and AI.\n  >\n  > As organizations adopt new applications, integrations, AI tools, and non-human identities, traditional point-in-time assessments can struggle to keep pace. Nudge’s platform brings continuous discovery, risk intelligence, and policy-driven guardrails together to help security teams identify and address risk across the Workforce Edge.\n  >\n  > Explore Nudge Security’s latest announcement and learn more about Adaptive Risk Management for SaaS and AI:\n  > https://lnkd.in/eaZwbUhg\n  >\n  > #forgepointfamily\n\n- [2026-09-29 · Posted · 34 reactions] [AI is making attackers faster and more capable. Can it strengthen...](https://www.linkedin.com/posts/forgepoint-capital_forefront-september-2026-activity-7510730358061989888-DtRQ)\n  > AI is making attackers faster and more capable. Can it strengthen defenses as well, and can enterprises adopt AI more safely?\n  >\n  > The Forgepoint community took on all sides of these challenges in September:\n  >\n  > 🚀 Leading Hackuity's $19M round: AI is enabling attackers to accelerate vulnerability discovery, and security teams are buried in findings without clarity on what they need to fix. That's why Forgepoint Capital International led Hackuity's latest funding round, backing its AI-powered Vulnerability Operations Center that helps enterprises prioritize and remediate the exposures that matter most. Congratulations to Patrick Ragaru, Pierre Samson, Pierre Polette, and the Hackuity team!\n  >\n  > 🤝 Expanding our Global Advisory Council: We were pleased to welcome two industry leaders to our advisory council this past month. Justin Endres (CRO, Seclore) is a senior revenue executive with deep expertise building and scaling go-to-market organizations for enterprise technology companies. José Felipe García Vivanco (Corporate Director and CISO, Grupo Coppel) is a longtime cybersecurity and risk management leader who has protected Fortune Global 500 banks and the largest enterprises in Mexico and Latin America. Justin and Felipe's perspectives will be invaluable to our portfolio of innovators.\n  >\n  > 🌎 Shaping AI and security conversations, from Cancun to Menlo Park: At the recent LATAM CISO Summit hosted by Digi Americas, Alberto Yépez (Managing Director and Co-founder, Forgepoint Capital), Felipe, and Ricardo Villadiego (CEO and Founder, Lumu Technologies) spoke on topics including AI-driven cyber defenses and governing AI risk. Next up, on October 28, we're co-hosting the 3rd Annual AI X Cyber Innovation Night, where Forgepoint Vice President Jimmy Park will moderate a panel conversation on patching in the post-Mythos \"Vulnpocalypse\" era.\n  >\n  > 💡 Plus: Dr. Shane Shook's TIPS blog on common gaps in AI software security, new Margin of Safety posts from Jimmy Park and Kathryn Shih, and the latest innovations across the Forgepoint portfolio.\n  >\n  > Read the September edition of Forefront 👇\n\n- [2026-09-24 · Posted · 24 reactions] [Faster detection, fewer false positives, and expert-level triage at...](https://www.linkedin.com/posts/forgepoint-capital_tips-43-build-ship-run-activity-7508918063384367105-Vc7Z)\n  > Faster detection, fewer false positives, and expert-level triage at machine speed. Sound familiar?\n  >\n  > AI-enabled software security tools are often described in similar terms, even when they protect different stages of the software lifecycle. For CISOs and security buyers, that makes it hard to see where their coverage overlaps and where it's missing, especially in production.\n  >\n  > In the latest #ForgepointTIPS, Dr. Shane Shook breaks down the Build, Ship, and Run stages of software security, how tech debt in production can create the hardest gaps to close, and how to match security controls to each stage.\n  >\n  > Featuring perspectives from Alan Snyder and Sai Venkataraman.\n  >\n  > Read the blog to learn more 👇\n  >\n  > #softwaresecurity #AIsecurity #forgepointfamily\n\n- [2026-09-18 · Posted · 5 reactions] [Huntress is expanding its international footprint into Africa...](https://www.linkedin.com/posts/forgepoint-capital_huntress-expands-international-footprint-activity-7506690930054332416-maxR)\n  > Huntress is expanding its international footprint into Africa through a new distribution partnership with QBS Software Africa.\n  >\n  > Beginning in South Africa and extending into select sub-Saharan markets, the partnership will help local VARs and MSPs bring Huntress’ Agentic Security Platform and 24/7 AI-centric SOC to more organizations across the region.\n  >\n  > The expansion builds on Huntress’ momentum across more than 100 countries and its mission to make enterprise-grade cybersecurity more accessible to businesses worldwide.\n  >\n  > https://lnkd.in/gBRtq8eq\n  >\n  > #forgepointfamily\n\n- [2026-09-18 · 5 reactions] Huntress is expanding its international footprint into Africa through a new distribution partnership with QBS Software Africa. Beginning in South Africa and extending into select sub-Saharan market...\n\n- [2026-09-17 · Reshared · 164 reactions] [🚀 I'm excited to announce that Forgepoint Capital International is...](https://www.linkedin.com/posts/forgepoint-capital_activity-7506340321849434112-mYtk): 🚀 I'm excited to announce that Forgepoint Capital International is leading Hackuity 's $19M funding round, with participation from existing investors Bright Pixel Capital , Bpifrance , and Seventur...\n\n- [2026-09-17 · 164 reactions, 40 comments] 🚀 I'm excited to announce that Forgepoint Capital International is leading Hackuity's $19M funding round, with participation from existing investors Bright Pixel Capital, Bpifrance, and Seventure P...\n\n- [2026-09-16 · Posted · 69 reactions] [The era of 'patch everything' is over. In a world where AI helps...](https://www.linkedin.com/posts/forgepoint-capital_vulnerabilitymanagement-protectingthedigitalfuture-activity-7505973795304726528-mcOF)\n  > The era of 'patch everything' is over. In a world where AI helps attackers exploit vulnerabilities faster than teams can fix them, defenders have to focus on the risks that matter most.\n  >\n  > That's why Forgepoint Capital International is excited to lead Hackuity's $19M funding round. Hackuity is the leading European-born Vulnerability Operations Center (VOC) solution that helps enterprises prioritize and remediate the vulnerabilities that pose real business risk.\n  >\n  > 🛡️ Hackuity integrates with the existing security stack, aggregating findings from 130+ tools and surfacing critical risks with its proprietary True Risk Score technology.\n  >\n  > ✅ Proven in demanding enterprise environments for years, Hackuity gives security and business leaders a board-ready view of the risks that actually threaten the business.\n  >\n  > As AI reshapes vulnerability management, Hackuity is well positioned to help enterprises stay ahead of their most critical exposures. We look forward to building with co-founders Patrick Ragaru, Pierre Samson, and Pierre Polette, the Hackuity team, and existing investors Bright Pixel Capital, Bpifrance, and Seventure Partners.\n  >\n  > 👇 Read Forgepoint Capital International Managing Director & Partner Damien Henault's insights on why we invested in the comments.\n  >\n  > #VulnerabilityManagement #protectingthedigitalfuture #forgepointfamily\n\n- [2026-09-16 · 69 reactions, 11 comments] The era of 'patch everything' is over. In a world where AI helps attackers exploit vulnerabilities faster than teams can fix them, defenders have to focus on the risks that matter most. That's why...\n\n- [2026-09-15 · Posted · 2 reactions] [In a new Forbes Technology Council article, 1Kosmos co-founder...](https://www.linkedin.com/posts/forgepoint-capital_why-hiring-fraud-has-become-a-know-your-employee-activity-7505614332664401921-IHat)\n  > In a new Forbes T",
+        "summary": "{\"description\":\"Forgepoint Capital is a global early-stage venture capital firm backing transformative cybersecurity, artificial intelligence, and infrastructure software companies.\",\"employee_estimate\":75,\"employee_estimate_source\":\"Employees: 75\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Employees: 75\",\"hq\":\"San Mateo, United States\",\"hq_quote\":\"Headquartered in San Mateo, California, United States, with presence in United Kingdom.\",\"industry\":\"Venture Capital and Private Equity Principals\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Forgepoint Capital is a Venture Capital and Private Equity Principals company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"With $1B+ AUM, the largest sector-focused investment team, and portfolio of more than 40 companies, the firm brings over 100 years of proven company-building experience and its Global Advisory Council of more than 100 leaders to support entrepreneurs advancing innovation globally.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQETEKMbQIEYjw/company-logo_200_200/company-logo_200_200/0/1714997264999/forgepoint_capital_logo?e=2147483647&v=beta&t=M744UYGV0xrZnN_95iU2P_81vim1seccfvASIJk0idA",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/kcr8b92rm0x",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Forgepoint Capital",
+              "foundedYear": 2015,
+              "description": "Forgepoint Capital is a leading venture capital firm that invests in transformative cybersecurity, artificial intelligence, and infrastructure software companies protecting the digital future. With $1B+ AUM, the largest sector-focused investment team, and portfolio of more than 40 companies, the firm brings over 100 years of proven company-building experience and its Global Advisory Council of more than 100 leaders to support entrepreneurs advancing innovation globally. Founded in 2015 and headquartered in the San Francisco Bay Area and London, Forgepoint is proud to help category-defining companies reach their market potential and to cultivate a diverse community dedicated to backing builders of the digital future. \n\nFor more information about Forgepoint and our family of companies, visit forgepointcap.com. For all other inquiries, including investment, career, and partnership opportunities, please contact info@forgepointcap.com. Generic and automated emails will not be viewed favorably. ",
+              "workforce": {
+                "total": 75
+              },
+              "headquarters": {
+                "address": "400 S. El Camino Real, Suite 1050, San Mateo, CA 94402, US",
+                "city": "San Mateo",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 8855,
+                "countryRank": 980097,
+                "avgDurationSeconds": 13,
+                "history": [
+                  {
+                    "value": 8581,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 7143,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 9175,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 10101,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 8783,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 8855,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 11007.4,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

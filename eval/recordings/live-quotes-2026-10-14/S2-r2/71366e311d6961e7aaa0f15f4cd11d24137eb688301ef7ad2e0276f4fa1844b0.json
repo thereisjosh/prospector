@@ -1,0 +1,252 @@
+{
+  "request": {
+    "query": "Vitalize",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the exact phrase from the page that the employee estimate came from (e.g. \"350 employees\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "0c01f4fd2e2ff7b8fd8159bfdbceec10",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/ln93cwsn2kn",
+        "title": "Vitalize",
+        "url": "https://vitalize.care/",
+        "text": "# Vitalize\n\nVitalize is a Hospitals and Health Care company. Vitalize is an AI platform that unifies staffing, scheduling, flow, and capacity to replace reactivity with proactive, optimized operations. Vitalize employs 65 people (+109.7% YoY, +34 people), founded in 2021. Headquartered in San Francisco, California, United States. Its workforce is distributed across United States, Brazil, Nigeria, and Pakistan.\n\n## About\n\nOur Mission: Unlock Healthcare's Full Capacity\n\nHospitals still run their most important operations—staffing, labor planning, and capacity—on paper, spreadsheets, and guesswork. The result: thousands of wasted hours, millions in unnecessary labor spend, and frontline teams stretched thin.\n\nVitalize replaces this with intelligent, automated staffing operations to align labor supply with patient demand. Our platform gives clinical leaders real-time decision support to reduce manual work, lower labor costs, and unlock patient capacity across the enterprise.\n\nWe are trusted by top health systems across the country, and have raised > $30M from top healthcare and technology investors.\n\n## Company Details\n- Industry: Hospitals and Health Care\n- Type: Privately held\n- Headquarters: San Francisco, United States\n- Founded Year: 2021\n- Homepage: vitalize.care\n- Aliases: Vitalize Care, Inc., vitalize\n- LinkedIn: linkedin.com/company/vitalizecare\n- Linkedin Followers: 4,766\n- Emails: team@vitalize.care\n\n## Financials\n  - Seed (2023-04-05)\n  - Seed (2022-09-21)\n\n## Workforce\n- Employees: 65\n- Company Size: 11-50 employees\n  - Monthly Growth: +4.8%\n  - Yearly Growth: +109.7%\n- Key Executives:\n  - Danyel Germain DNP, RN, CHSE, FNAP: Clinical Operations Lead\n  - Dave Smith: Chief Growth Officer\n  - Gabrielle Wagner: Head of People\n  - John McDonough, MBA: Founding GTM\n  - Jon Pike: Head of Growth Operations\n  - Mark Kinsella: CTO\n  - Matt Collins: Founding Head of Sales\n  - Nikhil D'Souza: Co-Founder & Executive Technical Advisor\n  - Ricky Fletcher: Head of Growth & Partnerships\n  - Sanketh Andhavarapu: Co-Founder\n- Breakdown:\n  - By Country: United States: 44 (68%), Brazil: 2 (3%), Nigeria: 1 (2%), Pakistan: 1 (2%)\n  - By Department: Technical: 10 (15%), Consulting: 7 (11%), Operations: 7 (11%), Customer Service: 5 (8%), General Management: 5 (8%), Marketing: 3 (5%), Other Department: 3 (5%), Design: 2 (3%), Sales: 2 (3%), Hr: 1 (2%) (+3 more)\n  - By Seniority: Specialist: 13 (20%), Other Management: 12 (18%), Founder: 7 (11%), Senior: 6 (9%), Head: 5 (8%), Manager: 3 (5%), Clevel: 2 (3%)\n- Active job postings: 14\n- Talent Sources: Luma Health (3), Commure (2), The Tech Business Standard (1), Medcan (1), Larridin, Inc. (1), Capital One (1), Biogenesis (1), Ambience Healthcare (1), Amazon (1), AlohaABA (1)\n- Alumni Go To: DALI Lab (2), Y Combinator (1), Vercel (1), The Chronicle of Higher Education (1), Out-Of-Pocket (1), Meter (1), Cloaked (1), Capital One (1), Bayesian Health (1), Amazon (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: cerner, figma, intercom, kronos, linkedin, looker, nuance, palantir, react, sql, superhuman, tableau, typescript, ukg, workday, brex, zapier, json, impact, github, redis, python, vercel\n\n## Web presence\n\n- Twitter: twitter.com/vitalize_care\n- Crunchbase: crunchbase.com/organization/vitalize-care\n- Web traffic:\n  - Monthly visits: 33,435\n  - Global rank: 627,064\n  - Bounce rate: 30.0%\n  - Pages per visit: 5.5\n  - Average visit duration: 167s\n\n## Categories\n\nai platform, capacity, enterprise software, flow, health care, health/health, healthcare, predictive analytics, scheduling, staffing\n\n## Recent News\n- [2026-10-08] MedCity News: Vitalize Secures $31M To Help Hospitals Manage Labor, Capacity\n- [2026-10-07]\n  - Dealroom: Vitalize raises $31M Series A to run hospital staffing like air traffic control\n  - MobiHealthNews: Vitalize raises $31M to tackle hospital staffing\n- [2026-10-06]\n  - Business Wire: Vitalize Raises $31M Series A to Bring “Air Traffic Control” to Healthcare\n  - Fierce Healthcare: Vitalize secures $31M to scale AI-powered operating system for hospital staffing and scheduling\n- [2026-09-16] [Vitalize Behavioral Health Launches New Website to Make Mental Health Care Easier to Navigate](https://www.einpresswire.com/article/942584806/vitalize-behavioral-health-launches-new-website-to-make-mental-health-care-easier-to-navigate)\n- [2026-09-05] GetLatka: Vitalize Care Revenue 2024: $2.1M Est. ARR\n- [2026-08-28] [👔 San Francisco executive & management jobs with multiple $180K+ roles - NewsBreak](https://www.newsbreak.com/san-francisco-ca-daily-brief-373156504/4854930328657-san-francisco-executive-management-jobs-with-multiple-180k-roles)\n- [2026-08-19] Senior Housing News: Certus Living Bolsters Wellness, Memory Care With ‘Life By Design’ Philosophy\n- [2026-08-12] GetLatka: Vital Interaction Revenue 2025: $5.4M Est. ARR, $15M Raised\n- [2026-06-21] [Founding Marketer — Shape Our Founder-Led Narrative Job in San Francisco, CA at Vitalize](https://www.mediabistro.com/jobs/3540732390-founding-marketer-shape-our-founder-led-narrative)\n\n## Social\n\n### Linkedin\n\n- [2026-08-03 · 20 reactions] Please join us in welcoming Tina Li to Vitalize 🎉 ! She's helping us tackle some of the most complex design challenges in healthcare. Tina has designed across nearly every stage a company can be in...\n\n- [2026-07-28 · 56 reactions, 1 comment] Please join us in welcoming Jane Kim to Vitalize as a senior full-stack engineer! Jane joins us from Vercel, where she built through their early growth, and after that, Weekend Games. What got us e...\n\n- [2026-07-24 · 7 reactions] Excited to welcome Caroline Barker to Vitalize on our Customer Success Team! Caroline was previously at LeanTaaS, one of the most respected names in healthcare operations, where she led implementat...\n\n- [2026-06-22 · 57 reactions, 5 comments] Recently, at The Health Management Academy's CNE Forum in San Diego, we had the privilege of spending time with nursing leaders from health systems across the country. The conversations on stage fo...\n\n- [2026-05-06 · 37 reactions, 7 comments] Happy Nurses Week from all of us at Vitalize! This week we are particularly grateful for the nurses on our team. Their experience at the bedside, the operating room and everywhere in between is som...\n\n- [2026-04-03 · 118 reactions, 3 comments] Just wrapped one of the most energizing weeks I’ve had in a long time. AONL 2026 was a really good reminder of why we started Vitalize - to solve the greatest operational challenges facing nursing...\n\n- [2026-03-27 · 37 reactions, 1 comment] Calling all nursing leaders attending AONL next week! 🎉 On Wednesday, April 1st at 9:45am CT, our Co-Founder & CEO, Veeraj Shah, will be joined by some of the most accomplished nurse executives in...\n\n- [2026-02-20 · 72 reactions, 6 comments] In healthcare ops, infra performance directly impacts how fast hospitals can respond to staffing gaps. Supabase was good for early stage. It helped us move fast. But as we scaled across major healt...\n\n- [2026-01-30 · 4 reactions] We're #hiring a Senior Software Engineer in San Francisco, California. Apply today or share this post with your network.\n\n- [2026-01-14 · 9 reactions, 1 comment] Welcome to the team Anna Fabrizio!\n\n- [2025-12-23 · 137 reactions, 2 comments] Building a company teaches you a lot of things you do not expect. The biggest one for me: outcomes compound from people, not ideas, not capital, not timing. This team shows up with ownership. They...\n\n- [2025-12-22 · 242 reactions, 19 comments] Our team at Vitalize is growing fast - our team photos can't even keep up 🥲 We're building towards a world where hospital operations are safe, autonomous, fair, and cost-effective. Hiring for the f...\n\n- [2025-12-13 · 43 reactions, 3 comments] We're building the OS for hospitals at Vitalize and we're looking at scale our engineering team in a big way in 2026 If any of these excite you, DMs are open! - recommendation systems - forward dep...\n\n## Locations\n- Headquarters: san francisco, california, united states (US)\n- Offices: san francisco, california, united states (US)",
+        "summary": "{\"description\":\"Vitalize is an AI platform that unifies staffing, scheduling, flow, and capacity to replace reactivity with proactive, optimized hospital operations.\",\"employee_estimate\":65,\"employee_estimate_source\":\"Employees: 65\",\"hiring_first_ops_or_revops\":false,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"San Francisco, United States\",\"hq_quote\":\"Headquartered in San Francisco, California, United States.\",\"industry\":\"Hospitals and Health Care\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Vitalize is a Hospitals and Health Care company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"they have raised > $30M from top healthcare and technology investors.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQHHkAjKzAf0nQ/company-logo_200_200/B56Z.LyIyhGQAI-/0/1784756604360/vitalizecare_logo?e=2147483647&v=beta&t=WunYnkjzZyBm2HH_7WVo9u51AuzShVOJ3nx1-OYny7Q",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/ln93cwsn2kn",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Vitalize",
+              "foundedYear": 2021,
+              "description": "Our Mission: Unlock Healthcare's Full Capacity\n\nHospitals still run their most important operations—staffing, labor planning, and capacity—on paper, spreadsheets, and guesswork. The result: thousands of wasted hours, millions in unnecessary labor spend, and frontline teams stretched thin.\n\nVitalize replaces this with intelligent, automated staffing operations to align labor supply with patient demand. Our platform gives clinical leaders real-time decision support to reduce manual work, lower labor costs, and unlock patient capacity across the enterprise.\n\nWe are trusted by top health systems across the country, and have raised > $30M from top healthcare and technology investors. ",
+              "workforce": {
+                "total": 65
+              },
+              "headquarters": {
+                "address": "832 Sansome St, Lower Level, San Francisco, California 94111, US",
+                "city": "San Francisco",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": null,
+                "fundingLatestRound": {
+                  "name": "Seed",
+                  "date": "2023-04-05",
+                  "amount": null
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 33435,
+                "countryRank": 165773,
+                "avgDurationSeconds": 167,
+                "history": [
+                  {
+                    "value": 29620,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 25218,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 14646,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 12727,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 25691,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 33435,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/yq0nmb0b9ml",
+        "title": "Vitalize",
+        "url": "https://vitalize.dev/",
+        "text": "# Vitalize\n\nVitalize is a Software Development company. Vitalize is a team of talented engineers dedicated to creating cutting-edge software solutions, automation systems, and digital experiences that transform businesses and drive innovation. Vitalize employs 4 people (-20.0% YoY, -1 person), founded in 2020. Headquartered in Falls Church, Virginia, United States. Its workforce is distributed across United States, Canada, and Iran.\n\n## About\n\nWelcome to Vitalize! 🚀\n\nAt Vitalize, we specialize in dynamic website design, innovative software solutions, and strategic consulting to elevate your digital presence. Our team of experts crafts bespoke websites and agile software solutions tailored to your unique needs. With a focus on creativity and technical excellence, we guide you through the digital landscape, providing ongoing support to ensure your success. Let's revitalize your online presence together!\n\n## Company Details\n- Industry: Software Development\n- Type: Self-owned\n- Headquarters: Falls Church, United States\n- Founded Year: 2020\n- Homepage: vitalize.dev\n- Aliases: vitalize\n- LinkedIn: linkedin.com/company/vitalizellc\n- Linkedin Followers: 8\n\n## Workforce\n- Employees: 4\n- Company Size: 1-10 employees\n  - Yearly Growth: -20.0%\n- Key Executives:\n  - Arian Amini: Founder\n- Breakdown:\n  - By Country: United States: 2 (50%), Canada: 1 (25%), Iran: 1 (25%)\n  - By Department: Customer Service: 1 (25%), Design: 1 (25%), General Management: 1 (25%), Technical: 1 (25%)\n  - By Seniority: Specialist: 2 (50%), Founder: 1 (25%), Senior: 1 (25%)\n- Talent Sources: Iran University of Science and Technology (1), Chateauguay Valley Regional High School (1), Amazon (1)\n- Alumni Go To: SS&C Technologies (1)\n\n## Web presence\n\n- GitHub: github.com/f4ran\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Categories\n\nautomation solutions, automation systems, custom website development, digital experiences, innovation, mobile app development, software solutions, team, technology/software, ui/ux design expertise\n\n## Recent News\n- [2026-10-09] PYMNTS.com: Vitalize Secures $31 Million to Address Healthcare’s Staffing Chaos\n- [2026-10-08] MedCity News: Vitalize Secures $31M To Help Hospitals Manage Labor, Capacity\n- [2026-10-07]\n  - InfotechLead: VC funding deals: Turba Labs, Hadrian, Vitalize\n  - Dealroom: Vitalize raises $31M Series A to run hospital staffing like air traffic control\n  - MobiHealthNews: Vitalize raises $31M to tackle hospital staffing\n- [2026-10-06]\n  - Pulse 2.0: Vitalize Raises $31 Million Series A To Expand AI Healthcare Operations Platform\n  - TradingView: Vitalize Raises $31M Series A To Bring “Air Traffic Control” To Healthcare\n  - HIT Consultant: Vitalize Raises $31M to Scale Real-Time Hospital Workforce and Capacity AI\n  - Fierce Healthcare: Vitalize secures $31M to scale AI-powered operating system for hospital staffing and scheduling\n- [2026-09-28] Hits Daily Double: Derrick Milano Signs With Vitalize Records\n- [2026-09-09] CelebrityAccess: Vanderpump Rules’ Natalie Maguire Signs With Vitalize Records\n- [2026-09-05] GetLatka: Vitalize Care Revenue 2024: $2.1M Est. ARR\n- [2026-08-12] Hits Daily Double: Mia Hayward \\(Vitalize\\)\n- [2026-07-24] Yahoo: Stanley’s new Vitalize Tempo Bottle weighs just 0.95 pounds, keeps drinks icy cold for 30 hours\n- [2026-04-04] Yahoo\\! Finance Canada: VitalRIZE Claims Evaluated: The Max Vitalize Virility Enhancement Support Supplement for Men\n- [2026-03-28] Bangladesh Sangbad Sangstha \\(BSS\\): PM issues directives to BNP MPs to vitalize parliament\n\n## Locations\n- Headquarters: falls church, virginia, united states (US)\n- Offices: falls church, virginia, united states (US)",
+        "summary": "{\"description\":\"Vitalize is a Software Development company delivering cutting-edge software solutions, automation systems, and digital experiences for businesses.\",\"employee_estimate\":4,\"employee_estimate_source\":\"From Workforce: Employees: 4; Company Size: 1-10 employees\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Falls Church, Virginia, United States\",\"hq_quote\":\"Headquartered in Falls Church, Virginia, United States.\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Vitalize is a Software Development company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Recent News: [2026-10-07] InfotechLead: VC funding deals: Turba Labs, Hadrian, Vitalize; [2026-10-06] Pulse 2.0: Vitalize Raises $31 Million Series A To Expand AI Healthcare Operations Platform; [2026-10-06] TradingView: Vitalize Raises $31M Series A To Bring “Air Traffic Control” To Healthcare; [2026-10-06] HIT Consultant: Vitalize Raises $31M to Scale Real-Time Hospital Workforce and Capacity AI; [2026-10-06] Fierce Healthcare: Vitalize secures $31M to scale AI-powered operating system for hospital staffing and scheduling\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4D0BAQGy2_Fg6ljbuA/company-logo_200_200/company-logo_200_200/0/1708186162695/vitalizellc_logo?e=2147483647&v=beta&t=awcNH0NrvXhGauXLfvcyuSmXrx7wWdc2EiXTOUo6DQE",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/yq0nmb0b9ml",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Vitalize",
+              "foundedYear": 2020,
+              "description": "Welcome to Vitalize! 🚀\n\nAt Vitalize, we specialize in dynamic website design, innovative software solutions, and strategic consulting to elevate your digital presence. Our team of experts crafts bespoke websites and agile software solutions tailored to your unique needs. With a focus on creativity and technical excellence, we guide you through the digital landscape, providing ongoing support to ensure your success. Let's revitalize your online presence together!",
+              "workforce": {
+                "total": 4
+              },
+              "headquarters": {
+                "address": "7735 Inversham Dr, Falls Church, Virginia 22042, US",
+                "city": "Falls Church",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 0,
+                    "dateFrom": "2024-09",
+                    "dateTo": "2024-09"
+                  },
+                  {
+                    "value": 74,
+                    "dateFrom": "2026-01",
+                    "dateTo": "2026-01"
+                  },
+                  {
+                    "value": 74,
+                    "dateFrom": "2026-02",
+                    "dateTo": "2026-02"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 8994.2,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

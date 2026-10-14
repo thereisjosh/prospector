@@ -1,0 +1,197 @@
+{
+  "request": {
+    "query": "YMX Logistics",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the exact phrase from the page that the employee estimate came from (e.g. \"350 employees\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "693fc8b68e5be21c2229e98a07f119b2",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/7s56br9ydk4",
+        "title": "YMX Logistics",
+        "url": "https://ymxlogistics.com/",
+        "text": "# YMX Logistics\n\nYMX Logistics is a Transportation, Logistics, Supply Chain and Storage company. YMX Logistics offers EV yard trucks, trailer rental, gate management, spotting, and yard management services tailored to your business needs. YMX Logistics employs 164 people (+131.0% YoY, +93 people), founded in 1982. Headquartered in Henderson, Nevada, United States. Its workforce is distributed across United States and Canada.\n\n## About\n\nYMX Logistics is defining a new industry standard for enterprise yard operations.\n\nYMX specializes in sustainable, optimized enterprise yard and transportation services and solutions for all-sized yards across retail, manufacturing, and distribution sectors — from spotting and shuttling to gate management and trailer pooling.\n\nYMX's leadership team has decades of proven expertise across shippers, leading Silicon Valley companies, and top-tier consulting firms to provide reliable, high-performance services, all while lowering the total cost of your operations.\n\nYMX's deep understanding of the operational challenges from multiple perspectives and its commitment to operational excellence, sustainability, and implementing cutting-edge technology, makes us your go-to partner for enterprises seeking world-class yard logistics solutions.\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Privately held\n- Headquarters: Henderson, United States\n- Founded Year: 1982\n- Homepage: ymxlogistics.com\n- Aliases: ymx logistics\n- LinkedIn: linkedin.com/company/ymxlogistics\n- Linkedin Followers: 14,588\n- Emails: info@ymxlogistics.com\n- Phone: 1.800.558.9200, 800.558.92, 8005589200, •%20phone:%20+1.800.558.9200<br>\n\n## Acquisitions\n- Acquired Yard Commander (2025-01-21)\n\n## Workforce\n- Employees: 164\n- Company Size: 201-500 employees\n  - Monthly Growth: +1.2%\n  - Yearly Growth: +131.0%\n- Key Executives:\n  - Aaron Barnhard: Head of YMS Engineering\n  - Adam Buttgenbach: VP Fleet Strategy & Loss Prevention\n  - Adam Colon: Head of Operations - Midwest\n  - Amy Teague: Senior Director Customer Engagement\n  - Austin Mead: Director of FP&A\n  - Cathy Hudgins: LEAD SPOTTER\n  - Chris Herrman, CPA: Chief Financial Officer\n  - Greg Isbell: Vice President Human Resources\n  - Jeff Hiller: Vice President of Product Management\n  - Jim Magnus: Vice President of Customer Success\n- Breakdown:\n  - By Country: United States: 76 (46%), Canada: 1 (1%)\n  - By Department: Operations: 40 (24%), Trades: 7 (4%), Customer Service: 6 (4%), Finance: 5 (3%), Sales: 5 (3%), General Management: 4 (2%), Hr: 3 (2%), Other Department: 2 (1%), Project Management: 2 (1%), Consulting: 1 (1%) (+3 more)\n  - By Seniority: Manager: 31 (19%), Specialist: 17 (10%), Vp: 8 (5%), Director: 7 (4%), Other Management: 6 (4%), Clevel: 3 (2%), Head: 3 (2%), Senior: 3 (2%)\n- Active job postings: 3\n- Talent Sources: Kutzler Express, a YMX Logistics company (4), Kraft Heinz (4), Amazon (3), S&C Electric Company (2), Lazer Logistics (2), J.B. Hunt Transport Services, Inc. (2), VentureSoftPM (1), Refresco (1), Metro One Security (1), Echo Global Logistics (1)\n- Alumni Go To: US Army (1), Titus Transport (1), The Sawyer Collective (1), Quick Mobility Solutions (1), Intelligent Audit (1), Integrity PSC (1), IQDox (1), Harris Golf Cars (1), Diverse Technology Industrial, Inc. (1), CPC Logistics Solutions (1)\n\n## Products & Technology\n- Tech Stack: ca ideal, elastic, java, laravel, lytx, microsoft, php, postgresql, python, ramp, recognize, ruby, samsara, sched, tenstreet, typescript, microsoft office, gps, oracle, google analytics, hubspot, linkedin, linkedin ads, ecm, adp, amp, impact, medium, ups, well, google cloud, hubspot crm, microsoft azure, sap ariba, spring\n\n## Web presence\n\n- YouTube: youtube.com/channel/ucz0ipylnxgozswjtlxgaorw\n- Crunchbase: crunchbase.com/organization/ymx-logistics\n- Web traffic:\n  - Monthly visits: 4,366\n  - Global rank: 4,067,358\n  - Bounce rate: 67.0%\n  - Pages per visit: 1.7\n  - Average visit duration: 26s\n\n## Categories\n\ngate management, logistics, logistics technology, shutting, shuttling, spotting, supply chain management, trailer pooling, trailer rental, transportation, yard hostler, yard jockey, yard logistics, yard management\n\n## Recent News\n- [2026-10-01] PR Newswire: YMX Logistics and Outrider Establish Strategic Partnership to Accelerate Autonomous Yard Operations\n- [2026-09-30] PR Newswire: YMX Named to FreightWaves' FreightTech 100 for Innovation in Yard Logistics\n- [2026-09-15]\n  - PR Newswire: [Former SC Johnson Leader Michael Lucas Joins YMX Logistics](https://finance.yahoo.com/small-business/articles/former-sc-johnson-leader-michael-124300769.html)\n  - [Michael Lucas Takes Helm as COO of YMX Logistics to Drive Supply Chain Transformation - Third News](https://third-news.com/article/308b85b2-b108-11f1-bde4-9ca3ba08e13f)\n- [2026-08-18] Yahoo Finance: YMX's Adam Buttgenbach Honored as Fleet Innovator Amid Growing Focus on Optimized and Autonomous Yard Operations\n- [2026-07-09] [YMX Logistics names fleet strategy, loss prevention leader \\| Trucking Dive](https://www.truckingdive.com/news/ymx-logistics-names-fleet-strategy-loss-prevention-leader/824653/)\n- [2026-07-08] AOL.com: YMX Logistics Named a 2026 G75 Green Supply Chain Partner by Inbound Logistics\n- [2026-07-06] [PepsiCo Fleet executive joins YMX Logistics - TheTrucker.com](https://www.thetrucker.com/trucking-news/business/pepsico-fleet-executive-joins-ymx-logistics)\n- [2026-06-25] [New CCTV image released in long running trailer theft investigation \\| YorkMix \\| YorkMix](https://www.yorkmix.com/new-cctv-image-released-in-long-running-trailer-theft-investigation)\n- [2026-06-22] [ACT News Talks Tech: Matt Yearling of YMX Logistics on Yard Operations, EVs, and Value Creation](https://www.act-news.com/news/talks-tech-interview-with-ymx-logistics/)\n- [2026-06-17] [L’ancien responsable de la transformation des flottes de PepsiCo rejoint YMX Logistics](https://www.voxlog.fr/actualite/10980/l-ancien-responsable-de-la-transformation-des-flottes-de-pepsico-rejoint-ymx-logistics)\n- [2025-11-02] Yahoo Finance: YMX Logistics Named Winner in Top Company for Women to Work Award from Women in Trucking Association\n- [2025-08-12] PR Newswire: Chris Herrman Joins YMX Logistics as Chief Financial Officer\n- [2025-06-23] PR Newswire: YMX Logistics COO Erin Mitchell Honored Among Top Women in Logistics by Global Trade Magazine\n- [2025-06-10]\n  - Morningstar.com: /C O R R E C T I O N — YMX Logistics/\n  - PR Newswire: YMX Logistics Named to Shortlist for The Supply Chain Operations Award from the Supply Chain Excellence Awards\n- [2025-05-27] PR Newswire: YMX Logistics Named Finalist in Top Companies for Women to Work Award\n- [2025-05-08] SuperbCrew: An Interview With Matt Yearling, CEO At YMX Logistics\n- [2025-04-09] WV News: YMX Logistics COO Named 2025 Top Women to Watch in Transportation by Women in Trucking Association\n- [2025-04-03] YMX Logistics, LLC: YMX Logistics CEO Speaking on Panel at ACT Expo on the Electrification of Yard Operations\n- [2025-03-25] PR Newswire: YMX Logistics CEO Named Recipient of 2025 Pros to Know Award from Supply & Demand Chain Executive\n\n## Social\n\n### Linkedin\n\n- [2026-10-01 · Posted · 68 reactions] [YMX Logistics doubles down on autonomy through a new strategic...](https://www.linkedin.com/posts/ymxlogistics_ymx-logistics-doubles-down-on-autonomy-through-activity-7511424810925686785-C-ZX)\n  > YMX Logistics doubles down on autonomy through a new strategic partnership with Outrider.\n  >\n  > This five-year, non-exclusive commercial agreement creates a turnkey path for YMX's customers to deploy and scale self-driving, zero-emission yard trucks.\n  >\n  > \"Outrider's self-driving yard trucks are a strategic addition to our Autonomous Yard Operating System, expanding how we use technology to execute yard operations and create value for our customers.\" – Matt Yearling, CEO, YMX Logistics\n  >\n  > Under the agreement, YMX will lead customer implementations, finance and operate the self-driving fleets, and provide on-site support. Outrider will support deployments and provide ongoing remote monitoring and technical support.\n  >\n  > Read the full announcement to learn more: https://lnkd.in/gGV8d927\n\n- [2026-09-30 · Posted · 12 reactions] [Cargo theft is getting more expensive and more frequent. In 2025...](https://www.linkedin.com/posts/ymxlogistics_stop-cargo-theft-starting-in-the-yard-activity-7511062993372299264-4OQy)\n  > Cargo theft is getting more expensive and more frequent. In 2025, it was an estimated $725 million problem for shippers and it's not slowing down.\n  >\n  > In this edition of #PowerMoves, we'll discuss the growing opportunity to prevent cargo theft starting in the yard, where stronger operational discipline, real-time visibility, and AI-powered decision-making can help prevent losses before they happen.\n  >\n  > Prefer to receive this newsletter directly in your inbox? Subscribe, here: https://lnkd.in/gMzD_sBZ\n\n- [2026-09-29 · Posted · 28 reactions] [YMX Logistics has been named to the FreightTech 100, signaling a...](https://www.linkedin.com/posts/ymxlogistics_ymx-logistics-has-been-named-to-the-freighttech-activity-7510692386021486593-vNoF)\n  > YMX Logistics has been named to the FreightTech 100, signaling a strategic inflection point for yard operations.\n  >\n  > Now in it's eighth year, the annual list from FreightWaves recognizes the most innovative and influential supply chain companies. YMX joins one of the fastest-growing categories in 2027 alongside six other companies focused on Yard, Dock and Warehouse solutions.\n  >\n  > “Enterprise shippers realize that yards are an area of opportunity within their logistics network. Technology can improve visibility, but it takes the right mix of people, equipment and operational expertise to turn that visibility into better outcomes.” – Matt Yearling, CEO of YMX Logistics\n  >\n  > Read the announcement and see the full list of companies, here: https://hubs.la/Q04ywt_f0\n\n- [2026-09-25 · Reshared · 6 reactions] [Hope to see some of you in Nashville at CSCMP’s EDGE Supply Chain...](https://www.linkedin.com/posts/ymxlogistics_hope-to-see-some-of-you-in-nashville-at-cscmp-activity-7509263899918221312-wWTm): Hope to see some of you in Nashville at CSCMP’s EDGE Supply Chain Conference & Exhibition™!\n\n- [2026-09-25 · Posted · 5 reactions] [We're #hiring a new Operations Supervisor in Stockton, California...](https://www.linkedin.com/posts/ymxlogistics_hiring-activity-7509212270694998016-npXO)\n  > We're #hiring a new Operations Supervisor in Stockton, California. Apply today or share this post with your network.\n\n- [2026-09-24 · Posted · 17 reactions] [Over 25% of the #YMX fleet is EVs and that number is expanding...](https://www.linkedin.com/posts/ymxlogistics_ymx-electrification-activity-7508920566846943233-ZpER)\n  > Over 25% of the #YMX fleet is EVs and that number is expanding rapidly, supporting new research from North American Council for Freight Efficiency (NACFE).\n  >\n  > \"Four years ago, electric terminal tractors were a pilot bet. Today they are a proven option for a growing number of fleets and buyers.\"\n  >\n  > Like the other companies surveyed, YMX Logistics has seen real economic gains alongside other sustainability benefits. The best part? It puts our customers on the path toward autonomy and the future of yard operations.\n  >\n  > Download a copy of the report to learn more about the current state of #electrification, here: https://hubs.la/Q04ydDtn0\n\n- [2026-09-23 · Posted · 18 reactions] [Autonomous yard trucks can move trailers. But they can't fix an...](https://www.linkedin.com/posts/ymxlogistics_how-to-build-a-strong-foundation-for-autonomous-activity-7508510545562701824-77YO)\n  > Autonomous yard trucks can move trailers. But they can't fix an inefficient yard or siloed decision-making.\n  >\n  > The fastest path to autonomous yard operations starts with operational consistency. Before you automate the work, standardize how the work is done.\n  >\n  > In this post, Jeff Hiller, VP of Product at YMX Logistics, explains why the journey to autonomous yard operations starts long before the first self-driving truck is delivered and how to build a future-proof autonomous foundation.\n  >\n  > Read Jeff's perspective, here: https://hubs.la/Q04y5gks0\n\n- [2026-09-22 · Posted · 13 reactions] [Inefficient yards aren't just a software problem. You also need...](https://www.linkedin.com/posts/ymxlogistics_ymxlogistics-activity-7508141081960648704-GNAB)\n  > Inefficient yards aren't just a software problem. You also need cross-functional connectivity and the people and assets to actually drive results.\n  >\n  > YMX's Matt Yearling and Einride's Adam Osborn, CSCP explain a more productive way to view technology and build a culture of continuous improvement to modernize over the road freight and yard operations.\n  >\n  > Listen to the full episode of Talent for Technology, here: https://hubs.la/Q04x_YDs0\n  >\n  > Thank you, Cecilia George and Raghu Narasimhan, for having #YMXLogistics on your first episode!\n\n- [2026-09-22 · Posted · 9 reactions] [We're #hiring a new Driving Instructor in Greater Chattanooga...](https://www.linkedin.com/posts/ymxlogistics_hiring-activity-7508127867357044737-Y_BJ)\n  > We're #hiring a new Driving Instructor  in Greater Chattanooga. Apply today or share this post with your network.\n\n- [2026-09-21 · Posted · 14 reactions] [Rethinking EV yard trucks? Electrification isn't just about...](https://www.linkedin.com/posts/ymxlogistics_sustainability-fleetstrategy-transportationstrategy-activity-7507835703183994880-ndBg)\n  > Rethinking EV yard trucks? Electrification isn't just about #sustainability, it's also an effective strategy to navigate cost volatility.\n  >\n  > For years, many companies treated diesel as a manageable operating cost. Important, yes. Strategic, not really. With national diesel averages hitting an all-time high last week, that assumption looks weaker today than it did even earlier this year.\n  >\n  > Explore the implications of moving to EV and AV alternatives for your fleet, here: https://lnkd.in/eAqJGmiQ/?utm_campaign=Boost_Post_WebsiteVisits_Sep21,2026&utm_source=linkedin&utm_medium=paid&utm_id=1225562343&hsa_acc=513417215&hsa_cam=1225562343&hsa_grp=891344183&hsa_ad=1558269873&hsa_net=linkedin&hsa_ver=3\n  >\n  > #fleetstrategy #transportationstrategy #diesel #electrification #yardoperations\n\n- [2026-09-21 · Posted · 2 reactions] [We're #hiring a new Driving Instructor in Atlanta Metropolitan...](https://www.linkedin.com/posts/ymxlogistics_hiring-activity-7507762012655923200-IaoN)\n  > We're #hiring a new Driving Instructor  in Atlanta Metropolitan Area. Apply today or share this post with your network.\n\n- [2026-09-18 · Posted · 21 reactions] [Every week should be #TruckDriverAppreciationWeek! It's so easy to...](https://www.linkedin.com/posts/ymxlogistics_truckdriverappreciationweek-ymxers-powermoves-activity-7506723591737171969-lRfP)\n  > Every week should be #TruckDriverAppreciationWeek! It's so easy to celebrate the people that keep our world moving.\n  >\n  > Thank you to all the #YMXers that were part of making the festivities happen this week. And to all of our drivers, we hope you know how much we appreciate you — every week of the year. Let's keep the momentum going! 🚀\n  >\n  > #powermoves #YMX #NTDAW #thankadriver #yardoperations #yardmanagement\n\n- [2026-09-17 · Posted · 17 reactions] [How do you move freight more efficiently, from the road to the...](https://www.linkedin.com/posts/ymxlogistics_how-do-you-move-freight-more-efficiently-activity-7506321581476941824-cBw7)\n  > How do you move freight more efficiently, from the road to the yard, and what talent do you need to make it happen?\n  >\n  > YMX's Matt Yearling joined Adam Osborn, CSCP, Raghu Narasimhan and Cecilia George to discuss the realities of modernizing freight and yard operations — from electric and autonomous technology to the legacy systems, processes and skills that actually shape adoption.\n  >\n  > Watch the full episode, here: https://hubs.la/Q04xGTWl0\n  >\n  > And be sure to subscribe to Talent for Technology wherever you listen to podcasts.\n\n- [2026-09-15 · Posted · 134 reactions] [Big news: Michael Lucas, MBA has joined #YMX to help redefine the...](https://www.linkedin.com/posts/ymxlogistics_ymx-activity-7505596348407148544-37kx)\n  > Big news: Michael Lucas, MBA has joined #YMX to help redefine the future of yard operations for enterprise shippers.\n  >\n  > As Chief Operating Officer, Michael will lead operational strategy and execution across YMX's nationwide network while helping our customers navigate the next era of supply chain transformation.\n  >\n  > \"The logistics industry is entering a period of significant transformation, and the companies that win will be the ones that can integrate day-to-day operations with the right technologies to deliver reliable business outcomes,\" explained Matt Yearling, CEO of YMX Logistics. \"Michael's experience and perspective will be invaluable as YMX scales and creates even greater value for our customers.\"\n  >\n  > Prior to YMX, Michael led logistics and distribution operations at SC Johnson, Kraft Heinz, HMH and Uline.\n  >\n  > Read the full announcement, here: https://hubs.la/Q04xtFbk0\n\n- [2026-09-14 · Posted · 18 reactions] [We know that a better yard makes a better day. And it's why we do...](https://www.linkedin.com/posts/ymxlogistics_ymx-activity-7505337616125550592-duax)\n  > We know that a better yard makes a better day. And it's why we do what we do at #YMX.\n  >\n  > From the road to the receiving dock and everywhere in between, we appreciate the hardworking people that keep freight moving, yards running, and supply chains connected.\n  >\n  > Happy National Truck Driver Appreciation Week from all of us at YMX Logistics!\n\n- [2026-09-12 · Posted · 4 reactions] [We're #hiring a new Driving Instructor in Kenosha, Wisconsin. Apply...](https://www.linkedin.com/posts/ymxlogistics_hiring-activity-7504500917128323072-L1hP)\n  > We're #hiring a new Driving Instructor  in Kenosha, Wisconsin. Apply today or share this post with your network.\n\n- [2026-09-11 · Posted · 15 reactions] [At #YMX, we believe exceptional service starts with exceptional...](https://www.linkedin.com/posts/ymxlogistics_ymx-activity-7504170040041078784-0l2v)\n  > At #YMX, we believe exceptional service starts with exceptional people. We're growing our team and looking for individuals who are curious, accountable, and ready to make an impact.\n  >\n  > Learn more and apply, here: https://hubs.la/Q04x5Rzc0\n\n- [2026-09-10 · Posted · 12 reactions] [The yard may be the smallest part of day-to-day operations, but it...](https://www.linkedin.com/posts/ymxlogistics_yms-ai-activity-7503846135510413312-moKw)\n  > The yard may be the smallest part of day-to-day operations, but it has an outsized impact on the broader logistics ecosystem.\n  >\n  > \"Yard inefficiencies aren't just tech problems; they're system problems. Without a well-run yard, even heavily automated warehouse and transportation operations won't hit their OTIF targets.\" – Bart A. De Muynck\n  >\n  > This is why we’re seeing greater investment in #YMS, #AI, and operational standardization to close the gap between warehouse and transportation operations. Because when trailers can't be found, drivers are delayed, or receiving operations become disconnected, OTIF suffers long before a shipment leaves the facility.\n  >\n  > Read the full article from Logistics Management Magazine, here: https://hubs.la/Q04wLD8R0\n\n- [2026-09-09 · Posted · 27 reactions] [The next frontier of fleet management isn't on the road. It's in...](https://www.linkedin.com/posts/ymxlogistics_the-next-frontier-of-fleet-management-isnt-activity-7503452203228073984-l8dn)\n  > The next frontier of fleet management isn't on the road. It's in the yard. And it’s closer than you might think.\n  >\n  > YMX's Adam Buttgenbach shares why the industry's focus is ",
+        "summary": "{\"description\":\"YMX Logistics is a Transportation, Logistics, Supply Chain and Storage company. YMX Logistics offers EV yard trucks, trailer rental, gate management, spotting, and yard management services tailored to your business needs.\",\"employee_estimate\":164,\"employee_estimate_source\":\"Employees: 164\",\"hq\":\"Headquartered in Henderson, Nevada, United States.\",\"hq_quote\":\"Headquartered in Henderson, Nevada, United States.\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":null,\"is_third_party_logistics_quote\":\"\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQEHROsHYfx38A/company-logo_200_200/company-logo_200_200/0/1708303484663/ymx_logistics_logo?e=2147483647&v=beta&t=CxAbEgjTNvY9hCvr6usXRs9d5TUu97sS0MODHZhg8Zs",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/7s56br9ydk4",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "YMX Logistics",
+              "foundedYear": 1982,
+              "description": "YMX Logistics is defining a new industry standard for enterprise yard operations.\n\nYMX specializes in sustainable, optimized enterprise yard and transportation services and solutions for all-sized yards across retail, manufacturing, and distribution sectors — from spotting and shuttling to gate management and trailer pooling.\n\nYMX's leadership team has decades of proven expertise across shippers, leading Silicon Valley companies, and top-tier consulting firms to provide reliable, high-performance services, all while lowering the total cost of your operations.\n\nYMX's deep understanding of the operational challenges from multiple perspectives and its commitment to operational excellence, sustainability, and implementing cutting-edge technology, makes us your go-to partner for enterprises seeking world-class yard logistics solutions.",
+              "workforce": {
+                "total": 164
+              },
+              "headquarters": {
+                "address": "Henderson, Nevada, United States",
+                "city": "Henderson",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 4366,
+                "countryRank": 1274133,
+                "avgDurationSeconds": 26,
+                "history": [
+                  {
+                    "value": 2900,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 2645,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 4186,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 6348,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 5264,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 4366,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/xt2q2j49x4y",
+        "title": "Kutzler Express, a YMX Logistics company",
+        "url": "https://kutzlerexpress.com/",
+        "text": "# Kutzler Express, a YMX Logistics company\n\nKutzler Express, a YMX Logistics company is a Transportation, Logistics, Supply Chain and Storage company. Kutzler Express, a YMX Logistics company employs 47 people (+2.2% YoY, +1 person) and has an annual revenue of $13.5M, founded in 1929. Headquartered in Kenosha, Wisconsin, United States.\n\n## About\n\nLeading yard logistics, spotting & shuttling, and truckload provider in the Midwest is now part of YMX Logistics.\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Privately held\n- Headquarters: Kenosha, United States\n- Founded Year: 1929\n- Homepage: kutzlerexpress.com\n- Aliases: kutzler express, kutzler express, a ymx logistics company, kutzler express, inc.\n- LinkedIn: linkedin.com/company/kutzlerexpress\n- Linkedin Followers: 395\n- Phone: 1-262-857-7945\n\n## Financials\n- Annual Revenue: USD 13,461,076\n\n## Workforce\n- Employees: 47\n- Company Size: 51-200 employees\n  - Monthly Growth: +2.2%\n  - Yearly Growth: +2.2%\n- Key Executives:\n  - Brian Vaccaro: Chief Financial Officer\n- Breakdown:\n  - By Country: United States: 12 (26%)\n  - By Department: Trades: 6 (13%), Operations: 5 (11%), Finance: 1 (2%)\n  - By Seniority: Specialist: 8 (17%), Manager: 3 (6%), Clevel: 1 (2%), Other Management: 1 (2%)\n- Talent Sources: Central Transport (2), All Modes Inc (2), Test Prep Seminars (1), T.H. Ryan Cartage Co. (1), RJ Schinner Co., Inc. (1), PepsiCo (1), Pellitteri Waste Systems (1), McMahon Carriers Inc. (1), Kohler Co. (1), KENOSHA COUNTY SCOUT LEADERS RESCUE SQUAD INC (1)\n- Alumni Go To: YMX Logistics (4), Saia Inc. (1), Rust-Oleum Corporation (1), Racine County (1), McLane Company, Inc. (1), Hirschbach (1), Fort Transportation & Svc. Co. Inc. (1), City of Kenosha (1), Casey's (1)\n\n## Web presence\n\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Categories\n\nbulk services, dedicated services, edi capabilities, eld monitoring, gate management, local on-demand services, local services, regional services, satellite tracking, security, spotter & shuttling services, spotting and shuttling, trailer rental, transportation services, yard logistics, yard management system\n\n## Competitors\n\nhartley transportation\n\n## Recent News\n- [2026-08-17]\n  - [YMX's Adam Buttgenbach Honored as Fleet Innovator Amid Growing Focus on Optimized and Autonomous Yard Operations](https://ca.finance.yahoo.com/news/ymxs-adam-buttgenbach-honored-fleet-123400987.html)\n  - [YMX Logistics' Adam Buttgenbach Recognized as Innovative Fleet Leader in a Tech-Driven Era - Third News](https://third-news.com/article/de239ca0-9a38-11f1-9a99-9ca3ba08e13f)\n- [2026-07-28] [YMX Logistics Wins Supply Chain AI Excellence Award](https://finance.yahoo.com/technology/ai/articles/ymx-logistics-wins-supply-chain-131000830.html)\n- [2026-07-24] [YMX Logistics Reduced a Grocery Distributor’s Yard Fleet by 36% With Its Autonomous Yard Operating System](https://finance.yahoo.com/technology/ai/articles/ymx-logistics-reduced-grocery-distributor-140911494.html)\n\n## Social\n\n### Linkedin\n\n- [2025-05-29 · 27 reactions, 1 comment] The first edition of our Power Moves newsletter just dropped. It features exclusive insights from Bart A. De Muynck — industry expert and former VP of Research at Gartner — and so much more. Here i...\n\n- [2025-05-27 · 41 reactions] The Real Cost of Yard Inefficiencies for Enterprise Shippers Inefficiencies in yard operations used to go unnoticed, but leading food shippers are rethinking their approach and using yard operation...\n\n- [2025-05-15 · 28 reactions] Next week, join industry analyst Bart de Muynck, Chris Sultemeier, former EVP Logistics at Walmart, and Matt Yeartling, CEO at YMX Logistics, as they discuss how enterprise yard operations have bec...\n\n- [2025-04-22 · 28 reactions] This #EarthDay, we’re proud to drive the logistics industry toward a cleaner, smarter future with YMX OS—the first #YardOperatingSystem. Next week at ACT Expo / ACT News, our CEO Matt Yearling will...\n\n- [2025-04-22 · 42 reactions, 1 comment] Orange EV's CEO, Wayne Mathisen, shares his perspectives on how the YMX + Orange EV partnership powers the next generation of enterprise yard operations. “Our collaboration with YMX Logistics repre...\n\n- [2025-04-07 · 48 reactions, 4 comments] YMX COO, Erin Mitchell, had the pleasure to speak to Marina Mayer, Editor-in-Chief, Food Logistics and Supply & Demand Chain Executive, about leadership, career, sustainability, AI and, of course,...\n\n- [2025-04-02 · 58 reactions, 2 comments] YMX is redefining optimization and sustainability for Enterprise Shippers. To schedule a time with our team at ACT Expo / ACT News or have a question, visit https://lnkd.in/gVz8sQbY Also, make sure...\n\n- [2025-03-27 · 20 reactions, 2 comments] 🚨 #powermover alert! 30+ years on the road. Thousands of miles. Zero shortcuts. Don Schwartz has been a professional driver for over 30 years. He’s brought his experience, professionalism, and unwa...\n\n- [2025-03-21 · 40 reactions] That’s a wrap on #ProMat2025! Our team just returned from an incredible week in Chicago, connecting with customers, future customers, and strategic partners at one of the industry’s most important...\n\n- [2025-03-17 · 31 reactions, 1 comment] YMX Logistics introduces YMX OS, the first Yard Operating System for enterprise shippers. “With YMX OS, we are redefining enterprise yard operations,” said Matt Yearling, CEO of YMX Logistics. “Our...\n\n## Locations\n- Headquarters: kenosha, wisconsin, united states (US)\n- Offices: kenosha, wisconsin, united states (US)",
+        "summary": "{\"description\":\"Kutzler Express, a YMX Logistics company is a Transportation, Logistics, Supply Chain and Storage company based in Kenosha, Wisconsin, with 47 employees and $13.5M in annual revenue. It offers yard logistics, spotting & shuttling, and truckload services in the Midwest and is now part of YMX Logistics.\",\"employee_estimate\":47,\"employee_estimate_source\":\"Employees: 47\",\"hq\":\"Kenosha, United States\",\"hq_quote\":\"Headquartered in Kenosha, Wisconsin, United States.\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"Leading yard logistics, spotting & shuttling, and truckload provider in the Midwest is now part of YMX Logistics.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQEALr_YZij2zQ/company-logo_200_200/company-logo_200_200/0/1714823947493/kutzlerexpress_logo?e=2147483647&v=beta&t=OJSoWz1R_B6EB4-8kkvxEOsSRJw5m3I1vklsU9m9DbA",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/xt2q2j49x4y",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Kutzler Express, a YMX Logistics company",
+              "foundedYear": 1929,
+              "description": "Leading yard logistics, spotting & shuttling, and truckload provider in the Midwest is now part of YMX Logistics.\n\n",
+              "workforce": {
+                "total": 47
+              },
+              "headquarters": {
+                "address": "12737 60th Street, Kenosha, Wisconsin 53144, US",
+                "city": "Kenosha",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 13461076,
+                "fundingTotal": null,
+                "fundingLatestRound": null
+              },
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": 0,
+                "avgDurationSeconds": 0,
+                "history": []
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 16398.1,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

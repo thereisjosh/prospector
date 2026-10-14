@@ -1,0 +1,242 @@
+{
+  "request": {
+    "query": "Alta",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the exact phrase from the page that the employee estimate came from (e.g. \"350 employees\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "d62b53cb32c219246deda71231a26edd",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/svyhy8g0cp7",
+        "title": "Alta | AI GTM System of Actions",
+        "url": "https://www.altahq.com/",
+        "text": "# Alta | AI GTM System of Actions\n\nAlta | AI GTM System of Actions is a Technology, Information and Internet company. Alta is an AI-powered platform that helps boost revenue engines. They offer a range of products and resources for outbound and growth agents, as well as resources for sales insights and ebooks. Alta | AI GTM System of Actions employs 73 people (+143.3% YoY, +43 people), founded in 2023. Headquartered in Tel Aviv, Israel, with presence in United States. Its workforce is distributed across 6 countries (including Israel, United States, Canada, Georgia, and Ireland).\n\n## About\n\nFor decades, go-to-market teams had systems to store data and plan campaigns. But who actually does the work?\nAlta is the AI GTM System of Actions — one AI system for your entire go-to-market. Instead of stitching together 10+ tools across prospecting, outreach, calling, lead qualification, ad targeting, and pipeline analytics, GTM teams use Alta's self-optimizing AI agents to execute the full top-of-funnel — from first signal to booked meeting — getting smarter with every interaction.\n\nKatie — AI SDR Agent\nResearches accounts using CRM data and 50+ external sources, identifies high-intent prospects based on real buying signals, and runs personalized multi-channel outreach across email, LinkedIn, and calls. Katie syncs audience data with ad platforms like Google Ads and Meta to align outbound with paid campaigns — automatically.\n\nAlex — AI Calling & Inbound Agent\nQualifies inbound leads and handles outbound calls with human-quality AI conversations. Alex scores intent, routes qualified buyers to your team, books meetings directly into your calendar, and drives account growth through cross-sell and upsell. Insights from every conversation feed back into targeting and ad audiences.\n\nLuna — AI Growth & Intelligence Agent\nThe intelligence layer that connects it all. Luna surfaces real-time pipeline insights, identifies bottlenecks, alerts teams to key changes, and integrates with CRMs, ad platforms, and 50+ data sources — giving your entire GTM team full visibility without manual work.\nAll three agents share one brain. Inbound data sharpens outbound targeting. Outbound engagement optimizes ad audiences. Channel preferences are learned automatically. Every interaction compounds to make the system smarter.\nOne platform. Three AI agents. Zero busywork.\nTrusted by leading B2B companies including Snowflake, Deel, and Riverside. Integrates with HubSpot, Salesforce, Google Ads, Meta, Slack, and 50+ platforms. SOC 2 and ISO certified.\nAI acts. Your team wins.\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Headquarters: Tel Aviv, Israel\n- Founded Year: 2023\n- Homepage: altahq.com\n- Aliases: Alta AI, Inc., alta, alta revenue platform, alta | ai gtm system of actions\n- LinkedIn: linkedin.com/company/altahqdotcom\n- Linkedin Followers: 7,133\n- Emails: info@altahq.com.\n\n## Financials\n- Total Funding: USD 32,000,000\n  - Series a (2026-07-01): USD 25.0M\n  - Seed (2025-04-04): USD 7.0M\n\n## Workforce\n- Employees: 73\n- Company Size: 11-50 employees\n  - Yearly Growth: +143.3%\n- Key Executives:\n  - Avi Eyal: Seed Investor and Board Director\n  - Dave Rajber: Head of Partnerships\n  - David M.: Director of Sales Americas l Founding Member\n  - Dmitri Romanov: Head of Data Science\n  - Elina Papernaya: Head of GTM\n  - Erik Bergelin: Business Partner\n  - Gal Bulka: Head of Brand\n  - Lihi Ilana Ehrlich: Head of Global Operation\n  - Maayan Shraga: Design Lead\n  - Mor Raphael Shabtai: Co-Founder / COO\n- Breakdown:\n  - By Country: Israel: 45 (62%), United States: 15 (21%), Canada: 1 (1%), Georgia: 1 (1%), Ireland: 1 (1%), South Africa: 1 (1%)\n  - By Department: Technical: 15 (21%), Sales: 13 (18%), Marketing: 7 (10%), Consulting: 6 (8%), Customer Service: 6 (8%), General Management: 5 (7%), Other Department: 5 (7%), Design: 2 (3%), Operations: 2 (3%), Product: 2 (3%) (+3 more)\n  - By Seniority: Specialist: 28 (38%), Other Management: 14 (19%), Manager: 9 (12%), Head: 6 (8%), Founder: 3 (4%), Senior: 3 (4%), Clevel: 2 (3%), Director: 1 (1%), Partner: 1 (1%)\n- Talent Sources: monday.com (9), nReach.io (2), Xperiti (2), SQream (2), TAMID Group (1), Shield (1), Rylo (1), Loops (1), Israel Defense Forces (1), Gambitt Solutions (1)\n- Alumni Go To: The Clinic Group (1), Tatari (1), TLP – Recruitment & Executive Search (1), Stealth Startup (1), RFxAI (1), Mu-Shin (1), Macquarie Group (1), Imagene AI (1), IN Venture (1), Captain Up (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: harness, hubspot, intercom, linkedin, figma, typescript, python, amplitude, datadog, fintech, javascript, looker, microservices, mixpanel, one system, pytorch, react, salesforce, tensorflow, unify, spring, impact, recognize, apache, apache kafka, google cloud, java, snowflake, stripe, well\n\n## Web presence\n\n- Twitter: twitter.com/alta_revenue\n- YouTube: youtube.com/@altahqcom\n- Crunchbase: crunchbase.com/organization/alta-eab5\n- Web traffic:\n  - Monthly visits: 97,631\n  - Global rank: 357,108\n  - Bounce rate: 52.0%\n  - Pages per visit: 2.9\n  - Average visit duration: 49s\n\n## Categories\n\nai-powered platform, artificial intelligence (ai), artificial-intelligence, business-intelligence, computers_electronics_and_technology/graphics_multimedia_and_web_design, data management, enterprise-software, fintech, growth agents, inbound agents, outbound agents, platform, revenue engine, software, technology, technology/software\n\n## Competitors\n\nuniqreate, insightfinder, fintech studios, app orchid\n\n## Recent News\n- [2026-07-10] [Art tal Ort porta in Friuli  il circo minimalista di Alta Gama, 10 luglio 2026](https://www.udinetoday.it/eventi/teatro/art-tal-ort-alta-gama-10-12-luglio-2026.html)\n- [2026-07-08]\n  - [TIEMPO BREÑA ALTA \\| El tiempo en Breña Alta: previsión meteorológica para hoy, miércoles 8 de julio](https://www.eldia.es/tiempo/2026/07/08/tiempo-brena-alta-prevision-meteorologica-132235697.html)\n  - [אלטה גייסה 25 מיליון דולר לפיתוח סוכני AI לצוותי שיווק ומכירות](https://www.bizportal.co.il/BizTech/news/article/20035423)\n  - [With $25M in funding, Alta AI aims to accelerate go-to-market automation - SiliconANGLE](https://siliconangle.com/2026/07/08/25m-funding-alta-ai-aims-accelerate-go-market-automation/)\n  - [Alta Raises $25M to Redefine the Go-to-Market Architecture for Revenue Teams](https://uk.advfn.com/stock-market/share-news/Alta-Raises-25M-to-Redefine-the-Go-to-Market-Arch/98886488)\n  - [Juliana Herc acompanha desfile de Stéphane Rolland na Alta-Costura de Paris – R7 Entretenimento](https://entretenimento.r7.com/famosos-e-tv/vanity-brasil/juliana-herc-acompanha-desfile-de-stephane-rolland-na-alta-costura-de-paris-08072026/)\n- [2026-07-07]\n  - [Golf programs near Toa Alta, PR \\| PGA Coach](https://www.pga.com/coaches/programs/pr/toa%20alta)\n  - [Nuovo sistema di regolazione delle consegne merci nella ZTL di Città Alta, a partire dal 3 agosto \\| Comune di Bergamo](https://www.comune.bergamo.it/notizie/nuovo-sistema-di-regolazione-delle-consegne-merci-nella-ztl-di-citt%C3%A0-alta-a-partire-dal-3-agosto)\n  - [Tre centri per le visite pre-vendemmiali nell'Alta Marca trevigiana - Notizie - Ansa.it](https://www.ansa.it/veneto/notizie/2026/07/07/tre-centri-per-le-visite-pre-vendemmiali-nellalta-marca-trevigiana_be593262-b81b-4611-a8c8-cf46e605ec35.html)\n  - [Karlie Kloss firma uno de los desfiles más comentados de la Alta Costura en París](https://www.europapress.es/chance/moda/noticia-karlie-kloss-firma-desfiles-mas-comentados-alta-costura-paris-20260707084823.html)\n- [2026-07-06]\n  - [Jonathan Anderson encuentra en el arte la inspiración para revolucionar la Alta Costura en París](https://www.europapress.es/chance/moda/noticia-jonathan-anderson-encuentra-arte-inspiracion-revolucionar-alta-costura-paris-20260706162749.html)\n  - [Localitats de la Ribera Alta com Carcaixent o Alzira i Xàtiva en la Costera aconseguiran este dimarts els 44º de màxima](https://www.europapress.es/valencia/noticia-localitats-ribera-alta-com-carcaixent-alzira-xativa-costera-aconseguiran-dimarts-els-44-maxima-20260706145148.html)\n  - [Localidades de la Ribera Alta como Carcaixent o Alzira y Xàtiva en la Costera alcanzarán este martes los 44º de máxima](https://www.europapress.es/comunitat-valenciana/noticia-localidades-ribera-alta-carcaixent-alzira-xativa-costera-alcanzaran-martes-44-maxima-20260706141050.html)\n- [2026-07-05]\n  - [Weather forecast and conditions for Vega Alta, Puerto Rico 00692, Puerto Rico - The Weather Channel \\| weather.com](https://weather.com/en-ZW/weather/today/l/18.41,-66.33)\n  - [Obituary: Pamelia Alta Josie Barrett](https://www.pressherald.com/2026/07/05/obituarypamelia-alta-josie-barrett-2/)\n- [2026-07-04]\n  - [Girl critically injured after falling out of Alta Vista Dr. apartment building](https://www.ctvnews.ca/ottawa/article/girl-critically-injured-after-falling-out-of-alta-vista-apartment-building/)\n  - [2026 Alta Star Party \\| Utah Public Radio](https://www.upr.org/community-calendar/event/2026-alta-star-party-03-07-2026-07-52-47)\n- [2026-07-03] [Italia ad ostacoli per treni ordinari e Alta Velocità, attivi 1.300 cantieri - Short Video - Ansa.it](https://www.ansa.it/sito/videogallery/short_video/2026/07/03/italia-ad-ostacoli-per-treni-ordinari-e-alta-velocita-attivi-1.300-cantieri_8137ba10-a7f0-4fc1-b085-e18beff28e39.html)\n- [2026-07-02] [Pierre Poilievre Holds a News Conference in Camrose, Alta. – July 2, 2026 - Headline Politics - CPAC.ca](https://www.cpac.ca/headline-politics/episode/pierre-poilievre-holds-a-news-conference-in-camrose-alta--july-2-2026?id=0884d430-95d1-4eeb-8789-e625331260ba)\n- [2026-07-01] [El Hospital de Alta Resolución Sierra de Segura \\(Jaén\\) obtiene certificación avanza por su \"excelencia asistencial\"](https://www.europapress.es/esandalucia/jaen/noticia-hospital-alta-resolucion-sierra-segura-jaen-obtiene-certificacion-avanza-excelencia-asistencial-20260701104120.html)\n- [2025-03-05] thesaasnews.com: Alta Raises $7 Million in Seed Round\n\n## Social\n\n### Linkedin\n\n- [2026-09-28 · Posted · 23 reactions] [Alta is hiring a Go-to-Market Strategist (CSM) in the USA! This...](https://www.linkedin.com/posts/altahqdotcom_alta-is-hiring-a-go-to-market-strategist-activity-7510330416231374848-yzJC)\n  > Alta is hiring a Go-to-Market Strategist (CSM) in the USA!\n  >\n  > This role is for someone who sees customer success as a growth engine, not a support function. The job is helping customers get real business outcomes from AI, and growing with them as they scale.\n  >\n  > You'll manage a portfolio of SMB, mid-market, and enterprise customers across onboarding, adoption, expansion, and renewal. That means leading business reviews and strategy sessions, building success plans tied to customer goals, and tracking health and usage to catch risks and opportunities early. Along the way, you'll work closely with Sales, Product, and AI Engineering, bringing the voice of the customer into how Alta builds and goes to market.\n  >\n  > This could be a fit if you have:\n  >\n  > - 2+ years in Customer Success, Account Management, Strategic Consulting, GTM, or SaaS\n  > - Experience leading onboarding, adoption, and growth initiatives\n  > - Strong communication skills and confidence engaging executives\n  > - A strategic, analytical, customer-first mindset\n  > - Comfort with CRMs, AI tools, and modern SaaS tech\n  >\n  > Bonus if you've worked at a startup or as an SDR, come from RevOps, enablement, or consulting, know HubSpot or Salesforce, or speak Spanish, Portuguese, or French.\n  >\n  > This role is remote, based in the USA, supporting customers during US business hours.\n  >\n  > If you're ready to turn customer relationships into customer wins, apply via the link in the first comment, or tag someone who'd crush it.\n\n- [2026-09-22 · Posted · 3 reactions] [97% of GTM teams adopted AI. 53% say it changed nothing. That gap...](https://www.linkedin.com/posts/altahqdotcom_97-of-gtm-teams-adopted-ai-53-say-it-activity-7508156547080802304-_Zk-)\n  > 97% of GTM teams adopted AI.\n  >\n  > 53% say it changed nothing.\n  >\n  > That gap is the whole story.\n  >\n  > Adopting AI was the easy part. Everyone did it. Almost nobody got anything out of it.\n  >\n  > Here's what happened in most GTM orgs:\n  > → You bought the tools\n  > → You connected the data\n  > → You got better drafts, better summaries, better suggestions\n  > → And a human still presses send on every single one\n  >\n  > Only 17% of teams say their AI is actually running on its own. The rest built a very expensive suggestion box.\n  >\n  > The teams pulling ahead didn't buy smarter AI. They bought AI that acts. Agents that catch the signal, write the email, send it, follow up, and book the meeting. No queue. No approval bottleneck. No 42-hour response time.\n  >\n  > Your AI isn't underperforming. It's waiting for permission.\n  >\n  > So which one is actually stuck: your tools, or your execution?\n\n- [2026-09-22 · 3 reactions] 97% of GTM teams adopted AI. 53% say it changed nothing. That gap is the whole story. Adopting AI was the easy part. Everyone did it. Almost nobody got anything out of it. Here's what happened in m...\n\n- [2026-09-16 · Posted · 5 reactions] [NEW in Alta: test your Reply Assistant on a real prospect before it...](https://www.linkedin.com/posts/altahqdotcom_new-in-alta-test-your-reply-assistant-on-activity-7505996498048966656-tMOc)\n  > NEW in Alta: test your Reply Assistant on a real prospect before it talks to one.\n  >\n  > Nobody's worried AI won't reply. They're worried about what it'll say.\n  >\n  > That's the real reason teams keep AI replies switched off. The message goes out under your name, to a lead you spent weeks earning, and you only find out how it went after it's already gone.\n  >\n  > Now you get to have the conversation first.\n  >\n  > Pick a real lead and a real campaign, and the preview opens with the message you actually sent them. Answer as them. Push on price. Be difficult.\n  >\n  > You see what your prospect would have seen, before they see it.\n  >\n  > Don't like the answer? Change how it talks and run it again. Seconds, instead of a test campaign and three days of waiting.\n  >\n  > By the time it reaches a prospect, you already know exactly what it'll say.\n\n- [2026-09-16 · 10 reactions] NEW in Alta: test your Reply Assistant on a real prospect before it talks to one. Nobody's worried AI won't reply. They're worried about what it'll say. That's the real reason teams keep AI replies...\n\n- [2026-09-14 · Posted · 49 reactions] [Quick roll call. Four new names since last month! Steve...](https://www.linkedin.com/posts/altahqdotcom_quick-roll-call-four-new-names-since-last-activity-7505279284010397696-vjFa)\n  > Quick roll call. Four new names since last month!\n  >\n  > Steve Kierszenbaum joins as a GTM Strategist, working directly with customers to turn Alta into pipeline they can actually measure.\n  >\n  > Idan Ben Hamo and Tal Ghez join as AI Engineers, building the multi-agent systems and reasoning layers behind Katie and Alex, and wiring them into the CRMs, inboxes, and calendars where GTM actually happens.\n  >\n  > Alex Novik joins as a Designer, shaping how Alta looks and feels across web, social, and campaigns.\n  >\n  > Small (but growing) team, big ambition, and now a few more people who've decided that's a good combination.\n  >\n  > Welcome to Alta 👋\n\n- [2026-09-14 · 49 reactions, 2 comments] Quick roll call. Four new names since last month! Steve Kierszenbaum joins as a GTM Strategist, working directly with customers to turn Alta into pipeline they can actually measure. Idan Ben Hamo a...\n\n- [2026-09-10 · Posted · 9 reactions] [Rooftop, sunset, drinks, and a lot of great conversations. That was...](https://www.linkedin.com/posts/altahqdotcom_rooftop-sunset-drinks-and-a-lot-of-great-activity-7503832853672067072-vUsx)\n  > Rooftop, sunset, drinks, and a lot of great conversations. That was Tuesday.\n  >\n  > Alta x Snowflake after work happy hour in Tel Aviv. No specific agenda, just founders and GTM leaders talking shop.\n  >\n  > That was the whole idea. Get the right people in one place and let the conversations happen. They did.\n  >\n  > Thank you to everyone who came, and to Snowflake for co-hosting with us.\n  >\n  > Stay tuned for the next ones.\n\n- [2026-09-10 · 36 reactions, 1 comment] Rooftop, sunset, drinks, and a lot of great conversations. That was Tuesday. Alta x Snowflake after work happy hour in Tel Aviv. No specific agenda, just founders and GTM leaders talking shop. That...\n\n- [2026-09-08 · Posted · 10 reactions] [💬 Tip: The next time you're stuck in Alta, just ask. Alta Live...](https://www.linkedin.com/posts/altahqdotcom_tip-the-next-time-youre-stuck-in-alta-activity-7503165273689198592-f-JL)\n  > 💬 Tip: The next time you're stuck in Alta, just ask.\n  >\n  > Alta Live opens a voice call inside your tab and moves through the product with you, navigating and highlighting as it explains.\n  >\n  > → \"Where do I start?\"\n  > → \"Why isn't this campaign sending?\"\n  > → \"How do I connect my CRM?\"\n  > → \"What should I do next?\"\n  >\n  > Pick a topic and your mic opens. Prefer to type? Flip the toggle and it works the same way.\n  >\n  > If it hits something it can't handle, support opens right next to the call. Nothing stops, nothing restarts.\n  >\n  > And it remembers your account, so you're not starting from zero every time you open it.\n  >\n  > So the next time you're wondering, don't go looking. Just ask.\n\n- [2026-09-08 · 12 reactions] 💬 Tip: The next time you're stuck in Alta, just ask. Alta Live opens a voice call inside your tab and moves through the product with you, navigating and highlighting as it explains. → \"Where do I s...\n\n- [2026-09-03 · Posted · 9 reactions] [Your accounts. Your calls. Your reps. All three got more precise...](https://www.linkedin.com/posts/altahqdotcom_whats-new-september-activity-7501315591606112256-Z-p_)\n  > Your accounts. Your calls. Your reps.\n  >\n  > All three got more precise this month.\n  >\n  > 3 new updates, live in Alta:\n  >\n  > 𝟬𝟭 Run ABM from Anywhere\n  > Build account lists from HubSpot, Salesforce, a company search, or a lookalike of your best customers. Every company comes back AI-enriched, so you target signals, not domains.\n  >\n  > 𝟬𝟮 Learn From Every Call\n  > Every AI call your agents run is now searchable in Ask-Alta. Ask which objections come up most, or which value props book meetings, then fix the pitch without listening to a single call.\n  >\n  > 𝟬𝟯 Set Each Rep's Style\n  > Give a rep their own writing style and every message follows it. Email, LinkedIn, every personalized step sounds like them, with no campaign edits.\n  >\n  > Better accounts in. Better answers out. Every message still sounds like your team.\n  >\n  > Live in Alta now.\n\n- [2026-09-03 · 9 reactions] Your accounts. Your calls. Your reps. All three got more precise this month. 3 new updates, live in Alta: 𝟬𝟭 Run ABM from Anywhere Build account lists from HubSpot, Salesforce, a company search, or...\n\n- [2026-09-01 · Posted · 15 reactions] [Alta is hiring an Enterprise Sales Team Lead in the USA! This role...](https://www.linkedin.com/posts/altahqdotcom_alta-is-hiring-an-enterprise-sales-team-lead-activity-7500576448064274432-PlHY)\n  > Alta is hiring an Enterprise Sales Team Lead in the USA!\n  >\n  > This role is for a player-coach who wants to build an enterprise motion from the ground up at an AI company that actually uses AI to sell. You'll carry your own quota and coach the team carrying theirs.\n  >\n  > You'll lead, coach, and develop Alta's US Enterprise AEs while personally closing strategic deals. You'll own pipeline, deal reviews, and forecasting, and navigate complex cycles across executive, technical, procurement, legal, and security stakeholders. You'll work closely with Customer Success, AIE, Product, and leadership to win strategic accounts, and build the repeatable processes that make Alta's enterprise motion stronger every quarter.",
+        "summary": "{\"description\":\"Alta is an AI-powered platform that helps boost revenue engines, offering products and resources for outbound and growth agents, as well as sales insights and ebooks.\",\"employee_estimate\":73,\"employee_estimate_source\":\"Headcount: 73\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Alta is hiring a Go-to-Market Strategist (CSM) in the USA!\",\"hq\":\"Tel Aviv, Israel\",\"hq_quote\":\"Headquartered in Tel Aviv, Israel, with presence in United States.\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Alta is an AI-powered platform that helps boost revenue engines.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 32,000,000  - Series a (2026-07-01): USD 25.0M  - Seed (2025-04-04): USD 7.0M\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4D0BAQGY8mdqBHUuhg/company-logo_200_200/company-logo_200_200/0/1730713805597/altahqdotcom_logo?e=2147483647&v=beta&t=6Gg427HIQTv09ngKqomJbqg2TvTxeXn7rjzU-5XM5wk",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/svyhy8g0cp7",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Alta | AI GTM System of Actions",
+              "foundedYear": 2023,
+              "description": "For decades, go-to-market teams had systems to store data and plan campaigns. But who actually does the work?\nAlta is the AI GTM System of Actions — one AI system for your entire go-to-market. Instead of stitching together 10+ tools across prospecting, outreach, calling, lead qualification, ad targeting, and pipeline analytics, GTM teams use Alta's self-optimizing AI agents to execute the full top-of-funnel — from first signal to booked meeting — getting smarter with every interaction.\n\nKatie — AI SDR Agent\nResearches accounts using CRM data and 50+ external sources, identifies high-intent prospects based on real buying signals, and runs personalized multi-channel outreach across email, LinkedIn, and calls. Katie syncs audience data with ad platforms like Google Ads and Meta to align outbound with paid campaigns — automatically.\n\nAlex — AI Calling & Inbound Agent\nQualifies inbound leads and handles outbound calls with human-quality AI conversations. Alex scores intent, routes qualified buyers to your team, books meetings directly into your calendar, and drives account growth through cross-sell and upsell. Insights from every conversation feed back into targeting and ad audiences.\n\nLuna — AI Growth & Intelligence Agent\nThe intelligence layer that connects it all. Luna surfaces real-time pipeline insights, identifies bottlenecks, alerts teams to key changes, and integrates with CRMs, ad platforms, and 50+ data sources — giving your entire GTM team full visibility without manual work.\nAll three agents share one brain. Inbound data sharpens outbound targeting. Outbound engagement optimizes ad audiences. Channel preferences are learned automatically. Every interaction compounds to make the system smarter.\nOne platform. Three AI agents. Zero busywork.\nTrusted by leading B2B companies including Snowflake, Deel, and Riverside. Integrates with HubSpot, Salesforce, Google Ads, Meta, Slack, and 50+ platforms. SOC 2 and ISO certified.\nAI acts. Your team wins.",
+              "workforce": {
+                "total": 73
+              },
+              "headquarters": {
+                "address": "Rotchild 11 Tel Aviv, Tel Aviv, IL",
+                "city": "Tel Aviv",
+                "postalCode": null,
+                "country": "Israel"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 32000000,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2026-07-01",
+                  "amount": 25000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 97631,
+                "countryRank": 278346,
+                "avgDurationSeconds": 49,
+                "history": [
+                  {
+                    "value": 86067,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 85144,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 109808,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 144364,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 130632,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 97631,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/qh7vly5b6zw",
+        "title": "Altapress",
+        "url": "https://www.altapress.fr/",
+        "text": "# Altapress\n\nAltapress is a Broadcast Media Production and Distribution company. Altapress employs 4 people, founded in 2009. Headquartered in Madrid, Spain, with presence in Italy. Its workforce is distributed across Spain and France.\n\n## About\n\nBoite de production basée à Madrid. Réalisation de reportages et documentaires en Espagne🇪🇸, Italie 🇮🇹 et au Portugal 🇵🇹 pour TF1, France 24 et ARTE.\n\n## Company Details\n- Industry: Broadcast Media Production and Distribution\n- Type: Partnership\n- Headquarters: Madrid, Spain\n- Founded Year: 2009\n- Homepage: altapress.fr\n- Aliases: altapress\n- LinkedIn: linkedin.com/company/altapress\n- Linkedin Followers: 95\n\n## Workforce\n- Employees: 4\n- Company Size: 1-10 employees\n- Breakdown:\n  - By Country: Spain: 2 (50%), France: 1 (25%)\n  - By Department: Other Department: 3 (75%)\n  - By Seniority: Other Management: 3 (75%)\n- Talent Sources: Midi Libre (1), Le Parisien (1), Le Journal du Real (1), Groupe TF1 (1), Ecole supérieure de journalisme de Lille (1), Development and Humanitarian Learning in Action (1), DIGIVISION (1), Cercle Bleu (1), Ambassade de France au Mexique (1)\n- Alumni Go To: France Télévisions (2), Local News Festival (1), FRANCE 24 (1), Chilowé (1), ARTE (1)\n\n## Web presence\n\n- Web traffic:\n  - Monthly visits: 564\n  - Global rank: 11,205,440\n  - Bounce rate: 80.0%\n  - Pages per visit: 1.0\n  - Average visit duration: 0s\n\n## Categories\n\nconcept, documentaries, media, press, production, stories\n\n## Recent News\n- [2026-10-08] Altapress: Altapress.ru решил показать снизу, как барнаульские башни устремляются ввысь.\n- [2026-10-07]\n  - Алтапресс — новости Барнаула и Алтайского края: Paramount завершила поглощение Warner Bros.\n  - AltaPress: «Фигура» заметная. Как отечественная прививка от ВПЧ может победить некоторые виды рака\n  - Altapress: Атака, горящий танкер. Что известно о ЧП в Черном море у берегов Сочи\n  - Алтапресс — новости Барнаула и Алтайского края: В копеечку. Как предпринимателям не нарваться на штраф за музыку в заведении\n  - Altapress: Врачи назвали симптомы опасной инфекции, которая за часы поражает весь организм\n- [2026-10-06]\n  - AltaPress: Налоги-2026. Где придет уведомление, сроки, и какие есть вычеты\n  - AltaPress: Что на самом деле влияет на здоровье дыхательных путей\n  - Altapress: Что произошло на Алтае 5 октября\n- [2026-10-05]\n  - AltaPress: «Удивила тишина». Учительница из города переехала в крошечное село без связи, но с любовью\n  - Altapress: Кошелек вздыхает. Что показывают ценники Алтайского края в сентябре 2026\n  - AltaPress: Синоптики предупредили о штормовом ветре в Алтайском крае\n  - AltaPress: Чистое звучание. Зачем рок-музыканты Барнаула взялись за метлы\n- [2026-10-04]\n  - Altapress: «Теплица» открылась вместо Gussi в Барнауле\n  - Алтапресс — новости Барнаула и Алтайского края: Воскресное утро в Алтайском крае начнется с прохлады\n  - AltaPress: Грибники в Бийске находят подтопольники и редкие виды из Красной книги\n  - AltaPress: Иркутский случай с чумой связали с новосибирским центром\n  - AltaPress: Что произошло на Алтае 4 октября\n- [2026-10-03] AltaPress: Гидроциклисты Барнаула завершили сезон на Оби. Фото и видео\n- [2026-10-02] AltaPress: Барнаульцы возмущены дырявой дорогой у Комсомольского проспекта. Фото\n\n## Social\n\n### Linkedin\n\n- [2026-08-10 · 7 reactions] 🚗🚁 ESPAGNE : DES HÉLICOPTÈRES POUR TRAQUER LES EXCÈS DE VITESSE Si vous prenez la route en cette période de vacances, gare aux radars — de plus en plus malins. En Espagne, ne scrutez plus le bas-cô...\n\n- [2026-08-06 · 10 reactions] 🌒 ÉCLIPSE TOTALE EN ESPAGNE : UN AFFLUX DE TOURISTES ASTRONOMIQUE Le 12 août 2026, une éclipse totale sera visible en France… mais pour profiter du spectacle parfait, il faudra traverser les Pyréné...\n\n- [2026-07-31 · 8 reactions] 🐟 SICILE : BIENVENUE DANS LE DÉTROIT DE MESSINE Direction la Sicile, là où le poisson est roi, plus apprécié encore que la viande 🇮🇹 📍 Seulement 4 kilomètres séparent l'île du continent italien 🌉 L...\n\n- [2026-07-27 · 6 reactions] Depuis plusieurs semaines, nos équipes sont mobilisées sur le terrain pour couvrir ces incendies qui touchent durement l'Espagne. Un travail exigeant, mené dans des conditions difficiles, pour rend...\n\n- [2026-07-21 · 6 reactions] 🏝️ MAJORQUE : PLONGÉE DANS L'EAU LA PLUS CLAIRE DE MÉDITERRANÉE Pour se rafraîchir, que diriez-vous d'un plongeon dans des eaux cristallines ? 💦 📍 Direction les Baléares, îles visitées chaque année...\n\n- [2026-07-20 · 3 reactions] 🐙 TOSCANE : LE POULPE, VICTIME D'UN BRACONNAGE INTENSIF Star des barbecues, prisé pour ses savoureux tentacules… le poulpe fait aujourd'hui l'objet d'un braconnage intensif en Italie 🇮🇹 📍 C'est en...\n\n- [2026-07-17 · 4 reactions] 🏛️ WEEK-END À CORDOUE : L'ANDALOUSIE À CIEL OUVERT Direction Cordoue, destination incontournable d'Andalousie, où se mêlent les styles et les cultures 🇪🇸 ⛪🕌 La Mezquita : immense cathédrale, autref...\n\n- [2026-07-17 · 5 reactions] ⚖️ GÊNES : LE PROCÈS DU PONT MORANDI TOUCHE À SA FIN 8 ans après l'effondrement du pont de Gênes, dans le nord de l'Italie, le procès se termine ce jeudi, après 4 ans d'instruction. 📍 Un drame qui...\n\n- [2026-07-15 · 2 reactions] 🏚️ ESPAGNE : DES SOCIÉTÉS PRIVÉES POUR EXPULSER LES OCCUPANTS ILLÉGAUX En Espagne, une pratique se développe : des sociétés privées sont engagées pour expulser des occupants illégaux de logements 🔑...\n\n- [2026-07-10 · 5 reactions] 🌊 POINTE DU GARGANO : L'ÉPERON ROCHEUX DE LA BOTTE ITALIENNE Direction le nord des Pouilles, sur la côte Adriatique 🇮🇹 Une péninsule aux airs de Finistère et de Corse 🏞️ Une mer couleur émeraude 💎...\n\n- [2026-07-09 · 8 reactions] 🐎 ANDALOUSIE : LA GRANDE TRANSHUMANCE DES CHEVAUX SAUVAGES Direction la campagne andalouse, au sud-ouest de Séville, là où des prairies à perte de vue voient galoper des troupeaux de juments en tot...\n\n- [2026-07-08 · 11 reactions] 🇮🇹ITALIE : UNE COHABITATION À PAS DE LOUP 🐺Direction les Apennins et la vallée de Parme, là où bergers et défenseurs du loup partagent le même territoire depuis toujours. 📍 3 300 loups recensés en...\n\n- [2026-07-07 · 9 reactions, 1 comment] 🏙️ 🇪🇸MADRID, LE NOUVEL ELDORADO DES INVESTISSEURS IMMOBILIERS 📈 Ces dernières années, Madrid est devenue LE nouvel eldorado des investisseurs latino-américains fortunés 🇺🇸 Dans le même temps, de pl...\n\n- [2026-07-06 · 4 reactions] 🇵🇹 À Lisbonne, impossible de passer à côté des #Azulejos. Avec le fado 🎶 et les pastéis 🥮, ces carreaux de céramique colorés sont l’un des symboles les plus forts de l’identité portugaise. Mais der...\n\n- [2026-07-06 · 3 reactions] Nous accueillons régulièrement des stagiaires dans l’entreprise. Merci à Thomas Dagnas pour son implication !\n\n- [2026-07-03 · 12 reactions] 🇮🇹 En #Italie, le réseau ferroviaire relève un défi original : redonner vie à des lignes abandonnées grâce à la restauration de trains historiques. 🚂 Locomotives d’époque, wagons soigneusement réno...\n\n- [2026-07-02 · 8 reactions] 🇪🇸 En #Espagne, Marbella est devenue en quelques années l’un des principaux refuges des mafias européennes. Villas de luxe 🏡, voitures de sport 🚗, train de vie spectaculaire… Derrière l’image de ca...\n\n- [2026-07-01 · 10 reactions] 🇮🇹 Nous sommes aussi en Italie et au Vatican ! Parce que raconter le monde, c’est aussi aller au plus près de ses traditions les plus anciennes, de ses savoir-faire et de ceux qui les perpétuent en...\n\n## Locations\n- Headquarters: madrid, spain (ES)\n- Offices: rome, italy, madrid, spain (ES)",
+        "summary": "{\"description\":\"Altapress is a Broadcast Media Production and Distribution company with a presence in Spain and Italy, headquartered in Madrid, Spain.\",\"employee_estimate\":4,\"employee_estimate_source\":\"Employees: 4\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Madrid, Spain\",\"hq_quote\":\"Headquartered in Madrid, Spain, with presence in Italy.\",\"industry\":\"Broadcast Media Production and Distribution\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"- Industry: Broadcast Media Production and Distribution\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":null,\"recently_funded_seed_or_series_a_quote\":\"\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQFGMsxCI_VPeg/company-logo_200_200/B4EZ8DsuWmHoAI-/0/1782473483978?e=2147483647&v=beta&t=iKUZNHD2ZOw6NF1drVvK3xrbzBYFUDRzD8n63gss_Sk",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/qh7vly5b6zw",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Altapress",
+              "foundedYear": 2009,
+              "description": "Boite de production basée à Madrid. Réalisation de reportages et documentaires en Espagne🇪🇸, Italie 🇮🇹 et au Portugal 🇵🇹 pour TF1, France 24 et ARTE. ",
+              "workforce": {
+                "total": 4
+              },
+              "headquarters": {
+                "address": "Madrid, ES",
+                "city": "Madrid",
+                "postalCode": null,
+                "country": "Spain"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 564,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 1456,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 564,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 7491.2,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

@@ -1,0 +1,262 @@
+{
+  "request": {
+    "query": "Enso",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the exact phrase from the page that the employee estimate came from (e.g. \"350 employees\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "a5ab2f71da718ba408a370eed4163e0d",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/nsfmyrrq1xg",
+        "title": "Coffreo",
+        "url": "https://enso-groupe.fr/",
+        "text": "# Coffreo\n\nCoffreo is a Information Technology & Services company. Coffreo employs 36 people (-36.8% YoY, -21 people), founded in 2007. Headquartered in Orsay, Île-de-France, France, with offices in Aubière and Paris. Its workforce is distributed across France and Spain.\n\n## About\n\nWe provide two main services for our customers.\r\n\r\nFirst service is a BtoB one: we help HR department to dematerialize relationship with their employees. We catch and deliver all kind of documents issued of HR solution like pay slip and contract and bonus… Employer realizes savings, reduces its footprint, offer a new and smart service to its employees\r\n http://www.coffreo.info\r\n\r\nSecond one is a BtoC one: we are focused on employees and the quality of the services we provide to them with our electronic safe box, Coffreo. We store for them in the best way their dematerialized pay slips, contracts and other documents submitted by HR department, and data are available without cost for lifetime. Coffreo is also a personal space to store personal and confidential electronic data, and it is independent of the contractual relationship with employer.\r\nhttp://www.coffreo.com\n\n## Company Details\n- Industry: Information Technology & Services\n- Type: Privately held\n- Headquarters: Orsay, France\n- Founded Year: 2007\n- Homepage: enso-groupe.fr\n- Aliases: COFFREO SAS, coffreo\n- LinkedIn: linkedin.com/company/coffreo-fr\n- Linkedin Followers: 7,217\n- Emails: contact@coffreo.com\n\n## Acquisitions\n- Acquired Coffreo GmbH\n\n## Workforce\n- Employees: 36\n- Company Size: 51-200 employees\n  - Monthly Growth: -10.0%\n  - Yearly Growth: -36.8%\n- Key Executives:\n  - Guillaume Vernat: associé, co-fondateur\n  - Peter Michael Benninga: Chief Business Officer\n  - Véronique GAUTHIER: Directrice des ressources humaines\n- Breakdown:\n  - By Country: France: 25 (69%), Spain: 1 (3%)\n  - By Department: Technical: 8 (22%), Finance: 4 (11%), General Management: 2 (6%), Hr: 2 (6%), Legal: 2 (6%), Operations: 2 (6%), Project Management: 2 (6%), Consulting: 1 (3%), Customer Service: 1 (3%), Design: 1 (3%) (+2 more)\n  - By Seniority: Specialist: 11 (31%), Manager: 9 (25%), Other Management: 2 (6%), Senior: 2 (6%), Clevel: 1 (3%), Director: 1 (3%), Founder: 1 (3%)\n- Talent Sources: Sopra Steria (4), almerys (3), WYZ Group (3), Université Clermont Auvergne (2), SAVDVF (2), PrestaShop (2), Pierre and Marie Curie University (2), Links - portage salarial, réseau de consultants experts, outsourcing (2), FnTC - Fédération des Tiers de Confiance du numérique (2), AssessFirst (2)\n- Alumni Go To: ENSO (7), Figaro Classifieds (3), Trace One (2), Pennylane (2), OpenStudio (2), Michelin (2), Lydia (2), Groupe Centre France (2), BAMBOO CONSULTING (2), Atos (2)\n\n## Products & Technology\n- Tech Stack: docker, kubernetes, linkedin, matomo, mixpanel, mongodb, sql, wordpress, zendesk, react, ruby, cision, grafana, linux, mariadb, ovh, pfsense, postgresql, prometheus, c, revue, react native, sns, python, rabbitmq, redis, google ads, php, symfony, datadog, graphql, javascript, laravel, nodejs, notion, sonarqube, tailwind, nosql, chef, elk, git, mysql, postman, soapui\n\n## Web presence\n\n- Twitter: twitter.com/coffreo\n- YouTube: youtube.com/@coffreo2226\n- Crunchbase: crunchbase.com/organization/coffreo\n- Web traffic:\n  - Monthly visits: 45\n  - Global rank: 7,082,942\n  - Bounce rate: 34.0%\n  - Pages per visit: 1.2\n  - Average visit duration: 0s\n\n## Reviews & Ratings\n- Employer Rating: 3.1/5.0 (10 reviews)\n  - Breakdown: Work-Life: 3.7, Compensation: 2.8, Culture: 3.0, Career: 3.2\n\n## Categories\n\nadtech, archivage valeur probatoire, audiovisuel, bulletin de paie électronique, coffre-fort électronique, contrat court, contrat de travail, customization, documents, dossier salarié, dsn multi-agence, dématérialisation, evénementiel, hrtech, human resources, internal management, intérim, jobs_and_career/jobs_and_employment, numérique, payroll, performance-management, recruitment, relevé d'activité, rh, saas, signature électronique de contrat, sirh, software, sécurité juridique, technology/software, temporaire, traiteur, travailleur, workforce-management\n\n## Competitors\n\nonshift, heartpace, breathe, balancedcomp\n\n## Recent News\n- [2020-06-24] Buffalo News: LOFFREDO, John C.\n\n## Social\n\n### Linkedin\n\n- [2026-06-25 · 17 reactions] 🚀 Enso Tour is back ! IA, facturation électronique, cloud, sécurité des données : les évolutions s'accélèrent et redessinent les pratiques du travail temporaire. Mais comment préparer votre agence...\n\n- [2026-06-23 · 2 reactions] La fermeture du compte Coffreo approche : ce sera à la fin du mois. 😊 Mais la suite s’écrit déjà sur le compte LinkedIn d’ENSO ! En nous rejoignant sur cette page, vous découvrirez : 🔹 toutes les n...\n\n- [2026-06-22 · 22 reactions] 🔎 Idée reçue : seuls les nouveaux collaborateurs ont besoin d'être formés. Notre expérience sur le terrain raconte une tout autre histoire. Les plus grands déclics viennent parfois de professionnel...\n\n- [2026-06-18 · 1 reaction] Nouveau webinaire le 7 juillet 🎥\n\n- [2026-06-16 · 2 reactions] 🚨 Information sur la facturation électronique\n\n- [2026-06-15 · 18 reactions] 🚀 Une nouvelle étape pour simplifier la gestion des DSN dans les agences d'emploi Avec DSN SaaS, Enso lance une solution 100 % cloud conçue pour répondre aux nouveaux défis du secteur : des volumes...\n\n- [2026-06-12 · 2 reactions] 🔔 On cherche un(e) consultant(e) support ATS en CDI - télétravail total\n\n- [2026-06-12 · 15 reactions] ⏰ Vous n'aviez pas encore eu le temps de vous inscrire ? Bonne nouvelle : notre webinaire consacré au retour d'expérience de KIWI Emploi est reporté au 9 juillet à 11h30. L'occasion de découvrir co...\n\n- [2026-06-11] Recruteurs en agence d'emploi, vous avez envie de gagner du temps ? Ce post pourrait vous intéresser. ⬇️\n\n- [2026-06-09 · 15 reactions] Un candidat disponible aujourd'hui peut être placé demain. Encore faut-il pouvoir valider rapidement ses compétences. ⏱️ C'est précisément le défi qu'a relevé KIWI Emploi en optant pour l'intégrati...\n\n- [2026-06-01 · 1 reaction] La revue de presse du mois de mai 📰\n\n- [2026-05-29] Retour sur l'AG de la FEP GRAND EST ⬇️\n\n- [2026-05-28] Nouveau webinaire ⬇️\n\n- [2026-05-28 · 14 reactions] La réforme de la facturation électronique approche, mais beaucoup d’agences d’emploi se demandent encore : ➡️ Est-ce que cela me concerne ? ➡️ À partir de quand ? ➡️ Quelles obligations s’appliquen...\n\n- [2026-05-26 · 3 reactions] Nouveau guide ENSO sur la digitalisation des échanges dans le secteur de l'#intérim ⬇️\n\n- [2026-05-22 · 17 reactions] Vous avez un contrat à signer You have an employment contract to sign Dovete firmare un contratto di lavoro Sie müssen einen Vertrag unterzeichnen C’est quand même plus simple quand vos intérimaire...\n\n- [2026-05-21 · 20 reactions, 1 comment] Comment accompagner une croissance rapide sans perdre son ADN terrain ? C’est le défi relevé par Advance Emploi. Créé en 2017, le Groupe s’est imposé comme un acteur en forte croissance dans l’inté...\n\n- [2026-05-20 · 18 reactions, 1 comment] Merci à tous les professionnels de l’intérim ayant participé à notre webinaire sur notre nouvelle plateforme de digitalisation 🙌 📺 Pour celles et ceux qui n’ont pas pu être présents, le replay est...\n\n- [2026-04-30 · 24 reactions] Hier, on vous annonçait le lancement de notre nouvelle plateforme de digitalisation des échanges. À présent, on vous propose de la découvrir lors d’un webinaire dédié. 📅 Quand ? Mardi 19 mai à 11h...\n\n- [2026-04-29 · 21 reactions] 📊 Saviez-vous que 1 Français sur 10 a déjà utilisé un faux document ? Et que dans 73 % des cas, cela passe. Dans l’intérim, où les volumes de transactions sont importants, le risque est accentué. L...\n\n## Locations\n- Headquarters: orsay, île-de-france, france\n- Offices: paris, île-de-france, france, orsay, île-de-france, france, aubière, auvergne-rhône-alpes, france",
+        "summary": "{\"description\":\"Coffreo is an Information Technology & Services company that provides dematerialization and secure document storage solutions for HR and employees, with B2B and B2C offerings.\",\"employee_estimate\":36,\"employee_estimate_source\":\"Employees: 36\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Orsay, Île-de-France, France\",\"hq_quote\":\"Headquarters: Orsay, Île-de-France, France\",\"industry\":\"Information Technology & Services\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Coffreo is an Information Technology & Services company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":null,\"recently_funded_seed_or_series_a_quote\":\"null\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQGbt8iL_tPJ-g/company-logo_200_200/B4EZlcnYRiKQAM-/0/1758195451504/coffreo_fr_logo?e=2147483647&v=beta&t=8btH-u8_O8bONH_FNWkEMarYEOwCWZJ-wiILOGIj8zw",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/nsfmyrrq1xg",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Coffreo",
+              "foundedYear": 2007,
+              "description": "We provide two main services for our customers.\r\n\r\nFirst service is a BtoB one: we help HR department to dematerialize relationship with their employees. We catch and deliver all kind of documents issued of HR solution like pay slip and contract and bonus… Employer realizes savings, reduces its footprint, offer a new and smart service to its employees\r\n http://www.coffreo.info\r\n\r\nSecond one is a BtoC one: we are focused on employees and the quality of the services we provide to them with our electronic safe box, Coffreo. We store for them in the best way their dematerialized pay slips, contracts and other documents submitted by HR department, and data are available without cost for lifetime. Coffreo is also a personal space to store personal and confidential electronic data, and it is independent of the contractual relationship with employer.\r\nhttp://www.coffreo.com",
+              "workforce": {
+                "total": 36
+              },
+              "headquarters": {
+                "address": "rue Guy Moquet, Orsay, IDF 91401, FR",
+                "city": "Orsay",
+                "postalCode": null,
+                "country": "France"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 45,
+                "countryRank": 157299,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 7909,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 4092,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 5073,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 3897,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 2799,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 45,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/nt6x35h6k8c",
+        "title": "ENSO",
+        "url": "https://fr.linkedin.com/company/enso-groupe",
+        "text": "# ENSO\n\nENSO is a Software Development company. Enso is a company that provides new generation internal management solutions, including recruitment, payroll, DSN multi-agence, and customization. They offer services for various sectors including private security, live entertainment, catering, hospitality, cleaning, medical, and public sector. ENSO employs 113 people (+21.5% YoY, +20 people), founded in 1994. Headquartered in Wettolsheim, Grand Est, France. Its workforce is distributed across France and Switzerland.\n\n## About\n\nENSO, le partenaire technologique de référence des agences d’intérim.\nDepuis plus de 30 ans, nous concevons des solutions logicielles robustes, évolutives et adaptées aux enjeux du travail temporaire. Notre Suite ENSO – innovante, modulaire et performante – accompagne la digitalisation et l’optimisation des agences. Animée par l’innovation, l’écoute, l’expertise et le dynamisme, ENSO s’engage au quotidien aux côtés des professionnels de l’intérim.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: Wettolsheim, France\n- Founded Year: 1994\n- Aliases: enso, enso group, enso groupe\n- LinkedIn: linkedin.com/company/enso-groupe\n- Linkedin Followers: 2,937\n- Emails: contact@enso-groupe.fr\n- Phone: +33 03 87 62 78 78\n\n## Financials\n  - Private equity (2019-09-17)\n\n## Acquisitions\n- Acquired clicNwork\n\n## Workforce\n- Employees: 113\n- Company Size: 51-200 employees\n  - Yearly Growth: +21.5%\n- Key Executives:\n  - Antoine HENRY: Chairman\n  - Baptiste Praud: Directeur commercial et marketing\n  - Damien Simonneau ✨: Marketing Director\n  - David L.: Chief Technology & Product Officer\n  - François Quetier: Lead Product Designer\n  - Frédéric TRIMAILLE: Directeur du support client\n  - Guillaume OUDART: Directeur Revenue Operations\n  - Jean-Baptiste Laval: Directeur général\n  - Mathieu Pawlak: Director of Customer Operations\n  - Serge Masliah: Président\n- Breakdown:\n  - By Country: France: 74 (65%), Switzerland: 1 (1%)\n  - By Department: Sales: 15 (13%), Technical: 15 (13%), Consulting: 9 (8%), Other Department: 6 (5%), Finance: 5 (4%), Customer Service: 4 (4%), General Management: 4 (4%), Administrative: 3 (3%), Hr: 3 (3%), Marketing: 3 (3%) (+5 more)\n  - By Seniority: Specialist: 33 (29%), Manager: 17 (15%), Other Management: 12 (11%), Director: 6 (5%), Senior: 4 (4%), Clevel: 2 (2%), Head: 2 (2%), Vp: 2 (2%)\n- Talent Sources: Coffreo (7), SOCOTEC (2), Odaseva (2), GRAD SYSTEM (2), Cegid (2), Vialis Colmar (1), Silae (1), Mondial Relay (1), Cetelem (1), Adoria (1)\n- Alumni Go To: Provence Avenir (2), OCI Informatique (2), Camo Groupe (2), WeMa (1), Thunders (1), Sogefi Group (1), Sixthfin (1), Schaeffler (1), LS Téléprospection (1), ARKÉDIA (1)\n\n## Products & Technology\n- Tech Stack: dsn, javascript, linkedin, playwright, python, quip, salesforce, sql, trello, typescript, windows server, comit, freshdesk, amp, impact, c, citrix xenapp, fortinet, fortinet fortigate, ivanti, microsoft, microsoft windows 7, rds, veeam, vmware, vmware esxi, well, windows 7, vue.js\n\n## Web presence\n\n- Twitter: twitter.com/ensogroupe\n- Facebook: facebook.com/ensogroupelogiciels\n- Crunchbase: crunchbase.com/organization/enso-group\n- Web traffic:\n  - Monthly visits: 5,040\n  - Global rank: 3,055,326\n  - Bounce rate: 35.0%\n  - Pages per visit: 2.9\n  - Average visit duration: 387s\n\n## Reviews & Ratings\n- Employer Rating: 3.4/5.0 (9 reviews)\n  - Breakdown: Work-Life: 3.8, Compensation: 3.1, Culture: 2.7, Career: 2.9\n\n## Categories\n\ncustomization, dsn multi-agence, enterprise resource planning (erp), internal management, payroll, recruiting, recruitment, software, technology/software\n\n## Recent News\n- [2026-09-12] [Trafic, odeurs, poussières : pourquoi l'extension du site de déchets d'ENSO est contestée à Istres](https://www.laprovence.com/article/ecoplanete/98108033101643/trafic-odeurs-poussieres-pourquoi-l-extension-du-site-de-dechets-d-enso-est-contestee-a-istres)\n- [2026-09-11] [Le groupe ENSO veut faire transiter jusqu’à 90 000 tonnes de déchets par an à Istres](https://www.laprovence.com/article/ecoplanete/3979855513502214/le-groupe-enso-veut-faire-transiter-jusqu-a-90-000-tonnes-de-dechets-par-an-a-istres)\n- [2026-08-14] Outlook India: Enso Group: Next Chapter Of Enterprise\n- [2026-06-22] [SodaStream senkt sein Edel-Modell: Diese alten Flaschen passen beim Enso weiter - CHIP](https://www.chip.de/angebote/schnaeppchen/sodastream-senkt-sein-edel-modell-diese-alten-flaschen-passen-beim-enso-weiter_911c1b07-bc5d-47ff-9344-c159c9645cda.html)\n- [2026-05-07] Zonebourse Suisse: Le groupe forestier Stora Enso dépasse les attentes au T1 dans un contexte difficile\n- [2024-12-18] The Economic Times: Enso Group partners with G-Energy to launch engine oils in India\n\n## Social\n\n### Linkedin\n\n- [2026-10-02 · 10 reactions] 👀 Entre une fiche de poste et la réalité du terrain, il peut parfois y avoir un monde. Compétences recherchées, horaires, rémunération, lieu de travail… Sur le papier, vous disposez de nombreuses i...\n\n- [2026-10-01 · 9 reactions, 3 comments] 🔎 Entreprises de propreté : comment réduire vos coûts RH tout en fidélisant vos salariés ? Dans un secteur où 48 % des salariés sont multi-employeurs, chaque friction dans le parcours collaborateur...\n\n- [2026-10-01 · 12 reactions] Comment l'entreprise SEGAULT a-t-elle digitalisé et sécurisé la gestion de ses bulletins de paie ? 🎥 C’est tout l’objet de notre prochain webinaire, organisé avec Kelio, au cours duquel Nathalie M....\n\n- [2026-09-30 · 30 reactions, 1 comment] 📍 ENSO Tour 2026 – Paris Un moment intéressant pour découvrir les nouveautés et les évolutions à venir de nos outils dédiés au travail temporaire. Avec évidemment un sujet incontournable : l’intégr...\n\n- [2026-09-30 · 28 reactions, 2 comments] ✨ Clap de fin pour l’Enso Tour 2026 8 villes, 3 semaines et 200 participants : cette nouvelle édition s’achève après de très belles rencontres partout en France. De Strasbourg à Paris, en passant p...\n\n- [2026-09-25 · 78 reactions, 2 comments] ✨ Une matinée placée sous le signe de l’échange et de l’innovation ! Ce matin, j’étais accompagnée de Maëlys Chaplais au Château d'Apigné pour participer à l’ENSO TOUR. Un moment convivial et enric...\n\n- [2026-09-25 · 16 reactions] ✨ Dernière ligne droite pour l'Enso Tour 2026 Après plusieurs étapes partout en France, il ne reste déjà plus que deux dates pour venir rencontrer nos équipes et découvrir nos nouveautés produits :...\n\n- [2026-09-24 · 11 reactions] 📱 Être présent sur tous les réseaux sociaux ? Pas forcément. Être présent là où sont vos intérimaires ? Oui. Instagram, Facebook, TikTok, YouTube… Face à la multiplication des canaux, difficile pou...\n\n- [2026-09-23 · 30 reactions, 1 comment] 🔐 Certification ISO 27001 renouvelée ! À l’occasion du Congrès National du GES - Sécurité Privée, Philippe Gasull ✅ a eu le plaisir de recevoir officiellement le renouvellement de la certification...\n\n- [2026-09-22 · 12 reactions, 3 comments] 🔐 Dans la sécurité privée, chaque friction dans le parcours collaborateur peut finir par coûter cher. Un contrat qui tarde à être signé. Un document à rechercher. Une information transmise par télé...\n\n- [2026-09-21 · 14 reactions] 📅 SAVE THE DATE : un nouveau rendez-vous Enso se prépare ! Après l’Enso Tour, place au Roadshow Légal. 🚀 Du 17 novembre au 16 décembre, rendez-vous dans 10 villes pour 13 sessions consacrées aux év...\n\n- [2026-09-18 · 16 reactions] L’Enso Tour 2026 a démarré 🙌 Après Strasbourg et Metz, retrouvez-nous la semaine prochaine. L’Enso Tour, c’est un moment privilégié pour échanger directement avec nos équipes, découvrir les produit...\n\n- [2026-09-17 · 14 reactions] 🔎 Fin juillet 2025, Bénédicte Bertin, Directrice Générale de Lebon Job Intérim, fait face à un incident critique : son prestataire informatique, qui héberge alors son infrastructure, subit une cybe...\n\n- [2026-09-16 · 12 reactions] 🎯 Une nouvelle commande arrive. Votre premier réflexe : chercher dans votre vivier. Sur le papier, vous avez l’embarras du choix : des centaines, voire des milliers de candidats enregistrés. Mais a...\n\n- [2026-09-15 · 9 reactions] 🚀 Le Groupe Aboutir Emploi a choisi notre ATS-CRM candidat pour accompagner ses équipes dans l’optimisation de leurs recrutements. Mise à jour automatisée des disponibilités, matching intelligent d...\n\n- [2026-09-15 · 14 reactions] 📊 Comment les intérimaires recherchent-ils leurs missions ? Qu’est-ce qui les pousse à choisir une agence ? Quels critères déterminent l’acceptation d’une mission ? Et qu’attendent-ils de leur agen...\n\n- [2026-09-14 · 18 reactions, 2 comments] 🎉 Une nouvelle collaboratrice, Erika Prouteau, rejoint l’équipe Produit de Thomas LETSCHER en tant que Senior Product Manager. Bienvenue Erika. 👋 Pour faire connaissance, on aurait pu lui poser des...\n\n- [2026-09-11 · 12 reactions, 1 comment] 🎉 Une nouvelle arrivée dans l’équipe Tech d’Enso ! Bienvenue à Benjamin CRESPY, qui rejoint l’équipe Développement en tant qu’Engineering Manager. Et comme le veut la tradition, Benjamin s’est prêt...\n\n- [2026-09-10 · 13 reactions] 🚀 Nous recrutons deux profils en CDI 🤝 Consultant(e) Support Client Vous avez une solide expérience en paie et vous aimez investiguer, conseiller et accompagner les utilisateurs ? Rejoignez notre é...\n\n- [2026-09-04 · 10 reactions, 3 comments] 🎉 Une nouvelle collaboratrice chez Enso ! Bienvenue à Gabrielle Chabaud, qui rejoint l’aventure en tant que Project Management Officer. 👋 Pour son arrivée, elle n’a pas échappé à notre désormais tr...\n\n## Locations\n- Headquarters: wettolsheim, grand est, france\n- Offices: wettolsheim, alsace, france, wettolsheim, grand-est, france",
+        "summary": "{\"description\":\"ENSO is a Software Development company. Enso provides new generation internal management solutions, including recruitment, payroll, DSN multi-agence, and customization. They offer services for sectors including private security, live entertainment, catering, hospitality, cleaning, medical, and public sector.\",\"employee_estimate\":113,\"employee_estimate_source\":\"Employees: 113\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Guillaume OUDART: Directeur Revenue Operations\",\"hq\":\"Wettolsheim, Grand Est, France\",\"hq_quote\":\"Headquartered in Wettolsheim, Grand Est, France\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"- Industry: Software Development\\n- Type: Privately held\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":null,\"recently_funded_seed_or_series_a_quote\":\"null (not stated)\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQEJOts311J-aQ/company-logo_200_200/company-logo_200_200/0/1735835475025/enso_groupe_logo?e=2147483647&v=beta&t=_wp_TpBlYtp3yrUITs0kUE6bM__O0Tq7rpM5lzw0od8",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/nt6x35h6k8c",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "ENSO",
+              "foundedYear": 1994,
+              "description": "ENSO, le partenaire technologique de référence des agences d’intérim.\nDepuis plus de 30 ans, nous concevons des solutions logicielles robustes, évolutives et adaptées aux enjeux du travail temporaire. Notre Suite ENSO – innovante, modulaire et performante – accompagne la digitalisation et l’optimisation des agences. Animée par l’innovation, l’écoute, l’expertise et le dynamisme, ENSO s’engage au quotidien aux côtés des professionnels de l’intérim.",
+              "workforce": {
+                "total": 113
+              },
+              "headquarters": {
+                "address": "2, Rue des Merisiers, Wettolsheim, Grand Est 68920, FR",
+                "city": "Wettolsheim",
+                "postalCode": null,
+                "country": "France"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": null,
+                "fundingLatestRound": {
+                  "name": "Private equity",
+                  "date": "2019-09-17",
+                  "amount": null
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 5040,
+                "countryRank": 121865,
+                "avgDurationSeconds": 387,
+                "history": [
+                  {
+                    "value": 7518,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 5075,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 3818,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 7974,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 5779,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 5040,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 8405.9,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

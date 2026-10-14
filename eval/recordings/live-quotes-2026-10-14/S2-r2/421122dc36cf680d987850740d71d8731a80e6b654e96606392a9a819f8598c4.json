@@ -1,0 +1,262 @@
+{
+  "request": {
+    "query": "Restate",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the exact phrase from the page that the employee estimate came from (e.g. \"350 employees\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "581c3df166f73ef0ca5fc9e96d32b383",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/fhn0kn3s2pr",
+        "title": "Restate",
+        "url": "https://restate.dev/",
+        "text": "# Restate\n\nRestate is a Software Development company. Restate is a low-latency application runtime that provides flexible building blocks for agents, workflows, and microservices. It offers low latency durable execution driven by a fast distributed log. Restate employs 28 people (+64.7% YoY, +11 people). Headquartered in Berlin, Berlin, Germany. Its workforce is distributed across 8 countries (including United States, Germany, United Kingdom, Belgium, and Cyprus).\n\n## About\n\nRestate is a lightweight runtime to turn AI agents, workflows, and backend services into durable processes. Focus on your logic, not failure mechanics. \n\nWe're hiring. Check out: https://www.restate.dev/careers\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: Berlin, Germany\n- Homepage: restate.dev\n- Aliases: Restate GmbH, restate\n- LinkedIn: linkedin.com/company/restatedev\n- Linkedin Followers: 3,498\n- Emails: stephan@restate.email\n\n## Financials\n- Total Funding: USD 7,000,000\n  - Seed (2024-06-10): USD 7.0M\n\n## Workforce\n- Employees: 28\n- Company Size: 11-50 employees\n  - Yearly Growth: +64.7%\n- Key Executives:\n  - Igal Shilman: Co-Founder\n  - Jamie Grier: Chief Technology Officer, Field\n  - Jan Rixgens: Head of Business Operations\n  - Stephan Ewen: Founder\n  - Till Rohrmann: Co-Founder\n- Breakdown:\n  - By Country: United States: 8 (29%), Germany: 5 (18%), United Kingdom: 5 (18%), Belgium: 1 (4%), Cyprus: 1 (4%), Italy: 1 (4%), South Africa: 1 (4%), Spain: 1 (4%)\n  - By Department: Technical: 9 (32%), Consulting: 5 (18%), Operations: 3 (11%), Other Department: 2 (7%), Finance: 1 (4%), General Management: 1 (4%), Product: 1 (4%), Sales: 1 (4%)\n  - By Seniority: Other Management: 9 (32%), Specialist: 6 (21%), Founder: 3 (11%), Manager: 2 (7%), Clevel: 1 (4%), Head: 1 (4%), Senior: 1 (4%)\n- Active job postings: 5\n- Talent Sources: The Apache Software Foundation (3), Volume Payments (1), Ververica (1), Rerun (1), Klarrio (1), Index Ventures (1), Finoa (1), Confluent, an IBM Company (1), Broadcom (1), Bayerisches Rotes Kreuz (BRK) (1)\n- Alumni Go To: tech company (1), shapesty (1), Protex AI (1), Prequel (1), GREP.AI (YC F26) (1), Daniela Hallmann | Operative rechte Hand für Gründer, Geschäftsführers & Investoren (1)\n\n## Products & Technology\n- Tech Stack: apache, apache flink, java, kotlin, python, typescript, discord, github, kubernetes, ruby, terraform\n\n## Web presence\n\n- Twitter: twitter.com/restatedev\n- YouTube: youtube.com/@restatedev\n- Crunchbase: crunchbase.com/organization/restate-5a05\n- GitHub: github.com/restatedev/restate\n- Web traffic:\n  - Monthly visits: 27,665\n  - Global rank: 1,044,189\n  - Bounce rate: 42.0%\n  - Pages per visit: 1.9\n  - Average visit duration: 34s\n\n## Categories\n\nagents, backends, computers_electronics_and_technology/programming_and_developer_software, enterprise software, flexible building blocks, low latency, runtime, software, software/technology\n\n## Recent News\n- [2026-10-05]\n  - TradingView: CanPR Technology Ltd. \\(WPR\\) To Restate FY2025; Shares Under Cease Trade\n  - TipRanks: CanPR Technology to Restate 2025 Results as Shares Face Cease Trade Order\n- [2026-10-02]\n  - [AI Agent Infrastructure Gets $20M Boost for Restate](https://www.under30ceo.com/ai-agent-infrastructure-restate-20m-series-a/)\n  - TipRanks: ARCLANDS to Restate Results After Probe into Pets-first Accounting\n- [2026-10-01] AI Insider: Restate Closes $20M Series A as AI Agents Drive Demand for Durable Workflows\n- [2026-09-30]\n  - Unite.AI: Restate Raises $20M Series A to Build Durable Infrastructure for AI Agents\n  - Business Wire: Restate Raises $20M Series A to Define the Infrastructure Layer for AI Agents and Workflows\n  - TechCrunch: Restate lands $20M as the need for durable infrastructure increases with AI agents\n  - Crypto Briefing: Restate secures $20M to build durable infrastructure for AI agents\n  - Nashville Catholic: Tennessee Bishops Restate Opposition to Death Penalty Following Christa Pike Stay of Execution\n- [2026-09-29] marketscreener.com: Bloomin' Brands, Inc. And OSI Restaurant Partners, LLC Amend And Restate Credit Agreement To Extend Maturity Date To September 25, 2031\n- [2026-09-28] scanx.trade: NervGen to restate FY25 and Q2FY26 financials on warrant adjustments\n- [2026-09-26]\n  - TipRanks: Fusion Fuel Green to Restate 2025 Financials After Currency and Goodwill Errors\n  - TipRanks: NervGen Pharma to restate previously filed financial statements\n  - TradingView: NervGen To Restate Previously Filed Financial Statements Recognizing Non-Cash Accounting Adjustments\n- [2026-09-23] TipRanks: Concord Medical Services to Restate 2024–2025 Results After Auditor Change\n- [2026-09-22] scanx.trade: Optimum Communications to restate FY25-26 financials over tax errors\n- [2026-09-20] New Scientist: Why it is time to restate the case for the importance of research on animals\n- [2026-09-17] scanx.trade: Nuburu to restate Q2FY26 financials due to material error\n- [2026-09-12]\n  - The Nation Newspaper: Ex-Ondo lawmakers unveil new office, restate support for Tinubu’s re-election\n  - The Nation Newspaper: Oyo 2027: Adelabu’s loyalists in Ibadan S/East LG restate commitment to APC\n- [2026-06-29] [Replys Wette:  Produktivität und Unternehmen wachsen mit KI](https://de.marketscreener.com/boerse-nachrichten/replys-wette-produktivitaet-und-unternehmen-wachsen-mit-ki-ce7f5fdeda8df426)\n\n## Social\n\n### Linkedin\n\n- [2026-10-02 · Reshared · 13 reactions] [It ain't a modern CLI without one of these help sections...](https://www.linkedin.com/posts/restatedev_activity-7511793727699480576-9NgR): It ain't a modern CLI without one of these help sections... Upcoming to Restate 1.8 CLI with ton of new agentic features!\n\n- [2026-10-01 · Reshared · 132 reactions] [Big day at Restate. We’ve raised a $20M Series A led by Singular...](https://www.linkedin.com/posts/restatedev_activity-7511407514132066304-8Gsq): Big day at Restate. We’ve raised a $20M Series A led by Singular , with participation from Redpoint Ventures and Capital One Ventures 🎉 Making durable execution easy to add to existing applications...\n\n- [2026-09-30 · Posted · 82 reactions] [We’re excited to announce that Restate has raised a $20M Series A...](https://www.linkedin.com/posts/restatedev_were-excited-to-announce-that-restate-has-activity-7511088086659837954-xXmN)\n  > We’re excited to announce that Restate has raised a $20M Series A led by Singular with participation from Redpoint Ventures and Capital One Ventures.\n  >\n  > This funding marks a major milestone for Restate and comes as reliable execution is becoming increasingly important for a new generation of applications.\n  >\n  > Today, Restate powers the execution of Replit Agent, enterprise workflows at DOSS, and critical production applications at Fortune 500 institutions. What started with developers looking for a better way to handle failures, retries and recovery is increasingly becoming foundational infrastructure for complex, long-running applications and AI agents.\n  >\n  > With this funding, we’re investing in making Restate faster, more efficient and easier to operate at scale, while expanding the team and supporting a rapidly growing community of developers and companies building on Restate.\n  >\n  > We’re incredibly grateful to our customers, users, contributors and investors who have helped us get here. And we’re just getting started.\n  >\n  > Our CEO and co-founder Stephan Ewen wrote more about what we’ve learned building Restate, the architectural bets behind it, and where he believes Durable Execution goes from here (link in comments).\n\n- [2026-09-18 · Posted · 22 reactions] [Did you see the new concept of Projects in Claude? Want to build...](https://www.linkedin.com/posts/restatedev_did-you-see-the-new-concept-of-projects-in-activity-7506704611651686401-H1be)\n  > Did you see the new concept of Projects in Claude? Want to build something like it for your own agent?\n  >\n  > A Project is an ongoing conversation that brings related work together. Describe your goal, and Claude splits it into threads, runs them in parallel in the cloud, keeps working after you close your laptop, and lets you steer execution along the way.\n  >\n  > Building this for production often means stitching together queues, databases, schedulers, and coordination logic.\n  >\n  > Restate gives you the building blocks for durable asynchronous agents, with recovery, consistency, and coordination built in:\n  >\n  > → Coordinator + parallel workers\n  > Run each agent as a durable function. Call models and sandbox commands as durable steps; delegate to other agents via durable RPC.\n  >\n  > → Shared memory & library\n  > Give each project a Virtual Object with a stable ID, durable state, and callable handlers. Store memory, preferences, and artifact references. Restate serializes updates, so you don’t manage locks.\n  >\n  > → Unified overview\n  > Build your dashboard over durable project and agent state: progress, pending approvals, and results.\n  >\n  > → Steer on the go\n  > Use durable signals to steer execution, interrupt runs, and resolve approvals. Cancellation propagates through nested subagent calls, so you can stop the entire call tree.\n  >\n  > → Background execution & routines\n  > Restate preserves recorded progress through crashes and retries. And lets you schedule recurring routines via durable timers.\n  >\n  > Self-host Restate for free, or use Restate Cloud/BYOC + serverless functions for a managed production setup without operating infrastructure.\n  >\n  > These same primitives work for coding agents, research agents, or whatever you’re building next.\n\n- [2026-09-18 · 21 reactions] Did you see the new concept of Projects in Claude? Want to build something like it for your own agent? A Project is an ongoing conversation that brings related work together. Describe your goal, an...\n\n- [2026-09-16 · Reshared · 12 reactions] [Join us tomorrow (9/17) in Jackson Square for Infra Demo Night 💻 ✨...](https://www.linkedin.com/posts/restatedev_activity-7506046720913453057-pwZ5): Join us tomorrow (9/17) in Jackson Square for Infra Demo Night 💻 ✨ Get an early look at live demos from founders of infrastructure startups: → Charles Packer and Sarah Wooders, Letta → Stephan Ewen...\n\n- [2026-09-16 · 122 reactions, 10 comments] At Restate, we work as a distributed team with hubs and remote locations across Europe and the US. Twice a year, we meet in-person for an off-site. Last week, we gathered the team for a week-long o...\n\n- [2026-09-02 · Reshared · 157 reactions] [New chapter. I’m joining Restate as VP of Sales! The product is...](https://www.linkedin.com/posts/restatedev_activity-7500812543498670080-02uB): New chapter. I’m joining Restate as VP of Sales! The product is already amazing. I’m joining to help build the go-to-market engine around it and make Restate the new standard for durable execution....\n\n- [2026-09-01 · Posted · 14 reactions] [Not long ago, we released Flow Control for Restate, starting with...](https://www.linkedin.com/posts/restatedev_not-long-ago-we-released-flow-control-for-activity-7500524575647080449-azKK)\n  > Not long ago, we released Flow Control for Restate, starting with support for defining concurrency limits across scopes you choose.\n  >\n  > Attach a scope to any request, and Restate automatically applies the concurrency limits defined for that scope.\n  >\n  > The Restate UI now lets you manage and monitor your virtual queues:\n  > - View your rulebook\n  > - Configure, enable, disable rules\n  > - Monitor usage across rules\n  > - View key statistics, recent activity, and the inbox of each virtual queue\n  >\n  > Try it out and let us know what you think!\n  >\n  > Some useful links in the comments ⬇️\n\n- [2026-09-01 · 19 reactions, 1 comment] Not long ago, we released Flow Control for Restate, starting with support for defining concurrency limits across scopes you choose. Attach a scope to any request, and Restate automatically applies...\n\n- [2026-08-25 · Reshared · 20 reactions] [I was there onsite to help the migration, and it was a hell lot of...](https://www.linkedin.com/posts/restatedev_activity-7498127770061860864-qcpn): I was there onsite to help the migration, and it was a hell lot of fun! After few days of digging in their codebase, we crafted together a working prototype in *one* day, a prototype that was able...\n\n- [2026-08-25 · Posted · 5 reactions] [The Restate UI now includes a Virtual Object view where you can see...](https://www.linkedin.com/posts/restatedev_the-restate-ui-now-includes-a-virtual-object-activity-7497999233212477440-08E8)\n  > The Restate UI now includes a Virtual Object view where you can see recent invocations for an object, its key-value state, and the invocation currently holding the object’s lock.\n  >\n  > Implement durable chat sessions, shopping carts, or user accounts and use the Restate UI to inspect what is happening.\n\n- [2026-08-25 · 24 reactions] 𝗩𝗶𝗿𝘁𝘂𝗮𝗹 𝗢𝗯𝗷𝗲𝗰𝘁𝘀 let users build sessions, agents, actors, and all other sorts of stateful entities. They now have their own view in Restate's UI. State, inbox, history all together.\n\n- [2026-08-25 · 13 reactions] The Restate UI now includes a Virtual Object view where you can see recent invocations for an object, its key-value state, and the invocation currently holding the object’s lock. Implement durable...\n\n- [2026-08-24 · Reshared · 76 reactions] [Replit launched the free mode yesterday, and Restate powers durable...](https://www.linkedin.com/posts/restatedev_activity-7497580163904344064-5_I6): Replit launched the free mode yesterday, and Restate powers durable execution for it. Our team is incredibly proud to provide a critical piece for such a cool product. Their scale and the sophistic...\n\n- [2026-08-18 · Reshared · 29 reactions] [We’ve just released Restate 1.7.4. 🚀 It’s a focused patch release...](https://www.linkedin.com/posts/restatedev_activity-7495493804502745088-UuHz): We’ve just released Restate 1.7.4. 🚀 It’s a focused patch release packed with reliability fixes and operational improvements, particularly for teams using VQueues or running larger Restate clusters...\n\n- [2026-08-07 · Reshared · 43 reactions] [🚀 Restate 1.7.3 is now available! The headline: 𝗲𝘅𝗶𝘀𝘁𝗶𝗻𝗴 𝗥𝗲𝘀𝘁𝗮𝘁𝗲...](https://www.linkedin.com/posts/restatedev_activity-7491527250245410816-JHMH): 🚀 Restate 1.7.3 is now available! The headline: 𝗲𝘅𝗶𝘀𝘁𝗶𝗻𝗴 𝗥𝗲𝘀𝘁𝗮𝘁𝗲 𝗰𝗹𝘂𝘀𝘁𝗲𝗿𝘀 𝗰𝗮𝗻 𝗻𝗼𝘄 𝗺𝗶𝗴𝗿𝗮𝘁𝗲 𝘁𝗼 𝗩𝗤𝘂𝗲𝘂𝗲𝘀 and start using flow control without reprovisioning the cluster or first draining every in-fligh...\n\n- [2026-08-07 · Posted · 10 reactions] [The latest SDK releases added some powerful features, including...](https://www.linkedin.com/posts/restatedev_the-latest-sdk-releases-added-some-powerful-activity-7491469423325708288-MwcC)\n  > The latest SDK releases added some powerful features, including signals.\n  >\n  > Signals make patterns like agent steering very simple: keep a durable invocation handle, signal the running invocation with new input, and pick it up between turns.\n  >\n  > Signals can be resolved multiple times.\n  >\n  > Restate persists the signal, so no need for queues or coordination logic.\n  >\n  > And with these releases, the Python and Go SDKs have graduated to 1.0! 🎉\n  >\n  > - TS SDK 1.16\n  > - Python SDK 1.0\n  > - Go SDK 1.0\n  > - Java SDK 2.9\n  > - Rust SDK 0.11\n\n- [2026-08-07 · 17 reactions] The latest SDK releases added some powerful features, including signals. Signals make patterns like agent steering very simple: keep a durable invocation handle, signal the running invocation with...\n\n- [2026-08-06 · Posted · 11 reactions] [DOSS migrated its ERP workflow engine from BullMQ + Postgres to...](https://www.linkedin.com/posts/restatedev_doss-migrated-its-erp-workflow-engine-from-activity-7491155106260824064-pjkm)\n  > DOSS migrated its ERP workflow engine from BullMQ + Postgres to Restate in a few weeks.\n  >\n  > Restate's flexible programming model mapped naturally onto their DSL: via Virtual Objects, service calls, and deterministic concurrency.\n  >\n  > The result:\n  > - Durable Execution, instead of custom transition tracking, retry handling, and state persistence\n  > - Clear visibility into running workflows and failures\n  > - One-click cancellation and reruns\n  > - More time to focus on ERP business logic\n  >\n  > Restate BYOC and Google Cloud Run now power every workflow their customers create.\n  >\n  > ⬇️ Read the customer story to learn more\n\n## Locations\n- Headquarters: berlin, berlin, germany (DE)\n- Offices: berlin, berlin, germany (DE)",
+        "summary": "{\"description\":\"Restate is a Software Development company. Restate is a low-latency application runtime that provides flexible building blocks for agents, workflows, and microservices. It offers low latency durable execution driven by a fast distributed log.\",\"employee_estimate\":28,\"employee_estimate_source\":\"Employees: 28\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Berlin, Germany\",\"hq_quote\":\"Headquartered in Berlin, Berlin, Germany.\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Restate is a Software Development company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 7,000,000 - Seed (2024-06-10): USD 7.0M\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQE4If21bGaNFg/company-logo_200_200/company-logo_200_200/0/1718798503576/restatedev_logo?e=2147483647&v=beta&t=Gz8cEq7ycmp1MRrVE046na4R45Iy_I7sfv4eak-lgmg",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/fhn0kn3s2pr",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Restate",
+              "foundedYear": null,
+              "description": "Restate is a lightweight runtime to turn AI agents, workflows, and backend services into durable processes. Focus on your logic, not failure mechanics. \n\nWe're hiring. Check out: https://www.restate.dev/careers",
+              "workforce": {
+                "total": 28
+              },
+              "headquarters": {
+                "address": "Berlin, Berlin, Germany",
+                "city": "Berlin",
+                "postalCode": null,
+                "country": "Germany"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 7000000,
+                "fundingLatestRound": {
+                  "name": "Seed",
+                  "date": "2024-06-10",
+                  "amount": 7000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 27665,
+                "countryRank": 856842,
+                "avgDurationSeconds": 34,
+                "history": [
+                  {
+                    "value": 27448,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 35140,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 30172,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 31534,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 36819,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 27665,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/f5xggmq818b",
+        "title": "Restate",
+        "url": "https://restate.ee/",
+        "text": "# Restate\n\nRestate is a Real Estate company. Restate is a company that specializes in real estate and offers solutions and results for properties. Restate employs 35 people (+20.7% YoY, +6 people), founded in 2009. Headquartered in Tallinn, Harju County, Estonia.\n\n## About\n\nRestate creates modern, innovative buildings and fully integrated business environments. We are impressed by modern architecture that is characterised by energy efficiency and functionality.\n\n- Real estate development\n- Consultation and brokerage services\n- Asset management\n- Investing in real estate\n\n## Company Details\n- Industry: Real Estate\n- Type: Partnership\n- Headquarters: Tallinn, Estonia\n- Founded Year: 2009\n- Homepage: restate.ee\n- Aliases: RESTATE\n- LinkedIn: linkedin.com/company/restateproperty\n- Linkedin Followers: 735\n- Emails: info@restate.ee\n- Phone: +372 6 400 35, +3726400350, +372 6 400 350, 0209155, 101411501, 101641847, 11592452, 12017388, 14542880\n\n## Workforce\n- Employees: 35\n- Company Size: 11-50 employees\n  - Yearly Growth: +20.7%\n- Key Executives:\n  - Anton Kruglov: Group CFO / Partner\n  - Ardi Roosimaa: Founding Partner\n  - Jane Ranne: Group Chief Accountant\n- Breakdown:\n  - By Country: Estonia: 19 (54%)\n  - By Department: Real Estate: 8 (23%), Other Department: 5 (14%), Consulting: 2 (6%), Finance: 2 (6%), General Management: 2 (6%), Project Management: 1 (3%)\n  - By Seniority: Specialist: 10 (29%), Other Management: 4 (11%), Manager: 3 (9%), Clevel: 2 (6%), Partner: 1 (3%)\n- Talent Sources: Uus Maa Real Estate company (2), 1Partner Estonia (2), LänsiAuto (1), Kalju FC (1), Hammerhead (1), FleetFox (1), Eccleston Park Capital (1), EKFL, Association of Estonian Real Estate Firms (1), C Restaurant (1), Agentuur La Ecwador (1)\n- Alumni Go To: Tristock (1), Stealth Startup (1), RE Kinnisvara AS (1), Philip Morris International (1), Nerostein (1), Kaaret Kinnisvara (1), HUMUS by PMT (1), Endover (1), EVERAUS Kinnisvara (1), EKE AS (1)\n\n## Products & Technology\n- Tech Stack: git, ning, simine\n\n## Web presence\n\n- Facebook: facebook.com/restateproperty\n- Instagram: instagram.com/restateproperty\n- Crunchbase: crunchbase.com/organization/restate\n- Web traffic:\n  - Monthly visits: 1,598\n  - Global rank: 9,363,913\n  - Bounce rate: 44.0%\n  - Pages per visit: 2.0\n  - Average visit duration: 31s\n\n## Categories\n\nasset management, business_and_consumer_services/real_estate, project management, properties, property advisors, property management, real estate, real estate development, results, solutions\n\n## Recent News\n- [2026-10-01] ERR: Real estate disputes over hidden faults increasingly common and aided by AI\n- [2026-09-28] Hiiraan Online: Najax Real Estate: Rajada Cusub ee Guryeynta Danyarta Magaalada Beledweyne\n- [2026-09-26] North Fork Sun: North Fork & Shelter Island real estate transfers – Sept. 27, 2026\n- [2026-09-25]\n  - ERR: Estonian real estate developers set sights on Latvia\n  - ERR: State Real Estate Ltd. puts former Tallinn Music High School properties up for auction\n- [2026-08-28] EdgeProp.sg: Building trust from the ground up: How Jane Ee embraced a new chapter in real estate\n\n## Social\n\n### Linkedin\n\n- [2026-10-01 · Posted · 4 reactions] [September lõppes Tänassilma Äripargis Lepatriinu põik 3...](https://www.linkedin.com/posts/restateproperty_p%C3%B5llumaast-%C3%A4rikeskkonnaks-t%C3%A4nassilma-%C3%A4ripargis-activity-7511357277287800832-2xov)\n  > September lõppes Tänassilma Äripargis Lepatriinu põik 3 sarikapeoga. Aasta lõpus valmiv hoone on äripargi viies ning toob sinna ligemale 4000 m² uut äripinda, millest 90% on juba müüdud. Sellega jõuab mitmekesise äripargi esimene arenguetapp lõpusirgele.\n  >\n  > Hetkel tegutsevad äripargis auto-moto, logistika, e-kaubanduse, kaubanduse ja teeninduse ettevõtted.\n  >\n  > „Viis aastat tagasi oli siin sisuliselt põllumaa. Täna on siin peatselt valmiva äripargi näol olemas toimiv ärikeskkond, mille kujunemisse on oma tegevuse ja investeeringutega panustanud väga erinevad ettevõtted,\" ütles Restate'i kinnisvaraarenduse projektijuht Madis Lätt.\n  >\n  > Ärihoone ehitajaks on Maru Ehitus. Lepatriinu põik 3 järel on esimese arenguetapi viimase hoonena kavandamisel äripindade tarbeks loodav Lepatriinu tee 2.\n  >\n  > Tänassilma Äripargi arendusala suurus on 35 hektarit ning kokku on sinna võimalik rajada kuni 16 ärihoonet ja enam kui 100 000 m² kaasaegseid äripindu.\n\n- [2026-09-25 · Reshared · 3 reactions] [🚀 1.3 miljonit ruutmeetrit võimalusi. Paneme need Sinu ettevõttele...](https://www.linkedin.com/posts/restateproperty_13-miljonit-ruutmeetrit-v%C3%B5imalusi-paneme-activity-7509187934852370432-jvGI): 🚀 1.3 miljonit ruutmeetrit võimalusi. Paneme need Sinu ettevõttele tulemusi tootma.\n\n- [2026-09-25 · Reshared · 1 reaction] [🥳 Tänassilma Äripargi areng jõuab järgmise olulise verstapostini...](https://www.linkedin.com/posts/restateproperty_t%C3%A4nassilma-%C3%A4ripargi-areng-j%C3%B5uab-j%C3%A4rgmise-activity-7509190438206189568-wwWT): 🥳 Tänassilma Äripargi areng jõuab järgmise olulise verstapostini! Tule täna viienda ärihoone / Lepatriinu põik 3 kliendipäevale ja sarikapeole. Uus hoone valmib juba selle aasta lõpus. https://lnkd...\n\n- [2026-09-24 · Posted · 8 reactions] [🏙️ 𝐇𝐞𝐚 ä𝐫𝐢𝐤𝐢𝐧𝐧𝐢𝐬𝐯𝐚𝐫𝐚 on vahend, mitte lõppeesmärk. Tänapäevane äri-...](https://www.linkedin.com/posts/restateproperty_%C3%A4rikinnisvara-arendus-varahaldus-activity-7508848065643110400-0Ali)\n  > 🏙️ 𝐇𝐞𝐚 ä𝐫𝐢𝐤𝐢𝐧𝐧𝐢𝐬𝐯𝐚𝐫𝐚 on vahend, mitte lõppeesmärk.\n  > Tänapäevane äri- või tootmishoone peab tegema enamat kui pakkuma ettevõttele ruutmeetreid. See 𝐩𝐞𝐚𝐛 𝐭𝐨𝐞𝐭𝐚𝐦𝐚 seal tegutseva 𝐞𝐭𝐭𝐞𝐯õ𝐭𝐭𝐞 𝐭öö𝐝, 𝐚𝐫𝐯𝐞𝐬𝐭𝐚𝐦𝐚 ümbritseva 𝐤𝐞𝐬𝐤𝐤𝐨𝐧𝐧𝐚𝐠𝐚 ning olema 𝐩𝐢𝐢𝐬𝐚𝐯𝐚𝐥𝐭 𝐩𝐚𝐢𝐧𝐝𝐥𝐢𝐤, et kohaneda muutuvate vajadustega ka aastate pärast.\n  >\n  > Just sellest räägib Restate’i tegevjuht Anton Kruglov Eesti Ekspressi eriväljaandes Ehitus ilmunud loos „Tänapäevane ehitis ühendab funktsioonid ja ümbritseva keskkonna“.\n  > Restate’i jaoks algab hea ärikinnisvara 𝐤𝐥𝐢𝐞𝐧𝐝𝐢 𝐭𝐞𝐠𝐞𝐥𝐢𝐤𝐞 𝐯𝐚𝐣𝐚𝐝𝐮𝐬𝐭𝐞 𝐦õ𝐢𝐬𝐭𝐦𝐢𝐬𝐞𝐬𝐭. Kuidas ettevõte töötab, millised on tema protsessid ja kuidas saab kinnisvara neid toetada. Sama oluline on asukoht, hoone sobitumine ümbritsevasse keskkonda ning võimalus ruume tulevikus muuta ja uute kasutajate vajadustega kohandada.\n  >\n  > Ehitame väärtust, mis töötab täna ja ka aastate pärast.\n  >\n  > #ärikinnisvara #arendus #varahaldus #bulittosuite #stockoffice\n\n- [2026-09-03 · Reshared · 3 reactions] [Tugev meeskond loob tugevaid tulemusi. Restate’i peamine...](https://www.linkedin.com/posts/restateproperty_tugev-meeskond-loob-tugevaid-tulemusi-restate-activity-7501213362299748354-A35a): Tugev meeskond loob tugevaid tulemusi. Restate’i peamine tegevussuund on 𝐤𝐢𝐧𝐧𝐢𝐬𝐯𝐚𝐫𝐚 𝐯𝐚𝐫𝐚𝐡𝐚𝐥𝐝𝐮𝐬 ja 𝐧õ𝐮𝐬𝐭𝐚𝐦𝐢𝐧𝐞, eesmärgiga kasvatada juhitavate varade ja portfellide väärtust ning leida kinnisvarale...\n\n- [2026-08-24 · Posted · 5 reactions] [IRONMAN Tallinn tõi Raku järve äärde korraliku energia – tulevase...](https://www.linkedin.com/posts/restateproperty_ironman-tallinn-t%C3%B5i-raku-j%C3%A4rve-%C3%A4%C3%A4rde-korraliku-activity-7497624511274561536-jNh_)\n  > IRONMAN Tallinn tõi Raku järve äärde korraliku energia – tulevase Silikaat Tehnopargi vahetusse lähedusse. 🏊♂️🚴♂️🏃♂️\n  >\n  > Restate × Silikaat Grupp.\n  > Koos loome koha tegijatele.\n  > Kasvame koos. Võidame koos.\n  > silikaattehnopark.ee\n\n- [2026-08-24 · 6 reactions] IRONMAN Tallinn tõi Raku järve äärde korraliku energia – tulevase Silikaat Tehnopargi vahetusse lähedusse. 🏊♂️🚴♂️🏃♂️ Restate × Silikaat Grupp. Koos loome koha tegijatele. Kasvame koos. Võidame koos...\n\n- [2026-08-14 · Posted · 17 reactions] [Restate’is on toimunud juhtkonnavahetus. Ettevõtte asutaja Risto...](https://www.linkedin.com/posts/restateproperty_kinnisvaraettev%C3%B5te-restate-vahetas-juhti-activity-7493948486678134786-PReH)\n  > Restate’is on toimunud juhtkonnavahetus.\n  >\n  > Ettevõtte asutaja Risto Abel andis tegevjuhi rolli üle senisele finantsjuhile Anton Kruglovile ning keskendub edaspidi ehitus- ja turundusvaldkonna kureerimisele.\n  > Samaaegselt tugevneb ka Restate’i juhtkond tervikuna. Elukondliku kinnisvara valdkonda juhib edaspidi Oliver Tiidus ning ärikinnisvara valdkonda Mark Shein.\n  >\n  > Anton Kruglovi sõnul liigub Restate järgmises arenguetapis senisest enam pikaajalise väärtuse loomise suunas. „Kui varem oli meie ärimudeli keskmes kinnisvara arendamine ja valminud objektide müük, siis nüüd soovime järjest enam arendada kinnisvara pikaajaliseks omamiseks. Strateegiaga sobivad objektid jätame Restate’i portfelli, et kasvatada nende väärtust ning luua koos partneritega stabiilset rahavoogu.“\n  >\n  > Juhtkonnamuudatus toetab Restate’i strateegilist arengut. Suurendame varahalduse ja rahavoogu tootva kinnisvara osakaalu, jätkates samal ajal aktiivselt kinnisvaraarenduse, nõustamise ning üürimise ja müügi valdkondades.\n  >\n  > Täname Ristot senise panuse eest ning soovime Antonile, Oliverile ja Markile edu Restate’i järgmise kasvuperioodi juhtimisel.\n  >\n  > Loe lähemalt artiklist 👉 https://lnkd.in/dNvh4qZV\n\n- [2026-08-14 · 26 reactions] Restate’is on toimunud juhtkonnavahetus. Ettevõtte asutaja Risto Abel andis tegevjuhi rolli üle senisele finantsjuhile Anton Kruglovile ning keskendub edaspidi ehitus- ja turundusvaldkonna kureerim...\n\n- [2026-07-31 · Posted · 4 reactions] [Restate on omandanud DSV senised logistikakeskused Eestis ning nüüd...](https://www.linkedin.com/posts/restateproperty_eestlased-omandasid-logistikagigandi-kolm-activity-7488879586886455296-q9VI)\n  > Restate on omandanud DSV senised logistikakeskused Eestis ning nüüd on turule jõudnud üks atraktiivsemaid ärikinnisvaraobjekte Tallinna piirkonnas. Tallinna lennujaama vahetus läheduses Mõigus on saadaval ligi 17 000 m² lao-, terminali- ja kontoripindu suurepärase ühendusega sadama, kesklinna ja põhimaanteedega.\n  >\n  > Kui teie ettevõte otsib kvaliteetset logistika-, lao- või äripinda suurepärases asukohas, võtke meiega ühendust – leiame just teile sobiva lahenduse.\n  >\n  > Loe lähemalt: https://lnkd.in/dfNshcT9\n  >\n  > #Restate #Ärikinnisvara #Logistika #Laopinnad\n\n- [2026-07-31 · 5 reactions] Restate on omandanud DSV senised logistikakeskused Eestis ning nüüd on turule jõudnud üks atraktiivsemaid ärikinnisvaraobjekte Tallinna piirkonnas. Tallinna lennujaama vahetus läheduses Mõigus on s...\n\n- [2026-06-11 · 8 reactions] Eile oli eriline päev. Nurgakivi pandud ja sarikad all! 🏗️✨ Peterburi tee 103 kerkib sügiseks midagi suurt. Lasnamäe saab endale uue ja kaasaegse spordi- ning meediakeskuse! Mida oodata? 🎾 Padel+Re...\n\n- [2026-05-29 · 3 reactions] Kinnisvaraturg ei ole peatunud – see pigistab praegusest olukorrast välja maksimumi. Restate värske ülevaade 2026. aasta esimese nelja kuu kohta näitab, et Harjumaa kinnisvaraturg liigub täna puhta...\n\n- [2026-05-21 · 3 reactions] Meie analüütik Julia Linde tegi Äripäevas kokkuvõtte Harjumaa kinnisvaraturu tänavustest arengutest. Turg on stabiilne ja vajaduspõhine ostja hoiab seda kenasti liikumises. Loe lähemalt Julia posti...\n\n- [2026-05-21 · 1 reaction] Kas uus on alati parem? Kinnisvaraturul enam mitte. 🏢 Kinnisvaraturul on toimumas põhimõtteline muutus. Restate’i kinnisvaraanalüütik Julia Linde jagab värskes artiklis vahedat ja ausat sissevaadet...\n\n- [2026-05-19 · 8 reactions] Kinnisvaraanalüütik Julia Linde ja Restate'i tegevjuht Risto Abel jagavad Äripäevas kogemusi sellest, kuidas AI on muutunud nende töös suurepäraseks kiirendiks. Tehisaru aitab küll säästa aega info...\n\n- [2026-03-20 · Posted · 6 reactions] [🏗️ Lasnamäele kerkib uus tõmbekeskus Peterburi tee 103 – koht, kus...](https://www.linkedin.com/posts/restateproperty_peterburi-tee-103-arendus-padel-restate-activity-7440677795074183168-fTBB)\n  > 🏗️ Lasnamäele kerkib uus tõmbekeskus Peterburi tee 103 – koht, kus kohtuvad sport, loovus ja ettevõtlus.\n  >\n  > Hoone ankurüürnikud on:\n  > 🎾 Padel+ Restate – Eesti suurim padeliklubide võrgustik, kerkib 5 kaasaegset padeliväljakut\n  > 🎬 Gorodenkoff Productions – rahvusvaheline meediatootmisettevõte, 1350 m² stuudiokompleks 230 m² LED-ekraaniga virtuaalstuudioga\n  >\n  > 💡 Peterburi tee 103 arendus pakub enamat kui lihtsalt ruume – tugev asukoht, läbimõeldud kontseptsioon ja õiged partnerid loovad piirkonda pikaajalist väärtust, liikumist ja loovust.\n  >\n  > 📅 Valmib 2026. aasta sügisel\n  > 💰 Koguinvesteering: 4 miljonit €\n  > 📏 Üüritavat pinda: 3 200 m²\n  >\n  > Loe lähemalt https://lnkd.in/enkKvDfY\n  >\n  > #restatearendab #padelplusrestate #padelplus #Restateproperty\n\n- [2026-03-20 · 6 reactions] 🏗️ Lasnamäele kerkib uus tõmbekeskus Peterburi tee 103 – koht, kus kohtuvad sport, loovus ja ettevõtlus. Hoone ankurüürnikud on: 🎾 Padel+ Restate – Eesti suurim padeliklubide võrgustik, kerkib 5 ka...\n\n- [2026-02-27 · 4 reactions] Kas sinu äripind on kuluartikkel või investeering? 📈 Paljud ettevõtted hindavad täna kriitiliselt oma püsikulusid. Restate toob turule \"Müügimaja\" kontseptsiooni, mis pakub alternatiivi tavapärasel...\n\n- [2026-02-13 · 3 reactions] Kas sinu ettevõte üürib kodu, kus ta elab? 🏠 Paljud ettevõtjad peavad üürimist ainsaks loogiliseks sammuks, kuid tegelikult võib äripinna ostmine olla üks nutikamaid finantsotsuseid, mida sel aasta...\n\n## Locations\n- Headquarters: tallinn, harju county, estonia (EE)\n- Offices: tallinn, harjumaa, estonia (EE)",
+        "summary": "{\"description\":\"Restate is a Real Estate company that specializes in real estate and offers solutions and results for properties.\",\"employee_estimate\":35,\"employee_estimate_source\":\"Employees: 35\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Tallinn, Estonia\",\"hq_quote\":\"Headquarters: tallinn, harju county, estonia (EE)\",\"industry\":\"Real Estate\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"- Industry: Real Estate\\n- Type: Partnership\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":false,\"recently_funded_seed_or_series_a_quote\":\"There is no explicit mention of seed or Series A funding on the page.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4D0BAQHCfkszskGjVQ/company-logo_200_200/B4DZ__5FX1KgAI-/0/1786704582518/restateproperty_logo?e=2147483647&v=beta&t=FgIZg0bSvY7wdPcXrDmOfkCg7BXYzFqKFz6S7w4DLHQ",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/f5xggmq818b",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Restate",
+              "foundedYear": 2009,
+              "description": "Restate creates modern, innovative buildings and fully integrated business environments. We are impressed by modern architecture that is characterised by energy efficiency and functionality.\n\n- Real estate development\n- Consultation and brokerage services\n- Asset management\n- Investing in real estate\n",
+              "workforce": {
+                "total": 35
+              },
+              "headquarters": {
+                "address": "Pärnu mnt 139e/2, Tallinn, Harjumaa 11314, EE",
+                "city": "Tallinn",
+                "postalCode": null,
+                "country": "Estonia"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 1598,
+                "countryRank": 9046,
+                "avgDurationSeconds": 31,
+                "history": [
+                  {
+                    "value": 2258,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 2107,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 86,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 423,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 1733,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 1598,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 9070.8,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

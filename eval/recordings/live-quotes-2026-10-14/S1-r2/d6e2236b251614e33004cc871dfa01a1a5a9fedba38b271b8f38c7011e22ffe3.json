@@ -1,0 +1,230 @@
+{
+  "request": {
+    "query": "third-party logistics provider opens new warehouse or fulfillment center in the US",
+    "type": "neural",
+    "numResults": 15,
+    "startPublishedDate": "2026-07-14T15:13:02.069Z",
+    "contents": {
+      "summary": {
+        "query": "third-party logistics provider opens new warehouse or fulfillment center in the US Set signal_date to the date the EVENT itself happened or was announced (not the article's publish date), in ISO format YYYY-MM-DD. Set signal_type to exactly one of: new_facility, expansion, ops_hiring_wave, ops_hire, other. For signal_quote, copy the exact sentence from the page that states the event; use \"\" if no sentence states an event. For signal_date_quote, copy the exact date phrase from the page; use \"\" if no date phrase is stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "company_name": {
+              "type": "string"
+            },
+            "signal_type": {
+              "type": "string",
+              "enum": [
+                "new_facility",
+                "expansion",
+                "ops_hiring_wave",
+                "ops_hire",
+                "other"
+              ]
+            },
+            "signal_summary": {
+              "type": "string"
+            },
+            "signal_date": {
+              "type": "string"
+            },
+            "signal_quote": {
+              "type": "string"
+            },
+            "signal_date_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "company_name",
+            "signal_type",
+            "signal_summary",
+            "signal_date",
+            "signal_quote",
+            "signal_date_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 1200
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "b75551ee38420e7407d695114c0bb2e7",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://www.prnewswire.com/news-releases/wagner-logistics-to-add-nearly-80-jobs-with-new-high-volume-logistics-operation-in-liberty-302908029.html",
+        "title": "Wagner Logistics to Add Nearly 80 Jobs with New High-Volume Logistics Operation in Liberty",
+        "url": "https://www.prnewswire.com/news-releases/wagner-logistics-to-add-nearly-80-jobs-with-new-high-volume-logistics-operation-in-liberty-302908029.html",
+        "publishedDate": "2026-10-14T00:00:00.000Z",
+        "author": "Wagner Logistics",
+        "score": 1,
+        "text": "Wagner Logistics to Add Nearly 80 Jobs with New High-Volume Logistics Operation in Liberty\n\n# Wagner Logistics to Add Nearly 80 Jobs with New High-Volume Logistics Operation in Liberty\n\n Wagner Logistics \n\nOct 14, 2026, 08:54 ET\n\nNORTH KANSAS CITY, Mo., Oct. 14, 2026 /PRNewswire/ -- Wagner Logistics, a nationwide provider of third-party logistics, today announced it has signed a multi-year agreement with a Kansas City-area manufacturer to launch a new manufacturing support and warehouse operations program in Liberty, Mo.\n\nThe new operation includes two leased warehouse facilities in the Liberty area totaling more than 830,000 square feet. Wagner expects to add 79 new local jobs over the next two years, starting immediately. The company will also make a multi-million-dollar investment in equipment, infrastructure and automated trailer loading and unloading technology to support the operation.\n\n\"This is exactly the kind of operation where Wagner's strengths come through,\" said Brian Smith, President and Chief Executive Officer of Wagner Logistics. \"It requires speed, flexibility, close coordination and the ability to design a solution around what the customer actually needs.\"\n\nWagner",
+        "summary": "{\"company_name\":\"Wagner Logistics\",\"signal_date\":\"2026-10-14\",\"signal_date_quote\":\"Oct. 14, 2026 /PRNewswire/\",\"signal_quote\":\"Wagner expects to add 79 new local jobs over the next two years, starting immediately.\",\"signal_summary\":\"Wagner Logistics to add nearly 80 local jobs with a new high-volume logistics operation in Liberty, including two leased facilities totaling over 830,000 square feet and multi-million-dollar equipment investments.\",\"signal_type\":\"new_facility\"}",
+        "image": "https://mmx.prnewswire.com/media/MS2012833/WagnerLogistics_logo-tag_4-color.jpg?id=OA3017474&p=facebook"
+      },
+      {
+        "id": "https://newkentuckyhome.ky.gov/Newsroom/NewsPage/20261007_Arvato_Grand_Opening",
+        "title": "Gov. Beshear: Arvato Celebrates Grand Opening of New Fulfillment Center in Louisville, Creating 150 Quality Jobs | Kentucky Cabinet for Economic Development",
+        "url": "https://newkentuckyhome.ky.gov/Newsroom/NewsPage/20261007_Arvato_Grand_Opening",
+        "publishedDate": "2026-10-07T00:00:00.000Z",
+        "score": 0.9285714285714286,
+        "text": "Gov. Beshear: Arvato Celebrates Grand Opening of New Fulfillment Center in Louisville, Creating 150 Quality Jobs | Kentucky Cabinet for Economic Development \n\n Andy Beshear Governor Old Capitol Annex 300 West Broadway Frankfort, KY 40601 Jeff Noel Secretary \n\n 2026-10-07 For Immediate Release Brandon Mattingly 502.782.2006 \n\n### Operation will be the company’s 7th location in greater Shepherdsville area \n\nFRANKFORT, Ky. (Oct. 7, 2026) \n\n– Today, Gov. Andy Beshear announced exciting new momentum within the state’s distribution and logistics sector as Arvato, a leader in supply chain management and e-commerce, recently celebrated the grand opening of its new distribution and fulfillment center in Louisville, a project creating 150 quality, Kentucky jobs.\n\n“Kentucky’s thriving distribution and logistics sector has played a critical role in our state’s continued economic momentum,” said Gov. Beshea r. “We continually see quality companies like Arvato expanding and reinvesting in their communities, and that is a recipe for long-term economic success. The 150 new jobs created from this expansion will provide new opportunities for Kentuckians to earn a paycheck and provide for their famil",
+        "summary": "{\"company_name\":\"Arvato\",\"signal_date\":\"2026-10-07\",\"signal_date_quote\":\"FRANKFORT, Ky. (Oct. 7, 2026)\",\"signal_quote\":\"today, Gov. Andy Beshear announced exciting new momentum within the state’s distribution and logistics sector as Arvato, a leader in supply chain management and e-commerce, recently celebrated the grand opening of its new distribution and fulfillment center in Louisville, a project creating 150 quality, Kentucky jobs.\",\"signal_summary\":\"Arvato opens a new distribution and fulfillment center in Louisville, creating 150 quality Kentucky jobs; the project marks the company’s 7th location in the greater Shepherdsville area.\",\"signal_type\":\"new_facility\"}"
+      },
+      {
+        "id": "https://corporate.walmart.com/news/2026/10/stockton-next-generation-fulfillment-center",
+        "title": "Walmart Opens Next-Generation Fulfillment Center in Stockton, Expanding Faster Delivery Across the West Coast",
+        "url": "https://corporate.walmart.com/news/2026/10/stockton-next-generation-fulfillment-center",
+        "publishedDate": "2026-10-08T00:00:00.000Z",
+        "score": 0.8571428571428572,
+        "text": "Walmart Opens Next-Generation Fulfillment Center in Stockton, Expanding Faster Delivery Across the West Coast\n\n# Walmart Opens Next-Generation Fulfillment Center in Stockton, Expanding Faster Delivery Across the West Coast\n\nOct. 8, 2026\n\n \n\n## New facility will create 1,000+ jobs and use advanced automation and technology to increase fulfillment capacity\n\nSTOCKTON, Calif., Oct. 8, 2026 — Walmart today opened its fifth next-generation fulfillment center, a more than 900,000-square-foot facility in Stockton that will create more than 1,000 jobs and expand the retailer’s ability to provide faster shipping and delivery to customers across California and the West Coast.\n\nThe new facility represents the latest step in Walmart’s transformation of its supply chain, bringing associates together with advanced automation, technology and machine learning to move products faster and more efficiently. The technology enables Walmart to materially improve storage capacity and increase the number of customer orders the facility can fulfill each day compared with a traditional fulfillment center.\n\nStrategically located in California’s Central Valley, the Stockton facility adds significant fulfillmen",
+        "summary": "{\"company_name\":\"Walmart\",\"signal_date\":\"2026-10-08\",\"signal_date_quote\":\"Oct. 8, 2026\",\"signal_quote\":\"Walmart today opened its fifth next-generation fulfillment center, a more than 900,000-square-foot facility in Stockton that will create more than 1,000 jobs and expand the retailer’s ability to provide faster shipping and delivery to customers across California and the West Coast.\",\"signal_summary\":\"Walmart opens fifth next-generation fulfillment center in Stockton, a 900k+ sq ft facility creating 1,000+ jobs to speed delivery across California and the West Coast.\",\"signal_type\":\"new_facility\"}",
+        "image": "https://corporate.walmart.com/content/dam/corporate/images/newsroom/2026/10/stockton-fulfillment-center/stockton-next-gen-fulfillment-center-card.webp"
+      },
+      {
+        "id": "https://www.theconveyor.co/p/flexport-robot-fulfillment-center-kroger-chicago",
+        "title": "Flexport opens robot fulfillment center in old Kroger site",
+        "url": "https://www.theconveyor.co/p/flexport-robot-fulfillment-center-kroger-chicago",
+        "publishedDate": "2026-10-13T00:00:00.000Z",
+        "author": "Gowtham Ramachandran",
+        "score": 0.7857142857142857,
+        "text": "Flexport opens robot fulfillment center in old Kroger site\n\n# Flexport opens robot fulfillment center at former Kroger site\n\nGowtham Ramachandran\n\nOct 13, 2026\n\nFlexport has opened its first fully automated fulfillment center just outside Chicago. The company says more than 350 robots at the facility double the efficiency compared with a traditional warehouse. The center offers four times the storage and helps deliver 99.9% order accuracy. Flexport has not provided a baseline for these comparisons.\n\nFlexport’s warehouse page lists a new automated facility in Pleasant Prairie, Wisconsin, with 250,000 storage bins and 386 robots running a goods-to-person system. The village approved Flexport’s plans for the 336,840-square-foot building in May, with 300 jobs across two shifts and operations expected to begin at the end of summer 2026, BizTimes reported. \n\nKroger opened the site in 2022 as a robotic grocery fulfillment center built with Ocado. It announced last November that it would shut the center along with two other Ocado sites, expecting the closures to improve e-commerce operating profit by $400 million in 2026.\n\nFlexport planned to remove the building’s commercial chiller, refri",
+        "summary": "{\"company_name\":\"Flexport\",\"signal_date\":\"2026-10-13\",\"signal_date_quote\":\"Oct 13, 2026\",\"signal_quote\":\"Flexport has opened its first fully automated fulfillment center just outside Chicago.\",\"signal_summary\":\"Third-party logistics provider opens a new warehouse/fulfillment center in the US.\",\"signal_type\":\"new_facility\"}",
+        "image": "https://media.beehiiv.com/cdn-cgi/image/fit=scale-down,quality=80,width=1200,onerror=redirect/uploads/asset/file/fe1ea805-8f43-4fcd-8085-83ea2b2e1ded/flexport-fills-krogers-robot-warehouse.png?t=1791877294"
+      },
+      {
+        "id": "https://www.thefabricbrief.com/articles/walmart-opens-900-000-sq-ft-automated-fulfillment-center-in-stockton-410dfa9c",
+        "title": "Walmart Opens 900,000-Sq-Ft Automated Fulfillment Center in Stockton — The Fabric Brief",
+        "url": "https://www.thefabricbrief.com/articles/walmart-opens-900-000-sq-ft-automated-fulfillment-center-in-stockton-410dfa9c",
+        "publishedDate": "2026-10-13T00:00:00.000Z",
+        "author": "Elena Vasquez",
+        "score": 0.7142857142857143,
+        "text": "Walmart Opens 900,000-Sq-Ft Automated Fulfillment Center in Stockton — The Fabric Brief\n\n# Walmart Opens 900,000-Sq-Ft Automated Fulfillment Center in Stockton\n\nWalmart's 900,000-sq-ft Stockton center cuts fulfillment from 12 steps to five with 1,000 hires, part of a next-gen network push for two-day reach.\n\nBy Elena Vasquez October 13, 2026 4 min read 721 words\n\n## Spec notes\n\n1. 01 Walmart opened a 900,000-sq-ft automated fulfillment center in Stockton, Calif., with about 1,000 new associates.\n2. 02 Automated storage and retrieval compresses a 12-step fulfillment process to five steps.\n3. 03 Walmart says next-gen facilities will bring 1-2 day shipping to 95 percent of the U.S. population.\n4. 04 The retailer employs 102,900 associates in California across more than 300 stores, clubs and supply-chain facilities.\n5. 05 A $1.3 billion next-gen facility in Carnesville, Ga., announced in September, is Walmart's first in the Southeast.\n\nChip 01 · SW-1120 Walmart’s ‘Next-Gen’ CA Fulfillment Center to Boost Shipping Speed and Volume — AI-generated\n\nWalmart has opened a 900,000-square-foot fulfillment center in Stockton, California, staffing it with about 1,000 new associates and automatin",
+        "summary": "{\"company_name\":\"Walmart\",\"signal_date\":\"2026-10-13\",\"signal_date_quote\":\"October 13, 2026\",\"signal_quote\":\"Walmart's 900,000-sq-ft Stockton center cuts fulfillment from 12 steps to five with 1,000 hires, part of a next-gen network push for two-day reach.\",\"signal_summary\":\"Third-party logistics provider opens a new warehouse/fulfillment center in the US: Walmart opens a 900,000-sq-ft automated fulfillment center in Stockton, CA, hiring about 1,000 associates as part of a next-gen network to enable faster two-day shipping.\",\"signal_type\":\"new_facility\"}",
+        "image": "https://www.thefabricbrief.com/media/2026/10/a54f72e4474c2584.png"
+      },
+      {
+        "id": "https://waybillwire.com/articles/maersk-opens-71-800-sqm-german-warehouse-on-a4-corridor-1451e5fa",
+        "title": "Maersk opens 71,800 sqm German warehouse on A4 corridor — Waybill Wire",
+        "url": "https://waybillwire.com/articles/maersk-opens-71-800-sqm-german-warehouse-on-a4-corridor-1451e5fa",
+        "publishedDate": "2026-10-13T00:00:00.000Z",
+        "author": "James Calloway",
+        "score": 0.6428571428571428,
+        "text": "Maersk opens 71,800 sqm German warehouse on A4 corridor — Waybill Wire\n\n# Maersk opens 71,800 sqm German warehouse on A4 corridor\n\nMaersk has fired up a 71,800 sqm warehouse in Herleshausen, Hessen, on the A4 motorway, leased long-term at Panattoni Park Bad Hersfeld Ost to handle unnamed online retailer distribution, expecting up to 1,000 staff at holiday peak.\n\nBy\n\nJames Calloway\n\n## Key points 05\n\n- Maersk leases 71,800 sqm at Panattoni Park Bad Hersfeld Ost, on the A4 in Herleshausen, Hessen, for long-term online retailer fulfilment\n- Site comprises 62,800 sqm warehouse, 2,900 sqm offices and 6,100 sqm mezzanine with 12-metre-high racks\n- Inbound receipts began August; outbound dispatch to retailer DCs started this month\n- Staffing reaches 300-400 permanent at full ramp, scaling to up to 1,000 employees October-December\n- Site currently runs on 150 staff with hiring ongoing, per Maersk Area Northern Europe Continent MD Ole Trumpfheller\n\nMaersk has fired up a 71,800-square-metre warehouse on Germany's A4 corridor in Herleshausen, Hessen, leasing the facility long-term at Panattoni Park Bad Hersfeld Ost to run distribution for an unnamed online retailer.\n\nThe site's 62,800 sqm of ",
+        "summary": "{\"company_name\":\"Maersk\",\"signal_date\":\"2024-08-\",\"signal_date_quote\":\"\",\"signal_quote\":\"Maersk has fired up a 71,800-square-metre warehouse on Germany's A4 corridor in Herleshausen, Hessen, leasing the facility long-term at Panattoni Park Bad Hersfeld Ost to run distribution for an unnamed online retailer.\",\"signal_summary\":\"Maersk opens a 71,800 sqm warehouse in Germany along the A4 corridor for long-term online retailer distribution at Panattoni Park Bad Hersfeld Ost; staffing planned to reach up to 1,000 during peak period.\",\"signal_type\":\"new_facility\"}",
+        "image": "https://waybillwire.com/img/og-default.png"
+      },
+      {
+        "id": "https://www.prnewswire.com/news-releases/g10-fulfillment-to-celebrate-grand-opening-of-new-kenosha-distribution-facility-with-ribbon-cutting-ceremony-302865623.html",
+        "title": "G10 Fulfillment to Celebrate Grand Opening of New Kenosha Distribution Facility with Ribbon-Cutting Ceremony",
+        "url": "https://www.prnewswire.com/news-releases/g10-fulfillment-to-celebrate-grand-opening-of-new-kenosha-distribution-facility-with-ribbon-cutting-ceremony-302865623.html",
+        "publishedDate": "2026-09-01T00:00:00.000Z",
+        "author": "Geneva10",
+        "score": 0.5714285714285714,
+        "text": "G10 Fulfillment to Celebrate Grand Opening of New Kenosha Distribution Facility with Ribbon-Cutting Ceremony\n\n# G10 Fulfillment to Celebrate Grand Opening of New Kenosha Distribution Facility with Ribbon-Cutting Ceremony\n\n Geneva10 \n\nSep 01, 2026, 08:34 ET\n\nMayor and Kenosha County Executive to join company and community leaders in marking the milestone expansion\n\nKENOSHA, Wis., Sept. 1, 2026 /PRNewswire/ -- G10 Fulfillment, a North American third-party logistics and fulfillment provider, will hold a ribbon-cutting ceremony celebrating the grand opening of its new distribution facility in Kenosha, Wisconsin, on Thursday, September 10, 2026, at 11:00 a.m. at 12345 38th Street.\n\nThe new 315,000-square-foot facility replaces G10's former Twin Lakes location and more than doubles the company's Midwest warehouse capacity. Positioned along the Chicago–Milwaukee freight corridor, the site supports large-scale order fulfillment and regional inventory distribution as part of G10's broader logistics network.\n\nLocal officials will join G10 leadership to mark the occasion. Kenosha Mayor David Bogdala and Kenosha County Executive Samantha Kerkmam will offer remarks, with the Kenosha Area Busine",
+        "summary": "{\"company_name\":\"G10 Fulfillment\",\"signal_date\":\"2026-09-10\",\"signal_date_quote\":\"September 10, 2026\",\"signal_quote\":\"G10 Fulfillment ... will hold a ribbon-cutting ceremony celebrating the grand opening of its new distribution facility in Kenosha, Wisconsin, on Thursday, September 10, 2026, at 11:00 a.m. at 12345 38th Street.\",\"signal_summary\":\"Third-party logistics provider G10 Fulfillment announces grand opening ribbon-cutting for its new 315,000-square-foot distribution facility in Kenosha, Wisconsin, replacing the former Twin Lakes site and expanding Midwest capacity.\",\"signal_type\":\"new_facility\"}",
+        "image": "https://www.prnewswire.com/content/dam/prnewswire/homepage/LIGHT_PRNewswire_By-Cision_Stacked.svg"
+      },
+      {
+        "id": "https://www.citizensvoice.com/2026/10/06/micro-site-fulfillment-center-opens-in-centerpoint-south/",
+        "title": "'Micro site' fulfillment center opens in CenterPoint South",
+        "url": "https://www.citizensvoice.com/2026/10/06/micro-site-fulfillment-center-opens-in-centerpoint-south/",
+        "publishedDate": "2026-10-06T00:00:00.000Z",
+        "author": "Robert Tomkavage",
+        "score": 0.5,
+        "text": "'Micro site' fulfillment center opens in CenterPoint South\n\n# ‘Micro site’ fulfillment center opens in CenterPoint South \n\n Corey Apirian, founder of Davinci Micro Fulfillment, gives a tour of the warehouse inside Davinci Fulfillment in Jenkins Twp. on Tuesday, Oct. 6, 2026. JASON ARDAN / STAFF PHOTOGRAPHER \n\nBy Robert Tomkavage | rtomkavage@scrantontimes.com | The Times-Tribune\n\nPUBLISHED: October 6, 2026 at 4:13 PM EDT \n\nJENKINS TWP. — As Amazon Prime Big Deal Day deals kicked off Tuesday, Davinci Micro Fulfillment employees diligently processed thousands of items to be shipped to customers.\n\nDavinci Micro Fulfillment — which services customers throughout the United States — opened a location in CenterPoint Commerce & Trade Park South, the company’s sixth, in May.\n\nDavinci’s other facilities are located in Erlanger, Kentucky — just outside Cincinnati; Atlanta, Georgia; Jacksonville, Florida; Dallas, Texas; and Fresno, California.\n\nCorey Apirian, Davinci’s founder and chief executive, noted Northeast Pennsylvania served as a prime location for growth.\n\n“The whole business model revolves around getting inventory closer to the end customer,” he said. “Being within 350 miles of the p",
+        "summary": "{\"company_name\":\"Davinci Micro Fulfillment\",\"signal_date\":\"2026-05-\",\"signal_date_quote\":\"\",\"signal_quote\":\"\",\"signal_summary\":\"Davinci Micro Fulfillment opens a new location in CenterPoint Commerce & Trade Park South, its sixth facility.\",\"signal_type\":\"new_facility\"}"
+      },
+      {
+        "id": "https://www.ajot.com/news/davinci-micro-fulfillment-expands-network-opens-new-ecommerce-support-facility-in-pennsylvania",
+        "title": "Davinci Micro Fulfillment expands network, opens new eCommerce support facility in Pennsylvania",
+        "url": "https://www.ajot.com/news/davinci-micro-fulfillment-expands-network-opens-new-ecommerce-support-facility-in-pennsylvania",
+        "publishedDate": "2026-10-07T00:00:00.000Z",
+        "author": "AJOT",
+        "score": 0.4285714285714286,
+        "text": "Davinci Micro Fulfillment expands network, opens new eCommerce support facility in Pennsylvania\n\n# Davinci Micro Fulfillment expands network, opens new eCommerce support facility in Pennsylvania\n\n AJOT Newsroom | Oct 07 2026 at 01:08 PM | Logistics \n\nDavinci Micro Fulfillment, which operates a distributed network of “micro site” fulfillment centers providing end to end order, inventory and shipping management for eCommerce sellers, has opened its sixth U.S. facility in Pennsylvania’s Jenkins Township.\n\nLocated in Luzerne County, at 141 Commonwealth Drive in CenterPoint Commerce & Trade Park South, the leased facility has 36,231 square feet of space and is purpose designed with equipment, resources and technology to support fulfillment of consumer brands marketed through eCommerce channels including Amazon, Walmart, TikTok and direct-to-consumer platforms.\n\nFounded in 2020, Davinci forward-positions client inventory in smaller fulfillment centers close to consumers to accelerate delivery and reduce shipping costs. The company’s solution incorporates strategically sited warehousing facilities, skilled personnel and a portfolio of AI-enabled technology tools. \n\nThe integrated service ",
+        "summary": "{\"company_name\":\"Davinci Micro Fulfillment\",\"signal_date\":\"2026-10-07\",\"signal_date_quote\":\"Oct 07 2026 at 01:08 PM\",\"signal_quote\":\"has opened its sixth U.S. facility in Pennsylvania’s Jenkins Township.\",\"signal_summary\":\"Davinci Micro Fulfillment opened its sixth U.S. facility in Jenkins Township, Luzerne County, Pennsylvania.\",\"signal_type\":\"new_facility\"}",
+        "image": "https://www.ajot.com/images/uploads/article/_large/Davinci_Ribbon_Cutting_Oct_6_2026.png"
+      },
+      {
+        "id": "https://newsroom.cj.net/cj-logistics-launches-logistics-center/",
+        "title": "CJ Logistics and KOBC Launch Elwood Logistics Center, Expanding North American Supply Chain Network - CJ NEWSROOM",
+        "url": "https://newsroom.cj.net/cj-logistics-launches-logistics-center/",
+        "publishedDate": "2026-09-09T00:00:00.000Z",
+        "author": "Jiseok Park",
+        "score": 0.3571428571428571,
+        "text": "CJ Logistics and KOBC Launch Elwood Logistics Center, Expanding North American Supply Chain Network - CJ NEWSROOM\n\n# CJ Logistics and KOBC Launch Elwood Logistics Center, Expanding North American Supply Chain Network\n\n2026.09.09\n\n## Following the opening of the Secaucus Logistics Center in New Jersey, the launch of the Elwood Logistics Center highlights CJ Logistics’ competitiveness across the North American market\n\nAt a Glance\n\n- Large-scale logistics center equivalent to 14 soccer fields provides infrastructure to accommodate major customers and growing cargo volumes.\n- Strategically located logistics hub in the Midwest connects rail and highway networks, enabling delivery across most of the U.S. within one to two days.\n- The Elwood Logistics Center will leverage foreign-trade zone (FTZ) benefits to enhance flexibility in storage, processing and outbound operations, supporting supply chains for batteries and other advanced industries.\n\nPanoramic view of CJ Logistics’ Elwood Logistics Center in Illinois, jointly developed with the Korea Ocean Business Corporation (KOBC)\n\nOn September 2, CJ Logistics announced that it has begun operations at its new logistics center in Elwood, Illi",
+        "summary": "{\"company_name\":\"CJ Logistics\",\"signal_date\":\"2026-09-02\",\"signal_date_quote\":\"On September 2, CJ Logistics announced that it has begun operations at its new logistics center in Elwood, Illi\",\"signal_quote\":\"CJ Logistics announced that it has begun operations at its new logistics center in Elwood, Illi\",\"signal_summary\":\"CJ Logistics and KOBC launched the Elwood Logistics Center in Illinois, expanding North American supply chain capabilities and leveraging FTZ benefits to support batteries and other advanced industries.\",\"signal_type\":\"new_facility\"}",
+        "image": "https://img.newsroom.cj.net/wp-content/uploads/2026/09/CJ-Newsroom-CJ-Logistics-KOBC-Elwood-Logistics-Center-Thumbnail.jpg"
+      },
+      {
+        "id": "https://fstlogistics.com/fst-logistics-expands-central-ohio-presence-with-new-west-jefferson-ohio-facility/",
+        "title": "FST Logistics Expands with New West Jefferson, Ohio Warehouse",
+        "url": "https://fstlogistics.com/fst-logistics-expands-central-ohio-presence-with-new-west-jefferson-ohio-facility/",
+        "publishedDate": "2026-09-25T00:00:00.000Z",
+        "author": "Maya Beining",
+        "score": 0.2857142857142857,
+        "text": "FST Logistics Expands with New West Jefferson, Ohio Warehouse\n\n 614-529-7900 (6145297900)\n\n sales@fstlogistics.com\n\n 614-529-7900 (6145297900)\n\n# FST Logistics Expands Central Ohio Presence with New West Jefferson, Ohio Facility \n\nDublin, OH – FST Logistics, a leading third-party logistics provider specializing in temperature-controlled transportation, retail consolidation, warehousing and supply chain solutions, is proud to announce the expansion of its Central Ohio footprint with the opening of a new facility in West Jefferson, Ohio. The new location adds 343,500 square feet of warehouse space to FST’s growing network and strengthens the company’s ability to support customers’ growth throughout the Midwest and beyond. \n\nThe expansion provides additional capacity for FST to support the evolving needs of its customers, while creating opportunities to serve new customers seeking strategic warehousing and distribution solutions in Central Ohio. The facility features 38 dock doors, two drive-in doors, 40-foot clear height, 254 parking spaces and 85 trailer parking spaces, providing the infrastructure and capacity needed to support a wide range of customer operations. \n\n“Central Ohio c",
+        "summary": "{\"company_name\":\"FST Logistics\",\"signal_date\":\"2021-06-00\",\"signal_date_quote\":\"\",\"signal_quote\":\"FST Logistics Expands Central Ohio Presence with New West Jefferson, Ohio Facility\",\"signal_summary\":\"FST Logistics expands Central Ohio presence with a new 343,500 sq ft facility in West Jefferson, adding capacity and warehouse space.\",\"signal_type\":\"new_facility\"}",
+        "image": "https://fstlogistics.com/wp-content/uploads/2026/09/West-Jefferson-Press-Release.png"
+      },
+      {
+        "id": "https://www.supplychain247.com/article/maersk-hopedale-massachusetts-fulfillment-center",
+        "title": "Maersk Invests $100 Million in Massachusetts Fulfillment Hub - Supply Chain 24/7",
+        "url": "https://www.supplychain247.com/article/maersk-hopedale-massachusetts-fulfillment-center",
+        "publishedDate": "2026-07-16T00:00:00.000Z",
+        "author": "24/7 Staff",
+        "score": 0.2142857142857143,
+        "text": "Maersk Invests $100 Million in Massachusetts Fulfillment Hub - Supply Chain 24/7\n\n## The new 617,000-square-foot Maersk fulfillment center will open in late August and create about 1,000 jobs\n\n \n\nSource: Courtesy of Maersk\n\nMaersk is investing $100 million in a new fulfillment center in Hopedale, Massachusetts, creating about 1,000 jobs and expanding Northeast delivery capacity.\n\n By 24/7 Staff July 16, 2026 \n\nMaersk will open a new 617,000-square-foot fulfillment center in Hopedale, Massachusetts, later this summer, investing $100 million in the project and creating approximately 1,000 jobs.\n\nThe facility will become part of Maersk's North American contract logistics network and will work with a major e-commerce customer. At full capacity, the site is expected to process up to 330,000 units a day while expanding the company's fulfillment and delivery network across the Northeast.\n\nThe Hopedale facility marks one of Maersk's larger recent investments in U.S. logistics infrastructure as retailers and brands continue placing inventory closer to customers to speed deliveries.\n\n“We are seeing continued customer demand for modern fulfillment capabilities,” said Dave Hune, Head of Maersk",
+        "summary": "{\"company_name\":\"Maersk\",\"signal_date\":\"2026-07-16\",\"signal_date_quote\":\"July 16, 2026\",\"signal_quote\":\"Maersk will open a new 617,000-square-foot fulfillment center in Hopedale, Massachusetts, later this summer, investing $100 million in the project and creating approximately 1,000 jobs.\",\"signal_summary\":\"Maersk to open a 617,000 sq ft fulfillment center in Hopedale, MA, investing $100 million and creating about 1,000 jobs.\",\"signal_type\":\"new_facility\"}",
+        "image": "https://www.supplychain247.com/images/2026_article/Maersk-Air-Cargo-600a.jpg"
+      },
+      {
+        "id": "https://wwd.com/sourcing-journal/logistics/walmart-next-gen-stockton-california-fulfillment-center-1239344380/",
+        "title": "Walmart’s ‘Next-Gen’ CA Fulfillment Center to Boost Shipping Speed and Volume",
+        "url": "https://wwd.com/sourcing-journal/logistics/walmart-next-gen-stockton-california-fulfillment-center-1239344380/",
+        "publishedDate": "2026-10-13T00:00:00.000Z",
+        "author": "Kate Nishimura",
+        "score": 0.1428571428571429,
+        "text": "Walmart’s ‘Next-Gen’ CA Fulfillment Center to Boost Shipping Speed and Volume\n\n# Walmart’s ‘Next-Gen’ CA Fulfillment Center to Boost Shipping Speed and Volume\n\n By Kate Nishimura \n\n### Kate Nishimura \n\nWriter\n\n October 13, 2026 8:22am \n\n \n\n Walmart's new Stockton, Calif. fulfillment center. Courtesy \n\n Walmart has opened a 900,000-square-foot facility in Stockton, Calif. that it says represents the latest step in the total transformation of its supply chain.\n\n Bringing together advanced automation, technology and machine learning with about 1,000 new associates will allow Walmart to streamline the movement of merchandise, as the new tech will enhance storage capacity and up the number of orders that can be deployed compared to a traditional fulfillment center.\n\n An automated high-density storage and retrieval system will fetch and deliver products directly to associates, drawing down the 12-step process usually choreographed for fulfillment to just five steps. According to Walmart, the system was designed to cut down on the repetitive manual tasks usually performed by workers, allowing them to focus on higher-value projects. \n\n Located in the Central Valley, around 80 miles east of",
+        "summary": "{\"company_name\":\"Walmart\",\"signal_date\":\"2026-10-13\",\"signal_date_quote\":\"October 13, 2026 8:22am\",\"signal_quote\":\"Walmart has opened a 900,000-square-foot facility in Stockton, Calif. that it says represents the latest step in the total transformation of its supply chain.\",\"signal_summary\":\"Walmart opens a 900,000-square-foot fulfillment center in Stockton, CA, describing it as a key step in transforming its supply chain with automation, tech, and about 1,000 new associates to increase storage and order throughput.\",\"signal_type\":\"new_facility\"}",
+        "image": "https://wwd.com/wp-content/uploads/2026/10/walmartstockton.jpg?w=1000&h=555&crop=1"
+      },
+      {
+        "id": "https://www.lanereport.com/189791/2026/10/arvato-louisville-logistics-facility-150-jobs/",
+        "title": "Arvato opens seventh Louisville facility, creating 150 jobs",
+        "url": "https://www.lanereport.com/189791/2026/10/arvato-louisville-logistics-facility-150-jobs/",
+        "publishedDate": "2026-10-05T00:00:00.000Z",
+        "author": "Kevin O. Stinnett",
+        "score": 0.0714285714285714,
+        "text": "Arvato opens seventh Louisville facility, creating 150 jobs\n\n Kevin O. Stinnett \n\n# Arvato opens seventh Louisville logistics facility, adding 150 jobs\n\nOctober 5, 2026\n\n#### New 400,000-square-foot operation pushes company's Louisville footprint beyond 4 million square feet\n\nLOUISVILLE, Ky. — Global supply chain and logistics company Arvato has opened its seventh facility in Louisville, adding approximately 400,000 square feet of logistics capacity and further expanding the company’s presence in one of Kentucky’s largest distribution hubs.\n\nThe new facility is expected to create approximately 150 jobs and increases Arvato’s total Louisville footprint to more than 4 million square feet.\n\nThe expansion is designed to provide additional fulfillment and distribution capacity for companies growing their operations across North America, while strengthening Arvato’s ability to handle increasing order volumes and more complex supply chain requirements.\n\nLouisville’s location and transportation infrastructure have helped make the region a major logistics and distribution center. Arvato’s new facility is located near Louisville Muhammad Ali International Airport, giving the company access t",
+        "summary": "{\"company_name\":\"Arvato\",\"signal_date\":\"2026-10-05\",\"signal_date_quote\":\"October 5, 2026\",\"signal_quote\":\"Arvato has opened its seventh facility in Louisville, adding approximately 400,000 square feet of logistics capacity and further expanding the company’s presence in one of Kentucky’s largest distribution hubs.\",\"signal_summary\":\"Third-party logistics provider Arvato opens a new 400,000-square-foot facility in Louisville, creating approximately 150 jobs and expanding total Louisville footprint to over 4 million square feet.\",\"signal_type\":\"new_facility\"}",
+        "image": "https://ae-lane-report.s3.amazonaws.com/wp-content/uploads/2026/10/05170303/csm_20261005_Louisville-LVL1-Ribbon-Cutting-arvato_dc18bc2c0a.jpg"
+      },
+      {
+        "id": "https://www.maersk.com/news/articles/2026/07/15/maersk-boston-fulfillment-hub-investment-northeast-delivery-capacity",
+        "title": "Maersk Invests $100 Million in New Boston-area Fulfillment Hub, Creating Close to 1,000 Jobs and Expanding Northeast Delivery Capacity | Maersk",
+        "url": "https://www.maersk.com/news/articles/2026/07/15/maersk-boston-fulfillment-hub-investment-northeast-delivery-capacity",
+        "publishedDate": "2026-07-15T00:00:00.000Z",
+        "score": 0,
+        "text": "Maersk Invests $100 Million in New Boston-area Fulfillment Hub, Creating Close to 1,000 Jobs and Expanding Northeast Delivery Capacity | Maersk\n\n# Maersk Invests $100 Million in New Boston-area Fulfillment Hub, Creating Close to 1,000 Jobs and Expanding Northeast Delivery Capacity\n\n Summary: New Hopedale, Massachusetts, facility strengthens regional fulfillment capabilities, supports customer growth and creates significant economic impact in Massachusetts \n\n 15 Jul 2026 \n\n \n\nTable of contents\n\nHOPEDALE — A.P. Moller – Maersk (Maersk) today announced the opening in late August of a new fulfillment hub in Hopedale, Massachusetts, a $100 million investment that will create approximately 1,000 jobs and expand the company's logistics footprint in the Northeast. The 617,000-square-foot facility will support a major e-commerce customer and enhance Maersk's ability to deliver faster, more reliable fulfillment services to consumers across the region.\n\nThe facility will begin operations in late August and serves as a major addition to Maersk's North American Contract Logistics network. Designed to support high-volume fulfillment operations, the site expands Maersk's ability to help customers",
+        "summary": "{\"company_name\":\"Maersk\",\"signal_date\":\"2026-07-15\",\"signal_date_quote\":\"15 Jul 2026\",\"signal_quote\":\"A.P. Moller – Maersk (Maersk) today announced the opening in late August of a new fulfillment hub in Hopedale, Massachusetts, a $100 million investment that will create approximately 1,000 jobs and expand the company's logistics footprint in the Northeast.\",\"signal_summary\":\"Maersk announces opening of a new fulfillment hub in Hopedale, MA, a $100 million investment creating ~1,000 jobs and expanding Northeast delivery capacity.\",\"signal_type\":\"new_facility\"}",
+        "image": "https://www.maersk.com/~/media_sc9/maersk/news/press-releases/images/2026/07/new-boston-area-fulfillment-hub_1024x576.jpg?h=576&w=1024&hash=56FECCA915A703244D1142FFC923B34C"
+      }
+    ],
+    "searchTime": 4128.8,
+    "costDollars": {
+      "total": 0.024,
+      "search": {
+        "neural": 0.009
+      },
+      "summary": 0.015
+    }
+  }
+}

@@ -1,0 +1,254 @@
+{
+  "request": {
+    "query": "Siena",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the exact phrase from the page that the employee estimate came from (e.g. \"350 employees\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "f905ea239e37131a5b6338787cbc2b73",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/cn1pcmq0x4g",
+        "title": "Università di Siena",
+        "url": "https://unisi.it/",
+        "text": "# Università di Siena\n\nUniversità di Siena is an educational institution. The company is Università degli Studi di Siena, which is a university in Siena. They provide various services and programs related to education and research. Università di Siena employs 2,632 people, founded in 1240. Headquartered in Siena, Tuscany, Italy. Its workforce is distributed across 28 countries (including Italy, United States, France, Spain, and United Kingdom).\n\n## About\n\nThe University of Siena has a rich history and a great knowledge-related tradition, as well a strong commitment to both research and innovation.\r\nhttp://www.unisi.it/scegli-il-tuo-percorso\r\nhttp://www.unisi.it/didattica/corsi-di-studio\r\nhttp://en.unisi.it/teaching\n\n| Field | Value |\n| --- | --- |\n| Established | 1240; 786 years ago (1240) |\n| Affiliations | Coimbra Group, IRUN |\n| Rector | Roberto Di Pietra |\n| Students | 15,589 (academic year 2021-22) |\n| Location | ‹See TfM›, Siena,, Italy, [43°19′9″N 11°19′57″E / 43.31917°N 11.33250°E / 43.31917; 11.33250](https://geohack.toolforge.org/geohack.php?pagename=University_of_Siena&params=43_19_9_N_11_19_57_E_type:edu) |\n| Campus | Both Urban/University town and suburban |\n| Sports teams | CUS Siena |\n\n## Company Details\n- Industry: Research Services\n- Type: Educational\n- Headquarters: Siena, Italy\n- Founded Year: 1240\n- Homepage: unisi.it\n- Aliases: università di siena, University of Siena, UNISI, Universita degli studi di Siena, Università degli studi di Siena, Universidade de Siena, Universidad de Siena, Universität Siena, Université de sienne, Univerza v Sieni\n- LinkedIn: linkedin.com/school/universita-di-siena\n- Linkedin Followers: 81,937\n- Phone: 026-2027, 0577 235555, 273530527, 80002070524\n\n## Research\n\nScholarly output includes 63,914 works and 5,672,006 citations. 53% open access; field-weighted citation impact 2.7. Approximately 5,754 actively affiliated researchers, with 3,401 recent arrivals. 39% of works involve international collaboration, most frequently with IT, US, and GB.\n\n### Research areas\n\n- Medicine — 34% of works (21,802)\n- Biochemistry, Genetics and Molecular Biology — 10% (6,482)\n- Engineering — 6% (3,648)\n- Computer Science — 5% (3,350)\n- Environmental Science — 5% (3,333)\n\nRecent output concentrates in Medicine, Agricultural and Biological Sciences, and Biochemistry, Genetics and Molecular Biology.\n\n### Notable works\n\n- Bryan R. Haugen, Erik Karl Alexander, Keith Christopher Bible, et al. 2015 American Thyroid Association Management Guidelines for Adult Patients with Thyroid Nodules and Differentiated Thyroid Cancer: The American Thyroid Association Guidelines Task Force on Thyroid Nodules and Differentiated Thyroid Cancer. Thyroid. 2015. doi:10.1089/thy.2015.0020. — 16,485 citations\n- B. P. Abbott, R. Abbott, T. D. Abbott, et al. Observation of Gravitational Waves from a Binary Black Hole Merger. Physical Review Letters. 2016. doi:10.1103/physrevlett.116.061102. — 14,152 citations\n- Stephen M. Smith, Mark Jenkinson, Mark W. Woolrich, et al. Advances in functional and structural MR image analysis and implementation as FSL. NeuroImage. 2004. doi:10.1016/j.neuroimage.2004.07.051. — 13,614 citations\n- B. P. Abbott, R. Abbott, T. D. Abbott, et al. GW170817: Observation of Gravitational Waves from a Binary Neutron Star Inspiral. Physical Review Letters. 2017. doi:10.1103/physrevlett.119.161101. — 9,479 citations\n- Franco Scarselli, Marco Gori, Ah Chung Tsoi, et al. The Graph Neural Network Model. IEEE Transactions on Neural Networks. 2008. doi:10.1109/tnn.2008.2005605. — 9,459 citations\n- James Larkin, Vanna Chiarion‐Sileni, Rene C. Gonzalez, et al. Combined Nivolumab and Ipilimumab or Monotherapy in Untreated Melanoma. New England Journal of Medicine. 2015. doi:10.1056/nejmoa1504030. — 8,134 citations\n- David S. Cooper, Gerard M. Doherty, Bryan R. Haugen, et al. Revised American Thyroid Association Management Guidelines for Patients with Thyroid Nodules and Differentiated Thyroid Cancer. Thyroid. 2009. doi:10.1089/thy.2009.0110. — 6,718 citations\n- Daniel J. Klionsky, Kotb Abdelmohsen, Akihisa Abe, et al. Guidelines for the use and interpretation of assays for monitoring autophagy (3rd edition). Autophagy. 2016. doi:10.1080/15548627.2015.1100356. — 5,860 citations\n- Luigi Rizzi. The Fine Structure of the Left Periphery. Kluwer international handbooks of linguistics. 1997. doi:10.1007/978-94-011-5420-8_7. — 5,763 citations\n- Caroline Robert, Georgina Venetia Long, Benjamin Brady, et al. Nivolumab in Previously Untreated Melanoma without BRAF Mutation. New England Journal of Medicine. 2014. doi:10.1056/nejmoa1412082. — 5,397 citations\n- Símone Rossi, Mark Hallett, Paolo Maria Rossini, et al. Safety, ethical considerations, and application guidelines for the use of transcranial magnetic stimulation in clinical practice and research. Clinical Neurophysiology. 2009. doi:10.1016/j.clinph.2009.08.016. — 5,359 citations\n- Jedd D. Wolchok, Vanna Chiarion‐Sileni, Rene C. Gonzalez, et al. Overall Survival with Combined Nivolumab and Ipilimumab in Advanced Melanoma. New England Journal of Medicine. 2017. doi:10.1056/nejmoa1709684. — 5,341 citations\n- Merryn Voysey, Sue Ann Costa Clemens, Shabir Ahmed Madhi, et al. Safety and efficacy of the ChAdOx1 nCoV-19 vaccine (AZD1222) against SARS-CoV-2: an interim analysis of four randomised controlled trials in Brazil, South Africa, and the UK. The Lancet. 2020. doi:10.1016/s0140-6736(20)32661-1. — 4,622 citations\n- Caroline Robert, Luc Thomas, Igor Bondarenko, et al. Ipilimumab plus Dacarbazine for Previously Untreated Metastatic Melanoma. New England Journal of Medicine. 2011. doi:10.1056/nejmoa1104621. — 4,500 citations\n- F. Acernese, M. Agathos, K. Agatsuma, et al. Advanced Virgo: a second-generation interferometric gravitational wave detector. Classical and Quantum Gravity. 2014. doi:10.1088/0264-9381/32/2/024001. — 4,056 citations\n- Rita Alaggio, Catalina Amador, Ioannis Anagnostopoulos, et al. The 5th edition of the World Health Organization Classification of Haematolymphoid Tumours: Lymphoid Neoplasms. Leukemia. 2022. doi:10.1038/s41375-022-01620-2. — 4,000 citations\n- Daniel J. Klionsky, Fábio Camargo Abdalla, Hagai Abeliovich, et al. Guidelines for the use and interpretation of assays for monitoring autophagy. Autophagy. 2012. doi:10.4161/auto.19496. — 3,998 citations\n- Olivier Jaillon, Jean‐Marc Aury, Benjamin Noël, et al. The grapevine genome sequence suggests ancestral hexaploidization in major angiosperm phyla. Nature. 2007. doi:10.1038/nature06148. — 3,767 citations\n- James Larkin, Vanna Chiarion‐Sileni, Rene C. Gonzalez, et al. Five-Year Survival with Combined Nivolumab and Ipilimumab in Advanced Melanoma. New England Journal of Medicine. 2019. doi:10.1056/nejmoa1910836. — 3,701 citations\n- Sergio Navas, C. Amsler, Th. Gutsche, et al. Review of Particle Physics. Physical review. D/Physical review. D. 2024. doi:10.1103/physrevd.110.030001. — 3,601 citations\n\n### Notable researchers\n\n- Michele Maio (347 works, 65,946 citations)\n- L. Trozzo (92 works, 61,848 citations)\n- Nicola De Stefano (384 works, 43,116 citations)\n- Furio Pacini (128 works, 41,666 citations)\n- Símone Rossi (319 works, 32,305 citations)\n- Antonio Giordano (348 works, 22,491 citations)\n- Alessandra Renieri (373 works, 20,235 citations)\n- Marco Gori (331 works, 18,729 citations)\n- R. Paoletti (337 works, 18,220 citations)\n- Felice Petraglia (339 works, 17,872 citations)\n- Jedd D. Wolchok (4 works, 17,259 citations)\n- Frank Stephen Hodi (4 works, 17,259 citations)\n- Marco Ferrari (230 works, 16,855 citations)\n- Vanna Chiarion‐Sileni (5 works, 16,346 citations)\n- Paolo A. Ascierto (4 works, 16,277 citations)\n- Iván Márquez‐Rodas (4 works, 16,277 citations)\n- Charles Lance Cowey (4 works, 16,277 citations)\n- James Larkin (4 works, 16,277 citations)\n- Georgina Venetia Long (4 works, 16,277 citations)\n- Rene C. Gonzalez (3 works, 15,716 citations)\n\n### Recently active researchers\n\n- A. Cerri (45 works, 3,656 citations)\n- Daniele Manfredini (68 works, 1,016 citations)\n- Michele Maio (64 works, 982 citations)\n- NICOLA TURINI (188 works, 966 citations)\n- V. D’Amante (130 works, 949 citations)\n- Nicola De Stefano (63 works, 678 citations)\n- Anna Colonna (28 works, 628 citations)\n- Matteo Cameli (140 works, 577 citations)\n- Gianmaria Bonari (83 works, 564 citations)\n- Paolo A. Ascierto (561 citations)\n\nFrequently collaborates with University of Florence, University of Bristol, and University of Pisa. Major funders: Wellcome Trust (2,010 works) and UK Research and Innovation (901).\n\n### Funding activity\n\nFunds 124 works across 79 tracked awards; field-weighted citation impact 2.1.\nFunded output peaked at 31 works in 2025.\n- Medicine — 26% of funded works (32)\n- Biochemistry, Genetics and Molecular Biology — 15% (19)\n- Computer Science — 15% (18)\n- Mathematics — 12% (15)\n- Materials Science — 4% (5)\n\n#### Major grantees\n\n- University of Siena (111 works)\n- University of Florence (21 works)\n- Ospedale Santa Maria alle Scotte (11 works)\n- National Research Council (9 works)\n- The Abdus Salam International Centre for Theoretical Physics (ICTP) (6 works)\n- University of Padua (6 works)\n- University of Pisa (5 works)\n- University of Modena and Reggio Emilia (5 works)\n- University of Parma (4 works)\n- Universitat de Girona (4 works)\n\n#### Frequently funded researchers\n\n- Federico Becattini (11 works)\n- Alberto Del Bimbo (9 works)\n- Lorenzo Berlincioni (8 works)\n- Luca Cultrera (8 works)\n- Marco Paolino (7 works)\n- Andrea Cappelli (6 works)\n- Germano Giuliani (5 works)\n- Antonella Fioravanti (5 works)\n- Alaa Elshorbagy (5 works)\n- Sara Cheleschi (5 works)\n\nCo-funds most often with Sixth Framework Programme (32 shared works), Ministero dell’Istruzione, dell’Università e della Ricerca (12), and Ministero dell'Università e della Ricerca (10).\n\n#### Notable funded works\n\n- Francesca Cersosimo, Silvia Lonardi, Giulia Bernardini, et al. Tumor-Associated Macrophages in Osteosarcoma: From Mechanisms to Therapy. International Journal of Molecular Sciences. 2020. doi:10.3390/ijms21155207. — 278 citations\n- E. Scala, Francesca Ariani, Francesca Mari, et al. CDKL5/STK9 is mutated in Rett syndrome variant with infantile spasms. Journal of Medical Genetics. 2005. doi:10.1136/jmg.2004.026237. — 241 citations\n- Clelia Miracco, Gabriele Cevenini, Alessandro Franchi, et al. Beclin 1 and LC3 autophagic gene expression in cutaneous melanocytic lesions. Human Pathology. 2009. doi:10.1016/j.humpath.2009.09.004. — 139 citations\n\n## Workforce\n- Employees: 2,632\n- Company Size: 1001-5000 employees\n  - Monthly Growth: +0.1%\n- Key Executives:\n  - Alessandro Marchini: Managing Director\n  - Angelo Riccaboni: Presidente Santa Chiara Lab\n  - Anna Bernabei: Dirigente Medico\n  - Annalisa Santucci: Presidentessa del Corso di Laurea Magistrale in Chimica e Tecnologia Farmaceutiche\n  - Avv. Benedetta De Luca: Membro del Direttivo del Comitato per la Didattica\n  - Caterina Checchia: Titolare assegno di ricerca\n  - Chiara Dell'Orto: Membro del Consiglio Studentesco\n  - Domenico Prattichizzo: Vice Rector for Technology Transfer\n  - Donata Franzi: Head of Research Division\n  - Ernesto Iadanza: Director of the Bioengineering Lab\n- Breakdown:\n  - By Country: Italy: 1,235 (47%), United States: 14 (1%), France: 9, Spain: 7, United Kingdom: 6, Germany: 5, Netherlands: 4, Switzerland: 4, Belgium: 3, Iran: 2 (+18 more)\n  - By Department: Education: 591 (22%), Research: 382 (15%), Other Department: 200 (8%), Medical: 88 (3%), Administrative: 43 (2%), Legal: 20 (1%), Technical: 19 (1%), Marketing: 11, General Management: 10, Operations: 6 (+7 more)\n  - By Seniority: Specialist: 709 (27%), Other Management: 305 (12%), Intern: 273 (10%), Senior: 49 (2%), Manager: 18 (1%), Director: 15 (1%), Head: 4, Vp: 3, Founder: 1, Owner: 1\n- Talent Sources: Università degli Studi di Firenze (60), Università di Siena - Career Service (37), Azienda Ospedaliera Universitaria Senese (37), Università di Pisa (34), Sapienza Università di Roma (22), Alma Mater Studiorum – Università di Bologna (22), GSK (21), Università degli Studi di Perugia (16), Banca Monte dei Paschi di Siena (15), Università degli studi Roma TRE (12)\n- Alumni Go To: Università degli Studi di Firenze (70), GSK (57), Banca Monte dei Paschi di Siena (50), Università di Pisa (38), Alma Mater Studiorum – Università di Bologna (32), Azienda Ospedaliera Universitaria Senese (28), Università di Siena - Career Service (27), VisMederi Group (24), Novartis (20), Galenica Senese S.r.l. Industria Farmaceutica (17)\n\n## Products & Technology\n- Tech Stack: avere, bash, curo, dell, dom, elastic, html, huawei, informatica, matlab, moodle, operative, pcr, perkinelmer, php, prototype, python, quali, synapse, microsoft, microsoft office, applicata, urchin, greenhouse, illumina, bpmn, amp, c, ecc, impact, medium, well, agilent, unity, arcgis, electric, entrata, instagram, javascript, stata\n\n## Web presence\n\n- Twitter: twitter.com/unisiena\n- Facebook: facebook.com/unisiena\n- Instagram: instagram.com/unisiena\n- YouTube: youtube.com/user/unisiena/featured\n- Web traffic:\n  - Monthly visits: 491,519\n  - Global rank: 79,093\n  - Bounce rate: 36.0%\n  - Pages per visit: 5.2\n  - Average visit duration: 149s\n\n## Categories\n\ndivulgazione, education, istruzione, programs, ricerca, science_and_education/education, services, siena, university, università\n\n## Recent News\n- [2026-09-30] [Off the Kuff \\| Knowledge Is Good](https://www.offthekuff.com/wp/)\n- [2026-09-25]\n  - [Lucia Tanti: “la Notte dei Ricercatori, il grazie di Arezzo alla ricerca che ci migliora la vita”](https://www.lanazione.it/arezzo/cronaca/lucia-tanti-la-notte-dei-ricercatori-il-grazie-di-arezzo-alla-ricerca-che-ci-migliora-la-vita-jrgrp2y8)\n  - [La ricerca ’accende’ Siena. Ieri il graduation day](https://www.lanazione.it/siena/cronaca/la-ricerca-accende-siena-ieri-461e0d46)\n  - [L’inaspettato nelle scienze, la teoria della serendipità: \"La scoperta richiede lungimiranza e coraggio\"](https://www.lanazione.it/siena/cronaca/linaspettato-nelle-scienze-la-teoria-6ec4bdd6)\n  - [’Bright-Night’ in centro. La scienza per tutti](https://www.lanazione.it/grosseto/cronaca/bright-night-in-centro-la-scienza-fb0e99ef)\n  - [La notte dei Ricercatori. Bright Night con l’Università](https://www.lanazione.it/arezzo/cronaca/la-notte-dei-ricercatori-bright-2235ba59)\n- [2026-09-24]\n  - [Patrimonio Culturale :: Notizie su ArezzoNotizie](https://www.arezzonotizie.it/tag/patrimonio-culturale/)\n  - [Bright-Night 2026, Estra al fianco dell’Università di Siena per la Notte dei Ricercatori - Siena News](https://sienanews.it/toscana/siena/estra-al-fianco-delluniversita-di-siena-per-bright-night-2026/)\n  - [All'Università la lezione di Pievani: \"La scienza trova anche ciò che non stava cercando\". Festa per 53 dottori di ricerca - Siena News](https://sienanews.it/toscana/siena/alluniversita-la-lezione-di-pievani-la-scienza-trova-anche-cio-che-non-stava-cercando-festa-per-53-dottori-di-ricerca/)\n- [2026-09-23]\n  - [Fondazione Vita, a Grosseto c'è Life Lab per costruire i professionisti della chimica verde e delle biotecnologie - Siena News](https://sienanews.it/toscana/siena/territorio/fondazione-vita-a-grosseto-ce-life-lab-per-costruire-i-professionisti-della-chimica-verde-e-delle-biotecnologie/)\n  - [L’Asl Toscana sud est parteciperà alla Notte europea delle Ricercatrici e dei Ricercatori 2026](https://www.lanazione.it/arezzo/cronaca/lasl-toscana-sud-est-partecipera-alla-notte-europea-delle-ricercatrici-e-dei-ricercatori-2026-xmqijov8)\n  - [Università di Siena, dalla \"Sindrome Marsili\" nuove conoscenze sui meccanismi del dolore - Siena News](https://sienanews.it/salute/universita-di-siena-dalla-sindrome-marsili-nuove-conoscenze-sui-meccanismi-del-dolore/)\n- [2026-09-22]\n  - [Dal Palio ai robot fino ai bottini: camici e provette escono dai laboratori, torna la Notte dei ricercatori - Siena News](https://sienanews.it/in-evidenza/dal-palio-ai-robot-fino-ai-bottini-camici-e-provette-escono-dai-laboratori-torna-la-notte-dei-ricercatori/)\n  - [Tetto agli studenti stranieri, Di Pietra si richiama a Mattarella: “La scuola è inclusione” - Siena News](https://sienanews.it/in-evidenza/tetto-agli-studenti-stranieri-di-pietra-si-richiama-a-mattarella-la-scuola-e-inclusione/)\n- [2026-09-21]\n  - [Il giorno dei nuovi ricercatori: in 53 protagonisti all'Università di Siena, ospite Telmo Pievani - Siena News](https://sienanews.it/toscana/siena/il-giorno-dei-nuovi-ricercatori-in-53-protagonisti-alluniversita-di-siena-ospite-telmo-pievani/)\n  - [Il vino ha un’impronta digitale: dai lieviti agli scarti, ecco le nuove frontiere della ricerca secondo il Biotecnopolo - Siena News](https://sienanews.it/salute/il-vino-ha-unimpronta-digitale-dai-lieviti-agli-scarti-ecco-le-nuove-frontiere-della-ricerca-secondo-il-biotecnopolo/)\n- [2026-09-20] [le notizie in breve](https://www.lanazione.it/siena/cronaca/le-notizie-in-breve-72392e85)\n- [2026-09-19] [La mitad de los votantes de Estados Unidos rechaza el socialismo en medio de las victorias progresistas](https://diario.mx/estados-unidos/2026/sep/19/la-mitad-de-los-votantes-de-estados-unidos-rechaza-el-socialismo-en-medio-de-las-victorias-progresistas-1139081.html)\n- [2026-09-18] [Addio a Jasmine, ragazza solare: il dolore di Foiano per la scomparsa della studentessa di 24 anni](https://www.lanazione.it/arezzo/cronaca/addio-a-jasmine-ragazza-solare-il-dolore-di-foiano-per-la-scomparsa-della-studentessa-di-24-anni-pq03o3kk)\n\n## Social\n\n### Linkedin\n\n- [2026-09-28 · Posted · 51 reactions] [Bright Night 2026! Siena, Arezzo, Grosseto e San Giovanni Valdarno...](https://www.linkedin.com/posts/universita-di-siena_bright-night-2026-siena-arezzo-grosseto-activity-7510354771195699201-PFUe)\n  > Bright Night 2026!\n  > Siena, Arezzo, Grosseto e San Giovanni Valdarno hanno condiviso giornate speciali dedicate alla scienza, alla ricerca e alla curiosità, trasformando piazze, spazi culturali e luoghi della città in occasioni di incontro, scoperta e partecipazione.\n  > Ecco alcuni scatti che raccontano alcuni momenti della nostra Bright-Night Notte europea delle ricercatrici e dei ricercatori: volti, attività, esperimenti e incontri.\n  >\n  > Ma ora tocca a voi!\n  > Se avete partecipato ai nostri eventi, raccontateci la vostra esperienza compilando il questionario. https://shorturl.at/e8cnv\n\n- [2026-09-26 · Posted · 189 reactions] [Grazie per aver vissuto con noi Bright-Night 2026! Un grande grazie...](https://www.linkedin.com/posts/universita-di-siena_grazie-per-aver-vissuto-con-noi-bright-night-activity-7509683502058078208-HkIr)\n  > Grazie per aver vissuto con noi Bright-Night 2026!\n  >\n  > Un grande grazie alle ricercatrici e ai ricercatori, alle studentesse e agli studenti, alle cittadine e i cittadini che sono passati a trovarci, ai partner, agli sponsor e a tutte le persone che hanno contribuito a rendere possibile questa edizione.\n  >\n  > Due giornate intense tra scienza, esperimenti, incontri, mostre, AperiTalk, passeggiate con la ricerca, visite guidate e spettacoli, che hanno portato la ricerca fuori dalle aule e dai laboratori, incontrando persone di tutte le età.\n  >\n  > A Siena, il Complesso museale Santa Maria della Scala e le strade del centro hanno ospitato decine di iniziative e circa 50 stand multidisciplinari, mentre gli AperiTalk hanno creato occasioni di confronto e divulgazione nei locali cittadini.\n  >\n  > La Bright-Night ha coinvolto anche Arezzo, Grosseto e San Giovanni Valdarno, rafforzando il dialogo tra l’Università di Siena e le comunità del territorio.\n  >\n  > Ci vediamo alla prossima Bright-Night!\n\n- [2026-09-16 · Posted · 31 reactions] [È in corso all’Università di Siena MEDICON 2026 – Mediterranean...](https://www.linkedin.com/posts/universita-di-siena_%C3%A8-in-corso-alluniversit%C3%A0-di-siena-medicon-activity-7505886459799748608-Aye4)\n  > È in corso all’Università di Siena MEDICON 2026 – Mediterranean Conference on Medical and Biological Engineering and Comput",
+        "summary": "{\"description\":\"Università di Siena is a university in Siena, Italy offering education and research programs.\",\"employee_estimate\":632,\"employee_estimate_source\":\"Employees: 2,632\",\"hiring_first_ops_or_revops\":false,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Siena, Tuscany, Italy\",\"hq_quote\":\"Headquartered in Siena, Tuscany, Italy\",\"industry\":\"Education/Research\",\"is_b2b_company\":false,\"is_b2b_company_quote\":\"\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":false,\"recently_funded_seed_or_series_a_quote\":\"Frequent funders: Wellcome Trust (2,010 works) and UK Research and Innovation (901).\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4D0BAQGtPw3RIMB_Fw/company-logo_200_200/B4DZX64.E3G8AI-/0/1743670993701/universita_di_siena_logo?e=2147483647&v=beta&t=oQiPnpLa9iVe6TiWnCtDcoIk3h09KYyGlKJQUsHHi-k",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/cn1pcmq0x4g",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Università di Siena",
+              "foundedYear": 1240,
+              "description": "The University of Siena has a rich history and a great knowledge-related tradition, as well a strong commitment to both research and innovation.\r\nhttp://www.unisi.it/scegli-il-tuo-percorso\r\nhttp://www.unisi.it/didattica/corsi-di-studio\r\nhttp://en.unisi.it/teaching",
+              "workforce": {
+                "total": 2632
+              },
+              "headquarters": {
+                "address": "Rettorato, Via Banchi di Sotto 55, Siena, Tuscany 53100, IT",
+                "city": "Siena",
+                "postalCode": null,
+                "country": "Italy"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 491519,
+                "countryRank": 2622,
+                "avgDurationSeconds": 149,
+                "history": [
+                  {
+                    "value": 806944,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 781070,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 797975,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 717328,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 692580,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 491519,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/bhpknh9sq7w",
+        "title": "Associazione Centro Guide",
+        "url": "https://guidesiena.it/",
+        "text": "# Associazione Centro Guide\n\nAssociazione Centro Guide is a Hospitality company. Centro Guide Siena is a company that offers tours and guide services in Siena and Toscana. Associazione Centro Guide employs 12 people (-20.0% YoY, -3 people). Headquartered in Siena, Italy.\n\n## About\n\nL'unica associazione con più di 80 guide certificate per più di 50 tour e visite guidate nella zona di Siena e della Toscana.\n\n## Company Details\n- Industry: Hospitality\n- Headquarters: Siena, Italy\n- Homepage: guidesiena.it\n- Aliases: associazione centro guide\n- LinkedIn: linkedin.com/company/associazione-centro-guide\n- Emails: info@guidesiena.it\n- Phone: +39 0577 43 273, 121443052\n\n## Workforce\n- Employees: 12\n  - Yearly Growth: -20.0%\n- Talent Sources: Exclusive Connection T. O. (1)\n- Alumni Go To: Il Salviatino (1)\n\n## Web presence\n\n- Facebook: facebook.com/centroguidesiena\n- Instagram: instagram.com/centroguidesiena\n- YouTube: youtube.com/user/centroguidesiena/featured\n- Web traffic:\n  - Monthly visits: 1,483\n  - Global rank: 10,292,735\n  - Bounce rate: 35.0%\n  - Pages per visit: 1.9\n  - Average visit duration: 48s\n\n## Categories\n\nguide, siena, toscana, tour, tourism, tours\n\n## Locations\n- Headquarters: siena, italy\n- Offices: siena, italy",
+        "summary": "{\"description\":\"Associazione Centro Guide is a Hospitality company offering tours and guide services in Siena and Toscana. Headquartered in Siena, Italy; 12 employees.\",\"employee_estimate\":12,\"employee_estimate_source\":\"Employees: 12\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Siena, Italy\",\"hq_quote\":\"Headquartered in Siena, Italy.\",\"industry\":\"Hospitality\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Associazione Centro Guide is a Hospitality company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":false,\"recently_funded_seed_or_series_a_quote\":\"\\\"L'unica associazione...\\\" (no funding info stated)\"}",
+        "image": "https://static.licdn.com/aero-v1/sc/h/cs8pjfgyw96g44ln9r7tct85f",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/bhpknh9sq7w",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Associazione Centro Guide",
+              "foundedYear": null,
+              "description": "L'unica associazione con più di 80 guide certificate per più di 50 tour e visite guidate nella zona di Siena e della Toscana.",
+              "workforce": {
+                "total": 12
+              },
+              "headquarters": {
+                "address": "VIA BANCHI DI SOPRA, 31, Siena, 53100, it",
+                "city": "Siena",
+                "postalCode": null,
+                "country": "Italy"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 1483,
+                "countryRank": null,
+                "avgDurationSeconds": 48,
+                "history": [
+                  {
+                    "value": 828,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 865,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 830,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 1001,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 1195,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 1483,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 9296.4,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

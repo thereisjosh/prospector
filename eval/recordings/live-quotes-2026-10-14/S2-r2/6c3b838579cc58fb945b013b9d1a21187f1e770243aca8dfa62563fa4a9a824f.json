@@ -1,0 +1,270 @@
+{
+  "request": {
+    "query": "Light",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the exact phrase from the page that the employee estimate came from (e.g. \"350 employees\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "56868f2c37e00e42c68fcb4ffde75c19",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/ndsqfdvc92z",
+        "title": "Light",
+        "url": "https://light.com.br/",
+        "text": "# Light\n\nLight (LIGT3) is a Utilities company. Light employs 7,694 people (+15.5% YoY, +1031 people) and has an annual revenue of $2.6B, founded in 1905. Headquartered in Rio de Janeiro, Rio de Janeiro, Brazil. Its workforce is distributed across 21 countries (including Brazil, United States, China, Portugal, and Egypt).\n\n## About\n\nA Light está presente em 31 municípios do estado do Rio de Janeiro, abrangendo uma região com mais de 10 milhões de pessoas e somando 4 milhões de clientes. Com mais de um século de atuação, a Light tem feito parte da vida do Rio de Janeiro, acompanhando e oferecendo produtos e serviços essenciais para o desenvolvimento econômico, social e cultural das localidades onde atua. Seu compromisso em prestar serviços à população se traduz na busca permanente pela eficiência e na postura transparente e proativa junto a todos os públicos com os quais se relaciona.\r\n\r\nA Light S.A. é uma holding que controla integralmente subsidiárias que participam em três segmentos de negócios: a Light SESA, em distribuição de energia; a Light Energia, em geração de energia; e, em comercialização e serviços de energia, com a Light Esco e a LightCom.\r\n\r\nNossa missão:\r\n\r\nProver energia e serviços com excelência e de forma sustentável, contribuindo para o bem-estar e o desenvolvimento da sociedade.\r\n\r\nNossos canais:\r\nwww.light.com.br\r\nhttp://www.conexaolight.com.br\r\nhttp://www.facebook.com/conexaolight\r\nhttp://www.twitter.com/conexaolight\r\nhttp://www.youtube.com/conexaolight\r\nhttp://statigr.am/conexaolight\r\n\r\nAtendimento ao cliente:\r\nhttp://www.facebook.com/lightclientes\r\nhttp://www.twitter.com/lightclientes\r\n\r\nNossas iniciativas:\r\nRio Light: www.riolight.com.br\r\nMe Dá Uma Luz: www.medaumaluz.com.br\r\nRelatório de Sustentabilidade 2013: http://www.relatoriolight.com.br/\n\n| Field | Value |\n| --- | --- |\n| Products | Electrical power |\n| Services | Electricity distribution |\n| Parent | Rio Minas Energia Participações S.A. |\n\n## Company Details\n- Industry: Utilities\n- Type: Privately held\n- Headquarters: Rio de Janeiro, Brazil\n- Founded Year: 1905\n- Homepage: light.com.br\n- Aliases: light, light (brazil), light clientes, Instituto Light, Centro Cultural, Light Serviços de Eletricidade\n- LinkedIn: linkedin.com/company/light\n- Linkedin Followers: 205,926\n- Phone: 800-021-0196, 8002820120\n- Stock Symbols: LIGT3 (Other)\n\n## Financials\n- Annual Revenue: USD 2,648,613,848\n- Total Funding: BRL 1,500,000,000\n  - Post ipo equity (2026-06-01): BRL 1.5B\n\n## Workforce\n- Employees: 7,694\n  - Monthly Growth: +1.0%\n  - Yearly Growth: +15.5%\n- Key Executives:\n  - Abraham Cross Lansi: Owner\n  - Adriana Rocha: Business Partner RH\n  - Alexandre Nogueira Ferreira: CEO\n  - Andre Mastrobuono: Membro do conselho\n  - Angelo Coelho: CIO Grupo Light\n  - Bernardo Estefan: Head of Innovation\n  - Carlos Oliveira: Chefe de Manutenção\n  - DK Jain: Owner\n  - Felippe Santana, PMP®, IMPA-C: Head of Investiment Portfolio - PMO - VMO\n  - Firmino Sampaio: Member Board of Directors at Light S.A\n- Breakdown:\n  - By Country: Brazil: 3,407 (44%), United States: 12, China: 4, Portugal: 4, Egypt: 2, India: 2, Italy: 2, Nigeria: 2, Afghanistan: 1, Argentina: 1 (+11 more)\n  - By Department: Trades: 904 (12%), Technical: 730 (9%), Other Department: 465 (6%), Operations: 419 (5%), Sales: 254 (3%), Administrative: 195 (3%), Finance: 139 (2%), Customer Service: 128 (2%), Hr: 104 (1%), Legal: 77 (1%) (+10 more)\n  - By Seniority: Specialist: 2,133 (28%), Other Management: 705 (9%), Manager: 337 (4%), Senior: 256 (3%), Intern: 152 (2%), Director: 8, Head: 4, Partner: 4, Vp: 4, Clevel: 3 (+1 more)\n- Active job postings: 16\n- Salary ranges (20 of 21 roles):\n  - Coordenador: median 206,000 BRL per month\n  - Engenheiro Pleno: median 149,227.02 BRL per month\n  - Especialista: median 143,651.59 BRL per month\n  - Engenheiro: median 124,800 BRL per month\n  - Coordenador De Facilities: median 119,781.59 BRL per month\n  - Despachante de distribuição Pleno: median 96,571.98 BRL per month\n  - Eletricista De Rede Aérea: median 96,571.98 BRL per month\n  - Eletricista De Redes De Distribuição: median 96,571.98 BRL per month\n  - Operador De Sistema Elétrico: median 96,571.98 BRL per month\n  - Técnico De Campo Pleno: median 96,571.98 BRL per month\n  - Técnico Eletrotécnico: median 96,571.98 BRL per month\n  - Executivo De Contas: median 79,803.25 BRL per month\n  - Analista Pleno: median 79,147.14 BRL per month\n  - Analista: median 68,262.29 BRL per month\n  - Analista De Sistemas: median 60,499.77 BRL per month\n  - Operador Mantenedor: median 43,887.78 BRL per month\n  - Agente Comercial: median 27,986.06 BRL per month\n  - Leiturista E Entregador: median 27,182.55 BRL per month\n  - Agente Administrativo: median 26,019.63 BRL per month\n  - Agente De Relacionamento Comercial: median 24,575.04 BRL per month\n- Talent Sources: Indica Assessoria e Serviços (158), Ellca (138), Enel Brasil (99), Oi (65), Grupo Provider (62), Enel Group (62), Dínamo Engenharia (59), Grupo Energisa (55), CSN - Companhia Siderúrgica Nacional (50), Grupo Equatorial (38)\n- Alumni Go To: Enel Brasil (91), Petrobras (73), Neoenergia (59), Grupo Equatorial (54), Oi (49), Grupo Energisa (46), Globo (41), Enel Group (40), Águas do Rio (36), TIM Brasil (34)\n\n## Products & Technology\n- Tech Stack (showing 50 of 236): ada, adp, alm, altera, ams, aos, apica, apto, areva, asp, ativa, ativo, autocad, autocad electrical, aviso, azure databricks, bizagi, bpmn, captura, cisco unified communications, comit, concep, continua, cortex, crowdstrike, cujo, dash, databricks, dds, docker, dom, elastic, elastic stack, elo, f5, fico, figma, ge smallworld, genesys, github, gitlab, gps, gupy, hcm, html, integra, java, javascript, jira, jira software\n\n## Web presence\n\n- Twitter: twitter.com/lightclientes\n- Facebook: facebook.com/lightclientes\n- Crunchbase: crunchbase.com/organization/light-33e4\n- Web traffic:\n  - Monthly visits: 1,962,285\n  - Global rank: 24,065\n  - Bounce rate: 28.0%\n  - Pages per visit: 4.9\n  - Average visit duration: 290s\n\n## Reviews & Ratings\n- Product Reviews: 4.7/5.0 (3 reviews)\n- Employer Rating: 3.6/5.0 (349 reviews)\n  - Breakdown: Work-Life: 2.9, Compensation: 3.6, Culture: 3.5, Career: 3.1\n\n## Categories\n\naccounting, accounting & finance software, accounts payable automation software, accounts receivable, ap automation, billing, electrical distribution, electronics, energia elétrica, energy, expense management, heavy_industry_and_engineering/energy_industry, light, procurement spend analysis\n\n## Recent News\n- [2026-09-16] Estadão: 007 First Light recebe Path Tracing e novos requisitos no PC, mas adia versão de Switch 2 para 2027\n- [2026-09-15] Gameplayscassi: Steam coloca descontos para série de Dying Light com menores preços\n- [2026-09-03] Portal Esporte Manaus: Amazonas recebe pela primeira vez curso de VAR Light com 32 árbitros e assistentes\n- [2026-08-27] Click Guarulhos: Cirque Du Soleil apresenta “Alegria – In a new light” no Parque Villa-Lobos\n- [2026-08-26] Agenda do Poder: Light renegocia dívidas em cidades do RJ; veja datas\n- [2026-08-22] Esportividade: Corre no Light 2026 – treino gratuito no centro de São Paulo – 22/08/2026\n- [2025-12-12] Cinetotal: Sol, mar e negatividade de Noosa? Viagem à praia da Inglaterra examinada\n- [2022-07-14] Latin Finance: Light appoints new CEO\n\n## Social\n\n### Linkedin\n\n- [2026-09-29 · Posted · 82 reactions] [Faça como o Ítalo e inscreva-se no nosso Programa Jovem Aprendiz...](https://www.linkedin.com/posts/light_fa%C3%A7a-como-o-%C3%ADtalo-e-inscreva-se-no-nosso-activity-7510751496968495106-cc7h)\n  > Faça como o Ítalo e inscreva-se no nosso Programa Jovem Aprendiz!\n  >\n  > Requisitos para participar:\n  >\n  > - Ter entre 18 e 21 anos\n  > - Estar cursando o ensino médio\n  > - Apresentar certificado de reservista (necessário apenas para candidatos do sexo masculino)\n  >\n  > São 49 vagas para atuar no Centro do Rio de Janeiro, Cascadura, Penha Circular, Barra da Tijuca, Campo Grande, Duque de Caxias, Queimados e Itaguaí e você pode se inscrever até o dia 4 de outubro.\n  >\n  > Clique no link e inscreva-se: https://lnkd.in/dk29atNs\n\n- [2026-09-26 · Posted · 83 reactions] [No dia 24, em São Paulo, estivemos presentes no CNN Talks Energia...](https://www.linkedin.com/posts/light_no-dia-24-em-s%C3%A3o-paulo-estivemos-presentes-activity-7509721716454232064-QmTq)\n  > No dia 24, em São Paulo, estivemos presentes no CNN Talks Energia: O Brasil Diante de um Novo Mercado, representados pelo nosso CEO, Alexandre Nogueira.\n  >\n  > Integrando o painel “Competitividade e a Visão do Setor Produtivo”, participamos de conversas e debates sobre os desafios e oportunidades para o futuro da energia no Brasil, ao lado de outros importantes players do setor.\n  >\n  > Em um espaço criado para compartilhar perspectivas, trocar experiências e discutir os movimentos que estão transformando o mercado de energia, mostramos o papel que temos na construção desse novo cenário.\n  >\n  > Seguimos participando das discussões que impulsionam o setor e contribuindo para uma energia cada vez mais preparada para o futuro.\n\n- [2026-09-23 · Posted · 207 reactions] [O trabalho nas ruas e o que acontece no Centro de Operação...](https://www.linkedin.com/posts/light_light-activity-7508519262660014080-PZoz)\n  > O trabalho nas ruas e o que acontece no Centro de Operação Integrado - COI estão diretamente ligados. Por isso, estamos promovendo uma aproximação entre os profissionais dessas duas áreas. ⚡\n  >\n  > A iniciativa permite que profissionais do COI acompanhem de perto o dia a dia das equipes em campo, enquanto quem atua nas ruas conhece melhor os processos realizados no Centro de Operação.\n  >\n  > Essa vivência ajuda cada profissional a entender o papel das outras áreas e como todas elas trabalham juntas para que a operação aconteça. 🤝\n  >\n  > #Light\n\n- [2026-09-16 · Posted · 183 reactions] [Antes de uma situação de crise acontecer, é importante testar...](https://www.linkedin.com/posts/light_light-activity-7506068843807551488-NlFX)\n  > Antes de uma situação de crise acontecer, é importante testar processos, alinhar as equipes e entender como cada área deve atuar.\n  >\n  > Foi com esse objetivo que realizamos uma simulação do nosso Plano de Crise, reunindo equipes da Light e órgãos externos.\n  >\n  > O exercício reproduziu cenários que podem acontecer na prática e permitiu avaliar o planejamento, a comunicação e a coordenação das ações.\n  >\n  > A atividade faz parte da nossa preparação para o verão e o Super El Niño, quando condições climáticas mais severas podem causar impactos na rede elétrica.\n  >\n  > #Light\n\n- [2026-09-16 · 217 reactions, 6 comments] Antes de uma situação de crise acontecer, é importante testar processos, alinhar as equipes e entender como cada área deve atuar. Foi com esse objetivo que realizamos uma simulação do nosso Plano d...\n\n- [2026-09-15 · Posted · 49 reactions] [Neste Dia do Cliente, celebramos a confiança que nos aproxima e nos...](https://www.linkedin.com/posts/light_neste-dia-do-cliente-celebramos-a-confian%C3%A7a-activity-7505599439709941764-ClM3)\n  > Neste Dia do Cliente, celebramos a confiança que nos aproxima e nos mantém em movimento.\n  >\n  > Tá tudo Light quando temos você com a gente! É com você no centro que unimos tecnologia e energia para acompanhar seu ritmo e garantir que tudo esteja sempre Light.\n  >\n  > E é por isso que, hoje, celebramos cada uma das 4,4 milhões de pessoas que fazem parte da nossa rotina, todos os dias. São vocês o nosso maior motivo para evoluir.\n  >\n  > Seguimos prontos e energizados para fazer acontecer com você e celebrar cada novo motivo para brilhar.\n\n- [2026-09-15 · 49 reactions, 2 comments] Neste Dia do Cliente, celebramos a confiança que nos aproxima e nos mantém em movimento. Tá tudo Light quando temos você com a gente! É com você no centro que unimos tecnologia e energia para acomp...\n\n- [2026-09-11 · Posted · 34 reactions] [O prazo para participar da ONEE 2026 está terminando. A Olimpíada...](https://www.linkedin.com/posts/light_light-onee-efici%C3%AAnciaenerg%C3%A9tica-activity-7504182998842531840-2lCn)\n  > O prazo para participar da ONEE 2026 está terminando.\n  >\n  > A Olimpíada Nacional de Eficiência Energética desafia estudantes de todo o país a ampliarem seus conhecimentos sobre sustentabilidade, consumo consciente e o uso seguro e eficiente da energia elétrica.\n  >\n  > Podem participar alunos de escolas públicas e privadas que estejam cursando:\n  >\n  > - 8º e 9º anos do Ensino Fundamental\n  > - 1º e 2º anos do Ensino Médio\n  >\n  > As inscrições são gratuitas e vão até o dia 15 de setembro.\n  > Garanta a sua participação em inscricao.onee.org.br.\n  >\n  > #Light #ONEE #EficiênciaEnergética\n\n- [2026-09-11 · 37 reactions] O prazo para participar da ONEE 2026 está terminando. A Olimpíada Nacional de Eficiência Energética desafia estudantes de todo o país a ampliarem seus conhecimentos sobre sustentabilidade, consumo...\n\n- [2026-09-10 · Posted · 225 reactions] [Hoje escrevemos um novo capítulo em nossa história: o encerramento...](https://www.linkedin.com/posts/light_t%C3%A1tudolight-activity-7503878858870312960-XV9p)\n  > Hoje escrevemos um novo capítulo em nossa história: o encerramento oficial da Recuperação Judicial, decretado pela Justiça do Estado do Rio de Janeiro.\n  >\n  > Determinação, transparência e resiliência marcaram essa caminhada na construção de um novo amanhã.\n  >\n  > Estamos prontos para o futuro. Prontos e energizados para manter o Rio de Janeiro em movimento.\n  >\n  > #TáTudoLight\n\n- [2026-09-10 · 258 reactions, 9 comments] Hoje escrevemos um novo capítulo em nossa história: o encerramento oficial da Recuperação Judicial, decretado pela Justiça do Estado do Rio de Janeiro. Determinação, transparência e resiliência mar...\n\n- [2026-09-09 · Posted · 192 reactions] [Estamos entre as 100 maiores empresas do Brasil, segundo o ranking...](https://www.linkedin.com/posts/light_valor1000-light-carreira-activity-7503547666845425664-UVYz)\n  > Estamos entre as 100 maiores empresas do Brasil, segundo o ranking Valor 1000, anuário do Valor Econômico.\n  >\n  > Um reconhecimento que reforça a relevância da nossa história e de tudo o que construímos ao longo de mais de 121 anos. E mais: celebra o nosso novo momento, como uma empresa mais humana e conectada, preparada para os desafios e as oportunidades do futuro.\n  >\n  > Temos oportunidades abertas para quem quer crescer, aprender e fazer parte desse time. Acesse nossa página oficial de vagas e encontre uma oportunidade que combina com você: https://lnkd.in/dhPasFyE\n  >\n  > #Valor1000 #Light #Carreira #Vagas\n\n- [2026-09-09 · 207 reactions, 4 comments] Estamos entre as 100 maiores empresas do Brasil, segundo o ranking Valor 1000, anuário do Valor Econômico. Um reconhecimento que reforça a relevância da nossa história e de tudo o que construímos a...\n\n- [2026-09-08 · Posted · 89 reactions] [O verão ainda não chegou, mas o nosso Plano de Operação já está em...](https://www.linkedin.com/posts/light_encontro-com-jornalistas-plano-ver%C3%A3oel-activity-7503089396435476481-LKze)\n  > O verão ainda não chegou, mas o nosso Plano de Operação já está em ação.\n  >\n  > Na última quinta-feira (3/9), reunimos jornalistas de diversos veículos para apresentar nossa operação especial para o próximo verão, que foi antecipada diante da previsão de condições climáticas mais severas associadas ao Super El Niño.\n  >\n  > Nossos especialistas falaram sobre prevenção, monitoramento das condições climáticas, atuação das equipes, tecnologia e integração com órgãos públicos, além das medidas que ampliam nossa capacidade de resposta.\n  >\n  > Um encontro para colocar o tema em pauta e mostrar como estamos nos antecipando aos desafios que teremos pela frente.\n  >\n  > #Light #PlanoVerão\n\n- [2026-09-08 · Posted · 194 reactions] [As inscrições para o Programa Jovem Aprendiz da Light estão...](https://www.linkedin.com/posts/light_as-inscri%C3%A7%C3%B5es-para-o-programa-jovem-aprendiz-activity-7503201487028641792-YnnA)\n  > As inscrições para o Programa Jovem Aprendiz da Light estão abertas!\n  >\n  > São 49 oportunidades para jovens que querem dar os primeiros passos no mercado de trabalho e começar a construir sua trajetória profissional em uma das maiores empresas do Rio de Janeiro.\n  >\n  > As vagas estão disponíveis no Centro, Cascadura, Penha Circular, Barra da Tijuca, Campo Grande, Duque de Caxias, Queimados e Itaguaí.\n  >\n  > Para participar, é necessário:\n  > * Ter entre 18 e 21 anos;\n  > * Estar cursando o Ensino Médio;\n  > * Ter certificado de reservista, no caso de candidatos do sexo masculino.\n  >\n  > As inscrições estão abertas até 4 de outubro.\n  >\n  > Para conferir todos os detalhes e se candidatar, acesse: https://lnkd.in/dk29atNs\n  >\n  > Se você conhece alguém que está pronto para dar esse primeiro passo, compartilhe esta oportunidade!\n\n- [2026-09-08 · 94 reactions, 2 comments] O verão ainda não chegou, mas o nosso Plano de Operação já está em ação. Na última quinta-feira (3/9), reunimos jornalistas de diversos veículos para apresentar nossa operação especial para o próxi...\n\n- [2026-09-08 · 223 reactions, 8 comments] As inscrições para o Programa Jovem Aprendiz da Light estão abertas! São 49 oportunidades para jovens que querem dar os primeiros passos no mercado de trabalho e começar a construir sua trajetória...\n\n- [2026-08-24 · Posted · 381 reactions] [Prontos e Energizados, conectando pessoas, histórias e...](https://www.linkedin.com/posts/light_prontoseenergizados-t%C3%A1tudolight-light-activity-7497791038657503232-4NIQ)\n  > Prontos e Energizados, conectando pessoas, histórias e oportunidades em 31 municípios do estado do Rio.\n  >\n  > Uma Light cada vez mais forte, da infraestrutura à operação, e ainda mais preparada e conectada para acompanhar as transformações e impulsionar o futuro.\n  >\n  > #ProntosEEnergizados #TáTudoLight #Light\n\n- [2026-08-24 · 415 reactions, 3 comments] Prontos e Energizados, conectando pessoas, histórias e oportunidades em 31 municípios do estado do Rio. Uma Light cada vez mais forte, da infraestrutura à operação, e ainda mais preparada e conecta...\n\n- [2026-08-23 · Posted · 342 reactions] [Estamos Prontos e Energizados para uma nova Light. Com mais...](https://www.linkedin.com/posts/light_prontoseenergizados-t%C3%A1tudolight-activity-7497232494472339456-BWGX)\n  > Estamos Prontos e Energizados para uma nova Light.\n  >\n  > Com mais tecnologia, melhorias na rede e uma operação cada vez mais ágil, seguimos evoluindo para cuidar da energia do dia a dia. Tá Tudo Light!\n  >\n  > #prontoseenergizados #tátudolight\n\n## Locations\n- Headquarters: rio de janeiro, rio de janeiro, brazil\n- Offices: rio de janeiro, rio de janeiro, brazil",
+        "summary": "{\"description\":\"Light S.A. is a Brazilian utilities holding company with subsidiaries in electricity distribution, generation, and energy services, operating across Brazil and internationally.\",\"employee_estimate\":6944,\"employee_estimate_source\":\"Employees: 7,694\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Rio de Janeiro, Rio de Janeiro, Brazil\",\"hq_quote\":\"Headquarters: Rio de Janeiro, Rio de Janeiro, Brazil\",\"industry\":\"Utilities\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Utilities\\n- Type: Privately held\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":false,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: BRL 1,500,000,000\\n  - Post ipo equity (2026-06-01): BRL 1.5B\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4D0BAQEArIXM0meEeg/company-logo_200_200/B4DaAuOsaHJoAE-/0/1787481999217/light_logo?e=2147483647&v=beta&t=4Y_Tr16PV_VbqqVV8NveWBgk9M9mc3OiOXPClyodklY",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/ndsqfdvc92z",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Light",
+              "foundedYear": 1905,
+              "description": "A Light está presente em 31 municípios do estado do Rio de Janeiro, abrangendo uma região com mais de 10 milhões de pessoas e somando 4 milhões de clientes. Com mais de um século de atuação, a Light tem feito parte da vida do Rio de Janeiro, acompanhando e oferecendo produtos e serviços essenciais para o desenvolvimento econômico, social e cultural das localidades onde atua. Seu compromisso em prestar serviços à população se traduz na busca permanente pela eficiência e na postura transparente e proativa junto a todos os públicos com os quais se relaciona.\r\n\r\nA Light S.A. é uma holding que controla integralmente subsidiárias que participam em três segmentos de negócios: a Light SESA, em distribuição de energia; a Light Energia, em geração de energia; e, em comercialização e serviços de energia, com a Light Esco e a LightCom.\r\n\r\nNossa missão:\r\n\r\nProver energia e serviços com excelência e de forma sustentável, contribuindo para o bem-estar e o desenvolvimento da sociedade.\r\n\r\nNossos canais:\r\nwww.light.com.br\r\nhttp://www.conexaolight.com.br\r\nhttp://www.facebook.com/conexaolight\r\nhttp://www.twitter.com/conexaolight\r\nhttp://www.youtube.com/conexaolight\r\nhttp://statigr.am/conexaolight\r\n\r\nAtendimento ao cliente:\r\nhttp://www.facebook.com/lightclientes\r\nhttp://www.twitter.com/lightclientes\r\n\r\nNossas iniciativas:\r\nRio Light: www.riolight.com.br\r\nMe Dá Uma Luz: www.medaumaluz.com.br\r\nRelatório de Sustentabilidade 2013: http://www.relatoriolight.com.br/",
+              "workforce": {
+                "total": 7694
+              },
+              "headquarters": {
+                "address": "Rua Marechal Floriano, 168, Rio de Janeiro, Rio de Janeiro 20080-002, BR",
+                "city": "Rio de Janeiro",
+                "postalCode": null,
+                "country": "Brazil"
+              },
+              "financials": {
+                "revenueAnnual": 2648613848,
+                "fundingTotal": null,
+                "fundingLatestRound": {
+                  "name": "Post ipo equity",
+                  "date": "2026-06-01",
+                  "amount": null
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 1962285,
+                "countryRank": 1514,
+                "avgDurationSeconds": 290,
+                "history": [
+                  {
+                    "value": 1879790,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 1746832,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 1732089,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 1712635,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 2008630,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 1962285,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/zx32kfh9b1f",
+        "title": "Light",
+        "url": "https://light.co/",
+        "text": "# Light\n\nLight is a Truck Transportation company. Light employs 136 people (-1.4% YoY, -2 people) and has an annual revenue of $25M, founded in 2013. Headquartered in Redwood City, California, United States, with an office in Palo Alto. Its workforce is distributed across 5 countries (including China, India, United States, Taiwan, and Ghana).\n\n## About\n\nLight is a depth-sensing and perception technology company focused on providing automobiles with the ability to see better than humans.\n\n| Field | Value |\n| --- | --- |\n| Founder | Dave Grannan (CEO), Rajiv Laroia (CTO) |\n| Fate | Dissolved after asset purchase by John Deere |\n| Area served | Global |\n| Products | Multi-lens camera for smartphones |\n\n## Company Details\n- Industry: Truck Transportation\n- Type: Privately held\n- Headquarters: Redwood City, United States\n- Founded Year: 2013\n- Homepage: light.co\n- Aliases: Light Labs Inc., light, light labs, inc., Light Camera, Light Co, Light Company, Light L16, Light.co\n- LinkedIn: linkedin.com/company/thelightco\n- Linkedin Followers: 5,496\n- Emails: hello@light.co\n\n## Financials\n- Annual Revenue: USD 25,000,000\n- Total Funding: USD 185,700,000\n  - Series d (2018-07-18): USD 121.0M\n  - Series c (2016-07-06): USD 30.0M\n  - Series b (2015-07-30): USD 25.0M\n  - Series a (2014-06-10): USD 9.7M\n\n## Acquisitions\n- Acquired by: Bella Luce (2022-09-01)\n\n## Workforce\n- Employees: 136\n- Company Size: 51-200 employees\n  - Monthly Growth: -0.7%\n  - Yearly Growth: -1.4%\n- Key Executives:\n  - RICHARD HU: Lighting Director\n- Breakdown:\n  - By Country: China: 4 (3%), India: 4 (3%), United States: 4 (3%), Taiwan: 3 (2%), Ghana: 1 (1%)\n  - By Department: Technical: 6 (4%), Sales: 4 (3%), Other Department: 2 (1%), Administrative: 1 (1%), Consulting: 1 (1%), Design: 1 (1%), Medical: 1 (1%)\n  - By Seniority: Specialist: 8 (6%), Other Management: 4 (3%), Manager: 2 (1%), Director: 1 (1%), Senior: 1 (1%)\n- Salary ranges (20 of 56 roles):\n  - Gerente Comercial: median 341,277.69 BRL per month\n  - Coordenador De TI: median 218,710.84 BRL per month\n  - Analista De Comunicação: median 202,597.35 BRL per month\n  - Analista De Recursos Humanos (RH): median 202,597.35 BRL per month\n  - Despachante De Alta Tensão: median 202,597.35 BRL per month\n  - Despachante De Distribuição: median 202,597.35 BRL per month\n  - Despachante De Distribuição COD: median 202,597.35 BRL per month\n  - Eletricista De Manutenção De Equipamentos Eletro Eletrônicos: median 202,597.35 BRL per month\n  - Eletricista De Rede Aérea: median 202,597.35 BRL per month\n  - Eletrotécnico: median 202,597.35 BRL per month\n  - Especialista De Recursos Humanos (RH): median 202,597.35 BRL per month\n  - Mantenedor De Subestação: median 202,597.35 BRL per month\n  - Técnico De Campo Pleno: median 202,597.35 BRL per month\n  - Técnico De Manutenção: median 202,597.35 BRL per month\n  - Técnico Eletrotécnico: median 202,597.35 BRL per month\n  - Engenheiro De Campo Pleno: median 194,797.55 BRL per month\n  - Coordenador De Rh: median 168,252.27 BRL per month\n  - Analista De Sistemas: median 161,119.45 BRL per month\n  - Especialista: median 146,636.67 BRL per month\n  - Engenheiro: median 131,519.91 BRL per month\n- Talent Sources: Qualcomm (10), GoPro (6), NVIDIA (4), Jawbone (4), Intel (4), Imatest (3), Microsoft (2), Massachusetts Institute of Technology (2), L&T Technology Services (2), Ericsson (2)\n- Alumni Go To: Blue River Technology (14), Apple (8), Google (7), Meta (6), Zoox (5), Cruise (5), Marvell Technology (4), Amazon (4), Juul Labs (3), Facebook (2)\n\n## Products & Technology\n- Tech Stack: asic, json, python, systemverilog, jira, c, signal\n\n## Web presence\n\n- Twitter: twitter.com/thelightco\n- Facebook: facebook.com/thelightco\n- Crunchbase: crunchbase.com/organization/light\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Reviews & Ratings\n- Employer Rating: 3.8/5.0 (460 reviews)\n  - Breakdown: Work-Life: 3.3, Compensation: 3.8, Culture: 3.4, Career: 3.1\n\n## Categories\n\nadas, automotive, autonomous vehicles, autonomy, depth perception, imaging, platform, sensors, technical support, technology\n\n## Competitors\n\nolloclip, mobileye, e-con systems, phase one a/s, ztylus, lytro, hasselblad, zadar labs, tonbo imaging, tanway, general radar\n\n## Recent News\n- [2026-10-09]\n  - Moomoo: CONNECTICUT LIGHT & POWER CO 2.04% PRF USD25 To Go Ex-Dividend On October 9th, 2026 With 0.51 USD Dividend Per Share\n  - Colorado Newsline: Denver’s 1876 tax rolls shed light on Colorado’s Gilded Age inequality\n  - The Business Journals: Duquesne Light, IBEW reach tentative agreement to end strike\n  - کردپرس: HDP co-chair sheds light on allegations that a new peace process has begun\n  - Hindustan Times: In 2014, Akon co-founded Akon Lighting Africa to bring solar power to rural Africa; within a year, it was reaching communities across 14 countries \\| World News\n- [2026-10-08]\n  - Foundation of Light: Foundation Holiday Courses return for October half-term\n  - GMA Network: Why do psychiatric conditions co-occur with each other? Experts shed light on comorbidity\n  - Matador Network: Your Worst Edible Story Could Win You Two Nights in an Allegedly Haunted Illinois House\n- [2026-10-07]\n  - Foundation of Light: Get online, get skilled: Free website workshops\n  - Roastbrief US: Herb Light Invites You to Share Your Cannabis Horror Story to Win a Stay at Actual Haunted “Scare-Bnb”\n  - Foundation of Light: SAFC dedicates Founders’ Week to Foundation of Light as charity celebrates 25 years\n  - Foundation of Light: Sunderland AFC announce Founders' Week celebrating 25 years of Foundation of Light\n- [2026-10-06]\n  - Ad Age: Herb Light turns cannabis horror stories into ‘ScareBnB’ stays for Halloween\n  - Dealroom: Lumentum acquires Cloud Light for about $750 million\n  - The Manila Times: Porch Light Health Awarded $6.6 Million Through Colorado Rural Health Transformation Program\n- [2026-10-05]\n  - IGN Southeast Asia: Lanterns Season 2 in Early Development Ahead of Official Green Light at HBO, Co-Creator Says\n  - Electrek: Toyota gets the green light for a new EV built to take on China\n- [2026-10-04] Camera Jabber: SmallRig x CineD OrBrella FM 60B price, specifications and availability announced\n- [2026-10-03]\n  - News Karnataka: Deleted posts shed light on Flydubai co-pilot’s views on women\n  - Foundation of Light: Foundation of Light celebrates 25 years of changing lives at Gala Awards Dinner\n- [2026-08-26] [Clapperboard ties with Lime, L16 Studios for UK filming - Televisual](https://www.televisual.com/news/clapperboard-ties-with-lime-l16-studios-for-uk-filming/)\n\n## Social\n\n### Linkedin\n\n- [2022-03-11 · 31 reactions, 1 comment] Full-self driving may one day be possible, but it isn’t possible today and it's our opinion it won't ever be safely possible with the technology used by many leaders in the AV industry. Light’s Cla...\n\n- [2022-03-10 · 40 reactions, 1 comment] Light CEO and co-founder Dave Grannan shares his thoughts on what the future of ADAS looks like. Click to read the full article. #ADAS #driverassist #automotivetech #automotivetechnology #automotiv...\n\n- [2022-03-08 · 18 reactions, 1 comment] The Rivian R1T electric pickup truck represents the leading edge of consumer electric vehicle technology as the very first full-size electric pickup truck available for sale. For its driving assist...\n\n- [2022-03-03 · 18 reactions] Many believe that regulation is opposed to innovation. In the case of the autonomous driving industry, we believe innovation must happen in a responsible way which prioritizes safety. Sensible regu...\n\n- [2022-02-28 · 10 reactions] The primary goal of any Advanced Driver Assistance Systems, and the technology which powers them, is to make driving safer. It can, however, be very tempting for the consumer to entrust these syste...\n\n- [2022-02-25 · 14 reactions, 1 comment] Are you an ASIC Design Engineer with experience driving microarchitecture, RTL design, verification and supporting synthesis and physical design teams. We're looking for someone excited to manage t...\n\n- [2022-02-22 · 12 reactions] The ADAS and self-driving industries need sensible regulations which include adequate safety controls. We favor innovation, but not at the expense of the safety of drivers, passengers, or pedestria...\n\n- [2022-02-21 · 21 reactions] We are growing and #hiring a #technicalwriter with experience working with engineering to improve user experience through design and UI, helping to refine content and create visuals for technical s...\n\n- [2022-02-16 · 11 reactions] Are you a #softwaredeveloper with experience in #machinelearning? We're looking for a manager of machine learning to lead a team leveraging our unique data streams to generate state-of-the-art deep...\n\n- [2022-02-14 · 46 reactions] To enable Advanced Driver Assistance Systems, as well as the autonomous vehicles of the future, requires true scene understanding. Clarity uses signal processing – which sees up to 95 million point...\n\n## Locations\n- Headquarters: redwood city, california, united states (US)\n- Offices: palo alto, california, united states (US), redwood city, california, united states (US)\n\n## Parent organization\n\n- John Deere",
+        "summary": "{\"description\":\"Light is a depth-sensing and perception technology company focused on providing automobiles with the ability to see better than humans.\",\"employee_estimate\":136,\"employee_estimate_source\":\"136\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Redwood City, California, United States\",\"hq_quote\":\"Headquartered in Redwood City, California, United States\",\"industry\":\"Truck Transportation\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Truck Transportation\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 185,700,000\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C560BAQEV3JQ2isO8cA/company-logo_200_200/company-logo_200_200/0/1631423989428/thelightco_logo?e=2147483647&v=beta&t=S8RivUwtl3Rp8jhu5f6UTZRrChBwdmCcFxrLAx9FsXg",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/zx32kfh9b1f",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Light",
+              "foundedYear": 2013,
+              "description": "Light is a depth-sensing and perception technology company focused on providing automobiles with the ability to see better than humans. ",
+              "workforce": {
+                "total": 136
+              },
+              "headquarters": {
+                "address": "725 Shasta St, Redwood City, California 94063, US",
+                "city": "Redwood City",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 25000000,
+                "fundingTotal": 185700000,
+                "fundingLatestRound": {
+                  "name": "Series d",
+                  "date": "2018-07-18",
+                  "amount": 121000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 0,
+                    "dateFrom": "2024-09",
+                    "dateTo": "2024-09"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2024-10",
+                    "dateTo": "2024-10"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2025-06",
+                    "dateTo": "2025-06"
+                  },
+                  {
+                    "value": 454,
+                    "dateFrom": "2025-12",
+                    "dateTo": "2025-12"
+                  },
+                  {
+                    "value": 454,
+                    "dateFrom": "2026-01",
+                    "dateTo": "2026-01"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 8722,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

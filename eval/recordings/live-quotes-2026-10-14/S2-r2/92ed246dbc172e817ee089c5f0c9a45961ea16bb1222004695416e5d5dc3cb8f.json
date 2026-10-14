@@ -1,0 +1,270 @@
+{
+  "request": {
+    "query": "GrailPay",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the exact phrase from the page that the employee estimate came from (e.g. \"350 employees\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "be7434123d822b114b791d91f19a390e",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/84x6wrscs09",
+        "title": "GrailPay",
+        "url": "https://grailpay.com/",
+        "text": "# GrailPay\n\nGrailPay is a Financial Services company. GrailPay is a risk intelligence platform for modern payments that scores risk on every payment before money moves and guarantees what qualifies, across ACH and instant rails. GrailPay employs 24 people (+64.3% YoY, +9 people). Headquartered in New York, New York, United States. Its workforce is distributed across United States and India.\n\n## About\n\nGrailPay's Risk Intelligence Platform protects faster, irreversible payments with preemptive screening of user identity and intent, establishing an auditable, compliant system for fighting payment risk at scale.\n\n## Company Details\n- Industry: Financial Services\n- Type: Privately held\n- Headquarters: New York, United States\n- Homepage: grailpay.com\n- Aliases: GrailPay Holdings Inc, grailpay\n- LinkedIn: linkedin.com/company/grailpay\n- Linkedin Followers: 2,001\n- Emails: support@grailpay.com\n\n## Financials\n- Total Funding: USD 24,729,999\n  - Series a (2026-06-01): USD 10.5M\n  - Seed (2025-07-11): USD 6.7M\n  - Venture (2025-06-01): USD 6.7M\n  - Seed (2021-08-01): USD 830,000\n\n## Workforce\n- Employees: 24\n- Company Size: 11-50 employees\n  - Monthly Growth: +9.5%\n  - Yearly Growth: +64.3%\n- Key Executives:\n  - Joseph Bykov: Head of Growth\n  - Lauren Gibson: Head of Marketing\n  - Lee Jones: Co-Founder & CTO\n  - Piyush Nandwani: Lead Data Scientist\n  - Richard Hoffmann: Head of Product\n  - Tom Olk: Head of Risk and Business Operations\n  - Will Messina: Co-Founder & CEO\n- Breakdown:\n  - By Country: United States: 21 (91%), India: 2 (9%)\n  - By Department: Technical: 9 (39%), Marketing: 4 (17%), General Management: 3 (13%), Consulting: 2 (9%), Product: 2 (9%), Operations: 1 (4%), Other Department: 1 (4%), Research: 1 (4%)\n  - By Seniority: Senior: 6 (26%), Head: 5 (22%), Specialist: 4 (17%), Manager: 3 (13%), Founder: 2 (9%), Other Management: 2 (9%), Intern: 1 (4%)\n- Talent Sources: Dragonfly Research Group, LLC (2), braintrust tutors (1), Zolve (1), Numan (1), Multiplica (1), Mighty (1), Boston Consulting Group (BCG) (1), Apkudo (1), American Advertising Federation (1), Alternative Payments (1)\n- Alumni Go To: ZANEFFI (1), The Trust Web Times (1), Oscilar (1), OnSite IS (1), MissionOG (1), Innova Soft Ltd. (1), Boston College (1), Beghou (1), Apoddo (1), Accrue (1)\n\n## Products & Technology\n- Tech Stack: django, git, javascript, laravel, php, python, well, upwork\n\n## Web presence\n\n- Twitter: twitter.com/grailpay\n- Crunchbase: crunchbase.com/organization/grailpay\n- Web traffic:\n  - Monthly visits: 4,252\n  - Global rank: 4,315,303\n  - Bounce rate: 59.0%\n  - Pages per visit: 1.6\n  - Average visit duration: 33s\n\n## Categories\n\naccount intelligence, boost onboarding, financial services, financial technology, fraud detection, fraud detection software, grailpay, mobile payments, open banking, payment failures, payments, retail, risk intelligence, web security software\n\n## Recent News\n- [2026-06-30] [GrailPay Raises $10.5 Million To Scale Risk Decisioning Infrastructure For Instant And Agentic Payments](https://pulse2.com/grailpay-raises-10-5-million-to-scale-risk-decisioning-infrastructure-for-instant-and-agentic-payments/)\n- [2026-06-29] [GrailPay Raises $10.5M in Series A Funding](https://www.finsmes.com/2026/06/grailpay-raises-10-5m-in-series-a-funding.html)\n- [2026-06-26]\n  - [GrailPay Raises $10.5M Series A](https://www.thesaasnews.com/news/grailpay-raises-10-5m-series-a/)\n  - [GrailPay raises $10.5 million Series A to build risk network for AI-driven payments - NewsnReleases](https://newsnreleases.com/2026/06/26/grailpay-risk-network-for-ai-driven-payments/)\n- [2025-06-22] Pulse 2.0: GrailPay: $6.7 Million Raised For Risk And Data Banking Platform\n- [2025-06-20] FinTech Global: A total of $637m raised across 21 FinTech deals this week\n- [2025-06-16]\n  - alleywatch.com: #NYCtech Week in Review: 6/8/25 – 6/14/25\n  - FinTech Global: Bank payments platform GrailPay secures $6.7m funding round\n  - alleywatch.com: The Weekly Notable Startup Funding Report: 6/16/25\n- [2025-06-13] PYMNTS.com: Funding Rounds and Walmart’s Credit Card Push Mark Busy Week for FinTech\n- [2025-06-12]\n  - GlobalFinTechSeries: GrailPay Raises $6.7 Million to Build the Risk and Intelligence Layer for Bank Payments\n  - FinSMEs: GrailPay Raises $6.7M in Funding\n  - Financial IT: GrailPay Raises $6.7M to Build the Risk and Intelligence Layer for Bank Payments\n\n## Social\n\n### Linkedin\n\n- [2026-09-25 · Posted · 39 reactions] [Our Head of Risk, Tom Olk, and CRO, April Mellas, spent this week...](https://www.linkedin.com/posts/grailpay_our-head-of-risk-tom-olk-and-cro-april-activity-7509302410507395072-KCA5)\n  > Our Head of Risk, Tom Olk, and CRO, April Mellas, spent this week in Detroit at Narmi's Innovators Retreat, where Tom introduced our new partnership with Narmi to their community bank and credit union clients.\n  >\n  > The room was full of leaders who already understand that instant payments need real-time risk checks, and the conversation quickly turned to how soon they can go live. That kind of energy is exactly why we're excited about this partnership.\n  >\n  > Huge thank you to the Narmi team for a fantastic retreat. We're looking forward to what's ahead together. 🤝🚀\n\n- [2026-09-22 · Posted · 34 reactions] [Today, Narmi, a digital banking platform, announced it’s selected...](https://www.linkedin.com/posts/grailpay_grailpay-narmi-activity-7508149040417648640-mSmL)\n  > Today, Narmi, a digital banking platform, announced it’s selected GrailPay to help its bank and credit union customers catch bad payments before they happen.\n  >\n  > Money moves faster than ever. That's great for customers, but it means banks have less time to spot a problem before it's too late.\n  >\n  > With this partnership, when someone opens an account or links a bank account through Narmi, GrailPay checks in real time that the account is real and belongs to the right person before any money moves. The bank still makes the final call. Their customers won't notice a thing has changed, except that it's safer.\n  >\n  > Banks and credit unions shouldn't have to choose between moving fast and moving safely, and more of them are choosing GrailPay to make sure they don't have to. We're already doing this at scale, on billions in payment volume, across a network covering more than 99% of US bank accounts.\n  >\n  > Approve more good payments while stopping the bad ones. That's the GrailPay difference, and we're just getting started.\n  >\n  > Read more here: https://hubs.ly/Q04y1L4F0\n\n- [2026-09-22 · 34 reactions, 4 comments] Today, Narmi, a digital banking platform, announced it’s selected GrailPay to help its bank and credit union customers catch bad payments before they happen. Money moves faster than ever. That's gr...\n\n- [2026-09-18 · Reshared · 12 reactions] [We're so proud to have April Mellas leading our revenue team, and...](https://www.linkedin.com/posts/grailpay_were-so-proud-to-have-april-mellas-leading-activity-7506735559659155456-JH_X): We're so proud to have April Mellas leading our revenue team, and even prouder to see her recognized as one of Parity’s 100 Women in FinTech 2026 alongside so many incredible women in this space. C...\n\n- [2026-09-10 · Posted · 20 reactions] [Earlier this week we co-hosted \"Inside the VC Playbook: What...](https://www.linkedin.com/posts/grailpay_earlier-this-week-we-co-hosted-inside-the-activity-7503840596411748352-Za5Y)\n  > Earlier this week we co-hosted \"Inside the VC Playbook: What Investors Are Looking For\" with NYC Fintech Women, Anthemis, 1871, and BMO, hosted by Mastercard at their New York office.\n  >\n  > April Mellas, our CRO, Lauren Gibson, our Head of Marketing, and Mallory Milestone, our Chief of Staff, spent the evening with founders, investors, and operators building what's next across fintech and payments.\n  >\n  > It was an awesome group of really impressive women and we really enjoyed the fireside chat between Elizabeth Davis of Anthemis Group and Fonta Gilliam, CEO of Wellthi, that got into capital, conviction, and what it actually takes to raise and back the right companies.\n  >\n  > Thank you to NYC Fintech Women for bringing everyone together. We're glad to have GrailPay helping lead the conversation for what's ahead in fintech.\n\n- [2026-09-10 · 20 reactions, 1 comment] Earlier this week we co-hosted \"Inside the VC Playbook: What Investors Are Looking For\" with NYC Fintech Women, Anthemis, 1871, and BMO, hosted by Mastercard at their New York office. April Mellas,...\n\n- [2026-09-04 · Reshared · 12 reactions] [We're looking forward to co-hosting and attending the NYC Fintech...](https://www.linkedin.com/posts/grailpay_inside-the-vc-playbook-what-investors-are-activity-7501673992513191936-Fifq): We're looking forward to co-hosting and attending the NYC Fintech Women's happy hour on Tuesday, September 8, with Mastercard and Anthemis Group. If you're in town, we'd love to see you there and t...\n\n- [2026-08-27 · Posted · 22 reactions] [We just opened three New York-based sales roles at GrailPay, and if...](https://www.linkedin.com/posts/grailpay_we-just-opened-three-new-york-based-sales-activity-7498758545874518017-BBeU)\n  > We just opened three New York-based sales roles at GrailPay, and if you ask us, this is the best time to join.\n  >\n  > We’re early enough that you’ll actually shape how we sell, but there’s real momentum behind it: we closed our Series A and we’re growing quickly.\n  >\n  > A few things that are true across all three roles: you’re selling into risk, payments, and compliance teams who really feel this pain, you’re close to leadership, and the work ships fast — you’ll own it from end to end.\n  >\n  > Open roles:\n  >\n  > ➡️ Account Executive\n  > ➡️ Senior Account Executive\n  > ➡️ Enterprise Account Executive\n  >\n  > Our careers page has all the details, apply here: https://lnkd.in/eszs3Ait\n\n- [2026-08-27 · 26 reactions, 1 comment] We just opened three New York-based sales roles at GrailPay, and if you ask us, this is the best time to join. We’re early enough that you’ll actually shape how we sell, but there’s real momentum b...\n\n- [2026-08-05 · Posted · 30 reactions] [Welcome to the team, Collin Chandler! Collin just joined us as a...](https://www.linkedin.com/posts/grailpay_welcome-to-the-team-collin-chandler-collin-activity-7490822632901316608-3fCf)\n  > Welcome to the team, Collin Chandler!\n  >\n  > Collin just joined us as a Senior Software Engineer. We asked him a few questions so you can get to know him:\n  >\n  > 1️⃣ 𝗪𝗵𝗮𝘁 𝗺𝗮𝗱𝗲 𝘆𝗼𝘂 𝘄𝗮𝗻𝘁 𝘁𝗼 𝗷𝗼𝗶𝗻 𝗚𝗿𝗮𝗶𝗹𝗣𝗮𝘆?\n  > I’ve worked with a couple of current GrailPay employees in the past (Trent Raber and Lee Jones) and thoroughly enjoyed that. When I found out that GrailPay was hiring I put in my resume as quickly as I could! The process was great, it moved quickly and focused on my experience rather than answering college test questions that are rarely relevant to day to day work.\n  >\n  > 2️⃣ 𝗪𝗵𝗮𝘁 𝘄𝗶𝗹𝗹 𝘆𝗼𝘂 𝗯𝗲 𝘄𝗼𝗿𝗸𝗶𝗻𝗴 𝗼𝗻 𝗮𝘁 𝗚𝗿𝗮𝗶𝗹𝗣𝗮𝘆?\n  > Initially I'll be working on the payments API as I familiarize myself with everything. That is essentially coding in PHP Laravel. I also have extensive mobile app development experience so I hope to work on updating and modernizing the mobile SDK. I plan to get my hands into the risk assessment model at some point as well.\n  >\n  > 3️⃣ 𝗪𝗵𝗮𝘁 𝗲𝘅𝗰𝗶𝘁𝗲𝘀 𝘆𝗼𝘂 𝗮𝗯𝗼𝘂𝘁 𝗽𝗮𝘆𝗺𝗲𝗻𝘁𝘀/𝗳𝗶𝗻𝘁𝗲𝗰𝗵 𝗿𝗶𝗴𝗵𝘁 𝗻𝗼𝘄?\n  > AI agents having access to payment processing is a risky business, and GrailPay is at the forefront of assessing and mitigating that risk. I think there is a ton of potential for growth in the near future.\n  >\n  > 4️⃣ 𝗪𝗵𝗮𝘁'𝘀 𝗮 𝗵𝗼𝗯𝗯𝘆 𝘆𝗼𝘂 𝗵𝗮𝘃𝗲 𝗼𝘂𝘁𝘀𝗶𝗱𝗲 𝗼𝗳 𝘄𝗼𝗿𝗸?\n  > I love to Onewheel. I travel to Onewheel race events around the east coast. I commentate the trick competitions at Oak City Shredfest and Floatlife Fest. I’m on the council for Wheel Life Rally. And I make stupid but funny videos about things going on in the Onewheel community. I even help write a tiny newspaper that goes out as “swag” with the orders of the largest third party Onewheel accessory manufacturer called The Float Life Times.\n  >\n  > (👀 Check out the second photo to see Collin in action.)\n  >\n  > 5️⃣ 𝗪𝗵𝗮𝘁'𝘀 𝘆𝗼𝘂𝗿 𝗴𝗼-𝘁𝗼 𝗽𝗿𝗼𝗴𝗿𝗮𝗺𝗺𝗶𝗻𝗴 𝗹𝗮𝗻𝗴𝘂𝗮𝗴𝗲?\n  > Everyone should start by learning C++. Specifically because you have to manage your own memory. It puts you in the frame of mind to be conscientious about data types data movement within a program. Modern systems have made memory cleanup and garbage collection too easy, so when optimization is needed it can be a mess to disentangle all the places data is stored and where it is referenced.\n  >\n  > We can't wait to build GrailPay with you, Collin!\n\n- [2026-08-05 · 45 reactions] Welcome to the team, Collin Chandler! Collin just joined us as a Senior Software Engineer. We asked him a few questions so you can get to know him: 1️⃣ 𝗪𝗵𝗮𝘁 𝗺𝗮𝗱𝗲 𝘆𝗼𝘂 𝘄𝗮𝗻𝘁 𝘁𝗼 𝗷𝗼𝗶𝗻 𝗚𝗿𝗮𝗶𝗹𝗣𝗮𝘆? I’ve wor...\n\n- [2026-07-31 · Posted · 95 reactions] [Say hello to the people behind GrailPay. We don’t want to brag, but...](https://www.linkedin.com/posts/grailpay_say-hello-to-the-people-behind-grailpay-activity-7489020784271724544-L9wZ)\n  > Say hello to the people behind GrailPay.\n  >\n  > We don’t want to brag, but we’re pretty sure we hit the jackpot with this group. They aren’t just insanely smart and hardworking, they also make coming to work something you look forward to (Lauren Gibson can attest — she voluntarily comes in all the way from CT).\n  >\n  > The team’s been growing fast, so we upgraded our HQ and are working hard to make it ours (priority: lots of plants). We’re hoping to catch more of our remote teammates for a full group picture soon.\n  >\n  > If you’re feeling FOMO, we don’t blame you. 😉 We’ll be sharing more details about each of teammates soon so you can get a glimpse into what they do at GrailPay and who they are outside of work.\n\n- [2026-07-31 · 176 reactions, 18 comments] Say hello to the people behind GrailPay. We don’t want to brag, but we’re pretty sure we hit the jackpot with this group. They aren’t just insanely smart and hardworking, they also make coming to w...\n\n- [2026-06-25 · Posted · 59 reactions] [Today we're thrilled to announce our $10.5M Series A led by...](https://www.linkedin.com/posts/grailpay_fintech-payments-seriesa-activity-7475913654530617344-QanG)\n  > Today we're thrilled to announce our $10.5M Series A led by MissionOG, with participation from EJF Ventures, Counterpart Ventures, Construct Capital, Commerce Ventures, and SSC Venture Partners.\n  >\n  > It's fuel to keep building the risk and payments infrastructure for B2B commerce in a world of agentic payments, instant settlement, and stablecoins.\n  >\n  > We're extremely grateful to our customers, partners, team, and investors for getting us here.\n  >\n  > Read more at the story with Mary Ann Azevedo at the link in comments!\n  >\n  > #fintech #payments #SeriesA #data #risk #fundraise\n\n- [2026-06-25 · 81 reactions, 17 comments] Today we're thrilled to announce our $10.5M Series A led by MissionOG, with participation from EJF Ventures, Counterpart Ventures, Construct Capital, Commerce Ventures, and SSC Venture Partners. It...\n\n- [2026-06-24 · Posted · 13 reactions] [For most of banking history, a payment came with a pause. Money...](https://www.linkedin.com/posts/grailpay_payment-pauses-activity-7475593672667926528-1uEx)\n  > For most of banking history, a payment came with a pause. Money left one account and took time to land in another. That gap felt like a flaw, but it was also a safety net. It provided time to catch fraud, reverse a mistake, and let a human look twice before a loss became permanent.\n  >\n  > Instant rails, stablecoins, and agentic commerce remove that pause and take away the window that used to compensate for not really knowing your counterparty. A payment is final the second it moves.\n  >\n  > Card payments always had a de facto guarantee built into the rail. Bank payments never did. Now they're getting faster, more automated, and increasingly run between counterparties (and soon, agents) with little shared history.\n  >\n  > Lower trust, less time, higher stakes, all at once.\n  >\n  > Knowing an account is real is a good check. It doesn't tell you whether this payment, in this context, should happen; the amount, the timing, the counterparty's history, the velocity. That's where the real signal lives.\n  >\n  > So the discipline the pause used to give us for free now has to be designed in.\n  >\n  > That's what we build:\n  >\n  > 🧠 Account Intelligence\n  > Validation before the payment. Signal-rich bank account validation that tells you how much to trust an account before it ever transacts.\n  >\n  > 🛡️ Transaction Intelligence\n  > Judgment at the speed of the payment. Every transaction scored in real time, in context, so the risky one stops and the good one moves with confidence.\n  >\n  > Risk and payments aren't two businesses for us. Better data prices risk, priced risk makes faster payments safe to originate, and every payment sharpens the data. That flywheel is the whole thesis.\n  >\n  > The pause is gone. We're building the data layer that replaces it, and hiring the engineers and data minds who read risk early and act before the window closes. If that's how you think about payments, let's talk.\n  >\n  > Interested in learning more about our Risk Intelligence platform? Read our latest blog posts, linked in the comments.\n\n- [2026-06-24 · 14 reactions, 3 comments] For most of banking history, a payment came with a pause. Money left one account and took time to land in another. That gap felt like a flaw, but it was also a safety net. It provided time to catch...\n\n- [2026-02-04 · 10 reactions, 1 comment] Don't miss GrailPay's co-founder and CEO Will Messina's recent appearance on the In Control podcast from our friends at Cable. If you've ever wondered... ❓ How do incentives in money movement work?...\n\n- [2025-09-24 · 41 reactions, 6 comments] We’re excited to share our latest partnership, with Alloy! Our Account Intelligence model is now live and available directly through their risk orchestration platform! 🚀 Built for risk and payments...\n\n- [2025-09-10 · Reshared · 56 reactions] [Open Banking as a form of account validation is a fantastic source...](https://www.linkedin.com/posts/grailpay_activity-7371604664393318400-Etl_): Open Banking as a form of account validation is a fantastic source of data, but it's not always the most appropriate solution. The use case matters. Credential-free validation (on account & routing...\n\n## Locations\n- Headquarters: new york, new york, united states (US)\n- Offices: new york, new york, united states (US)",
+        "summary": "{\"description\":\"GrailPay is a risk intelligence platform for modern payments that scores risk on every payment before money moves and guarantees what qualifies, across ACH and instant rails.\",\"employee_estimate\":24,\"employee_estimate_source\":\"Employees: 24\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"We’re growing quickly. We opened three New York-based sales roles at GrailPay.\",\"hq\":\"New York, United States\",\"hq_quote\":\"Headquartered in New York, New York, United States.\",\"industry\":\"Financial Services\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"- Industry: Financial Services\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"In 2026, GrailPay raised USD 10.5M in a Series A round, with prior Seed and Venture rounds listed; Series A details include 2026-06-01 USD 10.5M.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQGEBu5XH_gDqg/company-logo_200_200/B4EZY79DthHUAI-/0/1744762584260/grailpay_logo?e=2147483647&v=beta&t=VwLcwHNT6vWjAxnPf1fThS6uH3_CBdFRQW6RW1R5ZuE",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/84x6wrscs09",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "GrailPay",
+              "foundedYear": null,
+              "description": "GrailPay's Risk Intelligence Platform protects faster, irreversible payments with preemptive screening of user identity and intent, establishing an auditable, compliant system for fighting payment risk at scale.",
+              "workforce": {
+                "total": 24
+              },
+              "headquarters": {
+                "address": "447 Broadway, New York, NY 10013, US",
+                "city": "New York",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 24729999,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2026-06-01",
+                  "amount": 10500000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 4252,
+                "countryRank": 1830506,
+                "avgDurationSeconds": 33,
+                "history": [
+                  {
+                    "value": 2865,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 4971,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 3616,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 5711,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 4252,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 4252,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/tz25343cw45",
+        "title": "GlobalPay",
+        "url": "https://globalpayholding.com/",
+        "text": "# GlobalPay\n\nGlobalPay is a Financial Services company. GlobalPay Holding is a front-runner payment gateway and fintech solutions company. They revolutionize the digital payments landscape in the mena region through their affiliate fintech companies, masrpay in Egypt and globalpay ksa in Saudi Arabia. Their vision is to become the preferred payment gateway in the digital payments landscape. GlobalPay employs 15 people (+36.4% YoY, +4 people), founded in 2022. Headquartered in United Arab Emirates, with an office in Dubai.\n\n## About\n\nGlobalPay is poised to revolutionize the digital payments landscape in the MENA region through its subsidiaries, MasrPay in Egypt, and a new entity in Saudi Arabia. With a vision to become the preferred provider of innovative financial services technology solutions, GlobalPay is committed to delivering seamless and secure payment experiences that cater to the evolving needs of millions of customers\n\n## Company Details\n- Industry: Financial Services\n- Type: Partnership\n- Founded Year: 2022\n- Homepage: globalpayholding.com\n- Aliases: GloablPay, globalpay\n- LinkedIn: linkedin.com/company/globalpay-fzco\n- Linkedin Followers: 375\n- Emails: aly.taha@globalpayholding.com, info@globalpayholding.com\n- Phone: +971 5020 54144\n\n## Financials\n  - Seed (2024-09-01)\n\n## Workforce\n- Employees: 15\n- Company Size: 11-50 employees\n  - Yearly Growth: +36.4%\n- Key Executives:\n  - Ahmed Ragab: Chief Administrative Officer\n  - Ali M. Reda Taha: Chief Business Officer\n  - Tamer Shawer: Chief Executive Officer\n- Breakdown:\n  - By Country: Egypt: 10 (67%)\n  - By Department: Administrative: 3 (20%), General Management: 2 (13%), Customer Service: 1 (7%), Legal: 1 (7%), Marketing: 1 (7%), Research: 1 (7%), Sales: 1 (7%)\n  - By Seniority: Specialist: 5 (33%), Clevel: 3 (20%), Manager: 2 (13%)\n- Talent Sources: MasrPay (6), Securitas Security Services USA, Inc. (1), Misr International University (1), McKinsey & Company (1), IntelliSource (1), Al-Hakeema For Healthcare (1), AROPE Life Insurance (1), 7keema (1)\n- Alumni Go To: MasrPay (4), University of Hertfordshire hosted by GAF (1), The American University in Cairo (1), HealthPay (1), GRT Financial, Inc. (1), BitradeX (1), ArpuPlus - ARPU Telecommunications Services (1)\n\n## Web presence\n\n- Facebook: facebook.com/globalpayholding\n- Crunchbase: crunchbase.com/organization/globalpay-d1dd\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Categories\n\nadvertising, affiliate fintech companies, digital payments, financial services, financial technology, fintech, fintech solutions, masrpay, payment gateway\n\n## Recent News\n- [2026-09-25]\n  - [Abdulaziz Al-Salloum Acquires 10% Stake in UAE-Based GlobalPay to Support Regional Growth and Expansion \\| إنت عربي](https://entarabi.com/en/2026/09/abdulaziz-al-salloum-acquires-10-stake-in-uae-based-globalpay-to-support-regional-growth-and-expansion/)\n  - [عبد العزيز السلوم يستحوذ على 10% من أسهم GlobalPay الإماراتية لدعم خطط النمو والتوسع الإقليمي \\| إنت عربي \\| entARABI](https://entarabi.com/2026/09/%D8%B9%D8%A8%D8%AF-%D8%A7%D9%84%D8%B9%D8%B2%D9%8A%D8%B2-%D8%A7%D9%84%D8%B3%D9%84%D9%88%D9%85-%D9%8A%D8%B3%D8%AA%D8%AD%D9%88%D8%B0-%D8%B9%D9%84%D9%89-10-%D9%85%D9%86-%D8%A3%D8%B3%D9%87%D9%85-globalpay/)\n- [2026-09-24] [رجل الأعمال «عبدالعزيز السلوم» يستحوذ على 10% من أسهم «GlobalPay» الإماراتية لدعم خطط النمو والتوسع الإقليمي](https://fintechgate.net/252754)\n\n## Social\n\n### Linkedin\n\n- [2026-09-24 · 25 reactions, 3 comments] Abdulaziz Al-Salloum Acquires 10% Stake in UAE-Based GlobalPay to Support Regional Expansion GlobalPay, headquartered in the UAE, announced that Saudi technology executive Eng. Abdulaziz Al-Salloum...\n\n- [2025-08-11 · 2 reactions, 1 comment] In the world of digital payments, security is not just a feature, it is the foundation. Security standards such as PCI-DSS and multi-factor authentication play a key role in protecting your transac...\n\n- [2025-08-07 · 2 reactions] Digital wallets have transformed how we think about money management. These innovative solutions store payment information securely, enable quick transactions, and offer features impossible with tr...\n\n- [2025-08-01 · 2 reactions] At GlobalPay Holding, our vision is to be the leading provider of innovative fintech solutions across the Middle East and North Africa. We are dedicated to building a seamless and secure digital pa...\n\n- [2025-07-31 · 2 reactions] Trust isn’t just a technical feature. It’s the feeling users get when they know their money and data are safe. Whether it’s verifying identity or making a payment, people need to feel secure. At Gl...\n\n- [2025-07-28 · 1 reaction] From mobile wallets to contactless payments, businesses and consumers are embracing secure, efficient transactions. At GlobalPay, we monitor these trends to stay ahead and share insights with our c...\n\n- [2025-07-27 · 4 reactions] Every day, new fintech trends emerge that redefine how we manage our finances. At GlobalPay, we stay curious and explore these innovations because understanding the future helps us all prepare for...\n\n- [2025-07-26 · 1 reaction] Paying for something should feel easy. No friction. No delays. Just a smooth, secure experience that fits into your day without effort. At GlobalPay, we imagine a world where payments are digital....\n\n- [2025-07-25 · 4 reactions] People don’t wait in lines anymore. They move fast and expect their money to move just as fast. Managing finances from your phone has become second nature. At GlobalPay, we believe finance should m...\n\n- [2025-07-24 · 4 reactions] Financial inclusion is more important than ever. Access to fair and flexible financial services empowers individuals and small businesses to grow. At GlobalPay, we believe digital finance should re...\n\n- [2025-07-23 · 1 reaction] Fintech is becoming simpler, faster and more user-friendly. People now expect smooth and secure financial experiences that fit naturally into their daily lives. At GlobalPay, we believe the future...\n\n## Locations\n- Headquarters: dubai, ifza, united arab emirates (AE)\n- Offices: dubai, ifza, united arab emirates (AE), dubai, dubai, united arab emirates (AE)",
+        "summary": "{\"description\":\"GlobalPay is a Financial Services company. GlobalPay Holding is a front-runner payment gateway and fintech solutions company revolutionizing the digital payments landscape in the MENA region through its affiliate fintech companies, MasrPay in Egypt and GlobalPay KSA in Saudi Arabia. Vision to become the preferred payment gateway in the digital payments landscape. Headquarters in United Arab Emirates, with an office in Dubai.\",\"employee_estimate\":15,\"employee_estimate_source\":\"Employees: 15\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Headquarters: dubai, ifza, united arab emirates (AE)\",\"hq_quote\":\"Headquarters: dubai, ifza, united arab emirates (AE)\",\"industry\":\"Financial Services\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Financial Services\\n- Type: Partnership\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":null,\"recently_funded_seed_or_series_a_quote\":\"- Seed (2024-09-01)\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4D0BAQHcOzpTvhzZHQ/company-logo_200_200/company-logo_200_200/0/1727181439460/globalpay_fzco_logo?e=2147483647&v=beta&t=E9KMP5SIKj6nucFyWTYh-2ckFZIXUjLEaeNF993rvtA",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/tz25343cw45",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "GlobalPay",
+              "foundedYear": 2022,
+              "description": "GlobalPay is poised to revolutionize the digital payments landscape in the MENA region through its subsidiaries, MasrPay in Egypt, and a new entity in Saudi Arabia. With a vision to become the preferred provider of innovative financial services technology solutions, GlobalPay is committed to delivering seamless and secure payment experiences that cater to the evolving needs of millions of customers",
+              "workforce": {
+                "total": 15
+              },
+              "headquarters": {
+                "address": "Dubai, IFZA 342001, AE",
+                "city": null,
+                "postalCode": null,
+                "country": "United Arab Emirates"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": null,
+                "fundingLatestRound": {
+                  "name": "Seed",
+                  "date": "2024-09-01",
+                  "amount": null
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 984,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 1126,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 1831,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 183,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 987,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 9761.6,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

@@ -1,0 +1,226 @@
+{
+  "request": {
+    "query": "UpSmith",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the exact phrase from the page that the employee estimate came from (e.g. \"350 employees\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "74fb8e41c24d1f042308352b3541aba8",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/fxpjb6n0ljt",
+        "title": "UpSmith",
+        "url": "https://upsmith.com/",
+        "text": "# UpSmith\n\nUpSmith is a Technology, Information and Internet company. UpSmith employs 28 people (+100.0% YoY, +14 people) and has an annual revenue of $1M, founded in 2022. Headquartered in Dallas, Texas, United States.\n\n## About\n\nUpSmith builds software to help trades companies win and tradespeople thrive with technology advantages. More at https://askjenny.upsmith.com/alt\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Headquarters: Dallas, United States\n- Founded Year: 2022\n- Homepage: upsmith.com\n- Aliases: UpSmith, Inc., upsmith\n- LinkedIn: linkedin.com/company/upsmith\n- Linkedin Followers: 2,719\n- Emails: contact-us@upsmith.com\n- Phone: (214) 307-1860, 1-214-307-186\n\n## Financials\n- Annual Revenue: USD 1,000,000\n- Total Funding: USD 8,300,000\n  - Seed (2024-01-22): USD 5.0M\n  - Seed (2023-01-01)\n  - Pre seed (2022-10-26): USD 3.3M\n\n## Workforce\n- Employees: 28\n- Company Size: 11-50 employees\n  - Monthly Growth: +3.7%\n  - Yearly Growth: +100.0%\n- Key Executives:\n  - Austen Wise: Head of Sales\n  - Spencer Bard: Head of Engineering\n  - Wyatt Smith: Founder & CEO\n- Breakdown:\n  - By Country: United States: 24 (86%)\n  - By Department: Other Department: 6 (21%), Technical: 6 (21%), Consulting: 3 (11%), Product: 3 (11%), Marketing: 2 (7%), Finance: 1 (4%), General Management: 1 (4%), Real Estate: 1 (4%), Sales: 1 (4%)\n  - By Seniority: Other Management: 13 (46%), Specialist: 5 (18%), Manager: 3 (11%), Clevel: 1 (4%), Head: 1 (4%), Owner: 1 (4%)\n- Active job postings: 1\n- Talent Sources: Meta (2), Commure (2), Champ (2), odf (1), The Real Estate Council (TREC) (1), Swivvel (1), Spec (1), OpenComp (1), Bloom Growth™ (1), BirdDog (1)\n- Alumni Go To: Stealth Startup (1), Palantir Technologies (1), LegalZoom (1), Euclid Power (1), Datum (1), CareBestie (1), Brand Builders Group (1), Base Power Company (1), AppliedAI (1), AT&T (1)\n\n## Products & Technology\n- Tech Stack: servicetitan, dbt, kubernetes, postgresql, python, retool, sql, sqlalchemy, sqs, tableau, hubspot, react, typescript, javascript, thumbtack, trilogy, electric, impact, c\n\n## Web presence\n\n- Twitter: twitter.com/upsmith\n- Facebook: facebook.com/upsmith.usa\n- Instagram: instagram.com/up.smith\n- YouTube: youtube.com/channel/ucgevptxya5_la6mzvemw6gq\n- Crunchbase: crunchbase.com/organization/upsmith\n- Web traffic:\n  - Monthly visits: 19,754\n  - Global rank: 1,341,072\n  - Bounce rate: 48.0%\n  - Pages per visit: 2.4\n  - Average visit duration: 403s\n\n## Reviews & Ratings\n- Employer Rating: 0.0/5.0\n  - Breakdown: Work-Life: -0.1, Compensation: -0.1, Culture: -0.1, Career: -0.1\n\n## Categories\n\nadult-education, career planning, education, human resources, professional-education, recruiting, recruiting-marketplace\n\n## Competitors\n\nhireez , laborworks, betterteam, crafthunt gmbh, gigsmart, dice, the knowledge academy, minact, education & training resources, canam group\n\n## Recent News\n- [2026-08-13] [Family Ties Air, Plumbing & Drain Partners with UpSmith to Transform Home Services Through AI-Powered Technology](https://www.einnews.com/pr_news/933981430/family-ties-air-plumbing-drain-partners-with-upsmith-to-transform-home-services-through-ai-powered-technology)\n- [2025-03-27] Dallas Innovates: Dallas-Based UpSmith Launches AI Tool for Skilled Trades\n- [2024-01-29] Dallas Innovates: UpSmith Powers Its New Skilled Workforce Tool ‘Boost’ With $5M Raise\n- [2024-01-24] FinSMEs: UpSmith Raises $5M in Seed Funding\n- [2023-12-03] Business Insider: Meet the 66 Rising Stars of VC in 2023\n\n## Social\n\n### Linkedin\n\n- [2026-09-29 · Posted · 5 reactions] [PJ Smitherman believes 'how you do anything is how you do...](https://www.linkedin.com/posts/upsmith_upsmith-plumbing-hvac-activity-7510796567977730048-bCTL)\n  > PJ Smitherman believes 'how you do anything is how you do everything..' He and his family have been hugely influential in the trades. Aux Services has served the greater Birmingham area for almost 40 years. For builders like PJ, empowering people to do people things is top priority. We are grateful for the small role we play in achieving that value.\n  >\n  > UpSmith has changed what happens behind the scenes. From appointment reminders and membership renewals, to pulling business insights in minutes instead of hours digging through reports, AI is helping his team get more done.\n  >\n  > UpSmith is here to power the people who power America.\n  >\n  > #upsmith #plumbing #hvac #bluecollar #alabama\n\n- [2026-09-23 · Posted · 15 reactions] [Growing up in Reform, Alabama, the Smith family has become a staple...](https://www.linkedin.com/posts/upsmith_upsmith-hvac-smalltown-activity-7508634003957272576-EnYf)\n  > Growing up in Reform, Alabama, the Smith family has become a staple of the community. Wyatt's brother, Mark Smith, reflects on his roots and how technology could help people build a life in the small towns they call home, rather than being siphoned away to bigger cities.\n  >\n  > Join us in our mission to power the people who power America at upsmith.com/reform\n  >\n  > #upsmith #hvac #smalltown #alabama #plumbing\n\n- [2026-09-21 · Posted · 5 reactions] [In Reform, Alabama, hard work is a given for those who work with...](https://www.linkedin.com/posts/upsmith_upsmith-homeservices-farmer-activity-7507848246208200706-wOEe)\n  > In Reform, Alabama, hard work is a given for those who work with their hands. Eric Smith raised his boys to take ownership of the problems in front of them, and build solutions.\n  >\n  > Join us in our mission to power the people who power America at upsmith.com/reform\n  >\n  > #upsmith #homeservices #farmer #reformalabama\n\n- [2026-09-21 · 3 reactions] In Reform, Alabama, hard work is a given for those who work with their hands. Eric Smith raised his boys to take ownership of the problems in front of them, and build solutions. Join us in our miss...\n\n- [2026-09-18 · Posted · 24 reactions] [Much of the debate over AI is about who wins and loses from the...](https://www.linkedin.com/posts/upsmith_much-of-the-debate-over-ai-is-about-who-wins-activity-7506786110056976385-ouqX)\n  > Much of the debate over AI is about who wins and loses from the technology. Today we're releasing the first episode of a series about the people who keep our country running and how new waves of technology should benefit them.\n  >\n  > Episode 1 is live, and new chapters are ahead.\n  >\n  > Join us in our mission to power the people who power America at upsmith.com/reform\n\n- [2026-09-18 · 25 reactions, 2 comments] Much of the debate over AI is about who wins and loses from the technology. Today we're releasing the first episode of a series about the people who keep our country running and how new waves of te...\n\n- [2026-09-16 · Posted · 5 reactions] [Your ServiceTitan customer data might be more valuable than you...](https://www.linkedin.com/posts/upsmith_ai-homeservices-upsmith-activity-7506080567285747712-VvzE)\n  > Your ServiceTitan customer data might be more valuable than you realize.\n  >\n  > Years of service history can tell you a lot about who you've worked with, what they've needed, and who might be worth reaching back out to. One customer had been inactive for four years. A reengagement turned into a $1,000 membership and another opportunity to serve them.\n  >\n  > There's a lot sitting in your data. The question is whether you're doing anything with it.\n  >\n  > See how UpSmith can put your data to work, link in bio 👈\n  >\n  > #ai #homeservices #upsmith #customerretention #aiagents\n\n- [2026-09-16 · 5 reactions] Your ServiceTitan customer data might be more valuable than you realize. Years of service history can tell you a lot about who you've worked with, what they've needed, and who might be worth reachi...\n\n- [2026-09-14 · Posted · 8 reactions] [What if some of your best customers are the ones you haven’t heard...](https://www.linkedin.com/posts/upsmith_ai-hvac-homeservices-activity-7505362878611238913-NhAE)\n  > What if some of your best customers are the ones you haven’t heard from in years?\n  >\n  > Texas Air is reengaging customers who have been inactive for years, creating new opportunities to get them back in the door and back on a maintenance plan.\n  >\n  > In Christina’s case, a few follow-ups turned into a membership worth over $1,000 in annual revenue, plus more opportunities for the team to serve her throughout the year.\n  >\n  > Sometimes the opportunity is already in your customer list. Go to upsmith.com today to see how your company can win today!\n  >\n  > #ai #hvac #homeservices #customerretention #trades\n\n- [2026-09-14 · 8 reactions, 1 comment] What if some of your best customers are the ones you haven’t heard from in years? Texas Air is reengaging customers who have been inactive for years, creating new opportunities to get them back in...\n\n- [2026-09-11 · Posted · 4 reactions] [Issues don’t wait until your team is on the clock. A customer might...](https://www.linkedin.com/posts/upsmith_upsmith-hvac-homeservices-activity-7504275661306347520-YKMs)\n  > Issues don’t wait until your team is on the clock.\n  >\n  > A customer might need help at 9 PM, on a Saturday, or whenever your office happens to be closed. AI agents can help make sure those calls don’t just sit there waiting, by figuring out what the customer needs and helping move things forward.\n  >\n  > For HVAC, plumbing, and other home service businesses, that means being responsive when it matters.\n  >\n  > How much could better after-hours coverage help your team? Click the link in our bio to find out more about UpSmith!\n  >\n  > #upsmith #hvac #homeservices #customerexperience\n\n- [2026-09-11 · 4 reactions] Issues don’t wait until your team is on the clock. A customer might need help at 9 PM, on a Saturday, or whenever your office happens to be closed. AI agents can help make sure those calls don’t ju...\n\n- [2026-09-10 · Posted · 4 reactions] [AI has gotten really good. And it happened fast. The jump from...](https://www.linkedin.com/posts/upsmith_ai-hvac-plumbing-activity-7503902207369609216-BDU-)\n  > AI has gotten really good. And it happened fast.\n  >\n  > The jump from basic chatbots to AI that can actually reason, connect information, and handle real work is changing what’s possible for home service businesses.\n  >\n  > At UpSmith, we’re putting that technology to work across HVAC, plumbing, and the trades, helping companies respond faster, follow up with customers, and keep the right people focused on the work that matters.\n  >\n  > What could AI make better in your business today?\n  >\n  > #ai #hvac #plumbing #homeservices #trades\n\n- [2026-09-10 · 5 reactions] AI has gotten really good. And it happened fast. The jump from basic chatbots to AI that can actually reason, connect information, and handle real work is changing what’s possible for home service...\n\n- [2026-09-01 · Posted · 6 reactions] [A 10-person team can spend 80 hours a day making outbound calls...](https://www.linkedin.com/posts/upsmith_ai-homeservices-upsmith-activity-7500606914133798912-Jkil)\n  > A 10-person team can spend 80 hours a day making outbound calls.\n  >\n  > What happens when they don’t have to? 🤔\n  >\n  > More time for customers, more time for the work that actually needs a human, and more opportunities to grow for your team.\n  >\n  > #ai #homeservices #upsmith #aiagents\n\n- [2026-09-01 · 6 reactions] A 10-person team can spend 80 hours a day making outbound calls. What happens when they don’t have to? 🤔 More time for customers, more time for the work that actually needs a human, and more opport...\n\n- [2026-08-28 · Reshared · 6 reactions] [When emergencies happen, homeowners call people in the trades to...](https://www.linkedin.com/posts/upsmith_when-emergencies-happen-homeowners-call-activity-7498893534888873985-dyDL): When emergencies happen, homeowners call people in the trades to show up. Harvard Business School just featured how our founder Wyatt Smith is helping home service businesses — HVAC, plumbing, elec...\n\n- [2026-08-25 · Posted · 6 reactions] [In less than a month, ServiceTitan and Podium will no longer be...](https://www.linkedin.com/posts/upsmith_podium-servicetitan-upsmith-activity-7498047948816044032-TwKC)\n  > In less than a month, ServiceTitan and Podium will no longer be integrated partners ❌\n  >\n  > Home service contractors still need to manage leads, estimates, reminders, customer outreach, missed calls, follow-ups, and more. What do these companies do now?\n  >\n  > UpSmith is a ServiceTitan integrated partner, and currently waiving ALL platform + onboarding fees through October 31st for contractors affected by the change. If you want to capitalize on this offer, go to the link in our bio!\n  >\n  > #podium #servicetitan #upsmith #contractorgrowth\n\n- [2026-08-25 · 6 reactions] In less than a month, ServiceTitan and Podium will no longer be integrated partners ❌ Home service contractors still need to manage leads, estimates, reminders, customer outreach, missed calls, fol...\n\n- [2026-08-19 · Posted · 2 reactions] [ServiceTitan and Podium are no longer partnering ❌ What does this...](https://www.linkedin.com/posts/upsmith_servicetitan-and-podium-are-no-longer-partnering-activity-7495891836138455042-jHpB)\n  > ServiceTitan and Podium are no longer partnering ❌ What does this mean for contractors?\n  >\n  > Home service contractors still need a way to manage new leads, open estimates, appointment reminders, customer reach out, missed calls, follow-ups, the list goes on.\n  >\n  > UpSmith is offering no platform or onboarding fees through October 31st for contractors affected by the ServiceTitan and Podium change.\n  >\n  > Don’t let a change in software become a change in your customer experience. Make the switch to UpSmith today!\n\n## Locations\n- Headquarters: dallas, texas, united states (US)\n- Offices: dallas, texas, united states (US)",
+        "summary": "{\"description\":\"UpSmith builds software to help trades companies win and tradespeople thrive with technology advantages.\",\"employee_estimate\":28,\"employee_estimate_source\":\"The page states: \\\"UpSmith employs 28 people (+100.0% YoY, +14 people)\\\"\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Active job postings: 1\",\"hq\":\"Dallas, Texas, United States\",\"hq_quote\":\"Headquartered in Dallas, Texas, United States.\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"- Industry: Technology, Information and Internet\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 8,300,000 - Seed (2024-01-22): USD 5.0M - Seed (2023-01-01) - Pre seed (2022-10-26): USD 3.3M\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C560BAQGVU88yLXVS5w/company-logo_200_200/company-logo_200_200/0/1649095577041/upsmith_logo?e=2147483647&v=beta&t=j1VpN3pZ7Ur_1wwYubgryTONwp8bxuUmQpLLNdYR8vY",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/fxpjb6n0ljt",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "UpSmith",
+              "foundedYear": 2022,
+              "description": "UpSmith builds software to help trades companies win and tradespeople thrive with technology advantages. More at https://askjenny.upsmith.com/alt",
+              "workforce": {
+                "total": 28
+              },
+              "headquarters": {
+                "address": "3800 Maple Ave, Ste 410, Dallas, Texas 75219, US",
+                "city": "Dallas",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 1000000,
+                "fundingTotal": 8300000,
+                "fundingLatestRound": {
+                  "name": "Seed",
+                  "date": "2024-01-22",
+                  "amount": 5000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 19754,
+                "countryRank": 325843,
+                "avgDurationSeconds": 403,
+                "history": [
+                  {
+                    "value": 2980,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 3413,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 2286,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 1899,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 2623,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 284,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/hw5yft04q95",
+        "title": "NeuroSmith",
+        "url": "https://upwork.com/agencies/neurosmith",
+        "text": "# NeuroSmith\n\nNeuroSmith is a IT Services and IT Consulting company. NeuroSmith employs 4 people (+33.3% YoY, +1 person). Headquartered in Dallas, Texas, United States.\n\n## About\n\nAt NeuroSmith, we are at the forefront of the artificial intelligence revolution, delivering cutting-edge solutions across machine learning, deep learning, large language models, generative AI, computer vision, AI software as a service, chatbots, and smart virtual agents. Our name, NeuroSmith, reflects our mission to engineer intelligent systems inspired by human cognition.\n\nOur team of experts, or \"NeuroSmiths,\" combine scientific expertise with innovative thinking to craft AI tools and platforms that drive business growth. We transform raw data into scalable, intelligent solutions, helping businesses stay competitive in an AI-driven world. Whether you need custom AI models, ready-to-deploy computer vision systems, or efficient chatbots, NeuroSmith turns AI potential into business success.\n\nExperience the fusion of art and science in AI with NeuroSmith.\n\nOur Services:\n\n- Machine Learning (ML) Solutions\n- Deep Learning (DL) Services\n- Large Language Models (LLMs)\n- Generative AI (GenAI)\n- Computer Vision Solutions\n- AI Software-as-a-Service (AI SaaS)\n- Chatbots and Virtual Agents\n- and more\n\n## Company Details\n- Industry: IT Services and IT Consulting\n- Type: Privately held\n- Headquarters: Dallas, United States\n- Homepage: upwork.com/agencies/neurosmith\n- Aliases: neurosmith\n- LinkedIn: linkedin.com/company/neurosmith\n- Linkedin Followers: 94\n\n## Workforce\n- Employees: 4\n- Company Size: 1-10 employees\n  - Yearly Growth: +33.3%\n- Key Executives:\n  - Safiullah Rahu: Chief Operations Officer\n- Breakdown:\n  - By Country: Pakistan: 4 (100%)\n  - By Department: Technical: 3 (75%), General Management: 1 (25%)\n  - By Seniority: Specialist: 3 (75%), Clevel: 1 (25%)\n- Talent Sources: Woot Tech (1), Upwork (1), RadixTech.net (1), ProCheck (1), McKinsey & Company (1), Cognifyz Technologies (1)\n- Alumni Go To: Matech Consulting & Outsourcing (1), HyperNeuron (1)\n\n## Products & Technology\n- Tech Stack: nosql, sql\n\n## Categories\n\nai agents, ai saas, ai workflows, artificial intelligence, computer vision, data analytics, deep learning, generative ai, generative ai applications, large language modes, machine learning, machine learning operations, retrieval augmented generation, vector stores\n\n## Social\n\n### Linkedin\n\n- [2025-09-20 · 2 reactions, 1 comment] We’re Hiring at NeuroSmith! 🚀 NeuroSmith is looking for a Flutter Developer to join us on a project-based opportunity. 🔹 Requirements: - Strong experience in Flutter development - Hands-on work in...\n\n- [2025-05-29 · 1 reaction] The line between reality and AI-generated media is blurring, opening new horizons for innovation. #neurosmith #veo3 #ai\n\n- [2025-03-08] We are hiring!\n\n- [2025-01-17 · 1 reaction, 4 comments] 🚀 We're Hiring Web Developers! 🌐 Are you a university student, a fresh graduate, or an experienced web developer looking for an exciting project-based opportunity? We have the perfect role for you!...\n\n- [2024-10-24 · 5 reactions, 1 comment] 📢 We're Hiring! At NeuroSmith, we are expanding our team and looking for a talented Flutter Developer to join us! If you're passionate about building cross-platform applications with #Flutter and r...\n\n## Locations\n- Headquarters: dallas, texas, united states (US)\n- Offices: dallas, texas, united states (US)",
+        "summary": "{\"description\":\"IT Services and IT Consulting company focused on AI-powered solutions, including ML/DL, LLMs, GenAI, computer vision, and AI SaaS.\",\"employee_estimate\":4,\"employee_estimate_source\":\"Employees: 4\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Dallas, United States\",\"hq_quote\":\"Headquartered in Dallas, Texas, United States.\",\"industry\":\"IT Services and IT Consulting\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: IT Services and IT Consulting\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":null,\"recently_funded_seed_or_series_a_quote\":\"\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQE_hamKXn0KzA/company-logo_200_200/company-logo_200_200/0/1728907493484/neurosmith_logo?e=2147483647&v=beta&t=B6bcO9k7-cj9sX4dgcrA8s0fDi69CfySCR9bKXVNmZ0",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/hw5yft04q95",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "NeuroSmith",
+              "foundedYear": null,
+              "description": "At NeuroSmith, we are at the forefront of the artificial intelligence revolution, delivering cutting-edge solutions across machine learning, deep learning, large language models, generative AI, computer vision, AI software as a service, chatbots, and smart virtual agents. Our name, NeuroSmith, reflects our mission to engineer intelligent systems inspired by human cognition.\n\nOur team of experts, or \"NeuroSmiths,\" combine scientific expertise with innovative thinking to craft AI tools and platforms that drive business growth. We transform raw data into scalable, intelligent solutions, helping businesses stay competitive in an AI-driven world. Whether you need custom AI models, ready-to-deploy computer vision systems, or efficient chatbots, NeuroSmith turns AI potential into business success.\n\nExperience the fusion of art and science in AI with NeuroSmith.\n\nOur Services:\n\n- Machine Learning (ML) Solutions\n- Deep Learning (DL) Services\n- Large Language Models (LLMs)\n- Generative AI (GenAI)\n- Computer Vision Solutions\n- AI Software-as-a-Service (AI SaaS)\n- Chatbots and Virtual Agents\n- and more",
+              "workforce": {
+                "total": 4
+              },
+              "headquarters": {
+                "address": "13355 Noel Rd; Dallas, Texas 75240, United States",
+                "city": "Dallas",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": null,
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 8836.1,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

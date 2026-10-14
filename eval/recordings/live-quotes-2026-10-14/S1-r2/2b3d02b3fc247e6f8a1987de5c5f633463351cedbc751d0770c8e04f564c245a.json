@@ -1,0 +1,232 @@
+{
+  "request": {
+    "query": "Wagner Logistics",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the exact phrase from the page that the employee estimate came from (e.g. \"350 employees\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "b58cf6e10bcbf46a122d555825e64a78",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/vz5gxxkmylr",
+        "title": "Wagner Logistics",
+        "url": "https://wagnerlogistics.com/",
+        "text": "# Wagner Logistics\n\nWagner Logistics is a Transportation, Logistics, Supply Chain and Storage company. Wagner Logistics is a top 100 3PL delivering warehousing, transportation, fulfillment, and packaging solutions backed by 70+ years of expertise. Wagner Logistics employs 300 people (+7.5% YoY, +21 people) and has an annual revenue of $70M, founded in 1946. Headquartered in North Kansas City, Missouri, United States, with offices including Byhalia, Jacksonville, Charlotte, Kansas City, and Clinton. Its workforce is distributed across 5 countries (including United States, Belgium, Chile, France, and Mexico).\n\n## About\n\nWagner is a leading 3PL service provider offering distribution, warehousing, contract packaging and transportation services to Fortune 500 and small/midsized companies across a network of facilities in the United States. Wagner uses world-class technology to provide visibility and execution, delivering clients unsurpassed service from a team of highly skilled associates.\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Privately held\n- Headquarters: North Kansas City, United States\n- Founded Year: 1946\n- Homepage: wagnerlogistics.com\n- Aliases: Wagner Logistics Inc., wagner logistics\n- LinkedIn: linkedin.com/company/wagner-logistics\n- Linkedin Followers: 3,278\n- Phone: (800) 817-1264, 1-800-817-1264\n\n## Financials\n- Annual Revenue: USD 70,000,000\n  - Private equity (2021-12-16)\n\n## Acquisitions\n- Acquired Dawson Logistics' Contract Division (2025-12-01)\n- Acquired Fulcrum Logistics (2023-12-14)\n- Acquired Fulcrum Logistics, Inc. (2023-12-01)\n\n## Workforce\n- Employees: 300\n- Company Size: 501-1000 employees\n  - Yearly Growth: +7.5%\n- Key Executives:\n  - Brian Smith: Chief Executive Officer\n  - Dan Allen: Director of Business Development\n  - Dave Pfannerstill: VP Technology Engineering\n  - Eric Orr: Director Of Business Development\n  - Jeffrey (Jeff) Gallentine, CPA: Chief Financial Officer\n  - Jim Headley: Vice President of Business Development and Marketing\n  - Joe Johnson: Chief Information Officer\n  - John Wagner: President\n  - John Wagner Sr.: Chairman\n  - Justin Eck: Sr. Vice President Account Management\n- Breakdown:\n  - By Country: United States: 128 (43%), Belgium: 1, Chile: 1, France: 1, Mexico: 1\n  - By Department: Operations: 51 (17%), Finance: 12 (4%), General Management: 12 (4%), Customer Service: 11 (4%), Hr: 10 (3%), Other Department: 9 (3%), Technical: 8 (3%), Trades: 8 (3%), Sales: 6 (2%), Administrative: 4 (1%) (+4 more)\n  - By Seniority: Manager: 50 (17%), Specialist: 48 (16%), Other Management: 18 (6%), Vp: 9 (3%), Director: 5 (2%), Clevel: 4 (1%)\n- Salary ranges (20 of 25 roles):\n  - Director-HR: median $170,977.78 per year\n  - Director of Operations: median $146,985.84 per year\n  - Solutions Engineer: median $101,923.12 per year\n  - Sort Manager: median $98,508.83 per year\n  - Digital Marketing Manager: median $97,441.62 per year\n  - Operations Manager: median $91,471.14 per year\n  - Industrial Engineer: median $88,638.16 per year\n  - Safety Compliance Manager: median $78,913.88 per year\n  - Marketing: median $74,927.38 per year\n  - Operations Supervisor: median $70,002.83 per year\n  - Lead Maintenance Technician: median $68,698.18 per year\n  - Human Resources Generalist: median $67,485.58 per year\n  - Warehouse Manager: median $65,855.56 per year\n  - Warehouse Supervisor: median $59,683.76 per year\n  - Logistics Coordinator: median $47,280.92 per year\n  - Logistics Account Representative: median $47,155.57 per year\n  - Clamp Truck Operator: median $44,874.76 per year\n  - Inventory Control Lead: median $44,263.93 per year\n  - Customer Service Representative (CSR): median $41,550.72 per year\n  - Forklift Operator: median $41,292.99 per year\n- Talent Sources: Fulcrum Logistics, Inc. (8), Yellow (5), Smart Warehousing (4), Dawson Logistics (4), CenturyLink (4), WSI (Warehouse Specialists, LLC) (3), Hallmark Cards (3), DSC Logistics (3), 1A Auto (3), US Navy (2)\n- Alumni Go To: J.B. Hunt Transport Services, Inc. (3), Honeywell Technologies (3), Scarbrough Global (2), Riekes Equipment (2), RIM logistics, ltd (2), NPL Home Medical (2), Hostess Brands (2), H&R Block (2), Blue Cross and Blue Shield of Kansas City (2), ASSP Heart of America Chapter (2)\n\n## Products & Technology\n- Tech Stack: maestro, ramp, tableau, employee navigator, ukg, ukg pro, power bi, microsoft, microsoft office, prodigy, freshservice, jda, sql, synapse, elixir, recognize, smartsheet, box, electric, medium, square, upkeep, ups, well, impact, microsoft outlook, react, sage, c, ease, spring, swift, json, amp\n\n## Web presence\n\n- Twitter: twitter.com/wagnerlogistics\n- Facebook: facebook.com/wagner-logistics-236353903091649\n- YouTube: youtube.com/@wagnerlogistics3189\n- Crunchbase: crunchbase.com/organization/wagner-logistics\n- Web traffic:\n  - Monthly visits: 3,857\n  - Global rank: 3,514,618\n  - Bounce rate: 37.0%\n  - Pages per visit: 3.0\n  - Average visit duration: 126s\n\n## Reviews & Ratings\n- Employer Rating: 3.6/5.0 (30 reviews)\n  - Breakdown: Work-Life: 3.2, Compensation: 3.5, Culture: 3.2, Career: 3.0\n\n## Categories\n\nasset transportation, automation, automotive-transportation, business_and_consumer_services/shipping_and_logistics, contract packaging, contract warehousing, fulfillment, logistics, packaging, technology, transportation, warehousing\n\n## Competitors\n\nverst logistics, comprehensive logistics, keller logistics, murphy warehouse company, ddsjit, cincinnati copacking  warehousing co, group transport, martin brower, gokinexo, navyanshi logistics, contract transport services, llc, kelly global logistics, rizhao port, daseke, crst, bollore transport & logistics\n\n## Recent News\n- [2026-08-25] [Demand Planning Redesigned for a Volatile World](https://procurementmag.com/articles/demand-planning-redesigned-for-a-volatile-world)\n- [2026-08-20] [Wagner Logistics Celebrates 80 Years of Supply Chain Excellence with Commemorative Open House - NewsBreak](https://www.newsbreak.com/news/4840881814567-wagner-logistics-celebrates-80-years-of-supply-chain-excellence-with-commemorative-open-house)\n- [2025-01-31] Kansas City Business Journal: Review the jobs, contracts and incentives for Panasonic’s De Soto plant - Kansas City Business Journal\n- [2024-02-27] PRNewswire: Panasonic Energy Forges Partnership with Wagner Logistics\n- [2024-01-02] Portland Business Journal: Wagner Logistics acquires food and beverage storage firm in Portland\n- [2023-11-29] Kansas City Business Journal: Wagner Logistics' new business development exec will take company to 'next level'\n- [2023-11-28] GlobeNewswire News Room: Wagner Logistics Appoints Robert Fischer as Senior Vice President of Business Development\n- [2023-01-30] Business Journals: Wagner Logistics adds Pacific Northwest city to its nationwide footprint\n- [2021-12-30] Business Journals: Wagner Logistics receives private equity investment to fuel growth\n\n## Social\n\n### Linkedin\n\n- [2026-09-23 · 52 reactions, 1 comment] Our HR and Safety Team recently traded their laptops for baseball caps and headed out to Kauffman Stadium for an unforgettable evening of team building and fun at the Kansas City Royals game. Stepp...\n\n- [2026-08-26 · 73 reactions, 9 comments] Contracts can be drafted by software. Trust cannot. Great insight from Joe Oliaro (oh-lee-arrow) in the latest issue of Procurement Magazine. While technology accelerates supply chain transactions,...\n\n- [2026-08-19 · 13 reactions] Rebuilding America’s Critical Materials Supply Chain: The Role of Midwestern 3PL Infrastructure Critical materials are essential to batteries, semiconductors, aircraft components, medical devices,...\n\n- [2026-08-18 · 58 reactions, 6 comments] Help us celebrate 80 years! Enjoy an evening with live music, food, drinks, and great company as we celebrate eight decades of logistics excellence.Thank you to our customers, partners, team member...\n\n- [2026-08-12 · 9 reactions] There's a version of the critical materials conversation that's all chemistry and capital. Then there's the version where someone has to actually store the material, move it, and handle it safely a...\n\n- [2026-07-06 · 14 reactions, 1 comment] Food Industry Logistics is complex. Wagner's Vice President of Business Development and Marketing, Jim Headley, talks about how a good logistics partner can help companies understand where complexi...\n\n- [2026-07-06 · 4 reactions] Excellent article for food and beverage industry professionals looking to scale up their operations. Well said, Jim!\n\n- [2026-05-12 · 13 reactions, 1 comment] Come see us this Thursday at Rye in Leawood! Joe Oliaro (oh-lee-arrow) will be moderating the discussion! It's not too late to register!\n\n- [2026-05-09 · 37 reactions, 2 comments] Before you chase a number on a dashboard, ask yourself: Are you measuring the right type of accuracy? And are you prepared for the cost-to-serve to achieve it? What inventory accuracy metric matter...\n\n- [2026-05-06 · 35 reactions, 2 comments] The World Cup doesn't just happen on the pitch. It happens in warehouses, loading docks and distribution networks across the Kansas City region. Local 3PLs like Wagner Logistics are already anticip...\n\n- [2026-04-10 · 39 reactions, 2 comments] More than 750 industry leaders convened as Kansas City continues to strengthen its position as a top 15 U.S. industrial market. #kcsmartport #wagnerlogistics\n\n- [2026-03-30 · 29 reactions, 3 comments] Our customer needed a solution that could both reduce warehouse costs and maintain full compliance with hazardous material storage requirements. Read how we helped them reduce costs by 30%. https:/...\n\n- [2026-02-01 · 15 reactions, 1 comment] Awesome job!!!\n\n- [2026-01-26 · 51 reactions, 6 comments] “Having professionals like Joe from Wagner Logistics speak with our students gives them a real-world perspective they don’t get from textbooks. It helps them connect classroom learning to career op...\n\n- [2026-01-15 · 20 reactions] Come hang out with Joe and other real estate professionals at the IAMC Spring Forum in April (17th-22nd)! Thank you, Industrial Asset Management Council (IAMC) for the continued support of our indu...\n\n- [2025-12-18 · 29 reactions, 1 comment] Happy Holidays!\n\n## Locations\n- Headquarters: north kansas city, missouri, united states (US)\n- Offices: jacksonville, florida, united states (US), kansas city, kansas, united states (US), clinton, iowa, united states (US), charlotte, north carolina, united states (US), north kansas city, missouri, united states (US), ravenna, ohio, united states (US), plainfield, indiana, united states (US), augusta county, virginia, united states, fresno, california, united states (US), kansas city, missouri, united states (US), byhalia, mississippi, united states (US), monroe, louisiana, united states (US), fort worth, texas, united states (US), pine bluff, arkansas, united states (US), edgerton, kansas, united states (US), kalamazoo, michigan, united states (US)",
+        "summary": "{\"description\":\"Wagner Logistics is a Transportation, Logistics, Supply Chain and Storage company providing warehousing, transportation, fulfillment, and packaging solutions backed by 70+ years of expertise.\",\"employee_estimate\":300,\"employee_estimate_source\":\"Employees: 300\",\"hq\":\"North Kansas City, Missouri, United States\",\"hq_quote\":\"Headquartered in North Kansas City, Missouri, United States\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"Wagner is a leading 3PL service provider offering distribution, warehousing, contract packaging and transportation services to Fortune 500 and small/midsized companies across a network of facilities in the United States.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4E0BAQGvk0khWbMelg/company-logo_200_200/company-logo_200_200/0/1646355565199/wagner_logistics_logo?e=2147483647&v=beta&t=OJgzYno-EeUa86CeyFx69LramLueZcekkd1lZ3sE7GM",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/vz5gxxkmylr",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Wagner Logistics",
+              "foundedYear": 1946,
+              "description": "Wagner is a leading 3PL service provider offering distribution, warehousing, contract packaging and transportation services to Fortune 500 and small/midsized companies across a network of facilities in the United States. Wagner uses world-class technology to provide visibility and execution, delivering clients unsurpassed service from a team of highly skilled associates.",
+              "workforce": {
+                "total": 300
+              },
+              "headquarters": {
+                "address": "1201 E. 12th Ave, North Kansas City, MO 64116, US",
+                "city": "North Kansas City",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 70000000,
+                "fundingTotal": null,
+                "fundingLatestRound": {
+                  "name": "Private equity",
+                  "date": "2021-12-16",
+                  "amount": null
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 3857,
+                "countryRank": 1047870,
+                "avgDurationSeconds": 126,
+                "history": [
+                  {
+                    "value": 2658,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 4672,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 3349,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 3836,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 4807,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 3857,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/x1b7bwvdxk6",
+        "title": "Wagner Trucking",
+        "url": "https://wagnertruckinginc.com/",
+        "text": "# Wagner Trucking\n\nWagner Trucking is a Truck Transportation company. Wagner Trucking is a company that provides trucking services. Wagner Trucking employs 20 people, founded in 1983. Headquartered in Brandon, Minnesota, United States.\n\n## About\n\nWagner Trucking is a specialized transportation company utilizing special trailers like Removable Goose Necks (RGN's), Step Decks and Flat Beds. This allows Wagner Trucking to haul oversize and overweight loads. Wagner Trucking has authority to run in the lower 48 states plus Canada. This allows Wagner Trucking to help you with most specialized loads you may have.\n\n## Company Details\n- Industry: Truck Transportation\n- Type: Privately held\n- Headquarters: Brandon, United States\n- Founded Year: 1983\n- Homepage: wagnertruckinginc.com\n- Aliases: Wagner Trucking Inc., wagner trucking, wagner trucking inc\n- LinkedIn: linkedin.com/company/wagner-trucking\n- Linkedin Followers: 58\n- Emails: scottp@wagnertruckinginc.com\n- Phone: (320) 524-2250, (800) 205-8857, +1 320 524 2250\n\n## Acquisitions\n- Acquired Microban International (2011-12-30)\n\n## Workforce\n- Employees: 20\n- Company Size: 51-200 employees\n- Breakdown:\n  - By Country: United States: 3 (15%)\n  - By Department: Trades: 3 (15%)\n  - By Seniority: Specialist: 3 (15%)\n- Talent Sources: Lansberry Trucking (1), Kaiser Transport, Inc. (1)\n\n## Web presence\n\n- Crunchbase: crunchbase.com/organization/wagner-trucking-inc\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Categories\n\nasset based, automotive, company, freight service, heavy haul, logistics, oversize over weight hauling, owner operators company drivers, services, transportation, trucking, wagner trucking\n\n## Competitors\n\nmidwestheavyhaul\n\n## Recent News\n- [2024-02-14] Alloy.ai Partners with WM Barr to Transform Its Sales Capabilities and Retail Relationships\n\n## Locations\n- Headquarters: brandon, minnesota, united states (US)\n- Offices: brandon, minnesota, united states (US)",
+        "summary": "{\"description\":\"Wagner Trucking is a specialized transportation company utilizing special trailers to haul oversize and overweight loads. It operates in trucking/transportation services with authority in the lower 48 states plus Canada.\",\"employee_estimate\":20,\"employee_estimate_source\":\"Employees: 20\",\"hq\":\"Brandon, Minnesota, United States\",\"hq_quote\":\"Headquartered in Brandon, Minnesota, United States.\",\"industry\":\"Truck Transportation\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":false,\"is_third_party_logistics_quote\":\"Wagner Trucking is a specialized transportation company utilizing special trailers like Removable Goose Necks (RGN's), Step Decks and Flat Beds. This allows Wagner Trucking to haul oversize and overweight loads. Wagner Trucking has authority to run in the lower 48 states plus Canada.\"}",
+        "image": "https://static.licdn.com/aero-v1/sc/h/cs8pjfgyw96g44ln9r7tct85f",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/x1b7bwvdxk6",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Wagner Trucking",
+              "foundedYear": 1983,
+              "description": "Wagner Trucking is a specialized transportation company utilizing special trailers like Removable Goose Necks (RGN's), Step Decks and Flat Beds. This allows Wagner Trucking to haul oversize and overweight loads. Wagner Trucking has authority to run in the lower 48 states plus Canada. This allows Wagner Trucking to help you with most specialized loads you may have.",
+              "workforce": {
+                "total": 20
+              },
+              "headquarters": {
+                "address": "PO Box 258; Brandon, Minnesota 56315, United States",
+                "city": "Brandon",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 179,
+                    "dateFrom": "2025-10",
+                    "dateTo": "2025-10"
+                  },
+                  {
+                    "value": 428,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 763,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 491,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 491,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 10636.6,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

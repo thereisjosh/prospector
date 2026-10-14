@@ -1,0 +1,224 @@
+{
+  "request": {
+    "query": "Campeys",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the exact phrase from the page that the employee estimate came from (e.g. \"350 employees\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "a89ddd0f8a5c0ccd5669b0e916359f94",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/112nh6xnwbf",
+        "title": "Campeys of Selby Ltd",
+        "url": "https://campeysofselby.co.uk/",
+        "text": "# Campeys of Selby Ltd\n\nCampeys of Selby Ltd is a Transportation/Trucking/Railroad company. Campeys of Selby Ltd employs 50 people (+25.0% YoY, +10 people). Headquartered in Selby, North Yorkshire, United Kingdom, with an office in Thorpe Willoughby.\n\n## About\n\nRunning a fleet of 100+ vehicles, 180 trailers and storage available also.\n\n## Company Details\n- Industry: Transportation/Trucking/Railroad\n- Type: Public company\n- Headquarters: Selby, United Kingdom\n- Homepage: campeysofselby.co.uk\n- Aliases: Campeys of Selby Limited, campeys of selby, campeys of selby ltd\n- LinkedIn: linkedin.com/company/campeys-of-selby-ltd\n- Linkedin Followers: 2,635\n- Emails: transport@campeys.co.uk\n- Phone: +44 0 1757 45\n\n## Workforce\n- Employees: 50\n- Company Size: 51-200 employees\n  - Monthly Growth: -3.8%\n  - Yearly Growth: +25.0%\n- Key Executives:\n  - Harry Campey: Commercial & Operations Director\n- Breakdown:\n  - By Country: United Kingdom: 26 (52%)\n  - By Department: Operations: 15 (30%), Trades: 6 (12%), Administrative: 1 (2%), Customer Service: 1 (2%), General Management: 1 (2%), Legal: 1 (2%), Other Department: 1 (2%)\n  - By Seniority: Specialist: 18 (36%), Manager: 6 (12%), Director: 1 (2%), Other Management: 1 (2%)\n- Talent Sources: XPO Logistics (2), Wincanton (1), Walkers Transport (1), Serco Occupational Health Ltd. (1), Romac Logistics (1), Lymers Assist Ltd (1), KD Bros (1), Hargreaves Services plc (1), Gibbs & Dandy (1), COMPLETELY MOTORING LIMITED (1)\n- Alumni Go To: looking for new opporunity (1), Wincanton (1), Van den Bosch (1), UTrust Recruitment Group Ltd (1), UPS Supply Chain Solutions (1), Stobart (1), HEAT (1), ForFarmers (1), Cubic Defense (1), AIREconcrete (1)\n\n## Web presence\n\n- Twitter: twitter.com/campeysofselby\n- Crunchbase: crunchbase.com/organization/campeys-of-selby\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Categories\n\nfreight service, transportation, warehousing\n\n## Recent News\n- [2026-09-25] [Major investment at logistics firm more than triples its storage capacity](https://www.thebusinessdesk.com/yorkshire/news/2160697-major-investment-at-logistics-firm-more-than-triples-its-storage-capacity)\n- [2024-09-16] Yorkshire Post: Campeys of Selby: Haulage firm moves to new logistics park on ex-Kellingley Colliery site\n\n## Social\n\n### Linkedin\n\n- [2026-09-30 · Posted · 58 reactions] [Our ‘76 plates lined up before hitting the road from tomorrow! 📸...](https://www.linkedin.com/posts/campeys-of-selby-ltd_our-76-plates-lined-up-before-hitting-the-activity-7511101629144682496-SPCt)\n  > Our ‘76 plates lined up before hitting the road from tomorrow! 📸\n  >\n  > Six new Scania S500 additions to the fleet ready for work!\n  >\n  > Happy new truck’s to Giddy, Lee, Graham, Karl, Brian and Liam 👊🏻\n\n- [2026-09-29 · Posted · 138 reactions] [**Press release!** Campeys of Selby has opened a new 190,000 sq ft...](https://www.linkedin.com/posts/campeys-of-selby-ltd_press-release-campeys-of-selby-has-activity-7510718249920147456-tmfj)\n  > **Press release!**\n  >\n  > Campeys of Selby has opened a new 190,000 sq ft warehouse at Sherburn 42, more than tripling its existing storage capacity, as it continues to expand into the food and retail logistics sector.\n  >\n  > The award-winning family firm said the major investment was made after the company won two “significant” new storage contracts with leading food manufacturers.\n  >\n  > Combined, the new contracts and current operations will occupy around 50% of the new facility, with the remaining capacity providing substantial scope for future customer growth.\n  >\n  > Campeys said the new site, which is net zero upon opening, represents a major milestone in its development and will strengthen its position as a specialist logistics and storage partner for the food manufacturing and retail sectors.\n  >\n  > The site is expected to become fully operational before the end of 2026 and will also become Campeys’ new head office.\n  >\n  > It will bring together the company’s offices, existing warehousing operations and its pallet network operations under one roof, creating a single, strategically located logistics hub and providing greater operational efficiency across the business.\n  >\n  > Campeys said the facility will support its next phase of growth, with further development planned throughout 2027. This will include 24/7 operations and extension of its BRCGS accreditation, enabling the business to further strengthen its capabilities in food-grade storage and distribution to support the demanding requirements of major UK retailers.\n  >\n  > Pointing to its net carbon zero construction, BREEAM excellent rating, rainwater harvesting, solar PV and electric HGV charging infrastructure to power Campeys’ expanding fleet of electric trucks, the company said the facility aligns to its commitment to decarbonisation and net zero.\n  >\n  > Harry Campey, Commercial & Operations Director, said: “The opening of our new, net zero Sherburn 42 facility is a hugely significant step forward for Campeys. More than tripling our storage capacity gives us the scale and flexibility to support our existing customers while creating significant capacity for future growth.\n  >\n  > “Securing major contracts with food manufacturers has provided an excellent foundation for the new operation, but this investment is about much more than meeting immediate demand. We are building a logistics hub and infrastructure that will power the continued growth of Campeys for many years to come.\n  >\n  > “Bringing our head office, warehousing operations and pallet network activity together under one roof will also create a much more integrated business, allowing us to improve efficiency and deliver an even stronger service to our customers.\n  >\n  > “With 24/7 operation and extension of our BRCGS accreditation planned for 2027, we are positioning the new site to support some of the UK’s lrgest food manufacturers and retailers and to establish Campeys as an increasingly important player in the sector.”\n\n- [2026-09-17 · Posted · 30 reactions] [The first ‘76 plate on fleet and it’s our latest EV, a Merc...](https://www.linkedin.com/posts/campeys-of-selby-ltd_the-first-76-plate-on-fleet-and-its-our-activity-7506277674529632257-BxZw)\n  > The first ‘76 plate on fleet and it’s our latest EV, a Merc eActross 400 for our network fleet. This vehicle is our fourth EV and second Merc on fleet.\n  >\n  > With over £1.7m of investment due before the end of the year with additional equipment, we’re looking at a very busy end to the year! Keep an eye out for some big news landing next week also 👀\n\n- [2026-09-17 · 30 reactions] The first ‘76 plate on fleet and it’s our latest EV, a Merc eActross 400 for our network fleet. This vehicle is our fourth EV and second Merc on fleet. With over £1.7m of investment due before the...\n\n- [2026-06-21 · Reshared · 5 reactions] [Matt, a dedicated and hard working Class 1 Urban driver on our...](https://www.linkedin.com/posts/campeys-of-selby-ltd_matt-a-dedicated-and-hard-working-class-activity-7474560889074094080-n6NP): Matt, a dedicated and hard working Class 1 Urban driver on our Palletforce Ltd operation smashed his challenge - very well done. We’re still slightly short of his target for Road Haulage Associatio...\n\n- [2026-06-10 · 47 reactions, 1 comment] Matt’s 230 miles in one day solo and unsupported ride is just over a week away! Matt is a Class 1 multidrop driver on our Palletforce Ltd network operation, usually in and around York. A highly res...\n\n- [2026-06-08 · Reshared · 168 reactions] [Some exciting news to start the week - Campeys of Selby Ltd...](https://www.linkedin.com/posts/campeys-of-selby-ltd_activity-7469684004032622592-i5-1): Some exciting news to start the week - Campeys of Selby Ltd , Premier Logistics Group (UK) , Wrings Transport & VPK Packaging UK and Ireland have been shortlisted for the Partnership Award at the M...\n\n- [2026-06-08 · 170 reactions, 6 comments] Some exciting news to start the week - Campeys of Selby Ltd, Premier Logistics Group (UK), Wrings Transport & VPK Packaging UK and Ireland have been shortlisted for the Partnership Award at the Mot...\n\n- [2026-03-31 · Reshared · 19 reactions] [🚛🚛1️⃣Year up for Karl 1️⃣🚛🚛 It’s not though really. 4️⃣➕1️⃣ Karl...](https://www.linkedin.com/posts/campeys-of-selby-ltd_activity-7444704309222588416-99O_): 🚛🚛1️⃣Year up for Karl 1️⃣🚛🚛 It’s not though really. 4️⃣➕1️⃣ Karl left us for a short time before returning a year ago, unfinished business! 🚛 Bit like Ronaldo 🇵🇹 going back to United……well, probabl...\n\n- [2026-03-30 · Reshared · 31 reactions] [🚛🚛5️⃣ Up for Steve 5️⃣🚛🚛 5️⃣ Years for Mr Reliable 5️⃣ Basically...](https://www.linkedin.com/posts/campeys-of-selby-ltd_activity-7444363054655528960-vCB3): 🚛🚛5️⃣ Up for Steve 5️⃣🚛🚛 5️⃣ Years for Mr Reliable 5️⃣ Basically, with Steve, you can plan him for any load, anywhere🌙, anytime⏰, and he will be there. His consistency is unrivalled, he’s class! 👌🏻...\n\n- [2026-03-18 · Reshared · 32 reactions] [🚛🚛 3️⃣er and a 4️⃣er 🚛🚛 Daz on left 📸 has hit a 4️⃣🏏 Kev on the...](https://www.linkedin.com/posts/campeys-of-selby-ltd_activity-7439976317552443392-bC7Y): 🚛🚛 3️⃣er and a 4️⃣er 🚛🚛 Daz on left 📸 has hit a 4️⃣🏏 Kev on the right 📸 has hit 3️⃣ A pair of class acts really! 💎 Darren tramped for us for the fist 3️⃣ years and due to a change in circumstance h...\n\n- [2026-03-14 · 172 reactions, 9 comments] The six 26’ plates almost ready for the road… Last opportunity for a photoshoot before they’ll be busy! 📸 Some lovely spec’d trucks for Jason, Terry, Jeff, Rich, Dougie & Steve. With another six du...\n\n- [2026-03-09 · Reshared · 44 reactions] [🚛🚛 5️⃣ Up for Ian 5️⃣🚛🚛 🎉 Now, this one, gives me great pleasure...](https://www.linkedin.com/posts/campeys-of-selby-ltd_activity-7436795349337284608-KfDJ): 🚛🚛 5️⃣ Up for Ian 5️⃣🚛🚛 🎉 Now, this one, gives me great pleasure!! In really struggling here, struggling not to bost out into tears 😭 at how sensational this man is!! Yeh, he’s a good a driver but...\n\n- [2026-03-05 · Reshared · 26 reactions] [🚛🚛 1️⃣ Year for Karl Today 1️⃣🚛🚛 His induction was absolutely...](https://www.linkedin.com/posts/campeys-of-selby-ltd_activity-7435362708427800576-_zGV): 🚛🚛 1️⃣ Year for Karl Today 1️⃣🚛🚛 His induction was absolutely brilliant 🥳👏🏻 we laughed and laughed. He is one of life’s seriously funny characters. Unfortunately, due to GDPR 😂 I can’t tell you wha...\n\n- [2026-03-05 · Posted · 55 reactions] [With Intl Women’s day this Sunday and Mother’s day next Sunday, a...](https://www.linkedin.com/posts/campeys-of-selby-ltd_with-intl-womens-day-this-sunday-and-mother-activity-7435372135776260097-G32p)\n  > With Intl Women’s day this Sunday and Mother’s day next Sunday, a busy 10 days ahead on the flowers!\n  >\n  > Great pic of Ady and Curt tipping at a major retailer’s DC last night 📸\n\n- [2026-03-02 · Reshared · 30 reactions] [🚛🇵🇱 Anniversary of 3️⃣ years for Piotr 🇵🇱🚛 1️⃣ of our night 🌙...](https://www.linkedin.com/posts/campeys-of-selby-ltd_activity-7434275290563973120-mW6E): 🚛🇵🇱 Anniversary of 3️⃣ years for Piotr 🇵🇱🚛 1️⃣ of our night 🌙 drivers, Piotr 🇵🇱 is fantastic! For 3️⃣ years he has been nothing but a gentlemen and a real pleasure to work with🌟 He always goes abov...\n\n- [2026-02-27 · Reshared · 40 reactions] [🚛🚛 Ian Leaving 🏴󠁧󠁢󠁥󠁮󠁧󠁿 for 🇫🇷 🚛🚛 💎🪟 Load and return for our 🇫🇷...](https://www.linkedin.com/posts/campeys-of-selby-ltd_activity-7433220644634374145-fbtN): 🚛🚛 Ian Leaving 🏴󠁧󠁢󠁥󠁮󠁧󠁿 for 🇫🇷 🚛🚛 💎🪟 Load and return for our 🇫🇷 friends this weekend 🪟💎 Ian has been with us over 4️⃣ years this time around with a significant contribution before my time. Incredibl...\n\n- [2026-02-19 · Reshared · 310 reactions] [Delighted to announce that after lots of hard work and dedication...](https://www.linkedin.com/posts/campeys-of-selby-ltd_activity-7430243641283022848-q7mn): Delighted to announce that after lots of hard work and dedication, we’ve become a member of DVSA Earned Recognition (ER) scheme. This achievement is testament to the commitment to compliance and sa...\n\n- [2026-02-10 · 182 reactions, 2 comments] Valentines week is the busiest one of the year for our fresh flowers customers, with volumes often tripling! Cracking pic from John of a handful of our fridges being preloaded to be delivered natio...\n\n- [2026-01-28 · Reshared · 29 reactions] [🚛🚛Anniversay!!🚛🚛 Today marks 1️⃣ Year of Moz!! A Lancashire lad...](https://www.linkedin.com/posts/campeys-of-selby-ltd_activity-7422266136894902272-Nrdi): 🚛🚛Anniversay!!🚛🚛 Today marks 1️⃣ Year of Moz!! A Lancashire lad with an affinity for Blackburn Rovers 🌹⚽️ and the Green Bay Packers 🔰🏈 (I think this is due locality of the 2️⃣🙄) A driver who does n...\n\n## Locations\n- Headquarters: selby, north yorkshire, united kingdom (GB)\n- Offices: thorpe willoughby, north yorkshire yo8 9pz, united kingdom (GB), selby, north yorkshire yo8 9pz, united kingdom (GB), selby, north yorkshire, united kingdom (GB)",
+        "summary": "{\"description\":\"Campeys of Selby Ltd is a family-owned logistics and storage provider offering freight, warehousing and related transport services in the UK.\",\"employee_estimate\":50,\"employee_estimate_source\":\"Employees: 50\",\"hq\":\"Selby, United Kingdom\",\"hq_quote\":\"Headquartered in Selby, North Yorkshire, United Kingdom, with an office in Thorpe Willoughby.\",\"industry\":\"Transportation/Trucking/Railroad\",\"is_public_or_enterprise\":true,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"freight service, transportation, warehousing\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C560BAQH5oEu9yKAMDw/company-logo_200_200/company-logo_200_200/0/1630592350753?e=2147483647&v=beta&t=wuILjx4jeujo3q5bio3l96U1YCgSCd_4X5Lf2i20AQs",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/112nh6xnwbf",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Campeys of Selby Ltd",
+              "foundedYear": null,
+              "description": "Running a fleet of 100+ vehicles, 180 trailers and storage available also.",
+              "workforce": {
+                "total": 50
+              },
+              "headquarters": {
+                "address": "Southlands, Thorpe Willoughby, Selby, North Yorkshire YO8 9PZ, GB",
+                "city": "Selby",
+                "postalCode": null,
+                "country": "United Kingdom"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 53,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 180,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 61,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 412,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 27,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/1cc3rhzvjvh",
+        "title": "Campey™ Turf Care Systems",
+        "url": "https://campeyturfcare.com/",
+        "text": "# Campey™ Turf Care Systems\n\nCampey™ Turf Care Systems is a Machinery Manufacturing company. Campey Turf Care Systems is a company that specializes in new and used turf care machinery. They provide innovative machinery to help aerate, overseed, or maintain natural fine turf surfaces to the highest standards. Campey™ Turf Care Systems employs 29 people (+7.4% YoY, +2 people), founded in 1986. Headquartered in Macclesfield, Cheshire, United Kingdom, with an office in Cheshire. Its workforce is distributed across United Kingdom and Qatar.\n\n## About\n\nThe Campey™ difference is the straight talking honest practical service we give each and every customer, we specialise in providing groundcare machinery and equipment for Turf Professionals.\n\nWhether you are new to our products or you are an existing customer your individual needs are of paramount importance to us.\n\nRapid access to parts, high quality service & a huge resource of technical skills are the foundations of our company’s sales and service.\n\n## Company Details\n- Industry: Machinery Manufacturing\n- Type: Public company\n- Headquarters: Macclesfield, United Kingdom\n- Founded Year: 1986\n- Homepage: campeyturfcare.com\n- Aliases: Richard Campey, Ltd., campey, campey turf care systems, campey™ turf care systems\n- LinkedIn: linkedin.com/company/campey-turf-care-systems\n- Linkedin Followers: 4,308\n- Emails: info@campeyturfcare.com\n- Phone: +44 (0)1260 224568, +44 (0)800 083 0216, +44 0 1260 224568, 01260 224568\n\n## Workforce\n- Employees: 29\n- Company Size: 11-50 employees\n  - Yearly Growth: +7.4%\n- Key Executives:\n  - Lee Morgado: Director\n- Breakdown:\n  - By Country: United Kingdom: 11 (38%), Qatar: 1 (3%)\n  - By Department: Product: 5 (17%), Sales: 4 (14%), Other Department: 2 (7%), General Management: 1 (3%), Technical: 1 (3%)\n  - By Seniority: Specialist: 8 (28%), Manager: 3 (10%), Other Management: 2 (7%), Director: 1 (3%)\n- Talent Sources: ROBERT COATES (PLANT SALES) LIMITED (1), Quigley Contracting Ltd (1), MALPAS TRACTORS (WREXHAM) LIMITED (1), John Osman Groundcare Ltd (1), Congleton Garden Machinery Ltd (1), Columbus Crew (1), Capital Alpaca Ltd (1), British Army (1), Barbour ABI (1)\n- Alumni Go To: turfmate International (1), SGL (1), RTKFnet (1), ROBERT COATES (PLANT SALES) LIMITED (1), Lincoln Pro Baseball - Saltdogs (1), KEVINGTON HALL LIMITED (1), J K ASHBROOK LIMITED (1), British Army (1), Arsenal Football Club (1)\n\n## Web presence\n\n- Twitter: twitter.com/campeyturfcare\n- Facebook: facebook.com/campeys\n- Instagram: instagram.com/campeyturfcare\n- YouTube: youtube.com/user/campeymachinery\n- Crunchbase: crunchbase.com/organization/campey-turf-care-systems\n- Web traffic:\n  - Monthly visits: 2,250\n  - Global rank: 6,492,246\n  - Bounce rate: 35.0%\n  - Pages per visit: 2.4\n  - Average visit duration: 36s\n\n## Reviews & Ratings\n- Employer Rating: 1.0/5.0 (1 reviews)\n  - Breakdown: Work-Life: 1.0, Compensation: 1.0, Culture: 1.0, Career: 1.0\n\n## Categories\n\naerate, automotive, distribution, events, heavy_industry_and_engineering/agriculture, innovative machinery, machinery, maintain, overseed, retail, turf care machinery, wholesale\n\n## Competitors\n\nweisiger group, reiser, arabi, amici mercantile\n\n## Recent News\n- [2026-09-21] [Campey Turf Care Mourns the Loss of Neil Armstrong](https://turfmatters.co.uk/campey-turf-care-mourns-the-loss-of-neil-armstrong/)\n- [2026-09-01] The Landscaper Magazine: Rotadairon Stone Burier Joins the Campey Portfolio\n- [2026-07-09] [Pitchcare attends Campey Turf Care Systems’ 40th Anniversary Open Day \\| Pitchcare](https://www.pitchcare.com/blogs/news/pitchcare-attends-campey-turf-care-systems-40th-anniversary-open-day)\n- [2026-01-02] Golf Business News: Campey Turf Care celebrates 40th anniversary\n\n## Social\n\n### Linkedin\n\n- [2026-10-01 · Posted · 19 reactions] [Today we are at @OfficialBHAC's Amex Stadium for the #TurfTech...](https://www.linkedin.com/posts/campey-turf-care-systems_turftech-dennismowers-campeyturfcare-activity-7511377432545882113--DlV)\n  > Today we are at @OfficialBHAC's Amex Stadium for the #TurfTech Summit.\n  >\n  > We even spotted 👀 the #DennisMowers we supplied @DennisMowers\n  > Howardson Group Ltd\n  >\n  > #CampeyTurfCare #CampeyMachineryWorldWide #Campey40 #Innovation #SportsTurf #Maintenance\n\n- [2026-09-29 · Posted · 16 reactions] [On Wednesday 30 September, Campey Turf Care Systems will be closed...](https://www.linkedin.com/posts/campey-turf-care-systems_on-wednesday-30-september-campey-turf-care-activity-7510654707934162945-plPR)\n  > On Wednesday 30 September, Campey Turf Care Systems will be closed for the day as a mark of respect for our colleague and friend, Neil Armstrong, whose funeral will take place that day.\n  >\n  > This will allow our team the opportunity to come together, pay their respects and remember Neil.\n  >\n  > We thank our customers, dealers, suppliers and friends for their understanding and support during this very difficult time.\n  >\n  > We will reopen as normal at 8.00am on Thursday 1 October.\n  >\n  > The Campey Turf Care Systems team\n\n- [2026-09-28 · Posted · 7 reactions] [🍂 Autumn jobs? Campey has you covered. 🌱 Falling leaves and autumn...](https://www.linkedin.com/posts/campey-turf-care-systems_imants-vredo-campey-activity-7510288455806021632-obu3)\n  > 🍂 Autumn jobs? Campey has you covered. 🌱\n  >\n  > Falling leaves and autumn renovation season mean there’s plenty to keep turf professionals busy.\n  >\n  > From fast, effective leaf and debris clearance with the #Imants RotoBlast and RotoSweep, to getting seed into the ground with precision using the #Vredo Overseeder & #Campey AeraSeeder, we have the machinery to keep your surfaces clean, healthy and ready for the months ahead.\n  >\n  > 🍂 Clear leaves and debris\n  > 💨 Keep surfaces clean and playable\n  > 🌱 Overseed worn and thinning areas\n  > 🌱 Encourage strong establishment before winter\n  >\n  > Clear it. Seed it. Prepare it.\n  >\n  > Make the most of the autumn maintenance window with #CampeyTurfCare\n  >\n  > #CampeyTurfCare #AutumnMaintenance #LeafClearance #Overseeding #RotoBlast #RotoSweep #Vredo #AeraSeeder #SportsTurf #GroundsCare #TurfMaintenance #Greenkeeping\n\n- [2026-09-25 · Posted · 22 reactions] [Ready for Monday morning delivery of #Vredo #Overseeders...](https://www.linkedin.com/posts/campey-turf-care-systems_vredo-overseeders-howmanyseeders-activity-7509261526420135936-5T5I)\n  > Ready for Monday morning delivery of #Vredo #Overseeders #howmanyseeders #overseedingseason #campey40 #campeyturfcare #greenkeepers #groundsmen #turfmaintenance #seeding\n\n- [2026-09-17 · 6 reactions] 🍂 Autumn jobs? Campey has you covered. 🌱 Falling leaves and autumn renovation season mean there’s plenty to keep turf professionals busy. From fast, effective leaf and debris clearance with the #Im...\n\n- [2026-09-15 · Posted · 30 reactions] [#CampeyTravels continues...this week we are at #Groundsfest2026 in...](https://www.linkedin.com/posts/campey-turf-care-systems_campeytravels-groundsfest2026-galabau2026-activity-7505686098778529793-P8uT)\n  > #CampeyTravels continues...this week we are at #Groundsfest2026 in the UK 🇬🇧 and at #GaLaBau2026 in Germany 🇩🇪 talking all things #groundsmaintenance #sportsturf #campey40 #campeyturfcare\n\n- [2026-09-15 · 55 reactions, 1 comment] In Nuremberg Germany at Galabau this week if you’re attending the show stop by at stand 508 in Hall 8 looking forward to a good week with our distributor Rasenwelt #Campeyturfcare #Rasenwelt #Galabau\n\n- [2026-09-15 · 10 reactions] Another day another demo with the VGR Equipment TopChanger! Diluting the thatch layer and creating a drier firmer playing surface. #VGRTopChanger #TurfCare #GolfCourseMaintenance #GroundsManagement...\n\n- [2026-09-14 · Reshared · 35 reactions] [NEW DATE CONFIRMED We are pleased to confirm that The MENA Turf...](https://www.linkedin.com/posts/campey-turf-care-systems_activity-7505207064063918080-PiHO): NEW DATE CONFIRMED We are pleased to confirm that The MENA Turf Show will now take place on 30 April 2027 at the Park Hyatt Dubai, Dubai Creek. We look forward to bringing the region’s turf industr...\n\n- [2026-09-14 · Posted · 109 reactions] [It is with immense sadness that we announce the passing of our...](https://www.linkedin.com/posts/campey-turf-care-systems_it-is-with-immense-sadness-that-we-announce-activity-7505256632960868352-GyPU)\n  > It is with immense sadness that we announce the passing of our Company Secretary and Accounts Manager, Neil Armstrong, at the age of just 43.\n  >\n  > Neil had been a valued and much-loved member of the Campey team for many years, and we know that many of you will have had regular contact with him and got to know him personally during that time.\n  >\n  > His passing has come as a tremendous shock to everyone at Campey, and he will be greatly missed by his colleagues, friends and all those who had the pleasure of knowing and working with him.\n  >\n  > Further details and a tribute to Neil can be found on our website below:\n  >\n  > https://lnkd.in/eCa_3z4V\n  >\n  > Our thoughts remain very much with Neil’s wife Lauren, their children Lilly and Noah, and all of his family and friends at this incredibly difficult time.\n\n- [2026-09-14 · 108 reactions, 18 comments] It is with immense sadness that we announce the passing of our Company Secretary and Accounts Manager, Neil Armstrong, at the age of just 43. Neil had been a valued and much-loved member of the Cam...\n\n- [2026-09-13 · 12 reactions, 1 comment] Wrapping up a week of demos in wales with the Topchanger, quick run over with the TB220 and the green is back in play ⛳️\n\n- [2026-09-10 · Posted · 17 reactions] [Europe here we come! Next stop Germany ready for #GaLaBau2026 next...](https://www.linkedin.com/posts/campey-turf-care-systems_galabau2026-campey40-campeyturfcare-activity-7503907686908878848-EzZj)\n  > Europe here we come! Next stop Germany ready for #GaLaBau2026 next week\n  >\n  > #campey40 #campeyturfcare #campeymachineryworldwide #campeytravels #campeytruck #daftruck #p&oferries\n\n- [2026-09-10 · 37 reactions] Cracking on with our in-house tennis renovations. Another member of the team confidently using the Koro👌 it’s been a great addition to the fleet since getting a few years ago.\n\n- [2026-09-07 · Posted · 12 reactions] [🎓 Sharing knowledge For 40 years, we’ve supported grounds...](https://www.linkedin.com/posts/campey-turf-care-systems_campeyturfcare-turfeducation-sportsturf-activity-7502712311875280897-BGt6)\n  > 🎓 Sharing knowledge\n  >\n  > For 40 years, we’ve supported grounds professionals with training, tips, and expertise to improve turf management worldwide.\n  >\n  > #CampeyTurfCare #TurfEducation #SportsTurf #Campey40Years #Campey40YearsOfInnovation\n\n- [2026-09-07 · 23 reactions] 🎓 Sharing knowledge For 40 years, we’ve supported grounds professionals with training, tips, and expertise to improve turf management worldwide. #CampeyTurfCare #TurfEducation #SportsTurf #Campey40...\n\n- [2026-09-05 · 32 reactions] Getting seed into rugby pitch’s today, making a great job! With some moisture and high soil temperatures makes it perfect time for overseeding. Please get in touch if would like a quote.\n\n- [2026-09-04 · Posted · 9 reactions] [Loaded and ready for Mondays trip north of the boarder...](https://www.linkedin.com/posts/campey-turf-care-systems_campeyturfcare-campeytruck-newmachinery-activity-7501648293983076352-ur70)\n  > Loaded and ready for Mondays trip north of the boarder.\n  >\n  > #campeyturfcare #campeytruck #newmachinery #sportsturfmaintenance #sportsturfmachinery #scotland\n\n- [2026-09-01 · 48 reactions, 1 comment] Thank you for being with us Nick Brown and Campey™ Turf Care Systems Greenkeeper Argentina\n\n- [2026-09-01 · 18 reactions] A brilliant morning at the bowling green renovation seminar at Little Stoke Bowls Club with Campey Turf Care Systems showcasing Dennis and SISIS equipment #dennismowers #sisis Campey™ Turf Care Sys...\n\n## Locations\n- Headquarters: macclesfield, cheshire, united kingdom (GB)\n- Offices: macclesfield, cheshire sk11 9hg, united kingdom (GB), macclesfield, cheshire east, united kingdom (GB), cheshire, sk11 9hg, united kingdom (GB)",
+        "summary": "{\"description\":\"Campey™ Turf Care Systems is a Machinery Manufacturing company specializing in new and used turf care machinery to aerate, overseed, or maintain natural fine turf surfaces to high standards.\",\"employee_estimate\":29,\"employee_estimate_source\":\"Employees: 29\",\"hq\":\"Macclesfield, Cheshire, United Kingdom\",\"hq_quote\":\"Headquartered in Macclesfield, Cheshire, United Kingdom, with an office in Cheshire.\",\"industry\":\"Machinery Manufacturing\",\"is_public_or_enterprise\":true,\"is_third_party_logistics\":false,\"is_third_party_logistics_quote\":\"- Industry: Machinery Manufacturing\\n- Type: Public company\\n- Headquarters: Macclesfield, United Kingdom\\n- Founded Year: 1986\\n- Homepage: campeyturfcare.com\\n- Aliases: Richard Campey, Ltd., campey, campey turf care systems, campey™ turf care systems\\n- LinkedIn: linkedin.com/company/campey-turf-care-systems\\n- Linkedin Followers: 4,308\\n- Emails: info@campeyturfcare.com\\n- Phone: +44 (0)1260 224568, +44 (0)800 083 0216, +44 0 1260 224568, 01260 224568\\n...\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQEbFegaiwEqVQ/img-crop_100/B4EZu23FTtIkAM-/0/1768299452290?e=2147483647&v=beta&t=DOZgMdL5qAJ1_VhiCpQAXNEhavYYgog4CZKI1Pds6EU",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/1cc3rhzvjvh",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Campey™ Turf Care Systems",
+              "foundedYear": 1986,
+              "description": "The Campey™ difference is the straight talking honest practical service we give each and every customer, we specialise in providing groundcare machinery and equipment for Turf Professionals.\n\nWhether you are new to our products or you are an existing customer your individual needs are of paramount importance to us.\n\nRapid access to parts, high quality service & a huge resource of technical skills are the foundations of our company’s sales and service.",
+              "workforce": {
+                "total": 29
+              },
+              "headquarters": {
+                "address": "Marton Hall Lane, Marton, Macclesfield, Cheshire SK11 9HG, GB",
+                "city": "Macclesfield",
+                "postalCode": null,
+                "country": "United Kingdom"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 2250,
+                "countryRank": 596228,
+                "avgDurationSeconds": 36,
+                "history": [
+                  {
+                    "value": 10938,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 5912,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 6248,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 3158,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 1846,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 2250,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 9992,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

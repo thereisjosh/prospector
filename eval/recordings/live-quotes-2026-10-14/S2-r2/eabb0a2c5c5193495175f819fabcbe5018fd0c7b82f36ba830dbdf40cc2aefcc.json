@@ -1,0 +1,262 @@
+{
+  "request": {
+    "query": "Niural",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the exact phrase from the page that the employee estimate came from (e.g. \"350 employees\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "12db8edd66fe70f537d71287c84d1732",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/bxywryfj6gd",
+        "title": "Niural AI",
+        "url": "https://niural.com/",
+        "text": "# Niural AI\n\nNiural AI is a Financial Services company. Niural is an AI-powered platform that simplifies HR, payroll, compliance, hiring, and payments with a range of products and solutions. Niural AI employs 170 people (+65.0% YoY, +67 people), founded in 2022. Headquartered in New York, New York, United States, with an office in San Francisco. Its workforce is distributed across 7 countries (including Nepal, United States, India, Argentina, and Canada).\n\n## About\n\nOne platform that pays you back, thinks ahead and grows with you.\nUS payroll, PEO, ASO, EOR, global payroll and contractors, all on one employee record. Start with what you need now and add the rest when you need it.\n\nCash back\n-Prefunded payroll held in Niural Wallet can earn cash rewards in the days before pay date.\n\nAI-native\n- EMMA catches payroll, benefits and compliance issues across every employment model and prepares the fix for your approval.\n\nGrows with you\n- From Payroll, add a PEO, move to ASO, without leaving the employee record. What's more, you can add global employees via EOR or contractors with a click.\n\n## Company Details\n- Industry: Financial Services\n- Type: Privately held\n- Headquarters: New York, United States\n- Founded Year: 2022\n- Homepage: niural.com\n- Aliases: Niural, Inc., niural, niural ai\n- LinkedIn: linkedin.com/company/niural\n- Linkedin Followers: 18,543\n- Phone: 31000160311064\n\n## Financials\n- Total Funding: USD 52,000,000\n  - Series a (2026-06-01): USD 21.0M\n  - Series a (2025-07-25): USD 31.0M\n  - Pre seed (2024-01-01)\n\n## Workforce\n- Employees: 170\n- Company Size: 51-200 employees\n  - Monthly Growth: +1.2%\n  - Yearly Growth: +65.0%\n- Key Executives:\n  - Benjamin Chynsky: Head of Legal and Compliance\n  - Dhiraj Khanal: Head of AI\n  - Gino Ciarroni: Head of Sales, West\n  - Justin Reid: Director of Underwriting\n  - Nabin B.: Co-Founder & President\n  - Ovidiu Terejanu: Sr Director of Finance and Accounting\n  - Peter Jenkins: Director of Strategic Partnerships\n  - Raymond Hoffman: Head of Talent\n  - Shriya Dangol: HR Operations Lead\n- Breakdown:\n  - By Country: Nepal: 71 (42%), United States: 52 (31%), India: 9 (5%), Argentina: 1 (1%), Canada: 1 (1%), Ireland: 1 (1%), Portugal: 1 (1%)\n  - By Department: Technical: 51 (30%), Sales: 20 (12%), Design: 9 (5%), Other Department: 9 (5%), Product: 8 (5%), Finance: 7 (4%), Hr: 7 (4%), Consulting: 5 (3%), Marketing: 5 (3%), Operations: 4 (2%) (+6 more)\n  - By Seniority: Specialist: 62 (36%), Other Management: 35 (21%), Manager: 21 (12%), Senior: 12 (7%), Head: 5 (3%), Director: 3 (2%), Intern: 2 (1%), Vp: 1 (1%)\n- Active job postings: 24\n- Talent Sources: Rara Labs (5), Safeguard Global (3), Rippling (3), Karobar (3), Docsumo 📄 (3), CloudFactory (3), Citytech (2), Cirrus Payroll + HR (2), Asterdio Inc. (2), ADP (2)\n- Alumni Go To: Kings III Emergency Communications (2), dfdfdfdf (1), Tsinghua University (1), Qualz (1), KIPIO (1), Justworks (1), HomesteadAI (1), BlueKey Realty Inc. (1), Blink SEO (1), Amazon Web Services (AWS) (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack (showing 50 of 99): adobe, adobe illustrator, adobe xd, amazon ecs, api gateway, asana, aws lambda, bamboohr, blockchain, boolean, centricity, clickup, confluence, css, dart, deel, docker, figma, fintech, flutter, git, github, google drive, google sheets, google workspace, harness, hcm, html, hubspot, java, javascript, jenkins, jest, jira, json, kotlin, launchpad, linkedin, linkedin recruiter, lottie, microsoft, microsoft excel, netsuite, nosql, numpy, one system, openai, playwright, postgresql, postman\n\n## Web presence\n\n- Twitter: twitter.com/niuralhq\n- Crunchbase: crunchbase.com/organization/niural\n- Web traffic:\n  - Monthly visits: 35,830\n  - Global rank: 778,793\n  - Bounce rate: 37.0%\n  - Pages per visit: 2.5\n  - Average visit duration: 52s\n\n## Reviews & Ratings\n- Product Reviews: 5.0/5.0 (22 reviews)\n\n## Categories\n\naor, artificial intelligence (ai), aso, compliance, contractors, employer of record, eor, fintech, global bill pay, global payroll, hiring, hr, human resources, niural, payments, payroll, payroll and hr solutions, payroll software, peo, professional employer organization, recruiting, us payroll, workforce management\n\n## Recent News\n- [2026-07-01] [Payroll Firm Niural Launches AI Labs With $21M Funding](https://www.startupresearcher.com/news/payroll-platform-niural-launches-ai-labs-with-usd21-million-in-new-funding)\n- [2026-06-25] [Niural grows Series A to $52m with AI Labs launch](https://fintech.global/2026/06/25/niural-grows-series-a-to-52m-with-ai-labs-launch/)\n- [2026-06-23]\n  - [Niural adds $21M as AI agents move into CFO workflows](https://www.axios.com/pro/fintech-deals/2026/06/23/niural-ai-cfo-workflows)\n  - [Niural推出Niural AI Labs 完成A轮融资扩至5200万美元\\|智能体\\|薪资\\|实验室\\|保险\\|风投\\_手机新浪网](https://finance.sina.cn/2026-06-23/detail-iniemfsp8660040.d.html?cid=76524&node_id=76524&vt=4)\n  - [Niural Launches Niural AI Labs and grows its Series A to $52 million](https://mx.advfn.com/bolsa-de-valores/noticias/98792429/niural-launches-niural-ai-labs-and-grows-its-serie)\n  - [Niural Launches AI Lab, Extends Series A to $52 Million as It Scales High-Stakes Agentic Work - TipRanks.com](https://www.tipranks.com/news/private-companies/niural-launches-ai-lab-extends-series-a-to-52-million-as-it-scales-high-stakes-agentic-work)\n- [2025-07-10] CB Insights Research: State of Venture Q2’25 Report\n- [2025-06-29] Techmeme: Niural, whose AI agents help companies automate payroll, benefits, vendor payments, and compliance, raised a $31M Series A led by Marathon Management Partners \\(Ryan Lawler/Axios\\)\n- [2025-06-27]\n  - thesaasnews.com: Niural Raises $31 Million in Series A\n  - TecHR: Niural raises $31M to Transform Global CFO and People Operations\n- [2025-06-26]\n  - vcnewsdaily.com: Niural Lands $31M Series A Funding\n  - PYMNTS.com: Niural Raises $31 Million to Expand Professional Employment Organization Platform’s AI Capabilities\n  - citybiz: Niural Raises $31M Series A\n  - FinSMEs: Niural Raises $31M in Series A Funding\n  - Pulse 2.0: Niural: $31 Million Secured For AI-Native PEO Platform\n- [2023-12-19] Visa Expands Fintech Fast Track Programme to 'Catalyse new Growth Opportunities'\n\n## Social\n\n### Linkedin\n\n- [2026-10-02 · Posted · 17 reactions] [YAY AREA, WE’RE TOUCHING DOWN. 🌉⚡️ San Francisco is officially our...](https://www.linkedin.com/posts/niural_yay-area-were-touching-down-san-activity-7511889339216293888-9G-p)\n  > YAY AREA, WE’RE TOUCHING DOWN. 🌉⚡️\n  >\n  > San Francisco is officially our newest chapter. To mark our expansion into the heart of tech, we’re taking over SF TECH WEEK by a16z with full speed, zero fluff, and maximum energy.\n  >\n  > Whether you're looking for a quiet space to ship code, grabbing drinks on us, or dialing into high-signal conversations on scaling, pull up:\n  >\n  > ☕️ 10/5 – 10/9 | The Quiet Room\n  > https://lnkd.in/gjS2BqsP\n  >\n  > 🐶 10/6 @ 11:30 AM – 5:00 PM | Niural x Corgi Cafe\n  > https://lnkd.in/g9Bm7W5D\n  >\n  > 🔥 10/8 @ 5:00 PM | Fireside with Gokul Rajaram\n  > https://lnkd.in/g8-AZUdV\n  >\n  > 🍽️ 10/8 @ 7:30 PM | The Founder’s Table | Niural X M13\n  > https://lnkd.in/gdKPrqi5\n  >\n  > See you out there!\n\n- [2026-09-29 · Posted · 35 reactions] [🐶☕ We teamed up with Corgi Cafe to celebrate our new SF office...](https://www.linkedin.com/posts/niural_sftechweek-activity-7510782454119534592-BcOv)\n  > 🐶☕ We teamed up with Corgi Cafe to celebrate our new SF office!\n  > Come grab your FREE Niural AI Payroll Float this Tuesday and stay wired during  #SFTechWeek.\n  >\n  > 🎟️ RSVP required — no RSVP, no float!\n  > Come for the coffee. Stay for the corgis. Leave with your payroll floating. 💸☕🐾\n  > https://lnkd.in/g9Bm7W5D\n\n- [2026-09-24 · Posted · 42 reactions] [Of all the events going on during #sftechweek, we're honored Gokul...](https://www.linkedin.com/posts/niural_sftechweek-activity-7508938003780804609-q7Q8)\n  > Of all the events going on during #sftechweek, we're honored Gokul Rajaram will be spending time with Nami Baral for a conversation packed with insights and lessons you won’t want to miss. Registration is limited to keep to an intimate room. RSVP today.\n  >\n  > https://lnkd.in/g8-AZUdV\n\n- [2026-09-23 · Posted · 41 reactions] [A new era has begun. Where all companies can earn cash back on...](https://www.linkedin.com/posts/niural_niural-ai-is-sweet-for-startups-activity-7508496195556691968-R-FA)\n  > A new era has begun. Where all companies can earn cash back on their payroll float. It's material for all businesses, but especially \"sweet for startups\". Check the vibe.\n\n- [2026-09-22 · 18 reactions, 4 comments] We're pumped up for #SFtechweek. So much so, well, we created a music vid. We call it the 'The Official Unofficial SF Tech Week Anthem: We didn't start the startup' - You're welcome.\n\n- [2026-09-21 · Posted · 61 reactions] [We just dropped our 'Official Unofficial #SFTechWeek Anthem'. But...](https://www.linkedin.com/posts/niural_sftechweek-activity-7507855084504956928-9XYj)\n  > We just dropped our 'Official Unofficial #SFTechWeek Anthem'. But did we tell you we're dropping SEVEN more tracks over the next few weeks? You don't want to miss Wednesday's, it's truly lit. 'Follow' us so you hear it when it drops.\n  >\n  > In case you missed the anthem. https://lnkd.in/egWUPzAv\n\n- [2026-09-21 · 61 reactions, 7 comments] We just dropped our 'Official Unofficial #SFTechWeek Anthem'. But did we tell you we're dropping SEVEN more tracks over the next few weeks? You don't want to miss Wednesday's, it's truly lit. 'Foll...\n\n- [2026-09-18 · Reshared · 18 reactions] [Your Sept. 22 plans are looking increasingly difficult to beat...](https://www.linkedin.com/posts/niural_activity-7506654865306234880-hSnf): Your Sept. 22 plans are looking increasingly difficult to beat: Larry Fitzgerald on going from 17 seasons in the NFL to backing 160+ companies. A room packed with some of the Bay Area’s sharpest fo...\n\n- [2026-09-17 · Posted · 51 reactions] [Payroll 🤝 401(k) Huge day for systems finally speaking to each...](https://www.linkedin.com/posts/niural_payroll-401k-huge-day-for-systems-finally-activity-7506369712554029056-R9xx)\n  > Payroll 🤝 401(k)\n  >\n  > Huge day for systems finally speaking to each other. Niural now integrates directly with Basic Capital, so employee contributions, employer match, and payroll deductions automatically stay in sync.\n  >\n  > An employee changes their contribution? Payroll knows.\n  > A new match tier gets added? Payroll knows.\n  >\n  > No spreadsheets to shuttle back and forth. No manual reconciliation.\n  >\n  > The systems handle the handoff and your team gets its time back.\n\n- [2026-09-17 · 55 reactions, 8 comments] Payroll 🤝 401(k) Huge day for systems finally speaking to each other. Niural now integrates directly with Basic Capital, so employee contributions, employer match, and payroll deductions automatica...\n\n- [2026-09-16 · Posted · 18 reactions] [Your Sept. 22 plans are looking increasingly difficult to beat...](https://www.linkedin.com/posts/niural_your-sept-22-plans-are-looking-increasingly-activity-7506023725989879808--0ED)\n  > Your Sept. 22 plans are looking increasingly difficult to beat:\n  >\n  > Larry Fitzgerald on going from 17 seasons in the NFL to backing 160+ companies.\n  >\n  > A room packed with some of the Bay Area’s sharpest founders, investors, and operators.\n  >\n  > And to top it all off, 13 people are going home with either a football signed by Larry or a pair of Meta smart glasses.\n  >\n  > We’ve got a handful of spots left.\n  >\n  > Grab yours before we close the list. RSVP link in comments.\n\n- [2026-09-15 · Reshared · 30 reactions] [17 NFL seasons. 160+ investments. One conversation you won’t want...](https://www.linkedin.com/posts/niural_activity-7505663385187893250-JVEn): 17 NFL seasons. 160+ investments. One conversation you won’t want to miss. On September 22nd, Niural is bringing Larry Fitzgerald to San Francisco for a fireside chat on leadership, longevity, and...\n\n- [2026-09-15 · Posted · 35 reactions] [Big AI has been in the news a lot lately. But what about...](https://www.linkedin.com/posts/niural_napeo2026-activity-7505662323257389056-B7rU)\n  > Big AI has been in the news a lot lately. But what about purpose-driven AI. AI built to solve a specific pain.\n  >\n  > For PEOs especially, it’s about taking on the messy mechanics behind payroll, benefits, workers comp, and compliance and turning that complexity into leverage. That’s the future we’re already living in at Niural AI.\n  >\n  > The conversation our Co-founder Nabin B. will bring to #NAPEO2026 is truly about the transformation of the PEO industry.\n  >\n  > He'll be joined by David Feinberg from Justworks, and leaders from OneDigital and Kahoa.ai for this not-to-be missed discussion.\n  >\n  > Thursday, Sept. 17 | 8:30–9:30 a.m.\n  > If you’re in Orlando, come join!\n  >\n  > Sanoop Desai\n\n- [2026-09-15 · Posted · 11 reactions] [We’re bringing out some of NYC’s most cracked founders tomorrow...](https://www.linkedin.com/posts/niural_net-gains-a-founder-pickleball-social-activity-7505696434009202689-zHwF)\n  > We’re bringing out some of NYC’s most cracked founders tomorrow night for another round of Net Gains. 🏓\n  >\n  > Courts are prepped, paddles are ready, and the RSVP list is looking kinda stacked. We held back a tiny handful of spots for those of you who make plans at the absolute last minute. Come play!\n  >\n  > Andrew Ferreiras Braylin Burdie\n  >\n  > https://bit.ly/46lZDaL\n\n- [2026-09-15 · 11 reactions] We’re bringing out some of NYC’s most cracked founders tomorrow night for another round of Net Gains. 🏓 Courts are prepped, paddles are ready, and the RSVP list is looking kinda stacked. We held ba...\n\n- [2026-09-15 · 35 reactions, 3 comments] Big AI has been in the news a lot lately. But what about purpose-driven AI. AI built to solve a specific pain. For PEOs especially, it’s about taking on the messy mechanics behind payroll, benefits...\n\n- [2026-09-11 · Posted · 18 reactions] [🚀 In this edition of The Niuralogist, we're celebrating National...](https://www.linkedin.com/posts/niural_the-niurologist-national-payroll-week-activity-7504201724048359424-QeTC)\n  > 🚀 In this edition of The Niuralogist, we're celebrating National Payroll Week with a year of free U.S. payroll and sharing what’s new across Niural.\n  >\n  > Here's what we're covering:\n  > ◆ 1 year of free U.S. payroll, powered by agentic AI\n  > ◆ Override approval for bills and invoices in Niural Pay\n  > ◆ 6 free tools for founders, HR, and finance teams\n  > ◆ Payroll tax vs. income tax: what HR teams need to know\n  >\n  > 🔗: https://lnkd.in/gFPfSe8m\n\n- [2026-09-11 · Posted · 40 reactions] [Okay #payroll people this one is for you. Enjoy. Happy National...](https://www.linkedin.com/posts/niural_payroll-marvel-doomsday-activity-7504287365339815936-Ht8O)\n  > Okay #payroll people this one is for you. Enjoy. Happy National Payroll week. p.s. you’ll enjoy it more if you have watched the #marvel #doomsday trailer.\n\n- [2026-09-11 · 18 reactions] 🚀 In this edition of The Niuralogist, we're celebrating National Payroll Week with a year of free U.S. payroll and sharing what’s new across Niural. Here's what we're covering: ◆ 1 year of free U.S...\n\n- [2026-09-10 · Posted · 16 reactions] [Payroll folks deserve plenty, but free payroll is a great start...](https://www.linkedin.com/posts/niural_happy-national-payroll-week-activity-7503803077536137217-0mn7)\n  > Payroll folks deserve plenty, but free payroll is a great start.\n  >\n  > Get 12 months of free U.S. payroll when you join Niural by October 31.\n  >\n  > It’s a long-overdue thank-you for HR, and a dream line item for Finance. Everyone wins.\n  >\n  > 👉 Claim your free year before Oct 31: https://lnkd.in/gRrmHA9E\n  >\n  > T&Cs apply.\n\n## Locations\n- Headquarters: new york, new york, united states (US)\n- Offices: new york, new york, united states (US), san francisco, california, united states (US)",
+        "summary": "{\"description\":\"Niural AI is an AI-powered platform that simplifies HR, payroll, compliance, hiring, and payments with a range of products and solutions.\",\"employee_estimate\":170,\"employee_estimate_source\":\"Employees: 170\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"New York, United States\",\"hq_quote\":\"Headquartered in New York, New York, United States\",\"industry\":\"Financial Services\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Niural AI is an AI-powered platform that simplifies HR, payroll, compliance, hiring, and payments with a range of products and solutions.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 52,000,000 - Series a (2026-06-01): USD 21.0M; Series a (2025-07-25): USD 31.0M; Pre seed (2024-01-01)\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQHAEw5n6C73Zg/company-logo_200_200/B56Z0AAK6jJMAI-/0/1773821539305/niural_logo?e=2147483647&v=beta&t=bAJXeuwDFz9EZ4bO7dr9IoRgiD8WHfXHK_6tw5NzTrU",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/bxywryfj6gd",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Niural AI",
+              "foundedYear": 2022,
+              "description": "One platform that pays you back, thinks ahead and grows with you.\nUS payroll, PEO, ASO, EOR, global payroll and contractors, all on one employee record. Start with what you need now and add the rest when you need it.\n\nCash back\n-Prefunded payroll held in Niural Wallet can earn cash rewards in the days before pay date.\n\nAI-native\n- EMMA catches payroll, benefits and compliance issues across every employment model and prepares the fix for your approval.\n\nGrows with you\n- From Payroll, add a PEO, move to ASO, without leaving the employee record. What's more, you can add global employees via EOR or contractors with a click. ",
+              "workforce": {
+                "total": 170
+              },
+              "headquarters": {
+                "address": "New York, New York, US",
+                "city": "New York",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 52000000,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2026-06-01",
+                  "amount": 21000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 35830,
+                "countryRank": 307674,
+                "avgDurationSeconds": 52,
+                "history": [
+                  {
+                    "value": 48160,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 38799,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 37464,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 39996,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 36259,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 35830,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/354092c4k3p",
+        "title": "Nural",
+        "url": "https://nuraltech.com/",
+        "text": "# Nural\n\nNural is a Technology, Information and Internet company. Nural is an AI-based business intelligence software that provides sales enablement solutions for businesses. They offer seven different types of sales enablement solutions available in both SaaS and Enterprise levels. Nural employs 36 people (+56.5% YoY, +13 people), founded in 2020. Headquartered in Gurugram, Haryana, India, with presence in United States.\n\n## About\n\nNural is a trusted business management software company servicing clients globally with an advanced development center in Delhi NCR, India. We are banking on our proven expertise in technology, business domain knowledge the Company is providing an arrangement of outsourcing services for business analytics and offers reputed clients high-end solutions at a fraction of the original price.\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Headquarters: Gurugram, India\n- Founded Year: 2020\n- Homepage: nuraltech.com\n- Aliases: Nuraltech Private Limited, nural\n- LinkedIn: linkedin.com/company/nuraltech\n- Linkedin Followers: 3,391\n- Emails: hello@nuraltech.com\n- Phone: 91-98101-53271, 9810153272\n\n## Workforce\n- Employees: 36\n- Company Size: 11-50 employees\n  - Yearly Growth: +56.5%\n- Key Executives:\n  - Deepak SShetty: Co-Founder\n- Breakdown:\n  - By Country: India: 16 (44%)\n  - By Department: Technical: 11 (31%), Research: 2 (6%), Consulting: 1 (3%), Hr: 1 (3%), Sales: 1 (3%)\n  - By Seniority: Specialist: 9 (25%), Manager: 2 (6%), Other Management: 2 (6%), Founder: 1 (3%), Intern: 1 (3%), Senior: 1 (3%)\n- Talent Sources: Zollege.in (1), Wonderslate Technologies (1), Safedot E Solution Pvt. Ltd. (1), Polyvalent Digital Services (1), Masai (1), India Habitat Centre (1), IConnectWe (1), Google Cloud Community India (1), Brain Vision Technology (1), Acelot Innovation Private Limited (1)\n- Alumni Go To: bigbasket (1), Xebia (1), The Adecco Group (1), Globe Publication Pvt. Ltd. (1), EY (1), Contec Global Limited (1), AGL - Hakuhodo (1), A P Securitas (1)\n\n## Products & Technology\n- Features: Free Trial, Demo Available\n- Tech Stack: docker, git, java, selenium, sql, angular, flutter, json, react\n\n## Web presence\n\n- Twitter: twitter.com/nuraltech\n- Facebook: facebook.com/nuraltechpvtltd\n- Instagram: instagram.com/nuraltech\n- YouTube: youtube.com/@nuraltechpvtltd\n- Crunchbase: crunchbase.com/organization/nural-7c90\n- Web traffic:\n  - Monthly visits: 8,603\n  - Global rank: 2,105,862\n  - Bounce rate: 23.0%\n  - Pages per visit: 3.6\n  - Average visit duration: 310s\n\n## Reviews & Ratings\n- Employer Rating: 0.0/5.0\n  - Breakdown: Work-Life: -0.1, Compensation: -0.1, Culture: -0.1, Career: -0.1\n\n## Categories\n\nafter-sales service, ai-based, asset management, assets management, business intelligence, channel sales, crm, customer service, distribution management software, enterprise, enterprise assets, enterprise software, field assets, in shop promoters, lead generation, lead management, saas, sales automation, sales enablement, sales management software, service management software, sfa\n\n## Social\n\n### Linkedin\n\n- [2026-09-03 · 4 reactions] We’re Hiring: Infra Support Engineer Are you someone who enjoys solving infrastructure challenges and keeping applications running smoothly? Nural is looking for an Infra Support Engineer to manage...\n\n- [2026-08-17 · 4 reactions] Asset Tracking Systems: How to Choose One Your Team Will Actually Use https://lnkd.in/gcJks3Wd Deepak SShetty | Bhanu Ssavant | Mishaal Shetty\n\n- [2026-08-15 · 6 reactions] Let’s celebrate the freedom that makes us proud to be Indian. Happy Independence Day! #HappyIndependenceDay2026 #IndependenceDay #India #JaiHind #ProudToBeIndian #IndianFlag #FreedomDay #15August #...\n\n- [2026-08-12 · 6 reactions] Is your fixed asset register truly audit-ready? Most CFOs know what was spent last year. Few can say with certainty that every asset still exists, in the right condition, exactly where it should be...\n\n- [2026-08-11 · 7 reactions] Your best territory has the worst network coverage. Does your sales app still work there? Most field sales apps assume constant connectivity a fair assumption in a head office, a bad one three vill...\n\n- [2026-08-10 · 8 reactions, 1 comment] Most teams don’t struggle to buy assets. They struggle to keep track of them throughout their lifecycle. From procurement and registration to assignment, maintenance, audits, and retirement, managi...\n\n- [2026-08-05 · 5 reactions] Your product launched with a perfect planogram. What does the shelf look like today? Between the planning meeting and the actual shelf, a lot can go wrong: wrong placement, missing stock, a competi...\n\n- [2026-08-03 · 6 reactions] You designed the perfect planogram. The store team never saw it. Merchandising guides get emailed as PDFs, printed, and then forgotten the moment the store gets busy. By the time anyone checks comp...\n\n- [2026-08-01 · 4 reactions] Turn Your Asset Data into Actionable Reports Managing assets is easier when every detail is available in one place. With Nural Assets Reports, you can quickly access: ✅ Asset, Inventory & Ticket Re...\n\n- [2026-07-31 · 7 reactions] The technician arrived on time. The complaint still took four days to close. What happened in between? SLA breaches rarely happen at the visit they happen in the gaps around it: a part request stuc...\n\n- [2026-07-28 · 7 reactions] Kohler India manages 4,500+ SKUs on one platform. Manual quotation errors? Eliminated. Manual quotations are one of the quietest revenue leaks in B2B sales a wrong price, a missed discount tier, a...\n\n- [2026-07-27 · 6 reactions] Simplify Asset Audits with Nural Asset Management Software Asset audits don't have to be time-consuming or paper-based. With Nural Asset Management Software, your team can perform audits directly f...\n\n- [2026-07-25 · 7 reactions] A distributor submits a scheme claim. Can you verify it against actual sales in under a minute? Most distribution teams approve scheme payouts on trust, because checking each claim against real sec...\n\n- [2026-07-25 · 5 reactions] A distributor submits a scheme claim. Can you verify it against actual sales in under a minute? Most distribution teams approve scheme payouts on trust, because checking each claim against real sec...\n\n- [2026-07-24 · 4 reactions] A lead asked a question on Tuesday. Nobody called back until the following Monday. It's already too late. Most B2B teams don't lose deals to competitors — they lose them to silence. A lead comes in...\n\n- [2026-07-22 · 5 reactions] Every repair request, maintenance issue, or service complaint should be tracked from a single platform. With Nural Assets, you can create service tickets in seconds, assign them to the right team,...\n\n- [2026-07-18 · 3 reactions] Assign the right asset to the right employee—without the paperwork. Managing laptops, tools, or equipment across teams shouldn't involve spreadsheets or manual records. With Nural Asset Management...\n\n- [2026-07-15 · 3 reactions] Why Do Hotel Groups Need Hotel Asset Management Software Beyond Their PMS? https://lnkd.in/gy6FBwnY\n\n- [2026-07-15 · 4 reactions] Every asset has a value. But without proper tracking, it quickly becomes a liability. Managing assets through spreadsheets often leads to missing warranty dates, incomplete records, and poor visibi...\n\n- [2026-07-13 · 7 reactions] Your entire operation. One live dashboard. Track total assets, inventory, and tickets in real time no spreadsheets, no status meetings. ✅ Live counts across every module ✅ Trend charts that update...\n\n## Locations\n- Headquarters: gurugram, haryana, india\n- Offices: new delhi, delhi, india, delhi, delhi, india, gurugram, haryāna, india",
+        "summary": "{\"description\":\"Nural is a Technology, Information and Internet company offering AI-based sales enablement and business intelligence software with SaaS and Enterprise offerings. Headquartered in Gurugram, India, with presence in the United States.\",\"employee_estimate\":36,\"employee_estimate_source\":\"36\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"We’re Hiring: Infra Support Engineer Are you someone who enjoys solving infrastructure challenges and keeping applications running smoothly? Nural is looking for an Infra Support Engineer to manage...\",\"hq\":\"Gurugram, Haryana, India\",\"hq_quote\":\"Headquartered in Gurugram, Haryana, India, with presence in United States.\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Nural is a Technology, Information and Internet company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":null,\"recently_funded_seed_or_series_a_quote\":\"\\\"We’re Hiring: Infra Support Engineer\\\" are job postings, not seed/Series A funding announcements; no explicit funding round is stated on this page.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4D0BAQHm3FbDLpXSrw/company-logo_200_200/company-logo_200_200/0/1630575705091?e=2147483647&v=beta&t=rdQ1OFUN5Aomt6wukSziDwhu_8pAf2b9eD_xmQ1W92I",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/354092c4k3p",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Nural",
+              "foundedYear": 2020,
+              "description": "Nural is a trusted business management software company servicing clients globally with an advanced development center in Delhi NCR, India. We are banking on our proven expertise in technology, business domain knowledge the Company is providing an arrangement of outsourcing services for business analytics and offers reputed clients high-end solutions at a fraction of the original price.",
+              "workforce": {
+                "total": 36
+              },
+              "headquarters": {
+                "address": "270, 2nd Floor, Udyog Vihar Phase II, Sector 20, Gurugram, Haryana 122016, IN",
+                "city": "Gurugram",
+                "postalCode": null,
+                "country": "India"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 8603,
+                "countryRank": 166538,
+                "avgDurationSeconds": 310,
+                "history": [
+                  {
+                    "value": 7211,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 8070,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 17146,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 26282,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 9341,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 8603,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 9977.9,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

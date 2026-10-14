@@ -1,0 +1,270 @@
+{
+  "request": {
+    "query": "Digs",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the exact phrase from the page that the employee estimate came from (e.g. \"350 employees\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "8031605bafec04be156d7c75934cd453",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/sx32rjmqdtl",
+        "title": "Digs",
+        "url": "https://digs.com/",
+        "text": "# Digs\n\nDigs is a Software Development company. Digs is an AI software company that provides a single source of truth for residential home builders to reduce rework and speed decisions. They offer a range of products including file management, company and project files, markup tools, qr codes and share links, e-signatures, dropbox integration, askdigs ai chat, pre-construction, scheduling, diagramming. Digs employs 58 people (+26.1% YoY, +12 people) and has an annual revenue of $4.5M, founded in 2022. Headquartered in Vancouver, Washington, United States, with an office in New York. Its workforce is distributed across United States and United Kingdom.\n\n## About\n\nDigs AI unlocks happier homes.\n\nDigs is an AI platform for builders that focuses on Pre-Construction through Aftercare. Digs AI automatically structures build data, enhances collaboration, and generates 3D digital twin homeowner handoffs. \n\nDigs’ results in more efficient builds through AI takeoffs, diagramming, and collaboration and the best dedicated homeowner experience. And at the end of the build, the builder hands off a full digital understanding [3D digital twin] of the home that powers warranty and aftercare - Homefax for the home. \n\nCreate a single source of truth to boost productivity with DigsCloud. Perform your workflow faster with AI with DigsCanvas. And provide the best dedicated client experience with DigsCare. \n\nUnlocking happier homes.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: Vancouver, United States\n- Founded Year: 2022\n- Homepage: digs.com\n- Aliases: Digs, Inc., digs, digs space, inc.\n- LinkedIn: linkedin.com/company/digshq\n- Linkedin Followers: 4,290\n- Emails: hello@digs.com\n- Phone: 1-360-609-1489\n\n## Financials\n- Annual Revenue: USD 4,500,000\n- Total Funding: USD 44,300,000\n  - Series a (2026-08-01): USD 25.3M\n  - Seed (2025-11-01): USD 5.0M\n  - Seed (2024-01-25): USD 7.0M\n  - Seed (2023-02-01): USD 7.0M\n  - Series a\n\n## Workforce\n- Employees: 58\n- Company Size: 51-200 employees\n  - Yearly Growth: +26.1%\n- Key Executives:\n  - Andrea Gram: Vice President of People\n  - Chase Sbicca: Sr. Director of Marketing\n  - Dustin Brown: Director of Engineering\n  - Ryan Fink: CEO, Co-Founder\n  - Ty Frackiewicz: CPO, Co-Founder\n  - Tyler Williams: Investor Board Member\n  - Zack Parnell: Investor & Advisor\n- Breakdown:\n  - By Country: United States: 37 (64%), United Kingdom: 1 (2%)\n  - By Department: Technical: 9 (16%), Other Department: 7 (12%), Consulting: 4 (7%), Design: 3 (5%), General Management: 3 (5%), Marketing: 3 (5%), Product: 3 (5%), Customer Service: 2 (3%), Operations: 2 (3%), Finance: 1 (2%) (+1 more)\n  - By Seniority: Other Management: 11 (19%), Manager: 9 (16%), Senior: 8 (14%), Specialist: 5 (9%), Director: 2 (3%), Founder: 2 (3%), Partner: 2 (3%), Intern: 1 (2%), Vp: 1 (2%)\n- Talent Sources: Streem (7), Yard Guard Lawn & Tree Care (1), Self Employed (1), Roost (1), Netrush (1), King's Way Christian Schools (1), Hammerspace (1), Eptura (1), DaySmart (1), Columbia Sportswear Company (1)\n- Alumni Go To: Hammerspace (3), SunFire (1), Struktures (1), SmartBarrel (1), Raytheon (1), Later (1), Klear Inc (1), Flats Brokerage (1), Decathlon Digital (1), ActiveCampaign (1)\n\n## Products & Technology\n- Tech Stack: dropbox, google meet, hubspot, linkedin, flask, microservices, numpy, opencv, playwright, python, react, sandbox, selenium, typescript, webflow, zapier, brex, html, zoominfo, amp, visa, hunter, well, figma, adobe, sketch, zoom, three.js\n\n## Web presence\n\n- Twitter: twitter.com/digs\n- Instagram: instagram.com/digs.hq\n- YouTube: youtube.com/@digs_home\n- Crunchbase: crunchbase.com/organization/digs-8801\n- Web traffic:\n  - Monthly visits: 10,034\n  - Global rank: 2,110,898\n  - Bounce rate: 46.0%\n  - Pages per visit: 2.5\n  - Average visit duration: 77s\n\n## Categories\n\n3d floor plans, 3d models, ai, ai software, artificial intelligence, artificial intelligence (ai), artificial-intelligence, built environment, collaboration, computer vision, construction, construction software, construction-management, construction-tech, digital twin, enterprise software, enterprise-software, file management, file sharing, home building, home_and_garden/home_and_garden, machine learning, platform, real estate, residential home builders, saas, selections management, software, technology\n\n## Competitors\n\ntouchplan, bluebeam, kairnial, fieldwire, procore, plangrid, e-plansoft, crews by core, arcsite, buildtools, stack, ganttpro, buildertrend, sarcophagus , coconstruct, qoppa software, pantera global, esub, assignar, hyphen solutions, bim 360, buildit systems, testfit, swapp, blooma, 1build\n\n## Recent News\n- [2026-10-04]\n  - The Financial Express: 3 DIGs and 9 SPs among 24 senior police officers transferred in major shake-up\n  - Buffalo News: The new Bills stadium is open, but fans are still buying relics from the old one\n- [2026-10-03]\n  - Reuters: As public fears of AI grow, Trump digs in on voluntary safeguards\n  - Honolulu Star-Advertiser: Letter: Symphony digs dismal, deserves much better\n  - Daily Gate City: RayCutsz: New digs, new 'dos\n- [2026-10-02]\n  - Vincennes Sun-Commercial: Alices top Spartans; SK's Gladish hits 1K digs\n  - Jersey Digs: Amazon Is Hiring in Real Estate Development, Plus 7 More New Jersey Jobs\n  - Jersey Digs: Construction Begins at 357-Unit Jefferson Street Tower in Hoboken\n  - Columbus Underground: Cruise Digs, Hathaway Stares, Plus Snow, Ghosts and Concrete in Movies\n  - Oregon Capital Chronicle: Donors, digs and Donald Trump: Attacks in Oregon gubernatorial debate underscore a close race\n- [2026-10-01]\n  - Jersey Digs: Amazon Joins New Brunswick’s Multi-Billion-Dollar HELIX Development\n  - The Lawton Constitution: COLUMN: Gaston digs into the SOB special, Juicy Lucy\n  - Jersey Digs: Jersey City Waterfront Hyatt Faces Trouble With $100 Million Loan\n  - Jersey Digs: The Lounge at Xena, Jersey City's First Cannabis Consumption Lounge, to Open This Weekend\n  - The Dispatch: The White House Digs Deeper Into the Policy Quicksand\n- [2026-09-30]\n  - Santa Cruz Sentinel: Harbor girls volleyball tops SC, finishes first half of SCCAL unbeaten \\| Local Roundup\n  - Jersey Digs: Historic New Jersey General Store Dating to 1883 Is for Sale\n  - Jersey Digs: Namdar Group Nabs $310 Million Loan for Homestead Market in Jersey City\n  - Jersey Digs: New Report Says N.J. Needs More Affordable Homes for Sale, Not Just Buyer Assistance\n  - Jersey Digs: Nine Home Proposal in Atlantic City’s Chelsea Neighborhood Moves Forward\n- [2026-09-22] [Ryan Fink - Digs \\| LinkedIn](https://www.linkedin.com/in/rynfnk?trk=public_profile_browsemap_browse-map_connect-button)\n- [2026-09-06] [Builders FirstSource \\(BLDR\\) Backs Digs AI Push, Is The Stock Cheap Or Pricey? - Simply Wall St News](https://simplywall.st/stocks/us/capital-goods/nyse-bldr/builders-firstsource/news/builders-firstsource-bldr-backs-digs-ai-push-is-the-stock-ch)\n- [2026-09-05] [How Investors Are Reacting To Builders FirstSource \\(BLDR\\) Leading Digs’ Series A And Deep AI Partnership - Simply Wall St News](https://simplywall.st/stocks/us/capital-goods/nyse-bldr/builders-firstsource/news/how-investors-are-reacting-to-builders-firstsource-bldr-lead)\n- [2026-09-03] [AI-Powered Homebuilding Platforms: Builders FirstSource and Digs Connect the Homebuilding… \\| Trend Hunter](https://www.trendhunter.com/trends/ai-powered-homebuilding-platforms)\n- [2026-09-02]\n  - [Builders FirstSource \\(BLDR\\) Faces A Fresh Valuation Test Following Its Digs Partnership](https://ca.finance.yahoo.com/news/builders-firstsource-bldr-faces-fresh-110626586.html)\n  - [Is Builders FirstSource’s \\(BLDR\\) AI Bet With Digs Quietly Reshaping Its Competitive Moat?](https://finance.yahoo.com/technology/ai/articles/builders-firstsource-bldr-ai-bet-070614406.html)\n- [2026-09-01] [Builders FirstSource announces partnership to deliver AI-powered homebuilding solutions - NewsBreak](https://www.newsbreak.com/news/4860979528494-builders-firstsource-announces-partnership-to-deliver-ai-powered-homebuilding-solutions)\n- [2026-08-29]\n  - [B2B sellers are making checkout a credit check](https://www.marketscale.com/industries/business-services/b2b-sellers-are-making-checkout-a-credit-check-using-ai)\n  - [How Investors May Respond To Builders FirstSource \\(BLDR\\) Embedding Digs’ AI Across Its Homebuilding Ecosystem - Simply Wall St News](https://simplywall.st/stocks/us/capital-goods/nyse-bldr/builders-firstsource/news/how-investors-may-respond-to-builders-firstsource-bldr-embed)\n- [2026-08-26]\n  - [Builders FirstSource unveils AI platform partnership with Digs](https://www.digitalcommerce360.com/2026/08/26/builders-firstsource-ai-platform-digs/)\n  - [Builders FirstSource \\(BLDR\\) On Its AI Deal And The Case For More Upside - Simply Wall St News](https://simplywall.st/stocks/us/capital-goods/nyse-bldr/builders-firstsource/news/builders-firstsource-bldr-on-its-ai-deal-and-the-case-for-mo)\n  - [Digs Raises $25.3M Series A](https://www.thesaasnews.com/news/digs-raises-25-3m-series-a/)\n- [2026-08-25]\n  - [Builders FirstSource Partners with Digs on AI-Powered Homebuilding Platform](https://www.mdm.com/news/top-distributor-sectors/building-materials-construction/builders-firstsource-partners-with-digs-on-ai-powered-homebuilding-platform/)\n  - [Vancouver software maker lands $25M, big industry partnership](https://www.bizjournals.com/portland/news/2026/08/25/digs-funding-builders-firstsource-hiring.html)\n  - [Builders FirstSource forges new AI partnership](https://hbsdealer.com/builders-firstsource-forges-new-ai-partnership)\n  - [Articles about Ty Frackiewicz – GeekWire](https://www.geekwire.com/tag/ty-frackiewicz/)\n  - [Articles about Ryan Fink – GeekWire](https://www.geekwire.com/tag/ryan-fink/)\n  - [Articles about Builders FirstSource – GeekWire](https://www.geekwire.com/tag/builders-firstsource/)\n  - [Homebuilding AI startup Digs raises $25.3M and partners with building products giant](https://www.geekwire.com/2026/homebuilding-ai-startup-digs-raises-25-3m-and-partners-with-building-products-giant/)\n- [2026-08-18] [Digs and Matt Risinger Partner to Help Shape the Future of AI-Powered Home Building – News Radio KOTA](https://lifestyle.kotaradio.com/story/355746/digs-and-matt-risinger-partner-to-help-shape-the-future-of-ai-powered-home-building/)\n\n## Social\n\n### Linkedin\n\n- [2026-09-24 · Posted · 14 reactions] [Build Show LIVE brought a lot of conversations around where...](https://www.linkedin.com/posts/digshq_what-builders-were-talking-about-at-build-activity-7509024155598708737-hvn6)\n  > Build Show LIVE brought a lot of conversations around where construction is headed, from AI and the future of the tech stack to the homeowner experience and what happens to a home’s information after it’s built.\n  >\n  > For Digs, a few themes came up again and again: AI that actually takes work off a builder’s plate, better-connected project information, and the idea of creating a lasting record of the home.\n  >\n  > The team also joined conversations around warranty and aftercare, Build HD Standard, digital twins, and the idea of a “Carfax for the home.”\n  >\n  > Here’s a look at some of the biggest themes Digs heard throughout Build Show LIVE 👇\n\n- [2026-09-22 · Reshared · 73 reactions] [Exciting time of growth at Digs. We are looking to start growing...](https://www.linkedin.com/posts/digshq_activity-7508271844202790912-wv7N): Exciting time of growth at Digs. We are looking to start growing the sales team. Great time to get your feet in on the ground floor with a strong growing business bringing meaningful solutions to c...\n\n- [2026-09-22 · Posted · 50 reactions] [We’re excited to welcome two new members to the Digs team! 🎉...](https://www.linkedin.com/posts/digshq_were-excited-to-welcome-two-new-members-activity-7508291217349136384-ZUfg)\n  > We’re excited to welcome two new members to the Digs team! 🎉\n  >\n  > Christina Braks, Principal Product Manager, brings 20+ years of experience building and scaling B2B SaaS products, including direct experience building construction and field service software at Evosus and leading complex financial workflows at Avea Solutions. She’s deeply customer-focused and brings a strong track record of turning customer needs into products and outcomes that move businesses forward.\n  >\n  > Blake Burby, GTM Operations Specialist, brings a unique mix of go-to-market, growth, and analytical experience, with hands-on experience building revenue systems and optimizing outbound and demand generation. He’s also passionate about using AI and automation to build smarter, more scalable processes.\n  >\n  > We’re excited to have Christina and Blake bring their curiosity, expertise, and builder mentality to Digs as we continue building what’s next 🚀\n\n- [2026-09-21 · 59 reactions, 5 comments] I'm often reminded of the quote often attributed to Henry Ford \"If I had asked people what they wanted, they would have said faster horses.\" The construction software space has traditionally been p...\n\n- [2026-09-19 · 22 reactions] What if your house came with a digital twin—and a complete record of how it was built? Full Episode - https://lnkd.in/eJvTigCs Matt Risinger sits down with the Digs team at Build Show LIVE to explo...\n\n- [2026-09-18 · Posted · 59 reactions] [We’re excited to welcome three familiar faces to the Digs team in...](https://www.linkedin.com/posts/digshq_were-excited-to-welcome-three-familiar-faces-activity-7506848991477731328-S3AS)\n  > We’re excited to welcome three familiar faces to the Digs team in new full-time roles!\n  >\n  > After joining Digs as an intern this summer, Emma Sturm is now stepping into a full-time role as a Software Engineer. She brings a strong computer science foundation, hands-on software development experience, and a natural knack for leadership and collaboration. During her internship, she quickly made an impact across the team, and we’re excited to have her officially on board full-time! We can’t wait to see what she builds!\n  >\n  > Nira Patel started her Digs journey as a Product Management intern in 2025 and has been part of the team part-time since then. She’s now joining full-time as a Product Manager. With a background in Applied Computer Science and Human-Computer Interaction, Nira brings a strong technical foundation and a knack for turning complex problems into practical, user-friendly solutions. Her experience across software development, technical project management, and product-focused research gives her a unique perspective on both how we build and who we’re building for. We’ve loved watching her take on bigger challenges and grow with the team.\n  >\n  > Since first joining Digs as an intern in 2025, Sierra Cutrono has continued to grow with the team and is now joining full-time as a Product Designer. She has been part of the team part-time since last summer and brings a unique mix of product design, UX, and architecture experience, with a background in designing thoughtful digital experiences across B2B, B2C, and the built environment. We’ve loved seeing her bring her curiosity, creativity, and user-first approach to the work, and we’re excited to have her officially on the team full-time.\n  >\n  > We’re excited to see what’s ahead for Emma, Nira, and Sierra. Welcome to the next chapter at Digs!\n\n- [2026-09-18 · Posted · 32 reactions] [Last week, the Digs team had an incredible time at Build Show LIVE...](https://www.linkedin.com/posts/digshq_buildshowlive-homebuilding-constructiontechnology-activity-7506794186092875777-cIJd)\n  > Last week, the Digs team had an incredible time at Build Show LIVE 👏\n  >\n  > Digs co-founders Ryan Fink and Ty Frackiewicz joined Matt Risinger for a live recording of TheBuildShow, diving into homebuilding, technology, and what’s ahead for the industry.\n  >\n  > Earlier in the week, Ryan and Ty took the Huber Main Stage to discuss how AI is transforming the way homes are built 🏡\n  >\n  > Digs CRO Stephen Molen also joined the Know Better Stage to share insights on warranty, aftercare, and how builders can create a better client experience long after the build is complete.\n  >\n  > A packed week of conversations, connections, and ideas shaping the future of homebuilding 💙🤝\n  >\n  > #BuildShowLIVE #Homebuilding #ConstructionTechnology #AI #BuilderTechnology\n\n- [2026-09-18 · 59 reactions, 7 comments] We’re excited to welcome three familiar faces to the Digs team in new full-time roles! After joining Digs as an intern this summer, Emma Sturm is now stepping into a full-time role as a Software En...\n\n- [2026-09-18 · 32 reactions, 2 comments] Last week, the Digs team had an incredible time at Build Show LIVE 👏 Digs co-founders Ryan Fink and Ty Frackiewicz joined Matt Risinger for a live recording of TheBuildShow, diving into homebuildin...\n\n- [2026-09-11 · Reshared · 3 reactions] [Today!](https://www.linkedin.com/posts/digshq_today-activity-7504207195530690560-jQii): Today!\n\n- [2026-09-11 · Posted · 14 reactions] [Remembering those who lost their lives, honoring those who served...](https://www.linkedin.com/posts/digshq_remembering-those-who-lost-their-lives-honoring-activity-7504207108016623616-qXqJ)\n  > Remembering those who lost their lives, honoring those who served, and recognizing the countless acts of courage and sacrifice made in the days, months, and years that followed.\n\n- [2026-09-10 · 16 reactions] Build Show LIVE 2026 💥 Catch Digs Chief Revenue Officer Stephen Molen on the Know Better Stage as he digs into warranty, aftercare, and the client experience. Turning homeowner handoff from a cost...\n\n- [2026-09-08 · Posted · 9 reactions] [The construction labor shortage isn’t going away overnight. One way...](https://www.linkedin.com/posts/digshq_ai-construction-workforce-activity-7503148066204450816-C3TG)\n  > The construction labor shortage isn’t going away overnight.\n  >\n  > One way builders can respond is by amplifying the workforce they already have.\n  >\n  > AI can help teams work more efficiently, find information faster, and get more done without simply adding more hours.\n  >\n  > There’s also a generational opportunity.\n  >\n  > The next generation of workers has grown up in a digital world. Asking them to enter an industry built around pen and paper and outdated technology can make construction a harder career to sell.\n  >\n  > Modernizing the way construction works isn’t just about productivity. It can help make the industry more appealing to the people who will build its future.\n  >\n  > 🎙️ mikeroweWORKS Ryan Fink\n  >\n  > #ai #construction #workforce #laborshortage #builders #homebuilding #tech\n\n- [2026-09-08 · 9 reactions] The construction labor shortage isn’t going away overnight. One way builders can respond is by amplifying the workforce they already have. AI can help teams work more efficiently, find information...\n\n- [2026-09-08 · 14 reactions] Build Show LIVE 2026 👋 Digs co-founders Ryan Fink and Ty Frackiewicz are taking the Huber Main Stage to talk all things AI for home builders. Real tools. Real examples. Less rework, more time back,...\n\n- [2026-09-07 · Posted · 13 reactions] [Happy Labor Day from the Digs team!](https://www.linkedin.com/posts/digshq_happy-labor-day-from-the-digs-team-activity-7502749406161588224-zr1d)\n  > Happy Labor Day from the Digs team!\n\n- [2026-09-04 · Posted · 13 reactions] [Build Show LIVE 2026 💥 Catch Digs Chief Revenue Officer Stephen...](https://www.linkedin.com/posts/digshq_buildshowlive-homebuilding-constructiontech-activity-7501696868926578689-nXEM)\n  > Build Show LIVE 2026 💥\n  >\n  > Catch Digs Chief Revenue Officer Stephen Molen on the Know Better Stage as he digs into warranty, aftercare, and the client experience.\n  >\n  > Turning homeowner handoff from a cost center into a competitive edge, with real strategies builders can use today.\n  >\n  > 📍 San Antonio, TX\n  > 📅 September 12\n  > ⏰ 12:15–1:00 PM\n  >\n  > Register today for 25% off 👉  https://lnkd.in/gq9qTFs8\n  >\n  > #Buil",
+        "summary": "{\"description\":\"Digs is an AI software company that provides a single source of truth for residential home builders to reduce rework and speed decisions. They offer products including file management, markup tools, e-signatures, QR codes, share links, and AI chat for pre-construction and project management.\",\"employee_estimate\":58,\"employee_estimate_source\":\"58\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"The page lists 58 employees and a variety of executive roles but does not explicitly state the first operations/RevOps hire; however, the presence of multiple leadership roles and an emphasis on operational functions suggests operational hiring activity.\",\"hq\":\"Vancouver, Washington, United States\",\"hq_quote\":\"Headquartered in Vancouver, Washington, United States, with an office in New York.\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Software Development; Type: Privately held; Homepage: digs.com\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 44,300,000 — Series a (2026-08-01): USD 25.3M; Seed (2025-11-01): USD 5.0M; Seed (2024-01-25): USD 7.0M; Seed (2023-02-01): USD 7.0M\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQFkNIo9SS3tpw/company-logo_200_200/B56Z8kbhYdHUAE-/0/1783022622472/digshq_logo?e=2147483647&v=beta&t=YtsqfaRMjGktEbczHg7-R2qc0Ib1_iqcANg12l4CssE",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/sx32rjmqdtl",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Digs",
+              "foundedYear": 2022,
+              "description": "Digs AI unlocks happier homes.\n\nDigs is an AI platform for builders that focuses on Pre-Construction through Aftercare. Digs AI automatically structures build data, enhances collaboration, and generates 3D digital twin homeowner handoffs. \n\nDigs’ results in more efficient builds through AI takeoffs, diagramming, and collaboration and the best dedicated homeowner experience. And at the end of the build, the builder hands off a full digital understanding [3D digital twin] of the home that powers warranty and aftercare - Homefax for the home. \n\nCreate a single source of truth to boost productivity with DigsCloud. Perform your workflow faster with AI with DigsCanvas. And provide the best dedicated client experience with DigsCare. \n\nUnlocking happier homes.",
+              "workforce": {
+                "total": 58
+              },
+              "headquarters": {
+                "address": "Vancouver, Washington 98660, US",
+                "city": "Vancouver",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 4500000,
+                "fundingTotal": 44300000,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2026-08-01",
+                  "amount": 25300000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 10034,
+                "countryRank": 664954,
+                "avgDurationSeconds": 77,
+                "history": [
+                  {
+                    "value": 20417,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 14794,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 14439,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 9997,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 15243,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 10034,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/np3gwt3gy4z",
+        "title": "Digs",
+        "url": "https://digs.co/",
+        "text": "# Digs\n\nDigs is a Real Estate company. Digs by OJO is a financial tools platform that helps homeowners build wealth through homeownership. Digs employs 2 people (-66.7% YoY, -2 people) and has an annual revenue of $1M, founded in 2018. Headquartered in Chicago, Illinois, United States. Its workforce is distributed across Côte d'Ivoire and United Kingdom.\n\n## About\n\nDigs by OJO is a financial platform for residential real estate. It helps renters save for their first home through rewards and financial tools. It also helps connect aspiring homeowners with the best real estate agents and mortgage lenders.\n\n## Company Details\n- Industry: Real Estate\n- Type: Privately held\n- Headquarters: Chicago, United States\n- Founded Year: 2018\n- Homepage: digs.co\n- Aliases: Digs, Inc., digs\n- LinkedIn: linkedin.com/company/digsco\n- Linkedin Followers: 671\n- Emails: info@digs.co\n\n## Financials\n- Annual Revenue: USD 1,000,000\n  - Convertible note (2019-06-30)\n  - Pre seed (2019-01-01)\n\n## Acquisitions\n- Acquired by: OJO (2020-10-15)\n\n## Workforce\n- Employees: 2\n- Company Size: 1-10 employees\n  - Yearly Growth: -66.7%\n- Key Executives:\n  - DIOM GROUP SERVICES: PDG\n- Breakdown:\n  - By Country: Côte d'Ivoire: 1 (100%), United Kingdom: 1 (100%)\n  - By Department: General Management: 1 (100%), Real Estate: 1 (100%)\n  - By Seniority: Clevel: 1 (100%), Manager: 1 (100%)\n- Talent Sources: THE MEWS BRIDAL (1), Spangler Candy Company (1), SignpostMe (1), Redfin (1), Living Learning English (1), Imperial Brands PLC (1), Homes for Students (1), Build Abroad (1), Buffalo Fundraising Consultants (1), Aisle Rocket (1)\n- Alumni Go To: OJO (3), Tortoise Media (1), The Spencer Arms (1), The Etiquette Group (1), The 99 Club (1), Stevens Hewlett & Perkins (1), Space Robotics Society (SPROS) (1), Purecraft Bar and Kitchen (1), Powered by Agent Online (1), Bingo (1)\n\n## Web presence\n\n- Twitter: twitter.com/digs_co\n- Facebook: facebook.com/digsco\n- Instagram: instagram.com/digs.co\n- YouTube: youtube.com/channel/ucdludb99kl_hqv2-lrnurng\n- Crunchbase: crunchbase.com/organization/digsinc\n- Web traffic:\n  - Monthly visits: 1,138\n  - Global rank: 13,334,068\n  - Bounce rate: 37.0%\n  - Pages per visit: 1.2\n  - Average visit duration: 0s\n\n## Categories\n\napartment leasing, business_and_consumer_services/real_estate, financial services, financial tools, fintech, first-time home buying, homeownership, platform, real estate, real-estate, saving, technology, wealth\n\n## Competitors\n\npatch of land, roostify, wazzup, immo, home hero, brickx\n\n## Recent News\n- [2026-10-04] faribaultcountyregister.com: USC completes busy week of volleyball\n- [2026-10-03]\n  - Business Day: Gold Fields digs deep in bold mega-merger bid\n  - MaxPreps: Mountain View High School \\(Loveland, CO\\) Volleyball\n  - The Concord Bridge: On Digs for Cancer night, volleyball tops Shawsheen\n- [2026-10-02]\n  - Fitt Insider: Active Lifestyles Reshape Real Estate\n  - Jersey Digs: Amazon Is Hiring in Real Estate Development, Plus 7 More New Jersey Jobs\n  - The Sun: Busy UK motorway announces 15 DAYS of closures due to EV battery plant works\n  - Jersey Digs: Construction Begins at 357-Unit Jefferson Street Tower in Hoboken\n  - InYourArea: Hidden histories unearthed as TV crew digs for Lincoln's long-buried secrets\n- [2026-10-01]\n  - Flashscore UK: Alcaraz digs deep against Michelsen to begin Japan Open defence with win\n  - The Witness \\| Your compass in the community: Dig, plant, win: Five KZN schools battle it out for Arbour Month title\n  - Jersey Digs: Jersey City Waterfront Hyatt Faces Trouble With $100 Million Loan\n  - Daily Mail: Panic over Kimberly Guilfoyle's outrageous Champagne demand\n  - Stuff: Sporty Spice digs into her wardrobe for NZ charity\n- [2026-09-30] Rural Radio Network: KTIC 840 AM/98.3 FM/98.7 FM - Tri County Northeast Volleyball 2-2 in last four matches\n- [2026-09-29] Plainsman: Pelican Heights' Aiden Jackson digs deep to win bronze at African Karate Championship\n- [2026-09-28] Jersey Digs: Hackensack Meridian Receives $125M, the Largest Health System Gift in New Jersey History\n- [2026-09-27]\n  - The Citizen: Adopt a new pet at the Carletonville SPCA\n  - Islington Tribune: Everybody Digs Bill Evans \\(and Bechstein\\)\n  - Car Magazine: Gordini's alive\\! New Renault 8 Gordini concept is the compact rear-drive coupe of your dreams\n- [2026-09-23] [Digs Strengthens Product and Go-to-Market Capabilities with Key Hires](https://www.tipranks.com/news/private-companies/digs-strengthens-product-and-go-to-market-capabilities-with-key-hires)\n- [2026-09-05] [How Investors Are Reacting To Builders FirstSource \\(BLDR\\) Leading Digs’ Series A And Deep AI Partnership - Simply Wall St News](https://simplywall.st/stocks/us/capital-goods/nyse-bldr/builders-firstsource/news/how-investors-are-reacting-to-builders-firstsource-bldr-lead)\n- [2026-09-02] [Builders FirstSource \\(BLDR\\) Faces A Fresh Valuation Test Following Its Digs Partnership](https://ca.finance.yahoo.com/news/builders-firstsource-bldr-faces-fresh-110626586.html)\n- [2026-08-29] [How Investors May Respond To Builders FirstSource \\(BLDR\\) Embedding Digs’ AI Across Its Homebuilding Ecosystem - Simply Wall St News](https://simplywall.st/stocks/us/capital-goods/nyse-bldr/builders-firstsource/news/how-investors-may-respond-to-builders-firstsource-bldr-embed)\n- [2026-08-25]\n  - [Beal Buys SoNu Digs Apartments as Seller Faces Suits](https://therealdeal.com/chicago/2026/08/25/beal-buys-sonu-digs-apartments-as-seller-faces-suits/)\n  - [Builders Firstsource, Inc. und Digs, Inc. kündigen strategische Partnerschaft an, um die nächste Generation KI-gestützter Hausbau-Lösungen zu liefern](https://ch.marketscreener.com/boerse-nachrichten/builders-firstsource-inc-und-digs-inc-kuendigen-strategische-partnerschaft-an-um-die-naechste-gen-ce7858d8dc8df421)\n  - [Builders FirstSource, Inc. e Digs, Inc. annunciano una partnership strategica per l'edilizia residenziale di nuova generazione basata sull'intelligenza artificiale](https://it.marketscreener.com/notizie/builders-firstsource-inc-e-digs-inc-annunciano-una-partnership-strategica-per-l-edilizia-residen-ce7858d8dc8df421)\n  - [Builders FirstSource, Inc. et Digs, Inc. annoncent un partenariat stratégique pour lancer la nouvelle génération de construction résidentielle assistée par IA](https://ch.zonebourse.com/actualite-bourse/builders-firstsource-inc-et-digs-inc-annoncent-un-partenariat-strategique-pour-lancer-la-nouvell-ce7858d8dc8df421)\n\n## Social\n\n### Linkedin\n\n- [2022-07-01 · 1 reaction] We have discontinued this page and moved all activity to OJO Labs. Please follow us there to continue the conversation: https://lnkd.in/gUDwgRhJ\n\n- [2022-06-28] We will be ceasing all activity on this page on July 1, 2022. Please follow us at OJO Labs to continue the conversation: https://lnkd.in/gUDwgRhJ\n\n- [2022-06-15 · 3 reactions] We will be ceasing all activity on this page on July 1, 2022. Please follow us at OJO Labs to continue the conversation: https://lnkd.in/gUDwgRhJ\n\n## Locations\n- Headquarters: chicago, illinois, united states (US)\n- Offices: chicago, illinois, united states (US)\n\n## Parent organization\n\n- OJO",
+        "summary": "{\"description\":\"Digs is a Real Estate company. Digs by OJO is a financial tools platform that helps homeowners build wealth through homeownership.\",\"employee_estimate\":2,\"employee_estimate_source\":\"Employees: 2\",\"hiring_first_ops_or_revops\":false,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Chicago, United States\",\"hq_quote\":\"Headquartered in Chicago, Illinois, United States\",\"industry\":\"Real Estate\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Real Estate\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Convertible note (2019-06-30)  - Pre seed (2019-01-01)\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C560BAQEjSTuhE8ssBA/company-logo_200_200/company-logo_200_200/0/1630606649478/digsco_logo?e=2147483647&v=beta&t=oPXmU7psmFkPwE2ogsmONmuxUawToRC1FOlX-8RcQQw",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/np3gwt3gy4z",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Digs",
+              "foundedYear": 2018,
+              "description": "Digs by OJO is a financial platform for residential real estate. It helps renters save for their first home through rewards and financial tools. It also helps connect aspiring homeowners with the best real estate agents and mortgage lenders.",
+              "workforce": {
+                "total": 2
+              },
+              "headquarters": {
+                "address": "222 w Merchandise Mart Plaza, Chicago, Illinois 60654, US",
+                "city": "Chicago",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 1000000,
+                "fundingTotal": null,
+                "fundingLatestRound": {
+                  "name": "Convertible note",
+                  "date": "2019-06-30",
+                  "amount": null
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 1138,
+                "countryRank": 4979399,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 3673,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 2469,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 3901,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 3264,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 2862,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 1138,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 9721.8,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

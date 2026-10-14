@@ -1,0 +1,224 @@
+{
+  "request": {
+    "query": "King of Freight",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the exact phrase from the page that the employee estimate came from (e.g. \"350 employees\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "2e55608a136eedc981ed01792811d175",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/v755jt1wb23",
+        "title": "King of Freight",
+        "url": "https://kingsoffreight.com/",
+        "text": "# King of Freight\n\nKing of Freight is a Transportation/Trucking/Railroad company. King of Freight is a full service broker that provides world-class logistics solutions. King of Freight employs 679 people (+3.2% YoY, +21 people), founded in 2008. Headquartered in Wichita, Kansas, United States.\n\n## About\n\nAt King of Freight we pride ourselves on being a full service transportation brokerage. Just tell us the type of freight that’s moving and the route it’s moving along, and we will handle the rest. The very second your shipment is scheduled to begin loading, our team of dispatchers is monitoring the load and ensuring everything is moving along as scheduled.\n\nWe provide timely updates for our customers in whatever manner they prefer to receive them. Want an email every hour? You got it! Would you rather get a phone call instead? Say no more! Our customers can also track every shipment they have ever done with us via our website. We customize the way we operate around our customers to make shipping with us as hassle free as possible. Upon the shipments delivery, our billing department will track down any necessary paperwork and get it to you right away.\n\nAll customers have a www.kingoffreight.com username and password where they can log on and print off any paperwork related to their shipments. Every customer has a direct point of contact. No operators or being transferred from one person to the other. We strive to make your freight related business worry free.\n\n## Company Details\n- Industry: Transportation/Trucking/Railroad\n- Type: Privately held\n- Headquarters: Wichita, United States\n- Founded Year: 2008\n- Homepage: kingsoffreight.com\n- Aliases: King of Freight LLC, king of freight\n- LinkedIn: linkedin.com/company/king-of-freight\n- Linkedin Followers: 3,904\n- Emails: carrierrelations@kingoffreight.com, deaires@kingoffreight.com\n- Phone: (316) 413-3403, +1 316 440 4723, 316-440-4723\n\n## Workforce\n- Employees: 679\n- Company Size: 501-1000 employees\n  - Monthly Growth: +0.9%\n  - Yearly Growth: +3.2%\n- Key Executives:\n  - Andrew Holdeman: Director of Software Engineering\n  - April Brooks: HR Director\n  - Brady A. Miller: Vice President\n  - Mike Ricklefs: Chief Executive Officer\n  - Shaydon Webb: Director of Sales And Business Development\n- Breakdown:\n  - By Country: United States: 287 (42%)\n  - By Department: Operations: 127 (19%), Sales: 106 (16%), Finance: 22 (3%), Technical: 10 (1%), General Management: 7 (1%), Administrative: 6 (1%), Consulting: 6 (1%), Other Department: 5 (1%), Customer Service: 4 (1%), Hr: 4 (1%) (+1 more)\n  - By Seniority: Specialist: 209 (31%), Senior: 40 (6%), Manager: 32 (5%), Other Management: 13 (2%), Director: 3, Vp: 1\n- Salary ranges (20 of 72 roles):\n  - Vice President - Business Development: median $196,875.42 per year\n  - Executive Consultant: median $138,933.17 per year\n  - Sales Broker: median $113,553.49 per year\n  - Account Manager/Broker: median $106,700.45 per year\n  - Freight Broker Agent: median $103,892.1 per year\n  - Senior Account Manager: median $101,762.25 per year\n  - Sales Consultant: median $97,137.16 per year\n  - Web Developer/Database Administrator: median $94,808.42 per year\n  - Sales Account Manager: median $91,486.39 per year\n  - Senior Auditor: median $91,402.39 per year\n  - Regional Logistics Manager: median $87,549.63 per year\n  - Account Manager/Freight Broker: median $85,261.02 per year\n  - Web Developer: median $85,086.04 per year\n  - Senior Logistics Manager: median $84,022.03 per year\n  - PHP Developer: median $82,755.22 per year\n  - Broker: median $82,307.69 per year\n  - Freight Broker: median $80,796.27 per year\n  - Operations Manager: median $77,531.57 per year\n  - Sales Representative: median $74,200.19 per year\n  - Manager: median $73,603.39 per year\n- Talent Sources: Protection 1 Security Solutions (6), ADT (6), T-Mobile (5), Eddy's Toyota (4), Rusty Eck Ford (3), Progressive Insurance (3), Cox Communications (3), Cargill (3), Best Buy (3), KANSAS PLASTICS COMPANY INC (2)\n- Alumni Go To: ADT (4), T-Mobile (3), Spirit AeroSystems (3), Sedgwick County Government (2), Konica Minolta Business Solutions U.S.A., Inc. (2), Fenichey LLC (2), Family First Life (2), Cushman & Wakefield (2), Ashley Furniture Industries (2), Army National Guard (2)\n\n## Products & Technology\n- Tech Stack: mysql, php, react, react native, windows 10, microsoft, microsoft word, amp, heartland, well, bamboo, microsoft office, javascript, linux, salesforce, influential, youtube, ups\n\n## Web presence\n\n- Twitter: twitter.com/kingoffreight\n- Facebook: facebook.com/kingoffreight\n- Crunchbase: crunchbase.com/organization/king-of-freight\n- Web traffic:\n  - Monthly visits: 42,107\n  - Global rank: 202,296\n  - Bounce rate: 25.0%\n  - Pages per visit: 76.2\n  - Average visit duration: 4988s\n\n## Reviews & Ratings\n- Employer Rating: 4.3/5.0 (296 reviews)\n  - Breakdown: Work-Life: 4.1, Compensation: 4.2, Culture: 4.0, Career: 4.4\n\n## Categories\n\nbusiness_and_consumer_services/shipping_and_logistics, end to end solutions, expedited freight services, freight broker, full service, full service broker, heavy haul freight, logistics, logistics solutions, railroad, supply chain management, third party logistics, transportation, world-class logistics\n\n## Recent News\n- [2026-09-22] [King of Freight Expands to Colorado Springs, Creating New Job Opportunities](https://finance.yahoo.com/small-business/articles/king-freight-expands-colorado-springs-201000913.html)\n- [2026-09-02] ACCESS Newswire: Wichita Business Leader Michael Ricklefs Champions Second Chances for Workers Recovering from Addiction\n- [2026-08-30] KAKE: King of Freight CEO accused of slapping, choking 15-year-old boy\n- [2026-08-18] [King of Freight Partners with Recover Wellness to Bring On-Site Employee Wellness to Wichita](https://finance.yahoo.com/healthcare/articles/king-freight-partners-recover-wellness-211400658.html)\n- [2024-07-02] The Business Journals: King of Freight founder's 20-acre development plans push forward in northeast Wichita\n- [2017-07-08] The Business Journals: Wichita Crane Watch\n\n## Social\n\n### Linkedin\n\n- [2025-10-11 · 1 reaction] We're #hiring a new Job Title in Dallas, Texas. Apply today or share this post with your network.\n\n- [2025-08-01 · 4 reactions] We're #hiring a new Sales Account Manager in Addison, Texas. Apply today or share this post with your network.\n\n- [2024-10-23 · 4 reactions] We're #hiring a new Frieght Broker in Tampa, Florida. Apply today or share this post with your network.\n\n- [2024-09-26 · 4 reactions] We're #hiring a new Freight Broker in Wichita, Kansas. Apply today or share this post with your network.\n\n- [2024-04-24 · 7 reactions, 2 comments] We're #hiring a new Sales Representative in Wichita, Kansas. Apply today or share this post with your network.\n\n- [2024-01-16 · 5 reactions] We're #hiring a new Inside Sales Representative in Little Rock, Arkansas. Apply today or share this post with your network.\n\n- [2024-01-16 · 4 reactions, 1 comment] I’m #hiring. Know anyone who might be interested? 👋😊\n\n- [2023-08-22 · 7 reactions] Loaded and rolling with some insulated panels in partnership with King of Freight Keep moving on the weekend heading to Utah. #EVA #EVAHauling #Heavyhaul #KingOfFreight\n\n## Locations\n- Headquarters: wichita, kansas, united states (US)\n- Offices: wichita, kansas, united states (US)",
+        "summary": "{\"description\":\"King of Freight is a full service transportation brokerage providing world-class logistics solutions.\",\"employee_estimate\":679,\"employee_estimate_source\":\"679\",\"hq\":\"Wichita, Kansas, United States\",\"hq_quote\":\"Headquartered in Wichita, Kansas, United States.\",\"industry\":\"Transportation/Trucking/Railroad\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"we pride ourselves on being a full service transportation brokerage... we will handle the rest.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQH2kq64RFjgjw/company-logo_200_200/company-logo_200_200/0/1705616919402/king_of_freight_logo?e=2147483647&v=beta&t=E-zUKgCE7uyQoCCfmFIWSVfyEM1tsPRlEN4e-ctcbYU",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/v755jt1wb23",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "King of Freight",
+              "foundedYear": 2008,
+              "description": "At King of Freight we pride ourselves on being a full service transportation brokerage. Just tell us the type of freight that’s moving and the route it’s moving along, and we will handle the rest. The very second your shipment is scheduled to begin loading, our team of dispatchers is monitoring the load and ensuring everything is moving along as scheduled.\n\nWe provide timely updates for our customers in whatever manner they prefer to receive them. Want an email every hour? You got it! Would you rather get a phone call instead? Say no more! Our customers can also track every shipment they have ever done with us via our website. We customize the way we operate around our customers to make shipping with us as hassle free as possible. Upon the shipments delivery, our billing department will track down any necessary paperwork and get it to you right away.\n\nAll customers have a www.kingoffreight.com username and password where they can log on and print off any paperwork related to their shipments. Every customer has a direct point of contact. No operators or being transferred from one person to the other. We strive to make your freight related business worry free. ",
+              "workforce": {
+                "total": 679
+              },
+              "headquarters": {
+                "address": "P.O. Box 49170, Wichita, KS 67201, US",
+                "city": "Wichita",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 42107,
+                "countryRank": 42115,
+                "avgDurationSeconds": 4988,
+                "history": [
+                  {
+                    "value": 40928,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 52618,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 51455,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 60679,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 46752,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 42107,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/5c0xrncpycw",
+        "title": "King Freight Lines Limited",
+        "url": "https://kingfreight.com/",
+        "text": "# King Freight Lines Limited\n\nKing Freight Lines Limited is a Freight and Package Transportation company. King Freight Lines is a full load dry van carrier serving Canada and the US. They offer career opportunities to make businesses profitable. King Freight Lines Limited employs 32 people (+23.1% YoY, +6 people), founded in 1975. Headquartered in Pictou, Nova Scotia, Canada, with presence in United States.\n\n## About\n\nKing Freight Lines Limited is a full load dry van carrier based out of Pictou, Nova Scotia, Canada.\n\n## Company Details\n- Industry: Freight and Package Transportation\n- Type: Privately held\n- Headquarters: Pictou, Canada\n- Founded Year: 1975\n- Homepage: kingfreight.com\n- Aliases: king freight lines, king freight lines limited\n- LinkedIn: linkedin.com/company/king-freight-lines-limited\n- Linkedin Followers: 226\n- Emails: general@kingfreight.com\n- Phone: +1 902-485-8077\n\n## Workforce\n- Employees: 32\n- Company Size: 51-200 employees\n  - Monthly Growth: +3.2%\n  - Yearly Growth: +23.1%\n- Breakdown:\n  - By Country: Canada: 9 (28%)\n  - By Department: Operations: 5 (16%), Trades: 3 (9%), General Management: 1 (3%)\n  - By Seniority: Specialist: 6 (19%), Other Management: 2 (6%), Manager: 1 (3%)\n- Talent Sources: McConnell Transport (2), Various Companies (1), The Shandex Group (1), SUHANNA FREIGHT SERVICES INC (1), SLB (1), Penske Truck Leasing (1), Highland Cellular Inc (1), Gordon Food Service - Canada (1), AYR Motor Express Inc. (1), ADTS (1)\n- Alumni Go To: P&H Milling Group (1), MacGregors Industrial Group (1), D FORSYTH LTD (1)\n\n## Products & Technology\n- Tech Stack: microsoft, microsoft office, truckmate, well\n\n## Web presence\n\n- Crunchbase: crunchbase.com/organization/king-freight-lines-limited\n- Web traffic:\n  - Global rank: 9,421,105\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Reviews & Ratings\n- Employer Rating: 4.7/5.0 (3 reviews)\n  - Breakdown: Work-Life: 4.1, Compensation: 4.1, Culture: 3.8, Career: 3.5\n\n## Categories\n\ncanada, career opportunities, dry van carrier, fleet management, freight service, logistics, profitable, training, transportation, travel, us\n\n## Social\n\n### Linkedin\n\n- [2026-01-07 · 2 reactions] We're #hiring a new Dispatcher in Pictou, Nova Scotia. Apply today on LinkedIn or through our website (www.kingfreight.com) and feel free to share this post with your network!\n\n- [2025-12-24 · 1 reaction] Wishing everyone a safe and happy holiday season\n\n- [2025-12-10] https://lnkd.in/epVxNt83\n\n- [2025-12-10 · 1 reaction] https://lnkd.in/epA4sxdn\n\n- [2025-12-09 · 1 reaction] https://lnkd.in/eBr-eePD\n\n- [2025-11-21] https://lnkd.in/eXP8B52A\n\n- [2025-10-13] Sending you wishes for a wonderful day filled with comfort, joy, and whatever makes your heart feel full. We are truly thankful for you! #incredibleteam #greatpartners #greatcustomers\n\n## Locations\n- Headquarters: pictou, nova scotia, canada\n- Offices: new germany, nova scotia b0r 1e0, canada, pictou, nova scotia, canada",
+        "summary": "{\"description\":\"King Freight Lines Limited is a Freight and Package Transportation company and a full load dry van carrier serving Canada and the US.\",\"employee_estimate\":32,\"employee_estimate_source\":\"Employees: 32\",\"hq\":\"Headquartered in Pictou, Nova Scotia, Canada\",\"hq_quote\":\"Headquartered in Pictou, Nova Scotia, Canada\",\"industry\":\"Freight and Package Transportation\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"King Freight Lines Limited is a full load dry van carrier based out of Pictou, Nova Scotia, Canada in the About section and lists services that imply third-party logistics capabilities (carrier and freight services)\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQEgmFPoi4mL2Q/company-logo_200_200/company-logo_200_200/0/1705107360245/king_freight_lines_limited_logo?e=2147483647&v=beta&t=kZtrC0TP3DZvpGpdmVptQQSQR844uAyL3u6GdVzC5WM",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/5c0xrncpycw",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "King Freight Lines Limited",
+              "foundedYear": 1975,
+              "description": "King Freight Lines Limited is a full load dry van carrier based out of Pictou, Nova Scotia, Canada.",
+              "workforce": {
+                "total": 32
+              },
+              "headquarters": {
+                "address": "131 Harris Rd, Pictou, Nova Scotia, CA",
+                "city": "Pictou",
+                "postalCode": null,
+                "country": "Canada"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 1963,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 1496,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 2371,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 1858,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 231,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 11512.3,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

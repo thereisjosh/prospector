@@ -1,0 +1,226 @@
+{
+  "request": {
+    "query": "Henry AI",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the exact phrase from the page that the employee estimate came from (e.g. \"350 employees\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "d8fd408b4f1bae752c35f97777e49229",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/b3bj523bznz",
+        "title": "Henry",
+        "url": "https://henry.ai/",
+        "text": "# Henry\n\nHenry is a Real Estate company. Henry is an AI deal platform for CRE brokers that automates underwriting, rank comps from data, and build pitch decks. It is built for CRE teams that compete on quality and win on speed. Henry employs 35 people (+133.3% YoY, +20 people), founded in 2024. Headquartered in New York City, New York, United States, with an office in New City. Its workforce is distributed across 6 countries (including United States, India, Argentina, Brazil, and Ecuador).\n\n## About\n\nHenry is the context engine for commercial real estate. Our platform pulls your firm's data and brand into one place, then turns it into the underwriting, comps, research, buyer and lender lists, and decks that win the deal. In hours, not weeks. Every figure traced to its source, so it's right the first time and ready to send. We're proud to work with 9 of the top 10 CRE firms nationwide.\n\n## Company Details\n- Industry: Real Estate\n- Type: Privately held\n- Headquarters: New York City, United States\n- Founded Year: 2024\n- Homepage: henry.ai\n- Aliases: Henry AI, Inc., henry\n- LinkedIn: linkedin.com/company/henry-ai\n- Linkedin Followers: 4,846\n\n## Financials\n- Total Funding: USD 21,425,000\n  - Series a (2026-07-01): USD 16.5M\n  - Seed (2025-03-20): USD 4.3M\n  - Pre seed (2024-09-25): USD 500,000\n  - Seed (2024-08-01): USD 125,000\n\n## Workforce\n- Employees: 35\n- Company Size: 11-50 employees\n  - Yearly Growth: +133.3%\n- Key Executives:\n  - Adam Pratt: CTO & Co-Founder\n  - Charlie Callahan: Founding Account Executive\n  - Emma Arrighini: Head of Customer Success\n  - Gianluca Generoso: Head of Business Operations\n  - Jack Schoenfeld: Founding Product Manager\n  - Jay Bancone: Founding BDR\n  - Katrina Cheung: Founding Designer\n  - Roman Martynenko: FullStack Software Engineer, Founding Engineer\n  - Ryan Mannion: Founding Typist\n  - Sammy Greenwall: Co-Founder\n- Breakdown:\n  - By Country: United States: 25 (71%), India: 2 (6%), Argentina: 1 (3%), Brazil: 1 (3%), Ecuador: 1 (3%), Honduras: 1 (3%)\n  - By Department: Sales: 6 (17%), Technical: 6 (17%), Customer Service: 4 (11%), Other Department: 4 (11%), Consulting: 3 (9%), Operations: 3 (9%), Product: 2 (6%), Administrative: 1 (3%), Design: 1 (3%), Finance: 1 (3%) (+2 more)\n  - By Seniority: Specialist: 10 (29%), Founder: 7 (20%), Other Management: 7 (20%), Intern: 3 (9%), Head: 2 (6%), Senior: 2 (6%), Clevel: 1 (3%), Director: 1 (3%), Manager: 1 (3%)\n- Active job postings: 2\n- Talent Sources: Eastdil Secured Savills (2), Yuna Health (1), Savills (1), RentU (1), Primer (1), Oleksii Strichyk | Product design for top tier consumer apps (1), Koneksa (1), JBS (1), International School Tegucigalpa (1), Beakon (1)\n- Alumni Go To: Yuna Health (1), Starbridge (1), Relay (1), Pond Street Partners (1), Modern Bank, N.A. (1), LootRush (1), ExploraVist (1), Cassi (1), Camber (1), AXCS Capital (1)\n\n## Products & Technology\n- Tech Stack: linkedin, ramp, reddit, salesloft, tiktok, youtube, accenture, harness, prototype, rave, react, typescript, figma, github, hunter, impact, sketch, tailwind\n\n## Web presence\n\n- Twitter: twitter.com/henryai_cre\n- Facebook: facebook.com/henryai.cre\n- Instagram: instagram.com/henryai_cre\n- Crunchbase: crunchbase.com/organization/henry-ee87\n- Web traffic:\n  - Monthly visits: 16,386\n  - Global rank: 778,753\n  - Bounce rate: 42.0%\n  - Pages per visit: 14.5\n  - Average visit duration: 535s\n\n## Categories\n\nai, ai deal platform, analytics, artificial intelligence (ai), automation, business_and_consumer_services/business_services, commercial real estate, commercial real estate brokers, commercial real estate data, comps research, cre brokers, generative ai, investment sales brokerages, investment sales brokers, pitch decks, real estate, software, underwriting\n\n## Recent News\n- [2026-10-05]\n  - Henry Herald: A reckoning on social media addiction came late for many kids. Will AI safety be different?\n  - Virginia Lawyers Weekly: Hallucination-laced+TRO+raises+alarm+bells+on+AI+use+by+courts\n- [2026-10-03]\n  - Springfield News-Sun: Google Takes the AI Data Center Race to Outer Space\n  - TipRanks: Henry AI – Weekly Recap\n  - WSJ: The Mulleted, Meme-Loving Billionaire Behind Meta’s Hit AI App\n- [2026-10-02]\n  - The Guardian: OpenAI disclose another hack on government department in Australia\n  - Reuters: Swedish ball-bearing ad revives Greta Garbo with US, Chinese AI\n- [2026-09-30]\n  - BusinessDesk \\| NZ: AI is here, quantum is coming – is your business ready?\n  - blog.google: Game on: Henry Cavill is putting Googlebook to the test\n  - Key Biscayne Portal: Travel mishaps cost average traveler nearly $2,500\n- [2026-09-29]\n  - BigGo Finance: Sean Henry: Amazon's $5 Delivery Is the Moat. Stord's $3B Bet Is That Robots and Data Can Match It\n  - Business Insider: YouTuber says Muse gave his address to a Facebook Marketplace buyer after a button click: 'A guy just showed up'\n  - The Korea Herald: \\[Chris McKinney & Henry Haggard\\] Why AI needs more time\n- [2026-09-28]\n  - WGLT: 'Light Box' podcast explores the amazing and disturbing ways AI is infiltrating music\n  - The Australian: AI no more dangerous than human stupidity\n  - Ghana Business News: African states must strengthen safeguards against AI-driven electoral manipulation - Kwasi Prempeh\n  - Henry Herald: As the coding boom fades, computer science grads focus on AI skills in choppy job market\n  - Audacy: China and US agree to establish AI safety channel and continue trade and military talks\n- [2026-09-21]\n  - Celeb Baby Laundry: 12-Day-Old AI Agent Pip Goes Job Hunting To Earn More Tokens\n  - Cyber Daily: 2026 Intergenerational Report: AI ambitions must be built on cyber resilience, expert says\n- [2026-09-08] [New York-Based Henry AI Has a New End-to-End Deal-Making Portal – Commercial Observer](https://commercialobserver.com/2026/09/henryai-henry-deal/)\n- [2026-08-26] [Henry AI Raises $16.5M to Expand CRE Deal Automation - Connect Money](https://www.connectmoney.com/stories/henry-ai-raises-16-5m-to-expand-cre-deal-automation/)\n- [2026-08-22] [henry-ai-secures-16-5-million-series-a-and-unveils-major-platform-upgrades](https://www.tipranks.com/news/private-companies/henry-ai-secures-16-5-million-series-a-and-unveils-major-platform-upgrades)\n- [2026-08-18] [Henry AI Raises $16.5M Series A and Launches Henry Deal – News Radio KOTA](https://lifestyle.kotaradio.com/story/361838/henry-ai-raises-16-5m-series-a-and-launches-henry-deal/)\n- [2026-08-01] [Henry AI und Pangram Labs sichern sich Millionen – was das für KI-Workflows heißt](https://www.it-boltwise.de/henry-ai-und-pangram-labs-sichern-sich-millionen-was-das-fuer-ki-workflows-heisst.html)\n- [2026-07-31] [Henry AI raises $16.5M to automate commercial real estate work — plus 7 more NYC VC deals to know - New York Business Journal](https://www.bizjournals.com/newyork/news/2026/07/31/henry-ai-raises-165m-plus-other-fundraising-news.html)\n- [2026-07-30] [Henry AI Raises $16.5M in Series A Funding](https://www.finsmes.com/2026/07/henry-ai-raises-16-5m-in-series-a-funding.html)\n- [2026-07-29]\n  - [Henry AI Raises $16.5M Series A and Launches Henry Deal – KBEW – The Information Station](https://lifestyle.kbew98country.com/story/354216/henry-ai-raises-16-5m-series-a-and-launches-henry-deal/)\n  - [Henry AI Raises $16.5M Series A and Launches Henry Deal](https://uk.advfn.com/stock-market/share-news/Henry-AI-Raises-16-5M-Series-A-and-Launches-Henry/99003393)\n  - [henry-ai-secures-16-5m-series-a-to-build-deal-system-of-record-for-commercial-real-estate](https://www.tipranks.com/news/private-companies/henry-ai-secures-16-5m-series-a-to-build-deal-system-of-record-for-commercial-real-estate)\n  - [Venture Capital & Startup Funding Roundup, July 29, 2026: ThreatLocker & More - Tech Startups](https://techstartups.com/2026/07/29/venture-capital-startup-funding-roundup-july-29-2026-more/)\n- [2026-06-29]\n  - [正幸会病院（56床）、Henry AIで記録業務を“AI前提”に再設計 - 産経ニュース](https://www.sankei.com/pressrelease/prtimes/5FQPX54A6NLUZEN4D5WDMQMFR4/)\n  - [正幸会病院（56床）、Henry AIで記録業務を“AI前提”に再設計 - イザ！](https://www.iza.ne.jp/pressrelease/prtimes/5FQPX54A6NLUZEN4D5WDMQMFR4/)\n\n## Social\n\n### Linkedin\n\n- [2026-10-02 · Posted · 7 reactions] [We rounded up the hottest stories this week in CRE: Ken Griffin...](https://www.linkedin.com/posts/henry-ai_henryai-commercialrealestate-aitools-activity-7511833854878572544-8fPE)\n  > We rounded up the hottest stories this week in CRE:\n  >\n  > Ken Griffin paid $1.1B in cash for 35 acres of Wynwood and folded it into a $3B pledge to Carnegie Mellon, a $2B sale of the Pierre stalled over a $100M deposit that never landed, an arbitrator hit Michael Stern's JDS for $47M over Brooklyn's tallest tower, the owner of J.P. Morgan's bomb-scarred 23 Wall Street moved to carve the ground floor into two stores, the Applebee's billionaire took San Francisco's 1922 Standard Oil tower by deed in lieu, a $5B AI startup bought Steph Curry's Dogpatch building and lasted 28 days, the Chicago Fire priced club seats at their new $750M stadium up to $25,000, and a Houston redevelopment manager got 10 years for billing $300,000 to demolish 32 buildings that didn't exist.\n  >\n  > Follow @henryai_cre for more.\n  >\n  > #henryai #commercialrealestate #aitools\n\n- [2026-10-01 · Posted · 6 reactions] [game recognizes game #henryai #commercialrealestate #aitools #birkins](https://www.linkedin.com/posts/henry-ai_henryai-commercialrealestate-aitools-activity-7511500593530605569-7jTT)\n  > game recognizes game\n  >\n  > #henryai #commercialrealestate #aitools #birkins\n\n- [2026-09-30 · Posted · 12 reactions] [Asked a stranger to play pool w me... ended up talking shop. Do you...](https://www.linkedin.com/posts/henry-ai_henryai-commercialrealestate-aitools-activity-7511093392282480640-gYAj)\n  > Asked a stranger to play pool w me... ended up talking shop.\n  >\n  > Do you think Ilan Kahn, Development Advisor's right about where tech's headed in the CRE space?\n  >\n  > #henryai #commercialrealestate #aitools\n\n- [2026-09-29 · Posted · 54 reactions] [how sammy and adam felt cooking up henry deal. (It's live, by the...](https://www.linkedin.com/posts/henry-ai_henryai-commercialrealestate-aitools-activity-7510716095998308352-gnui)\n  > how sammy and adam felt cooking up henry deal. (It's live, by the way.)\n  >\n  > #henryai #commercialrealestate #aitools\n\n- [2026-09-25 · Posted · 2 reactions] [We rounded up the hottest stories this week in CRE: New York...](https://www.linkedin.com/posts/henry-ai_henryai-commercialrealestate-aitools-activity-7509288432616136704-Pw7f)\n  > We rounded up the hottest stories this week in CRE:\n  >\n  > New York delayed a $100M Hudson Yards tax break, Soros put a landmarked 57th Street building up for half its last price, San Francisco's biggest stalled site came back as a 910-foot office tower, Toys R Us announced 120 new stores nine years after it died, and Rolex finished a Fifth Avenue tower shaped like a watch face, and the Met broke ground on a $500M wing.\n  >\n  > Follow @henryai_cre for more.\n  >\n  > #henryai #commercialrealestate #aitools\n\n- [2026-09-24 · Posted · 16 reactions] [we work hard but we also play hard at Henry HQ 😂](https://www.linkedin.com/posts/henry-ai_we-work-hard-but-we-also-play-hard-at-henry-activity-7508919526000967681-iD2l)\n  > we work hard but we also play hard at Henry HQ 😂\n\n- [2026-09-23 · Posted · 9 reactions] [commited to the grind #henryai #commercialrealestate #lockedin...](https://www.linkedin.com/posts/henry-ai_henryai-commercialrealestate-lockedin-activity-7508557038663335936-Rahr)\n  > commited to the grind\n  >\n  > #henryai #commercialrealestate #lockedin #grindset\n\n- [2026-09-23 · Posted · 21 reactions] [Maps are one of the features clients tell us they love most on...](https://www.linkedin.com/posts/henry-ai_maps-are-one-of-the-features-clients-tell-activity-7508557923208380417-SfYh)\n  > Maps are one of the features clients tell us they love most on Henry, and it's easy to see why.\n  >\n  > Pick a location, and it drops straight onto your slide as a clean, branded map with the pin already placed. No screenshotting Google Maps, no manually eyeballing placement.\n  >\n  > 9 of the top 10 CRE firms build with Henry.\n  >\n  > Learn more: https://go.henry.ai\n\n- [2026-09-17 · Posted · 49 reactions] [Meet Lorenzo, our newest software engineering hire! #henryai...](https://www.linkedin.com/posts/henry-ai_henryai-commercialrealestate-aitools-activity-7506382338482831361-NtQN)\n  > Meet Lorenzo, our newest software engineering hire!\n  >\n  > #henryai #commercialrealestate #aitools\n\n- [2026-09-16 · Posted · 13 reactions] [ep 2 #henryai #commercialrealestate #aitools](https://www.linkedin.com/posts/henry-ai_henryai-commercialrealestate-aitools-activity-7506021249329033217--NnU)\n  > ep 2\n  >\n  > #henryai #commercialrealestate #aitools\n\n- [2026-09-15 · Posted · 33 reactions] [Why does Henry AI exist? Because Sammy Greenwall saw a gap that...](https://www.linkedin.com/posts/henry-ai_henryai-commercialrealestate-aitools-activity-7505683460695687168-ndDQ)\n  > Why does Henry AI exist? Because Sammy Greenwall saw a gap that needed fixing and decided to build the solution instead of waiting for someone else to.\n  >\n  > This is only the start, underwriting and comps research are already live, with a lot more on the way.\n  >\n  > Click the link in the comments to learn more. 🚀\n  >\n  > #henryai #commercialrealestate #aitools\n\n- [2026-09-15 · 37 reactions, 12 comments] Why does Henry AI exist? Because Sammy Greenwall saw a gap that needed fixing and decided to build the solution instead of waiting for someone else to. This is only the start, underwriting and comp...\n\n- [2026-09-11 · Posted · 6 reactions] [\"Isn't Henry just for CRE brokers?\" No. CRE investors use us to...](https://www.linkedin.com/posts/henry-ai_henryai-commercialrealestate-aitools-activity-7504208678355587072-Ri8L)\n  > \"Isn't Henry just for CRE brokers?\"\n  >\n  > No. CRE investors use us to pull a full package together the moment a deal is worth a closer look. Debt brokers use us to build a bridge or equity OM without starting from a blank page. Asset managers use us to stay portfolio ready, with a brochure menu on demand.\n  >\n  > Follow your path. Link in bio.\n  >\n  > #henryai #commercialrealestate #aitools\n\n- [2026-09-11 · 6 reactions] \"Isn't Henry just for CRE brokers?\" No. CRE investors use us to pull a full package together the moment a deal is worth a closer look. Debt brokers use us to build a bridge or equity OM without sta...\n\n- [2026-09-10 · Posted · 8 reactions] [More new updates to Henry: Now you can set your deck to the format...](https://www.linkedin.com/posts/henry-ai_henryai-commercialrealestate-aitools-activity-7503846797640044545-BjUt)\n  > More new updates to Henry:\n  >\n  > Now you can set your deck to the format you actually print, widescreen, letter, A4, or postcard, and check it in booklet view before you download.\n  >\n  > Deal HQ puts underwriting and decks in one place, so you can start from the model and order a deck without hunting across tabs.\n  >\n  > Try it on your next deck. Link in bio.\n  >\n  > #henryai #commercialrealestate #aitools\n\n- [2026-09-10 · 8 reactions] More new updates to Henry: Now you can set your deck to the format you actually print, widescreen, letter, A4, or postcard, and check it in booklet view before you download. Deal HQ puts underwriti...\n\n- [2026-09-09 · Posted · 9 reactions] [Last month we dropped a ton of new features. Now in Henry you can...](https://www.linkedin.com/posts/henry-ai_henryai-commercialrealestate-aitools-activity-7503483212812275712-wMDe)\n  > Last month we dropped a ton of new features.\n  >\n  > Now in Henry you can see your deck leave the editor as a fully editable PowerPoint file.\n  >\n  > And if you preferred last week's version of the deck? You're in good hands. Version history keeps every save, so you can compare and restore in seconds.\n  >\n  > Try it on your next deck. Link in bio.\n  >\n  > #henryai #commercialrealestate #aitools\n\n- [2026-09-09 · 9 reactions] Last month we dropped a ton of new features. Now in Henry you can see your deck leave the editor as a fully editable PowerPoint file. And if you preferred last week's version of the deck? You're in...\n\n- [2026-09-08 · Posted · 8 reactions] [Brought Jake Heller to the Henry office to show him what's new on...](https://www.linkedin.com/posts/henry-ai_henryai-commercialrealestate-aitools-activity-7503118286658723841-szSZ)\n  > Brought Jake Heller to the Henry office to show him what's new on the platform. May or may not have blown his mind.\n  >\n  > #henryai #commercialrealestate #aitools\n\n- [2026-09-08 · Reshared · 59 reactions] [Thank you Cathy Cunningham for the fantastic coverage on Henry Deal...](https://www.linkedin.com/posts/henry-ai_activity-7503109165817634817-bVex): Thank you Cathy Cunningham for the fantastic coverage on Henry Deal and the Series A announcement. @customers hit me up if you want a real AI solution that actually works for commercial real estate...\n\n## Locations\n- Headquarters: new york city, new york, united states (US)\n- Offices: new city, new york, united states (US), new york city, new york, united states (US)",
+        "summary": "{\"description\":\"Henry is an AI deal platform for CRE brokers that automates underwriting, rank comps from data, and build pitch decks. It is built for CRE teams that compete on quality and win on speed. Henry is the context engine for commercial real estate. Our platform pulls your firm's data and brand into one place, then turns it into underwriting, comps, research, buyer and lender lists, and decks that win the deal.\",\"employee_estimate\":35,\"employee_estimate_source\":\"Employees: 35\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Active job postings: 2\",\"hq\":\"New York City, New York, United States\",\"hq_quote\":\"Headquartered in New York City, New York, United States, with an office in New City.\",\"industry\":\"Real Estate\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Henry AI, Inc., henry\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 21,425,000 - Series a (2026-07-01): USD 16.5M - Seed (2025-03-20): USD 4.3M - Pre seed (2024-09-25): USD 500,000 - Seed (2024-08-01): USD 125,000\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQEErN5tda5CuQ/company-logo_200_200/B4EZhWafb2GUAI-/0/1753796442172/henry_ai_logo?e=2147483647&v=beta&t=7roZghxMO848KEXoNNf54Rn3tXO8m_fQ2Uj2wTmC29A",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/b3bj523bznz",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Henry",
+              "foundedYear": 2024,
+              "description": "Henry is the context engine for commercial real estate. Our platform pulls your firm's data and brand into one place, then turns it into the underwriting, comps, research, buyer and lender lists, and decks that win the deal. In hours, not weeks. Every figure traced to its source, so it's right the first time and ready to send. We're proud to work with 9 of the top 10 CRE firms nationwide.",
+              "workforce": {
+                "total": 35
+              },
+              "headquarters": {
+                "address": "New York City, New York, US",
+                "city": "New York City",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 21425000,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2026-07-01",
+                  "amount": 16500000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 16386,
+                "countryRank": 190803,
+                "avgDurationSeconds": 535,
+                "history": [
+                  {
+                    "value": 8092,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 8973,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 15095,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 8184,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 12209,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 16386,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/t492z1f6qst",
+        "title": "Henry AI",
+        "url": "https://henryapi.ai/",
+        "text": "# Henry AI\n\nHenry AI is a IT Services and IT Consulting company. Henry Ingest provides a workable structure for connecting email, document, and sentiment sources such as Outlook, Gmail, SharePoint, OneDrive, Google Drive, and other file sources. Henry AI employs 2 people (+100.0% YoY, +1 person), founded in 2025.\n\n## About\n\nHenry is an AI powered data intelligence platform built for the South African automotive finance industry. We help the entire vehicle sales ecosystem sell more cars by turning fragmented data into actionable insight, automating manual processes, and connecting the people and systems behind every deal.\n\nFrom finance applications to final delivery, Henry uses artificial intelligence to identify opportunities others miss, recover revenue that would otherwise be lost, and give every stakeholder in the value chain the tools to move faster and close more.\n\n## Company Details\n- Industry: IT Services and IT Consulting\n- Type: Privately held\n- Founded Year: 2025\n- Homepage: henryapi.ai\n- Aliases: henry ai\n- LinkedIn: linkedin.com/company/henryapi-ai\n- Linkedin Followers: 36\n- Emails: accounts@deltaparts.co.za\n- Phone: 2026-07-19, 48 210.00\n\n## Workforce\n- Employees: 2\n- Company Size: 1-10 employees\n  - Yearly Growth: +100.0%\n- Key Executives:\n  - Ian Fourie: Co-Founder\n- Breakdown:\n  - By Country: South Africa: 2 (100%)\n  - By Department: Consulting: 1 (50%), Technical: 1 (50%)\n  - By Seniority: Founder: 1 (50%), Specialist: 1 (50%)\n- Talent Sources: PETE Learning (1), Envisionit Group (1)\n\n## Web presence\n\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Categories\n\ndocument ai, email ai, sentiment analysis, technology/software, traceable data, workable structure\n\n## Social\n\n### Linkedin\n\n- [2025-07-03] https://henryapi.ai Launching soon!",
+        "summary": "{\"description\":\"Henry AI is an IT Services and IT Consulting company that provides an AI-powered data intelligence platform for the South African automotive finance industry, focusing on turning fragmented data into actionable insight, automating manual processes, and connecting people and systems behind every deal.\",\"employee_estimate\":2,\"employee_estimate_source\":\"Employees: 2\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"South Africa\",\"hq_quote\":\"Breakdown: By Country: South Africa: 2 (100%)\",\"industry\":\"IT Services and IT Consulting\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: IT Services and IT Consulting\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":null,\"recently_funded_seed_or_series_a_quote\":\"Henry AI employs 2 people (+100.0% YoY, +1 person), founded in 2025.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQGGGpPiBuknTQ/company-logo_200_200/B4EZj_KKWVGUAM-/0/1756627511579?e=2147483647&v=beta&t=HAjGOWXEf7MXKeynCL-LkFLQZKvonon2ubnDAAa-q2M",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/t492z1f6qst",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Henry AI",
+              "foundedYear": 2025,
+              "description": "Henry is an AI powered data intelligence platform built for the South African automotive finance industry. We help the entire vehicle sales ecosystem sell more cars by turning fragmented data into actionable insight, automating manual processes, and connecting the people and systems behind every deal.\n\nFrom finance applications to final delivery, Henry uses artificial intelligence to identify opportunities others miss, recover revenue that would otherwise be lost, and give every stakeholder in the value chain the tools to move faster and close more.",
+              "workforce": {
+                "total": 2
+              },
+              "headquarters": null,
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": []
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 9881.3,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}
