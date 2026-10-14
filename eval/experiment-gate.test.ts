@@ -166,8 +166,18 @@ describe("runReplay (mocked Exa recording)", () => {
     mkdirSync(fixture, { recursive: true });
     vi.stubGlobal("fetch", exaFetch());
     process.env.EXA_RECORD_DIR = fixture;
-    const record = await runCell(scenarioOf(item), "A_workflow", 1, { now: new Date(now), resultsRoot: join(root, "rec"), runSetId: "ci-fixtures" });
-    delete process.env.EXA_RECORD_DIR;
+    // Recording hits the (mocked) network, so it needs a key; replay must not. The key is scoped
+    // to this call so the runReplay tests prove replay is served with no credential at all.
+    const prevKey = process.env.EXA_API_KEY;
+    process.env.EXA_API_KEY = "test-key";
+    let record;
+    try {
+      record = await runCell(scenarioOf(item), "A_workflow", 1, { now: new Date(now), resultsRoot: join(root, "rec"), runSetId: "ci-fixtures" });
+    } finally {
+      delete process.env.EXA_RECORD_DIR;
+      if (prevKey === undefined) delete process.env.EXA_API_KEY;
+      else process.env.EXA_API_KEY = prevKey;
+    }
     writeFileSync(join(fixture, "cell.json"), JSON.stringify(record));
     expect(record.leads.map((l) => l.company)).toEqual(["ShipCo"]);
     return fixture;
