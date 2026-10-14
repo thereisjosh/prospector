@@ -111,3 +111,67 @@ export async function exportExperimentItemSpans(spans: ExperimentItemSpan[], opt
   if (failures > 0) throw new Error(`${failures} experiment span export failure(s)`);
   return spans.length;
 }
+
+export type SdkTracing = {
+  /** Flush every span, then unregister the provider and context manager. Throws on export failure. */
+  shutdown(): Promise<void>;
+};
+
+/**
+ * Tracing for code whose observations the Langfuse SDK creates itself through
+ * `@langfuse/tracing` (the Experiments SDK: `langfuse.experiment.run` / `dataset.runExperiment`).
+ * For a short-lived script; call `shutdown()` once at the end.
+ *
+ * What the docs' setup (`new NodeSDK({ spanProcessors: [new LangfuseSpanProcessor()] }).start()`,
+ * langfuse.com/docs/evaluation/experiments/experiments-via-sdk) registers, without the NodeSDK
+ * dependency:
+ * - an async context manager. The experiment runner opens the item's root span with
+ *   `startActiveObservation` and then sets `langfuse.experiment.id/name/item.id/
+ *   item.root_observation_id/dataset_id` on it through `propagateAttributes`, which reads
+ *   `trace.getActiveSpan()`. With no global context manager (the OTel API default is a no-op)
+ *   there is no active span, the attributes land nowhere, and Langfuse receives a plain trace,
+ *   not an experiment item. `setLangfuseTracerProvider` alone does not provide this.
+ * - the provider, as the global provider (`ExperimentManager.isOtelRegistered()` checks only the
+ *   global one and warns "Traces will not be sent" otherwise) and as Langfuse's provider.
+ */
+export async function startSdkTracing(options: { environment?: string; exporter?: SpanExporter } = {}): Promise<SdkTracing> {
+  const [{ LangfuseSpanProcessor }, { BasicTracerProvider }, api, tracing, core, asyncHooks] = await Promise.all([
+    import("@langfuse/otel"),
+    import("@opentelemetry/sdk-trace-base"),
+    import("@opentelemetry/api"),
+    import("@langfuse/tracing"),
+    import("@opentelemetry/core"),
+    import("@opentelemetry/context-async-hooks"),
+  ]);
+  let failures = 0;
+  core.setGlobalErrorHandler((error) => {
+    failures += 1;
+    console.error(`Langfuse span export failed: ${error instanceof Error ? error.message : String(error)}`);
+  });
+  const contextManager = new asyncHooks.AsyncLocalStorageContextManager().enable();
+  if (!api.context.setGlobalContextManager(contextManager)) {
+    contextManager.disable();
+    throw new Error("an OpenTelemetry context manager is already registered in this process; startSdkTracing needs to own it");
+  }
+  const processor = new LangfuseSpanProcessor({
+    ...(options.environment ? { environment: options.environment } : {}),
+    ...(options.exporter ? { exporter: options.exporter } : {}),
+    additionalHeaders: { "x-langfuse-ingestion-version": "4" },
+  });
+  const provider = new BasicTracerProvider({ spanProcessors: [processor] });
+  if (!api.trace.setGlobalTracerProvider(provider)) {
+    api.context.disable();
+    throw new Error("an OpenTelemetry tracer provider is already registered in this process; startSdkTracing needs to own it");
+  }
+  tracing.setLangfuseTracerProvider(provider);
+  return {
+    async shutdown() {
+      await processor.forceFlush();
+      await provider.shutdown();
+      tracing.setLangfuseTracerProvider(null);
+      api.trace.disable();
+      api.context.disable();
+      if (failures > 0) throw new Error(`${failures} Langfuse span export failure(s)`);
+    },
+  };
+}

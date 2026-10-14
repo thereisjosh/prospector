@@ -3,22 +3,28 @@
  * (.agents/skills/langfuse/references/judge-calibration.md §2–§3).
  *
  *   npx tsx eval/online/calibrate-judge.ts                 # $0: fetch sets + prompts, print the cost estimate
- *   npx tsx eval/online/calibrate-judge.ts --run --max-dollars 1 [--judge judge_q1]
+ *   npx tsx eval/online/calibrate-judge.ts --run --max-dollars 1 [--judge judge_q1] [--item <company substring>]
+ *   npx tsx eval/online/calibrate-judge.ts --dry-run --judge judge_q3   # $0: stub verdicts, run "dry-run · …" in Langfuse
+ *   npx tsx eval/online/calibrate-judge.ts --list-runs judge_q3         # $0: experiment runs + per-item verdicts (30 days)
  *
  * --run is PAID (Anthropic, same model as the evaluator). For each judge it fetches the dataset
  * `judge-calibration/<judge>` and the candidate prompt `judge-calibration/<judge>` (latest
  * version) from Langfuse, runs that prompt on every item with the Experiments SDK
  * (`dataset.runExperiment`), and scores each result with the Boolean evaluator
  * `<judge>-judge-output-correct` (output === expected output). It then prints accuracy and
- * every mismatch (input, expected, actual). It refuses to start if the estimate exceeds
- * --max-dollars.
+ * every mismatch (input, expected, actual, full reasoning), writes every verdict to
+ * eval/results/calibration/<date>/<judge>.json, and confirms the run is listed by the Langfuse
+ * Experiments API. It refuses to start if the estimate exceeds --max-dollars.
  */
 import "dotenv/config";
+import { mkdirSync, writeFileSync } from "node:fs";
+import { dirname, join } from "node:path";
 import { pathToFileURL } from "node:url";
 import type Anthropic from "@anthropic-ai/sdk";
 import type { LangfuseClient } from "@langfuse/client";
 import { CLAUDE_PRICES_PER_MILLION, claudeCostDollars } from "../../src/agent/config";
-import { createLangfuseClient, projectId, uiLink } from "../langfuse/client";
+import { createLangfuseClient, EVAL_ENVIRONMENT, projectId, uiLink } from "../langfuse/client";
+import { startSdkTracing } from "../langfuse/otel";
 import { calibrationDatasetName } from "./calibration-set";
 import { JUDGE_CATEGORIES, JUDGE_MODEL, JUDGE_QUESTIONS, LEAD_VARIABLE, judgeOutputDefinition, type JudgeAnswer, type JudgeQuestion } from "./judge-prompt";
 
@@ -127,19 +133,28 @@ export function summaryLine(q: string, correct: number, total: number, errors: n
   return `${q}: ${correct}/${total} correct, ${errors} errors`;
 }
 
-type FetchedItem = { id: string; input: unknown; expectedOutput?: unknown; metadata?: unknown };
+type FetchedItem = { id: string; datasetId?: string; input: unknown; expectedOutput?: unknown; metadata?: unknown };
 
-async function fetchSet(client: LangfuseClient, question: JudgeQuestion): Promise<{ items: FetchedItem[]; messages: Message[]; promptVersion: number }> {
+/** `--item <substring>`: the items whose company contains it (case-insensitive); all items without a filter. */
+export function selectItems<T extends { input: unknown }>(items: T[], substring?: string): T[] {
+  if (substring === undefined) return items;
+  const needle = substring.toLowerCase();
+  return items.filter((i) => String((i.input as { company?: unknown } | null)?.company ?? "").toLowerCase().includes(needle));
+}
+
+async function fetchSet(client: LangfuseClient, question: JudgeQuestion, itemFilter?: string): Promise<{ items: FetchedItem[]; messages: Message[]; promptVersion: number }> {
   const name = calibrationDatasetName(question);
   const dataset = await client.dataset.get(name);
   const prompt = (await client.api.prompts.get(name, { label: "latest", resolve: false })) as unknown as { version: number; prompt: Message[] };
-  return { items: dataset.items as unknown as FetchedItem[], messages: prompt.prompt.map((m) => ({ role: m.role, content: m.content })), promptVersion: prompt.version };
+  const items = selectItems(dataset.items as unknown as FetchedItem[], itemFilter);
+  if (items.length === 0) throw new Error(`--item ${JSON.stringify(itemFilter)} matches no company in ${name}`);
+  return { items, messages: prompt.prompt.map((m) => ({ role: m.role, content: m.content })), promptVersion: prompt.version };
 }
 
-export async function estimate(client: LangfuseClient, questions: JudgeQuestion[]) {
+export async function estimate(client: LangfuseClient, questions: JudgeQuestion[], itemFilter?: string) {
   const rows: Array<{ question: JudgeQuestion; items: number; promptVersion: number; inputTokens: number; dollars: number; labels: Record<string, number> }> = [];
   for (const q of questions) {
-    const { items, messages, promptVersion } = await fetchSet(client, q);
+    const { items, messages, promptVersion } = await fetchSet(client, q, itemFilter);
     let inputTokens = 0;
     let dollars = 0;
     const labels: Record<string, number> = {};
@@ -154,54 +169,176 @@ export async function estimate(client: LangfuseClient, questions: JudgeQuestion[
   return { rows, total: rows.reduce((n, r) => n + r.dollars, 0) };
 }
 
-async function run(client: LangfuseClient, questions: JudgeQuestion[], maxDollars: number) {
-  const { rows, total } = await estimate(client, questions);
-  if (total > maxDollars) throw new Error(`estimated $${total.toFixed(2)} > --max-dollars ${maxDollars}; nothing was run`);
-  process.env.LANGFUSE_TRACING_ENVIRONMENT ||= "eval";
-  const [{ default: AnthropicSdk }, tracing, otel, base] = await Promise.all([
-    import("@anthropic-ai/sdk"),
-    import("@langfuse/tracing"),
-    import("@langfuse/otel"),
-    import("@opentelemetry/sdk-trace-base"),
-  ]);
-  const processor = new otel.LangfuseSpanProcessor({ additionalHeaders: { "x-langfuse-ingestion-version": "4" } });
-  const provider = new base.BasicTracerProvider({ spanProcessors: [processor] });
-  tracing.setLangfuseTracerProvider(provider);
-  const anthropic = new AnthropicSdk();
+type Verdict = { score: JudgeAnswer | "invalid"; reasoning: string; costDollars: number };
+
+export type ReportItem = {
+  datasetItemId: string;
+  company: string;
+  signal_url: string;
+  expected: string;
+  /** The judge's category, "invalid", or "error" when the task threw (see `error`). */
+  actual: string;
+  correct: boolean;
+  /** Full, untruncated. */
+  reasoning: string;
+  costDollars: number;
+  /** Langfuse trace of the item (null when the task threw: the SDK drops the item result). */
+  traceId: string | null;
+  error?: string;
+};
+
+export type CalibrationReport = {
+  judge: JudgeQuestion;
+  runName: string;
+  /** Langfuse experiment id (Experiments API). */
+  experimentId: string;
+  dataset: string;
+  datasetId: string | null;
+  promptVersion: number;
+  model: string;
+  itemFilter: string | null;
+  createdAt: string;
+  correct: number;
+  total: number;
+  errors: number;
+  spentDollars: number;
+  items: ReportItem[];
+};
+
+/** One report row per selected dataset item, in dataset order; errored items included as "error". */
+export function reportItems(
+  selected: FetchedItem[],
+  results: Array<{ item: { id?: string }; output?: Partial<Verdict>; traceId?: string }>,
+  errors: Array<{ id: string; message: string }>,
+): ReportItem[] {
+  return selected.map((item) => {
+    const input = (item.input ?? {}) as { company?: unknown; signal_url?: unknown };
+    const base = { datasetItemId: item.id, company: String(input.company ?? ""), signal_url: String(input.signal_url ?? ""), expected: String(item.expectedOutput) };
+    const r = results.find((x) => x.item.id === item.id);
+    if (!r) {
+      const message = errors.find((e) => e.id === item.id)?.message ?? "no result from the experiment runner";
+      return { ...base, actual: "error", correct: false, reasoning: "", costDollars: 0, traceId: null, error: message };
+    }
+    const actual = String(r.output?.score ?? "invalid");
+    return { ...base, actual, correct: actual === base.expected, reasoning: String(r.output?.reasoning ?? ""), costDollars: r.output?.costDollars ?? 0, traceId: r.traceId ?? null };
+  });
+}
+
+/** eval/results/calibration/<YYYY-MM-DD>/<judge>.json; a --item run gets its own file so it never replaces the full round. */
+export function reportPath(report: Pick<CalibrationReport, "judge" | "createdAt" | "itemFilter">, root = "eval/results"): string {
+  const slug = report.itemFilter === null ? "" : `.item-${report.itemFilter.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`;
+  return join(root, "calibration", report.createdAt.slice(0, 10), `${report.judge}${slug}.json`);
+}
+
+export function writeReport(report: CalibrationReport, root?: string): string {
+  const path = reportPath(report, root);
+  mkdirSync(dirname(path), { recursive: true });
+  writeFileSync(path, `${JSON.stringify(report, null, 2)}\n`);
+  return path;
+}
+
+/** Mismatch table (reasoning shortened to fit a row), then every mismatch's full reasoning. */
+export function mismatchLines(items: ReportItem[]): string[] {
+  const wrong = items.filter((i) => !i.correct);
+  const lines = ["| Dataset input | Expected output | Actual output |", "|---|---|---|"];
+  for (const i of wrong) lines.push(`| ${i.company} · ${i.signal_url} | ${i.expected} | ${i.actual} — ${(i.error ?? i.reasoning).replace(/\s+/g, " ").slice(0, 200)} |`);
+  if (wrong.length) lines.push("", "Full reasoning for each mismatch:");
+  for (const i of wrong) lines.push("", `### ${i.company} (expected ${i.expected}, got ${i.actual}; trace ${i.traceId ?? "none"})`, i.error ? `task error: ${i.error}` : i.reasoning || "(empty reasoning)");
+  return lines;
+}
+
+type ExperimentsApi = Pick<LangfuseClient["api"]["experiments"], "list" | "listItems">;
+
+/**
+ * Wait until the Experiments API lists the run with every item (ingestion is asynchronous).
+ * Returns the item count seen; throws if the run never appears.
+ */
+export async function confirmExperiment(api: ExperimentsApi, opts: { experimentId: string; datasetId: string | null; fromStartTime: string; expectedItems: number; timeoutMs?: number; intervalMs?: number }): Promise<number> {
+  const deadline = Date.now() + (opts.timeoutMs ?? 120_000);
+  let seen = -1;
+  for (;;) {
+    const page = await api.list({ fromStartTime: opts.fromStartTime, id: opts.experimentId, ...(opts.datasetId ? { datasetId: opts.datasetId } : {}) });
+    const found = page.data.find((e) => e.id === opts.experimentId);
+    seen = found ? found.itemCount : -1;
+    if (seen >= opts.expectedItems) return seen;
+    if (Date.now() > deadline) break;
+    await new Promise((r) => setTimeout(r, opts.intervalMs ?? 5_000));
+  }
+  throw new Error(seen < 0 ? `experiment ${opts.experimentId} not listed by the Experiments API after ${(opts.timeoutMs ?? 120_000) / 1000}s` : `experiment ${opts.experimentId} lists ${seen}/${opts.expectedItems} items`);
+}
+
+export const DRY_RUN_PREFIX = "dry-run · ";
+
+async function run(client: LangfuseClient, questions: JudgeQuestion[], opts: { maxDollars?: number; dryRun: boolean; itemFilter?: string }) {
+  const { rows, total } = await estimate(client, questions, opts.itemFilter);
+  if (!opts.dryRun && total > (opts.maxDollars ?? 0)) throw new Error(`estimated $${total.toFixed(2)} > --max-dollars ${opts.maxDollars}; nothing was run`);
+  const judge = opts.dryRun
+    ? async (): Promise<Verdict> => ({ score: "invalid", reasoning: "dry-run", costDollars: 0 })
+    : await (async () => {
+        const { default: AnthropicSdk } = await import("@anthropic-ai/sdk");
+        const anthropic = new AnthropicSdk();
+        return (q: JudgeQuestion, messages: Message[]) => judgeOnce(anthropic, q, messages);
+      })();
   const project = await projectId(client);
+  const sdkTracing = await startSdkTracing({ environment: EVAL_ENVIRONMENT });
   let spent = 0;
   let errorCount = 0;
-  for (const q of questions) {
-    const { messages, promptVersion } = await fetchSet(client, q);
-    const dataset = await client.dataset.get(calibrationDatasetName(q));
-    const errors: Array<{ id: string; message: string }> = [];
-    const result = await dataset.runExperiment({
-      name: `judge-calibration/${q}`,
-      runName: `${q} prompt v${promptVersion} · ${new Date().toISOString().slice(0, 16)}`,
-      description: `Calibration of the online ${q} evaluator (prompt judge-calibration/${q} v${promptVersion}, ${JUDGE_MODEL.model})`,
-      metadata: { judge: q, promptVersion, model: JUDGE_MODEL.model },
-      task: trackErrors(async (item: { id?: string; input: unknown }) => {
-        const out = await judgeOnce(anthropic, q, compile(messages, item.input));
-        spent += out.costDollars;
-        return out;
-      }, errors),
-      evaluators: [outputCorrect(q)],
-    } as never);
-    const items = (result as unknown as { itemResults: Array<{ item: FetchedItem; output: { score: string; reasoning: string } }> }).itemResults;
-    const wrong = items.filter((r) => r.output?.score !== r.item.expectedOutput);
-    errorCount += errors.length;
-    const total = dataset.items.length;
-    console.log(`\n${summaryLine(q, items.length - wrong.length, total, errors.length)} (${(((items.length - wrong.length) / Math.max(1, total)) * 100).toFixed(0)}%; the reference treats 85% as good only if every category is acceptable)`);
-    console.log("| Dataset input | Expected output | Actual output |\n|---|---|---|");
-    for (const r of wrong) {
-      const input = r.item.input as { company?: string; signal_url?: string };
-      console.log(`| ${input.company} · ${input.signal_url} | ${String(r.item.expectedOutput)} | ${r.output?.score} — ${String(r.output?.reasoning ?? "").replace(/\s+/g, " ").slice(0, 200)} |`);
+  const pending: Array<{ report: CalibrationReport; startedAt: string }> = [];
+  try {
+    for (const q of questions) {
+      const { messages, promptVersion, items: selected } = await fetchSet(client, q, opts.itemFilter);
+      const dataset = await client.dataset.get(calibrationDatasetName(q));
+      const errors: Array<{ id: string; message: string }> = [];
+      const startedAt = new Date().toISOString();
+      const runName = `${opts.dryRun ? DRY_RUN_PREFIX : ""}${q} prompt v${promptVersion}${opts.itemFilter ? ` · item ${opts.itemFilter}` : ""} · ${startedAt.slice(0, 16)}`;
+      const result = (await dataset.runExperiment({
+        name: `judge-calibration/${q}`,
+        runName,
+        description: `Calibration of the online ${q} evaluator (prompt judge-calibration/${q} v${promptVersion}, ${JUDGE_MODEL.model})${opts.dryRun ? "; dry run, no model call" : ""}`,
+        metadata: { judge: q, promptVersion, model: JUDGE_MODEL.model, dryRun: opts.dryRun },
+        data: selected,
+        task: trackErrors(async (item: { id?: string; input: unknown }) => {
+          const out = await judge(q, compile(messages, item.input));
+          spent += out.costDollars;
+          return out;
+        }, errors),
+        evaluators: [outputCorrect(q)],
+      } as never)) as unknown as { experimentId: string; itemResults: Array<{ item: FetchedItem; output?: Partial<Verdict>; traceId?: string }> };
+      const items = reportItems(selected, result.itemResults, errors);
+      errorCount += errors.length;
+      const correct = items.filter((i) => i.correct).length;
+      const report: CalibrationReport = {
+        judge: q,
+        runName,
+        experimentId: result.experimentId,
+        dataset: calibrationDatasetName(q),
+        datasetId: selected[0]?.datasetId ?? null,
+        promptVersion,
+        model: JUDGE_MODEL.model,
+        itemFilter: opts.itemFilter ?? null,
+        createdAt: startedAt,
+        correct,
+        total: selected.length,
+        errors: errors.length,
+        spentDollars: items.reduce((n, i) => n + i.costDollars, 0),
+        items,
+      };
+      console.log(`\n${summaryLine(q, correct, selected.length, errors.length)} (${((correct / Math.max(1, selected.length)) * 100).toFixed(0)}%; the reference treats 85% as good only if every category is acceptable)`);
+      for (const line of mismatchLines(items)) console.log(line);
+      if (opts.dryRun) console.log(`\n(dry run: report not written; it would go to ${reportPath(report)})`);
+      else console.log(`\nreport: ${writeReport(report)}`);
+      pending.push({ report, startedAt });
     }
+  } finally {
+    await client.flush();
+    await sdkTracing.shutdown();
   }
-  await client.flush();
-  await provider.forceFlush();
-  await provider.shutdown();
-  console.log(`\nspent $${spent.toFixed(4)} (estimated ≤ $${total.toFixed(2)}); results: ${uiLink(project, "datasets")}`);
+  for (const { report, startedAt } of pending) {
+    const from = new Date(Date.parse(startedAt) - 60_000).toISOString();
+    const seen = await confirmExperiment(client.api.experiments, { experimentId: report.experimentId, datasetId: report.datasetId, fromStartTime: from, expectedItems: report.total - report.errors });
+    console.log(`Langfuse experiment "${report.runName}" (${report.experimentId}): ${seen} items listed · ${report.datasetId ? uiLink(project, `datasets/${report.datasetId}`) : uiLink(project, "experiments")}`);
+  }
+  console.log(`\nspent $${spent.toFixed(4)} (estimated ≤ $${total.toFixed(2)})`);
   if (errorCount > 0) {
     console.error(`${errorCount} task errors; results above are incomplete`);
     process.exitCode = 1;
@@ -209,21 +346,88 @@ async function run(client: LangfuseClient, questions: JudgeQuestion[], maxDollar
   return { rows, spent, errorCount };
 }
 
+/** The Experiments API returns item input/output as JSON strings. */
+function parsed(value: unknown): unknown {
+  if (typeof value !== "string") return value;
+  try {
+    return JSON.parse(value) as unknown;
+  } catch {
+    return value;
+  }
+}
+
+/** `--list-runs <judge>` ($0): experiment runs on the judge's calibration dataset, with each item's verdict. */
+export async function listRuns(api: Pick<LangfuseClient["api"], "datasets" | "experiments">, q: JudgeQuestion, days = 30, log: (line: string) => void = console.log): Promise<number> {
+  const name = calibrationDatasetName(q);
+  const dataset = await api.datasets.get(name);
+  const fromStartTime = new Date(Date.now() - days * 86_400_000).toISOString();
+  const experiments: Array<{ id: string; name: string; startTime: string; itemCount: number }> = [];
+  let cursor: string | undefined;
+  do {
+    const page = await api.experiments.list({ fromStartTime, datasetId: dataset.id, limit: 100, ...(cursor ? { cursor } : {}) });
+    experiments.push(...page.data);
+    cursor = page.meta.cursor ?? undefined;
+  } while (cursor);
+  experiments.sort((a, b) => a.startTime.localeCompare(b.startTime));
+  log(`${name} (${dataset.id}): ${experiments.length} experiment run(s) since ${fromStartTime.slice(0, 10)}`);
+  const scoreName = `${q}-judge-output-correct`;
+  for (const e of experiments) {
+    log(`\n${e.name} · started ${e.startTime} · ${e.itemCount} items · ${e.id}`);
+    const items: Array<{ input?: unknown; output?: unknown; expectedOutput?: unknown; traceId: string; scores?: Array<{ name: string; value: unknown }> }> = [];
+    let itemCursor: string | undefined;
+    do {
+      const page = await api.experiments.listItems({ fromStartTime, experimentId: e.id, fields: "core,io,scores", limit: 100, ...(itemCursor ? { cursor: itemCursor } : {}) });
+      items.push(...(page.data as typeof items));
+      itemCursor = page.meta.cursor ?? undefined;
+    } while (itemCursor);
+    for (const i of items) {
+      const company = String((parsed(i.input) as { company?: unknown } | null)?.company ?? "?");
+      const actual = String((parsed(i.output) as { score?: unknown } | null)?.score ?? "?");
+      const score = i.scores?.find((s) => s.name === scoreName);
+      log(`  ${company} | expected ${String(parsed(i.expectedOutput))} | actual ${actual} | ${scoreName}=${score ? String(score.value) : "none"} | trace ${i.traceId}`);
+    }
+  }
+  return experiments.length;
+}
+
+function flag(argv: string[], name: string): string | undefined {
+  const i = argv.indexOf(name);
+  if (i < 0) return undefined;
+  const value = argv[i + 1];
+  if (value === undefined || value.startsWith("--")) throw new Error(`${name} needs a value`);
+  return value;
+}
+
+function judgeArg(value: string | undefined, name: string): JudgeQuestion | undefined {
+  if (value !== undefined && !JUDGE_QUESTIONS.includes(value as JudgeQuestion)) throw new Error(`${name} takes one of ${JUDGE_QUESTIONS.join(", ")}`);
+  return value as JudgeQuestion | undefined;
+}
+
 async function main() {
   const argv = process.argv.slice(2);
-  const judge = argv.includes("--judge") ? (argv[argv.indexOf("--judge") + 1] as JudgeQuestion) : undefined;
-  if (judge && !JUDGE_QUESTIONS.includes(judge)) throw new Error(`--judge takes one of ${JUDGE_QUESTIONS.join(", ")}`);
-  const questions = judge ? [judge] : JUDGE_QUESTIONS;
   const client = await createLangfuseClient();
+  const listJudge = judgeArg(flag(argv, "--list-runs"), "--list-runs");
+  if (listJudge) {
+    await listRuns(client.api, listJudge);
+    return;
+  }
+  const judge = judgeArg(flag(argv, "--judge"), "--judge");
+  const itemFilter = flag(argv, "--item");
+  const questions = judge ? [judge] : JUDGE_QUESTIONS;
+  if (argv.includes("--dry-run")) {
+    if (argv.includes("--run")) throw new Error("--dry-run and --run are exclusive");
+    await run(client, questions, { dryRun: true, itemFilter });
+    return;
+  }
   if (!argv.includes("--run")) {
-    const { rows, total } = await estimate(client, questions);
+    const { rows, total } = await estimate(client, questions, itemFilter);
     for (const r of rows) console.log(`${r.question}: ${r.items} items, prompt v${r.promptVersion}, ~${r.inputTokens} input tokens, ≤ $${r.dollars.toFixed(3)}; labels ${JSON.stringify(r.labels)}`);
     console.log(`total ≤ $${total.toFixed(2)} for one calibration round on ${JUDGE_MODEL.model} (${MAX_OUTPUT_TOKENS} output tokens budgeted per verdict). Nothing was run; pass --run --max-dollars <n> to run it.`);
     return;
   }
-  const max = Number(argv[argv.indexOf("--max-dollars") + 1]);
-  if (!argv.includes("--max-dollars") || !Number.isFinite(max) || max <= 0) throw new Error("--run needs --max-dollars <n>");
-  await run(client, questions, max);
+  const max = Number(flag(argv, "--max-dollars"));
+  if (!Number.isFinite(max) || max <= 0) throw new Error("--run needs --max-dollars <n>");
+  await run(client, questions, { maxDollars: max, dryRun: false, itemFilter });
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
