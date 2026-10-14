@@ -94,7 +94,7 @@ const SECRET_ENV_VARS = ["ANTHROPIC_API_KEY", "EXA_API_KEY", "ADMIN_TOKEN", "LAN
 const PATTERNS: Array<[RegExp, string]> = [
   [/-----BEGIN [A-Z ]*PRIVATE KEY-----[\s\S]*?-----END [A-Z ]*PRIVATE KEY-----/g, "[redacted:key]"],
   [/\bsk-ant-[A-Za-z0-9_-]{8,}/g, "[redacted:key]"],
-  [/\b(?:sk|pk|rk)-(?:lf-|proj-|live-|test-)?[A-Za-z0-9_-]{16,}/g, "[redacted:key]"],
+  [/\b(?:sk|pk)-lf-[0-9a-f-]{20,}/g, "[redacted:key]"],
   [/\beyJ[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,}/g, "[redacted:token]"],
   [/\bBearer\s+[A-Za-z0-9._~+/-]{8,}=*/gi, "Bearer [redacted:token]"],
   [/\b(authorization|x-api-key|api[_-]?key|access[_-]?token|admin[_-]?token|token|secret|password)(["']?\s*[:=]\s*["']?)(?!\[redacted)[^\s"',;]{6,}/gi, "$1$2[redacted:secret]"],
@@ -109,10 +109,24 @@ const PATTERNS: Array<[RegExp, string]> = [
   [/(?<![\w-])\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}\b/g, "[redacted:phone]"],
 ];
 
-export type MaskOptions = { workspaceId?: string; env?: Record<string, string | undefined> };
+export type MaskOptions = { workspaceId?: string; env?: Record<string, string | undefined>; keepBlobs?: boolean };
 
 function escapeRegExp(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+const URL_RE = /\bhttps?:\/\/[^\s"'<>)\]]+/gi;
+const BLOB_RE = /\b(?:[0-9a-fA-F]{32,}|(?=[A-Za-z0-9+/]*[A-Z])(?=[A-Za-z0-9+/]*[a-z])(?=[A-Za-z0-9+/]*\d)[A-Za-z0-9+/]{32,}={0,2})(?![A-Za-z0-9+/])/g;
+
+/** Generic 32+ char hex/base64 blobs are masked only outside URLs (URL slugs and ids are real signal). */
+function maskBlobsOutsideUrls(value: string): string {
+  let out = "";
+  let last = 0;
+  for (const m of value.matchAll(URL_RE)) {
+    out += value.slice(last, m.index).replace(BLOB_RE, "[redacted:blob]") + m[0];
+    last = m.index + m[0].length;
+  }
+  return out + value.slice(last).replace(BLOB_RE, "[redacted:blob]");
 }
 
 /** Mask one string: known secret values, the raw workspace id, then patterns; clip to 2,000 chars. */
@@ -129,6 +143,7 @@ export function maskString(value: string, options: MaskOptions = {}): string {
     out = out.replace(new RegExp(escapeRegExp(ws), "g"), hashed ? `ws:${hashed}` : "[redacted:workspace]");
   }
   for (const [pattern, replacement] of PATTERNS) out = out.replace(pattern, replacement);
+  if (!options.keepBlobs) out = maskBlobsOutsideUrls(out);
   return out.length > MAX_STRING ? `${out.slice(0, MAX_STRING)}…[clipped]` : out;
 }
 
@@ -138,20 +153,22 @@ export function maskString(value: string, options: MaskOptions = {}): string {
  */
 export function mask<T>(payload: T, options: MaskOptions = {}): T {
   const seen = new WeakMap<object, unknown>();
-  const walk = (value: unknown): unknown => {
-    if (typeof value === "string") return maskString(value, options);
+  // Our own digests and ids (prompt/page hashes, HMAC'd userId, trace ids) are policy-mandated hex, not secrets.
+  const DIGEST_KEY = /hash|sha256|digest|^(?:trace|session|user|run)?_?id$/i;
+  const walk = (value: unknown, key?: string): unknown => {
+    if (typeof value === "string") return maskString(value, key && DIGEST_KEY.test(key) ? { ...options, keepBlobs: true } : options);
     if (value === null || typeof value !== "object") return value;
     if (value instanceof Date) return value;
     if (seen.has(value)) return seen.get(value);
     if (Array.isArray(value)) {
       const arr: unknown[] = [];
       seen.set(value, arr);
-      for (const item of value) arr.push(walk(item));
+      for (const item of value) arr.push(walk(item, key));
       return arr;
     }
     const obj: Record<string, unknown> = {};
     seen.set(value, obj);
-    for (const [key, item] of Object.entries(value as Record<string, unknown>)) obj[maskString(key, options)] = walk(item);
+    for (const [key, item] of Object.entries(value as Record<string, unknown>)) obj[maskString(key, options)] = walk(item, key);
     return obj;
   };
   return walk(payload) as T;
@@ -1049,39 +1066,106 @@ export type BackfillResult = {
   skipped: { observations: number; scores: number };
 };
 
-/** Ids of observations and scores Langfuse already holds for these traces, in this environment only. */
-export async function existingIds(traceIds: string[], environment = tracingEnvironment()): Promise<{ observations: Set<string>; scores: Set<string> }> {
-  const sdk = await init();
-  const client = sdk.client ?? new (await import("@langfuse/client")).LangfuseClient();
+export type ExistingClient = {
+  api: {
+    observations: { getMany(req: Record<string, unknown>): Promise<{ data: Array<{ id: string }>; meta: { cursor?: string | null } }> };
+    scoresV3: { getManyV3(req: Record<string, unknown>): Promise<{ data: Array<{ id: string }>; meta: { cursor?: string | null } }> };
+  };
+};
+export type ExistingOptions = {
+  concurrency?: number;
+  sleep?: (ms: number) => Promise<void>;
+  onProgress?: (p: { done: number; total: number; etaMs: number | undefined }) => void;
+  now?: () => number;
+};
+
+/** Seconds from a 429's Retry-After header (or body), else undefined. */
+function retryAfterMs(error: unknown): number | undefined {
+  const e = error as { statusCode?: number; rawResponse?: { headers?: Headers | Record<string, string> } };
+  if (e?.statusCode !== 429) return undefined;
+  const h = e.rawResponse?.headers;
+  const raw = h && typeof (h as Headers).get === "function" ? (h as Headers).get("retry-after") : (h as Record<string, string> | undefined)?.["retry-after"];
+  const secs = Number(raw);
+  return Number.isFinite(secs) && secs > 0 ? Math.ceil(secs * 1000) : 5000;
+}
+
+async function withRetryAfter<T>(fn: () => Promise<T>, sleep: (ms: number) => Promise<void>, attempts = 8): Promise<T> {
+  for (let i = 0; ; i++) {
+    try {
+      return await fn();
+    } catch (error) {
+      const wait = retryAfterMs(error);
+      if (wait === undefined || i >= attempts) throw error;
+      await sleep(wait);
+    }
+  }
+}
+
+/**
+ * Ids Langfuse already holds for these traces. Scores are listed in batches (the API takes a
+ * comma-separated traceId list), observations per trace; 429s honour retry-after; work runs at
+ * `concurrency` and reports progress with an ETA.
+ */
+export async function listExisting(client: ExistingClient, traceIds: string[], environment: string, options: ExistingOptions = {}): Promise<{ observations: Set<string>; scores: Set<string> }> {
+  const { concurrency = 2, sleep = (ms) => new Promise((r) => setTimeout(r, ms)), now = Date.now } = options;
   const observations = new Set<string>();
   const scores = new Set<string>();
+  const BATCH = 10;
+  const tasks: Array<() => Promise<void>> = [];
   for (const traceId of traceIds) {
-    let cursor: string | undefined;
-    do {
-      const page = await client.api.observations.getMany({ traceId, environment, fields: "core", limit: 1000, ...(cursor ? { cursor } : {}) });
-      for (const o of page.data) observations.add(o.id);
-      cursor = page.meta.cursor ?? undefined;
-    } while (cursor);
-    cursor = undefined;
-    do {
-      const page = await client.api.scoresV3.getManyV3({ traceId, environment, limit: 100, ...(cursor ? { cursor } : {}) });
-      for (const s of page.data) scores.add(s.id);
-      cursor = page.meta.cursor ?? undefined;
-    } while (cursor);
+    tasks.push(async () => {
+      let cursor: string | undefined;
+      do {
+        const page = await withRetryAfter(() => client.api.observations.getMany({ traceId, environment, fields: "core", limit: 1000, ...(cursor ? { cursor } : {}) }), sleep);
+        for (const o of page.data) observations.add(o.id);
+        cursor = page.meta.cursor ?? undefined;
+      } while (cursor);
+    });
   }
+  for (let i = 0; i < traceIds.length; i += BATCH) {
+    const batch = traceIds.slice(i, i + BATCH).join(",");
+    tasks.push(async () => {
+      let cursor: string | undefined;
+      do {
+        const page = await withRetryAfter(() => client.api.scoresV3.getManyV3({ traceId: batch, environment, limit: 100, ...(cursor ? { cursor } : {}) }), sleep);
+        for (const s of page.data) scores.add(s.id);
+        cursor = page.meta.cursor ?? undefined;
+      } while (cursor);
+    });
+  }
+  const started = now();
+  let done = 0;
+  let next = 0;
+  const worker = async () => {
+    while (next < tasks.length) {
+      const task = tasks[next++];
+      await task();
+      done += 1;
+      const elapsed = now() - started;
+      options.onProgress?.({ done, total: tasks.length, etaMs: done > 0 ? Math.round((elapsed / done) * (tasks.length - done)) : undefined });
+    }
+  };
+  await Promise.all(Array.from({ length: Math.max(1, Math.min(concurrency, tasks.length)) }, worker));
   return { observations, scores };
+}
+
+/** Ids of observations and scores Langfuse already holds for these traces, in this environment only. */
+export async function existingIds(traceIds: string[], environment = tracingEnvironment(), options: ExistingOptions = {}): Promise<{ observations: Set<string>; scores: Set<string> }> {
+  const sdk = await init();
+  const client = sdk.client ?? new (await import("@langfuse/client")).LangfuseClient();
+  return listExisting(client as unknown as ExistingClient, traceIds, environment, options);
 }
 
 /**
  * Backfill one run from its events (+ state). Lists what Langfuse already has and
  * exports only missing observations and scores, so re-running never duplicates.
  */
-export async function backfill(events: AgentEvent[], state: unknown): Promise<BackfillResult> {
+export async function backfill(events: AgentEvent[], state: unknown, options: ExistingOptions = {}): Promise<BackfillResult> {
   const ctx = runContextFromState(state);
   const environment = tracingEnvironment();
   const traces = toObservations(events, { model: ctx.model, environment, legacyRoots: !events.some((e) => e.kind === "turn_end") });
   const sdk = await init();
-  const have = await existingIds(traces.map((t) => t.traceId), environment);
+  const have = await existingIds(traces.map((t) => t.traceId), environment, options);
   const exported = exportObservations(sdk, traces, ctx, have);
   await flush();
   const total = { observations: traces.reduce((n, t) => n + t.observations.length, 0), scores: traces.reduce((n, t) => n + t.scores.length, 0) };

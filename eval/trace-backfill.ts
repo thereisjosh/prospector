@@ -13,7 +13,7 @@ import { existsSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
 
-function parseArgs(argv: string[]): { dir: string; environment: string } {
+function parseArgs(argv: string[]): { dir: string; environment: string; concurrency: number } {
   const args = [...argv];
   let environment = "eval";
   const envFlag = args.indexOf("--environment");
@@ -21,10 +21,17 @@ function parseArgs(argv: string[]): { dir: string; environment: string } {
     environment = args[envFlag + 1] ?? "";
     args.splice(envFlag, 2);
   }
+  let concurrency = 2;
+  const cFlag = args.indexOf("--concurrency");
+  if (cFlag >= 0) {
+    concurrency = Number(args[cFlag + 1]);
+    args.splice(cFlag, 2);
+  }
+  if (!Number.isInteger(concurrency) || concurrency < 1 || concurrency > 16) throw new Error("--concurrency must be an integer 1-16");
   if (!/^(?!langfuse)[a-z0-9_-]{1,40}$/.test(environment)) throw new Error(`invalid environment "${environment}"`);
   const dir = args[0];
-  if (!dir) throw new Error("usage: npx tsx eval/trace-backfill.ts <recording-dir> [--environment eval]");
-  return { dir: resolve(dir), environment };
+  if (!dir) throw new Error("usage: npx tsx eval/trace-backfill.ts <recording-dir> [--environment eval] [--concurrency 2]");
+  return { dir: resolve(dir), environment, concurrency };
 }
 
 function runFiles(dir: string): { events: string; state: string } {
@@ -37,7 +44,7 @@ function runFiles(dir: string): { events: string; state: string } {
 }
 
 async function main() {
-  const { dir, environment } = parseArgs(process.argv.slice(2));
+  const { dir, environment, concurrency } = parseArgs(process.argv.slice(2));
   // Read by the span processor and the score client when they are created (lazily, below).
   process.env.LANGFUSE_TRACING_ENVIRONMENT = environment;
   const trace = await import("../src/agent/trace");
@@ -53,7 +60,10 @@ async function main() {
   const runId = events[0]?.runId ?? state.id;
   if (!runId) throw new Error("no runId in events or state");
 
-  const result = await trace.backfill(events, state);
+  const result = await trace.backfill(events, state, {
+    concurrency,
+    onProgress: ({ done, total, etaMs }) => console.log(`  checking existing: ${done}/${total}${etaMs !== undefined ? ` · ETA ${Math.ceil(etaMs / 1000)}s` : ""}`),
+  });
   const stats = trace.traceStats();
   const base = (process.env.LANGFUSE_BASE_URL ?? "https://cloud.langfuse.com").replace(/\/$/, "");
   const project = await trace.projectId();

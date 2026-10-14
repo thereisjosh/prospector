@@ -32,6 +32,7 @@ import {
   enabled,
   flush,
   hashWorkspaceId,
+  listExisting,
   mask,
   maskString,
   rootObservationId,
@@ -358,6 +359,15 @@ describe("mask", () => {
     );
   });
 
+  it("keeps URL slugs intact and redacts only real key shapes", () => {
+    const url = "https://www.einpresswire.com/article/930317205/rk-logistics-group-opens-austin-distribution-center";
+    expect(maskString(`signal ${url}`)).toBe(`signal ${url}`);
+    const env = { EXA_API_KEY: "exa-live-0123456789abcdef", ADMIN_TOKEN: undefined };
+    const out = maskString(`a sk-ant-api03-abcdefghijklmnopqrstu b pk-lf-1234abcd-1234-abcd-1234-abcdef012345 c exa-live-0123456789abcdef d Bearer abcdefghijklmnopqrstuvwx e ${"a1b2c3d4".repeat(5)} f ${url}?id=${"a1b2c3d4".repeat(5)}`, { env });
+    expect(out.split(" f ")[0]).not.toMatch(/sk-ant|pk-lf|exa-live|abcdefghijklmnopqrstuvwx|a1b2c3d4/);
+    expect(out).toContain(`${url}?id=${"a1b2c3d4".repeat(5)}`);
+  });
+
   it("masks nested values and keys without mutating the input, and clips long strings", () => {
     const input = { [`k ${EMAIL}`]: [{ note: `x ${EMAIL}` }], long: "a".repeat(5000) };
     const out = mask(input) as Record<string, unknown>;
@@ -403,5 +413,49 @@ describe("O1 review fixes", () => {
     // 4 successful model calls x (system + tools); at most the first pair misses.
     expect(after.misses - before.misses).toBeLessThanOrEqual(2);
     expect(after.hits - before.hits).toBeGreaterThanOrEqual(6);
+  });
+});
+
+describe("listExisting (backfill batching)", () => {
+  function fake(throttleFirst = 0) {
+    const calls: Array<{ kind: string; traceId: string }> = [];
+    let throttled = 0;
+    const client = {
+      api: {
+        observations: {
+          getMany: async (r: Record<string, unknown>) => {
+            calls.push({ kind: "obs", traceId: String(r.traceId) });
+            return { data: [{ id: `o-${r.traceId}` }], meta: {} };
+          },
+        },
+        scoresV3: {
+          getManyV3: async (r: Record<string, unknown>) => {
+            calls.push({ kind: "score", traceId: String(r.traceId) });
+            if (throttled < throttleFirst) {
+              throttled += 1;
+              throw Object.assign(new Error("429"), { statusCode: 429, rawResponse: { headers: new Headers({ "retry-after": "50" }) } });
+            }
+            const ids = String(r.traceId).split(",");
+            if (!r.cursor && ids.length > 1) return { data: ids.slice(0, 1).map((t) => ({ id: `s-${t}` })), meta: { cursor: "c2" } };
+            return { data: (r.cursor ? ids.slice(1) : ids).map((t) => ({ id: `s-${t}` })), meta: {} };
+          },
+        },
+      },
+    };
+    return { client, calls };
+  }
+
+  it("batches score lookups, paginates, honours retry-after and reports progress", async () => {
+    const { client, calls } = fake(1);
+    const sleeps: number[] = [];
+    const progress: number[] = [];
+    const ids = Array.from({ length: 6 }, (_, i) => `t${i}`);
+    const out = await listExisting(client, ids, "eval", { concurrency: 2, sleep: async (ms) => void sleeps.push(ms), onProgress: (p) => progress.push(p.done) });
+    expect(calls.filter((c) => c.kind === "score").some((c) => c.traceId === ids.join(","))).toBe(true);
+    expect(calls.filter((c) => c.kind === "score" && c.traceId.includes(",")).length).toBeGreaterThan(0);
+    expect(sleeps).toEqual([50000]);
+    expect([...out.scores].sort()).toEqual(ids.map((t) => `s-${t}`));
+    expect(out.observations.size).toBe(6);
+    expect(progress.at(-1)).toBe(7);
   });
 });
