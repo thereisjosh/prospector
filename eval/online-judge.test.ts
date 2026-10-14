@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it, vi } from "vitest";
 import { calibrationDatasetName, calibrationItems, SPOT_CHECKS } from "./online/calibration-set";
-import { compile, estimateCallDollars, judgeOnce, outputCorrect } from "./online/calibrate-judge";
+import { compile, estimateCallDollars, judgeOnce, outputCorrect, summaryLine, trackErrors } from "./online/calibrate-judge";
 import { JUDGE_QUESTIONS, judgeMessages, judgeOutputDefinition, judgeUserPrompt } from "./online/judge-prompt";
 import { evaluatorBody, ruleFilter, RULE_NAME } from "./online/setup-langfuse";
 import { judgePayload } from "../src/agent/judge-input";
@@ -81,10 +81,39 @@ describe("judge calibration set (SPOT-CHECKS.md)", () => {
     const call = client.messages.create.mock.calls[0]![0] as unknown as { system: string; tools: Array<{ input_schema: { properties: { score: { enum: string[] } } } }>; tool_choice: unknown };
     expect(call.system).toBe(rubric);
     expect(call.tools[0]!.input_schema.properties.score.enum).toEqual(judgeOutputDefinition("judge_q1").categories);
-    expect(call.tool_choice).toEqual({ type: "tool", name: "verdict" });
+    expect(call.tool_choice).toBeUndefined();
+    const sent = (call as unknown as { messages: Array<{ content: string }> }).messages;
+    expect(sent[sent.length - 1]!.content).toMatch(/calling the `verdict` tool exactly once\.$/);
 
     const correct = outputCorrect("judge_q1");
     expect(await correct({ output: out, expectedOutput: "no" })).toMatchObject({ name: "judge_q1-judge-output-correct", value: 1, dataType: "BOOLEAN" });
     expect(await correct({ output: { score: "cannot_verify" }, expectedOutput: "no" })).toMatchObject({ value: 0 });
+  });
+});
+
+describe("judge calibration failure handling", () => {
+  it("returns invalid (no text parsing) with the first text block when the model makes no tool call, and still costs it", async () => {
+    const client = {
+      messages: { create: vi.fn(async (_body: unknown) => ({ content: [{ type: "text", text: `score: yes ${"x".repeat(600)}` }], usage: { input_tokens: 1000, output_tokens: 50 } })) },
+    };
+    const out = await judgeOnce(client as never, "judge_q1", [{ role: "user", content: "hi" }]);
+    expect(out.score).toBe("invalid");
+    expect(out.reasoning.startsWith("no verdict tool call: score: yes")).toBe(true);
+    expect(out.reasoning).toHaveLength("no verdict tool call: ".length + 500);
+    expect(out.costDollars).toBeCloseTo((1000 * 4 + 50 * 20) / 1e6, 6);
+  });
+
+  it("logs the item id + message, counts the error, rethrows, and the summary reports it", async () => {
+    const errors: Array<{ id: string; message: string }> = [];
+    const log = vi.fn();
+    const task = trackErrors(async (item: { id?: string }) => {
+      if (item.id === "b") throw new Error("400 tool_choice not supported");
+      return "ok";
+    }, errors, log);
+    expect(await task({ id: "a" })).toBe("ok");
+    await expect(task({ id: "b" })).rejects.toThrow("400 tool_choice");
+    expect(errors).toEqual([{ id: "b", message: "400 tool_choice not supported" }]);
+    expect(log).toHaveBeenCalledWith("item b failed: 400 tool_choice not supported");
+    expect(summaryLine("judge_q1", 0, 10, 10)).toBe("judge_q1: 0/10 correct, 10 errors");
   });
 });

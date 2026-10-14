@@ -122,6 +122,13 @@ Per failure: symptom · layer · cause · fix · before → after or evidence ·
 
 Also fixed: Exa 429s under load (aac0a20: ≤ 4 in flight, jittered retry); an unanchored `.gitignore` hid `app/api/runs/**` and `app/api/workspaces/**` until d8248dc.
 
+## 18. Calibration run: forced tool_choice rejected by claude-opus-5-5 [measured]
+
+- **Symptom:** 2026-10-14 calibration run: 400 × 10 (`tool_choice: type "tool" and "any" are not supported for this model`); $0 spent because 400s do not bill; the runner swallowed the errors and reported 0/0.
+- **Layer:** eval. **Cause:** `judgeOnce` forced `tool_choice: {type:"tool", name:"verdict"}`; `dataset.runExperiment` catches a throwing task, logs "Skipping item" and drops it, so nothing failed loudly. `src/agent/loop.ts` already avoided forced tool choice for this model.
+- **Fix:** no forced tool_choice; the prompt ends "Answer by calling the `verdict` tool exactly once."; no `tool_use` block gives `score: "invalid"` (no text parsing). The task is wrapped to log item id + message and count errors; summary prints `N/M correct, K errors` and exits non-zero when K > 0. Tests: `eval/online-judge.test.ts`.
+- **Earlier:** `--limit 1` with raw-output inspection before a full paid pass.
+
 ## What we would monitor weekly
 
 Extends SPEC-agent §14; a breach rolls back one stage.

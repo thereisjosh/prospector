@@ -52,6 +52,8 @@ export function outputCorrect(question: JudgeQuestion) {
   });
 }
 
+const VERDICT_INSTRUCTION = "Answer by calling the `verdict` tool exactly once.";
+
 const VERDICT_TOOL = (question: JudgeQuestion) => {
   const def = judgeOutputDefinition(question);
   return {
@@ -75,13 +77,43 @@ export async function judgeOnce(client: Pick<Anthropic, "messages">, question: J
     model: JUDGE_MODEL.model,
     max_tokens: MAX_OUTPUT_TOKENS,
     ...(system ? { system } : {}),
-    messages: messages.filter((m) => m.role !== "system").map((m) => ({ role: "user" as const, content: m.content })),
+    messages: messages
+      .filter((m) => m.role !== "system")
+      .map((m, i, all) => ({ role: "user" as const, content: i === all.length - 1 ? `${m.content}\n\n${VERDICT_INSTRUCTION}` : m.content })),
     tools: [VERDICT_TOOL(question)],
-    tool_choice: { type: "tool", name: "verdict" },
-  } as never)) as unknown as { content: Array<{ type: string; input?: { score?: unknown; reasoning?: unknown } }>; usage?: Record<string, number> };
+    // No forced tool_choice: claude-opus-5-5 rejects type "tool"/"any" with a 400 (same constraint as src/agent/loop.ts).
+  } as never)) as unknown as { content: Array<{ type: string; text?: string; input?: { score?: unknown; reasoning?: unknown } }>; usage?: Record<string, number> };
+  const costDollars = claudeCostDollars(JUDGE_MODEL.model, response.usage ?? {});
   const block = response.content.find((b) => b.type === "tool_use");
+  if (!block) {
+    const text = response.content.find((b) => b.type === "text")?.text ?? "";
+    return { score: "invalid", reasoning: `no verdict tool call: ${text.slice(0, 500)}`, costDollars };
+  }
   const score = (JUDGE_CATEGORIES as readonly string[]).includes(String(block?.input?.score)) ? (block!.input!.score as JudgeAnswer) : "invalid";
-  return { score, reasoning: String(block?.input?.reasoning ?? ""), costDollars: claudeCostDollars(JUDGE_MODEL.model, response.usage ?? {}) };
+  return { score, reasoning: String(block.input?.reasoning ?? ""), costDollars };
+}
+
+/**
+ * `dataset.runExperiment` (@langfuse/client) has no error channel: a throwing task is caught inside its worker loop,
+ * logged at logger level as "Task failed with error: … Skipping item.", and the item is dropped from `itemResults`.
+ * So the task must catch itself: log the item id + message, count it, and rethrow so the SDK still drops the item.
+ */
+export function trackErrors<I extends { id?: string }, O>(task: (item: I) => Promise<O>, errors: Array<{ id: string; message: string }>, log: (line: string) => void = console.error) {
+  return async (item: I): Promise<O> => {
+    try {
+      return await task(item);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      errors.push({ id: String(item.id ?? "?"), message });
+      log(`item ${String(item.id ?? "?")} failed: ${message}`);
+      throw error;
+    }
+  };
+}
+
+/** `N/M correct, K errors`; M counts every dataset item, errored ones included (they are not correct). */
+export function summaryLine(q: string, correct: number, total: number, errors: number): string {
+  return `${q}: ${correct}/${total} correct, ${errors} errors`;
 }
 
 type FetchedItem = { id: string; input: unknown; expectedOutput?: unknown; metadata?: unknown };
@@ -127,24 +159,28 @@ async function run(client: LangfuseClient, questions: JudgeQuestion[], maxDollar
   const anthropic = new AnthropicSdk();
   const project = await projectId(client);
   let spent = 0;
+  let errorCount = 0;
   for (const q of questions) {
     const { messages, promptVersion } = await fetchSet(client, q);
     const dataset = await client.dataset.get(calibrationDatasetName(q));
+    const errors: Array<{ id: string; message: string }> = [];
     const result = await dataset.runExperiment({
       name: `judge-calibration/${q}`,
       runName: `${q} prompt v${promptVersion} · ${new Date().toISOString().slice(0, 16)}`,
       description: `Calibration of the online ${q} evaluator (prompt judge-calibration/${q} v${promptVersion}, ${JUDGE_MODEL.model})`,
       metadata: { judge: q, promptVersion, model: JUDGE_MODEL.model },
-      task: async (item: { input: unknown }) => {
+      task: trackErrors(async (item: { id?: string; input: unknown }) => {
         const out = await judgeOnce(anthropic, q, compile(messages, item.input));
         spent += out.costDollars;
         return out;
-      },
+      }, errors),
       evaluators: [outputCorrect(q)],
     } as never);
     const items = (result as unknown as { itemResults: Array<{ item: FetchedItem; output: { score: string; reasoning: string } }> }).itemResults;
     const wrong = items.filter((r) => r.output?.score !== r.item.expectedOutput);
-    console.log(`\n${q}: ${items.length - wrong.length}/${items.length} correct (${(((items.length - wrong.length) / Math.max(1, items.length)) * 100).toFixed(0)}%; the reference treats 85% as good only if every category is acceptable)`);
+    errorCount += errors.length;
+    const total = dataset.items.length;
+    console.log(`\n${summaryLine(q, items.length - wrong.length, total, errors.length)} (${(((items.length - wrong.length) / Math.max(1, total)) * 100).toFixed(0)}%; the reference treats 85% as good only if every category is acceptable)`);
     console.log("| Dataset input | Expected output | Actual output |\n|---|---|---|");
     for (const r of wrong) {
       const input = r.item.input as { company?: string; signal_url?: string };
@@ -155,7 +191,11 @@ async function run(client: LangfuseClient, questions: JudgeQuestion[], maxDollar
   await provider.forceFlush();
   await provider.shutdown();
   console.log(`\nspent $${spent.toFixed(4)} (estimated ≤ $${total.toFixed(2)}); results: ${uiLink(project, "datasets")}`);
-  return { rows, spent };
+  if (errorCount > 0) {
+    console.error(`${errorCount} task errors; results above are incomplete`);
+    process.exitCode = 1;
+  }
+  return { rows, spent, errorCount };
 }
 
 async function main() {
