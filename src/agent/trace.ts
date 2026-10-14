@@ -444,15 +444,28 @@ export function toObservations(events: AgentEvent[], options: ToObservationsOpti
           const paired = openApprovals.shift();
           const requestTs = str(e.requestTs) ?? paired?.ts ?? e.ts;
           const waitMs = Math.max(0, Date.parse(e.ts) - Date.parse(requestTs)) || 0;
+          const decision = e.approve === true ? (e.revisedValue !== undefined ? "revise" : "approve") : "decline";
+          const approvalTool = str(e.tool) ?? str(paired?.tool);
+          const approvalId = idFor(`approval:${e.ts}`);
+          // A score, so dashboards can chart the decline rate (a span's output is not a chart dimension).
+          scores.push({
+            id: scoreIdFor("approval_decision", traceId, approvalId),
+            traceId,
+            observationId: approvalId,
+            name: "approval_decision",
+            value: decision,
+            dataType: "CATEGORICAL",
+            ...(approvalTool ? { comment: approvalTool } : {}),
+          });
           child({
-            id: idFor(`approval:${e.ts}`),
+            id: approvalId,
             name: "approval",
             type: "span",
             startTime: requestTs,
             endTime: e.ts,
             input: { tool: e.tool ?? paired?.tool ?? null },
             output: {
-              decision: e.approve === true ? (e.revisedValue !== undefined ? "revise" : "approve") : "decline",
+              decision,
               note: e.note ?? null,
               ...(e.revisedValue !== undefined ? { revisedValue: e.revisedValue } : {}),
               ...(e.before !== undefined ? { before: e.before } : {}),

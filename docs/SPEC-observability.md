@@ -8,7 +8,7 @@ Status: proposed 2026-10-13 · branch `v2-engine` @ `c7f213d` · extends SPEC-ag
 
 | Area | Exists (verified at `c7f213d`) | Gap |
 |---|---|---|
-| Event log | `src/agent/events.ts` `makeEvent`/`appendEvents`: one JSONL line per `model_call`, `tool_call`, `submit_verdict`, `approval_request`, `decision`, `stop`, `error`. Each line has `ts`, `runId`, `turn`, `promptVersion`, tokens (incl. `cache_read`, `cache_creation`), `claudeCost`, `exaCost`, `latencyMs` | `model_call` has no `stop_reason`, response content, system/tools hash or message count. `tool_call` has no result summary or latency. No per-turn duration (README §7: p95 turn time unknown). Handback call logs `latencyMs: 0`. No event for the limits check. Planner routes (`app/api/planner/*`) log nothing but `console.error` |
+| Event log | `src/agent/events.ts` `makeEvent`/`appendEvents`: one JSONL line per `model_call`, `tool_call`, `submit_verdict`, `approval_request`, `decision`, `stop`, `error`. Each line has `ts`, `runId`, `turn`, `promptVersion`, tokens (incl. `cache_read`, `cache_creation`), `claudeCost`, `exaCost`, `latencyMs` | `model_call` has no `stop_reason`, response content, system/tools hash or message count. `tool_call` has no result summary or latency. No per-turn duration (README §8: p95 turn time unknown). Handback call logs `latencyMs: 0`. No event for the limits check. Planner routes (`app/api/planner/*`) log nothing but `console.error` |
 | Viewing | The UI live feed reads the same stream; inspection is `cat` on the Railway volume | No search across runs, no tree view of a turn, no scores, no review queue |
 | Offline evals | `npx vitest run`: **327 tests, 16 files, ~2 s, $0** (all mocked). Exa record/replay (`EXA_RECORD_DIR`/`EXA_REPLAY_DIR`). Paid harness `eval/harness/`: cells, blind pooling, Opus judge `v3-fetch` (≈ $0.34/verdict), pass^3 (`eval/RUBRIC.md`) | No case dataset with kind tags. No safety or escalation cases (`request_scope_change` has been called 0 times live, README flaw 13). `icp1-2026-10-11b` replay misses. README still says 321 tests |
 | Online evals | None. SPEC-agent §14 and FAILURES "What we would monitor weekly" list metrics, but nothing computes them | Everything in §5 |
@@ -33,7 +33,7 @@ Status: proposed 2026-10-13 · branch `v2-engine` @ `c7f213d` · extends SPEC-ag
 | Span `approval` | `approval_request`, then `decision` | — | Tool, proposal, approve/decline/revise, note (masked), wait time = decision `ts` − request `ts` |
 | Scores | — | Run (session) or lead (observation) | See below |
 
-**Scores:** `gate_verdict` (categorical code, on each submit span), `judge_q1`/`judge_q2`/`judge_q3` (yes/no/cannot_verify) and `judge_good` (boolean, on the lead), `user_feedback` (±1 plus reason, on the lead), and on the run: `good_leads`, `cost_per_good_lead`, `stop_reason`, `pass`, and each grader in §5.
+**Scores:** `gate_verdict` (categorical code, on each submit span), `approval_decision` (approve / revise / decline on each approval span, the tool as comment; added in L5 so dashboards can chart the decline rate), `judge_q1`/`judge_q2`/`judge_q3` (yes/no/cannot_verify) and `judge_good` (boolean, on the lead), `user_feedback` (±1 plus reason, on the lead), and on the run: `good_leads`, `cost_per_good_lead`, `stop_reason`, `pass`, and each grader in §5.
 
 **Why events.jsonl stays the source of truth.** The demo replay (`eval/demo/run/events.jsonl` is byte-identical to a pilot run), the eval harness, the UI feed and the README's evidence all read it today. It lives on our volume with no retention clock. It works offline and in CI. If Langfuse disappears or its free tier changes, we lose a viewer, not data. The rule is that **the trace is a function of the events**: `toObservations(events)` in `src/agent/trace.ts` is the only mapping. The live path and the backfill path both call it, and §5's completeness grader checks that every `(runId, turn)` in the events has a trace. Any field the trace needs is added to the event first.
 
@@ -134,7 +134,7 @@ Masking happens in `trace.mask()`, before anything leaves the process. It applie
 | Signal | Runs where | Langfuse-native part | Our code |
 |---|---|---|---|
 | 10 code graders (§4) + `must_pass` | In-process at run end (`runEnded`, `src/agent/online-eval.ts`), 100% of runs, any environment | Boolean scores on the run's last trace; score configs; filters, dashboards | `gradeRun(state, events)`; deterministic score ids (`runScoreId`), so the worker's hourly re-post is an upsert |
-| Outcomes without a judge: `accepted_leads`, `run_cost_dollars`, `stop_reason`, `handback` | Same | Numeric / categorical / boolean scores | `runEndScores` (pure, shared with the worker) |
+| Outcomes without a judge: `accepted_leads`, `run_cost_dollars`, `cost_per_accepted_lead` (L5; omitted at 0 leads), `stop_reason`, `handback` | Same | Numeric / categorical / boolean scores | `runEndScores` (pure, shared with the worker) |
 | `user_feedback` | Feedback route → `feedback` event (O1) | Score on the lead's `tool:submit_lead` span, the 👎 reason as the score comment | A 👎 also selects that lead for the judge and adds its trace to `review-queue` |
 | Judge `judge_q1/q2/q3` (RUBRIC §1) | **Langfuse**: three managed LLM-as-a-judge evaluators, rule `lead-judge (production)` | Evaluators (prompt, model `claude-opus-5-5`, categorical yes/no/cannot_verify, `{{lead}}` ← observation input), observation-level rule, execution traces in environment `langfuse-llm-as-a-judge`, cost per evaluator | Which leads get judged, and the dollar cap (below) |
 | `judge_good` | Worker | Boolean score on the same observation | Derived from the three managed answers (below) |
@@ -203,30 +203,34 @@ So online, `judge_good = 0` is a definite "not good" (and the trace goes to `rev
 
 | Trigger | What runs | Cost | Gate |
 |---|---|---|---|
-| Pre-merge CI (`.github/workflows/ci.yml`) | typecheck, 327+ mocked tests, masking test, `mocked` cases, `replay` cases (a replay miss fails the build) | $0 | must-pass set green |
+| Pre-merge CI (`.github/workflows/ci.yml`, every push and PR) | typecheck, the mocked suite (422 tests, 26 files at L5, incl. the masking test and the dataset/grader tests), build | $0 | all green |
+| Experiment gate (`.github/workflows/experiment-gate.yml`, PRs touching `src/agent/**`, `src/planner/**`, `src/gates.ts`, `eval/datasets/**`, plus the files the replay exercises) | (a) `langfuse-prompts.ts diff`; (b) `eval/ci/experiment-gate.ts`: workflow arm on each `prospector-scenarios` item against its recorded Exa fixture, scored from `eval/truth` + code graders, written as run `ci-<sha12>:A_workflow:r1` (environment `ci`, pilot item/score shape; the dataset is never written from a PR) | $0 (Langfuse API only) | Fails on prompt drift, a missing fixture, a replay error, an unjudged lead, a failed must-pass grader, or precision > 0.1 below `eval/ci/approved-baseline.json` (pilot-2026-10-12 workflow means: S1 0.352, S2 0.083). Threshold logic: `eval/ci/gate.ts`, mocked tests in `eval/experiment-gate.test.ts` |
 | Weekly smoke + drift (one fixed scenario, S1 × 1 rep, live) | Agent arm + judge, plotted against prior weeks | ~$1 run + ~$2.70 judge | Trend; precision < 0.8 two weeks running → issue |
 | Model change (or `PROMPT_VERSION` bump) | S1 + S2, old vs new model, 1 rep each | ~$10 | New arm no worse on precision and cost per good lead |
 | Pre-ramp (SPEC-agent §14) | Full matrix 4 × 3 arms × 3 | $25–35 | §14 ramp criteria |
 | Post-incident | FAILURES entry → case → full case set (mocked + replay) + 1 live rep of the affected scenario | $0–$4 | Case passes; entry links it |
 
+**What the experiment gate can and cannot catch (L5).** It catches prompt drift between the repo and Langfuse `production`; any change to the workflow pipeline, `src/gates.ts`, `src/plan.ts` or the Exa request shape that changes the replayed leads (a changed request misses the fixture and fails; changed leads either keep their verdicts and are re-scored, or arrive unjudged and fail); and dataset edits that change a scenario's request. It cannot catch agent behaviour (loop, tools, prompt wording beyond drift): replaying the agent at $0 needs recorded model responses, which are not kept. The code graders read an agent run's `state.json` + `events.jsonl`, which the workflow arm does not produce, so on today's replay no grader applies and the must-pass check is wired but vacuous. **It is red at L5:** no workflow fixture exists for S1 or S2 (the only workflow recording, `eval/recordings/icp1-2026-10-11`, was made at other search settings and no longer replays: its lookups miss under the current request shape). Root-cause fix, paid and not done here: `npx tsx eval/ci/experiment-gate.ts --record S1,S2 --i-accept-exa-spend` (≈ $0.75–0.90 Exa each, the pilot's workflow spend), `npm run eval:judge -- --set ci-fixtures --scenario S1|S2` for unjudged leads (≈ $0.34 each), then review the baseline: the fixtures are a different Exa day than the pilot, whose 3 S1 workflow reps already spread 0.22–0.50, so a reviewed baseline from the judged fixture run is the fairer comparator than the pilot mean the gate uses now. Why not `langfuse/experiment-action`: its SDK runner calls the legacy dataset-run-items API (410 for this org, §4), forces environment `sdk-experiment` and random ids, so its runs would not compare with the pilot runs; the gate follows the same release policy from the Experiments in CI/CD docs instead (missing cases, task failures and missing evaluator results fail).
+
 ## 7. Dashboards
 
-**Weekly PM view** (Langfuse dashboard + worker report):
+**Weekly PM view, built (L5):** Langfuse dashboard "Prospector — weekly" ([link](https://cloud.langfuse.com/project/cmv6skia0015xad0efzgcpwzz/dashboards/cmv7kdodd03ocad0knq7odgys), project members only), 12 widgets created through the unstable dashboard API by `npx tsx eval/online/dashboard.ts` (idempotent: a second run reports 12 unchanged; UI edits are overwritten). `--verify --environment <env>` runs every widget's query through the Metrics API v2. Each widget pins its environment with its own filter.
 
-| Metric | Source |
-|---|---|
-| Resolution: share of runs reaching `target_leads` | `stop_reason` score |
-| Handback rate, and good leads added after suggestion #1 | run scores |
-| Approval decline rate, strategy vs scope change | `approval` spans |
-| Cost per good lead (judged sample) | judge + spend |
-| p95 turn latency vs the 60 s route limit | `turn_end` |
-| 👎 count and grouped reasons | `user_feedback` |
-| Must-pass violations | grader scores |
+| Widget | Source | Env |
+|---|---|---|
+| Runs per day by stop_reason (bar, daily) · Target reached (pie; `target_leads` slice) | run-end `stop_reason` | production |
+| Handback rate (number) | mean of run-end boolean `handback` | production |
+| Approval decisions (pie; decline slice) | `approval_decision` on approval spans | production |
+| Cost per run · cost per accepted lead (numbers) | `run_cost_dollars`, `cost_per_accepted_lead` | production |
+| Cost per good lead, agent arm (number) | experiment-item `cost_per_good_lead`, tag `B_agent_opus` (offline judge) | eval |
+| p95 turn latency (line, daily) | `latency` p95 of `agent-turn` roots (turn_end); route limit 60 s | production |
+| user_feedback distribution (pie) | `user_feedback` ±1 | production |
+| Must-pass failures (number) · Failed graders (bar by name) | `must_pass` = false; grader scores = false | production |
+| judge_good (online judge) (bar by value) | worker-posted `judge_good`, source API | production |
 
-**What a hiring manager sees in the repo** (none of it exists yet; each is produced by O1–O5):
-1. `docs/observability/trace-example.png` and a public Langfuse share link to one real turn.
-2. `eval/online/reports/YYYY-WW.md`: the weekly metrics above, committed by the worker (aggregates only).
-3. `eval/cases/README.md`: case counts by kind and source, with the latest pass^k per case.
+Deviations from the original list, and why: cost per good lead is not computable online (the web-less judge cannot give `judge_good = 1`, §5), so production shows cost per *accepted* lead and good-lead cost comes from experiments; the judge widget counts definite failures rather than a rate, for the same reason; "good leads added after suggestion #1" and the strategy-vs-scope split of declines are not charted (widgets cannot divide or group by a score comment). Verified at L5 with `--verify`: every query accepted; with data in `online-eval-check` (2 runs: both `target_leads`, handback 0, $0.771 mean run cost, 0 must-pass failures) and `eval` (agent cost per good lead $0.104, the mean of the 6 pilot agent cells); production is empty until the app runs with `LANGFUSE_TRACING_ENVIRONMENT=production`; `approval_decision` and `cost_per_accepted_lead` exist only for runs after L5 (or after a re-backfill).
+
+**Not built:** the worker's weekly report (`eval/online/reports/YYYY-WW.md`), `docs/observability/trace-example.png` with a public share link, and `eval/cases/README.md`.
 
 ## 8. Tasks
 
@@ -236,6 +240,9 @@ So online, `judge_good = 0` is a definite "not good" (and the trace goes to `rev
 | O2 | Case format, shared grader module, migrate the 17 FAILURES entries, feedback `runId`/`signal_url` + 👎 → case, production Exa recording | gpt-5.5 (codex) | 1.5 d | Every FAILURES entry has a case. CI runs the must-pass set |
 | L1 (done) | Offline evals in Langfuse Datasets and Experiments: `eval/datasets/*.jsonl` + `eval/langfuse-sync.ts`, `eval/graders/` (`gradeRun`), pilot import (`eval/langfuse-import-pilot.ts`), `run-cell`/`score` `--langfuse-experiment` (§4). Covers O2's case format, grader module and FAILURES migration; 👎 → case, CI must-pass job and production Exa recording remain in O2 | opus-5.5 (orchestrator-delegated subagent) | — | Both datasets and the 6 pilot runs (12 items) visible with scores; sync and import idempotent (second run creates nothing); vitest/typecheck/build green |
 | L2 (done, not deployed) | Online evals (§5): run-end graders + outcome scores (`src/agent/online-eval.ts`), `lead-judge` selection with the daily cap, managed evaluators `judge_q1..q3` + disabled rule + score configs + `review-queue` + calibration sets/prompts (`eval/online/setup-langfuse.ts`), calibration runner (`eval/online/calibrate-judge.ts`, not run: ≤ $0.62), admin pause/export, kill switch in the step route, hourly worker + Action. Covers O3 and O4 | opus-5.5 orchestrating; admin routes, worker, Action by gpt-5.5 (codex) | — | Mocked tests for run-end scoring (once per run, never on demo runs, nothing with Langfuse unset), the cap, worker issues/pause/judge_good/queue, admin auth/pause/export; plumbing verified live in a scratch environment; vitest/typecheck/build green |
+| L3 (done) | Prompt management: agent + planner prompts versioned in Langfuse (label `production`), fetched with cache + repo fallback, pinned per run, generations linked to the prompt version; push/pull/diff CLI (§2 "Prompt versions", docs/prompts.md) | — | — | `diff` reports all 3 prompts `same` |
+| L4 | Not defined in this repo: no commit, spec row or doc names an L4 task (the commit after L1, 2549343, is a masking/backfill fix without a label) | — | — | — |
+| L5 (done; gate red until fixtures are recorded) | Dashboard "Prospector — weekly" as code (`eval/online/dashboard.ts`, §7); `approval_decision` and `cost_per_accepted_lead` scores; CI experiment gate (`.github/workflows/experiment-gate.yml`, `eval/ci/`, §6); README "Observability and evals in Langfuse". Covers O5 except the weekly report and the repo artifacts listed under §7 "Not built" | opus-5.5 subagent | — | Dashboard created and idempotent; widget queries verified via the Metrics API; mocked tests for the threshold logic, the replay runner and the dashboard sync; vitest/typecheck green |
 | O3 | Admin export + pause endpoints, `eval/online/worker.ts`, hourly Action, issue alerts | gpt-5.5 (codex) | 1 d | Worker on a seeded volume opens one issue per planted violation and none otherwise. Pause verified in a mocked test |
 | O4 | Online judge, priority sampling, daily cap, score write-back, annotation queue | sonnet-5 | 0.5–1 d | Judge spend never exceeds cap in a mocked run. Verdicts match offline `judgeLead` on the same leads |
 | O5 | Dashboards, weekly report template, README section | opus-4.8: user-facing copy | 0.5 d | Author reviews; the three repo artifacts exist |

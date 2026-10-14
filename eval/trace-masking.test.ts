@@ -345,6 +345,12 @@ describe("toObservations", () => {
     expect(new Set(ids).size).toBe(ids.length);
     const approval = toObservations(later)[0]!.observations[0]!;
     expect(approval).toMatchObject({ name: "approval", startTime: "2026-10-12T09:00:01.000Z", endTime: "2026-10-12T09:05:00.000Z", metadata: { waitMs: 299000 } });
+    // The decision is also a categorical score on the approval span (dashboards chart the decline rate from it).
+    expect(toObservations(later)[0]!.scores).toEqual([
+      expect.objectContaining({ name: "approval_decision", value: "approve", dataType: "CATEGORICAL", observationId: approval.id, comment: "propose_strategy" }),
+    ]);
+    const declined = toObservations([ev({ kind: "decision", turn: 2, ts: "2026-10-12T09:06:00.000Z", approve: false, tool: "request_scope_change" })])[0]!.scores;
+    expect(declined).toEqual([expect.objectContaining({ name: "approval_decision", value: "decline", comment: "request_scope_change" })]);
     // The whole file maps to the same ids as the two live batches.
     expect(toObservations([...step, ...later]).flatMap((t) => t.observations.map((o) => o.id))).toEqual(ids);
   });

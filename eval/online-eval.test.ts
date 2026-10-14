@@ -203,6 +203,7 @@ describe("run-end scores (code graders + outcomes)", () => {
     expect(byName.stop_reason).toMatchObject({ value: "end_turn", dataType: "CATEGORICAL" });
     expect(byName.handback).toMatchObject({ value: 1, dataType: "BOOLEAN" });
     expect(byName.run_cost_dollars).toMatchObject({ dataType: "NUMERIC" });
+    expect(byName.cost_per_accepted_lead).toMatchObject({ value: Math.round(s.spend.total * 10_000) / 10_000, dataType: "NUMERIC" });
     const lastTrace = traceIdFor(runId, Math.max(...events.map((e) => e.turn)), "production");
     expect(new Set(runScores.map((b) => b.traceId))).toEqual(new Set([lastTrace]));
     expect(byName.must_pass!.id).toBe(runScoreId("production", runId, "must_pass"));

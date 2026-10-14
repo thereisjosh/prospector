@@ -242,11 +242,27 @@ async function existingItems(api: RecordApi["api"], experimentIds: string[], fro
 export async function recordCells(
   client: RecordApi,
   plans: CellPlan[],
-  options: { environment?: string; exportSpans?: typeof exportExperimentItemSpans; datasetItems?: DatasetItem[] } = {},
+  options: {
+    environment?: string;
+    exportSpans?: typeof exportExperimentItemSpans;
+    datasetItems?: DatasetItem[];
+    /**
+     * false: never write the dataset (the CI gate runs on unmerged branches, which must not
+     * change the shared dataset); every planned item must already exist in Langfuse.
+     */
+    syncDataset?: boolean;
+  } = {},
 ): Promise<RecordResult> {
   const environment = options.environment ?? EVAL_ENVIRONMENT;
   const exportSpans = options.exportSpans ?? exportExperimentItemSpans;
-  await syncDataset(client.api, SCENARIOS_DATASET, options.datasetItems ?? readDataset(SCENARIOS_DATASET));
+  if (options.syncDataset === false) {
+    const remote = await client.api.datasetItems.list({ datasetName: SCENARIOS_DATASET, limit: 100 });
+    const ids = new Set((remote.data as Array<{ id: string; status?: string }>).filter((d) => d.status !== "ARCHIVED").map((d) => d.id));
+    const missing = [...new Set(plans.map((p) => p.datasetItemId))].filter((id) => !ids.has(id));
+    if (missing.length) throw new Error(`dataset ${SCENARIOS_DATASET} in Langfuse has no active item ${missing.join(", ")}; sync it from the default branch first (npx tsx eval/langfuse-sync.ts)`);
+  } else {
+    await syncDataset(client.api, SCENARIOS_DATASET, options.datasetItems ?? readDataset(SCENARIOS_DATASET));
+  }
   const dataset = await client.api.datasets.get(SCENARIOS_DATASET);
   const result: RecordResult = { spans: { exported: 0, existing: 0 }, scores: 0, runs: [] };
   const earliest = plans.map((p) => p.span.startTime).sort()[0];

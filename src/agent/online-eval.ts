@@ -122,6 +122,11 @@ export function runEndScores(
   add("must_pass", report.pass ? 1 : 0, "BOOLEAN", report.pass ? `${report.results.length} graders, all must-pass graders pass` : `failed: ${failedMust.join(", ")}`);
   add("accepted_leads", state.leads.length, "NUMERIC", `${state.leads.length} of ${state.contract.targetLeads} target`);
   add("run_cost_dollars", Math.round(state.spend.total * 10_000) / 10_000, "NUMERIC", `Claude $${state.spend.claude.toFixed(4)} + Exa $${state.spend.exa.toFixed(4)} (cap $${state.contract.maxCostDollars})`);
+  // Accepted, not good: "good" needs the judge, which online cannot settle (SPEC-observability §5).
+  // Left out at 0 leads (∞ is not a valid score), as cost_per_good_lead is in experiments.
+  if (state.leads.length > 0) {
+    add("cost_per_accepted_lead", Math.round((state.spend.total / state.leads.length) * 10_000) / 10_000, "NUMERIC", `$${state.spend.total.toFixed(4)} / ${state.leads.length} accepted`);
+  }
   add("stop_reason", state.stopReason ?? state.status, "CATEGORICAL");
   add("handback", state.handback ? 1 : 0, "BOOLEAN", state.handback ? `${state.handback.suggestions.length} suggestion(s)` : undefined);
   return scores;

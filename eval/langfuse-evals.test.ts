@@ -168,7 +168,7 @@ function fakeLangfuse() {
     for (const s of spans) items.push({ experimentId: s.experiment.id, experimentItemId: s.experiment.itemId, traceId: s.traceId, datasetId: s.experiment.datasetId, rootId: s.rootId, environment: opts.environment });
     return spans.length;
   });
-  return { client, items, scores, exportSpans };
+  return { client, items, scores, exportSpans, ds };
 }
 
 describe("pilot import plan (eval/langfuse/experiment.ts)", () => {
@@ -230,6 +230,18 @@ describe("pilot import plan (eval/langfuse/experiment.ts)", () => {
     expect(second.runs).toEqual(first.runs);
     expect(fake.scores.size).toBe(scoreCount);
     for (const s of fake.scores.values()) expect(s.environment).toBe("eval");
+  });
+
+  it("with syncDataset false (CI gate) never writes the dataset and refuses items missing from it", async () => {
+    const cells = await readCellRecords("eval/results", "pilot-2026-10-12");
+    const plans = (await planCells("pilot-2026-10-12", cells)).map((p) => p.plan);
+    const fake = fakeLangfuse();
+    await expect(recordCells(fake.client, plans, { exportSpans: fake.exportSpans as never, syncDataset: false })).rejects.toThrow(/has no active item scenario-S1, scenario-S2/);
+    await syncDataset(fake.ds.api, "prospector-scenarios", scenarios);
+    const before = { ...fake.ds.calls };
+    const r = await recordCells(fake.client, plans, { exportSpans: fake.exportSpans as never, syncDataset: false, datasetItems: scenarios.map((s) => ({ ...s, input: "changed on a branch" })) });
+    expect(r.spans.exported).toBe(12);
+    expect(fake.ds.calls).toEqual(before);
   });
 
   it("refuses to add a second item when a run already links the dataset item to another trace", async () => {

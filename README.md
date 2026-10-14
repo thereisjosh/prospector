@@ -67,6 +67,7 @@ Prospector finds B2B sales leads. A seller pastes their website and approves a s
 | 12 | **Not measured.** | Recall: no ground truth for how many qualifying companies exist. n = 3 per cell, 2 scenarios; S3/S4 never evaluated. Opus only: the Sonnet arm never ran. The blind pool mixed arms, but the 10 spot-checks (22%) were done by the author, who knows the project (`eval/truth/SPOT-CHECKS.md`). The public deployment is live for anonymous visitors, though SPEC-agent §14 gates that on pass^3 in 3 of 4 scenarios. | Open |
 | 13 | **Scope change is untested live.** | `request_scope_change` was called 0 times in all 9 runs, so the approval card exists only in mocked tests, and demo replay cannot show it (`docs/DEMO.md`). | Open |
 | 14 | **Limits by design.** | Memory is per browser (workspace id in `localStorage`, `app/ui/types.ts:53`); state and ledger are JSON files on one Railway volume (`docs/DEPLOY.md`); rate limit is an in-process `Map` (`app/api/_shared.ts:9`); no auth: anyone with a workspace id can read or clear its memory. | By design |
+| 15 | **Langfuse's per-lead `judge_good` disagrees with the scored good-lead count.** `judge_good` is each verdict's own `good`; the scorer also applies RUBRIC §1's one-Q2-`cannot_verify`-per-run tolerance. | Pilot agent leads in Langfuse (environment `eval`): 48 `judge_good` true of 55. `report.json`: 46 good (S1 9 + 7 + 6, S2 8 + 8 + 8). The 2 are SubBase in S2 reps 1 and 3 (`eval/truth/S2/subbase__ec8a88dd4e.json`, `good: true`), scored no as each run's second size `cannot_verify` (`eval/harness/score.ts` `leadGood`). Experiment-level `precision` and `cost_per_good_lead` use the scorer and agree with the report. | Open |
 
 Code bounded the damage in each case above: across the 9 runs `submit_lead` rejected only 3 submissions (1 `enterprise`, 2 `entity_mismatch`), because lookups had already screened 0–19 candidates per run.
 
@@ -78,7 +79,7 @@ Local small businesses (cafés, clinics, pet shops) have no press coverage and t
 
 | What | Cost | Command or URL |
 |---|---|---|
-| Tests (mocked model and Exa) | $0 | `npm test`: 321 tests, 16 files, about 2 s |
+| Tests (mocked model and Exa) | $0 | `npm test`: 422 tests, 26 files, about 3 s |
 | Type check | $0 | `npm run typecheck` |
 | Demo replay, no keys | $0 | `npm install && DEMO_MODE=1 npm run dev`, open http://localhost:3000 |
 | Re-score the pilot from committed verdicts | $0 | `npm run eval:score -- --set pilot-2026-10-12` |
@@ -140,7 +141,24 @@ status = awaiting_approval → POST /api/runs/:id/decision appends the tool_resu
 | Accepting a lead that fails a check | | | ✅ code refuses | 3 submissions refused |
 | Contacting anyone / any external side effect | | | ✅ no tool exists | n/a |
 
-## 6. Failures found and fixed
+## 6. Observability and evals in Langfuse
+
+`runs/<id>/events.jsonl` stays the source of truth. Langfuse Cloud (Hobby tier, JS SDK v5) is where runs are viewed, scored and compared: one function, `toObservations(events)`, builds the masked trace both live and in backfill. With the `LANGFUSE_*` keys unset nothing loads. Design and status: [docs/SPEC-observability.md](docs/SPEC-observability.md).
+
+| Piece | What exists | Where |
+|---|---|---|
+| Traces | Session = run, trace = one turn: the model generation, one span per tool, approvals, policy checks. Page text, message history and IPs are dropped; the workspace id is HMAC'd | `src/agent/trace.ts` |
+| Prompts | Agent system prompt and 2 planner prompts under label `production`, pinned per run, repo text as fallback; `diff` exits 1 on drift | `src/agent/prompt-store.ts`, `eval/langfuse-prompts.ts` |
+| Datasets, experiments | `prospector-scenarios` (2 items), `prospector-cases` (24); the pilot as 6 runs × 2 items with judge and grader scores | `eval/datasets/`, `eval/langfuse/` |
+| Code graders | 10 must-pass graders at every run end, posted as scores; an hourly worker opens one issue per failing run | `eval/graders/`, `src/agent/online-eval.ts`, `eval/online/worker.ts` |
+| Online judge | Managed `judge_q1..q3` evaluators on a capped lead sample: **paused** (the project has no LLM connection), rule disabled until a calibration round (≤ $0.62, not run) is reviewed | `eval/online/` |
+| Review queue | `review-queue`: 👎 leads, handbacks, errors, must-pass failures, judge "no" | `eval/online/setup-langfuse.ts` |
+| Dashboard | "Prospector — weekly", 12 widgets, created by API | `eval/online/dashboard.ts` |
+| CI gate | Prompt diff, then the workflow arm replayed on the scenarios dataset as experiment `ci-<sha>` | `.github/workflows/experiment-gate.yml`, `eval/ci/` |
+
+Not live yet: the app does not run with `LANGFUSE_TRACING_ENVIRONMENT=production`, so the production widgets are empty. The gate fails until the two Exa fixtures it replays are recorded (≈ $0.75–0.90 each) and their leads judged, and it cannot run the agent arm at $0 because no model responses are recorded.
+
+## 7. Failures found and fixed
 
 17 entries in [docs/FAILURES.md](docs/FAILURES.md); the ones that changed measured numbers:
 
@@ -153,13 +171,13 @@ status = awaiting_approval → POST /api/runs/:id/decision appends the tool_resu
 | Judge parsed 0 of 22 verdicts | Parser read the first text block, not the last | Last valid JSON across blocks | 0/22 → 22/22 and 23/23 (#8) |
 | S2 agent scored 6/6/6 | Verdict keys broke on a normalisation change | URL-hash fallback, key migration | 6/6/6 → 8/8/8 (#11) |
 
-## 7. Other limits
+## 8. Other limits
 
 - **Exa extraction noise** (wrong-year dates; 356 vs 3,560 staff for one company) is bounded by gates, not eliminated (SPEC-agent §13).
 - **Route timeout:** each route has `maxDuration = 60`; model calls max out at 19.5 s in the recordings, but per-turn tool time is not logged, so p95 turn time is unknown.
 - The `eval/recordings/icp1-2026-10-11b` replay no longer matches current request hashes ("replay miss").
 
-## 8. Repo map
+## 9. Repo map
 
 | Path | What |
 |---|---|
@@ -171,8 +189,14 @@ status = awaiting_approval → POST /api/runs/:id/decision appends the tool_resu
 | `src/exa.ts` | Exa client: CostGuard, record/replay, ≤ 4 in flight, 429 retry |
 | `src/pipeline.ts`, `src/plan.ts` | Workflow arm and `SearchPlan` validation |
 | `eval/*.test.ts`, `eval/harness/` | Mocked unit tests; eval runner, judge, scorer |
+| `src/agent/trace.ts`, `src/agent/prompt-store.ts`, `src/agent/online-eval.ts` | Langfuse trace mapping and masking; prompt fetch with pin and fallback; run-end grader scores and capped judge selection |
+| `eval/graders/` | Code graders over `state.json` + `events.jsonl` (`gradeRun`) |
+| `eval/datasets/` | Dataset items (jsonl, source of truth) mirrored by `eval/langfuse-sync.ts` |
+| `eval/langfuse/` | Experiment writer: eval cells as Langfuse experiment items with scores |
+| `eval/online/` | Langfuse setup (evaluators, score configs, queue), judge calibration, hourly worker, dashboard |
+| `eval/ci/` | CI experiment gate: replay runner, threshold logic, approved baseline |
 | `eval/recordings/`, `eval/results/`, `eval/truth/` | Real traces, pilot results, judge verdicts |
 
-## 9. Build notes
+## 10. Build notes
 
 This build was AI-assisted: I orchestrated coding agents (Claude models and Codex), and commit trailers say so. The product decisions are mine: architecture, autonomy boundaries, rubric and eval design, which failures to chase, what to claim, and the live-API probes behind them. Every number above comes from a file in this repo or is marked "author's log", "Railway log" or "server run"; anything unmeasured is marked. Stack: Next.js 14 · React 18 · TypeScript · `@anthropic-ai/sdk` (Messages API) · Exa · Vitest.

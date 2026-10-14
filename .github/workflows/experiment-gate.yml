@@ -1,0 +1,91 @@
+name: experiment-gate
+
+# $0 regression gate for pull requests that can change what the agent, the planner or the
+# lead gates do (SPEC-observability §6). Two checks:
+#
+# (a) Prompt drift: `langfuse-prompts.ts diff` exits 1 when a repo prompt differs from its
+#     Langfuse `production` version (or is missing there).
+# (b) Workflow-arm experiment: every `prospector-scenarios` dataset item is run through the
+#     workflow arm against recorded Exa responses (EXA_REPLAY_DIR: a miss throws, nothing
+#     reaches the network), scored from the cached judge verdicts in eval/truth plus the code
+#     graders, and written to Langfuse as experiment run `ci-<sha>:A_workflow:r1`
+#     (environment `ci`, same item/score shape as the pilot runs; the dataset itself is
+#     never written from a PR). The job fails when a dataset item has no recording, the
+#     replay errors, a lead has no verdict, a must-pass grader fails, or precision drops
+#     more than 0.1 below the pilot-2026-10-12 baseline (eval/ci/approved-baseline.json).
+#
+# What this cannot gate: the agent arm. Replaying it at $0 needs recorded model responses,
+# and we keep none, so agent behaviour is covered only by (a) and the mocked suite in ci.yml.
+# The code graders read an agent run's state.json + events.jsonl; the workflow arm leaves
+# neither, so on today's replay no grader applies and the must-pass check is vacuous.
+#
+# Own runner, not langfuse/experiment-action: the action's SDK runner calls the legacy
+# dataset-run-items API (410 for this project's org), forces environment `sdk-experiment`
+# and random ids, so its runs would not compare with the imported pilot runs.
+#
+# Secrets by name only: LANGFUSE_PUBLIC_KEY, LANGFUSE_SECRET_KEY (no model or search keys:
+# nothing here may spend). Variable: LANGFUSE_BASE_URL. Pull requests from forks get no
+# secrets and fail at the credentials step.
+
+on:
+  pull_request:
+    paths:
+      - "src/agent/**"
+      - "src/planner/**"
+      - "src/gates.ts"
+      - "eval/datasets/**"
+      # What the replay itself exercises:
+      - "src/pipeline.ts"
+      - "src/exa.ts"
+      - "src/plan.ts"
+      - "eval/ci/**"
+      - "eval/graders/**"
+      - "eval/truth/**"
+      - "eval/recordings/ci/**"
+      - ".github/workflows/experiment-gate.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: experiment-gate-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      LANGFUSE_PUBLIC_KEY: ${{ secrets.LANGFUSE_PUBLIC_KEY }}
+      LANGFUSE_SECRET_KEY: ${{ secrets.LANGFUSE_SECRET_KEY }}
+      LANGFUSE_BASE_URL: ${{ vars.LANGFUSE_BASE_URL || 'https://cloud.langfuse.com' }}
+      LANGFUSE_TRACING_ENVIRONMENT: ci
+      HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Langfuse credentials present
+        id: creds
+        run: |
+          if [ -z "$LANGFUSE_PUBLIC_KEY" ] || [ -z "$LANGFUSE_SECRET_KEY" ]; then
+            echo "::error::LANGFUSE_PUBLIC_KEY / LANGFUSE_SECRET_KEY are not available to this run (fork PR or unset secrets); the gate cannot vouch for this change."
+            exit 1
+          fi
+      - name: (a) Prompt drift vs Langfuse production
+        run: npx tsx eval/langfuse-prompts.ts diff
+      - name: (b) Workflow-arm replay experiment ci-<sha>
+        # Runs even when (a) failed, so both results are visible on one run.
+        if: ${{ !cancelled() && steps.creds.outcome == 'success' }}
+        run: npx tsx eval/ci/experiment-gate.ts --sha "$HEAD_SHA" --out experiment-gate.json
+      - name: Keep the gate result
+        if: ${{ !cancelled() && steps.creds.outcome == 'success' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: experiment-gate
+          path: experiment-gate.json
+          if-no-files-found: ignore
