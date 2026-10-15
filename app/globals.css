@@ -522,7 +522,7 @@
   }
   .pr-queue-stale {
     display: flex;
-    gap: 6px;
+    gap: 8px;
     align-items: flex-start;
     color: var(--ink);
   }
@@ -1044,7 +1044,7 @@
   }
   .pr-problems {
     margin: 0;
-    padding: 0 0 0 18px;
+    padding: 0 0 0 16px;
     font-size: var(--text-small);
     line-height: var(--text-small--line-height);
     color: var(--amber-ink);
@@ -1114,7 +1114,7 @@
   }
   .pr-term-list {
     margin: 0;
-    padding: 0 0 0 18px;
+    padding: 0 0 0 16px;
   }
   .pr-term-list li + li {
     margin-top: 4px;
@@ -1227,7 +1227,7 @@
 .pr-prompt [data-slot="input-group-control"] {
   min-height: 0;
   font-family: var(--sans); /* no preflight: a UA textarea would be monospace */
-  padding: 14px 16px 4px;
+  padding: 12px 16px 4px;
   color: var(--ink);
   font-size: var(--text-body-lg);
   line-height: var(--text-body-lg--line-height);
@@ -1238,7 +1238,7 @@
 }
 .pr-prompt-line [data-slot="input-group-control"] {
   height: 44px;
-  padding: 0 8px 0 14px;
+  padding: 0 8px 0 16px;
 }
 .pr-prompt-foot {
   justify-content: flex-end;
@@ -1278,7 +1278,7 @@
   gap: 4px;
 }
 .pr-bubble > [data-slot="bubble-content"] {
-  padding: 10px 14px;
+  padding: 8px 16px;
   border-radius: var(--r-lg);
   color: var(--ink);
   font-size: var(--text-body-lg);
@@ -1305,7 +1305,7 @@
 .pr-suggestion {
   height: auto;
   min-height: 32px;
-  padding: 5px 12px;
+  padding: 4px 12px;
   border-color: var(--line);
   border-radius: var(--r-pill);
   background: var(--bg);
@@ -1391,8 +1391,7 @@
 [data-slot="dialog-overlay"] {
   z-index: var(--z-backdrop);
   background: rgba(10, 12, 20, 0.5);
-  backdrop-filter: none; /* the scrim dims; it does not blur (§6) */
-  -webkit-backdrop-filter: none;
+  /* no blur: see the unlayered rule at the end of legacy.css */
   animation: none;
   transition: opacity var(--dur-2) var(--ease-out-quint);
 }
@@ -1449,5 +1448,377 @@
   ::view-transition-old(*),
   ::view-transition-new(*) {
     animation: none !important;
+  }
+}
+
+/* =====================================================================================================
+   Step (iv): the memory panel, handback Suggestion rows, focus rings, contrast and transparency preferences
+   ===================================================================================================== */
+
+/* ---- one focus ring everywhere (DESIGN.md §5 Inputs): a 1px accent edge plus a 3px accent-soft halo.
+   Unlayered so it also replaces shadcn's ring-3 ring/50 utilities. Text fields keep their border + halo. ---- */
+:root {
+  --focus-ring: 0 0 0 4px var(--accent-soft);
+}
+:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 0;
+  box-shadow: var(--focus-ring);
+}
+:where(.input):focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--accent-soft); /* with its accent-line border: the same edge + halo */
+}
+/* the Prompt Input's control: the group around it carries the ring (.pr-prompt:focus-within) */
+:where([data-slot="input-group-control"]):focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+/* the dark rail: the canvas accent is 3.6:1 there, the rail accent 6.2:1 */
+.rail :focus-visible {
+  outline-color: var(--rail-accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--rail-accent) 16%, transparent);
+}
+/* a heading that only receives programmatic focus (step change, a Confirmation's question) shows no ring */
+:where(h1, h2, h3, h4)[tabindex="-1"]:focus-visible,
+.pr-run-head:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+@layer components {
+  /* ---- the memory panel on the rail: Collapsible + Trace sections ---- */
+  .memory.pr-mem {
+    padding: 0;
+  }
+  .pr-mem-trigger {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 12px;
+    border: 0;
+    border-radius: var(--r);
+    background: transparent;
+    color: var(--rail-ink);
+    font-size: var(--t-sm);
+    line-height: 1.125rem;
+    font-weight: 550;
+    text-align: left;
+    cursor: pointer;
+    transition: background 160ms var(--ease-out-quart), transform var(--dur-1) var(--ease-out-quart);
+  }
+  .pr-mem-trigger:hover {
+    background: var(--rail-panel);
+  }
+  .pr-mem-count {
+    min-width: 20px;
+    padding: 0 8px;
+    border-radius: var(--r-pill);
+    background: var(--rail-panel);
+    color: var(--rail-muted);
+    font-size: var(--t-xs);
+    line-height: 1.25rem;
+    font-weight: 600;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+  }
+  .pr-mem-chevron {
+    flex: none;
+    width: 14px;
+    height: 14px;
+    margin-left: auto;
+    color: var(--rail-muted);
+    transition: transform var(--dur-1) var(--ease-out-quart);
+  }
+  .pr-mem-trigger[data-panel-open] .pr-mem-chevron {
+    transform: rotate(90deg);
+  }
+  .pr-mem-panel {
+    padding: 0 12px 12px;
+  }
+  .memory-text {
+    margin: 8px 0 0;
+    font-size: var(--t-sm);
+    line-height: 1.125rem;
+    color: var(--rail-muted);
+  }
+  .memory-text:first-child {
+    margin-top: 0;
+  }
+  .memory-text b {
+    color: var(--rail-ink);
+  }
+  .memory-meta {
+    margin: 8px 0 0;
+    font-size: var(--t-xs);
+    line-height: 1rem;
+    color: var(--rail-muted);
+  }
+  .memory-group:first-child {
+    margin-top: 0;
+  }
+  .memory-group + .memory-group {
+    padding-top: 12px;
+    border-top: 1px solid var(--rail-line);
+  }
+  .pr-mem-list {
+    margin-top: 8px;
+    gap: 0;
+  }
+  .pr-mem-items {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    max-height: 180px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .pr-mem-item {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 8px 0;
+    min-width: 0;
+  }
+  .pr-mem-item + .pr-mem-item {
+    border-top: 1px solid var(--rail-line);
+  }
+  .pr-mem-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    min-width: 0;
+  }
+  .pr-mem-detail {
+    color: var(--rail-muted);
+    font-size: var(--t-xs);
+    line-height: 1rem;
+    overflow-wrap: anywhere;
+  }
+  .memory-forget {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+    margin: -2px -4px 0 0;
+    padding: 0;
+    border: 0;
+    border-radius: var(--r-sm);
+    background: transparent;
+    color: var(--rail-muted);
+    cursor: pointer;
+    transition: background 140ms var(--ease-out-quart), color 140ms var(--ease-out-quart), transform var(--dur-1) var(--ease-out-quart);
+  }
+  .memory-forget svg {
+    width: 14px;
+    height: 14px;
+  }
+  .memory-forget:hover:not(:disabled) {
+    background: var(--rail-panel);
+    color: var(--rail-ink);
+  }
+  /* M2: pointer-down feedback, like every other pressable */
+  .memory-forget:active:not(:disabled),
+  .rail-btn:active:not(:disabled) {
+    transform: scale(0.97);
+    transition-duration: var(--dur-press);
+  }
+  .rail-btn {
+    transition: background 140ms var(--ease-out-quart), transform var(--dur-1) var(--ease-out-quart);
+  }
+  .memory-forget:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+  .pr-mem-item:has(.memory-forget:disabled) .pr-mem-line {
+    opacity: 0.6;
+  }
+  .pr-mem-quiet {
+    color: var(--rail-muted);
+  }
+  .pr-mem-confirm-title {
+    margin: 0;
+    font-size: var(--t-sm);
+    line-height: 1.125rem;
+    font-weight: 600;
+    color: var(--rail-ink);
+    outline: none;
+  }
+  .pr-mem-confirm-actions {
+    flex-wrap: wrap;
+  }
+  .pr-mem-confirm-actions .rail-btn {
+    margin-top: 0;
+  }
+
+  /* ---- the outcome's handback: "most often turned down for" and the Suggestion rows ---- */
+  .pr-reasons {
+    margin: 8px 0 0;
+    color: var(--muted);
+  }
+  .pr-handback {
+    margin-top: 16px;
+    max-width: 760px;
+  }
+  .pr-handback-h {
+    margin: 0 0 4px;
+    font-size: var(--t-sm);
+    line-height: 1.125rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .pr-handback-rows {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .pr-handback-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 0;
+    min-width: 0;
+  }
+  .pr-handback-row + .pr-handback-row {
+    border-top: 1px solid var(--line);
+  }
+  .pr-handback-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+  }
+  .outcome .pr-handback-text p {
+    margin: 0;
+  }
+  .pr-handback-title {
+    font-size: var(--t-base);
+    line-height: 1.25rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .pr-handback-why {
+    max-width: 68ch;
+    font-size: var(--t-sm);
+    line-height: 1.125rem;
+    color: var(--muted);
+  }
+  .pr-handback-row.is-note .pr-handback-why {
+    font-size: var(--t-base);
+    line-height: 1.25rem;
+  }
+  .pr-handback-row .pr-suggestion {
+    flex: none;
+  }
+  @media (max-width: 600px) {
+    .pr-handback-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+  }
+}
+
+/* shadcn roots on the dark rail: their token colours are canvas colours, so restate them in rail tokens.
+   Unlayered, because the utilities they override sit in the top layer. */
+.pr-mem-line {
+  align-items: flex-start;
+  gap: 8px;
+  color: var(--rail-muted);
+  font-size: var(--t-sm);
+  line-height: 1.125rem;
+  transition: opacity var(--dur-1) var(--ease-out-quart);
+}
+.pr-mem-icon {
+  margin-top: 1px;
+  color: var(--rail-muted);
+}
+.pr-mem-icon svg {
+  width: 14px;
+  height: 14px;
+}
+.pr-mem-title {
+  color: var(--rail-ink);
+  white-space: normal;
+  overflow: visible;
+  overflow-wrap: anywhere;
+}
+.pr-mem-desc {
+  color: var(--rail-muted);
+  font-size: var(--t-xs);
+  line-height: 1rem;
+  white-space: normal;
+}
+.pr-mem-list > * {
+  width: 100%;
+}
+.pr-mem-confirm {
+  margin-top: 12px;
+  padding: 12px;
+  gap: 12px;
+  border-color: var(--rail-line);
+  border-radius: var(--r);
+  background: transparent;
+  color: var(--rail-ink);
+  animation: pr-rise-4 var(--dur-2) var(--ease-out-quint);
+}
+.pr-mem-confirm-text {
+  color: var(--rail-muted);
+  font-size: var(--t-xs);
+  line-height: 1rem;
+}
+/* M9 on the panel: content fades, height is instant */
+[data-slot="collapsible-content"].pr-mem-panel {
+  transition: opacity 120ms var(--ease-out-quart);
+}
+[data-slot="collapsible-content"].pr-mem-panel[data-starting-style],
+[data-slot="collapsible-content"].pr-mem-panel[data-ending-style] {
+  opacity: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pr-mem-confirm {
+    animation: none;
+  }
+}
+
+/* ---- prefers-contrast: more (apple-design §14): near-solid materials and defined edges ---- */
+@media (prefers-contrast: more) {
+  :root {
+    --focus-ring: 0 0 0 4px var(--accent-line);
+  }
+  :focus-visible {
+    outline-width: 2px;
+  }
+  /* the topbar's solid material lives in legacy.css: Lightning CSS here would drop the unprefixed backdrop-filter */
+  .topbar-title p,
+  .live {
+    color: var(--ink);
+  }
+  .live,
+  .icon-btn {
+    border-color: var(--muted);
+  }
+  [data-slot="dialog-overlay"] {
+    background: rgba(10, 12, 20, 0.72);
+  }
+  .pr-dialog,
+  :root[data-theme="dark"] .pr-dialog {
+    box-shadow: none;
+    border: 1px solid var(--ink);
+  }
+  .pr-dialog-text,
+  .pr-dialog-foot {
+    color: var(--ink);
+  }
+}
+
+/* ---- prefers-reduced-transparency: the topbar goes solid (legacy.css) and the scrim stops being see-through ---- */
+@media (prefers-reduced-transparency: reduce) {
+  [data-slot="dialog-overlay"] {
+    background: rgba(10, 12, 20, 0.82);
   }
 }

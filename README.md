@@ -112,6 +112,10 @@ Local small businesses (cafés, clinics, pet shops) have no press coverage and t
 
 Demo mode turns on with `DEMO_MODE=1` or when either key is missing (`src/demo/mode.ts`). It replays `eval/demo/run/`, a copy of the memory-eval run of 2026-10-15 (`eval/results/memory-eval-2026-10-15b/S1/B_agent_opus/2/`): the second run in its workspace, so it recalls 7 companies and skips 2 lookups, with a lookup retry, a quote behind every lead, 8 leads (all judged good), a budget stop and a structured handback. A new demo workspace is seeded with that run's starting memory (`eval/demo/run/run.json`). Until 2026-10-15 the demo replayed pilot S1 agent rep 2 (2026-10-12), which predates evidence quotes.
 
+![The demo walkthrough: describe, target, approve, the agent's opening-plan approval, the live run, results with the handback, a lead's evidence, and the memory panel](docs/screenshots/walkthrough.gif)
+
+The walkthrough above (40 s, 1280 px, recorded 2026-10-15 from this replay) goes Describe → Target → Approve → the approval → the run → Results → a lead's Evidence → the memory panel. Stills of the results screen: [light](docs/screenshots/demo-light.png), [dark](docs/screenshots/demo-dark.png). Re-record all three with `npx next build && node scripts/demo-gif.mjs` (needs Playwright's Chromium and ffmpeg; the script starts its own `DEMO_MODE=1` server).
+
 ## 5. How it works
 
 | Step | The user | The system |

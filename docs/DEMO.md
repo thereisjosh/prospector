@@ -2,12 +2,15 @@
 
 **Setup:** run `npm install && DEMO_MODE=1 npm run dev` and open `http://localhost:3000` in a fresh browser profile. Demo mode replays the memory-eval run of 2026-10-15, scenario S1, agent rep 2 (`eval/results/memory-eval-2026-10-15b/S1/B_agent_opus/2/`; `eval/demo/run/events.jsonl` and `state.json` are copies of its files): 15 steps, $0.85 ($0.36 AI + $0.49 web), 8 accepted leads, all 8 judged good, stopped on budget. It was the second run in its workspace, so it started out remembering the 7 companies the first run delivered; `eval/demo/run/run.json` keeps that memory, and the demo seeds a new workspace with exactly those 7 (`src/demo/memory.ts`). The replay pauses at its strategy approval. In a second tab, open the README at [§1 Results](../README.md#1-results).
 
+**No time to present live?** `docs/screenshots/walkthrough.gif` (40 s, recorded 2026-10-15 by `node scripts/demo-gif.mjs`) is this script without the voice-over, ending on the memory panel.
+
 **Know before you present:**
 - Event costs sum to the run's spend, so the meter never overshoots. The one lookup retry (Cleveland Group, $0.009) is already inside that lookup's cost and is not counted twice.
 - In the eval, the strategy was auto-approved by the harness; in the replay, you press Approve.
 - The recorded run had no scope-change request, so the scope-change card can't be shown in demo mode.
 - The run wrote no checklist, so the checklist panel stays empty ("No checklist was written."). That is the recording, not a bug.
-- "Clear memory" empties the rail, but the replay is still the recording: it still recalls 7 companies and still skips Wagner and Spartan. The contract screen's "clear memory to see the full run" no longer holds for this recording.
+- The rail's "What I remember" opens to three groups: companies already seen, your feedback, and what the agent learned. After the replay, the run's own note does not appear under "What the agent learned": the replay writes the recording's leads and rejections to memory but not its note (`src/demo/replay.ts` passes no `notes` to `appendRunToMemory`). Give one lead a thumbs-up with a reason to show "Your feedback" filling in.
+- "Clear memory" asks first (a Confirmation in the rail) and empties the rail, but the replay is still the recording: it still recalls 7 companies and still skips Wagner and Spartan. The contract screen's "clear memory to see the full run" no longer holds for this recording.
 
 | Time | Do | Say (one sentence) | Screen state to have ready |
 |---|---|---|---|

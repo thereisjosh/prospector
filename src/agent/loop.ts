@@ -683,12 +683,18 @@ function suggestionFor(state: RunState, code: string): Handback["suggestions"][n
   if (code.startsWith("required_gate:")) {
     const key = code.slice("required_gate:".length);
     const question = c.gateFields.find((g) => g.key === key)?.question;
-    return { field: "none", value: "", why: `${companies.length} candidates failed the required question "${question ?? key}". If it is too strict, edit that question in the plan.` };
+    return { field: "none", value: "", why: `${companies.length} candidates failed the required question "${question ?? key}". If it is too strict, edit that question in the plan.`, reason: { code, count: reasonCount(state, code, companies) } };
   }
   if (code === "enterprise") {
     return { field: "none", value: "", why: "These are large companies; the contract is working as intended." };
   }
-  return { field: "none", value: "", why: `Candidates were turned down for ${code}; no single plan change addresses it.` };
+  // No hand-written advice for this code: emit it structured; the UI words it (app/ui/copy.ts HANDBACK).
+  return { field: "none", value: "", why: `Candidates were turned down for ${code}; no single plan change addresses it.`, reason: { code, count: reasonCount(state, code, companies) } };
+}
+
+/** Rejections with this code, as rejectionCounts() counts them; the distinct companies when it has none. */
+function reasonCount(state: RunState, code: string, companies: string[]): number {
+  return rejectionCounts(state).find((r) => r.code === code)?.count ?? companies.length;
 }
 
 const UNVERIFIABLE_CODES = new Set(["no_enrichment", "entity_mismatch"]);

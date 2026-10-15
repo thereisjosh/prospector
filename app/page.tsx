@@ -8,7 +8,7 @@ import type { CardSet } from "../src/planner/cards";
 import { AboutDialog } from "./ui/AboutDialog";
 import { CardsStep, applyAlternative } from "./ui/CardsStep";
 import { ContractStep } from "./ui/ContractStep";
-import { MemoryPanel } from "./ui/Memory";
+import { MemoryPanel, type LastRun } from "./ui/Memory";
 import { RunView, type Decision } from "./ui/RunView";
 import { StartStep } from "./ui/StartStep";
 import { allowanceLine, httpErrorMessage, screenedFrom, uniq, type AllowanceView, type HttpErrorKind, type Screened } from "./ui/copy";
@@ -433,6 +433,10 @@ export default function Page() {
   };
   const meta = STEPS.find((s) => s.id === step)!;
   const finishedRun = snapshot && ["done", "stopped", "error"].includes(snapshot.status);
+  // The memory panel says why a budget-stopped run left no note (the agent's `remember` nudge never ran).
+  const lastRun: LastRun | undefined = finishedRun
+    ? { stopReason: snapshot.stopReason, selfNotes: runEvents.filter((e) => e.kind === "tool_call" && e.tool === "remember" && e.is_error !== true).length }
+    : undefined;
 
   return (
     <div className="app">
@@ -461,7 +465,7 @@ export default function Page() {
           </ol>
         </nav>
 
-        <MemoryPanel memory={memory} error={memoryError} onClear={clearMemory} onForget={forgetMemoryItem} disabled={runActive} />
+        <MemoryPanel memory={memory} error={memoryError} onClear={clearMemory} onForget={forgetMemoryItem} disabled={runActive} lastRun={lastRun} />
 
         <div className="rail-foot">
           <AboutDialog />

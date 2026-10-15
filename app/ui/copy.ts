@@ -157,7 +157,18 @@ const REASON_GROUPS: Record<string, string> = {
   already_seen: "Already seen in an earlier run",
   duplicate: "Already in this run's leads",
   visitor_allowance: "Your free allowance was reached",
+  non_event_page: "Source wasn't a news event",
+  weak_hiring_signal: "Hiring news too thin to count",
+  unquoted_signal: "Why-now event not quoted from the page",
+  unquoted_gate: "A required fact not quoted from the page",
+  quote_not_in_page: "Quote not found on the source page",
 };
+
+/**
+ * Every code the gates (src/gates.ts GateCode) and the harness emit. Any of these inside text the
+ * server wrote is a leak; plainText() swaps each for its reason phrase.
+ */
+export const REASON_CODES: readonly string[] = [...Object.keys(REASON_GROUPS), "size"];
 
 /** One short clause for a single rejection, e.g. "too large (3,560 employees)". */
 export function rejectionPhrase(code: string, reason: string, contract?: ContractView): string {
@@ -218,7 +229,32 @@ export const MEMORY_COPY = {
   empty: "Nothing yet. After a run I skip companies you've already seen and keep your feedback.",
   latestOnly: (shown: number, total: number) => `Showing the latest ${shown} of ${total}.`,
   expires: (iso: string) => `expires ${shortDate(iso)}`,
+  panelTitle: "What I remember",
+  seenSummary: (n: number) => `${int(n)} compan${n === 1 ? "y" : "ies"} already seen. Future runs skip them.`,
+  liked: "Liked",
+  rejected: "Rejected",
+  forgetFeedback: (company: string) => `your feedback on ${company}`,
+  forgetNote: "this note",
+  loading: "Loading…",
+  loadError: "Couldn't load memory.",
+  clear: "Clear memory",
+  clearQuestion: "Forget everything?",
+  clearDetail: "Companies already seen, your feedback and the agent's notes all go. Future runs start from nothing.",
+  clearConfirm: "Clear",
+  cancel: "Cancel",
+  /** A budget stop skips the agent's `remember` nudge (src/agent/tools.ts finish branch): say why there is no note. */
+  noNoteBudget: "No note this time; the run stopped at its budget before the agent could save one.",
 } as const;
+
+/** "run 9cb72d3f" from a run id; demo ids keep their own readable prefix. */
+export function runLabel(runId: unknown): string {
+  return typeof runId === "string" && runId ? `run ${runId.replace(/^demo-/, "").slice(0, 8)}` : "";
+}
+
+/** A memory item's provenance line: "delivered 15 Oct · run 9cb72d3f". */
+export function provenance(...parts: Array<string | undefined>): string {
+  return parts.filter(Boolean).join(" · ");
+}
 
 /* ---------- activity feed ---------- */
 
@@ -359,10 +395,58 @@ export function describeChange(field: string, value: unknown, contract?: Contrac
 export function plainText(text: string, contract?: ContractView): string {
   return text
     .replace(/required_gate:[a-z0-9_]+/g, (code) => reasonGroup(code, "", contract).toLowerCase())
+    // A bare gate code ("turned down for quote_not_in_page") reads as its reason phrase, never as "quote not in page".
+    .replace(/\b[a-z]+(?:_[a-z0-9]+)+\b/g, (word) => (word in REASON_GROUPS ? `"${reasonGroup(word, "", contract).toLowerCase()}"` : word))
     .replace(/(clustered around|reason:?)\s+([a-z_]+)(?=[.,;]|$)/g, (_m, lead: string, code: string) =>
       `${lead} ${code in REASON_GROUPS || code === "size" ? reasonGroup(code, "", contract).toLowerCase() : humanize(code).toLowerCase()}`)
     .replace(/\b[a-z]+(?:_[a-z0-9]+)+\b/g, (word) => humanize(word).toLowerCase());
 }
+
+type HandbackSuggestion = Handback["suggestions"][number];
+type HandbackReason = { code: string; count: number };
+
+/** Recordings written before suggestions carried `reason` said it in prose; read the code back out of it. */
+const LEGACY_REASON = /^Candidates were turned down for ([a-z0-9_:]+); no single plan change addresses it\.$/;
+const LEGACY_GATE = /^(\d+) candidates failed the required question "/;
+
+/** The structured reason behind a suggestion, from the server's `reason` or, for older runs, its prose. */
+export function handbackReason(s: HandbackSuggestion, handback?: Pick<Handback, "top_reasons">): HandbackReason | undefined {
+  const r = rec(s.reason);
+  if (typeof r.code === "string" && typeof r.count === "number") return { code: r.code, count: r.count };
+  const legacy = LEGACY_REASON.exec(s.why ?? "");
+  if (legacy) {
+    const code = legacy[1];
+    return { code, count: handback?.top_reasons.find((t) => t.code === code)?.count ?? 0 };
+  }
+  return undefined;
+}
+
+/**
+ * What a handback suggestion says on screen. A suggestion built from a gate code renders from the code
+ * (HANDBACK below), so no code can reach the screen; hand-written advice passes through plainText().
+ */
+export function handbackWhy(s: HandbackSuggestion, contract?: ContractView, handback?: Pick<Handback, "top_reasons">): string {
+  const reason = handbackReason(s, handback);
+  if (reason) return HANDBACK.reasonWhy(reason, contract);
+  if (LEGACY_GATE.test(s.why ?? "")) return plainText(s.why, contract);
+  return s.why ? plainText(s.why, contract) : "";
+}
+
+export const HANDBACK = {
+  mostOften: "Most often turned down for:",
+  apply: "Apply and run again",
+  applying: "Preparing…",
+  adjust: "Adjust targeting",
+  /** One sentence per structured reason. Counts of 0 (unknown) drop the number. */
+  reasonWhy: ({ code, count }: HandbackReason, contract?: ContractView): string => {
+    const who = count > 0 ? `${int(count)} candidate${count === 1 ? " was" : "s were"}` : "Candidates were";
+    if (code.startsWith("required_gate:")) {
+      const n = count > 0 ? `${int(count)} candidate${count === 1 ? "" : "s"}` : "Candidates";
+      return `${n} failed the required question "${gateQuestion(code, contract)}". If it is too strict, edit that question in the plan.`;
+    }
+    return `${who} turned down because: ${reasonGroup(code, "", contract).toLowerCase()}. No single change to the plan addresses that.`;
+  },
+} as const;
 
 const CHANGE_FIELDS = ["employeeRange", "months", "hqCountries", "industry", "maxCostDollars"];
 

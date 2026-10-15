@@ -41,7 +41,11 @@ export type CandidateLead = AcceptedLead & { code: GateCode; missing: string };
 export type Handback = {
   shortfall: string;
   top_reasons: Array<{ code: string; count: number }>;
-  suggestions: Array<{ field: string; value: unknown; why: string }>;
+  /**
+   * `why` is prose for older readers. A suggestion built from a gate code also carries `reason`, the code and
+   * how many candidates it turned down, so the UI says it in its own words (app/ui/copy.ts handbackWhy).
+   */
+  suggestions: Array<{ field: string; value: unknown; why: string; reason?: { code: string; count: number } }>;
 };
 
 export type ScreenedCompany = { company: string; code: string; reason: string; turn: number; stage: "lookup" };

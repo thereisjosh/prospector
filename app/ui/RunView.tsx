@@ -18,7 +18,9 @@ import {
   leadFit,
   leadSize,
   leadsCsv,
-  plainText,
+  HANDBACK,
+  TRACE,
+  handbackWhy,
   reasonGroup,
   shortfallHeadline,
   stopSentence,
@@ -30,7 +32,7 @@ import {
   type ContractView,
   type SuggestionPatch,
 } from "./copy";
-import { ArrowUpRight, Download, ThumbDown, ThumbUp } from "./parts";
+import { ArrowUpRight, Download, Suggestion, ThumbDown, ThumbUp } from "./parts";
 import { RunConfirmation, type Decision, type PendingApproval } from "./RunConfirmation";
 import { ChecklistPanel, SpendPanel, shownSpend } from "./RunSide";
 import { EvidenceBlock, LineIcon, LiveTrace, ProvenanceTrace } from "./RunTrace";
@@ -331,11 +333,20 @@ function HandbackView({
   onEditTargeting: () => void;
 }) {
   const reasons = handback.top_reasons.filter((r) => r.count > 0);
+  const rows = handback.suggestions
+    .map((s) => {
+      const patch = cards ? suggestionPatch(s, cards, maxSpend) : null;
+      const why = handbackWhy(s, contract, handback);
+      // "none" / "scope": advice, not a change. A row of words with no action.
+      if (!patch && !isChangeField(s.field)) return why ? { title: "", why, patch: null, change: false } : null;
+      return { title: patch ? patch.label : suggestionTitle(s.field, s.value, contract), why, patch, change: true };
+    })
+    .filter((r): r is NonNullable<typeof r> => r !== null);
   return (
     <>
       {reasons.length > 0 && (
-        <p className="muted">
-          Most often turned down for:{" "}
+        <p className="pr-reasons">
+          {HANDBACK.mostOften}{" "}
           {reasons.map((r, i) => (
             <span key={r.code}>
               {i > 0 && " · "}
@@ -344,37 +355,29 @@ function HandbackView({
           ))}
         </p>
       )}
-      {handback.suggestions.length > 0 && (
-        <ul className="suggestions">
-          {handback.suggestions.map((s, i) => {
-            const patch = cards ? suggestionPatch(s, cards, maxSpend) : null;
-            if (!patch && !isChangeField(s.field)) {
-              // "none" / "scope": advice, not a change. Show it as a note.
-              return s.why ? (
-                <li key={i} className="suggestion is-note">
-                  <p className="muted">{plainText(s.why, contract)}</p>
-                </li>
-              ) : null;
-            }
-            return (
-              <li key={i} className="suggestion">
-                <div>
-                  <p className="suggestion-title">{patch ? patch.label : suggestionTitle(s.field, s.value, contract)}</p>
-                  {s.why && <p className="muted">{plainText(s.why, contract)}</p>}
+      {rows.length > 0 && (
+        <section className="pr-handback" aria-labelledby="handback-h">
+          <h3 id="handback-h" className="pr-handback-h">
+            {TRACE.handbackSuggestions}
+          </h3>
+          <ul className="pr-handback-rows">
+            {rows.map((row, i) => (
+              <li key={i} className={row.change ? "pr-handback-row" : "pr-handback-row is-note"}>
+                <div className="pr-handback-text">
+                  {row.title && <p className="pr-handback-title">{row.title}</p>}
+                  {row.why && <p className="pr-handback-why">{row.why}</p>}
                 </div>
-                {patch ? (
-                  <button type="button" className="primary-btn small" disabled={applying} onClick={() => onApply(patch)}>
-                    {applying ? "Preparing…" : "Apply and run again"}
-                  </button>
-                ) : (
-                  <button type="button" className="ghost-btn small" onClick={onEditTargeting}>
-                    Adjust targeting
-                  </button>
-                )}
+                {row.patch ? (
+                  <Suggestion disabled={applying} onClick={() => row.patch && onApply(row.patch)}>
+                    {applying ? HANDBACK.applying : HANDBACK.apply}
+                  </Suggestion>
+                ) : row.change ? (
+                  <Suggestion onClick={onEditTargeting}>{HANDBACK.adjust}</Suggestion>
+                ) : null}
               </li>
-            );
-          })}
-        </ul>
+            ))}
+          </ul>
+        </section>
       )}
     </>
   );
