@@ -1,55 +1,6 @@
 /** @jsxRuntime automatic */
 /** @jsxImportSource react */
-import type { ReactNode } from "react";
 
-/* ---------- checklist markdown (the agent's todo) ---------- */
-
-/** Renders **bold** inline as <b>; everything else stays text (no HTML injection). */
-function inline(text: string): ReactNode[] {
-  return text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
-    part.startsWith("**") && part.endsWith("**") && part.length > 4 ? <b key={i}>{part.slice(2, -2)}</b> : part.replace(/`/g, ""),
-  );
-}
-
-/** The small markdown subset the agent writes: headings, bullets, [ ] / [x] items, bold. */
-export function Checklist({ markdown }: { markdown: string }) {
-  const lines = markdown.split("\n").map((l) => l.trimEnd()).filter((l) => l.trim());
-  return (
-    <div className="todo">
-      {lines.map((raw, i) => {
-        const line = raw.trim();
-        const task = /^[-*]\s+\[( |x|X)\]\s+(.*)$/.exec(line);
-        if (task) {
-          const done = task[1] !== " ";
-          return (
-            <div key={i} className={`todo-item ${done ? "is-done" : ""}`}>
-              <span className="todo-box" aria-hidden="true">{done ? <Check /> : null}</span>
-              <span>
-                <span className="sr-only">{done ? "Done: " : "To do: "}</span>
-                {inline(task[2] ?? "")}
-              </span>
-            </div>
-          );
-        }
-        const bullet = /^(?:[-*]|\d+\.)\s+(.*)$/.exec(line);
-        if (bullet) {
-          return (
-            <div key={i} className="todo-item is-bullet">
-              <span className="todo-dot" aria-hidden="true" />
-              <span>{inline(bullet[1] ?? "")}</span>
-            </div>
-          );
-        }
-        const heading = /^#{1,6}\s+(.*)$/.exec(line);
-        return (
-          <p key={i} className={heading ? "todo-heading" : "todo-text"}>
-            {inline(heading ? heading[1] ?? "" : line)}
-          </p>
-        );
-      })}
-    </div>
-  );
-}
 
 /* ---------- icons ---------- */
 
@@ -104,14 +55,6 @@ export function AlertIcon() {
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
       <circle cx="12" cy="12" r="9" />
       <path d="M12 7.5v5M12 16h.01" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-export function Check() {
-  return (
-    <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
-      <path d="m2.5 6.2 2.3 2.3 4.7-5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }

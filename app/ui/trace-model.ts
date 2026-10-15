@@ -309,7 +309,8 @@ export function traceModel(events: AgentEvent[], snapshot: TraceSnapshot): Trace
   events.forEach((event, index) => {
     const t = turnOf(num(event.turn));
     const id = `t${t.turn}.${index}`;
-    t.cost += num(event.claudeCost) + num(event.exaCost) + num(event.retryExaCost);
+    // retryExaCost is informational: the lookup's tool_call exaCost already includes the retry (src/agent/tools.ts).
+    t.cost += num(event.claudeCost) + num(event.exaCost);
     switch (event.kind) {
       case "model_call": {
         t.ms += num(event.latencyMs);

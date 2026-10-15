@@ -110,7 +110,7 @@ Local small businesses (cafés, clinics, pet shops) have no press coverage and t
 | Blind judge | ≈ $0.19 per verdict search-only, ≈ $0.34 with fetch | `npm run eval:judge -- --set <id> --scenario S1` |
 | Memory eval (does run A's memory change run B?) | Run twice on S1 (2026-10-15): $2.46 and $2.58 for cells, judge $4.11 and ≈$2.72 new. $0 dry run available | `npx tsx eval/memory-eval.ts --set <id> --scenario S1 --dry-run` · design and results: [EVAL-DETAIL](docs/EVAL-DETAIL.md#memory-eval) |
 
-Demo mode turns on with `DEMO_MODE=1` or when either key is missing (`src/demo/mode.ts`). It replays `eval/demo/run/`, whose `events.jsonl` is byte-identical to pilot S1 agent rep 2 (8 leads, budget stop, structured handback).
+Demo mode turns on with `DEMO_MODE=1` or when either key is missing (`src/demo/mode.ts`). It replays `eval/demo/run/`, a copy of the memory-eval run of 2026-10-15 (`eval/results/memory-eval-2026-10-15b/S1/B_agent_opus/2/`): the second run in its workspace, so it recalls 7 companies and skips 2 lookups, with a lookup retry, a quote behind every lead, 8 leads (all judged good), a budget stop and a structured handback. A new demo workspace is seeded with that run's starting memory (`eval/demo/run/run.json`). Until 2026-10-15 the demo replayed pilot S1 agent rep 2 (2026-10-12), which predates evidence quotes.
 
 ## 5. How it works
 

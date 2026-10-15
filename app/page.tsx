@@ -5,11 +5,10 @@ import type { AgentEvent } from "../src/agent/events";
 import type { CardSet } from "../src/planner/cards";
 import { CardsStep, applyAlternative } from "./ui/CardsStep";
 import { MemoryPanel } from "./ui/Memory";
-import { RunView, type Decision, type FeedItem } from "./ui/RunView";
+import { RunView, type Decision } from "./ui/RunView";
 import { allowanceLine, httpErrorMessage, screenedFrom, uniq, type AllowanceView, type HttpErrorKind, type Screened } from "./ui/copy";
 import {
   countryList,
-  eventLine,
   joinWords,
   money,
   type ContractView,
@@ -107,7 +106,7 @@ export default function Page() {
   // Step 4
   const [runId, setRunId] = useState("");
   const [snapshot, setSnapshot] = useState<RunSnapshot | null>(null);
-  const [feed, setFeed] = useState<FeedItem[]>([]);
+  const [runEvents, setRunEvents] = useState<AgentEvent[]>([]);
   const [screened, setScreened] = useState<Screened>({ skipped: [], lookedUp: [] });
   const [stepping, setStepping] = useState(false);
   const [pausedByUser, setPausedByUser] = useState(false);
@@ -121,7 +120,6 @@ export default function Page() {
 
   const stopRef = useRef(false);
   const loopRef = useRef(false);
-  const feedSeq = useRef(0);
   const contractRef = useRef<ContractView | undefined>(undefined);
   const headingRef = useRef<HTMLHeadingElement>(null);
 
@@ -264,12 +262,8 @@ export default function Page() {
   /* ---------- step 4: run loop ---------- */
 
   const pushEvents = useCallback((events: AgentEvent[]) => {
-    const lines: FeedItem[] = [];
-    for (const event of events) {
-      const line = eventLine(event, contractRef.current);
-      if (line) lines.push({ ...line, id: ++feedSeq.current });
-    }
-    if (lines.length) setFeed((f) => [...f, ...lines].slice(-300));
+    // The run view renders its ledger from the raw events (app/ui/trace-model.ts).
+    if (events.length) setRunEvents((e) => [...e, ...events]);
     const add = screenedFrom(events);
     if (add.skipped.length || add.lookedUp.length) {
       setScreened((s) => ({ skipped: uniq([...s.skipped, ...add.skipped]), lookedUp: uniq([...s.lookedUp, ...add.lookedUp]) }));
@@ -326,7 +320,7 @@ export default function Page() {
       });
       setRunId(res.id);
       setSnapshot(null);
-      setFeed([]);
+      setRunEvents([]);
       setScreened({ skipped: [], lookedUp: [] });
       setFeedback({});
       contractRef.current = undefined;
@@ -400,7 +394,7 @@ export default function Page() {
     setPlan(null);
     setRunId("");
     setSnapshot(null);
-    setFeed([]);
+    setRunEvents([]);
     setScreened({ skipped: [], lookedUp: [] });
     setInput(demo ? DEMO_INPUT : "");
   }
@@ -579,7 +573,7 @@ export default function Page() {
             <RunView
               demo={demo}
               snapshot={snapshot}
-              feed={feed}
+              events={runEvents}
               screened={screened}
               stepping={stepping}
               pausedByUser={pausedByUser}

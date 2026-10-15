@@ -5,7 +5,9 @@ import type { AgentEvent } from "../../src/agent/events";
 import { checklistModel, candidatesModel, evidenceFor, rejectionsModel, traceModel, type TraceLine, type TraceSnapshot, type TraceTree } from "./trace-model";
 
 const ROOT = join(import.meta.dirname, "..", "..");
-const DEMO = join(ROOT, "eval", "demo", "run");
+// The pre-quote recording the demo replayed until 2026-10-15 (eval/demo/run/ is now the memory-eval run below).
+const DEMO = join(ROOT, "eval", "results", "pilot-2026-10-12", "S1", "B_agent_opus", "2");
+const DEMO_NOW = join(ROOT, "eval", "demo", "run");
 const MEM = join(ROOT, "eval", "results", "memory-eval-2026-10-15b", "S1", "B_agent_opus", "2");
 
 function load(dir: string) {
@@ -51,7 +53,7 @@ function statusAt(events: AgentEvent[], k: number): TraceSnapshot["status"] {
 }
 
 describe.each([
-  ["demo recording", demo],
+  ["pilot 2026-10-12 S1/B_agent_opus/2 (the pre-quote recording)", demo],
   ["memory-eval 2026-10-15b S1/B_agent_opus/2", mem],
 ])("traceModel: %s", (_name, { events, snapshot }) => {
   const tree = traceModel(events, snapshot);
@@ -178,7 +180,7 @@ describe("traceModel: memory-eval run (new event kinds)", () => {
 });
 
 describe("evidence without quotes", () => {
-  it("yields an empty list for the demo recording (older run), not a crash", () => {
+  it("yields an empty list for the pilot recording (older run), not a crash", () => {
     for (const lead of demo.snapshot.leads) {
       const ev = evidenceFor(lead, demo.snapshot.contract);
       expect(ev.kind).toBe("evidence");
@@ -241,6 +243,24 @@ describe("candidatesModel and rejectionsModel", () => {
     const base = { rejected: [], screened: [], contract: demo.snapshot.contract };
     const sections = rejectionsModel(base, { dropped: ["A"], skipped: ["B", "C"] });
     expect(sections.map((s) => [s.kind, s.count])).toEqual([["dropped", 1], ["skipped", 2]]);
+  });
+});
+
+describe("turn cost", () => {
+  it("does not count a lookup retry twice: the lookup's exaCost already includes it (src/agent/tools.ts)", () => {
+    const base = { ts: "", runId: "r", turn: 2, promptVersion: "" };
+    const events = [
+      { ...base, kind: "tool_call", tool: "lookup_company", input: { name: "Cleveland Group" }, exaCost: 0.018, toolUseId: "u1" },
+      { ...base, kind: "lookup_retry", toolUseId: "u1", company: "Cleveland Group", reason: "quote_not_in_page", outcome: "kept_first", retryExaCost: 0.009 },
+    ] as AgentEvent[];
+    const tree = traceModel(events, { ...mem.snapshot, status: "stopped", handback: undefined });
+    expect(tree.turns[0]!.description).toBe("1 lookup · $0.02");
+  });
+});
+
+describe("the demo fixture", () => {
+  it("is the memory-eval run, byte for byte", () => {
+    for (const f of ["events.jsonl", "state.json"]) expect(readFileSync(join(DEMO_NOW, f), "utf8")).toBe(readFileSync(join(MEM, f), "utf8"));
   });
 });
 

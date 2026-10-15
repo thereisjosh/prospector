@@ -629,6 +629,48 @@ export const TRACE = {
   skippedWithoutLookup: "Skipped as obvious non-fits, without a lookup",
 } as const;
 
+/** Strings of the run view itself (app/ui/RunView.tsx and its parts). Same voice as TRACE. */
+export const RUN = {
+  /* run header and checkpoint */
+  pausedAt: (step: number, spent: number): string => (step > 0 ? `Paused by you at step ${int(step)} · ${money(spent)} spent` : `Paused by you · ${money(spent)} spent`),
+  keepGoing: "Keep going",
+  tryAgain: "Try again",
+  /** Screen readers: one polite announcement per new step. */
+  stepAnnounce: (title: string, description?: string): string => (description ? `${title}: ${description}` : title),
+
+  /* trace panel */
+  activityHeading: "What it's doing",
+  jumpToLatest: "Jump to latest",
+  noActivity: (stepping: boolean): string => (stepping ? "Reading your plan…" : "Nothing yet."),
+  provenance: "How it got here",
+  provenanceSummary: (steps: number, spent: number): string => `${plural(steps, "step", "steps")} · ${money(spent)}`,
+
+  /* spend */
+  spendHeading: "Spend",
+  ofLimit: (cap: number): string => `of ${money(cap)} limit`,
+  cacheDetail: (read: number, written: number, uncached: number): string =>
+    `${int(read)} tokens from cache · ${int(written)} newly cached · ${int(uncached)} uncached`,
+
+  /* checklist */
+  checklistHeading: (finished: boolean): string => (finished ? "The agent's last checklist update" : "The agent's checklist"),
+  checklistEmpty: (finished: boolean): string =>
+    finished ? "No checklist was written." : "The agent writes its checklist once you approve its opening plan.",
+  todo: "To do",
+  done: "Done",
+
+  /* leads */
+  leadsOf: (target: number): string => `of ${int(target)} asked for`,
+  evidenceSummary: (quotes: number): string => (quotes > 0 ? `Evidence · ${plural(quotes, "quote", "quotes")}` : "Evidence"),
+  sizeNote: (basis: string | undefined, range: string | undefined, inRange: boolean | undefined): string =>
+    [basis, range ? `${inRange === false ? "outside" : "within"} ${range}` : ""].filter(Boolean).join(" · "),
+  mustBeTrue: "Must be true",
+  niceToHave: "Nice to have",
+  copyEvidence: "Copy the quotes",
+
+  /* considered but not added */
+  consideredHeading: "Considered but not added",
+} as const;
+
 /** "Walmart, Maersk, Arvato and 12 more" (names beyond `max` collapse into a count). */
 export function shortenList(items: string[], max = 4): string {
   return items.length > max ? joinWords([...items.slice(0, max - 1), `${items.length - (max - 1)} more`]) : joinWords(items);

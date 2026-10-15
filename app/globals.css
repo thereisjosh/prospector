@@ -72,10 +72,668 @@
 /* Tailwind preflight is NOT imported (it changes UA margins on checkboxes and lists in our CSS).
    The one preflight rule shadcn parts need, scoped to them: borders take the border token, not currentColor. */
 @layer base {
+  /* No preflight here, so a Base UI trigger is still a UA button: strip its chrome. */
+  [data-slot="collapsible-trigger"],
+  [data-slot="trace-collapsible-trigger"] {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    font: inherit;
+    text-align: left;
+  }
   [data-slot],
   [data-slot] *,
   [data-slot]::before,
   [data-slot]::after {
     border-color: var(--color-border);
   }
+}
+
+/* ---------- Motion tokens (docs/UI-REWORK.md §3). `static` so legacy CSS can read them too. ---------- */
+@theme static {
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1); /* = legacy --ease: state changes, press release */
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1); /* entrances */
+  --ease-in-quart: cubic-bezier(0.5, 0, 0.75, 0); /* exits, the same path back */
+  --ease-in-out-cubic: cubic-bezier(0.65, 0, 0.35, 1); /* theme crossfade only */
+  --dur-press: 100ms;
+  --dur-1: 150ms;
+  --dur-2: 220ms;
+  --dur-3: 320ms;
+  --shimmer-duration: 2s; /* the one running Trace title (M1) */
+}
+
+/* ---------- Contrast-fixed text tokens (DESIGN.md §2) ---------- */
+:root {
+  --faint-ink: #636b7b; /* quieter than --muted, still 5.36:1 on white, 4.70:1 on panel */
+  --amber-ink: #965a00; /* amber text: 5.59:1 on white, 4.94:1 on amber-soft */
+}
+:root[data-theme="dark"] {
+  --faint-ink: #808799; /* 5.21:1 on the dark surface, 4.74:1 on dark panel */
+  --amber-ink: #d99a3f;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --faint-ink: #808799;
+    --amber-ink: #d99a3f;
+  }
+}
+
+/* ---------- Run view (app/ui/RunView.tsx, RunTrace.tsx, RunConfirmation.tsx, RunSide.tsx) ---------- */
+@layer components {
+  /* M2: every pressable answers on pointer-down. Each list restates the element's legacy transitions. */
+  .primary-btn,
+  .search-go {
+    transition: filter 140ms var(--ease-out-quart), transform var(--dur-1) var(--ease-out-quart);
+  }
+  .ghost-btn {
+    transition: border-color 140ms var(--ease-out-quart), transform var(--dur-1) var(--ease-out-quart);
+  }
+  .chip-btn,
+  .candidate {
+    transition: border-color 140ms var(--ease-out-quart), background 140ms var(--ease-out-quart), transform var(--dur-1) var(--ease-out-quart);
+  }
+  .thumb {
+    transition: border-color 140ms var(--ease-out-quart), color 140ms var(--ease-out-quart), background 140ms var(--ease-out-quart),
+      transform var(--dur-1) var(--ease-out-quart);
+  }
+  .step-link {
+    transition: background 160ms var(--ease-out-quart), color 160ms var(--ease-out-quart), transform var(--dur-1) var(--ease-out-quart);
+  }
+  .icon-btn {
+    transition: color 140ms var(--ease-out-quart), border-color 140ms var(--ease-out-quart), transform var(--dur-1) var(--ease-out-quart);
+  }
+  .link-btn,
+  .pr-press {
+    transition: color 140ms var(--ease-out-quart), transform var(--dur-1) var(--ease-out-quart);
+  }
+  :is(.primary-btn, .search-go, .ghost-btn, .chip-btn, .candidate, .thumb, .step-link, .icon-btn, .link-btn, .pr-press):active:not(:disabled) {
+    transform: scale(0.97);
+    transition-duration: var(--dur-press);
+  }
+
+  /* One-shot entrances. Nothing here can be interrupted mid-flight; disclosures use transitions (below). */
+  @keyframes pr-fade-in {
+    from {
+      opacity: 0;
+    }
+  }
+  @keyframes pr-fade-out {
+    to {
+      opacity: 0;
+    }
+  }
+  @keyframes pr-rise-4 {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+  }
+  @keyframes pr-rise-6 {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+  }
+  @keyframes pr-row-highlight {
+    from {
+      background-color: var(--accent-soft);
+    }
+    to {
+      background-color: transparent;
+    }
+  }
+  /* M3 / M4: the Confirmation enters, then leaves along the same path before its Trace line arrives. */
+  /* M5: a new Trace line or step header; opacity only, near-imperceptible at its frequency. */
+  .pr-line-in {
+    animation: pr-fade-in var(--dur-1) var(--ease-out-quart);
+  }
+  /* M6: a lead row that lands mid-run, with a short highlight on where it landed. */
+  .lrow.is-new {
+    animation: pr-rise-4 var(--dur-2) var(--ease-out-quint), pr-row-highlight 1200ms var(--ease-out-quart);
+  }
+  /* M8: the outcome at run end. */
+  .pr-outcome {
+    animation: pr-rise-6 var(--dur-3) var(--ease-out-quint);
+  }
+
+  /* M7: the spend meter moves by transform, never width. */
+  .pr-meter {
+    position: relative;
+    height: 8px;
+    border-radius: var(--r-pill);
+    background: var(--panel);
+    overflow: hidden;
+  }
+  .pr-meter > span {
+    position: absolute;
+    inset: 0;
+    transform-origin: left center;
+    transition: transform var(--dur-2) var(--ease-out-quart);
+  }
+
+  /* Text quieter than --muted uses the contrast-fixed token, never --faint (DESIGN.md Do's). */
+  .lrow-head,
+  .basis,
+  .cell-label,
+  .no-source {
+    color: var(--faint-ink);
+  }
+  /* The demo badge: amber text on the contrast-fixed token, and no pulse (§3 rejected). */
+  .live.is-demo {
+    color: var(--amber-ink);
+    border-color: var(--amber-line);
+    background: var(--amber-soft);
+  }
+  .live.is-demo .live-dot {
+    background: var(--amber);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--amber) 22%, transparent);
+  }
+
+  /* ---- layout: header, Confirmation, then the ledger beside Spend and the Queue ---- */
+  .pr-run {
+    gap: 24px;
+  }
+  .pr-run-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px 16px;
+    min-height: 32px;
+    outline: none;
+  }
+  .pr-run-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "spend" "main" "checklist";
+    gap: 24px;
+    align-items: start;
+  }
+  .pr-run-main {
+    grid-area: main;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .pr-spend {
+    grid-area: spend;
+  }
+  .pr-checklist {
+    grid-area: checklist;
+  }
+  @media (min-width: 1100px) {
+    .pr-run-grid {
+      grid-template-columns: minmax(0, 1fr) 300px;
+      grid-template-rows: auto 1fr;
+      grid-template-areas: "main spend" "main checklist";
+    }
+  }
+  .pr-section-title {
+    margin: 0 0 12px;
+    font-size: var(--t-lg);
+    line-height: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .pr-side {
+    min-width: 0;
+  }
+  .pr-checklist {
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+  }
+  .pr-side-empty {
+    margin: 0;
+    font-size: var(--t-sm);
+  }
+
+  /* ---- the Confirmation (M3, M4) ---- */
+  .pr-confirm-title {
+    margin: 0;
+    font-size: var(--t-lg);
+    line-height: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    outline: none;
+  }
+  .pr-plan {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+  @media (min-width: 900px) {
+    .pr-plan {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 24px;
+    }
+  }
+  .pr-plan-label {
+    margin: 0 0 8px;
+    font-size: var(--t-xs);
+    line-height: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: var(--muted);
+  }
+  .pr-plan-steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 8px;
+    font-size: var(--t-base);
+    line-height: 1.25rem;
+  }
+  .pr-plan-steps li {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    min-width: 0;
+  }
+  .pr-plan-steps li > span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .pr-plan-icon {
+    flex: none;
+    width: 14px;
+    height: 14px;
+    margin-top: 3px;
+    color: var(--muted);
+  }
+  .pr-confirm-demo {
+    margin: 0;
+    font-size: var(--t-sm);
+    color: var(--muted);
+  }
+  .pr-confirm [data-slot="item-actions"] .primary-btn,
+  .pr-confirm [data-slot="item-actions"] .ghost-btn {
+    margin-top: 0;
+  }
+
+  /* ---- the ledger (Trace) ---- */
+  .pr-ledger {
+    position: relative;
+    min-width: 0;
+    padding: 16px 16px 12px;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+  }
+  .pr-ledger-scroll {
+    max-height: 60vh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding-right: 4px;
+  }
+  .pr-ledger-empty {
+    margin: 0;
+    font-size: var(--t-sm);
+  }
+  .pr-jump {
+    position: absolute;
+    right: 16px;
+    bottom: 12px;
+    box-shadow: 0 1px 2px rgba(16, 22, 45, 0.04), 0 8px 24px -16px rgba(16, 22, 45, 0.18); /* Float: it sits over the list */
+    border-color: transparent;
+  }
+  .pr-mono {
+    font-family: var(--mono);
+    font-size: 0.78125rem;
+    color: var(--ink);
+  }
+  .pr-detail-text {
+    margin: 0;
+    font-size: var(--t-sm);
+    line-height: 1.125rem;
+    white-space: pre-line;
+    color: var(--muted);
+  }
+  /* The decision line arrives after the Confirmation has faded (M4 → M5). */
+  .pr-line-in[data-kind="decision"] {
+    animation-delay: var(--dur-1);
+    animation-fill-mode: backwards;
+  }
+  .pr-provenance {
+    min-width: 0;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+  }
+  .pr-provenance .pr-section-title {
+    margin: 0;
+  }
+
+  /* ---- evidence Code Block (§1c) ---- */
+  .pr-evidence {
+    max-width: 760px;
+  }
+  .pr-ev-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2px;
+    padding: 4px 0;
+  }
+  @media (min-width: 600px) {
+    .pr-ev-row {
+      grid-template-columns: 6.5rem minmax(0, 1fr);
+      gap: 12px;
+    }
+  }
+  .pr-ev-label {
+    font-family: var(--sans);
+    font-size: var(--t-xs);
+    line-height: 1.125rem;
+    color: var(--muted);
+  }
+  .pr-ev-value {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+  .pr-ev-question,
+  .pr-ev-note,
+  .pr-ev-missing {
+    font-family: var(--sans);
+    font-size: var(--t-xs);
+    line-height: 1rem;
+    color: var(--muted);
+  }
+  .pr-ev-quote {
+    font-family: var(--mono);
+    color: var(--ink);
+    overflow-wrap: anywhere;
+  }
+
+  /* ---- spend (M7) and the Queue ---- */
+  .pr-cache {
+    margin-top: 12px;
+  }
+  .pr-queue {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 8px;
+    font-size: var(--t-sm);
+    line-height: 1.125rem;
+  }
+  .pr-queue li {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .pr-queue li.is-done > span {
+    color: var(--muted);
+  }
+  .pr-queue-icon {
+    flex: none;
+    width: 14px;
+    height: 14px;
+    margin-top: 2px;
+    color: var(--muted);
+  }
+  .pr-queue-meta {
+    margin-top: 12px;
+    display: grid;
+    gap: 4px;
+    font-size: var(--t-xs);
+    line-height: 1rem;
+    color: var(--faint-ink);
+  }
+  .pr-queue-meta p {
+    margin: 0;
+  }
+  .pr-queue-stale {
+    display: flex;
+    gap: 6px;
+    align-items: flex-start;
+    color: var(--ink);
+  }
+  .pr-queue-stale svg {
+    flex: none;
+    width: 12px;
+    height: 12px;
+    margin-top: 2px;
+  }
+
+  /* ---- checkpoint ---- */
+  .pr-checkpoint-content {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px 12px;
+  }
+  .pr-checkpoint .ghost-btn {
+    margin-top: 0;
+  }
+  .pr-state-icon {
+    width: 28px;
+    height: 28px;
+    color: var(--red);
+  }
+
+  /* ---- outcome and handback: no stripe, no box around the boxes ---- */
+  .outcome-stop {
+    margin: 0 0 4px;
+    font-size: var(--t-sm);
+    color: var(--muted);
+  }
+  .outcome-stop.is-bad {
+    color: var(--red);
+  }
+  .outcome .actions {
+    margin-top: 16px;
+  }
+  .suggestions {
+    gap: 0;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+  }
+  .suggestion {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 16px;
+  }
+  .suggestion + .suggestion {
+    border-top: 1px solid var(--line-soft);
+  }
+  @media (max-width: 600px) {
+    .suggestion {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
+
+  /* ---- leads: the per-row Evidence disclosure, and the target beside the count ---- */
+  .pr-leads-of {
+    font-size: var(--t-sm);
+    font-weight: 400;
+    letter-spacing: 0;
+    color: var(--muted);
+  }
+  .lrow-evidence {
+    grid-column: 1 / -1;
+    min-width: 0;
+    margin-top: -4px;
+  }
+
+  /* ---- sectioned Trace lists (candidates, considered but not added) ---- */
+  .pr-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+  }
+  .pr-section + .pr-section {
+    padding-top: 12px;
+    border-top: 1px solid var(--line-soft);
+  }
+  .pr-section-label {
+    margin: 0 0 8px;
+    font-size: var(--t-sm);
+    font-weight: 550;
+    color: var(--ink);
+  }
+  .cand-detail {
+    display: grid;
+    gap: 2px;
+  }
+  .cand-detail p {
+    margin: 0;
+  }
+  .cand-source a {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: var(--mono);
+    font-size: var(--t-xs);
+    color: var(--muted);
+  }
+  .cand-source a:hover {
+    color: var(--accent);
+  }
+  .cand-source svg {
+    width: 11px;
+    height: 11px;
+  }
+}
+
+/* Reduced motion. legacy.css clamps every animation to 0.01ms with !important; an !important in an
+   earlier layer wins over it, so the two entrances that keep an opacity-only fade (M3, M8) live here. */
+@layer base {
+  @media (prefers-reduced-motion: reduce) {
+    .pr-confirm:not([data-leaving]),
+    .pr-outcome {
+      animation-name: pr-fade-in !important;
+      animation-duration: var(--dur-1) !important;
+      animation-timing-function: var(--ease-out-quart) !important;
+    }
+    .pr-meter > span,
+    .lrow.is-new {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+}
+
+/* M9, overriding vendored shadcn utilities (components/ui/trace.tsx), which only unlayered rules can:
+   disclosures never animate height (neighbours would reflow in a streaming list); content fades. */
+[data-slot="trace-collapsible-content"] {
+  height: auto;
+  transition: opacity 120ms var(--ease-out-quart);
+}
+[data-slot="trace-collapsible-content"][data-starting-style],
+[data-slot="trace-collapsible-content"][data-ending-style] {
+  height: auto;
+  opacity: 0;
+}
+[data-slot="trace-collapsible-content"][data-ending-style] {
+  transition-timing-function: var(--ease-in-quart);
+}
+[data-slot="trace-collapsible-trigger"] > [data-slot="trace-icon"]:last-child {
+  transition: transform var(--dur-1) var(--ease-out-quart);
+}
+[data-slot="trace-collapsible-trigger"] {
+  transform-origin: left center;
+}
+
+/* Run-view classes that restyle shadcn roots (TraceLine, TraceTitle, Item, Marker). Their own Tailwind
+   utilities sit in the top layer, so only unlayered rules can adjust them. */
+.pr-run-line {
+  font-size: var(--t-md);
+  line-height: 1.375rem;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+  font-weight: 550;
+}
+
+.pr-run-line [data-slot="trace-title"] {
+  white-space: normal;
+  overflow: visible;
+}
+
+.pr-confirm {
+  animation: pr-rise-4 var(--dur-2) var(--ease-out-quint);
+}
+
+.pr-trace-line {
+  align-items: flex-start;
+  column-gap: 8px;
+  font-size: var(--t-sm);
+  line-height: 1.125rem;
+  color: var(--muted);
+}
+
+.pr-trace-line > [data-slot="trace-icon"] {
+  margin-top: 1px;
+}
+
+/* 390: the description drops under the title, the icon stays beside it. */
+@media (max-width: 600px) {
+  .pr-trace-line:has(> [data-slot="trace-icon"]) {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
+  }
+  .pr-trace-line:has(> [data-slot="trace-icon"]) > [data-slot="trace-description"] {
+    grid-column: 2;
+  }
+  .pr-trace-line:not(:has(> [data-slot="trace-icon"])) {
+    flex-wrap: wrap;
+  }
+}
+
+.pr-trace-title {
+  white-space: normal;
+  overflow: visible;
+  overflow-wrap: anywhere;
+}
+
+.pr-trace-desc {
+  color: var(--faint-ink);
+  font-size: var(--t-xs);
+  line-height: 1rem;
+}
+
+.pr-turn .pr-trace-title {
+  color: var(--ink);
+}
+
+.pr-checkpoint {
+  font-size: var(--t-sm);
+  color: var(--muted);
+}
+
+.pr-checkpoint[data-error] {
+  color: var(--red);
+}
+.pr-confirm {
+  padding: 20px 24px;
+  border-color: var(--amber-line);
+  border-radius: var(--r-lg);
+  background: var(--bg);
+  align-items: stretch;
+}
+
+.pr-confirm[data-leaving] {
+  animation: pr-fade-out var(--dur-1) var(--ease-in-quart) forwards;
+  pointer-events: none;
+}
+.pr-evidence [data-slot="code-block-title"] {
+  white-space: normal;
+  overflow: visible;
 }

@@ -1,5 +1,5 @@
 /**
- * Demo replay of one recorded agent run.
+ * Demo replay of one recorded agent run (today: memory-eval 2026-10-15b S1 rep 2, see docs/DEMO.md).
  *
  * Inputs (drop-in, no code changes): eval/demo/run/state.json (the run's final
  * RunState) and eval/demo/run/events.jsonl (every AgentEvent, in order), as
@@ -143,14 +143,17 @@ function applySeen(rec: { state: RecordedState; events: AgentEvent[] }, seen: Re
   let savedExa = 0;
   const screened: NonNullable<RunState["screened"]> = [];
   const skippedKeys = new Set<string>();
+  const recordedScreened = new Set((rec.state.screened ?? []).map((s) => squashName(s.company)));
   const events = rec.events.map((event): AgentEvent | null => {
-    if (event.kind === "tool_call" && event.tool === "lookup_company" && event.is_error !== true) {
+    // A lookup the recorded run already skipped from its own memory is replayed as recorded.
+    const recordedSkip = event.seen !== undefined && event.seen !== null && typeof event.seen === "object";
+    if (event.kind === "tool_call" && event.tool === "lookup_company" && event.is_error !== true && !recordedSkip) {
       const name = nameOf(event, "name");
       const info = name ? seen[squashName(name)] : undefined;
       if (name && info) {
         savedExa += num(event.exaCost);
         skippedKeys.add(squashName(name));
-        if (!screened.some((s) => squashName(s.company) === squashName(name))) {
+        if (!recordedScreened.has(squashName(name)) && !screened.some((s) => squashName(s.company) === squashName(name))) {
           screened.push({ company: name, code: "already_seen", reason: "company was delivered or rejected in an earlier run", turn: event.turn, stage: "lookup" });
         }
         return { ...event, exaCost: 0, resultSummary: `skipped_seen: ${name}`, seen: info, lookupSaved: true };

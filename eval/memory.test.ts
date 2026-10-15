@@ -569,29 +569,41 @@ describe("MemoryPanel", () => {
 });
 
 describe("demo: second workspace state and the skipped line", () => {
+  // The recording is the second run of its workspace; run.json keeps the memory it started with.
+  const recorded = async () => {
+    const dir = join(process.cwd(), "eval", "demo", "run");
+    const rec = JSON.parse(await readFile(join(dir, "state.json"), "utf8"));
+    const run = JSON.parse(await readFile(join(dir, "run.json"), "utf8"));
+    return { rec, before: run.memoryBefore.seen as Array<{ name: string; runId: string; at: string; signalUrl: string }> };
+  };
+
   it("DEMO_MODE=1: GET /memory shows the seeded workspace, with provenance", async () => {
     const w = ws();
+    const { before } = await recorded();
     process.env.DEMO_MODE = "1";
     try {
       const body = await (await memoryGET(new Request("http://x"), { params: { id: w } } as never)).json();
-      expect(body.seen).toHaveLength(2);
+      expect(body.seen).toHaveLength(before.length);
+      expect(body.seenCount).toBe(7);
       expect(body.seen[0]).toMatchObject({ verdict: "accepted", runId: expect.any(String), signalUrl: expect.stringMatching(/^https:/) });
-      expect(body.notes).toHaveLength(1);
+      expect(body.notes).toHaveLength(0); // the recorded run recalled no notes
     } finally {
       delete process.env.DEMO_MODE;
     }
   });
 
-  it("seeds from the recording only, once; the recorded run skips the seeded companies and the feed says so", async () => {
+  it("seeds the recording's own starting memory, once; the replay then matches the recording", async () => {
     const w = ws();
-    const rec = JSON.parse(await readFile(join(process.cwd(), "eval", "demo", "run", "state.json"), "utf8"));
+    const { rec, before } = await recorded();
     await seedDemoMemory(w);
     const seeded = await loadMemory(w);
-    // only the recording's own leads, with its run id and date; one self-note with an expiry
-    expect(seeded.seen.map((s) => s.name)).toEqual([rec.leads[0].company, rec.leads[rec.leads.length - 1].company]);
-    expect(seeded.seen.every((s) => s.runId === rec.id && s.at === rec.createdAt && rec.leads.some((l: { signal_url: string }) => l.signal_url === s.signalUrl))).toBe(true);
-    expect(seeded.notes).toHaveLength(1);
-    expect(Date.parse(seeded.notes[0]!.expiresAt)).toBeGreaterThan(Date.now());
+    // exactly what the recorded run's workspace remembered: names, run ids, dates and source links
+    expect(seeded.seen.map((s) => s.name).sort()).toEqual(before.map((s) => s.name).sort());
+    for (const s of seeded.seen) {
+      const orig = before.find((b) => b.name === s.name)!;
+      expect([s.runId, s.at, s.signalUrl]).toEqual([orig.runId, orig.at, orig.signalUrl]);
+    }
+    expect(seeded.notes).toHaveLength(0);
     // seeding is once per workspace: after "Clear memory" it stays cleared
     await clearMemory(w);
     await seedDemoMemory(w);
@@ -601,11 +613,15 @@ describe("demo: second workspace state and the skipped line", () => {
     const w2 = ws();
     const { id } = await createDemoRun(w2);
     const feed: Array<string | undefined> = [];
+    const kinds: string[] = [];
     let status = "running";
     for (let i = 0; i < 60 && (status === "running" || status === "awaiting_approval"); i += 1) {
       const out = await demoStep(id);
       status = out.status;
-      for (const e of out.events) feed.push(eventLine(e)?.text);
+      for (const e of out.events) {
+        feed.push(eventLine(e)?.text);
+        kinds.push(e.kind);
+      }
       if (status === "awaiting_approval") {
         const { demoDecide } = await import("../src/demo/replay");
         await demoDecide(id, { approve: true });
@@ -613,18 +629,22 @@ describe("demo: second workspace state and the skipped line", () => {
       }
     }
     expect(status).not.toBe("running");
-    const skippedLines = feed.filter((t) => t?.startsWith("Skipped "));
-    expect(skippedLines).toHaveLength(2);
-    expect(skippedLines[0]).toMatch(new RegExp(`^Skipped ${rec.leads[0].company}, delivered 12 Oct in an earlier run, lookup saved$`));
+    // the two recorded skips, nothing more: the recording never met the other five remembered companies
+    expect(feed.filter((t) => t?.startsWith("Skipped "))).toEqual([
+      "Skipped Wagner Logistics, delivered 15 Oct in an earlier run, lookup saved",
+      "Skipped Spartan Logistics, delivered 15 Oct in an earlier run, lookup saved",
+    ]);
+    expect(kinds).toContain("memory_recalled");
+    expect(kinds).toContain("lookup_retry");
     const snap = await demoSnapshot(id);
-    expect(snap.leads.map((l) => l.company)).toEqual(rec.leads.slice(1, -1).map((l: { company: string }) => l.company));
-    expect(snap.leads).toHaveLength(rec.leads.length - 2);
+    expect(snap.leads.map((l) => l.company)).toEqual(rec.leads.map((l: { company: string }) => l.company));
+    expect(snap.leads).toHaveLength(8);
     expect(snap.screened?.find((s) => s.code === "already_seen")?.count).toBe(2);
-    expect(snap.handback?.shortfall).toBe(`${rec.leads.length - 2} of ${rec.contract.targetLeads}`);
-    expect(snap.spend.total).toBeLessThan(rec.spend.total);
-    // the finished demo run is written to memory without re-adding the skipped companies
+    expect(snap.handback?.shortfall).toBe(`8 of ${rec.contract.targetLeads}`);
+    // the recorded skips were already free, so the replay spends exactly what the recording spent
+    expect(snap.spend.total).toBeCloseTo(rec.spend.total, 10);
+    // the finished demo run is written to memory (its leads and turn-downs) next to what it started with
     const after = await loadMemory(w2);
-    expect(after.seen).toHaveLength(rec.leads.length);
-    expect(new Set(after.seen.map((s) => s.squashed)).size).toBe(rec.leads.length);
+    expect(new Set(after.seen.map((s) => s.squashed)).size).toBe(before.length + rec.leads.length + rec.rejected.length);
   });
 });

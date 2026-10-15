@@ -160,7 +160,7 @@ describe("code graders (eval/graders)", () => {
   it("FAILURES #4 and #6 reproduce on the pre-fix smoke recording and pass on the pilot", () => {
     const smoke = load("eval/recordings/agent-icp1-2026-10-12/agent");
     expect(gradeRun(smoke.state, smoke.events).failed.sort()).toEqual(["cost_reconciles", "handback_when_short"]);
-    const demo = load("eval/demo/run");
+    const demo = load("eval/results/pilot-2026-10-12/S1/B_agent_opus/2"); // the pilot run the demo replayed until 2026-10-15
     expect(gradeRun(demo.state, demo.events).failed).toEqual([]);
   });
 
