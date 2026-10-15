@@ -4,25 +4,27 @@ import { join } from "node:path";
 import {
   checkIdentity as newCheckIdentity,
   checkLead as newCheckLead,
+  isListingUrl,
+  isThirdPartyListing,
   squashName,
   type LeadInput,
   type LeadVerdict,
 } from "../src/gates";
-import { checkIdentity as oldCheckIdentity, checkLead as oldCheckLead } from "./replay/gates-before";
+import { checkIdentity as oldCheckIdentity, checkLead as oldCheckLead } from "./replay/gates-head-62321c3";
 import { defaultScenario } from "./harness/run-cell";
 import { findVerdictFile } from "./harness/truth";
 import type { RunState } from "../src/agent/state";
 import type { RunRecord, Verdict } from "./harness/types";
 
-const SET = "pilot-2026-10-12";
-const ROOT = join("eval/results", SET);
-const OUT = "eval/results/gate-replay-2026-10-14.md";
+const SETS = ["pilot-2026-10-12", "live-quotes-2026-10-14", "memory-eval-2026-10-15", "memory-eval-2026-10-15b"];
+const OUT = "eval/results/gate-replay-2026-10-15.md";
 const FALLBACK_NOW = new Date("2026-10-12T00:00:00.000Z");
 
 /** accepted/rejected-with-code, or not computable from what the pilot persisted. */
 type Out = { accepted: true } | { accepted: false; code: string } | { unverifiable: string };
 
 type Row = {
+  set: string;
   scenario: string;
   arm: string;
   rep: string;
@@ -38,6 +40,9 @@ type Row = {
   noSignalQuote: boolean;
   unquotedGates: string[];
   fullCode?: string;
+  /** URL-shape rule alone (independent of the domain list): would it reject this lead? agent rows only. */
+  shapeRule?: boolean;
+  url: string;
 };
 
 function json<T>(path: string): T {
@@ -88,13 +93,13 @@ function agentInput(state: RunState, lead: RunState["leads"][number], now: Date)
 // --- snapshot provenance ----------------------------------------------------
 function snapshotMatchesHead(): string {
   try {
-    const head = execFileSync("git", ["show", "HEAD:src/gates.ts"], { encoding: "utf8", maxBuffer: 16 << 20 });
-    const snap = readFileSync("eval/replay/gates-before.ts", "utf8");
+    const head = execFileSync("git", ["show", "62321c3:src/gates.ts"], { encoding: "utf8", maxBuffer: 16 << 20 });
+    const snap = readFileSync("eval/replay/gates-head-62321c3.ts", "utf8");
     const norm = (s: string) =>
       s.split("\n").filter((l) => !l.startsWith("// Frozen copy")).join("\n").replace(/"\.\.\/\.\.\/src\//g, '"./').replace(/"\.\/(eval|geo|plan|types)"/g, '"./$1"');
     return norm(head) === norm(snap)
-      ? "`eval/replay/gates-before.ts` is byte-identical to `git show HEAD:src/gates.ts` apart from its provenance comment and import paths (checked at replay time); it is used as the OLD side."
-      : "WARNING: `eval/replay/gates-before.ts` DIFFERS from `git show HEAD:src/gates.ts`; OLD side is the snapshot, not HEAD.";
+      ? "`eval/replay/gates-head-62321c3.ts` is byte-identical to `git show 62321c3:src/gates.ts` apart from its provenance comment and import paths (checked at replay time); it is used as the OLD side."
+      : "WARNING: `eval/replay/gates-head-62321c3.ts` DIFFERS from `git show 62321c3:src/gates.ts`; OLD side is the snapshot.";
   } catch (e) {
     return `could not compare snapshot with HEAD (${(e as Error).message.split("\n")[0]})`;
   }
@@ -108,6 +113,8 @@ const WF_UNVERIFIABLE = [
   "entity/hq/size/enterprise/gates (no lookup recorded)",
 ];
 
+for (const SET of SETS) {
+const ROOT = join("eval/results", SET);
 for (const scenario of readdirSync(ROOT).filter((d) => d.startsWith("S") && statSync(join(ROOT, d)).isDirectory()).sort()) {
   const scenarioDir = join(ROOT, scenario);
   const plan = defaultScenario(scenario).plan;
@@ -124,7 +131,7 @@ for (const scenario of readdirSync(ROOT).filter((d) => d.startsWith("S") && stat
       for (const lead of run.leads) {
         const truth = verdictFor(scenario, lead.company, lead.signal_url);
         if (!truth) continue;
-        const base = { scenario, arm, rep, company: lead.company, good: scorerGood(truth, q2State) };
+        const base = { set: SET, scenario, arm, rep, company: lead.company, good: scorerGood(truth, q2State) };
         const stateLead = state?.leads.find(
           (l) => l.signal_url === lead.signal_url && (l.company === lead.company || squashName(l.company) === squashName(lead.company)),
         );
@@ -140,6 +147,7 @@ for (const scenario of readdirSync(ROOT).filter((d) => d.startsWith("S") && stat
             unverifiable: state ? ["lead missing from copied agent state", ...WF_UNVERIFIABLE] : WF_UNVERIFIABLE,
             noSignalQuote: true,
             unquotedGates: [],
+            url: lead.signal_url,
           });
           continue;
         }
@@ -155,20 +163,23 @@ for (const scenario of readdirSync(ROOT).filter((d) => d.startsWith("S") && stat
         rows.push({
           ...base,
           signalOnly: false,
-          before: toOut(oldCheckLead(plan, input)),
+          before: toOut(oldCheckLead(plan, input, { evidenceMode: "skip-quotes" })),
           after: toOut(newCheckLead(plan, input, { evidenceMode: "skip-quotes" })),
           unverifiable: input.lookupText ? [] : ["lookup page text not recorded: quote_not_in_page on lookup quotes"],
           noSignalQuote: !String(input.signal.summary.signal_quote ?? "").trim(),
           unquotedGates,
           fullCode: full.ok ? "accepted" : full.code,
+          shapeRule: isThirdPartyListing(input.signal, input.companyUrl),
+          url: lead.signal_url,
         });
       }
     }
   }
 }
 
+}
 // --- formatting ------------------------------------------------------------
-const groupKey = (r: Row) => `${r.scenario}/${r.arm}`;
+const groupKey = (r: Row) => `${r.set}/${r.scenario}/${r.arm}`;
 const groups = [...new Set(rows.map(groupKey))].sort();
 
 function names(rs: Row[], withCode: boolean): string {
@@ -188,29 +199,29 @@ const sum = (rs: Row[], f: (r: Row) => boolean) => rs.filter(f).length;
 
 const snapshotNote = snapshotMatchesHead();
 const lines: string[] = [];
-lines.push("# Gate Replay Projection - 2026-10-14", "");
+lines.push("# Gate Replay Projection - 2026-10-15 (third-party job-listing rule)", "");
 lines.push(
-  "Scope: judged pilot leads (distinct leads in `eval/truth/S1|S2/*.json`; the table counts each lead once per rep it appeared in, 86 lead-reps), replayed from `eval/results/pilot-2026-10-12/**`. No Exa or Anthropic calls are made ($0).",
+  "Scope: every judged lead (verdict in `eval/truth/S1|S2/*.json`) in `eval/results/{pilot-2026-10-12,live-quotes-2026-10-14,memory-eval-2026-10-15,memory-eval-2026-10-15b}/**`; each lead is counted once per run (rep) it appeared in. No Exa or Anthropic calls are made ($0).",
   "",
 );
 lines.push(
-  "**Simulation limits (exact).** (1) Pilot lead summaries predate the quote fields: none carries `signal_quote`, `signal_date_quote`, `<gate>_quote` or `hq_quote`, so no quote rule can be evaluated against a fresh summary; Layer 1 therefore runs the NEW `checkLead` with `evidenceMode: \"skip-quotes\"`, and Layer 2 only counts which accepted leads would lack a quote. (2) Lookup page text was not recorded in the pilot state, so `quote_not_in_page` on lookup-page quotes (employee source, HQ, gate quotes) cannot be replayed for any lead. (3) Workflow-arm (`A_workflow`) `run.json` files persist only company, signal URL, why_now, event_date and size_basis: no signal summary, signal text, title, enrichment or lookup. For those leads only the rules that need nothing but company name and signal URL run (built-in/plan excluded domains, personal-profile URL, plan exclude names, placeholder/job-board names); hiring-by-roles, entity match, HQ, size, enterprise, gates and all quote rules are reported unverifiable per lead, not the lead dropped. (4) The signal-page text used for entity/hiring checks on agent-arm leads is the recorded Exa page text; the live-Exa behaviour of the quote rule is unproven until a paid run.",
+  "**Simulation limits (exact).** (1) Pilot lead summaries (only) predate the quote fields: none carries `signal_quote`, `signal_date_quote`, `<gate>_quote` or `hq_quote`, so no quote rule can be evaluated against a fresh summary; Layer 1 therefore runs the NEW `checkLead` with `evidenceMode: \"skip-quotes\"`, and Layer 2 only counts which accepted leads would lack a quote. (2) Lookup page text was not recorded in the pilot state, so `quote_not_in_page` on lookup-page quotes (employee source, HQ, gate quotes) cannot be replayed for any lead. (3) Workflow-arm (`A_workflow`) `run.json` files persist only company, signal URL, why_now, event_date and size_basis: no signal summary, signal text, title, enrichment or lookup. For those leads only the rules that need nothing but company name and signal URL run (built-in/plan excluded domains, personal-profile URL, plan exclude names, placeholder/job-board names); hiring-by-roles, entity match, HQ, size, enterprise, gates and all quote rules are reported unverifiable per lead, not the lead dropped. (4) The signal-page text used for entity/hiring checks on agent-arm leads is the recorded Exa page text; the live-Exa behaviour of the quote rule is unproven until a paid run.",
   "",
 );
 lines.push(`OLD side: ${snapshotNote}`, "");
-lines.push("Good/bad = the scorer's rule (`eval/harness/score.ts` leadGood: q1 and q3 yes, q2 yes or one tolerated cannot_verify per run). The accepted-before precision below reproduces `eval/results/pilot-2026-10-12/report.md` (S1 agent 22/25, S2 agent 24/30, S1 workflow 6/19, S2 workflow 1/12).", "");
+lines.push("Good/bad = the scorer's rule (`eval/harness/score.ts` leadGood: q1 and q3 yes, q2 yes or one tolerated cannot_verify per run). OLD = `src/gates.ts` at 62321c3, NEW = the working tree, both run with `evidenceMode: \"skip-quotes\"`, so only deterministic rules differ. The OLD side therefore already carries the 2026-10-14 rules; \"bad leads caught\" are leads the 62321c3 gates accepted and the new gates reject.", "");
 
 lines.push("## Layer 1 - deterministic rules only (NEW `skip-quotes` vs OLD)", "");
-lines.push("| scenario | arm | judged | accepted-before | accepted-after | bad leads caught (code) | good leads lost (code) | projected precision | leads with unverifiable rules |");
-lines.push("|---|---|---:|---:|---:|---|---|---:|---:|");
+lines.push("| set | scenario | arm | judged | accepted-before | accepted-after | bad leads caught (code) | good leads lost (code) | projected precision | leads with unverifiable rules |");
+lines.push("|---|---|---|---:|---:|---:|---|---|---:|---:|");
 for (const g of groups) {
   const rs = rows.filter((r) => groupKey(r) === g);
-  const [scenario, arm] = g.split("/");
+  const [set, scenario, arm] = g.split("/");
   const before = sum(rs, (r) => isAccepted(r.before));
   const after = sum(rs, (r) => isAccepted(r.after));
   const goodAfter = sum(rs, (r) => isAccepted(r.after) && r.good);
   lines.push(
-    `| ${scenario} | ${arm} | ${rs.length} | ${before} | ${after} | ${names(rs.filter((r) => !r.good && flipped(r)), true)} | ${names(rs.filter((r) => r.good && flipped(r)), true)} | ${after ? `${goodAfter}/${after} = ${(goodAfter / after).toFixed(2)}` : "n/a"} | ${sum(rs, (r) => r.unverifiable.length > 0)} |`,
+    `| ${set} | ${scenario} | ${arm} | ${rs.length} | ${before} | ${after} | ${names(rs.filter((r) => !r.good && flipped(r)), true)} | ${names(rs.filter((r) => r.good && flipped(r)), true)} | ${after ? `${goodAfter}/${after} = ${(goodAfter / after).toFixed(2)}` : "n/a"} | ${sum(rs, (r) => r.unverifiable.length > 0)} |`,
   );
 }
 
@@ -227,12 +238,12 @@ const byCode = new Map<string, Row[]>();
 for (const r of flips) byCode.set(codeOf(r.after), [...(byCode.get(codeOf(r.after)) ?? []), r]);
 if (flips.length === 0) lines.push("- none");
 for (const [c, rs] of [...byCode.entries()].sort()) {
-  lines.push(`- \`${c}\` (${rs.length} lead-reps): ` + rs.map((r) => `${r.scenario}/${r.arm}/${r.rep} ${r.company} (${r.good ? "GOOD" : "bad"})`).join("; "));
+  lines.push(`- \`${c}\` (${rs.length} lead-reps): ` + rs.map((r) => `${r.set}/${r.scenario}/${r.arm}/${r.rep} ${r.company} (${r.good ? "GOOD" : "bad"})`).join("; "));
 }
 const reverse = rows.filter((r) => !isAccepted(r.before) && isAccepted(r.after));
-if (reverse.length) lines.push("", "Accepted only by NEW (old rejected; replay drift, not a rule change): " + reverse.map((r) => `${r.scenario}/${r.arm}/${r.rep} ${r.company}`).join("; "));
+if (reverse.length) lines.push("", "Accepted only by NEW (old rejected; replay drift, not a rule change): " + reverse.map((r) => `${r.set}/${r.scenario}/${r.arm}/${r.rep} ${r.company}`).join("; "));
 const oldRej = rows.filter((r) => !isAccepted(r.before) && !r.signalOnly);
-if (oldRej.length) lines.push("", "Note: OLD replay already rejected (not accepted-before): " + oldRej.map((r) => `${r.scenario}/${r.arm}/${r.rep} ${r.company} [${codeOf(r.before)}]`).join("; "));
+if (oldRej.length) lines.push("", "Note: OLD replay already rejected (not accepted-before): " + oldRej.map((r) => `${r.set}/${r.scenario}/${r.arm}/${r.rep} ${r.company} [${codeOf(r.before)}]`).join("; "));
 
 lines.push("", "### Unverifiable per lead (Layer 1)", "");
 const wf = rows.filter((r) => r.signalOnly);
@@ -243,14 +254,14 @@ lines.push(`- Agent-arm leads (${ag.length}): all deterministic rules ran; unver
 // Layer 2
 lines.push("", "## Layer 2 - would require evidence (leads accepted after Layer 1)", "");
 lines.push("Counts leads that rest on an unquoted required gate boolean (or an unquoted HQ) and/or have no `signal_quote`. Under full enforcement these become `tier: \"candidate\"` (`unquoted_gate` / `unquoted_signal`); the simulation cannot say whether a fresh quote-enabled run would find a quote on the page.", "");
-lines.push("| scenario | arm | accepted after L1 | no signal_quote | unquoted required gate / HQ | would become candidate | of which BAD (quote rule stops them) | of which GOOD (demoted pending a fresh run) |");
-lines.push("|---|---|---:|---:|---:|---:|---|---|");
+lines.push("| set | scenario | arm | accepted after L1 | no signal_quote | unquoted required gate / HQ | would become candidate | of which BAD (quote rule stops them) | of which GOOD (demoted pending a fresh run) |");
+lines.push("|---|---|---|---:|---:|---:|---:|---|---|");
 for (const g of groups) {
   const rs = rows.filter((r) => groupKey(r) === g && isAccepted(r.after));
-  const [scenario, arm] = g.split("/");
+  const [set, scenario, arm] = g.split("/");
   const cand = rs.filter((r) => r.noSignalQuote || r.unquotedGates.length > 0);
   lines.push(
-    `| ${scenario} | ${arm} | ${rs.length} | ${sum(rs, (r) => r.noSignalQuote)} | ${sum(rs, (r) => r.unquotedGates.length > 0)} | ${cand.length} | ${names(cand.filter((r) => !r.good), false)} | ${names(cand.filter((r) => r.good), false)} |`,
+    `| ${set} | ${scenario} | ${arm} | ${rs.length} | ${sum(rs, (r) => r.noSignalQuote)} | ${sum(rs, (r) => r.unquotedGates.length > 0)} | ${cand.length} | ${names(cand.filter((r) => !r.good), false)} | ${names(cand.filter((r) => r.good), false)} |`,
   );
 }
 const l2 = rows.filter((r) => isAccepted(r.after) && (r.noSignalQuote || r.unquotedGates.length > 0));
@@ -266,6 +277,26 @@ lines.push(
 );
 lines.push("Workflow-arm rows count as `no signal_quote` by construction (their run files carry no summary); their gate-quote status is unverifiable.");
 
+const mustCatch = ["NXTPoint Logistics|snaprecruit", "Fetch Package|capitalfactory", "Port City Logistics|jobtarget"];
+lines.push("", "## Required catches", "");
+for (const m of mustCatch) {
+  const [name, host] = m.split("|");
+  const hit = rows.filter((r) => r.company.startsWith(name) && !r.good && flipped(r) && JSON.stringify(r).length > 0);
+  lines.push(`- ${name} (${host}): ${hit.length ? "caught " + hit.map((r) => `${r.set}/${r.rep} [${codeOf(r.after)}]`).join(", ") : "NOT CAUGHT"}`);
+}
+lines.push("- Constellation Cold Logistics (bbc.co.uk news article): not a listing; q3=no because the event (council approval, early June 2026) predates the window and the BBC piece is a later report. NOT caught, and not catchable by a deterministic URL rule: the summary's event date (2026-08-27, the BBC piece) is inside the window; only the judge's fetch of other sources showed the underlying approval was early June. Judge-only failure.");
+lines.push("", "## URL-shape rule on its own (independent of the domain list)", "");
+lines.push("Every agent-arm lead-rep the shape rule (`isThirdPartyListing`: listing-shaped host/path, registrable domain differs from the lookup URL or lookup unknown) would reject, whichever rule fires first in `checkLead`:", "");
+const shape = rows.filter((r) => r.shapeRule);
+if (!shape.length) lines.push("- none");
+for (const r of shape) lines.push(`- ${r.set}/${r.scenario}/${r.arm}/${r.rep} ${r.company} (${r.good ? "GOOD" : "bad"}): ${r.url}`);
+const listingLike = rows.filter((r) => !r.signalOnly && !r.shapeRule && isListingUrl(r.url));
+lines.push("", "Listing-shaped URLs the rule lets through (own domain): " + (listingLike.map((r) => `${r.set}/${r.rep} ${r.company} (${r.good ? "GOOD" : "bad"}) ${r.url}`).join("; ") || "none"));
+const JAY_REASON = "Jay Group is lost by design: a single third-party job post (thejobsmap.com) is not counted by the rubric, which accepts a job post only on the company's own site or naming >=2 roles; its judge verdict was good only via the aggregator's \"More jobs at Jay Group\" list and carried a spot-check flag.";
+const goodLost = rows.filter((r) => r.good && flipped(r));
+lines.push("", `SUMMARY good leads lost: ${goodLost.length}${goodLost.length ? " -> " + goodLost.map((r) => `${r.set}/${r.rep} ${r.company}`).join("; ") : ""}`);
+if (goodLost.length) lines.push(`SUMMARY reason: ${JAY_REASON}`);
+lines.push(`SUMMARY bad leads newly caught: ${rows.filter((r) => !r.good && flipped(r)).length} of ${rows.filter((r) => !r.good && isAccepted(r.before)).length} bad lead-reps accepted before`);
 writeFileSync(OUT, `${lines.join("\n")}\n`, "utf8");
 console.log(lines.join("\n"));
 console.log(`\nwrote ${OUT}`);

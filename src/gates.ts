@@ -196,6 +196,10 @@ export const BUILTIN_EXCLUDED_SIGNAL_DOMAINS = [
   "jobera.com",
   "intern-flow.in",
   "zerogtalent.com",
+  // Added 2026-10-15 (memory-eval-2026-10-15b, S1 verdicts with q3=no on a listing URL).
+  "snaprecruit.com",
+  "jobtarget.com",
+  "jobs.capitalfactory.com",
 ] as const;
 
 export function isNonCompanyName(name: string): boolean {
@@ -281,6 +285,32 @@ function isHiringSignal(signal: LeadSignal): boolean {
     // unparseable URL: no path evidence
   }
   return JOB_POST_TITLE.test(signal.title ?? "");
+}
+
+const LISTING_HOST = /^(?:jobs|careers?|apply|boards)\./i;
+const LISTING_PATH = /\/(?:jobs?|careers?|vacanc(?:y|ies)|positions?|openings?)(?:\/|$|\?)/i;
+
+/** True when the URL is shaped like a job listing / careers page (host prefix or path segment). */
+export function isListingUrl(url: string): boolean {
+  try {
+    const u = new URL(url);
+    return LISTING_HOST.test(u.hostname) || LISTING_PATH.test(`${u.pathname}${u.search}`);
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * A job listing on a site that is not the company's own: a board's company page, an aggregator's job page. Own-domain
+ * careers pages are not caught here. An unknown company domain counts as "not own domain". The summary's signal_type
+ * is deliberately NOT consulted: the rule must not trust the summariser's label.
+ */
+export function isThirdPartyListing(signal: LeadSignal, companyUrl: string | undefined): boolean {
+  if (!isListingUrl(signal.url)) return false;
+  const own = registrableDomain(companyUrl);
+  const sig = registrableDomain(signal.url);
+  if (own !== undefined && sig !== undefined && own === sig) return false;
+  return true;
 }
 
 const ROLE_WORDS = [
@@ -706,6 +736,9 @@ export function checkLead(plan: SearchPlan, input: LeadInput, options: CheckLead
   }
   if (!entityMatches(company, haystack)) {
     return fail("entity_mismatch", `"${company}" does not appear in the signal page`);
+  }
+  if (isThirdPartyListing(signal, input.companyUrl)) {
+    return fail("non_event_page", "job listing on a third-party site");
   }
   if (isHiringSignal(signal)) {
     const sameDomain = registrableDomain(signal.url) !== undefined && registrableDomain(signal.url) === registrableDomain(input.companyUrl);

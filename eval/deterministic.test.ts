@@ -122,7 +122,7 @@ describe("deterministic evals", () => {
       icp1,
       [
         candidate({
-          url: "https://jobs.example.com/a",
+          url: "https://news.example.com/a",
           title: "Operations Manager at ShipMonk",
           publishedDate: "2026-08-13T00:00:00.000Z",
           text: "ShipMonk third party logistics provider fulfillment network is hiring operations manager roles.",
@@ -133,7 +133,7 @@ describe("deterministic evals", () => {
           enrichment: fulfillmentCompany("Fort Lauderdale, FL", 650),
         }),
         candidate({
-          url: "https://jobs.example.com/b",
+          url: "https://news.example.com/b",
           title: "Older Operations Manager at ShipMonk",
           publishedDate: "2026-07-01T00:00:00.000Z",
           text: "ShipMonk third party logistics provider operations role.",
@@ -158,7 +158,7 @@ describe("deterministic evals", () => {
       icp1,
       [
         candidate({
-          url: "https://jobs.example.com/gxo",
+          url: "https://news.example.com/gxo",
           title: "Operations Manager at GXO Logistics",
           publishedDate: "2026-08-13T00:00:00.000Z",
           text: "GXO Logistics contract logistics warehouse operations role.",
@@ -175,7 +175,7 @@ describe("deterministic evals", () => {
           },
         }),
         candidate({
-          url: "https://jobs.example.com/quince",
+          url: "https://news.example.com/quince",
           title: "Warehouse Operations Manager at Quince",
           publishedDate: "2026-08-14T00:00:00.000Z",
           text: "Quince retail warehouse operations role.",
@@ -192,7 +192,7 @@ describe("deterministic evals", () => {
           },
         }),
         candidate({
-          url: "https://jobs.example.com/shipmonk",
+          url: "https://news.example.com/shipmonk",
           title: "Operations Manager at ShipMonk",
           publishedDate: "2026-08-15T00:00:00.000Z",
           text: "ShipMonk third party logistics provider fulfillment network is hiring operations manager roles.",
@@ -215,7 +215,7 @@ describe("deterministic evals", () => {
       icp1,
       [
         candidate({
-          url: "https://jobs.example.com/emiza",
+          url: "https://news.example.com/emiza",
           title: "Operations Manager at Emiza",
           publishedDate: "2026-08-15T00:00:00.000Z",
           text: "Emiza third party logistics provider fulfillment network is hiring operations manager roles.",
@@ -226,7 +226,7 @@ describe("deterministic evals", () => {
           enrichment: fulfillmentCompany("Mumbai, India", 500),
         }),
         candidate({
-          url: "https://jobs.example.com/rxo",
+          url: "https://news.example.com/rxo",
           title: "Operations Manager at RXO",
           publishedDate: "2026-08-16T00:00:00.000Z",
           text: "RXO logistics operations manager role.",
@@ -255,7 +255,7 @@ describe("deterministic evals", () => {
       icp1,
       [
         candidate({
-          url: "https://jobs.example.com/regional-fulfill",
+          url: "https://news.example.com/regional-fulfill",
           title: "Operations Manager at Regional Fulfill",
           publishedDate: "2026-08-17T00:00:00.000Z",
           text: "Regional Fulfill is a third party logistics provider fulfillment company hiring warehouse operations managers.",

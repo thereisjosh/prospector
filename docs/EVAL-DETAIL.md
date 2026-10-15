@@ -118,7 +118,7 @@ Future paid evals land there directly: `npm run eval:cell -- … --langfuse-expe
 
 ## Memory eval
 
-**Status: not yet run.** The harness, the report and a $0 dry run exist and are tested (`eval/memory-eval.test.ts`); no paid run has happened, so there are no results to quote.
+**Status: run twice on S1 (2026-10-15).** First run FAIL (old quote gate), rerun PASS (gate fixed in 43e44ae). Results below; the harness, the report and a $0 dry run are tested in `eval/memory-eval.test.ts`.
 
 **Question.** Does what the agent remembers from run A change what run B finds, and is the change good? Workspace memory (`src/agent/memory.ts`) carries three things into the next run through `recall()`: every company already seen (the gate rejects them and `lookup_company` skips the paid lookup), the user's feedback, and the agent's own `remember` notes. This eval measures the first and third; there is no user feedback in it.
 
@@ -162,4 +162,36 @@ npx tsx eval/memory-eval.ts --set memory-eval-2026-10-15 --scenario S1 --max-dol
 ```
 
 A single cell in a workspace, for debugging: `npm run eval:cell -- --set <id> --scenario S1 --arm B --rep 1 --workspace mem-eval-<id>-S1`.
+### Results (2026-10-15, scenario S1)
+
+**Run 1, `memory-eval-2026-10-15` (old gate): FAIL.** `eval/results/memory-eval-2026-10-15/report.md`.
+
+| run | leads | good (judged) | new vs A | lookups skipped | Exa $ saved | notes written | notes recalled | dead-query overlap | cache share | spend | $ / good lead |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| A | 5 | 5 | - | 0 | $0.0000 | 1 | 0 | - | 0.88 | $0.7984 | $0.1597 |
+| B | 1 | 1 | 1/1 | 2 | $0.0180 | 1 | 1 | 0/12 | 0.91 | $0.8043 | $0.8043 |
+| B' (control) | 8 | 8 | 4/8 (info) | 0 | $0.0000 | 0 | 0 | 0/13 | 0.90 | $0.8596 | $0.1074 |
+
+good(B) = 1 is more than 2 below good(B') = 8. The cause was not memory: B lost 5 lookups to `quote_not_in_page` and 7 to `fetch failed`, so it had little to submit (FAILURES #25, `eval/results/quote-replay-2026-10-15.md`). B did skip 2 lookups, and its one lead was new, and it recalled A's note. B' repeated 4 of A's companies (Wagner Logistics, FreezPak Logistics, ColdTrack, RGL Logistics), which is what an empty workspace does and what memory is meant to prevent. Judge spend $4.1088.
+
+**Run 2, `memory-eval-2026-10-15b` (gate fixed in 43e44ae): PASS.** `eval/results/memory-eval-2026-10-15b/report.md`.
+
+| run | leads | good (judged) | new vs A | lookups skipped | Exa $ saved | notes written | notes recalled | dead-query overlap | cache share | spend | $ / good lead |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| A | 7 | 3 | - | 0 | $0.0000 | 0 | 0 | - | 0.89 | $0.8796 | $0.2932 |
+| B | 8 | 8 | 8/8 | 2 | $0.0180 | 1 | 0 | 0/11 | 0.91 | $0.8542 | $0.1068 |
+| B' (control) | 6 | 6 | 4/6 (info) | 0 | $0.0000 | 1 | 0 | 0/11 | 0.92 | $0.8453 | $0.1409 |
+
+PASS: B skipped 2 lookups, 8 of 8 B leads are new vs A, good(B) 8 vs good(B') 6. The fix mattered: retries recovered 5 network errors and 1 quote reject across the three runs.
+
+**Reading.**
+
+- The mechanism works: B is told what A saw, skips 2 paid lookups, and every one of its 8 leads is a company A did not deliver, while the control B', which has no memory, repeats 2 of A's 6 (4/6 new). Cost per good lead is $0.107 for B against $0.141 for B'.
+- It does not show that B is better than a fresh run. n = 1 per cell, and the pass rule tolerates a 2-lead difference because that is the pilot's run-to-run noise (S1 good counts 9, 7, 6). 8 vs 6 is inside it.
+- Notes recalled is 0 in the rerun because A wrote no note (below), so the self-note path was exercised in run 1 only (B recalled 1), not in the PASS run. What B's 8/8 rests on is the seen-company list, not A's lessons.
+- Run A's 3 good of 7 is a precision problem, not a memory result. The 4 bad leads all failed Q3: three were job-board listings (NXTPoint Logistics on snaprecruit.com, Fetch Package on jobs.capitalfactory.com, Port City Logistics on jobtarget.com) and one was Constellation Cold Logistics, whose BBC article of 2026-08-27 reports a council approval the judge dated to early June 2026, before the window opened on 2026-07-15. The job-board hole was fixed after this run (a URL-shape rule plus three domains, FAILURES #26) and replayed on every judged lead ($0, 3 bad caught, 1 good lost: Jay Group, a single thejobsmap.com post that the rubric would not count, `eval/results/gate-replay-2026-10-15.md`); it has not been re-measured live. Constellation is not caught by any deterministic rule.
+
+**Spend.** Cells: $2.46 (run 1) and $2.58 (run 2). Judge: $4.1088 for run 1 as the report states. For run 2 the report's $5.8616 counts every verdict file attached to the pooled leads, including verdicts reused from run 1; the 7 verdicts written in the rerun (judgedAt 2026-10-15T11:xx in `eval/truth`) sum to $2.7223 in `costDollars`, which is the rerun's new judge spend (the earlier $2.38 was an estimate).
+
+**Why run A wrote no self-note.** The `remember` offer is not in the loop. It lives in the `finish` tool handler (`src/agent/tools.ts`, the `tool.name === "finish"` branch): the first `finish` call with no notes yet and at least one lead (or a handback) is answered "Not finished yet ... save it now with `remember`", sets `state.rememberNudged`, and the run continues; the second `finish` ends it. A run that stops on a limit never calls `finish`. `src/agent/loop.ts` `limitReason()` stops on budget (spend plus the handback reserve reaching the cap), max turns, active time, no progress or target, and `finishRun()` then builds the handback itself (`handback()` or `codeHandback()`); none of those paths touches the nudge. Run A of the rerun stopped on `budget` with no `remember` call and `rememberNudged` unset in its `state.json`, so the nudge never had a chance to fire. In the same set B also stopped on budget, and wrote a note on its own initiative (1 `remember` call, nudge unset); B' stopped on `finish` and also holds one note with the nudge unset (it saved one before finishing, so the nudge condition was already false). In run 1, B' stopped on budget with no note; A and B finished with a note. So a budget-stopped run leaves a lesson only if the model volunteers it. This is documented, not changed: the loop is not part of this change. The effect on the eval is that a budget-stopped A starves B's recall of notes.
 

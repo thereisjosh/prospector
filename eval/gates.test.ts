@@ -282,13 +282,71 @@ describe("checkLead: one test per gate code", () => {
     byUrl.signal.url = "https://news.example.com/careers/shipco-courier";
     byUrl.signal.text = "ShipCo needs one courier.";
     byUrl.signal.summary.signal_quote = "ShipCo needs one courier.";
-    expect(code(byUrl)).toBe("weak_hiring_signal");
+    // A job-post path on a third-party site is now caught earlier, by the listing rule.
+    expect(code(byUrl)).toBe("non_event_page");
 
     const byTitle = lead();
     byTitle.signal.title = "ShipCo is hiring";
     byTitle.signal.text = "ShipCo is hiring a courier.";
     byTitle.signal.summary.signal_quote = "ShipCo is hiring a courier.";
     expect(code(byTitle)).toBe("weak_hiring_signal");
+  });
+
+  describe("third-party job listings (non_event_page)", () => {
+    const listing = (url: string, over: { type?: string; companyUrl?: string | null } = {}) => {
+      const l = lead({ companyUrl: over.companyUrl === null ? undefined : over.companyUrl ?? "https://shipco.com/" });
+      l.signal.url = url;
+      l.signal.title = "Warehouse Supervisor at ShipCo";
+      l.signal.text = "ShipCo is hiring a warehouse supervisor and an operations manager.";
+      l.signal.summary.signal_type = over.type ?? "ops_hiring_wave";
+      l.signal.summary.signal_quote = "ShipCo is hiring a warehouse supervisor";
+      return l;
+    };
+    const run = (l: LeadInput) => checkLead(plan(), l, { evidenceMode: "skip-quotes" });
+
+    it("rejects a job path on an unlisted third-party site (snaprecruit shape)", () => {
+      expect(run(listing("https://jobs-example.com/job/operations-supervisor-1st-jessup.html"))).toMatchObject({
+        ok: false,
+        code: "non_event_page",
+        reason: "job listing on a third-party site",
+      });
+    });
+    it("rejects a jobs. subdomain company page on a third-party site", () => {
+      expect(code(listing("https://jobs.boardexample.com/companies/shipco/jobs"))).toBe("non_event_page");
+      expect(code(listing("https://careers.boardexample.com/shipco"))).toBe("non_event_page");
+    });
+    it("treats an unknown company domain as third-party", () => {
+      expect(code(listing("https://boardexample.com/careers/shipco", { companyUrl: null }))).toBe("non_event_page");
+    });
+    it("lets an own-domain careers page through to the hiring rules, not the listing rule", () => {
+      const own = listing("https://careers.shipco.com/jobs/123");
+      expect(run(own).ok).toBe(true);
+      const ownLookup = listing("https://www.shipco.com/careers/warehouse-supervisor");
+      expect(run(ownLookup).ok).toBe(true);
+    });
+    it("matches path segments, not substrings of news slugs", () => {
+      const news = listing("https://news.example.com/2026/08/shipco-opens-site-plans-75-jobs-per-shift/", { type: "new_facility" });
+      news.signal.title = "ShipCo opens new warehouse";
+      expect(run(news).ok).toBe(true);
+    });
+    it("rejects a third-party listing whatever signal_type the summary declares (Jay Group / thejobsmap.com is lost by design)", () => {
+      for (const type of ["expansion", "ops_hiring_wave", ""]) {
+        expect(run(listing("https://www.thejobsmap.com/job/996a", { type }))).toMatchObject({
+          ok: false,
+          code: "non_event_page",
+          reason: "job listing on a third-party site",
+        });
+      }
+    });
+    it("built-in list rejects snaprecruit, jobtarget and capitalfactory by domain", () => {
+      for (const url of [
+        "https://snaprecruit.com/job/x",
+        "https://www.jobtarget.com/jobs/jt-1/manager",
+        "https://jobs.capitalfactory.com/companies/fetch-package/jobs",
+      ]) {
+        expect(code(listing(url))).toBe("exclude_domain");
+      }
+    });
   });
 
   it("built-in signal domains reject on exclude_domain", () => {
