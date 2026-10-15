@@ -119,7 +119,7 @@ function policySnapshot(state: RunState) {
 }
 
 /** Counts and the ids of the preferences and notes recall() put in the first message. */
-function memoryRecalledPayload(state: RunState) {
+export function memoryRecalledPayload(state: RunState) {
   const log = state.memoryRecall ?? [];
   const of = (kind: "preference" | "note") => {
     const items = log.filter((e) => e.kind === kind);

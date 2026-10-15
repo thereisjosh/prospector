@@ -14,12 +14,35 @@ import { validatePlan, type SearchPlan } from "../../src/plan";
 import { runProspecting } from "../../src/pipeline";
 import type { ProspectRow } from "../../src/types";
 import { createRunState, type RunState } from "../../src/agent/state";
+import { memoryRecalledPayload } from "../../src/agent/loop";
+import { loadMemory } from "../../src/agent/memory";
+import { RECALL_BUDGET_TOKENS, recall, type RecallResult } from "../../src/agent/recall";
 import { getV1Plan } from "../fixtures/v1-plans";
 import { driveRun } from "../run-agent";
 import { applyFirstHandbackSuggestion } from "./sim-user";
-import type { Arm, LeadRecord, RunCellDeps, RunRecord, Scenario } from "./types";
+import type { Arm, LeadRecord, MemorySnapshot, RunCellDeps, RunRecord, Scenario } from "./types";
 
 const DEFAULT_RESULTS_ROOT = "eval/results";
+
+/**
+ * Workspaces an eval cell may read and write. Real workspaces are browser-minted ids (UUIDs), so a
+ * prefix check keeps `--workspace` from ever pointing a paid eval at one. They live where every
+ * workspace lives (src/agent/config.ts resolveDataDirs: <DATA_DIR>/workspaces, or WORKSPACES_DIR);
+ * set WORKSPACES_DIR to a scratch directory to keep them out of ./workspaces entirely.
+ */
+export const EVAL_WORKSPACE_PREFIXES = ["mem-eval-", "eval-"] as const;
+
+export function assertEvalWorkspace(id: string): string {
+  if (!EVAL_WORKSPACE_PREFIXES.some((p) => id.startsWith(p)) || !/^[a-zA-Z0-9_-]{1,64}$/.test(id)) {
+    throw new Error(`--workspace "${id}" refused: eval workspaces must match ${EVAL_WORKSPACE_PREFIXES.map((p) => `${p}*`).join(" or ")} so an eval never touches a real workspace`);
+  }
+  return id;
+}
+
+/** The memory as stored on disk (same fields as memory.ts serialise()). */
+export function snapshotMemory(memory: { version: number; seen: unknown[]; preferences: unknown[]; notes: unknown[] }): MemorySnapshot {
+  return JSON.parse(JSON.stringify({ version: memory.version, seen: memory.seen, preferences: memory.preferences, notes: memory.notes })) as MemorySnapshot;
+}
 
 /** A cell that crashed mid-run; carries whatever the run had spent so far. */
 export class CellError extends Error {
@@ -146,6 +169,7 @@ export async function runCell(scenario: Scenario, arm: Arm, rep: number, deps: R
   let record: RunRecord;
 
   if (arm === "A_workflow") {
+    if (deps.workspaceId !== undefined) throw new Error("workspaceId needs an agent arm; the workflow arm has no memory");
     let run: { rows: ProspectRow[]; totalCostDollars: number; funnel: unknown; evidence?: Record<string, JudgeEvidence> } & Record<string, unknown>;
     try {
     run = deps.workflowRows
@@ -176,17 +200,27 @@ export async function runCell(scenario: Scenario, arm: Arm, rep: number, deps: R
       ...cellFields(scenario, now, deps),
     };
   } else {
+    // Memory eval: load the workspace's memory and recall it exactly as eval/run-agent.ts does.
+    // Otherwise the cell is memoryless, as before.
+    const workspaceId = deps.workspaceId !== undefined ? assertEvalWorkspace(deps.workspaceId) : `eval-${scenario.id}-${arm}-${rep}`;
+    let recalled: RecallResult | undefined;
+    let memoryBefore: MemorySnapshot | undefined;
+    if (deps.workspaceId !== undefined) {
+      const memory = await loadMemory(workspaceId);
+      memoryBefore = snapshotMemory(memory);
+      recalled = recall(memory, scenario.plan, { budgetTokens: RECALL_BUDGET_TOKENS, now: new Date() });
+    }
     const state = createRunState({
       id: randomUUID(),
-      workspaceId: `eval-${scenario.id}-${arm}-${rep}`,
+      workspaceId,
       plan: scenario.plan,
       model: arm === "B_agent_opus" ? AGENT_MODELS.opus : AGENT_MODELS.sonnet,
       targetLeads: scenario.targetLeads,
       maxCostDollars: scenario.maxCostDollars,
-      preferenceNotes: [],
-      seenKeys: [],
+      ...(recalled ? { recalled } : { preferenceNotes: [], seenKeys: [] }),
       createdAt: startedAt,
     });
+    const memoryRecalled = recalled ? memoryRecalledPayload(state) : undefined;
     let final: RunState;
     try {
       final = await (deps.driveRun ?? driveRun)(
@@ -218,6 +252,7 @@ export async function runCell(scenario: Scenario, arm: Arm, rep: number, deps: R
       startedAt,
       finishedAt: new Date().toISOString(),
       ...cellFields(scenario, now, deps),
+      ...(memoryBefore ? { workspaceId, memoryBefore, memoryRecalled } : {}),
     };
     await mkdir(outDir, { recursive: true });
     await copyAgentArtifacts(final, outDir, deps);
@@ -372,7 +407,8 @@ async function main() {
   if (!scenarioId || !armArg) throw new Error("pass --scenario <id> --arm <A|B|C> --rep <n>, or --matrix");
   const scenario = defaultScenario(scenarioId);
   const arm = normalizeArm(armArg);
-  const deps: RunCellDeps = { runSetId: setId, log, langfuseExperiment };
+  const deps: RunCellDeps = { runSetId: setId, log, langfuseExperiment, ...(args.workspace ? { workspaceId: String(args.workspace) } : {}) };
+  if (args.workspace && arm === "A_workflow") throw new Error("--workspace needs an agent arm (B or C); the workflow arm has no memory");
   const record = await runCell(scenario, arm, rep, deps);
   if (args.handback) await runHandbackRerun(record, scenario, arm, rep, deps, setId);
   console.log(`cell wrote ${scenarioId}/${record.arm}/${rep}; spend $${record.spend.total.toFixed(4)}; leads ${record.leads.length}`);

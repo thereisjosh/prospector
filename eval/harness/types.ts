@@ -50,7 +50,16 @@ export type RunRecord = {
   error?: string;
   /** For a handback re-run: "<scenarioId>/<arm>/<rep>" of the original cell. */
   rerunOf?: string;
+  /** Memory eval (`--workspace`): the workspace this cell read memory from and wrote it to. Absent for ordinary cells. */
+  workspaceId?: string;
+  /** The workspace's memory file as it was BEFORE the run (what recall() was given), so a report can diff it. */
+  memoryBefore?: MemorySnapshot;
+  /** What recall() put in front of the run: the `memory_recalled` event payload (counts and included ids). */
+  memoryRecalled?: { seen: number; preferences: { considered: number; included: number }; notes: { considered: number; included: number }; includedIds: string[] };
 };
+
+/** The memory file as stored (src/agent/memory.ts serialise()). */
+export type MemorySnapshot = { version: number; seen: unknown[]; preferences: unknown[]; notes: unknown[] };
 
 export type RubricAnswer = "yes" | "no" | "cannot_verify";
 
@@ -107,6 +116,12 @@ export type RunCellDeps = {
   rerunOf?: string;
   /** `--langfuse-experiment <name>`: record the cell as a Langfuse experiment item (run `<name>:<arm>:r<rep>`). */
   langfuseExperiment?: string;
+  /**
+   * Memory eval: run the cell in this workspace (must start with `mem-eval-` or `eval-`; src/agent/memory.ts
+   * paths come from WORKSPACES_DIR). Memory is loaded and recalled exactly as eval/run-agent.ts does and the
+   * loop appends to it at stop. Unset: the cell uses a fresh `eval-<scenario>-<arm>-<rep>` id and never recalls.
+   */
+  workspaceId?: string;
   /** Test seam: replaces the Langfuse recorder. */
   recordExperiment?: (experimentName: string, cell: { record: RunRecord; dir: string }) => Promise<void>;
 };

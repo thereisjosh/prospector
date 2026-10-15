@@ -140,6 +140,7 @@ Local small businesses (cafés, clinics, pet shops) have no press coverage and t
 | One local live run | Run $0.52–$0.87 in the 9 recordings, capped at $1.00; planner ≈ $0.05 in the public smoke ($0.88 ledger − $0.83 run) | `.env` with `ANTHROPIC_API_KEY`, `EXA_API_KEY`; `npm run dev`, or `npx tsx eval/run-agent.ts --icp 1 --max-cost 1.00 --approve auto --record <dir>` |
 | Pilot matrix (12 cells) | ≈ $9.64 recorded for the pilot ($7.68 Exa + $1.96 Claude) | `npm run eval:cell -- --set <id> --matrix S1,S2 --arms A,B --reps 3 --max-total-dollars 10` |
 | Blind judge | ≈ $0.19 per verdict search-only, ≈ $0.34 with fetch | `npm run eval:judge -- --set <id> --scenario S1` |
+| Memory eval (does run A's memory change run B?) | Not yet run. $0 dry run; paid run ≤ $4 cells + judge | `npx tsx eval/memory-eval.ts --set <id> --scenario S1 --dry-run` · design: [EVAL-DETAIL](docs/EVAL-DETAIL.md#memory-eval) |
 
 Demo mode turns on with `DEMO_MODE=1` or when either key is missing (`src/demo/mode.ts`). It replays `eval/demo/run/`, whose `events.jsonl` is byte-identical to pilot S1 agent rep 2 (8 leads, budget stop, structured handback).
 

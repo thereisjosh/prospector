@@ -115,3 +115,51 @@ npx tsx eval/langfuse-import-pilot.ts          # re-score (must equal report.jso
 ```
 
 Future paid evals land there directly: `npm run eval:cell -- … --langfuse-experiment <set>` writes each cell's item as it finishes, and `npm run eval:score -- --set <set> --langfuse-experiment <set>` adds the judged scores.
+
+## Memory eval
+
+**Status: not yet run.** The harness, the report and a $0 dry run exist and are tested (`eval/memory-eval.test.ts`); no paid run has happened, so there are no results to quote.
+
+**Question.** Does what the agent remembers from run A change what run B finds, and is the change good? Workspace memory (`src/agent/memory.ts`) carries three things into the next run through `recall()`: every company already seen (the gate rejects them and `lookup_company` skips the paid lookup), the user's feedback, and the agent's own `remember` notes. This eval measures the first and third; there is no user feedback in it.
+
+**Design.** Three agent cells (Opus agent, scenario S1, $1.00 cap each), run in this order by `eval/memory-eval.ts`:
+
+| Cell | Rep | Workspace | Memory at start |
+|---|---|---|---|
+| A | 1 | `mem-eval-<set>-S1` | empty (cleared first) |
+| B | 2 | `mem-eval-<set>-S1` | what A left behind (seen companies, A's self-notes) |
+| B' (control) | 3 | `mem-eval-<set>-S1-control` | empty (cleared first) |
+
+B' exists because B is a second run of the same scenario, and a second run differs from the first even with no memory. B' is a fresh run, so B vs B' isolates memory; A vs B alone would not. The cells go through `runCell` with the new `workspaceId` option (`--workspace` on `eval/harness/run-cell.ts`): the cell loads the workspace's memory, builds its run with `recall()` exactly as `eval/run-agent.ts` does, and the loop appends to the memory at stop. `run.json` records `workspaceId`, `memoryBefore` (the memory file as the run saw it) and `memoryRecalled` (the `memory_recalled` event summary). Each cell is Exa-recorded under `eval/recordings/<set>/<rep>` and written to Langfuse as an experiment item in `<set>`. Workspace ids must start `mem-eval-` or `eval-` or the cell refuses to run, so the eval cannot touch a real (UUID-named) workspace; they live in `WORKSPACES_DIR` (default `./workspaces`).
+
+After the cells, the leads are pooled blind and judged with the existing judge, which reuses any verdict already keyed by company and signal URL, so only new (company, signal) pairs are paid for. `eval/results/<set>/report.md` has one row per cell:
+
+| Metric | How it is computed |
+|---|---|
+| leads, good (judged) | leads in `run.json`; good = the judge's verdict (Q1 and Q3 yes, Q2 not no). A lead with no verdict is counted as unjudged, never as bad |
+| new vs A | B leads whose company A did not deliver |
+| lookups skipped | `lookup_company` events carrying `seen` |
+| Exa $ saved | lookups skipped x $0.009 (`COST_ESTIMATE.companyLookup`, list price) |
+| notes written / recalled | successful `remember` calls / notes in the `memory_recalled` event's included set |
+| dead-query overlap | distinct normalised queries of the run that A ran and that returned no accepted lead (a query counts as productive when an accepted company is named in its result line) |
+| spend, cost per good lead | `run.json` spend (Claude + Exa) and spend / good. Judge spend is reported beside the table |
+
+The memory file after A and after B is written next to the report (`memory-after-A.json`, `memory-after-B.json`).
+
+**Pass rule.** PASS if B skipped at least 2 lookups AND every B lead is new vs A AND good(B) >= good(B') - 2. Otherwise FAIL, and the report names which clause failed. Two additions the rule does not state, both failing safe: B with zero leads fails (nothing to be new or good), and any B or B' lead without a verdict fails (good cannot be compared). The 2 is the pilot's noise: S1 good-lead counts across three reps of the same agent were 9, 7 and 6, so a difference of 2 is inside run-to-run variation and cannot count as memory hurting. By the same token a PASS on one S1 triple shows the mechanism works (memory is recalled, skips happen, B finds new companies); it does not show that B is better, because n = 1 per cell cannot resolve a difference smaller than the noise.
+
+**Cost.** Up to $3 of cells (3 x the $1.00 cap; the pilot's agent cells ran $0.52 to $0.87) plus the judge at about $0.19 to $0.34 per new (company, signal), so roughly 8 to 25 leads cost $2 to $8 to judge. `--max-dollars` (default 4) guards the cells only: before each cell, if spend so far plus that cell's cap would pass the limit, the eval stops there (exit code 2) and writes no report; the cells already run stay on disk.
+
+**Commands.**
+
+```
+# $0: the real loop, recall and memory code against a scripted model, canned Exa and a canned judge.
+# Writes to a temp directory only; API and Langfuse keys are blanked.
+npx tsx eval/memory-eval.ts --set memory-eval-2026-10-15 --scenario S1 --dry-run
+
+# Paid:
+npx tsx eval/memory-eval.ts --set memory-eval-2026-10-15 --scenario S1 --max-dollars 4
+```
+
+A single cell in a workspace, for debugging: `npm run eval:cell -- --set <id> --scenario S1 --arm B --rep 1 --workspace mem-eval-<id>-S1`.
+
