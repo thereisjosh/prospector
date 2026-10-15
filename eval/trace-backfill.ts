@@ -6,15 +6,19 @@
  * <recording-dir> holds events.jsonl + state.json (or an `agent/` subdir with them, as in
  * eval/recordings/agent-icp1-2026-10-12). Uses the same toObservations() as the live path.
  * Idempotent: it lists what Langfuse already has for the run's traces and sends only the
- * missing observations and scores, so a re-run creates no duplicates.
+ * missing observations and scores, so a re-run creates no duplicates. --refresh-costs also re-sends
+ * existing observations that lack the cost they now carry (tool Exa spend); Langfuse is append-only, so
+ * that leaves a costless twin row per refreshed observation (totals correct, counts inflated). Off by default.
  */
 import "dotenv/config";
 import { existsSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
 
-function parseArgs(argv: string[]): { dir: string; environment: string; concurrency: number } {
+function parseArgs(argv: string[]): { dir: string; environment: string; concurrency: number; refreshCosts: boolean } {
   const args = [...argv];
+  const refreshCosts = args.includes("--refresh-costs");
+  if (refreshCosts) args.splice(args.indexOf("--refresh-costs"), 1);
   let environment = "eval";
   const envFlag = args.indexOf("--environment");
   if (envFlag >= 0) {
@@ -30,8 +34,8 @@ function parseArgs(argv: string[]): { dir: string; environment: string; concurre
   if (!Number.isInteger(concurrency) || concurrency < 1 || concurrency > 16) throw new Error("--concurrency must be an integer 1-16");
   if (!/^(?!langfuse)[a-z0-9_-]{1,40}$/.test(environment)) throw new Error(`invalid environment "${environment}"`);
   const dir = args[0];
-  if (!dir) throw new Error("usage: npx tsx eval/trace-backfill.ts <recording-dir> [--environment eval] [--concurrency 2]");
-  return { dir: resolve(dir), environment, concurrency };
+  if (!dir) throw new Error("usage: npx tsx eval/trace-backfill.ts <recording-dir> [--environment eval] [--concurrency 2] [--refresh-costs]");
+  return { dir: resolve(dir), environment, concurrency, refreshCosts };
 }
 
 function runFiles(dir: string): { events: string; state: string } {
@@ -44,7 +48,7 @@ function runFiles(dir: string): { events: string; state: string } {
 }
 
 async function main() {
-  const { dir, environment, concurrency } = parseArgs(process.argv.slice(2));
+  const { dir, environment, concurrency, refreshCosts } = parseArgs(process.argv.slice(2));
   // Read by the span processor and the score client when they are created (lazily, below).
   process.env.LANGFUSE_TRACING_ENVIRONMENT = environment;
   const trace = await import("../src/agent/trace");
@@ -62,6 +66,7 @@ async function main() {
 
   const result = await trace.backfill(events, state, {
     concurrency,
+    refreshCosts,
     onProgress: ({ done, total, etaMs }) => console.log(`  checking existing: ${done}/${total}${etaMs !== undefined ? ` · ETA ${Math.ceil(etaMs / 1000)}s` : ""}`),
   });
   const stats = trace.traceStats();

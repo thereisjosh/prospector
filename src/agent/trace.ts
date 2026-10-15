@@ -332,6 +332,7 @@ export function toObservations(events: AgentEvent[], options: ToObservationsOpti
     };
     let lastModelCallTs: string | undefined;
     let lastSubmit: TraceObservation | undefined;
+    const toolObsByUseId = new Map<string, string>();
     const openApprovals: AgentEvent[] = [];
     let root: TraceObservation | undefined;
     let stopEvent: AgentEvent | undefined;
@@ -401,9 +402,13 @@ export function toObservations(events: AgentEvent[], options: ToObservationsOpti
             input: e.input ?? {},
             output: { ...(str(e.resultSummary) !== undefined ? { result: str(e.resultSummary) } : {}), is_error: isError },
             metadata: { tool, exaCost: num(e.exaCost), latencyMs, ...(toolUseId ? { toolUseId } : {}) },
+            // Exa spend as the tool observation's cost, so trace/session totals are Claude + Exa.
+            // exaCost already includes a lookup's retry (tools.ts folds retryExaCost into it): never add it again.
+            ...(num(e.exaCost) > 0 ? { costDetails: { total: num(e.exaCost) } } : {}),
             ...(isError ? { level: "ERROR" as const, statusMessage: str(e.resultSummary) ?? "tool error" } : {}),
           });
           lastSubmit = tool === "submit_lead" ? obs : undefined;
+          if (toolUseId) toolObsByUseId.set(toolUseId, obs.id);
           cumulativeSpend += num(e.exaCost);
           break;
         }
@@ -560,6 +565,73 @@ export function toObservations(events: AgentEvent[], options: ToObservationsOpti
             value: e.verdict === "up" ? 1 : -1,
             dataType: "NUMERIC",
             ...(str(e.reason) ? { comment: str(e.reason) } : {}),
+          });
+          break;
+        }
+        case "memory_recalled": {
+          child({
+            id: idFor(`memory_recalled:${e.ts}`),
+            name: "memory-recalled",
+            type: "event",
+            startTime: e.ts,
+            endTime: e.ts,
+            metadata: { seen: e.seen ?? null, preferences: e.preferences ?? null, notes: e.notes ?? null, includedIds: Array.isArray(e.includedIds) ? e.includedIds : [] },
+          });
+          break;
+        }
+        case "lookup_retry": {
+          const toolUseId = str(e.toolUseId);
+          const parentId = (toolUseId ? toolObsByUseId.get(toolUseId) : undefined) ?? rootId;
+          // No costDetails: retryExaCost is already inside the lookup's exaCost (tools.ts), so it is metadata only.
+          observations.push({
+            traceId,
+            parentId,
+            id: idFor(`lookup_retry:${toolUseId ?? e.ts}`),
+            name: "lookup-retry",
+            type: "event",
+            startTime: e.ts,
+            endTime: e.ts,
+            input: { company: e.company ?? null, reason: e.reason ?? null, key: e.key ?? null },
+            output: { before: e.before ?? null, after: e.after ?? null, outcome: e.outcome ?? null, ...(e.error !== undefined ? { error: e.error } : {}) },
+            metadata: { retryExaCost: num(e.retryExaCost), ...(toolUseId ? { toolUseId } : {}) },
+            ...(e.outcome === "retry_failed" || e.outcome === "skipped_budget" ? { level: "WARNING" as const, statusMessage: `${String(e.outcome)}: ${String(e.error ?? "")}` } : {}),
+          });
+          break;
+        }
+        case "context_trimmed": {
+          child({
+            id: idFor(`context_trimmed:${e.ts}`),
+            name: "context-trimmed",
+            type: "event",
+            startTime: e.ts,
+            endTime: e.ts,
+            metadata: { droppedTurns: e.droppedTurns ?? null, droppedTokens: e.droppedTokens ?? null, keptTokens: e.keptTokens ?? null, summaryTokens: e.summaryTokens ?? null, ...(e.handback === true ? { handback: true } : {}) },
+          });
+          break;
+        }
+        case "turn_repaired": {
+          child({
+            id: idFor(`turn_repaired:${e.ts}`),
+            name: "turn-repaired",
+            type: "event",
+            startTime: e.ts,
+            endTime: e.ts,
+            metadata: { toolUseIds: Array.isArray(e.toolUseIds) ? e.toolUseIds : [] },
+            level: "WARNING",
+            statusMessage: "dangling tool calls answered with a synthetic result",
+          });
+          break;
+        }
+        case "token_count_estimated": {
+          child({
+            id: idFor(`token_count_estimated:${e.ts}`),
+            name: "token-count-estimated",
+            type: "event",
+            startTime: e.ts,
+            endTime: e.ts,
+            metadata: { tokens: e.tokens ?? null, basis: e.basis ?? null, reason: e.reason ?? null },
+            level: "WARNING",
+            statusMessage: `count_tokens unavailable: ${String(e.reason ?? "unknown")}`,
           });
           break;
         }
@@ -1201,7 +1273,7 @@ export type BackfillResult = {
 
 export type ExistingClient = {
   api: {
-    observations: { getMany(req: Record<string, unknown>): Promise<{ data: Array<{ id: string }>; meta: { cursor?: string | null } }> };
+    observations: { getMany(req: Record<string, unknown>): Promise<{ data: Array<{ id: string; totalCost?: number | null }>; meta: { cursor?: string | null } }> };
     scoresV3: { getManyV3(req: Record<string, unknown>): Promise<{ data: Array<{ id: string }>; meta: { cursor?: string | null } }> };
   };
 };
@@ -1210,6 +1282,12 @@ export type ExistingOptions = {
   sleep?: (ms: number) => Promise<void>;
   onProgress?: (p: { done: number; total: number; etaMs: number | undefined }) => void;
   now?: () => number;
+  /**
+   * Re-send existing observations that Langfuse holds without cost but that now carry one (tool Exa spend).
+   * Off by default: Langfuse observations are append-only, so a re-send under the same id adds a second row
+   * (the old costless one stays; totals are right but observation counts and the trace tree show a twin).
+   */
+  refreshCosts?: boolean;
 };
 
 /** Seconds from a 429's Retry-After header (or body), else undefined. */
@@ -1239,18 +1317,23 @@ async function withRetryAfter<T>(fn: () => Promise<T>, sleep: (ms: number) => Pr
  * comma-separated traceId list), observations per trace; 429s honour retry-after; work runs at
  * `concurrency` and reports progress with an ETA.
  */
-export async function listExisting(client: ExistingClient, traceIds: string[], environment: string, options: ExistingOptions = {}): Promise<{ observations: Set<string>; scores: Set<string> }> {
+export async function listExisting(client: ExistingClient, traceIds: string[], environment: string, options: ExistingOptions = {}): Promise<{ observations: Set<string>; scores: Set<string>; uncosted: Set<string> }> {
   const { concurrency = 2, sleep = (ms) => new Promise((r) => setTimeout(r, ms)), now = Date.now } = options;
   const observations = new Set<string>();
   const scores = new Set<string>();
+  /** Existing observations Langfuse holds with no cost: backfill re-sends those that now carry one. */
+  const uncosted = new Set<string>();
   const BATCH = 10;
   const tasks: Array<() => Promise<void>> = [];
   for (const traceId of traceIds) {
     tasks.push(async () => {
       let cursor: string | undefined;
       do {
-        const page = await withRetryAfter(() => client.api.observations.getMany({ traceId, environment, fields: "core", limit: 1000, ...(cursor ? { cursor } : {}) }), sleep);
-        for (const o of page.data) observations.add(o.id);
+        const page = await withRetryAfter(() => client.api.observations.getMany({ traceId, environment, fields: "core,usage", limit: 1000, ...(cursor ? { cursor } : {}) }), sleep);
+        for (const o of page.data) {
+          observations.add(o.id);
+          if (!(typeof o.totalCost === "number" && o.totalCost > 0)) uncosted.add(o.id);
+        }
         cursor = page.meta.cursor ?? undefined;
       } while (cursor);
     });
@@ -1279,11 +1362,11 @@ export async function listExisting(client: ExistingClient, traceIds: string[], e
     }
   };
   await Promise.all(Array.from({ length: Math.max(1, Math.min(concurrency, tasks.length)) }, worker));
-  return { observations, scores };
+  return { observations, scores, uncosted };
 }
 
 /** Ids of observations and scores Langfuse already holds for these traces, in this environment only. */
-export async function existingIds(traceIds: string[], environment = tracingEnvironment(), options: ExistingOptions = {}): Promise<{ observations: Set<string>; scores: Set<string> }> {
+export async function existingIds(traceIds: string[], environment = tracingEnvironment(), options: ExistingOptions = {}): Promise<{ observations: Set<string>; scores: Set<string>; uncosted: Set<string> }> {
   const sdk = await init();
   const client = sdk.client ?? new (await import("@langfuse/client")).LangfuseClient();
   return listExisting(client as unknown as ExistingClient, traceIds, environment, options);
@@ -1299,7 +1382,10 @@ export async function backfill(events: AgentEvent[], state: unknown, options: Ex
   const traces = toObservations(events, { model: ctx.model, environment, legacyRoots: !events.some((e) => e.kind === "turn_end") });
   const sdk = await init();
   const have = await existingIds(traces.map((t) => t.traceId), environment, options);
-  const exported = exportObservations(sdk, traces, ctx, have);
+  // Opt-in (refreshCosts): an observation Langfuse holds without cost but that now carries one is re-sent under its same id.
+  const refresh = new Set(!options.refreshCosts ? [] : traces.flatMap((t) => t.observations.filter((o) => have.uncosted.has(o.id) && (o.costDetails?.total ?? 0) > 0).map((o) => o.id)));
+  const skip = { observations: new Set([...have.observations].filter((id) => !refresh.has(id))), scores: have.scores };
+  const exported = exportObservations(sdk, traces, ctx, skip);
   await flush();
   const total = { observations: traces.reduce((n, t) => n + t.observations.length, 0), scores: traces.reduce((n, t) => n + t.scores.length, 0) };
   return {
@@ -1307,7 +1393,7 @@ export async function backfill(events: AgentEvent[], state: unknown, options: Ex
       traceId: t.traceId,
       turn: t.turn,
       observations: t.observations.length,
-      newObservations: t.observations.filter((o) => !have.observations.has(o.id)).length,
+      newObservations: t.observations.filter((o) => !skip.observations.has(o.id)).length,
       scores: t.scores.length,
       newScores: t.scores.filter((s) => !have.scores.has(s.id)).length,
     })),

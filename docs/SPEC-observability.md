@@ -29,7 +29,12 @@ Status: proposed 2026-10-13 · branch `v2-engine` @ `c7f213d` · extends SPEC-ag
 | Trace | One turn = one `POST /api/runs/[id]/step`, plus the `/decision` or `/stop` request for that turn | Deterministic, from `(runId, turn)`. `decide()` does not increment `turn`, so an approval lands on the same trace as the request that raised it | Input: status before the turn. Output: status, spend, leads count |
 | Span `policy` | Route checks (rate limit, daily cap, visitor allowance) and `limitReason()` | — | Outcome, or which limit was hit |
 | Generation `model` | `deps.client.messages.create` in `step()`, and the call in `handback()` | — | Model, `promptVersion`, sha256 of the system prompt and of `agentTools()`, `messages.length`, response content (clipped), `stop_reason`, usage (input / output / `cache_read` / `cache_creation`), `claudeCost`, latency |
-| Span `tool:<name>` | Each `executeTool` result | — | `eventInput()` input, result summary, `exaCost`, `is_error`, latency, verdict `code` for `submit_lead` |
+| Observation `tool:<name>` (type `tool`) | Each `executeTool` result | — | `eventInput()` input, result summary, `exaCost` (metadata), `is_error`, latency, verdict `code` for `submit_lead`. **`costDetails: { total: exaCost }`** when `exaCost > 0` (no `usageDetails`; verified that Langfuse counts it in `totalCost`), so trace, session and dashboard cost = Claude + Exa. A `lookup_company` retry's Exa cost is already inside that `exaCost` (`tools.ts` folds `retryExaCost` in), so it is never added again |
+| Event `lookup-retry` | `lookup_retry` | Child of the `tool:lookup_company` observation with the same `toolUseId`, else of the turn | Reason, key, before/after, outcome; `retryExaCost` in metadata only (no `costDetails`: double count). `retry_failed` / `skipped_budget` are WARNING |
+| Event `memory-recalled` | `memory_recalled` (first turn of a run) | Turn | `seen`, preferences/notes considered vs included, `includedIds` |
+| Event `context-trimmed` | `context_trimmed` | Turn | `droppedTurns`, `droppedTokens`, `keptTokens`, `summaryTokens` |
+| Event `turn-repaired` | `turn_repaired` | Turn | WARNING; `toolUseIds` answered with a synthetic result after a crash |
+| Event `token-count-estimated` | `token_count_estimated` | Turn | WARNING; `tokens`, `basis`, `reason` (count_tokens unavailable) |
 | Span `approval` | `approval_request`, then `decision` | — | Tool, proposal, approve/decline/revise, note (masked), wait time = decision `ts` − request `ts` |
 | Scores | — | Run (session) or lead (observation) | See below |
 
