@@ -1,0 +1,192 @@
+{
+  "request": {
+    "query": "Halo",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the exact phrase from the page that the employee estimate came from (e.g. \"350 employees\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "0dd3257e5a79fde8aae035fadfe6a45e",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/3frdp6grfmh",
+        "title": "Halo Studios",
+        "url": "https://www.halowaypoint.com/",
+        "text": "# Halo Studios\n\nHalo Studios is a Computer Games company. The company is a home of the halo universe and the incredible industry talent forging the next generation of game. Halo Studios employs 338 people (-20.7% YoY, -88 people) and has an annual revenue of $30M. Headquartered in Redmond, Washington, United States. Its workforce is distributed across 7 countries (including United States, United Kingdom, Canada, Mexico, and Australia).\n\n## About\n\nWe are building the future of Halo in Unreal Engine with the help of diverse and passionate developers dedicated to the craft of making Halo games.\n \nBased in Redmond, WA, we are a united hybrid team of artists, engineers, designers, animators, producers, storytellers, and dreamers from every walk of life.\n \nWe are here to be tenacious and adapt to challenges, to raise the bar for ourselves and for the industry, and to do the best work of our careers.\n \nWe are here to collaborate towards our shared vision of creating legendary, game-changing experiences for Halo fans.\n\nRecruiting Disclaimer: Fake job scams are increasingly common, and scammers may attempt to impersonate Halo Studios/343 Industries and/or Microsoft HR personnel. Microsoft/Halo Studios does not use instant/direct messaging to contact perspective employees or conduct interviews. We never require prospective employees to send personal information or incur fees as part of our recruiting or hiring process. If you believe you have been the victim of a scam, please file a complaint with the FBI Internet Crime Complaint Center at: https://www.ic3.gov/.\n\n## Company Details\n- Industry: Computer Games\n- Type: Public company\n- Headquarters: Redmond, United States\n- Homepage: halowaypoint.com\n- Aliases: 343 industries, halo studios, halo waypoint\n- LinkedIn: linkedin.com/company/halostudios\n- Linkedin Followers: 58,209\n\n## Financials\n- Annual Revenue: USD 30,000,000\n\n## Workforce\n- Employees: 338\n- Company Size: 201-500 employees\n  - Monthly Growth: -0.9%\n  - Yearly Growth: -20.7%\n- Key Executives:\n  - Brian Jarrard: Community Director\n  - Bryan Repka: CVW Art Director\n  - Chris M.: Studio Art Director\n  - Christopher Conley: Chief Executive Officer\n  - Corrinne Robinson: Halo Franchise Development Director\n  - Dan H.: Lead VFX Artist\n  - Daniel Price: Director of Digital Engineering Operations\n  - Donnie Taylor: Art Director\n  - Drew Benz: Content Director\n  - Greg Hermann: Game Director\n- Breakdown:\n  - By Country: United States: 189 (56%), United Kingdom: 5 (1%), Canada: 2 (1%), Mexico: 2 (1%), Australia: 1, China: 1, Switzerland: 1\n  - By Department: Design: 61 (18%), Technical: 47 (14%), Product: 23 (7%), Other Department: 19 (6%), Marketing: 15 (4%), Project Management: 12 (4%), Administrative: 9 (3%), Operations: 8 (2%), General Management: 6 (2%), Research: 3 (1%) (+3 more)\n  - By Seniority: Specialist: 77 (23%), Senior: 70 (21%), Manager: 24 (7%), Other Management: 21 (6%), Director: 9 (3%), Head: 6 (2%), Intern: 2 (1%), Clevel: 1, Owner: 1\n- Talent Sources: Microsoft (159), ArenaNet (36), Electronic Arts (EA) (32), Bungie (31), DigiPen Institute of Technology (18), Turn 10 Studios (17), Amazon (17), Wargaming (12), Monolith Productions (WB Games) (11), 2K (10)\n- Alumni Go To: Microsoft (54), Bungie (43), Riot Games (30), Amazon (18), ProbablyMonsters (17), Blizzard Entertainment (16), Epic Games (15), Final Strike Games (14), Electronic Arts (EA) (14), Jar of Sparks (13)\n\n## Products & Technology\n- Tech Stack (showing 50 of 64): armor, azure active directory, azure data explorer, confluence, discord, dolby atmos, facebook, git, github, helpdesk, jenkins, jira, jira service management, livestream, lua, microsoft, playable, power bi, prototype, python, sandbox, shippable, twitter, unreal engine, youtube, java, javascript, adobe, adobe creative suite, autodesk, autodesk maya, houdini, zbrush, microsoft office, blender, frostbite, recognize, bash, docker, kubernetes, linux, saml, terraform, tiktok, chef, elastic, netapp, puppet, c, impact\n\n## Web presence\n\n- Facebook: facebook.com/halo\n- Instagram: instagram.com/halo\n- YouTube: youtube.com/halo\n- Crunchbase: crunchbase.com/organization/343-industries\n\n## Categories\n\ngame, gaming, halo universe, industry talent, next generation, online games, software\n\n## Competitors\n\nbungie, electronic arts, take-two, blizzard, ea, epic games, activision blizzard, ninehertz, nintendo, zero games, gameloft, square enix, codemasters, glu, coatsink, peak games, tap slots, ubisoft, zynga, rockstar games, activision publishing, activision, rovio\n\n## Recent News\n- [2026-09-25]\n  - [Your Halo Story Chapter 12 \\| Halo - Official Site \\(en\\)](https://www.halowaypoint.com/news/wip-your-halo-story-chapter-12)\n  - [What Do You Think The Future Holds For A Potential Halo 2 Remake? \\| Pure Xbox](https://www.purexbox.com/features/talking-point-what-do-you-think-the-future-holds-for-a-potential-halo-2-remake)\n  - [Halo: Neues Spiel wurde vor dem Wechsel zu Activision eingestellt \\| Eurogamer.de](https://www.eurogamer.de/halo-neues-spiel-eingestellt-activision)\n  - [Siguen rodando cabezas en Xbox: despidos entre los responsables de Age of Empires y la situación de Halo Studios se complica aún más - Meristation](https://as.com/meristation/noticias/siguen-rodando-cabezas-en-xbox-despidos-entre-los-responsables-de-age-of-empires-y-la-situacion-de-halo-studios-se-complica-aun-mas-f202609-n/)\n  - [El reinicio de Halo va muy en serio: Xbox cancela el próximo juego y otros proyectos antes del relevo de Activision](https://areajugones.sport.es/videojuegos/el-reinicio-de-halo-va-muy-en-serio-xbox-cancela-el-proximo-juego-y-otros-proyectos-antes-del-relevo-de-activision/)\n  - [Halo Studios Reportedly Down to Just 20 Staffers Following Latest Xbox Layoffs as Former Executives Decry the Purge \\| LEVEL UP](https://www.levelup.com/en/news/halo-studios-reportedly-down-to-just-20-staffers-following-latest-xbox-layoffs-as-former-executives-decry-the-purge/)\n- [2026-09-24]\n  - [Transféré chez Activision, le studio d'Age of Empires perd la moitié de son effectif mais aussi son prochain jeu - Gamekult](https://www.gamekult.com/actualite/transfere-chez-activision-le-studio-d-age-of-empires-perd-la-moitie-de-son-effectif-mais-aussi-son-prochain-jeu-3050872199.html)\n  - [Activision’s Halo Must Go Beyond Bungie](https://pk.ign.com/halo-campaign-evolved/261592/activisions-halo-must-go-beyond-bungie)\n  - [‘Control Resonant,’ ‘Silent Hill: Townfall,’ and ‘Fire Emblem: Fortune’s Weave’ Reactions - The Ringer](https://www.theringer.com/podcasts/button-mash/2026/09/24/control-resonant-silent-hill-townfall-and-fire-emblem-fortunes-weave-reactions)\n  - [Das könnte Age of Empires 5 gewesen sein: Microsoft stellt neues Projekt nach Entlassungen ein](https://de.ign.com/age-of-empires-4/155949/das-konnte-age-of-empires-5-gewesen-sein-microsoft-stellt-neues-projekt-nach-entlassungen-ein)\n  - [Halo set for complete reboot: 'Lore is not going to be continued,' leaker claims – Destructoid](https://www.destructoid.com/halo-to-be-rebooted/)\n- [2026-09-23]\n  - [Xbox: Microsoft würfelt seine Spieleabteilung weiter durch \\| heise online](https://www.heise.de/news/Xbox-Microsoft-wuerfelt-seine-Spieleabteilung-weiter-durch-11462636.html)\n  - [Halo needed to change, but Activision faces a huge challenge to fix it \\| PC Gamer](https://www.pcgamer.com/games/halo/halo-needed-to-change-but-activision-faces-a-huge-challenge-to-fix-it/)\n  - [Halo na Activision e mais\\! Veja como ficam os estúdios Xbox após as demissões - Estadão](https://www.estadao.com.br/tecmundo/voxel/halo-na-activision-e-mais-veja-como-ficam-os-estudios-xbox-apos-as-demissoes/)\n- [2026-09-22]\n  - [Call of Duty's Activision to make next Halo game as Xbox cuts more jobs - BBC News](https://www.bbc.co.uk/news/articles/cvj64gz74ky4o?at_medium=RSS&at_campaign=rss)\n  - [Call of Duty's Activision to make next Halo game as Xbox cuts more jobs](https://www.bbc.com/news/articles/cvj64gz74ky4o)\n  - [Microsoft supprime 268 postes de plus chez XBOX et réorganise les studios de développement - RTBF Actus](https://www.rtbf.be/article/microsoft-que-sait-on-de-la-nouvelle-vague-de-licenciements-prevue-prochainement-chez-xbox-11788805)\n- [2026-09-21] [Halo: Campaign Evolved – im Test \\(PS5\\) \\| MANIAC.de](https://www.maniac.de/tests/halo-campaign-evolved-im-test-ps5/)\n- [2026-09-20] [触控游戏哪些值得玩 好玩的触控游戏排行榜前十\\_游戏单机游戏-中关村在线](https://game.zol.com.cn/1247/12478896.html)\n- [2026-09-18] [New Official $1,599 Halo Release Confirmed for 2028](https://gamerant.com/halo-campaign-evolved-master-chief-statue-prime-1-studio/)\n- [2025-07-26] GamesRadar+: Halo's official esports tournament is moving on from Halo Infinite next year, so those rumors of a new Halo game in 2026 just got way more convincing\n- [2025-07-03] Livemint.com: Microsoft layoffs hit Xbox division hard; 10% of Candy Crush team cut, multiple games cancelled\n- [2025-01-07] KrASIA: Game studios turn to Unreal Engine 5 as proprietary tools fall from favor\n- [2024-12-12] BostonGlobe.com: How video games are going green without turning off gamers\n- [2024-11-25] GameSpot: Master Chief Actor Says Halo 4 Almost Recast His Role And Cortana's With New Voice Actors\n- [2024-11-05] gamesradar: Time to snipe like it's 2004: Halo Infinite just added Halo 2 throwback maps for the game's 20th anniversary, built in Forge \"with the help of key Halo community members\"\n- [2024-11-01] KitGuru: 3rd-person mode is coming to Halo: Infinite next week\n- [2024-10-24] New Halo: Flashpoint Video Shows How The Tabletop Game Came To Life\n- [2024-10-06] IGN: Future Halo Games Moving to Unreal Engine 5 as 343 Industries Rebrands, 'Multiple Projects' in Development\n- [2024-08-14] gamesradar: Halo dev 343 Industries is hiring a generative AI lead to \"help build innovative gaming experiences powered by AI\"\n\n## Social\n\n### Linkedin\n\n- [2026-08-05 · 211 reactions, 24 comments] Halo: Campaign Evolved is a faithful yet modernized remake of the legendary Halo: Combat Evolved campaign that's been rebuilt from the ground up for a new era. In this video, Principal Producer Cas...\n\n- [2026-07-30 · 372 reactions, 21 comments] This week we celebrate the release of Halo: Campaign Evolved! We'd like to extend our thanks to the original Halo: Combat Evolved team, all developers across the franchise, the Spartans who have jo...\n\n- [2026-06-09 · 514 reactions, 12 comments] Halo Studios is excited to share the first look at \"Operation: Meteorite\" - an all-new story set before the events of Halo: Combat Evolved featuring Master Chief and Sgt. Johnson. Defend humanity i...\n\n- [2025-06-06 · 393 reactions, 16 comments] Let's crank the GPU until it hums like a Warthog engine\n\n- [2025-05-07 · 1,007 reactions, 41 comments] Please help. Master Chief needs you.\n\n- [2025-03-08 · 1,194 reactions, 61 comments] Halo Studios is hiring for a variety of roles—join the team, help finish the fight, and be part of something legendary.\n\n- [2024-11-22 · 1,034 reactions, 33 comments] 🚀 A New Dawn for Halo Continues! Join Us on This Epic Journey 🚀 We're excited to announce the next wave of opportunities at Halo Studios as we forge the future of the Halo franchise. With multiple...\n\n- [2024-10-06 · 1,548 reactions, 97 comments] A New Dawn for Halo We're looking for talented teammates to help us bring the next generation of Halo games to life. With multiple projects in development, all built in Unreal Engine 5, we're enter...\n\n- [2024-09-05 · 190 reactions, 36 comments] Come and help us build the future of the Halo franchise! Join the Halo team as a Creative Director to shape the next generation of experiences in our iconic sci-fi universe. https://lnkd.in/giKi3Ui...\n\n## Locations\n- Headquarters: redmond, washington, united states (US)\n- Offices: redmond, washington, united states (US), redmond, united states (US)\n\n## Parent organization\n\n- Microsoft Studios",
+        "summary": "{\"description\":\"Halo Studios is a Computer Games company, home of the halo universe, with a hybrid team developing Halo games.\",\"employee_estimate\":338,\"employee_estimate_source\":\"Employees: 338\",\"hq\":\"Redmond, Washington, United States\",\"hq_quote\":\"Headquartered in Redmond, Washington, United States.\",\"industry\":\"Computer Games\",\"is_public_or_enterprise\":true,\"is_third_party_logistics\":false,\"is_third_party_logistics_quote\":\"-\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQFFNok03gWXXA/company-logo_200_200/company-logo_200_200/0/1728257606926/343_industries_logo?e=2147483647&v=beta&t=CVDlbJLBR3yEHPkgoWJ_0dEaodesdtZOffRrtwStuVw",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/3frdp6grfmh",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Halo Studios",
+              "foundedYear": null,
+              "description": "We are building the future of Halo in Unreal Engine with the help of diverse and passionate developers dedicated to the craft of making Halo games.\n \nBased in Redmond, WA, we are a united hybrid team of artists, engineers, designers, animators, producers, storytellers, and dreamers from every walk of life.\n \nWe are here to be tenacious and adapt to challenges, to raise the bar for ourselves and for the industry, and to do the best work of our careers.\n \nWe are here to collaborate towards our shared vision of creating legendary, game-changing experiences for Halo fans.\n\nRecruiting Disclaimer: Fake job scams are increasingly common, and scammers may attempt to impersonate Halo Studios/343 Industries and/or Microsoft HR personnel. Microsoft/Halo Studios does not use instant/direct messaging to contact perspective employees or conduct interviews. We never require prospective employees to send personal information or incur fees as part of our recruiting or hiring process. If you believe you have been the victim of a scam, please file a complaint with the FBI Internet Crime Complaint Center at: https://www.ic3.gov/.\n",
+              "workforce": {
+                "total": 338
+              },
+              "headquarters": {
+                "address": "Redmond, WA, US",
+                "city": "Redmond",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 30000000,
+                "fundingTotal": null,
+                "fundingLatestRound": null
+              },
+              "webTraffic": null,
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/z8433nyjk0n",
+        "title": "Halo.fr",
+        "url": "https://www.halo.fr/",
+        "text": "# Halo.fr\n\nHalo.fr is a nonprofit organization. Halo.fr is the first francophone fan-site on the Halo universe, providing official news, community spaces, creation sharing, YouTube channel, Twitch, and more. Halo.fr employs 2 people, founded in 2001. Headquartered in Aix-en-Provence, PACA, France, with an office in Paris.\n\n## About\n\nSite de Halo francophone\n\n## Company Details\n- Industry: Entertainment\n- Type: Nonprofit\n- Headquarters: Aix-en-Provence, France\n- Founded Year: 2001\n- Homepage: halo.fr\n- Aliases: halo online, halo.fr\n- LinkedIn: linkedin.com/company/halo-fr\n- Linkedin Followers: 7\n\n## Workforce\n- Employees: 2\n- Breakdown:\n  - By Country: France: 1 (50%)\n  - By Department: Project Management: 1 (50%)\n  - By Seniority: Manager: 1 (50%)\n- Talent Sources: Microsoft (1), Livegen (1), La Mêlée (1), Kaiho games (1), CERP ROUEN (1)\n- Alumni Go To: PEAKS MEDITERRANEE (1), Microsoft (1), Fédération France Victimes (1), CINS - Agence de communication digitale (1), Aix-Marseille Graduate School of Management - IAE (1)\n\n## Products & Technology\n- Tech Stack: facebook, amp\n\n## Web presence\n\n- Twitter: twitter.com/halo_france\n- Instagram: instagram.com/halofr_officiel\n- YouTube: youtube.com/user/haloqg\n- Web traffic:\n  - Monthly visits: 36,976\n  - Global rank: 605,673\n  - Bounce rate: 45.0%\n  - Pages per visit: 4.7\n  - Average visit duration: 117s\n\n## Categories\n\ncommunity spaces, fan-site, francophone, games/video_games_consoles_and_accessories, gaming, halo, official news\n\n## Recent News\n- [2026-10-06] Halo Waypoint: Canon Fodder: Heart and Soell\n- [2026-10-05] Korben: XPSemu - Halo 2, Forza and Fable on PS5\n- [2026-10-01] FRVR: Halo: Combat Evolved is coming to Nintendo 3DS, and I’m blinded by its majesty\n- [2026-09-12] IMDb: Xbox Is Shopping A $300m Elder Scrolls, Diablo and Halo Package To Hollywood Studios\n- [2026-09-09] IGN France: Halo: Spartan Assault\n- [2026-09-08] IGN France: Halo: Spartan Strike\n- [2026-09-01] Gameblog: GUIDE Halo Campaign Evolved : où trouver les 13 Terminaux ? Voici leur emplacement\n- [2026-08-31] Gameblog: GUIDE Halo Campaign Evolved : comment débloquer la fin secrète ?\n- [2026-08-18] Halo Waypoint: August Update: New Video Settings, Free Armor Styles, and More\n- [2026-08-04] Halo Waypoint: Esports at Halo Fest 2026\n- [2026-07-07] IMDb: Halo's Long-Awaited Return Quietly Cancelled By Xbox\n- [2026-06-11] IMDb: New Halo: Campaign Evolved Gameplay Mechanic Shatters A Franchise Record\n- [2026-04-25] IMDb: Halo 7 Gameplay Leak Divides Fans In A Big Way\n- [2026-04-14]\n  - At The Races: Rajastare \\| Horse Profile & Next Race Odds \\| Grand National Festival\n  - At The Races: Xosphera \\| Horse Profile & Next Race Odds \\| Grand National Festival\n- [2026-02-27] IGN France: Halo : The Master Chief Collection\n- [2026-01-15] IMDb: Halo: Parasite's Wake Officially Arrives This Year\n- [2025-11-25] IMDb: Halo Combat Evolved Designer Slams the Remake for Abandoning the Original’s Design Philosophy: “What have they done?”\n- [2025-11-17] IMDb: Halo: Campaign Evolved vs Combat Evolved: What’s New in the 2026 Remake\n- [2025-11-05] IMDb: Halo Mmo Controversy Explained: Who Is Don Mattrick and What’s He Doing Now?\n\n## Locations\n- Headquarters: aix-en-provence, paca, france\n- Offices: paris, île-de-france, france, aix-en-provence, paca, france",
+        "summary": "{\"description\":\"Halo.fr is a nonprofit organization and the first francophone Halo universe fan-site, providing official news, community spaces, creation sharing, YouTube channel, Twitch, and more.\",\"employee_estimate\":2,\"employee_estimate_source\":\"Employees: 2\",\"hq\":\"Aix-en-Provence, France\",\"hq_quote\":\"Headquartered in Aix-en-Provence, PACA, France, with an office in Paris.\",\"industry\":\"Entertainment\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":false,\"is_third_party_logistics_quote\":\"\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C560BAQGfhYjLGkkTPA/company-logo_200_200/company-logo_200_200/0/1631396769888/halo_fr_logo?e=2147483647&v=beta&t=NBqr1V6H7wreKh29wGGv1kfeq8Y2QY3BAoER8Oh2VeM",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/z8433nyjk0n",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Halo.fr",
+              "foundedYear": 2001,
+              "description": "Site de Halo francophone",
+              "workforce": {
+                "total": 2
+              },
+              "headquarters": {
+                "address": "Internet, Aix-en-Provence, PACA 13100, FR",
+                "city": "Aix-en-Provence",
+                "postalCode": null,
+                "country": "France"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 36976,
+                "countryRank": 31128,
+                "avgDurationSeconds": 117,
+                "history": [
+                  {
+                    "value": 25084,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 18400,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 24580,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 25394,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 43774,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 36976,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 4399.9,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

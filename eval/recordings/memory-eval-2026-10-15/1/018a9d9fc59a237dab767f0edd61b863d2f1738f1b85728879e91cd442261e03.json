@@ -1,0 +1,232 @@
+{
+  "request": {
+    "query": "SCEND",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the exact phrase from the page that the employee estimate came from (e.g. \"350 employees\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "f3abc7efa387c35e51ce5a03baf48091",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/0t4rvycbm2f",
+        "title": "Scend",
+        "url": "https://www.scend.ai/",
+        "text": "# Scend\n\nScend is a Technology, Information and Internet company. Scend is an AI-Native Research Platform for M&A, providing datasets for private-market datasets with agentic search to power M&A deals. Scend employs 4 people, founded in 2024. Headquartered in New York, New York, United States. Its workforce is distributed across United States and Ukraine.\n\n## About\n\nScend is the agentic search engine for finance. Company prospecting, need to know company research, customizable market research, buyer lists, business development, and a whole lot more. Where exhaustive meets relevant.\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Headquarters: New York, United States\n- Founded Year: 2024\n- Homepage: scend.ai\n- Aliases: Scend Inc., scend\n- LinkedIn: linkedin.com/company/scendinc\n- Linkedin Followers: 827\n- Emails: contact@scend.ai\n\n## Financials\n- Total Funding: USD 500,000\n  - Pre seed (2025-03-20): USD 500,000\n\n## Workforce\n- Employees: 4\n- Company Size: 1-10 employees\n- Key Executives:\n  - Anirudh Sathya: Co-Founder & CEO\n  - Yijie Feng: Co-Founder & CTO\n- Breakdown:\n  - By Country: United States: 3 (75%), Ukraine: 1 (25%)\n  - By Department: Technical: 2 (50%), General Management: 1 (25%), Other Department: 1 (25%)\n  - By Seniority: Founder: 2 (50%), Other Management: 1 (25%), Specialist: 1 (25%)\n- Talent Sources: The University of Texas at Dallas (1), Teamwork Healthcare (1), Robinhood (1), Nucleus Labs (1), Ciklum (1)\n- Alumni Go To: Perplexity (1), Akamai Technologies (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: amp\n\n## Web presence\n\n- Twitter: twitter.com/scendinc\n- YouTube: youtube.com/@scendinc\n- Crunchbase: crunchbase.com/organization/scend\n- Web traffic:\n  - Monthly visits: 2,161\n  - Global rank: 7,427,523\n  - Bounce rate: 54.0%\n  - Pages per visit: 1.7\n  - Average visit duration: 15s\n\n## Categories\n\nagentic search, ai, ai-native research platform, analytics, artificial intelligence (ai), consulting, dealmakers, finance, financial services, hedge funds, m&a, m&a deals, pe, platform, private-market datasets, pwm, saas, software, technology/research\n\n## Recent News\n- [2026-09-30] The National Law Review: SCEND Strengthens International Offering with New European Fulfilment Centre\n- [2026-09-07] RunRepeat: 7 Best PUMA Running Shoes in 2026\n- [2026-07-14] CryptoRank: Savior of Health 完成 400 万美元战略融资，布局 AI 医疗与健康管理\n- [2025-08-24] MSN: Roper St. Francis opens second AI-powered market\n- [2025-08-18] EFE Comunica: EMEET debuts PIXY: First-ever dual-camera AI 4K PTZ webcam for creators and pros\n- [2025-07-24] AOL.com: Trump posts AI-generated video showing Obama getting arrested to 'YMCA'\n- [2025-07-19] MSN: Netflix slipped something new into your favorite show\n- [2025-07-13] inkl: Gemini's new photo-to-video breathes animated life into your memories\n- [2025-06-21] Telecompaper: Alibaba Cloud to launch second AI data centre in South Korea\n- [2025-06-20] Tech Times: Midjourney Brings AI Video Generation Model Called the 'V1'—Here's How Much It Would Cost\n- [2025-05-11] NewsBreak: Local News & Alerts: Trump Slammed For AI-Generated Photos, More Wild Moments from His Second Presidency\n\n## Social\n\n### Linkedin\n\n- [2026-09-30 · 29 reactions, 10 comments] \"Claude, find me my next service business acquisition, make no mistakes\" Introducing the Scend MCP Connect it to Claude or Codex and build a dataset of firms and contacts Then describe workflows to...\n\n- [2026-09-21 · 135 reactions, 24 comments] Boston Consulting Group (BCG), Palantir Technologies, Ode with Anthropic, Harvey, Thrive Holdings and Ramp are all AI transformation companies. Hear me out. They all have different wedges, potentia...\n\n- [2026-09-04 · 24 reactions, 3 comments] At some point, nearly every Scend demo turns existential about M&A's \"Fog of War\". \"What happens when everyone can find every company?\" For investors, the source of alpha keeps shifting: - Buy a co...\n\n- [2026-08-31 · 295 reactions, 23 comments] Every VC asks founders: “What makes you different?” Which VCs are good at answering the same question? Founders already know Y Combinator, Andreessen Horowitz, and Sequoia Capital. We built a marke...\n\n- [2026-08-25 · 197 reactions, 60 comments] What if sourcing wasn't constrained by a database? Here's Scend's public launch video! Scend finds 13x as many companies, 50% more decision makers and 2x as many emails in our benchmarking versus t...\n\n- [2026-08-21 · 25 reactions, 6 comments] If you want to drive usage to a part of your product, make it simple and make it beautiful Working at a consumer tech company, you get to see how hardcore the process around UI changes is because i...\n\n- [2026-08-20 · 15 reactions] Our Market Research feature is frequently used instead of IBISWorld or ChatGPT. Here's a quick video for the various use cases. We built Scend to handle the deep work across the investing lifecycle...\n\n- [2026-08-18 · 375 reactions, 19 comments] I didn't understand the sheer amount of people needed to close an M&A deal until I got into PE. The actual PE investors are only really good at two things: (1) making up future projections and (2)...\n\n- [2026-08-11 · 42 reactions, 4 comments] I didn't know how many types of consultants there were. McKinsey & Company, Deloitte, IBM, Booz Allen Hamilton and FTI Consulting are all in consulting but they're rarely in the same markets. We ma...\n\n- [2026-08-03 · 50 reactions, 4 comments] One of the largest communities in entrepreneurship through acquisition (ETA) just chose Scend for its searchers. As of August 1, hundreds of Acquisition Lab members are now live on Scend. Acquisiti...\n\n- [2026-08-03 · 5 reactions] Have you checked out the Scend blog yet? We write about where we think M&A is headed, how AI is changing the industry, and the trends we’re seeing as we build Scend. If you’re interested in keeping...\n\n- [2026-07-30 · 187 reactions, 20 comments] What do Constellation Software Inc., Corgi, Lawhive, and Dwelly have in common? They're all AI rollups. How do we define an AI rollup? Simply put: AI x ownership. These companies aren’t just sellin...\n\n- [2026-07-29 · 10 reactions, 2 comments] Most people book a demo for Scend for one specific workflow. By the end, there's usually multiple products they need from us... The platform is broader than a lot of people initially think: - Origi...\n\n- [2026-07-28 · 7 reactions] Our new landing page is live! Check it out at www.scend.ai\n\n- [2026-07-28 · 40 reactions, 3 comments] Did you know that Corgi (valued at $4bn) is actually an AI rollup? Most of the coverage focuses on its seven-day workweek and the 24-hour café. That's their organic growth engine. No one really tal...\n\n- [2026-07-27 · 48 reactions, 2 comments] Lebron James adds $400mm to Philadelphia 76ers's TEV. Jalen Brunson added $500mm to the New York Knicks valuation. FIFA created $80bn in economic activity for North America. Sports is definitely ha...\n\n- [2026-07-24 · 8 reactions, 1 comment] I said that the legal industry was in the first inning of PE consolidation. Uplift Investors is moving through those innings very quickly (4 deals YTD by Orion Legal MSO). Technically, PE isn’t acq...\n\n- [2026-07-23 · 313 reactions, 27 comments] A decade ago, search funds were still mostly viewed as a niche path for ambitious Stanford/Harvard MBAs who wanted to become CEOs. Stanford wrote that there were just over 50 searches back in 2015....\n\n- [2026-07-22 · 47 reactions, 2 comments] We’ve spent the last year building Scend, but I’ve rarely explained the our platform from start to finish. So I’m starting a short/quick video series covering: - What Scend is - Who we built it for...\n\n- [2026-07-20 · 101 reactions, 1 comment] I used to think family offices were all the same. Koch, Winklevoss Capital, Blue Haven Initiative, Pathstone, and KIRKBI A/S beg to disagree. There are roughly ~10k family offices globally managing...\n\n## Locations\n- Headquarters: new york, new york, united states (US)\n- Offices: new york, new york, united states (US)",
+        "summary": "{\"description\":\"Scend is an AI-Native Research Platform for M&A, providing datasets for private-market datasets with agentic search to power M&A deals.\",\"employee_estimate\":4,\"employee_estimate_source\":\"Employees: 4\",\"hq\":\"New York, United States\",\"hq_quote\":\"Headquartered in New York, New York, United States.\",\"industry\":\"Technology, Information and Internet\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":false,\"is_third_party_logistics_quote\":\"scend is an AI-Native Research Platform for M&A, providing datasets for private-market datasets with agentic search to power M&A deals.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQHCThmzMYueYA/company-logo_200_200/company-logo_200_200/0/1729107303089/scendinc_logo?e=2147483647&v=beta&t=cILsxmqQaHDYJOOB7eTranJteWgtVLdaB9hy02Ti-aU",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/0t4rvycbm2f",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Scend",
+              "foundedYear": 2024,
+              "description": "Scend is the agentic search engine for finance. Company prospecting, need to know company research, customizable market research, buyer lists, business development, and a whole lot more. Where exhaustive meets relevant.",
+              "workforce": {
+                "total": 4
+              },
+              "headquarters": {
+                "address": "New York, New York, US",
+                "city": "New York",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 500000,
+                "fundingLatestRound": {
+                  "name": "Pre seed",
+                  "date": "2025-03-20",
+                  "amount": 500000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 2161,
+                "countryRank": 1529396,
+                "avgDurationSeconds": 15,
+                "history": [
+                  {
+                    "value": 82,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 3948,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 2430,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 2169,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 7030,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 2161,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/6mqbswkd517",
+        "title": "SCEND",
+        "url": "https://scend.com/",
+        "text": "# SCEND\n\nSCEND is a Transportation, Logistics, Supply Chain and Storage company. SCEND is a specialist eCommerce fulfilment & 3PL provider with UK and EU fulfilment centres. 99.9% same-day dispatch, 9PM cut-off. Trusted by leading global brands. SCEND employs 10 people, founded in 2018. Headquartered in Alfreton, Derbyshire, United Kingdom, with an office in Derby. Its workforce is distributed across United Kingdom and Netherlands.\n\n## About\n\nSCEND is a global eCommerce fulfilment company that fulfils eCommerce orders for direct-to-consumer brands. Our mission is to unlock brands full potential.\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Privately held\n- Headquarters: Alfreton, United Kingdom\n- Founded Year: 2018\n- Homepage: scend.com\n- Aliases: SCEND (UK) Ltd, scend\n- LinkedIn: linkedin.com/company/scendlogistics\n- Linkedin Followers: 1,564\n- Emails: info@scend.com\n- Phone: 1332 278 771\n\n## Workforce\n- Employees: 10\n- Company Size: 11-50 employees\n- Key Executives:\n  - Alex Harlow: Director\n  - Kyle Freeman: Head Of Operations\n  - Owen Jenkins: Director\n- Breakdown:\n  - By Country: United Kingdom: 7 (70%), Netherlands: 1 (10%)\n  - By Department: General Management: 2 (20%), Sales: 2 (20%), Customer Service: 1 (10%), Finance: 1 (10%), Marketing: 1 (10%), Operations: 1 (10%)\n  - By Seniority: Director: 2 (20%), Other Management: 2 (20%), Specialist: 2 (20%), Head: 1 (10%), Manager: 1 (10%)\n- Talent Sources: flybmi (1), Willows Sports Centre (1), Vail Williams (1), OJ & AH SUPPLIES LIMITED (1), Nottingham Trent University (1), Grupo Cala Bandida (1), Eastside Co® (Shopify Platinum Agency) (1)\n- Alumni Go To: Kier Group (1), DS4U (UK) LIMITED (1), ATL (1)\n\n## Products & Technology\n- Tech Stack: linkedin, tiktok, youtube, amp\n\n## Web presence\n\n- Facebook: facebook.com/scendlogistics\n- Instagram: instagram.com/scendlogistics\n- Crunchbase: crunchbase.com/organization/scend-ea09\n- Web traffic:\n  - Monthly visits: 4,812\n  - Global rank: 3,825,910\n  - Bounce rate: 46.0%\n  - Pages per visit: 1.7\n  - Average visit duration: 9s\n\n## Categories\n\n3pl provider, 9pm cut-off, ecommerce fulfilment, logistics, same-day dispatch, uk and eu\n\n## Recent News\n- [2026-10-02] The Globe and Mail: SCEND Strengthens International Offering with New European Fulfilment Centre\n\n## Social\n\n### Linkedin\n\n- [2026-09-23 · Reshared · 1 reaction] [One of our clients flew our team out to Tomorrowland. Not to work...](https://www.linkedin.com/posts/scendlogistics_one-of-our-clients-flew-our-team-out-to-tomorrowland-activity-7508525885663301633-5ghs): One of our clients flew our team out to Tomorrowland. Not to work it. Just to say thank you 🎪 It became one of those \"we actually do this for a living\" moments that doesn't come up often when you'r...\n\n- [2026-09-22 · Reshared] [Most brands compete for the customer already shopping in their...](https://www.linkedin.com/posts/scendlogistics_most-brands-compete-for-the-customer-already-activity-7508098647473950720-UQKG): Most brands compete for the customer already shopping in their category. PerfectTed went after the ones who weren't 🍵 What we find most interesting about that is the mindset behind it: solving the...\n\n- [2026-09-21 · Reshared · 2 reactions] [Campaign reports track conversion rate, ROAS, and CAC. That's not...](https://www.linkedin.com/posts/scendlogistics_campaign-reports-track-conversion-rate-roas-activity-7507712263055736832-ykKt): Campaign reports track conversion rate, ROAS, and CAC. That's not wrong; it's just missing data. Data that is sitting in returns. Does your marketing team ever see the returns data, or does it stop...\n\n- [2026-09-18 · Reshared] [Sometimes underestimating the difficulty of a problem is what keeps...](https://www.linkedin.com/posts/scendlogistics_sometimes-underestimating-the-difficulty-activity-7506647949033136128-bxys): Sometimes underestimating the difficulty of a problem is what keeps you working on it long enough to solve it 👀 Jack's full post below 👇\n\n- [2026-09-17 · Reshared] [Jack's post on D.LOUISE makes a point worth sitting with: the...](https://www.linkedin.com/posts/scendlogistics_jacks-post-on-dlouise-makes-a-point-worth-activity-7506262106430902272-efZS): Jack's post on D.LOUISE makes a point worth sitting with: the brands winning right now aren't choosing between AI efficiency and genuine storytelling. They're doing both 🚀 Jack's full post below 👇\n\n- [2026-09-11 · Reshared] [Jack's take, inspired by Cadence: for repeat-purchase brands...](https://www.linkedin.com/posts/scendlogistics_jacks-take-inspired-by-cadence-for-repeat-purchase-activity-7504122852564951040-Krk6): Jack's take, inspired by Cadence: for repeat-purchase brands, staying in stock isn't just an operational nice-to-have. It's what protects customer lifetime value, not just today's order 📦 From the...\n\n- [2026-09-10 · Reshared · 4 reactions] [Jack Crumpton shares a story about a deal we almost signed, one...](https://www.linkedin.com/posts/scendlogistics_jack-crumpton-shares-a-story-about-a-deal-activity-7503728185864445952-FD4j): Jack Crumpton shares a story about a deal we almost signed, one that would have let another company's team walk into our warehouse and fulfil work under our name. It's stuck with the team ever sinc...\n\n- [2026-09-08 · Reshared · 5 reactions] [One of our founders, Jack Crumpton, asks a question worth sitting...](https://www.linkedin.com/posts/scendlogistics_one-of-our-founders-jack-crumpton-asks-activity-7503055308949307392-vZi3): One of our founders, Jack Crumpton, asks a question worth sitting with: how much are we still judging old ideas by what was possible years ago, instead of what's possible now? 💡 Read his post below...\n\n- [2026-09-07 · Reshared · 4 reactions] [One of our founders, Jack Crumpton, shared a great story, and this...](https://www.linkedin.com/posts/scendlogistics_one-of-our-founders-jack-crumpton-shared-activity-7502651850643505152-Fl5v): One of our founders, Jack Crumpton, shared a great story, and this one stands out because it's a reminder that the things customers never see are often what shape how they feel about you! Take a lo...\n\n- [2026-08-26 · Reshared] [SCEND wasn't the first name our founders chose for this business...](https://www.linkedin.com/posts/scendlogistics_scend-wasnt-the-first-name-our-founders-activity-7498307240853159936-6Kp4): SCEND wasn't the first name our founders chose for this business. Most rebrands are a choice. This one wasn't 🤔 Our founders built 'UK Fulfilment Service' to 7 figures in revenue before a trademark...\n\n- [2026-08-25 · Posted · 2 reactions] [Returns aren't just a back-office problem. They're a buying...](https://www.linkedin.com/posts/scendlogistics_returns-arent-just-a-back-office-problem-activity-7497993730227064832-hQXo)\n  > Returns aren't just a back-office problem. They're a buying decision. 🛍️\n  >\n  > 67% of online shoppers say they're less likely to buy when retailers charge return fees. 😬\n  >\n  > Free, easy returns aren't a nice-to-have anymore. They're part of the pitch. ✅\n  >\n  > Worth remembering next time you're reviewing your returns policy. 💡\n  >\n  > Link below👇\n  > https://lnkd.in/dSPVPkeW\n\n- [2025-10-01 · 4 reactions] Shopify + 3PL = the perfect partnership for eCommerce growth! 🚀🤝 In this week’s edition of the Fulfilment Fix, we're exploring why choosing the right 3PL partner is key to scaling your Shopify stor...\n\n- [2025-09-29 · 3 reactions] Behind every smooth delivery is a warehouse working hard. 🏬✨ From inventory visibility to flexible storage and sustainability, storage & warehousing are central to modern eCommerce fulfilment. Expl...\n\n- [2025-09-22 · 26 reactions, 5 comments] Last week, our founders had the pleasure of attending the FEBE Growth 100 Awards Night! ✨ It was an incredible opportunity to connect with inspiring, like-minded entrepreneurs and celebrate outstan...\n\n- [2025-09-19 · 6 reactions] 🚚 B2B Fulfilment isn’t B2C Fulfilment. In the world of B2B logistics, accuracy, scale, and long-term relationships matter more than speed alone. Our latest guide breaks down: ✅ The differences betw...\n\n- [2025-09-16 · 5 reactions] eCommerce success isn’t just about great products; it’s about getting them into customers’ hands quickly and accurately. That’s where the pick and pack process comes in. From optimised warehouse la...\n\n- [2025-09-10 · 6 reactions] Returns aren’t the end of the story 📦✨ They’re actually the start of something powerful: reverse logistics. From inspection to restocking, recycling, or refurbishing, how you handle returns can tra...\n\n- [2025-09-04 · 5 reactions] 🌍✨ Green fulfilment isn’t about compromise—it’s about innovation. In today’s eCommerce world, customers expect fast delivery and eco-conscious practices. At SCEND, we’re proving that brands don’t h...\n\n- [2025-09-02 · 3 reactions] Your beauty brand deserves fulfilment that’s as flawless as your products. 💄✨ At SCEND, we handle every detail, so your customers get the experience they expect: ✅ Same-day dispatch up to 9 PM ✅ Sp...\n\n- [2025-08-28 · 7 reactions] ✨ Meet the Team ✨ Say hello to Aysha Perry, one of our amazing Team Leaders here at SCEND! 🙌 When we asked Aysha what she enjoys most about working at SCEND, her answer was simple: “The Team.” 💙 It...\n\n## Locations\n- Headquarters: alfreton, derbyshire, united kingdom (GB)\n- Offices: alfreton, derbyshire de55 7eg, united kingdom (GB), derby, derby, united kingdom (GB)",
+        "summary": "{\"description\":\"SCEND is a global eCommerce fulfilment company that fulfils eCommerce orders for direct-to-consumer brands. Our mission is to unlock brands full potential.\",\"employee_estimate\":10,\"employee_estimate_source\":\"Employees: 10\",\"hq\":\"Alfreton, United Kingdom\",\"hq_quote\":\"Headquartered in Alfreton, Derbyshire, United Kingdom, with an office in Derby.\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"SCEND is a specialist eCommerce fulfilment & 3PL provider with UK and EU fulfilment centres.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4D0BAQFdKkdCYI7fYQ/company-logo_200_200/company-logo_200_200/0/1694532058098/scend_io_logo?e=2147483647&v=beta&t=2XwLUHnbsgc4fIhUslNnndXeY0tP8Ofsi1lBogmEQuQ",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/6mqbswkd517",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "SCEND",
+              "foundedYear": 2018,
+              "description": "SCEND is a global eCommerce fulfilment company that fulfils eCommerce orders for direct-to-consumer brands. Our mission is to unlock brands full potential.",
+              "workforce": {
+                "total": 10
+              },
+              "headquarters": {
+                "address": "Unit C&D Salcombe Court, Salcombe Road, Alfreton, Derbyshire DE55 7EG, GB",
+                "city": "Alfreton",
+                "postalCode": null,
+                "country": "United Kingdom"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 4812,
+                "countryRank": 418827,
+                "avgDurationSeconds": 9,
+                "history": [
+                  {
+                    "value": 13234,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 13734,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 12775,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 8024,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 6083,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 4812,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 6482.2,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

@@ -1,0 +1,183 @@
+{
+  "request": {
+    "query": "King of Freight",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the exact phrase from the page that the employee estimate came from (e.g. \"350 employees\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "d4b493e367b52f95ea415cb29c69d623",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/v755jt1wb23",
+        "title": "King of Freight",
+        "url": "https://www.kingsoffreight.com/",
+        "text": "# King of Freight\n\nKing of Freight is a Transportation/Trucking/Railroad company. King of Freight is a full service broker that provides world-class logistics solutions. King of Freight employs 679 people (+3.2% YoY, +21 people), founded in 2008. Headquartered in Wichita, Kansas, United States.\n\n## About\n\nAt King of Freight we pride ourselves on being a full service transportation brokerage. Just tell us the type of freight that’s moving and the route it’s moving along, and we will handle the rest. The very second your shipment is scheduled to begin loading, our team of dispatchers is monitoring the load and ensuring everything is moving along as scheduled.\n\nWe provide timely updates for our customers in whatever manner they prefer to receive them. Want an email every hour? You got it! Would you rather get a phone call instead? Say no more! Our customers can also track every shipment they have ever done with us via our website. We customize the way we operate around our customers to make shipping with us as hassle free as possible. Upon the shipments delivery, our billing department will track down any necessary paperwork and get it to you right away.\n\nAll customers have a www.kingoffreight.com username and password where they can log on and print off any paperwork related to their shipments. Every customer has a direct point of contact. No operators or being transferred from one person to the other. We strive to make your freight related business worry free.\n\n## Company Details\n- Industry: Transportation/Trucking/Railroad\n- Type: Privately held\n- Headquarters: Wichita, United States\n- Founded Year: 2008\n- Homepage: kingsoffreight.com\n- Aliases: King of Freight LLC, king of freight\n- LinkedIn: linkedin.com/company/king-of-freight\n- Linkedin Followers: 3,904\n- Emails: carrierrelations@kingoffreight.com, deaires@kingoffreight.com\n- Phone: (316) 413-3403, +1 316 440 4723, 316-440-4723\n\n## Workforce\n- Employees: 679\n- Company Size: 501-1000 employees\n  - Monthly Growth: +0.9%\n  - Yearly Growth: +3.2%\n- Key Executives:\n  - Andrew Holdeman: Director of Software Engineering\n  - April Brooks: HR Director\n  - Brady A. Miller: Vice President\n  - Mike Ricklefs: Chief Executive Officer\n  - Shaydon Webb: Director of Sales And Business Development\n- Breakdown:\n  - By Country: United States: 288 (42%)\n  - By Department: Operations: 128 (19%), Sales: 106 (16%), Finance: 22 (3%), Technical: 10 (1%), General Management: 7 (1%), Administrative: 6 (1%), Consulting: 6 (1%), Other Department: 5 (1%), Customer Service: 4 (1%), Hr: 4 (1%) (+1 more)\n  - By Seniority: Specialist: 210 (31%), Senior: 40 (6%), Manager: 32 (5%), Other Management: 13 (2%), Director: 3, Vp: 1\n- Salary ranges (20 of 72 roles):\n  - Vice President - Business Development: median $196,875.42 per year\n  - Executive Consultant: median $138,933.17 per year\n  - Sales Broker: median $113,553.49 per year\n  - Account Manager/Broker: median $106,700.45 per year\n  - Freight Broker Agent: median $103,892.1 per year\n  - Senior Account Manager: median $101,762.25 per year\n  - Sales Consultant: median $97,137.16 per year\n  - Web Developer/Database Administrator: median $94,808.42 per year\n  - Sales Account Manager: median $91,486.39 per year\n  - Senior Auditor: median $91,402.39 per year\n  - Regional Logistics Manager: median $87,549.63 per year\n  - Account Manager/Freight Broker: median $85,261.02 per year\n  - Web Developer: median $85,086.04 per year\n  - Senior Logistics Manager: median $84,022.03 per year\n  - PHP Developer: median $82,755.22 per year\n  - Broker: median $82,307.69 per year\n  - Freight Broker: median $80,796.27 per year\n  - Operations Manager: median $77,531.57 per year\n  - Sales Representative: median $74,200.19 per year\n  - Manager: median $73,603.39 per year\n- Talent Sources: Protection 1 Security Solutions (6), ADT (6), T-Mobile (5), Eddy's Toyota (4), Rusty Eck Ford (3), Progressive Insurance (3), Cox Communications (3), Cargill (3), Best Buy (3), Wichita Public Schools - USD259 (2)\n- Alumni Go To: ADT (4), T-Mobile (3), Spirit AeroSystems (3), Syndeo (2), MyFreightWorld Inc. (2), Fenichey LLC (2), Family First Life (2), Ashley Furniture Industries (2), Ascension (2), Army National Guard (2)\n\n## Products & Technology\n- Tech Stack: mysql, php, react, react native, windows 10, microsoft, microsoft word, amp, heartland, well, bamboo, microsoft office, javascript, linux, salesforce, influential, youtube, ups\n\n## Web presence\n\n- Twitter: twitter.com/kingoffreight\n- Facebook: facebook.com/kingoffreight\n- Crunchbase: crunchbase.com/organization/king-of-freight\n- Web traffic:\n  - Monthly visits: 42,608\n  - Global rank: 258,610\n  - Bounce rate: 27.0%\n  - Pages per visit: 47.4\n  - Average visit duration: 5021s\n\n## Reviews & Ratings\n- Employer Rating: 4.3/5.0 (296 reviews)\n  - Breakdown: Work-Life: 4.1, Compensation: 4.2, Culture: 4.0, Career: 4.4\n\n## Categories\n\nbusiness_and_consumer_services/shipping_and_logistics, end to end solutions, expedited freight services, freight broker, full service, full service broker, heavy haul freight, logistics, logistics solutions, railroad, supply chain management, third party logistics, transportation, world-class logistics\n\n## Recent News\n- [2026-09-22] Yahoo Finance: [King of Freight Expands to Colorado Springs, Creating New Job Opportunities](https://finance.yahoo.com/small-business/articles/king-freight-expands-colorado-springs-201000913.html)\n- [2026-09-02] ACCESS Newswire: Wichita Business Leader Michael Ricklefs Champions Second Chances for Workers Recovering from Addiction\n- [2026-08-30] KAKE: King of Freight CEO accused of slapping, choking 15-year-old boy\n- [2026-08-18] [King of Freight Partners with Recover Wellness to Bring On-Site Employee Wellness to Wichita](https://finance.yahoo.com/healthcare/articles/king-freight-partners-recover-wellness-211400658.html)\n- [2024-07-02] The Business Journals: King of Freight founder's 20-acre development plans push forward in northeast Wichita\n- [2017-07-08] The Business Journals: Wichita Crane Watch\n\n## Social\n\n### Linkedin\n\n- [2025-10-11 · 1 reaction] We're #hiring a new Job Title in Dallas, Texas. Apply today or share this post with your network.\n\n- [2025-08-01 · 4 reactions] We're #hiring a new Sales Account Manager in Addison, Texas. Apply today or share this post with your network.\n\n- [2024-10-23 · 4 reactions] We're #hiring a new Frieght Broker in Tampa, Florida. Apply today or share this post with your network.\n\n- [2024-09-26 · 4 reactions] We're #hiring a new Freight Broker in Wichita, Kansas. Apply today or share this post with your network.\n\n- [2024-04-24 · 7 reactions, 2 comments] We're #hiring a new Sales Representative in Wichita, Kansas. Apply today or share this post with your network.\n\n- [2024-01-16 · 5 reactions] We're #hiring a new Inside Sales Representative in Little Rock, Arkansas. Apply today or share this post with your network.\n\n- [2024-01-16 · 4 reactions, 1 comment] I’m #hiring. Know anyone who might be interested? 👋😊\n\n- [2023-08-22 · 7 reactions] Loaded and rolling with some insulated panels in partnership with King of Freight Keep moving on the weekend heading to Utah. #EVA #EVAHauling #Heavyhaul #KingOfFreight\n\n## Locations\n- Headquarters: wichita, kansas, united states (US)\n- Offices: wichita, kansas, united states (US)",
+        "summary": "{\"description\":\"King of Freight is a transportation brokerage offering full service logistics solutions.\",\"employee_estimate\":679,\"employee_estimate_source\":\"679\",\"hq\":\"Wichita, United States\",\"hq_quote\":\"Headquartered in Wichita, Kansas, United States.\",\"industry\":\"Transportation/Trucking/Railroad\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"At King of Freight we pride ourselves on being a full service transportation brokerage.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQH2kq64RFjgjw/company-logo_200_200/company-logo_200_200/0/1705616919402/king_of_freight_logo?e=2147483647&v=beta&t=E-zUKgCE7uyQoCCfmFIWSVfyEM1tsPRlEN4e-ctcbYU",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/v755jt1wb23",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "King of Freight",
+              "foundedYear": 2008,
+              "description": "At King of Freight we pride ourselves on being a full service transportation brokerage. Just tell us the type of freight that’s moving and the route it’s moving along, and we will handle the rest. The very second your shipment is scheduled to begin loading, our team of dispatchers is monitoring the load and ensuring everything is moving along as scheduled.\n\nWe provide timely updates for our customers in whatever manner they prefer to receive them. Want an email every hour? You got it! Would you rather get a phone call instead? Say no more! Our customers can also track every shipment they have ever done with us via our website. We customize the way we operate around our customers to make shipping with us as hassle free as possible. Upon the shipments delivery, our billing department will track down any necessary paperwork and get it to you right away.\n\nAll customers have a www.kingoffreight.com username and password where they can log on and print off any paperwork related to their shipments. Every customer has a direct point of contact. No operators or being transferred from one person to the other. We strive to make your freight related business worry free. ",
+              "workforce": {
+                "total": 679
+              },
+              "headquarters": {
+                "address": "P.O. Box 49170, Wichita, KS 67201, US",
+                "city": "Wichita",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 42608,
+                "countryRank": 53106,
+                "avgDurationSeconds": 5021,
+                "history": [
+                  {
+                    "value": 52618,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 51455,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 60679,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 46752,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 42107,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 42608,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/gmtkg6c3762",
+        "title": "PT King Freight Logistics Indonesia",
+        "url": "https://linkedin.com/company/pt-king-freight-logistics-indonesia",
+        "text": "# PT King Freight Logistics Indonesia\n\nPT King Freight Logistics Indonesia is a Transportation, Logistics, Supply Chain and Storage company. PT King Freight Logistics Indonesia employs 28 people (+27.3% YoY, +6 people).\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Partnership\n- Aliases: pt king freight logistics indonesia\n- LinkedIn: linkedin.com/company/pt-king-freight-logistics-indonesia\n- Linkedin Followers: 107\n\n## Workforce\n- Employees: 28\n- Company Size: 51-200 employees\n  - Yearly Growth: +27.3%\n- Breakdown:\n  - By Country: Indonesia: 14 (50%)\n  - By Department: Marketing: 6 (21%), Finance: 3 (11%), Operations: 3 (11%), Customer Service: 1 (4%), Other Department: 1 (4%), Sales: 1 (4%)\n  - By Seniority: Specialist: 11 (39%), Other Management: 2 (7%), Manager: 1 (4%)\n- Talent Sources: PT.BEVANANDA MUSTIKA (1), PT. Jurong Engineering Lestari (JEL) (1), PT. Dexter Eurekatama (1), PT Transporindo Agung Sejahtera (Makassar) (1), PT Binex Logistic (1), Fave Hotel Group (1), Epson Indonesia (1), ERP INDONESIA (1)\n- Alumni Go To: PT. Semesta Sukses Nawasena (1), PT Bank Rakyat Indonesia (Persero) Tbk (1), Orient Star Group (1), Kirimkirim.id (1), Dart Global Logistics (1)\n\n## Social\n\n### Linkedin\n\n- [2024-08-02 · 7 reactions, 2 comments] We are HIRING! Send your CV & Resume Come and Join Us #lowongankerja#jakarta#semarang#surabaya#logistics\n\n- [2024-08-01 · 1 reaction] Halaman kami baru saja diperbarui. Kunjungi Halaman kami untuk melihat update terbaru.",
+        "summary": "{\"description\":\"PT King Freight Logistics Indonesia is a Transportation, Logistics, Supply Chain and Storage company.\",\"employee_estimate\":28,\"employee_estimate_source\":\"Employees: 28\",\"hq\":\"Indonesia\",\"hq_quote\":\"Industry: Transportation, Logistics, Supply Chain and Storage\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":null,\"is_third_party_logistics_quote\":\"\\\"PT King Freight Logistics Indonesia is a Transportation, Logistics, Supply Chain and Storage company.\\\"\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQFz0l_Pm4ML3w/company-logo_200_200/company-logo_200_200/0/1722927321901/pt_king_freight_logistics_indonesia_logo?e=2147483647&v=beta&t=evmq8JkngE5c-zUGSGkWH5rpWGkn9gUglR2El3wDRNk",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/gmtkg6c3762",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "PT King Freight Logistics Indonesia",
+              "foundedYear": null,
+              "description": null,
+              "workforce": {
+                "total": 28
+              },
+              "headquarters": null,
+              "financials": null,
+              "webTraffic": null,
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 4291.4,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

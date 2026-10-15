@@ -1,0 +1,224 @@
+{
+  "request": {
+    "query": "Paragon Global Logistics",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the exact phrase from the page that the employee estimate came from (e.g. \"350 employees\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "3115a50ebcb3e7bdd1c4e4b8b7624fb4",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/tscb9msccl9",
+        "title": "Paragon Global Logistics",
+        "url": "https://paragongl.com/",
+        "text": "# Paragon Global Logistics\n\nParagon Global Logistics is a Transportation, Logistics, Supply Chain and Storage company. Paragon Global Logistics is a third-party logistics services provider in Orlando, FL offering reliable LTL and FTL shipping solutions. Paragon Global Logistics employs 1 person, founded in 2023. Headquartered in Orlando, Florida, United States.\n\n## About\n\nParagon Global Logistics, a trusted logistics solutions provider specializing in Full Truck Load, Less than Truckload, Expedited, Dedicated, and Last-Mile Delivery.\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Privately held\n- Headquarters: Orlando, United States\n- Founded Year: 2023\n- Homepage: paragongl.com\n- Aliases: paragon global logistics\n- LinkedIn: linkedin.com/company/paragongl\n- Linkedin Followers: 355\n- Emails: info@paragongl.com\n- Phone: (407) 853-2923\n\n## Workforce\n- Employees: 1\n- Company Size: Myself Only\n- Talent Sources: McCray Global Protection (1)\n\n## Web presence\n\n- Web traffic:\n  - Monthly visits: 47\n  - Bounce rate: 37.0%\n  - Pages per visit: 1.0\n  - Average visit duration: 0s\n\n## Categories\n\nfreight brokerage, ftl shipping solutions, logistics, ltl shipping, orlando, third-party logistics services\n\n## Social\n\n### Linkedin\n\n- [2024-05-09 · 2 reactions, 2 comments] Another successful shipment completed. This time, a load of carpet from the “Carpet Capital of the World”. Dalton, GA to Orlando, FL\n\n- [2023-12-15 · 2 reactions] From one job site to another ✅\n\n- [2023-12-09 · 4 reactions] Connecting Continents 🌐🌏\n\n- [2023-11-13 · 5 reactions] Last week we had the opportunity to work on a variety of LTL shipments. We ensured that each item reached its destination on time and in perfect condition. 📦🚚\n\n- [2023-09-29 · 1 reaction] Exciting Updates Alert! We've revamped our website to bring you an even better user experience! 👉 https://paragongl.com/ Your feedback is invaluable - let us know what you think! 🗣️💬\n\n- [2023-09-15] 📢 Excited to share this testimonial from a satisfied freight broker! 🤝 At Paragon Global Logistics, we take pride in delivering exceptional dispatching solutions, and it's humbling to see our effor...\n\n- [2023-08-23] Excited to share more positive feedback! 🤝 At Paragon Global Logistics, we take pride in delivering exceptional dispatching solutions. We're committed to continuing our partnership and exceeding ex...\n\n- [2023-07-25 · 1 reaction] 📢 Excited to share this testimonial from a satisfied broker! 🤝 At Paragon Global Logistics, we take pride in delivering exceptional dispatching solutions, and it's humbling to see our efforts recog...\n\n- [2023-07-23] ⏰ POLL TIME! ⏰ How frequently do you evaluate your logistics providers to ensure they align with your evolving needs? Cast your vote and share your strategies with fellow industry professionals! #L...\n\n## Locations\n- Headquarters: orlando, florida, united states (US)\n- Offices: orlando, florida, united states (US)",
+        "summary": "{\"description\":\"Paragon Global Logistics is a Transportation, Logistics, Supply Chain and Storage company providing LTL and FTL shipping solutions. Based in Orlando, Florida, USA; privately held since 2023.\",\"employee_estimate\":1,\"employee_estimate_source\":\"Employees: 1\",\"hq\":\"Orlando, United States\",\"hq_quote\":\"Headquartered in Orlando, Florida, United States.\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"Paragon Global Logistics is a third-party logistics services provider in Orlando, FL offering reliable LTL and FTL shipping solutions.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQG5KtXk8o_WOA/company-logo_200_200/company-logo_200_200/0/1687342481960?e=2147483647&v=beta&t=bElv-Jz0VScyuwTDTSr3WV4k3KJdJgEAIKQ1rEfIYVc",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/tscb9msccl9",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Paragon Global Logistics",
+              "foundedYear": 2023,
+              "description": "Paragon Global Logistics, a trusted logistics solutions provider specializing in Full Truck Load, Less than Truckload, Expedited, Dedicated, and Last-Mile Delivery. ",
+              "workforce": {
+                "total": 1
+              },
+              "headquarters": {
+                "address": "Orlando, FL, US",
+                "city": "Orlando",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 47,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 232,
+                    "dateFrom": "2026-01",
+                    "dateTo": "2026-01"
+                  },
+                  {
+                    "value": 232,
+                    "dateFrom": "2026-02",
+                    "dateTo": "2026-02"
+                  },
+                  {
+                    "value": 69,
+                    "dateFrom": "2026-03",
+                    "dateTo": "2026-03"
+                  },
+                  {
+                    "value": 899,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 41,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 47,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/sp80sxzlqvx",
+        "title": "Paragon Logistics Ltd. - ISRAEL",
+        "url": "https://paragon-logistics.co.il/",
+        "text": "# Paragon Logistics Ltd. - ISRAEL\n\nParagon Logistics Ltd. - ISRAEL is a Transportation, Logistics, Supply Chain and Storage company. Paragon Logistics is a dynamic provider of comprehensive logistics, supply chain management, and freight operations solutions. They offer a profound and personal approach to the complete supply chain cycle for any size business. Paragon Logistics Ltd. - ISRAEL employs 16 people (+33.3% YoY, +4 people), founded in 2009. Headquartered in Or Yehuda, Israel, with presence in United States.\n\n## About\n\nParagon Logistics offers comprehensive supply chain management solutions, with a dedicated team of professionals in the area of global logistics. \r\n \r\nParagon Logistics provides services through the following three divisions:\r\n \r\nLogistics Center: Paragon Logistics operates a well-managed, 3,000-sqm logistics center, complying with high standards of global hi-tech companies, and strategically located in close proximity of Ben-Gurion Airport (Tel Aviv International Airport). \r\n \r\nFreight Operations: Provides the following services: freight forwarding, customs clearance, ground transportation, global projects, special charters and other added-value services.\r\n \r\nConsulting Services: Paragon SCM specializes in mapping, optimizing and increasing the efficiency of companies'​ supply chains, through providing a wide range of flexible solutions fulfilling companies'​ SCM requirements, and individually customizing the solutions to their needs and infrastructures. \r\n \r\nParagon Logistics provides an array of Supply Chain solutions for leading multinational and Israeli companies in the areas of hi-tech, network products, electronics manufacturing, fragrance and flavor production, digital press, and more.\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Privately held\n- Headquarters: Or Yehuda, Israel\n- Founded Year: 2009\n- Homepage: paragon-logistics.co.il\n- Aliases: Paragon Logistics Ltd., paragon logistics, paragon logistics ltd. - israel\n- LinkedIn: linkedin.com/company/paragon-logistics\n- Linkedin Followers: 426\n- Emails: info@paragon-logistics.co.il\n- Phone: +972 3 973046\n\n## Workforce\n- Employees: 16\n- Company Size: 11-50 employees\n  - Yearly Growth: +33.3%\n- Key Executives:\n  - Alex Menijes: VP Operations at Paragon Logistics Ltd\n  - Marcelo Iellin: Owner & CEO\n  - Naama Einhoren: Sales and Marketing Director\n  - Rina Granot: Head of Import Division\n  - Rina Granot: Vice President Operations\n- Breakdown:\n  - By Country: Israel: 3 (19%)\n  - By Department: Operations: 5 (31%), Sales: 2 (12%), General Management: 1 (6%), Marketing: 1 (6%)\n  - By Seniority: Manager: 4 (25%), Vp: 2 (12%), Director: 1 (6%), Head: 1 (6%), Other Management: 1 (6%), Owner: 1 (6%)\n- Talent Sources: Fritz Logistics & Forwarding - Supply Chain Solutions Israel (2), TSM GROUP LTD (1), Multi-Trans Sdn Bhd (1), ICL Global (ICL Intelligent Logistics) (1)\n- Alumni Go To: Ruth Cargo Ltd. (1), NX GROUP (NIPPON EXPRESS GROUP) (1), Mueller Water Products (1), Israel Defense Forces (1), Cargo Amerford (1), CTERA (1)\n\n## Products & Technology\n- Tech Stack: well\n\n## Web presence\n\n- Facebook: facebook.com/pages/%D7%A4%D7%A8%D7%90%D7%92%D7%95%D7%9F-%D7%9C%D7%95%D7%92%D7%99%D7%A1%D7%98%D7%99%D7%A7%D7%94-%D7%91%D7%A2%D7%9E-paragon-logistics-ltd/386507584847098\n- Crunchbase: crunchbase.com/organization/paragon-logistics\n- Web traffic:\n  - Monthly visits: 640\n  - Bounce rate: 28.0%\n  - Pages per visit: 1.0\n  - Average visit duration: 0s\n\n## Categories\n\ncomprehensive, custom clearance, freight forwarding, freight operations, logistics, logistics services, professionalism, shipping, supply chain management, transportation\n\n## Recent News\n- [2026-01-16] London Daily News: Paragon Logistics commits to same-day delivery for London businesses\n\n## Social\n\n### Linkedin\n\n- [2025-09-21] שנה טובה ! לכל לקוחותינו ושותפינו לדרך היקרים, לקראת השנה החדשה ברצוני לאחל לכם ולבני משפחותיכם חג שמח ושנה טובה, בריאות, שלום, שפע והרבה נחת. שתהה שנת תשפ\"ו שנה פורייה, שנה בא יושגו היעדים הנדרשים...\n\n- [2022-02-13 · 9 reactions] פברואר 2022, פראגון לוגיסטיקה עושה שוב את הבלתי אפשרי. תוך ימים ספורים \"פראגון\" נערכת ליישם מבצע מורכב להבאת מיליוני ערכות אנטיגן לישראל. אנחנו פה בשבילכם, לכל משימה. פראגון לוגיסטיקה בע\"מ הכל אפשר...\n\n- [2021-12-28 · 1 reaction] Season's Greetings and Best Wishes! Wishing you a beautiful holiday season and a year of good health, happiness and prosperity. Enjoy the holiday season with your loved ones and have a successful y...\n\n## Locations\n- Headquarters: or yehuda, israel (IL)\n- Offices: or yehuda, israel (IL), or yehuda, tel aviv, israel (IL), or-yehuda, israel (IL)",
+        "summary": "{\"description\":\"Paragon Logistics Ltd. - ISRAEL is a Transportation, Logistics, Supply Chain and Storage company.\",\"employee_estimate\":16,\"employee_estimate_source\":\"Employees: 16\",\"hq\":\"Or Yehuda, Israel\",\"hq_quote\":\"Headquartered in Or Yehuda, Israel\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"Paragon Logistics offers comprehensive supply chain management solutions, with a dedicated team of professionals in the area of global logistics.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4D0BAQFJooBq1qBjww/company-logo_200_200/company-logo_200_200/0/1631335506073?e=2147483647&v=beta&t=baVaIUHeKo83a8orb5B35s2ECoc9KUfRiL56NV2v_74",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/sp80sxzlqvx",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Paragon Logistics Ltd. - ISRAEL",
+              "foundedYear": 2009,
+              "description": "Paragon Logistics offers comprehensive supply chain management solutions, with a dedicated team of professionals in the area of global logistics. \r\n \r\nParagon Logistics provides services through the following three divisions:\r\n \r\nLogistics Center: Paragon Logistics operates a well-managed, 3,000-sqm logistics center, complying with high standards of global hi-tech companies, and strategically located in close proximity of Ben-Gurion Airport (Tel Aviv International Airport). \r\n \r\nFreight Operations: Provides the following services: freight forwarding, customs clearance, ground transportation, global projects, special charters and other added-value services.\r\n \r\nConsulting Services: Paragon SCM specializes in mapping, optimizing and increasing the efficiency of companies'​ supply chains, through providing a wide range of flexible solutions fulfilling companies'​ SCM requirements, and individually customizing the solutions to their needs and infrastructures. \r\n \r\nParagon Logistics provides an array of Supply Chain solutions for leading multinational and Israeli companies in the areas of hi-tech, network products, electronics manufacturing, fragrance and flavor production, digital press, and more.",
+              "workforce": {
+                "total": 16
+              },
+              "headquarters": {
+                "address": "10 Ha-Hagana St., Or-Yehuda, Israel 6022410  , IL",
+                "city": "Or Yehuda",
+                "postalCode": null,
+                "country": "Israel"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 640,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 806,
+                    "dateFrom": "2025-11",
+                    "dateTo": "2025-11"
+                  },
+                  {
+                    "value": 806,
+                    "dateFrom": "2025-12",
+                    "dateTo": "2025-12"
+                  },
+                  {
+                    "value": 453,
+                    "dateFrom": "2026-03",
+                    "dateTo": "2026-03"
+                  },
+                  {
+                    "value": 387,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 634,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 4449.6,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

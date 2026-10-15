@@ -1,0 +1,201 @@
+{
+  "request": {
+    "query": "TA Services",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the exact phrase from the page that the employee estimate came from (e.g. \"350 employees\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "e74b5109b78077b628d490f01914f90c",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/j9vkmsf56v2",
+        "title": "TA Services",
+        "url": "https://www.taservices.com/",
+        "text": "# TA Services\n\nTA Services is a Transportation, Logistics, Supply Chain and Storage company. TA Services is a 3PL logistics provider that delivers peak performance across freight brokerage, managed transportation, warehousing & fulfillment, and cross-border logistics. TA Services employs 532 people (+4.5% YoY, +23 people) and has an annual revenue of $700M, founded in 1986. Headquartered in Mansfield, Texas, United States, with presence in Mexico. Its workforce is distributed across United States, Canada, and Mexico.\n\n## About\n\n𝗣𝗲𝗮𝗸 𝗣𝗲𝗿𝗳𝗼𝗿𝗺𝗮𝗻𝗰𝗲 𝗗𝗲𝗹𝗶𝘃𝗲𝗿𝗲𝗱.\n\nAt TA, we bring 𝗽𝗿𝗲𝗰𝗶𝘀𝗶𝗼𝗻, 𝗮𝗴𝗶𝗹𝗶𝘁𝘆, 𝗮𝗻𝗱 𝗿𝗲𝗹𝗲𝗻𝘁𝗹𝗲𝘀𝘀 𝗱𝗿𝗶𝘃𝗲 to the world of logistics. Founded on a handshake in 1986, we've grown into a powerhouse of 𝗠𝘂𝗹𝘁𝗶𝗺𝗼𝗱𝗮𝗹 𝗙𝗿𝗲𝗶𝗴𝗵𝘁 𝗕𝗿𝗼𝗸𝗲𝗿𝗮𝗴𝗲, 𝗠𝗮𝗻𝗮𝗴𝗲𝗱 𝗧𝗿𝗮𝗻𝘀𝗽𝗼𝗿𝘁𝗮𝘁𝗶𝗼𝗻, 𝗪𝗮𝗿𝗲𝗵𝗼𝘂𝘀𝗶𝗻𝗴 & 𝗙𝘂𝗹𝗳𝗶𝗹𝗹𝗺𝗲𝗻𝘁, 𝗮𝗻𝗱 𝗖𝗿𝗼𝘀𝘀-𝗕𝗼𝗿𝗱𝗲𝗿 𝗟𝗼𝗴𝗶𝘀𝘁𝗶𝗰𝘀.\n\nWith 𝟮𝟬+ 𝘀𝘁𝗿𝗮𝘁𝗲𝗴𝗶𝗰𝗮𝗹𝗹𝘆 𝗹𝗼𝗰𝗮𝘁𝗲𝗱 𝗳𝗮𝗰𝗶𝗹𝗶𝘁𝗶𝗲𝘀 spanning the US, Canada, and Mexico, and an elite network of carrier partners, we don’t just move freight—we 𝗼𝗽𝘁𝗶𝗺𝗶𝘇𝗲, 𝘀𝘁𝗿𝗲𝗮𝗺𝗹𝗶𝗻𝗲, 𝗮𝗻𝗱 𝗱𝗲𝗹𝗶𝘃𝗲𝗿 𝗿𝗲𝘀𝘂𝗹𝘁𝘀 with a champion mindset. Our 𝘁𝗲𝗮𝗺-𝗱𝗿𝗶𝘃𝗲𝗻 𝗰𝘂𝗹𝘁𝘂𝗿𝗲 is built on trust, innovation, and the pursuit of excellence.\n\nFrom first mile to final destination, we push boundaries to keep your business moving forward. 𝙇𝙚𝙩’𝙨 𝙙𝙚𝙡𝙞𝙫𝙚𝙧 𝙥𝙚𝙖𝙠 𝙥𝙚𝙧𝙛𝙤𝙧𝙢𝙖𝙣𝙘𝙚 𝙩𝙤𝙜𝙚𝙩𝙝𝙚𝙧.\n\n📞 Contact us today for a quote!\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Privately held\n- Headquarters: Mansfield, United States\n- Founded Year: 1986\n- Homepage: taservices.com\n- Aliases: ta services, ta services, inc.\n- LinkedIn: linkedin.com/company/taservices\n- Linkedin Followers: 13,790\n- Emails: info@taservices.com\n- Phone: +18006262185, 1-800-626-2185, 800-626-2185\n\n## Financials\n- Annual Revenue: USD 700,000,000\n\n## Acquisitions\n- Acquired KPI Logistics, Inc. (2022-10-01)\n- Acquired C2 Freight Resources, Inc. (2022-05-01)\n- Acquired Scout Logistics Corporation (2021-08-19)\n- Acquired Celadon Logistics (2019-04-15)\n- Acquired Jennifer (2019-04-01)\n\n## Workforce\n- Employees: 532\n- Company Size: 501-1000 employees\n  - Monthly Growth: +1.5%\n  - Yearly Growth: +4.5%\n- Key Executives:\n  - Andrew Plan: Director of Operations\n  - Anthony Falette: Director of Brokerage Operations\n  - Aron A. Scalissi: Vice President of Warehouse Business Development\n  - Ben Craukamp: Director of Business Development\n  - Brady Thames: Vice President of Sales & Marketing\n  - Brian Malinowski: Senior Vice President Business Development\n  - Brian Middleton: Vice President of Business Development\n  - Carlos Reyes: Director of Operations Mexico\n  - Chase Wilder: Vice President of Business Development\n  - Chris Bahr: Executive Vice President and Chief Information Officer\n- Breakdown:\n  - By Country: United States: 247 (46%), Canada: 15 (3%), Mexico: 14 (3%)\n  - By Department: Operations: 129 (24%), Sales: 50 (9%), Finance: 22 (4%), General Management: 18 (3%), Technical: 17 (3%), Hr: 14 (3%), Other Department: 8 (2%), Administrative: 7 (1%), Trades: 5 (1%), Customer Service: 4 (1%) (+4 more)\n  - By Seniority: Specialist: 139 (26%), Manager: 67 (13%), Other Management: 27 (5%), Director: 20 (4%), Vp: 13 (2%), Senior: 10 (2%), Clevel: 5 (1%), Intern: 5 (1%), Partner: 2, Head: 1\n- Active job postings: 19\n- Salary ranges (20 of 56 roles):\n  - Vice President Operations: median $215,572.76 per year\n  - Director of Marketing: median $135,407.76 per year\n  - Director of Employee Development: median $118,064.24 per year\n  - Senior Recruiting Manager: median $96,205.64 per year\n  - Continuous Improvement Engineer: median $94,834.02 per year\n  - Business Analyst: median $94,221.11 per year\n  - Account Executive: median $93,586.88 per year\n  - Structured Finance Abcds Analyst: median $91,165.43 per year\n  - OUTSIDE SALES: median $90,409.92 per year\n  - Quality Engineer: median $88,388.44 per year\n  - Operations Manager: median $86,179.49 per year\n  - Manager: median $82,589.1 per year\n  - Cyber Security Analyst: median $82,564.6 per year\n  - Human Resources: median $80,541.06 per year\n  - Logistics Manager: median $77,909.46 per year\n  - Operations and Account Manager: median $77,480.13 per year\n  - Business Development: median $76,284.52 per year\n  - Account Manager: median $73,288.94 per year\n  - Class A Truck Driver: median $73,241.77 per year\n  - Pricing Analyst: median $71,425.01 per year\n- Talent Sources: Celadon Logistics (32), Celadon Group Inc. (16), P&S Transportation (8), ProTrans (7), Buddy Moore Trucking Inc. (7), KPI Logistics (6), CRST The Transportation Solution, Inc. (6), DHL Supply Chain (5), Angi (4), Amazon (4)\n- Alumni Go To: FitzMark (5), TransX Group of Companies (4), Steam Logistics (4), RJ Logistics (4), SET Logistics (3), Roche (3), JLE Industries (3), Cummins Inc. (3), Circle Logistics, Inc (3), Amazon (3)\n\n## Products & Technology\n- Tech Stack (showing 50 of 74): adp, autocad, carta, constant contact, dojo, hireright, mercurygate, recognize, soti, sql, asp, cisco meraki, coupa, dialpad, e2open, foreman, fortinet, gps, influential, jira, lytx, microsoft, microsoft azure, microsoft excel, microsoft office, microsoft outlook, microsoft teams, oracle, power bi, samsara, tableau, trac, workday, crowdstrike, microsoft 365, mimecast, mitel, core hr, smartrecruiters, adobe, adobe creative suite, canva, facebook, hubspot, linkedin, mailchimp, elog, tenstreet, microsoft sql server, jotform\n\n## Web presence\n\n- Twitter: twitter.com/taservices10\n- Facebook: facebook.com/wemakeshiphappen\n- YouTube: youtube.com/channel/ucqht8hceu7azlwifp2p9e0a\n- Crunchbase: crunchbase.com/organization/ta-services\n- Web traffic:\n  - Monthly visits: 7,007\n  - Global rank: 3,017,432\n  - Bounce rate: 47.0%\n  - Pages per visit: 1.4\n  - Average visit duration: 9s\n\n## Reviews & Ratings\n- Employer Rating: 3.6/5.0 (62 reviews)\n  - Breakdown: Work-Life: 3.1, Compensation: 3.1, Culture: 3.5, Career: 3.0\n\n## Categories\n\n3pl logistics provider, brokerage, business-services, cold chain logistics, consolidation, cross-border logistics, dry van, expedited, freight, freight brokerage, international shipping, logistics, ltl, managed transportation, mill services, multimodal freight brokerage, open deck, project freight, shipping, temperature controlled, third party logistics, transportation, truckload, warehousing, warehousing & fulfillment\n\n## Competitors\n\nps logistics, bison, seko, zeta system, ram international, parkmail, charterlink\n\n## Recent News\n- [2026-09-16] [TA Services’ Loretta Sercy Named Recipient of 2026 Women in Supply Chain Forum™ Award](https://www.globenewswire.com/news-release/2026/09/16/3363275/0/en/ta-services-loretta-sercy-named-recipient-of-2026-women-in-supply-chain-forum-award.html)\n- [2026-09-07] [Arthur Zaczkiewicz – Page 12 – WWD](https://wwd.com/wwd-masthead/arthur-zaczkiewicz-2/page/12/)\n- [2026-08-19] [TA Transportation Trendline Finds Qualified Truck Capacity Continues to Tighten as Freight Rates Rise Across All Equipment Types – News Radio KOTA](https://lifestyle.kotaradio.com/story/363962/ta-transportation-trendline-finds-qualified-truck-capacity-continues-to-tighten-as-freight-rates-rise-across-all-equipment-types/)\n- [2026-08-04] [Why Freight Spot Rates Are Rising in 2026](https://www.ccjdigital.com/economic-trends/freight-demand/article/15831394/why-freight-spot-rates-are-rising-in-2026)\n- [2026-07-21]\n  - [TA Services’ Steel Transportation Index Estimates Only 1.4% of U.S. Carriers are Qualified to Handle Specialized Steel Freight](https://www.globenewswire.com/news-release/2026/07/21/3330579/0/en/TA-Services-Steel-Transportation-Index-Estimates-Only-1-4-of-U-S-Carriers-are-Qualified-to-Handle-Specialized-Steel-Freight.html)\n  - GlobeNewswire: TA Services’ Steel Transportation Index Estimates Only 1.4%\n- [2025-03-19] GlobeNewswire News Room: TA’s Veronica Garcia and Mike Teresinski Recognized Among Top 2025 Supply Chain Leaders\n- [2025-02-26] GlobeNewswire News Room: TA Transportation Trendline: Secure Van, Reefer, and Flatbed Rates Now Before Price Increases\n- [2025-02-12] GlobeNewswire News Room: TA Teams Up with Highway to Enhance Carrier Vetting and Prevent Freight Fraud\n- [2024-10-09] GlobeNewswire: TA Expands Footprint with Two New Indiana Warehouses\n- [2024-08-05] GlobeNewswire: TA \\(previously TA Services\\) Reveals Updated Brand, Showcasing Evolution into Comprehensive North American 3PL\n- [2021-08-24] PE Hub: PS Logistics’ TA Services acquires Scout Logistics Corp\n- [2021-01-11] PRLog: TA Services' Enhances Schuff Steel Project with Innovative Transportation Management Solution\n- [2020-11-12] PRLog: TA Services Names Logistics Leader, Reo B. Hatfield II, as Vice President of Business Development\n\n## Social\n\n### Linkedin\n\n- [2026-09-18 · 20 reactions] National Truck Driver Appreciation Week may be coming to an end, but our appreciation for the people who keep freight moving doesn't. This week, we've celebrated the drivers behind the wheel, and t...\n\n- [2026-09-17 · 16 reactions, 1 comment] What does it take to be a Workforce Innovator? For Loretta Sercy, it means going beyond building business by building better ways of working. From creating stronger onboarding and service standards...\n\n- [2026-09-16 · 20 reactions] A little appreciation goes a long way, and showing gratitude doesn't have to be complicated to make a big impact. Here are 6 simple but meaningful ways to thank a driver this week and all year long...\n\n- [2026-09-15 · 7 reactions] The numbers tell a powerful story. Professional truck drivers move our economy—and our everyday lives—forward. Here are a few eye-opening stats that show just how big their impact really is. #NTDAW...\n\n- [2026-09-15 · 15 reactions] National Hispanic Heritage Month is an opportunity to celebrate the histories, cultures and contributions of Hispanic and Latino communities, and to recognize the people who make an impact across T...\n\n- [2026-09-14 · 20 reactions] Every day, professional truck drivers travel the countless miles that keep shelves stocked, businesses supplied, production moving, and communities connected. 𝗧𝗵𝗲𝘆 𝗮𝗿𝗲 𝘁𝗵𝗲 𝗯𝗮𝗰𝗸𝗯𝗼𝗻𝗲 𝗼𝗳 𝗔𝗺𝗲𝗿𝗶𝗰𝗮. At T...\n\n- [2026-09-11 · 25 reactions] Today, TA acknowledges the actions, bravery, and sacrifice of so many true American heroes and the legacy of the lives lost on this fateful day a quarter of a century ago. The Women, Men, and First...\n\n- [2026-09-10 · 36 reactions, 7 comments] Big recognition for one of our own. 👏 Congratulations to Loretta Sercy, Director of Business Development at TA Services, on being named a 2026 Women in Supply Chain Forum™ Award recipient in the Wo...\n\n- [2026-09-03 · 19 reactions] \"Separate the true signals from the noise.\" That's one of the biggest takeaways from this quarter's Transportation Trendline. Weekly headlines will always create uncertainty, but long-term indicato...\n\n- [2026-09-02 · 4 reactions, 1 comment] 𝗢𝗻𝗹𝘆 𝟭.𝟰% 𝗼𝗳 𝗿𝗲𝗴𝗶𝘀𝘁𝗲𝗿𝗲𝗱 𝗰𝗮𝗿𝗿𝗶𝗲𝗿𝘀 𝗮𝗿𝗲 𝗲𝘀𝘁𝗶𝗺𝗮𝘁𝗲𝗱 𝘁𝗼 𝗺𝗲𝗲𝘁 𝘁𝗵𝗲 𝘁𝗵𝗿𝗲𝘀𝗵𝗼𝗹𝗱 𝗳𝗼𝗿 𝘀𝗽𝗲𝗰𝗶𝗮𝗹𝗶𝘇𝗲𝗱 𝘀𝘁𝗲𝗲𝗹 𝗳𝗿𝗲𝗶𝗴𝗵𝘁. If you haven't had a chance to read the Q2 𝙏𝘼 𝙎𝙩𝙚𝙚𝙡 𝙏𝙧𝙖𝙣𝙨𝙥𝙤𝙧𝙩𝙖𝙩𝙞𝙤𝙣 𝙄𝙣𝙙𝙚𝙭, there's still time. Exp...\n\n- [2026-08-31 · 15 reactions, 2 comments] As transportation planning continues into Q3, one message from this quarter's report remains especially relevant: Organizations that build strong carrier relationships and plan proactively will alw...\n\n- [2026-08-27 · 1 comment] Sustainability expectations continue to evolve across the steel industry. The 𝗤𝟮 𝗧𝗔 𝗦𝘁𝗲𝗲𝗹 𝗧𝗿𝗮𝗻𝘀𝗽𝗼𝗿𝘁𝗮𝘁𝗶𝗼𝗻 𝗜𝗻𝗱𝗲𝘅 explores the latest developments surrounding emissions reporting and the SBTi Net-Zero...\n\n- [2026-08-26 · 9 reactions, 1 comment] Market insights are only valuable if they lead to better decisions. As transportation conditions continue to evolve, the organizations that perform best won't simply react to change; they'll prepar...\n\n- [2026-08-25 · 1 reaction, 1 comment] Finding a truck is one thing. Finding a qualified steel carrier is another. Specialized equipment, securement expertise, safety performance, cargo insurance, and proven experience all narrow the po...\n\n- [2026-08-24 · 19 reactions] The conversations are underway at the Steel Market Update #SMUSteelSummit, and one theme is already standing out: 𝗧𝗲𝗰𝗵𝗻𝗼𝗹𝗼𝗴𝘆 𝗰𝗿𝗲𝗮𝘁𝗲𝘀 𝗼𝗽𝗽𝗼𝗿𝘁𝘂𝗻𝗶𝘁𝘆. 𝗣𝗲𝗼𝗽𝗹𝗲 𝗺𝗮𝗸𝗲 𝗶𝘁 𝘄𝗼𝗿𝗸. Across the steel industry, com...\n\n- [2026-08-21 · 9 reactions, 1 comment] Next stop: Atlanta. Nick Shroeger and Collin Miller, MBA will be at the Steel Market Update Summit August 24–26, connecting with leaders from across the steel industry and talking about what's ahea...\n\n- [2026-08-20 · 11 reactions, 1 comment] Every transportation mode is telling a slightly different story. But together, they paint a clear picture of today's freight market. Our latest 𝗤𝟮 𝗧𝗿𝗮𝗻𝘀𝗽𝗼𝗿𝘁𝗮𝘁𝗶𝗼𝗻 𝗧𝗿𝗲𝗻𝗱𝗹𝗶𝗻𝗲 breaks down the key signa...\n\n- [2026-08-19] Steel transportation isn't driven by one market indicator. The latest edition of the TA Steel Transportation Index examines steel imports, freight trends, qualified carrier availability, and region...\n\n- [2026-08-18 · 17 reactions] In steel transportation, capacity isn't the same thing as qualified capacity. Our analysis of the carrier market tells the story. Start with the broader carrier universe. Then account for flatbed c...\n\n- [2026-08-17 · 28 reactions] Steel moves differently. And the conversations shaping what's next for the industry are happening in Atlanta. TA Services is headed to the 2026 Steel Market Update Summit, August 24–26, where more...\n\n## Locations\n- Headquarters: mansfield, texas, united states (US)\n- Offices: leeds, alabama, united states (US), butler, indiana, united states (US), midlothian, texas, united states (US), columbus, ohio, united states, greenwood, indiana, united states (US), monterrey, nuevo león, mexico (MX), janesville, wisconsin, united states (US), mansfield, texas, united states (US), cockeysville, maryland, united states (US), laredo, texas, united states (US), garrett, indiana, united states (US), columbus, indiana, united states, baltimore, maryland, united states (US), seymour, indiana, united states (US), indianapolis, indiana, united states (US), plano, texas, united states (US), north diwiddie, virginia, united states (US)\n\n## Parent organization\n\n- PS Logistics",
+        "summary": "{\"description\":\"TA Services is a Transportation, Logistics, Supply Chain and Storage company. TA Services is a 3PL logistics provider that delivers peak performance across freight brokerage, managed transportation, warehousing & fulfillment, and cross-border logistics.\",\"employee_estimate\":532,\"employee_estimate_source\":\"Employees: 532\",\"hq\":\"Headquarters: mansfield, texas, united states (US)\",\"hq_quote\":\"Headquarters: mansfield, texas, united states (US)\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"3pl logistics provider, brokerage, business-services, cold chain logistics, ... third party logistics, transportation, truckload, warehousing, warehousing & fulfillment\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQGS-gq2ETo_Dg/company-logo_200_200/company-logo_200_200/0/1722865484764/taservices_logo?e=2147483647&v=beta&t=Tp_fPeLP8N_i-ce0_PoHvQBW6K7JJTSgAYYCigRVFIY",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/j9vkmsf56v2",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "TA Services",
+              "foundedYear": 1986,
+              "description": "𝗣𝗲𝗮𝗸 𝗣𝗲𝗿𝗳𝗼𝗿𝗺𝗮𝗻𝗰𝗲 𝗗𝗲𝗹𝗶𝘃𝗲𝗿𝗲𝗱.\n\nAt TA, we bring 𝗽𝗿𝗲𝗰𝗶𝘀𝗶𝗼𝗻, 𝗮𝗴𝗶𝗹𝗶𝘁𝘆, 𝗮𝗻𝗱 𝗿𝗲𝗹𝗲𝗻𝘁𝗹𝗲𝘀𝘀 𝗱𝗿𝗶𝘃𝗲 to the world of logistics. Founded on a handshake in 1986, we've grown into a powerhouse of 𝗠𝘂𝗹𝘁𝗶𝗺𝗼𝗱𝗮𝗹 𝗙𝗿𝗲𝗶𝗴𝗵𝘁 𝗕𝗿𝗼𝗸𝗲𝗿𝗮𝗴𝗲, 𝗠𝗮𝗻𝗮𝗴𝗲𝗱 𝗧𝗿𝗮𝗻𝘀𝗽𝗼𝗿𝘁𝗮𝘁𝗶𝗼𝗻, 𝗪𝗮𝗿𝗲𝗵𝗼𝘂𝘀𝗶𝗻𝗴 & 𝗙𝘂𝗹𝗳𝗶𝗹𝗹𝗺𝗲𝗻𝘁, 𝗮𝗻𝗱 𝗖𝗿𝗼𝘀𝘀-𝗕𝗼𝗿𝗱𝗲𝗿 𝗟𝗼𝗴𝗶𝘀𝘁𝗶𝗰𝘀.\n\nWith 𝟮𝟬+ 𝘀𝘁𝗿𝗮𝘁𝗲𝗴𝗶𝗰𝗮𝗹𝗹𝘆 𝗹𝗼𝗰𝗮𝘁𝗲𝗱 𝗳𝗮𝗰𝗶𝗹𝗶𝘁𝗶𝗲𝘀 spanning the US, Canada, and Mexico, and an elite network of carrier partners, we don’t just move freight—we 𝗼𝗽𝘁𝗶𝗺𝗶𝘇𝗲, 𝘀𝘁𝗿𝗲𝗮𝗺𝗹𝗶𝗻𝗲, 𝗮𝗻𝗱 𝗱𝗲𝗹𝗶𝘃𝗲𝗿 𝗿𝗲𝘀𝘂𝗹𝘁𝘀 with a champion mindset. Our 𝘁𝗲𝗮𝗺-𝗱𝗿𝗶𝘃𝗲𝗻 𝗰𝘂𝗹𝘁𝘂𝗿𝗲 is built on trust, innovation, and the pursuit of excellence.\n\nFrom first mile to final destination, we push boundaries to keep your business moving forward. 𝙇𝙚𝙩’𝙨 𝙙𝙚𝙡𝙞𝙫𝙚𝙧 𝙥𝙚𝙖𝙠 𝙥𝙚𝙧𝙛𝙤𝙧𝙢𝙖𝙣𝙘𝙚 𝙩𝙤𝙜𝙚𝙩𝙝𝙚𝙧.\n\n📞 Contact us today for a quote!",
+              "workforce": {
+                "total": 532
+              },
+              "headquarters": {
+                "address": "241 Regency Parkway, Mansfield, Texas 76063, US",
+                "city": "Mansfield",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 700000000,
+                "fundingTotal": null,
+                "fundingLatestRound": null
+              },
+              "webTraffic": {
+                "visitsMonthly": 7007,
+                "countryRank": 1320226,
+                "avgDurationSeconds": 9,
+                "history": [
+                  {
+                    "value": 10867,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 12124,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 11337,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 8284,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 9278,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 9278,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/pqbqcj51z2q",
+        "title": "Ta Service",
+        "url": "https://taservices.us/",
+        "text": "# Ta Service\n\nTa Service is a Facilities Services company. Ta Service employs 19 people (-5.0% YoY, -1 person) and has an annual revenue of $37.2M. Headquartered in Mansfield, Texas, United States, with an office in Southington. Its workforce is distributed across Czechia and Denmark.\n\n## About\n\nTA Services is a 3PL logistics provider that delivers peak performance across freight brokerage, managed transportation, warehousing & fulfillment, and cross-border logistics.\n\n## Company Details\n- Industry: Facilities Services\n- Headquarters: Mansfield, United States\n- Homepage: taservices.us\n- Aliases: ta service, ta services,inc.\n- LinkedIn: linkedin.com/company/ta-service\n- Linkedin Followers: 17\n- Phone: 817-539-85\n\n## Financials\n- Annual Revenue: USD 37,209,505\n\n## Workforce\n- Employees: 19\n- Company Size: 11-50 employees\n  - Yearly Growth: -5.0%\n- Breakdown:\n  - By Country: Czechia: 1 (5%), Denmark: 1 (5%)\n  - By Department: Project Management: 1 (5%), Trades: 1 (5%)\n  - By Seniority: Manager: 1 (5%), Other Management: 1 (5%)\n- Talent Sources: Šmeral Brno a.s. (1), Holmris B8 (1), FrontRow (1), Dagrofa Logistik a/s (1), ConDoor Door Solutions (1)\n- Alumni Go To: ZEPRO Danmark A/S (1), TU Brno Racing (1), SJEB A/S (1), KSU A-Technik AG (1), HOLME Gardiner (1)\n\n## Web presence\n\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Locations\n- Headquarters: mansfield, texas, united states (US)\n- Offices: mansfield, texas, united states (US), southington, connecticut, united states (US)\n\n## Parent organization\n\n- P&S Transportation",
+        "summary": "{\"description\":\"Ta Service is a Facilities Services company and a 3PL logistics provider delivering peak performance across freight brokerage, managed transportation, warehousing & fulfillment, and cross-border logistics.\",\"employee_estimate\":19,\"employee_estimate_source\":\"Employees: 19\",\"hq\":\"Headquartered in Mansfield, Texas, United States, with an office in Southington.\",\"hq_quote\":\"Headquartered in Mansfield, Texas, United States, with an office in Southington.\",\"industry\":\"Facilities Services\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"TA Services is a 3PL logistics provider that delivers peak performance across freight brokerage, managed transportation, warehousing & fulfillment, and cross-border logistics.\"}",
+        "image": "https://static.licdn.com/aero-v1/sc/h/cs8pjfgyw96g44ln9r7tct85f",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/pqbqcj51z2q",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Ta Service",
+              "foundedYear": null,
+              "description": "TA Services is a 3PL logistics provider that delivers peak performance across freight brokerage, managed transportation, warehousing & fulfillment, and cross-border logistics.",
+              "workforce": {
+                "total": 19
+              },
+              "headquarters": {
+                "address": "241 Regency Pkwy, Mansfield, TX 76063, US",
+                "city": "Mansfield",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 37209505,
+                "fundingTotal": null,
+                "fundingLatestRound": null
+              },
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": 0,
+                "avgDurationSeconds": 0,
+                "history": []
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 4864.2,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

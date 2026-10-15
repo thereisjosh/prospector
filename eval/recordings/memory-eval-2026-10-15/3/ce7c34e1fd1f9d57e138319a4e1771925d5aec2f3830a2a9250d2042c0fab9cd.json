@@ -1,0 +1,232 @@
+{
+  "request": {
+    "query": "Jay Group",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the exact phrase from the page that the employee estimate came from (e.g. \"350 employees\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the exact phrase or sentence from the page that supports the answer; use \"\" when the page does not state it.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "86fae4a44be3e79900a7119b35e67efd",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/fw375088y9n",
+        "title": "Jay Group",
+        "url": "https://www.jaygroup.com/",
+        "text": "# Jay Group\n\nJay Group is a Transportation, Logistics, Supply Chain and Storage company. Jay Group offers industry-leading 3PL logistics, eCommerce fulfillment & specialty packaging services. Jay Group employs 428 people (+8.1% YoY, +32 people) and has an annual revenue of $96M, founded in 1965. Headquartered in Lancaster, Pennsylvania, United States, with offices in Reno and Houston. Its workforce is distributed across 8 countries (including United States, India, United Kingdom, Brazil, and Malaysia).\n\n## About\n\nAward-winning 3PL provider specializing in nationwide omnichannel fulfillment, advanced packaging, warehousing, and freight solutions. A 6-time Inc. 5000 honoree as one of the fastest-growing private companies. Four FDA-registered facilities in Lancaster and Mountville, PA, Reno, NV, and Houston, TX — 770,000 square feet with temperature-controlled storage available and ISO 27001 certified security. Operates on Manhattan Associates' WMS. Services include eCommerce fulfillment, drop shipping, Amazon prep, retail and wholesale fulfillment, advanced kitting, reverse logistics, and value-added services such as display assembly, shrink wrapping, labeling, and repackaging. Seamless integrations with 50+ platforms — powered by an in-house development team. Advanced tracking for lots, serial numbers, and expiration dates. Privately owned for over 60 years, delivering scalable, tech-driven logistics solutions across industries.\n\nTo learn more, call us toll-free at 1-888-422-7989, or visit us at www.jaygroup.com\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Privately held\n- Headquarters: Lancaster, United States\n- Founded Year: 1965\n- Homepage: jaygroup.com\n- Aliases: The Jay Group, Inc., jay group, the jay group\n- LinkedIn: linkedin.com/company/jaygroup\n- Linkedin Followers: 4,597\n- Emails: sales@jaygroup.com\n- Phone: 1-888-422-7989, 717-285-6200\n\n## Financials\n- Annual Revenue: USD 96,000,000\n\n## Workforce\n- Employees: 428\n- Company Size: 201-500 employees\n  - Monthly Growth: +0.7%\n  - Yearly Growth: +8.1%\n- Key Executives:\n  - Blake Dudek: President and Chief Operating Officer\n  - Dan Weiss: Vice President Strategy\n  - Dana Chryst: President & CEO\n  - Dave Houseal: Vice President Information Technology\n  - Franco Vergara, Director: Director of Operations\n  - John Hallock Jr.: Director of Finance\n  - John Kelly: Chief Financial Officer/Chief Operating Officer\n  - Jonathan Lledo: President\n  - Kate Golden: Vice President of Finance and Administration\n  - Natalia V Golenkova: Marketing Director\n- Breakdown:\n  - By Country: United States: 81 (19%), India: 5 (1%), United Kingdom: 4 (1%), Brazil: 1, Malaysia: 1, Panama: 1, Philippines: 1, Singapore: 1\n  - By Department: Operations: 19 (4%), Customer Service: 14 (3%), Sales: 12 (3%), Finance: 11 (3%), Administrative: 8 (2%), General Management: 8 (2%), Technical: 7 (2%), Hr: 5 (1%), Project Management: 3 (1%), Consulting: 2 (+4 more)\n  - By Seniority: Specialist: 35 (8%), Manager: 28 (7%), Other Management: 13 (3%), Senior: 9 (2%), Vp: 4 (1%), Clevel: 3 (1%), Director: 3 (1%), Intern: 1\n- Active job postings: 2\n- Salary ranges (20 of 43 roles):\n  - Director: median $149,886.27 per year\n  - Senior Systems Analyst: median $124,721.77 per year\n  - Web Applications Developer: median $113,175.7 per year\n  - SWE Intern: median $104,820.07 per year\n  - Network Engineer: median $99,427.8 per year\n  - Engineer: median $93,675.99 per year\n  - Project Manager: median $90,502.17 per year\n  - Senior Account Manager: median $89,805.68 per year\n  - Web Developer: median $87,677.55 per year\n  - PHP Developer: median $85,965.51 per year\n  - Cost Estimator: median $83,237.96 per year\n  - Business Manager: median $83,096.41 per year\n  - Sr. Account Manager: median $82,845.85 per year\n  - QA Analyst: median $82,595.57 per year\n  - Product Specialist: median $74,777.37 per year\n  - Accountant: median $71,380.42 per year\n  - Human Resources Generalist: median $70,730.55 per year\n  - Call Center Supervisor: median $62,353.05 per year\n  - Shipping Supervisor: median $60,427.67 per year\n  - Financial Specialist: median $60,223 per year\n- Talent Sources: Armstrong World Industries (6), QVC (5), Comcast (4), Ryder Supply Chain Solutions (3), Petco (3), PAC Strapping Products (3), Metro Bank (3), Listrak (3), Johnson & Johnson (3), Swatch Group (2)\n- Alumni Go To: Woodstream Corporation (8), Penn Medicine Lancaster General Health (7), RRD (5), Ecore Athletic (5), Comcast (5), Listrak (4), Eastern Alliance Insurance Group (4), Cooper-Booth Wholesale Company (4), SCHOTT (3), Clipp (3)\n\n## Products & Technology\n- Tech Stack: centos, linux, manhattan associates, martech, microsoft, microsoft office, microsoft word, nomadix, one system, packer, power bi, qlik, ramp, recognize, ubuntu, windows 7, php, hubspot, hubspot crm, microsoft 365, microsoft excel, salesforce, shopify, woocommerce, autocad, endicia, worldship, amp, electric, fedex, ups, well, impact, medium, constant contact, netsuite, sophos, vmware\n\n## Web presence\n\n- Twitter: twitter.com/thejaygrouppa\n- Facebook: facebook.com/thejaygroup\n- Crunchbase: crunchbase.com/organization/the-jay-group\n- Web traffic:\n  - Monthly visits: 12,295\n  - Global rank: 1,700,832\n  - Bounce rate: 31.0%\n  - Pages per visit: 2.5\n  - Average visit duration: 25s\n\n## Reviews & Ratings\n- Employer Rating: 3.0/5.0 (57 reviews)\n  - Breakdown: Work-Life: 3.2, Compensation: 2.9, Culture: 3.1, Career: 3.0\n\n## Categories\n\n99.9% shipping accuracy, automotive-transportation, b2b fulfillment, business_and_consumer_services/business_services, contract packaging, dtc fulfillment, e-commerce, ecommerce fulfillment, freight solutions, fulfillment services, logistics, logistics and fulfillment, omnichannel fulfillment, pl logistics, shipping accuracy, specialty packaging, staffing agency, supply chain management, supply-chain, third-party logistics & distribution\n\n## Competitors\n\nmoduslink, innotrac, echodata, alom, penske logistics, ruan, speed commerce, globaltranz, verde, fulfilltopia, ffs, fusion fulfillment, expicient, connextions, genpact, coast to coast fulfillment, accenture, diversipak, llc., cognizant, tcs, om logistics, fercam, ecolog, dsv\n\n## Recent News\n- [2026-09-05] [Retired Army brigadier general recalls the urgency of 9/11 and the war that followed it \\[column\\] \\| Local Voices \\| lancasteronline.com](https://lancasteronline.com/opinion/columnists/retired-army-brigadier-general-recalls-the-urgency-of-9-11-and-the-war-that-followed/article_15c8141b-cb8e-4be4-a198-f4dd437f3efa.html)\n- [2026-08-24] [Alix Earle shows behind the scenes at Lancaster warehouse on TikTok \\[video\\] \\| Entertainment \\| lancasteronline.com](https://lancasteronline.com/features/entertainment/alix-earle-shows-behind-the-scenes-at-lancaster-warehouse-on-tiktok-video/article_ac008a11-d8ff-4e76-bfd2-abb25883275b.html)\n- [2022-02-15] PR Newswire: Rufus Labs and Jay Group Partner to Modernize the Picking Experience\n\n## Social\n\n### Linkedin\n\n- [2026-10-01 · 21 reactions, 2 comments] Jay Group is hiring Warehouse Team Members in Lancaster, PA; Mountville, PA; Reno, NV; and Houston, TX. We have openings in warehouse, packaging, and team lead roles, with multiple shifts available...\n\n- [2026-09-28 · 15 reactions] Jay Group is proud to be the presenting sponsor of Dine on Harvest Moon, the Lancaster Conservancy's 17th annual dinner and auction, this Friday at Freedom Hall. 🌾 We've operated in Lancaster Count...\n\n- [2026-09-26 · 7 reactions] We're #hiring a new Wave Planner in Lancaster, Pennsylvania. Apply today or share this post with your network.\n\n- [2026-09-25 · 7 reactions] We're #hiring a new Operational Coordinator - General in Lancaster, Pennsylvania. Apply today or share this post with your network.\n\n- [2026-09-16 · 27 reactions, 4 comments] The Builders Breakfast happened Monday morning, and it was worth the early start. Thirty founders and operators at DUMBO House, overlooking the East River, built around one question: where does the...\n\n- [2026-09-07 · 8 reactions] Happy Labor Day from Jay Group! Did you know Labor Day became a federal holiday in the middle of a massive supply chain disruption? In the summer of 1894, the Pullman Strike and nationwide rail boy...\n\n- [2026-09-04 · 12 reactions] We’re saving a seat for you! September 14, 9:00 AM · Dumbo House, Brooklyn. The Builders Breakfast at Dumbo House is an exclusive, intimate morning for a hand-picked room of founders to swap real n...\n\n- [2026-09-03 · 23 reactions] We're #hiring a new Vice President of Operations in Lancaster, Pennsylvania. Apply today or share this post with your network.\n\n- [2026-08-31 · 10 reactions] We're #hiring a new Inventory Control Specialist in Houston, Texas. Apply today or share this post with your network.\n\n- [2026-08-26 · 33 reactions] 🐾 Happy National Dog Day! Jay Group just got back from SUPERZOO in Las Vegas, and it confirmed what we already believed: pet is one of the most demanding categories in fulfillment, and most 3PLs ar...\n\n- [2026-08-24 · 22 reactions, 6 comments] The Builders Breakfast at Dumbo House is an exclusive, intimate morning for a hand-picked room of founders to swap real notes on building brands. Join us overlooking the East River for curated disc...\n\n- [2026-08-20 · 39 reactions, 9 comments] Congratulations to our Marketing Director, Natalia V Golenkova, named a 2026 Women in Supply Chain Forum™ Award recipient by Food Logistics and Supply & Demand Chain Executive, in the Trailblazers...\n\n- [2026-08-14 · 27 reactions, 6 comments] 🏆 Jay Group has been named to the Inc. 5000 for the sixth time, one of America's fastest-growing privately owned companies. Inc. Magazine's Inc. 5000 measures numbers. Verified revenue growth, chec...\n\n- [2026-08-12 · 7 reactions] We're #hiring a new Facility Maintenance in Houston, Texas. Apply today or share this post with your network.\n\n- [2026-08-11 · 2 reactions] 🐾 If you’re wandering the SUPERZOO floor, sniff out Booth 11166! 🐶 Stop by, say hi, talk a little shop, and meet the crew behind the boxes arriving at your door step every month. 📦 📍 Booth 11166 —...\n\n- [2026-08-05 · 19 reactions, 1 comment] Heading to SuperZoo? Let's make it a night to remember. 🍽️✨ Jay Group is hosting an exclusive Founders & Supply Chain Operators Dinner in Las Vegas during SUPERZOO week. If you're a brand founder,...\n\n- [2026-08-03 · 25 reactions, 2 comments] Jay Group is heading to Las Vegas! 🎰🐾 We're exhibiting at SUPERZOO 2026 - North America's largest pet retail event - August 12–14 at Mandalay Bay Convention Center. With 1,300+ exhibitors and 20,00...\n\n- [2026-07-30 · 18 reactions, 4 comments] 🏌️ Jay Group is proud to sponsor the Hempfield recCenter Golf Outing for another year. Now in its 9th year and sold out two years running, this event brings together our community to support an org...\n\n- [2026-07-23 · 8 reactions] We're #hiring a new WM Specialist in Lancaster, Pennsylvania. Apply today or share this post with your network.\n\n- [2026-07-16 · 3 reactions] We’re #hiring. Know anyone who might be interested?\n\n## Locations\n- Headquarters: lancaster, pennsylvania, united states (US)\n- Offices: houston, texas, united states, reno, nevada, united states (US), lancaster, pennsylvania, united states (US)",
+        "summary": "{\"description\":\"Jay Group is a Transportation, Logistics, Supply Chain and Storage company offering 3PL logistics, eCommerce fulfillment and specialty packaging services.\",\"employee_estimate\":428,\"employee_estimate_source\":\"Employees: 428\",\"hq\":\"Lancaster, Pennsylvania, United States\",\"hq_quote\":\"Headquartered in Lancaster, Pennsylvania, United States, with offices in Reno and Houston.\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"Award-winning 3PL provider specializing in nationwide omnichannel fulfillment, advanced packaging, warehousing, and freight solutions.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQFeOrWffnNL_A/company-logo_200_200/B4EZc75v.zHsAI-/0/1749056684433/jaygroup_logo?e=2147483647&v=beta&t=5VNwY_PpuA5es7CmD6MTfnNFvY1G1EiAtlh-LBzL3WQ",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/fw375088y9n",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Jay Group",
+              "foundedYear": 1965,
+              "description": "Award-winning 3PL provider specializing in nationwide omnichannel fulfillment, advanced packaging, warehousing, and freight solutions. A 6-time Inc. 5000 honoree as one of the fastest-growing private companies. Four FDA-registered facilities in Lancaster and Mountville, PA, Reno, NV, and Houston, TX — 770,000 square feet with temperature-controlled storage available and ISO 27001 certified security. Operates on Manhattan Associates' WMS. Services include eCommerce fulfillment, drop shipping, Amazon prep, retail and wholesale fulfillment, advanced kitting, reverse logistics, and value-added services such as display assembly, shrink wrapping, labeling, and repackaging. Seamless integrations with 50+ platforms — powered by an in-house development team. Advanced tracking for lots, serial numbers, and expiration dates. Privately owned for over 60 years, delivering scalable, tech-driven logistics solutions across industries.\n\nTo learn more, call us toll-free at 1-888-422-7989, or visit us at www.jaygroup.com",
+              "workforce": {
+                "total": 428
+              },
+              "headquarters": {
+                "address": "700 Indian Springs Drive, Lancaster, PA 17601, US",
+                "city": "Lancaster",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 96000000,
+                "fundingTotal": null,
+                "fundingLatestRound": null
+              },
+              "webTraffic": {
+                "visitsMonthly": 12295,
+                "countryRank": 787985,
+                "avgDurationSeconds": 25,
+                "history": [
+                  {
+                    "value": 10600,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 10188,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 9794,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 9714,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 19036,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 12295,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/9vrjhkygx7n",
+        "title": "The Jay Group, Ltd",
+        "url": "https://linkedin.com/company/the-jay-group-ltd",
+        "text": "# The Jay Group, Ltd\n\nThe Jay Group, Ltd is a Wholesale company. The Jay Group, Ltd employs 70 people (-1.4% YoY, -1 person) and has an annual revenue of $4.8M, founded in 1930. Headquartered in Rocky Mount, North Carolina, United States. Its workforce is distributed across United States and Brazil.\n\n## About\n\nThe Jay Group is one of the largest, privately held, wholesalers of discount footwear in the world. We purchase returns, closeouts, cancellations, factory defectives, stock-lots, liquidation, and all types of footwear from leading retailers, factories, and manufacturers on an international basis. We sell our product to international, value driven markets, around the world with distribution in over 36 countries. \r\n\r\nWe continue to be the leading global footwear supplier of store returns and discount footwear. With over 70 years of experience in the footwear industry and one of the largest on-hand inventories in the world, The Jay Group stocks over 2 million units and distributes footwear in emerging markets in Africa, Central and South America.\n\n## Company Details\n- Industry: Wholesale\n- Type: Privately held\n- Headquarters: Rocky Mount, United States\n- Founded Year: 1930\n- Aliases: the jay group, the jay group, ltd, the jay group, ltd.\n- LinkedIn: linkedin.com/company/the-jay-group-ltd\n- Linkedin Followers: 810\n- Phone: 800.916.7463\n\n## Financials\n- Annual Revenue: USD 4,781,937\n\n## Workforce\n- Employees: 70\n- Company Size: 201-500 employees\n  - Monthly Growth: -1.4%\n  - Yearly Growth: -1.4%\n- Key Executives:\n  - David Jay: CEO\n  - James D. Couchman: Vice President\n  - Rob Mullett: Vice President of Sales and Purchasing\n  - Ryan Jay: Chief Executive Officer\n  - Tolga Demiralay: Vice President - Finance\n- Breakdown:\n  - By Country: United States: 24 (34%), Brazil: 1 (1%)\n  - By Department: General Management: 6 (9%), Operations: 6 (9%), Finance: 4 (6%), Trades: 4 (6%), Sales: 2 (3%), Customer Service: 1 (1%), Hr: 1 (1%), Marketing: 1 (1%), Other Department: 1 (1%), Technical: 1 (1%)\n  - By Seniority: Specialist: 14 (20%), Manager: 6 (9%), Vp: 3 (4%), Clevel: 2 (3%), Other Management: 2 (3%)\n- Talent Sources: Swap (4), AEL-Span (4), Nafta Traders, Inc. (3), QVC (2), Lowe's Companies, Inc. (2), Jay Group (2), Appalachian State University (2), ShopKeep, a Lightspeed Company (1), J.B. Hunt Transport Services, Inc. (1), Epicor (1)\n- Alumni Go To: Eastern Alliance Insurance Group (3), RE/MAX Advantage (2), ARDX (2), indiGO Auto Group (1), Turner Buick GMC (1), Listrak (1), KFC (1), Hospira (1), Excentia Human Services (1), DollarDays (1)\n\n## Products & Technology\n- Tech Stack: canva, google analytics, klaviyo, google workspace, zendesk, json, python, sql, tableau, amp, ups, channeladvisor, paylocity\n\n## Web presence\n\n- Twitter: twitter.com/thejaygroup\n- Facebook: facebook.com/fashionshoeswholesale\n- YouTube: youtube.com/@thejaygroupusa\n- Crunchbase: crunchbase.com/organization/the-jay-group-d8f3\n- Web traffic:\n  - Monthly visits: 10,081\n  - Global rank: 1,809,619\n  - Bounce rate: 36.0%\n  - Pages per visit: 3.5\n  - Average visit duration: 70s\n\n## Categories\n\nholding-company, logistics, retail, wholesale footwear distribution recommerce\n\n## Competitors\n\nzonabands, sparkly soul, peppy bands, wpg holdings, li & fung, fih group, asco group\n\n## Social\n\n### Linkedin\n\n- [2022-05-20 · 2 reactions, 1 comment] Its Graduation Season! The Jay Group would like to recognize the 2022 graduates for their great accomplishment. #2022graduates #accomplishments #congratulations\n\n- [2022-01-21 · 4 reactions] The Jay Group is looking for a Servant Leader that can deliver an unmatched level of service for the company as a SVP of Operations. This position will oversee the North Carolina and Indiana locati...\n\n- [2022-01-21 · 12 reactions, 1 comment] The Jay Group in Rocky Mount, NC is Hiring! We have committed to getting as many #QVC employees back to work that were impacted by the tragic fire. Want to learn more about our opportunities? Visit...\n\n- [2022-01-06 · 6 reactions, 2 comments] The Jay Group is growing in Rocky Mount, NC. Know anyone who might be interested? We are in high demand for Returns Processors. Apply today! We’re #hiring.\n\n## Locations\n- Headquarters: rocky mount, north carolina, united states (US)\n- Offices: rocky mount, north carolina, united states (US)",
+        "summary": "{\"description\":\"The Jay Group, Ltd is a wholesale company and one of the largest privately held wholesalers of discount footwear with international distribution and a large on-hand inventory.\",\"employee_estimate\":70,\"employee_estimate_source\":\"Employees: 70\",\"hq\":\"Rocky Mount, North Carolina, United States\",\"hq_quote\":\"Headquarters: rocky mount, north carolina, united states (US)\",\"industry\":\"Wholesale\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":null,\"is_third_party_logistics_quote\":\"The Jay Group supplies, returns, and stock-lots to international markets and has a large on-hand inventory, indicating wholesale distribution rather than pure 3PL services. No explicit 3PL model stated in the page text.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4D0BAQGE0LByk2_TSw/company-logo_200_200/company-logo_200_200/0/1630503559969/the_jay_group_ltd_logo?e=2147483647&v=beta&t=ZbnxeXciWsHN1bvJa2_MO7oKxtWtKhko8PoGOLAmEpY",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/9vrjhkygx7n",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "The Jay Group, Ltd",
+              "foundedYear": 1930,
+              "description": "The Jay Group is one of the largest, privately held, wholesalers of discount footwear in the world. We purchase returns, closeouts, cancellations, factory defectives, stock-lots, liquidation, and all types of footwear from leading retailers, factories, and manufacturers on an international basis. We sell our product to international, value driven markets, around the world with distribution in over 36 countries. \r\n\r\nWe continue to be the leading global footwear supplier of store returns and discount footwear. With over 70 years of experience in the footwear industry and one of the largest on-hand inventories in the world, The Jay Group stocks over 2 million units and distributes footwear in emerging markets in Africa, Central and South America.",
+              "workforce": {
+                "total": 70
+              },
+              "headquarters": {
+                "address": "1450 Atlantic Avenue, Rocky Mount, North Carolina 27803, US",
+                "city": "Rocky Mount",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 4781937,
+                "fundingTotal": null,
+                "fundingLatestRound": null
+              },
+              "webTraffic": {
+                "visitsMonthly": 10081,
+                "countryRank": 464889,
+                "avgDurationSeconds": 70,
+                "history": [
+                  {
+                    "value": 23632,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 16380,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 23001,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 15011,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 8022,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 10081,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 5122.3,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}
