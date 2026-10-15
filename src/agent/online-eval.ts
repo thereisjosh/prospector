@@ -27,6 +27,7 @@ import type { AgentEvent } from "./events";
 import { withFileLock, writeFileAtomic } from "./fslock";
 import { judgeContractFromPlan, judgeLeadFromState, judgePayload } from "./judge-input";
 import type { AcceptedLead, RunState } from "./state";
+import { cacheShare } from "./cache-share";
 import { emitLeadJudge, enabled, enqueueForReview, score, traceIdFor, tracingEnvironment, type TraceScore } from "./trace";
 import type { GradeReport, GraderState } from "../../eval/graders/types";
 
@@ -127,6 +128,8 @@ export function runEndScores(
   if (state.leads.length > 0) {
     add("cost_per_accepted_lead", Math.round((state.spend.total / state.leads.length) * 10_000) / 10_000, "NUMERIC", `$${state.spend.total.toFixed(4)} / ${state.leads.length} accepted`);
   }
+  const cache = cacheShare(events);
+  if (cache !== undefined) add("cache_share", Math.round(cache * 1000) / 1000, "NUMERIC", "cache_read / (input + cache_read + cache_creation) over the run's model calls");
   add("stop_reason", state.stopReason ?? state.status, "CATEGORICAL");
   add("handback", state.handback ? 1 : 0, "BOOLEAN", state.handback ? `${state.handback.suggestions.length} suggestion(s)` : undefined);
   return scores;

@@ -1,7 +1,7 @@
 /**
  * Memory eval: does what the agent remembers from run A change what run B finds, and is the change good?
  *
- *   npx tsx eval/memory-eval.ts --set <id> --scenario S1 [--max-dollars 4] [--dry-run]
+ *   npx tsx eval/memory-eval.ts --set <id> --scenario S1 [--max-dollars 4] [--max-judge-dollars 4] [--dry-run]
  *
  * Three agent cells (arm B = Opus agent), same scenario, run in this order:
  *   A   rep 1  workspace mem-eval-<set>-<scenario>            memory empty (cleared first)
@@ -15,7 +15,9 @@
  * with the memory file after A and after B beside it (memory-after-A.json, memory-after-B.json).
  *
  * Cost guard: before each cell, if spend so far + that cell's cap (the scenario's maxCostDollars) would exceed
- * --max-dollars (default 4), the eval stops there and says so. The judge's spend is reported, not guarded.
+ * --max-dollars (default 4), the eval stops there and says so. The judge step has its own guard: pairs without a verdict x $0.34 must not exceed
+ * --max-judge-dollars (default 4), else judging is skipped, the report is still written with those leads
+ * marked unjudged, and the verdict is FAIL (the unjudged clause). The count and estimate are printed either way.
  *
  * Safety: workspaces are mem-eval-* (run-cell refuses any id without an eval prefix), cleared at the start so a
  * re-run of the same set never inherits memory. They live in WORKSPACES_DIR (default ./workspaces, gitignored);
@@ -32,11 +34,15 @@ import { dirname, join } from "node:path";
 import { pathToFileURL } from "node:url";
 import { squashName } from "../src/gates";
 import type { AgentEvent } from "../src/agent/events";
+import { cacheShare } from "../src/agent/cache-share";
 import { findVerdictFile } from "./harness/truth";
 import type { MemorySnapshot, RunRecord, Scenario, Verdict } from "./harness/types";
 
 /** Exa's company-lookup price, from src/exa.ts COST_ESTIMATE (list price, without the safety margin). */
 export const LOOKUP_PRICE_DOLLARS = 0.009;
+
+/** Judge price per new (company, signal): the high end of the measured $0.19 (search only) to $0.34 (with fetch). */
+export const JUDGE_ESTIMATE_DOLLARS = 0.34;
 
 export const PASS_RULE = "PASS if B skipped >= 2 lookups AND every B lead is new vs A AND good(B) >= good(B') - 2 (pilot noise is +/-2); else FAIL.";
 
@@ -58,6 +64,8 @@ export type CellMetrics = {
   deadQueries: string[];
   /** B and B' only: how many of this cell's (normalised, distinct) queries are one of A's dead queries. */
   deadOverlap?: { count: number; of: number; queries: string[] };
+  /** cache_read / (input + cache_read + cache_creation) over the run's model calls; undefined with no usage. */
+  cacheShare: number | undefined;
   spend: number;
   costPerGood: number | undefined;
 };
@@ -133,15 +141,17 @@ export function cellMetrics(options: {
     searchQueries: queries.all,
     deadQueries: queries.dead,
     ...(deadOverlap ? { deadOverlap } : {}),
+    cacheShare: cacheShare(events),
     spend: record.spend.total,
     costPerGood: good > 0 ? record.spend.total / good : undefined,
   };
 }
 
-export function memoryVerdict(b: CellMetrics, bPrime: CellMetrics): { pass: boolean; reasons: string[] } {
+export function memoryVerdict(b: CellMetrics, bPrime: CellMetrics, a?: CellMetrics): { pass: boolean; reasons: string[] } {
   const reasons: string[] = [];
-  if (b.unjudged > 0 || bPrime.unjudged > 0) {
-    reasons.push(`${b.unjudged + bPrime.unjudged} B/B' leads have no verdict, so good() cannot be compared`);
+  const unjudged = b.unjudged + bPrime.unjudged + (a?.unjudged ?? 0);
+  if (unjudged > 0) {
+    reasons.push(`${unjudged} lead(s) have no verdict (unjudged), so good() cannot be compared`);
   }
   if (b.leads === 0) reasons.push("B delivered no leads, so nothing can be new or good");
   if (b.lookupsSkipped < 2) reasons.push(`B skipped ${b.lookupsSkipped} lookups (need >= 2)`);
@@ -165,11 +175,13 @@ export function renderReport(options: {
   workspaces: { main: string; control: string };
   judgeDollars: number;
   maxDollars: number;
+  /** Set when the judge step was skipped because its estimate passed --max-judge-dollars. */
+  judgeSkipped?: { unjudged: number; estimate: number; cap: number };
   memoryAfterA?: { seen: number; preferences: number; notes: NoteText[] };
   generatedAt: string;
 }): { markdown: string; verdict: { pass: boolean; reasons: string[] } } {
   const [a, b, bp] = options.cells;
-  const verdict = memoryVerdict(b, bp);
+  const verdict = memoryVerdict(b, bp, a);
   const cell = (v: string | number | undefined) => (v === undefined ? "-" : String(v));
   const rows = [a, b, bp].map((m) => [
     m.label === "B'" ? "B' (control)" : m.label,
@@ -181,10 +193,11 @@ export function renderReport(options: {
     m.notesWritten,
     m.notesRecalled,
     m.deadOverlap ? `${m.deadOverlap.count}/${m.deadOverlap.of}` : "-",
+    m.cacheShare === undefined ? "-" : m.cacheShare.toFixed(2),
     money(m.spend),
     m.costPerGood === undefined ? "-" : money(m.costPerGood),
   ].map(cell));
-  const header = ["run", "leads", "good (judged)", "new vs A", "lookups skipped", "Exa $ saved", "notes written", "notes recalled", "dead-query overlap", "spend", "$ / good lead"];
+  const header = ["run", "leads", "good (judged)", "new vs A", "lookups skipped", "Exa $ saved", "notes written", "notes recalled", "dead-query overlap", "cache share", "spend", "$ / good lead"];
   const table = [header, header.map(() => "---"), ...rows].map((r) => `| ${r.join(" | ")} |`).join("\n");
 
   const lines: string[] = [
@@ -198,6 +211,7 @@ export function renderReport(options: {
     "",
     `Rule: ${PASS_RULE}`,
     "",
+    ...(options.judgeSkipped ? [`**Judge step skipped:** ${options.judgeSkipped.unjudged} (company, signal) pairs had no verdict; the estimate $${options.judgeSkipped.estimate.toFixed(2)} (at $${JUDGE_ESTIMATE_DOLLARS} each) passes --max-judge-dollars ${options.judgeSkipped.cap}. Leads without a verdict are marked unjudged. Raise the cap and re-run, or judge with \`npm run eval:judge -- --set ${options.setId} --scenario ${options.scenarioId}\`.`, ""] : []),
     "## Definitions",
     "",
     "- leads / good: leads delivered / of those, judged good (rubric Q1 and Q3 yes, Q2 not no), from the judge's verdict per company + signal URL.",
@@ -238,6 +252,8 @@ export type MemoryEvalOptions = {
   setId: string;
   scenarioId: string;
   maxDollars?: number;
+  /** Abort the judge step when (pairs without a verdict) x $0.34 would exceed this. Default 4. */
+  maxJudgeDollars?: number;
   dryRun?: boolean;
   /** Defaults: eval/results, eval/truth, eval/recordings. A dry run needs all of these pointed at scratch space. */
   resultsRoot?: string;
@@ -360,8 +376,18 @@ export async function runMemoryEval(options: MemoryEvalOptions): Promise<MemoryE
   const { blind } = await createBlindPool({ setId, scenarioId, resultsRoot, records, scenario });
   const missing = blind.filter((l) => !findVerdictFile(join(truthRoot, scenarioId), l.company, l.signal_url));
   log(`judging: ${blind.length} distinct (company, signal) leads, ${blind.length - missing.length} already have a verdict, ${missing.length} to judge`);
-  const verdicts = await judgeBlind({ setId, scenarioId, resultsRoot, truthRoot, now, ...(dryRun ? { client: fakes!.fakeJudgeClient } : {}) });
-  const judgeDollars = verdicts.reduce((sum, v) => sum + (v.costDollars ?? 0), 0);
+  const maxJudgeDollars = options.maxJudgeDollars ?? 4;
+  const estimate = missing.length * JUDGE_ESTIMATE_DOLLARS;
+  log(`judge estimate: ${missing.length} pair(s) without a verdict x $${JUDGE_ESTIMATE_DOLLARS} = $${estimate.toFixed(2)} (cap --max-judge-dollars ${maxJudgeDollars})`);
+  let judgeDollars = 0;
+  let judgeSkipped: { unjudged: number; estimate: number; cap: number } | undefined;
+  if (estimate > maxJudgeDollars) {
+    judgeSkipped = { unjudged: missing.length, estimate, cap: maxJudgeDollars };
+    log(`judge step ABORTED: estimate $${estimate.toFixed(2)} passes the cap; the report is written with unjudged leads and a FAIL verdict`);
+  } else {
+    const verdicts = await judgeBlind({ setId, scenarioId, resultsRoot, truthRoot, now, ...(dryRun ? { client: fakes!.fakeJudgeClient } : {}) });
+    judgeDollars = verdicts.reduce((sum, v) => sum + (v.costDollars ?? 0), 0);
+  }
 
   const verdictFor = (company: string, signalUrl: string): Verdict | undefined => {
     const file = findVerdictFile(join(truthRoot, scenarioId), company, signalUrl);
@@ -384,6 +410,7 @@ export async function runMemoryEval(options: MemoryEvalOptions): Promise<MemoryE
     workspaces: { main, control },
     judgeDollars,
     maxDollars,
+    ...(judgeSkipped ? { judgeSkipped } : {}),
     generatedAt: new Date().toISOString(),
     ...(afterA
       ? {
@@ -421,6 +448,8 @@ async function main() {
   const setId = String(args.set ?? "");
   const scenarioId = String(args.scenario ?? "");
   if (!setId || !scenarioId) throw new Error("pass --set <id> --scenario S1 [--max-dollars 4] [--dry-run]");
+  const maxJudgeDollars = args["max-judge-dollars"] === undefined ? 4 : Number(args["max-judge-dollars"]);
+  if (!Number.isFinite(maxJudgeDollars) || maxJudgeDollars < 0) throw new Error("--max-judge-dollars must be a non-negative number");
   const maxDollars = args["max-dollars"] === undefined ? 4 : Number(args["max-dollars"]);
   if (!Number.isFinite(maxDollars) || maxDollars <= 0) throw new Error("--max-dollars must be a positive number");
 
@@ -435,7 +464,7 @@ async function main() {
     delete process.env.EXA_RECORD_DIR;
     console.log(`dry run: all output under ${scratch} (nothing in eval/results, eval/truth or ./workspaces); no API keys loaded`);
     const result = await runMemoryEval({
-      setId, scenarioId, maxDollars, dryRun: true,
+      setId, scenarioId, maxDollars, maxJudgeDollars, dryRun: true,
       resultsRoot: join(scratch, "results"), truthRoot: join(scratch, "truth"), recordingsRoot: join(scratch, "recordings"),
       now: new Date("2026-10-12T00:00:00.000Z"),
     });
@@ -444,7 +473,7 @@ async function main() {
     return;
   }
 
-  const result = await runMemoryEval({ setId, scenarioId, maxDollars });
+  const result = await runMemoryEval({ setId, scenarioId, maxDollars, maxJudgeDollars });
   console.log(`\n${result.report}`);
   console.log(`report: ${result.reportPath}; cells $${result.totalSpend.toFixed(4)} + judge $${result.judgeDollars.toFixed(4)}`);
 }

@@ -22,6 +22,8 @@ import { squashName } from "../src/gates";
 import type { SearchPlan } from "../src/plan";
 import { assertEvalWorkspace, runCell } from "./harness/run-cell";
 import type { RunRecord, Scenario, Verdict } from "./harness/types";
+import { cacheShare } from "../src/agent/cache-share";
+import { runEndScores } from "../src/agent/online-eval";
 import { cellMetrics, memoryVerdict, renderReport, runMemoryEval, searchQueries, SpendGuardError, type CellMetrics } from "./memory-eval";
 
 afterAll(() => rmSync(dirs.root, { recursive: true, force: true }));
@@ -189,7 +191,7 @@ describe("memory eval metrics", () => {
 describe("memory eval pass rule", () => {
   const m = (over: Partial<CellMetrics>): CellMetrics => ({
     label: "B", leads: 5, good: 4, unjudged: 0, newVsA: { newCount: 5, repeated: [] }, lookupsSkipped: 3, savedDollars: 0.027,
-    notesWritten: 1, notesRecalled: 1, searchQueries: [], deadQueries: [], spend: 0.5, costPerGood: 0.125, ...over,
+    notesWritten: 1, notesRecalled: 1, searchQueries: [], deadQueries: [], cacheShare: 0.9, spend: 0.5, costPerGood: 0.125, ...over,
   });
 
   it("PASS: skipped >= 2, every B lead new, good(B) >= good(B') - 2", () => {
@@ -209,9 +211,40 @@ describe("memory eval pass rule", () => {
   it("the report carries the table, the verdict line and the reason", () => {
     const a = m({ label: "A", newVsA: undefined, lookupsSkipped: 0, savedDollars: 0 });
     const out = renderReport({ setId: "s", scenarioId: "S1", dryRun: false, cells: [a, m({ lookupsSkipped: 0 }), m({ label: "B'" })], workspaces: { main: "mem-eval-s-S1", control: "mem-eval-s-S1-control" }, judgeDollars: 0.5, maxDollars: 4, generatedAt: "2026-10-15T00:00:00.000Z" });
-    expect(out.markdown).toContain("| run | leads | good (judged) | new vs A | lookups skipped | Exa $ saved | notes written | notes recalled | dead-query overlap | spend | $ / good lead |");
+    expect(out.markdown).toContain("| run | leads | good (judged) | new vs A | lookups skipped | Exa $ saved | notes written | notes recalled | dead-query overlap | cache share | spend | $ / good lead |");
     expect(out.markdown).toMatch(/\*\*Verdict: FAIL\*\*: B skipped 0 lookups/);
     expect(out.verdict.pass).toBe(false);
+  });
+});
+
+describe("cache share", () => {
+  const call = (input: number, cache_read: number, cache_creation: number) => ev("model_call", { tokens: { input, output: 5, cache_read, cache_creation } });
+
+  it("is cache_read / (input + cache_read + cache_creation) summed over model calls", () => {
+    expect(cacheShare([call(100, 0, 900), call(50, 900, 50), ev("tool_call", { tool: "x" })])).toBeCloseTo(900 / 2000, 10);
+    expect(cacheShare([])).toBeUndefined();
+    expect(cacheShare([ev("model_call", {})])).toBeUndefined();
+  });
+
+  it("the live S1 rep 2 recording gives 0.90", async () => {
+    const raw = await readFile("eval/results/live-quotes-2026-10-14/S1/B_agent_opus/2/events.jsonl", "utf8");
+    const events = raw.split("\n").filter(Boolean).map((l) => JSON.parse(l) as AgentEvent);
+    expect(cacheShare(events)!).toBeCloseTo(0.9, 2);
+  });
+
+  it("is a column in the report and a run-end score, absent when there is no usage", () => {
+    const events = [call(100, 900, 0)];
+    const m = cellMetrics({ label: "A", record: rec(["Alpha Co"], 0.1), events, verdictFor: verdictsOf(["Alpha Co"]) });
+    expect(m.cacheShare).toBeCloseTo(0.9, 10);
+    const out = renderReport({ setId: "s", scenarioId: "S1", dryRun: false, cells: [m, { ...m, label: "B" }, { ...m, label: "B'" }], workspaces: { main: "a", control: "b" }, judgeDollars: 0, maxDollars: 4, generatedAt: "x" });
+    expect(out.markdown).toContain("| dead-query overlap | cache share | spend |");
+    expect(out.markdown).toMatch(/\| - \| 0\.90 \| \$0\.1000 \|/);
+
+    const state = { id: crypto.randomUUID(), leads: [], contract: { targetLeads: 10 }, spend: { total: 0.1, claude: 0.1, exa: 0 }, status: "done", counters: { turns: 1 } } as never;
+    const report = { results: [], pass: true } as never;
+    const withUsage = runEndScores(state, events as AgentEvent[], report, "production").find((s) => s.name === "cache_share");
+    expect(withUsage).toMatchObject({ value: 0.9, dataType: "NUMERIC" });
+    expect(runEndScores(state, [], report, "production").some((s) => s.name === "cache_share")).toBe(false);
   });
 });
 
@@ -288,6 +321,28 @@ describe("memory-eval --dry-run, end to end", () => {
     expect(existsSync(join(s.resultsRoot, "guard", "report.md"))).toBe(false);
     expect(existsSync(join(s.resultsRoot, "guard", "S1/B_agent_opus/1/run.json"))).toBe(true);
     expect(existsSync(join(s.resultsRoot, "guard", "S1/B_agent_opus/2/run.json"))).toBe(false);
+  });
+
+  it("--max-judge-dollars: over the cap the judge step is skipped, the report is still written, unjudged marked, verdict FAIL", async () => {
+    const s = await scratch();
+    const log = vi.fn();
+    const out = await runMemoryEval({ setId: "jg", scenarioId: "S1", dryRun: true, maxJudgeDollars: 1, ...s, now: new Date("2026-10-12T00:00:00.000Z"), log });
+    const lines = log.mock.calls.map((c) => String(c[0]));
+    expect(lines).toContain("judge estimate: 4 pair(s) without a verdict x $0.34 = $1.36 (cap --max-judge-dollars 1)");
+    expect(lines.some((l) => l.startsWith("judge step ABORTED"))).toBe(true);
+    expect(out.judgeDollars).toBe(0);
+    expect(out.verdict.pass).toBe(false);
+    expect(out.verdict.reasons[0]).toMatch(/no verdict \(unjudged\)/);
+    const report = await readFile(join(s.resultsRoot, "jg", "report.md"), "utf8");
+    expect(report).toContain("**Judge step skipped:** 4 (company, signal) pairs");
+    expect(report).toContain("+2 unjudged");
+    expect(existsSync(join(s.truthRoot, "S1"))).toBe(false); // nothing was judged
+
+    // At or under the cap it judges, and the default cap is 4.
+    const ok = vi.fn();
+    const out2 = await runMemoryEval({ setId: "jg2", scenarioId: "S1", dryRun: true, maxJudgeDollars: 1.36, ...s, now: new Date("2026-10-12T00:00:00.000Z"), log: ok });
+    expect(out2.verdict.pass).toBe(true);
+    expect(ok.mock.calls.map((c) => String(c[0]))).toContain("judge estimate: 4 pair(s) without a verdict x $0.34 = $1.36 (cap --max-judge-dollars 1.36)");
   });
 
   it("refuses a set id that could escape the workspace namespace", async () => {
