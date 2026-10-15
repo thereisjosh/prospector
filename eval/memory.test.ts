@@ -646,5 +646,12 @@ describe("demo: second workspace state and the skipped line", () => {
     // the finished demo run is written to memory (its leads and turn-downs) next to what it started with
     const after = await loadMemory(w2);
     expect(new Set(after.seen.map((s) => s.squashed)).size).toBe(before.length + rec.leads.length + rec.rejected.length);
+    // and the note the agent saved with `remember` becomes "What the agent learned": the recorded text and tags,
+    // saved by this replayed run (same run id and clock as its leads), so it is live for the note TTL from now
+    expect(rec.notes).toHaveLength(1);
+    expect(after.notes.map((n) => [n.text, n.tags, n.runId])).toEqual([[rec.notes[0].text, rec.notes[0].tags, id]]);
+    expect(Date.parse(after.notes[0]!.expiresAt)).toBeGreaterThan(Date.now() + 50 * 24 * 3600 * 1000);
+    const body = await (await memoryGET(new Request("http://x"), { params: { id: w2 } } as never)).json();
+    expect(body.notes.map((n: { text: string }) => n.text)).toEqual([rec.notes[0].text]);
   });
 });

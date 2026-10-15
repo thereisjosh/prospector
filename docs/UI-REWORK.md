@@ -466,3 +466,54 @@ Every step: run the CI no-keys check before push (`env -u ANTHROPIC_API_KEY -u E
 **Contrast failures** (impeccable's first colour rule): `--faint` #878e9e used as text measures 3.28:1 on white and 2.88:1 on Panel. It is used for the placeholder (globals.css:356), `.hint` (:866), `.chips-empty` (:1308), `.lrow-head` on `--panel` (:1840), `.basis` (:1879), `.cell-label` (:1886) and `.no-source` (:1921). Amber text measures 4.24:1 on white and 3.75:1 on amber-soft: `.live.is-demo` (:836), `.note` (:882), `.kind-est` (:1193), `.problems` (:1324), `.eyebrow` (:1470). Fixes are in DESIGN.md §2 and step (iv).
 
 **Product slop test** ("would a user fluent in Linear or Stripe trust it?"). Mostly yes: system font, restrained palette, plain copy, real states. The tells that read as generated are card soup (every block the same white box with border and shadow), one `rise` entrance reused on four unrelated things, two pulses that never stop, coloured side stripes marking importance, and a kicker that repeats the line above it. **Category reflex check.** First order: "AI lead-gen tool" predicts dark mode with neon or a purple gradient. This isn't that. Second order: "AI agent tool that isn't neon" predicts a chat thread with a sidebar of tool calls. The rework avoids it by staying a contract → ledger product (no chat, the trace as provenance under the outcome), with mono reserved for verbatim evidence.
+
+## 7. Gate results (step iv gate, 2026-10-16)
+
+`$impeccable critique` (dual-agent: A design review and B detector + browser, isolated) and `$impeccable audit` ran against a `DEMO_MODE=1` production build, at 1280, 768 and 390, in light and dark, with reduced motion at 1280 light and 390 dark. The snapshot is `.impeccable/critique/2026-10-15T16-00-32Z__app-page-tsx.md`. This is the first run for this target, so there is no trend yet.
+
+**Scores before the fix pass.**
+- **Critique:** 29/40 overall (Good). Describe 32, Target 30, Approve 31, Run/Results 28. P0: 0.
+- **Audit:** 16/20 (Good). Accessibility 3, Performance 3, Responsive 3, Theming 3, Anti-patterns 4.
+- **AI slop test:** passes in both. The §6 bans re-grep clean.
+- **Detector:** 0 findings on markup. On CSS, 6 advisory design-system drift hits:
+  - shadow rgba at `globals.css:411` and `:1410`;
+  - radii of 2, 4 and 16px at `legacy.css:146` and `:864`, and `globals.css:999` and `:1407`.
+
+**Fixed (P1, plus two P2s tied to the memory requirement and the GIF):**
+
+| Issue | Before | After | Where |
+|---|---|---|---|
+| Replayed demo run never promoted the agent's saved note | "What the agent learned" absent after the replay | The note shows, stamped with this replay's run id and clock like its leads (60-day TTL from now, not the recording's 14 Dec expiry) | `src/demo/replay.ts`; test in `eval/memory.test.ts` (fails without the fix, passes with it) |
+| P1: stop sentence contradicted the meter | "Stopped at your spending limit." beside $0.85 of $1.00 | "Stopped before the next step could go over your spending limit. $0.85 of $1.00 spent." | `app/ui/copy.ts` `stopSentence` / `RUN.budgetSpent`, `app/ui/RunView.tsx` Outcome |
+| P1: focus ring on filled buttons (Approve, Run agent, Continue) | A 1px accent outline flush on the accent fill, about 1.1:1 | `outline-offset: 2px`, so the edge sits on the background | `app/globals.css` (`:is(.primary-btn, .pr-prompt-go):focus-visible`) |
+| P1: accent text on the accent-soft tint over canvas ("Hard filter", the selected Suggestion) | 4.39:1 | 5.21:1 light and 5.69:1 dark, via a new `--accent-ink-text` (#2a52d8 light, `--accent` dark) | `app/globals.css` |
+| P2: learned note clipped mid-sentence in a 180 px scroller | "…UK fulfilment news mostly yielded" | Whole note shown (notes list 360 px; scrollHeight equals clientHeight) | `app/ui/Memory.tsx`, `app/globals.css` |
+| P2: checklist empty state after approval | "The agent writes its checklist once you approve…" while the trace shows "You approved." | "No checklist yet." after a decision | `app/ui/copy.ts`, `app/ui/RunSide.tsx`, `app/ui/RunView.tsx` |
+
+**Motion checklist** (§3 M1–M12 against apple-design §1–3, §7, §12, §14 and find-animation "The Gate"): **pass**, measured live.
+- At most one shimmer on screen at any moment, the run header. Under reduced motion there is none.
+- Press feedback is `scale(0.97)` on pointer-down, on primary, ghost, Suggestion and Approve. The current step is disabled by design.
+- No layout-property animation: the evidence toggle moves its neighbours in one frame, not over 250 ms. The spend meter moves by `scaleX`.
+- The only blur is the topbar. The dialog scrim has none.
+- Under reduced motion only the opacity fades for M3, M8 and M10 remain, at 150 ms. Everything else is clamped. The theme crossfade is skipped.
+
+**Remaining P2s, for later:**
+- "Before it spends anything" is contradicted by the $0.01 shown at the Confirmation: `ContractStep.tsx:155`, `AboutDialog.tsx:24`.
+- Two cost estimates are never reconciled ($0.84 on the plan, $0.95 from the agent): `ContractStep.tsx:146`, `RunConfirmation.tsx:98`.
+- Results has no primary action, and the cost sits below the leads: `RunView.tsx:292–313`, `:181–195`.
+- Provenance turns read only "Step N": `RunTrace.tsx:226`, `trace-model.ts`.
+- Focus drops to `<body>` at run end (`RunView.tsx:140`, `:197`) and after Describe submits (`StartStep.tsx:64`). The outcome's `role=status` is inserted with its text already in it.
+- Layout shift at run end is 0.40 at 1280 and 0.71 at 390. The Confirmation insert adds 0.17–0.46.
+- A step change keeps the old scroll offset, so Approve opens at the bottom at 390: `page.tsx:155`.
+- The seen-companies memory list still clips in its 180 px scroller with no scroll cue.
+- Touch targets are under 44 px at 390 (thumbs 32, `.chip-x` 20, trace triggers 18). All pass WCAG 2.5.8 through spacing.
+- P3:
+  - skipped heading levels (Target h1 → h3, rail h3/h4);
+  - evidence "Must be true" truncated at 57 characters (`trace-model.ts:123`);
+  - the theme choice isn't saved;
+  - About pulls a 41 KB-gz Base UI chunk into First Load;
+  - mono on event dates and hosts.
+
+**GIF** (`docs/screenshots/walkthrough.gif`, 6.7 MB, 40.8 s, regenerated). Plan → approval → ledger with verdicts and evidence → handback → memory is legible in about 40 s. `scripts/demo-gif.mjs` now scrolls the notes list into view (`block: "nearest"`) before the final pause, so the last frame shows the whole "What the agent learned" note with its provenance.
+
+**`.impeccable/`** is tracked, not gitignored. The skill treats `.impeccable/config.json`, `design.json` and the critique snapshots as shared project state; only `config.local.json` is meant to be gitignored. The one snapshot has no secrets and no absolute paths.

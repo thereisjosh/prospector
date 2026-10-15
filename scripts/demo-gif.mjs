@@ -127,7 +127,10 @@ async function walk(page, base) {
   await page.evaluate(() => scrollTo({ top: 0 }));
   const trigger = page.locator(".pr-mem-trigger");
   if ((await trigger.getAttribute("aria-expanded")) !== "true") await press(page, trigger);
-  await pause(page, 2800);
+  await pause(page, 900);
+  // The learned note sits at the bottom of the rail, below the fold: bring it whole into view for the last frames.
+  await page.evaluate(() => document.querySelector(".pr-mem-items.is-notes")?.scrollIntoView({ block: "nearest" }));
+  await pause(page, 2400);
 }
 
 async function stills(browser, base) {

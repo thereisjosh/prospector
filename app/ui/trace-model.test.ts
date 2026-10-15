@@ -155,7 +155,7 @@ describe("traceModel: memory-eval run (new event kinds)", () => {
 
   it("ends with the stop sentence and the handback headline", () => {
     const last = tree.turns[tree.turns.length - 1]!.lines;
-    expect(last.some((l) => l.kind === "stop" && l.title === "Stopped at your spending limit.")).toBe(true);
+    expect(last.some((l) => l.kind === "stop" && l.title === "Stopped before the next step could go over your spending limit.")).toBe(true);
     expect(last[last.length - 1]!.kind).toBe("handback");
     expect(last[last.length - 1]!.title).toBe("Found 8 of the 10 leads you asked for");
   });

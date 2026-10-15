@@ -14,7 +14,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { RUNS_DIR } from "../agent/config";
 import type { AgentEvent } from "../agent/events";
-import { appendRunToMemory, loadMemory, squashName } from "../agent/memory";
+import { appendRunToMemory, loadMemory, NOTE_TTL_MS, squashName } from "../agent/memory";
 import type { SeenInfo } from "../agent/recall";
 import { screenedByCode, type AcceptedLead, type CandidateLead, type Handback, type RunState, type RunStatus } from "../agent/state";
 import { seedDemoMemory } from "./memory";
@@ -39,6 +39,8 @@ type RecordedState = {
   screened?: RunState["screened"];
   todo: string;
   handback?: Handback;
+  /** Self-notes the recorded run saved with `remember`; promoted to the workspace's notes when the replay ends. */
+  notes?: RunState["notes"];
 };
 
 type Session = {
@@ -283,6 +285,9 @@ export async function demoStep(id: string) {
         workspaceId: session.workspaceId,
         leads: rec.state.leads.filter((l) => !(session.seen ?? {})[squashName(l.company)]),
         rejected: rec.state.rejected,
+        // The recorded note, saved by this replayed run: same provenance and clock as its leads above
+        // (appendRunToMemory stamps those now / session.id), so it never expires mid-demo-life.
+        notes: (rec.state.notes ?? []).map((n) => ({ ...n, runId: session.id, at: new Date().toISOString(), expiresAt: new Date(Date.now() + NOTE_TTL_MS).toISOString() })),
       } as unknown as RunState);
       session.memoryWritten = true;
     }

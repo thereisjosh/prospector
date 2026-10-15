@@ -142,15 +142,18 @@
 :root {
   --faint-ink: #636b7b; /* quieter than --muted, still 5.36:1 on white, 4.70:1 on panel */
   --amber-ink: #965a00; /* amber text: 5.59:1 on white, 4.94:1 on amber-soft */
+  --accent-ink-text: #2a52d8; /* accent text on an accent-soft tint: 5.20:1 even over canvas (--accent is 4.39:1 there) */
 }
 :root[data-theme="dark"] {
   --faint-ink: #808799; /* 5.21:1 on the dark surface, 4.74:1 on dark panel */
   --amber-ink: #d99a3f;
+  --accent-ink-text: var(--accent); /* #6f8dff on its tint: 5.20:1 */
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --faint-ink: #808799;
     --amber-ink: #d99a3f;
+    --accent-ink-text: var(--accent);
   }
 }
 
@@ -1326,7 +1329,7 @@
 .pr-suggestion[aria-pressed="true"]:hover {
   border-color: var(--accent-line);
   background: var(--accent-soft);
-  color: var(--accent);
+  color: var(--accent-ink-text);
   font-weight: 550;
 }
 .pr-suggestion-mono {
@@ -1345,7 +1348,7 @@
   font-weight: 550;
 }
 .pr-kind[data-kind="hard"] {
-  color: var(--accent);
+  color: var(--accent-ink-text);
   background: var(--accent-soft);
   border-color: var(--accent-line);
 }
@@ -1465,6 +1468,9 @@
   outline-offset: 0;
   box-shadow: var(--focus-ring);
 }
+:is(.primary-btn, .pr-prompt-go):focus-visible {
+  outline-offset: 2px; /* flush, a 1px accent edge vanishes into the accent fill (1.1:1); offset, it reads at 5.4:1 */
+}
 :where(.input):focus-visible {
   outline: none;
   box-shadow: 0 0 0 3px var(--accent-soft); /* with its accent-line border: the same edge + halo */
@@ -1573,6 +1579,9 @@
     max-height: 180px;
     overflow-y: auto;
     overscroll-behavior: contain;
+  }
+  .pr-mem-items.is-notes {
+    max-height: 360px;
   }
   .pr-mem-item {
     display: flex;

@@ -274,7 +274,7 @@ export function stopSentence(reason: string | undefined, status?: string): strin
     case "end_turn":
       return "The agent finished.";
     case "budget":
-      return "Stopped at your spending limit.";
+      return "Stopped before the next step could go over your spending limit.";
     case "max_turns":
       return "Stopped after the maximum number of steps.";
     case "max_active_ms":
@@ -735,10 +735,13 @@ export const RUN = {
   cacheDetail: (read: number, written: number, uncached: number): string =>
     `${int(read)} tokens from cache · ${int(written)} newly cached · ${int(uncached)} uncached`,
 
+  /* outcome */
+  budgetSpent: (spent: number, cap: number): string => `${money(spent)} of ${money(cap)} spent.`,
+
   /* checklist */
   checklistHeading: (finished: boolean): string => (finished ? "The agent's last checklist update" : "The agent's checklist"),
-  checklistEmpty: (finished: boolean): string =>
-    finished ? "No checklist was written." : "The agent writes its checklist once you approve its opening plan.",
+  checklistEmpty: (finished: boolean, decided = false): string =>
+    finished ? "No checklist was written." : decided ? "No checklist yet." : "The agent writes its checklist once you approve its opening plan.",
   todo: "To do",
   done: "Done",
 

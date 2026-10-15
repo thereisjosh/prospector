@@ -202,7 +202,8 @@ export function MemoryPanel({ memory, error, onClear, onForget, disabled, lastRu
                 {budgetLine && <p className="memory-text pr-mem-quiet">{MEMORY_COPY.noNoteBudget}</p>}
                 {memory.notes.length > 0 && (
                   <Trace className="pr-mem-list">
-                    <ul className="pr-mem-items">
+                    {/* A note is a whole paragraph the agent wrote: its scroller is tall enough that one note never clips mid-sentence. */}
+                    <ul className="pr-mem-items is-notes">
                       {memory.notes.map((item) => (
                         <MemoryLine
                           key={item.id}

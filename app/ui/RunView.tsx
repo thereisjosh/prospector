@@ -191,7 +191,7 @@ function RunBody(props: Props & { snapshot: RunSnapshot }) {
           )}
         </div>
         <SpendPanel spend={snapshot.spend} cap={contract.maxCostDollars} cache={tree.cache} />
-        <ChecklistPanel model={checklist} finished={finished} />
+        <ChecklistPanel model={checklist} finished={finished} decided={events.some((e) => e.kind === "decision")} />
       </div>
 
       {!finished && (
@@ -292,6 +292,7 @@ function Outcome({
     <section className="outcome pr-outcome" aria-labelledby="outcome-h">
       <p className={failed ? "outcome-stop is-bad" : "outcome-stop"} role="status">
         {failed ? "The run hit a problem and stopped. Here's what it found first." : stopSentence(snapshot.stopReason, snapshot.status)}
+        {!failed && snapshot.stopReason === "budget" && ` ${RUN.budgetSpent(shownSpend(snapshot.spend), contract.maxCostDollars)}`}
       </p>
       <h2 id="outcome-h">
         {handback

@@ -70,14 +70,14 @@ export function SpendPanel({ spend, cap, cache }: { spend: RunSnapshot["spend"];
 }
 
 /** The agent's checklist as a Queue: [ ] / [x] items, its bold-key notes as labelled lines, and how stale it is. */
-export function ChecklistPanel({ model, finished }: { model: ChecklistModel; finished: boolean }) {
+export function ChecklistPanel({ model, finished, decided = false }: { model: ChecklistModel; finished: boolean; decided?: boolean }) {
   return (
     <section className="pr-side pr-checklist" aria-labelledby="todo-h">
       <h2 id="todo-h" className="pr-section-title">
         {RUN.checklistHeading(finished)}
       </h2>
       {model.items.length === 0 ? (
-        <p className="muted pr-side-empty">{RUN.checklistEmpty(finished)}</p>
+        <p className="muted pr-side-empty">{RUN.checklistEmpty(finished, decided)}</p>
       ) : (
         <>
           <ul className="pr-queue">
