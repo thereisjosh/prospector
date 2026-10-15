@@ -550,3 +550,86 @@ export const UNVERIFIED_SUFFIX = (n: number): string => (n > 0 ? ` · ${n} unver
 export function candidateReason(missing: string): string {
   return `Not counted: ${missing.trim().replace(/[.\s]+$/, "")}`;
 }
+
+/* ---------- run trace (app/ui/trace-model.ts) ---------- */
+
+const plural = (n: number, one: string, many: string): string => `${int(n)} ${n === 1 ? one : many}`;
+
+/** Every new user-facing string of the run Trace. Plain words, numbers, no internal codes. */
+export const TRACE = {
+  step: (turn: number) => `Step ${turn}`,
+  working: "Working on the next step",
+  /** "2 searches · 3 lookups · 1 added · $0.06 · 5.2 s" */
+  turnSummary: (s: { searches: number; lookups: number; added: number; cost: number; ms: number }): string =>
+    [
+      s.searches > 0 ? plural(s.searches, "search", "searches") : "",
+      s.lookups > 0 ? plural(s.lookups, "lookup", "lookups") : "",
+      s.added > 0 ? `${int(s.added)} added` : "",
+      s.cost > 0 ? money(s.cost) : "",
+      s.ms > 0 ? `${(s.ms / 1000).toFixed(1)} s` : "",
+    ]
+      .filter(Boolean)
+      .join(" · "),
+
+  searchResults: (n: number, total: number): string =>
+    n === total ? plural(n, "result", "results") : `${int(n)} of ${plural(total, "result", "results")}`,
+  lookingUp: (name: string | undefined): string => (name ? `Looking up ${name}` : "Looking up a candidate company"),
+  skippedNonFits: (n: number): string => `Skipped ${plural(n, "obvious non-fit", "obvious non-fits")}`,
+  noMatch: "Couldn't find this company online.",
+  ruledOutAtLookup: (reason: string): string => `Ruled out at lookup: ${reason.replace(/^./, (c) => c.toLowerCase())}`,
+  oneStepFailed: "One step didn't go through; moving on.",
+  otherStep: "Ran a step",
+  remembered: "Saved a note for next time",
+  unknownEvent: "Something else happened during this step",
+
+  recalledMemory: (seen: number, notes: number, prefs: number): string =>
+    `Recalled memory: ${plural(seen, "company", "companies")} already seen, ${plural(notes, "note", "notes")}, ${plural(prefs, "piece", "pieces")} of your feedback`,
+  condensed: (n: number): string => `Condensed ${plural(n, "older step", "older steps")} to stay within its working memory`,
+  recovered: "Recovered an interrupted step",
+
+  unverified: (company: string): string => `Unverified: ${company}`,
+  addedToLeads: (company: string): string => `Added ${company}`,
+
+  retry: (company: string, reason: string, outcome: string): string => {
+    const why = reason === "network" ? "after a network error" : "because a quote wasn't on the page";
+    if (outcome === "skipped_budget") return `Didn't retry the lookup for ${company}: the budget was nearly spent.`;
+    if (reason === "network") {
+      return outcome === "recovered"
+        ? `Retried the lookup for ${company} once ${why}. It went through.`
+        : `Retried the lookup for ${company} once ${why}. It failed again.`;
+    }
+    if (outcome === "kept_retry") return `Retried the lookup for ${company}: a quote wasn't on the page. The second try found it.`;
+    if (outcome === "retry_failed") return `Retried the lookup for ${company}: a quote wasn't on the page. The retry failed, so the first result stands.`;
+    return `Retried the lookup for ${company}: a quote wasn't on the page. Kept the first result.`;
+  },
+  retryState: (state: string): string =>
+    (({ accepted: "fits", candidate: "unverified", rejected: "didn't fit", error: "error", ok: "loaded" }) as Record<string, string>)[state] ?? state,
+  retryChange: (before: string, after: string): string => `${TRACE.retryState(before)} → ${TRACE.retryState(after)}`,
+
+  handbackSuggestions: "What the agent suggests",
+  cacheShare: (pct: number): string => `${int(pct)}% of the agent's reading came from cache`,
+
+  /* evidence block */
+  evidenceTitle: "Evidence",
+  noQuote: "No quote captured",
+  quoteLabels: { whyNow: "Why now", when: "When", size: "Size", basedIn: "Based in" },
+  published: (date: string): string => `published ${date}`,
+
+  /* checklist (Queue) */
+  updatedAt: (turn: number, ago: number): string => `Updated at step ${turn} · ${plural(ago, "step", "steps")} ago`,
+  leadsMismatch: (found: number, of: number | undefined, accepted: number): string =>
+    `Leads found: ${of !== undefined ? `${int(found)} of ${int(of)}` : int(found)} (agent's note) · ${int(accepted)} accepted`,
+
+  /* candidates / rejections sections */
+  candidateNotStated: (what: string): string => `Page doesn't state: ${what.replace(/^./, (c) => c.toLowerCase())}`,
+  candidateQuoteMissing: "A quote wasn't found on the page",
+  candidateOther: "Couldn't be verified",
+  turnedDownByChecks: (label: string): string => `Turned down by the checks: ${label}`,
+  droppedAfterLookup: "Looked up, then dropped by the agent as a poor fit",
+  skippedWithoutLookup: "Skipped as obvious non-fits, without a lookup",
+} as const;
+
+/** "Walmart, Maersk, Arvato and 12 more" (names beyond `max` collapse into a count). */
+export function shortenList(items: string[], max = 4): string {
+  return items.length > max ? joinWords([...items.slice(0, max - 1), `${items.length - (max - 1)} more`]) : joinWords(items);
+}
