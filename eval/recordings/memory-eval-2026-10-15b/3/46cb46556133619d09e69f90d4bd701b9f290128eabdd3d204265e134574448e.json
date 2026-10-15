@@ -1,0 +1,228 @@
+{
+  "request": {
+    "query": "SeaWide Express",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "4f9bfcf4b333b4f10d6db5e3c5265af6",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/12f57cf1k9m",
+        "title": "SeaWide Express",
+        "url": "https://www.seawideexpress.com/",
+        "text": "# SeaWide Express\n\nSeaWide Express is a Truck Transportation company. SeaWide Express is a freight forwarding company that provides shipping services between the U.S. mainland to or from Alaska, Hawaii, and Guam. SeaWide Express employs 30 people. Headquartered in Atlanta, Georgia, United States, with offices in Fife and La Habra.\n\n## About\n\nSeaWide Express is an LTL transportation company with a rich background and extensive experience in providing ocean transportation services, inland transportation services, shipment consolidation services and reliable no-nonsense cargo services between the world and Hawaii, Guam and Alaska. SeaWide leverages its parent companies 40+ years of ocean transportation experience to provide “Smart” transportation solutions to the U.S. offshore market. We are known for our quality, consistency and exceptional customer service, from origin to destination. As a unified, multi-cultural team, we provide the most efficient and competitive transportation solutions for our customers worldwide.\n\nServices\n◾Twice weekly sailings (California to Hawaii and Alaska)\n◾LTL/LCL Service\n◾FCL Service\n◾Consolidation Services\n◾Vessel (Ship) service\n◾Standard Dry Containers 20’, 40’, 45’\n◾Refrigerated Containers: 40’, 45’\n◾Specialty Equipment: Flat Beds, Flat Racks\n◾Project Cargo\n◾FCL/LCL Refrigerated Services\n◾FCL Dry Service\n◾Hazmat Capability\n◾For more information: +1 844-SEAWIDE\n\n## Company Details\n- Industry: Truck Transportation\n- Type: Privately held\n- Headquarters: Atlanta, United States\n- Homepage: seawideexpress.com\n- Aliases: seawide express\n- LinkedIn: linkedin.com/company/seawide-express\n- Linkedin Followers: 2,190\n- Emails: phinkle@seawideexpress.com, requestaccess@seawideexpress.com\n- Phone: (844) 732-9433, +1 404 942 1150, +1 404 942-1150, +18447329433\n\n## Workforce\n- Employees: 30\n- Company Size: 51-200 employees\n  - Monthly Growth: +3.4%\n- Key Executives:\n  - Craig James: Director of Operations\n  - Phil Hinkle: Vice President - Pacific\n- Breakdown:\n  - By Country: United States: 18 (60%)\n  - By Department: Operations: 14 (47%), Sales: 3 (10%), General Management: 1 (3%), Other Department: 1 (3%)\n  - By Seniority: Specialist: 12 (40%), Manager: 4 (13%), Director: 1 (3%), Other Management: 1 (3%), Senior: 1 (3%), Vp: 1 (3%)\n- Salary ranges:\n  - Director of Operations: median $156,982.36 per year\n  - Account Manager: median $73,479.09 per year\n  - Logistics Operations: median $72,005.96 per year\n  - LTL Pricing and Operation Coordinator: median $61,376.85 per year\n  - Operations: median $57,136.33 per year\n  - Operations Specialist: median $50,668.8 per year\n- Talent Sources: Villanova University (1), Physical Therapy Network Solutions (1), Leonardo DRS (1), H&L Produce - Tacoma Boys (1), Goodlife Physical Medicine (1), Dizzion (1), Coyote Logistics (1), CBRE (1), Aluvision USA (1), Alpert & Alpert Iron & Metal, Inc. (1)\n- Alumni Go To: Supreme Resources, Inc. (2), YRC Freight (1), Voya Investment Management (1), Villanova University (1), Vanderlande (1), The Mill Kitchen and Bar (1), Paradies Lagardère (1), International Brotherhood of Electrical Workers (IBEW) (1), DHL Supply Chain (1), American Iron & Metal (AIM) (1)\n\n## Products & Technology\n- Tech Stack: microsoft, microsoft office, segment, well\n\n## Web presence\n\n- Twitter: twitter.com/seawideexpress\n- Facebook: facebook.com/seawideexpress\n- Crunchbase: crunchbase.com/organization/seawide-express\n- Web traffic:\n  - Monthly visits: 2,477\n  - Global rank: 7,459,593\n  - Bounce rate: 43.0%\n  - Pages per visit: 1.2\n  - Average visit duration: 1s\n\n## Reviews & Ratings\n- Employer Rating: 4.2/5.0 (5 reviews)\n  - Breakdown: Work-Life: 4.5, Compensation: 3.5, Culture: 4.5, Career: 4.0\n\n## Categories\n\nalaska, freight forwarding, guam, hawaii, logistics, shipping, transportation, travel agency\n\n## Social\n\n### Linkedin\n\n- [2026-09-25 · Posted · 9 reactions] [It’s Fat Bear Week in Alaska! 🐻 Each year, Fat Bear Week celebrates...](https://www.linkedin.com/posts/seawide-express_fatbearweek-alaska-katmainationalpark-activity-7509242295364390912-9J12)\n  > It’s Fat Bear Week in Alaska! 🐻\n  >\n  > Each year, Fat Bear Week celebrates the brown bears of Katmai National Park & Preserve as they prepare for winter after a summer of feasting on salmon.\n  >\n  > For these bears, getting fat is about survival. The reserves they build during the summer help sustain them through months of winter hibernation, making their transformation an important sign of a successful season.\n  >\n  > Now, it’s up to the public to choose this year’s Fat Bear Week champion.\n  >\n  > Voting is underway through September 29. Who has your vote?\n  >\n  > Meet this year’s contenders and cast your vote on the official Fat Bear Week website: https://lnkd.in/eNN4XRDC\n  >\n  > #FatBearWeek #Alaska #KatmaiNationalPark #SeaWideExpress\n\n- [2026-09-17 · Posted · 11 reactions] [Shipping to Hawaii, Alaska, or Guam isn’t just another mainland...](https://www.linkedin.com/posts/seawide-express_5-things-to-know-before-shipping-to-hawaii-activity-7506326975964155904-ZlU5)\n  > Shipping to Hawaii, Alaska, or Guam isn’t just another mainland move. 🌊\n  >\n  > From sailing schedules and cutoff times to choosing between LCL and FCL and coordinating final delivery, decisions made before freight moves can have a major impact on the journey ahead.\n  >\n  > In our latest SeaWide Express Supply Chain Brief, we break down 5 things shippers should know before shipping to Hawaii, Alaska, or Guam—and why planning the entire journey matters.\n  >\n  > Read the full newsletter to learn what to consider before your next shipment moves.\n  >\n  > #SeaWideExpress #SupplyChain #Logistics #OceanFreight #Hawaii #Alaska #Guam #Shipping #AJCGroup\n\n- [2026-09-17 · 11 reactions] Shipping to Hawaii, Alaska, or Guam isn’t just another mainland move. 🌊 From sailing schedules and cutoff times to choosing between LCL and FCL and coordinating final delivery, decisions made befor...\n\n- [2026-09-14 · Posted · 13 reactions] [Some of the most important work in logistics happens behind the...](https://www.linkedin.com/posts/seawide-express_national-truck-driver-appreciation-week-activity-7505354349624164352-0jDx)\n  > Some of the most important work in logistics happens behind the wheel.\n  >\n  > Professional drivers do far more than move freight from Point A to Point B. They navigate changing conditions, demanding schedules, long hours, and countless handoffs, all while carrying the responsibility of getting every load safely where it needs to go.\n  >\n  > Their work connects warehouses to customers, ports to communities, and businesses to the products people depend on every day.\n  >\n  > During National Truck Driver Appreciation Week, we recognize the professional drivers across our network whose skill, commitment, and reliability help keep supply chains moving.\n  >\n  > To every driver who keeps showing up, mile after mile: thank you.\n  >\n  > #NationalTruckDriverAppreciationWeek #TruckDrivers #Logistics #AJCLogistics #AJCFreightSolutions #EagleLogisticsSystems #SeaWideExpress #KanoTrucking #AJCGroup\n\n- [2026-09-14 · 13 reactions] Some of the most important work in logistics happens behind the wheel. Professional drivers do far more than move freight from Point A to Point B. They navigate changing conditions, demanding sched...\n\n- [2026-09-03 · Posted · 5 reactions] [When shipping to Alaska, faster isn’t always the smarter choice...](https://www.linkedin.com/posts/seawide-express_seawideexpress-alaskashipping-airfreight-activity-7501252289882578944-NUY-)\n  > When shipping to Alaska, faster isn’t always the smarter choice.\n  >\n  > Air freight can be the right solution when timing is critical. But when there’s more flexibility to plan, ocean freight combined with inland transportation may offer a practical and cost-effective alternative.\n  >\n  > Before asking, “How fast can we get it there?” it may be worth asking, “How fast does it actually need to get there?\" The right answer depends on the shipment — its timeline, requirements, priorities, and budget. Good planning can help determine which transportation mode makes the most sense.\n  >\n  > In this blog, we explore when air freight may be the right fit, when ocean may be worth considering, and the factors that can help guide that decision.\n  >\n  > Read the full blog to learn more: https://lnkd.in/daVy7HzM\n  >\n  > #SeaWideExpress #AlaskaShipping #AirFreight #OceanFreight #FreightForwarding #Logistics #AJCGroup\n\n- [2026-09-03 · 7 reactions] When shipping to Alaska, faster isn’t always the smarter choice. Air freight can be the right solution when timing is critical. But when there’s more flexibility to plan, ocean freight combined wit...\n\n- [2026-08-26 · Posted · 6 reactions] [Sometimes, the difference between a challenge and a solution comes...](https://www.linkedin.com/posts/seawide-express_seawide-express-activity-7498356483055755264-CNcV)\n  > Sometimes, the difference between a challenge and a solution comes down to the relationships behind the scenes.\n  >\n  > At SeaWide Express, we know that great logistics is about more than moving freight from one place to another. It’s about building strong partnerships, communicating proactively, and working together to create solutions when timing matters most.\n  >\n  > Those relationships give our team the flexibility to respond, adapt, and keep our customers moving—even when the path forward isn’t straightforward.\n  >\n  > That’s the SeaWide Difference. Service in every shipment.\n  >\n  > #SeaWideExpress #Logistics #CustomerService #SupplyChain #Teamwork #Shipping #Freight #RelationshipsDriveResults #ServiceInEveryShipment #AJCGroup\n\n- [2026-08-26 · 10 reactions, 1 comment] Sometimes, the difference between a challenge and a solution comes down to the relationships behind the scenes. At SeaWide Express, we know that great logistics is about more than moving freight fr...\n\n- [2026-08-24 · Reshared · 31 reactions] [Artificial intelligence is becoming an increasingly important part...](https://www.linkedin.com/posts/seawide-express_activity-7497698264805171201-9eyU): Artificial intelligence is becoming an increasingly important part of how businesses operate, and its greatest potential lies in helping people do their best work. At AJC Group, we're continuing to...\n\n- [2026-08-21 · Posted · 11 reactions] [On August 21, 1959, Hawaii became the 50th state—a milestone in a...](https://www.linkedin.com/posts/seawide-express_hawaiistatehoodday-hawaii-seawideexpress-activity-7496563159189868544-q4dN)\n  > On August 21, 1959, Hawaii became the 50th state—a milestone in a long and complex history that continues to shape the islands today. For SeaWide Express, Hawaii is also an important part of our own story.\n  >\n  > When SeaWide launched in 2015, Hawaii was one of the first markets we served, connecting businesses and communities across the Pacific with the continental U.S. Just one year later, we expanded our reach with five container freight stations throughout the Hawaiian Islands.\n  >\n  > More than a decade later, we’re proud to continue serving Hawaii with the same commitment that has guided us from the beginning: reliable transportation, strong relationships, and service our customers can count on.\n  >\n  > This Hawaii Statehood Day, we recognize the history of the islands and thank our customers, partners, and team members who have made Hawaii such an important part of the SeaWide story.\n  >\n  > #HawaiiStatehoodDay #Hawaii #SeaWideExpress #FreightForwarding #Logistics #SupplyChain #OceanFreight #AJCGroup\n\n- [2026-08-21 · 17 reactions, 1 comment] On August 21, 1959, Hawaii became the 50th state—a milestone in a long and complex history that continues to shape the islands today. For SeaWide Express, Hawaii is also an important part of our ow...\n\n- [2026-08-17 · Reshared · 68 reactions] [In July, we celebrated a milestone 25 years in the making. 🎉 Across...](https://www.linkedin.com/posts/seawide-express_activity-7495199399812284416-ro2l): In July, we celebrated a milestone 25 years in the making. 🎉 Across Atlanta, Buenos Aires, Fife, Honolulu, Jacksonville, La Habra, Laredo, Medellín, Monterrey, Nashville, Nuevo Laredo, San Juan, an...\n\n- [2026-07-29 · Reshared · 79 reactions] [One World. One Team. United by Our Passion. 🌍⚽ That's a wrap on an...](https://www.linkedin.com/posts/seawide-express_activity-7488208951545819136-JKg3): One World. One Team. United by Our Passion. 🌍⚽ That's a wrap on an unforgettable World Cup at AJC Group! Over the past few weeks, our teams around the world came together to celebrate the beautiful...\n\n- [2026-07-28 · Posted · 5 reactions] [Shipping to remote markets requires more than ocean freight, it...](https://www.linkedin.com/posts/seawide-express_ocean-freight-activity-7487964806344368128--7kt)\n  > Shipping to remote markets requires more than ocean freight, it requires careful coordination, dependable schedules, and a team that understands the destination.\n  >\n  > Whether you're shipping a few pallets with Dry LCL, moving larger volumes with Dry FCL, or transporting temperature-sensitive cargo in Refrigerated FCL containers, every shipment deserves a solution built for the unique demands of Alaska, Hawaii, and Guam.\n  >\n  > SeaWide Express provides reliable ocean freight services and end-to-end coordination to help your cargo move efficiently from origin to destination.\n  >\n  > Learn more at SEAWIDEEXPRESS.COM\n  >\n  > #SeaWideExpress #AJCGroup #OceanFreight #SupplyChain #Logistics #LCL #FCL #RefrigeratedFreight #Alaska #Hawaii #Guam\n\n- [2026-07-28 · 8 reactions] Shipping to remote markets requires more than ocean freight, it requires careful coordination, dependable schedules, and a team that understands the destination. Whether you're shipping a few palle...\n\n- [2026-07-04 · Posted · 9 reactions] [Happy Independence Day! SeaWide Express is proud to celebrate the...](https://www.linkedin.com/posts/seawide-express_independenceday-fourthofjuly-seawideexpress-activity-7479159553679433728-SYbp)\n  > Happy Independence Day! SeaWide Express is proud to celebrate the freedom that built this nation, while continuing our mission of connecting the U.S. mainland with Hawaii, Alaska, and Guam. That's really SeaWide's differentiator.\n  >\n  > #IndependenceDay #FourthOfJuly #SeaWideExpress #Logistics #SupplyChain #Shipping #AJCGroup\n\n- [2026-07-04 · 15 reactions] Happy Independence Day! SeaWide Express is proud to celebrate the freedom that built this nation, while continuing our mission of connecting the U.S. mainland with Hawaii, Alaska, and Guam. That's...\n\n- [2026-06-28 · Reshared · 32 reactions] [As FIFA World Cup 2026™️ brings millions of fans together across...](https://www.linkedin.com/posts/seawide-express_activity-7477036802810298368-gjeb): As FIFA World Cup 2026™️ brings millions of fans together across North America, it's a great reminder that behind every unforgettable event is an extraordinary logistics network. From moving food a...\n\n- [2026-06-25 · Posted · 16 reactions] [𝟮𝟱 𝗬𝗲𝗮𝗿𝘀 𝗼𝗳 𝗔𝗝𝗖 𝗟𝗼𝗴𝗶𝘀𝘁𝗶𝗰𝘀 | 𝗟𝗲𝗮𝗱𝗶𝗻𝗴 𝗯𝘆 𝗘𝘅𝗮𝗺𝗽𝗹𝗲 As we celebrate 25...](https://www.linkedin.com/posts/seawide-express_ajclogistics-25years-storiesofservice-activity-7476005216283262976-IXJo)\n  > 𝟮𝟱 𝗬𝗲𝗮𝗿𝘀 𝗼𝗳 𝗔𝗝𝗖 𝗟𝗼𝗴𝗶𝘀𝘁𝗶𝗰𝘀 | 𝗟𝗲𝗮𝗱𝗶𝗻𝗴 𝗯𝘆 𝗘𝘅𝗮𝗺𝗽𝗹𝗲\n  >\n  > As we celebrate 25 years of AJC Logistics LLC, Phil Hinkle, President of SeaWide Express, shares a story that captures what Service in Every Shipment looks like in action.\n  >\n  > When a new operation opened, record freight volumes quickly filled the warehouse beyond expectations. Rather than standing on the sidelines, leaders rolled up their sleeves and worked alongside the team to keep freight moving and deliver for customers.\n  >\n  > For Phil, that moment wasn't just about handling a busy day, it reflected the culture that has helped define AJC Logistics for 25 years: teamwork, accountability, and a commitment to doing whatever it takes to serve our customers.\n  >\n  > Stories like Phil's remind us that leadership is demonstrated through action, and that our greatest successes are built by teams working together.\n  >\n  > Stay tuned as we continue sharing stories from the leaders who helped build AJC Logistics and the values that continue to guide us today.\n  >\n  > #AJCLogistics #25Years #StoriesOfService #ServiceInEveryShipment\n\n## Locations\n- Headquarters: atlanta, georgia, united states (US)\n- Offices: atlanta, georgia, united states (US), atlanta, united states (US), la habra, california, united states (US), fife, washington, united states (US)",
+        "summary": "{\"description\":\"SeaWide Express is a freight forwarding company that provides shipping services between the U.S. mainland to or from Alaska, Hawaii, and Guam. SeaWide Express is an LTL transportation company with a rich background and extensive experience in providing ocean transportation services, inland transportation services, shipment consolidation services and reliable no-nonsense cargo services between the world and Hawaii, Guam and Alaska.\",\"employee_estimate\":30,\"employee_estimate_source\":\"Employees: 30\",\"hq\":\"Headquarters: Atlanta, United States\",\"hq_quote\":\"Headquarters: Atlanta, United States\",\"industry\":\"Truck Transportation\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":null,\"is_third_party_logistics_quote\":\"\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4D0BAQFHHCTSTxRmxQ/company-logo_200_200/B4DZmc58_eJEAI-/0/1759274062102/seawide_express_logo?e=2147483647&v=beta&t=MT64X6WukUVXmDfz0Yc3QIr7M5LIk82ewRsQ12JDwZ0",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/12f57cf1k9m",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "SeaWide Express",
+              "foundedYear": null,
+              "description": "SeaWide Express is an LTL transportation company with a rich background and extensive experience in providing ocean transportation services, inland transportation services, shipment consolidation services and reliable no-nonsense cargo services between the world and Hawaii, Guam and Alaska. SeaWide leverages its parent companies 40+ years of ocean transportation experience to provide “Smart” transportation solutions to the U.S. offshore market. We are known for our quality, consistency and exceptional customer service, from origin to destination. As a unified, multi-cultural team, we provide the most efficient and competitive transportation solutions for our customers worldwide.\n\nServices\n◾Twice weekly sailings (California to Hawaii and Alaska)\n◾LTL/LCL Service\n◾FCL Service\n◾Consolidation Services\n◾Vessel (Ship) service\n◾Standard Dry Containers 20’, 40’, 45’\n◾Refrigerated Containers: 40’, 45’\n◾Specialty Equipment: Flat Beds, Flat Racks\n◾Project Cargo\n◾FCL/LCL Refrigerated Services\n◾FCL Dry Service\n◾Hazmat Capability\n◾For more information: +1 844-SEAWIDE",
+              "workforce": {
+                "total": 30
+              },
+              "headquarters": {
+                "address": "1000 Abernathy Road, Suite 600, Atlanta, GA 30187, US",
+                "city": "Atlanta",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 2477,
+                "countryRank": 2860123,
+                "avgDurationSeconds": 1,
+                "history": [
+                  {
+                    "value": 1977,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 1786,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 1164,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 1426,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 2600,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 2477,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/9ys9cjh1s7x",
+        "title": "Seaway Express Inc.",
+        "url": "https://seawayexpress.ca/",
+        "text": "# Seaway Express Inc.\n\nSeaway Express Inc. is a Transportation/Trucking/Railroad company. Seaway Express is a reliable and efficient overnight transport service between Eastern Ontario and Quebec. They have been offering high quality ltl, tl, and appointment services for over 35 years. Seaway Express Inc. employs 15 people (+7.1% YoY, +1 person) and has an annual revenue of $31.1M, founded in 1990. Headquartered in Cornwall, Ontario, Canada, with presence in United States.\n\n## About\n\nSeaway Express has been providing award-winning logistics solutions in Eastern Ontario and Quebec since 1990. As the closest transport terminal to Cornwall’s SCM (Walmart) and Loblaws distribution centres, Seaway works with Canada’s top carriers and vendors to provide quality on-time service. Seaway Express has satellite terminals in Montreal and Ottawa.\n\n## Company Details\n- Industry: Transportation/Trucking/Railroad\n- Type: Privately held\n- Headquarters: Cornwall, Canada\n- Founded Year: 1990\n- Homepage: seawayexpress.ca\n- Aliases: seaway express, seaway express inc.\n- LinkedIn: linkedin.com/company/seaway-express-inc\n- Linkedin Followers: 426\n- Emails: melanie@seawayexpress.ca\n- Phone: (613) 933-8984, +1 (613) 933-8984, +1 613 933 8984, 6139338984\n\n## Financials\n- Annual Revenue: USD 31,057,123\n\n## Workforce\n- Employees: 15\n- Company Size: 51-200 employees\n  - Yearly Growth: +7.1%\n- Breakdown:\n  - By Country: Canada: 5 (33%)\n  - By Department: Operations: 3 (20%), Finance: 1 (7%), General Management: 1 (7%)\n  - By Seniority: Specialist: 4 (27%), Manager: 1 (7%)\n- Talent Sources: Vomar Industries Inc (1), Super 8 (1), Olymel (1), Meyers Transportation (1), Konink Logistics Inc (1), Commercial Truck Repair (1), 4Refuel (1)\n- Alumni Go To: WITRON Group (1), Toromont Cat (1), Premier Tech (1), Morbern (1), Konink Logistics Inc (1), Fastfrate Group (1)\n\n## Products & Technology\n- Tech Stack: well\n\n## Web presence\n\n- Twitter: twitter.com/seawayexpress\n- Facebook: facebook.com/seawayexpress\n- Crunchbase: crunchbase.com/organization/seaway-express\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Categories\n\nbusiness travel, distribution, eastern ontario, efficient, logistics, next day servive ltl, overnight transport, quebec, reliable, scm, tl, transportation, warehousing\n\n## Social\n\n### Linkedin\n\n- [2026-07-31 · 9 reactions] Happy Long Weekend! 🍁\n\n- [2026-04-02 · 13 reactions] 🐣 How many eggs were in the jar? We upped the ante this year with 3 jars and the competition was fierce! Congratulations to our winners: Audra, Rayah, and Pat! 🌸 Wishing our team, partners and cust...\n\n- [2025-12-17 · 35 reactions, 4 comments] 🏈 👕🏒 Jersey Day at Seaway Express! Proud to see the team showing off their favorite jerseys and strong team spirit today.\n\n- [2025-12-12 · 24 reactions, 1 comment] Toy Pickup Day for Sparky’s Toy Drive has arrived once again and Seaway Express Inc. is proud to take part in this meaningful community initiative for the 7th year! Organized by the Cornwall Fire D...\n\n- [2025-10-31 · 20 reactions, 2 comments] Happy Halloween from the team at Seaway Express Inc.! 🎃\n\n- [2025-10-02 · 114 reactions, 24 comments] We would like to recognize an incredible milestone for our Operations Manager, Gary Lalonde, who celebrates 25 years with Seaway Express Inc., this year. Gary has been in the transportation industr...\n\n- [2025-07-18 · 116 reactions, 7 comments] Yesterday, we gathered for our company BBQ to celebrate our 35 years! We couldn’t capture everyone in the photo but we’re grateful for our dedicated employees, customers, and partners who have been...\n\n- [2025-06-26 · 13 reactions, 1 comment] 🏒 Congratulations to Tony Armenti on winning our NHL Playoff Hockey Pool! It was a close race, right down to the wire, between Tony and RJ, making it an exciting finish for everyone involved. Shout...\n\n- [2025-06-09 · 5 reactions, 2 comments] Managing Shipments Just Got Easier! 📦 Our Secure Customer Web Portal is built to simplify your shipping process - from pickup to POD. With just a few clicks, you can: 🔹 Submit LTL pickup requests i...\n\n- [2025-05-02 · 34 reactions, 4 comments] 🎉 Celebrating 35 Years of Seaway Express! We’re proud to mark this milestone today and extend our sincere thanks to the people who made it possible—our dedicated employees, loyal customers and valu...\n\n- [2025-04-17 · 5 reactions] 🥚✨ How many mini eggs in the jar? We had some fun this Easter at Seaway Express Inc. with a classic guessing game—and our very own mechanic, Alain was spot on! 🏆 With the closest guess of 161, he t...\n\n## Locations\n- Headquarters: cornwall, ontario, canada\n- Offices: cornwall, ontario, canada, cornwall, ontario k6h 6k8, canada",
+        "summary": "{\"description\":\"Seaway Express Inc. is a Transportation/Trucking/Railroad company providing overnight transport and logistics solutions in Eastern Ontario and Quebec, with satellite terminals in Montreal and Ottawa.\",\"employee_estimate\":15,\"employee_estimate_source\":\"Employees: 15\",\"hq\":\"Cornwall, Ontario, Canada\",\"hq_quote\":\"Headquartered in Cornwall, Ontario, Canada\",\"industry\":\"Transportation/Trucking/Railroad\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"Seaway Express has satellite terminals in Montreal and Ottawa... Seaway works with Canada’s top carriers and vendors to provide quality on-time service.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQFmMrs9y9C8Wg/company-logo_200_200/company-logo_200_200/0/1688152029927/seaway_express_inc_logo?e=2147483647&v=beta&t=P_O_UH8Kk5Gv6V7-hhw8TYz3LqPlOxC10N7F0FwHtOA",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/9ys9cjh1s7x",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Seaway Express Inc.",
+              "foundedYear": 1990,
+              "description": "Seaway Express has been providing award-winning logistics solutions in Eastern Ontario and Quebec since 1990. As the closest transport terminal to Cornwall’s SCM (Walmart) and Loblaws distribution centres, Seaway works with Canada’s top carriers and vendors to provide quality on-time service. Seaway Express has satellite terminals in Montreal and Ottawa. ",
+              "workforce": {
+                "total": 15
+              },
+              "headquarters": {
+                "address": "605 Boundary Rd, Cornwall, Ontario K6H 6K8, CA",
+                "city": "Cornwall",
+                "postalCode": null,
+                "country": "Canada"
+              },
+              "financials": {
+                "revenueAnnual": 31057123,
+                "fundingTotal": null,
+                "fundingLatestRound": null
+              },
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 1023,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 973,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 954,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 1131,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 497,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 6720.3,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

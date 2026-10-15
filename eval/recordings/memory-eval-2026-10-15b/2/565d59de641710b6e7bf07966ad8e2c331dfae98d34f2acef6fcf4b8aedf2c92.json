@@ -1,0 +1,228 @@
+{
+  "request": {
+    "query": "Behnke Logistics",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "bdcda9bad92b7028d4a2d5601d72ce21",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/c6ntxdl62pv",
+        "title": "Behnke Dedicated & Logistics",
+        "url": "https://behnkelogistics.com/",
+        "text": "# Behnke Dedicated & Logistics\n\nBehnke Dedicated & Logistics employs 11 people and has an annual revenue of $20.4M. Headquartered in Battle Creek, Michigan, United States.\n\n## About\n\nBattle Creek is a company that provides truck driving jobs and customer solutions.\n\n## Company Details\n- Headquarters: Battle Creek, United States\n- Homepage: behnkelogistics.com\n- Aliases: behnke dedicated & logistics\n- LinkedIn: linkedin.com/company/behnke-dedicated-&-logistics\n- Linkedin Followers: 12\n- Phone: 1-269-962-0034\n\n## Financials\n- Annual Revenue: USD 20,375,128\n\n## Workforce\n- Employees: 11\n- Key Executives:\n  - Vincent Behnke: Chief Financial Officer\n- Breakdown:\n  - By Country: United States: 6 (55%)\n  - By Department: Operations: 3 (27%), Finance: 1 (9%), Sales: 1 (9%), Trades: 1 (9%)\n  - By Seniority: Manager: 4 (36%), Clevel: 1 (9%), Specialist: 1 (9%)\n- Talent Sources: WestRock Company (2), Tenpoint Expediting Services, Inc (1), PODS (1), Hess Engineering, Inc. (1), HMD LLC (1), Big Brothers Big Sisters of Southwest Michigan (1)\n- Alumni Go To: Target Distribution Ctr (1), Silence Lines LLC (1), Lock Joint Tube (1), Liberty Tire Recycling, LLC (1)\n\n## Web presence\n\n- Web traffic:\n  - Monthly visits: 3,050\n  - Global rank: 5,618,232\n  - Bounce rate: 83.0%\n  - Pages per visit: 1.5\n  - Average visit duration: 22s\n\n## Categories\n\ncustomer solutions, dedicated trucking, shipping quote, storage leases, transportation and logistics, truck driving\n\n## Locations\n- Headquarters: battle creek, michigan, united states (US)\n- Offices: battle creek, michigan, united states (US)",
+        "summary": "{\"description\":\"Behnke Dedicated & Logistics is a Battle Creek, Michigan-based transportation and logistics provider offering truck driving jobs and customer solutions.\",\"employee_estimate\":11,\"employee_estimate_source\":\"Employees: 11\",\"hq\":\"Battle Creek, Michigan, United States\",\"hq_quote\":\"Headquartered in Battle Creek, Michigan, United States.\",\"industry\":\"Transportation and logistics, dedicated trucking, shipping quote, storage leases, transportation and logistics, truck driving\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"Behnke Dedicated & Logistics employs 11 people and has an annual revenue of $20.4M. Headquartered in Battle Creek, Michigan, United States.\"}",
+        "image": "https://static.licdn.com/aero-v1/sc/h/cs8pjfgyw96g44ln9r7tct85f",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/c6ntxdl62pv",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Behnke Dedicated & Logistics",
+              "foundedYear": null,
+              "description": "Battle Creek is a company that provides truck driving jobs and customer solutions.",
+              "workforce": {
+                "total": 11
+              },
+              "headquarters": {
+                "address": "180 Union St S, Battle Creek, Michigan 49014, US",
+                "city": "Battle Creek",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 20375128,
+                "fundingTotal": null,
+                "fundingLatestRound": null
+              },
+              "webTraffic": {
+                "visitsMonthly": 3050,
+                "countryRank": 1941905,
+                "avgDurationSeconds": 22,
+                "history": [
+                  {
+                    "value": 589,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 980,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 199,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 4730,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 5850,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 3050,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/w559yd54d42",
+        "title": "Behnke Inc.",
+        "url": "https://www.behnkeinc.com/",
+        "text": "# Behnke Inc.\n\nBehnke Inc. is a Transportation/Trucking/Railroad company. Behnke Inc. is a Midwest trucking business that has been providing total freight management services for over 85 years. They are one of the largest transportation firms in the batt. Behnke Inc. employs 34 people (+9.7% YoY, +3 people), founded in 1930. Headquartered in Battle Creek, Michigan, United States, with an office in Springfield.\n\n## About\n\n.Behnke, Inc. is a short-to-medium haul truckload carrier. The company operates out of one terminal and the company headquarters is located in Battle Creek, MI. The company transports freight for shippers and generates revenue either per mile or on a rate per truckload shipment. The company was founded by Carl H. Behnke in 1930 when he purchased the authority from Lafler Trucking. The motor carrier number of 052473 is still being used today and the company is now managed by several of Carl H. Behnke’s grandchildren.\r\n\r\nOne of the largest transportation firms in the Battle Creek/Kalamazoo, MI community, Behnke operates close to 45 tractors and over 250 dry van trailers. The company’s operations department is responsible for maintaining the control between the customer’s needs and the ability of Behnke to meet those needs. \r\n\r\nAt Behnke, Inc., we recognize that our most important assets are our drivers. We seek to hire professional men and women who will conscientiously fulfill the needs of our customers. In turn, we offer competitive pay and benefits which provide security for our employees. Our goal is to make your employment as “worker friendly” as possible. Behnke, Inc. Is an equal opportunity employer and encourages everyone who meets the legal standards for semi-truck drivers to apply for employment with us.\n\n## Company Details\n- Industry: Transportation/Trucking/Railroad\n- Type: Public company\n- Headquarters: Battle Creek, United States\n- Founded Year: 1930\n- Homepage: behnkeinc.com\n- Aliases: Behnke, Inc., behnke, behnke inc.\n- LinkedIn: linkedin.com/company/behnke-inc.\n- Linkedin Followers: 208\n- Emails: info@behnkeinc.com\n- Phone: (269) 962-4231, +1 269 962 4231, +1269962423, +18002346531%20, 1-269-962-4231, 800-234-6531\n\n## Acquisitions\n- Acquired AG Freight, LLC. (2026-08-01)\n\n## Workforce\n- Employees: 34\n- Company Size: 11-50 employees\n  - Yearly Growth: +9.7%\n- Breakdown:\n  - By Country: United States: 8 (24%)\n  - By Department: Operations: 5 (15%), Finance: 1 (3%), Hr: 1 (3%), Trades: 1 (3%)\n  - By Seniority: Specialist: 7 (21%), Manager: 1 (3%)\n- Talent Sources: Western Michigan University (1), Veriha Trucking, Inc. (1), US Xpress Drivers (1), Super Service, LLC (1), Signature Fundraising (1), Mr. Handyman (1), Dupré Logistics, LLC (1), DeNooyer Chevrolet (1), B & B TRUCKING, INC. (1)\n- Alumni Go To: TE Connectivity (1), Republic Services (1), Pinnacle Airlines Corp. (1), PITT OHIO (1), MAC R BEHNKE RENTALS LTD (1), Kia America (1), Interkal LLC (1), Hawkeye Electric (1), Foodliner (1), BRONSON BATTLE CREEK (1)\n\n## Products & Technology\n- Tech Stack: gauges, indeed, informatica, microsoft, microsoft dynamics, microsoft dynamics 365, microsoft excel, microsoft office, netsuite, oracle, python, sage intacct, sql, tableau, talend, yardi, c, well\n\n## Web presence\n\n- Facebook: facebook.com/behnkeinc\n- Crunchbase: crunchbase.com/organization/behnke\n- Web traffic:\n  - Monthly visits: 1,363\n  - Global rank: 8,980,489\n  - Bounce rate: 22.0%\n  - Pages per visit: 3.3\n  - Average visit duration: 93s\n\n## Reviews & Ratings\n- Employer Rating: 2.0/5.0 (2 reviews)\n  - Breakdown: Work-Life: 2.9, Compensation: 2.5, Culture: 2.9, Career: 3.0\n\n## Categories\n\nautomotive-transportation, delivery, family-based, freight, freight service, midwest, transportation, trucking\n\n## Competitors\n\nitalo treno, cp, coach usa, abx\n\n## Recent News\n- [2026-08-26] [Midwest dedicated carrier Behnke buys AG Freight - FreightWaves](https://www.freightwaves.com/news/midwest-dedicated-carrier-behnke-buys-ag-freight)\n- [2026-08-25]\n  - [Piedmont business acquired by Michigan logistics company](https://www.postandcourier.com/greenville/business/ag-freight-behnke-logistics-greenville-sc-market/article_4fcae3e8-4bf7-42ea-a38c-d9d52b04c431.html)\n  - [AG Freight acquired by Michigan-based Behnke Logistics](https://www.battlecreekenquirer.com/story/news/local/2026/08/25/behnke-logistics-acquires-ag-freight-piedmont-south-carolina-expansion/91410224007/)\n- [2026-08-21] [Piedmont’s AG Freight acquired by Michigan-based Behnke Dedicated and Logistics - UPSTATE BUSINESS JOURNAL](https://upstatebusinessjournal.com/business-news/piedmonts-ag-freight-acquired-by-michigan-based-behnke-dedicated-and-logistics/)\n\n## Locations\n- Headquarters: battle creek, michigan, united states (US)\n- Offices: battle creek, michigan, united states (US), springfield, michigan, united states (US)",
+        "summary": "{\"description\":\"Behnke Inc. is a Midwest trucking business providing total freight management services since 1930, operating as a short-to-medium haul truckload carrier with one terminal and headquarters in Battle Creek, MI.\",\"employee_estimate\":34,\"employee_estimate_source\":\"Employees: 34\",\"hq\":\"Battle Creek, Michigan, United States\",\"hq_quote\":\"Headquartered in Battle Creek, Michigan, United States, with an office in Springfield.\",\"industry\":\"Transportation/Trucking/Railroad\",\"is_public_or_enterprise\":true,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"Behnke Inc. is a short-to-medium haul truckload carrier. The company operates out of one terminal and the company headquarters is located in Battle Creek, MI.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4D0BAQFIWXKdA5-Zig/company-logo_200_200/company-logo_200_200/0/1631305394992?e=2147483647&v=beta&t=ZQdqq5QqYfoZn8t79MZ1KlLuFL8tV0HyCYlw2aVM5D0",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/w559yd54d42",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Behnke Inc.",
+              "foundedYear": 1930,
+              "description": ".Behnke, Inc. is a short-to-medium haul truckload carrier. The company operates out of one terminal and the company headquarters is located in Battle Creek, MI. The company transports freight for shippers and generates revenue either per mile or on a rate per truckload shipment. The company was founded by Carl H. Behnke in 1930 when he purchased the authority from Lafler Trucking. The motor carrier number of 052473 is still being used today and the company is now managed by several of Carl H. Behnke’s grandchildren.\r\n\r\nOne of the largest transportation firms in the Battle Creek/Kalamazoo, MI community, Behnke operates close to 45 tractors and over 250 dry van trailers. The company’s operations department is responsible for maintaining the control between the customer’s needs and the ability of Behnke to meet those needs. \r\n\r\nAt Behnke, Inc., we recognize that our most important assets are our drivers. We seek to hire professional men and women who will conscientiously fulfill the needs of our customers. In turn, we offer competitive pay and benefits which provide security for our employees. Our goal is to make your employment as “worker friendly” as possible. Behnke, Inc. Is an equal opportunity employer and encourages everyone who meets the legal standards for semi-truck drivers to apply for employment with us.",
+              "workforce": {
+                "total": 34
+              },
+              "headquarters": {
+                "address": "600 North Helmer Road, Battle Creek, MI 49037, US",
+                "city": "Battle Creek",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 1363,
+                "countryRank": 3407184,
+                "avgDurationSeconds": 93,
+                "history": [
+                  {
+                    "value": 1267,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 411,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 774,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 272,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 4956,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 1363,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 5144.1,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

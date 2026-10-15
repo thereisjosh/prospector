@@ -1,0 +1,236 @@
+{
+  "request": {
+    "query": "Grip",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "a9e611b8f72597ac6b8d386a95ef7e12",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/091j8skqkms",
+        "title": "GRIP - Groupe de recherche et d'information sur la paix et la sécurité",
+        "url": "https://www.grip.org/",
+        "text": "# GRIP - Groupe de recherche et d'information sur la paix et la sécurité\n\nGRIP - Groupe de recherche et d'information sur la paix et la sécurité is a nonprofit organization. The GRIP is an independent research center in the field of peace, security, and conflict prevention. Its researchers work on armed forces, defense, peace, governance, and security in Africa, as well as on the environmental impact of conflicts. GRIP - Groupe de recherche et d'information sur la paix et la sécurité employs 73 people (+2.8% YoY, +2 people) and has an annual revenue of $5.1M, founded in 1979. Headquartered in Brussels, Brussels Region, Belgium, with presence in Canada. Its workforce is distributed across 6 countries (including Belgium, France, Cameroon, Brazil, and India).\n\n## About\n\nGRIP is an independent research centre, based in Brussels (Belgium).\r\nGRIP’s research work focuses mainly on the following domains:\r\n * Conflict prevention, management and resolution\r\n * Proliferation of small arms and control of the arms trade\r\n * European Union and international security\r\n * Defence economy.\r\n\r\nMore on details on the website: www.grip.org/en\r\n\r\nLe GRIP est un centre de recherche indépendant, basé à Bruxelles (Belgique).\t\t\r\n\r\nLes travaux de recherche du GRIP s’articulent autour des axes suivants : \r\n * Prévention, gestion et résolution des conflits violents\r\n * Prolifération des armes légères et contrôle des transferts d’armes\r\n * Union européenne et sécurité internationale\r\n * Economie de l’armement.\r\n\r\nPlus de détails sur le site web : www.grip.org/fr\n\n## Company Details\n- Industry: Think Tanks\n- Type: Nonprofit\n- Headquarters: Brussels, Belgium\n- Founded Year: 1979\n- Homepage: grip.org\n- Aliases: grip, grip - groupe de recherche et d'information sur la paix et la sécurité, Groupe de recherche et d'information sur la paix et la sécurité\n- LinkedIn: linkedin.com/company/grip\n- Linkedin Followers: 6,924\n- Emails: info@grip.org\n- Phone: +32 0473.982.82\n\n## Financials\n- Annual Revenue: USD 5,088,117\n\n## Workforce\n- Employees: 73\n- Company Size: 11-50 employees\n  - Yearly Growth: +2.8%\n- Key Executives:\n  - Agatha Verdebout: Deputy Director\n  - Ahmed Cherif HARBI: Director of Finance And Administration\n  - Yannick Quéau: Director\n- Breakdown:\n  - By Country: Belgium: 23 (32%), France: 5 (7%), Cameroon: 2 (3%), Brazil: 1 (1%), India: 1 (1%), Mexico: 1 (1%)\n  - By Department: Research: 21 (29%), General Management: 4 (5%), Other Department: 3 (4%), Administrative: 2 (3%), Finance: 1 (1%), Hr: 1 (1%), Marketing: 1 (1%), Medical: 1 (1%)\n  - By Seniority: Specialist: 21 (29%), Other Management: 5 (7%), Manager: 4 (5%), Director: 3 (4%), Intern: 1 (1%)\n- Talent Sources: Ministère des Affaires étrangères français (6), Université libre de Bruxelles (5), Fédération Wallonie-Bruxelles (3), Université catholique de l'Ouest (2), Mairie de La Courneuve (2), Jesuit European Social Centre (JESC) (2), Hozint - Horizon Intelligence (2), Global Exchange (2), F.R.S. - FNRS (2), European Parliament (2)\n- Alumni Go To: European Commission (5), SIPRI (3), Ministère de la Défense (3), IRIS - Institut de Relations Internationales et Stratégiques (3), Université libre de Bruxelles (2), UNDP (2), Ministère des Affaires étrangères français (2), Galeries Lafayette (2), GOPA PACE (2), Croix-Rouge française (2)\n\n## Products & Technology\n- Tech Stack: cision, microsoft, microsoft teams, well, wordpress\n\n## Web presence\n\n- Twitter: twitter.com/grip_org\n- Facebook: facebook.com/grip.1979\n- Instagram: instagram.com/grip_paix\n- YouTube: youtube.com/user/gripasbl\n- Crunchbase: crunchbase.com/organization/grip-e0f8\n- Web traffic:\n  - Monthly visits: 12,122\n  - Global rank: 1,912,175\n  - Bounce rate: 41.0%\n  - Pages per visit: 1.7\n  - Average visit duration: 41s\n\n## Reviews & Ratings\n- Product Reviews: 4.5/5.0 (2 reviews)\n\n## Categories\n\narmed forces, arms control and disarmament, conflict prevention, content creation, continuing education, creative management platforms, defense, e-commerce software, education, education permanente, eu and international security, grip, law_and_government/government, maintien de la paix, non profit, pacific, peace and conflicts in africa, peacekeeping, recherche et information, research center, security, visual product customization, visual product customization software, war and environment\n\n## Recent News\n- [2026-10-11] Radio Royal: Gary Neville warns Man Utd players to 'get a grip' or face a worrying few weeks after draw with 10-man Spurs\n- [2026-10-10]\n  - Austin Free Press: Dry out: Travis County’s Sobering Center seeks to break alcohol’s grip\n  - Bioengineer.org: H5N1 Variants From a Severe Human Case Show Weakened Grip on Host Receptors\n  - Bioengineer.org: Ligand Geometry Steers How Platinum Anticancer Candidates Grip DNA\n  - Bioengineer.org: Spirulina’s Blue Pigment Protein Can Trigger Allergy, but Digestion Weakens Its Grip\n  - Palatinate: Trump’s tightening grip on the Republican Party\n- [2026-10-09]\n  - AlterNet: Family member warns 'deteriorating' Trump has 'lost grip on reality'\n  - Human Rights Watch: Niger’s Junta Tightens Its Grip on Free Expression\n- [2026-10-08] Bioengineer.org: Carboxyl-Coated Nanotubes Grip Tuberculosis Drug Isoniazid, Quantum Study Shows\n- [2026-10-07]\n  - The Washington Institute: One Year After the Gaza Ceasefire \\(Part 2\\): How Hamas Has Kept Its Grip on Governance\n  - Bioengineer.org: Weak Grip in Old Age May Start in the Brain, Not Just the Muscle\n- [2026-10-06] Bioengineer.org: Weak Grip and Excess Fat Together May Signal Early Cognitive Decline in Older Adults\n- [2026-10-04]\n  - Consumer Reports: Best All-Weather Tires\n  - Consumer Reports: Best Winter/Snow Tires\n  - Consumer Reports: Choose the Right Tires for Your Vehicle\n  - Truthout: In Brazil’s Elections, Trump Seeks to Tighten Right Wing Grip on the Americas\n  - PBS: Student protests grip France as Prime Minister Lecornu calls crisis meeting\n- [2026-10-02] Bioengineer.org: New Random-Walk Method Keeps Its Grip on Dense Networks Where Rivals Fall Apart\n- [2026-10-01]\n  - European Council on Refugees and Exiles \\(ECRE\\) \\|: OP-ED: Loosening the grip on civil society in Greece – NGO Registry rules quashed and referred to the EU Court\n  - Mayo Clinic Press: What grip strength says about your health\n- [2026-08-27] [Intervention de Clémence Buchet-Couzy - L’Union européenne et les enjeux de paix et sécurité en Afrique \\( Vidéo\\) - Afrique & Europe](https://www.europesays.com/afrique/192554/)\n- [2026-08-05] [Ukraine, Iran : comment la pénurie d’intercepteurs de missiles à longue portée pourrait modifier les visages de ces conflits - Belgique](https://www.europesays.com/be-fr/201506/)\n- [2026-07-05]\n  - [Feu sauvage, collision de 3 voitures, vache sauvée de justesse, serpent dans une grange, intervention du GRIMP au Hérou à Nadrin - Luxembourg](https://www.europesays.com/lu-fr/16739/)\n  - [Feu sauvage, collision de 3 voitures, vache sauvée de justesse, serpent dans une grange, intervention du GRIMP au Hérou à Nadrin - Belgique](https://www.europesays.com/be-fr/164493/)\n\n## Social\n\n### Linkedin\n\n- [2026-09-30 · Posted · 48 reactions] [Depuis une semaine, nous avons le plaisir d'accueillir Sarah...](https://www.linkedin.com/posts/grip_depuis-une-semaine-nous-avons-le-plaisir-activity-7510988665351974913-3oPI)\n  > Depuis une semaine, nous avons le plaisir d'accueillir Sarah Ribeiro au sein de l'équipe communication du GRIP, aux côtés de Laura Dubois et Asmae Harmach ! 🎉\n  >\n  > Étudiante à la maîtrise en études internationales à l'Université de Montréal, Sarah est également titulaire d'un baccalauréat en histoire avec mineures en science politique et en études autochtones, à l'Université McGill.\n  >\n  > Elle rejoint donc le GRIP pour un stage de quatre mois, au coeur de Mundo-Lab, véritable vivier d’associations et d’entreprises de l’économie sociale et solidaire.\n  >\n  > Bienvenue à toi, Sarah ! 👋\n\n- [2026-09-23 · 7 reactions] 📢 Assistez à notre webinaire ! \"Comment mieux s'éduquer face aux désordres informationnels ?\" C'est la question qui sera au coeur de ce #webinaire dont l'objectif sera de présenter les travaux de r...\n\n- [2026-09-22 · Reshared] [C'est déjà ce soir 👇](https://www.linkedin.com/posts/grip_cest-d%C3%A9j%C3%A0-ce-soir-activity-7508139803931045888-a0Tn): C'est déjà ce soir 👇\n\n- [2026-09-22 · Posted · 6 reactions] [La place des drones dans la stratégie sécuritaire de la Turquie...](https://www.linkedin.com/posts/grip_drones-turcs-activity-7508068774068125696-XIB7)\n  > La place des drones dans la stratégie sécuritaire de la Turquie auprès des États du Sahel ✈️\n  >\n  > ✒️ Le GRIP publie ce mardi un nouvel éclairage intitulé « La place des drones dans la stratégie sécuritaire de la République de Turquie auprès de l’Alliance des États du Sahel », signé par l’assistant de recherche au GRIP Mathis Poujol.\n  >\n  > L'intérêt d'#Ankara pour le #Sahel n'a rien de nouveau. Il s'inscrit dans une politique africaine engagée dès le début des années 2000, portée par l'ambition de l’ancien ministre turc des Affaires étrangères Ahmet Davutoğlu de faire du XXIe siècle « le siècle de l'Afrique et de la Turquie ».\n  >\n  > À travers une approche combinant #diplomatie, coopération économique, aide au développement et industrie de #défense, la #Turquie cherche à élargir son influence internationale et à s’affirmer comme une puissance autonome, indépendante des États occidentaux et des membres permanents du Conseil de Sécurité de l’#ONU.\n  >\n  > Dans ce cadre, la vente de drones armés aux États de l'#AES apparaît comme une véritable porte d'entrée pour l'influence turque, afin de s'ancrer durablement dans la région.\n  >\n  > Cet éclairage décrypte en deux temps :\n  > 1️⃣ comment ces ventes ouvrent la voie à l'influence turque au Sahel\n  > 2️⃣ comment elles contribuent à renforcer durablement son ancrage stratégique et son influence\n  >\n  > 📖 Une analyse à lire sur grip.org ou directement ici : https://lnkd.in/e_pzUJC4\n  >\n  > #Sahel #Turquie #Drones #AES #Géopolitique #Défense #Afrique #Recherche\n\n- [2026-09-22 · 6 reactions] La place des drones dans la stratégie sécuritaire de la Turquie auprès des États du Sahel ✈️ ✒️ Le GRIP publie ce mardi un nouvel éclairage intitulé « La place des drones dans la stratégie sécurita...\n\n- [2026-09-21 · Posted · 20 reactions] [Savez-vous combien il y a de conflits dans le monde ? À l’occasion...](https://www.linkedin.com/posts/grip_paix-journ%C3%A9einternationaledelapaix-internationaldayofpeace-activity-7507732818614214656-oML-)\n  > Savez-vous combien il y a de conflits dans le monde ?\n  >\n  > À l’occasion de la journée internationale de la paix, le GRIP est allé à votre rencontre pour vous poser la question suivante : ­­­« Combien y a-t-il de conflits dans le monde ? » 💡\n  >\n  > En 2025, le Comité international de la Croix Rouge en recensait plus de 130 à travers le monde.\n  >\n  > 📝  Face à cette situation, la mission du GRIP est de contribuer, à son échelle, à la construction de la #paix par la recherche et l’information.\n  >\n  > Parce que la guerre et les armes ne sont pas une solution, soutenez notre travail de recherche et d'information sur www.grip.org.\n  >\n  > 🎥 Avec Mathis Poujol, Laura Dubois et Asmae Harmach\n  >\n  > #JournéeInternationaleDeLaPaix #InternationalDayofPeace #ONU #UN #UnitedNations #Peace #Conflicts #Recherche\n\n- [2026-09-21 · 20 reactions] Savez-vous combien il y a de conflits dans le monde ? À l’occasion de la journée internationale de la paix, le GRIP est allé à votre rencontre pour vous poser la question suivante : ­­­« Combien y...\n\n- [2026-09-17 · Posted · 7 reactions] [❔ Comment les désordres informationnels influencent-ils les...](https://www.linkedin.com/posts/grip_les-d%C3%A9sordres-informationnels-activity-7506283249309016064-DV-h)\n  > ❔ Comment les désordres informationnels influencent-ils les périodes électorales en Afrique ?\n  >\n  > 📃 Ce jeudi, le GRIP, en collaboration avec Éduk-Média Cameroon, association camerounaise spécialisée dans l’éducation aux médias et à l’information (#EMI) en Afrique, publie un nouveau rapport qui s'inscrit dans le cadre d’un projet de jumelage entre le GRIP et Éduk-Média, financé par l’OIF. 🤝\n  >\n  > Si le précédent rapport de ce projet avait été rédigé par Éduk Média, cette fois, c’est la chercheuse du GRIP, Clémence Buchet, qui s’est pliée à la tâche.\n  >\n  > 💡 La chercheuse a choisi de s’intéresser aux désordres informationnels en période électorale et de se pencher plus particulièrement sur le cas des\n  > #élections présidentielles de 2025 au #Cameroun. Une campagne qui a vu le nombre de #fakeNews et de manipulations de l’information exploser, avant, pendant et après l’élection.\n  >\n  > 🎯 L’objectif de ce rapport est donc de mieux comprendre les mécanismes et spécificités des désordres informationnels en période électorale.\n  >\n  > 👉 Un rapport à lire sur www.grip.org ou directement ici : https://lnkd.in/eT9vdU4r\n  >\n  > #EMI #EducationAuxMedias #Desinformation #Afrique #GRIP #EdukMedia #ResilienceInformationnelle #Cameroun EDUK-MEDIAS FRANCE  (EMF) Eduk-Media Burundi Éduk-Médias France EDUK-MEDIA Tchad 🇷🇴 Eduk Media Centrafrique\n\n- [2026-09-17 · 7 reactions] ❔ Comment les désordres informationnels influencent-ils les périodes électorales en Afrique ? 📃 Ce jeudi, le GRIP, en collaboration avec Éduk-Média Cameroon, association camerounaise spécialisée da...\n\n- [2026-09-16 · Posted · 4 reactions] [🎥Le GRIP participera le mardi 22 septembre au débat qui suivra la...](https://www.linkedin.com/posts/grip_film-d%C3%A9bat-recherche-activity-7505903836230746112-lBbd)\n  > 🎥Le GRIP participera le mardi 22 septembre au débat qui suivra la projection du documentaire \"Earth's Greatest Enemy\" !\n  >\n  > Ce film d'Abby Martin et Michael Prysner révèle une vérité cachée derrière la crise climatique : le rôle de l’armée américaine en tant que plus grand pollueur institutionnel au monde, en retraçant le lien entre la guerre, l’empire et la destruction écologique.\n  >\n  > Pour en débattre, notre chercheuse Anne Xuan Nguyen (PhD), spécialisée dans l'impact environnemental des guerres, a été invitée par le Festival de la paix, aux côtés de Samuel Legros, chargé de plaidoyer à la CNAPD et qui a notamment travaillé sur la pollution liée aux activités militaires\n  >\n  > 📍CINEMA GALERIES\n  > 🕓Le 22/09 à 18h15\n  > ❓Infos et tickets ici:  https://lnkd.in/ezVbcyKv\n  >\n  > 🤝 Un grand merci au Festival de la paix et au CNAPD pour l'invitation\n  >\n  > #Film #Débat #Recherche #Paix #Peace #Environment\n\n- [2026-09-16 · 4 reactions] 🎥Le GRIP participera le mardi 22 septembre au débat qui suivra la projection du documentaire \"Earth's Greatest Enemy\" ! Ce film d'Abby Martin et Michael Prysner révèle une vérité cachée derrière la...\n\n- [2026-09-15 · Posted · 6 reactions] [✈️ Le NGF est mort. Que reste-t-il du SCAF ? Le GRIP publie ce...](https://www.linkedin.com/posts/grip_scaf-activity-7505535062508019712-CoMb)\n  > ✈️ Le NGF est mort. Que reste-t-il du SCAF ?\n  >\n  > Le GRIP publie ce mardi une nouvelle note d’analyse intitulée “L'échec du SCAF: causes et pistes de sortie”, signée Samuel Longuet et Marie Küntzler, chercheur et chercheuse au GRIP.\n  >\n  > ⚡ Le 8 juin 2026, la France et l’Allemagne actaient l’abandon de leur projet commun de New Generation Fighter (#NGF), pièce maîtresse du Système de combat aérien du futur (#SCAF) lancé en 2017 et rejoint par l’Espagne en 2019.\n  >\n  > Après neuf années de négociations, cet échec dépasse largement le seul avenir d’un avion de combat.\n  >\n  > Pourquoi le NGF n’a-t-il pas abouti ? Quelles sont les pistes de sortie envisagées ? Avec quels risques ?\n  >\n  > 👉 Éléments de réponse à découvrir sur www.grip.org ou directement ici : https://lnkd.in/ejFPPrcH\n\n- [2026-09-15 · 6 reactions] ✈️ Le NGF est mort. Que reste-t-il du SCAF ? Le GRIP publie ce mardi une nouvelle note d’analyse intitulée “L'échec du SCAF: causes et pistes de sortie”, signée Samuel Longuet et Marie Küntzler, ch...\n\n- [2026-09-14 · Posted · 7 reactions] [📝 OMP ou MPS ? Deux sigles, deux boîtes à outils onusiennes - et si...](https://www.linkedin.com/posts/grip_omp-mps-activity-7505195634782625792-JPKJ)\n  > 📝 OMP ou MPS ? Deux sigles, deux boîtes à outils onusiennes - et si on arrêtait de les traiter séparément ?\n  >\n  > 👉L’Observatoire Boutros-Ghali du maintien de la paix piloté par le GRIP, a publié unenouvelle note intitulée « Une analyse intégrée des missions politiques spéciales et des opérations de maintien de la paix des Nations unies : similitudes et différences »\n  >\n  > Dans cette note, la docteure Fanny BADACHE,PhD et la professeure Sara Hellmüller croisent les Opérations de maintien de la paix et les Missions politiques spéciales de l'ONU. En se basant sur des données relatives aux mandats des missions de paix de l’ONU (UNPMM) et de plus de 100 entretiens de terrain, elles montrent que ces deux instruments - pourtant différents sur le plan légal, financier et administratif - poursuivent souvent les mêmes objectifs et sont déployés en complément ou en séquence l'un de l'autre.\n  >\n  > 🔗 Une note à lire sur www.grip.org ou directement ici :  https://lnkd.in/ec3h4WQV\n  >\n  > #MaintienDeLaPaix #ONU #MissionsPolitiquesSpéciales #UnitedNations #Peacekeeping\n\n- [2026-09-14 · 7 reactions] 📝 OMP ou MPS ? Deux sigles, deux boîtes à outils onusiennes - et si on arrêtait de les traiter séparément ? 👉L’Observatoire Boutros-Ghali du maintien de la paix piloté par le GRIP, a publié unenouv...\n\n- [2026-09-11 · Posted · 10 reactions] [🗞️🎙️ Deux chercheuses du GRIP dans les médias cette semaine ! Cette...](https://www.linkedin.com/posts/grip_lescl%C3%A9s-recherche-paix-activity-7504147164495962112-Gytp)\n  > 🗞️🎙️ Deux chercheuses du GRIP dans les médias cette semaine !\n  >\n  > Cette semaine, deux de nos chercheuses ont été invitées dans les médias pour apporter leur éclairage sur des enjeux au cœur de nos recherches : la conquête spatiale - notamment militaire - et l’évolution du recrutement dans la Défense belge.\n  >\n  > 🌌 Lou Villafranca était l’invitée du podcast #LesClés, présenté par Arnaud Ruyssen sur La Première (RTBF), autour de la question : « À qui appartient l’espace ? »\n  > 👉 A (ré)écouter ici: https://lnkd.in/efPK9JkM\n  >\n  > 🪖 Marie Küntzler a, quant à elle, été interrogée par Ugo Santkin du journal Le Soir sur les chiffres records du recrutement dans la Défense belge.\n  > 👉 A (re)lire ici: https://lnkd.in/e5J2F5jC\n  >\n  > 🤝 Merci à La Première et au Soir pour leur confiance et pour ces espaces de dialogue avec la recherche.\n  >\n  > 🔗 Les deux interventions sont également à retrouver sur www.grip.org.\n  >\n  > #Recherche #Paix #Défense #Sécurité #RevueDePresse\n\n- [2026-09-11 · 14 reactions] 🗞️🎙️ Deux chercheuses du GRIP dans les médias cette semaine ! Cette semaine, deux de nos chercheuses ont été invitées dans les médias pour apporter leur éclairage sur des enjeux au cœur de nos rech...\n\n- [2026-09-10 · Posted · 8 reactions] [🎙️ « Paraît que » est lancé ! Un nouveau #podcast pour comprendre...](https://www.linkedin.com/posts/grip_podcast-podcast-para%C3%AEtque-activity-7503729992590192640-n7gA)\n  > 🎙️ « Paraît que » est lancé ! Un nouveau #podcast pour comprendre les mécanismes de la désinformation.\n  >\n  > 🗞️ Comment la désinformation affecte-t-elle nos sociétés, en Europe et sur le continent africain? Que se passe-t-il lorsqu’un pays se trouve confronté aux troubles de l’information? Est-ce un problème si grave?\n  >\n  > C’est le sujet du premier épisode de « Paraît que », le nouveau #podcast porté par le Groupe de recherche et d’information sur la paix et la sécurité et Éduk-Média Cameroon, avec le soutien de l’OIF. 🤝\n  >\n  > 〰️ Dans #ParaîtQue, on parle de #désinformation, de désordres informationnels, de bulles et du rôle trouble des plateformes face à la désinformation.\n  >\n  > 💡 Un projet sonore consacré à la désinformation aux mécanismes de la désinformation sur les #RéseauxSociaux et ailleurs, principalement dans l’espa",
+        "summary": "{\"description\":\"GRIP - Groupe de recherche et d'information sur la paix et la sécurité is a nonprofit independent research center focused on peace, security and conflict prevention, with activities in Africa and environment impact of conflicts.\",\"employee_estimate\":73,\"employee_estimate_source\":\"Employees: 73\",\"hq\":\"Brussels, Belgium\",\"hq_quote\":\"Headquartered in Brussels, Brussels Region, Belgium, with presence in Canada.\",\"industry\":\"Think Tanks\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":false,\"is_third_party_logistics_quote\":\"\\\"Think Tanks\\\" and \\\"Nonprofit\\\" indicate non-manufacturing research organization, not a 3PL/LOGISTICS provider.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4D0BAQHHmAszEQY6iw/company-logo_200_200/B4DZ5jJvMmI4AE-/0/1779779957831/grip_logo?e=2147483647&v=beta&t=B5UhS7tx4cg5E-ubCdKBGTJPJ9d6QQIb0hLTkAc_R6Q",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/091j8skqkms",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "GRIP - Groupe de recherche et d'information sur la paix et la sécurité",
+              "foundedYear": 1979,
+              "description": "GRIP is an independent research centre, based in Brussels (Belgium).\r\nGRIP’s research work focuses mainly on the following domains:\r\n * Conflict prevention, management and resolution\r\n * Proliferation of small arms and control of the arms trade\r\n * European Union and international security\r\n * Defence economy.\r\n\r\nMore on details on the website: www.grip.org/en\r\n\r\nLe GRIP est un centre de recherche indépendant, basé à Bruxelles (Belgique).\t\t\r\n\r\nLes travaux de recherche du GRIP s’articulent autour des axes suivants : \r\n * Prévention, gestion et résolution des conflits violents\r\n * Prolifération des armes légères et contrôle des transferts d’armes\r\n * Union européenne et sécurité internationale\r\n * Economie de l’armement.\r\n\r\nPlus de détails sur le site web : www.grip.org/fr",
+              "workforce": {
+                "total": 73
+              },
+              "headquarters": {
+                "address": "Avenue des Arts 7-8, Brussels, Brussels Region 1210, BE",
+                "city": "Brussels",
+                "postalCode": null,
+                "country": "Belgium"
+              },
+              "financials": {
+                "revenueAnnual": 5088117,
+                "fundingTotal": null,
+                "fundingLatestRound": null
+              },
+              "webTraffic": {
+                "visitsMonthly": 12122,
+                "countryRank": 77745,
+                "avgDurationSeconds": 41,
+                "history": [
+                  {
+                    "value": 16786,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 17385,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 20681,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 28534,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 29254,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 12122,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/htc2n680rys",
+        "title": "Grip",
+        "url": "https://grip.events/",
+        "text": "# Grip\n\nGrip is a Software Development company. Grip is an AI-powered event platform for networking, matchmaking, and lead generation. It is trusted by SXSW, Money20/20, and Clarion Events to connect thousands of participants. Grip employs 90 people (+1.1% YoY, +1 person), founded in 2016. Headquartered in London, England, United Kingdom. Its workforce is distributed across 6 countries (including United Kingdom, Serbia, United States, Denmark, and Mexico).\n\n## About\n\nGrip is the AI-powered event platform built for engagement. It helps event organizers like SXSW, RX and Clarion Events establish, maintain and track relationships between participants over multiple events. This is possible because Grip goes beyond networking. It combines AI with billions of interactions happening across the platform and an intuitive mobile event app so participants meet the right people at the right time. This results in organizers benefitting from better event satisfaction scores, increased growth and ultimately, higher revenues.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: London, United Kingdom\n- Founded Year: 2016\n- Homepage: grip.events\n- Aliases: Intros.at Ltd, grip, intros.at ltd., networkr\n- LinkedIn: linkedin.com/company/gripevents\n- Linkedin Followers: 7,760\n- Emails: hello@grip.events\n\n## Financials\n- Total Funding: USD 13,000,000\n  - Series a (2021-02-18): USD 13.0M\n  - Seed (2017-04-04)\n  - Non equity assistance (2015-11-11)\n  - Seed (2015-06-06)\n  - Angel (2014-11-01)\n\n## Acquisitions\n- Acquired Connectiv - Event Management System (2024-07-16)\n- Acquired Connectiv Holdings’ event management system (2024-07-01)\n\n## Workforce\n- Employees: 90\n- Company Size: 51-200 employees\n  - Yearly Growth: +1.1%\n- Key Executives:\n  - Adrian Dawe: Fractional CFO | Advisor\n  - Ania Keech: Chapter Lead (Networking & Meeting Technology)\n  - Brent Hoberman: Co-Founder\n  - Dheeraj Uppalapati: Head of Engineering\n  - Emma Barrie: Director of Delivery\n  - James Leng: Head of Finance\n  - Jeremy Roche: Chairman\n  - Joe Hunter: Director of Account Management\n  - Joe Hunter: Director of Sales\n  - Lizzy Evans: Chief Product Officer\n- Breakdown:\n  - By Country: United Kingdom: 33 (37%), Serbia: 19 (21%), United States: 8 (9%), Denmark: 2 (2%), Mexico: 1 (1%), United Arab Emirates: 1 (1%)\n  - By Department: Technical: 16 (18%), Operations: 11 (12%), Product: 7 (8%), Other Department: 6 (7%), Finance: 5 (6%), Project Management: 5 (6%), Customer Service: 4 (4%), General Management: 4 (4%), Sales: 3 (3%), Consulting: 1 (1%) (+4 more)\n  - By Seniority: Specialist: 22 (24%), Manager: 11 (12%), Other Management: 11 (12%), Senior: 8 (9%), Head: 5 (6%), Clevel: 4 (4%), Director: 4 (4%), Founder: 1 (1%), Vp: 1 (1%)\n- Active job postings: 2\n- Talent Sources: Founders Forum Group (4), TalkEU | Talk915 (2), ONZO (2), Kuehne+Nagel (2), Hyperoptic (2), Holycode™ (2), G-Research (2), Fourth (2), Computer Rock (2), CIPD (2)\n- Alumni Go To: ProFinda (3), Tes (2), Ready Education (2), Emerald (2), CAKE.com (2), 01 Founders (2), Juro (1), Generalist World 🌀 (1), Coworking Nürnberg (1), Awell (1)\n\n## Products & Technology\n- Tech Stack: clarion, cookieyes, fathom, google ads, google analytics, google search console, google sheets, google tag manager, grafana, hubspot, hubspot marketing hub, humanity, jest, jira, linkedin, mongodb, openai, paypal, prometheus, python, react, salesforce, se ranking, terraform, typescript, zapier, maxio, financialforce, selenium, amp, impact, mastercard, stats, well, c, elasticsearch, graphql, nodejs, xero, sprint, ups, angular, java, javascript, ansible, jira service desk, angularjs\n\n## Web presence\n\n- Twitter: twitter.com/grip_events\n- Facebook: facebook.com/gripnetworking\n- Instagram: instagram.com/grip.events\n- YouTube: youtube.com/@gripevents7677\n- Crunchbase: crunchbase.com/organization/grip\n- Web traffic:\n  - Monthly visits: 112,942\n  - Global rank: 248,464\n  - Bounce rate: 33.0%\n  - Pages per visit: 5.9\n  - Average visit duration: 153s\n\n## Categories\n\nartificial intelligence, artificial-intelligence, attendee networking, b2b networking, business networking, business_and_consumer_services/business_services, conferences, connecting professionals, corporate events, enterprise software, enterprise-software, event app, event management, event management software, event networking, event networking & matchmaking platform, event networking and matchmaking, event-management, events, exhibitions, language processing, lead generation, machine learning, machine-learning, matchmaking, matchmaking app, messaging, networking app, networkr, pre-scheduled meetings, professional networking, smart networking, technology, tradeshows\n\n## Competitors\n\nhopin, brella, swapcard, bizzabo, hubilo, cvent, whova, airmeet, eventmobi, certain, inc., eventtia, attendify, inxpo, ticketfly, roomkey, doubledutch, inc., quickmobile, 6connex, on24, pulsate, stubhub, webex, estimote, expoplatform, seatgeek, smartbots, hubilo technologies, bouquet, bizly\n\n## Recent News\n- [2026-10-08] Mid-Day: Grip, stance, backlift: Nayar’s recipe for Iyer’s ton\n- [2026-10-07]\n  - Cincinnati Enquirer: Cochren & Co.: Zach Williams’ Revival Nights Tour 2026\n  - Exhibition News: Grip launches tool letting sponsors invite attendees without seeing the attendee list\n  - Mid-Day: IN PHOTOS: Heat and haze grip Mumbai's Azad Maidan on Wednesday\n  - Trent Bridge: NCCC News : EVENT GUIDE: NOTTINGHAM BEER AND CIDER FESTIVAL 2026\n  - ABC News & Headlines – Australian Broadcasting Corporation: Three years after 7 October, a traumatised Israel turns tentatively to the future - ABC Religion & Ethics\n- [2026-10-06]\n  - The Golf Wire: Elite Grips Celebrates Jeeno Thitikul’s Victory at the LOTTE Championship\n  - Cincinnati Enquirer: Things To Do in Cincinnati, Ohio\n- [2026-10-05] Wealth Morning: Portfolio Update: September 2026 — Grip the Armrests, Opportunity Ahead\n- [2026-09-24] Cincinnati Enquirer: Essex Studios Fall 2026 ArtWalk October 2 and 3 from 6 - 10 pm Both Nights\n- [2026-09-17]\n  - Army.mil: Get a Grip 2026 :: Fort Drum\n  - Reuters: US invests in critical minerals but China maintains grip\n- [2026-09-14]\n  - Travel Daily Media: Malaysia pushes for larger event market share as regional rivals tighten grip\n  - ABC News - Breaking News, Latest News and Videos: Saudi oil pipeline hit in strikes will be mostly out of service for several weeks for repair\n- [2026-09-13] Cincinnati Enquirer: Cincinnati Enquirer Events - Cincinnati Magazine’s 13th Annual Slice Night\n- [2026-09-12] ContentGrip: Content monetization in 2026: models and economics for B2B brands\n- [2026-09-11]\n  - ContentGrip: What the US Open influencer backlash teaches brands\n  - Britannica: Yemeni Civil War\n- [2026-09-10]\n  - Nintendo: Nintendo Direct reveals Metroid Ravenous, Kirby and the World Beyond, and more games for Nintendo Switch 2 and Nintendo Switch - News - Nintendo Official Site\n  - Facebook: Zee Business. . Zee Business Bond Tokenization Summit 2026: क्या है E-SUTRA का Future Plan? भारत में Bond Market का भविष्य तेज़ी से बदल रहा है\\! इस खास सेगमेंट में जानें कि कैसे Bond Tokenization और डिजिटल एसेट्स भ\n\n## Social\n\n### Linkedin\n\n- [2026-09-18 · 3 reactions] More events? More team? More onsite experiences? Want to know how you do all of this with the same team? We’ve got you covered… tune into our next webinar with Samy Shafeeq and Rikki Bhachu to lear...\n\n- [2026-09-17 · 5 reactions] Free meetings are missable meetings. Sophie Wawro of For Real Events argues meetings should be charged for, not bundled into sponsorship packages, and that taking card details on free tickets has n...\n\n- [2026-09-16 · 3 reactions] Are you in events and want to learn how the best are using AI right now? Then join us on 30th September 📺\n\n- [2026-09-15 · 4 reactions] 85% of attendees come for the connections. 15% come for the content. Kevin Gray of Forge shared that split on Grip's Meeting Engineering webinar. Content is everywhere now, like podcasts and YouTub...\n\n- [2026-09-14 · 6 reactions, 1 comment] Congrats to Rebecca Sausner, Chiyon Yoon and the rest of the Yotta 2026 team. The Event Technology Awards are in November. Let’s go!! 🤞🚀\n\n- [2026-09-10 · 17 reactions, 5 comments] A 50% increase in lead retrieval purchases, year on year, at the same conference. Kelly Hogan, from DealCatalyst, explains what changed. In 2025 a licence let three people scan badges, with no shar...\n\n- [2026-09-09 · 28 reactions] Excited to be heading to the EN Ops Leaders' Summit next week! Now in its second year, the summit brings together operations professionals to tackle the pressures facing exhibition ops, such as tig...\n\n- [2026-09-07 · 24 reactions, 2 comments] We’re hiring a Project Manager in the UK. Some of the world’s biggest trade shows, exhibitions and conferences run on Grip. Turning a signed contract into a successful event takes someone who owns...\n\n- [2026-09-07 · 6 reactions] The IFA Berlin event is even bigger and better this year 🚀 Congrats to the Grip onsite team who were there for the duration of the event. It looked like lots of fun!\n\n- [2026-09-03 · 7 reactions] There's a second event happening at yours. And you're not invited. 👇 Own the connections, or someone else will. See how to bring it inside 👉 https://hubs.ly/Q04wf6Mh0\n\n- [2026-08-27 · 6 reactions, 1 comment] We’ve launched the world’s first public library of AI skills for event organizers. Sign up and start using them today! ✨\n\n- [2026-08-27 · 9 reactions, 1 comment] Nobody remembers your agenda. They remember how your event made them feel. Whether they walked in and instantly knew where to go, or stood by the door feeling like they'd gatecrashed. Whether they...\n\n- [2026-08-25] Our MCP is constantly being enhanced and from today you can take actions from your Grip Insights data.\n\n- [2026-08-24 · 41 reactions, 10 comments] What's the worst thing you can hear in your post event survey? For me, it's different variations of \"I didn't meet anyone I came here to meet\". It's a punch in the gut. I feel it, because not only...\n\n- [2026-08-19 · 9 reactions, 1 comment] The best meeting programs are a result of a team that obsess over the details: the audience make up, registration questions, data that feeds the algorithm and the reporting that proves it landed. T...\n\n- [2026-08-18 · 7 reactions] Your registration form is your checkout. Most organisers still treat it like a survey. It's the single moment where interest either becomes a paid ticket or quietly disappears, which makes it the h...\n\n- [2026-08-13 · 5 reactions] Most events are still run on hope. And it's quietly costing you renewals. You can see it in the exhibitors standing on their booth with a coffee going cold, waiting for the right person to wander p...\n\n- [2026-08-11 · 9 reactions, 1 comment] Your best speaker is on YouTube by Friday. Your event is not. So the real question for any organiser is what people are actually flying in for, because it isn't the talk they could stream from the...\n\n- [2026-08-11 · 34 reactions, 3 comments] Excited to head to SISO Leadership Conference this month for the first time. Looking forward to reconnecting with familiar faces, meeting new ones and bringing back real takeaways for our team at G...\n\n- [2026-08-06 · 5 reactions, 1 comment] Two new native integration sources are live in Grip: Jonas Event Technology and Stova, formerly eventcore (Aventri). Both pull registration data straight into your event, automatically. Jonas (JET)...\n\n## Locations\n- Headquarters: london, england, united kingdom (GB)\n- Offices: london, england, united kingdom (GB), london, greater london ec1y 1aa, united kingdom (GB), london, england ec1y 1aa, united kingdom (GB), liverpool street, england ec2a 2ap, united kingdom (GB)",
+        "summary": "{\"description\":\"Grip is an AI-powered event platform for networking, matchmaking, and lead generation used by event organizers to connect participants across multiple events.\",\"employee_estimate\":90,\"employee_estimate_source\":\"Employees: 90\",\"hq\":\"London, United Kingdom\",\"hq_quote\":\"Headquartered in London, England, United Kingdom.\",\"industry\":\"Software Development\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":false,\"is_third_party_logistics_quote\":\"null\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQFzFJLGJzp9EA/company-logo_200_200/company-logo_200_200/0/1696323807309/gripevents_logo?e=2147483647&v=beta&t=ziGoWoC_jURhuRYAKzq00NPnkuNSks2R_pZXM4wOR-0",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/htc2n680rys",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Grip",
+              "foundedYear": 2016,
+              "description": "Grip is the AI-powered event platform built for engagement. It helps event organizers like SXSW, RX and Clarion Events establish, maintain and track relationships between participants over multiple events. This is possible because Grip goes beyond networking. It combines AI with billions of interactions happening across the platform and an intuitive mobile event app so participants meet the right people at the right time. This results in organizers benefitting from better event satisfaction scores, increased growth and ultimately, higher revenues.",
+              "workforce": {
+                "total": 90
+              },
+              "headquarters": {
+                "address": "Mindspace, 9 Appold Street, Liverpool Street, England EC2A 2AP, GB",
+                "city": "London",
+                "postalCode": null,
+                "country": "United Kingdom"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 13000000,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2021-02-18",
+                  "amount": 13000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 112942,
+                "countryRank": 96193,
+                "avgDurationSeconds": 153,
+                "history": [
+                  {
+                    "value": 176986,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 137958,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 170787,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 138357,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 93355,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 112942,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 4271.2,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

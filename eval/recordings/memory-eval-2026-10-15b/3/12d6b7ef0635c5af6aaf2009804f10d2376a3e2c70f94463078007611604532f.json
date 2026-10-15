@@ -1,0 +1,228 @@
+{
+  "request": {
+    "query": "Tighe Logistics Group",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "484125f2db93e216e70510e9cee933e4",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/32gg5lhhlmd",
+        "title": "Tighe Logistics",
+        "url": "https://tighe-co.com/",
+        "text": "# Tighe Logistics\n\nTighe Logistics is a Transportation, Logistics, Supply Chain and Storage company. Tighe Logistics is a full service 3rd party logistics company providing asset based warehousing, transportation + value added services in the New England area. Tighe Logistics employs 54 people and has an annual revenue of $10.2M, founded in 1862. Headquartered in Woburn, Massachusetts, United States, with offices in Mansfield, Avon, Winchester, and Methuen. Its workforce is distributed across United States and India.\n\n## About\n\nTighe Logistics is the leader in warehousing, transportation and third-party logistics in the Greater Boston and New England area. Headquartered in Woburn, MA with a network of warehouses extending across the northeast, we offer a full range of inventory management, temp-controlled storage, cross-docking, food-grade facilities, and value-added services unmatched in the area for 160 years.\n\nWhat’s more, we offer exceptional transportation solutions for integrated distribution across the region. Leverage our transportation fleet of 50+ power units and 100+ trailers to move your goods to market faster using drayage, JIT shuttles, milk runs, dedicated deliveries, and trained, skilled drivers that only Tighe, as your local, specialized expert, can provide.\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Privately held\n- Headquarters: Woburn, United States\n- Founded Year: 1862\n- Homepage: tighe-co.com\n- Aliases: tighe logistics, tighe logistics group, tighe warehousing and distribution, inc.\n- LinkedIn: linkedin.com/company/tighe-logistics\n- Linkedin Followers: 1,344\n- Emails: sales@tighe-co.com\n- Phone: (781) 939-0925, -781-939-0925, 781-939-0925\n\n## Financials\n- Annual Revenue: USD 10,243,811\n\n## Workforce\n- Employees: 54\n- Company Size: 51-200 employees\n- Key Executives:\n  - Amy Miller: Customer Excellence Director\n  - Eddie Leshin: Member Board of Directors\n  - Eric Buchholz, CPA, CGMA: Chief Financial Officer\n  - Maxwell Mahaffa: Director of Operations\n  - Mike Spicer: Vice President of Transportation\n  - Phillip Palker: Vice President of Transportation\n  - Scott Cook: Vice President of Business Development\n- Breakdown:\n  - By Country: United States: 24 (44%), India: 1 (2%)\n  - By Department: Operations: 6 (11%), Finance: 5 (9%), Customer Service: 3 (6%), Consulting: 2 (4%), General Management: 2 (4%), Project Management: 2 (4%), Trades: 2 (4%), Hr: 1 (2%), Other Department: 1 (2%), Technical: 1 (2%)\n  - By Seniority: Manager: 7 (13%), Specialist: 7 (13%), Director: 3 (6%), Vp: 3 (6%), Other Management: 2 (4%), Clevel: 1 (2%), Intern: 1 (2%), Senior: 1 (2%)\n- Talent Sources: Westaff (2), TriWire Engineering Solutions, Inc. (2), Genuine Parts Company (2), Comcast (2), Trillium Driver Solutions (1), Polep J Distribution Services (1), Minuteman Security & Life Safety (1), Lindt & Sprüngli USA (1), Hub Group Fulfillment (1), C R Machining, Inc. (1)\n- Alumni Go To: XOLogistic (2), UPS (2), M&M Transport Services (2), GardaWorld Cash Services (2), Syneos Health (1), LoadSpring Solutions (1), Industrial Economics, Incorporated (IEc) (1), Hallsmith Sysco Food Services LLC (1), DealerRater (1), Army National Guard (1)\n\n## Products & Technology\n- Tech Stack: snapfulfil, power bi, sql, microsoft, microsoft office, mix, visa\n\n## Web presence\n\n- Twitter: twitter.com/tighelogistics\n- Facebook: facebook.com/pg/tighelogisticsgroup\n- Crunchbase: crunchbase.com/organization/tighe-logistics-group\n- Web traffic:\n  - Monthly visits: 3,707\n  - Global rank: 4,442,517\n  - Bounce rate: 36.0%\n  - Pages per visit: 2.0\n  - Average visit duration: 21s\n\n## Categories\n\n3pl, automotive-transportation, dedicated fleet, distribution, distribution center, drayage, freight, fulfillment, fulfillment center, intermodal trucking, logistics, logistics service provider, new england, packaging, shipping, supply chain, supply chain management, transportation, value added services, warehousing\n\n## Competitors\n\ndrive360 logistics, bostonnorthcancer, teamone logistics, exegistics, jobsinlogistics, banks global transport, momentum transportation usa, inc., hackbarth delivery service, silk way shipping, multi-rio operacoes portuarias, intermodaltrasporti, alfaloc\n\n## Recent News\n- [2026-10-01] Telegraph and Argus: School where 'behaviour can be boisterous' put into special measures\n- [2026-09-30] 14 News: Vanderburgh Co. formally dedicates road to fallen firefighter\n- [2026-09-16] [Tighe Logistics Builds on Its Position as New England’s 3PL Leader With Major 2026 Investments](https://www.einpresswire.com/article/942742739/tighe-logistics-builds-on-its-position-as-new-england-s-3pl-leader-with-major-2026-investments)\n- [2026-08-27] IT Brief New Zealand: NZ CIO of the Year 2026 - Tighe Wall on trust, culture and the cost of holding to strategy\n- [2026-08-21] Denver Gazette: Amber Dawn Tighe Obituary \\(1983 - 2026\\) - Denver, CO\n- [2026-08-20] Legacy \\| Obituary: Amber Dawn Tighe Obituary \\(2026\\) - Aurora, CO - A Better Place Funeral & Cremation Services\n- [2026-08-12] Ocean FM: Thomas \\(Tom\\) Tighe, Aclare\n- [2026-07-03] [Gutteridge opens new Boston-based logistics platform](https://fashionunited.uk/news/retail/gutteridge-opens-new-boston-based-logistics-platform/2026070389004)\n- [2026-05-05] SussexWorld: Heath fall in playoff semi finals as Tighe sends Tye on Guernsey adventure\n- [2026-03-30] RIP.ie: Death Notice of Kathleen Tighe \\(Belmullet, Mayo\\)\n- [2025-11-01] Midwest Radio: Michael Stephen \\(Steve\\) Tighe\n- [2025-10-20] Midwest Radio: Michael \\(Mickey\\) Tighe\n- [2021-12-06] Worcester Business Journal: Clinton warehouse leased to Rotmans, Tighe Logistics, & Scholastic Book sells for $56M as part of four-building deal\n- [2021-04-20] Worcester Business Journal: Logistics company signs major lease in Clinton\n\n## Social\n\n### Linkedin\n\n- [2026-10-01 · Posted · 6 reactions] [The difference between moving freight and moving it well comes down...](https://www.linkedin.com/posts/tighe-logistics_asset-based-freight-transportation-in-new-activity-7511402147066912768-8gcJ)\n  > The difference between moving freight and moving it well comes down to control.\n  >\n  > As an asset-based transportation provider, Tighe Logistics delivers the consistent capacity, regional expertise, and reliable service businesses need to keep freight moving across New England and beyond.\n  >\n  > Learn how our transportation solutions can support your supply chain: https://lnkd.in/eftP79Fz\n  >\n  > #TigheLogistics #FreightTransportation #AssetBased #3PL #SupplyChain #Logistics #Transportation #NewEngland\n\n- [2026-09-28 · Posted · 14 reactions] [Tighe's momentum is unstoppable! \"As the leading 3PL in Greater...](https://www.linkedin.com/posts/tighe-logistics_tighe-logistics-builds-on-its-position-as-activity-7510361094968791042-8TgT)\n  > Tighe's momentum is unstoppable! \"As the leading 3PL in Greater Boston and New England, we’re not simply adding buildings, trucks, technology or people. We’re investing in the infrastructure and capabilities that allow us to solve more complex logistics challenges for our customers and support them as they grow,\" explains Bob Willert, CEO at Tighe Logistics.  Read more about Tighe's recent milestones in this press release: https://lnkd.in/gi-fthsB\n  >\n  > #TigheLogistics #FreightTransportation #AssetBased #3PL #SupplyChain #Logistics #Transportation #NewEngland\n\n- [2026-09-23 · Posted · 5 reactions] [A production line is only as strong as the supply chain behind it...](https://www.linkedin.com/posts/tighe-logistics_tighelogistics-technologymanufacturing-activity-7508525653567127552-yw44)\n  > A production line is only as strong as the supply chain behind it. Tighe Logistics helps technology manufacturers keep operations running with just-in-time logistics, real-time inventory visibility, and integrated warehousing and transportation solutions designed for today's fast-paced manufacturing environment. Ready to learn more? Visit us online at: https://lnkd.in/ewJShCR8\n  >\n  > #TigheLogistics #TechnologyManufacturing #JIT #SupplyChain #3PL #Warehousing #Logistics #Manufacturing\n\n- [2026-09-17 · Posted · 5 reactions] [Growing your snack brand shouldn't mean juggling multiple logistics...](https://www.linkedin.com/posts/tighe-logistics_snack-food-3pl-warehousing-in-new-england-activity-7506351484973015040-oL36)\n  > Growing your snack brand shouldn't mean juggling multiple logistics providers.\n  >\n  > As your business expands into retail, eCommerce, wholesale, and subscription sales, an integrated 3PL can simplify fulfillment, improve inventory visibility, and keep products moving efficiently.\n  >\n  > Discover how Tighe is helping snack brands streamline logistics at:  https://lnkd.in/esNmmJkF\n  >\n  > #TigheLogistics #SnackFood #FoodLogistics #Fulfillment #Omnichannel #SupplyChain #3PL #Warehousing\n\n- [2026-09-17 · 5 reactions] Growing your snack brand shouldn't mean juggling multiple logistics providers. As your business expands into retail, eCommerce, wholesale, and subscription sales, an integrated 3PL can simplify ful...\n\n- [2026-09-07 · Posted · 6 reactions] [This Labor Day, we recognize the people who keep supply chains...](https://www.linkedin.com/posts/tighe-logistics_laborday-tighelogistics-supplychain-activity-7502682112341307392-HuqG)\n  > This Labor Day, we recognize the people who keep supply chains moving.\n  >\n  > From our warehouse teams and drivers to our customers and partners, thank you for your hard work, dedication, and commitment every day. We wish everyone a safe and happy Labor Day!\n  >\n  > #LaborDay #TigheLogistics #SupplyChain #Warehousing #Transportation #3PL #ThankYou\n\n- [2026-09-07 · 12 reactions] This Labor Day, we recognize the people who keep supply chains moving. From our warehouse teams and drivers to our customers and partners, thank you for your hard work, dedication, and commitment e...\n\n- [2026-09-01 · Posted · 3 reactions] [Warehousing should do more than store inventory. It should keep...](https://www.linkedin.com/posts/tighe-logistics_tighelogistics-warehousing-supplychain-activity-7500571955968905218-OijN)\n  > Warehousing should do more than store inventory. It should keep your supply chain moving.\n  >\n  > With strategically located facilities, advanced technology, and customized 3PL solutions, Tighe Logistics helps businesses improve visibility, increase efficiency, and scale with confidence across New England and beyond.\n  >\n  > Contact us today to explore how we can help your business:  https://lnkd.in/ed7Hjtn9\n  >\n  > #TigheLogistics #Warehousing #SupplyChain #3PL #InventoryManagement #Logistics #NewEngland\n\n- [2026-09-01 · Posted · 11 reactions] [That's a wrap! We’re closing out our Food Truck Tour! Employee...](https://www.linkedin.com/posts/tighe-logistics_tighelogistics-teamtighe-employeeappreciation-activity-7500522933325307904-BXy-)\n  > That's a wrap!  We’re closing out our Food Truck Tour!  Employee Appreciation celebrations in Clinton were the final stop on our Tighe location visits. 🚚🍴\n  >\n  > From Mansfield to Winchester and Woburn, to Dedham, Avon and now Clinton, we had a spectacular week celebrating the people who keep Tighe moving forward every day.\n  >\n  > Our reason to celebrate:  We reached 200 employees in July!  Our growth reflects our relentless pursuit to solve increasingly complex needs for our customers with a team loaded with talent!\n  >\n  > To our entire Tighe team: thank you for your hard work, dedication, and commitment to our customers.\n  >\n  > And to our Clinton crew: you’re the grand finale! 🎉\n  >\n  > #TigheLogistics #TeamTighe #EmployeeAppreciation #FoodTruckTour #Logistics #3PL\n\n- [2026-09-01 · 3 reactions] Warehousing should do more than store inventory. It should keep your supply chain moving. With strategically located facilities, advanced technology, and customized 3PL solutions, Tighe Logistics h...\n\n- [2026-09-01 · 14 reactions, 1 comment] That's a wrap! We’re closing out our Food Truck Tour! Employee Appreciation celebrations in Clinton were the final stop on our Tighe location visits. 🚚🍴 From Mansfield to Winchester and Woburn, to...\n\n- [2026-08-31 · Posted · 5 reactions] [The Tighe Food Truck Tour is rockin’ on! 🚚🌮 Meet our teams in Avon...](https://www.linkedin.com/posts/tighe-logistics_tighelogistics-employeeappreciation-teamtighe-activity-7500212474583900160-ez2i)\n  > The Tighe Food Truck Tour is rockin’ on! 🚚🌮\n  >\n  > Meet our teams in Avon and at our newest location in Dedham! There’s plenty to celebrate. Our Tighe workforce reached 200 employees in July!\n  >\n  > That growth is driven by our continued commitment to helping customers navigate increasingly complex logistics challenges. More complexity requires more expertise, more flexibility, and more people working together to deliver.\n  >\n  > Thank you, Team Tighe!\n  >\n  > #TigheLogistics #EmployeeAppreciation #TeamTighe #FoodTruckTour #Logistics\n\n- [2026-08-31 · 7 reactions] The Tighe Food Truck Tour is rockin’ on! 🚚🌮 Meet our teams in Avon and at our newest location in Dedham! There’s plenty to celebrate. Our Tighe workforce reached 200 employees in July! That growth...\n\n- [2026-08-28 · Posted · 27 reactions] [200 employees. A card game and a hearty round of vitilla. That's...](https://www.linkedin.com/posts/tighe-logistics_teamtighe-employeeappreciation-tighelogistics-activity-7499085760835362816-iT5D)\n  > 200 employees. A card game and a hearty round of vitilla. That's what makes us all part of One Tighe Team!\n  >\n  > We 'hit' (pun intended!) an exciting milestone in July: our workforce grew to 200 employees. That growth is about more than a number. It represents the people behind every shipment, every warehouse operation, every delivery, and every logistics solution we provide to our customers.\n  >\n  > And this week, we’re taking a little time to celebrate them!\n  >\n  > Our Employee Appreciation Food Truck Tour has been visiting Tighe locations throughout the week, with stops and fun times planned in Avon, Mansfield, Winchester, Woburn, Clinton and Dedham.\n  >\n  > As our customers’ challenges grow more complex, so does the Tighe team helping them solve those challenges.  Here’s to the people behind the momentum.\n  >\n  > Thank you, Team Tighe!\n  >\n  > #TeamTighe #EmployeeAppreciation #TigheLogistics #Logistics #3PL\n\n- [2026-08-28 · 29 reactions, 4 comments] 200 employees. A card game and a hearty round of vitilla. That's what makes us all part of One Tighe Team! We 'hit' (pun intended!) an exciting milestone in July: our workforce grew to 200 employee...\n\n- [2026-08-27 · Posted · 16 reactions] [This week, we’re celebrating the people who make Tighe Logistics...](https://www.linkedin.com/posts/tighe-logistics_tighelogistics-employeeappreciation-teamtighe-activity-7498744937270775808-f5ax)\n  > This week, we’re celebrating the people who make Tighe Logistics what it is.\n  > Our Employee Appreciation Food Truck Tour is making stops across our major locations.  We were in Mansfield yesterday and what a beautiful summer day it was!\n  >\n  > Our Tighe team reached 200 employees in July, and that growth reflects something important: as our customers’ logistics needs become more complex, our people and capabilities continue to grow right alongside them.\n  >\n  > We’re grateful for the dedication, flexibility, and expertise our employees bring to work every day.\n  >\n  > This week, the food trucks are on us. You’ve earned it!\n  >\n  > Next Up:\n  > - Winchester & Woburn: Today!\n  > - Clinton: Friday\n  > - Dedham & Avon: Celebrations happening too!\n  >\n  > #TigheLogistics #EmployeeAppreciation #TeamTighe #Logistics #3PL\n\n- [2026-08-27 · 20 reactions, 5 comments] This week, we’re celebrating the people who make Tighe Logistics what it is. Our Employee Appreciation Food Truck Tour is making stops across our major locations. We were in Mansfield yesterday and...\n\n- [2026-08-24 · Posted · 10 reactions] [Building materials require more than warehouse space when it comes...](https://www.linkedin.com/posts/tighe-logistics_integrated-logistics-case-study-tighe-logistics-activity-7497635103012012032-9YIo)\n  > Building materials require more than warehouse space when it comes to logistics; it takes precision, visibility, and reliable transportation — and attention to every detail.\n  >\n  > Tighe Logistics helps manufacturers and distributors manage inventory, meet retail delivery requirements, and keep products moving efficiently across New England and the Northeast.\n  >\n  > Find out more about how we help customers achieve their goals. Read the case study:  https://lnkd.in/eSRCUznZ\n  >\n  > #TigheLogistics #BuildingMaterials #ConstructionLogistics #Warehousing #Transportation #SupplyChain #3PL\n\n- [2026-08-24 · 12 reactions] Building materials require more than warehouse space when it comes to logistics; it takes precision, visibility, and reliable transportation — and attention to every detail. Tighe Logistics helps m...\n\n- [2026-08-20 · Posted · 8 reactions] [The best measure of a logistics partner isn't months. It's decades...](https://www.linkedin.com/posts/tighe-logistics_tighelogistics-customersuccess-3pl-activity-7496268581081513985-r-YX)\n  > The best measure of a logistics partner isn't months. It's decades. For more than 30 years, a premium tomato and olive oil producer has trusted Tighe Logistics to support its supply chain. From unloading hundreds of rail cars each year to managing thousands of pallets and delivering products to restaurants across New England, we've built a partnership based on reliability, consistency, and service. Find out what a true partnership can accomplish in in our case studies:  https://lnkd.in/ek9H8MZq\n  >\n  > #TigheLogistics #CustomerSuccess #3PL #FoodLogistics #SupplyChain #Warehousing #Transportation #Partnership\n\n## Locations\n- Headquarters: woburn, massachusetts, united states\n- Offices: woburn, massachusetts, united states, mansfield, massachusetts, united states, avon, massachusetts, united states, methuen, massachusetts, united states, woburn, united states (US), winchester, massachusetts, united states",
+        "summary": "{\"description\":\"Tighe Logistics is a Transportation, Logistics, Supply Chain and Storage company offering asset-based warehousing, transportation and value-added services in the New England area.\",\"employee_estimate\":54,\"employee_estimate_source\":\"Employees: 54\",\"hq\":\"Headquartered in Woburn, Massachusetts, United States\",\"hq_quote\":\"Headquartered in Woburn, Massachusetts, United States, with offices in Mansfield, Avon, Winchester, and Methuen.\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"3rd party logistics company providing asset based warehousing, transportation + value added services in the New England area that is a full service 3rd party logistics company\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C560BAQGGGpsG2bnoag/company-logo_200_200/company-logo_200_200/0/1679501445539/tighe_logistics_logo?e=2147483647&v=beta&t=xJzF2k0F-IHit2myhPb6MofBjdm-nMnBTCvTewVceZ0",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/32gg5lhhlmd",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Tighe Logistics",
+              "foundedYear": 1862,
+              "description": "Tighe Logistics is the leader in warehousing, transportation and third-party logistics in the Greater Boston and New England area. Headquartered in Woburn, MA with a network of warehouses extending across the northeast, we offer a full range of inventory management, temp-controlled storage, cross-docking, food-grade facilities, and value-added services unmatched in the area for 160 years.\n\nWhat’s more, we offer exceptional transportation solutions for integrated distribution across the region. Leverage our transportation fleet of 50+ power units and 100+ trailers to move your goods to market faster using drayage, JIT shuttles, milk runs, dedicated deliveries, and trained, skilled drivers that only Tighe, as your local, specialized expert, can provide.",
+              "workforce": {
+                "total": 54
+              },
+              "headquarters": {
+                "address": "481 Wildwood Avenue, Woburn, MA 01801, US",
+                "city": "Woburn",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 10243811,
+                "fundingTotal": null,
+                "fundingLatestRound": null
+              },
+              "webTraffic": {
+                "visitsMonthly": 3707,
+                "countryRank": 1637618,
+                "avgDurationSeconds": 21,
+                "history": [
+                  {
+                    "value": 2702,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 3605,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 2994,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 3818,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 2270,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 3707,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/ntd64zvrk18",
+        "title": "Tighe International",
+        "url": "https://tighesearch.com/",
+        "text": "# Tighe International\n\nTighe International is a Outsourcing and Offshoring Consulting company. Tighe International is a company that specializes in hedge fund management. They offer portfolio management, seeding programs, proprietary trading, and family office investment vehicles globally. Tighe International employs 4 people, founded in 2013. Headquartered in London, United Kingdom, with an office in Chesterfield.\n\n## About\n\nTighe International is a Dubai and London Based Search & Selection firm specialising in Quantitative and Systematic Trading and Portfolio Management. We work with the Major Market Making, Proprietary, Hedge Fund, Investment Banks and Asset Manager firms as well as advising other Executive Search firms in what is our Niche area. Founded in 2013, we aim to determine a strategy to identify the talent your firm requires to maximise profits. Our coverage is Global. We work with consultants in both the US and Asia to determine the best talent for the roles mandated, The key individuals of Tighe Search focus solely upon activities within the systematic trading and quantitative finance industry. We regularly conduct market research for our clients into the activities within the global marketplace for quantitative and systematic strategies and we have an unparalleled track record of retained searches for high frequency and systematic traders. Our aim is to improve on this globally.\n\n## Company Details\n- Industry: Outsourcing and Offshoring Consulting\n- Type: Privately held\n- Headquarters: London, United Kingdom\n- Founded Year: 2013\n- Homepage: tighesearch.com\n- Aliases: TIGHE INTERNATIONAL LTD, tighe international, tighe search\n- LinkedIn: linkedin.com/company/tighe-international-fzco\n- Linkedin Followers: 872\n- Emails: asmart@tighesearch.com, info@tighesearch.com\n- Phone: +971585940075\n\n## Workforce\n- Employees: 4\n- Company Size: 1-10 employees\n- Key Executives:\n  - Austen Smart: Managing Director\n- Breakdown:\n  - By Country: United Arab Emirates: 2 (50%)\n  - By Department: General Management: 1 (25%), Other Department: 1 (25%)\n  - By Seniority: Director: 1 (25%), Other Management: 1 (25%)\n- Talent Sources: Vision RT Ltd (1), Marks and Spencer (1)\n- Alumni Go To: The Co-Operative Food (1), Nottingham Trent University (1)\n\n## Web presence\n\n- Crunchbase: crunchbase.com/organization/tighe-international-ltd\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Categories\n\nartificial intelligence (ai), consulting, cryptocurrency, family office investment vehicles, finance, financial exchanges, financial services, fintech, hedge fund management, hedge funds, market research, portfolio management, proprietary trading, recruiting, seeding programs\n\n## Social\n\n### Linkedin\n\n- [2025-03-13] https://lnkd.in/dnvFTMd4\n\n- [2025-03-13] https://lnkd.in/diK8fu9A\n\n- [2023-11-22 · 1 reaction] https://lnkd.in/dSbrAqk2\n\n- [2023-11-22 · 4 reactions, 1 comment] We welcome Lewis Windle today to Tighe International Dubai. Lewis has a depth of experience in Business Development, Fixed Income Broking, has worked in the UAE as an affiliate consultant and recru...\n\n- [2023-11-22 · 1 reaction] If you are a Futures/Options prop trader working for any prop firm globally, who wants to retain IP, work anywhere they like, get paid 25-35% of PNL, own the Fund and be capitalized by serious back...\n\n- [2023-06-02 · 1 reaction] Working with a super interesting Strategic Growth Partner and Capital backer. Ideally looking for scalable and expansion hungry Prop firms who run a book but also have other interesting business li...\n\n- [2023-01-07] Same same\n\n- [2022-12-16] https://lnkd.in/e6dHfq4U\n\n- [2022-12-06] Pro Tip: If you are looking to make your CV quickly and efficiently, please check out https://www.visualcv.com/ you can simply sign in via Linkedin, download or manually input your Linkedin user pr...\n\n- [2022-09-12] Interesting gains\n\n- [2022-08-12] One thing Ive learnt about offers is this.. If a firm wants you, likes you and wants to hire you, they should 100% make the best offer first and never start with a bad offer- ESPECIALLY if they hav...\n\n- [2022-08-10] https://lnkd.in/dGzd44Hs\n\n- [2022-08-10 · 2 reactions] Quant Trader/ Analyst My client, a world leading Quantitative Hedge Fund and Trading platform are looking for experienced Systematic Event Driven Quant Researchers in London. They seek a demonstrab...\n\n## Locations\n- Headquarters: london, united kingdom (GB)\n- Offices: london, essex, united kingdom (GB), london, united kingdom (GB), chesterfield, derbyshire, united kingdom (GB)",
+        "summary": "{\"description\":\"Tighe International is a Dubai and London based search & selection firm specialising in quantitative and systematic trading and portfolio management.\",\"employee_estimate\":4,\"employee_estimate_source\":\"Employees: 4\",\"hq\":\"London, United Kingdom\",\"hq_quote\":\"Headquartered in London, United Kingdom, with an office in Chesterfield.\",\"industry\":\"Outsourcing and Offshoring Consulting\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":false,\"is_third_party_logistics_quote\":\"null\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4D0BAQFk9TNrD0-5Kg/company-logo_200_200/company-logo_200_200/0/1660127950794/tighe_search_limited_logo?e=2147483647&v=beta&t=HrkWH0GFLZ76K0moUPBI5RfNib7d_q8zuNSrQYxB-xk",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/ntd64zvrk18",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Tighe International",
+              "foundedYear": 2013,
+              "description": "Tighe International is a Dubai and London Based Search & Selection firm specialising in Quantitative and Systematic Trading and Portfolio Management. We work with the Major Market Making, Proprietary, Hedge Fund, Investment Banks and Asset Manager firms as well as advising other Executive Search firms in what is our Niche area. Founded in 2013, we aim to determine a strategy to identify the talent your firm requires to maximise profits. Our coverage is Global. We work with consultants in both the US and Asia to determine the best talent for the roles mandated, The key individuals of Tighe Search focus solely upon activities within the systematic trading and quantitative finance industry. We regularly conduct market research for our clients into the activities within the global marketplace for quantitative and systematic strategies and we have an unparalleled track record of retained searches for high frequency and systematic traders. Our aim is to improve on this globally.",
+              "workforce": {
+                "total": 4
+              },
+              "headquarters": {
+                "address": "117 PICCADILLY MAYFAIR, LONDON, W1J 7JU, GB",
+                "city": "London",
+                "postalCode": null,
+                "country": "United Kingdom"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 180,
+                    "dateFrom": "2026-01",
+                    "dateTo": "2026-01"
+                  },
+                  {
+                    "value": 180,
+                    "dateFrom": "2026-02",
+                    "dateTo": "2026-02"
+                  },
+                  {
+                    "value": 68,
+                    "dateFrom": "2026-03",
+                    "dateTo": "2026-03"
+                  },
+                  {
+                    "value": 134,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 642,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 6241,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

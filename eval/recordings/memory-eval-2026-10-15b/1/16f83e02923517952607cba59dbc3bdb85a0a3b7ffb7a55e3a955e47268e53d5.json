@@ -1,0 +1,240 @@
+{
+  "request": {
+    "query": "Flowspace",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "aa81b48346bdc4ff11b50bfb18501a9e",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/xp58g385459",
+        "title": "Flowspace",
+        "url": "https://flow.space/",
+        "text": "# Flowspace\n\nFlowspace is a Transportation, Logistics, Supply Chain and Storage company. Flowspace is a fulfillment platform that helps ecommerce businesses manage inventory, orders, and nationwide fulfillment. They offer powerful logistics software and warehouse network to help businesses scale their ecommerce operations. Flowspace employs 82 people (+5.1% YoY, +4 people) and has an annual revenue of $7M, founded in 2017. Headquartered in Los Angeles, California, United States, with an office in Marina del Rey. Its workforce is distributed across 12 countries (including United States, Argentina, Canada, Colombia, and Brazil).\n\n## About\n\nFlowspace is a modern fulfillment provider that combines powerful technology with expert fulfillment operations to deliver seamless and scalable execution that moves with your business.\n\nFounded in 2017 to break down barriers between merchants and their customers, Flowspace empowers sellers to take control of operations and unlock growth.\n\nToday, hundreds of ecommerce companies use our software and nationwide warehouses to position inventory closer to shoppers, connect sales channels, and fulfill orders quickly and accurately—with expert support every step of the way.\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Privately held\n- Headquarters: Los Angeles, United States\n- Founded Year: 2017\n- Homepage: flow.space\n- Aliases: Flowspace, Inc., flowspace\n- LinkedIn: linkedin.com/company/flowspace\n- Linkedin Followers: 9,469\n- Emails: support@flow.space\n\n## Financials\n- Annual Revenue: USD 7,000,000\n- Total Funding: USD 46,520,000\n  - Series b (2021-03-15): USD 31.0M\n  - Series a (2019-04-16): USD 12.0M\n  - Seed (2018-06-26): USD 2.2M\n  - Seed (2017-11-01): USD 1.2M\n  - Seed (2017-08-21): USD 120,000\n\n## Acquisitions\n- Acquired RetailOps\n\n## Workforce\n- Employees: 82\n- Company Size: 51-200 employees\n  - Yearly Growth: +5.1%\n- Key Executives:\n  - Alex Koval, CPA: Director of Accounting\n  - Ben Eachus: Co-Founder and CEO\n  - Chukwuka O: Self Employed\n  - Erin Essman: Business Development Director\n  - Erin Essman: Senior Business Development Director\n  - Frank Garcia: Chief Operating Officer\n  - Gleb Shestakov: Director of Data\n  - Jason Harbert: Co-Founder and CTO\n  - John Sedigh: Head of Strategic Partnerships\n  - Joshua Simmons: Director of Engineering\n- Breakdown:\n  - By Country: United States: 43 (52%), Argentina: 3 (4%), Canada: 2 (2%), Colombia: 2 (2%), Brazil: 1 (1%), Georgia: 1 (1%), Guatemala: 1 (1%), India: 1 (1%), Nigeria: 1 (1%), Panama: 1 (1%) (+2 more)\n  - By Department: Technical: 15 (18%), Operations: 10 (12%), General Management: 7 (9%), Sales: 7 (9%), Finance: 5 (6%), Other Department: 4 (5%), Consulting: 3 (4%), Customer Service: 2 (2%), Marketing: 2 (2%), Product: 2 (2%) (+3 more)\n  - By Seniority: Specialist: 17 (21%), Manager: 15 (18%), Director: 7 (9%), Other Management: 7 (9%), Senior: 6 (7%), Founder: 4 (5%), Head: 3 (4%), Clevel: 1 (1%), Owner: 1 (1%)\n- Salary ranges (20 of 42 roles):\n  - Director: median $186,144.88 per year\n  - Sr. Manager, Operations: median $170,539.63 per year\n  - Solutions Architect: median $168,373.07 per year\n  - Senior Software Engineer: median $166,297.99 per year\n  - Strategic Account Manager: median $155,499.85 per year\n  - Software Engineer: median $147,207.12 per year\n  - Business Development Manager: median $146,339.6 per year\n  - Cloud Infrastructure Engineer: median $144,638.9 per year\n  - Sr Operations Manager: median $138,000.66 per year\n  - Director of Customer Success: median $137,773.04 per year\n  - Manager of Analytics: median $130,803.04 per year\n  - Regional Operations Manager: median $129,344.62 per year\n  - Project/Product Manager: median $128,991.43 per year\n  - Sales Representative: median $123,846.19 per year\n  - Revenue Marketing Manager: median $120,400.52 per year\n  - Sr. Account Executive: median $119,326.18 per year\n  - Junior Data Scientist: median $113,495.37 per year\n  - Operations Manager: median $106,942.47 per year\n  - Business Development: median $105,154.65 per year\n  - Account Executive: median $102,233 per year\n- Talent Sources: OceanX by Cart.com (5), Houzz (4), Monde (3), Flexport (3), Bergen Logistics (3), YouTube (2), Mathnasium - The Math Learning Center (2), GoodBites Group (2), Avison Young (2), ADP (2)\n- Alumni Go To: Swyft (3), Stord (2), Spark (2), ShipBob (2), Ohi (2), Lumen Technologies (2), Kintetsu World Express (2), Deel (2), Alteryx (2), 3PL Central, an Extensiv Company (2)\n\n## Products & Technology\n- Tech Stack: circleci, flowspace, git, google cloud, google cloud platform, iam, javascript, jazzhr, react, ruby, sql, postman, rspec, salesforce, docker, graphql, jest, postgresql, redis, c, impact, hunter, miro, slack, well, zoom, apollo.io, mix, segment, google analytics, notion, linkedin, stackadapt, ruby on rails, shopify\n\n## Web presence\n\n- Twitter: twitter.com/get_flowspace\n- Facebook: facebook.com/getflowspace\n- Instagram: instagram.com/getflowspace\n- YouTube: youtube.com/@flowspace6974\n- Crunchbase: crunchbase.com/organization/flowspace\n- Web traffic:\n  - Monthly visits: 28,405\n  - Global rank: 1,047,274\n  - Bounce rate: 38.0%\n  - Pages per visit: 1.7\n  - Average visit duration: 20s\n\n## Reviews & Ratings\n- Employer Rating: 4.7/5.0 (72 reviews)\n  - Breakdown: Work-Life: 4.7, Compensation: 4.6, Culture: 4.9, Career: 4.8\n\n## Categories\n\n3pl, 3pl software, business_and_consumer_services/business_services, distribution software, ecommerce, enterprise-software, flowspace, fulfillment, inventory, inventory control, logistics, platform, retail distributed order management systems, software, supply chain management, supply-chain-management, technology, warehouse, warehouse management, warehousing\n\n## Competitors\n\nshipbob, flexe, deliverr, sparefoot, clutter, simply, makespace, boxbee, z2data, mycloudfulfillment, flow\n\n## Recent News\n- [2026-10-11] TradingView: Seraphim Space Investment Trust Plc Cash Flow – HAN:75N\n- [2026-10-10]\n  - TradingView: Cash flow from investing activities of Space Fox Games SA Class A – GPW:FOX\n  - TradingView: Cash flow from operating activities of Space Fox Games SA Class A – GPW:FOX\n  - Flow Space: So You Got Through Chemo. Now What About Your Hair?\n- [2026-10-09]\n  - Flow Space: Build Muscle With This 20-Minute Full-Body Strength Workout\n  - jeu.video: FLOW Releases “UNSTOPPABLE” Video for Reborn as a Space Mercenary\n- [2026-10-08]\n  - Flow Space: Flow Space’s Annual 2026 Women’s Health Summit Is Returning to LA\\!\n  - TradingView: Free cash flow per share of Space Fox Games SA Class A – GPW:FOX\n  - The Courier-Journal: One room, three ways: Explore these renovated kitchens in Louisville\n  - TradingView: Operating cash flow per share of Space Fox Games SA Class A – GPW:FOX\n  - Flow Space: SoulCycle Legend Stacey Griffith Faced Stage 3 Breast Cancer. Now She’s Back in the Saddle\n- [2026-10-07]\n  - Flow Space: \"When in Menopause\" Is Your Guide to Fighting for the Care You Deserve\n  - Flow Space: EXCLUSIVE: Alloy Launches Two New Targeted Skincare Treatments\n  - Flow Space: HRT and Stroke Risk: What Women in Midlife Need To Know\n  - TradingView: Operating cash flow per share of NorthStar Earth & Space Enterprises, Inc. – BOATS:NSTR\n  - Crain's Chicago Business: Opinion: UChicago lab offers space for water innovation to flow\n- [2026-10-06]\n  - The Motley Fool: Boeing vs. Space Exploration Technologies: Which Industrials Stock Is a Better Buy in 2026?\n  - TradingView: Cash flow from financing activities of NorthStar Earth & Space Enterprises, Inc. – AMEX:NSTR\n  - Crunchyroll: FLOW Shares Reborn as a Space Mercenary Anime Opening Song Music Video\n- [2026-10-05] Flow Space: Fuel Your Flow: Why You Should Try Eating Seasonally\n- [2026-07-23] [Shed Is Offering $100 Off Your First Month of GLP-1 Treatment—Snag the Discount Code Here](https://stylecaster.com/lifestyle/health-fitness/1234935323/shed-discount-code/)\n- [2026-07-22] [Flowspace Launches Fulfillment Freedom Fund, Providing Up to $50,000 in Transition Support to Help Brands Switch from Restrictive 3PL Providers \\| Clinton News Record](https://www.clintonnewsrecord.com/pmn/business-wire-news-releases-pmn/flowspace-launches-fulfillment-freedom-fund-providing-up-to-50000-in-transition-support-to-help-brands-switch-from-restrictive-3pl-providers)\n\n## Social\n\n### Linkedin\n\n- [2026-10-01 · Posted · 2 reactions] [More time to make your next move. 📦 We're extending the Fulfillment...](https://www.linkedin.com/posts/flowspace_fulfillment-3pl-logistics-activity-7511549154867814400-jpRP)\n  > More time to make your next move. 📦\n  >\n  > We're extending the Fulfillment Freedom Fund through December 31 - offering up to $50,000 toward your buyout, onboarding, and first 90 days to switch to a better 3PL.*\n  >\n  > Ready to switch to a fulfillment partner that moves with your business? Apply now: https://lnkd.in/eUGEQzyc\n  >\n  > *Terms and conditions apply: https://lnkd.in/eEty93ud\n  >\n  > #Fulfillment #3PL #Logistics #SupplyChain #Flowspace\n\n- [2026-09-17 · Posted · 3 reactions] [Don't stay weighed down. 📦 If your 3PL is breaking your growth (or...](https://www.linkedin.com/posts/flowspace_join-the-fulfillment-freedom-fundpdf-activity-7506468410344730624-3ptd)\n  > Don't stay weighed down. 📦\n  >\n  > If your 3PL is breaking your growth (or back), you shouldn't have to wait out the contract to do something about it.\n  >\n  > We're offering up to $50,000 from the Fulfillment Freedom Fund to help you switch - offseting your buyout, onboarding, and first 90 days.*\n  >\n  > Applications close 9/30 - https://lnkd.in/eUGEQzyc\n  >\n  > *Terms apply.  https://lnkd.in/eEty93ud\n\n- [2026-09-17 · 3 reactions] Don't stay weighed down. 📦 If your 3PL is breaking your growth (or back), you shouldn't have to wait out the contract to do something about it. We're offering up to $50,000 from the Fulfillment Fre...\n\n- [2026-09-15 · Posted · 4 reactions] [Most DTC brands hit the same wall when they scale into omnichannel...](https://www.linkedin.com/posts/flowspace_omnichannelretail-dtctoomnichannel-ecommerceleadership-activity-7505738416622379008-ksQn)\n  > Most DTC brands hit the same wall when they scale into omnichannel. 👀🔽\n  >\n  > In this episode, we break down the real friction point brands face moving from direct-to-consumer to true omnichannel — and why \"I'm not your enemy, I'm your friend\" might be the most important line a new hire ever says internally.\n  >\n  > Watch/listen to the full episode of Well Delivered featuring Alexander Lans out now: https://lnkd.in/etVqiiTc\n  >\n  > #OmnichannelRetail #DTCtoOmnichannel #EcommerceLeadership\n\n- [2026-09-15 · 4 reactions] Most DTC brands hit the same wall when they scale into omnichannel. 👀🔽 In this episode, we break down the real friction point brands face moving from direct-to-consumer to true omnichannel — and wh...\n\n- [2026-09-14 · Posted · 8 reactions] [PARCEL Forum (The #1 Package Fulfillment Event in the U.S.) is here...](https://www.linkedin.com/posts/flowspace_parcelforum-logisticsevent-supplychain-activity-7505369504718286849-9_R4)\n  > PARCEL Forum (The #1 Package Fulfillment Event in the U.S.) is here - and our very own Peter Hudack will be in attendance! Be sure to stop by and say hi.\n  >\n  > #ParcelForum #LogisticsEvent #SupplyChain #EcommerceShipping\n\n- [2026-09-14 · Reshared · 17 reactions] [I’ll be at #PARCELForum2026 this week representing Flowspace...](https://www.linkedin.com/posts/flowspace_activity-7505299467458244608-O2eD): I’ll be at #PARCELForum2026 this week representing Flowspace . Looking forward to catching up with familiar faces, meeting some new ones, and talking all things logistics and fulfillment. See you t...\n\n- [2026-09-14 · 8 reactions] PARCEL Forum (The #1 Package Fulfillment Event in the U.S.) is here - and our very own Peter Hudack will be in attendance! Be sure to stop by and say hi. #ParcelForum #LogisticsEvent #SupplyChain #...\n\n- [2026-09-14 · 17 reactions] I’ll be at #PARCELForum2026 this week representing Flowspace. Looking forward to catching up with familiar faces, meeting some new ones, and talking all things logistics and fulfillment. See you th...\n\n- [2026-09-11 · Posted · 3 reactions] [In the near future, a lot of shopping decisions won't be made by...](https://www.linkedin.com/posts/flowspace_welldelivered-ecommerce-aishopping-activity-7504161876952391680-tTJV)\n  > In the near future, a lot of shopping decisions won't be made by people reading your product page. They'll be made by AI reading it for them.\n  >\n  > Amazon's Rufus (now part of Alexa Shopping) and ChatGPT are already forming opinions about products — what they are, who they're for, whether they're worth recommending. Claude is likely headed the same direction. That means there's a real, present opportunity: find the gaps in how AI currently understands your product, then feed that back into your product page to shape the answer before a customer ever asks the question.\n  >\n  > This isn't a future problem to plan for later. It's a present one most brands haven't started on.\n  >\n  > Check out more from #WellDelivered by Flowspace with Ben Eachus and Alexander Lans. Catch the full episode ⬇\n  > 🌐 Flowspace: https://lnkd.in/etVqiiTc\n  > 🎙 Spotify: https://lnkd.in/eggY_MWM\n  > 🎧 Apple Podcast: https://lnkd.in/emwqvi28\n  > 📹 YouTube: https://lnkd.in/e8W2Ps5q\n  >\n  > #ecommerce #AIshopping  #dtc\n\n- [2026-09-11 · Posted · 1 reaction] [Attention! Peak is coming - are you still stuck with a bad 3PL...](https://www.linkedin.com/posts/flowspace_ecommerce-peakseason-logistics-activity-7504253749583007747-qvlu)\n  > Attention! Peak is coming - are you still stuck with a bad 3PL costing you time, money, customers, and growth?  💸🕊️\n  >\n  > The Fulfillment Freedom Fund offers up to $50,000 to help qualifying your brand make the switch - offsetting your buyout, onboarding, and first 90 days.*\n  >\n  > Apply by 9/30 and reach out to learn more: https://lnkd.in/eUGEQzyc\n  >\n  > *Terms apply: https://lnkd.in/eEty93ud\n  >\n  > #Ecommerce #PeakSeason #Logistics #3PL #ScalingBrands\n\n- [2026-09-11 · 3 reactions, 1 comment] In the near future, a lot of shopping decisions won't be made by people reading your product page. They'll be made by AI reading it for them. Amazon's Rufus (now part of Alexa Shopping) and ChatGPT...\n\n- [2026-09-11 · 1 reaction] Attention! Peak is coming - are you still stuck with a bad 3PL costing you time, money, customers, and growth? 💸🕊️ The Fulfillment Freedom Fund offers up to $50,000 to help qualifying your brand ma...\n\n- [2026-09-10 · Posted · 3 reactions] [Scaling fulfillment isn’t just about handling more orders. It’s...](https://www.linkedin.com/posts/flowspace_copya9a4984f-6ea2-433d-a981-6e1937f204cfmov-activity-7503935355033694208---_B)\n  > Scaling fulfillment isn’t just about handling more orders. It’s about handling more complexity.\n  >\n  > Take a look at what's moved through our warehouses lately: canned beverages, dog treats, hot sauce, and a full run of B2B orders. Different weights, different packaging needs, different requirements — same team, same platform, same day.\n  >\n  > That’s what scalable and flexible fulfillment actually means on the floor. It’s not one process stretched across every product type. It’s a team and a platform built to adapt as products, channels, and order profiles change.\n  >\n  > Because complexity grows quickly: a SKU that doesn’t fit the standard box, a retail order with different compliance requirements, or B2B and DTC orders moving through the same operation.\n  >\n  > Fulfillment partners built around one channel or a narrow product profile can start to strain as a brand’s business gets more complex.\n  >\n  > How is your fulfillment provider actually handling that kind of scale?\n  >\n  > #asmr #fulfillment #3pl #cpg\n\n- [2026-09-10 · 3 reactions] Scaling fulfillment isn’t just about handling more orders. It’s about handling more complexity. Take a look at what's moved through our warehouses lately: canned beverages, dog treats, hot sauce, a...\n\n- [2026-09-09 · Posted · 2 reactions] [For a brand, fulfillment should feel simple — even when the...](https://www.linkedin.com/posts/flowspace_ecommercefulfillment-3pl-fulfillment-activity-7503535284584730624-EfR_)\n  > For a brand, fulfillment should feel simple — even when the operation behind it isn’t.\n  >\n  > That same walk you see here — moving inventory across the warehouse floor — depends on a lot happening behind the scenes: knowing where inventory is, what needs to move, where it’s going, and what happens next.\n  >\n  > When those systems and processes are working, that movement is routine and visibility is real-time. When they’re not, small gaps can turn into missed picks, delayed orders, inventory discrepancies, and more work for your team.\n  >\n  > As your product line grows, volume changes, or new sales channels get added, your fulfillment operation has to keep up without adding friction.\n  >\n  > The goal isn’t just to move boxes. It’s to give your brand the consistency, visibility, and flexibility to keep growing.\n  >\n  > #ecommercefulfillment #3PL #fulfillment #warehouselife\n\n- [2026-09-09 · Posted · 8 reactions] [DTC, Amazon, Walmart, retail — what comes first? In the latest...](https://www.linkedin.com/posts/flowspace_ecommercefulfillment-omnichannel-dtc-activity-7503583650408595458-jotk)\n  > DTC, Amazon, Walmart, retail — what comes first?\n  >\n  > In the latest episode of Well Delivered, Ben Eachus sits down with Alexander Lans to unpack how ecommerce brands should think about omnichannel strategy as they scale.\n  >\n  > One takeaway: DTC can prove people want the product. Amazon and marketplaces can prove broader demand. Retail often comes next — but channels like Walmart are changing how brands build and test that demand.\n  >\n  > Catch the full episode below ⬇️\n  > 🎧Spotify: https://ow.ly/P5n550ZLHFu\n  > 🎙️Apple Podcast: https://ow.ly/Zfi350ZLHFv\n  >\n  > #ecommercefulfillment #omnichannel #dtc\n\n- [2026-09-09 · 2 reactions] For a brand, fulfillment should feel simple — even when the operation behind it isn’t. That same walk you see here — moving inventory across the warehouse floor — depends on a lot happening behind...\n\n- [2026-09-09 · 10 reactions] DTC, Amazon, Walmart, retail — what comes first? In the latest episode of Well Delivered, Ben Eachus sits down with Alexander Lans to unpack how ecommerce brands should think about omnichannel stra...\n\n- [2026-09-04 · Posted] [Made In put it simply: with their old provider, it felt like \"a...](https://www.linkedin.com/posts/flowspace_supplychain-logisticssolutions-supplychaingrowth-activity-7501670447143473152-uDQy)\n  > Made In put it simply: with their old provider, it felt like \"a square peg in a round hole\" — it just wasn't working.\n  >\n  > Since moving to Flowspace, they have visibility, flexibility, and adaptability. That control lets their team make faster, more confident decisions.\n  >\n  > Not every partner stays open to a brand's growth and changing needs. We do — and we're proud to have earned that trust.\n  >\n  > Click the link to get the full story:https://lnkd.in/eMfhfFY3\n  >\n  > #SupplyChain #LogisticsSolutions #SupplyChainGrowth\n\n## Locations\n- Headquarters: los angeles, california, united states (US)\n- Offices: los angeles, california, united states (US), marina del rey, california, united states (US)",
+        "summary": "{\"description\":\"Flowspace is a modern fulfillment provider that combines powerful technology with expert fulfillment operations to deliver seamless and scalable execution that moves with your business.\",\"employee_estimate\":82,\"employee_estimate_source\":\"Employees: 82\",\"hq\":\"Los Angeles, California, United States\",\"hq_quote\":\"Headquartered in Los Angeles, California, United States, with an office in Marina del Rey.\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"Flowspace is a modern fulfillment provider that combines powerful technology with expert fulfillment operations to deliver seamless and scalable execution that moves with your business.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQGZuKwUJ-svNg/company-logo_200_200/B4EZ6Yup9dKAAE-/0/1780678828143/flowspace_logo?e=2147483647&v=beta&t=LyVlw59T2iOpHyxCnPiTFq519dv5Gm2-4KHHtKQL51g",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/xp58g385459",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Flowspace",
+              "foundedYear": 2017,
+              "description": "Flowspace is a modern fulfillment provider that combines powerful technology with expert fulfillment operations to deliver seamless and scalable execution that moves with your business.\n\nFounded in 2017 to break down barriers between merchants and their customers, Flowspace empowers sellers to take control of operations and unlock growth.\n\nToday, hundreds of ecommerce companies use our software and nationwide warehouses to position inventory closer to shoppers, connect sales channels, and fulfill orders quickly and accurately—with expert support every step of the way.",
+              "workforce": {
+                "total": 82
+              },
+              "headquarters": {
+                "address": "Los Angeles, California 90066, US",
+                "city": "Los Angeles",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 7000000,
+                "fundingTotal": 46520000,
+                "fundingLatestRound": {
+                  "name": "Series b",
+                  "date": "2021-03-15",
+                  "amount": 31000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 28405,
+                "countryRank": 560354,
+                "avgDurationSeconds": 20,
+                "history": [
+                  {
+                    "value": 24621,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 21205,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 31274,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 30530,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 30170,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 28405,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/rlghjjrvy0r",
+        "title": "FlowSpace",
+        "url": "https://flowspace.co/",
+        "text": "# FlowSpace\n\nFlowSpace is a Internet Marketplace Platforms company. Flowspace is a company that offers top-rated coworking spaces, meeting rooms, desks, and private offices across the UK. FlowSpace employs 9 people (-18.2% YoY, -2 people), founded in 2021. Headquartered in London, England, United Kingdom. Its workforce is distributed across United Kingdom, Egypt, Italy, and Turkey.\n\n## About\n\nFlowSpace is the platform hybrid teams use to find, book, and manage workspace. \n\nFind Space: Use FlowSpace AI to search 10,000 live listings, shortlist, negotiate, and secure your next office at no cost to you.\n\nBook Space: Give your team on-demand access to desks, meeting rooms, and event spaces across 1,000+ workspaces. \n\nManage Space: Track where your team works, control spend, and let everyone work wherever they're most productive.\n\n\nYour office. Anywhere.\n\n## Company Details\n- Industry: Internet Marketplace Platforms\n- Type: Privately held\n- Headquarters: London, United Kingdom\n- Founded Year: 2021\n- Homepage: flowspace.co\n- Aliases: Flow Space Limited, flowspace\n- LinkedIn: linkedin.com/company/flowspace-uk\n- Linkedin Followers: 3,131\n- Emails: hello@flowspace.co\n- Phone: +44 7455 691260, +447455691260, 44 7888 872052\n\n## Financials\n  - Seed (2022-07-01): GBP 50,000\n  - Seed (2021-04-01): EUR 120,000\n  - Pre seed (2021-01-18): USD 611,280\n\n## Workforce\n- Employees: 9\n- Company Size: 1-10 employees\n  - Monthly Growth: +12.5%\n  - Yearly Growth: -18.2%\n- Key Executives:\n  - Güçlü Talu: Chief Technology Officer\n  - Jag Gill: Head of Growth\n- Breakdown:\n  - By Country: United Kingdom: 5 (56%), Egypt: 1 (11%), Italy: 1 (11%), Turkey: 1 (11%)\n  - By Department: Operations: 2 (22%), Technical: 2 (22%), Consulting: 1 (11%), Marketing: 1 (11%), Other Department: 1 (11%), Sales: 1 (11%)\n  - By Seniority: Specialist: 4 (44%), Other Management: 2 (22%), Clevel: 1 (11%), Head: 1 (11%)\n- Talent Sources: Unrest (1), Swivel (1), Skillmasters.io (1), Roundhouse Trust (1), Piblo (1), OMMAX (1), MGN Builders Merchants (1), Laterna+Partners (1), Jatra Naturals (1), Deearo Marketing (1)\n- Alumni Go To: SmartupNetwork (1), Radiant (1), Not Basics (1), Istanbul Ignited by Slush'D (1), Flowick Teknoloji Hizmetleri A.Ş. (1), Figma (1), Chryselys (1), Centro (1), Association „Lyderė“ (1), AI-RE (1)\n\n## Products & Technology\n- Tech Stack: flowspace, jira, figma, linkedin, mailchimp, twitter, youtube, hunter, spring, ups, airtable, javascript, wordpress, zapier\n\n## Web presence\n\n- Twitter: twitter.com/flowspaceuk\n- Facebook: facebook.com/flowspaceuk\n- Instagram: instagram.com/flowspaceuk\n- Crunchbase: crunchbase.com/organization/flowspace-062d\n- Web traffic:\n  - Monthly visits: 7,903\n  - Global rank: 2,499,694\n  - Bounce rate: 41.0%\n  - Pages per visit: 2.0\n  - Average visit duration: 48s\n\n## Categories\n\ncoworking, coworking spaces, desks, flexible working, hybrid teams, hybrid working, meeting rooms, office search, offsites, on demand office, private offices, proptech, remote teams, rental property, uk, workspace, workspace solutions, workspaces\n\n## Recent News\n- [2026-07-28] Flow Space: It’s Not Just Anne Hathaway — More Women Are Getting Pregnant in Their 40s\n\n## Social\n\n### Linkedin\n\n- [2026-09-16 · 16 reactions] As office views go…….this one’s not bloody bad. Congrats to Ollie & Enzo on the super cool new space 🙌🙌\n\n- [2026-08-17 · 11 reactions, 2 comments] We got some FlowSpace caps this summer ✌️ Why? Not sure. Just to be nice. Were they cool? You bet. Summer of '26......vintage\n\n- [2026-07-10 · 35 reactions, 2 comments] Love to see the Neurotype team in their lovely new Second Home Congrats guys 🙌🙌 One FlowSpace cake for you\n\n- [2026-07-10 · 9 reactions] I'm really proud to share that FlowSpace and ICAEW are now partners! ✨ To me, the biggest takeaway here is the leadership angle. Accountancy has always been an industry built around central offices...\n\n- [2026-06-25 · 5 reactions, 2 comments] London heatwave: 1. FlowSpace: 0. 🫠 But in completely unrelated, non-temperature-based news... we now have 20 listings in NYC! Yay! 🗽\n\n- [2026-06-18 · 5 reactions] We're rolling this guy out next week at CreamUK (.....we also got this new banner) Hayri Demirçapa coming to a property event near you\n\n- [2026-06-09 · 8 reactions] I think we just went global? 🌏 FlowSpace | June 9th 2026\n\n- [2026-05-21 · 9 reactions, 1 comment] After several attempts, we made it work 🎉 Never run out of FlowSpace credits again 🙈 live now\n\n- [2026-05-14 · 16 reactions, 2 comments] Today @ FlowSpace | 14th May 2026 Most B2B platforms send a thank-you email. We send cake 🎂 Big love to Hybr settling into their new space Work.Life Holborn, and to the Shuffle team in Manchester b...\n\n- [2026-03-27 · 9 reactions] Was a stunning day yesterdays for our breakfast and coworking event at the gorgeous LABS House in Holborn! Big thanks to all those that came out to join us and to LABS for hosting 🙌\n\n- [2026-03-18 · 35 reactions] It's happy customer & cake time again 🎂 Great fun working with Techstars to find their new London space and it had to do a lot: base for the team, launchpad for founders, event venue for demo day 🚀...\n\n- [2026-03-04 · 5 reactions, 1 comment] Exciting new FlowSpace event coming up on March 25th at the gorgeous LABS House in Holborn 🙌 Keen to explore an amazing space and have some lovely FlowSpace chat and croissants -- pop along for a m...\n\n- [2026-02-12 · 43 reactions, 5 comments] Anyone on a diet, look away now!! A big thank you to Harry Wilson Hallberg and the team at FlowSpace for this beautiful cake. It’s been a pleasure working with you on finding a new office, and we’r...\n\n- [2026-02-09 · 14 reactions, 1 comment] We've added 20 new lovely spaces 🎉 this February (and we're working on hundreds more!) Check out some of the amazing new listings: Techspace: St Andrew Street: http://bit.ly/4qjSFud Vallist Chancer...\n\n- [2026-02-04 · 24 reactions, 2 comments] That one “customer” who comes to all your events, eats all your croissants and never buys…… ❤️ Daniel\n\n- [2026-01-22 · 15 reactions, 8 comments] We are super excited to welcome Kaan to the team 🎉 Kaan joins us as an SDR, bringing experience from leading marketing and sales initiatives at Slush. With strong roots in the tech community and a...\n\n- [2025-12-18 · 29 reactions] Ho ho ho!! 🎄🎄 As we wrap up for Christmas a big, big thank you from all of us at FlowSpace. It's been a year 🫠 We're locked and loaded for 2026. The obligatory Christmas team pic below for you to e...\n\n- [2025-10-22 · 77 reactions, 3 comments] 🚀 FlowSpace is expanding again! We’re thrilled to welcome Cubo Work, one of the UK’s fastest growing workspace brands to the FlowSpace network. That means teams can now book beautiful Cubo workspac...\n\n## Locations\n- Headquarters: london, england, united kingdom (GB)\n- Offices: london, england, united kingdom (GB), london, england kt, united kingdom (GB)",
+        "summary": "{\"description\":\"FlowSpace is an Internet Marketplace Platforms company offering coworking spaces, meeting rooms, desks, and private offices across the UK.\",\"employee_estimate\":9,\"employee_estimate_source\":\"Employees: 9\",\"hq\":\"London, United Kingdom\",\"hq_quote\":\"Headquartered in London, England, United Kingdom.\",\"industry\":\"Internet Marketplace Platforms\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":false,\"is_third_party_logistics_quote\":\"\\\"is_third_party_logistics_quote\\\":\\\"\\\"\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4D0BAQEstOpJd1yjyw/company-logo_200_200/company-logo_200_200/0/1686835922456/flowspace_uk_logo?e=2147483647&v=beta&t=daW5OZYpYAcr8iw_utlW_8v5ILSjbBarvSJ-f-LQdHs",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/rlghjjrvy0r",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "FlowSpace",
+              "foundedYear": 2021,
+              "description": "FlowSpace is the platform hybrid teams use to find, book, and manage workspace. \n\nFind Space: Use FlowSpace AI to search 10,000 live listings, shortlist, negotiate, and secure your next office at no cost to you.\n\nBook Space: Give your team on-demand access to desks, meeting rooms, and event spaces across 1,000+ workspaces. \n\nManage Space: Track where your team works, control spend, and let everyone work wherever they're most productive.\n\n\nYour office. Anywhere.",
+              "workforce": {
+                "total": 9
+              },
+              "headquarters": {
+                "address": "Teddington, London, England, GB",
+                "city": "London",
+                "postalCode": null,
+                "country": "United Kingdom"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": null,
+                "fundingLatestRound": {
+                  "name": "Seed",
+                  "date": "2022-07-01",
+                  "amount": null
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 7903,
+                "countryRank": 374449,
+                "avgDurationSeconds": 48,
+                "history": [
+                  {
+                    "value": 10628,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 9647,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 9471,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 8596,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 6974,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 7903,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 4839.9,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

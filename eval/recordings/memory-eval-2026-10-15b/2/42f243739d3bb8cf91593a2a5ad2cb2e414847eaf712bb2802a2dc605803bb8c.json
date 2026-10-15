@@ -1,0 +1,228 @@
+{
+  "request": {
+    "query": "Southern AG Carriers, Inc.",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "8ed19d628cbc313893bfb923f7abffd1",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/d7hw761rdb6",
+        "title": "Southern Ag Carriers, Inc",
+        "url": "https://sou-ag.com/",
+        "text": "# Southern Ag Carriers, Inc\n\nSouthern Ag Carriers, Inc is a Truck Transportation company. SOAG CARRIERS is a logistics company that provides agricultural transportation and refrigerated transport services. They offer nationwide logistics and are dedicated to providing the highest quality agricultural logistics and refrigerated transport services. Southern Ag Carriers, Inc employs 119 people (+0.8% YoY, +1 person) and has an annual revenue of $26.8M, founded in 1990. Headquartered in Albany, Georgia, United States.\n\n## About\n\nSouthern AG Carriers is a trusted transportation provider specializing in agricultural and refrigerated freight solutions across the United States. With deep roots in agriculture and a commitment to exceptional service, we connect farms, food producers and businesses with reliable transportation that keeps supply chains moving efficiently.\n\nOur experienced team and professional drivers understand the unique demands of agricultural transportation, from fresh produce and temperature-sensitive commodities to dry and bulk agricultural products. We combine industry expertise, advanced logistics and a customer-focused approach to deliver freight safely, on time and with the highest level of integrity.\n\nAt Southern AG Carriers, we are proud to support the hardworking farmers, growers, and food producers who help feed America. Whether moving products from the field to processing facilities, distribution centers, or retail locations, we remain committed to providing dependable transportation solutions that our customers can count on.\n\n## Company Details\n- Industry: Truck Transportation\n- Type: Privately held\n- Headquarters: Albany, United States\n- Founded Year: 1990\n- Homepage: sou-ag.com\n- Aliases: southern ag carriers, southern ag carriers, inc, southernag carriers inc\n- LinkedIn: linkedin.com/company/soagcarriers\n- Linkedin Followers: 1,525\n- Emails: info@sou-ag.com\n- Phone: +1-229-432-9696, -229-434-4950, 229-432-9696\n\n## Financials\n- Annual Revenue: USD 26,830,277\n\n## Workforce\n- Employees: 119\n- Company Size: 201-500 employees\n  - Yearly Growth: +0.8%\n- Key Executives:\n  - Daniel Phillips: Director of Sales\n  - Devin Griffin: Director Of Operations\n  - Lucas Edmisten: Director of Financial Planning and Analysis\n  - Todd Griffin: VP Operations\n- Breakdown:\n  - By Country: United States: 17 (14%)\n  - By Department: Operations: 8 (7%), Trades: 3 (3%), Other Department: 2 (2%), Sales: 2 (2%), Finance: 1 (1%), General Management: 1 (1%)\n  - By Seniority: Manager: 6 (5%), Specialist: 5 (4%), Director: 3 (3%), Other Management: 3 (3%), Vp: 1 (1%)\n- Salary ranges:\n  - Sales Executive: median $93,337.22 per year\n  - Cdl A Driver: median $91,483.48 per year\n  - Maintenance Manager: median $85,265.61 per year\n  - Manager: median $85,005.85 per year\n  - Truck Driver: median $70,194.41 per year\n  - Class A Truck Driver: median $68,713.12 per year\n  - CDL Driver: median $61,431.27 per year\n  - Driver Recruiter: median $53,651.51 per year\n  - Dispatcher: median $48,679.12 per year\n  - Coordinating Team- Assistant Dispatcher: median $41,041.89 per year\n  - Medical Support Assistant: median $38,837.67 per year\n  - Sales Associate: median 36,193.58 SGD per month\n- Talent Sources: US Army (2), Sentry Logistics Group Inc (2), XLC Services (1), Prime Inc. (1), PepsiCo (1), Penske Truck Leasing (1), Flint Construction & Forestry (1), Cardone Industries (1), Barnes Transportation Services, INC. (1), Anchor Packaging (1)\n- Alumni Go To: Sentry Logistics Group Inc (2), Forever Clean (2), Cowan Systems, LLC (2), World Distribution Services (1), Vulcan (1), TransChicago Truck Group (1), ProteQ (1), Micro Tech Staffing Group (1), MANN+HUMMEL (1), Battelle (1)\n\n## Products & Technology\n- Tech Stack: microsoft, microsoft sql server, power bi, python, sql, c, sentry, linkedin, samsara, hunter, amp, well\n\n## Web presence\n\n- Twitter: twitter.com/southernag\n- Facebook: facebook.com/pages/southern-ag-carriers-inc/411470772262331\n- Crunchbase: crunchbase.com/organization/southern-ag-carriers\n- Web traffic:\n  - Monthly visits: 2,896\n  - Global rank: 5,737,263\n  - Bounce rate: 35.0%\n  - Pages per visit: 1.6\n  - Average visit duration: 14s\n\n## Reviews & Ratings\n- Employer Rating: 2.7/5.0 (13 reviews)\n  - Breakdown: Work-Life: 2.9, Compensation: 2.5, Culture: 2.6, Career: 2.7\n\n## Categories\n\nagricultural, freight service, logistics, refrigerated, transportation, trucking\n\n## Recent News\n- [2026-09-16] [Southern AG Carriers celebrates move to new Albany headquarters – Albany Herald](https://albanyherald.com/news/southern-ag-carriers-celebrates-move-to-new-albany-headquarters/)\n- [2025-07-25] Instagram: Al Jazeera Media Network has raised alarm over the worsening conditions faced by its journalists in Gaza, calling for urgent global action to stop what it describes as forced starvation and ongoing attacks against media workers. The network said its reporters,\n\n## Social\n\n### Linkedin\n\n- [2026-10-01 · Posted · 32 reactions] [🎙️ Southern AG Carriers is proud to be featured on AB&T’s Beyond...](https://www.linkedin.com/posts/soagcarriers_southernagcarriers-beyondthebank-abandt-activity-7511398480393752576--xTa)\n  > 🎙️ Southern AG Carriers is proud to be featured on AB&T’s Beyond the Bank with our CEO, Lem Goodpasture!\n  >\n  > Thank you to AB&T for the opportunity to share our story and shine a light on the people and relationships that keep Southern AG moving forward.\n  >\n  > Take a listen to Lem’s conversation and get to know the leadership behind the miles.\n  >\n  > Rooted in Agriculture. Powered by Commitment.\n  >\n  > #SouthernAGCarriers #BeyondTheBank #ABandT #AlbanyGA\n  >\n  > https://lnkd.in/gYADQSRR\n\n- [2026-09-28 · Posted · 9 reactions] [Celebrating Years of Commitment at Southern AG Carriers! We’re...](https://www.linkedin.com/posts/soagcarriers_celebrating-years-of-commitment-at-southern-activity-7510307657157787649-jzLt)\n  > Celebrating Years of Commitment at Southern AG Carriers!\n  >\n  > We’re proud to recognize these team members for their years of service, each receiving a jacket as a token of our appreciation:\n  >\n  > ⭐ Leslie Dollar — 5 years\n  > ⭐ Amber Butler — 10 years\n  > ⭐ Chrystal Ball — 15 years\n  > ⭐ Bonnie Powell — 15 years\n  > ⭐ Robert Salo — 10 years\n  > ⭐ Nathan Culbreth — 15 years\n  >\n  > Together, they represent 70 years of dedication to Southern AG! Thank you for your hard work, loyalty, and the contributions you make every day. We’re grateful to have you on our team!\n  >\n  > Rooted in Agriculture. Powered by Commitment.\n\n- [2026-09-24 · Posted · 15 reactions] [A sweet thank-you to the people who keep us moving! 🍦🚛 Last week...](https://www.linkedin.com/posts/soagcarriers_a-sweet-thank-you-to-the-people-who-keep-activity-7508850527087153152-jTXg)\n  > A sweet thank-you to the people who keep us moving! 🍦🚛\n  >\n  > Last week, Southern AG Carriers celebrated Driver Appreciation Week with TCBY frozen yogurt for our drivers at multiple locations where our trucks operate. It was a small way to show our gratitude for their hard work, long hours and commitment to safe deliveries.\n  >\n  > To our drivers: Thank you for the care you bring to every load and every mile. We appreciate you last week, this week and every week!\n  >\n  > Rooted in Agriculture. Powered by Commitment.\n\n- [2026-09-22 · Posted · 16 reactions] [Thank you to The Albany Herald for highlighting last week’s grand...](https://www.linkedin.com/posts/soagcarriers_southern-ag-carriers-celebrates-move-to-new-activity-7508150362751569923-XBKp)\n  > Thank you to The Albany Herald for highlighting last week’s grand opening and ribbon cutting at Southern AG Carriers’ new headquarters!\n  >\n  > We’re grateful for the employees, drivers, customers and community partners who helped us celebrate—and who make our continued growth possible. We’re proud to call Albany home and excited for the road ahead.\n  >\n  > Read the article below for a look at this special milestone.\n  >\n  > #SouthernAGCarriers #RootedInAgriculture #AlbanyGA\n\n- [2026-09-15 · Posted · 17 reactions] [A new chapter begins today at Southern AG Carriers. Our new...](https://www.linkedin.com/posts/soagcarriers_southernagcarriers-builtforwhatsnext-rootedinagriculture-activity-7505585011266306049-I5Wp)\n  > A new chapter begins today at Southern AG Carriers.\n  >\n  > Our new headquarters represents more than a new building—it reflects the dedication of our employees, the trust of our customers and the support of the community we are proud to call home.\n  >\n  > We’re excited to celebrate this milestone today with our Ribbon Cutting and Open House at 11:00 a.m. at 705 McCollum Drive in Albany.\n  >\n  > Here’s to honoring the foundation that brought us here and building for what’s next.\n  >\n  > Rooted in Agriculture. Powered by Commitment.\n  >\n  > #SouthernAGCarriers #BuiltForWhatsNext #RootedInAgriculture #AlbanyGA\n\n- [2026-09-15 · Posted · 47 reactions] [A new headquarters. A strong foundation. An exciting future...](https://www.linkedin.com/posts/soagcarriers_southernagcarriers-rootedinagriculture-activity-7505746356980957185-jjcI)\n  > A new headquarters. A strong foundation. An exciting future.\n  >\n  > Southern AG Carriers celebrated the opening of our new headquarters with an open house and ribbon-cutting ceremony alongside employees, customers, community leaders, business partners, family and friends.\n  >\n  > The celebration was about more than a new facility. It was an opportunity to recognize the people and partnerships that have shaped Southern AG and continue to move our company forward—including our Million Mile Safe Drivers and longtime team members whose commitment reflects the very best of who we are.\n  >\n  > We are grateful to everyone who joined us in celebrating this important milestone and the next chapter of Southern AG Carriers.\n  >\n  > Rooted Here. Growing Together.\n  >\n  > #SouthernAGCarriers #RootedInAgriculture #PoweredByCommitment #BuiltForWhatsNext #AlbanyGA #EconomicDevelopment #Transportation\n\n- [2026-09-15 · 48 reactions, 1 comment] A new headquarters. A strong foundation. An exciting future. Southern AG Carriers celebrated the opening of our new headquarters with an open house and ribbon-cutting ceremony alongside employees,...\n\n- [2026-09-15 · 17 reactions] A new chapter begins today at Southern AG Carriers. Our new headquarters represents more than a new building—it reflects the dedication of our employees, the trust of our customers and the support...\n\n- [2026-09-14 · Posted · 19 reactions] [Tomorrow’s the day! Join us as we celebrate the opening of Southern...](https://www.linkedin.com/posts/soagcarriers_southernagcarriers-rootedinagriculture-activity-7505235998021169152-V1a3)\n  > Tomorrow’s the day!\n  >\n  > Join us as we celebrate the opening of Southern AG Carriers’ new headquarters with a Ribbon Cutting and Open House.\n  >\n  > 📅 Tuesday, September 15\n  > ⏰ 11:00 a.m.\n  > 📍 705 McCollum Drive, Albany\n  >\n  > We look forward to welcoming our customers, employees, community partners and friends as we celebrate this exciting new chapter.\n  >\n  > Rooted Here. Growing Together.\n  >\n  > #SouthernAGCarriers #RootedInAgriculture #BuiltForWhatsNext #AlbanyGA\n\n- [2026-09-14 · 19 reactions] Tomorrow’s the day! Join us as we celebrate the opening of Southern AG Carriers’ new headquarters with a Ribbon Cutting and Open House. 📅 Tuesday, September 15 ⏰ 11:00 a.m. 📍 705 McCollum Drive, Al...\n\n- [2026-09-11 · Posted · 6 reactions] [Today, we pause to remember the lives lost on September 11, 2001...](https://www.linkedin.com/posts/soagcarriers_patriotday-september11-neverforget-activity-7504139577213857792-y6Hh)\n  > Today, we pause to remember the lives lost on September 11, 2001, honor the heroes who answered the call, and recognize the courage and unity shown by Americans in the days that followed.\n  >\n  > We will never forget.\n  >\n  > #PatriotDay #September11 #NeverForget #SouthernAGCarriers\n\n- [2026-09-11 · 6 reactions] Today, we pause to remember the lives lost on September 11, 2001, honor the heroes who answered the call, and recognize the courage and unity shown by Americans in the days that followed. We will n...\n\n- [2026-09-08 · Posted · 32 reactions] [Southern AG employees recently gathered with Rev. Gary Gabbard for...](https://www.linkedin.com/posts/soagcarriers_southernagcarriers-newterminal-newbeginnings-activity-7503184176628629505-06V6)\n  > Southern AG employees recently gathered with Rev. Gary Gabbard for a special blessing of our new terminal.\n  >\n  > We are grateful for his thoughtful words as we begin this exciting new chapter—strengthened by our people, guided by our values and committed to serving our customers and communities well.\n  >\n  > Rooted in Agriculture. Powered by Commitment.\n  >\n  > #SouthernAGCarriers #NewTerminal #NewBeginnings #OurPeople #GrowingTogether\n\n- [2026-09-08 · 32 reactions] Southern AG employees recently gathered with Rev. Gary Gabbard for a special blessing of our new terminal. We are grateful for his thoughtful words as we begin this exciting new chapter—strengthene...\n\n- [2026-09-01 · Posted · 23 reactions] [The Building Is New. The Foundation Isn’t. As we prepare to...](https://www.linkedin.com/posts/soagcarriers_southernagcarriers-builtbyourpeople-rootedhere-activity-7500574263788130304-8stY)\n  > The Building Is New. The Foundation Isn’t.\n  >\n  > As we prepare to celebrate our new headquarters, we’re honoring what truly built Southern AG Carriers: our people.\n  >\n  > For more than 30 years, our drivers and employees have shown up, worked hard, served our customers, supported one another, and kept Southern AG moving forward.\n  >\n  > Our new headquarters represents an exciting next chapter and where we’re headed. But the people in our offices, shops, terminals, and trucks are the reason we’ve come this far.\n  >\n  > New building. Same commitment. Same values. Same people who make Southern AG, Southern AG.\n  >\n  > Rooted in Agriculture. Powered by Commitment.\n  >\n  > #SouthernAGCarriers #BuiltByOurPeople #RootedHere #GrowingTogether #Trucking #OurPeople\n\n- [2026-09-01 · 24 reactions, 1 comment] The Building Is New. The Foundation Isn’t. As we prepare to celebrate our new headquarters, we’re honoring what truly built Southern AG Carriers: our people. For more than 30 years, our drivers and...\n\n- [2026-08-26 · Posted · 24 reactions] [Happy National DAWG Day! 🐾🏈 At Southern AG Carriers, we’re...](https://www.linkedin.com/posts/soagcarriers_southernagcarriers-nationaldawgday-godawgs-activity-7498337201643106304-f2--)\n  > Happy National DAWG Day! 🐾🏈\n  >\n  > At Southern AG Carriers, we’re celebrating with a special shoutout to two of our own Dawgs—Darryl Cooper and Labon Greene, the drivers trusted with hauling the University of Georgia football equipment to away games.\n  >\n  > When the Dawgs hit the road, Darryl and Labon are behind the wheel making sure the gear gets where it needs to be. From Athens to stadiums across the country, they’re an important part of what keeps the Dawgs moving on game day.\n  >\n  > We’re proud to have Darryl and Labon representing Southern AG on the road—and proud to play a small part in getting the Dawgs ready for Saturdays! ❤️🖤\n  >\n  > Happy National DAWG Day—and Go Dawgs! 🐾\n  >\n  > Rooted in Agriculture. Powered by Commitment.\n  >\n  > #SouthernAGCarriers #NationalDawgDay #GoDawgs #GeorgiaFootball #UGA #Trucking #Transportation #TeamSouthernAG\n\n- [2026-08-26 · 30 reactions] Happy National DAWG Day! 🐾🏈 At Southern AG Carriers, we’re celebrating with a special shoutout to two of our own Dawgs—Darryl Cooper and Labon Greene, the drivers trusted with hauling the Universit...\n\n- [2026-08-24 · Posted · 10 reactions] [Built for What’s Next We’re growing—and our new headquarters is...](https://www.linkedin.com/posts/soagcarriers_southernagcarriers-builtforwhatsnext-growingtogethe-activity-7497684180902768640-eYMM)\n  > Built for What’s Next\n  >\n  > We’re growing—and our new headquarters is built to grow with us.\n  >\n  > More than a new building, this facility represents the next chapter for Southern AG Carriers: more room to grow, greater opportunities to serve our customers and drivers, and a stronger foundation for the future.\n  >\n  > For more than 30 years, Southern AG has been rooted in hard work, agriculture, strong relationships, and a commitment to keeping America moving. As we look ahead, those values aren’t changing—they’re guiding where we go next.\n  >\n  > Built for what’s next. Rooted in what matters.\n  >\n  > Rooted in Agriculture. Powered by Commitment.\n  >\n  > #SouthernAGCarriers #BuiltForWhatsNext #GrowingTogethe\n\n- [2026-08-24 · 11 reactions] Built for What’s Next We’re growing—and our new headquarters is built to grow with us. More than a new building, this facility represents the next chapter for Southern AG Carriers: more room to gro...\n\n## Locations\n- Headquarters: albany, georgia, united states (US)\n- Offices: albany, united states (US)",
+        "summary": "{\"description\":\"Southern Ag Carriers, Inc is a Truck Transportation company providing agricultural transportation and refrigerated transport services nationwide, connecting farms and food producers with reliable transportation.\",\"employee_estimate\":119,\"employee_estimate_source\":\"Employees: 119\",\"hq\":\"Albany, Georgia, United States\",\"hq_quote\":\"Headquartered in Albany, Georgia, United States.\",\"industry\":\"Truck Transportation\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"SOAG CARRIERS is a logistics company that provides agricultural transportation and refrigerated transport services.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQFXWNFN55EllQ/company-logo_200_200/B4EZaRvw6NHkAI-/0/1746201939969/soagcarriers_logo?e=2147483647&v=beta&t=q8aSvZZPxB_PN3-cGuiJK6GJ9miTfd8Ct98K9xocKRg",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/d7hw761rdb6",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Southern Ag Carriers, Inc",
+              "foundedYear": 1990,
+              "description": "Southern AG Carriers is a trusted transportation provider specializing in agricultural and refrigerated freight solutions across the United States. With deep roots in agriculture and a commitment to exceptional service, we connect farms, food producers and businesses with reliable transportation that keeps supply chains moving efficiently.\n\nOur experienced team and professional drivers understand the unique demands of agricultural transportation, from fresh produce and temperature-sensitive commodities to dry and bulk agricultural products. We combine industry expertise, advanced logistics and a customer-focused approach to deliver freight safely, on time and with the highest level of integrity.\n\nAt Southern AG Carriers, we are proud to support the hardworking farmers, growers, and food producers who help feed America. Whether moving products from the field to processing facilities, distribution centers, or retail locations, we remain committed to providing dependable transportation solutions that our customers can count on.",
+              "workforce": {
+                "total": 119
+              },
+              "headquarters": {
+                "address": "3422 Sylvester Road P.O. Box 50335, Albany, Georgia 31703, US",
+                "city": "Albany",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 26830277,
+                "fundingTotal": null,
+                "fundingLatestRound": null
+              },
+              "webTraffic": {
+                "visitsMonthly": 2896,
+                "countryRank": 1997345,
+                "avgDurationSeconds": 14,
+                "history": [
+                  {
+                    "value": 2125,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 1891,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 1814,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 2257,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 5830,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 2896,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/n2db4w59c04",
+        "title": "SOUTHERN AG BUILDERS & SUPPLY LLC",
+        "url": "https://southernagbuilders.com/",
+        "text": "# SOUTHERN AG BUILDERS & SUPPLY LLC\n\nSOUTHERN AG BUILDERS & SUPPLY LLC. Southern Ag Builders and Supply designs and builds high-performance broiler, pullet, and layer houses, and supplies the equipment growers need across the southeast. SOUTHERN AG BUILDERS & SUPPLY LLC employs 3 people. Headquartered in Biscoe, North Carolina, United States.\n\n## About\n\nSouthern Ag Builders and Supply designs and builds high-performance broiler, pullet, and layer houses, and supplies the equipment growers need across the southeast.\n\n## Company Details\n- Headquarters: Biscoe, United States\n- Homepage: southernagbuilders.com\n- Aliases: Southern Ag Builders & Supply, LLC., southern ag builders & supply, southern ag builders & supply llc, southern ag builders &a; supply\n- LinkedIn: linkedin.com/company/southern-ag-builders-&-supply-llc\n- Linkedin Followers: 1\n- Phone: (910) 428-4005, +1 910-428-4005\n\n## Workforce\n- Employees: 3\n- Company Size: 1-10 employees\n\n## Web presence\n\n- Crunchbase: crunchbase.com/organization/southern-ag-builders-supply-llc\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Categories\n\nagriculture, broiler, building material, construction, energy efficiency, equipment services, farming, layer houses, poultry house, poultry house and equipment services, pullet\n\n## Locations\n- Headquarters: biscoe, north carolina, united states (US)\n- Offices: biscoe, north carolina, united states (US)",
+        "summary": "{\"description\":\"SOUTHERN AG BUILDERS & SUPPLY LLC designs and builds high-performance broiler, pullet, and layer houses, and supplies the equipment growers need across the southeast.\",\"employee_estimate\":3,\"employee_estimate_source\":\"Employees: 3\",\"hq\":\"Headquartered in Biscoe, North Carolina, United States.\",\"hq_quote\":\"Headquartered in Biscoe, North Carolina, United States.\",\"industry\":\"agriculture, broiler, building material, construction, energy efficiency, equipment services, farming, layer houses, poultry house, poultry house and equipment services, pullet\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":false,\"is_third_party_logistics_quote\":\"null\"}",
+        "image": "https://static.licdn.com/aero-v1/sc/h/cs8pjfgyw96g44ln9r7tct85f",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/n2db4w59c04",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "SOUTHERN AG BUILDERS & SUPPLY LLC",
+              "foundedYear": null,
+              "description": "Southern Ag Builders and Supply designs and builds high-performance broiler, pullet, and layer houses, and supplies the equipment growers need across the southeast.",
+              "workforce": {
+                "total": 3
+              },
+              "headquarters": {
+                "address": "223 SHADY OAK DR, Biscoe, North Carolina 27209, us",
+                "city": "Biscoe",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 0,
+                    "dateFrom": "2024-04",
+                    "dateTo": "2024-04"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2024-09",
+                    "dateTo": "2024-09"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2025-06",
+                    "dateTo": "2025-06"
+                  },
+                  {
+                    "value": 149,
+                    "dateFrom": "2026-01",
+                    "dateTo": "2026-01"
+                  },
+                  {
+                    "value": 708,
+                    "dateFrom": "2026-02",
+                    "dateTo": "2026-02"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 4474.1,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

@@ -1,0 +1,196 @@
+{
+  "request": {
+    "query": "Oak Harbor Freight Lines",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.\n\n[quote retry 1] Copy each quote as ONE contiguous span of at most 200 characters exactly as it appears on the page.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "143d71e0c30b00a2bb4522d8bb661186",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/m9h4z4rm92d",
+        "title": "Oak Harbor Freight Lines",
+        "url": "https://www.oakh.com/",
+        "text": "# Oak Harbor Freight Lines\n\nOak Harbor Freight Lines is a Transportation/Trucking/Railroad company. Oak Harbor Freight Lines Inc (OHFL) is a leading western regional LTL carrier serving points throughout the United States and Canada for all your logistics and shipping needs. Oak Harbor Freight Lines employs 611 people (+4.4% YoY, +26 people) and has an annual revenue of $220.2M, founded in 1916. Headquartered in Auburn, Washington, United States, with offices including Fontana, Salinas, Spokane, Clarkston, and Santa Maria. Its workforce is distributed across United States and France.\n\n## About\n\nOak Harbor is a Family owned and operated LTL Freight carrier servicing the Western seven states Direct and all the US and Canada through strategic partnerships. We are recognized for providing peace of mind to our customers with our best in class service to the western seven states and our incredibly high rate of damage free deliveries.\n\n## Company Details\n- Industry: Transportation/Trucking/Railroad\n- Type: Privately held\n- Headquarters: Auburn, United States\n- Founded Year: 1916\n- Homepage: oakh.com\n- Aliases: Oak Harbor Freight Lines, Inc., oak harbor, oak harbor freight lines\n- LinkedIn: linkedin.com/company/oak-harbor-freight-lines\n- Linkedin Followers: 3,920\n- Phone: (800) 858-8815, 1-253-288-831\n\n## Financials\n- Annual Revenue: USD 220,194,000\n\n## Workforce\n- Employees: 611\n- Company Size: 1001-5000 employees\n  - Monthly Growth: +0.5%\n  - Yearly Growth: +4.4%\n- Key Executives:\n  - Annika Musia, SPHR: Human Resources Business Partner\n  - Carrie Luxem, SHRM-CP: Human Resources Business Partner\n  - Dan VanderPol: President\n  - Eric Vander Pol: Co President\n  - Jason Threlfall: Director of Line Haul\n  - Jody Silva: Regional Director for Northern California at Oak Harbor Freight Lines.\n  - Joe Cook: Director of Engineering\n  - Joel Spencer: Regional Director\n  - Kevin Kellermann: Vice President Operations\n  - Mark Vander Pol: Vice President of Yield Management\n- Breakdown:\n  - By Country: United States: 263 (43%), France: 2\n  - By Department: Operations: 117 (19%), Trades: 42 (7%), Finance: 23 (4%), Sales: 22 (4%), Other Department: 18 (3%), Technical: 9 (1%), Administrative: 8 (1%), General Management: 8 (1%), Customer Service: 7 (1%), Hr: 7 (1%) (+5 more)\n  - By Seniority: Specialist: 137 (22%), Manager: 78 (13%), Other Management: 40 (7%), Director: 8 (1%), Vp: 5 (1%), Partner: 2, Head: 1, Intern: 1\n- Salary ranges:\n  - Terminal Manager: median $96,890.39 per year\n  - Human Resources Generalist: median $83,607.31 per year\n  - Operations Supervisor: median $76,880.99 per year\n  - IT Help Desk: median $64,694.83 per year\n  - Help Desk Analyst: median $60,601.2 per year\n  - Driver: median $54,507.17 per year\n  - P&D Driver: median $53,550.61 per year\n  - Accounts Receivable: median $52,749.23 per year\n  - Dockworker: median $51,769.68 per year\n  - Accounts Receivable Specialist: median $51,217.79 per year\n  - Customer Service Representative: median $43,448.72 per year\n- Talent Sources: Reddaway (10), XPO (9), Old Dominion Freight Line (9), FedEx Freight (7), YRC Freight (6), Yellow (5), United States Air Force (5), US Army (5), UPS Freight (5), Amazon (5)\n- Alumni Go To: XPO (7), Reddaway (6), YRC Freight (5), Saia Inc. (5), Peninsula Truck Lines, Inc. (5), UPS (4), Old Dominion Freight Line (4), FedEx Freight (4), ABF Freight (4), Starbucks (3)\n\n## Products & Technology\n- Tech Stack: ecm, gauges, kronos, wordpress, windows 10, windows 7, html, microsoft, microsoft office, amp, box, c, medium, spring, well, ups, slack, verizon\n\n## Web presence\n\n- Twitter: twitter.com/oakhfreight\n- Facebook: facebook.com/oak-harbor-freight-lines-287197241390685\n- Crunchbase: crunchbase.com/organization/oak-harbor-freight-lines\n- Web traffic:\n  - Monthly visits: 62,215\n  - Global rank: 655,590\n  - Bounce rate: 64.0%\n  - Pages per visit: 1.7\n  - Average visit duration: 88s\n\n## Reviews & Ratings\n- Employer Rating: 3.1/5.0 (117 reviews)\n  - Breakdown: Work-Life: 2.8, Compensation: 2.9, Culture: 2.8, Career: 3.1\n\n## Categories\n\nautomotive, automotive-transportation, business_and_consumer_services/shipping_and_logistics, ca, delivery, logistics, logistics and shipping, ltl, ltl carrier, nv, road-transportation, shipping, truckload logisitics, truckload services, warehousing - las vegas, warehousing - redding, warehousing - san diego\n\n## Competitors\n\nups, dhl, fedex, c.h. robinson, xpo, expeditors, tnt, db schenker, kuehne+nagel, dpdgroup, mainfreight, purolator, usps, ceva logistics, purolator international, j.b. hunt, lanter delivery systems, hutchison ports ect rotterdam, frio express, dart\n\n## Recent News\n- [2026-09-03] [Settling down from Seattle to Sioux Center for family \\| News \\| nwestiowa.com](https://www.nwestiowa.com/news/settling-down-from-seattle-to-sioux-center-for-family/article_52bf9342-7155-45a5-9986-775f76368591.html)\n- [2019-09-23] Delaware Business Now: A. Duie Pyle to offer West Coast trucking routes through agreement with Oak Harbor\n- [2018-04-25] Tennessean: Harbor Freight Tools opens Monday in Dickson\n- [2018-04-13] Syracuse: Harbor Freight Tools to open third Syracuse-area location\n\n## Social\n\n### Linkedin\n\n- [2026-09-30 · 6 reactions] For 110 years, we have believed that strong relationships begin with how we show up for each other and our Partners, and for our Customers. Help us celebrate 110 years as we highlight our terminal...\n\n- [2026-09-24 · 11 reactions] Celebrating 110 years means recognizing the people and locations that helped shape our journey. Opened in 1982 as part of our expansion into Eastern Washington, the Yakima terminal has been serving...\n\n- [2026-09-21 · 39 reactions, 1 comment] From cookouts and team lunches to celebrations big and small, every Oak Harbor Freight Lines terminal took time last week to recognize the incredible people who make our Company what it is. The tea...\n\n- [2026-09-16 · 14 reactions] 110 years strong! We've reached this milestone thanks to a Team dedicated to delivering exceptional service and earning our Customers' trust. To better serve our Customer base in California, we ope...\n\n- [2026-09-09 · 19 reactions] As we celebrate 110 years in business, we're grateful to the Customers, Employees, and Partners who have been part of our story. Your trust continues to inspire us to grow, improve, and deliver eve...\n\n- [2026-09-04 · 10 reactions] In observation of Labor Day, all Oak Harbor facilities & operations will be closed on Monday, September 7th. This holiday is a time to recognize the dedication, talent, and hard work of those who h...\n\n- [2026-09-02 · 23 reactions] Behind every milestone is a Team that makes it possible. For more than a century, we have helped deliver peace of mind to Customers by setting higher standards and continually improving the Custome...\n\n- [2026-08-26 · 11 reactions] It takes a strong network to deliver 110 years of peace of mind. This time, we're highlighting the Boise terminal and its role in connecting customers across the region. Boise isn't just the capita...\n\n- [2026-08-19 · 12 reactions] For more than a century, we’ve stayed true to a simple promise, “Bringing Peace of Mind to our Customers.” Thank you for being part of our journey. Today we’re highlighting our San Diego terminal w...\n\n- [2026-08-13 · 17 reactions] Deep roots. Strong connections. As we celebrate 110 years of Bringing Peace of Mind, we're shining a light on our Klamath Falls terminal. Opened in 1997, this location helped expand Oak Harbor Frei...\n\n- [2026-08-12 · 35 reactions, 1 comment] Congratulations to our drivers, Carlos Franco (Los Angeles P&D) and John Jackson (Reno Linehaul). They are competing this week in the National Truck Driver Championship in Pittsburgh. Thank you bot...\n\n- [2026-08-05 · 26 reactions] Celebrating 110 years of growth! This achievement belongs to our Team, the driving force behind our commitment to excellence. For more than 100 years, we’ve provided Peace of Mind to our Customers...\n\n- [2026-07-29 · 24 reactions] 110 years strong! We’ve achieved this milestone thanks to our team’s commitment to being the best in the market. For more than a century we have been Bringing Peace of Mind to our Customers by cons...\n\n- [2026-07-29 · 27 reactions] 110 years strong! We’ve achieved this milestone thanks to our team’s commitment to being the best in the market. For more than a century we have been Bringing Peace of Mind to our Customers by cons...\n\n- [2026-07-22 · 14 reactions] Help us celebrate 110 years as we highlight our terminal in Chino, California. A growing demand for service within the Inland Empire of California, an area packed with distribution centers, led to...\n\n- [2026-07-15 · 16 reactions, 1 comment] Thank you for being on this journey with us! Taking care of Customers has been our priority for over a century. As we celebrate 110 years, your trust inspires us to keep raising the bar for the nex...\n\n- [2026-07-08 · 36 reactions] 110 years ago, we started as a local cartage carrier. Today, we’re a leading LTL provider, connecting Customers nationwide through our Company Drivers and a strong partner network. With the 3rd gen...\n\n- [2026-07-02 · 22 reactions] Happy 4th of July! To honor the holiday and give our Employees time to spend with their loved ones, all Oak Harbor Freight Lines terminals will be closed on Friday, July 3rd. We hope you enjoy time...\n\n- [2026-07-01 · 20 reactions] As a third-generation, family-owned company, we remain deeply committed to our Customers, our People, and the Communities we serve. We’re proud of the legacy we’ve built over the last 110 years and...\n\n- [2026-06-24 · 15 reactions] For more than a century, we’ve stayed true to a simple promise, “Bringing Peace of Mind to our Customers.” As we celebrate 110 years, your trust inspires us to keep growing, improving, and deliveri...\n\n## Locations\n- Headquarters: auburn, washington, united states (US)\n- Offices: chino, california, united states (US), auburn, washington, united states (US), klamath falls, oregon, united states (US), santa maria, california, united states (US), bakersfield, california, united states (US), meridian, idaho, united states (US), salem, oregon, united states (US), clarkston, washington, united states (US), spokane, washington, united states (US), twin falls, idaho, united states (US), san diego, california, united states (US), eureka, california, united states (US), bend, oregon, united states (US), north las vegas, nevada, united states (US), west sacramento, california, united states (US), newark, california, united states (US), pocatello, idaho, united states (US), pasco, washington, united states (US), patterson, california, united states (US), rodeo, california, united states (US), bremerton, washington, united states (US), wenatchee, washington, united states (US), reno, nevada, united states (US), medford, oregon, united states (US), stockton, california, united states (US), phoenix, arizona, united states (US), cedar city, utah, united states (US), fontana, california, united states (US), coos bay, oregon, united states (US), salinas, california, united states (US), montebello, california, united states (US), tucson, arizona, united states (US), anderson, california, united states (US), tumwater, washington, united states (US), west valley city, utah, united states (US), fresno, california, united states (US), burlington, washington, united states (US), yakima, washington, united states (US), woodinville, washington, united states (US), eugene, oregon, united states (US), portland, oregon, united states (US)",
+        "summary": "{\"description\":\"Oak Harbor Freight Lines Inc (OHFL) is a leading western regional LTL carrier serving points throughout the United States and Canada for all your logistics and shipping needs. Oak Harbor Freight Lines employs 611 people (+4.4% YoY, +26 people) and has an annual revenue of $220.2M, founded in 1916. Headquartered in Auburn, Washington, United States, with offices including Fontana, Salinas, Spokane, Clarkston, and Santa Maria. Its workforce is distributed across United States and France.\",\"employee_estimate\":611,\"employee_estimate_source\":\"Employees: 611\",\"hq\":\"Headquartered in Auburn, Washington, United States\",\"hq_quote\":\"Headquartered in Auburn, Washington, United States\",\"industry\":\"Transportation/Trucking/Railroad\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"Oak Harbor Freight Lines is a leading western regional LTL carrier... for all your logistics and shipping needs.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQFQlDuZ9r1ruA/company-logo_200_200/B56Z2TCU8PK4AM-/0/1776288354446/oak_harbor_freight_lines_logo?e=2147483647&v=beta&t=Pwo7hA16yROWhuJ8D34663bEYAjGQUZrKDMG2A8AxJk",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/m9h4z4rm92d",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Oak Harbor Freight Lines",
+              "foundedYear": 1916,
+              "description": "Oak Harbor is a Family owned and operated LTL Freight carrier servicing the Western seven states Direct and all the US and Canada through strategic partnerships. We are recognized for providing peace of mind to our customers with our best in class service to the western seven states and our incredibly high rate of damage free deliveries.",
+              "workforce": {
+                "total": 611
+              },
+              "headquarters": {
+                "address": "1339 W Valley Hwy N, PO Box 1469, Auburn, Washington 98001, US",
+                "city": "Auburn",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 220194000,
+                "fundingTotal": null,
+                "fundingLatestRound": null
+              },
+              "webTraffic": {
+                "visitsMonthly": 62215,
+                "countryRank": 146660,
+                "avgDurationSeconds": 88,
+                "history": [
+                  {
+                    "value": 48524,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 45012,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 47964,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 41459,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 83327,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 62215,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/8dxgxg087sf",
+        "title": "Central Freight Lines, Inc.",
+        "url": "https://centralfreight.com/",
+        "text": "# Central Freight Lines, Inc.\n\nCentral Freight Lines, Inc. is a Transportation/Trucking/Railroad company. Central Freight Lines, Inc. employs 613 people (-0.3% YoY, -2 people) and has an annual revenue of $262M, founded in 1925. Headquartered in Waco, Texas, United States. Its workforce is distributed across United States and Philippines.\n\n## About\n\nCentral Freight Lines has a rich history of providing transportation to emerging businesses and Fortune 500 industry leaders since 1925. Central's Corporate Office has been located in Waco, Texas for over 95 years.\n\nCentral Freight Lines has sustainability, financial strength, and an infrastructure designed to intelligently support the logistical needs of North America's largest manufacturing, retail, and distribution enterprises.\n\nCentral Freight Lines continues to look for growth opportunities without losing our focus of consistent, reliable LTL service to our core area which is comprised of 80 terminals from Miami to Los Angeles. Our network supports warehousing, inventory control and distribution capabilities for those corporations looking to outsource their supply chain needs.\n\nCentral Freight Lines is the first LTL carrier to commit to supplementing their current diesel fleet with compressed natural gas tractors. Central Freight Lines San Antonio, Houston and Fort Worth local operations are running with clean operating CNG heavy duty tractors. Central Freight Lines is committed to reducing our carbon footprint and continuing to be an environmentally aware carrier.\n\nCentral Freight Lines has made a significant investment in technology by instituting a state of the art digital dispatch management system. Our dispatchers are equipped with the most powerful and dynamic computer dispatch application available to the LTL environment.\n\n## Company Details\n- Industry: Transportation/Trucking/Railroad\n- Type: Privately held\n- Headquarters: Waco, United States\n- Founded Year: 1925\n- Homepage: centralfreight.com\n- Aliases: central freight lines, central freight lines, inc.\n- LinkedIn: linkedin.com/company/central-freight-lines\n- Linkedin Followers: 7,120\n- Phone: (972) 554-5363, 1-800-782-5036\n\n## Financials\n- Annual Revenue: USD 262,000,000\n\n## Acquisitions\n- Acquired Volunteer Express, Inc. (2020-03-01)\n\n## Workforce\n- Employees: 613\n- Company Size: 1001-5000 employees\n  - Yearly Growth: -0.3%\n- Key Executives:\n  - ALLAN BRITTAIN: Vice President of Line Haul Operations\n  - Aaron Green: Owner Operator\n  - Amanda Lowery: Human Resources Business Partner\n  - Chad Richey: P D Lead\n  - Don Bieber: Director - National Accounts\n  - Donald Orr: President\n  - Greg Kocek: CIO and VP of IT\n  - Jeanette Mondragon: Owner/ Operator Truck Driver\n  - John Saunders: Operations Safety and Health Director\n  - Mike Heisterkamp: Vice President Business Development -(Retired as of March 2018)\n- Breakdown:\n  - By Country: United States: 208 (34%), Philippines: 1\n  - By Department: Operations: 79 (13%), Trades: 38 (6%), Sales: 23 (4%), Finance: 18 (3%), Customer Service: 11 (2%), General Management: 11 (2%), Administrative: 8 (1%), Other Department: 7 (1%), Hr: 6 (1%), Technical: 6 (1%) (+6 more)\n  - By Seniority: Specialist: 106 (17%), Manager: 68 (11%), Other Management: 23 (4%), Vp: 5 (1%), Director: 3, Owner: 3, Senior: 2, Clevel: 1, Head: 1, Partner: 1\n- Talent Sources: Wilson Trucking Corporation (43), XPO (15), Saia Inc. (14), YRC Freight (12), Old Dominion Freight Line (12), Yellow (10), Swift Transportation (10), Central Transport (10), Reddaway (8), FedEx Freight (8)\n- Alumni Go To: Saia Inc. (34), Yellow (33), Estes Express Lines (30), Central Transport (29), AAA Cooper Transportation (23), Old Dominion Freight Line (18), FedEx Freight (18), R+L Carriers (15), Southeastern Freight Lines (14), YRC Freight (11)\n\n## Products & Technology\n- Tech Stack: recognize, facebook, linkedin, twitter, amp, instagram, ups, microsoft\n\n## Web presence\n\n- Twitter: twitter.com/central_freight\n- Facebook: facebook.com/centralfreightlines\n- Instagram: instagram.com/centralfreightlines\n- Crunchbase: crunchbase.com/organization/central-freight-lines\n\n## Categories\n\n3pl partner, automotive parts transportation, automotive-transportation, freight, inter regional ltl carrier, logistics, ltl, oil & gas industry transportation, retail transportation, road-transportation, single source logistics provider, supply chain, transportation\n\n## Competitors\n\noak harbor freight lines, ward trucking, dayton freight, pam, heartland express, covenant, newpenn, talke, marten transport, jost group, bravo servicos logisticos\n\n## Recent News\n- [2021-12-21] Houston Business Journal: Central Freight Lines facility closure prompts 162 layoffs in Houston\n- [2021-12-13] FreightWaves: Exclusive: Central Freight Lines to shut down after 96 years\n- [2021-12-12] WSJ Pro - Venture Capital: Trucker Central Freight Lines to Close After Years of Losses\n- [2019-11-15] Benzinga: Amazon's Dispute With LTL Carrier Heading Back To Court\n- [2019-11-06] Benzinga: Jury Delivers Victory To LTL Carrier In Pricing Dispute With Amazon\n- [2019-05-15] PRNewswire: Worldwide Express Honors Eight Freight Partners for Exemplary Service\n- [2018-09-24] PRLog: Central Freight Lines selects Maven Dispatch for Fleet Management\n- [2018-01-29] PRLog: Central Freight Lines of Waco, Texas Selects Maven Machines for ELD Compliance\n- [2016-12-23] PRWeb Sitemap: Comdata Hotel Network Program Reaches One-Year Milestone of Nearly 50,000 Nights Stayed\n\n## Social\n\n### Linkedin\n\n- [2021-09-08 · Posted · 12 reactions] [Don't forget! We are having a hiring event this weekend 9/11/21. We...](https://www.linkedin.com/posts/central-freight-lines_dont-forget-we-are-having-a-hiring-event-activity-6841387639040557056-ATj1)\n  > Don't forget! We are having a hiring event this weekend 9/11/21. We hope to see you there!\n  > Location:\n  > 5200 E Loop 820 S, Fort Worth Texas, 76119\n\n- [2020-02-10 · Posted · 37 reactions] [Welcome to CFL LTL, the new Central Freight Lines. NEW CFL...](https://www.linkedin.com/posts/central-freight-lines_freight-logistics-trucking-activity-6632725270895882240-2Gln)\n  > Welcome to CFL LTL, the new Central Freight Lines. NEW CFL Guaranteed! Delivering by Noon and 5pm. #Freight #Logistics #Trucking #Transportation #CentralFreightLines #LTL #SupplyChain #Shipping\n\n## Locations\n- Headquarters: waco, texas, united states (US)\n- Offices: waco, texas, united states (US)",
+        "summary": "{\"description\":\"Central Freight Lines, Inc. is a Transportation/Trucking/Railroad company with a long history in LTL freight and logistics services across the U.S. network.\",\"employee_estimate\":613,\"employee_estimate_source\":\"Employees: 613\",\"hq\":\"Waco, United States\",\"hq_quote\":\"Headquartered in Waco, Texas, United States.\",\"industry\":\"Transportation/Trucking/Railroad\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"3pl partner, automotive parts transportation, automotive-transportation, freight, inter regional ltl carrier, logistics, ltl, oil & gas industry transportation, retail transportation, road-transportation, single source logistics provider, supply chain, transportation\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C560BAQGpnp2ze9IUpw/company-logo_200_200/company-logo_200_200/0/1630641821578/central_freight_lines_logo?e=2147483647&v=beta&t=scVbzvvRvpk7pV3T-BWaEbAtVcP5v0nXpOF2xsno9hQ",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/8dxgxg087sf",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Central Freight Lines, Inc.",
+              "foundedYear": 1925,
+              "description": "Central Freight Lines has a rich history of providing transportation to emerging businesses and Fortune 500 industry leaders since 1925. Central's Corporate Office has been located in Waco, Texas for over 95 years.\n\nCentral Freight Lines has sustainability, financial strength, and an infrastructure designed to intelligently support the logistical needs of North America's largest manufacturing, retail, and distribution enterprises.\n\nCentral Freight Lines continues to look for growth opportunities without losing our focus of consistent, reliable LTL service to our core area which is comprised of 80 terminals from Miami to Los Angeles. Our network supports warehousing, inventory control and distribution capabilities for those corporations looking to outsource their supply chain needs.\n\nCentral Freight Lines is the first LTL carrier to commit to supplementing their current diesel fleet with compressed natural gas tractors. Central Freight Lines San Antonio, Houston and Fort Worth local operations are running with clean operating CNG heavy duty tractors. Central Freight Lines is committed to reducing our carbon footprint and continuing to be an environmentally aware carrier.\n\nCentral Freight Lines has made a significant investment in technology by instituting a state of the art digital dispatch management system. Our dispatchers are equipped with the most powerful and dynamic computer dispatch application available to the LTL environment.",
+              "workforce": {
+                "total": 613
+              },
+              "headquarters": {
+                "address": "5601 West Waco Drive, Waco, Texas 76710, US",
+                "city": "Waco",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 262000000,
+                "fundingTotal": null,
+                "fundingLatestRound": null
+              },
+              "webTraffic": null,
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 2293.4,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

@@ -1,0 +1,192 @@
+{
+  "request": {
+    "query": "A. Duie Pyle",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "8858742686303e7e72c600f9cc19c071",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/xzfqttkhscj",
+        "title": "A. Duie Pyle, Inc.",
+        "url": "https://aduiepyle.com/",
+        "text": "# A. Duie Pyle, Inc.\n\nA. Duie Pyle, Inc. is a Truck Transportation company. A. Duie Pyle is a premier transportation and logistics provider with extended coverage through partnerships into the Southeast, Midwest, and Canada. A. Duie Pyle, Inc. employs 1,356 people (+7.1% YoY, +90 people) and has an annual revenue of $800M, founded in 1924. Headquartered in West Chester, Pennsylvania, United States, with offices including Parkesburg, Castleton-on-Hudson, Streetsboro, Manassas, and Duncansville. Its workforce is distributed across United States and Puerto Rico.\n\n## About\n\nAt A. Duie Pyle we believe in first-class service and satisfying customers every time we’re called upon. Our people collectively believe in a service-first culture that supports long-term relationships, honoring commitments, communicating the truth and solving customer problems. This passion, backed by purposeful effort, promises business growth for customers through a network of logistics\ncenters and a team of supply chain experts and professional drivers.\n\nWith a powerful Northeast regional infrastructure and a portfolio of services that includes LTL, dedicated fleet, warehousing and distribution, port services and third-party logistics, the Pyle People Deliver.\n\nWe are a family-owned business with more than 100-years of experience where the value of trust cannot be overstated.\n\n## Company Details\n- Industry: Truck Transportation\n- Type: Privately held\n- Headquarters: West Chester, United States\n- Founded Year: 1924\n- Homepage: aduiepyle.com\n- Aliases: a. duie pyle, a. duie pyle, inc.\n- LinkedIn: linkedin.com/company/a-duie-pyle-inc\n- Linkedin Followers: 21,661\n- Phone: +1800523502, -800-523-5020, 19381-0564, 800-523-5020\n\n## Financials\n- Annual Revenue: USD 800,000,000\n\n## Workforce\n- Employees: 1,356\n- Company Size: 1001-5000 employees\n  - Monthly Growth: +1.0%\n  - Yearly Growth: +7.1%\n- Key Executives:\n  - Aaron Nelson: Vice President of Warehousing & Distribution\n  - Aaron Strauss: Dedicated Driver\n  - Alexis Ellinger: Talent Acquisition Partner\n  - Alexis Guringo: Talent Acquisition Partner\n  - Anna-Lind Hummel: Director, Supply Chain Project Management\n  - Ashley Fox: Corporate Director, Financial Planning & Analysis\n  - Ashley Juliano: Talent Acquisition Partner\n  - Benjamin DiNapoli: Director Strategic Markets\n  - Bill Thompson: Regional Director of Operations\n  - Billy Latta: Director Enterprise Services\n- Breakdown:\n  - By Country: United States: 646 (48%), Puerto Rico: 1\n  - By Department: Operations: 225 (17%), Sales: 95 (7%), Trades: 95 (7%), Finance: 50 (4%), Other Department: 36 (3%), Hr: 35 (3%), Technical: 34 (3%), Customer Service: 32 (2%), Administrative: 16 (1%), General Management: 16 (1%) (+9 more)\n  - By Seniority: Specialist: 328 (24%), Manager: 209 (15%), Other Management: 67 (5%), Director: 26 (2%), Partner: 12 (1%), Vp: 12 (1%), Intern: 9 (1%), Senior: 7 (1%), Clevel: 5\n- Active job postings: 238\n- Salary ranges (20 of 29 roles):\n  - Network Engineer: median $95,881.74 per year\n  - Manager: median $94,390.94 per year\n  - Terminal Operations Supervisor: median $80,326.71 per year\n  - Ops Manager: median $80,189.55 per year\n  - Leadership Development Program (LDP): median $76,179.64 per year\n  - Dedicated Account Manager: median $74,362.5 per year\n  - Operations Supervisor: median $73,917.72 per year\n  - Over the Road Truck Driver: median $70,150.25 per year\n  - Freight Broker: median $69,872.62 per year\n  - Local Truck Driver: median $69,627.64 per year\n  - Pricing Analyst: median $69,385.09 per year\n  - Line Haul Driver: median $65,932.23 per year\n  - Truck Driver: median $65,794.3 per year\n  - Local Driver: median $64,138.62 per year\n  - Mechanic: median $61,606.58 per year\n  - Dedicated Driver: median $60,577.26 per year\n  - P & D Driver: median $59,442.76 per year\n  - Diesel Mechanic: median $59,088.92 per year\n  - Management Trainee: median $58,988.85 per year\n  - Yard Driver: median $56,772.59 per year\n- Talent Sources: New Penn Motor Express (23), XPO (19), YRC Freight (18), Yellow (16), FedEx Freight (14), UPS (13), NEMF (10), Central Transport (10), Ward Transport & Logistics Corp. (9), Estes Express Lines (9)\n- Alumni Go To: XPO (15), Amazon (12), Saia Inc. (9), Vanguard (8), PITT OHIO (8), Penske Logistics (7), Ryder System, Inc. (6), Old Dominion Freight Line (5), Penn Tank Lines, Inc. (4), New Penn Motor Express (4)\n\n## Products & Technology\n- Tech Stack (showing 50 of 112): adp, autocad, axway, axway b2bi, cognos, crowdstrike, databricks, elasticsearch, gps, java, linkedin, linux, mariadb, microsoft, microsoft dynamics, microsoft dynamics gp, microsoft excel, microsoft office, microsoft sql server, microsoft word, mysql, new relic, omnitracs, oracle, owasp, power bi, python, rds, recognize, salesforce, salesforce outlook, samsara, snowflake, sql, tableau, tenstreet, trimble, ukg, ukg pro, vimeo, zscaler, ada, kronos, ultimate kronos group, hcm, adobe, adobe analytics, adobe xd, css, figma\n\n## Web presence\n\n- Twitter: twitter.com/aduiepyle\n- Facebook: facebook.com/aduiepyle\n- Instagram: instagram.com/aduiepyle_official\n- YouTube: youtube.com/@a.duiepyle\n- Crunchbase: crunchbase.com/organization/a-duie-pyle-inc\n- Web traffic:\n  - Monthly visits: 112,143\n  - Global rank: 362,245\n  - Bounce rate: 33.0%\n  - Pages per visit: 2.6\n  - Average visit duration: 180s\n\n## Reviews & Ratings\n- Employer Rating: 3.9/5.0 (318 reviews)\n  - Breakdown: Work-Life: 3.2, Compensation: 3.8, Culture: 4.0, Career: 3.9\n\n## Categories\n\nautomotive-transportation, brokerage, business_and_consumer_services/shipping_and_logistics, custom dedicated, delivery, distribution, drayage, expedited services, export, fleet, fleet operations, import, integrated solutions, less-than-truckload, logistics, ltl, ltl solutions, pool distribution, regional ltl, road-transportation, supply chain, supply chain solutions, transportation, transportation and logistics, truckload, warehouse, warehousing\n\n## Competitors\n\nnormandin transportation services, logisticsone, transportsystemsinc, transporte vigia, transportation specialists, gsc logistics, capital transport, autransa\n\n## Recent News\n- [2026-09-23]\n  - [Why Integrated Logistics Facilities Matter for Importers](https://www.inboundlogistics.com/articles/why-integrated-logistics-facilities-matter/)\n  - Inbound Logistics: Why Integrated Logistics Facilities Matter\n- [2026-09-21] The Business Journals: Meet the 53 largest family-owned businesses in Greater Philadelphia\n- [2026-09-18] [High-profile trucking firm to build transportation center in East Hempfield Township](https://lancasteronline.com/news/regional/high-profile-trucking-firm-to-build-transportation-center-in-east-hempfield-township/article_b59a50c9-c1ca-4398-8c8e-2c9653ef1009.html)\n- [2026-09-14] The Business Journals: Ranked: The 227 largest private companies in the Philadelphia area\n- [2026-09-02]\n  - [🚌 York, PA transportation jobs with multiple local roles - NewsBreak](https://www.newsbreak.com/york-pa-daily-brief-375447973/4862261734147-york-pa-transportation-jobs-with-multiple-local-roles)\n  - Inbound Logistics: 2026 Inbound Logistics Top 100 Truckers\n- [2026-08-29] [🚌 Chicopee, MA Transportation Jobs – Multiple Local Driving Roles - NewsBreak](https://www.newsbreak.com/chicopee-ma-daily-brief-373341458/4856296226104-chicopee-ma-transportation-jobs-multiple-local-driving-roles)\n- [2026-08-19] [🚚 West Chester, PA Supply Chain Jobs – Multiple Open Roles - NewsBreak](https://www.newsbreak.com/west-chester-pa-daily-brief-375446005/4836728054471-west-chester-pa-supply-chain-jobs-multiple-open-roles)\n- [2026-08-15] GlobeNewswire: A. Duie Pyle Earns Logistics Management Quest for Quality Award for 37th Consecutive Year\n- [2025-08-18] A. Duie Pyle: A. Duie Pyle Expands Regional Network with New LTL Service Center in New York\n- [2025-08-12] A. Duie Pyle: A. Duie Pyle Earns Logistics Management Quest for Quality Award for 36th Consecutive Year\n- [2025-07-21] A. Duie Pyle: Pyle Opens New Service Centers in Ohio, Strengthening Direct Next-Day LTL Network\n- [2025-06-30] A. Duie Pyle: A. Duie Pyle Recognized for Leadership in Sustainable Freight Practices\n- [2025-06-16] A. Duie Pyle: A. Duie Pyle Expands Northeast Footprint with New LTL Facility in West Virginia\n- [2025-02-24] GlobeNewswire News Room: A. Duie Pyle Opens Dedicated Warehouse and Distribution Center in North Carolina at Request of Strategic Customer\n- [2024-11-14] The Business Journals: Family-Owned Business Awards 2024: A. Duie Pyle's third generation drives firm closer to $1B in revenue\n- [2024-06-25] Philly.com: Family-owned trucking company A. Duie Pyle has adapted to deregulation, supply chain changes, and just-in-time delivery\n- [2024-05-07] LinkedIn: A. Duie Pyle, Inc. on LinkedIn: #aduiepyle #casestudy #transportation #logistics\n- [2024-04-21]\n  - LinkedIn: A. Duie Pyle, Inc. on LinkedIn: #aduiepyle #earthday #sustainability #gogreen\n  - Patch: Large Parking Deck Nearly Done At Southington Trucking Company\n  - LinkedIn: Matthew Greenfield on LinkedIn: A. Duie Pyle 100 Year Anniversary\n- [2024-03-21] CDLLife: Trucking company celebrates 100 years with $25M expansion\n- [2024-03-19] CT Insider: Trucking company $25 million expansion underway in Southington\n- [2024-03-05] LinkedIn: Scott Plucinski on LinkedIn: With almost 100 years of embargo free dependability, you can trust that…\n\n## Social\n\n### Linkedin\n\n- [2026-09-30 · 5 reactions, 1 comment] Not every shipment fits neatly into LTL or truckload. See how Pyle’s Box Truck solutions provide flexible capacity when standard options aren’t the right fit. Watch the video to learn more.\n\n- [2026-09-28 · 8 reactions] From the drivers on the road to the team in our facilities, these individuals bring years of experience, reliability, and hard work to everything they do every single day. Reaching milestones like...\n\n- [2026-09-23 · 13 reactions, 1 comment] Managing separate warehouse and transportation partners leads to extra delays, coordination headaches, and unnecessary costs. A. Duie Pyle’s Westfield Integrated Logistics Center solves this by uni...\n\n- [2026-09-22 · 8 reactions, 1 comment] Is managing your own fleet making it harder to scale? As your business grows, so do the costs, labor requirements and operational complexity of managing transportation in-house. Dedicated Contract...\n\n- [2026-09-21 · 31 reactions, 1 comment] Every year at our Truck Driver Roadeos, Pyle drivers put their skills to the test through challenging obstacle courses designed to showcase precision and safe driving. It’s also one of our favorite...\n\n- [2026-09-18 · 46 reactions] What a fantastic Employee Appreciation Week! As the week comes to a close, we’re looking back on a few days filled with great food, team connection, and well-deserved recognition for our Pyle Peopl...\n\n- [2026-09-17 · 16 reactions] Continuing our Employee Appreciation Week celebrations! Our success isn’t driven by just one person—it’s the result of incredible teamwork across every single department. Today, we’re highlighting...\n\n- [2026-09-16 · 40 reactions] Great work deserves great appreciation! As part of our Employee Appreciation Week celebrations, we hosted Philly Hots at our headquarters today to treat our team to a special lunch. Swipe through f...\n\n- [2026-09-15 · 21 reactions] Pyle People Deliver. Behind the reliable service our customers count on every day are people who care about the work they do and the people they do it with. This Employee Appreciation Week, we’re s...\n\n- [2026-09-14 · 38 reactions] Happy Employee Appreciation Week! Great service starts with great people. Behind every shipment, customer interaction, and solution we deliver are Pyle People who bring experience, care, and commit...\n\n- [2026-09-10 · 41 reactions, 2 comments] Ready to take the next step in your career? Our team is expanding, and we’re hiring across multiple locations. We offer stable work, competitive pay, comprehensive benefits, and a workplace culture...\n\n- [2026-09-09 · 14 reactions, 1 comment] In case you missed it: We released a guide exploring the hidden risks and expenses shaping today’s private fleet landscape. Whether you’re scaling or simplifying, understanding the risks of fleet m...\n\n- [2026-09-08 · 41 reactions, 3 comments] Our Leadership Development Program provides hands-on experience in transportation operations while developing the skills needed to grow into future leadership opportunities at Pyle. Come meet our t...\n\n- [2026-09-07 · 23 reactions] Behind every shipment delivered and every mile driven is a dedicated team keeping our communities moving forward. This Labor Day, we recognize the hard work, resilience and commitment of our Pyle P...\n\n- [2026-09-01 · 29 reactions, 2 comments] When Volvo Group North America needed to stabilize warehouse operations and keep cab production moving, Pyle stepped in quickly, staging the initial inventory in just nine days. Featured in Logisti...\n\n- [2026-08-28 · 25 reactions] Dedicated to the drive, committed to the smile. Wide turns, heavy loads, and last-minute curveballs—our drivers handle it all with an incredible attitude. Thank you to the team making every deliver...\n\n- [2026-08-27 · 32 reactions, 1 comment] Where you store inventory can impact transportation costs, transit times and delivery performance. Strategically located in central New England, Pyle’s Westfield Integrated Logistics Center connect...\n\n- [2026-08-26 · 15 reactions] Join us in celebrating the incredible milestones of our team members reaching their service anniversaries! Thank you all for the years of dedication, reliability, and hard work you put into every s...\n\n- [2026-08-25 · 17 reactions, 2 comments] No matter the mode, we deliver. Not every shipment is an obvious fit for traditional LTL or full truckload service. Our experienced brokerage team works with you to determine when a box truck is th...\n\n- [2026-08-24 · 25 reactions, 1 comment] When the delivery address is: The Navy’s Blue Angels. ✈️ Secured the load and made a special delivery to the tarmac at the 2026 Brunswick, Maine Air Show. They handle the speed in the skies, but we...\n\n## Locations\n- Headquarters: west chester, pennsylvania, united states (US)\n- Offices: duncansville, pennsylvania, united states (US), westfield, massachusetts, united states, pittston, pennsylvania, united states (US), morrisville, pennsylvania, united states (US), west chester, pennsylvania, united states (US), bronx, new york, united states (US), etna, pennsylvania, united states (US), northborough, massachusetts, united states, saco, maine, united states (US), parkesburg, pennsylvania, united states (US), greencastle, pennsylvania, united states (US), new castle, delaware, united states (US), monessen, pennsylvania, united states (US), johnston, rhode island, united states (US), east brunswick, new jersey, united states (US), tonawanda, new york, united states (US), carteret, new jersey, united states (US), streetsboro, ohio, united states (US), york, pennsylvania, united states (US), syracuse, new york, united states, coatesville, pennsylvania, united states (US), manassas, virginia, united states (US), williston, vermont, united states (US), allentown, pennsylvania, united states (US), richmond, virginia, united states (US), elkridge, maryland, united states (US), roanoke, virginia, united states (US), westampton, new jersey, united states (US), hooksett, new hampshire, united states (US), castleton-on-hudson, new york, united states (US), southington, connecticut, united states (US)",
+        "summary": "{\"description\":\"A. Duie Pyle, Inc. is a premier transportation and logistics provider with extended coverage through partnerships into the Southeast, Midwest, and Canada.\",\"employee_estimate\":356,\"employee_estimate_source\":\"Employees: 1,356\",\"hq\":\"West Chester, Pennsylvania, United States\",\"hq_quote\":\"Headquartered in West Chester, Pennsylvania, United States\",\"industry\":\"Truck Transportation\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"With a powerful Northeast regional infrastructure and a portfolio of services that includes LTL, dedicated fleet, warehousing and distribution, port services and third-party logistics, the Pyle People Deliver.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQHlHW4ZGe0eyw/company-logo_200_200/company-logo_200_200/0/1736351204389/a_duie_pyle_inc_logo?e=2147483647&v=beta&t=U55BGo1rQQYhgJ78JrxWjyYKZDPD_rm_iqo0su_tFAM",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/xzfqttkhscj",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "A. Duie Pyle, Inc.",
+              "foundedYear": 1924,
+              "description": "At A. Duie Pyle we believe in first-class service and satisfying customers every time we’re called upon. Our people collectively believe in a service-first culture that supports long-term relationships, honoring commitments, communicating the truth and solving customer problems. This passion, backed by purposeful effort, promises business growth for customers through a network of logistics\ncenters and a team of supply chain experts and professional drivers.\n\nWith a powerful Northeast regional infrastructure and a portfolio of services that includes LTL, dedicated fleet, warehousing and distribution, port services and third-party logistics, the Pyle People Deliver.\n\nWe are a family-owned business with more than 100-years of experience where the value of trust cannot be overstated.",
+              "workforce": {
+                "total": 1356
+              },
+              "headquarters": {
+                "address": "P.O. Box 564, West Chester, PA 19382, US",
+                "city": "West Chester",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 800000000,
+                "fundingTotal": null,
+                "fundingLatestRound": null
+              },
+              "webTraffic": {
+                "visitsMonthly": 112143,
+                "countryRank": 76570,
+                "avgDurationSeconds": 180,
+                "history": [
+                  {
+                    "value": 163806,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 172499,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 191810,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 181586,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 116635,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 112143,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/0s84vqf5l9b",
+        "title": "A Duie Pyle",
+        "url": "https://linkedin.com/company/a-duie-pyle",
+        "text": "# A Duie Pyle\n\nA Duie Pyle is a Facilities Services company. A Duie Pyle employs 23 people (-11.5% YoY, -3 people). Headquartered in Streetsboro, Ohio, United States.\n\n## About\n\nMost predictable carrier in the Northeast and Puerto Rico offering LTL, TL, Brokerage, Dedicated and Warehousing services.\n\n## Company Details\n- Industry: Facilities Services\n- Headquarters: Streetsboro, United States\n- Aliases: a duie pyle\n- LinkedIn: linkedin.com/company/a-duie-pyle\n- Linkedin Followers: 289\n\n## Workforce\n- Employees: 23\n- Company Size: 1-10 employees\n  - Yearly Growth: -11.5%\n- Breakdown:\n  - By Country: United States: 5 (22%)\n  - By Department: Finance: 1 (4%), General Management: 1 (4%), Other Department: 1 (4%), Sales: 1 (4%), Trades: 1 (4%)\n  - By Seniority: Manager: 2 (9%), Specialist: 2 (9%), Other Management: 1 (4%)\n- Talent Sources: NEMF (2), Planet Home (1), PeopleShare (1), Manitowoc Foodservice (1)\n- Alumni Go To: WiZ Co Ltd (1), WRWP, LLC (1), UNFI (1), Rhode Island Army National Guard (1), Bank of America (1), A. Duie Pyle, Inc. (1)\n\n## Locations\n- Headquarters: streetsboro, ohio, united states (US)\n- Offices: streetsboro, ohio, united states (US)",
+        "summary": "{\"description\":\"A Duie Pyle is a Facilities Services company offering LTL, TL, Brokerage, Dedicated and Warehousing services.\",\"employee_estimate\":23,\"employee_estimate_source\":\"Employees: 23\",\"hq\":\"Headquartered in Streetsboro, Ohio, United States.\",\"hq_quote\":\"Headquartered in Streetsboro, Ohio, United States.\",\"industry\":\"Facilities Services\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"Most predictable carrier in the Northeast and Puerto Rico offering LTL, TL, Brokerage, Dedicated and Warehousing services.\"}",
+        "image": "https://static.licdn.com/aero-v1/sc/h/cs8pjfgyw96g44ln9r7tct85f",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/0s84vqf5l9b",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "A Duie Pyle",
+              "foundedYear": null,
+              "description": "Most predictable carrier in the Northeast and Puerto Rico offering LTL, TL, Brokerage, Dedicated and Warehousing services.",
+              "workforce": {
+                "total": 23
+              },
+              "headquarters": {
+                "address": "10225 Philipp Pkwy, Streetsboro, Ohio 44241-4040, US",
+                "city": "Streetsboro",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": null,
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 2156.3,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

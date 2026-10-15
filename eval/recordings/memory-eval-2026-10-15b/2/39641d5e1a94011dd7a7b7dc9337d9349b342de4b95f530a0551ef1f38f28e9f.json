@@ -1,0 +1,218 @@
+{
+  "request": {
+    "query": "FST Logistics",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "8a352e3d865b047c30341a78bc390a14",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/yggb8b467pl",
+        "title": "FST Logistics",
+        "url": "https://fstlogistics.com/",
+        "text": "# FST Logistics\n\nFST Logistics is a Transportation, Logistics, Supply Chain and Storage company. FST Logistics is a logistics company that provides dry & temperature-controlled 3PL services to the complex shipping and storage needs of grocery and retail brands. FST Logistics employs 306 people (-3.5% YoY, -11 people) and has an annual revenue of $137M, founded in 1991. Headquartered in Dublin, Ohio, United States, with offices in Columbus, Fort Worth, Grove City, and Rogers. Its workforce is distributed across United States, India, and United Kingdom.\n\n## About\n\nHeadquartered in Columbus, Ohio, FST Logistics is an employee-owned company with over 30-years of experience providing dry and temperature-controlled transportation and warehousing services. With over 1.8 million square feet of dry, refrigerated, and frozen space FST specializes in scaling with brands of all sizes to meet the rigorous demands of today's complex E-commerce and supply chain needs.\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Privately held\n- Headquarters: Dublin, United States\n- Founded Year: 1991\n- Homepage: fstlogistics.com\n- Aliases: FST Logistics, Inc, fst logistics, fst logistics, inc.\n- LinkedIn: linkedin.com/company/fst-logistics\n- Linkedin Followers: 3,825\n- Emails: sales@fstlogistics.com\n- Phone: 614-529-7900, 855-785-9751\n\n## Financials\n- Annual Revenue: USD 137,000,000\n\n## Acquisitions\n- Acquired Dancer Logistics, Inc. (2024-08-01)\n- Acquired Dancer Logistics (2024-07-31)\n- Acquired Hyway Trucking Co. (2023-10-01)\n- Acquired Hyway Trucking (2023-09-29)\n\n## Workforce\n- Employees: 306\n- Company Size: 501-1000 employees\n  - Monthly Growth: -2.2%\n  - Yearly Growth: -3.5%\n- Key Executives:\n  - Brad Wright: President\n  - Brandon R.: Senior Vice President of Sales\n  - Chad Engler: Director of Business Applications\n  - Chris Smith: Executive Vice President Warehouse Division\n  - Eric Richter: Vice President Environment Health and Safety\n  - James Gant: Director of Warehousing\n  - Jason Sorenson: Chief Technology Officer\n  - Jennifer Harris, MBA: Chief Financial Officer\n  - Jennifer Wilson: Associate Director Warehouse Customer Service\n  - Jill Kuhlman: Chief Administrative Officer\n- Breakdown:\n  - By Country: United States: 153 (50%), India: 1, United Kingdom: 1\n  - By Department: Operations: 53 (17%), Customer Service: 17 (6%), Technical: 16 (5%), Other Department: 14 (5%), Sales: 13 (4%), Finance: 11 (4%), Trades: 10 (3%), Hr: 7 (2%), General Management: 5 (2%), Administrative: 4 (1%) (+3 more)\n  - By Seniority: Specialist: 56 (18%), Manager: 43 (14%), Other Management: 22 (7%), Director: 12 (4%), Senior: 12 (4%), Vp: 5 (2%), Clevel: 4 (1%), Intern: 3 (1%), Owner: 1\n- Salary ranges (20 of 49 roles):\n  - Vice President, Chief Financial Officer: median $409,790.52 per year\n  - Chief Executive Officer: median $263,574.96 per year\n  - CIO: median $207,180.52 per year\n  - Owner Operator: median $144,227.67 per year\n  - Owner Operator Driver: median $139,963.82 per year\n  - Software Engineer: median $132,798.59 per year\n  - Technology Analyst: median $112,603.13 per year\n  - Project Manager: median $96,981.93 per year\n  - Mechanical Engineer: median $96,670.17 per year\n  - Senior CRM Administrator: median $93,785.02 per year\n  - Systems Administrator: median $93,312.32 per year\n  - Non-warehouse: median $86,886.96 per year\n  - CDL-A Professional License Driver: median $85,600.36 per year\n  - Fleet Manager: median $83,675.91 per year\n  - Employee: median $82,939.81 per year\n  - Sales: median $78,532.34 per year\n  - Class A Cdl Truck Driver: median $76,865.92 per year\n  - Supervisor: median $76,441.08 per year\n  - Warehouse Manager: median $73,498.87 per year\n  - Account Manager: median $70,312.2 per year\n- Talent Sources: XPO (8), ODW Logistics (7), The Ohio State University (4), Lower (4), GEODIS (4), Eddie Bauer (4), Kroger (3), Franklin International (3), EXPRESS (3), EASE Logistics (3)\n- Alumni Go To: Hyway Transportation (20), OneCompass Holdings (9), XPO (4), Speedway (3), Legacy Supply Chain (3), DHL Supply Chain (3), CEVA Logistics (3), Amazon (3), ODW Logistics (2), Dawson (2)\n\n## Products & Technology\n- Tech Stack: netsuite, power bi, samsara, tenstreet, ukg, ukg pro, facebook, linkedin, microsoft, microsoft office, sql, trimble, truckmate, amp, impact, instagram, twitter, ups, well, square, box, db2, medium, microsoft outlook, microsoft sql server, salesforce, segment\n\n## Web presence\n\n- Facebook: facebook.com/fstlogistics\n- Instagram: instagram.com/fstlogistics\n- YouTube: youtube.com/channel/uctdxvucgyxtc21pypg2bmig\n- Crunchbase: crunchbase.com/organization/fst-logistics\n- Web traffic:\n  - Monthly visits: 21,498\n  - Global rank: 1,531,073\n  - Bounce rate: 57.0%\n  - Pages per visit: 1.5\n  - Average visit duration: 116s\n\n## Reviews & Ratings\n- Employer Rating: 3.5/5.0 (46 reviews)\n  - Breakdown: Work-Life: 3.4, Compensation: 3.5, Culture: 3.5, Career: 3.0\n\n## Categories\n\nasset and non-asset based 3pl, automotive-transportation, consolidation, deduction management, dry & temperature-controlled, dry warehousing and transportation, e-commerce, e-commerce solutions, logistics, temperature-controlled warehousing and transportation, transportation, trucking, warehousing\n\n## Competitors\n\nsaddle creek, jarrett, logos logistics, united states of freight, freightcenter, usa logistics, deliverr, ordoro, ordercup, endicia, shippo, nextail, manyship, aftership, easypost, shiphawk, raben group, daseke, crown worldwide, bollore transport & logistics\n\n## Recent News\n- [2026-09-13] The Business Journals: New company joins the billion-dollar club that leads the area’s 330+ largest private companies\n- [2026-08-09] GetLatka: FST Logistics Revenue 2025: $216.9M ARR \\(Bootstrapped\\)\n- [2026-07-07] [Eurazeo \\(ENXTPA:RF\\) Exits FST Hotels, Is The Valuation Gap Too Wide? - Simply Wall St News](https://simplywall.st/stocks/fr/diversified-financials/epa-rf/eurazeo-shares/news/eurazeo-enxtparf-exits-fst-hotels-is-the-valuation-gap-too-w)\n- [2025-08-06] Seattle TechFlash: FST Logistics parent company expands portfolio with second acquisition of the year\n- [2025-06-24] Research and Markets: Perishable Goods Sea Transportation Industry Outlook Report 2025-2034 \\| Expansion of Cold Chain Infrastructure Fuels Growth, Technological Advancements Drive Efficiency\n- [2025-04-30] Research and Markets: U.S. Refrigerated Trucking Market Outlook, 2030: Agriculture and Pharmaceuticals Drive Demand\n- [2025-03-12] PR Newswire: FST Logistics Selects Onward Robotics Automation Solution to Drive Fulfillment Efficiency and Innovation for its 3PL Customers\n- [2024-12-12] Columbus Business First: Workforce Development Guide: Temp agencies ride economic ups and downs\n- [2024-11-28] PR Newswire: FST Logistics Expands National Presence with New Warehouse in Dallas-Fort Worth Area\n- [2024-11-07] The Business Journals: FST Logistics opens Fort Worth facility, could employ up to 150 employees\n- [2024-11-05] Dallas Innovates: Ohio’s FST Logistics Expands to Fort Worth with New Warehouse Facility\n- [2024-09-27] The Business Journals: FST Logistics plots nationwide expansion under new ownership structure - Columbus Business First\n- [2024-08-01]\n  - The Business Journals: Dublin-based FST Logistics acquires Northwest Ohio warehousing and transportation company\n  - PR Newswire: FST Logistics Acquires Dancer Logistics, Expanding its Footprint in the Midwest\n\n## Social\n\n### Linkedin\n\n- [2026-09-30 · 5 reactions] We’re growing our warehouse operations team! We’re currently hiring for several opportunities: • Warehouse Customer Service Representative • Shipping & Receiving Coordinator • Warehouse Lead • Ware...\n\n- [2026-09-25 · 53 reactions] We’re proud to announce the opening of our new 343,500-square-foot facility in West Jefferson, Ohio, expanding our warehousing capacity and strengthening our ability to support customers across the...\n\n- [2026-09-18 · 13 reactions] This Driver Appreciation Week, we’re shining a spotlight on one of the drivers who shows her dedication to our customers, community, company, and other employees every day. Although Dianna Williams...\n\n- [2026-09-17 · 4 reactions] When it comes to LTL consolidation, the right strategy can make a significant difference in cost, efficiency, and service. But should you consolidate with a hub-and-spoke or multi-stop model? The a...\n\n- [2026-09-14 · 20 reactions] This Driver Appreciation Week, we’re celebrating the people behind the supply chain, the dedicated men and women who keep freight moving and America running. To our FST drivers: thank you for every...\n\n- [2026-09-11 · 14 reactions] On Patriot Day, FST Logistics honors the memory of those lost on 9/11 and the heroism of the first responders who sacrificed so much. Today and every day, we stand united in remembrance. #NeverForg...\n\n- [2026-09-07 · 11 reactions] Happy Labor Day! Today we celebrate the dedication, hard work, and commitment of our incredible employee-owners. Thank you for driving FST Logistics forward every day. Wishing everyone a safe and r...\n\n- [2026-09-03 · 15 reactions] 15 minutes. That’s the difference. No waiting in a group inbox. No wondering who’s handling your question. No starting from scratch every time you reach out. At FST Logistics, every customer has a...\n\n- [2026-08-31 · 13 reactions] Hub-and-spoke v.s. Multi-stop transportation: Which one is right for your supply chain? Both strategies consolidate freight to improve transportation efficiency, but they do it in very different wa...\n\n- [2026-08-14 · 17 reactions] Every load has a destination, and every mile matters. The Long Haul highlights the journey that begins when freight arrives at an FST warehouse. From secure storage and careful handling to transpor...\n\n- [2026-08-12 · 17 reactions, 3 comments] Before your first shipment leaves the dock, we're focused on building something even more important: trust. At FST Logistics, customer service isn't just part of what we do, it's the foundation of...\n\n- [2026-08-11 · 8 reactions] Shipping to Walmart? Staying compliant doesn't have to be complicated. Learn the essentials of Walmart compliance, including practical ways to reduce chargebacks, improve efficiency, and keep your...\n\n- [2026-08-05 · 32 reactions, 5 comments] Meet the people behind our promise: Invested in Your Success Jermichael Hill transferred from Hyway to FST Logistics in August 2024, starting as a Casual & Recovery Driver. Today, he serves as our...\n\n- [2026-08-03 · 16 reactions] We're Hiring! Looking for your next opportunity? Join the OneCompass Holdings family of companies and become part of a 100% employee-owned organization where your work makes an impact—and your succ...\n\n- [2026-07-31 · 19 reactions, 1 comment] Thank you to our Premier Sponsor, NAI Ohio Equities, for supporting the Teeing Up Futures Golf Outing! We’re grateful for your partnership and excited for a great day on the course supporting the O...\n\n- [2026-07-28 · 19 reactions] Teeing Up Futures 2026 is Almost Here! Help support our annual golf outing at Pinnacle Golf Club on Monday, September 21st! Every swing helps support incredible local Columbus organizations making...\n\n- [2026-07-28 · 23 reactions, 1 comment] \"I show up with accountability, pride, and a mindset that every choice I make helps build something we all share in.\" In our latest Employee Ownership Spotlight, HR Manager Hadassah A. shares what...\n\n- [2026-07-23 · 9 reactions] Tired of talking to automated customer service or an outsourced team that doesn't truly understand your business? At FST Logistics, every account is paired with a dedicated, onsite customer service...\n\n- [2026-07-21 · 25 reactions] Meet the people behind our promise: Invested in Your Success Gary Campion started as a Safety intern in 2020, fresh off finishing his supply chain management degree at Columbus State. Today, he's o...\n\n- [2026-07-20 · 3 reactions] Great customer experiences start with thoughtful processes, proactive communication, and a commitment to partnership. We’re proud to hear how our team helps customers feel supported from day one th...\n\n## Locations\n- Headquarters: dublin, ohio, united states (US)\n- Offices: fort worth, texas, united states (US), dublin, ohio, united states (US), grove city, ohio, united states (US), columbus, ohio, united states, rogers, arkansas, united states (US)",
+        "summary": "{\"description\":\"FST Logistics is a Transportation, Logistics, Supply Chain and Storage company that provides dry & temperature-controlled 3PL services to the complex shipping and storage needs of grocery and retail brands.\",\"employee_estimate\":306,\"employee_estimate_source\":\"Employees: 306\",\"hq\":\"Headquartered in Dublin, Ohio, United States, with offices in Columbus, Fort Worth, Grove City, and Rogers.\",\"hq_quote\":\"Headquartered in Dublin, Ohio, United States, with offices in Columbus, Fort Worth, Grove City, and Rogers.\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"asset and non-asset based 3pl, automotive-transportation, consolidation, deduction management, dry & temperature-controlled, dry warehousing and transportation, e-commerce, e-commerce solutions, logistics, temperature-controlled warehousing and transportation, transportation, trucking, warehousing\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQF2ObLfeXyW6g/company-logo_200_200/B4EZownKbPHoAI-/0/1761752164422/fst_logistics_logo?e=2147483647&v=beta&t=ieoF7tDjv5vxv9o3FB5_qmtZCrCRdIzWUy4CJPnBUaY",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/yggb8b467pl",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "FST Logistics",
+              "foundedYear": 1991,
+              "description": "Headquartered in Columbus, Ohio, FST Logistics is an employee-owned company with over 30-years of experience providing dry and temperature-controlled transportation and warehousing services. With over 1.8 million square feet of dry, refrigerated, and frozen space FST specializes in scaling with brands of all sizes to meet the rigorous demands of today's complex E-commerce and supply chain needs.",
+              "workforce": {
+                "total": 306
+              },
+              "headquarters": {
+                "address": "5025 Bradenton Ave, Dublin, Ohio 43017, US",
+                "city": "Dublin",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 137000000,
+                "fundingTotal": null,
+                "fundingLatestRound": null
+              },
+              "webTraffic": {
+                "visitsMonthly": 21498,
+                "countryRank": 396575,
+                "avgDurationSeconds": 116,
+                "history": [
+                  {
+                    "value": 15027,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 15703,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 14245,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 7369,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 12559,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 21498,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/lsq85j0wrst",
+        "title": "FST Logistics & Transportation",
+        "url": "https://fsttrans.com/",
+        "text": "# FST Logistics & Transportation\n\nFST Logistics & Transportation is a Transportation, Logistics, Supply Chain and Storage company. Fuentes and Sons Transportation is a company that specializes in specialized heavy haul, flatbed, drayage and break bulk, warehousing and storage, freight forwarding, international & cross-border shipping. FST Logistics & Transportation employs 31 people (+10.7% YoY, +3 people), founded in 2004. Headquartered in Salt Lake City, Utah, United States, with offices in Rancho Cucamonga, Perris, and San Bernardino. Its workforce is distributed across United States and El Salvador.\n\n## About\n\nFounded in 2004 by Carlos Fuentes, Fuentes and Sons Transportation has grown into one of the largest flatbed fleets in the western United States. Specializing in project logistics, over-dimensional freight, and military shipments, FST is the foremost leader in logistics to help build and keep America safe. Even as we grow our fleet, we still offer third-party logistics services using our trusted network of carriers. As we've grown, we're continually updating our technology to be one of the most technologically advanced logistics companies in the United States. We constantly strive to help our customers improve efficiency and effectiveness as well as cut costs in every possible aspect of business.\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Partnership\n- Headquarters: Salt Lake City, United States\n- Founded Year: 2004\n- Homepage: fsttrans.com\n- Aliases: FST Services, Inc., fst logistics & transportation, fuentes and sons\n- LinkedIn: linkedin.com/company/fst-logistics-services---fuentes-and-sons-transportation-services-inc.\n- Linkedin Followers: 708\n- Emails: sales@fsttrans.com\n- Phone: +1 760 948 6546, 760-948-6546\n\n## Workforce\n- Employees: 31\n- Company Size: 51-200 employees\n  - Yearly Growth: +10.7%\n- Key Executives:\n  - Alberto Fuentes: President/Owner\n  - Hipolito Vergara: Sales Director\n- Breakdown:\n  - By Country: United States: 9 (29%), El Salvador: 8 (26%)\n  - By Department: Sales: 5 (16%), Hr: 4 (13%), Operations: 3 (10%), Finance: 2 (6%), General Management: 2 (6%), Other Department: 1 (3%)\n  - By Seniority: Specialist: 8 (26%), Manager: 5 (16%), Other Management: 2 (6%), Director: 1 (3%), Vp: 1 (3%)\n- Active job postings: 1\n- Talent Sources: PGS360 (2), Glass Mountain BPO (2), El Pollo Loco, Inc. (2), Upland Unified School District (1), Swift Transportation (1), Southern Skies Dermatology (1), Represent.com (1), RSM US LLP (1), Blackhawk Network El Salvador (1), Aventis HR (1)\n- Alumni Go To: PGS360 (2), YMQ Services Pvt Ltd (1), Veterinary Service, Inc. (1), U.S. Xpress, Inc. (1), The Lewis Group of Companies (1), Lamar Advertising Company (1), Holiday Inn (1), Green Ladder Roofing (1), Clopay Corporation (1), BST Linehaul (1)\n\n## Products & Technology\n- Tech Stack: hubspot, linkedin, microsoft, microsoft excel, pipedrive, salesforce, microsoft office, segment, visa, well, c\n\n## Web presence\n\n- Twitter: twitter.com/fuelquipltd\n- Facebook: facebook.com/fst.2004\n- Instagram: instagram.com/fst_logistics\n- Crunchbase: crunchbase.com/organization/fuentes-and-sons\n- Web traffic:\n  - Global rank: 16,203,347\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Categories\n\ndrayage, expedited delivery, flatbed, heavy haul, heavy-haul, logistics, oversize/over-dimensional freight, supply chain management, transportation, warehousing\n\n## Locations\n- Headquarters: salt lake city, utah, united states (US)\n- Offices: perris, california, united states (US), san bernardino, california, united states (US), rancho cucamonga, california, united states (US), salt lake city, utah, united states (US)",
+        "summary": "{\"description\":\"FST Logistics & Transportation is a Transportation, Logistics, Supply Chain and Storage company. Fuentes and Sons Transportation specializes in specialized heavy haul, flatbed, drayage and break bulk, warehousing and storage, freight forwarding, international & cross-border shipping.\",\"employee_estimate\":31,\"employee_estimate_source\":\"Employees: 31\",\"hq\":\"Salt Lake City, United States\",\"hq_quote\":\"Headquartered in Salt Lake City, Utah, United States\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"Even as we grow our fleet, we still offer third-party logistics services using our trusted network of carriers,  As we've grown, we're continually updating our technology to be one of the most technologically advanced logistics companies in the United States.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C560BAQEWQzZv7qqrtA/company-logo_200_200/company-logo_200_200/0/1630637759661/fst_logistics_services___fuentes_and_sons_transportation_services_inc_logo?e=2147483647&v=beta&t=CtpzL_gY37RXJCdKrwMy84NU02Dmlfl9MsgW24ed-ck",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/lsq85j0wrst",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "FST Logistics & Transportation",
+              "foundedYear": 2004,
+              "description": "Founded in 2004 by Carlos Fuentes, Fuentes and Sons Transportation has grown into one of the largest flatbed fleets in the western United States. Specializing in project logistics, over-dimensional freight, and military shipments, FST is the foremost leader in logistics to help build and keep America safe. Even as we grow our fleet, we still offer third-party logistics services using our trusted network of carriers. As we've grown, we're continually updating our technology to be one of the most technologically advanced logistics companies in the United States. We constantly strive to help our customers improve efficiency and effectiveness as well as cut costs in every possible aspect of business.",
+              "workforce": {
+                "total": 31
+              },
+              "headquarters": {
+                "address": "1032 S Redwood Rd, Salt Lake City, UT 84104, US",
+                "city": "Salt Lake City",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": 0,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 1146,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 1362,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 1002,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 5206.9,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

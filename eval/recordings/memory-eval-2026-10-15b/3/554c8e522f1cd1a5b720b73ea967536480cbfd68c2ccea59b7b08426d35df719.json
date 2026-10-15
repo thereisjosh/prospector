@@ -1,0 +1,228 @@
+{
+  "request": {
+    "query": "Thermotraffic",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "96a6ed75243b79e95ad421d0a0b969bc",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/h6zv7lg95h1",
+        "title": "Thermotraffic",
+        "url": "https://www.thermotraffic.com/",
+        "text": "# Thermotraffic\n\nThermotraffic is a Transportation, Logistics, Supply Chain and Storage company. Thermotraffic is a company that specializes in temperature-controlled logistics. They offer services such as food logistics and careers. Thermotraffic employs 234 people (+18.2% YoY, +36 people) and has an annual revenue of $35.2M, founded in 1984. Headquartered in Germany, with presence in Netherlands and United States. Its workforce is distributed across 9 countries (including Netherlands, Germany, United Kingdom, Poland, and Belgium).\n\n## About\n\nThermotraffic has operated since 1984 as one of the leading logistics specialists for temperature-controlled transport worldwide. Thermotraffic has extensive expertise in complex services and offers its customers solution-oriented services. In the foodstuffs and pharmaceutical sectors in particular it develops and realizes all-round custom solutions for cool-chain logistics. Its dynamic and flexible team develops smart logistics solutions for industrial and commercial clients, helping them to become even more efficient in their respective markets and offers a one-stop service. Its range of services offered covers domestic and international overland transport, ocean freight, seaport logistics, cold storage logistics, air freight transport, pharmaceuticals logistics, contract logistics and specialized transport.\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Partnership\n- Founded Year: 1984\n- Homepage: thermotraffic.com\n- Aliases: Thermotraffic GmbH, thermotraffic\n- LinkedIn: linkedin.com/company/thermotraffic-gmbh\n- Linkedin Followers: 3,361\n- Emails: info@thermotraffic.de\n- Phone: +49 5423 968-0, 49-54-23-9-68\n\n## Financials\n- Annual Revenue: USD 35,242,942\n\n## Acquisitions\n- Acquired Strowmar Ltd. (2014-09-01)\n\n## Workforce\n- Employees: 234\n- Company Size: 201-500 employees\n  - Monthly Growth: +0.4%\n  - Yearly Growth: +18.2%\n- Key Executives:\n  - Damian Aschberger: HR-Partner\n  - John Metcalfe: Head of Engineering\n  - Marcus Stühlinger: Geschäftsführer\n  - Patrick Meyer: Head of Key Account Management\n  - René Rinschen: Head of Customer Service & Warehousing\n- Breakdown:\n  - By Country: Netherlands: 43 (18%), Germany: 33 (14%), United Kingdom: 32 (14%), Poland: 3 (1%), Belgium: 2 (1%), Denmark: 1, Italy: 1, Lithuania: 1, Romania: 1\n  - By Department: Operations: 39 (17%), Administrative: 23 (10%), Sales: 11 (5%), Finance: 9 (4%), Technical: 9 (4%), General Management: 8 (3%), Other Department: 7 (3%), Project Management: 6 (3%), Trades: 3 (1%), Hr: 2 (1%) (+2 more)\n  - By Seniority: Specialist: 63 (27%), Manager: 35 (15%), Other Management: 14 (6%), Head: 3 (1%), Director: 1, Partner: 1, Senior: 1\n- Active job postings: 19\n- Talent Sources: DACHSER (4), Nagel-Group (3), NOSTA Group – Logistics to the point (3), NORDFROST GmbH & Co. KG (3), Sabbatical Break (2), Rhenus Logistics (2), LEMAITRE DEMEESTERE (2), JCL Logistics (2), Hellmann Worldwide Logistics (2), Bert - Transport et Logistique (2)\n- Alumni Go To: Nagel-Group (4), DACHSER (3), Vine Meats (2), LinkedIn (2), DHL Global Forwarding (2), AFFIVAL SAS (2), VDH Company (1), Karma Composites (1), Glomm Logistics GmbH (1), Freight Line Europe B.V. (1)\n\n## Products & Technology\n- Tech Stack: cision, deel, edenred, karte, operative, power bi, braintree, brierley, edmunds, ifs, microsoft, microsoft office, react, recognize, asana, jira, c, impact, lever, segment, veeam, vmware, well, adp, html, javascript, php, python\n\n## Web presence\n\n- Twitter: twitter.com/thermotrgroup\n- Facebook: facebook.com/pages/thermotraffic-gmbh/180912568621493\n- Crunchbase: crunchbase.com/organization/thermotraffic\n- Web traffic:\n  - Monthly visits: 2,072\n  - Global rank: 8,308,681\n  - Bounce rate: 47.0%\n  - Pages per visit: 1.7\n  - Average visit duration: 19s\n\n## Categories\n\nair freigth, careers, cold store logistics, food logistics, freight service, logistics, national international overltransports, ocean freight, partner, pharma logistic, seaport logistics, special transports, temperature-controlled logistics, temperature-controlled transports, transportation, warehousing\n\n## Competitors\n\nlansing unitra\n\n## Recent News\n- [2026-09-26] Newark Advertiser: ‘Another important step’ as plans for major business park move forward\n- [2026-08-11] Kreiszeitung: Groß Ippener: Thermotraffic baut neues Lidl-Logistikzentrum – Bebauungsplan beschlossen\n- [2026-07-09] Warehouse Totaal: Thermotraffic kiest nieuw WMS voor internationale cold chain\n- [2026-07-08] Logistiek: Thermotraffic kiest nieuw systeem voor vrieshuisoperatie\n- [2026-07-01] MSN: Japanese firm's new £60m UK headquarters in Nottinghamshire faces hurdle as key objection made\n- [2026-06-30] [Road safety concerns amid Thermotraffic Ltd’s plans to build new UK headquarters next to Newark Showground](https://www.newarkadvertiser.co.uk/news/road-safety-concerns-amid-firm-s-plans-to-build-new-headquar-9472191/)\n- [2026-03-09] KFZ-Anzeiger: Hilfe im temperaturgeführten Transportgeschäft\n- [2026-01-14]\n  - Logistiek: Export groeit 4,7 procent in november, goederenimport 5,5 procent hoger\n  - Logistiek: Renault kiest voor geautomatiseerd warehouse met bijna 90 robots\n- [2026-01-13] Logistiek: Vacatures\n- [2026-01-08] Logistiek: Zalando sluit logistiek centrum met 2.700 medewerkers in Oost-Duitsland\n- [2025-09-17] Logistiek: Customs & Trade Manager\n\n## Social\n\n### Linkedin\n\n- [2026-09-04 · 72 reactions, 1 comment] Thanks to all who joined us at Parliament to celebrate 130 Years of the International Meat Trade Association! As IMTA Chair Margaret Boanas MBE always says “international trade is nothing new” and...\n\n- [2026-08-21 · 18 reactions, 1 comment] Looking forward to seeing all the IMTA members, civil servants and key partners attending the IMTA 130 year anniversary reception very soon! #IMTA130\n\n- [2026-08-14 · 25 reactions] Promotion and seasonal peak in frozen? Then you not only need space, but also predictable service levels. Our Wrexham site offers as of October an additional 19,000 pallet spaces deep-freeze capaci...\n\n- [2026-07-30 · 37 reactions] Want to use blast-freezing as a quality and flow accelerator? ❄️ In our new state-of-the-art production area in Wrexham, blast-freezing is available as part of our value-added services. This makes...\n\n- [2026-07-16 · 51 reactions, 1 comment] As part of our ongoing commitment to innovation and sustainability, we're currently trialling the new DAF electric HGV on our internal container operation. 🌱 The first movement successfully transpo...\n\n- [2026-07-11 · 11 reactions] 🚨 Customer Services Administrator | UK 🚨 Support, coordinate & make an impact. Join Thermotraffic and become part of our logistics operation, supporting daily processes and ensuring a high level of...\n\n- [2026-07-09 · 9 reactions] 📢 Wir suchen Verstärkung! Du bist auf der Suche nach einer neuen beruflichen Herausforderung? Dann werde Teil des Thermotraffic-Teams! Alle Informationen zur Stelle sowie die Möglichkeit zur direkt...\n\n- [2026-07-09 · 23 reactions] Import flows get stuck if you also have to go to an external repackaging/label location, certainly at peak volume. No stress, we offer you the perfect solution. Our expanded location in Wrexham (li...\n\n- [2026-06-26 · 25 reactions] We work in cold chain logistics but even with these high temperatures we keep your products cool, fresh and delivered on time. Our dedicated teams in the UK and the Netherlands deserve a lot of cre...\n\n- [2026-06-26 · 35 reactions] Buffer stock is only valuable if you can add value to it quickly and in a controlled manner. In our new state of the art production area in Wrexham, you can organise value-added services close to y...\n\n- [2026-06-19 · 57 reactions, 1 comment] Extra frozen capacity can be scarce—especially if you also need value-added services. In October 2026, we will open our new automated expansion in Wrexham with 19,000 pallet spaces and a state-of-t...\n\n- [2026-06-09 · 17 reactions] We’re looking for a Software Developer to help shape the future of Thermotraffic. 🚀 At Thermotraffic, technology is helping transform the world of temperature-controlled logistics. As we continue t...\n\n- [2026-05-04 · 16 reactions] Wir freuen uns auf viele spannende Gespräche und den Austausch in Berlin!\n\n- [2026-04-24 · 16 reactions] Ben jij de BI Developer & Analyst die data laat spreken in logistiek? Binnen onze internationale logistieke organisatie draait alles om efficiëntie en slimme processen. Jij helpt mee door data om t...\n\n- [2026-04-20 · 29 reactions] Safety Week kicks off this week! At Thermotraffic & HIWA, safety is personal. It is s not a checkbox—it is the promise we make to each other that everyone goes home safe and healthy, every day. Tha...\n\n- [2026-03-27 · 117 reactions, 4 comments] Jaarverslag 2025 ✔️ Ledenboekje 2.0 ✔️ Ons eigen koudeketen vakblad: De Koude Bron ✔️ Toekomstvisie Koudeketen 2035 ✔️ Wat een eer om zóveel Nekovri - Nederlandse Vereniging voor Koel- en Vrieshuiz...\n\n- [2026-03-23 · 8 reactions] Wij zijn op zoek naar een nieuwe Assistent Douane Declarant Import/Export in Rotterdam, South Holland (#hiring). Solliciteer vandaag nog of deel deze bijdrage met uw netwerk.\n\n- [2026-03-07 · 10 reactions] Heb jij stevige kennis van btw-regelgeving en andere fiscale aspecten op het gebied van import en export? Bij Thermotraffic zijn wij op zoek naar een ervaren fiscaal specialist die verantwoordelijk...\n\n- [2026-03-06 · 19 reactions] Thermotraffic seeks an experienced and expert Quality Assurance Controller to oversee technical excellence at our warehouse in Wrexham. Apply! #vacancy #qualityassurance #logistics #UK\n\n- [2026-03-05 · 147 reactions, 10 comments] Building Momentum Together 🏗️ Steady Progress! Our expansion in Wrexham is taking shape. While the foundation is solid and the structure is growing every day, we will soon be able to start the next...\n\n## Locations\n- Headquarters: http://www.thermotraffic.de/impressum/, versmold (d)/rotterdam (nl), germany (OO)\n- Offices: http://www.thermotraffic.de/impressum/, versmold (d)/rotterdam (nl), oo, versmold, nordrhein-westfalen, germany (DE), versmold, nrw, germany (DE), versmold, north rhine-westphalia, germany (DE), rotterdam, netherlands (NL)",
+        "summary": "{\"description\":\"Thermotraffic is a Transportation, Logistics, Supply Chain and Storage company that specializes in temperature-controlled logistics, offering services such as food logistics.\",\"employee_estimate\":234,\"employee_estimate_source\":\"Employees: 234\",\"hq\":\"Germany (Headquarters: Versmold, Germany)\",\"hq_quote\":\"Headquarters: http://www.thermotraffic.de/impressum/, versmold (d)/rotterdam (nl), germany (OO)\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":true,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"Thermotraffic employs a large cross-border logistics operation providing temperature-controlled transport and related services to clients (implies third-party logistics capabilities).\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C560BAQFqe-ZxfO-k0Q/company-logo_200_200/company-logo_200_200/0/1631312506289?e=2147483647&v=beta&t=UVlVpJ9-3xur-cS3EUtoxejeyyWUaLhWZ24K-7Rk2Ro",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/h6zv7lg95h1",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Thermotraffic",
+              "foundedYear": 1984,
+              "description": "Thermotraffic has operated since 1984 as one of the leading logistics specialists for temperature-controlled transport worldwide. Thermotraffic has extensive expertise in complex services and offers its customers solution-oriented services. In the foodstuffs and pharmaceutical sectors in particular it develops and realizes all-round custom solutions for cool-chain logistics. Its dynamic and flexible team develops smart logistics solutions for industrial and commercial clients, helping them to become even more efficient in their respective markets and offers a one-stop service. Its range of services offered covers domestic and international overland transport, ocean freight, seaport logistics, cold storage logistics, air freight transport, pharmaceuticals logistics, contract logistics and specialized transport.",
+              "workforce": {
+                "total": 234
+              },
+              "headquarters": {
+                "address": "Im Industriegelände 60-66/Abel Tasmanstraat 1, http://www.thermotraffic.de/impressum/, Versmold (D)/Rotterdam (NL), OO",
+                "city": null,
+                "postalCode": null,
+                "country": "Germany"
+              },
+              "financials": {
+                "revenueAnnual": 35242942,
+                "fundingTotal": null,
+                "fundingLatestRound": null
+              },
+              "webTraffic": {
+                "visitsMonthly": 2072,
+                "countryRank": 1113430,
+                "avgDurationSeconds": 19,
+                "history": [
+                  {
+                    "value": 316,
+                    "dateFrom": "2026-03",
+                    "dateTo": "2026-03"
+                  },
+                  {
+                    "value": 373,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 593,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 3066,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 1095,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 2072,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/t4ylxx9tqqq",
+        "title": "Thermotraffic GmbH Internationale Kühlspedition",
+        "url": "https://thermotraffic.de/",
+        "text": "# Thermotraffic GmbH Internationale Kühlspedition\n\nThermotraffic GmbH Internationale Kühlspedition. Thermotraffic is a company specializing in temperature-driven logistics solutions for temperature-sensitive goods such as food, pharmaceutical, and plants. They offer reliable, flexible, and reliable logistics solutions for customers worldwide. Thermotraffic GmbH Internationale Kühlspedition employs 5 people (+400.0% YoY, +4 people). Headquartered in Germany, with presence in United States. Its workforce is distributed across Germany and Poland.\n\n## About\n\nThermotraffic is a company specializing in temperature-driven logistics solutions for temperature-sensitive goods such as food, pharmaceutical, and plants. They offer reliable, flexible, and reliable logistics solutions for customers worldwide.\n\n## Company Details\n- Homepage: thermotraffic.de\n- Aliases: thermotraffic, thermotraffic gmbh internationale kühlspedition\n- LinkedIn: linkedin.com/company/thermotraffic-gmbh-internationale-k%C3%BChlspedition\n- Linkedin Followers: 11\n- Emails: sales@thermotraffic.de\n- Phone: +49 5423 968-107\n\n## Workforce\n- Employees: 5\n  - Yearly Growth: +400.0%\n- Breakdown:\n  - By Country: Germany: 1 (20%), Poland: 1 (20%)\n  - By Department: Operations: 2 (40%)\n  - By Seniority: Other Management: 1 (20%), Specialist: 1 (20%)\n- Talent Sources: Terratrans Internationale Spedition GmbH (1), SK Pharma Logistics GmbH (1), Accenture (1)\n- Alumni Go To: WAGENER & CO. GmbH (1)\n\n## Web presence\n\n- Facebook: facebook.com/pages/thermotraffic-gmbh/561803367293168\n- Instagram: instagram.com/thermotraffic.logistik\n- Web traffic:\n  - Monthly visits: 620\n  - Global rank: 6,880,801\n  - Bounce rate: 44.0%\n  - Pages per visit: 1.4\n  - Average visit duration: 6s\n\n## Categories\n\nflexible, logistics, logistics solutions, reliable, temperature-driven logistics, temperature-sensitive goods\n\n## Locations\n- Headquarters: versmold, nordrhein-westfalen, germany (DE)\n- Offices: versmold, nordrhein-westfalen, germany (DE)",
+        "summary": "{\"description\":\"Thermotraffic is a company specializing in temperature-driven logistics solutions for temperature-sensitive goods such as food, pharmaceutical, and plants. They offer reliable, flexible, and reliable logistics solutions for customers worldwide.\",\"employee_estimate\":5,\"employee_estimate_source\":\"Employees: 5\",\"hq\":\"Headquartered in Germany, with presence in United States. Its workforce is distributed across Germany and Poland.\",\"hq_quote\":\"Headquartered in Germany, with presence in United States. Its workforce is distributed across Germany and Poland.\",\"industry\":\"logistics, temperature-driven logistics\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"Thermotraffic is a company specializing in temperature-driven logistics solutions for temperature-sensitive goods such as food, pharmaceutical, and plants. They offer reliable, flexible, and reliable logistics solutions for customers worldwide.\"}",
+        "image": "https://static.licdn.com/aero-v1/sc/h/cs8pjfgyw96g44ln9r7tct85f",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/t4ylxx9tqqq",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Thermotraffic GmbH Internationale Kühlspedition",
+              "foundedYear": null,
+              "description": "Thermotraffic is a company specializing in temperature-driven logistics solutions for temperature-sensitive goods such as food, pharmaceutical, and plants. They offer reliable, flexible, and reliable logistics solutions for customers worldwide.",
+              "workforce": {
+                "total": 5
+              },
+              "headquarters": {
+                "address": "Im Industriegelände 60-66, Versmold, Nordrheinwestfalen 33775, DE",
+                "city": null,
+                "postalCode": null,
+                "country": "Germany"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 620,
+                "countryRank": null,
+                "avgDurationSeconds": 6,
+                "history": [
+                  {
+                    "value": 1060,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 192,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 509,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 1803,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 55,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 620,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 2767.8,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

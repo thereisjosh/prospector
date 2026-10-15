@@ -1,0 +1,228 @@
+{
+  "request": {
+    "query": "Riverstone Logistics",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "7d03111b931181f17dff85274baeb74a",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/j4pwr48z34h",
+        "title": "Riverstone Logistics",
+        "url": "https://rlx.us/",
+        "text": "# Riverstone Logistics\n\nRiverstone Logistics is a Transportation, Logistics, Supply Chain and Storage company. Riverstone Logistics is a nationwide big and bulky logistics platform that handles every mile of the big and bulky supply chain nationwide. Riverstone Logistics employs 472 people (+13.7% YoY, +57 people), founded in 2017. Headquartered in Rock Hill, South Carolina, United States, with an office in Charlotte. Its workforce is distributed across 6 countries (including United States, Colombia, Guatemala, Brazil, and Canada).\n\n## About\n\nRiverstone Logistics is a big and bulky supply chain powerhouse, delivering seamless middle mile, final mile, and end-to-end logistics solutions through a nationally integrated platform.\n\nFrom our headquarters in Rock Hill, South Carolina, we manage a nationwide network powered by dedicated in-house management and thoughtfully aligned partnerships. We’re a purpose-driven company that exists to use our God-given talents and opportunities to love our neighbors, serve our communities, and improve our industry. \nWe are with you every mile.\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Privately held\n- Headquarters: Rock Hill, United States\n- Founded Year: 2017\n- Homepage: rlx.us\n- Aliases: riverstone logistics\n- LinkedIn: linkedin.com/company/riverstonelogistics\n- Linkedin Followers: 10,157\n- Emails: vendorsupport@rlx.us\n- Phone: (980) 595-7394, +1-980-595-7394, +19805957394\n\n## Acquisitions\n- Acquired Ralph’s Transfer Co. Inc (2023-11-01)\n- Acquired Ralph's Transfer\n\n## Workforce\n- Employees: 472\n- Company Size: 501-1000 employees\n  - Monthly Growth: +0.4%\n  - Yearly Growth: +13.7%\n- Key Executives:\n  - Adam Pelfrey: Director of Operations\n  - Addison Moore, CPA: Chief Financial Officer\n  - Alan Rhines, CPA: Senior Vice President, FP&A\n  - Andrew Workmon: EVP, Special Projects\n  - Arthur LaGrega: Executive Vice President of Sales\n  - Bridgid McKenna Johnson: Talent Business Partner\n  - Bryan Krauter: Director Of Accounting\n  - Charlie Malouf: Co-Founder\n  - Charlie Malouf: Member Board of Directors\n  - Charlie Workmon: CEO and President\n- Breakdown:\n  - By Country: United States: 276 (58%), Colombia: 12 (3%), Guatemala: 3 (1%), Brazil: 1, Canada: 1, Serbia: 1\n  - By Department: Operations: 140 (30%), Sales: 41 (9%), General Management: 39 (8%), Other Department: 19 (4%), Finance: 18 (4%), Technical: 12 (3%), Hr: 8 (2%), Marketing: 6 (1%), Administrative: 5 (1%), Consulting: 4 (1%) (+7 more)\n  - By Seniority: Manager: 140 (30%), Specialist: 82 (17%), Other Management: 28 (6%), Director: 16 (3%), Vp: 12 (3%), Senior: 9 (2%), Clevel: 5 (1%), Head: 4 (1%), Partner: 4 (1%), Intern: 2 (+2 more)\n- Active job postings: 22\n- Talent Sources: XPO (15), SPIRIT LOGISTICS NETWORK, INC. (12), UST (10), Nolan Transportation Group (NTG) (10), RXO, Inc. (9), Lean Solutions Group (7), Werner Enterprises (6), Retail Direct (6), Ralphs Transfer Co Inc (6), Amazon (6)\n- Alumni Go To: RXO, Inc. (12), SPIRIT LOGISTICS NETWORK, INC. (5), Lean Solutions Group (4), UST (3), Temco Logistics (3), Cardinal Logistics Management (3), Ashley Furniture Industries (3), Windmill Transport (2), Universal Logistics Holdings, Inc. (2), LPL Financial (2)\n\n## Products & Technology\n- Tech Stack (showing 50 of 91): ada, adobe, adobe premiere pro, bixby, dbt, domo, fivetran, freshservice, git, helpdesk, hubspot, hubspot crm, indeed, jira, jira service management, linkedin, linkedin recruiter, looker, macos, microsoft, microsoft 365, microsoft excel, microsoft intune, microsoft office, netsuite, onedrive, power bi, python, ramp, recognize, samsara, servicenow, snowflake, sql, windows 10, sqlite, angular, longview, microservices, openai, react, turvo, dispatchtrack, salesforce, continua, css, github, grunt, gulp, html\n\n## Web presence\n\n- Instagram: instagram.com/riverstonelogistics\n- Crunchbase: crunchbase.com/organization/riverstone-logistics\n- Web traffic:\n  - Monthly visits: 19,736\n  - Global rank: 1,169,580\n  - Bounce rate: 31.0%\n  - Pages per visit: 3.6\n  - Average visit duration: 124s\n\n## Categories\n\nappliance manufacturers, contractors, freight service, home builders, logistics, supply chain, transportation, warehousing\n\n## Recent News\n- [2026-10-02]\n  - Bitget: How to buy RLX Technology \\(rRLX\\) stock in Guam?\n  - List Wire: Newest Online Casino Site Launches in the U.S. October 2026\n- [2026-09-29] Simply Wall Street: Why RLX Technology \\(RLX\\) Is Getting Attention Today\n- [2026-09-22]\n  - 2Firsts: RLX Technology Dropped From FTSE All-World as International Business Reaches 68.5% of Q2 Revenue\n  - Gaming Intelligence: Relax Gaming launches Dream Drop in regulated market of Denmark with FDJ UNITED brands\n- [2026-09-17] Simply Wall Street: RLX: Modest Fair Value Cut Will Still Support Future Upside\n- [2026-09-09] MarketBeat: RLX Technology \\(NYSE:RLX\\) Reaches New 52-Week Low - Should You Sell?\n- [2026-09-08] [🚚 Multiple Supply Chain & Logistics Jobs Around Louisville, KY - NewsBreak](https://www.newsbreak.com/louisville-ky-daily-brief-373337445/4873857304266-multiple-supply-chain-logistics-jobs-around-louisville-ky)\n- [2026-09-05]\n  - MEXICONOW: Jalisco expects to increase electricity demand to 4,000 MW by 2030\n  - MarketBeat: RLX Technology \\(NYSE:RLX\\) Reaches New 1-Year Low - Here's What Happened\n  - Gaming Intelligence: Relax Gaming strikes gold with explosive new slot Nugget Ridge\n  - fuelcarmagazine: Toddler Rlx Down Vest Puffer Vest Toddler Down Jacket Australia Ralph Lauren RLX Down\n- [2026-09-03] Krepšinio žinios: Ralph Lauren Rlx Puffer Jacket The Water Is Very Dark Blue And Green With Some White Foamy Waves On It\n- [2026-09-02]\n  - [Riverstone Logistics hiring Customer Success Manager in Rock Hill, SC \\| LinkedIn](https://www.linkedin.com/jobs/view/customer-success-manager-at-riverstone-logistics-4462053288)\n  - [Customer Success Manager at Riverstone Logistics — Rock Hill, SC \\| LinkedIn Jobs](https://www.linkedin.com/jobs/view/customer-success-manager-at-riverstone-logistics-4462053288?position=17&pageNum=0&refId=h4GXfFHLP6YTMWcbe%2FRVXA%3D%3D&trackingId=y0jvcZ58JRMUVrjerHINEA%3D%3D)\n  - [🏭 Several Manufacturing & Warehouse Jobs in Covington, LA - NewsBreak](https://www.newsbreak.com/covington-la-daily-brief-373339856/4862043135482-several-manufacturing-warehouse-jobs-in-covington-la)\n- [2026-08-29] MEXICONOW: RLX Invests US$100 Million in Querétaro Power Infrastructure\n- [2026-08-28]\n  - MarketBeat: Bank of America Corp DE Purchases 1,299,828 Shares of RLX Technology Inc. Sponsored ADR $RLX\n  - MEXICONOW: Genux Invests US$165 Million in Solar Projects\n  - MEXICONOW: Pemex-UIF Agreement to Combat Hydrocarbon Theft\n- [2026-08-27]\n  - MEXICONOW: Querétaro Opens a New Electrical Substation\n  - Yahoo Finance: RLX Technology \\(RLX\\) Bets Big On Europe And Nicotine Pouches\n- [2026-08-26] AOL.com: RLX Technology \\(RLX\\) Q2 2026 Earnings Call Transcript\n- [2026-08-24] Moomoo: RLX Technology Q2 Operating Expenses RMB 227.\n\n## Social\n\n### Linkedin\n\n- [2026-09-29 · Posted · 71 reactions] [Missed the ribbon cutting? Here's a look at the moment we...](https://www.linkedin.com/posts/riverstonelogistics_riverstone-logistics-moves-to-rock-hill-activity-7510776820154277890-T6IH)\n  > Missed the ribbon cutting? Here's a look at the moment we officially opened our new corporate headquarters at The Thread in Rock Hill, S.C. It was a great day for our Extra Milers and for everyone who joined us to celebrate.\n  >\n  > To our partners, neighbors, and friends in Rock Hill, thank you for the warm welcome. We're excited for what we'll build here together.\n  >\n  > C DESIGN\n  > Choate Construction Company\n  > York County Regional Chamber of Commerce\n  > Rock Hill Economic Development\n  > The Keith Corporation\n  >\n  > #rlx #loveserveimprove #rockhillbusiness\n\n- [2026-09-27 · Posted · 2 reactions] [We're #hiring a new Operations Supervisor in Summerville, South...](https://www.linkedin.com/posts/riverstonelogistics_hiring-activity-7509937282099888128-60kC)\n  > We're #hiring a new Operations Supervisor in Summerville, South Carolina. Apply today or share this post with your network.\n\n- [2026-09-25 · Posted · 7 reactions] [We're #hiring a new Operations Supervisor, Warehouse in Lubbock...](https://www.linkedin.com/posts/riverstonelogistics_hiring-activity-7509212721515638784-pWh3)\n  > We're #hiring a new Operations Supervisor, Warehouse in Lubbock, Texas. Apply today or share this post with your network.\n\n- [2026-09-22 · Posted · 19 reactions] [Big week in Vegas. Our team sponsored Landing's First Annual Field...](https://www.linkedin.com/posts/riverstonelogistics_fieldoperationssummit2026-rlx-loveserveimprove-activity-7508262522408415232-1g-r)\n  > Big week in Vegas.\n  >\n  > Our team sponsored Landing's First Annual Field Operations Summit, and Kendrick Hawkins and Jeff Schoonover represented RLX on stage across two days of the event, spending real time with field operators and leadership across their organization.\n  >\n  > The best part of the trip was hearing directly from the people we work with every day: \"when RLX is on a project, they know it's handled”. That's the reputation we're chasing, and that's the whole point: go the extra mile, drive excellence, exceed expectations, and earn the kind of repeated trust that a great partnership is built on.\n  >\n  > We ended the week even more excited about where the Landing is heading and what that means for our continued partnership and growth together.\n  >\n  > #FieldOperationsSummit2026 #RLX #LoveServeImprove\n\n- [2026-09-22 · Reshared · 5 reactions] [One of the best nights of the year. Check out Congregations for...](https://www.linkedin.com/posts/riverstonelogistics_one-of-the-best-nights-of-the-year-check-activity-7508159178138492928-K6VU): One of the best nights of the year. Check out Congregations for Kids and how they are creating Champions for Kids in foster care in Charlotte and surrounding areas. We'll see you at Something Big,...\n\n- [2026-09-22 · Posted · 6 reactions] [We're #hiring a new Operations Manager in Orlando, Florida. Apply...](https://www.linkedin.com/posts/riverstonelogistics_hiring-activity-7508124297455136768-QroP)\n  > We're #hiring a new Operations Manager in Orlando, Florida. Apply today or share this post with your network.\n\n- [2026-09-22 · 17 reactions] Big week in Vegas. Our team sponsored Landing's First Annual Field Operations Summit, and Kendrick Hawkins and Jeff Schoonover represented RLX on stage across two days of the event, spending real t...\n\n- [2026-09-21 · Posted · 2 reactions] [We're #hiring a new Chaplain, Regional Culture Specialist in...](https://www.linkedin.com/posts/riverstonelogistics_hiring-activity-7507763438723432448-m3G-)\n  > We're #hiring a new Chaplain, Regional Culture Specialist in Dallas, Texas. Apply today or share this post with your network.\n\n- [2026-09-20 · Posted · 7 reactions] [We're #hiring a new Operations Supervisor, Returns in Doral...](https://www.linkedin.com/posts/riverstonelogistics_hiring-activity-7507401378869460992-6M39)\n  > We're #hiring a new Operations Supervisor, Returns in Doral, Florida. Apply today or share this post with your network.\n\n- [2026-09-19 · Posted · 2 reactions] [We're #hiring a new Warehouse Associate in DeFuniak Springs...](https://www.linkedin.com/posts/riverstonelogistics_hiring-activity-7507036964819312640-7Tbq)\n  > We're #hiring a new Warehouse Associate in DeFuniak Springs, Florida. Apply today or share this post with your network.\n\n- [2026-09-18 · Posted · 6 reactions] [We're #hiring a new Operations Supervisor, Outbound in Boyce...](https://www.linkedin.com/posts/riverstonelogistics_hiring-activity-7506676407041966080-QEnt)\n  > We're #hiring a new Operations Supervisor, Outbound in Boyce, Louisiana. Apply today or share this post with your network.\n\n- [2026-09-17 · Posted · 4 reactions] [We're #hiring a new Account Manager, Flex in Rock Hill, South...](https://www.linkedin.com/posts/riverstonelogistics_hiring-activity-7506314714663043074-2QNQ)\n  > We're #hiring a new Account Manager, Flex in Rock Hill, South Carolina. Apply today or share this post with your network.\n\n- [2026-09-16 · Posted · 4 reactions] [We're #hiring a new Operations Supervisor, Warehouse in Kyle...](https://www.linkedin.com/posts/riverstonelogistics_hiring-activity-7505953296118112256-xRfF)\n  > We're #hiring a new Operations Supervisor, Warehouse in Kyle, Texas. Apply today or share this post with your network.\n\n- [2026-09-15 · Posted · 3 reactions] [We're #hiring a new Operations Supervisor in Spartanburg, South...](https://www.linkedin.com/posts/riverstonelogistics_hiring-activity-7505588925386694657-5Mwh)\n  > We're #hiring a new Operations Supervisor in Spartanburg, South Carolina. Apply today or share this post with your network.\n\n- [2026-09-10 · Posted · 65 reactions] [We celebrated the grand opening of our new corporate headquarters...](https://www.linkedin.com/posts/riverstonelogistics_ribbon-cutting-at-the-thread-rock-hill-for-activity-7503845630142889986-JthG)\n  > We celebrated the grand opening of our new corporate headquarters in Rock Hill, S.C., with a ribbon-cutting ceremony at The Thread. This move brings 150+ RLX team members to a new 40,000-square-foot space built for collaboration and growth — and marks an exciting new chapter for our company and our community.\n  >\n  > Thank you to the State of South Carolina, the City of Rock Hill, and everyone who helped make this move possible. We're proud to call Rock Hill home.\n  >\n  > https://lnkd.in/e4MCxFab\n  >\n  > C DESIGN Choate Construction Company The Thread, Rock Hill, SC York County Regional Chamber of Commerce Rock Hill Economic Development The Keith Corporation\n  > York County Economic Development\n  >\n  > #rlx #loveserveimprove #newheadquarters\n\n- [2026-09-09 · Posted · 2 reactions] [We're #hiring a new Flex Shelbyville - Warehouse Associate in...](https://www.linkedin.com/posts/riverstonelogistics_hiring-activity-7503417038887972864-Z_S5)\n  > We're #hiring a new Flex Shelbyville - Warehouse Associate in Louisville, Kentucky. Apply today or share this post with your network.\n\n- [2026-09-08 · Posted · 8 reactions] [We're #hiring a new Pathfinder Manager Trainee Program in Rock...](https://www.linkedin.com/posts/riverstonelogistics_hiring-activity-7503051195414990849-JkNF)\n  > We're #hiring a new Pathfinder Manager Trainee Program in Rock Hill, South Carolina. Apply today or share this post with your network.\n\n- [2026-09-07 · Posted · 18 reactions] [Logistics doesn't stop for a holiday, and neither does this team...](https://www.linkedin.com/posts/riverstonelogistics_rlx-loveserveimprove-laborday-activity-7502803387047067650-5jjK)\n  > Logistics doesn't stop for a holiday, and neither does this team. Today we want to say thanks to the Extra Milers who are keeping things moving, and to those who are finally getting some time back with family.\n  >\n  > Happy Labor Day from RLX.\n  >\n  > #rlx #loveserveimprove #laborday\n\n- [2026-09-07 · Posted · 1 reaction] [We're #hiring a new Warehouse Associate in Covington, Louisiana...](https://www.linkedin.com/posts/riverstonelogistics_hiring-activity-7502691509281001472-W1Py)\n  > We're #hiring a new Warehouse Associate in Covington, Louisiana. Apply today or share this post with your network.\n\n- [2026-09-07 · 18 reactions] Logistics doesn't stop for a holiday, and neither does this team. Today we want to say thanks to the Extra Milers who are keeping things moving, and to those who are finally getting some time back...\n\n## Locations\n- Headquarters: rock hill, south carolina, united states (US)\n- Offices: charlotte, north carolina, united states (US), charlotte, texas, united states (US), rock hill, south carolina, united states (US)",
+        "summary": "{\"description\":\"Riverstone Logistics is a nationwide big and bulky logistics platform delivering middle mile, final mile, and end-to-end solutions across a nationally integrated network.\",\"employee_estimate\":472,\"employee_estimate_source\":\"Employees: 472\",\"hq\":\"Rock Hill, United States\",\"hq_quote\":\"Headquarters: rock hill, south carolina, united states (US)\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"Riverstone Logistics is a nationwide big and bulky logistics platform that handles every mile of the big and bulky supply chain nationwide.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4E0BAQHHEmXyZr_Jtg/company-logo_200_200/company-logo_200_200/0/1645637776884/riverstonelogistics_logo?e=2147483647&v=beta&t=nc2TvKd139KZdR0C0gNf3ceMaZhuZBeqghZswGgkHi4",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/j4pwr48z34h",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Riverstone Logistics",
+              "foundedYear": 2017,
+              "description": "Riverstone Logistics is a big and bulky supply chain powerhouse, delivering seamless middle mile, final mile, and end-to-end logistics solutions through a nationally integrated platform.\n\nFrom our headquarters in Rock Hill, South Carolina, we manage a nationwide network powered by dedicated in-house management and thoughtfully aligned partnerships. We’re a purpose-driven company that exists to use our God-given talents and opportunities to love our neighbors, serve our communities, and improve our industry. \nWe are with you every mile.",
+              "workforce": {
+                "total": 472
+              },
+              "headquarters": {
+                "address": "220 W White St, Suite 300, Rock Hill, South Carolina 29730, US",
+                "city": "Rock Hill",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 19736,
+                "countryRank": 279400,
+                "avgDurationSeconds": 124,
+                "history": [
+                  {
+                    "value": 13513,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 4911,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 7368,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 10339,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 7133,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 19736,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/bm0chx3bn72",
+        "title": "Riverstone Industries",
+        "url": "https://riverstoneindustries.com/",
+        "text": "# Riverstone Industries\n\nRiverstone Industries is a Manufacturing company. Riverstone Industries employs 2 people and has an annual revenue of $19.2M, founded in 2010. Headquartered in Dover, New Jersey, United States, with an office in Alapaha.\n\n## About\n\nRiverstone Industries is a retail oriented manufacturer of green ( good for the environment) programs. Our programs are brought to market through a network of sales professionals throughout the USA, Canada, Middle East, and Australia with plans to enter the European marketplace shortly.\n\nPrograms focus on Lawn and Garden products such as hobby and commercial greenhouses, outdoor utility sinks, composters, rain barrels, raised garden beds, planters as well as Home Products such as electric fireplace/ heaters, mounts for flat panel TV's, and other unique programs designed to make the homeowner's life easier while good for the environment.\n\nWe are always on the look out for new and excited ideas, concepts, or finished products to take to market under the Riverstone Label.\n\n## Company Details\n- Industry: Manufacturing\n- Type: Privately held\n- Headquarters: Dover, United States\n- Founded Year: 2010\n- Homepage: riverstoneindustries.com\n- Aliases: Riverstone Industries Corporation, riverstone industries\n- LinkedIn: linkedin.com/company/riverstone-industries\n- Linkedin Followers: 97\n- Emails: customerservice@rsiww.com\n- Phone: +1 612 787 7863\n\n## Financials\n- Annual Revenue: USD 19,163,813\n\n## Workforce\n- Employees: 2\n- Company Size: 11-50 employees\n- Key Executives:\n  - David Schnurman: Vice President\n- Breakdown:\n  - By Country: United States: 2 (100%)\n  - By Department: General Management: 1 (50%), Sales: 1 (50%)\n  - By Seniority: Manager: 1 (50%), Vp: 1 (50%)\n- Talent Sources: Rutgers Business School (1), LionTutors (1), Fairleigh Dickinson University (1), Design Elements Group (1)\n- Alumni Go To: PerformLine (2), Spectro | Jet-Care (1), Rutgers Hillel (1), Lumen Technologies (1), Columbia Bank Northeast (1), Colonial Life (1)\n\n## Web presence\n\n- Twitter: twitter.com/riverstonegreen\n- Facebook: facebook.com/pages/riverstone-industries/114651775267942\n- Crunchbase: crunchbase.com/organization/riverstone-industries\n- Web traffic:\n  - Monthly visits: 364\n  - Global rank: 11,687,610\n  - Bounce rate: 49.0%\n  - Pages per visit: 1.0\n  - Average visit duration: 0s\n\n## Categories\n\n3rd party logistics, composting, decorative lawn art, direct importing, educational greenhouses, faucets, garden beds & tables, gazebos, greenhouse accessories, greenhouses, home and garden, home products, lawn & garden products, manufacturing, new product development, outdoor flooring, outdoor sinks, outdoors, product design and development, shade and privacy cloth, shelving\n\n## Social\n\n### Linkedin\n\n- [2021-12-31 · 2 reactions] From all of us at Riverstone Industries, we wish everyone a Happy and Healthy New Year!\n\n## Locations\n- Headquarters: dover, new jersey, united states (US)\n- Offices: alapaha, georgia, united states (US), dover, new jersey, united states (US)",
+        "summary": "{\"description\":\"Riverstone Industries is a retail oriented manufacturer of green ( good for the environment) programs. Our programs are brought to market through a network of sales professionals throughout the USA, Canada, Middle East, and Australia with plans to enter the European marketplace shortly.\",\"employee_estimate\":2,\"employee_estimate_source\":\"Employees: 2\",\"hq\":\"Headquarters: dover, new jersey, united states (US)\",\"hq_quote\":\"Headquarters: dover, new jersey, united states (US)\",\"industry\":\"Manufacturing\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"3rd party logistics, composting, decorative lawn art, direct importing, educational greenhouses, faucets, garden beds & tables, gazebos, greenhouse accessories, greenhouses, home and garden, home products, lawn & garden products, manufacturing, new product development, outdoor flooring, outdoor sinks, outdoors, product design and development, shade and privacy cloth, shelving\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C560BAQELpnJ91uMWLQ/company-logo_200_200/company-logo_200_200/0/1631325702089?e=2147483647&v=beta&t=aoiZ-b4cm_8Po7NtxWP2MsO5TRnGGIR8ZLxm7177vwk",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/bm0chx3bn72",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Riverstone Industries",
+              "foundedYear": 2010,
+              "description": "Riverstone Industries is a retail oriented manufacturer of green ( good for the environment) programs. Our programs are brought to market through a network of sales professionals throughout the USA, Canada, Middle East, and Australia with plans to enter the European marketplace shortly.\n\nPrograms focus on Lawn and Garden products such as hobby and commercial greenhouses, outdoor utility sinks, composters, rain barrels, raised garden beds, planters as well as Home Products such as electric fireplace/ heaters, mounts for flat panel TV's, and other unique programs designed to make the homeowner's life easier while good for the environment.\n\nWe are always on the look out for new and excited ideas, concepts, or finished products to take to market under the Riverstone Label.",
+              "workforce": {
+                "total": 2
+              },
+              "headquarters": {
+                "address": "40 Richboynton Rd, Dover, NJ 07801, US",
+                "city": "Dover",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 19163813,
+                "fundingTotal": null,
+                "fundingLatestRound": null
+              },
+              "webTraffic": {
+                "visitsMonthly": 364,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 2457,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 1018,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 884,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 1119,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 997,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 364,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 5594.6,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

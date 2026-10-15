@@ -1,0 +1,224 @@
+{
+  "request": {
+    "query": "Paragon Global Logistics",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "02c992b3a509be9238b9653e1278a11f",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/tscb9msccl9",
+        "title": "Paragon Global Logistics",
+        "url": "https://paragongl.com/",
+        "text": "# Paragon Global Logistics\n\nParagon Global Logistics is a Transportation, Logistics, Supply Chain and Storage company. Paragon Global Logistics is a third-party logistics services provider in Orlando, FL offering reliable LTL and FTL shipping solutions. Paragon Global Logistics employs 1 person, founded in 2023. Headquartered in Orlando, Florida, United States.\n\n## About\n\nParagon Global Logistics, a trusted logistics solutions provider specializing in Full Truck Load, Less than Truckload, Expedited, Dedicated, and Last-Mile Delivery.\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Privately held\n- Headquarters: Orlando, United States\n- Founded Year: 2023\n- Homepage: paragongl.com\n- Aliases: paragon global logistics\n- LinkedIn: linkedin.com/company/paragongl\n- Linkedin Followers: 355\n- Emails: info@paragongl.com\n- Phone: (407) 853-2923\n\n## Workforce\n- Employees: 1\n- Company Size: Myself Only\n- Talent Sources: McCray Global Protection (1)\n\n## Web presence\n\n- Web traffic:\n  - Monthly visits: 47\n  - Bounce rate: 37.0%\n  - Pages per visit: 1.0\n  - Average visit duration: 0s\n\n## Categories\n\nfreight brokerage, ftl shipping solutions, logistics, ltl shipping, orlando, third-party logistics services\n\n## Social\n\n### Linkedin\n\n- [2024-05-09 · 2 reactions, 2 comments] Another successful shipment completed. This time, a load of carpet from the “Carpet Capital of the World”. Dalton, GA to Orlando, FL\n\n- [2023-12-15 · 2 reactions] From one job site to another ✅\n\n- [2023-12-09 · 4 reactions] Connecting Continents 🌐🌏\n\n- [2023-11-13 · 5 reactions] Last week we had the opportunity to work on a variety of LTL shipments. We ensured that each item reached its destination on time and in perfect condition. 📦🚚\n\n- [2023-09-29 · 1 reaction] Exciting Updates Alert! We've revamped our website to bring you an even better user experience! 👉 https://paragongl.com/ Your feedback is invaluable - let us know what you think! 🗣️💬\n\n- [2023-09-15] 📢 Excited to share this testimonial from a satisfied freight broker! 🤝 At Paragon Global Logistics, we take pride in delivering exceptional dispatching solutions, and it's humbling to see our effor...\n\n- [2023-08-23] Excited to share more positive feedback! 🤝 At Paragon Global Logistics, we take pride in delivering exceptional dispatching solutions. We're committed to continuing our partnership and exceeding ex...\n\n- [2023-07-25 · 1 reaction] 📢 Excited to share this testimonial from a satisfied broker! 🤝 At Paragon Global Logistics, we take pride in delivering exceptional dispatching solutions, and it's humbling to see our efforts recog...\n\n- [2023-07-23] ⏰ POLL TIME! ⏰ How frequently do you evaluate your logistics providers to ensure they align with your evolving needs? Cast your vote and share your strategies with fellow industry professionals! #L...\n\n## Locations\n- Headquarters: orlando, florida, united states (US)\n- Offices: orlando, florida, united states (US)",
+        "summary": "{\"description\":\"Paragon Global Logistics is a Transportation, Logistics, Supply Chain and Storage company. Paragon Global Logistics is a third-party logistics services provider in Orlando, FL offering reliable LTL and FTL shipping solutions.\",\"employee_estimate\":1,\"employee_estimate_source\":\"Employees: 1\",\"hq\":\"Orlando, Florida, United States\",\"hq_quote\":\"Headquartered in Orlando, Florida, United States.\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"Paragon Global Logistics is a third-party logistics services provider in Orlando, FL offering reliable LTL and FTL shipping solutions.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQG5KtXk8o_WOA/company-logo_200_200/company-logo_200_200/0/1687342481960?e=2147483647&v=beta&t=bElv-Jz0VScyuwTDTSr3WV4k3KJdJgEAIKQ1rEfIYVc",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/tscb9msccl9",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Paragon Global Logistics",
+              "foundedYear": 2023,
+              "description": "Paragon Global Logistics, a trusted logistics solutions provider specializing in Full Truck Load, Less than Truckload, Expedited, Dedicated, and Last-Mile Delivery. ",
+              "workforce": {
+                "total": 1
+              },
+              "headquarters": {
+                "address": "Orlando, FL, US",
+                "city": "Orlando",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 47,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 232,
+                    "dateFrom": "2026-01",
+                    "dateTo": "2026-01"
+                  },
+                  {
+                    "value": 232,
+                    "dateFrom": "2026-02",
+                    "dateTo": "2026-02"
+                  },
+                  {
+                    "value": 69,
+                    "dateFrom": "2026-03",
+                    "dateTo": "2026-03"
+                  },
+                  {
+                    "value": 899,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 41,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 47,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/q6wvtwyykk7",
+        "title": "Paragon Logistics Group Ltd",
+        "url": "https://paragonlogistics.com/",
+        "text": "# Paragon Logistics Group Ltd\n\nParagon Logistics Group Ltd is a Transportation, Logistics, Supply Chain and Storage company. Paragon Logistics is a fast and reliable UK and London logistics company. They offer a wide range of services including same day courier, overnight delivery, multi-drop courier, chilled & frozen transportation, contract distribution, freight distribution, home & business removals, storage & fulfillment, temp & contract staffing, international delivery, frozen storage warehouse, specialist sectors such as food & beverage, medical &. Paragon Logistics Group Ltd employs 8 people (+100.0% YoY, +4 people), founded in 2022. Headquartered in London, United Kingdom.\n\n## About\n\nWe make logistics faster, easier and more cost-effective, so you can focus on growing your business.\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Privately held\n- Headquarters: London, United Kingdom\n- Founded Year: 2022\n- Homepage: paragonlogistics.com\n- Aliases: paragon logistics group ltd\n- LinkedIn: linkedin.com/company/paragon-logistics-group-ltd\n- Linkedin Followers: 235\n- Phone: 207 302 3275\n\n## Workforce\n- Employees: 8\n- Company Size: 51-200 employees\n  - Yearly Growth: +100.0%\n- Key Executives:\n  - Amit Sandhu: Director\n- Breakdown:\n  - By Country: United Kingdom: 4 (50%)\n  - By Department: Operations: 2 (25%), Finance: 1 (12%), General Management: 1 (12%)\n  - By Seniority: Manager: 2 (25%), Director: 1 (12%), Specialist: 1 (12%)\n- Talent Sources: Wincanton (1), Social Pantry (1)\n- Alumni Go To: Solstor International Freight Solutions (1)\n\n## Web presence\n\n- Twitter: twitter.com/paragonlgroup\n- Facebook: facebook.com/paragonlogisticsgroup\n- Instagram: instagram.com/paragonlogistics\n- Web traffic:\n  - Monthly visits: 776\n  - Global rank: 3,674,727\n  - Bounce rate: 41.0%\n  - Pages per visit: 2.4\n  - Average visit duration: 20s\n\n## Categories\n\ncourier, freight distribution, logistics, london, uk\n\n## Social\n\n### Linkedin\n\n- [2026-03-15 · 6 reactions] Not all logistics companies are the same. Some move packages. We move businesses forward. At Paragon Logistics, every delivery is supported by: ✅ Real-time coordination ✅ Experienced professional d...\n\n- [2026-03-12 · 4 reactions] Struggling with delivery delays or unreliable transport? Paragon Logistics supports businesses with dependable, professional logistics solutions across the UK. ✅ Multi-drop delivery ✅ Chilled & fro...\n\n- [2026-03-09 · 3 reactions] Freshness doesn’t happen by chance, it’s protected through the right cold chain logistics. At Paragon Logistics, our chilled & frozen storage solutions ensure your products remain safe, compliant,...\n\n- [2026-03-06 · 6 reactions] Typical UK weather… same fleet, different skies 🌤🌧 Rain or shine, deliveries still go out and businesses keep moving. #ParagonLogistics #EquipmentStorage #EfficientDelivery #DistributionPartner #Dr...\n\n- [2026-03-05 · 3 reactions] Let’s be honest… Late deliveries don’t just cause inconvenience, they cost businesses real money. ❌ Missed deadlines. 👥 Lost customers. ⚠️ Operational stress. We want to know 👇 Has a delivery delay...\n\n- [2026-02-26 · 2 reactions] When deliveries run late, businesses pay the price. Missed deadlines. Unhappy customers. Lost revenue. At Paragon Logistics, timing isn’t chance — it’s precision. ✅ Reliable transport ✅ Professiona...\n\n- [2026-01-15 · 11 reactions] When temperature matters, there’s no room for error. Paragon Logistics provides secure chilled and frozen storage backed by professional handling, modern facilities, and fast dispatch so your produ...\n\n- [2026-01-13 · 3 reactions] Looking for reliable chilled or frozen storage? ❄️ Paragon Logistics offers modern cold-storage facilities with full temperature control, monitoring, and fast dispatch so your products reach custom...\n\n- [2025-12-25 · 3 reactions] As another year comes to an end, we would like to thank all our customers, partners, and team for their continued trust. From everyone at Paragon Logistics, Merry Christmas & a Happy New Year. #Par...\n\n- [2025-12-24 · 2 reactions] Snow or shine, we’re proud to keep supply chains moving this festive season. Delivering Christmas, one mile at a time 🎄📦 #ParagonLogistics #EquipmentStorage #EfficientDelivery #DistributionPartner...\n\n## Locations\n- Headquarters: london, nw10 7fq, united kingdom (GB)\n- Offices: london, nw10 7fq, united kingdom (GB)",
+        "summary": "{\"description\":\"Paragon Logistics Group Ltd is a Transportation, Logistics, Supply Chain and Storage company providing a wide range of courier, distribution and warehousing services in the UK.\",\"employee_estimate\":8,\"employee_estimate_source\":\"Employees: 8\",\"hq\":\"London, United Kingdom\",\"hq_quote\":\"Headquartered in London, United Kingdom.\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: undefined\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQFOgjsObTD9ww/company-logo_200_200/company-logo_200_200/0/1688987029572/paragon_logistics_group_ltd_logo?e=2147483647&v=beta&t=wR-eBnCAKUJGCqreCMuYqXvRIvwLrVLaSqIuF1cc4fQ",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/q6wvtwyykk7",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Paragon Logistics Group Ltd",
+              "foundedYear": 2022,
+              "description": "We make logistics faster, easier and more cost-effective, so you can focus on growing your business.",
+              "workforce": {
+                "total": 8
+              },
+              "headquarters": {
+                "address": "First Central 200 2 Lakeside Dr London, Paragon Logistics Group Ltd 6th floor, London, NW10 7FQ, GB",
+                "city": "London",
+                "postalCode": null,
+                "country": "United Kingdom"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 776,
+                "countryRank": 953957,
+                "avgDurationSeconds": 20,
+                "history": [
+                  {
+                    "value": 1289,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 1647,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 1593,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 1157,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 4481,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 776,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 4337,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

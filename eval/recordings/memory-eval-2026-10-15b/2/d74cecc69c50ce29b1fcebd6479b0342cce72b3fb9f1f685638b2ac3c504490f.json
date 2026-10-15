@@ -1,0 +1,228 @@
+{
+  "request": {
+    "query": "Relay",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "e93b0f749bfb27da5ff6a45acccedc11",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/67szxc819px",
+        "title": "RELAY FRANCE",
+        "url": "https://relay.fr/",
+        "text": "# RELAY FRANCE\n\nRELAY FRANCE is a Retail company. RELAY FRANCE employs 247 people. Headquartered in Levallois-Perret, Île-de-France, France.\n\n## Company Details\n- Industry: Retail\n- Headquarters: Levallois-Perret, France\n- Homepage: relay.fr\n- Aliases: relay france\n- LinkedIn: linkedin.com/company/relay-france\n- Linkedin Followers: 260\n\n## Workforce\n- Employees: 247\n- Company Size: 51-200 employees\n  - Monthly Growth: -2.8%\n- Key Executives:\n  - Franck Venot: Directeur de réseau\n- Breakdown:\n  - By Country: France: 33 (13%)\n  - By Department: Sales: 14 (6%), General Management: 7 (3%), Other Department: 3 (1%), Customer Service: 2 (1%), Marketing: 2 (1%), Operations: 2 (1%), Consulting: 1, Education: 1, Hr: 1, Project Management: 1\n  - By Seniority: Manager: 16 (6%), Specialist: 10 (4%), Other Management: 7 (3%), Director: 1\n- Talent Sources: Picard Surgelés (2), OKAÏDI (2), Monoprix (2), Mediametrie (2), Lagardère Travel Retail (2), Intermarché (2), DECATHLON FRANCE (2), Alterdeco (2), Zehnder Group France (1), MEDIATRANSPORTS (1)\n- Alumni Go To: Lagardère Travel Retail (12), Groupe SNCF (3), Auchan Retail (3), Monoprix (2), Mondelēz International (2), Maison Nicolas (2), IKEA (2), EDF (2), Deloitte (2), DECATHLON FRANCE (2)\n\n## Products & Technology\n- Tech Stack: articulate storyline, docebo, genially, adp\n\n## Web presence\n\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Recent News\n- [2026-08-24] [\"Tu viens le matin, tu ne sais jamais ce qui va se passer\" : dans les coulisses d'un lever du jour à l'aéroport de Clermont-Ferrand - La Montagne](https://www.lamontagne.fr/aulnat-63510/loisirs/a-clermont-ferrand-au-lever-du-jour-fabio-chef-d-orchestre-des-vols_15030813/)\n\n## Locations\n- Headquarters: levallois-perret, île-de-france, france\n- Offices: levallois-perret, île-de-france, france",
+        "summary": "{\"description\":\"RELAY FRANCE is a Retail company headquartered in Levallois-Perret, Île-de-France, France.\",\"employee_estimate\":247,\"employee_estimate_source\":\"Employees: 247\",\"hq\":\"Levallois-Perret, Île-de-France, France\",\"hq_quote\":\"Headquartered in Levallois-Perret, Île-de-France, France.\",\"industry\":\"Retail\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":null,\"is_third_party_logistics_quote\":\"\"}",
+        "image": "https://static.licdn.com/aero-v1/sc/h/cs8pjfgyw96g44ln9r7tct85f",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/67szxc819px",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "RELAY FRANCE",
+              "foundedYear": null,
+              "description": null,
+              "workforce": {
+                "total": 247
+              },
+              "headquarters": {
+                "address": "55 Rue Deguingand, Levallois-Perret, Île-de-France 92300, FR",
+                "city": "Levallois-Perret",
+                "postalCode": null,
+                "country": "France"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 0,
+                    "dateFrom": "2025-03",
+                    "dateTo": "2025-03"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2025-04",
+                    "dateTo": "2025-04"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2025-06",
+                    "dateTo": "2025-06"
+                  },
+                  {
+                    "value": 74,
+                    "dateFrom": "2025-10",
+                    "dateTo": "2025-10"
+                  },
+                  {
+                    "value": 162,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/0g6j6jyghxq",
+        "title": "Mondial Relay",
+        "url": "https://www.mondialrelay.fr/",
+        "text": "# Mondial Relay\n\nMondial Relay is a Truck Transportation company. Worldwide Relay is an expert in the delivery of parcels to individuals. They offer a wide range of services including tracking parcels, delivery of parcels, points relais® and lockers, and assistance. They cater to both individuals and e-commerce customers. Mondial Relay employs 2,550 people (+13.6% YoY, +305 people) and has an annual revenue of $387.8K. Headquartered in Villeneuve-d’Ascq, Hauts-de-France, France, with offices in Villeneuve-d'Ascq, Combs-la-Ville, and Villeneuve. Its workforce is distributed across 13 countries (including France, Belgium, Netherlands, Spain, and Tunisia).\n\n## About\n\n📦 Bienvenue chez Mondial Relay, filiale du groupe InPost, leader européen de la livraison hors-domicile (et fier de l’être !).\n\n⭐ N°1 du Palmarès Capital \"Meilleures enseignes 2026 \" dans la catégorie \"Livraison de colis et logistique\", nous sommes également Partenaire Officiel du Tour de France et fiers de notre note de 4.4/5 sur Trustpilot.\n\n🎯 Nous collaborons avec plus de 50 000 e-commerçants, dont Vinted, Leboncoin, Amazon, Kiabi et CDiscount, pour vous offrir une solution de livraison optimale.\n📍 Avec un réseau exceptionnel de plus de 19 000 Lockers et Points Relais® en France, nous garantissons une proximité inégalée pour l’envoi et la réception de vos colis.\n\n🤝 Au sein d'un collectif porté par l'humain, nos collaborateurs évoluent dans un environnement challengeant où ils cultivent leur esprit entrepreneurial et leurs capacités d'apprentissage au quotidien.\n\nPrêt(e) à rejoindre Mondial Relay by InPost ? Postulez, innovez, cartonnez ! 😃\n\n## Company Details\n- Industry: Truck Transportation\n- Type: Self-owned\n- Headquarters: Villeneuve-d’Ascq, France\n- Homepage: mondialrelay.fr\n- Aliases: mondial relay\n\n## Financials\n- Annual Revenue: USD 387,847\n\n## Workforce\n- Employees: 2,550\n- Company Size: 1001-5000 employees\n  - Monthly Growth: +0.7%\n  - Yearly Growth: +13.6%\n- Key Executives:\n  - Audrey Thierry: Head of Automation\n  - Aurélien COURBON: Directeur Achats\n  - Barbara Pietrkiewicz: Business Development, Head of PMO\n  - Christophe Cornilleau 可尼诺: COO BeNeFraLux / Mondial Relay Inpost Group\n  - Claire Cathelain: Head of Sales Operations\n  - DYON Stéphan: Directeur d'agence\n  - Dimitri Roch: Directeur Transport\n  - Edouard Fasquelle: New Business Sales Director\n  - Emmanuel BIZERAY: Quality and Operational Excellence Director\n  - Fabien Neauport: Directeur Hub Réau\n- Breakdown:\n  - By Country: France: 789 (31%), Belgium: 40 (2%), Netherlands: 9, Spain: 7, Tunisia: 4, Portugal: 2, United Kingdom: 2, Argentina: 1, Canada: 1, Denmark: 1 (+3 more)\n  - By Department: Operations: 326 (13%), Other Department: 107 (4%), Sales: 86 (3%), General Management: 46 (2%), Customer Service: 44 (2%), Project Management: 43 (2%), Trades: 38 (1%), Technical: 36 (1%), Finance: 33 (1%), Hr: 30 (1%) (+9 more)\n  - By Seniority: Specialist: 339 (13%), Manager: 302 (12%), Other Management: 186 (7%), Director: 25 (1%), Head: 9, Intern: 8, Senior: 6, Clevel: 4, Owner: 1\n- Active job postings: 8\n- Talent Sources: Chronopost (32), La Poste Groupe (30), Amazon (29), Auchan Retail (25), DECATHLON FRANCE (21), E.Leclerc (20), Leroy Merlin (18), Carrefour (18), DPD France (17), Relais Colis (16)\n- Alumni Go To: La Poste Groupe (28), Leroy Merlin (22), Chronopost (18), Relais Colis (16), DECATHLON FRANCE (15), Amazon (15), FedEx (14), Intermarché (13), E.Leclerc (13), ID Logistics (11)\n\n## Products & Technology\n- Features: Mobile App\n- Tech Stack (showing 50 of 176): adp, alteryx, angular, angularjs, ants, ccn, chef, cision, crashlytics, databricks, datadog, db2, dbeaver, docker, dsn, ecovadis, elasticsearch, git, gitlab, google data studio, gradle, hibernate, ile, java, javascript, jetpack, jira, kibana, kotlin, linkedin, macos, manageengine, microservices, pipedrive, postgresql, postman, power bi, python, rabbitmq, redis, rpg iii, rpg ile, samsung, snowflake, spring boot, sql, swagger, tableau, tableau software, talend\n\n## Web presence\n\n- Twitter: twitter.com/mondialrelay\n- Facebook: facebook.com/mondialrelay\n- Instagram: instagram.com/mondialrelayfr\n- Crunchbase: crunchbase.com/organization/mondial-relay-f729\n- Web traffic:\n  - Monthly visits: 12,274,355\n  - Global rank: 6,714\n  - Bounce rate: 58.0%\n  - Pages per visit: 1.9\n  - Average visit duration: 116s\n\n## Categories\n\nbusiness_and_consumer_services/shipping_and_logistics, delivery, dernier kilomètre, e-commerce, envoi de colis, home delivery, international, livraison de colis, locker, lockers, logistics, parcels, particuliers, point relais, points relais, professionels, retour, transportation\n\n## Competitors\n\npickme, welco, relaiscolis\n\n## Recent News\n- [2026-10-03] Actu.fr: Grassement payé, il faisait passer de la drogue dans des colis Mondial Relay : un individu interpellé près de Lens\n- [2026-09-28] Les Echos: Livraison : ces 30.000 lockers qui ont envahi la France\n- [2026-09-26] Le journal du Grand Paris: Mondial Relay étend son réseau de lockers au pied des HLM franciliens\n- [2026-09-24]\n  - [COMMENT MONDIAL RELAY VOUS FAIT PAYER LES ERREURS DE SES LIVREURS - Forum - 60 millions de consommateurs](https://www.60millions-mag.com/forum/d/300566-comment-mondial-relay-vous-fait-payer-les-erreurs-de-ses-livreurs)\n  - [InPost \\(INPST\\) Company presentation Summary \\| Quartr](https://quartr.com/events/inpost-s-a-inpst-company-presentation_3s9vbWTv)\n- [2026-09-22] Revue économique de France: Mondial Relay sous pavillon américain : FedEx et Advent bouclent la prise de contrôle d’InPost\n- [2026-09-21] [Ana, la jubilada de 73 años que ha perdido 4.000 euros por un falso asesor bancario: “Me pareció un correo extraño, pagué los 1,89€” - AS.com](https://as.com/actualidad/sociedad/ana-la-jubilada-de-73-anos-que-ha-perdido-4000-euros-por-un-falso-asesor-bancario-me-parecio-un-correo-extrano-pague-los-189-f202609-n/)\n- [2026-09-20] La Gazette France: Mondial Relay by InPost souhaite être davantage inclusif\n- [2026-09-19] Presse Agence: PARIS : Logistique urbaine - Mondial Relay installe son hub décarboné de 6 600 m² aux Gobelins\n- [2026-09-18] [Mondial Relay - Colis fouillé, remballé et refus d'indemniser - Forum - 60 millions de consommateurs](https://www.60millions-mag.com/forum/d/299850-mondial-relay-colis-fouille-remballe-et-refus-dindemniser)\n- [2026-09-16] [Social Media : Gangstères se voit confier Mondial Relay by InPost - CB News](https://www.cbnews.fr/conseil/social-media-gangsteres-se-voit-confier-mondial-relay-by-inpost)\n- [2026-09-15] [Mondial Relay by Inpost fait le choix de Gangstères](https://www.strategies.fr/actualites/agences/LQ6581570C/mondial-relay-inpost-fait-le-choix-de-gangsteres.html)\n- [2026-09-05] Warning Trading: Liste des URL d’arnaques financières créées en septembre 2026\n- [2026-09-04] Programme TV Ouest-France: Le talk décideurs, Mondial Relay - David Lewkowitz S03E83 : résumé\n- [2026-09-02]\n  - [\\[Vocaroo\\] Je dépose des colis sur le forum Blabla 18-25 ans - 03-09-2026 01:24:42 - jeuxvideo.com](https://www.jeuxvideo.com/forums/42-51-77348475-1-0-1-0-vocaroo-je-depose-des-colis.htm)\n  - FashionNetwork France: Mondial Relay: 500 millions d'euros pour atteindre 13.500 consignes automatiques en France\n- [2026-08-29] Le Pays Roannais: Un nouveau locker Mondial Relay installé à Vendranges pour faciliter le retrait de colis\n- [2026-08-26]\n  - [Mondial Relay souhaite investir 500 millions d'euros en France d'ici 2030 - 26/08/2026 à 19:18 - Boursorama](https://www.boursorama.com/actualite-economique/actualites/mondial-relay-souhaite-investir-500-millions-d-euros-en-france-d-ici-2030-7c119c8e354e6fb56a3cd3a7c9c03dd3)\n  - [Challes-les-Eaux. Changement d’un point relais colis](https://www.ledauphine.com/economie/2026/08/26/changement-d-un-point-relais-colis)\n  - Le Figaro: [Mondial Relay souhaite investir 500 millions d'euros en France d'ici 2030](https://www.lefigaro.fr/flash-eco/mondial-relay-souhaite-investir-500-millions-d-euros-en-france-d-ici-2030-20260826)\n  - [Mondial Relay souhaite investir 500 millions d'euros en France d'ici 2030 - France](https://www.europesays.com/fr/1150101/)\n- [2026-08-25] [LVMH écarte Jean-Baptiste Voisin, son directeur de la stratégie](https://www.consultor.fr/articles/lvmh-remercie-son-directeur-de-la-strategie-en-poste-depuis-vingt-ans?tmpl=component&print=1)\n- [2026-08-23] [Arnaque aux faux colis IA : ce SMS circule toujours, voici comment éviter le piège](https://www.01net.com/actualites/arnaque-aux-faux-colis-ia-ce-sms-circule-toujours-voici-comment-eviter-le-piege.html)\n- [2026-08-19] ladepeche.fr: Trafic de drogue : comment les casiers automatiques de livraison sont détournés par les narcotrafiquants pour livrer leurs produits\n- [2026-08-17] Presse Agence: PARIS : Tour de France 2026 - Mondial Relay by InPost électrise la caravane avec un look audacieux\n- [2026-07-30]\n  - [Mondial Relay va s’installer chez Segro dans le 13e arrondissement de Paris](https://www.voxlog.fr/actualite/11076/mondial-relay-va-s-installer-chez-segro-dans-le-13e-arrondissement-de-paris)\n  - [Mondial Relay va s’installer chez Segro dans le 13e arrondissement de Paris - France](https://www.europesays.com/fr/1096935/)\n- [2026-07-27] Courrier picard: Hémévillers : après des semaines de blocage, les casiers Mondial Relay enfin vidés\n- [2026-07-17] Actu.fr: Livraison de colis : un nouveau locker Mondial Relay dans cette commune de Loire-Atlantique\n- [2026-07-09]\n  - [« Mondial Relay abandonne les petits commerçant qui les ont fait connaître », regrettent des buralistes troyens](https://www.lest-eclair.fr/id816796/article/2026-07-09/mondial-relay-abandonne-les-petits-commercant-qui-les-ont-fait-connaitre)\n  - [Tour de France. Mondial Relay installe des lockers dans sa caravane - Sport Business Club](https://www.sportbusiness.club/tour-de-france-mondial-relay-installe-des-lockers-dans-sa-caravane/)\n- [2026-07-02] La Thiérache: Illiko Presto perd le service « Mondial Relay », après avoir reçu un courrier qui interroge…\n- [2026-06-26] La Voix du Nord: Des colis de cannabis envoyés via Mondial Relay, la tête de réseau commandait depuis la prison\n- [2026-06-17] EcommerceMag.fr: Mondial Relay s’empare du site de Relais Colis à Combs-la-Ville\n- [2026-06-10] Numerama: C'est fait, les arnaques au livreur franchissent une étape que vous n'avez jamais vue... ou entendue\n- [2026-06-03] L'Est éclair: Vidéos : 180 000 colis transitent chaque jour par le site Mondial Relay à Buchères\n\n## Social\n\n### Linkedin\n\n- [2026-10-02 · Posted · 62 reactions] [Une mobilisation collective pour un environnement plus propre ! 🌍...](https://www.linkedin.com/posts/mondial-relay_teammondialrelaybyinpost-worldcleanupday-activity-7511677742292148224-B8TQ)\n  > Une mobilisation collective pour un environnement plus propre ! 🌍\n  >\n  > Cette semaine, à l'occasion du World Cleanup Day, nos collaborateurs se sont mobilisés partout en France pour agir concrètement contre la pollution locale et les déchets abandonnés.\n  >\n  > Le résultat ?\n  > 🚮 130 collaborateurs engagés\n  > ♻️ 210 kg de déchets collectés sur nos sites logistiques\n  > 🌿 70 kg collectés au siège\n  >\n  > Fidèle à cet engagement depuis 2021, Mondial Relay by InPost participe également à l'événement en tant que Partenaire Logistique Officiel, avec l'envoi cette année de 150 kits de nettoyage aux bénévoles mobilisés sur le terrain 💛\n  >\n  > Un grand bravo à l'ensemble de nos équipes de Lyon, Mont-de-Marsan, Valence, Le Mans et du siège pour leur participation, avec une mention spéciale à l'agence de Niort, engagée tout au long de l'année 👏\n  >\n  > Parce que chaque geste compte, nous sommes fiers de faire du World Cleanup Day un véritable mouvement collectif en faveur de l'environnement 😄\n  >\n  > #TeamMondialRelayByInPost #WorldCleanupDay #RSE #EngagementCollaborateur #UnJobQuiCartonne\n\n- [2026-09-25 · Posted · 30 reactions] [🌱 Sensibiliser en toute simplicité, agir collectivement À...](https://www.linkedin.com/posts/mondial-relay_teammondialrelaybyinpost-sedd-rse-activity-7509140889202614272-Wxk1)\n  > 🌱 Sensibiliser en toute simplicité, agir collectivement\n  >\n  > À l’occasion de la Semaine Européenne du Développement Durable, nos collaborateurs se sont mobilisés autour d’un enjeu du quotidien : le gaspillage alimentaire ♻️🥕\n  >\n  > Une animation conviviale, menée avec Les Secrets de Charly, a réuni près de 100 participants au siège pour découvrir des astuces concrètes de valorisation des déchets alimentaires pour aller vers le zéro gaspi.\n  >\n  > Et parce que l’engagement ne s’arrête pas là, des kits d’animation seront également déployés dans 11 agences logistiques partout en France 👏\n  > De petits gestes, un impact durable. 🌍\n  >\n  > #TeamMondialRelaybyInPost #SEDD #RSE #DéveloppementDurable #GaspillageAlimentaire\n\n- [2026-09-24 · Posted · 20 reactions] [Et si chaque colis devenait une nouvelle occasion de renforcer le...](https://www.linkedin.com/posts/mondial-relay_mondialrelay-lesmoisgagnants-ecommerce-activity-7508809902220419072-Lc7a)\n  > Et si chaque colis devenait une nouvelle occasion de renforcer le lien avec nos utilisateurs ?\n  >\n  > À partir du 1er octobre, Mondial Relay by InPost lance Les Mois Gagnants, une opération d'envergure déployée pendant 4 mois au cœur de notre app.\n  >\n  > Le principe : valoriser les usages qui rythment quotidiennement l'expérience Mondial Relay by InPost en récompensant nos utilisateurs.\n  >\n  > 🎁 📦 Retirer un colis, en envoyer un… autant d'actions qui permettront de collecter des tickets et de tenter de remporter l'un des 400 000 cadeaux mis en jeu.\n  >\n  > Au-delà du jeu, Les Mois Gagnants illustrent notre volonté de faire de notre app un point de contact toujours plus fort avec nos utilisateurs, en créant de l'engagement autour de nos services et de leurs usages.\n  >\n  > Rendez-vous le 1er octobre pour découvrir l'opération. 👀\n  > https://lnkd.in/evBzXtPh\n  >\n  > #MondialRelay #LesMoisGagnants #Ecommerce #ExpérienceClient #App\n\n- [2026-09-22 · Posted · 76 reactions] [Oscaro.com X Mondial Relay by InPost 🚀 Quand la proximité rencontre...](https://www.linkedin.com/posts/mondial-relay_mondialrelay-oscaro-lockers-activity-7508157824817065984-KPwt)\n  > Oscaro.com X Mondial Relay by InPost\n  > 🚀 Quand la proximité rencontre la performance\n  > Plus de 10 millions de colis Oscaro expédiés avec Mondial Relay by InPost depuis le 1er janvier 2023.\n  >\n  > Avec + de 19 000 Lockers et Points Relais® , nous offrons aux clients Oscaro une livraison flexible et proche de chez eux.\n  >\n  > Le résultat ? Comme le dit Patrick DESMASURES - Directeur Général d’Oscaro.com :\n  > \"En 1 an, le taux d'adoption des Lockers est passé de 17% à 49 %. Une adoption fulgurante qui confirme une tendance de fond : les consommateurs plébiscitent des modes de livraison toujours plus pratiques, autonomes et adaptés à leur quotidien.\"\n  >\n  > Merci à Oscaro pour cette belle collaboration. 📦\n  >\n  > #MondialRelay #Oscaro #Lockers #Livraison #Partenariat\n\n- [2026-09-21 · Posted · 54 reactions] [Le 17 septembre 2026, Mondial Relay a ouvert les portes de son...](https://www.linkedin.com/posts/mondial-relay_mondialrelay-mondialrelayconnect-ecommerce-activity-7507780106803929088-5RpP)\n  > Le 17 septembre 2026, Mondial Relay a ouvert les portes de son agence logistique de Wissous, en Île-de-France, à l’occasion de la toute première édition de Mondial Relay Connect.\n  >\n  > Pensé comme un rendez-vous exclusif pour les professionnels du e-commerce, cet afterwork a été l’occasion de plonger au cœur des coulisses de la logistique, de partager des retours d’expérience concrets et surtout, d’échanger entre acteurs du secteur dans un cadre convivial.\n  >\n  > 🎤 Un grand merci à Steven Lautru de Veepee pour son intervention autour du cas client Veepee x Mondial Relay by InPost :\n  > → Pourquoi Veepee a choisi Mondial Relay by InPost\n  > → Les enjeux logistiques d’un acteur à fort volume\n  > → Les bénéfices constatés, chiffres à l’appui\n  >\n  > Merci également à E-Commerce Nation pour leur contribution à cette première édition.\n  >\n  > 🙏 Et surtout, merci à tous nos invités d’avoir partagé avec nous ce premier rendez-vous et d’avoir contribué à en faire un moment riche en échanges et en perspectives.\n  >\n  > Ce n’est que le début… 🚀\n  > À très vite pour la prochaine édition de Mondial Relay Connect !\n  >\n  > #MondialRelay #MondialRelayConnect #Ecommerce #Logistique #EcommerceFrance #SupplyChain #Retail\n\n- [2026-09-21 · 53 reactions, 1 comment] Le 17 septembre 2026, Mondial Relay a ouvert les portes de son agence logistique de Wissous, en Île-de-France, à l’occasion de la toute première édition de Mondial Relay Connect. Pensé comme un ren...\n\n- [2026-09-18 · Posted · 107 reactions] [Inclusion & Diversité : Mondial Relay by InPost franchit un nouveau...](https://www.linkedin.com/posts/mondial-relay_mondialrelaybyinpost-inclusion-diversit%C3%A9-activity-7506728775884169217-VpcG)\n  > Inclusion & Diversité : Mondial Relay by InPost franchit un nouveau cap 👏\n  >\n  > Aujourd’hui, nous sommes fiers d’officialiser un engagement fort en faveur de l’inclusion des personnes en situation de handicap en signant une convention de 3 ans pour le développement de l’emploi aux côtés de l’Agefiph 🖋️\n  >\n  > Un moment important pour notre entreprise, marqué par la signature de cette convention par David Lewkowitz, CEO de Mondial Relay by InPost, et Christian Ploton, Président de l’Agefiph.\n  >\n  > Parce que l’inclusion ne se résume pas à une intention, mais se traduit par des actions concrètes, cette journée a également été l’occasion de mettre en lumière des initiatives porteuses de sens, à travers la présence du HandiTruck et le départ de la TransFrance Handicap, symboles d’engagement, de dépassement de soi et d’égalité des chances.\n  >\n  > Pour David Lewkowitz 💬 : « Derrière les chiffres du handicap, il y a avant tout des parcours et des moments décisifs : oser postuler, pouvoir exprimer ses besoins, continuer à évoluer dans son métier. Avec l’Agefiph, nous voulons lever les obstacles qui subsistent et faire en sorte que chacun puisse trouver sa place et évoluer chez Mondial Relay by InPost. »\n  >\n  > Cette signature marque une étape structurante dans notre démarche. Elle réaffirme notre volonté de construire un environnement où chacun peut trouver sa place, développer son potentiel et contribuer pleinement à notre réussite collective 🤝\n  >\n  > Un grand merci à l’Agefiph ainsi qu'à l’ensemble des participants et à toutes les équipes mobilisées pour faire avancer ensemble cette ambition commune.\n  >\n  > Laetitia DUMORTIER Sophie Ramaut Ivan Talpaert Peggy MONTERO Laurent POTTIER\n  >\n  > #MondialRelayByInPost #Inclusion #Diversité #Handicap #Agefiph #Engagement #HandiTruck #TransFranceHandicap\n\n- [2026-09-18 · 118 reactions, 1 comment] Inclusion & Diversité : Mondial Relay by InPost franchit un nouveau cap 👏 Aujourd’hui, nous sommes fiers d’officialiser un engagement fort en faveur de l’inclusion des personnes en situation de han...\n\n- [2026-09-17 · Posted · 66 reactions] [Alternance : 1re session d'intégration 💛 Chez Mondial Relay by...](https://www.linkedin.com/posts/mondial-relay_wintogether-teammondialrelaybyinpost-alternance-activity-7506251481059270656-vbc9)\n  > Alternance : 1re session d'intégration 💛\n  >\n  > Chez Mondial Relay by InPost, nous proposons à nos alternants une expérience sur mesure tout au long de leur parcours. Et cela commence dès leur arrivée avec une journée d'intégration pensée aux petits oignons 🔝\n  >\n  > Au programme de cette journée :\n  > 🏢 une matinée consacrée à la découverte de notre stratégie, de notre organisation et de nos enjeux ;\n  > 📦 une immersion métier l'après-midi pour plonger au cœur de nos activités et découvrir la diversité de nos expertises.\n  >\n  > C'est également l'occasion pour nos alternants, qu'ils soient basés au siège ou sur nos sites logistiques, de se rencontrer, d'échanger et de créer leurs premiers liens 🤝\n  >\n  > Parce qu'au-d",
+        "summary": "{\"description\":\"Mondial Relay is a Truck Transportation company and a subsidiary of InPost, offering parcel delivery services including tracking, delivery to individuals, points relais and lockers for e-commerce and private customers.\",\"employee_estimate\":2550,\"employee_estimate_source\":\"Employees: 2,550\",\"hq\":\"Villeneuve-d’Ascq, Hauts-de-France, France\",\"hq_quote\":\"Headquartered in Villeneuve-d’Ascq, Hauts-de-France, France, with offices in Villeneuve-d'Ascq, Combs-la-Ville, and Villeneuve.\",\"industry\":\"Truck Transportation\",\"is_public_or_enterprise\":true,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"- Monthly Growth: +0.7%\\n- Yearly Growth: +13.6%\\\\n...\\\\nEmployees: 2,550\\\\nCompany Size: 1001-5000 employees\"}",
+        "image": "https://scontent-ams2-1.xx.fbcdn.net/v/t39.30808-1/704839497_1392755716233442_5225043511060296929_n.jpg?stp=c0.7.493.493a_dst-jpg_s160x160_tt6&_nc_cat=109&ccb=1-7&_nc_sid=2d3e12&_nc_ohc=6ZznpvO69rwQ7kNvwHFCX0q&_nc_oc=Adocg66jCSpKqYxrm0Aqqt8XKeFMyteuibIqG-Orhai5xSMOCklienywAPsAVCWV3fE&_nc_zt=24&_nc_ht=scontent-ams2-1.xx&_nc_gid=rPkSB2FWkMRjeEJyudbFrw&_nc_ss=7220f&oh=00_Af4_ByWnJ8fBliKHqVrANX62iw0QK4J0wr83wFSqj_1-9g&oe=6A1C2627",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/0g6j6jyghxq",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Mondial Relay",
+              "foundedYear": null,
+              "description": "📦 Bienvenue chez Mondial Relay, filiale du groupe InPost, leader européen de la livraison hors-domicile (et fier de l’être !).\n\n⭐ N°1 du Palmarès Capital \"Meilleures enseignes 2026 \" dans la catégorie \"Livraison de colis et logistique\", nous sommes également Partenaire Officiel du Tour de France et fiers de notre note de 4.4/5 sur Trustpilot.\n\n🎯 Nous collaborons avec plus de 50 000 e-commerçants, dont Vinted, Leboncoin, Amazon, Kiabi et CDiscount, pour vous offrir une solution de livraison optimale.\n📍 Avec un réseau exceptionnel de plus de 19 000 Lockers et Points Relais® en France, nous garantissons une proximité inégalée pour l’envoi et la réception de vos colis.\n\n🤝 Au sein d'un collectif porté par l'humain, nos collaborateurs évoluent dans un environnement challengeant où ils cultivent leur esprit entrepreneurial et leurs capacités d'apprentissage au quotidien.\n\nPrêt(e) à rejoindre Mondial Relay by InPost ? Postulez, innovez, cartonnez ! 😃",
+              "workforce": {
+                "total": 2550
+              },
+              "headquarters": {
+                "address": "1, Avenue de l'horizon, Villeneuve-d’Ascq, Hauts-de-France 59650, FR",
+                "city": "Villeneuve-d’Ascq",
+                "postalCode": null,
+                "country": "France"
+              },
+              "financials": {
+                "revenueAnnual": 387847,
+                "fundingTotal": null,
+                "fundingLatestRound": null
+              },
+              "webTraffic": {
+                "visitsMonthly": 12274355,
+                "countryRank": 222,
+                "avgDurationSeconds": 116,
+                "history": [
+                  {
+                    "value": 11302632,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 11941480,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 11885814,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 13782678,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 12889452,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 12274355,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 8036.5,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

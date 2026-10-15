@@ -1,0 +1,147 @@
+{
+  "request": {
+    "query": "Davidson Logistics",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "b9927b40367eb0a3708fadfee8b31d5c",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/c7fgm29kn45",
+        "title": "Davidson Logistics",
+        "url": "https://davidsonsurfaceair.com/",
+        "text": "# Davidson Logistics\n\nDavidson Logistics is a Transportation, Logistics, Supply Chain and Storage company. Davidson Logistics employs 50 people (-7.4% YoY, -4 people), founded in 1981. Headquartered in Saint Louis, Missouri, United States.\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Privately held\n- Headquarters: Saint Louis, United States\n- Founded Year: 1981\n- Homepage: davidsonsurfaceair.com\n- Aliases: davidson logistics\n- LinkedIn: linkedin.com/company/davidson-logistics\n- Linkedin Followers: 330\n\n## Workforce\n- Employees: 50\n- Company Size: 51-200 employees\n  - Yearly Growth: -7.4%\n- Key Executives:\n  - Paul Davidson, AIF: Chief Operations Officer\n- Breakdown:\n  - By Country: United States: 26 (52%)\n  - By Department: Operations: 15 (30%), Finance: 3 (6%), Sales: 2 (4%), Trades: 2 (4%), Administrative: 1 (2%), Customer Service: 1 (2%), General Management: 1 (2%), Technical: 1 (2%)\n  - By Seniority: Specialist: 17 (34%), Manager: 5 (10%), Other Management: 2 (4%), Clevel: 1 (2%), Senior: 1 (2%)\n- Talent Sources: Walmart (2), Total Foot Care & Wellness Clinic (2), Wyndham Hotels & Resorts (1), Urban Chestnut Brewing Co (1), UPS (1), Target (1), Stryker (1), Manpower (1), Davidson Surface Air Inc (1), Big Lots (1)\n- Alumni Go To: General Motors (2), Brass Rail Steakhouse (2), Boeing (2), TVS Supply Chain Solutions (1), Sinse Cannabis (1), Paschall Logistics (1), Katsam Property Services (1), ICL Group (1), Forge and Fire Gaming (1), Cass Information Systems (1)\n\n## Products & Technology\n- Tech Stack: gps, workday, airbrake, amp, box, ups, electric, quickbooks, well, signal\n\n## Locations\n- Headquarters: saint louis, missouri, united states (US)\n- Offices: saint louis, missouri, united states (US)",
+        "summary": "{\"description\":\"Davidson Logistics is a Transportation, Logistics, Supply Chain and Storage company.\",\"employee_estimate\":50,\"employee_estimate_source\":\"Employees: 50\",\"hq\":\"Saint Louis, Missouri, United States\",\"hq_quote\":\"Headquartered in Saint Louis, Missouri, United States.\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"Davidson Logistics is a Transportation, Logistics, Supply Chain and Storage company.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4E0BAQEtp4lKQ-hAqw/company-logo_200_200/company-logo_200_200/0/1631335783578?e=2147483647&v=beta&t=369naBn6uMQ-Ne0R3fnUMsqDseigAel_0xjLQ_AZl4k",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/c7fgm29kn45",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Davidson Logistics",
+              "foundedYear": 1981,
+              "description": null,
+              "workforce": {
+                "total": 50
+              },
+              "headquarters": {
+                "address": "11990 Missouri Bottom Road, Saint Louis, Missouri 63042, US",
+                "city": "Saint Louis",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": null,
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/yr14ktgyx0t",
+        "title": "Davidson Logistics, Inc.",
+        "url": "https://linkedin.com/company/davidson-logistics-inc.",
+        "text": "# Davidson Logistics, Inc.\n\nDavidson Logistics, Inc. employs 3 people.\n\n## Company Details\n- Aliases: davidson logistics, inc.\n- LinkedIn: linkedin.com/company/davidson-logistics-inc.\n- Linkedin Followers: 30\n\n## Workforce\n- Employees: 3\n- Breakdown:\n  - By Country: United States: 3 (100%)\n  - By Department: Operations: 3 (100%)\n  - By Seniority: Specialist: 3 (100%)\n- Talent Sources: Hotshots Sports Bar and Grill (1)\n- Alumni Go To: IFCO SYSTEMS (1)",
+        "summary": "{\"description\":\"Davidson Logistics, Inc. appears as a small organization profile on LinkedIn with basic firmographic details. The page text provided includes workforce counts and department breakdown but does not explicitly describe services or industry beyond being a logistics-related company.\",\"employee_estimate\":3,\"employee_estimate_source\":\"Employees: 3\",\"hq\":\"United States\",\"hq_quote\":\"By Country: United States: 3 (100%)\",\"industry\":\"Logistics\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":null,\"is_third_party_logistics_quote\":\"\"}",
+        "image": "https://static.licdn.com/aero-v1/sc/h/cs8pjfgyw96g44ln9r7tct85f",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/yr14ktgyx0t",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Davidson Logistics, Inc.",
+              "foundedYear": null,
+              "description": null,
+              "workforce": {
+                "total": 3
+              },
+              "headquarters": null,
+              "financials": null,
+              "webTraffic": null,
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 5405,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

@@ -1,0 +1,224 @@
+{
+  "request": {
+    "query": "TST Group",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "2eff854409556d1abf9a5b30b360c80b",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/17chf8j7lpn",
+        "title": "TST Group",
+        "url": "https://tstgroup.uk/",
+        "text": "# TST Group\n\nTST Group is a Transportation/Trucking/Railroad company. TST Group is a family-owned logistics company that provides complete supply chain solutions, expert haulage, logistics, and warehousing services, specializing in beverages and automotive parts. TST Group employs 47 people (+14.6% YoY, +6 people). Headquartered in United Kingdom, with offices in Belfast, Ballymena, and West Bromwich. Its workforce is distributed across United Kingdom, Canada, and Saudi Arabia.\n\n## About\n\nTST Group is a family-owned logistics company with headquarters in County Antrim, Northern Ireland, providing end-to-end supply chain management, including haulage, logistics and warehousing for a variety of customer types up to and including international household brand names such as Coca Cola, Diageo, Mercedes Benz, Dunnes Stores & Smurfit Kappa. \n\n\nWe provide Transport and Logistics, Warehousing, Customs Clearance and Groupage throughout the UK, Ireland and into Europe with 9 depots strategically positioned on both sides of the Irish sea. \n\nOur group headquarters is in Ballymena and our UK headquarters is in Birmingham. \n\nWe are proud members of the Pallet Network meaning we can provide palletised freight collection and final mile delivery throughout the UK and Ireland. \n\nOur ambient warehouses are BRC AA open food accredited and have flexible facilities available for both racked and unracked storage.\n\n•\tTransport \n•\tLogistics \n•\tWarehousing\n•\tBonded Warehousing\n•\tIn house customs team\n•\tGroupage \n\nWe operate a fleet of over 300 vehicles, over 500 trailers and have over 1 million sq ft of warehousing in Ballymena alone. \n\nWith two generations of the family working together, we have a powerful combination of old-fashioned values coupled with an acute understanding of the needs of today’s marketplace.\n\n## Company Details\n- Industry: Transportation/Trucking/Railroad\n- Type: Privately held\n- Homepage: tstgroup.uk\n- Aliases: TST Group Ltd., tst group\n- LinkedIn: linkedin.com/company/tst-transport-group\n- Linkedin Followers: 2,316\n- Emails: info@tstgroup.uk\n- Phone: +44 (0) 28 2544 8000, +44-282-544-8, 21 525 7474\n\n## Workforce\n- Employees: 47\n- Company Size: 51-200 employees\n  - Yearly Growth: +14.6%\n- Key Executives:\n  - Conor Kelly: Group Finance Director\n  - Gary Moates CMILT: Operations Director\n  - Jay Goutoura: Commercial Director\n  - Laura Best: Group Finance Partner\n  - Liam Reid: Chief Executive Officer\n  - Marie Munnis: Head of Accounts\n  - Marie Munnis: Head of Payroll\n  - Mark Hunt: Commercial Director\n  - Steven Jump: Uk Operations Director\n- Breakdown:\n  - By Country: United Kingdom: 29 (62%), Canada: 1 (2%), Saudi Arabia: 1 (2%)\n  - By Department: Operations: 12 (26%), Finance: 6 (13%), Administrative: 3 (6%), General Management: 3 (6%), Sales: 3 (6%), Hr: 2 (4%), Legal: 1 (2%), Other Department: 1 (2%), Trades: 1 (2%)\n  - By Seniority: Manager: 10 (21%), Specialist: 8 (17%), Other Management: 6 (13%), Director: 5 (11%), Clevel: 1 (2%), Head: 1 (2%), Partner: 1 (2%)\n- Active job postings: 3\n- Talent Sources: Montgomery Transport Group (2), Lynas Foodservice (2), WS Transportation (1), UDS Group (1), STL Logistics & Warehousing (1), Moore Concrete Products Ltd (1), Logistics UK (1), Hellmann Worldwide Logistics (1), EFS Global (1), AM Logistics (1)\n- Alumni Go To: University of Wolverhampton Students'​ Union (1), TEC Electric Motors (1), NTG Ebrex UK (1), Menzies Aviation (1), Maxi Haulage (1), MARJANE GROUP (1), Liebherr Group (1), Education Authority (Northern Ireland) (1), Dinsmore & Co (1), Canada Bread Company, Limited (1)\n\n## Products & Technology\n- Tech Stack: linkedin, linkedin recruiter, microsoft, microsoft excel, microsoft office, square, well\n\n## Web presence\n\n- Facebook: facebook.com/thetstgroup\n- Crunchbase: crunchbase.com/organization/tst-group-5a23\n- Web traffic:\n  - Monthly visits: 2,552\n  - Global rank: 6,278,445\n  - Bounce rate: 60.0%\n  - Pages per visit: 1.8\n  - Average visit duration: 31s\n\n## Categories\n\nautomotive parts, beverages, bonded warehousing, customs, fleet management, groupage, logistics, pallet network member, transport, transportation, warehousing\n\n## Recent News\n- [2026-09-21] [20 new Curtainsiders for a new Montracon customer The TST Group - Fleet Transport](https://fleet.ie/20-new-curtainsiders-for-a-new-montracon-customer-the-tst-group/)\n- [2026-08-29] Fleet Transport: TST Group acquires Heathrow-based GCS Logistics\n- [2026-08-24]\n  - Motor Transport: Shortlist released for Logistics UK’s gongs\n  - Van Fleet World: Van Business of the Year finalists revealed for 2026 Logistics UK Awards\n- [2026-07-02] [Schroders Capital Gbl Inn Tst PLC Sale of Memo Therapeutics AG - ADVFN](https://uk.advfn.com/stock-market/london/schroders-capital-global-INOV/share-news/Schroders-Capital-Gbl-Inn-Tst-PLC-Sale-of-Memo-The/98852151)\n- [2026-06-25] [PCGH ZDP PLC Polar Capital Global Health Tst PLC Issue of Equity](https://uk.advfn.com/stock-market/share-news/Polar-Capital-Global-Health-Tst-PLC-Issue-of-Equit/98810809)\n- [2026-06-22] [Schroders Capital Gbl Inn Tst PLC Update re Tender Offer - ADVFN](https://uk.advfn.com/stock-market/london/schroders-capital-global-INOV/share-news/Schroders-Capital-Gbl-Inn-Tst-PLC-Update-re-Tender/98780401)\n- [2024-05-23] Tashkent Times: TST Group set to invest $52million in its textile cluster in Azerbaijan\n\n## Social\n\n### Linkedin\n\n- [2026-09-15 · 19 reactions, 1 comment] It has been a real pleasure working with Stephen Pollock and the wider Montracon Limited team on this order for our new curtainsiders. As our operation grows, so does our reliance on first-in-class...\n\n- [2026-08-21 · 72 reactions, 5 comments] As a group, we have been steadily and stealthily growing our footprint in the UK since 2021 with our acquisition of Warley Carriers in Birmingham and, more recently, our acquisition of GCS Logistic...\n\n- [2026-08-14 · 209 reactions, 23 comments] TST Group acquires Heathrow-based GCS Logistics, expanding specialist capability and accelerating UK & Ireland growth We are delighted to announce that we have acquired GCS Logistics, the Heathrow-...\n\n- [2026-08-03 · 12 reactions] We're Hiring: Transport Planners in Ballymena (Full Load and Groupage departments). Join our continually growing transport team, where we are looking for Transport Planners. If you thrive on proble...\n\n- [2026-07-31 · 14 reactions, 1 comment] UK-wide pallet delivery, backed by an Irish Sea specialist. As a shareholder member of Pallet-Track and currently ranked among its top-performing members, TST Group connects your pallets to a natio...\n\n- [2026-07-30 · 28 reactions] IMPORTANT CUSTOMS UPDATE Big changes are coming to cross-border customs declarations. Is your business ready? HM Revenue & Customs is transitioning the Trader Support Service (TSS) to a new platfor...\n\n- [2026-07-30 · 12 reactions] Congratulations, Patrick, who is based in our Birmingham depot. A man who takes his career development seriously and knows his future with TST Group is bright. Patrick recently progressed from a Cl...\n\n- [2026-07-24 · 7 reactions] We're Hiring: Accounts Payable Administrator in our HQ in Ballymena. We are looking for an organised and detail-driven Accounts Payable Administrator to join our busy Accounts team in Ballymena. If...\n\n- [2026-07-23 · 14 reactions] We're Hiring: Transport Planner with Pallet Experience in Ballymena. We are looking for an experienced Transport Planner to join our growing Planning Team. This is a hands-on, fast-paced role for s...\n\n- [2026-07-23 · 17 reactions] Secure. Compliant. Always on. Across our Ballymena and Birmingham sites, TST Group offers over 1.5 million sq ft of AA BRCG-certified warehousing, including bonded warehousing, with 24/7 access and...\n\n- [2026-07-22 · 18 reactions] We're delighted to see Maire Claire Reid's leadership recognised as an EY Entrepreneur Of The Year Ireland 2026 International Finalist. Her vision has been central to TST Group's growth into a dyna...\n\n- [2026-07-21 · 17 reactions] Moving goods between Great Britain, Northern Ireland and the Republic of Ireland shouldn't mean gambling on paperwork. Our in-house Customs team is among the most experienced in the industry, deliv...\n\n- [2026-07-13 · 12 reactions] Customs teams rarely get the credit they deserve. When everything runs smoothly, no one notices, and that's exactly the point. Our own Debbie Patterson MCIEx, Head of Customs at TST Group, captured...\n\n- [2026-07-01 · 36 reactions] WE'RE HIRING: Network Supervisor, Groupage Department Every pallet, load, and delivery window. It all runs through you. As Network Supervisor at TST Group, you'll be the one keeping our groupage op...\n\n- [2026-06-29 · 45 reactions, 2 comments] Tomorrow we are heading to Multimodal Exhibition 2026, the UK's premier logistics exhibition. Maire Claire Reid, Managing Director of TST Group, will be participating in two industry panel sessions...\n\n- [2026-06-29 · 81 reactions, 2 comments] Tomorrow we are heading to Multimodal Exhibition 2026, the UK's premier logistics exhibition. Maire Claire Reid, Managing Director of TST Group, will be participating in two industry panel sessions...\n\n- [2026-06-17 · 41 reactions, 2 comments] Congratulations to Mackle Petfoods, winners of the Best Exporter award at the Belfast Telegraph Grocer Awards last week, sponsored by TST Group. Mackle Petfoods' export strategy has driven strong g...\n\n- [2026-06-15 · 26 reactions, 1 comment] Some clients come to us purely for space. Others never touch a pallet themselves. That's the thing about warehousing at TST Group: it works two ways. For some, it's a standalone service: over 1.5 m...\n\n- [2026-06-12 · 22 reactions] Tonight, we're proud to sponsor the Best Food/Drink Export of the Year award at the Belfast Telegraph Grocer Marketing Awards. As Northern Ireland's leading third-party logistics provider, TST Grou...\n\n- [2026-06-11 · 18 reactions, 1 comment] Somewhere right now, a warehouse manager is doing the maths on a delivery that absolutely cannot be late tomorrow and wondering whether customs is about to turn a tight deadline into an impossible...\n\n## Locations\n- Headquarters: ballymena, county antrim bt42 4hz, united kingdom (GB)\n- Offices: ballymena, ballymena, united kingdom (GB), west bromwich, west midlands, united kingdom (GB), belfast, county antrim bt3 9bp, united kingdom (GB), ballymena, county antrim bt42 4hz, united kingdom (GB)",
+        "summary": "{\"description\":\"TST Group is a family-owned logistics company that provides complete supply chain solutions, expert haulage, logistics, and warehousing services, specializing in beverages and automotive parts.\",\"employee_estimate\":47,\"employee_estimate_source\":\"Employees: 47\",\"hq\":\"Headquarters: Ballymena, County Antrim, United Kingdom\",\"hq_quote\":\"Our group headquarters is in Ballymena and our UK headquarters is in Birmingham.\",\"industry\":\"Transportation/Trucking/Railroad\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"We provide Transport and Logistics, Warehousing, Customs Clearance and Groupage throughout the UK, Ireland and into Europe with 9 depots strategically positioned on both sides of the Irish sea.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQF3F61TG2tT0A/company-logo_200_200/company-logo_200_200/0/1736780103580/tst_transport_group_logo?e=2147483647&v=beta&t=gEfNWKhk_5yV6fKqURapM65WOYiUJZjRCH4HkTyuSeE",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/17chf8j7lpn",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "TST Group",
+              "foundedYear": null,
+              "description": "TST Group is a family-owned logistics company with headquarters in County Antrim, Northern Ireland, providing end-to-end supply chain management, including haulage, logistics and warehousing for a variety of customer types up to and including international household brand names such as Coca Cola, Diageo, Mercedes Benz, Dunnes Stores & Smurfit Kappa. \n\n\nWe provide Transport and Logistics, Warehousing, Customs Clearance and Groupage throughout the UK, Ireland and into Europe with 9 depots strategically positioned on both sides of the Irish sea. \n\nOur group headquarters is in Ballymena and our UK headquarters is in Birmingham. \n\nWe are proud members of the Pallet Network meaning we can provide palletised freight collection and final mile delivery throughout the UK and Ireland. \n\nOur ambient warehouses are BRC AA open food accredited and have flexible facilities available for both racked and unracked storage.\n\n•\tTransport \n•\tLogistics \n•\tWarehousing\n•\tBonded Warehousing\n•\tIn house customs team\n•\tGroupage \n\nWe operate a fleet of over 300 vehicles, over 500 trailers and have over 1 million sq ft of warehousing in Ballymena alone. \n\nWith two generations of the family working together, we have a powerful combination of old-fashioned values coupled with an acute understanding of the needs of today’s marketplace.\n",
+              "workforce": {
+                "total": 47
+              },
+              "headquarters": {
+                "address": "The John Reid Logistics Park, 190 Raceview Road, Ballymena, County Antrim BT42 4HZ, GB",
+                "city": null,
+                "postalCode": null,
+                "country": "United Kingdom"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 2552,
+                "countryRank": 506217,
+                "avgDurationSeconds": 31,
+                "history": [
+                  {
+                    "value": 2522,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 3066,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 2997,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 2336,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 4241,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 2552,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/mr9jg19c2f4",
+        "title": "TST Group",
+        "url": "https://tstinfotech.com/",
+        "text": "# TST Group\n\nTST Group is a IT Services and IT Consulting company. TST Group is a leading recruitment and staffing firm headquartered across the states, helping mid-sized and large companies attract the right candidates for their respective open positions. They offer recruitment engineering, recruitment process outsourcing, permanent staffing, and more. They have a wide global research analysis and provide superior hiring services to empower bright minds and unlocking opportunities for sharp talent. TST Group employs 109 people (+32.9% YoY, +27 people), founded in 2020. Headquartered in Warszawa, Warszawa, Poland, with presence in United Kingdom. Its workforce is distributed across India, Poland, Bahrain, and United Kingdom.\n\n## About\n\nTST Group is one of the UK/Europe’s leading recruitment firm. Our comprehensive range of talent solutions are backed by our deep understanding of our client needs and rich industry experience. Headquartered in Warsaw, Poland our vast global presence and unyielding customer centricity have enabled us to forge strategic partnerships with leading Fortune 500 companies, worldwide. \n\nIn an international marketplace in which effectiveness and value are increasingly prized by both clients and candidates, we believe that the qualities which have sustained our performance in the past will continue to do so in the future. With offices located in London, Poland & India. We have greater global reach to the talent pool across the UK & Europe, US and Asia Pacific, EMEA regions.\n\nMission: \"TST mission is to be the ecosystem connecting people and technology through applied human intelligence.\"\n\nMantra: “Accelerated Hires”\n\nTo get in touch, please drop email to contact@tstinfotech.com.\n\n## Company Details\n- Industry: IT Services and IT Consulting\n- Type: Privately held\n- Headquarters: Warszawa, Poland\n- Founded Year: 2020\n- Homepage: tstinfotech.com\n- Aliases: tst group\n- LinkedIn: linkedin.com/company/tst-info\n- Linkedin Followers: 62,062\n- Emails: contact@tstinfotech.com\n- Phone: +442080950377\n\n## Workforce\n- Employees: 109\n- Company Size: 201-500 employees\n  - Monthly Growth: +3.8%\n  - Yearly Growth: +32.9%\n- Key Executives:\n  - Priya Tyagi: Co-Founder\n  - Ravi Agarwal: Chief Financial Officer\n  - Sagar K.: Talent Acquisition Lead (UK/EU)\n  - Vivek Upadhyay: Senior Client Partner\n- Breakdown:\n  - By Country: India: 15 (14%), Poland: 4 (4%), Bahrain: 1 (1%), United Kingdom: 1 (1%)\n  - By Department: Hr: 13 (12%), Consulting: 3 (3%), Finance: 1 (1%), Project Management: 1 (1%), Research: 1 (1%), Sales: 1 (1%), Technical: 1 (1%)\n  - By Seniority: Manager: 8 (7%), Specialist: 7 (6%), Senior: 2 (2%), Clevel: 1 (1%), Founder: 1 (1%), Head: 1 (1%), Partner: 1 (1%)\n- Active job postings: 1\n- Talent Sources: iXceed Solutions (8), Reed Talent Solution (3), W4P Sp. z o.o. (2), MBit Computraining Pvt. Ltd. (2), LTIMindtree (2), E-Solutions (2), Confidential Careers (2), eTeam (1), ICONMA (1), AVC – agency of visual communications (1)\n- Alumni Go To: Talent Search Technology (2), Spectrum Talent Management (2), K&K Talents (2), E-Solutions (2), Webologix Ltd/ INC (1), Sanhire (1), NOKTA MAKINA (1), Hays (1), Broadway Infotech (1), Attentive.ai (1)\n\n## Products & Technology\n- Tech Stack (showing 50 of 408): adobe, adobe creative cloud, alm, ams, angular, ansible, appium, asm, asp, atlassian, autocad, azure data factory, azure sql, bash, bitbucket, boolean, centricity, cisco aci, confluence, coupa, databricks, docker, f5, figma, git, github, github actions, gitlab, google cloud, google cloud platform, grafana, harness, html5, indeed, informatica, istio, java, javascript, jenkins, jira, json, junos, kubernetes, linkedin, linkedin recruiter, linux, matlab, microservices, microsoft, microsoft azure\n\n## Web presence\n\n- Twitter: twitter.com/tstgroup_\n- Instagram: instagram.com/tstgroup24\n- YouTube: youtube.com/channel/uchhucv1jhbg9papws86v0zg\n- Crunchbase: crunchbase.com/organization/tst-group-8151\n- Web traffic:\n  - Monthly visits: 43\n  - Bounce rate: 33.0%\n  - Pages per visit: 1.9\n  - Average visit duration: 56s\n\n## Categories\n\nb2b, employment, engineering, financial consultant, global research analysis, hiring services, hr solutions, human resources, inhouse services, msp, outsourcing, payroll services, pharma hiring, professional services, professionals, recruiting, recruitment, recruitment and staffing, rpo, skill assessment, staffing, staffing agency, talent acquisition, technology hiring\n\n## Social\n\n### Linkedin\n\n- [2026-09-23 · 1 reaction] We're #hiring a new Information Technology Project Manager in Poland. Apply today or share this post with your network.\n\n- [2026-09-19] We're #hiring a new Vehicle IT Operations Lead-MES in Leinfelden-Echterdingen, Baden-Württemberg. Apply today or share this post with your network.\n\n- [2026-09-18] We're #hiring a new CAD Designer( French Speaker) in Blois, Centre-Val de Loire. Apply today or share this post with your network.\n\n- [2026-09-15 · 1 reaction] We're #hiring a new Lead Dotnet Developer in Leinfelden-Echterdingen, Baden-Württemberg. Apply today or share this post with your network.\n\n- [2026-09-12 · 2 reactions, 1 comment] We're #hiring a new Solutions Architect in Poland. Apply today or share this post with your network.\n\n- [2026-09-11 · 79 reactions, 7 comments] 🎉A Warm Welcome to the Newest Addition to Team TST!🎉 We’re delighted to welcome Srashti Pathak to the TST Group family as our new Technical Recruiter! 🌟 We’re excited to have you on board, Srashti,...\n\n- [2026-09-11 · 1 reaction] We're #hiring a new AUTOSAR Engineer in Turin, Piedmont. Apply today or share this post with your network.\n\n- [2026-09-09 · 1 reaction] We're #hiring a new VoIP Automation Engineer in Brentwood, England. Apply today or share this post with your network.\n\n- [2026-09-09 · 24 reactions, 1 comment] A new addition to Team TST! 🎉🎉 We’re delighted to welcome Karolina Maleszka join TST Group as a Delivery Partner. With her experience, expertise, and strong delivery mindset, Karolina will be a val...\n\n- [2026-09-07] We're #hiring a new SAP SD(Lead to Cash) in Germany. Apply today or share this post with your network.\n\n- [2026-09-05 · 1 reaction] We're #hiring a new Senior SAP PP/QM Consultant in Germany. Apply today or share this post with your network.\n\n- [2026-09-04] We're #hiring a new Ruby on Rails Developer in Warsaw Metropolitan Area. Apply today or share this post with your network.\n\n- [2026-09-02] We're #hiring a new Oracle Database Engineer-Exadata in Frankfurt, Hesse. Apply today or share this post with your network.\n\n- [2026-08-31 · 2 reactions] We're #hiring a new DevOps Engineer in Cracow, Małopolskie. Apply today or share this post with your network.\n\n- [2026-08-25 · 2 reactions] A Landmark Partnership for TCS & Porsche! 👏 TCS has landed a $1.5 billion, five-year technology partnership with Porsche — a major milestone that further strengthens its position in the global auto...\n\n- [2026-08-24 · 6 reactions, 1 comment] We're #hiring a new Service Desk Specialist in Poland. Apply today or share this post with your network.\n\n- [2026-08-21 · 3 reactions] We're #hiring a new Technical Recruiter in Noida, Uttar Pradesh. Apply today or share this post with your network.\n\n- [2026-08-19 · 1 reaction] We're #hiring a new Azure Virtual Desktop Specialist in Germany. Apply today or share this post with your network.\n\n- [2026-08-18 · 2 reactions, 1 comment] We're #hiring a new Dotnet Developer in Poland. Apply today or share this post with your network.\n\n- [2026-08-14 · 10 reactions] Celebrating the Spirit of Freedom..🎊 Independence Day reminds us that every great journey begins with courage, vision, and the belief that a better tomorrow is possible. Today, we celebrate the spi...\n\n## Locations\n- Headquarters: warszawa, warszawa, poland (PL)\n- Offices: london, london nw11 6jx, united kingdom (GB), warszawa, warszawa 00-682, poland (PL), warszawa, masovian voivodeship, poland (PL)",
+        "summary": "{\"description\":\"TST Group is an IT Services and IT Consulting company offering recruitment and staffing solutions, with global presence and multiple offices. Not described as a logistics provider.\",\"employee_estimate\":109,\"employee_estimate_source\":\"Employees: 109\",\"hq\":\"Warszawa, Poland\",\"hq_quote\":\"Headquartered in Warszawa, Warszawa, Poland, with presence in United Kingdom.\",\"industry\":\"IT Services and IT Consulting\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":false,\"is_third_party_logistics_quote\":\"\\\"One of the UK/Europe’s leading recruitment firm\\\" and IT staffing focus; not described as logistics services provider.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQE_aMihvmfVww/company-logo_200_200/company-logo_200_200/0/1713440583361/tst_info_logo?e=2147483647&v=beta&t=2fD7iL3Ub5cSG1OekRWzznwfbnc824kAQxuTrkh4Taw",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/mr9jg19c2f4",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "TST Group",
+              "foundedYear": 2020,
+              "description": "TST Group is one of the UK/Europe’s leading recruitment firm. Our comprehensive range of talent solutions are backed by our deep understanding of our client needs and rich industry experience. Headquartered in Warsaw, Poland our vast global presence and unyielding customer centricity have enabled us to forge strategic partnerships with leading Fortune 500 companies, worldwide. \n\nIn an international marketplace in which effectiveness and value are increasingly prized by both clients and candidates, we believe that the qualities which have sustained our performance in the past will continue to do so in the future. With offices located in London, Poland & India. We have greater global reach to the talent pool across the UK & Europe, US and Asia Pacific, EMEA regions.\n\nMission: \"TST mission is to be the ecosystem connecting people and technology through applied human intelligence.\"\n\nMantra: “Accelerated Hires”\n\nTo get in touch, please drop email to contact@tstinfotech.com.",
+              "workforce": {
+                "total": 109
+              },
+              "headquarters": {
+                "address": "Warszawa, Warszawa 00-682, PL",
+                "city": "Warszawa",
+                "postalCode": null,
+                "country": "Poland"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 43,
+                "countryRank": null,
+                "avgDurationSeconds": 56,
+                "history": [
+                  {
+                    "value": 709,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 1090,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 1679,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 872,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 439,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 43,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 5034.2,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

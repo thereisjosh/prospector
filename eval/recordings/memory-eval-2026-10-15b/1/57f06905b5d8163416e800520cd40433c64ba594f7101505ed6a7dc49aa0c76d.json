@@ -1,0 +1,232 @@
+{
+  "request": {
+    "query": "Fetch Package",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.\n\n[quote retry 1] Copy each quote as ONE contiguous span of at most 200 characters exactly as it appears on the page.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "986fe5fa6ce7a918872de4e74c60bd4f",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/8q76kvmrhj9",
+        "title": "Fetch",
+        "url": "https://fetchpackage.com/",
+        "text": "# Fetch\n\nFetch is a Freight and Package Transportation company. Fetch is a company that provides doorstep services for renters, including package, market, storage, trash, and renter help center services. They offer four services, one app, zero trips to the lobby, a dumpster, and a daily grind. Fetch employs 372 people (-1.6% YoY, -6 people) and has an annual revenue of $30M, founded in 2016. Headquartered in Austin, Texas, United States. Its workforce is distributed across United States and Brazil.\n\n## About\n\nFetch is the centralized community services platform behind modern apartment living. We unify the\ndaily services that shape the resident experience (including package management, valet trash, storage,\nand market delivery) into one platform. By moving these operations offsite and managing them end to\nend, Fetch removes daily work from onsite teams while delivering a simpler, more reliable experience\nfor residents. Today, Fetch supports nearly 400,000 apartment homes across more than 1,250+\ncommunities in 25 major markets nationwide. Headquartered in Austin, Texas, Fetch has delivered\nover 50 million packages and saved tens of thousands of hours for onsite teams.\n\n## Company Details\n- Industry: Freight and Package Transportation\n- Type: Privately held\n- Headquarters: Austin, United States\n- Founded Year: 2016\n- Homepage: fetchpackage.com\n- Aliases: Fetch Package, Inc., fetch, fetch package\n- LinkedIn: linkedin.com/company/fetch-package-delivery\n- Linkedin Followers: 13,316\n- Emails: help@fetchpackage.com\n- Phone: 1-972-861-2837\n\n## Financials\n- Annual Revenue: USD 30,000,000\n- Total Funding: USD 184,830,000\n  - Venture (2024-03-01): USD 18.9M\n  - Venture (2022-12-01): USD 44.9M\n  - Venture (2022-02-01): USD 29.0M\n  - Series c (2021-07-01): USD 50.0M\n  - Debt financing (2021-07-01): USD 10.0M\n\n## Workforce\n- Employees: 372\n- Company Size: 201-500 employees\n  - Monthly Growth: -2.4%\n  - Yearly Growth: -1.6%\n- Key Executives:\n  - Aaron Anderson: CFO\n  - Alfredo Salinas: Lead iOS Developer\n  - Ashley Ruiz: Client Growth Partner\n  - Benjamin Padula: Lead Front-End Engineer\n  - Boone Putney: Chief Technology Officer\n  - Brent Branstetter: Director of Business Intelligence and Analytics\n  - Christopher William Wood: Director of Revenue Enablement\n  - Eduardo Vieira: Associate Partner\n  - Eric Stone, CFI, LPC: Director Of Loss Prevention\n  - Haley Jagor: Director of National Sales\n- Breakdown:\n  - By Country: United States: 181 (49%), Brazil: 1\n  - By Department: Operations: 66 (18%), Sales: 20 (5%), Customer Service: 14 (4%), Technical: 14 (4%), Other Department: 13 (3%), Trades: 13 (3%), General Management: 8 (2%), Hr: 8 (2%), Finance: 7 (2%), Consulting: 5 (1%) (+8 more)\n  - By Seniority: Specialist: 68 (18%), Manager: 59 (16%), Other Management: 26 (7%), Senior: 11 (3%), Director: 9 (2%), Vp: 7 (2%), Clevel: 3 (1%), Head: 2 (1%), Partner: 2 (1%)\n- Active job postings: 7\n- Salary ranges (20 of 23 roles):\n  - Regional Sales Manager: median $115,028.62 per year\n  - Regional Account Manager: median $90,017.75 per year\n  - Operations Manager: median $70,235.04 per year\n  - Operations: median $65,547.71 per year\n  - Client Success Manager: median $64,091.92 per year\n  - Operations Supervisor: median $59,024.9 per year\n  - Graphic Designer: median $57,851.72 per year\n  - Recruiter: median $56,549.68 per year\n  - Warehouse Supervisor: median $53,800.11 per year\n  - Supervisor: median $52,896.74 per year\n  - Driver: median $49,037.86 per year\n  - Driver Support: median $47,725.05 per year\n  - Customer Support: median $43,987.21 per year\n  - Customer Support Representative: median $43,476.62 per year\n  - Customer Support Specialist: median $43,138.25 per year\n  - Courier Support: median $42,804.75 per year\n  - Delivery Driver: median $41,692.97 per year\n  - Customer Service: median $41,662.61 per year\n  - Operations Associate: median $40,374.33 per year\n  - Customer Service Representative: median $39,381.22 per year\n- Talent Sources: Amazon (44), Favor Delivery (6), Chewy (6), Target (5), Walmart (4), UPS (4), Apple (4), United States Marine Corps (3), SmartRent (3), Cigna Healthcare (3)\n- Alumni Go To: Amazon (5), Sway (4), DoorDash (4), Veho (3), OneApp (3), Gopuff (3), Gatewise - An Allegion Company (3), Maxsold (2), Expedia Group (2), Beekin ® (2)\n\n## Products & Technology\n- Features: Demo Available, Mobile App\n- Tech Stack (showing 50 of 70): chili piper, clickup, culture amp, gps, hubspot, linkedin, looker, paycom, python, ramp, salesforce, unify, zendesk, dart, g suite, google workspace, jotform, sage intacct, workday, hubspot marketing hub, sql, adobe, braze, canva, dash, figma, gmail, google ads, google analytics, hotjar, linkedin ads, sendgrid, survicate, wordpress, geotab, docusign, adobe illustrator, google sheets, microsoft, microsoft office, adobe creative suite, amp, box, impact, swift, upkeep, ups, well, asana, ease\n\n## Web presence\n\n- Twitter: twitter.com/fetchpackage\n- Facebook: facebook.com/fetchpackage\n- Instagram: instagram.com/fetchpackage\n- Crunchbase: crunchbase.com/organization/fetch-package\n- Web traffic:\n  - Monthly visits: 201,966\n  - Global rank: 221,969\n  - Bounce rate: 46.0%\n  - Pages per visit: 2.5\n  - Average visit duration: 162s\n\n## Reviews & Ratings\n- Employer Rating: 2.5/5.0 (154 reviews)\n  - Breakdown: Work-Life: 2.6, Compensation: 2.8, Culture: 2.4, Career: 2.2\n\n## Categories\n\ndelivery, delivery service, doorstep services, finance/finance, last mile transportation, logistics, mail sorting, market, mobile, mobile-app, multifamily package management, package, platform, proptech, real estate, renters, retail/logistics, storage, technology, transportation, valet trash\n\n## Competitors\n\nluxer one, hellopackage, smiota, goshare, cargomatic, qikpod, myus, pickup now, stackry, optima, parcel pending, uship, package concierge, citizenshipper, delaware systems technology, inc., buffalo packaging, packaging distributors of america, bongo international, usa2georgia, borderlinx, edfa3ly, xps parcel, comgateway, shop & ship, swiggy, shiphaly, returns on demand, rabbit mart\n\n## Recent News\n- [2026-08-19] [Fetch Accelerates Student Housing Growth Across New College Markets, Expanding Scalable Community Services for Operators and Residents – News Radio KOTA](https://lifestyle.kotaradio.com/story/365341/fetch-accelerates-student-housing-growth-across-new-college-markets-expanding-scalable-community-services-for-operators-and-residents/)\n- [2026-08-08] GetLatka: Fetch Package Revenue 2025: $40.5M Est. ARR, $185.1M Raised\n- [2026-07-31] [fetch-targets-high-volume-student-housing-with-expansion-into-seven-college-markets](https://www.tipranks.com/news/private-companies/fetch-targets-high-volume-student-housing-with-expansion-into-seven-college-markets)\n- [2025-05-28] PR Newswire: Fetch Delivers New Valet Trash Amenity for the Apartment Industry\n- [2025-03-25] PR Newswire: Introducing Fetch Storage: A Smarter, Stress-Free Way to Store for Renters Everywhere\n- [2024-10-15] PR Newswire: Fetch Announces Strategic Expansion With Strong Financial Outlook Driving Innovation, Operations\n- [2024-07-01] LinkedIn: Fetch 📦 on LinkedIn: #newhire #welcometotheteam #multifamily #fetch \\| 20 comments\n- [2024-06-19] LinkedIn: Fetch on LinkedIn: #multifamily #multfiamilyhousingindustry #apartmentalize\n- [2024-06-05] LinkedIn: Fetch on LinkedIn: #apartmentalize #giveaway #philadelphia #multifamily\n- [2024-05-29] PRWeb: Fetch Selects Branch to Fuel Fast, Flexible Payments and Loyalty Program\n- [2024-01-23] PR Newswire: Fetch Solves Package Problems for Student Housing\n\n## Social\n\n### Linkedin\n\n- [2026-08-25 · 11 reactions, 2 comments] Mark your calendars! Fetch will be at the Multifamily Insiders Demo Day on August 26th at 2pm CST. Leading the session will be our very own Haley Jagor - chatting through how Fetch supports package...\n\n- [2026-08-24 · 33 reactions, 1 comment] It's one of my favorite weeks of the year in Multifamily! Multifamily Demo Day is here! If you've never participated, here's what I love: 👏 15 minute demo's in bite size chunks over 2 days 👏 Though...\n\n- [2026-08-22 · 19 reactions, 2 comments] Staying active in the communities we serve is core to how Fetch shows up. Chris Petranech brought that to life at RangeWater's Budget Bootcamp in Atlanta, connecting with leaders as they planned ah...\n\n- [2026-08-21 · 45 reactions, 1 comment] How often are your teams pulled away from what they're doing to handle packages, deliveries, or other daily distractions? We can't wait for Haley Jagor to show us how Fetch uses one platform to cen...\n\n- [2026-08-21 · 20 reactions, 2 comments] Good times and great company at Good Game in Atlanta! Nickole Fennelly, CAM and Chris Petranech hosted a happy hour bringing Fetch partners together for an evening of golf, food, and drinks. It was...\n\n- [2026-08-13 · 35 reactions, 8 comments] Yesterday, the Fetch team had the pleasure of joining RPM Living's Budget Bootcamp in Lewisville, TX! We connected with VPs and regional teams for a morning packed with great conversations on centr...\n\n- [2026-07-30 · 111 reactions, 1 comment] The 2026 Fetch Ops Summit is always better with good company! Fetch wants to thank Veryable, Kustomer, and Yardstik for helping fuel our team with meals, snacks, and swag throughout the event. Ever...\n\n- [2026-07-30 · 52 reactions, 2 comments] Multifamily Demo Day season is upon us!! We can't wait for everyone to join us on August 26-27 for our second Demo Day event of the year. Take a sneak peek at the schedule for Day 1, and let us kno...\n\n- [2026-07-28 · 41 reactions, 1 comment] Highlight of the week 🎤 Branch CPO Ahmed Siddiqui leading a fireside chat with Fetch's Nicholas Prijic on removing friction in the payment journey and how faster, more flexible payouts drive retent...\n\n- [2026-07-09 · 38 reactions, 2 comments] What a time in Detroit! ⚾ Our team spent the week in the Ann Arbor & Detroit with our partners at a Tigers game. Thank you to Jennifer Essary and Angel Turner (M2 Property Group), Christina Roberts...\n\n- [2026-06-23 · 8 reactions, 2 comments] #CentralizedCommunityServices Amazon Prime Day started today. For residents, it’s a chance to score a great deal. For apartment communities, it’s the start of a familiar cycle. First comes the floo...\n\n- [2026-06-22 · 12 reactions] Missed us at #Apartmentalize2026? We are not done yet! Fetch is excited to announce we are expanding Centralized Community Services into the #Knoxville market and we are celebrating. Join Dan Beary...\n\n- [2026-06-19 · 68 reactions, 1 comment] Final day of #Apartmentalize2026 and we’re still talking about the same thing we’ve been talking about all week: #CentralizedCommunityServices. One partner. Packages, valet trash, storage, and mark...\n\n- [2026-06-19 · 18 reactions] Booth #1719 at Apartmentalize has been packed for two days straight and we are not slowing down! The line for custom totes has been non-stop and we love to see it. While you’re here, learn how the...\n\n- [2026-06-18 · 30 reactions, 3 comments] Stop by Booth #1719 at Apartmentalize & don’t forget to visit our Fetch Lounge, less than 10 minutes away from the convention center. Find our pedicab for a ride! DM us for the address. We have mor...\n\n- [2026-06-18 · 29 reactions, 3 comments] Find the Fetch team at Booth#1719 at this year’s National Apartment Association (Naahq) #Apartmentalize2026 & create your own custome tote bag! Michael Patton, Robert Weathers, Mike Schmitt, Chris...\n\n- [2026-06-18 · 11 reactions] Day 1 at National Apartment Association (Naahq)’s #Apartmentalize2026 is a wrap. But the night isn’t! The custom Fetch totes are already out in the wild & we’re just getting started! Come find us a...\n\n- [2026-06-18 · 21 reactions] At Apartmentalize? The Fetch Lounge is open today and tomorrow! Just a place to sit down, grab a drink, and reset before the floor opens. Partners don't let partners go thirsty. That's the whole po...\n\n- [2026-06-18 · 12 reactions] At Apartmentalize & need a break? Catch our pedicab to the Fetch lounge for some drinks, conversation & private rooms if you need to take a call! Otherwise, you can find us at Booth #1719 to create...\n\n- [2026-06-15 · 19 reactions] HEY KNOXVILLE! Haley Jagor and I will be in town next week we'd love to hang out with you! Join us for happy hour on June 23rd to celebrate our new market opening! You might just get lucky and win...\n\n## Locations\n- Headquarters: austin, texas, united states\n- Offices: austin, texas, united states",
+        "summary": "{\"description\":\"Fetch is a Freight and Package Transportation company providing doorstep services for renters across multiple apartment communities.\",\"employee_estimate\":372,\"employee_estimate_source\":\"Employees: 372\",\"hq\":\"Austin, Texas, United States\",\"hq_quote\":\"Headquartered in Austin, Texas, United States\",\"industry\":\"Freight and Package Transportation\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"Fetch is a company that provides doorstep services for renters, including package, market, storage, trash, and renter help center services.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQGxBzriezJLTQ/company-logo_200_200/B56Z1NaT8iHcAM-/0/1775120236628/fetch_package_delivery_logo?e=2147483647&v=beta&t=OUyX_Y_Hjrzi3yQ_XDtzxy-hXCiYQaFkmDCYE430bJg",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/8q76kvmrhj9",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Fetch",
+              "foundedYear": 2016,
+              "description": "Fetch is the centralized community services platform behind modern apartment living. We unify the\ndaily services that shape the resident experience (including package management, valet trash, storage,\nand market delivery) into one platform. By moving these operations offsite and managing them end to\nend, Fetch removes daily work from onsite teams while delivering a simpler, more reliable experience\nfor residents. Today, Fetch supports nearly 400,000 apartment homes across more than 1,250+\ncommunities in 25 major markets nationwide. Headquartered in Austin, Texas, Fetch has delivered\nover 50 million packages and saved tens of thousands of hours for onsite teams.",
+              "workforce": {
+                "total": 372
+              },
+              "headquarters": {
+                "address": "816 Congress Ave, Suite 1120, Austin, Texas 78701, US",
+                "city": "Austin",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 30000000,
+                "fundingTotal": 184830000,
+                "fundingLatestRound": {
+                  "name": "Venture",
+                  "date": "2024-03-01",
+                  "amount": 18900000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 201966,
+                "countryRank": 45569,
+                "avgDurationSeconds": 162,
+                "history": [
+                  {
+                    "value": 121388,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 97474,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 117699,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 164634,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 195129,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 201966,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/3zxb0gt98rj",
+        "title": "Fetch",
+        "url": "https://fetch.fi/",
+        "text": "# Fetch\n\nFetch is a Software Development company. Fetch is a logistics company that provides shipping, receiving, and recycling services. They aim to make a digitalization and a necessary experience for businesses and individuals. Fetch employs 3 people (+50.0% YoY, +1 person), founded in 2015. Headquartered in Vantaa, Uusimaa, Finland. Its workforce is distributed across Finland and Estonia.\n\n## About\n\nFetch by Enexus is a Finnish last mile logistics company focused on solving everyday delivery challenges with a smarter, more flexible approach. We serve over 2.5 million residents in the Helsinki region, handling more than 25,000 deliveries per month.\n\nOur service model goes beyond traditional drop-offs. We combine deliveries with options to return, donate, or dispose of items — helping reduce unnecessary trips and supporting circular use. This also helps reduce “empty runs,” which still make up over 20% of transport kilometres in Europe.\n\nWe work closely with partners, data, and customers to build logistics systems that actually work — for people, for cities, and for the environment.\n\nCurrently operating in the Helsinki area with plans to expand step by step.\nTry the service at myfetch.fi\nGet in touch if you’d like to partner with us.\n\n## Company Details\n- Industry: Software Development\n- Type: Public company\n- Headquarters: Vantaa, Finland\n- Founded Year: 2015\n- Homepage: fetch.fi\n- Aliases: Enexus Oy, fetch\n- LinkedIn: linkedin.com/company/fetchmysuff\n- Linkedin Followers: 342\n- Emails: kuljetukset@fetch.fi\n- Phone: +358 20 7199744, +358207199744\n\n## Workforce\n- Employees: 3\n- Company Size: 51-200 employees\n  - Yearly Growth: +50.0%\n- Key Executives:\n  - Tuomo Pirhonen: Chief Executive Officer\n  - Tuomo Pirhonen: Founder\n- Breakdown:\n  - By Country: Finland: 2 (67%), Estonia: 1 (33%)\n  - By Department: General Management: 1 (33%), Operations: 1 (33%), Sales: 1 (33%)\n  - By Seniority: Manager: 2 (67%), Clevel: 1 (33%), Founder: 1 (33%)\n- Talent Sources: Duolog Oy (2), Ur&Penn (1), Techzola AB (1), Bilar99 (1), Allas Pool (1)\n- Alumni Go To: Visionmate (1), Ottia (1), Kilon Osuus-Auto (1), Infuel (1), FUGU - Every Payment Counts (1)\n\n## Products & Technology\n- Tech Stack: amp\n\n## Web presence\n\n- Facebook: facebook.com/myfetchfi\n- Instagram: instagram.com/fetch.fi\n- Crunchbase: crunchbase.com/organization/fetch-c592\n- Web traffic:\n  - Monthly visits: 42,009\n  - Global rank: 946,635\n  - Bounce rate: 60.0%\n  - Pages per visit: 1.9\n  - Average visit duration: 223s\n\n## Categories\n\nb2b, b2c, courier service, delivery service, digitalization, logistics, receiving, recycling, same day delivery, shipping, transportation\n\n## Recent News\n- [2026-10-09]\n  - Forssan Lehti: Emma Krapu taipui suosikin käsit­te­lyssä MM-​tatamilla\n  - Länsi-Savo: Jukurit ja Bogdans Hodass purkivat sopimuksen – pelaaja kärähti ratista\n  - Soisalon Seutu: Leppävirran avustushaku uudistuu – lasten ja nuorten liikunta painopisteenä\n- [2026-10-08]\n  - Joroisten Lehti: Raimo Salkinoja \\| Nuorten harrastustoimintaan 111 000 euroa\n  - Etelä-Suomen Sanomat: Tappara taipui norjalaisjoukkueelle\n  - Etelä-Suomen Sanomat: VR:n työntekijä tönäistiin raiteille Keravan asemalla\n- [2026-10-07]\n  - Kymen Sanomat: Harjoitteleeko Utah Jazz nyt myös tankkaamista? – Lauri Markkanen sivussa \"niskan arkuuden\" takia\n  - Paikallislehti Joutseno: Karsturantaan yhteisöllinen runo- ja musiikkitapahtuma ensi kesänä\n- [2026-10-06]\n  - Etelä-Suomen Sanomat: Huuhkajat kohtaa Kansojen liigassa Valko-​Venäjän Buda­pes­tissä\n  - Matti ja Liisa: Mitä sinä haluat kysyä datakeskuksesta?\n  - Juvan Lehti: Tiistaina on tuulinen päivä Etelä-​Savossa, Järvi-​Suomen Energia varautuu sähkö­kat­koihin\n- [2026-10-05]\n  - Itä-Häme: Huumekuski törmäsi toiseen autoon Heinolassa\n  - Kymen Sanomat: Lauri Markkanen joukkueensa tehokkain\n  - Kymen Sanomat: Luukas Sahan tie nousi pystyyn judon MM-​kisoissa\n  - Warkauden Lehti: Varkautelaiseen kultasepänliikkeeseen murtauduttiin – varas sai saaliiksi tuhansien eurojen arvosta omaisuutta\n- [2026-10-04] Etelä-Suomen Sanomat: Ilveksen muuri valittiin jääkiekkoliigan kuukauden pelaajaksi\n- [2026-10-03]\n  - Pielisjokiseutu: Kuva-​arvoitus \\| Mistä tämä kuva on otettu?\n  - Etelä-Suomen Sanomat: Laura Lahtinen ui maailmancupissa neljänneksi\n  - Keskisuomalainen: Suomen NHL-​hyökkääjä louk­kaantui – kauden avaus jää välistä\n- [2026-09-30] The Sun: Original Brains puppet from Thunderbirds set to fetch HUGE sum at auction\n\n## Social\n\n### Linkedin\n\n- [2026-06-04 · 4 reactions] Kylmäjakelu ei ole enää vain suuria elintarvikekuljetuksia varten. ❄️⛅ Yhä useampi asiakas tilaa ruokaa, pakasteita ja lemmikkien raakaruokia suoraan kotiin, ja samalla odotukset toimitusten nopeud...\n\n- [2026-05-19 · 9 reactions] Yhä useampi verkkokauppa tarvitsee toimituksia, joihin perinteiset pakettiratkaisut eivät enää riitä. Tässä näemme paljon kasvavaa kysyntää tulevina vuosina. Siksi on hienoa päästä rakentamaan tätä...\n\n- [2026-05-19 · 17 reactions] Fetchin toimitukset ovat nyt saatavilla myös Shipit.fi – Shipit Oy Ab:n kautta, mikä tekee palvelumme käyttöönotosta entistä helpompaa verkkokaupoille ja yrityksille. 🚀 Näemme jatkuvasti kasvavaa k...\n\n- [2026-05-13 · 14 reactions] Hienoa päästä mukaan Shipitin kuljetusverkostoon! 🤝 Yhteistyö tekee Fetchin toimitusten käyttöönotosta entistä helpompaa verkkokaupoille ja yrityksille. Kiitos Shipitin tiimille yhteistyöstä! 🚀\n\n- [2026-05-12 · 19 reactions, 1 comment] Fetchin toiminta Kampissa on ollut jo hetken käynnissä, mutta emme ole vielä ehtineet jakaa sitä täällä. Meillä on nyt oma terminaali aivan Helsingin ytimessä Kampissa, tiloissa joissa Matkahuolto...\n\n- [2026-05-04 · 27 reactions] Tuomon, Fetchin perustajan, nosto verkkokaupan muutoksesta osuu hyvin ytimeen. 👉 \"Verkkokaupassa on tapahtumassa aika selvä muutos. Valikoima ja hinta eivät enää yksin riitä, vaan kilpailu siirtyy...\n\n- [2026-01-22 · 4 reactions] 🚀 Haemme: Freelance B2B-markkinoinnin asiantuntijaa (Fetch.fi) Fetch etsii freelance-markkinoinnin ammattilaista, joka innostuu B2B-markkinoinnista, liidien generoinnista ja sisällöntuotannosta ✨ 🔍...\n\n- [2025-12-09 · 3 reactions] Olemme tehneet tätä syyskuusta lähtien – ja palaute puhuu puolestaan👌. Fetchin outlet-palautus ja televisioiden noutopalvelu on ollut käytössä jo kuukausia, ja yksi asia toistuu asiakaspalautteissa...\n\n- [2025-04-30 · 4 reactions] Vappu on täällä! 🎉😍 Iso kiitos yhteistyökumppaneillemme, omalle porukalle ja kaikille teille, jotka pyöritätte logistiikkaa! Nautitaan keväästä, munkista ja hyvästä fiiliksestä. 🎉\n\n- [2025-02-10 · 9 reactions] Iso paketti lähetettävänä? 🚛 Fetch tarjoaa yrityksille joustavan ja tehokkaan logistiikkaratkaisun. Olipa kyse suoraan asiakkaalle toimitettavista paketeista, yhdistellyistä toimituksista tai pikak...\n\n- [2024-12-24 · 5 reactions] Hyvää Joulua ja Onnellista Uutta Vuotta! 🌟 Tänä vuonna halusimme tehdä hyvää ja lahjoitimme SOS-Lapsikylälle. Lahjoituksenne avulla tuemme haavoittuvassa asemassa olevia lapsia ja nuoria Suomessa,...\n\n- [2024-11-26 · 2 reactions] Nyt on täydellinen hetki hyödyntää huikea -50 % alennus kuljetusmaksusta MyFetch-palvelussa! ✨ MyFetchin avulla voit järjestää henkilökohtaisten tavaroiden noudon ja toimituksen nopeasti ja vaivatt...\n\n- [2024-10-30 · 17 reactions] 🦺 Fetch mukana turvaamassa ekaluokkalaisia liikenteessä! 🦺 Nyt alkavat aamut ja illat pimenemään – ja niin myös koulutiet. Fetch on ylpeänä mukana Pieni kulkija -hankkeessa, jonka tavoitteena on ta...\n\n- [2024-09-25 · 23 reactions] Fetch, tunnettu nopeista kuljetuspalveluistaan, vastaa kasvavaan kysyntään laajentamalla toimintaansa Keravan ja Tuusulan alueille. Tämä tarkoittaa, että asukkaat ja yritykset näillä alueilla voiva...\n\n## Locations\n- Headquarters: vantaa, uusimaa, finland\n- Offices: vantaa, uusimaa, finland, vantaa, southern finland, finland",
+        "summary": "{\"description\":\"Fetch is a Software Development company and a logistics provider focused on last-mile delivery, shipping, receiving and recycling services, aiming to digitalize the experience for businesses and individuals.\",\"employee_estimate\":3,\"employee_estimate_source\":\"Employees: 3\",\"hq\":\"Vantaa, Finland\",\"hq_quote\":\"Headquartered in Vantaa, Uusimaa, Finland.\",\"industry\":\"Software Development\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"Fetch by Enexus is a Finnish last mile logistics company focused on solving everyday delivery challenges with a smarter, more flexible approach.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4D0BAQGAz2JWPLodQA/company-logo_200_200/B4DZqXCcFUJMAM-/0/1763470590720/fetchmysuff_logo?e=2147483647&v=beta&t=pq36riL0UbV3oTR69H7qF4qStaTnm-Z1UDagpvTcWZ4",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/3zxb0gt98rj",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Fetch",
+              "foundedYear": 2015,
+              "description": "Fetch by Enexus is a Finnish last mile logistics company focused on solving everyday delivery challenges with a smarter, more flexible approach. We serve over 2.5 million residents in the Helsinki region, handling more than 25,000 deliveries per month.\n\nOur service model goes beyond traditional drop-offs. We combine deliveries with options to return, donate, or dispose of items — helping reduce unnecessary trips and supporting circular use. This also helps reduce “empty runs,” which still make up over 20% of transport kilometres in Europe.\n\nWe work closely with partners, data, and customers to build logistics systems that actually work — for people, for cities, and for the environment.\n\nCurrently operating in the Helsinki area with plans to expand step by step.\nTry the service at myfetch.fi\nGet in touch if you’d like to partner with us.",
+              "workforce": {
+                "total": 3
+              },
+              "headquarters": {
+                "address": "Tulkintie 29, Vantaa, Uusimaa 01740, FI",
+                "city": "Vantaa",
+                "postalCode": null,
+                "country": "Finland"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 42009,
+                "countryRank": 5210,
+                "avgDurationSeconds": 223,
+                "history": [
+                  {
+                    "value": 1428,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 1653,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 16027,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 27234,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 14221,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 42009,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 2108.8,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}
