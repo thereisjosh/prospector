@@ -1,9 +1,12 @@
 "use client";
 
 import { useId, useState, type ReactNode } from "react";
+import { ChevronRightIcon } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import type { CardSet } from "../../src/planner/cards";
 import { COUNTRY_CHOICES, STAGES, countryName, humanize, toSignalKey } from "./copy";
-import { Close } from "./parts";
+import { Close, Suggestion } from "./parts";
 
 /** Merges one alternative's partial cards over the suggested set (one level deep). */
 export function applyAlternative(base: CardSet, alt: Partial<CardSet>): CardSet {
@@ -48,37 +51,37 @@ export function CardsStep({ cards, base, activeAlt, onPickAlt, onChange, onConti
   const why = (key: string) => cards.rationale[key] ?? base.rationale[key];
 
   return (
-    <div className="step">
+    <div className="step pr-target">
       {base.alternatives.length > 0 && (
-        <div className="alts" role="group" aria-label="Other ways to target">
-          <span className="alts-label">Try a different angle</span>
-          <button type="button" className={`chip-btn ${activeAlt === -1 ? "is-on" : ""}`} aria-pressed={activeAlt === -1} onClick={() => onPickAlt(-1)}>
+        <div className="pr-alts" role="group" aria-label="Other ways to target">
+          <span className="pr-alts-label">Try a different angle</span>
+          <Suggestion aria-pressed={activeAlt === -1} onClick={() => onPickAlt(-1)}>
             Suggested
-          </button>
+          </Suggestion>
           {base.alternatives.map((alt, i) => (
-            <button key={alt.label + i} type="button" className={`chip-btn ${activeAlt === i ? "is-on" : ""}`} aria-pressed={activeAlt === i} onClick={() => onPickAlt(i)}>
+            <Suggestion key={alt.label + i} aria-pressed={activeAlt === i} onClick={() => onPickAlt(i)}>
               {alt.label}
-            </button>
+            </Suggestion>
           ))}
         </div>
       )}
 
-      <p className="legend">
-        <span className="kind kind-hard">Hard filter</span> applied exactly.{" "}
-        <span className="kind kind-est">Estimated</span> judged from public info about each company, so treat it as approximate.
+      <p className="pr-legend">
+        <Kind kind="hard" /> applied exactly.{" "}
+        <Kind kind="est" /> judged from public info about each company, so treat it as approximate.
       </p>
 
-      <div className="cards">
-        <Card title="Who" why={why("who")}>
+      <div className="pr-form">
+        <Row title="Who" why={why("who")}>
           <Field label="Industry">
             {(id) => <input id={id} className="input" value={cards.who.industry} onChange={(e) => set({ who: { ...cards.who, industry: e.target.value } })} />}
           </Field>
           <Field label="Kind of company">
             {(id) => <input id={id} className="input" value={cards.who.descriptor} onChange={(e) => set({ who: { ...cards.who, descriptor: e.target.value } })} />}
           </Field>
-        </Card>
+        </Row>
 
-        <Card title="Why now" why={why("whyNow")}>
+        <Row title="Why now" why={why("whyNow")}>
           <Field label="The event that makes them ready to buy">
             {(id) => (
               <textarea id={id} className="input" rows={2} value={cards.whyNow.description} onChange={(e) => set({ whyNow: { ...cards.whyNow, description: e.target.value } })} />
@@ -93,9 +96,9 @@ export function CardsStep({ cards, base, activeAlt, onPickAlt, onChange, onConti
             normalize={toSignalKey}
             max={6}
           />
-        </Card>
+        </Row>
 
-        <Card title="Company size" kind="est" why={why("size")}>
+        <Row title="Company size" kind="est" why={why("size")}>
           <div className="pair">
             <Field label="From (employees)">
               {(id) => (
@@ -115,9 +118,9 @@ export function CardsStep({ cards, base, activeAlt, onPickAlt, onChange, onConti
               onChange={(e) => set({ size: { ...cards.size, unknownPolicy: e.target.checked ? "allow-if-not-enterprise" : "reject" } })} />
             <span>Include companies whose size isn't published, unless they look like a large enterprise</span>
           </label>
-        </Card>
+        </Row>
 
-        <Card title="Stage" kind="est" why={why("stage")}>
+        <Row title="Stage" kind="est" why={why("stage")}>
           <Field label="Funding stage">
             {(id) => (
               <select id={id} className="input" value={cards.stage ?? "any"} onChange={(e) => set({ stage: e.target.value as CardSet["stage"] })}>
@@ -127,13 +130,13 @@ export function CardsStep({ cards, base, activeAlt, onPickAlt, onChange, onConti
               </select>
             )}
           </Field>
-        </Card>
+        </Row>
 
-        <Card title="Where they're based" kind="est" why={why("geo")}>
+        <Row title="Where they're based" kind="est" why={why("geo")}>
           <CountryPicker value={cards.geo.hqCountries} onChange={(hqCountries) => set({ geo: { hqCountries } })} />
-        </Card>
+        </Row>
 
-        <Card title="How recent" kind="hard" why={why("recency")}>
+        <Row title="How recent" kind="hard" why={why("recency")}>
           <Field label="Only events from the last">
             {(id) => (
               <select id={id} className="input" value={cards.recency.months} onChange={(e) => set({ recency: { months: Number(e.target.value) } })}>
@@ -143,9 +146,9 @@ export function CardsStep({ cards, base, activeAlt, onPickAlt, onChange, onConti
               </select>
             )}
           </Field>
-        </Card>
+        </Row>
 
-        <Card title="Leave out" kind="hard" why={why("exclusions")} wide>
+        <Row title="Leave out" kind="hard" why={why("exclusions")}>
           <ChipList
             label="Companies (customers, competitors, giants)"
             items={cards.exclusions.names}
@@ -160,14 +163,14 @@ export function CardsStep({ cards, base, activeAlt, onPickAlt, onChange, onConti
             onChange={(domains) => set({ exclusions: { ...cards.exclusions, domains } })}
             normalize={(v) => v.trim().toLowerCase().replace(/^https?:\/\//, "").replace(/^www\./, "").replace(/\/.*$/, "")}
           />
-        </Card>
+        </Row>
       </div>
 
       {error && (
         <p className="inline-error" role="alert">{error}</p>
       )}
       {problems.length > 0 && (
-        <ul className="problems" aria-live="polite">
+        <ul className="pr-problems" aria-live="polite">
           {problems.map((p) => <li key={p}>{p}</li>)}
         </ul>
       )}
@@ -182,22 +185,37 @@ export function CardsStep({ cards, base, activeAlt, onPickAlt, onChange, onConti
   );
 }
 
-function Card({ title, kind, why, wide, children }: { title: string; kind?: "hard" | "est"; why?: string; wide?: boolean; children: ReactNode }) {
+function Kind({ kind }: { kind: "hard" | "est" }) {
+  return (
+    <Badge variant="outline" className="pr-kind" data-kind={kind}>
+      {kind === "hard" ? "Hard filter" : "Estimated"}
+    </Badge>
+  );
+}
+
+/** One hairline row of the targeting form: label column (title, Badge, "Why this?") beside its controls. */
+function Row({ title, kind, why, children }: { title: string; kind?: "hard" | "est"; why?: string; children: ReactNode }) {
   const id = useId();
   return (
-    <section className={`card ${wide ? "is-wide" : ""}`} aria-labelledby={id}>
-      <header className="card-head">
-        <h3 id={id}>{title}</h3>
-        {kind === "hard" && <span className="kind kind-hard">Hard filter</span>}
-        {kind === "est" && <span className="kind kind-est">Estimated</span>}
-      </header>
-      <div className="card-body">{children}</div>
-      {why && (
-        <details className="why">
-          <summary>Why this?</summary>
-          <p>{why}</p>
-        </details>
-      )}
+    <section className="pr-row" aria-labelledby={id}>
+      <div className="pr-row-label">
+        <div className="pr-row-head">
+          <h3 id={id}>{title}</h3>
+          {kind && <Kind kind={kind} />}
+        </div>
+        {why && (
+          <Collapsible className="pr-why">
+            <CollapsibleTrigger className="pr-why-trigger">
+              <ChevronRightIcon aria-hidden="true" className="pr-why-chevron" />
+              Why this?
+            </CollapsibleTrigger>
+            <CollapsibleContent className="pr-why-panel">
+              <p>{why}</p>
+            </CollapsibleContent>
+          </Collapsible>
+        )}
+      </div>
+      <div className="pr-row-controls">{children}</div>
     </section>
   );
 }

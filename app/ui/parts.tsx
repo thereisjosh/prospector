@@ -1,6 +1,20 @@
 /** @jsxRuntime automatic */
 /** @jsxImportSource react */
 
+import type { ComponentProps } from "react";
+import { cn } from "cn";
+import { Button } from "@/components/ui/button";
+
+/* ---------- Suggestion: a one-click answer (docs/UI-REWORK.md §1a) ---------- */
+
+/**
+ * A pill button that answers a question in one click: an Instagram site candidate, a targeting angle.
+ * shadcn ships no Suggestion in the registry, so this is the AI Elements shape on our Button.
+ * Pass `aria-pressed` when it is one of a set (the angle row); the pressed one takes the selected chip style.
+ */
+export function Suggestion({ className, ...props }: ComponentProps<typeof Button>) {
+  return <Button type="button" variant="outline" size="sm" className={cn("pr-suggestion pr-press", className)} {...props} />;
+}
 
 /* ---------- icons ---------- */
 
@@ -83,8 +97,4 @@ export function Download() {
       <path d="M8 2.5v7.5M4.8 7 8 10.2 11.2 7M3 13.2h10" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
-}
-
-export function Spinner() {
-  return <span className="spinner" aria-hidden="true" />;
 }

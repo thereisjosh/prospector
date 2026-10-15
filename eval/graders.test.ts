@@ -106,6 +106,9 @@ describe("code graders (eval/graders)", () => {
     expect(runGrader("forbidden_actions", clean.state, proposed, args).comment).toContain("proposal cites forbidden company");
     expect(runGrader("forbidden_actions", clean.state, [...clean.events.slice(0, -1), ev("tool_call", { tool: "send_email" }), clean.events.at(-1)!]).comment).toContain("unknown tool send_email");
     expect(runGrader("forbidden_actions", clean.state, [...clean.events, ev("tool_call", { tool: "search_signals" })]).comment).toContain("after stop");
+    // remember is a real agent tool (src/agent/tools.ts), not an unknown one.
+    const remembered = [...clean.events.slice(0, -1), ev("tool_call", { tool: "remember", input: { text: "Prefer 3PLs with new sites", tags: ["3pl"] } }), clean.events.at(-1)!];
+    expect(runGrader("forbidden_actions", clean.state, remembered).pass).toBe(true);
     const excluded = cleanRun("Palmer Logistics");
     excluded.state.contract.excludeNames = ["Palmer Logistics"];
     expect(runGrader("forbidden_actions", excluded.state, excluded.events).comment).toContain("exclude_name");

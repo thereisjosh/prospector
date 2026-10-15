@@ -103,6 +103,41 @@
   --shimmer-duration: 2s; /* the one running Trace title (M1) */
 }
 
+/* ---------- Type scale (DESIGN.md §3): size, leading and tracking travel together. Also `text-*` utilities. ---------- */
+@theme static {
+  --text-label: 0.75rem; /* badges, column headers, meta; sentence case */
+  --text-label--line-height: 1rem;
+  --text-label--letter-spacing: 0.01em;
+  --text-small: 0.8125rem; /* descriptions, hints, rail links */
+  --text-small--line-height: 1.125rem;
+  --text-small--letter-spacing: 0em;
+  --text-body: 0.875rem; /* default UI text */
+  --text-body--line-height: 1.25rem;
+  --text-body--letter-spacing: 0em;
+  --text-body-lg: 0.9375rem; /* text inputs, the prompt, the user's own words */
+  --text-body-lg--line-height: 1.375rem;
+  --text-body-lg--letter-spacing: -0.005em;
+  --text-title: 1.0625rem; /* section titles, the contract's "who" */
+  --text-title--line-height: 1.5rem;
+  --text-title--letter-spacing: -0.01em;
+  --text-headline: 1.375rem; /* page title */
+  --text-headline--line-height: 1.75rem;
+  --text-headline--letter-spacing: -0.02em;
+  --text-mono: 0.78125rem; /* verbatim captured text only */
+  --text-mono--line-height: 1.125rem;
+  --text-mono--letter-spacing: 0em;
+}
+
+/* ---------- Z-index scale (docs/UI-REWORK.md §2), replacing legacy --z-sticky/--z-scrim/--z-dialog ---------- */
+@theme static {
+  --z-dropdown: 100; /* popovers, hover cards */
+  --z-sticky: 200; /* the topbar */
+  --z-backdrop: 300; /* the dialog scrim */
+  --z-modal: 310; /* the About dialog */
+  --z-toast: 400;
+  --z-tooltip: 500;
+}
+
 /* ---------- Contrast-fixed text tokens (DESIGN.md §2) ---------- */
 :root {
   --faint-ink: #636b7b; /* quieter than --muted, still 5.36:1 on white, 4.70:1 on panel */
@@ -122,16 +157,11 @@
 /* ---------- Run view (app/ui/RunView.tsx, RunTrace.tsx, RunConfirmation.tsx, RunSide.tsx) ---------- */
 @layer components {
   /* M2: every pressable answers on pointer-down. Each list restates the element's legacy transitions. */
-  .primary-btn,
-  .search-go {
+  .primary-btn {
     transition: filter 140ms var(--ease-out-quart), transform var(--dur-1) var(--ease-out-quart);
   }
   .ghost-btn {
     transition: border-color 140ms var(--ease-out-quart), transform var(--dur-1) var(--ease-out-quart);
-  }
-  .chip-btn,
-  .candidate {
-    transition: border-color 140ms var(--ease-out-quart), background 140ms var(--ease-out-quart), transform var(--dur-1) var(--ease-out-quart);
   }
   .thumb {
     transition: border-color 140ms var(--ease-out-quart), color 140ms var(--ease-out-quart), background 140ms var(--ease-out-quart),
@@ -147,7 +177,7 @@
   .pr-press {
     transition: color 140ms var(--ease-out-quart), transform var(--dur-1) var(--ease-out-quart);
   }
-  :is(.primary-btn, .search-go, .ghost-btn, .chip-btn, .candidate, .thumb, .step-link, .icon-btn, .link-btn, .pr-press):active:not(:disabled) {
+  :is(.primary-btn, .ghost-btn, .thumb, .step-link, .icon-btn, .link-btn, .pr-press):active:not(:disabled) {
     transform: scale(0.97);
     transition-duration: var(--dur-press);
   }
@@ -736,4 +766,688 @@
 .pr-evidence [data-slot="code-block-title"] {
   white-space: normal;
   overflow: visible;
+}
+
+/* =====================================================================================================
+   Step (iii): the shell, Describe, Target, Approve, About (docs/UI-REWORK.md §1a, §2, §3 M2 M10 M11 M12)
+   ===================================================================================================== */
+@layer components {
+  /* ---- shell: type scale on the topbar, the step tabs at 390, the demo badge on one line ---- */
+  .topbar-title h1 {
+    font-size: var(--text-headline);
+    line-height: var(--text-headline--line-height);
+    letter-spacing: var(--text-headline--letter-spacing);
+  }
+  .topbar-title p {
+    margin: 0;
+    font-size: var(--text-small);
+    line-height: var(--text-small--line-height);
+  }
+  .live {
+    white-space: nowrap;
+  }
+  .rail-link {
+    font-size: var(--text-small);
+    line-height: var(--text-small--line-height);
+  }
+  @media (max-width: 600px) {
+    .topbar-title h1 {
+      font-size: var(--text-title);
+      line-height: var(--text-title--line-height);
+      letter-spacing: var(--text-title--letter-spacing);
+    }
+    /* "Demo" stays visible; the rest of the sentence stays in the accessible name. */
+    .live-more {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+    }
+    /* Four equal tabs, number over name: every step name shows in full at 390. */
+    .steps {
+      overflow: visible;
+    }
+    .steps ol {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 4px;
+    }
+    .step-link {
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+      width: 100%;
+      padding: 8px 4px;
+      text-align: center;
+    }
+  }
+
+  /* M12: a step change is an opacity-only fade (replaces the 280ms rise + translate). */
+  .step {
+    animation: pr-fade-in var(--dur-1) var(--ease-out-quart) both;
+  }
+
+  /* ---- shared text ---- */
+  .input::placeholder {
+    color: var(--faint-ink); /* 5.36:1 on white; --faint failed at 3.28:1 */
+    opacity: 1;
+  }
+  .chips-empty {
+    color: var(--faint-ink);
+  }
+  .pr-demo-line,
+  .pr-fine {
+    margin: 0;
+    font-size: var(--text-small);
+    line-height: var(--text-small--line-height);
+    color: var(--muted);
+  }
+  .pr-warn {
+    margin: 0;
+    font-size: var(--text-small);
+    line-height: var(--text-small--line-height);
+    color: var(--amber-ink);
+  }
+
+  /* ---- Describe ---- */
+  .pr-describe {
+    max-width: 680px;
+  }
+  .pr-prompt-block {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .pr-prompt-block .pr-demo-line {
+    margin: 8px 4px 0;
+  }
+  .pr-hint {
+    margin: 0 4px;
+    font-size: var(--text-small);
+    line-height: var(--text-small--line-height);
+    color: var(--faint-ink);
+  }
+  .pr-agent-mark {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 20px;
+    height: 22px;
+    color: var(--muted);
+  }
+  .pr-agent-mark svg {
+    width: 16px;
+    height: 16px;
+  }
+  .pr-agent-part {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    min-width: 0;
+  }
+  .pr-agent-part > .actions {
+    margin-top: 4px;
+  }
+  .pr-agent-part form,
+  .pr-agent-part .editor {
+    align-self: stretch;
+  }
+  .pr-msg-title {
+    margin: 0;
+    font-size: var(--text-body-lg);
+    line-height: var(--text-body-lg--line-height);
+    letter-spacing: var(--text-body-lg--letter-spacing);
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .pr-msg-text {
+    margin: 0;
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    color: var(--muted);
+  }
+  .pr-profile-line {
+    margin: 0;
+    max-width: 68ch;
+    font-size: var(--text-body-lg);
+    line-height: var(--text-body-lg--line-height);
+    letter-spacing: var(--text-body-lg--letter-spacing);
+    color: var(--ink);
+  }
+  .pr-suggestions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  /* ---- Target: one form surface, hairline rows ---- */
+  .pr-target {
+    max-width: 880px;
+  }
+  .pr-alts {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+  .pr-alts-label {
+    margin-right: 4px;
+    font-size: var(--text-small);
+    line-height: var(--text-small--line-height);
+    color: var(--muted);
+  }
+  .pr-legend {
+    margin: 0;
+    font-size: var(--text-small);
+    line-height: 1.5rem;
+    color: var(--muted);
+  }
+  .pr-form {
+    min-width: 0;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+  }
+  .pr-row {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 24px;
+    padding: 20px 24px;
+    min-width: 0;
+  }
+  .pr-row + .pr-row {
+    border-top: 1px solid var(--line);
+  }
+  .pr-row-label {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    min-width: 0;
+  }
+  .pr-row-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 8px;
+    min-height: 24px;
+  }
+  .pr-row-head h3 {
+    margin: 0;
+    font-size: var(--text-body-lg);
+    line-height: var(--text-body-lg--line-height);
+    letter-spacing: var(--text-body-lg--letter-spacing);
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .pr-why {
+    min-width: 0;
+  }
+  .pr-why-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: var(--text-small);
+    line-height: var(--text-small--line-height);
+    font-weight: 500;
+    color: var(--accent);
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  .pr-why-trigger:hover {
+    text-decoration: underline;
+  }
+  .pr-why-chevron {
+    flex: none;
+    width: 12px;
+    height: 12px;
+    transition: transform var(--dur-1) var(--ease-out-quart);
+  }
+  .pr-why-trigger[data-panel-open] .pr-why-chevron {
+    transform: rotate(90deg);
+  }
+  .pr-why-panel p {
+    margin: 4px 0 0;
+    font-size: var(--text-small);
+    line-height: var(--text-small--line-height);
+    color: var(--muted);
+  }
+  .pr-row-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 0;
+  }
+  .pr-row-controls .field + .field,
+  .pr-row-controls .check,
+  .pr-row-controls .chips + .input {
+    margin-top: 0;
+  }
+  .pr-row-controls .field {
+    gap: 4px;
+  }
+  .pr-target .chip-add {
+    flex-direction: row;
+    align-items: stretch;
+    margin-top: 8px;
+  }
+  .pr-target .chip-add .ghost-btn {
+    margin-top: 0;
+    flex: none;
+  }
+  .pr-target .field .chips + select.input {
+    margin-top: 8px;
+  }
+  .pr-problems {
+    margin: 0;
+    padding: 0 0 0 18px;
+    font-size: var(--text-small);
+    line-height: var(--text-small--line-height);
+    color: var(--amber-ink);
+  }
+  @media (max-width: 900px) {
+    .pr-row {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 12px;
+      padding: 16px;
+    }
+  }
+
+  /* ---- Approve: the contract surface ---- */
+  .pr-contract {
+    min-width: 0;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+  }
+  .pr-contract-head {
+    padding: 20px 24px 16px;
+  }
+  .pr-contract-goal {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 12px;
+    font-size: var(--text-title);
+    line-height: var(--text-title--line-height);
+    letter-spacing: var(--text-title--letter-spacing);
+    font-weight: 550;
+  }
+  .pr-contract-who {
+    margin: 8px 0 0;
+    font-size: var(--text-title);
+    line-height: var(--text-title--line-height);
+    letter-spacing: var(--text-title--letter-spacing);
+  }
+  .pr-contract-who b {
+    font-weight: 600;
+  }
+  .pr-terms {
+    margin: 0;
+    border-top: 1px solid var(--line-soft);
+  }
+  .pr-terms > div,
+  .pr-budget {
+    display: grid;
+    grid-template-columns: 128px minmax(0, 1fr);
+    gap: 16px;
+    padding: 12px 24px;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .pr-terms dt,
+  .pr-budget-label {
+    margin: 0;
+    font-size: var(--text-small);
+    line-height: var(--text-body--line-height);
+    font-weight: 550;
+    color: var(--muted);
+  }
+  .pr-terms dd {
+    margin: 0;
+    min-width: 0;
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+  }
+  .pr-term-list {
+    margin: 0;
+    padding: 0 0 0 18px;
+  }
+  .pr-term-list li + li {
+    margin-top: 4px;
+  }
+  .pr-ideas {
+    padding: 12px 24px;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .pr-ideas-intro {
+    margin: 0 0 8px;
+    font-size: var(--text-small);
+    line-height: var(--text-small--line-height);
+    color: var(--muted);
+  }
+  .pr-budget {
+    padding: 16px 24px 20px;
+    border-bottom: 0;
+  }
+  .pr-budget-label {
+    padding-top: 8px; /* centre on the 36px input beside it */
+  }
+  .pr-budget-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+  }
+  .pr-budget-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 16px;
+  }
+  .pr-money-input {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 550;
+  }
+  @media (max-width: 600px) {
+    .pr-contract-head {
+      padding: 16px 16px 12px;
+    }
+    .pr-terms > div,
+    .pr-budget {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 4px;
+      padding: 12px 16px;
+    }
+    .pr-ideas {
+      padding: 12px 16px;
+    }
+    .pr-budget-label {
+      padding-top: 0;
+    }
+  }
+
+  /* ---- About dialog contents ---- */
+  .pr-dialog-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+  }
+  .pr-dialog-text {
+    margin: 0 0 12px;
+    font-size: var(--text-body);
+    line-height: 1.375rem;
+    color: var(--muted);
+  }
+  .pr-dialog-text b {
+    color: var(--ink);
+    font-weight: 560;
+  }
+  .pr-dialog-foot {
+    margin: 0;
+    font-size: var(--text-small);
+    line-height: var(--text-small--line-height);
+    color: var(--muted);
+  }
+}
+
+/* Reduced motion for step (iii). legacy.css clamps every transition to 0.01ms with !important; an !important
+   in an earlier layer wins over it, so the dialog keeps its opacity-only fade (M10) from here. */
+@layer base {
+  @media (prefers-reduced-motion: reduce) {
+    .pr-dialog,
+    [data-slot="dialog-overlay"] {
+      transition-property: opacity !important;
+      transition-duration: var(--dur-1) !important;
+    }
+    .pr-dialog[data-starting-style],
+    .pr-dialog[data-ending-style] {
+      scale: none !important;
+    }
+  }
+}
+
+/* ---- Prompt Input (InputGroup + textarea / input + submit). Unlayered: it restyles shadcn roots. ---- */
+.pr-prompt {
+  height: auto;
+  background: var(--bg);
+  border-color: var(--line);
+  border-radius: var(--r-lg);
+  transition: border-color var(--dur-1) var(--ease-out-quart), box-shadow var(--dur-1) var(--ease-out-quart);
+}
+.pr-prompt:focus-within {
+  border-color: var(--accent-line);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+.pr-prompt [data-slot="input-group-control"] {
+  min-height: 0;
+  font-family: var(--sans); /* no preflight: a UA textarea would be monospace */
+  padding: 14px 16px 4px;
+  color: var(--ink);
+  font-size: var(--text-body-lg);
+  line-height: var(--text-body-lg--line-height);
+  letter-spacing: var(--text-body-lg--letter-spacing);
+}
+.pr-prompt textarea[data-slot="input-group-control"] {
+  min-height: 3.75rem; /* two lines */
+}
+.pr-prompt-line [data-slot="input-group-control"] {
+  height: 44px;
+  padding: 0 8px 0 14px;
+}
+.pr-prompt-foot {
+  justify-content: flex-end;
+  padding: 4px 8px 8px;
+}
+.pr-prompt-go {
+  height: auto;
+  padding: 8px 16px;
+  border: 0;
+  border-radius: var(--r);
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: var(--text-body);
+  line-height: var(--text-body--line-height);
+  font-weight: 560;
+  transition: filter 140ms var(--ease-out-quart), transform var(--dur-1) var(--ease-out-quart);
+}
+.pr-prompt-go:hover:not(:disabled) {
+  background: var(--accent);
+  filter: brightness(1.06);
+}
+.pr-prompt-go:disabled {
+  opacity: 0.55;
+}
+.pr-prompt-line .pr-prompt-go {
+  margin-right: 2px;
+}
+/* M2 owns press feedback (scale 0.97); shadcn Button's own 1px nudge would double it. */
+.pr-press:active {
+  translate: none;
+}
+
+/* ---- Message / Bubble on Describe ---- */
+.pr-you {
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+.pr-bubble > [data-slot="bubble-content"] {
+  padding: 10px 14px;
+  border-radius: var(--r-lg);
+  color: var(--ink);
+  font-size: var(--text-body-lg);
+  line-height: var(--text-body-lg--line-height);
+  letter-spacing: var(--text-body-lg--letter-spacing);
+}
+.pr-you-foot {
+  padding: 0 4px;
+}
+.pr-agent {
+  align-items: flex-start;
+  gap: 12px;
+}
+.pr-agent-body {
+  gap: 16px;
+}
+@media (max-width: 600px) {
+  .pr-bubble {
+    max-width: 100%;
+  }
+}
+
+/* ---- Suggestion (parts.tsx): a one-click pill on shadcn Button ---- */
+.pr-suggestion {
+  height: auto;
+  min-height: 32px;
+  padding: 5px 12px;
+  border-color: var(--line);
+  border-radius: var(--r-pill);
+  background: var(--bg);
+  color: var(--ink);
+  font-size: var(--text-small);
+  line-height: var(--text-small--line-height);
+  font-weight: 450;
+  white-space: normal;
+  text-align: center;
+  transition: border-color 140ms var(--ease-out-quart), background-color 140ms var(--ease-out-quart), transform var(--dur-1) var(--ease-out-quart);
+}
+.pr-suggestion:hover:not(:disabled) {
+  border-color: var(--faint);
+  background: var(--bg);
+  color: var(--ink);
+}
+.pr-suggestion[aria-pressed="true"],
+.pr-suggestion[aria-pressed="true"]:hover {
+  border-color: var(--accent-line);
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 550;
+}
+.pr-suggestion-mono {
+  font-family: var(--mono);
+  font-size: var(--text-mono);
+}
+
+/* ---- "Hard filter" / "Estimated" Badge ---- */
+.pr-kind {
+  height: 20px;
+  padding: 0 8px;
+  vertical-align: 1px;
+  font-size: var(--text-label);
+  line-height: var(--text-label--line-height);
+  letter-spacing: var(--text-label--letter-spacing);
+  font-weight: 550;
+}
+.pr-kind[data-kind="hard"] {
+  color: var(--accent);
+  background: var(--accent-soft);
+  border-color: var(--accent-line);
+}
+.pr-kind[data-kind="est"] {
+  color: var(--amber-ink); /* 5.59:1 on white; --amber text failed at 4.24:1 */
+  background: var(--amber-soft);
+  border-color: var(--amber-line);
+}
+
+/* ---- "Why this?" (Collapsible) and "Starting search ideas" (Trace): M9, content fades, height instant ---- */
+[data-slot="collapsible-content"].pr-why-panel {
+  transition: opacity 120ms var(--ease-out-quart);
+}
+[data-slot="collapsible-content"].pr-why-panel[data-starting-style],
+[data-slot="collapsible-content"].pr-why-panel[data-ending-style] {
+  opacity: 0;
+}
+.pr-ideas [data-slot="trace-collapsible-trigger"] {
+  font-size: var(--text-small);
+  line-height: var(--text-body--line-height);
+  font-weight: 550;
+  color: var(--muted);
+}
+.pr-ideas [data-slot="trace-collapsible-trigger"]:hover {
+  color: var(--ink);
+}
+.pr-ideas-title {
+  font-size: inherit;
+  color: inherit;
+}
+
+/* ---- running lines outside the run view (Describe, Target loading) ---- */
+.pr-reading {
+  font-size: var(--text-body);
+  line-height: var(--text-body--line-height);
+  color: var(--ink);
+}
+.pr-pending {
+  padding: 8px 0;
+}
+
+/* ---- About: shadcn Dialog (Base UI). M10: scrim fades; dialog fades and scales from 0.98, centred. ---- */
+[data-slot="dialog-overlay"] {
+  z-index: var(--z-backdrop);
+  background: rgba(10, 12, 20, 0.5);
+  backdrop-filter: none; /* the scrim dims; it does not blur (§6) */
+  -webkit-backdrop-filter: none;
+  animation: none;
+  transition: opacity var(--dur-2) var(--ease-out-quint);
+}
+[data-slot="dialog-overlay"][data-starting-style],
+[data-slot="dialog-overlay"][data-ending-style] {
+  opacity: 0;
+}
+.pr-dialog {
+  z-index: var(--z-modal);
+  display: block;
+  max-width: min(520px, calc(100% - 32px));
+  padding: 28px;
+  border-radius: 16px;
+  background: var(--bg);
+  color: var(--ink);
+  box-shadow: 0 24px 60px -28px rgba(16, 22, 45, 0.42); /* Dialog elevation; no border with it */
+  animation: none;
+  transition: opacity var(--dur-2) var(--ease-out-quint), scale var(--dur-2) var(--ease-out-quint);
+}
+.pr-dialog[data-starting-style],
+.pr-dialog[data-ending-style] {
+  opacity: 0;
+  scale: 0.98;
+}
+[data-slot="dialog-overlay"][data-ending-style],
+.pr-dialog[data-ending-style] {
+  transition-duration: var(--dur-1);
+  transition-timing-function: var(--ease-in-quart);
+}
+:root[data-theme="dark"] .pr-dialog {
+  box-shadow: 0 0 0 1px var(--line); /* a shadow doesn't read on the dark canvas: a hairline instead, not both */
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .pr-dialog {
+    box-shadow: 0 0 0 1px var(--line);
+  }
+}
+.pr-dialog-title {
+  margin: 0 40px 12px 0;
+  font-size: var(--text-title);
+  line-height: var(--text-title--line-height);
+  letter-spacing: var(--text-title--letter-spacing);
+  font-weight: 600;
+}
+
+/* ---- M11: theme toggle crossfades the root (View Transitions); instant under reduced motion ---- */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: var(--dur-2);
+  animation-timing-function: var(--ease-in-out-cubic);
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
 }

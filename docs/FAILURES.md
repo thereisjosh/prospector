@@ -41,7 +41,7 @@ Per failure: symptom · layer · cause · fix · before → after or evidence ·
 - **Symptom:** smoke `finish.handback` was markdown; the fallback stored `enterprise: 1` and a `scope` suggestion.
 - **Layer:** tool (schema). **Cause:** free-string handback.
 - **Fix:** strict object, lookup-stage counts, data-driven suggestions (8f33f2b). Tests: `malformed handbacks … are rejected -> fallback`, `never emits field 'scope'`.
-- **Before → after:** "1 enterprise" → pilot S1 agent rep 2: `size 13, enterprise 3` (`eval/demo/run/state.json`).
+- **Before → after:** "1 enterprise" → pilot S1 agent rep 2: `size 13, enterprise 3` (`eval/results/pilot-2026-10-12/S1/B_agent_opus/2/state.json`).
 
 ## 7. Workflow threw on budget mid-run (S2) [measured]
 

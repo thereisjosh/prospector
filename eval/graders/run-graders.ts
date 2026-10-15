@@ -12,6 +12,7 @@ export const AGENT_TOOLS = [
   "update_todo",
   "propose_strategy",
   "request_scope_change",
+  "remember",
   "finish",
 ] as const;
 
