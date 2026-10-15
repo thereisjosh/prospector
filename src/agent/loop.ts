@@ -2,7 +2,8 @@ import { createHash } from "node:crypto";
 import Anthropic from "@anthropic-ai/sdk";
 import type { Message, ToolResultBlockParam, ToolUseBlock } from "@anthropic-ai/sdk/resources/messages";
 import { CostGuard } from "../exa";
-import { CLAUDE_PRICES_PER_MILLION, claudeCostDollars, DEFAULT_LIMITS } from "./config";
+import { CLAUDE_PRICES_PER_MILLION, claudeCostDollars, contextBudgetTokens, DEFAULT_LIMITS } from "./config";
+import { assembleMessages, estimateTokens, measureRequestTokens } from "./context";
 import { appendEvents, eventInput, makeEvent, type AgentEvent } from "./events";
 import { parseEmployeeEstimate } from "../gates";
 import { countryOfHq } from "../geo";
@@ -10,11 +11,13 @@ import { appendRunToMemory, squashName } from "./memory";
 import { ensureAgentPrompt } from "./prompts";
 import { promptLink } from "./prompt-store";
 import { runEnded } from "./online-eval";
-import type { RunState, Handback } from "./state";
+import { rejectionCounts, type RunState, type Handback } from "./state";
 import { APPROVAL_TOOLS, agentTools, executeTool, type ToolDeps } from "./tools";
 
 export type LoopDeps = ToolDeps & {
   client: Pick<Anthropic, "messages">;
+  /** Token budget for one request; default is 60% of the model's context window (config.ts). Tests lower it. */
+  contextBudgetTokens?: number;
 };
 
 export type StepResult = { state: RunState; events: AgentEvent[] };
@@ -279,6 +282,11 @@ async function stepTurn(state: RunState, deps: LoopDeps): Promise<StepResult> {
     state.memoryRecallEmitted = true;
     events.push(makeEvent(state, "memory_recalled", memoryRecalledPayload(state)));
   }
+  if (state.repairedToolUseIds && state.repairedToolUseIds.length > 0) {
+    // loadState answered tool calls that never got a result (crash between tool_use and tool_result).
+    events.push(makeEvent(state, "turn_repaired", { toolUseIds: state.repairedToolUseIds }));
+    delete state.repairedToolUseIds;
+  }
   try {
     const maxTokens = maxTokensForTurn(state);
     if (maxTokens === undefined) {
@@ -291,13 +299,26 @@ async function stepTurn(state: RunState, deps: LoopDeps): Promise<StepResult> {
     }
     const system = prompt.text;
     const tools = agentTools();
-    const messageCount = state.messages.length;
+    // Working memory: state.messages is the full record; what is sent is assembled under a token budget.
+    const measure = await measureRequestTokens(state, deps.client as Parameters<typeof measureRequestTokens>[1], { system, tools });
+    if (measure.source === "estimated") {
+      events.push(makeEvent(state, "token_count_estimated", { tokens: measure.tokens, reason: measure.error ?? "count_tokens unavailable", basis: "4 chars per token" }));
+    }
+    const context = assembleMessages(state, {
+      budgetTokens: deps.contextBudgetTokens ?? contextBudgetTokens(state.model),
+      fixedTokens: estimateTokens(system) + estimateTokens(JSON.stringify(tools)),
+      measuredTokens: measure.tokens,
+    });
+    if (context.dropped > 0) {
+      events.push(makeEvent(state, "context_trimmed", { droppedTurns: context.dropped, droppedTokens: context.droppedTokens, keptTokens: context.keptTokens, summaryTokens: context.summaryTokens }));
+    }
+    const messageCount = context.messages.length;
     const response = (await deps.client.messages.create({
       model: state.model,
       max_tokens: maxTokens,
       system: [{ type: "text", text: system, cache_control: { type: "ephemeral" } }],
       tools,
-      messages: state.messages,
+      messages: context.messages,
       cache_control: { type: "ephemeral" },
       output_config: { effort: "medium" },
     } as Parameters<typeof deps.client.messages.create>[0])) as Message;
@@ -563,8 +584,18 @@ export async function handback(state: RunState, deps: LoopDeps, events?: AgentEv
       // tool_choice "none" forces a text answer.
       const system = (await ensureAgentPrompt(state)).text;
       const tools = agentTools();
+      // Same working-memory budget as a turn (estimates only: handback runs once, at the end).
+      const context = assembleMessages(state, {
+        budgetTokens: deps.contextBudgetTokens ?? contextBudgetTokens(state.model),
+        fixedTokens: estimateTokens(system) + estimateTokens(JSON.stringify(tools)),
+      });
+      if (context.dropped > 0) {
+        const trimmed = makeEvent(state, "context_trimmed", { droppedTurns: context.dropped, droppedTokens: context.droppedTokens, keptTokens: context.keptTokens, summaryTokens: context.summaryTokens, handback: true });
+        if (events) events.push(trimmed);
+        else await appendEvents(state.id, [trimmed]);
+      }
       const messages = [
-        ...state.messages,
+        ...context.messages,
         { role: "user", content: `Return only JSON with exactly this shape: {"shortfall": string, "top_reasons": [{"code","count"}], "suggestions": [{"field","value","why"}] max 2}. Use these computed rejection counts: ${JSON.stringify({ shortfall: fallback.shortfall, top_reasons: fallback.top_reasons })}` },
       ];
       const started = Date.now();
@@ -595,18 +626,7 @@ export async function handback(state: RunState, deps: LoopDeps, events?: AgentEv
   return fallback;
 }
 
-/** Submit-stage rejections plus lookup-stage screening, one count per (company, code). */
-export function rejectionCounts(state: RunState): Array<{ code: string; count: number }> {
-  const seen = new Set<string>();
-  const map = new Map<string, number>();
-  for (const r of [...state.rejected, ...(state.screened ?? [])]) {
-    const id = `${squashName(r.company)}|${r.code}`;
-    if (seen.has(id)) continue;
-    seen.add(id);
-    map.set(r.code, (map.get(r.code) ?? 0) + 1);
-  }
-  return [...map.entries()].sort((a, b) => b[1] - a[1]).map(([code, count]) => ({ code, count }));
-}
+export { rejectionCounts };
 
 // Country resolution lives in src/geo.ts (one table, state-code aware).
 const countryOf = countryOfHq;

@@ -15,6 +15,22 @@ export const CLAUDE_PRICES_PER_MILLION: Record<
   "claude-sonnet-5-5": { input: 2, output: 10, cache_read: 0.2, cache_write: 2.5 },
 };
 
+/**
+ * Context window per model, in tokens. NOT confirmed from the Anthropic docs (nothing in node_modules or
+ * docs/ states it for these ids); 200,000 is the conservative assumption. Raise it when verified.
+ */
+export const CONTEXT_WINDOW_TOKENS: Record<AgentModel, number> = {
+  "claude-opus-5-5": 200_000,
+  "claude-sonnet-5-5": 200_000,
+};
+
+/** A request is trimmed when it would use more than this share of the window. */
+export const CONTEXT_BUDGET_FRACTION = 0.6;
+
+export function contextBudgetTokens(model: AgentModel): number {
+  return Math.floor(CONTEXT_WINDOW_TOKENS[model] * CONTEXT_BUDGET_FRACTION);
+}
+
 export const DEFAULT_LIMITS = {
   maxCostDollars: 1,
   targetLeads: 10,

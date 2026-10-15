@@ -9,7 +9,7 @@ import type { SearchPlan } from "../plan";
 import type { SignalEvidence } from "../evidence";
 import type { CompanySummary, SignalSummary } from "../types";
 import type { GateCode } from "../gates";
-import { renderPreference, type Note } from "./memory";
+import { renderPreference, squashName, type Note } from "./memory";
 import { renderNote, type RecallLogEntry, type RecallResult, type SeenInfo } from "./recall";
 
 export type Contract = SearchPlan & {
@@ -99,6 +99,13 @@ export type RunState = {
   notes?: Note[];
   /** `finish` was held back once to offer `remember`. */
   rememberNudged?: boolean;
+  /**
+   * The last real count_tokens result, keyed by model + message count + system/tools hash, so a resumed
+   * or retried step does not measure the same request twice (src/agent/context.ts).
+   */
+  tokenCount?: { key: string; tokens: number };
+  /** Tool-use ids answered with a synthetic result on load (repairDanglingToolUses); the next step emits `turn_repaired` and clears this. */
+  repairedToolUseIds?: string[];
   adaptive: { queryRewrites: number; lookupsSkipped: number; verificationReads: number };
   caches: {
     signalsByUrl: Record<string, { url: string; title?: string; text?: string; publishedDate?: string; summary: SignalSummary }>;
@@ -205,7 +212,45 @@ export async function loadState(id: string): Promise<RunState> {
   state.version = typeof state.version === "number" ? state.version : 0;
   state.counters.consecutiveErrors ??= 0;
   state.candidates ??= [];
+  const repaired = repairDanglingToolUses(state);
+  if (repaired.length > 0) state.repairedToolUseIds = [...(state.repairedToolUseIds ?? []), ...repaired];
   return state;
+}
+
+export const INTERRUPTED_TOOL_RESULT = "interrupted before a result was recorded; call again if still needed";
+
+/**
+ * Crash repair. A turn that died after its assistant tool_use but before the tool_result was saved leaves a
+ * dangling call, and the next model call would 400. If a running run ends on an assistant message with
+ * tool_use blocks, append one user message answering each id with an error result. Runs paused for approval
+ * are not dangling: their unanswered tool_use is the persisted pendingApproval, answered by decide().
+ * Mutates `state.messages` only; returns the repaired ids (empty when nothing was dangling).
+ */
+export function repairDanglingToolUses(state: Pick<RunState, "messages" | "status" | "pendingApproval">): string[] {
+  if (state.status !== "running" || state.pendingApproval) return [];
+  const last = state.messages[state.messages.length - 1];
+  if (!last || last.role !== "assistant" || !Array.isArray(last.content)) return [];
+  const ids = (last.content as Array<{ type?: string; id?: string }>)
+    .flatMap((block) => (block.type === "tool_use" && typeof block.id === "string" ? [block.id] : []));
+  if (ids.length === 0) return [];
+  state.messages.push({
+    role: "user",
+    content: ids.map((id) => ({ type: "tool_result", tool_use_id: id, content: INTERRUPTED_TOOL_RESULT, is_error: true })),
+  } as Anthropic.MessageParam);
+  return ids;
+}
+
+/** Submit-stage rejections plus lookup-stage screening, one count per (company, code). */
+export function rejectionCounts(state: Pick<RunState, "rejected" | "screened">): Array<{ code: string; count: number }> {
+  const seen = new Set<string>();
+  const map = new Map<string, number>();
+  for (const r of [...state.rejected, ...(state.screened ?? [])]) {
+    const id = `${squashName(r.company)}|${r.code}`;
+    if (seen.has(id)) continue;
+    seen.add(id);
+    map.set(r.code, (map.get(r.code) ?? 0) + 1);
+  }
+  return [...map.entries()].sort((a, b) => b[1] - a[1]).map(([code, count]) => ({ code, count }));
 }
 
 export async function withRunLock<T>(id: string, fn: () => Promise<T>): Promise<T> {

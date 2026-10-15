@@ -82,6 +82,8 @@ What the model decides that the workflow cannot, each logged as an **adaptive ac
 - **Verification reads:** `read_page` before submitting an uncertain company
 - **When to stop:** at N leads, or when the remaining options are poor
 
+**Context budget (working memory).** `state.messages` is the full append-only record (replay, resume, the UI read it). What each call re-sends is decided by `assembleMessages` (`src/agent/context.ts`). Before every model call the loop measures the whole request (system, tools, messages) with the free `count_tokens` endpoint, caches the count on `state.tokenCount` so a retried or resumed step does not re-measure, and falls back to a 4-chars-per-token estimate on failure (event `token_count_estimated`, with the reason). The budget is 60% of the model's context window (`CONTEXT_WINDOW_TOKENS` in `config.ts`; 200,000 assumed, not confirmed from Anthropic docs). Over budget, the oldest whole turns (an assistant message plus the user message answering its tool calls) are dropped, by token size, until the request fits; the newest turn is always kept. The approved contract lives in the first user message (the system prompt is generic), so that message is kept and a code-written summary block is appended to it: progress and spend, accepted leads (company, signal host, date), candidates awaiting evidence, rejection counts by code, handback if any, searches already tried. Every fact comes from structured state, never from message text, and the block is cut to at most 1,500 tokens. No model writes it. Event `context_trimmed` records `droppedTurns`, `droppedTokens`, `keptTokens`, `summaryTokens`. Trimming changes the prefix, so the turn that trims pays a cache write instead of a cache read. The handback call uses the same assembly.
+
 ## 3. Architecture
 
 - **Harness:** TypeScript, server-side Next.js routes; the UI drives the run one turn per `POST /step` and reads each turn's events from the response (polling, not SSE — see §5a). A manual tool-use loop on `@anthropic-ai/sdk` `messages.create`. No agent framework, so every part of the loop is visible and explainable.
@@ -122,6 +124,7 @@ No other write actions exist. `submit_lead` is the only way a lead enters the re
 - **One turn per request:** `POST /api/runs/:id/step` loads the state, makes one model call, runs its tools in parallel, appends the results, saves the state to `runs/<id>/state.json` (DB later), and returns events. The UI calls `step` again until the run ends. Each request is short (≈10–30 s), so it fits serverless limits.
 - **Approval:** when a turn contains `propose_strategy` or `request_scope_change`, the harness saves the state with status `awaiting_approval` and stops. That tool_use is left as the last entry and is not yet answered.
 - **Resume:** `POST /api/runs/:id/decision` loads the state, appends the user's decision as that tool's `tool_result` (any other tool results from that turn go in the same message), and continues with the next `step`. It works minutes or hours later, and across restarts.
+- **Crash repair:** a turn that died after its assistant `tool_use` but before the `tool_result` was saved would make the next call 400. `loadState` finds a *running* run whose last message is an assistant message with `tool_use` blocks and appends one user message with an error `tool_result` per id ("interrupted before a result was recorded; call again if still needed"); the next step records a `turn_repaired` event with the ids. A run with `pendingApproval` is never repaired: its unanswered `tool_use` is the pause, answered by the decision.
 - **No decision:** the run stays paused, with no timeout and no spend. The wall clock counts only active time.
 - On approval, **code** updates the contract (gates, window, budget). The model never edits it directly.
 - This is what LangGraph's checkpointer plus `interrupt()` provides, built in about 30 lines so the mechanism stays explainable.
@@ -187,7 +190,7 @@ Also kept: server-only keys, per-IP rate limit, generic errors, http(s)-only lin
 ## 6. Context engineering (applying Manus's published lessons; verify against the original post)
 
 - **Stable prefix for caching:** system prompt and tool definitions never change mid-run; the plan goes in the first user message; tool lists are deterministic and sorted; `cache_control` on the prefix. Log `cache_read_input_tokens` to prove caching works.
-- **Append-only history:** never rewrite or trim. The turn cap keeps the context bounded, so no compaction is needed in v1.
+- **Append-only record, budgeted re-send:** `state.messages` is never rewritten or trimmed. What is sent each call is trimmed only when the request passes 60% of the context window (§2a "Context budget"); dropped turns become a code-written summary from state.
 - **Keep failures visible:** rejected leads and tool errors stay in context, so the model stops repeating them.
 - **Recitation:** `update_todo` keeps the goal and the remaining work at the end of the context.
 - **Compact tool results:** fixed short formats, never raw page dumps.
