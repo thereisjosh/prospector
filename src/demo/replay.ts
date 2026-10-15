@@ -14,8 +14,10 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { RUNS_DIR } from "../agent/config";
 import type { AgentEvent } from "../agent/events";
-import { appendRunToMemory, squashName } from "../agent/memory";
+import { appendRunToMemory, loadMemory, squashName } from "../agent/memory";
+import type { SeenInfo } from "../agent/recall";
 import { screenedByCode, type AcceptedLead, type CandidateLead, type Handback, type RunState, type RunStatus } from "../agent/state";
+import { seedDemoMemory } from "./memory";
 import { DEMO_RUN_PREFIX, demoDelay, demoDir } from "./mode";
 
 /** The fields of a recorded RunState the replay reads. Extra fields are ignored. */
@@ -47,6 +49,8 @@ type Session = {
   status: RunStatus;
   pending?: { tool: string; input: unknown };
   memoryWritten: boolean;
+  /** What the workspace remembered when this run started, by squashed company name (see applySeen). */
+  seen?: Record<string, SeenInfo>;
 };
 
 async function loadRecording(): Promise<{ state: RecordedState; events: AgentEvent[] }> {
@@ -81,6 +85,10 @@ async function saveSession(session: Session): Promise<void> {
 
 export async function createDemoRun(workspaceId: string): Promise<{ id: string }> {
   await loadRecording(); // fail fast if the recording is missing
+  await seedDemoMemory(workspaceId); // the demo's second state: a workspace that already remembers part of the recording
+  const memory = await loadMemory(workspaceId);
+  const seen: Record<string, SeenInfo> = {};
+  for (const item of memory.seen) seen[item.squashed] ??= { name: item.name, verdict: item.verdict, at: item.at, runId: item.runId };
   const session: Session = {
     id: `${DEMO_RUN_PREFIX}${randomUUID()}`,
     workspaceId,
@@ -88,6 +96,7 @@ export async function createDemoRun(workspaceId: string): Promise<{ id: string }
     cursor: 0,
     status: "running",
     memoryWritten: false,
+    seen,
   };
   await saveSession(session);
   return { id: session.id };
@@ -118,9 +127,49 @@ function num(value: unknown): number {
   return typeof value === "number" && Number.isFinite(value) ? value : 0;
 }
 
+/**
+ * The recording is replayed as recorded, except where this workspace already remembers a company
+ * the recorded agent looked up: there the real run would not have paid for the lookup nor submitted
+ * the company (lookup_company skips seen names; the gate would reject the submit as `already_seen`).
+ * So its lookup becomes a "skipped, lookup saved" event, and its submit_lead / accepted verdict are
+ * dropped. Nothing is invented: every company and event comes from the recording.
+ * `events` is parallel to the recording (null = dropped) so the replay cursor still indexes the raw list.
+ */
+function applySeen(rec: { state: RecordedState; events: AgentEvent[] }, seen: Record<string, SeenInfo>) {
+  const nameOf = (event: AgentEvent, field: "name" | "company") => {
+    const raw = field === "name" ? (event.input as { name?: unknown } | undefined)?.name : (event.input as { company?: unknown } | undefined)?.company;
+    return typeof raw === "string" ? raw : undefined;
+  };
+  let savedExa = 0;
+  const screened: NonNullable<RunState["screened"]> = [];
+  const skippedKeys = new Set<string>();
+  const events = rec.events.map((event): AgentEvent | null => {
+    if (event.kind === "tool_call" && event.tool === "lookup_company" && event.is_error !== true) {
+      const name = nameOf(event, "name");
+      const info = name ? seen[squashName(name)] : undefined;
+      if (name && info) {
+        savedExa += num(event.exaCost);
+        skippedKeys.add(squashName(name));
+        if (!screened.some((s) => squashName(s.company) === squashName(name))) {
+          screened.push({ company: name, code: "already_seen", reason: "company was delivered or rejected in an earlier run", turn: event.turn, stage: "lookup" });
+        }
+        return { ...event, exaCost: 0, resultSummary: `skipped_seen: ${name}`, seen: info, lookupSaved: true };
+      }
+    }
+    if (event.kind === "tool_call" && event.tool === "submit_lead") {
+      const name = nameOf(event, "company");
+      if (name && seen[squashName(name)]) return null;
+    }
+    if (event.kind === "submit_verdict" && typeof event.company === "string" && seen[squashName(event.company)]) return null;
+    return event;
+  });
+  return { events, savedExa, screened, skippedKeys };
+}
+
 /** Rebuild what the run looked like after `cursor` events. */
 function snapshotAt(session: Session, rec: { state: RecordedState; events: AgentEvent[] }) {
-  const consumed = rec.events.slice(0, session.cursor);
+  const fx = applySeen(rec, session.seen ?? {});
+  const consumed = fx.events.slice(0, session.cursor).filter((e): e is AgentEvent => e !== null);
   const finished = session.status !== "running" && session.status !== "awaiting_approval";
   const leads: AcceptedLead[] = [];
   const candidates: CandidateLead[] = [];
@@ -160,9 +209,14 @@ function snapshotAt(session: Session, rec: { state: RecordedState; events: Agent
   }
   // Recordings without per-call todo text fall back to the final checklist.
   if (!todo && (sawTodoCall || finished)) todo = rec.state.todo;
+  const finishedLeads = rec.state.leads.filter((l) => !(session.seen ?? {})[squashName(l.company)]);
   const spend = finished
-    ? rec.state.spend
+    ? { ...rec.state.spend, exa: Math.max(0, rec.state.spend.exa - fx.savedExa), total: Math.max(0, rec.state.spend.total - fx.savedExa) }
     : { claude, exa, total: claude + exa };
+  const handback =
+    finished && rec.state.handback
+      ? { ...rec.state.handback, shortfall: rec.state.handback.shortfall.replace(/^\d+(?= of \d+$)/, String(finishedLeads.length)) }
+      : undefined;
   return {
     id: session.id,
     createdAt: session.createdAt,
@@ -174,13 +228,13 @@ function snapshotAt(session: Session, rec: { state: RecordedState; events: Agent
     summary: finished ? rec.state.summary : undefined,
     spend,
     counters: { turns },
-    leads: finished ? rec.state.leads : leads,
+    leads: finished ? finishedLeads : leads,
     candidates: finished ? rec.state.candidates ?? [] : candidates,
     rejected: finished ? rec.state.rejected : rejected,
     // Same grouped shape as the live GET /api/runs/:id.
-    screened: screenedByCode({ screened: (rec.state.screened ?? []).filter((s) => finished || s.turn <= turns) }),
+    screened: screenedByCode({ screened: [...(rec.state.screened ?? []), ...fx.screened].filter((s) => finished || s.turn <= turns) }),
     todo,
-    handback: finished ? rec.state.handback : undefined,
+    handback,
     pendingApproval: session.status === "awaiting_approval" ? session.pending : undefined,
     events: consumed.slice(-50),
     demo: true as const,
@@ -195,6 +249,7 @@ export async function demoSnapshot(id: string) {
 export async function demoStep(id: string) {
   const [session, rec] = await Promise.all([loadSession(id), loadRecording()]);
   const taken: AgentEvent[] = [];
+  const fx = applySeen(rec, session.seen ?? {});
   if (session.status === "running") {
     await demoDelay();
     let sawModelCall = false;
@@ -207,7 +262,8 @@ export async function demoStep(id: string) {
       }
       if (next.kind === "model_call" && sawModelCall) break;
       if (next.kind === "model_call") sawModelCall = true;
-      taken.push(next);
+      const shown = fx.events[session.cursor];
+      if (shown) taken.push(shown);
       session.cursor += 1;
       if (next.kind === "approval_request") {
         session.status = "awaiting_approval";
@@ -222,7 +278,7 @@ export async function demoStep(id: string) {
       await appendRunToMemory({
         id: session.id,
         workspaceId: session.workspaceId,
-        leads: rec.state.leads,
+        leads: rec.state.leads.filter((l) => !(session.seen ?? {})[squashName(l.company)]),
         rejected: rec.state.rejected,
       } as unknown as RunState);
       session.memoryWritten = true;

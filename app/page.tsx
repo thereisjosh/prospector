@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { AgentEvent } from "../src/agent/events";
 import type { CardSet } from "../src/planner/cards";
 import { CardsStep, applyAlternative } from "./ui/CardsStep";
+import { MemoryPanel } from "./ui/Memory";
 import { RunView, type Decision, type FeedItem } from "./ui/RunView";
 import { allowanceLine, httpErrorMessage, screenedFrom, uniq, type AllowanceView, type HttpErrorKind, type Screened } from "./ui/copy";
 import {
@@ -413,6 +414,15 @@ export default function Page() {
     }
   }
 
+  async function forgetMemoryItem(itemId: string) {
+    try {
+      await api(`/api/workspaces/${encodeURIComponent(workspaceId)}/memory/items/${encodeURIComponent(itemId)}`, { method: "DELETE" });
+      await refreshMemory(workspaceId);
+    } catch {
+      setMemoryError(true);
+    }
+  }
+
   /* ---------- render ---------- */
 
   const runActive = step === "run" && (stepping || snapshot?.status === "running" || snapshot?.status === "awaiting_approval") && !pausedByUser;
@@ -452,7 +462,7 @@ export default function Page() {
           </ol>
         </nav>
 
-        <MemoryPanel memory={memory} error={memoryError} onClear={clearMemory} disabled={runActive} />
+        <MemoryPanel memory={memory} error={memoryError} onClear={clearMemory} onForget={forgetMemoryItem} disabled={runActive} />
 
         <div className="rail-foot">
           <button type="button" className="rail-link" onClick={() => setAboutOpen(true)}>
@@ -559,6 +569,7 @@ export default function Page() {
               busy={creating}
               error={createError}
               allowance={visitor}
+              rememberedCount={memory?.seenCount ?? 0}
               onRun={startRun}
               onBack={() => setStep("cards")}
             />
@@ -774,6 +785,8 @@ function ContractStep(props: {
   busy: boolean;
   error: string;
   allowance: AllowanceView | null;
+  /** Companies this workspace already remembers; in the demo, the recorded run skips them. */
+  rememberedCount: number;
   onRun: () => void;
   onBack: () => void;
 }) {
@@ -875,7 +888,13 @@ function ContractStep(props: {
         </p>
       </section>
 
-      {props.demo && <p className="demo-note">Demo: the run that follows is a recording, so changes here won't change it.</p>}
+      {props.demo && (
+        <p className="demo-note">
+          Demo: the run that follows is a recording, so changes here won't change it.
+          {props.rememberedCount > 0 &&
+            ` This workspace already remembers ${props.rememberedCount} compan${props.rememberedCount === 1 ? "y" : "ies"} from an earlier run, so the recording skips ${props.rememberedCount === 1 ? "it" : "them"}; clear memory to see the full run.`}
+        </p>
+      )}
       {props.error && <p className="inline-error" role="alert">{props.error}</p>}
 
       <div className="actions">
@@ -885,45 +904,6 @@ function ContractStep(props: {
         </button>
       </div>
     </div>
-  );
-}
-
-/* ---------- memory ---------- */
-
-function MemoryPanel({ memory, error, onClear, disabled }: { memory: MemoryView | null; error: boolean; onClear: () => void; disabled: boolean }) {
-  const [confirming, setConfirming] = useState(false);
-  const empty = memory && memory.seenCount === 0 && memory.preferenceNotes.length === 0;
-  return (
-    <details className="memory">
-      <summary>What I remember</summary>
-      {error ? (
-        <p className="memory-text">Couldn't load memory.</p>
-      ) : !memory ? (
-        <p className="memory-text">Loading…</p>
-      ) : empty ? (
-        <p className="memory-text">Nothing yet. After a run I skip companies you've already seen and keep your feedback.</p>
-      ) : (
-        <>
-          <p className="memory-text">
-            <b>{memory.seenCount}</b> compan{memory.seenCount === 1 ? "y" : "ies"} already seen. Future runs skip them.
-          </p>
-          {memory.preferenceNotes.length > 0 && (
-            <ul className="memory-notes">
-              {memory.preferenceNotes.slice(-5).map((n) => <li key={n}>{n}</li>)}
-            </ul>
-          )}
-          {confirming ? (
-            <div className="memory-confirm">
-              <span>Forget everything?</span>
-              <button type="button" className="rail-btn danger" onClick={() => { setConfirming(false); onClear(); }}>Clear</button>
-              <button type="button" className="rail-btn" onClick={() => setConfirming(false)}>Cancel</button>
-            </div>
-          ) : (
-            <button type="button" className="rail-btn" disabled={disabled} onClick={() => setConfirming(true)}>Clear memory</button>
-          )}
-        </>
-      )}
-    </details>
   );
 }
 

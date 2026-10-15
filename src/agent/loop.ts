@@ -115,6 +115,21 @@ function policySnapshot(state: RunState) {
   };
 }
 
+/** Counts and the ids of the preferences and notes recall() put in the first message. */
+function memoryRecalledPayload(state: RunState) {
+  const log = state.memoryRecall ?? [];
+  const of = (kind: "preference" | "note") => {
+    const items = log.filter((e) => e.kind === kind);
+    return { considered: items.length, included: items.filter((e) => e.included).length };
+  };
+  return {
+    seen: state.caches.seenKeys.length,
+    preferences: of("preference"),
+    notes: of("note"),
+    includedIds: log.filter((e) => e.included).map((e) => e.id),
+  };
+}
+
 function toolUses(response: Message): ToolUseBlock[] {
   return response.content.filter((block): block is ToolUseBlock => block.type === "tool_use");
 }
@@ -259,6 +274,11 @@ async function stepTurn(state: RunState, deps: LoopDeps): Promise<StepResult> {
   delete state.resumedFromDecision;
   state.counters.turns += 1;
   events.push(makeEvent(state, "policy", { scope: "loop", check: "limits", outcome: "pass", snapshot: policySnapshot(state) }));
+  if (state.memoryRecall && !state.memoryRecallEmitted) {
+    // Written once, on the run's first turn: which memories (by id) were put in front of the model.
+    state.memoryRecallEmitted = true;
+    events.push(makeEvent(state, "memory_recalled", memoryRecalledPayload(state)));
+  }
   try {
     const maxTokens = maxTokensForTurn(state);
     if (maxTokens === undefined) {
@@ -350,6 +370,8 @@ async function stepTurn(state: RunState, deps: LoopDeps): Promise<StepResult> {
           toolUseId: item.result.tool_use_id,
           latencyMs: item.latencyMs ?? 0,
           resultSummary: item.resultSummary ?? clipText(String(item.result.content ?? ""), 300),
+          // lookup_company skipped a company seen in an earlier run: when/what, and that the paid lookup was saved.
+          ...(item.seen ? { seen: item.seen, lookupSaved: true } : {}),
         }));
         if (item.verdictEvent) events.push(makeEvent(state, "submit_verdict", item.verdictEvent));
       }

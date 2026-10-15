@@ -25,6 +25,7 @@ export async function POST(request: Request, { params }: { params: { id: string 
       company: body.company,
       verdict: body.verdict,
       reason,
+      ...(typeof body.runId === "string" ? { runId: body.runId, signalUrl: String(body.signal_url) } : {}),
     });
     if (typeof body.runId === "string" && typeof body.signal_url === "string") {
       await recordLeadFeedback(params.id, body.runId, {

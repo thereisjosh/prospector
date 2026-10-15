@@ -154,14 +154,14 @@ Demo mode turns on with `DEMO_MODE=1` or when either key is missing (`src/demo/m
 | 5. Live run | Watches todo, spend meter, activity feed; can Stop | One model turn per request; leads appear as code accepts them |
 | 6. **Scope change** | **Approves, edits or declines** relaxing one constraint | The run pauses durably; code, not the model, edits the contract |
 | 7. Results | Leads with sources, "considered but not added" by reason, CSV | If short, a structured handback with ≤ 2 one-click card changes |
-| 8. Feedback | Rates leads 👍/👎 with a reason; can view or clear memory | Seen companies excluded next run; 👎 reasons go into the first message |
+| 8. Feedback | Rates leads 👍/👎 with a reason; can view or clear memory | Seen companies skipped next run (without paying for the lookup); 👎 reasons and the agent's own dated lessons go into the first message; every remembered item is listed with where it came from and can be forgotten one by one |
 
 ```
 Browser (app/page.tsx)                      Server: one HTTP request = one agent turn
 POST /api/runs ──────────────────────────▶ validate plan → runs/<id>/state.json
 POST /api/runs/:id/step  (repeat) ───────▶ lock run, load state (versioned)
                                            limits? budget / 30 turns / 6 min / 4 no-progress / target
-                                           messages.create(cached system + 8 tools, append-only history)
+                                           messages.create(cached system + 9 tools, append-only history)
                                            run tool_use blocks in parallel (≤6) ──▶ Exa (one CostGuard)
                                            submit_lead ──▶ checkLead (src/gates.ts)
                                            append tool_results, save state, append events.jsonl
@@ -172,11 +172,11 @@ status = awaiting_approval → POST /api/runs/:id/decision appends the tool_resu
 | Element | How it is built | Files |
 |---|---|---|
 | Loop | Hand-written tool-use loop on the stateless Messages API, one turn per `POST /step`; no framework (DECISIONS #1) | `src/agent/loop.ts`, `app/api/runs/[id]/step/route.ts` |
-| Orchestration | One agent, 8 narrow tools, up to 6 parallel calls per turn; no subagents (DECISIONS #3, #9) | `src/agent/tools.ts`, `src/agent/config.ts` |
+| Orchestration | One agent, 9 narrow tools, up to 6 parallel calls per turn; no subagents (DECISIONS #3, #9) | `src/agent/tools.ts`, `src/agent/config.ts` |
 | Context engineering | Stable cached system prompt; contract and memory in the first user message; append-only history; compact tool results | `src/agent/prompts.ts`, `docs/prompts.md`, `src/agent/state.ts` |
 | Guardrails | `checkLead` is the only definition of a lead, shared by both arms; combined $ cap via CostGuard; turn, time and no-progress limits | `src/gates.ts`, `src/exa.ts`, `src/agent/config.ts` |
 | Approval | Strategy and scope change pause the run as an unanswered `tool_use`; the decision is bound to its `toolUseId` | `app/api/runs/[id]/decision/route.ts`, `src/agent/loop.ts` |
-| Memory | Seen-company list enforced in code; 👎 reasons injected into the next run | `src/agent/memory.ts`, `app/api/workspaces/[id]/` |
+| Memory | Four homes by who may act on a fact: seen list enforced in code; 👎 feedback and the agent's own 60-day lessons (`remember`) ranked into the first message by one `recall()` seam, each with provenance, viewable and forgettable in the UI; working state in the run | `src/agent/memory.ts`, `src/agent/recall.ts`, `app/api/workspaces/[id]/`, `app/ui/Memory.tsx` |
 | Observability | One event per step with tokens, Claude and Exa cost, latency, prompt version | `src/agent/events.ts`, `runs/<id>/events.jsonl` |
 | Evals | Cell runner, blind pooling, Opus judge, scorer, simulated user | `eval/harness/`, `eval/RUBRIC.md`, `eval/truth/` |
 

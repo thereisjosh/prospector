@@ -83,7 +83,9 @@ const happyPath = () => [
   msg("tool_use", [tool("s", "search_signals", { query: "warehouse expansion", num_results: 10 })]),
   msg("tool_use", [tool("l", "lookup_company", { name: "GoodCo" })]),
   msg("tool_use", [tool("sub", "submit_lead", { company: "GoodCo", signal_url: "https://news.example/good", why_now: "opened warehouse" })]),
-  msg("tool_use", [tool("f", "finish", { summary: "done" })]),
+  msg("tool_use", [tool("f", "finish", { summary: "done" })]), // held once: offers `remember`
+  msg("tool_use", [tool("r", "remember", { text: "New-warehouse news surfaced mid-size operators.", tags: ["expansion", "warehouse"] })]),
+  msg("tool_use", [tool("f2", "finish", { summary: "done" })]),
 ];
 
 describe("driveRun", () => {
@@ -183,7 +185,7 @@ describe("driveRun", () => {
     await driveRun(saved, deps(client(...rest)), "auto", { log: () => undefined });
     expect(saved.status).toBe("done");
     expect(saved.leads.map((l) => l.company)).toEqual(["GoodCo"]);
-    expect(saved.counters.turns).toBe(5);
+    expect(saved.counters.turns).toBe(7); // strategy, search, lookup, submit, finish (held), remember, finish
     expect((await loadState(s.id)).status).toBe("done");
   });
 

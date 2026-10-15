@@ -20,6 +20,8 @@ import {
 import type { CompanySummary, ExaResult, ExaSearchResponse, SignalSummary } from "../types";
 import { readExaContents } from "./exa-contents";
 import type { LeadChecker } from "./gate-port";
+import { NOTE_TAG_LIMIT, NOTE_TEXT_LIMIT, NOTE_TTL_MS, type Note } from "./memory";
+import type { SeenInfo } from "./recall";
 import type { Handback, RunState } from "./state";
 
 export type ToolDeps = {
@@ -132,8 +134,14 @@ export function agentTools(): Anthropic.Tool[] {
       strict: true,
     },
     {
+      name: "remember",
+      description: "Save one reusable lesson from this search for future searches in this workspace: what worked, or what was a dead end, for THIS kind of search (an angle, a query style, a kind of source, a kind of company). Available only once the run has at least one accepted lead or a handback; at most 3 per run. `text`: one plain sentence, 240 characters or fewer, written as advice to your future self; no URLs, no company names other than companies this run decided on (accepted or rejected). `tags`: up to 6 short lowercase words that say when the lesson applies, such as the contract's question keys, event types, or industry words. Returns `saved` with how many of the 3 are used, or an error saying what to fix. Future runs see it with its date, as a hint to check, not a fact. Costs nothing but a turn's tokens.",
+      input_schema: objectSchema({ text: { type: "string" }, tags: { type: "array", items: { type: "string" } } }, ["text", "tags"]),
+      strict: true,
+    },
+    {
       name: "finish",
-      description: "End the run. Call it when the target is reached, or when the remaining candidates look poor and more searching is unlikely to pay off. Do not end with plain text instead. `summary`: 2-4 plain sentences for a non-technical user: what you found, which approaches worked, what was turned down and why. `handback`: required when fewer leads than the target were accepted, and it must be this structured object, never text: `shortfall` (e.g. \"6 of 10\"), `top_reasons` (at most 4 of {reason, count}, real counts from your lookups and rejections), `suggestions` (at most 2 of {field, value, why}; `value` is JSON-encoded like request_scope_change; use field `none` when no plan change would help). Returns `finished`; no further calls run.",
+      description: "End the run. Call it when the target is reached, or when the remaining candidates look poor and more searching is unlikely to pay off. Do not end with plain text instead. `summary`: 2-4 plain sentences for a non-technical user: what you found, which approaches worked, what was turned down and why. `handback`: required when fewer leads than the target were accepted, and it must be this structured object, never text: `shortfall` (e.g. \"6 of 10\"), `top_reasons` (at most 4 of {reason, count}, real counts from your lookups and rejections), `suggestions` (at most 2 of {field, value, why}; `value` is JSON-encoded like request_scope_change; use field `none` when no plan change would help). Returns `finished`; no further calls run. The first `finish` of a run that has a lead or a handback may instead return a one-time reminder to save lessons with `remember`; call `finish` again afterwards.",
       input_schema: objectSchema(
         {
           summary: { type: "string" },
@@ -412,6 +420,71 @@ function clipSummary(value: string): string {
   return value.length > SUMMARY_LIMIT ? `${value.slice(0, SUMMARY_LIMIT - 1)}…` : value;
 }
 
+export const REMEMBER_MAX_PER_RUN = 3;
+
+const URL_LIKE = /https?:\/\/|www\.|\b[a-z0-9-]+\.(?:com|net|org|io|ai|co|app|dev|biz|info|us|uk|sg|de|fr)\b/i;
+
+function stripCorporateSuffix(name: string): string {
+  return name.replace(/[,\s]+(?:inc|llc|ltd|limited|corp|corporation|co|company|group|plc|gmbh)\.?$/i, "").trim();
+}
+
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+/** Companies this run met but did not decide on (found in searches or lookups, never accepted or rejected). */
+function undecidedCompanies(state: RunState): string[] {
+  const decided = new Set([...state.leads.map((l) => l.company), ...state.rejected.map((r) => r.company)].map((n) => squashName(stripCorporateSuffix(n))));
+  const met = [
+    ...state.caches.candidateCompanies,
+    ...Object.values(state.caches.signalsByUrl).map((s) => s.summary.company_name),
+    ...(state.screened ?? []).map((s) => s.company),
+    ...(state.candidates ?? []).map((c) => c.company),
+  ];
+  const out = new Map<string, string>();
+  for (const name of met) {
+    const bare = stripCorporateSuffix(name);
+    const key = squashName(bare);
+    if (bare.length >= 3 && !decided.has(key)) out.set(key, bare);
+  }
+  return [...out.values()];
+}
+
+/** Validate a `remember` call. Everything the model might get wrong is rejected with a message it can act on. */
+export function validateNote(state: RunState, input: Record<string, unknown>): { ok: true; text: string; tags: string[] } | { ok: false; error: string } {
+  if (state.leads.length === 0 && !state.handback) return { ok: false, error: "remember is available once this run has an accepted lead or a handback" };
+  if ((state.notes?.length ?? 0) >= REMEMBER_MAX_PER_RUN) return { ok: false, error: `at most ${REMEMBER_MAX_PER_RUN} notes per run` };
+  const text = typeof input.text === "string" ? input.text.trim() : "";
+  if (!text) return { ok: false, error: "text is empty" };
+  if (text.length > NOTE_TEXT_LIMIT) return { ok: false, error: `text is ${text.length} characters; the limit is ${NOTE_TEXT_LIMIT}. Shorten it.` };
+  if (!Array.isArray(input.tags) || !input.tags.every((t) => typeof t === "string")) return { ok: false, error: "tags must be an array of strings" };
+  if (input.tags.length > NOTE_TAG_LIMIT) return { ok: false, error: `${input.tags.length} tags; the limit is ${NOTE_TAG_LIMIT}` };
+  const tags: string[] = [];
+  for (const raw of input.tags as string[]) {
+    const tag = raw.trim().toLowerCase();
+    if (!tag) continue;
+    if (tag.length > 40) return { ok: false, error: `tag "${tag.slice(0, 20)}…" is longer than 40 characters` };
+    if (!tags.includes(tag)) tags.push(tag);
+  }
+  if (URL_LIKE.test(text) || tags.some((t) => URL_LIKE.test(t))) return { ok: false, error: "no URLs or domain names in notes" };
+  const haystack = [text, ...tags].join(" \n ");
+  for (const name of undecidedCompanies(state)) {
+    if (new RegExp(`(^|[^a-z0-9])${escapeRegExp(name)}([^a-z0-9]|$)`, "i").test(haystack)) {
+      return { ok: false, error: `the note names "${name}", which this run neither accepted nor rejected. Describe the pattern without company names.` };
+    }
+  }
+  return { ok: true, text, tags };
+}
+
+const dateOnly = (at: string) => (at ? at.slice(0, 10) : "");
+
+/** "delivered on 2026-10-12 in an earlier run" */
+function seenPhrase(info: Pick<SeenInfo, "verdict" | "at">): string {
+  const what = info.verdict === "accepted" ? "delivered" : info.verdict === "rejected" ? "turned down" : "seen";
+  const when = dateOnly(info.at);
+  return `${what}${when ? ` on ${when}` : ""} in an earlier run`;
+}
+
 export type ToolExecution = {
   result: Anthropic.ToolResultBlockParam;
   exaCost: number;
@@ -422,7 +495,9 @@ export type ToolExecution = {
   acceptedLead?: boolean;
   newCandidate?: boolean;
   finish?: boolean;
-  verdictEvent?: { company: string; code: string; reason: string; ok: boolean };
+  verdictEvent?: { company: string; code: string; reason: string; ok: boolean; seen?: SeenInfo; lookupSaved?: boolean };
+  /** Set when lookup_company skipped a paid lookup because the company is in the workspace's seen list. */
+  seen?: SeenInfo;
 };
 
 export async function executeTool(
@@ -456,7 +531,8 @@ async function executeToolInner(
   let newCandidate = false;
   let finish = false;
   let exaCost = 0;
-  let verdictEvent: { company: string; code: string; reason: string; ok: boolean } | undefined;
+  let verdictEvent: ToolExecution["verdictEvent"];
+  let seenSkip: SeenInfo | undefined;
 
   try {
     const input = asRecord(tool.input);
@@ -519,6 +595,21 @@ async function executeToolInner(
       const skipped = Array.isArray(input.skipped_companies) ? input.skipped_companies.filter((v) => typeof v === "string") : [];
       state.adaptive.lookupsSkipped += skipped.length;
       const key = squashName(name);
+      if (key && state.caches.seenKeys.includes(key)) {
+        // Already seen in an earlier run: code would reject it at submit, so the paid lookup is saved.
+        const info: SeenInfo = state.caches.seenInfo?.[key] ?? { name, verdict: "unknown", at: "", runId: "" };
+        const phrase = seenPhrase(info);
+        const reason = "company was delivered or rejected in an earlier run";
+        const screened = (state.screened ??= []);
+        if (!screened.some((s) => squashName(s.company) === key && s.code === "already_seen")) {
+          screened.push({ company: name, code: "already_seen", reason, turn: state.counters.turns, stage: "lookup" });
+        }
+        seenSkip = info;
+        content = `${name} · Skipped without a lookup: ${phrase}. Do not submit it.`;
+        summary = `skipped_seen: ${name} · ${phrase}${skipped.length ? ` · skipped=${skipped.length}` : ""}`;
+        syncExaSpend(state, guard);
+        return { result: { type: "tool_result", tool_use_id: tool.id, content }, exaCost: 0, acceptedLead, newCandidate, finish, verdictEvent, seen: seenSkip, summary };
+      }
       let cached = state.caches.enrichmentByName[key];
       if (!cached) {
         const looked = await (deps.lookupCompany ?? lookupCompany)(
@@ -619,23 +710,47 @@ async function executeToolInner(
       } else {
         state.rejected.push({ company, code: verdict.code, reason: verdict.reason, turn: state.counters.turns });
         content = `rejected: ${verdict.code} — ${verdict.reason}`;
-        verdictEvent = { company, code: verdict.code, reason: verdict.reason, ok: false };
+        const seenInfo = verdict.code === "already_seen" ? state.caches.seenInfo?.[squashName(company)] : undefined;
+        verdictEvent = { company, code: verdict.code, reason: verdict.reason, ok: false, ...(seenInfo ? { seen: seenInfo, lookupSaved: false } : {}) };
       }
     } else if (tool.name === "update_todo") {
       state.todo = String(input.markdown ?? "");
       content = "ok";
+    } else if (tool.name === "remember") {
+      const checked = validateNote(state, input);
+      if (!checked.ok) throw new Error(checked.error);
+      const at = (deps.now ?? new Date()).toISOString();
+      const notes = (state.notes ??= []);
+      const note: Note = {
+        id: `note_${state.id}_${notes.length + 1}`,
+        text: checked.text,
+        tags: checked.tags,
+        runId: state.id,
+        at,
+        expiresAt: new Date(Date.parse(at) + NOTE_TTL_MS).toISOString(),
+      };
+      notes.push(note);
+      content = `saved (${notes.length} of ${REMEMBER_MAX_PER_RUN}). Future searches in this workspace will see it, dated, for 60 days.`;
+      summary = `remembered ${notes.length}/${REMEMBER_MAX_PER_RUN} · tags=${note.tags.join(",")} · ${note.text.slice(0, 120)}`;
     } else if (tool.name === "finish") {
       state.summary = String(input.summary ?? "");
       const handback = validHandback(input.handback);
       if (handback) state.handback = handback;
-      content = "finished";
-      summary = `finished${handback ? ` · handback shortfall=${handback.shortfall}` : input.handback !== undefined ? " · handback invalid" : ""}`;
-      finish = true;
+      if (!state.rememberNudged && (state.notes?.length ?? 0) === 0 && (state.leads.length > 0 || state.handback)) {
+        // One-time offer: the run is about to end without leaving a lesson. The summary and handback above are kept.
+        state.rememberNudged = true;
+        content = "Not finished yet. If this search taught you something reusable (what worked, or what was a dead end, for this kind of search), save it now with `remember` (at most 3). Then call `finish` again; if nothing is worth saving, just call `finish` again.";
+        summary = "finish held once: offered remember";
+      } else {
+        content = "finished";
+        summary = `finished${handback ? ` · handback shortfall=${handback.shortfall}` : input.handback !== undefined ? " · handback invalid" : ""}`;
+        finish = true;
+      }
     } else {
       throw new Error(`unknown tool: ${tool.name}`);
     }
     syncExaSpend(state, guard);
-    return { result: { type: "tool_result", tool_use_id: tool.id, content }, exaCost, acceptedLead, newCandidate, finish, verdictEvent, ...(summary !== undefined ? { summary } : {}) };
+    return { result: { type: "tool_result", tool_use_id: tool.id, content }, exaCost, acceptedLead, newCandidate, finish, verdictEvent, ...(seenSkip ? { seen: seenSkip } : {}), ...(summary !== undefined ? { summary } : {}) };
   } catch (error) {
     syncExaSpend(state, guard);
     exaCost ||= Math.max(0, guard.spent - beforeSpent);

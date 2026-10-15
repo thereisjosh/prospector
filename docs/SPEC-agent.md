@@ -102,7 +102,8 @@ What the model decides that the workflow cannot, each logged as an **adaptive ac
 | `update_todo(markdown)` | Replaces the agent's working checklist (shown live in the UI) | `ok` |
 | `propose_strategy(angles[], first_queries[], est_cost)` | **Required before any spend.** Pauses for user approval (§5a) | `approved` / `revised: <user note>` / `declined` |
 | `request_scope_change(change, reason, evidence)` | Asks to relax the contract (size, recency, geo, adjacent industry) or raise the budget. Pauses for approval | `approved` (contract updated by code) / `declined` |
-| `finish(summary, handback?)` | Ends the run; `handback` is required if fewer than N leads were accepted (§5) | — |
+| `remember(text, tags[])` | Saves a lesson for future runs (§6a); ≤ 3 per run, only once the run has a lead or handback; code validates it | `saved (n of 3)` or an error to fix |
+| `finish(summary, handback?)` | Ends the run; `handback` is required if fewer than N leads were accepted (§5). Held once with a reminder to `remember` | — |
 
 No other write actions exist. `submit_lead` is the only way a lead enters the results. The results table is built **only from code-accepted `submit_lead` records**, never from the model's final text (the output check). The model may issue several tool calls in one turn; the harness runs them in parallel and returns all results in one message (the parallelisation pattern, logged as calls per turn).
 
@@ -193,11 +194,41 @@ Also kept: server-only keys, per-IP rate limit, generic errors, http(s)-only lin
 
 ## 6a. Memory across runs
 
-Without memory, a second run for the same ICP returns the same leads, and the ones the user already rejected. So:
-- **Seen list:** companies delivered or rejected in earlier runs are excluded in code (`submit_lead` rejects `already_seen`), so every run is net-new.
-- **Preference notes:** the user's 👎 reasons, e.g. "e-commerce brand running its own warehouse, not a 3PL", are injected into the contract message of the next run. They are not written into the system prompt, so the cached prefix stays stable.
-- **Store:** `workspaces/<id>/memory.json` per anonymous workspace (no accounts). The user can view it and clear it from the UI.
-- **Kept:** company names, verdicts and reasons. **Not kept:** page text.
+Without memory, a second run for the same ICP returns the same leads, and the ones the user already rejected. The rule: **a fact lives in exactly one home, chosen by who may act on it.**
+
+| Home | What | Stored | Re-enters the run as | Who acts on it | Expires |
+|---|---|---|---|---|---|
+| Constraints | `seen[]`: every company delivered or rejected in an earlier run | `workspaces/<id>/memory.json` | `state.caches.seenKeys` (+ `seenInfo` for provenance), all of them, every run | **Code.** `lookup_company` skips a seen name without paying for the lookup; `submit_lead` rejects `already_seen` | Never |
+| Preferences | `preferences[]`: the user's 👍/👎 per company, with reason, run and signal URL | same file | first user message, "Notes from this user's earlier feedback" | **The model**, as advice | Only by supersession: a later feedback on the same company sets `supersededBy` on the earlier one (kept, not deleted) |
+| Episodic | `notes[]`: lessons the agent wrote with `remember` ("what worked / was dead for this kind of search") | same file | first user message, "From earlier runs in this workspace", each line dated | **The model**, as hints to check | `expiresAt`, default 60 days; list capped at 200 (expired first, then oldest) |
+| Working | todo, caches, this run's candidate list, this run's notes (`state.notes`) | `runs/<id>/state.json` | the append-only history | The model, this run only | End of run (notes are promoted to episodic when the run ends) |
+
+None of this touches the system prompt, so the cached prefix stays stable (§6).
+
+**Provenance on every item.** Each item has a stable `id` and the run it came from: `seen` carries `runId`, `at`, `signalUrl`, `leadIndex`; a preference carries `runId`, `signalUrl`, `at`; a note carries `runId`, `at`, `expiresAt`. The UI lists all three groups (GET `/api/workspaces/:id/memory`: last 50 seen, all active preferences, all unexpired notes) and forgets one item with DELETE `/api/workspaces/:id/memory/items/:itemId` (removes that item only). DELETE `/api/workspaces/:id/memory` still clears everything. Files written before this change load through a migration (`migrateMemory`): old `seen` items get ids; `preferenceNotes` strings in our own "User rejected X: why" format become preferences, any other string becomes a note.
+
+**Recall contract (`src/agent/recall.ts`).** The only way a run reads memory.
+
+```
+recall(memory, plan, { budgetTokens, now }) -> {
+  constraints: { seenKeys, seenInfo },            // all of seen; never ranked, never cut
+  prompt: { preferences: Preference[], notes: Note[] },
+  log: Array<{ id, kind: "preference" | "note", score, included }>
+}
+```
+
+- Preferences and notes are **ranked, not filtered**. `score = overlap + recency`. `overlap` is the number of distinct words an item shares with the plan: for a note its tags (each tag also matches whole, so `new_facility` matches the gate/signal key); for a preference its company and reason words. Plan words are the gate field keys, signal types, label, signal queries and the signal/company summary queries, lowercased, stop words and words under 3 letters dropped, trailing plural `s` stripped. `recency = 0.9 * 0.5^(ageDays / 30)`. Because recency is below 1, one shared word always beats any recency.
+- Expired notes and superseded preferences score 0 and are excluded. Remaining items are included best-first until the budget (`RECALL_BUDGET_TOKENS` = 800, estimated at 4 characters per token) is spent. If items exist the top one is always included, even if it alone exceeds the budget. Ties: feedback before self-notes, then newer.
+- The run stores `log` as `state.memoryRecall` and writes one `memory_recalled` event on its first turn (`seen` count, considered/included counts for preferences and notes, and `includedIds`), so a trace shows which memories shaped the run.
+- Callers: `app/api/runs/route.ts` and `eval/run-agent.ts` build the run with `createRunState({ recalled: recall(...) })`.
+
+**Expiry** is applied at read time inside `recall`, and by `compact(memory, now)` on every save. No background jobs. `seen` never expires; preferences end only by supersession; notes expire at `expiresAt` and the list is capped at 200.
+
+**Self-notes (`remember`).** At most 3 per run, only once the run has an accepted lead or a handback. Code checks: text 1-240 characters, at most 6 tags (lowercased, deduplicated), no URLs or domain names, and no company the run met in search or lookup but did not accept or reject. (Limit: the last check matches names the run actually saw; it cannot catch a company the model names from its own knowledge.) The first `finish` of a run that has a lead or handback and wrote no note is held once with a reminder; the second ends the run.
+
+- **Keeping the model honest:** recalled notes are labelled hints from earlier runs, dated, and the run still faces every gate.
+- **Store:** `workspaces/<id>/memory.json` per anonymous workspace (no accounts), read-modify-write under a file lock (`.memory.lock`), written atomically.
+- **Kept:** company names, verdicts, reasons, signal URLs, short lessons. **Not kept:** page text.
 
 ## 7. Observability
 

@@ -191,6 +191,35 @@ export function groupRejections(
   return [...groups.values()].sort((a, b) => b.items.length - a.items.length);
 }
 
+/* ---------- memory ---------- */
+
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+/** "12 Oct" from an ISO timestamp (UTC, so the server and the browser agree). Empty when unparseable. */
+export function shortDate(iso: unknown): string {
+  const t = typeof iso === "string" ? Date.parse(iso) : NaN;
+  if (Number.isNaN(t)) return "";
+  const d = new Date(t);
+  return `${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]}`;
+}
+
+/** "delivered 12 Oct" / "turned down 12 Oct" / "seen 12 Oct" */
+export function seenWhen(seen: { verdict?: unknown; at?: unknown }): string {
+  const verb = seen.verdict === "accepted" ? "delivered" : seen.verdict === "rejected" ? "turned down" : "seen";
+  const date = shortDate(seen.at);
+  return date ? `${verb} ${date}` : verb;
+}
+
+export const MEMORY_COPY = {
+  seenHeading: "Companies already seen",
+  feedbackHeading: "Your feedback",
+  learnedHeading: "What the agent learned",
+  forget: (what: string) => `Forget ${what}`,
+  empty: "Nothing yet. After a run I skip companies you've already seen and keep your feedback.",
+  latestOnly: (shown: number, total: number) => `Showing the latest ${shown} of ${total}.`,
+  expires: (iso: string) => `expires ${shortDate(iso)}`,
+} as const;
+
 /* ---------- activity feed ---------- */
 
 function rec(value: unknown): Record<string, unknown> {
@@ -237,6 +266,11 @@ export function eventLine(event: AgentEvent, contract?: ContractView): FeedLine 
       }
       if (event.tool === "lookup_company") {
         const name = str(input.name);
+        const seen = rec(event.seen);
+        // The company is in this workspace's memory: the paid lookup was skipped.
+        if (name && Object.keys(seen).length > 0) {
+          return { text: `Skipped ${name}, ${seenWhen(seen)} in an earlier run, lookup saved`, tone: "info" };
+        }
         const skipped = Array.isArray(input.skipped_companies) ? input.skipped_companies.filter((s): s is string => typeof s === "string") : [];
         const look = name ? `Looking up ${name}` : "Looking up a candidate company";
         const shown = skipped.length > 4 ? [...skipped.slice(0, 3), `${skipped.length - 3} more`] : skipped;
@@ -253,6 +287,9 @@ export function eventLine(event: AgentEvent, contract?: ContractView): FeedLine 
     case "submit_verdict": {
       const company = str(event.company) ?? "A company";
       if (event.ok === true) return { text: `Checked ${company}: fits. Added to your leads.`, tone: "good" };
+      if (event.code === "already_seen" && Object.keys(rec(event.seen)).length > 0) {
+        return { text: `Skipped ${company}, ${seenWhen(rec(event.seen))} in an earlier run`, tone: "info" };
+      }
       return { text: `Turned down ${company}: ${rejectionPhrase(String(event.code ?? ""), String(event.reason ?? ""), contract)}`, tone: "bad" };
     }
     case "approval_request":
@@ -456,7 +493,8 @@ export function screenedFrom(events: AgentEvent[]): Screened {
     if (event.kind !== "tool_call" || event.tool !== "lookup_company" || event.is_error === true) continue;
     const input = rec(event.input);
     const name = str(input.name);
-    if (name) lookedUp.push(name);
+    if (name && Object.keys(rec(event.seen)).length > 0) skipped.push(name); // skipped as already seen: never looked up
+    else if (name) lookedUp.push(name);
     if (Array.isArray(input.skipped_companies)) skipped.push(...input.skipped_companies.filter((v): v is string => typeof v === "string" && v.trim().length > 0));
   }
   return { skipped: uniq(skipped), lookedUp: uniq(lookedUp) };

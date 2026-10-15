@@ -27,6 +27,7 @@ import { clearMemory, saveMemory as saveMem } from "../src/agent/memory";
 import { resolveDataDirs } from "../src/agent/config";
 import type { LeadChecker } from "../src/agent/gate-port";
 import { appendRunToMemory, loadMemory, saveMemory, squashName } from "../src/agent/memory";
+import { RECALL_BUDGET_TOKENS, recall } from "../src/agent/recall";
 import { CostGuard, estimateExaCost, ReplayMissError } from "../src/exa";
 import { readExaContents } from "../src/agent/exa-contents";
 
@@ -156,6 +157,8 @@ describe("agent loop", () => {
       msg("tool_use", [tool("l", "lookup_company", { name: "GoodCo" })]),
       msg("tool_use", [tool("sub", "submit_lead", { company: "GoodCo", signal_url: "https://news.example/good", why_now: "opened warehouse" })]),
       msg("tool_use", [tool("f", "finish", { summary: "done" })]),
+      msg("tool_use", [tool("r", "remember", { text: "Warehouse-opening news surfaced mid-size operators.", tags: ["Expansion"] })]),
+      msg("tool_use", [tool("f2", "finish", { summary: "done" })]),
     );
     await step(s, { client: c as never, checkLead: checker, now: NOW });
     expect(s.status).toBe("awaiting_approval");
@@ -164,8 +167,13 @@ describe("agent loop", () => {
     await step(s, { client: c as never, checkLead: checker, now: NOW, exaSearch: vi.fn(async () => signalResult) as never });
     await step(s, { client: c as never, checkLead: checker, now: NOW, lookupCompany: vi.fn(async () => lookupResult) as never });
     await step(s, { client: c as never, checkLead: checker, now: NOW });
-    await step(s, { client: c as never, checkLead: checker, now: NOW });
+    await step(s, { client: c as never, checkLead: checker, now: NOW }); // finish: held once to offer remember
+    expect(s.status).toBe("running");
+    expect(s.rememberNudged).toBe(true);
+    await step(s, { client: c as never, checkLead: checker, now: NOW }); // remember
+    await step(s, { client: c as never, checkLead: checker, now: NOW }); // finish
     expect(s.status).toBe("done");
+    expect(s.notes?.map((n) => n.tags)).toEqual([["expansion"]]);
     expect(s.leads).toHaveLength(1);
     expect(s.leads[0]?.company).toBe("GoodCo");
     // The submit path stores the page evidence the gate checked, for the lead judge.
@@ -347,10 +355,10 @@ describe("agent loop", () => {
   it("memory feeds seen names, appends run outcomes, and preference notes enter the first message", async () => {
     await saveMemory("w", {
       seen: [{ name: "OldCo LLC", squashed: squashName("OldCo LLC"), verdict: "rejected", reason: "bad", runId: "old", at: NOW.toISOString() }],
-      preferenceNotes: ["avoid captive shippers"],
+      preferenceNotes: ["User rejected CaptiveCo: avoid captive shippers"],
     });
     const mem = await loadMemory("w");
-    const s = createRunState({ id: "memory-run", workspaceId: "w", plan: plan(), preferenceNotes: mem.preferenceNotes, seenKeys: mem.seen.map((m) => m.squashed) });
+    const s = createRunState({ id: "memory-run", workspaceId: "w", plan: plan(), recalled: recall(mem, plan(), { budgetTokens: RECALL_BUDGET_TOKENS, now: NOW }) });
     expect(JSON.stringify(s.messages[0])).toContain("avoid captive shippers");
     expect(s.caches.seenKeys).toContain(squashName("OldCo LLC"));
     s.leads.push({
@@ -451,7 +459,7 @@ describe("agent loop", () => {
   });
 
   it("A2b #5 finish stores valid handback without a second model call and invalid handback uses fallback", async () => {
-    const valid = state();
+    const valid = state({ rememberNudged: true });
     const validClient = client(msg("tool_use", [tool("finish", "finish", {
       summary: "done",
       handback: { shortfall: "0 of 10", top_reasons: [], suggestions: [{ field: "months", value: 6, why: "more signals" }] },
@@ -615,7 +623,7 @@ describe("agent loop", () => {
       await expect(clearMemory(bad)).rejects.toBeInstanceOf(InvalidIdError);
     }
     // valid shapes still work
-    await expect(loadMemory("ok_ws-1")).resolves.toEqual({ seen: [], preferenceNotes: [] });
+    await expect(loadMemory("ok_ws-1")).resolves.toMatchObject({ seen: [], preferences: [], notes: [], preferenceNotes: [] });
     const demoId = `demo-${crypto.randomUUID()}`;
     await expect(readLastEvents(demoId)).resolves.toEqual([]);
   });
@@ -729,7 +737,7 @@ describe("agent loop", () => {
     });
 
     it("stores a structured handback (value JSON decoded) without a second model call", async () => {
-      const s = state();
+      const s = state({ rememberNudged: true });
       const c = client(msg("tool_use", [tool("f", "finish", { summary: "done", handback: structured })]));
       await step(s, { client: c as never, checkLead: checker, now: NOW });
       expect(s.status).toBe("done");

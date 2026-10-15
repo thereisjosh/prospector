@@ -20,7 +20,8 @@ export type AgentEvent = {
     | "error"
     | "policy"
     | "turn_end"
-    | "feedback";
+    | "feedback"
+    | "memory_recalled";
   promptVersion: string;
   [key: string]: unknown;
 };

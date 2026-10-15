@@ -3,6 +3,7 @@ import type { AcceptedLead, Handback, RunStatus } from "../../src/agent/state";
 import type { SearchPlan } from "../../src/plan";
 import type { SellerProfile } from "../../src/planner/profile";
 import type { InstagramCandidate } from "../../src/planner/resolve";
+import type { Note, Preference, SeenItem } from "../../src/agent/memory";
 import type { ContractView } from "./copy";
 
 /** POST /api/planner/profile */
@@ -45,7 +46,15 @@ export type StepResponse = {
 
 export type Feedback = { verdict?: "up" | "down"; reason?: string; open?: boolean; sending?: boolean; sent?: boolean; error?: boolean };
 
-export type MemoryView = { seenCount: number; preferenceNotes: string[] };
+/** GET /api/workspaces/:id/memory: the lists themselves, newest first, with provenance. */
+export type MemoryView = {
+  /** Unique companies the gate skips (can exceed seen.length, which is the latest 50). */
+  seenCount: number;
+  seen: SeenItem[];
+  preferences: Preference[];
+  notes: Note[];
+  preferenceNotes: string[];
+};
 
 export type { SellerProfile, InstagramCandidate };
 

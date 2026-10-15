@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { InvalidIdError, assertWorkspaceId } from "../../../src/agent/ids";
 import { isAgentModel } from "../../../src/agent/config";
 import { loadMemory } from "../../../src/agent/memory";
+import { RECALL_BUDGET_TOKENS, recall } from "../../../src/agent/recall";
 import { releaseLiveRun, reserveLiveRun } from "../../../src/agent/quota";
 import { createRunState, saveState } from "../../../src/agent/state";
 import { validatePlan } from "../../../src/plan";
@@ -38,8 +39,8 @@ export async function POST(request: Request) {
         model: isAgentModel(body.model) ? body.model : undefined,
         targetLeads: clampTargetLeads(body.targetLeads),
         maxCostDollars: maxCost,
-        preferenceNotes: memory.preferenceNotes,
-        seenKeys: memory.seen.map((s) => s.squashed),
+        // Memory reaches the run only through recall(): all seen keys, plus the ranked preferences and notes.
+        recalled: recall(memory, validation.plan, { budgetTokens: RECALL_BUDGET_TOKENS, now: new Date() }),
       });
       await saveState(state);
       return NextResponse.json({ id: state.id });

@@ -9,6 +9,17 @@ import type { SearchPlan } from "../plan";
 import type { SignalEvidence } from "../evidence";
 import type { CompanySummary, SignalSummary } from "../types";
 import type { GateCode } from "../gates";
+import { renderPreference, type Note } from "./memory";
+import { renderNote, type RecallLogEntry, type RecallResult, type SeenInfo } from "./recall";
+
+export type Contract = SearchPlan & {
+  targetLeads: number;
+  maxCostDollars: number;
+  /** Recalled preferences, rendered ("User rejected X: why"). */
+  preferenceNotes: string[];
+  /** Recalled episodic notes, rendered with their date ("2026-10-12: text"). */
+  recalledNotes?: string[];
+};
 
 export type AcceptedLead = {
   company: string;
@@ -49,9 +60,9 @@ export type RunState = {
   createdAt: string;
   workspaceId: string;
   model: AgentModel;
-  contract: SearchPlan & { targetLeads: number; maxCostDollars: number; preferenceNotes: string[] };
+  contract: Contract;
   /** Deep copy of the contract at creation, so the UI can show what scope changes altered. */
-  initialContract?: SearchPlan & { targetLeads: number; maxCostDollars: number; preferenceNotes: string[] };
+  initialContract?: Contract;
   messages: Anthropic.MessageParam[];
   status: RunStatus;
   stopReason?: string;
@@ -80,6 +91,14 @@ export type RunState = {
     requestedAt?: string;
   };
   handback?: Handback;
+  /** What recall() returned for this run (src/agent/recall.ts): every preference and note considered, with score and whether it was included. */
+  memoryRecall?: RecallLogEntry[];
+  /** Whether the `memory_recalled` event has been written. */
+  memoryRecallEmitted?: boolean;
+  /** Self-notes written with `remember` this run (working memory); promoted to the workspace's notes when the run ends. */
+  notes?: Note[];
+  /** `finish` was held back once to offer `remember`. */
+  rememberNudged?: boolean;
   adaptive: { queryRewrites: number; lookupsSkipped: number; verificationReads: number };
   caches: {
     signalsByUrl: Record<string, { url: string; title?: string; text?: string; publishedDate?: string; summary: SignalSummary }>;
@@ -87,6 +106,8 @@ export type RunState = {
     candidateCompanies: string[];
     searchQueries: string[];
     seenKeys: string[];
+    /** Provenance for seenKeys (when each company was seen, and the verdict). Absent on runs created before 2026-10-15. */
+    seenInfo?: Record<string, SeenInfo>;
   };
 };
 
@@ -95,6 +116,8 @@ export function createRunState(args: {
   workspaceId: string;
   plan: SearchPlan;
   preferenceNotes?: string[];
+  /** The run's memory, as returned by recall(). Replaces preferenceNotes/seenKeys when given. */
+  recalled?: RecallResult;
   model?: AgentModel;
   targetLeads?: number;
   maxCostDollars?: number;
@@ -106,7 +129,8 @@ export function createRunState(args: {
     ...args.plan,
     targetLeads: args.targetLeads ?? DEFAULT_LIMITS.targetLeads,
     maxCostDollars: args.maxCostDollars ?? DEFAULT_LIMITS.maxCostDollars,
-    preferenceNotes: args.preferenceNotes ?? [],
+    preferenceNotes: args.recalled ? args.recalled.prompt.preferences.map(renderPreference) : args.preferenceNotes ?? [],
+    ...(args.recalled && args.recalled.prompt.notes.length > 0 ? { recalledNotes: args.recalled.prompt.notes.map(renderNote) } : {}),
   };
   return {
     id: args.id,
@@ -126,13 +150,15 @@ export function createRunState(args: {
     rejected: [],
     screened: [],
     todo: "",
+    ...(args.recalled ? { memoryRecall: args.recalled.log } : {}),
     adaptive: { queryRewrites: 0, lookupsSkipped: 0, verificationReads: 0 },
     caches: {
       signalsByUrl: {},
       enrichmentByName: {},
       candidateCompanies: [],
       searchQueries: [],
-      seenKeys: args.seenKeys ?? [],
+      seenKeys: args.recalled ? args.recalled.constraints.seenKeys : args.seenKeys ?? [],
+      ...(args.recalled ? { seenInfo: args.recalled.constraints.seenInfo } : {}),
     },
   };
 }

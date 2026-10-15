@@ -24,6 +24,7 @@ import { AGENT_MODELS, isAgentModel, RUNS_DIR, type AgentModel } from "../src/ag
 import type { AgentEvent } from "../src/agent/events";
 import { decide, step, type LoopDeps } from "../src/agent/loop";
 import { loadMemory } from "../src/agent/memory";
+import { RECALL_BUDGET_TOKENS, recall } from "../src/agent/recall";
 import { createRunState, loadState, saveState, screenedByCode, type RunState } from "../src/agent/state";
 import { checkLead } from "../src/gates";
 import { validatePlan, type SearchPlan } from "../src/plan";
@@ -284,8 +285,7 @@ async function main() {
       model: resolveModel(args.model),
       targetLeads: args.target ? Number(args.target) : undefined,
       maxCostDollars: Math.min(5, args["max-cost"] ? Number(args["max-cost"]) : 1),
-      preferenceNotes: memory.preferenceNotes,
-      seenKeys: memory.seen.map((s) => s.squashed),
+      recalled: recall(memory, plan, { budgetTokens: RECALL_BUDGET_TOKENS, now: new Date() }),
     });
     await saveState(state);
     console.log(
