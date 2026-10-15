@@ -167,6 +167,14 @@ Also fixed: Exa 429s under load (aac0a20: ≤ 4 in flight, jittered retry); an u
 - **Evidence:** Verst is on the same signal URL in all 3 pilot agent reps and in this run; the quote gates were new and did not change the outcome. 1 of 13 leads, so the rate is unmeasured (n too small for the 98% bar).
 - **Earlier:** a check that a quoted size is corroborated by a second source, run at submit time, would have flagged this lead. A replay cannot show it: the recorded lookups hold one source per company.
 
+## 24. Quota lock timed out under 20 concurrent writers on a slow CI runner (fixed deadline, no backoff) [measured]
+
+- **Symptom:** 2026-10-15 GitHub Actions (ubuntu, vitest): `eval/quota-lock.test.ts > 20 concurrent addVisitorSpend` failed with `LockTimeoutError` after 2100 ms. Green on the developer's Mac.
+- **Layer:** infra/concurrency. **Cause:** `withFileLock` had a fixed 2 s deadline, a flat 5-25 ms random poll (no backoff), and every in-process waiter polled the disk (open + stat) through the shared 4-thread libuv pool. Under load the pollers queued ahead of the holder's own release `rm`, so each hand-off cost far more than the ~6 fs ops of the critical section, and waiters were unordered so one could starve. Worst case: 20 holders x (6 ops x t_op + poll gap ~17 ms mean) must fit in 2 s; at 10x slower fs (t_op ~3 ms) that is 20 x ~35 ms = 0.7 s on paper, but the contended pool pushed hand-off to ~100 ms (2100 ms / 20), so the deadline was exceeded. Stale detection (10 s by mtime alone) could also have reclaimed a slow but live holder.
+- **Fix:** in-process FIFO queue per lock path (waiters no longer touch the disk); disk lock records pid+timestamp+token, waits with exponential backoff and jitter (5 to 100 ms), default deadline 10 s (quota passes 15 s explicitly), stale only when older than 30 s AND the pid is dead, release only if the token is still ours, always in finally.
+- **Test:** `eval/quota-lock.test.ts` (20 concurrent spend with no `LockTimeoutError`; 50 writers x 50 ms past the old deadline; 50 writers behind an external holder; dead/alive/fresh stale cases; backoff bounds).
+- **Earlier:** a stress test with an artificially slowed critical section would have exceeded the 2 s deadline on any machine.
+
 ## What we would monitor weekly
 
 Extends SPEC-agent §14; a breach rolls back one stage.

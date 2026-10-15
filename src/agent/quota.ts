@@ -16,6 +16,9 @@ export type VisitorAllowance = {
   remainingDollars: number;
 };
 
+/** A queued request waiting is better than a 500; far above 20 writers x slow-runner I/O. */
+export const QUOTA_LOCK_DEADLINE_MS = 15_000;
+
 const EMPTY: VisitorQuota = { liveRuns: 0, spentDollars: 0 };
 
 export function visitorRunLimit(): number {
@@ -51,9 +54,11 @@ export async function saveQuota(workspaceId: string, quota: VisitorQuota): Promi
   await writeFileAtomic(quotaPath(workspaceId), JSON.stringify(quota, null, 2));
 }
 
-/** Serialises every quota mutation for one workspace (O_EXCL lock file, 10 s stale, ~2 s retry). */
+/** Serialises every quota mutation for one workspace (FIFO in-process queue + O_EXCL lock file, 15 s deadline, 30 s stale). */
 export function withQuotaLock<T>(workspaceId: string, fn: () => Promise<T>): Promise<T> {
-  return withFileLock(join(WORKSPACES_DIR, assertWorkspaceId(workspaceId), ".quota.lock"), fn);
+  return withFileLock(join(WORKSPACES_DIR, assertWorkspaceId(workspaceId), ".quota.lock"), fn, {
+    deadlineMs: QUOTA_LOCK_DEADLINE_MS,
+  });
 }
 
 export function remainingAllowance(quota: VisitorQuota): VisitorAllowance {
