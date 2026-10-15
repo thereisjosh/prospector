@@ -80,6 +80,8 @@ export type RunState = {
   screened?: ScreenedCompany[];
   /** Turns in which a lookup found no reliable company page (counts as trouble for the rewrite counter). */
   lookupMisses?: number[];
+  /** Squashed names of companies whose lookup was already retried once this run (quote or network); the cap is one per company. */
+  lookupRetries?: string[];
   todo: string;
   pendingApproval?: {
     toolUseId: string;

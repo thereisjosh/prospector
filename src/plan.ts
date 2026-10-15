@@ -351,13 +351,13 @@ export function composeCompanySummaryQuery(
   plan: Pick<SearchPlan, "companySummaryQuery" | "gateFields">,
 ): string {
   const source =
-    " For employee_estimate_source, quote the exact phrase from the page that the employee estimate came from " +
-    '(e.g. "350 employees"), or an empty string if no page states a headcount.' +
+    " For employee_estimate_source, quote the phrase that contains the number exactly as written on the page " +
+    `(e.g. "Employees: 281"), or an empty string if no page states a headcount.` +
     " For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated." +
     QUOTE_RULE;
   if (plan.gateFields.length === 0) return `${plan.companySummaryQuery}${source}`;
   const gates = plan.gateFields
-    .map((g) => `${g.key} (true/false/null): ${g.question} ${g.key}_quote: copy the exact phrase or sentence from the page that supports the answer; use "" when the page does not state it.`)
+    .map((g) => `${g.key} (true/false/null): ${g.question} ${g.key}_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use "" and set the gate to null.`)
     .join(" ");
   return `${plan.companySummaryQuery}${source} Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. ${gates}`;
 }

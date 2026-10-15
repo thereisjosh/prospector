@@ -4,6 +4,7 @@ import {
   parseEmployeeEstimate,
   quoteInText,
   quoteMatch,
+  headcountQuoteInText,
   resolveEventDate,
   sizeQuoteSupports,
   squashName,
@@ -373,9 +374,65 @@ describe("quoteInText", () => {
     expect(quoteMatch("Acme Robotics has opened a new plant ... hire two hundred workers by spring", page).ok).toBe(true);
     expect(quoteMatch("hire two hundred workers by spring ... Acme Robotics has opened a new plant", page).ok).toBe(false);
   });
+  it("memory eval 2026-10-15 XDP: a short piece before an ellipsis is not glued to the text after it", () => {
+    const page = "XDP is a leading parcel network. XDP LTD employs 263 people (+4.4% YoY, +11 people), founded in 1995. Headquartered in Curdworth, England, United Kingdom, with offices in Tamworth and Minworth. Its workforce is distributed across United Kingdom, Hong Kong, and Nepal.";
+    const q = "XDP LTD employs 263 people (+4.4% YoY, +11 people) ... with offices in Tamworth and Minworth. Its workforce is distributed across United Kingdom, Hong Kong, and Nepal.";
+    expect(quoteMatch(q, page)).toEqual({ ok: true });
+  });
+  it("an ellipsis still does not license reordering, distance, or text that is not on the page", () => {
+    const page = "XDP LTD employs 263 people (+4.4% YoY, +11 people), founded in 1995. Headquartered in Curdworth, with offices in Tamworth and Minworth.";
+    expect(quoteMatch("with offices in Tamworth and Minworth ... XDP LTD employs 263 people (+4.4% YoY, +11 people)", page).ok).toBe(false);
+    expect(quoteMatch("XDP LTD employs 263 people (+4.4% YoY, +11 people) ... with offices in Paris and Lyon", page).ok).toBe(false);
+    const far = "XDP LTD employs 263 people (+4.4% YoY, +11 people). " + "y".repeat(700) + " with offices in Tamworth and Minworth.";
+    expect(quoteMatch("XDP LTD employs 263 people (+4.4% YoY, +11 people) ... with offices in Tamworth and Minworth", far).ok).toBe(false);
+  });
+  it("a part that is itself under the clause floor is too_short, not merged across the ellipsis", () => {
+    expect(quoteMatch("The company opened a brand new facility ... people", "The company opened a brand new facility and hired people")).toEqual({ ok: false, reason: "too_short" });
+    // the same part is fine under the short-quote options used for dates and headcounts
+    expect(quoteMatch("opened\u2026 on Friday, October 9", "She opened the plant on Friday, October 9", { minSegment: 6, minTotal: 6 }).ok).toBe(true);
+  });
+  it("memory eval 2026-10-15 rejects that stay rejected (not verbatim page text)", () => {
+    const soag = "Southern Ag Carriers, Inc is a Truck Transportation company. SOAG CARRIERS is a logistics company that provides agricultural transportation and refrigerated transport services. They offer nationwide logistics and are dedicated to providing the highest quality agricultural logistics and refrigerated transport services.";
+    expect(quoteMatch("SOAG CARRIERS is a logistics company that provides agricultural transportation and refrigerated transport services; nationwide logistics and dedicated to providing the highest quality agricultural logistics and refrigerated transport services.", soag).ok).toBe(false);
+    const cleveland = "Cleveland Group is a transportation, logistics and storage company.";
+    expect(quoteMatch("The page describes Cleveland as a transportation, logistics and storage company; it does not state it operates as a third-party logistics provider.", cleveland).ok).toBe(false);
+    const duie = "A. Duie Pyle (Pyle), a premier, 102-year-old family-owned and operated provider of asset and non-asset-based supply chain solutions, today announces the opening of a new warehouse facility in Camp Hill, Pennsylvania.";
+    expect(quoteMatch("A. Duie Pyle today announces the opening of a new warehouse facility in Camp Hill, Pennsylvania.", duie).ok).toBe(false);
+    expect(quoteMatch("281 employees", "Workforce - Employees: 281 - Company Size: 201-500", { minSegment: 6, minTotal: 6 }).ok).toBe(false);
+    expect(quoteMatch("281", "Employees: 281", { minSegment: 6, minTotal: 6 })).toEqual({ ok: false, reason: "too_short" });
+  });
   it("rejects too-short and empty quotes", () => {
     expect(quoteMatch("300 people.", "300 people.")).toEqual({ ok: false, reason: "too_short" });
     expect(quoteMatch("  --- ", "x")).toEqual({ ok: false, reason: "empty" });
+  });
+});
+
+describe("headcountQuoteInText (employee_estimate_source)", () => {
+  it("a bare number passes when the page has it next to an employee word", () => {
+    expect(headcountQuoteInText("281", "## Workforce - Employees: 281 - Company Size: 201-500")).toBe("number_adjacent");
+    expect(headcountQuoteInText("281 employees", "Workforce - Employees: 281")).toBe("number_adjacent");
+    expect(headcountQuoteInText("1,560 staff", "A. Duie Pyle employs 1,560 people")).toBe("number_adjacent");
+  });
+  it("fails when the number is not near an employee word, or is part of a larger number", () => {
+    expect(headcountQuoteInText("281", "The fleet has 281 trucks and 40 depots across the region and beyond.")).toBeUndefined();
+    expect(headcountQuoteInText("281", "Employees: 2810")).toBeUndefined();
+    expect(headcountQuoteInText("281", "Employees: 1281")).toBeUndefined();
+    expect(headcountQuoteInText("281", "Employees: 3.281")).toBeUndefined();
+  });
+  it("a phrase quote still goes through the general matcher", () => {
+    expect(headcountQuoteInText("SpartanCo employs 281 people", "x SpartanCo employs 281 people (+2.2% YoY)")).toBe("phrase");
+    expect(headcountQuoteInText("SpartanCo employs 999 people", "SpartanCo employs 281 people")).toBeUndefined();
+  });
+  it("checkLead records size_quote_match and rejects a bare number with no employee word", () => {
+    const page = (size: string) => `Columbus, Ohio, United States. third party logistics provider. ${size}`;
+    const enrichment = { ...lead().enrichment, employee_estimate: 281, employee_estimate_source: "281" };
+    const good = checkLead(plan(), lead({ enrichment, lookupText: page("Workforce - Employees: 281") }));
+    expect(good.ok && good.details.size_quote_match).toBe("number_adjacent");
+    const phrase = checkLead(plan(), lead({ enrichment: { ...enrichment, employee_estimate_source: "281 people" }, lookupText: page("SpartanCo has 281 people") }));
+    expect(phrase.ok && phrase.details.size_quote_match).toBe("phrase");
+    const bad = checkLead(plan(), lead({ enrichment, lookupText: page("Fleet: 281 trucks") }));
+    expect(bad.ok).toBe(false);
+    expect(!bad.ok && bad.code).toBe("quote_not_in_page");
   });
 });
 

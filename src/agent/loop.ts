@@ -394,6 +394,7 @@ async function stepTurn(state: RunState, deps: LoopDeps): Promise<StepResult> {
           // lookup_company skipped a company seen in an earlier run: when/what, and that the paid lookup was saved.
           ...(item.seen ? { seen: item.seen, lookupSaved: true } : {}),
         }));
+        if (item.lookupRetry) events.push(makeEvent(state, "lookup_retry", { toolUseId: item.result.tool_use_id, ...item.lookupRetry }));
         if (item.verdictEvent) events.push(makeEvent(state, "submit_verdict", item.verdictEvent));
       }
       if (approval) {

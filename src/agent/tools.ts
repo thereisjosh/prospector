@@ -2,13 +2,15 @@ import { createHash } from "node:crypto";
 import type { SearchPlan } from "../plan";
 import type Anthropic from "@anthropic-ai/sdk";
 import {
+  BudgetExceededError,
   CostGuard,
+  ExaNetworkError,
   exaSearch,
   lookupCompany,
   type ExaCredentials,
 } from "../exa";
 import { signalEvidence } from "../evidence";
-import { squashName } from "../gates";
+import { quoteInText, squashName } from "../gates";
 import {
   buildCompanySchema,
   buildSignalSchema,
@@ -372,6 +374,43 @@ export function validHandback(value: unknown): Handback | undefined {
   return { shortfall: r.shortfall, top_reasons, suggestions };
 }
 
+type LookupEval = { rank: 0 | 1 | 2; failure?: { code: string; reason: string; details?: Record<string, unknown> } };
+const RANK_LABEL = ["rejected", "candidate", "accepted"] as const;
+
+/**
+ * Run the gates submit_lead would on every known signal for this company.
+ * rank: 2 = some signal is accepted, 1 = best is candidate tier, 0 = all rejected.
+ * Undefined when the company has no known signal (nothing to gate yet).
+ */
+function evaluateAtLookup(
+  state: RunState,
+  name: string,
+  key: string,
+  cached: { summary: CompanySummary; url?: string; result?: unknown },
+  deps: ToolDeps,
+): LookupEval | undefined {
+  const signals = Object.values(state.caches.signalsByUrl).filter((s) => squashName(s.summary.company_name) === key);
+  if (signals.length === 0) return undefined;
+  let rank: 0 | 1 | 2 = 0;
+  let firstFailure: LookupEval["failure"];
+  for (const signal of signals) {
+    const verdict = deps.checkLead(state.contract, {
+      company: name,
+      signal,
+      enrichment: cached.summary,
+      companyUrl: cached.url,
+      lookupText: typeof (cached.result as { text?: unknown } | undefined)?.text === "string" ? (cached.result as { text: string }).text : undefined,
+      now: deps.now ?? new Date(),
+      seen: new Set(state.caches.seenKeys),
+      submitted: new Set(state.leads.map((lead) => squashName(lead.company))),
+    });
+    if (verdict.ok) return { rank: 2 };
+    if (verdict.tier === "candidate") rank = 1;
+    firstFailure ??= { code: verdict.code, reason: verdict.reason, ...(verdict.details ? { details: verdict.details } : {}) };
+  }
+  return { rank, failure: firstFailure };
+}
+
 /**
  * After a lookup, run the same gates submit_lead would on every known signal for
  * this company. If none passes, record why in state.screened (once per code) and
@@ -384,28 +423,43 @@ function screenAtLookup(
   cached: { summary: CompanySummary; url?: string; result?: unknown },
   deps: ToolDeps,
 ): string {
-  const signals = Object.values(state.caches.signalsByUrl).filter((s) => squashName(s.summary.company_name) === key);
-  if (signals.length === 0) return "";
-  let firstFailure: { code: string; reason: string } | undefined;
-  for (const signal of signals) {
-    const verdict = deps.checkLead(state.contract, {
-      company: name,
-      signal,
-      enrichment: cached.summary,
-      companyUrl: cached.url,
-      lookupText: typeof (cached.result as { text?: unknown } | undefined)?.text === "string" ? (cached.result as { text: string }).text : undefined,
-      now: deps.now ?? new Date(),
-      seen: new Set(state.caches.seenKeys),
-      submitted: new Set(state.leads.map((lead) => squashName(lead.company))),
-    });
-    if (verdict.ok) return "";
-    firstFailure ??= { code: verdict.code, reason: verdict.reason };
-  }
+  const evaluated = evaluateAtLookup(state, name, key, cached, deps);
+  if (!evaluated || evaluated.rank === 2 || !evaluated.failure) return "";
+  const firstFailure = evaluated.failure;
   const screened = (state.screened ??= []);
-  if (!screened.some((s) => squashName(s.company) === key && s.code === firstFailure!.code)) {
-    screened.push({ company: name, code: firstFailure!.code, reason: firstFailure!.reason, turn: state.counters.turns, stage: "lookup" });
+  if (!screened.some((s) => squashName(s.company) === key && s.code === firstFailure.code)) {
+    screened.push({ company: name, code: firstFailure.code, reason: firstFailure.reason, turn: state.counters.turns, stage: "lookup" });
   }
-  return `Would be rejected: ${firstFailure!.code} — ${firstFailure!.reason}`;
+  return `Would be rejected: ${firstFailure.code} — ${firstFailure.reason}`;
+}
+
+/**
+ * The first REQUIRED gate that the lookup claims is true whose quote is not on the
+ * lookup page. Not size/hq (their own rules), and not a truncated page (that is a
+ * candidate, not a verdict). A gate answered false or null needs no quote to fail.
+ */
+function failedRequiredGateQuote(state: RunState, summary: CompanySummary, text: string | undefined): string | undefined {
+  if (!text || summary.lookup_text_truncated === true) return undefined;
+  for (const gate of state.contract.gateFields) {
+    if (!gate.required || summary[gate.key] !== true) continue;
+    const quote = summary[`${gate.key}_quote`];
+    if (typeof quote === "string" && quote.trim() && !quoteInText(quote, text)) return gate.key;
+  }
+  return undefined;
+}
+
+/** Rank a lookup for the keep-the-better rule: accepted 2 > candidate 1 > rejected 0. */
+function lookupRank(
+  state: RunState,
+  name: string,
+  key: string,
+  cached: { summary: CompanySummary; url?: string; result?: unknown },
+  deps: ToolDeps,
+): 0 | 1 | 2 {
+  const evaluated = evaluateAtLookup(state, name, key, cached, deps);
+  if (evaluated) return evaluated.rank;
+  const text = (cached.result as { text?: unknown } | undefined)?.text;
+  return failedRequiredGateQuote(state, cached.summary, typeof text === "string" ? text : undefined) ? 0 : 2;
 }
 
 const SUMMARY_LIMIT = 300;
@@ -498,6 +552,20 @@ export type ToolExecution = {
   verdictEvent?: { company: string; code: string; reason: string; ok: boolean; seen?: SeenInfo; lookupSaved?: boolean };
   /** Set when lookup_company skipped a paid lookup because the company is in the workspace's seen list. */
   seen?: SeenInfo;
+  /** Set when lookup_company ran its one retry for this company (quote or network); the loop emits it as a `lookup_retry` event. */
+  lookupRetry?: LookupRetryEvent;
+};
+
+export type LookupRetryEvent = {
+  company: string;
+  reason: "quote_not_in_page" | "network";
+  /** The required gate whose quote was missing (quote retries only), or the transport error code (network retries). */
+  key: string;
+  before: "accepted" | "candidate" | "rejected" | "error";
+  after: "accepted" | "candidate" | "rejected" | "ok" | "error";
+  outcome: "kept_retry" | "kept_first" | "recovered" | "retry_failed" | "skipped_budget";
+  retryExaCost: number;
+  error?: string;
 };
 
 export async function executeTool(
@@ -533,6 +601,7 @@ async function executeToolInner(
   let exaCost = 0;
   let verdictEvent: ToolExecution["verdictEvent"];
   let seenSkip: SeenInfo | undefined;
+  let lookupRetry: LookupRetryEvent | undefined;
 
   try {
     const input = asRecord(tool.input);
@@ -612,26 +681,87 @@ async function executeToolInner(
       }
       let cached = state.caches.enrichmentByName[key];
       if (!cached) {
-        const looked = await (deps.lookupCompany ?? lookupCompany)(
-          name,
-          composeCompanySummaryQuery(state.contract),
-          buildCompanySchema(state.contract),
-          deps.credentials,
-          guard,
-        );
+        const summaryQuery = composeCompanySummaryQuery(state.contract);
+        const schema = buildCompanySchema(state.contract);
+        const lookup = deps.lookupCompany ?? lookupCompany;
+        const run = (quoteRetry: boolean) =>
+          quoteRetry
+            ? lookup(name, summaryQuery, schema, deps.credentials, guard, { quoteRetry: true })
+            : lookup(name, summaryQuery, schema, deps.credentials, guard);
+        // One automatic retry per company per run, whichever kind (network or quote) uses it first.
+        const retried = (state.lookupRetries ??= []);
+        let looked: Awaited<ReturnType<typeof lookupCompany>>;
+        try {
+          looked = await run(false);
+        } catch (error) {
+          if (!(error instanceof ExaNetworkError) || retried.includes(key)) throw error;
+          retried.push(key);
+          try {
+            looked = await run(false);
+            lookupRetry = { company: name, reason: "network", key: error.detail, before: "error", after: "ok", outcome: "recovered", retryExaCost: actualCost(looked), error: error.message };
+          } catch (second) {
+            const message = second instanceof Error ? second.message : String(second);
+            lookupRetry = { company: name, reason: "network", key: error.detail, before: "error", after: "error", outcome: "retry_failed", retryExaCost: 0, error: message };
+            throw second instanceof ExaNetworkError ? new Error(`${message} (retried once, failed again)`) : second;
+          }
+        }
         exaCost = actualCost(looked);
         if (!companyResultMatches(name, looked.result, looked.summary as CompanySummary)) {
           (state.lookupMisses ??= []).push(state.counters.turns);
           content = `No reliable company page found for ${name}; try read_page on its site or submit with a different name`;
           summary = `no_match: ${name}${looked.result?.url ? ` · ${looked.result.url}` : ""}`;
           syncExaSpend(state, guard);
-          return { result: { type: "tool_result", tool_use_id: tool.id, content }, exaCost, acceptedLead, newCandidate, finish, verdictEvent, summary };
+          return { result: { type: "tool_result", tool_use_id: tool.id, content }, exaCost, acceptedLead, newCandidate, finish, verdictEvent, summary, ...(lookupRetry ? { lookupRetry } : {}) };
         }
-        cached = {
+        let chosen = {
           result: looked.result,
           summary: looked.summary as CompanySummary,
           url: looked.result?.url,
         };
+        const chosenText = (chosen.result as { text?: unknown } | undefined)?.text;
+        const failedKey = failedRequiredGateQuote(state, chosen.summary, typeof chosenText === "string" ? chosenText : undefined);
+        if (failedKey && !retried.includes(key)) {
+          // The summariser is nondeterministic: re-ask once with a stricter quote instruction and keep the better lookup.
+          const evaluated = evaluateAtLookup(state, name, key, chosen, deps);
+          const quoteIsTheBlocker = !evaluated || (evaluated.failure?.code === "quote_not_in_page" && evaluated.failure.details?.key === failedKey);
+          if (quoteIsTheBlocker) {
+            retried.push(key);
+            const firstRank = evaluated ? evaluated.rank : 0;
+            let retryExaCost = 0;
+            let outcome: LookupRetryEvent["outcome"] = "kept_first";
+            let afterRank = firstRank;
+            let error: string | undefined;
+            try {
+              const second = await run(true);
+              retryExaCost = actualCost(second);
+              exaCost += retryExaCost;
+              if (companyResultMatches(name, second.result, second.summary as CompanySummary)) {
+                const candidate2 = { result: second.result, summary: second.summary as CompanySummary, url: second.result?.url };
+                afterRank = lookupRank(state, name, key, candidate2, deps);
+                if (afterRank > firstRank) {
+                  chosen = candidate2;
+                  outcome = "kept_retry";
+                }
+              } else {
+                error = "retry returned a different company page";
+              }
+            } catch (caught) {
+              outcome = caught instanceof BudgetExceededError ? "skipped_budget" : "retry_failed";
+              error = caught instanceof Error ? caught.message : String(caught);
+            }
+            lookupRetry = {
+              company: name,
+              reason: "quote_not_in_page",
+              key: failedKey,
+              before: RANK_LABEL[firstRank],
+              after: outcome === "retry_failed" || outcome === "skipped_budget" ? "error" : RANK_LABEL[afterRank],
+              outcome,
+              retryExaCost,
+              ...(error ? { error } : {}),
+            };
+          }
+        }
+        cached = chosen;
         state.caches.enrichmentByName[key] = cached;
       }
       const screenedNote = screenAtLookup(state, name, key, cached, deps);
@@ -750,7 +880,7 @@ async function executeToolInner(
       throw new Error(`unknown tool: ${tool.name}`);
     }
     syncExaSpend(state, guard);
-    return { result: { type: "tool_result", tool_use_id: tool.id, content }, exaCost, acceptedLead, newCandidate, finish, verdictEvent, ...(seenSkip ? { seen: seenSkip } : {}), ...(summary !== undefined ? { summary } : {}) };
+    return { result: { type: "tool_result", tool_use_id: tool.id, content }, exaCost, acceptedLead, newCandidate, finish, verdictEvent, ...(seenSkip ? { seen: seenSkip } : {}), ...(lookupRetry ? { lookupRetry } : {}), ...(summary !== undefined ? { summary } : {}) };
   } catch (error) {
     syncExaSpend(state, guard);
     exaCost ||= Math.max(0, guard.spent - beforeSpent);
@@ -762,6 +892,7 @@ async function executeToolInner(
         is_error: true,
       },
       exaCost,
+      ...(lookupRetry ? { lookupRetry } : {}),
     };
   }
 }

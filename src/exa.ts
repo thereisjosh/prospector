@@ -23,6 +23,23 @@ export class ReplayMissError extends Error {
   }
 }
 
+/**
+ * Thrown when no HTTP response came back from Exa (DNS, TCP reset, TLS, timeout).
+ * Node's fetch rejects with a bare `TypeError: fetch failed` and keeps the real
+ * reason in `error.cause`; this error names it.
+ */
+export class ExaNetworkError extends Error {
+  /** The underlying code (ECONNRESET, ETIMEDOUT, ENOTFOUND, UND_ERR_...) or message. */
+  detail: string;
+  constructor(error: unknown, host: string) {
+    const cause = (error as { cause?: { code?: unknown; message?: unknown } } | undefined)?.cause;
+    const detail = String(cause?.code ?? cause?.message ?? (error instanceof Error ? error.message : error));
+    super(`Exa network error (${detail}) reaching ${host}: no HTTP response was received; this is transport, not the company or its page`);
+    this.name = "ExaNetworkError";
+    this.detail = detail;
+  }
+}
+
 export class BudgetExceededError extends Error {
   constructor(message: string) {
     super(message);
@@ -268,6 +285,10 @@ async function fetchWithRetry(url: string, request: RequestInit): Promise<{ stat
       const response = await fetch(url, request);
       last = { status: response.status, text: await response.text() };
       retryAfter = retryAfterMs(response.headers?.get?.("retry-after"));
+    } catch (error) {
+      let host = url;
+      try { host = new URL(url).host; } catch { /* keep the raw url */ }
+      throw new ExaNetworkError(error, host);
     } finally {
       releaseSlot();
     }
@@ -278,13 +299,24 @@ async function fetchWithRetry(url: string, request: RequestInit): Promise<{ stat
   return last;
 }
 
+/** Appended to the summary query on the one quote retry (the base query is unchanged). */
+export const QUOTE_RETRY_SUFFIX =
+  "Copy each quote as ONE contiguous span of at most 200 characters exactly as it appears on the page.";
+
+export interface LookupCompanyOptions {
+  /** Second attempt after a quote failed verification: stricter quote instruction plus a marker so the request (and its recording hash) differs. */
+  quoteRetry?: boolean;
+}
+
 export async function lookupCompany(
   companyName: string,
   summaryQuery: string,
   schema: object,
   credentials: ExaCredentials = {},
   guard?: CostGuard,
+  options: LookupCompanyOptions = {},
 ) {
+  if (options.quoteRetry) summaryQuery = `${summaryQuery}\n\n[quote retry 1] ${QUOTE_RETRY_SUFFIX}`;
   const response = await exaSearch({
     query: companyName,
     category: "company",

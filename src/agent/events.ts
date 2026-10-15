@@ -13,6 +13,7 @@ export type AgentEvent = {
   kind:
     | "model_call"
     | "tool_call"
+    | "lookup_retry"
     | "submit_verdict"
     | "approval_request"
     | "decision"

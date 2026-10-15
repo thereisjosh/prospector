@@ -76,6 +76,8 @@ export type LeadDetails = {
   fit_reason: string;
   /** True when a quote was checked against an estimate but the lookup page text was not captured. */
   size_quote_unverified?: true;
+  /** How the size quote was verified on the lookup page: a phrase match, or a bare number next to an employee word. */
+  size_quote_match?: "phrase" | "number_adjacent";
 };
 
 export type LeadVerdict =
@@ -340,24 +342,33 @@ export interface QuoteMatchOptions {
 const QUOTE_LOCALITY = 600;
 
 /**
- * Split on clause punctuation (not the dot inside "17.5M"), strip each piece,
- * then merge pieces shorter than `minClause` into the next one (a short tail
- * joins the previous clause).
+ * Cut the quote at explicit elisions (`...` / `…`) first, then split each part on
+ * clause punctuation (not the dot inside "17.5M"), strip each piece, and merge
+ * pieces shorter than `minClause` into the next one (a short tail joins the
+ * previous clause). Merging never crosses an elision: text on either side of
+ * "..." is not adjacent on the page, so gluing "+11 people)" onto the words after
+ * the ellipsis would demand a string that exists nowhere. A part that stays
+ * shorter than `minClause` is kept as its own short clause and the quote is
+ * rejected as too_short.
  */
 function quoteClauses(quote: string, minClause: number): string[] {
-  const pieces = quote
-    .split(/\.{3}|\u2026|(?<!\d)\.|\.(?!\d)|[,;:"\u201C\u201D\n]/)
-    .map(quoteStrip)
-    .filter((x) => x.length > 0);
   const out: string[] = [];
-  let buf = "";
-  for (const p of pieces) {
-    buf += p;
-    if (buf.length >= minClause) { out.push(buf); buf = ""; }
-  }
-  if (buf) {
-    if (out.length > 0) out[out.length - 1] += buf;
-    else out.push(buf);
+  for (const part of quote.split(/\.{3}|\u2026/)) {
+    const pieces = part
+      .split(/(?<!\d)\.|\.(?!\d)|[,;:"\u201C\u201D\n]/)
+      .map(quoteStrip)
+      .filter((x) => x.length > 0);
+    const clauses: string[] = [];
+    let buf = "";
+    for (const p of pieces) {
+      buf += p;
+      if (buf.length >= minClause) { clauses.push(buf); buf = ""; }
+    }
+    if (buf) {
+      if (clauses.length > 0) clauses[clauses.length - 1] += buf;
+      else clauses.push(buf);
+    }
+    out.push(...clauses);
   }
   return out;
 }
@@ -401,6 +412,34 @@ export function quoteInText(
   opts?: QuoteMatchOptions,
 ): boolean {
   return quoteMatch(quote, text, opts).ok;
+}
+
+const ADJACENT_EMPLOYEE_WORD = /employee|employees|staff|headcount|people/i;
+const HEADCOUNT_WINDOW = 40;
+
+/**
+ * Size-source quote check (employee_estimate_source only). A quote that is just
+ * a number ("281", "281 employees", "281 staff") names no page phrase, but it is
+ * verifiable: the page must contain that number within 40 characters of an
+ * employee word. "Employees: 281" supports "281"; "281 trucks" does not.
+ * Anything else falls through to the general matcher. Returns how it matched.
+ */
+export function headcountQuoteInText(
+  quote: string | undefined,
+  text: string | undefined,
+): "number_adjacent" | "phrase" | undefined {
+  const bare = /^\s*(\d{1,3}(?:,\d{3})+|\d+)(?:\s+(?:employees?|staff))?\s*\.?\s*$/i.exec(quote ?? "");
+  if (bare) {
+    const n = bare[1]!.replace(/,/g, "");
+    const page = decodeHtmlEntities((text ?? "").slice(0, QUOTE_MAX_TEXT)).normalize("NFKC");
+    for (const m of page.matchAll(/(?<![\d,.])\d{1,3}(?:,\d{3})+(?![\d])|(?<![\d,.])\d+(?![\d])/g)) {
+      if (m[0].replace(/,/g, "") !== n) continue;
+      const from = Math.max(0, m.index! - HEADCOUNT_WINDOW);
+      const around = page.slice(from, m.index! + m[0].length + HEADCOUNT_WINDOW);
+      if (ADJACENT_EMPLOYEE_WORD.test(around)) return "number_adjacent";
+    }
+  }
+  return quoteInText(quote, text, SHORT_QUOTE) ? "phrase" : undefined;
 }
 
 /** Short, inherently compact quotes (a headcount, date or location phrase). */
@@ -723,9 +762,13 @@ export function checkLead(plan: SearchPlan, input: LeadInput, options: CheckLead
       ? enrichment.employee_estimate_source
       : undefined;
   let sizeQuoteUnverified: true | undefined;
+  let sizeQuoteMatch: "phrase" | "number_adjacent" | undefined;
   if (quote?.trim()) {
-    if (enforceQuotes && input.lookupText && !quoteInText(quote, input.lookupText, SHORT_QUOTE)) {
-      return lookupQuoteMissing(enrichment, "employee_estimate_source", "employee_estimate_source was not found in the lookup page text");
+    if (enforceQuotes && input.lookupText) {
+      sizeQuoteMatch = headcountQuoteInText(quote, input.lookupText);
+      if (!sizeQuoteMatch) {
+        return lookupQuoteMissing(enrichment, "employee_estimate_source", "employee_estimate_source was not found in the lookup page text");
+      }
     }
     if (!input.lookupText) sizeQuoteUnverified = true;
   }
@@ -824,6 +867,7 @@ export function checkLead(plan: SearchPlan, input: LeadInput, options: CheckLead
       multiplier,
       fit_reason: `${parts.join("; ")}.`,
       ...(sizeQuoteUnverified ? { size_quote_unverified: true } : {}),
+      ...(sizeQuoteMatch ? { size_quote_match: sizeQuoteMatch } : {}),
     },
   };
 }
