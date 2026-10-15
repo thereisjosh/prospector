@@ -28,7 +28,7 @@ import { withFileLock, writeFileAtomic } from "./fslock";
 import { judgeContractFromPlan, judgeLeadFromState, judgePayload } from "./judge-input";
 import type { AcceptedLead, RunState } from "./state";
 import { cacheShare } from "./cache-share";
-import { emitLeadJudge, enabled, enqueueForReview, score, traceIdFor, tracingEnvironment, type TraceScore } from "./trace";
+import { emitLeadJudge, enabled, trackBackground, enqueueForReview, score, traceIdFor, tracingEnvironment, type TraceScore } from "./trace";
 import type { GradeReport, GraderState } from "../../eval/graders/types";
 
 /* ------------------------------------------------------------------ */
@@ -215,6 +215,8 @@ function background(fn: () => Promise<void>): void {
   });
   pending.add(p);
   void p.finally(() => pending.delete(p));
+  // flush() and the trace test-hook swap also wait for this work (it calls score() when it gets scheduled).
+  trackBackground(p);
 }
 
 /** Tests: wait for every queued run-end / feedback evaluation. */

@@ -22,6 +22,7 @@ const tmp = vi.hoisted(() => {
 
 import type { ReadableSpan, SpanExporter } from "@opentelemetry/sdk-trace-base";
 import { createTraceId } from "@langfuse/tracing";
+import { onlineEvalIdle } from "../src/agent/online-eval";
 import type { SearchPlan } from "../src/plan";
 import { createRunState, saveState, type RunState } from "../src/agent/state";
 import { decide, step } from "../src/agent/loop";
@@ -241,6 +242,9 @@ function setTracingEnv(on: boolean) {
 }
 
 afterEach(async () => {
+  // runEnded()/leadFeedback() queue background online-eval work with its own pending set; it calls score()
+  // whenever it gets scheduled, so under CPU contention it lands in a later test's hooks. Quiesce it first.
+  await onlineEvalIdle();
   setTracingEnv(false);
   await __setTraceTestHooks(undefined);
 });

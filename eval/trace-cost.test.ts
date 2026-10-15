@@ -1,4 +1,4 @@
-import { describe, expect, it, afterEach } from "vitest";
+import { describe, expect, it, afterEach, vi } from "vitest";
 import type { ReadableSpan, SpanExporter } from "@opentelemetry/sdk-trace-base";
 import type { AgentEvent } from "../src/agent/events";
 import { __setTraceTestHooks, emit, flush, listExisting, toObservations } from "../src/agent/trace";
@@ -98,6 +98,26 @@ describe("export", () => {
     const payload = JSON.stringify(exporter.spans.map((s) => s.attributes));
     expect(payload).not.toContain("jane.doe@example.com");
     expect(payload).not.toContain("sk-ant-api03");
+  });
+});
+
+describe("hook swap isolation", () => {
+  it("work left in flight (no flush) never reaches the next hooks' client", async () => {
+    await __setTraceTestHooks({ exporter: new (class implements SpanExporter {
+      export(_s: ReadableSpan[], done: (r: { code: number }) => void) { done({ code: 0 }); }
+      async shutdown() {}
+      async forceFlush() {}
+    })(), onScore: () => undefined });
+    process.env.LANGFUSE_PUBLIC_KEY = "pk-lf-test-public";
+    process.env.LANGFUSE_SECRET_KEY = "sk-lf-test-secret";
+    emit(turn);
+    const create = vi.fn(() => Promise.reject(new Error("unreachable")));
+    await __setTraceTestHooks({ client: { score: { create: create as never }, flush: async () => undefined } });
+    await flush();
+    expect(create).not.toHaveBeenCalled();
+    process.env.LANGFUSE_PUBLIC_KEY = "";
+    process.env.LANGFUSE_SECRET_KEY = "";
+    await __setTraceTestHooks(undefined);
   });
 });
 

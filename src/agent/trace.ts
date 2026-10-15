@@ -710,6 +710,8 @@ type Sdk = {
   provider: import("@opentelemetry/sdk-trace-base").BasicTracerProvider;
   ids: FixedIdGenerator;
   client?: import("@langfuse/client").LangfuseClient;
+  /** Test hooks in force when this SDK was created; fixed for its lifetime so a hook swap can't redirect in-flight work. */
+  hooks?: TraceTestHooks;
 };
 
 /** Hands out the ids we choose for the next span; random otherwise (planner spans). */
@@ -758,6 +760,8 @@ let warned = false;
 
 /** Tests only: route spans and scores to fakes. Resets the SDK so the next emit re-initializes. */
 export async function __setTraceTestHooks(hooks: TraceTestHooks | undefined): Promise<void> {
+  // Quiesce: drain every tracked emit/score (including ones they spawn) before swapping.
+  while (pending.size > 0) await Promise.allSettled([...pending]);
   if (sdkPromise) {
     const sdk = await sdkPromise.catch(() => undefined);
     await sdk?.provider.shutdown().catch(() => undefined);
@@ -782,6 +786,8 @@ function warnOnce(message: string, error?: unknown): void {
 }
 
 async function init(): Promise<Sdk> {
+  // Snapshot synchronously: the dynamic imports below yield, and testHooks may be swapped meanwhile.
+  const hooks = testHooks;
   sdkPromise ??= (async () => {
     const [tracing, otel, api, base, core, asyncHooks] = await Promise.all([
       import("@langfuse/tracing"),
@@ -801,7 +807,7 @@ async function init(): Promise<Sdk> {
     });
     const ids = new FixedIdGenerator();
     const processor = new otel.LangfuseSpanProcessor({
-      ...(testHooks?.exporter ? { exporter: testHooks.exporter } : {}),
+      ...(hooks?.exporter ? { exporter: hooks.exporter } : {}),
       // Real-time ingestion on the Langfuse v4 data model (OTel endpoint docs).
       additionalHeaders: { "x-langfuse-ingestion-version": "4" },
       // Second masking layer: the processor masks input/output/metadata at export.
@@ -816,13 +822,13 @@ async function init(): Promise<Sdk> {
     const provider = new base.BasicTracerProvider({ idGenerator: ids, spanProcessors: [processor] });
     tracing.setLangfuseTracerProvider(provider);
     let client: Sdk["client"];
-    if (testHooks?.client) client = testHooks.client as unknown as Sdk["client"];
-    else if (!testHooks?.onScore) {
+    if (hooks?.client) client = hooks.client as unknown as Sdk["client"];
+    else if (!hooks?.onScore) {
       const { LangfuseClient } = await import("@langfuse/client");
       client = new LangfuseClient();
     }
     registerExitFlush();
-    return { tracing, api, processor, provider, ids, client };
+    return { tracing, api, processor, provider, ids, client, hooks };
   })();
   return sdkPromise;
 }
@@ -931,8 +937,8 @@ function sendScore(sdk: Sdk, s: TraceScore, maskOptions: MaskOptions): void {
     ...(s.sessionId ? { sessionId: s.sessionId } : {}),
     ...(s.comment ? { comment: maskString(s.comment, maskOptions).slice(0, 500) } : {}),
   };
-  if (testHooks?.onScore) {
-    testHooks.onScore({ ...body, environment: process.env.LANGFUSE_TRACING_ENVIRONMENT });
+  if (sdk.hooks?.onScore) {
+    sdk.hooks.onScore({ ...body, environment: process.env.LANGFUSE_TRACING_ENVIRONMENT });
     return;
   }
   try {
@@ -956,6 +962,16 @@ function track(promise: Promise<unknown>): void {
     stats.emitErrors += 1;
     warnOnce("trace emit failed", error);
   });
+  pending.add(p);
+  void p.finally(() => pending.delete(p));
+}
+
+/**
+ * Register background work that may later call emit()/score() (online evaluation), so flush() and the test
+ * hook swap wait for it. The promise must not reject (callers catch their own errors).
+ */
+export function trackBackground(promise: Promise<unknown>): void {
+  const p = promise.catch(() => undefined);
   pending.add(p);
   void p.finally(() => pending.delete(p));
 }
@@ -1135,8 +1151,9 @@ export function enqueueForReview(objectId: string, objectType: "TRACE" | "OBSERV
 
 /** Wait for queued emits, then flush spans and scores. Never throws. */
 export async function flush(): Promise<void> {
+  // Drain first: background work (online eval) may be about to create the SDK via score().
+  while (pending.size > 0) await Promise.allSettled([...pending]);
   if (!sdkPromise) return;
-  await Promise.allSettled([...pending]);
   const sdk = await sdkPromise.catch(() => undefined);
   if (!sdk) return;
   try {
