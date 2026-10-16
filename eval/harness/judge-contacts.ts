@@ -29,7 +29,8 @@ export type ContactCase = {
   title: string;
   /** The URL the labeller confirmed the person and title on (any site; the labeller may use LinkedIn by hand, the product does not). */
   url: string;
-  label: "verified" | "inferred" | "wrong";
+  /** null until a human (or the judge) fills it. */
+  label: "verified" | "inferred" | "wrong" | null;
   note?: string;
   /** What the product returned for this person, when the case came from a run. */
   tier?: "verified" | "inferred";
@@ -48,7 +49,7 @@ export function validateContactCase(value: unknown): string[] {
     if (typeof r[key] !== "string" || !(r[key] as string).trim()) problems.push(`${key} must be a non-empty string`);
   }
   if (typeof r.url === "string" && !/^https?:\/\//.test(r.url)) problems.push("url must be http(s)");
-  if (!LABELS.includes(r.label as never)) problems.push(`label must be one of ${LABELS.join(" | ")}`);
+  if (r.label !== null && !LABELS.includes(r.label as never)) problems.push(`label must be null or one of ${LABELS.join(" | ")}`);
   if (r.tier !== undefined && r.tier !== "verified" && r.tier !== "inferred") problems.push("tier must be verified | inferred when present");
   if (r.note !== undefined && typeof r.note !== "string") problems.push("note must be a string when present");
   return problems;
@@ -67,7 +68,7 @@ export function parseContactCases(text: string): ContactCase[] {
 }
 
 /** What the judge needs: never the gate's tier or evidence, so its answer is independent of the code's. */
-export type ContactToJudge = { id: string; company: string; name: string; title: string };
+export type ContactToJudge = { id: string; company: string; name: string; title: string; /** Only for selecting which contacts to judge; never put in the prompt. */ tier?: "verified" | "inferred" };
 
 export type ContactVerdict = {
   id: string;
@@ -79,22 +80,26 @@ export type ContactVerdict = {
   note?: string;
   costDollars: number;
   webSearches: number;
+  webFetches: number;
   judgedAt: string;
+  /** The judge's raw reply text (masked, truncated), kept so a parse problem can be read. */
+  raw?: string;
 };
 
 export const CONTACT_JUDGE_VERSION = "contacts-v1";
 const MAX_SEARCHES = 3;
+const MAX_FETCHES = 2;
 
 export const CONTACT_JUDGE_SYSTEM = `You check one fact about one person, for a sales-research tool's evaluation.
 Question: does this person CURRENTLY hold this role (or a title with the same function and seniority) at this company?
-Use web search (at most ${MAX_SEARCHES} searches): the company's own site, recent press, conference bios, LinkedIn search results.
+Use web_search (at most ${MAX_SEARCHES} searches) and web_fetch (at most ${MAX_FETCHES} fetches): the company's own site, recent press, conference bios, LinkedIn search results.
 - yes: a source dated within the last 18 months, or the company's own current team page, says so.
 - no: a source shows they left, or hold a clearly different role there.
 - cannot_verify: nothing found either way.
-Reply with exactly one JSON object and nothing after it: {"current": "yes" | "no" | "cannot_verify", "source": "<url you relied on, or empty>", "note": "<one sentence>"}`;
+You may write reasoning first. End the reply with exactly one JSON object and nothing after it: {"current": "yes" | "no" | "cannot_verify", "source": "<url you relied on, or empty>", "note": "<one sentence>"}`;
 
 export function contactPrompt(c: ContactToJudge): string {
-  return JSON.stringify({ person: c.name, title: c.title, company: c.company }, null, 2);
+  return `Is ${c.name} currently ${c.title} at ${c.company}?\n\n${JSON.stringify({ person: c.name, title: c.title, company: c.company }, null, 2)}`;
 }
 
 /** The LAST balanced JSON object with a valid `current` answer. */
@@ -113,6 +118,11 @@ export function parseContactJudge(text: string): { current: RubricAnswer; source
   return undefined;
 }
 
+/** Masks API-key-looking strings and email addresses before a reply is printed or stored. */
+export function maskReply(text: string): string {
+  return text.replace(/\b(sk|key|exa|tok)[-_][A-Za-z0-9_-]{16,}\b/gi, "[key]").replace(/[\w.+-]+@[\w-]+(\.[\w-]+)+/g, "[email]");
+}
+
 type JudgeClient = Pick<Anthropic, "messages">;
 
 export async function judgeContact(c: ContactToJudge, client: JudgeClient, now = new Date()): Promise<ContactVerdict> {
@@ -122,10 +132,14 @@ export async function judgeContact(c: ContactToJudge, client: JudgeClient, now =
     system: CONTACT_JUDGE_SYSTEM,
     messages: [{ role: "user", content: contactPrompt(c) }],
     output_config: { effort: "medium" },
-    tools: [{ type: "web_search_20260209", name: "web_search", max_uses: MAX_SEARCHES }],
+    tools: [
+      { type: "web_search_20260209", name: "web_search", max_uses: MAX_SEARCHES },
+      { type: "web_fetch_20260209", name: "web_fetch", max_uses: MAX_FETCHES, max_content_tokens: 6000 },
+    ],
   } as never);
   const spent = responseCost(response);
-  const parsed = parseContactJudge(allText(response));
+  const text = allText(response);
+  const parsed = parseContactJudge(text);
   if (!parsed) {
     // A judge that could not answer is never silent: it is recorded as cannot_verify with the reason.
     console.error(`judge-contacts: no parseable verdict for ${c.id} (stop_reason ${String((response as { stop_reason?: unknown }).stop_reason)})`);
@@ -140,7 +154,9 @@ export async function judgeContact(c: ContactToJudge, client: JudgeClient, now =
     ...(parsed?.note ? { note: parsed.note } : parsed ? {} : { note: "unparseable judge reply" }),
     costDollars: spent.costDollars,
     webSearches: spent.webSearches,
+    webFetches: spent.webFetches,
     judgedAt: now.toISOString(),
+    raw: maskReply(text).slice(0, 6000),
   };
 }
 
@@ -154,7 +170,7 @@ export function contactsFromRunState(state: unknown): ContactToJudge[] {
     for (const [i, c] of (lead.contacts?.contacts ?? []).entries()) {
       if (typeof c.name !== "string" || !company) continue;
       const title = c.tier === "verified" && typeof c.why === "string" ? c.why : typeof c.role === "string" ? c.role : "";
-      out.push({ id: `${company}#${i}`, company, name: c.name, title });
+      out.push({ id: `${company}#${i}`, company, name: c.name, title, ...(c.tier === "verified" || c.tier === "inferred" ? { tier: c.tier } : {}) });
     }
   }
   return out;
@@ -192,19 +208,29 @@ async function main() {
   const limit = Number(arg("--limit") ?? Infinity);
   const outDir = arg("--out") ?? join("eval", "results", "contacts");
   if (!casesPath && !runDir) {
-    console.error("usage: judge-contacts.ts --cases <jsonl> | --run <runs/id> [--limit n] [--out dir]");
+    console.error("usage: judge-contacts.ts --cases <jsonl> | --run <runs/id> [--limit n] [--tier verified|inferred] [--out dir]");
     process.exit(2);
   }
   const inputs: ContactToJudge[] = casesPath
-    ? parseContactCases(await readFile(casesPath, "utf8")).map((c) => ({ id: c.id, company: c.company, name: c.candidate_name, title: c.title }))
+    ? parseContactCases(await readFile(casesPath, "utf8")).map((c) => ({ id: c.id, company: c.company, name: c.candidate_name, title: c.title, ...(c.tier ? { tier: c.tier } : {}) }))
     : contactsFromRunState(JSON.parse(await readFile(join(runDir!, "state.json"), "utf8")));
   if (inputs.length === 0) {
     console.error("judge-contacts: no contacts to judge (the labelled set ships empty until it is labelled)");
     process.exit(1);
   }
+  const tier = arg("--tier");
+  const selected = tier ? inputs.filter((c) => c.tier === tier) : inputs;
+  if (selected.length === 0) {
+    console.error(`judge-contacts: no contacts match --tier ${tier}`);
+    process.exit(1);
+  }
   const client = new Anthropic();
   const verdicts: ContactVerdict[] = [];
-  for (const c of inputs.slice(0, limit)) verdicts.push(await judgeContact(c, client));
+  for (const c of selected.slice(0, limit)) {
+    const v = await judgeContact(c, client);
+    verdicts.push(v);
+    console.log(`--- ${c.name} @ ${c.company} (${c.title}) ---\nraw reply (masked):\n${v.raw ?? ""}\nparsed: ${JSON.stringify({ current: v.current, source: v.source, note: v.note })}\ncost: $${v.costDollars.toFixed(4)} (${v.webSearches} searches, ${v.webFetches} fetches)`);
+  }
   await mkdir(outDir, { recursive: true });
   const file = join(outDir, `${CONTACT_JUDGE_VERSION}-${new Date().toISOString().replace(/[:.]/g, "-")}.jsonl`);
   await writeFile(file, `${verdicts.map((v) => JSON.stringify(v)).join("\n")}\n`, "utf8");

@@ -195,3 +195,21 @@ PASS: B skipped 2 lookups, 8 of 8 B leads are new vs A, good(B) 8 vs good(B') 6.
 
 **Why run A wrote no self-note.** The `remember` offer is not in the loop. It lives in the `finish` tool handler (`src/agent/tools.ts`, the `tool.name === "finish"` branch): the first `finish` call with no notes yet and at least one lead (or a handback) is answered "Not finished yet ... save it now with `remember`", sets `state.rememberNudged`, and the run continues; the second `finish` ends it. A run that stops on a limit never calls `finish`. `src/agent/loop.ts` `limitReason()` stops on budget (spend plus the handback reserve reaching the cap), max turns, active time, no progress or target, and `finishRun()` then builds the handback itself (`handback()` or `codeHandback()`); none of those paths touches the nudge. Run A of the rerun stopped on `budget` with no `remember` call and `rememberNudged` unset in its `state.json`, so the nudge never had a chance to fire. In the same set B also stopped on budget, and wrote a note on its own initiative (1 `remember` call, nudge unset); B' stopped on `finish` and also holds one note with the nudge unset (it saved one before finishing, so the nudge condition was already false). In run 1, B' stopped on budget with no note; A and B finished with a note. So a budget-stopped run leaves a lesson only if the model volunteers it. This is documented, not changed: the loop is not part of this change. The effect on the eval is that a budget-stopped A starves B's recall of notes.
 
+
+## Contact eval (2026-10-16)
+
+Step 2 of the contacts build order (docs/RESEARCH-contacts-and-graph.md §6): measure contact precision. Runner `eval/contact-eval.ts`, judge `eval/harness/judge-contacts.ts`, cases `eval/datasets/contact-cases.jsonl`, results `eval/results/contact-eval-2026-10-16/`, Exa recordings `eval/recordings/contact-eval-2026-10-16/`.
+
+**Design.** Company set: every distinct company judged GOOD in eval/truth/S1 and S2 (lead = company + signal_url), company URL taken from a recorded enrichment (`state.json` `caches.enrichmentByName[squash(company)].url`, any run under eval/results or eval/recordings). Capped at 25, companies with a URL first, alternating S1/S2 (S1 alone has 22 URL-bearing good companies and would fill the cap; S2 would get 3). Buyer roles: S1 = VP of Operations, COO, Head of Warehousing, Director of Logistics; S2 = Head of Sales, VP of Revenue, Founder, COO (the S2 contract is funded B2B, so the buyer is a revenue leader or the founder). Each company runs `findContacts` under one shared `CostGuard(1.00)` (`input.guard`); the run stops cleanly when the guard refuses. Every contact is appended to contact-cases.jsonl with `label: null` (the judge or a human fills it; the case schema now allows null).
+
+**Run summary** (25 companies run, 0 errors, guard never refused):
+
+| companies run | skipped | contacts | verified | inferred | Exa spend | per company | p50 latency |
+|---|---|---|---|---|---|---|---|
+| 25 (13 S1, 12 S2) | 11 (1 no URL: Reo.Dev; 10 over cap) | 72 | 45 | 27 | $0.475 | $0.019 | 14.4 s |
+
+Companies with zero contacts: Hollingsworth Logistics. Companies with only inferred: King of Freight, Monk.
+
+**Judge, one contact.** The judge asks "is <name> currently <title> at <company>?" with web_search (max 3) and web_fetch (max 2), may reason first, and its verdict is the LAST JSON block of the reply (FAILURES #8). It never sees the tier. Each verdict records cost, searches, fetches, `judgedAt` and the masked raw reply. Run `--tier verified --limit 1`: Karim Fofana, "Chief Operating Officer", Capacity LLC (tier verified) -> `current: yes`, source https://www.capacityllc.com/the-capacity-difference/team/ (company team page; press page and ZoomInfo agree), cost $0.1447 (2 searches, 0 fetches). Verdict: `eval/results/contact-eval-2026-10-16/contacts-v1-2026-10-16T12-52-10-257Z.jsonl`. Nothing else was judged.
+
+**Projected judge cost** (one measured call, $0.1447): all 45 verified contacts about $6.51; all 72 contacts about $10.42. One call is a thin sample (it used no fetch and 2 of 3 searches), so treat as +/-40%.

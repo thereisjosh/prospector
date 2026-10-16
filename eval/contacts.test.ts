@@ -632,13 +632,13 @@ describe("trace: tool:find_contacts observation", () => {
 /* ---------- eval scaffold (code only; the judge is not run) ---------- */
 
 describe("contact eval scaffold", () => {
-  it("the labelled set ships empty and parses; a case is validated field by field", async () => {
+  it("the case set parses (contact-eval cases carry label null until judged); a case is validated field by field", async () => {
     const { readFileSync } = await import("node:fs");
     const { parseContactCases, validateContactCase } = await import("./harness/judge-contacts");
-    expect(parseContactCases(readFileSync("eval/datasets/contact-cases.jsonl", "utf8"))).toEqual([]);
+    for (const c of parseContactCases(readFileSync("eval/datasets/contact-cases.jsonl", "utf8"))) expect(c.label === null || ["verified", "inferred", "wrong"].includes(c.label)).toBe(true);
     const good = { id: "cc-1", company: "Verst Logistics", candidate_name: "Travis French", title: "SVP Logistics", url: "https://verstlogistics.com/team", label: "verified", note: "team page" };
     expect(validateContactCase(good)).toEqual([]);
-    expect(validateContactCase({ ...good, label: "maybe", url: "ftp://x" })).toEqual(["url must be http(s)", "label must be one of verified | inferred | wrong"]);
+    expect(validateContactCase({ ...good, label: "maybe", url: "ftp://x" })).toEqual(["url must be http(s)", "label must be null or one of verified | inferred | wrong"]);
     expect(() => parseContactCases(`${JSON.stringify({ ...good, company: "" })}\n`)).toThrow(/line 1: company must be a non-empty string/);
   });
 
@@ -657,8 +657,8 @@ describe("contact eval scaffold", () => {
     const s = state();
     s.leads[0]!.contacts = { at: "", roles: ROLES, cost: 0, contacts: found.contacts };
     expect(contactsFromRunState(s)).toEqual([
-      { id: "Verst Logistics#0", company: "Verst Logistics", name: "Travis French", title: "Senior Vice President of Operations" },
-      { id: "Verst Logistics#1", company: "Verst Logistics", name: "Jane Ops", title: "VP of Operations" },
+      { id: "Verst Logistics#0", company: "Verst Logistics", name: "Travis French", title: "Senior Vice President of Operations", tier: "verified" },
+      { id: "Verst Logistics#1", company: "Verst Logistics", name: "Jane Ops", title: "VP of Operations", tier: "inferred" },
     ]);
     expect(contactMetrics([{ tier: "verified", current: "yes" }, { tier: "verified", current: "no" }, { tier: "inferred", current: "no" }, { tier: "inferred", current: "cannot_verify" }])).toEqual({
       verified: 2,
