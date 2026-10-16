@@ -66,15 +66,27 @@ The agent writes its own queries and decides what to look up, what to verify, wh
 messages = [contract + memory (§6a)]               // append-only from here
 while (true) {
   if (limitHit()) return handback()                // §5: budget, turns, time, no-progress
-  res = await claude.messages.create({ system, tools, messages })  // model decides
+  flush(policy, memory_recalled, …)                // the turn is visible before the model answers
+  res = await claude.messages.stream({ system, tools, messages }).finalMessage()  // model decides;
+                                                     // its visible text_deltas go to the live view only
   messages.push(assistant(res))
   if (res.stop_reason === "end_turn") break
-  results = await Promise.all(res.toolUses.map(runTool))  // parallel tool calls;
+  flush(model_call, tool_started × batch)          // written just before the tools run
+  results = await Promise.all(res.toolUses.map(t =>  // parallel tool calls;
+    runTool(t).then(r => flush(tool_call(r)))))      // each written the moment it settles
                                                      // approval tools pause here (§5a)
   messages.push(user(toolResults(results)))        // rejections stay in context
-  emit(events)                                     // live UI + events.jsonl
+  flush(turn_end)
 }
 ```
+
+**Events as they happen (2026-10-16).** `events.jsonl` is written during the turn, not at its end: the turn's opening events before the model call, then `model_call` with one `tool_started` per tool of the parallel batch (kind, `tool`, `toolUseId`, `eventInput()` summary, turn, ts), then each `tool_call` (with its `lookup_retry` / `submit_verdict`) the moment that tool settles, so a batch lands in completion order; `submit_lead` calls still run one at a time after the batch, each `tool_started` then `tool_call`. Calls refused for the parallel cap never ran and get a `tool_call` only. `policy`, `model_call` and `turn_end` keep their place. Every event gets **`seq`** at append time: its line number in the file, assigned under a per-file lock (`events.jsonl.lock`, the same `withFileLock` as the quota files), so concurrent writers (a step and a route-policy line, or two processes) never share one and a resumed run continues from the file; lines written before seq existed read back as their line number. The step response still returns the turn's events, now carrying the same seq.
+
+**Live stream.** `GET /api/runs/:id/events?after=<seq>` (Node runtime, Server-Sent Events, `src/agent/live.ts`) sends every event with seq > `after`, then tails the file (an in-process "appended" notification, `fs.watch` on the run directory, and a 250 ms poll as the floor), heartbeats (`: heartbeat`) every 15 s, and ends with `event: end` once the run is neither running nor awaiting approval (after sending what is left), or when the client goes away. Frames: `id: <seq>` + `event: event` + the event JSON; `event: delta` + `{turn, text}`; `event: end` + `{status}`. Access: the workspace id (`x-workspace-id`, or `workspaceId` in the query because EventSource cannot send headers) must own the run: 400 without one, 403 for another workspace, 404 for an unknown run. Last-Event-ID from a reconnecting EventSource is honoured. Headers `Cache-Control: no-cache, no-transform` (also keeps Next's gzip off the stream) and `X-Accel-Buffering: no`. The page subscribes while a run is live and merges the stream with the step responses by seq (dedupe, seq order), so if EventSource is missing or fails the ledger still fills a step at a time. Assumes one server process (Railway runs one replica): the deltas travel on an in-process bus; the file part would survive several, the deltas would not.
+
+**Streamed model text.** The turn's model call uses `messages.stream`. Only `text_delta`s of visible text blocks are forwarded, as ephemeral `assistant_text_delta` messages (never written to events.jsonl); thinking and tool-input deltas are not. The final message is what `messages.create` returned before, so usage, cost, prompt caching, the `count_tokens` preflight and the `model_call` event are unchanged. A stream that fails after it started (or never connected) is retried once with `messages.create`, recorded as a `stream_fallback` WARNING event; the tokens the failed stream had already used (message_start / message_delta usage) are billed, so they are added to spend and carried on that event as `claudeCost`. An HTTP error before the stream starts (400, 429, 529…) is rethrown unchanged to the loop's existing retry policy. The handback call stays non-streaming.
+
+**Demo.** The replay writes each step's events to the demo run's own `events.jsonl` (with seq) as it paces them: the model call with `tool_started` lines for its batch (derived from the recorded calls: same tool, id and input, since the recording predates `tool_started`), then each tool call 300 ms apart (`DEMO_TOOL_MS`). The same SSE route serves it.
 
 What the model decides that the workflow cannot, each logged as an **adaptive action** and counted in the eval (§9). If an agent trace is indistinguishable from the fixed sequence, the agent is not earning its cost:
 - **Query rewrites driven by rejection reasons:** e.g. "too big" ×3 leads to "family-owned regional 3PL"
@@ -86,7 +98,7 @@ What the model decides that the workflow cannot, each logged as an **adaptive ac
 
 ## 3. Architecture
 
-- **Harness:** TypeScript, server-side Next.js routes; the UI drives the run one turn per `POST /step` and reads each turn's events from the response (polling, not SSE — see §5a). A manual tool-use loop on `@anthropic-ai/sdk` `messages.create`. No agent framework, so every part of the loop is visible and explainable.
+- **Harness:** TypeScript, server-side Next.js routes; the UI drives the run one turn per `POST /step` and reads the turn's events live over SSE as they are written (`GET /api/runs/:id/events`, §2a), with each step response's events as the fallback. A manual tool-use loop on `@anthropic-ai/sdk` `messages.stream` (non-streaming `messages.create` as the one retry). No agent framework, so every part of the loop is visible and explainable.
 - **Model:** `claude-opus-5-5`, effort `medium`, adaptive thinking (always on for this model), server-side `fallbacks: "default"` for refusals. The model is a config value, and **Opus 5.5 vs Sonnet 5.5 is an eval arm** (§9), because cost per lead is a headline metric.
 - **API constraints:**
   - forced `tool_choice` returns a 400 on this model, so use `auto` and steer from the prompt
@@ -121,10 +133,10 @@ No other write actions exist. `submit_lead` is the only way a lead enters the re
 | Contacting anyone / any external side effect | | | ✅ (no tool exists) |
 
 **Mechanism: durable pause by persisting the message history (no framework).** The Messages API is stateless, so a run's entire state is ours: `messages` (stored exactly as received, thinking blocks included), the contract, spend, and counters.
-- **One turn per request:** `POST /api/runs/:id/step` loads the state, makes one model call, runs its tools in parallel, appends the results, saves the state to `runs/<id>/state.json` (DB later), and returns events. The UI calls `step` again until the run ends. Each request is short (≈10–30 s), so it fits serverless limits.
+- **One turn per request:** `POST /api/runs/:id/step` loads the state, makes one model call, runs its tools in parallel, appends the results, saves the state to `runs/<id>/state.json` (DB later), and returns events. The UI calls `step` again until the run ends. Each request is short (≈10–30 s), so it fits serverless limits. The step still drives turns; the live view reads the turn's events as they are written from `GET /api/runs/:id/events` (§2a), and the step response's events (same seq) are the fallback.
 - **Approval:** when a turn contains `propose_strategy` or `request_scope_change`, the harness saves the state with status `awaiting_approval` and stops. That tool_use is left as the last entry and is not yet answered.
 - **Resume:** `POST /api/runs/:id/decision` loads the state, appends the user's decision as that tool's `tool_result` (any other tool results from that turn go in the same message), and continues with the next `step`. It works minutes or hours later, and across restarts.
-- **Crash repair:** a turn that died after its assistant `tool_use` but before the `tool_result` was saved would make the next call 400. `loadState` finds a *running* run whose last message is an assistant message with `tool_use` blocks and appends one user message with an error `tool_result` per id ("interrupted before a result was recorded; call again if still needed"); the next step records a `turn_repaired` event with the ids. A run with `pendingApproval` is never repaired: its unanswered `tool_use` is the pause, answered by the decision.
+- **Crash repair:** a turn that died after its assistant `tool_use` but before the `tool_result` was saved would make the next call 400. `loadState` finds a *running* run whose last message is an assistant message with `tool_use` blocks and appends one user message with an error `tool_result` per id ("interrupted before a result was recorded; call again if still needed"); the next step records a `turn_repaired` event with the ids. A run with `pendingApproval` is never repaired: its unanswered `tool_use` is the pause, answered by the decision. Since events are written as they happen, a crash mid-batch leaves `tool_started` lines (and the `tool_call`s that settled) in events.jsonl; the repair is unchanged, seq continues from the file, and the ledger shows the unfinished calls as "Didn't finish".
 - **No decision:** the run stays paused, with no timeout and no spend. The wall clock counts only active time.
 - On approval, **code** updates the contract (gates, window, budget). The model never edits it directly.
 - This is what LangGraph's checkpointer plus `interrupt()` provides, built in about 30 lines so the mechanism stays explainable.

@@ -6,6 +6,7 @@ import { Trace, TraceLine, TraceTitle } from "@/components/ui/trace";
 import type { AgentEvent } from "../src/agent/events";
 import type { CardSet } from "../src/planner/cards";
 import { AboutDialog } from "./ui/AboutDialog";
+import { mergeBySeq, subscribeRunEvents } from "./ui/live-events";
 import { CardsStep, applyAlternative } from "./ui/CardsStep";
 import { ContractStep } from "./ui/ContractStep";
 import { MemoryPanel, type LastRun } from "./ui/Memory";
@@ -17,6 +18,7 @@ import { AlertIcon, ArrowUpRight, Crosshair, Moon, Sun } from "./ui/parts";
 import {
   api,
   HttpError,
+  runEventsUrl,
   withRateLimitRetry,
   type Feedback,
   type CandidateSource,
@@ -108,6 +110,8 @@ export default function Page() {
   const [runId, setRunId] = useState("");
   const [snapshot, setSnapshot] = useState<RunSnapshot | null>(null);
   const [runEvents, setRunEvents] = useState<AgentEvent[]>([]);
+  // The model's visible text for the current turn, as it streams over the live feed (never persisted).
+  const [streaming, setStreaming] = useState<{ turn: number; text: string } | null>(null);
   const [screened, setScreened] = useState<Screened>({ skipped: [], lookedUp: [] });
   const [stepping, setStepping] = useState(false);
   const [pausedByUser, setPausedByUser] = useState(false);
@@ -123,6 +127,8 @@ export default function Page() {
   const loopRef = useRef(false);
   const contractRef = useRef<ContractView | undefined>(undefined);
   const headingRef = useRef<HTMLHeadingElement>(null);
+  // Seqs already in runEvents: the live feed and the step responses deliver the same events.
+  const seenSeqRef = useRef<Set<number>>(new Set());
 
   /* ---------- boot ---------- */
 
@@ -278,9 +284,13 @@ export default function Page() {
   /* ---------- step 4: run loop ---------- */
 
   const pushEvents = useCallback((events: AgentEvent[]) => {
-    // The run view renders its ledger from the raw events (app/ui/trace-model.ts).
-    if (events.length) setRunEvents((e) => [...e, ...events]);
-    const add = screenedFrom(events);
+    // The run view renders its ledger from the raw events (app/ui/trace-model.ts). Each event arrives
+    // twice when the live feed works (feed, then step response): dedupe by seq, keep seq order.
+    const fresh = events.filter((e) => typeof e.seq !== "number" || !seenSeqRef.current.has(e.seq));
+    for (const e of fresh) if (typeof e.seq === "number") seenSeqRef.current.add(e.seq);
+    if (fresh.length === 0) return;
+    setRunEvents((e) => mergeBySeq(e, fresh));
+    const add = screenedFrom(fresh);
     if (add.skipped.length || add.lookedUp.length) {
       setScreened((s) => ({ skipped: uniq([...s.skipped, ...add.skipped]), lookedUp: uniq([...s.lookedUp, ...add.lookedUp]) }));
     }
@@ -337,6 +347,8 @@ export default function Page() {
       setRunId(res.id);
       setSnapshot(null);
       setRunEvents([]);
+      setStreaming(null);
+      seenSeqRef.current = new Set();
       setScreened({ skipped: [], lookedUp: [] });
       setFeedback({});
       contractRef.current = undefined;
@@ -411,6 +423,8 @@ export default function Page() {
     setRunId("");
     setSnapshot(null);
     setRunEvents([]);
+    setStreaming(null);
+    seenSeqRef.current = new Set();
     setScreened({ skipped: [], lookedUp: [] });
     setInput(demo ? DEMO_INPUT : "");
   }
@@ -432,6 +446,20 @@ export default function Page() {
       setMemoryError(true);
     }
   }
+
+  /* ---------- live feed: events as they are written, and the model's text as it streams ---------- */
+
+  const liveFeed = step === "run" && !!runId && !pausedByUser && (stepping || snapshot?.status === "running" || snapshot?.status === "awaiting_approval");
+  useEffect(() => {
+    if (!liveFeed || !runId) return;
+    // Resume after what the page already has; the step responses keep filling the ledger if this fails.
+    return subscribeRunEvents(runEventsUrl(runId, Math.max(0, ...seenSeqRef.current)), {
+      onEvent: (event) => pushEvents([event]),
+      onDelta: (delta) => setStreaming((prev) => (prev && prev.turn === delta.turn ? { turn: delta.turn, text: prev.text + delta.text } : delta)),
+      onEnd: () => undefined,
+      onFail: () => undefined,
+    });
+  }, [liveFeed, runId, pushEvents]);
 
   /* ---------- render ---------- */
 
@@ -597,6 +625,7 @@ export default function Page() {
             demo={demo}
             snapshot={snapshot}
             events={runEvents}
+            streaming={streaming}
             screened={screened}
             stepping={stepping}
             pausedByUser={pausedByUser}

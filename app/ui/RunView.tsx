@@ -46,6 +46,8 @@ type Props = {
   snapshot: RunSnapshot | null;
   /** Every event the run has sent so far, in order (POST /step and /decision responses). */
   events: AgentEvent[];
+  /** The model's visible text for the current turn as it streams (live view only, never persisted). */
+  streaming?: { turn: number; text: string } | null;
   screened: Screened;
   stepping: boolean;
   pausedByUser: boolean;
@@ -103,7 +105,9 @@ function RunBody(props: Props & { snapshot: RunSnapshot }) {
   const waiting = !!pending;
   const halted = !finished && !waiting && !stepping && (pausedByUser || !!runError);
 
-  const tree = useMemo(() => traceModel(events, snapshot), [events, snapshot]);
+  const tree = useMemo(() => traceModel(events, snapshot, { streaming: props.streaming }), [events, snapshot, props.streaming]);
+  // The one running line (M1): a tool call in flight is drawn in the Trace; otherwise the header shimmers.
+  const liveLine = useMemo(() => tree.turns.flatMap((t) => t.lines).find((l) => l.status === "running"), [tree]);
   const checklist = useMemo(() => checklistModel(events, snapshot), [events, snapshot]);
   const spent = shownSpend(snapshot.spend);
 
@@ -146,7 +150,14 @@ function RunBody(props: Props & { snapshot: RunSnapshot }) {
             onAction={props.onResume}
           />
         ) : (
-          <RunHeader ref_={header} snapshot={snapshot} waiting={waiting} onStop={pausedByUser ? undefined : props.onStop} />
+          <RunHeader
+            ref_={header}
+            snapshot={snapshot}
+            waiting={waiting}
+            shimmer={!liveLine || liveLine.kind === "working"}
+            streamed={liveLine?.kind === "working" ? liveLine.description : undefined}
+            onStop={pausedByUser ? undefined : props.onStop}
+          />
         ))}
 
       {pending && (
@@ -218,11 +229,17 @@ function RunBody(props: Props & { snapshot: RunSnapshot }) {
 function RunHeader({
   snapshot,
   waiting,
+  shimmer,
+  streamed,
   onStop,
   ref_,
 }: {
   snapshot: RunSnapshot;
   waiting: boolean;
+  /** False while a tool call's line in the Trace is the running line. */
+  shimmer: boolean;
+  /** The model's visible text as it streams (tail, one line); gone once the turn's model call lands. */
+  streamed?: string;
   onStop?: () => void;
   ref_: React.RefObject<HTMLDivElement>;
 }) {
@@ -237,11 +254,17 @@ function RunHeader({
           <TraceTitle role="status">Waiting for your OK</TraceTitle>
         </TraceLine>
       ) : (
-        <TraceLine status="running" className="pr-run-line" data-testid="run-status">
+        <TraceLine status={shimmer ? "running" : undefined} className="pr-run-line" data-testid="run-status">
           {/* The step number is visual only: screen readers hear each step once, from the Trace's announcement. */}
           <TraceTitle role="status">
             Working<span aria-hidden="true">{step ? `, step ${step}` : ""}</span>…
           </TraceTitle>
+          {/* Streamed words change many times a second: visual only, never announced. */}
+          {streamed && (
+            <TraceDescription className="pr-trace-desc pr-run-streamed" aria-hidden="true">
+              {streamed}
+            </TraceDescription>
+          )}
         </TraceLine>
       )}
       {!waiting && onStop && (

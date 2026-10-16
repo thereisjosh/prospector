@@ -1,10 +1,11 @@
 import { createHash } from "node:crypto";
 import Anthropic from "@anthropic-ai/sdk";
-import type { Message, ToolResultBlockParam, ToolUseBlock } from "@anthropic-ai/sdk/resources/messages";
+import type { Message, MessageStreamEvent, ToolResultBlockParam, ToolUseBlock } from "@anthropic-ai/sdk/resources/messages";
 import { CostGuard } from "../exa";
 import { CLAUDE_PRICES_PER_MILLION, claudeCostDollars, contextBudgetTokens, DEFAULT_LIMITS } from "./config";
 import { assembleMessages, estimateTokens, measureRequestTokens } from "./context";
 import { appendEvents, eventInput, makeEvent, type AgentEvent } from "./events";
+import { publishLive } from "./live-bus";
 import { parseEmployeeEstimate } from "../gates";
 import { countryOfHq } from "../geo";
 import { appendRunToMemory, squashName } from "./memory";
@@ -15,6 +16,11 @@ import { rejectionCounts, type RunState, type Handback } from "./state";
 import { APPROVAL_TOOLS, agentTools, executeTool, type ToolDeps } from "./tools";
 
 export type LoopDeps = ToolDeps & {
+  /**
+   * The turn's model call streams (`messages.stream`) when the client has it, so the model's
+   * visible text reaches the live view as it is written; `messages.create` is the non-streaming
+   * retry (and the path for test clients that only fake `create`).
+   */
   client: Pick<Anthropic, "messages">;
   /** Token budget for one request; default is 60% of the model's context window (config.ts). Tests lower it. */
   contextBudgetTokens?: number;
@@ -173,6 +179,70 @@ function isRetryableModelError(error: unknown): boolean {
   return rec.name === "APIConnectionError" || rec.name === "RateLimitError" || status === 529 || (status !== undefined && status >= 500);
 }
 
+type ModelParams = Parameters<Anthropic["messages"]["create"]>[0];
+type StreamLike = { on(event: "streamEvent", listener: (event: MessageStreamEvent) => void): unknown; finalMessage(): Promise<Message> };
+type PartialUsage = { input_tokens?: number; output_tokens?: number; cache_read_input_tokens?: number; cache_creation_input_tokens?: number };
+
+function hasHttpStatus(error: unknown): boolean {
+  return !!error && typeof error === "object" && typeof (error as { status?: unknown }).status === "number";
+}
+
+/**
+ * The turn's model call. Streams, forwarding only `text_delta`s of visible text blocks to the live
+ * view as ephemeral `assistant_text_delta` messages (never persisted; thinking and tool-input deltas
+ * are not forwarded). The returned Message is the stream's final message, so usage, cost and the
+ * `model_call` event are exactly what the non-streaming call produced.
+ *
+ * If the stream fails after it started (or never connected), retry once without streaming and
+ * record a `stream_fallback` WARNING event. Tokens the failed stream had already used (from its
+ * message_start / message_delta usage) are billed, so they are added to the run's spend and
+ * carried on that event as `claudeCost`. An HTTP error before the stream started (400, 429, 529…)
+ * is rethrown unchanged: the loop's existing retry policy handles it and nothing was billed.
+ */
+async function callTurnModel(state: RunState, deps: LoopDeps, params: ModelParams, events: AgentEvent[]): Promise<Message> {
+  const messages = deps.client.messages as unknown as {
+    create(p: ModelParams): Promise<unknown>;
+    stream?: (p: ModelParams) => StreamLike;
+  };
+  if (typeof messages.stream !== "function") return (await messages.create(params)) as Message;
+  const turn = state.counters.turns;
+  let partial: PartialUsage | undefined;
+  try {
+    const stream = messages.stream(params);
+    stream.on("streamEvent", (event) => {
+      if (event.type === "message_start") {
+        partial = { ...event.message.usage } as PartialUsage;
+      } else if (event.type === "message_delta") {
+        const u = event.usage;
+        partial = {
+          ...partial,
+          output_tokens: u.output_tokens,
+          ...(u.input_tokens != null ? { input_tokens: u.input_tokens } : {}),
+          ...(u.cache_read_input_tokens != null ? { cache_read_input_tokens: u.cache_read_input_tokens } : {}),
+          ...(u.cache_creation_input_tokens != null ? { cache_creation_input_tokens: u.cache_creation_input_tokens } : {}),
+        };
+      } else if (event.type === "content_block_delta" && event.delta.type === "text_delta" && event.delta.text) {
+        publishLive(state.id, { type: "assistant_text_delta", turn, text: event.delta.text });
+      }
+    });
+    return (await stream.finalMessage()) as Message;
+  } catch (error) {
+    if (!partial && hasHttpStatus(error)) throw error;
+    const partialCost = partial ? claudeCostDollars(state.model, partial) : 0;
+    if (partialCost > 0) {
+      state.spend.claude += partialCost;
+      state.spend.total = state.spend.claude + state.spend.exa;
+    }
+    events.push(makeEvent(state, "stream_fallback", {
+      reason: error instanceof Error ? error.message.slice(0, 300) : "stream failed",
+      started: partial !== undefined,
+      ...(partial ? { partialTokens: { input: partial.input_tokens ?? 0, output: partial.output_tokens ?? 0, cache_read: partial.cache_read_input_tokens ?? 0, cache_creation: partial.cache_creation_input_tokens ?? 0 } } : {}),
+      claudeCost: partialCost,
+    }));
+    return (await messages.create(params)) as Message;
+  }
+}
+
 function stop(state: RunState, status: "done" | "stopped" | "error", reason: string) {
   state.status = status;
   state.stopReason = reason;
@@ -247,6 +317,19 @@ export async function step(state: RunState, deps: LoopDeps): Promise<StepResult>
 
 async function stepTurn(state: RunState, deps: LoopDeps): Promise<StepResult> {
   const events: AgentEvent[] = [];
+  // Events reach events.jsonl as they happen (the live view tails the file): `flush` appends
+  // whatever was pushed since the last flush. Flushes are chained, so the file order is the
+  // push order even when parallel tools settle at once.
+  let written = 0;
+  let chain: Promise<void> = Promise.resolve();
+  const flush = (): Promise<void> => {
+    chain = chain.then(() => {
+      const fresh = events.slice(written);
+      written = events.length;
+      return appendEvents(state.id, fresh);
+    });
+    return chain;
+  };
   if (state.status !== "running") return { state, events };
   // Pin before the first event so every event of the run carries the same promptVersion.
   const prompt = await ensureAgentPrompt(state);
@@ -313,7 +396,9 @@ async function stepTurn(state: RunState, deps: LoopDeps): Promise<StepResult> {
       events.push(makeEvent(state, "context_trimmed", { droppedTurns: context.dropped, droppedTokens: context.droppedTokens, keptTokens: context.keptTokens, summaryTokens: context.summaryTokens }));
     }
     const messageCount = context.messages.length;
-    const response = (await deps.client.messages.create({
+    // The turn has started: its policy/memory lines are visible before the model answers.
+    await flush();
+    const response = await callTurnModel(state, deps, {
       model: state.model,
       max_tokens: maxTokens,
       system: [{ type: "text", text: system, cache_control: { type: "ephemeral" } }],
@@ -321,7 +406,7 @@ async function stepTurn(state: RunState, deps: LoopDeps): Promise<StepResult> {
       messages: context.messages,
       cache_control: { type: "ephemeral" },
       output_config: { effort: "medium" },
-    } as Parameters<typeof deps.client.messages.create>[0])) as Message;
+    } as ModelParams, events);
     const latencyMs = Date.now() - started;
     state.messages.push({ role: "assistant", content: response.content } as Anthropic.MessageParam);
     const claudeCost = addClaudeCost(state, response);
@@ -361,10 +446,28 @@ async function stepTurn(state: RunState, deps: LoopDeps): Promise<StepResult> {
       }));
       const guard = new CostGuard(Math.max(0, state.contract.maxCostDollars - state.spend.claude - DEFAULT_LIMITS.handbackReserveDollars));
       guard.spent = state.spend.exa;
-      const executedPreSubmit = await Promise.all(cappedPreSubmit.map((tool) => executeTool(state, { id: tool.id, name: tool.name, input: tool.input }, deps, { guard })));
+      // Live ledger: `tool_started` is written just before a tool runs, its `tool_call` (with the
+      // retry/verdict lines that belong to it) the moment it settles, so a parallel batch lands
+      // in completion order. submit_lead calls run one at a time after the batch, as before.
+      const started = (batch: ToolUseBlock[]): Promise<void> => {
+        for (const tool of batch) {
+          events.push(makeEvent(state, "tool_started", { tool: tool.name, toolUseId: tool.id, input: eventInput(tool.name, tool.input) }));
+        }
+        return flush();
+      };
+      const settled = async (tool: ToolUseBlock, item: Awaited<ReturnType<typeof executeTool>>) => {
+        pushToolCallEvents(state, events, tool, item);
+        await flush();
+        return item;
+      };
+      await started(cappedPreSubmit);
+      const executedPreSubmit = await Promise.all(
+        cappedPreSubmit.map(async (tool) => settled(tool, await executeTool(state, { id: tool.id, name: tool.name, input: tool.input }, deps, { guard }))),
+      );
       const submitExecuted: Awaited<ReturnType<typeof executeTool>>[] = [];
       for (const tool of submit) {
-        submitExecuted.push(await executeTool(state, { id: tool.id, name: tool.name, input: tool.input }, deps, { guard }));
+        await started([tool]);
+        submitExecuted.push(await settled(tool, await executeTool(state, { id: tool.id, name: tool.name, input: tool.input }, deps, { guard })));
       }
       state.spend.exa = guard.spent;
       state.spend.total = state.spend.claude + state.spend.exa;
@@ -381,22 +484,8 @@ async function stepTurn(state: RunState, deps: LoopDeps): Promise<StepResult> {
       const ordered = orderedResults(uses, allResults);
       state.counters.toolCalls += uses.length;
       const useById = new Map(uses.map((tool) => [tool.id, tool]));
-      for (const item of all) {
-        const original = useById.get(item.result.tool_use_id);
-        events.push(makeEvent(state, "tool_call", {
-          tool: original?.name,
-          input: eventInput(original?.name, original?.input),
-          is_error: item.result.is_error === true,
-          exaCost: item.exaCost,
-          toolUseId: item.result.tool_use_id,
-          latencyMs: item.latencyMs ?? 0,
-          resultSummary: item.resultSummary ?? clipText(String(item.result.content ?? ""), 300),
-          // lookup_company skipped a company seen in an earlier run: when/what, and that the paid lookup was saved.
-          ...(item.seen ? { seen: item.seen, lookupSaved: true } : {}),
-        }));
-        if (item.lookupRetry) events.push(makeEvent(state, "lookup_retry", { toolUseId: item.result.tool_use_id, ...item.lookupRetry }));
-        if (item.verdictEvent) events.push(makeEvent(state, "submit_verdict", item.verdictEvent));
-      }
+      // Calls refused for exceeding the parallel cap never ran: no tool_started, recorded here.
+      for (const item of overflowPreSubmit) pushToolCallEvents(state, events, useById.get(item.result.tool_use_id), item);
       if (approval) {
         const request = makeEvent(state, "approval_request", { tool: approval.name, input: approval.input });
         state.pendingApproval = {
@@ -447,9 +536,25 @@ async function stepTurn(state: RunState, deps: LoopDeps): Promise<StepResult> {
       spend: { total: state.spend.total, claude: state.spend.claude, exa: state.spend.exa },
       leads: state.leads.length,
     }));
-    await appendEvents(state.id, events);
+    await flush();
   }
   return { state, events };
+}
+
+function pushToolCallEvents(state: RunState, events: AgentEvent[], original: ToolUseBlock | undefined, item: Awaited<ReturnType<typeof executeTool>>): void {
+  events.push(makeEvent(state, "tool_call", {
+    tool: original?.name,
+    input: eventInput(original?.name, original?.input),
+    is_error: item.result.is_error === true,
+    exaCost: item.exaCost,
+    toolUseId: item.result.tool_use_id,
+    latencyMs: item.latencyMs ?? 0,
+    resultSummary: item.resultSummary ?? clipText(String(item.result.content ?? ""), 300),
+    // lookup_company skipped a company seen in an earlier run: when/what, and that the paid lookup was saved.
+    ...(item.seen ? { seen: item.seen, lookupSaved: true } : {}),
+  }));
+  if (item.lookupRetry) events.push(makeEvent(state, "lookup_retry", { toolUseId: item.result.tool_use_id, ...item.lookupRetry }));
+  if (item.verdictEvent) events.push(makeEvent(state, "submit_verdict", item.verdictEvent));
 }
 
 export async function decide(

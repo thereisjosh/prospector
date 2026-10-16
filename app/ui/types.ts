@@ -134,3 +134,14 @@ export async function withRateLimitRetry<T>(call: () => Promise<T>, tries = 8): 
 /** A company the agent found but could not verify against a required fact. Never counted as a lead. */
 // TODO(contract): replace with the src type once it exists.
 export type UnverifiedCandidate = { company: string; signal_url: string; why_now: string; code: string; missing: string };
+
+/**
+ * URL of a run's live event stream (GET /api/runs/:id/events). EventSource cannot send headers,
+ * so the workspace id the other calls send as `x-workspace-id` goes in the query.
+ */
+export function runEventsUrl(runId: string, after: number): string {
+  const ws = workspaceHeader()["x-workspace-id"];
+  const query = new URLSearchParams({ after: String(Math.max(0, Math.trunc(after))) });
+  if (ws) query.set("workspaceId", ws);
+  return `/api/runs/${encodeURIComponent(runId)}/events?${query.toString()}`;
+}

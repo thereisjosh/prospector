@@ -635,6 +635,29 @@ export function toObservations(events: AgentEvent[], options: ToObservationsOpti
           });
           break;
         }
+        case "stream_fallback": {
+          // The turn's streamed model call failed and was retried once without streaming.
+          const cost = num(e.claudeCost);
+          child({
+            id: idFor(`stream_fallback:${e.ts}`),
+            name: "stream-fallback",
+            type: "event",
+            startTime: e.ts,
+            endTime: e.ts,
+            metadata: { reason: e.reason ?? null, started: e.started === true, partialTokens: e.partialTokens ?? null },
+            ...(cost > 0 ? { costDetails: { total: cost } } : {}),
+            level: "WARNING",
+            statusMessage: `stream failed, retried without streaming: ${String(e.reason ?? "unknown")}`,
+          });
+          break;
+        }
+        case "tool_started":
+          // Deliberately not mapped. The tool span is built from its `tool_call` alone
+          // (startTime = ts - latencyMs, measured around the same execution), and the two
+          // events arrive in different appendEvents batches (emit() is per batch), so using
+          // this as the span start would need cross-batch state for a difference of ~1 ms.
+          // A tool_started with no tool_call (crash mid-tool) is covered by turn_repaired.
+          break;
         default:
           break;
       }

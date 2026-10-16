@@ -801,3 +801,45 @@ export const DESCRIBE_COPY = {
     marketplace_home: "That's a marketplace, not your shop. Paste your shop's link or tell us in one sentence.",
   } as Record<string, string>,
 };
+
+/* ---------- live run trace (tool calls in flight, streamed text) ---------- */
+
+/** Lines for tool calls that have started and not settled yet (`tool_started`), and the streamed model text. */
+export const TRACE_LIVE = {
+  started: (tool: string, input: Record<string, unknown>): string => {
+    const s = (v: unknown) => (typeof v === "string" && v.trim() ? v.trim() : undefined);
+    switch (tool) {
+      case "search_signals": {
+        const query = s(input.query);
+        return query ? `Searching: ${query}` : "Searching recent news for why-now events";
+      }
+      case "lookup_company": {
+        const name = s(input.name);
+        return name ? `Looking up ${name}…` : "Looking up a candidate company…";
+      }
+      case "read_page": {
+        const url = s(input.url);
+        return url && isHttpUrl(url) ? `Reading ${host(url)} to double-check…` : "Reading a page to double-check…";
+      }
+      case "update_todo":
+        return "Updating its checklist…";
+      case "finish":
+        return "Wrapping up…";
+      case "remember":
+        return "Saving a note for next time…";
+      case "submit_lead": {
+        const company = s(input.company);
+        return company ? `Checking ${company}…` : "Checking a lead…";
+      }
+      default:
+        return "Running a step…";
+    }
+  },
+  /** A call that started and never recorded a result (the run stopped or crashed mid-step). */
+  interrupted: "Didn't finish",
+  /** The last words of what the model is writing right now, on one line. */
+  streamTail: (text: string, max = 160): string => {
+    const flat = text.replace(/\s+/g, " ").trim();
+    return flat.length > max ? `…${flat.slice(flat.length - max + 1).trimStart()}` : flat;
+  },
+};

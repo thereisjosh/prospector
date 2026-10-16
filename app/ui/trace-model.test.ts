@@ -276,3 +276,110 @@ describe("unknown events", () => {
     expect(flat(tree)).toHaveLength(2);
   });
 });
+
+/* ---------- live: tool calls in flight, streamed text ---------- */
+
+import { pacedSchedule } from "../../src/demo/replay";
+
+describe("traceModel: tool_started (live ledger)", () => {
+  const base = (over: Partial<AgentEvent>): AgentEvent => ({ ts: "2026-10-16T00:00:00.000Z", runId: "r", turn: 3, kind: "policy", promptVersion: "p", ...over }) as AgentEvent;
+  const started = (id: string, name: string) => base({ kind: "tool_started", tool: "lookup_company", toolUseId: id, input: { name } });
+  const called = (id: string, name: string) => base({ kind: "tool_call", tool: "lookup_company", toolUseId: id, input: { name }, is_error: false, exaCost: 0.01, resultSummary: `${name} · ok` });
+  const log: AgentEvent[] = [
+    base({ kind: "policy" }),
+    base({ kind: "model_call", claudeCost: 0.01, latencyMs: 900 }),
+    started("a", "Hadrius"),
+    started("b", "Wagner Logistics"),
+    started("c", "Spartan"),
+    called("b", "Wagner Logistics"),
+    called("a", "Hadrius"),
+    called("c", "Spartan"),
+    base({ kind: "turn_end" }),
+  ];
+  const snap = (status: TraceSnapshot["status"] = "running") => ({ ...mem.snapshot, status, handback: undefined, leads: [], candidates: [] });
+  const turnLines = (tree: TraceTree) => tree.turns.find((t) => t.turn === 3)!.lines;
+
+  it("a started call is the single running line, in place of the synthetic working line; the rest of its batch waits", () => {
+    const tree = traceModel(log.slice(0, 5), snap());
+    const lines = turnLines(tree);
+    expect(lines.map((l) => [l.title, l.status])).toEqual([
+      ["Looking up Hadrius…", "running"],
+      ["Looking up Wagner Logistics…", "pending"],
+      ["Looking up Spartan…", "pending"],
+    ]);
+    expect(lines.some((l) => l.kind === "working")).toBe(false);
+  });
+
+  it("resolves in place when its tool_call arrives: same id, same position, and the next call in flight takes the shimmer", () => {
+    const before = turnLines(traceModel(log.slice(0, 5), snap()));
+    const after = turnLines(traceModel(log.slice(0, 6), snap()));
+    expect(after.map((l) => l.id)).toEqual(before.map((l) => l.id));
+    expect(after[1]).toMatchObject({ id: before[1]!.id, kind: "lookup", title: "Looking up Wagner Logistics" });
+    expect(after[1]!.status).toBeUndefined();
+    expect(after[1]!.inflight).toBeUndefined();
+    expect(after[0]!.status).toBe("running");
+    const done = turnLines(traceModel(log, snap()));
+    expect(done.map((l) => l.title)).toEqual(["Looking up Hadrius", "Looking up Wagner Logistics", "Looking up Spartan", "Working on the next step"]);
+    expect(done.map((l) => l.id).slice(0, 3)).toEqual(before.map((l) => l.id));
+  });
+
+  it("counts a folded tool_started as hidden (no event dropped silently) and nothing as unmapped", () => {
+    const tree = traceModel(log, snap());
+    expect(tree.unmapped).toBe(0);
+    expect(tree.hidden).toBe(2 + 3); // policy + turn_end, and the three folded starts
+  });
+
+  it("a call that never finished in a stopped run is not running: it says so", () => {
+    const tree = traceModel([...log.slice(0, 4), base({ kind: "stop", reason: "user", status: "stopped" })], snap("stopped"));
+    const lines = turnLines(tree);
+    expect(lines.filter((l) => l.status === "running")).toHaveLength(0);
+    expect(lines[0]).toMatchObject({ title: "Looking up Hadrius…", description: "Didn't finish" });
+  });
+
+  it("submit_lead's start resolves into its verdict line (the started line goes, the verdict follows)", () => {
+    const sub = [
+      base({ kind: "tool_started", tool: "submit_lead", toolUseId: "s", input: { company: "Hadrius" } }),
+    ];
+    const pending = turnLines(traceModel(sub, snap()));
+    expect(pending.map((l) => [l.title, l.status])).toEqual([["Checking Hadrius…", "running"]]);
+    const resolved = turnLines(traceModel([...sub, base({ kind: "tool_call", tool: "submit_lead", toolUseId: "s", input: { company: "Hadrius" } }), base({ kind: "submit_verdict", company: "Hadrius", ok: false, code: "size", reason: "too small" })], snap()));
+    expect(resolved.map((l) => l.kind)).toEqual(["verdict_rejected", "working"]);
+  });
+
+  it("streamed model text is the working line's description until the turn's model_call lands", () => {
+    const streaming = { turn: 4, text: "I'll look up the three warehouses that\nlooked strongest  in the last search." };
+    const tree = traceModel(log, snap(), { streaming });
+    const working = tree.turns.find((t) => t.turn === 4)!.lines.find((l) => l.kind === "working")!;
+    expect(working.status).toBe("running");
+    expect(working.description).toBe("I'll look up the three warehouses that looked strongest in the last search.");
+    const landed = traceModel([...log, base({ turn: 4, kind: "model_call", latencyMs: 1 })], snap(), { streaming });
+    expect(landed.turns.find((t) => t.turn === 4)!.lines.find((l) => l.kind === "working")!.description).toBeUndefined();
+    const long = traceModel(log, snap(), { streaming: { turn: 4, text: "word ".repeat(100) } });
+    const d = long.turns.find((t) => t.turn === 4)!.lines.find((l) => l.kind === "working")!.description!;
+    expect(d.length).toBeLessThanOrEqual(160);
+    expect(d.startsWith("…")).toBe(true);
+  });
+
+  /** The demo recording as the live view receives it: the replay's tool_started lines included. */
+  const demoLive = pacedSchedule(mem.events).flatMap((s) => s.events);
+
+  it.each([
+    ["synthetic log", log],
+    ["the demo log as replayed live (with tool_started)", demoLive],
+  ])("exactly one running line at every prefix: %s", (_name, events) => {
+    expect(events.filter((e) => e.kind === "tool_started").length).toBeGreaterThan(0);
+    for (let k = 1; k <= events.length; k += 1) {
+      const status = statusAt(events, k);
+      const t = traceModel(events.slice(0, k), { ...mem.snapshot, status, ...(events === log ? { handback: undefined } : {}) });
+      const running = flat(t).filter((l) => l.status === "running");
+      expect(running.length, `after ${k} events (${status})`).toBe(status === "running" ? 1 : 0);
+    }
+  });
+
+  it("the replayed demo log maps every event: nothing unmapped, every start resolved by the end", () => {
+    const tree = traceModel(demoLive, mem.snapshot);
+    expect(tree.unmapped).toBe(0);
+    expect(flat(tree).filter((l) => l.inflight)).toHaveLength(0);
+    expect(demoLive.filter((e) => e.kind === "tool_started")).toHaveLength(mem.events.filter((e) => e.kind === "tool_call").length);
+  });
+});

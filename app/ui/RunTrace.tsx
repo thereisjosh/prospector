@@ -4,8 +4,10 @@
  * The run ledger (docs/UI-REWORK.md §1b, §1c, §2): one Trace, turn → tool call → verdict → evidence.
  * Renders the tree from trace-model.ts and never re-derives it from events.
  *
- * Shimmer rule (§3 M1): nothing in here shimmers. The single running line is the run header
- * (RunView.tsx); the model's in-flight "working" line is therefore not drawn a second time.
+ * Shimmer rule (§3 M1): one running line on the page. While the model is working it is the run
+ * header (RunView.tsx), so the model's "working" line is not drawn here a second time. While a tool
+ * call is in flight it is that call's line here ("Looking up Hadrius…"), and the header is still;
+ * other calls of the same batch wait dimmed (status "pending") until they resolve in place.
  */
 import { useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import {
@@ -178,7 +180,7 @@ function Title({ line }: { line: Line }) {
 
 function Row({ line }: { line: Line }) {
   return (
-    <TraceLine status={line.status === "error" ? "error" : undefined} className="pr-trace-line">
+    <TraceLine status={line.status === "error" ? "error" : line.inflight ? line.status : undefined} className="pr-trace-line">
       <LineIcon name={line.icon} />
       <Title line={line} />
       {line.description && <TraceDescription className="pr-trace-desc">{line.description}</TraceDescription>}

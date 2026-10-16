@@ -9,6 +9,7 @@ import type { AgentEvent } from "../../src/agent/events";
 import type { AcceptedLead } from "../../src/agent/state";
 import {
   TRACE,
+  TRACE_LIVE,
   candidateReason,
   eventLine,
   formatDate,
@@ -77,7 +78,16 @@ export type TraceLine = {
   status?: TraceStatus;
   detail?: TraceDetail;
   children?: TraceLine[];
+  /**
+   * A tool call that has started and not settled (`tool_started` with no `tool_call` yet). The first
+   * one in flight is `status: "running"` (the one shimmer); the rest are `"pending"`. When its
+   * `tool_call` arrives the line is replaced in place: same id, same position.
+   */
+  inflight?: true;
 };
+
+/** Live-only input to the model: the model's visible text for `turn`, as it streams (never persisted). */
+export type TraceLive = { streaming?: { turn: number; text: string } | null };
 
 export type TraceTurn = {
   turn: number;
@@ -284,7 +294,22 @@ function retryLine(event: AgentEvent, id: string): TraceLine {
   });
 }
 
-export function traceModel(events: AgentEvent[], snapshot: TraceSnapshot): TraceTree {
+function startedLine(event: AgentEvent, id: string): TraceLine {
+  const tool = String(event.tool ?? "");
+  const kinds: Record<string, [string, TraceIcon]> = {
+    search_signals: ["search", "search"],
+    lookup_company: ["lookup", "building"],
+    read_page: ["read_page", "file"],
+    update_todo: ["todo", "list"],
+    finish: ["finish", "flag"],
+    remember: ["remember", "memory"],
+    submit_lead: ["submit", "check"],
+  };
+  const [kind, icon] = kinds[tool] ?? ["tool_started", "wrench"];
+  return line(id, kind, icon, TRACE_LIVE.started(tool, rec(event.input)), { inflight: true });
+}
+
+export function traceModel(events: AgentEvent[], snapshot: TraceSnapshot, live: TraceLive = {}): TraceTree {
   const ctx: Ctx = { contract: snapshot.contract, leads: snapshot.leads ?? [], candidates: snapshot.candidates ?? [] };
   const byTurn = new Map<number, { turn: number; lines: TraceLine[]; searches: number; lookups: number; added: number; cost: number; ms: number; error: boolean }>();
   const turnOf = (n: number) => {
@@ -295,6 +320,9 @@ export function traceModel(events: AgentEvent[], snapshot: TraceSnapshot): Trace
   const lookups: Array<{ line: TraceLine; turn: number; toolUseId?: string; company: string }> = [];
   const retries: Array<{ line: TraceLine; turn: number; toolUseId?: string; company: string }> = [];
   const openApprovals = new Map<string, TraceLine>();
+  // Tool calls in flight, by tool_use id, in the order they started.
+  const inFlight = new Map<string, { line: TraceLine; turn: number }>();
+  const modelCalled = new Set<number>();
   let unmapped = 0;
   const unmappedKinds: string[] = [];
   let hidden = 0;
@@ -313,6 +341,7 @@ export function traceModel(events: AgentEvent[], snapshot: TraceSnapshot): Trace
     t.cost += num(event.claudeCost) + num(event.exaCost);
     switch (event.kind) {
       case "model_call": {
+        if (event.handback !== true) modelCalled.add(t.turn);
         t.ms += num(event.latencyMs);
         const tokens = rec(event.tokens);
         if (event.tokens !== undefined) {
@@ -326,9 +355,17 @@ export function traceModel(events: AgentEvent[], snapshot: TraceSnapshot): Trace
       case "policy":
       case "turn_end":
       case "token_count_estimated":
+      case "stream_fallback":
       case "feedback":
         hidden += 1;
         return;
+      case "tool_started": {
+        const key = str(event.toolUseId) ?? id;
+        const l = startedLine(event, `t${t.turn}.u.${key}`);
+        inFlight.set(key, { line: l, turn: t.turn });
+        t.lines.push(l);
+        return;
+      }
       case "memory_recalled": {
         const prefs = rec(event.preferences);
         const notes = rec(event.notes);
@@ -340,14 +377,30 @@ export function traceModel(events: AgentEvent[], snapshot: TraceSnapshot): Trace
         return;
       }
       case "tool_call": {
-        const { line: l, unknown } = toolCallLine(event, id, ctx);
+        const key = str(event.toolUseId);
+        const open = key ? inFlight.get(key) : undefined;
+        const { line: l, unknown } = toolCallLine(event, open ? open.line.id : id, ctx);
         if (unknown) noteUnmapped(`tool:${String(event.tool)}`);
         if (event.is_error !== true) {
           if (event.tool === "search_signals") t.searches += 1;
           if (event.tool === "lookup_company" && Object.keys(rec(event.seen)).length === 0) t.lookups += 1;
         }
-        if (!l) return;
-        t.lines.push(l);
+        if (open) {
+          // The started line resolves in place; its tool_started event is folded into this line.
+          inFlight.delete(key!);
+          hidden += 1;
+          const host = turnOf(open.turn).lines;
+          const at = host.indexOf(open.line);
+          if (!l) {
+            if (at >= 0) host.splice(at, 1);
+            return;
+          }
+          if (at >= 0) host[at] = l;
+          else t.lines.push(l);
+        } else {
+          if (!l) return;
+          t.lines.push(l);
+        }
         if (l.kind === "lookup" || l.kind === "lookup_seen") {
           lookups.push({ line: l, turn: t.turn, toolUseId: str(event.toolUseId), company: str(rec(event.input).name) ?? "" });
         }
@@ -422,8 +475,24 @@ export function traceModel(events: AgentEvent[], snapshot: TraceSnapshot): Trace
 
   const running = snapshot.status === "running" && !stopped;
   const waiting = snapshot.status === "awaiting_approval";
+  const streaming = running && live.streaming && live.streaming.text.trim() ? live.streaming : undefined;
+  // Streamed text can arrive before the new turn's first event does.
+  if (streaming && (!byTurn.size || streaming.turn > Math.max(...byTurn.keys()))) turnOf(streaming.turn);
   const lastTurnNo = byTurn.size ? Math.max(...byTurn.keys()) : snapshot.counters?.turns ? Math.max(snapshot.counters.turns, 1) : 1;
   if (running || waiting) turnOf(lastTurnNo);
+
+  // Calls still in flight: on the live turn the earliest started is the running line, the rest wait;
+  // anywhere else (the run stopped, or a crash left them) they never finished.
+  let shimmer = false;
+  for (const { line: l, turn } of inFlight.values()) {
+    if (running && turn === lastTurnNo) {
+      l.status = shimmer ? "pending" : "running";
+      shimmer = true;
+    } else {
+      delete l.inflight;
+      l.description = TRACE_LIVE.interrupted;
+    }
+  }
 
   const turns: TraceTurn[] = [...byTurn.values()]
     .sort((a, b) => a.turn - b.turn)
@@ -431,7 +500,11 @@ export function traceModel(events: AgentEvent[], snapshot: TraceSnapshot): Trace
       const last = t.turn === lastTurnNo;
       const lines = [...t.lines];
       // The one in-flight call: a turn that has started and not finished.
-      if (running && last) lines.push(line(`t${t.turn}.live`, "working", "clock", TRACE.working, { status: "running" }));
+      // A tool call in flight is the running line; otherwise the model is working (and may be streaming text).
+      if (running && last && !shimmer) {
+        const text = streaming && streaming.turn === t.turn && !modelCalled.has(t.turn) ? TRACE_LIVE.streamTail(streaming.text) : "";
+        lines.push(line(`t${t.turn}.live`, "working", "clock", TRACE.working, { status: "running", ...(text ? { description: text } : {}) }));
+      }
       const description = TRACE.turnSummary({ searches: t.searches, lookups: t.lookups, added: t.added, cost: t.cost, ms: t.ms });
       return {
         turn: t.turn,

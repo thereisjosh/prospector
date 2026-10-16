@@ -8,12 +8,18 @@
  * which pauses the replay until POST /decision). The snapshot GET /runs/:id
  * returns is rebuilt from the events consumed so far, so leads, rejections and
  * spend appear in the order they were recorded.
+ *
+ * Live view: a step writes the events it replays to the demo run's own events.jsonl as it paces
+ * them (runs/<demo-id>/events.jsonl, with seq), so GET /api/runs/:id/events streams the demo line
+ * by line exactly as it streams a live run. Recordings made before `tool_started` existed get one
+ * per tool call, derived from that call (same tool, id and input): a parallel batch's starts right
+ * after the model call, a submit_lead's just before it.
  */
 import { randomUUID } from "node:crypto";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { RUNS_DIR } from "../agent/config";
-import type { AgentEvent } from "../agent/events";
+import { appendEventLines, type AgentEvent } from "../agent/events";
 import { appendRunToMemory, loadMemory, NOTE_TTL_MS, squashName } from "../agent/memory";
 import type { SeenInfo } from "../agent/recall";
 import { screenedByCode, type AcceptedLead, type CandidateLead, type Handback, type RunState, type RunStatus } from "../agent/state";
@@ -77,6 +83,73 @@ function sessionPath(id: string): string {
 
 async function loadSession(id: string): Promise<Session> {
   return JSON.parse(await readFile(sessionPath(id), "utf8")) as Session;
+}
+
+/** Owner and status of a demo run (for the live event stream); undefined when it does not exist. */
+export async function demoRunAccess(id: string): Promise<{ workspaceId: string; status: RunStatus } | undefined> {
+  try {
+    const session = await loadSession(id);
+    return { workspaceId: session.workspaceId, status: session.status };
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === "ENOENT") return undefined;
+    throw error;
+  }
+}
+
+/** Pause before each replayed tool call lands, so the live view shows calls resolving one by one. */
+export const DEMO_TOOL_MS = 300;
+
+function startedFor(call: AgentEvent): AgentEvent {
+  return {
+    ts: new Date().toISOString(),
+    runId: call.runId,
+    turn: call.turn,
+    kind: "tool_started",
+    promptVersion: call.promptVersion,
+    tool: call.tool,
+    toolUseId: call.toolUseId,
+    input: call.input,
+  };
+}
+
+/**
+ * How one step's replayed events land, as a live turn would write them: the model call together
+ * with its parallel batch's tool_started lines, then each tool call after DEMO_TOOL_MS (a
+ * submit_lead's start just before it). Recordings that already carry tool_started keep theirs.
+ * Pure: the order of the recording is never changed, only starts are added.
+ */
+export function pacedSchedule(taken: AgentEvent[]): Array<{ delayMs: number; events: AgentEvent[] }> {
+  const out: Array<{ delayMs: number; events: AgentEvent[] }> = [];
+  const started = new Set(taken.filter((e) => e.kind === "tool_started").map((e) => String(e.toolUseId)));
+  const needsStart = (e: AgentEvent) => e.kind === "tool_call" && typeof e.toolUseId === "string" && !started.has(e.toolUseId);
+  for (let i = 0; i < taken.length; i += 1) {
+    const event = taken[i]!;
+    if (event.kind === "model_call") {
+      const batch = taken.slice(i + 1).filter((e) => e.turn === event.turn && e.tool !== "submit_lead" && needsStart(e));
+      for (const e of batch) started.add(String(e.toolUseId));
+      out.push({ delayMs: 0, events: [event, ...batch.map(startedFor)] });
+    } else if (event.kind === "tool_call") {
+      if (needsStart(event)) {
+        started.add(String(event.toolUseId));
+        out.push({ delayMs: 0, events: [startedFor(event)] });
+      }
+      out.push({ delayMs: DEMO_TOOL_MS, events: [event] });
+    } else {
+      out.push({ delayMs: 0, events: [event] });
+    }
+  }
+  return out;
+}
+
+/** Write one step's events to the demo run's events.jsonl on that schedule; returns them (with seq), in order. */
+async function writePaced(id: string, taken: AgentEvent[]): Promise<AgentEvent[]> {
+  const out: AgentEvent[] = [];
+  for (const { delayMs, events } of pacedSchedule(taken)) {
+    if (delayMs > 0) await demoDelay(delayMs);
+    await appendEventLines(id, events);
+    out.push(...events);
+  }
+  return out;
 }
 
 async function saveSession(session: Session): Promise<void> {
@@ -276,6 +349,7 @@ export async function demoStep(id: string) {
         break;
       }
     }
+    taken.splice(0, taken.length, ...(await writePaced(id, taken)));
     if (session.status === "running" && session.cursor >= rec.events.length) {
       session.status = rec.state.status === "running" || rec.state.status === "awaiting_approval" ? "done" : rec.state.status;
     }
@@ -323,6 +397,7 @@ export async function demoDecide(id: string, decision: { approve: boolean; note?
   };
   session.status = "running";
   delete session.pending;
+  await appendEventLines(id, [event]);
   await saveSession(session);
   const snap = snapshotAt(session, rec);
   return {

@@ -185,3 +185,30 @@ describe("no ref on shadcn components (React 18 drops it; UI-REWORK.md §4 error
     expect(offenders).toEqual([]);
   });
 });
+
+describe("RunView (SSR): live ledger", () => {
+  const turn = 6;
+  const base = (over: Partial<AgentEvent>): AgentEvent => ({ ts: "2026-10-16T00:00:00.000Z", runId: "demo-x", turn, kind: "policy", promptVersion: "p", ...over }) as AgentEvent;
+  const prior = events.filter((e) => e.turn < turn);
+
+  it("a tool call in flight is the one shimmer, drawn in the Trace; the header is still", () => {
+    const live = [
+      ...prior,
+      base({ kind: "model_call", latencyMs: 800 }),
+      base({ kind: "tool_started", tool: "lookup_company", toolUseId: "a", input: { name: "Hadrius" } }),
+      base({ kind: "tool_started", tool: "lookup_company", toolUseId: "b", input: { name: "Spartan" } }),
+    ];
+    const html = render(snapshot(), live);
+    expect(count(html, 'data-status="running"')).toBe(1);
+    expect(html).toMatch(/data-status="running"[^>]*>(?:(?!<\/div>).)*Looking up Hadrius…/s);
+    expect(html).not.toMatch(/data-status="running"[^>]*data-testid="run-status"/);
+    expect(count(html, 'data-status="pending"')).toBe(1); // Spartan waits, dimmed
+  });
+
+  it("while the model is writing: the header shimmers and shows the streamed words; no tool line runs", () => {
+    const html = render(snapshot(), [...prior, base({ kind: "policy" })], { streaming: { turn, text: "Next I'll check the two cold-chain operators." } });
+    expect(count(html, 'data-status="running"')).toBe(1);
+    expect(html).toMatch(/data-status="running"[^>]*data-testid="run-status"/);
+    expect(html).toContain("Next I&#x27;ll check the two cold-chain operators.");
+  });
+});
