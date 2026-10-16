@@ -16,7 +16,7 @@
  * produced and the page does not support is dropped: code never shows a person no source supports.
  * No emails or phones are fetched, stored or shown.
  */
-import { CONTACT_NON_EVIDENCE_DOMAINS, checkContact, matchedBuyerRole, nameTokens, personNameTokens, safeDomain, squashName, type ContactGateCode } from "./gates";
+import { CONTACT_NON_EVIDENCE_DOMAINS, checkContact, matchedBuyerRole, nameTokens, personNameTokens, properCaseName, safeDomain, squashName, type ContactGateCode } from "./gates";
 import { BudgetExceededError, CostGuard, estimateExaCost, exaSearch, type ExaCredentials } from "./exa";
 import { CONTACT_TITLE_MAX, type ContactEvidence } from "./evidence";
 import { normalizeNullish } from "./plan";
@@ -39,7 +39,7 @@ export type Contact = {
   found_via: "people_index" | "web_page";
   /** Why an inferred contact is not verified (gate code). */
   code?: ContactGateCode;
-  /** Inferred from an old press page only: "last confirmed 2019". */
+  /** Inferred only: "last confirmed 2019" (old press page) or "role changed" (the page says the matched title is a former one). */
   note?: string;
 };
 
@@ -290,7 +290,9 @@ export async function findContacts(input: FindContactsInput, deps: FindContactsD
   for (const person of candidates) {
     const key = personKey(person.name);
     let verified: Contact | undefined;
-    let stale: NonNullable<Extract<ReturnType<typeof checkContact>, { ok: false }>["stale"]> | undefined;
+    type Refused = Extract<ReturnType<typeof checkContact>, { ok: false }>;
+    let stale: NonNullable<Refused["stale"]> | undefined;
+    let changed: NonNullable<Refused["changed"]> | undefined;
     const codes = new Set<ContactGateCode>();
     for (const { result, claims } of pageClaims) {
       const titles = claims.filter((c) => personKey(c.name) === key).map((c) => c.title_quote);
@@ -307,7 +309,8 @@ export async function findContacts(input: FindContactsInput, deps: FindContactsD
         );
         if (verdict.ok) {
           verified = {
-            name: person.name,
+            // The page's own casing wins over the people index's or the summariser's ("kurt cuncannan" -> "Kurt Cuncannan").
+            name: verdict.name,
             tier: "verified",
             role: verdict.role,
             why: verdict.evidence.title_quote,
@@ -318,6 +321,7 @@ export async function findContacts(input: FindContactsInput, deps: FindContactsD
           break;
         }
         codes.add(verdict.code);
+        if (verdict.changed && !changed) changed = verdict.changed;
         if (verdict.stale && (!stale || verdict.stale.published > stale.published)) stale = verdict.stale;
       }
       if (verified) break;
@@ -327,11 +331,26 @@ export async function findContacts(input: FindContactsInput, deps: FindContactsD
     const worst: ContactGateCode = roleMismatch ? "contact_role_mismatch" : codes.has("contact_quote_not_in_page") ? "contact_quote_not_in_page" : "contact_unverified";
     if (verified) {
       contacts.push(verified);
-      checked.push({ name: person.name, outcome: "verified" });
+      checked.push({ name: verified.name, outcome: "verified" });
+    } else if (changed) {
+      // A page names the approved title as a FORMER one ("stepping up from his previous role as COO"): never verified,
+      // and the index listing does not rescue it. Shown as inferred with the title as quoted.
+      const name = properCaseName(person.name);
+      contacts.push({
+        name,
+        tier: "inferred",
+        role: changed.role,
+        why: changed.title_quote,
+        ...(person.index ? { profile_url: person.index.profileUrl } : {}),
+        found_via: person.index ? "people_index" : "web_page",
+        code: "contact_role_changed",
+        note: "role changed",
+      });
+      checked.push({ name, outcome: "inferred", code: "contact_role_changed" });
     } else if (person.index?.role && !roleMismatch) {
       // Listed in the index in an approved role; no public page confirms the title. Link only.
       contacts.push({
-        name: person.name,
+        name: properCaseName(person.name),
         tier: "inferred",
         role: person.index.role,
         why: person.index.role,
@@ -343,7 +362,7 @@ export async function findContacts(input: FindContactsInput, deps: FindContactsD
     } else if (stale && !roleMismatch) {
       // Only an old press page names them in an approved role: the title as quoted, with when it was last confirmed.
       contacts.push({
-        name: person.name,
+        name: properCaseName(person.name),
         tier: "inferred",
         role: stale.role,
         why: stale.title_quote,
@@ -358,8 +377,22 @@ export async function findContacts(input: FindContactsInput, deps: FindContactsD
     }
   }
 
-  const ordered = [...contacts.filter((c) => c.tier === "verified"), ...contacts.filter((c) => c.tier === "inferred")].slice(0, CONTACT_LIMITS.maxContacts);
+  const ordered = dedupeContacts(contacts).slice(0, CONTACT_LIMITS.maxContacts);
   return { contacts: ordered, cost, checked };
+}
+
+/**
+ * One record per person, by normalised name (post-nominals, punctuation, middle initials ignored). Keeps the higher
+ * tier ("Neil Midgley" verified over "Neil Midgley FCILT" inferred) and attaches the profile link to it. Verified first.
+ */
+export function dedupeContacts(contacts: Contact[]): Contact[] {
+  const kept: Contact[] = [];
+  for (const c of [...contacts.filter((x) => x.tier === "verified"), ...contacts.filter((x) => x.tier === "inferred")]) {
+    const same = kept.find((k) => personKey(k.name) === personKey(c.name));
+    if (!same) kept.push(c);
+    else if (!same.profile_url && c.profile_url) same.profile_url = c.profile_url;
+  }
+  return kept;
 }
 
 /** The result `find_contacts` returns to the model: structured, no page text, no profile text. */
@@ -369,7 +402,12 @@ export function contactsToolResult(company: string, found: Pick<FindContactsResu
     contacts: found.contacts.map((c) => ({
       name: c.name,
       tier: c.tier,
-      why: c.tier === "verified" ? `title on ${safeDomain(c.evidence?.url ?? "") ?? "a public page"}: "${c.why}"` : `listed in a people index as ${c.role}; title not confirmed`,
+      why:
+        c.tier === "verified"
+          ? `title on ${safeDomain(c.evidence?.url ?? "") ?? "a public page"}: "${c.why}"`
+          : c.note
+            ? `${c.note}; title as a public page quotes it: "${c.why}"`
+            : `listed in a people index as ${c.role}; title not confirmed`,
       ...(c.evidence ? { evidence_url: c.evidence.url } : {}),
     })),
     note:

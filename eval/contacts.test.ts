@@ -8,9 +8,9 @@ import type { AgentEvent } from "../src/agent/events";
 import { createRunState, type AcceptedLead, type RunState } from "../src/agent/state";
 import { agentTools, executeTool, validateNote, type ToolDeps } from "../src/agent/tools";
 import { contactCounts, toObservations } from "../src/agent/trace";
-import { CONTACT_LIMITS, estimateContactCost, findContacts, pageSearchBody, peopleSearchBody, type FindContactsResult } from "../src/contacts";
+import { CONTACT_LIMITS, dedupeContacts, estimateContactCost, findContacts, pageSearchBody, peopleSearchBody, personKey, type Contact, type FindContactsResult } from "../src/contacts";
 import { BudgetExceededError, CostGuard, estimateExaCost } from "../src/exa";
-import { CONTACT_NON_EVIDENCE_DOMAINS, checkContact, isAggregatorShapedUrl, normalizePageDate, titleMatchesRole } from "../src/gates";
+import { CONTACT_NON_EVIDENCE_DOMAINS, checkContact, formerRoleMarker, isAggregatorShapedUrl, normalizePageDate, personNameTokens, properCaseName, titleMatchesRole } from "../src/gates";
 import { validatePlan, type SearchPlan } from "../src/plan";
 import { validateCards, withBuyerRoles, type CardSet } from "../src/planner/cards";
 import { demoPlan } from "../src/demo/planner";
@@ -668,5 +668,171 @@ describe("contact eval scaffold", () => {
       inferredWrongShare: 1,
       cannotVerify: 1,
     });
+  });
+});
+
+/* ---------- FAILURES #30: directories, former roles, duplicates, casing ---------- */
+
+describe("FAILURES #30: company directories cannot verify", () => {
+  const finney = { name: "Donald Finney", company: "Bay Logistics", title_quote: "Operational Director And Mentor" };
+  const ctx = { buyerRoles: ["VP of Operations", "COO", "Head of Warehousing", "Director of Logistics"], companyUrl: "https://www.baylogistics.com/", now: NOW };
+  const DIRECTORY =
+    "## Vice President Operations for Bay Logistics, Inc. \n\nJon Swart\n\nVice President Operations\n\n## View Employees\n\nRob Whitby\n\n Director Of Operations \n\nDonald Finney\n\n Operational Director And Mentor \n\nChili Akoma\n\n Director Of Business Development \n\n## Frequently Asked Questions regarding Bay Logistics, Inc.";
+
+  it("the recorded visualvisitor company page is inferred by its host and, on an unknown host, by its /companies/<id>/ URL shape", () => {
+    const url = "https://www.visualvisitor.com/companies/5788692/bay_logistics_inc.";
+    expect(checkContact(finney, { ...ctx, page: { url, text: DIRECTORY } })).toMatchObject({ ok: false, tier: "inferred", code: "contact_unverified" });
+    const unknownHost = "https://bizdir.example/companies/5788692/bay_logistics_inc";
+    expect(isAggregatorShapedUrl(unknownHost)).toBe(true);
+    expect(checkContact(finney, { ...ctx, page: { url: unknownHost, text: DIRECTORY } })).toMatchObject({ ok: false, code: "contact_unverified", reason: expect.stringContaining("profile or directory") });
+  });
+
+  it.each(["https://x.example/companies/5788692/bay", "https://x.example/company/12345/acme", "https://x.example/company/12345"])("directory URL shape %s", (url) => {
+    expect(isAggregatorShapedUrl(url)).toBe(true);
+  });
+
+  it("a company path with a slug (not an id) is not a directory shape; the company's own /company/<id> page still verifies", () => {
+    expect(isAggregatorShapedUrl("https://news.example/company/bay-logistics-expands")).toBe(false);
+    const own = { name: "Jon Swart", company: "Bay Logistics", title_quote: "Vice President of Operations" };
+    expect(checkContact(own, { ...ctx, page: { url: "https://www.baylogistics.com/company/42/leadership", text: "Jon Swart, Vice President of Operations." } })).toMatchObject({ ok: true });
+  });
+
+  it("directory hosts are excluded from the evidence search", () => {
+    for (const d of ["visualvisitor.com", "dnb.com", "buzzfile.com", "manta.com", "bizapedia.com", "opencorporates.com", "growjo.com", "tracxn.com", "owler.com", "craft.co", "cbinsights.com", "signalhire.com", "zoominfo.com"]) {
+      expect(CONTACT_NON_EVIDENCE_DOMAINS.some((x) => d === x || d.endsWith(`.${x}`)), d).toBe(true);
+    }
+  });
+
+  it("titleMatchesRole: the function word must match; operations is not logistics unless the role list holds both", () => {
+    // "Operational Director And Mentor" fits "VP of Operations" on the function word only (as "Director of Operations" does).
+    expect(titleMatchesRole("Operational Director And Mentor", "VP of Operations")).toBe(true);
+    expect(titleMatchesRole("Operational Director And Mentor", "Director of Logistics")).toBe(false);
+    expect(titleMatchesRole("Director of Logistics", "VP of Operations")).toBe(false);
+    expect(titleMatchesRole("Director of Logistics", "Director of Logistics")).toBe(true);
+  });
+});
+
+describe("FAILURES #30: a former role is not a current one", () => {
+  const roles = ["VP of Operations", "COO"];
+  const company = "fulfilmentcrowd";
+  const own = "https://www.fulfilmentcrowd.com/blog/leadership";
+  const ctx = { buyerRoles: roles, companyUrl: "https://fulfilmentcrowd.com/", now: NOW };
+  const taylor = (title_quote: string) => ({ name: "Paul Taylor", company, title_quote });
+
+  it("Paul Taylor: 'Managing Director, stepping up from his previous role as Chief Operating Officer' is inferred as role changed", () => {
+    const text = "Paul Taylor has been appointed Managing Director, stepping up from his previous role as Chief Operating Officer.\n\nJoining fulfilmentcrowd in 2021, Paul has over 20 years of experience.";
+    const v = checkContact(taylor("Managing Director, stepping up from his previous role as Chief Operating Officer."), { ...ctx, page: { url: own, text } });
+    expect(v).toMatchObject({ ok: false, tier: "inferred", code: "contact_role_changed", changed: { role: "VP of Operations", marker: expect.stringMatching(/stepping up/i) } });
+  });
+
+  it("when the new title itself fits a role, the new title verifies (and is the one recorded)", () => {
+    const text = "Pat Lee has been appointed Chief Operating Officer, stepping up from his previous role as Director of Sales at fulfilmentcrowd.";
+    const v = checkContact({ name: "Pat Lee", company, title_quote: "Chief Operating Officer, stepping up from his previous role as Director of Sales" }, { ...ctx, page: { url: own, text } });
+    expect(v).toMatchObject({ ok: true, tier: "verified", role: "VP of Operations", evidence: { title_quote: "Chief Operating Officer" } });
+  });
+
+  it.each([
+    "Paul Taylor, former Chief Operating Officer, left in March.",
+    "Paul Taylor, formerly Chief Operating Officer of fulfilmentcrowd, now advises the board.",
+    "Paul Taylor is the outgoing Chief Operating Officer.",
+    "Paul Taylor retired as Chief Operating Officer last year.",
+    "Paul Taylor, retiring Chief Operating Officer, hands over in May.",
+    "Paul Taylor, Chief Operating Officer until 2024, now consults.",
+    "Paul Taylor was Chief Operating Officer for five years.",
+    "Paul Taylor, ex-Chief Operating Officer, speaks next week.",
+    "Paul Taylor, Chief Operating Officer, was succeeded by Ann Lee in May.",
+    "Ann Lee succeeds Paul Taylor as Chief Operating Officer in May.",
+    "Paul Taylor joined in 2021 as Chief Operating Officer – now Managing Director of the group.",
+  ])("%s", (text) => {
+    const v = checkContact(taylor("Chief Operating Officer"), { ...ctx, page: { url: own, text } });
+    expect(v).toMatchObject({ ok: false, tier: "inferred", code: "contact_role_changed" });
+  });
+
+  it("a current executive's 'previously' bio, and a former-role phrase in the NEXT person's paragraph, do not flag", () => {
+    const team =
+      "### Paul Taylor\n\nChief Operating Officer\n\nPreviously, Paul led operations at two other fulfilment businesses and has over 20 years of experience.\n\n### Ann Lee\n\nFormer Chief Financial Officer at Acme, now Head of Finance.";
+    expect(checkContact(taylor("Chief Operating Officer"), { ...ctx, page: { url: own, text: team } })).toMatchObject({ ok: true, tier: "verified" });
+  });
+
+  it("formerRoleMarker: the phrase list", () => {
+    for (const t of ["former COO", "his previous role", "stepping up from", "stepped down", "outgoing", "retired", "until 2024", "until March 2024", "was COO", "ex-COO", "succeeded by Ann"]) {
+      expect(formerRoleMarker(t), t).toBeTruthy();
+    }
+    for (const t of ["COO", "Previously, Troy led operations", "joined in 2021", "was named COO", "runs the business until further notice"]) {
+      expect(formerRoleMarker(t), t).toBeUndefined();
+    }
+  });
+
+  it("findContacts: Paul Taylor is shown as inferred 'role changed' (the index listing does not rescue him), Neil still verifies", async () => {
+    const pages: ExaResult[] = [
+      page(own, "Paul Taylor has been appointed Managing Director, stepping up from his previous role as Chief Operating Officer.", [{ name: "Paul Taylor", title_quote: "Managing Director, stepping up from his previous role as Chief Operating Officer." }]),
+      page("https://www.fulfilmentcrowd.com/our-people", "### Paul Taylor\n\nManaging Director\n\n### Neil Midgley\n\nDirector of Operations\n\nNeil arrived in 2026.", [
+        { name: "Paul Taylor", title_quote: "Managing Director" },
+        { name: "Neil Midgley", title_quote: "Director of Operations" },
+      ]),
+    ];
+    const r = await findContacts({ company, companyUrl: "https://fulfilmentcrowd.com/", buyerRoles: roles }, { exaSearch: fakeExa([], pages).fn as never });
+    expect(r.contacts.find((c) => c.name === "Neil Midgley")).toMatchObject({ tier: "verified" });
+    expect(r.contacts.find((c) => c.name === "Paul Taylor")).toMatchObject({ tier: "inferred", code: "contact_role_changed", note: "role changed", role: "VP of Operations" });
+    expect(r.contacts.filter((c) => c.tier === "verified").map((c) => c.name)).toEqual(["Neil Midgley"]);
+  });
+});
+
+describe("FAILURES #30: one person, one record", () => {
+  it("post-nominals, punctuation and middle initials do not make a second person", () => {
+    expect(personNameTokens("Neil Midgley FCILT")).toEqual(["Neil", "Midgley"]);
+    expect(personNameTokens("Pat Lee, MBA")).toEqual(["Pat", "Lee"]);
+    expect(personNameTokens("Sam Ray Jr.")).toEqual(["Sam", "Ray"]);
+    expect(personNameTokens("Dr. Ann Cole, PhD")).toEqual(["Ann", "Cole"]);
+    expect(personNameTokens("Kim Park III")).toEqual(["Kim", "Park"]);
+    expect(personNameTokens("Anna SMITH")).toEqual(["Anna", "SMITH"]);
+    const key = personKey("Neil Midgley");
+    for (const n of ["Neil Midgley FCILT", "Neil J. Midgley", "neil midgley", "Neil Midgley, CPA", "NEIL MIDGLEY"]) expect(personKey(n), n).toBe(key);
+    expect(personKey("Neil Midgley")).not.toBe(personKey("Neil Midgeley"));
+  });
+
+  it("dedupeContacts keeps the higher tier and attaches the profile link to it", () => {
+    const verified: Contact = { name: "Neil Midgley", tier: "verified", role: "VP of Operations", why: "Director of Operations", found_via: "web_page", evidence: { url: "https://www.fulfilmentcrowd.com/our-people", quote: "Neil Midgley Director of Operations", title_quote: "Director of Operations" } };
+    const inferred: Contact = { name: "Neil Midgley FCILT", tier: "inferred", role: "VP of Operations", why: "VP of Operations", profile_url: "https://linkedin.com/in/neil-midgley-fcilt-b8ba8548", found_via: "people_index", code: "contact_unverified" };
+    const out = dedupeContacts([inferred, verified]);
+    expect(out).toHaveLength(1);
+    expect(out[0]).toMatchObject({ name: "Neil Midgley", tier: "verified", profile_url: "https://linkedin.com/in/neil-midgley-fcilt-b8ba8548" });
+  });
+
+  it("findContacts: an index entry with post-nominals and the page's plain name come out as one verified contact with the profile link", async () => {
+    const people = [person("https://www.linkedin.com/in/neil-midgley-fcilt-b8ba8548", "Neil Midgley FCILT", [{ title: "VP of Operations", company: "fulfilmentcrowd" }])];
+    const pages = [page("https://www.fulfilmentcrowd.com/our-people", "### Neil Midgley\n\nDirector of Operations\n\nNeil arrived in 2026.", [{ name: "Neil Midgley", title_quote: "Director of Operations" }])];
+    const r = await findContacts({ company: "fulfilmentcrowd", companyUrl: "https://fulfilmentcrowd.com/", buyerRoles: ["VP of Operations"] }, { exaSearch: fakeExa(people, pages).fn as never });
+    expect(r.contacts).toHaveLength(1);
+    expect(r.contacts[0]).toMatchObject({ name: "Neil Midgley", tier: "verified", profile_url: "https://www.linkedin.com/in/neil-midgley-fcilt-b8ba8548" });
+  });
+});
+
+describe("FAILURES #30: names come out as the evidence page writes them", () => {
+  it("properCaseName title-cases only an all-lowercase or all-uppercase name", () => {
+    expect(properCaseName("kurt cuncannan")).toBe("Kurt Cuncannan");
+    expect(properCaseName("KURT CUNCANNAN")).toBe("Kurt Cuncannan");
+    expect(properCaseName("mary-jane o'brien")).toBe("Mary-Jane O'Brien");
+    expect(properCaseName("ludwig van beethoven")).toBe("Ludwig van Beethoven");
+    expect(properCaseName("Kurt McCann")).toBe("Kurt McCann");
+    expect(properCaseName("Joe MacLean")).toBe("Joe MacLean");
+  });
+
+  it("checkContact returns the page's casing; a lowercase name from the index or summariser does not leak through", () => {
+    const text = "Kurt Cuncannan, COO\n\nBay Logistics\n\nKurt joined the company in 2019 and runs the day to day operation of every terminal in the network.";
+    const v = checkContact({ name: "kurt cuncannan", company: "Bay Logistics", title_quote: "COO" }, { page: { url: "https://www.baylogistics.com/team", text }, buyerRoles: ["COO"], companyUrl: "https://baylogistics.com", now: NOW });
+    expect(v).toMatchObject({ ok: true, name: "Kurt Cuncannan" });
+    const shouting = checkContact({ name: "kurt cuncannan", company: "Bay Logistics", title_quote: "COO" }, { page: { url: "https://www.baylogistics.com/team", text: "KURT CUNCANNAN, COO" }, buyerRoles: ["COO"], companyUrl: "https://baylogistics.com", now: NOW });
+    expect(shouting).toMatchObject({ ok: true, name: "Kurt Cuncannan" });
+  });
+
+  it("findContacts: verified name uses the page casing; an index-only lowercase name is title-cased", async () => {
+    const people = [
+      person("https://www.linkedin.com/in/kurt-cuncannan-b1933228", "kurt cuncannan", [{ title: "COO", company: "Bay Logistics" }]),
+      person("https://www.linkedin.com/in/rock-magnan-1", "rock magnan", [{ title: "COO", company: "Bay Logistics" }]),
+    ];
+    const pages = [page("https://www.baylogistics.com/team", "Kurt Cuncannan, COO\n\nBay Logistics runs terminals across the Midwest.", [{ name: "Kurt Cuncannan", title_quote: "COO" }])];
+    const r = await findContacts({ company: "Bay Logistics", companyUrl: "https://baylogistics.com", buyerRoles: ["COO"] }, { exaSearch: fakeExa(people, pages).fn as never });
+    expect(r.contacts.map((c) => [c.name, c.tier])).toEqual([["Kurt Cuncannan", "verified"], ["Rock Magnan", "inferred"]]);
   });
 });

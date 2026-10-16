@@ -910,7 +910,7 @@ export function checkLead(plan: SearchPlan, input: LeadInput, options: CheckLead
 // Contacts (docs/SPEC-agent.md §5b). Pure, like checkLead: the model never decides a contact's tier.
 // ---------------------------------------------------------------------------
 
-export type ContactGateCode = "contact_unverified" | "contact_role_mismatch" | "contact_quote_not_in_page" | "contact_stale";
+export type ContactGateCode = "contact_unverified" | "contact_role_mismatch" | "contact_quote_not_in_page" | "contact_stale" | "contact_role_changed";
 
 /**
  * Hosts that are LinkedIn, a copy of it, or a people-data aggregator. A page here is never evidence for a
@@ -953,16 +953,33 @@ export const CONTACT_NON_EVIDENCE_DOMAINS = [
   "cognism.com",
   "6sense.com",
   "lead411.com",
+  // Added 2026-10-16 (FAILURES #30): company directories. A company page that lists "employees" is a field list
+  // with a title per person, not evidence that the title is current.
+  "visualvisitor.com",
+  "dnb.com",
+  "hoovers.com",
+  "buzzfile.com",
+  "manta.com",
+  "bizapedia.com",
+  "opencorporates.com",
+  "corporationwiki.com",
+  "growjo.com",
+  "tracxn.com",
+  "aeroleads.com",
+  "globaldatabase.com",
+  "kompass.com",
 ] as const;
 
 /** Path segments (or a `person` query key) that mark a scraped-profile / people-directory page. */
 const AGGREGATOR_PATH_SEGMENTS = new Set(["profile", "profiles", "person", "people", "employee", "employees", "contact", "contacts", "in", "pub", "directory"]);
 
-/** A URL shaped like a person profile or people directory: /profile/, /person/, /people/, /in/, /pub/, /directory/, /company/<x>/people, ?person=. */
+/** A URL shaped like a person profile or people directory: /profile/, /person/, /people/, /in/, /pub/, /directory/, /company/<x>/people, /company(ies)/<digits>, ?person=. */
 export function isAggregatorShapedUrl(url: string): boolean {
   try {
     const u = new URL(url);
     if (u.searchParams.has("person")) return true;
+    // Company-directory records: /companies/5788692/bay_logistics_inc, /company/12345/acme.
+    if (/\/compan(?:y|ies)\/\d+(?:\/|$)/i.test(u.pathname)) return true;
     return u.pathname.toLowerCase().split("/").some((seg) => AGGREGATOR_PATH_SEGMENTS.has(seg));
   } catch {
     return true;
@@ -1158,13 +1175,50 @@ export function matchedBuyerRole(title: string, buyerRoles: readonly string[]): 
 
 const HONORIFICS = new Set(["dr", "mr", "mrs", "ms", "mx", "prof", "sir", "dame"]);
 
-/** A person's name as tokens (honorifics dropped). Fewer than 2 tokens is not a checkable full name. */
+/** Post-nominals and suffixes that trail a name ("Neil Midgley FCILT", "Pat Lee, MBA", "Sam Ray Jr."): not part of the person's name. */
+const POST_NOMINALS = new Set([
+  "jr", "sr", "ii", "iii", "iv", "mba", "phd", "cpa", "esq", "dba", "msc", "bsc", "mbe", "obe", "cbe", "cfa", "cma",
+  "fcilt", "mcilt", "cmilt", "cilt", "cips", "mcips", "fcips", "cpsm", "cscp", "cpim", "cltd", "cwlp", "pmp", "fca", "aca", "fcca", "fcmi",
+]);
+
+/** Trailing post-nominal tokens dropped, leaving at least two tokens. Explicit list only: an all-caps trailing token can be a real surname ("Anna SMITH"). */
+function dropPostNominals(tokens: string[]): string[] {
+  const out = [...tokens];
+  while (out.length > 2) {
+    const last = out[out.length - 1]!;
+    const bare = last.replace(/\./g, "").toLowerCase();
+    if (!POST_NOMINALS.has(bare)) break;
+    out.pop();
+  }
+  return out;
+}
+
+/** A person's name as tokens (honorifics and trailing post-nominals dropped). Fewer than 2 tokens is not a checkable full name. */
 export function personNameTokens(name: string): string[] {
-  return name
-    .normalize("NFC")
-    .split(/[^\p{L}\p{N}'’-]+/u)
-    .map((t) => t.replace(/^['’-]+|['’-]+$/g, ""))
-    .filter((t) => t.length > 0 && !HONORIFICS.has(t.toLowerCase().replace(/\.$/, "")));
+  return dropPostNominals(
+    name
+      .normalize("NFC")
+      .split(/[^\p{L}\p{N}'’-]+/u)
+      .map((t) => t.replace(/^['’-]+|['’-]+$/g, ""))
+      .filter((t) => t.length > 0 && !HONORIFICS.has(t.toLowerCase().replace(/\.$/, ""))),
+  );
+}
+
+const NAME_PARTICLES = new Set(["van", "von", "de", "del", "della", "der", "den", "di", "da", "du", "la", "le", "bin", "ibn", "al", "el"]);
+
+/** Title-case a name that arrived all lowercase or all uppercase: "kurt cuncannan" -> "Kurt Cuncannan", "o'brien" -> "O'Brien". Mixed-case input is returned as is. */
+export function properCaseName(name: string): string {
+  const trimmed = name.replace(/\s+/g, " ").trim();
+  if (trimmed !== trimmed.toLowerCase() && trimmed !== trimmed.toUpperCase()) return trimmed;
+  return trimmed
+    .toLowerCase()
+    .split(" ")
+    .map((word, i) => {
+      if (i > 0 && NAME_PARTICLES.has(word)) return word;
+      const cased = word.replace(/(^|[-'’])(\p{L})/gu, (_m, sep: string, ch: string) => sep + ch.toUpperCase());
+      return cased.replace(/^Mc(\p{L})/u, (_m, ch: string) => `Mc${ch.toUpperCase()}`);
+    })
+    .join(" ");
 }
 
 /** Raw [start, end) spans where the full name appears (word-bounded, case-insensitive; one middle initial allowed). */
@@ -1219,7 +1273,14 @@ export type ContactPage = {
 };
 
 export type ContactVerdict =
-  | { ok: true; tier: "verified"; role: string; evidence: ContactEvidence }
+  | {
+      ok: true;
+      tier: "verified";
+      role: string;
+      evidence: ContactEvidence;
+      /** The name as the evidence page writes it (title-cased only when the page has it all lower/upper case). */
+      name: string;
+    }
   | {
       ok: false;
       tier: "inferred" | "rejected";
@@ -1227,7 +1288,68 @@ export type ContactVerdict =
       reason: string;
       /** `contact_stale` only: the title the old page gave and when it was written (the person is not shown as verified). */
       stale?: { role: string; title_quote: string; published: string; url: string };
+      /** `contact_role_changed` only: the approved role the page names as FORMER, and the phrase that says so. */
+      changed?: { role: string; title_quote: string; marker: string; url: string };
     };
+
+/**
+ * Phrases that make a matched title NOT current (FAILURES #30): "stepping up from his previous role as COO",
+ * "former COO", "retired", "until 2024". Deliberately narrow: "previously" alone is common in a current
+ * executive's bio ("Previously, Troy led ...") and must not flag it.
+ */
+const FORMER_ROLE_PATTERNS: RegExp[] = [
+  /\bformer(?:ly)?\b/i,
+  /\bprevious(?:ly)?\s+(?:role|position|title|post|job)\b/i,
+  /\bprior\s+(?:role|position|title|post)\b/i,
+  /\bstepp(?:ing|ed|s)\s+(?:up|down|aside)\b/i,
+  /\bmov(?:ing|ed)\s+(?:up\s+)?from\b/i,
+  /\bpromoted\s+from\b/i,
+  /\boutgoing\b/i,
+  /\bretir(?:ed|ing|es|ement)\b/i,
+  /\bsucceeded\s+by\b/i,
+  /\bex-[a-z]/i,
+  /\buntil\s+(?:(?:early|late|mid)[-\s])?(?:[A-Za-z]+\s+)?(?:19|20)\d{2}\b/i,
+  /\bwas\s+(?:the\s+|our\s+|a\s+)?(?:chief|vice|vp\b|svp\b|director|head\b|managing|general\s+manager|president|coo\b|ceo\b|cfo\b)/i,
+  /[,–—-]\s*now\s+(?:the\s+)?[A-Z]/,
+];
+
+/** Characters read on each side of the title when looking for a former-role phrase (bounded by the paragraph). */
+export const CONTACT_FORMER_WINDOW = 160;
+
+/** The earliest former-role match in `text` (earliest position, not first pattern in the list). */
+function firstFormerMatch(text: string): RegExpExecArray | undefined {
+  let best: RegExpExecArray | undefined;
+  for (const re of FORMER_ROLE_PATTERNS) {
+    const m = re.exec(text);
+    if (m && (!best || m.index < best.index)) best = m;
+  }
+  return best;
+}
+
+/** The former-role phrase in `text`, if any. `surname` makes "succeeds <name>" count (the named person is the one replaced). */
+export function formerRoleMarker(text: string, surname?: string): string | undefined {
+  const first = firstFormerMatch(text);
+  if (first) return first[0].trim();
+  if (surname) {
+    const escaped = surname.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const m = new RegExp(`\\bsucceed(?:s|ed)\\s+(?:\\S+\\s+){0,3}${escaped}\\b`, "i").exec(text);
+    if (m) return m[0].trim();
+  }
+  return undefined;
+}
+
+/** The former-role phrase within CONTACT_FORMER_WINDOW characters of [start, end), not crossing a paragraph or heading break. */
+export function formerRoleNear(text: string, start: number, end: number, surname?: string): string | undefined {
+  let from = Math.max(0, start - CONTACT_FORMER_WINDOW);
+  let to = Math.min(text.length, end + CONTACT_FORMER_WINDOW);
+  const before = text.slice(from, start);
+  const breakBefore = Math.max(before.lastIndexOf("\n\n"), before.search(/\n#{1,6}\s[^\n]*$/));
+  if (breakBefore >= 0) from += breakBefore;
+  const after = text.slice(end, to);
+  const breakAfter = after.search(/\n\s*\n|\n#{1,6}\s/);
+  if (breakAfter >= 0) to = end + breakAfter;
+  return formerRoleMarker(text.slice(from, to), surname);
+}
 
 /**
  * Is this person a verified contact on this page? Verified needs all of:
@@ -1244,6 +1366,10 @@ export type ContactVerdict =
  *    lists the same person in a current approved role at the company). Otherwise `contact_stale` (inferred),
  *    carrying `stale` so the caller can say "last confirmed <year>". Company-domain pages have no age rule.
  *    The evidence records the page date when one is known.
+ * 7. the title is current: a former-role phrase ("previous role", "former", "stepping up from", "retired",
+ *    "until 2024", "was COO", ...) in the quote or within CONTACT_FORMER_WINDOW characters of the title (inside its
+ *    paragraph) makes the matched role not current. A quote that splits on such a phrase is judged on the part
+ *    before it (the new title); if that fits no role the verdict is `contact_role_changed` (inferred, `changed`).
  * Failing 1-3 is `contact_unverified` (tier inferred: nothing on the page contradicts the person);
  * failing 4 is `contact_quote_not_in_page` and 5 is `contact_role_mismatch` (tier rejected).
  */
@@ -1276,21 +1402,51 @@ export function checkContact(
     const longest = title.split(/[,;:|·–—]/).map((s) => s.trim()).sort((a, b) => b.length - a.length)[0] ?? "";
     titles = strippedSpans(longest, text);
   }
-  let best: { gap: number; start: number; end: number } | undefined;
+  let best: { gap: number; start: number; end: number; nameStart: number; nameEnd: number } | undefined;
   for (const [ns, ne] of names) {
     for (const [ts, te] of titles) {
       const gap = Math.max(0, Math.max(ns, ts) - Math.min(ne, te));
-      if (!best || gap < best.gap) best = { gap, start: Math.min(ns, ts), end: Math.max(ne, te) };
+      if (!best || gap < best.gap) best = { gap, start: Math.min(ns, ts), end: Math.max(ne, te), nameStart: ns, nameEnd: ne };
     }
   }
   if (!best || best.gap > CONTACT_PROXIMITY) return notInPage("the title is not next to the name on the page");
   if (!ownDomain && proseCharsAround(text, best.start, best.end) < CONTACT_MIN_PROSE_CHARS) {
     return inferred(`${safeDomain(page.url)} is not the company's site and the page has under ${CONTACT_MIN_PROSE_CHARS} characters of prose around the name: a field list, not press`);
   }
-  const role = matchedBuyerRole(title, ctx.buyerRoles);
+  // Former roles are not current (FAILURES #30). A phrase in the title quote that splits it ("Managing Director,
+  // stepping up from his previous role as COO"): the part before it is the person's NEW title and must fit a role
+  // itself; otherwise the fitting part is the old one and the contact is "role changed", never verified.
+  const surname = personNameTokens(contact.name).slice(-1)[0];
+  const titleMarker = firstFormerMatch(title);
+  let roleTitle = title;
+  let role: string | undefined;
+  let formerPhrase: string | undefined;
+  if (titleMarker) {
+    const head = title.slice(0, titleMarker.index).replace(/[\s,;:–—-]+$/, "").trim();
+    const headRole = head ? matchedBuyerRole(head, ctx.buyerRoles) : undefined;
+    if (headRole) {
+      role = headRole;
+      roleTitle = head;
+    } else {
+      role = matchedBuyerRole(title, ctx.buyerRoles);
+      formerPhrase = titleMarker[0].trim();
+    }
+  } else {
+    role = matchedBuyerRole(title, ctx.buyerRoles);
+    if (role) formerPhrase = formerRoleNear(text, best.start, best.end, surname);
+  }
   if (!role) return { ok: false, tier: "rejected", code: "contact_role_mismatch", reason: `the title "${title}" fits none of the approved roles` };
+  if (formerPhrase) {
+    return {
+      ok: false,
+      tier: "inferred",
+      code: "contact_role_changed",
+      reason: `the page says "${formerPhrase}" next to the title: the role is no longer current`,
+      changed: { role, title_quote: title, marker: formerPhrase, url: page.url },
+    };
+  }
   const published = normalizePageDate(page.publishedDate, now) ?? dateNearSpan(text, best.start, best.end, now);
-  const evidence = contactEvidence({ url: page.url, quote: text.slice(best.start, best.end), title_quote: title, ...(published ? { published } : {}) });
+  const evidence = contactEvidence({ url: page.url, quote: text.slice(best.start, best.end), title_quote: roleTitle, ...(published ? { published } : {}) });
   if (!evidence) return notInPage("the name and title span is too long to quote");
   if (!ownDomain && published && monthsSince(published, now) > CONTACT_MAX_PAGE_AGE_MONTHS && !ctx.currentInIndex) {
     return {
@@ -1298,8 +1454,9 @@ export function checkContact(
       tier: "inferred",
       code: "contact_stale",
       reason: `the page is from ${published}, over ${CONTACT_MAX_PAGE_AGE_MONTHS} months old, and the people index does not list this person in a current approved role`,
-      stale: { role, title_quote: title, published, url: page.url },
+      stale: { role, title_quote: roleTitle, published, url: page.url },
     };
   }
-  return { ok: true, tier: "verified", role, evidence };
+  const onPage = text.slice(best.nameStart, best.nameEnd).replace(/\s+/g, " ").trim();
+  return { ok: true, tier: "verified", role, evidence, name: onPage ? properCaseName(onPage) : properCaseName(contact.name) };
 }
