@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
-import { InvalidIdError, assertRunId } from "../../../../../src/agent/ids";
+import { InvalidIdError } from "../../../../../src/agent/ids";
 import { decide } from "../../../../../src/agent/loop";
 import { loadState, RunBusyError, saveState, StaleStateError, withRunLock } from "../../../../../src/agent/state";
 import { isDemoRunId } from "../../../../../src/demo/mode";
 import { demoDecide } from "../../../../../src/demo/replay";
-import { rateLimit, readJsonBody, RequestValidationError } from "../../../_shared";
+import { rateLimit, readJsonBody, requireRunOwner, RequestValidationError } from "../../../_shared";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -13,7 +13,8 @@ export async function POST(request: Request, { params }: { params: { id: string 
   try {
     const limited = rateLimit(request);
     if (limited) return limited;
-    assertRunId(params.id);
+    const owner = await requireRunOwner(request, params.id);
+    if (owner instanceof NextResponse) return owner;
     const body = (await readJsonBody(request)) as { approve?: unknown; note?: unknown; revisedValue?: unknown; toolUseId?: unknown };
     if (isDemoRunId(params.id)) {
       return NextResponse.json(

@@ -30,9 +30,9 @@ describe("eval datasets (eval/datasets/*.jsonl, the source of truth)", () => {
     expect(validateDataset("prospector-cases", cases)).toEqual([]);
   });
 
-  it("every FAILURES.md entry (#1–#27) has at least one case", () => {
+  it("every FAILURES.md entry (#1–#28) has at least one case", () => {
     const entries = [...readFileSync("docs/FAILURES.md", "utf8").matchAll(/^## (\d+)\. /gm)].map((m) => Number(m[1]));
-    expect(entries).toEqual(Array.from({ length: 27 }, (_, i) => i + 1));
+    expect(entries).toEqual(Array.from({ length: 28 }, (_, i) => i + 1));
     expect(failuresCovered(cases)).toEqual(entries);
   });
 

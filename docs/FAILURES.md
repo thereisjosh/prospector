@@ -210,6 +210,16 @@ Also fixed: Exa 429s under load (aac0a20: ≤ 4 in flight, jittered retry); an u
 - **Not covered:** how often the right domain is among the top 5 for these shapes is unmeasured (the only evidence is the 3/3 Instagram probe, SPEC-v2 section 8 A3). The bio-link path reads the page's text for URLs and has not been run against a live Linktree. Link-in-bio pages whose links are click-tracked redirects (`l.instagram.com/...`) yield no outbound domain and fall back to the handle search.
 - **Earlier:** feeding one URL per platform through `classifyInput` and asserting the pages that would be fetched. The tests only exercised the Instagram handle and a plain site.
 
+## 28. Run routes accepted any caller who knew the run id [measured]
+
+- **Symptom:** 2026-10-16, found while adding the event stream: `GET /api/runs/:id/events` checked that the caller's workspace owns the run, but `GET /api/runs/:id`, `POST step`, `POST stop` and `POST decision` did not. Anyone holding a run id could read the run, drive it, approve or decline its pending approval, or stop it, and every step spent the owner's visitor allowance and the daily budget. Not exploited; run ids are UUIDv4, so a leak (a shared link, a log, a screenshot) was the only path.
+- **Layer:** API routes (`app/api/runs/[id]/*`). **Cause:** ownership was checked inline in the one route written last; the older routes predate workspaces being the access boundary and nothing made the check shared, so adding a route meant remembering it.
+- **Fix:** one helper, `requireRunOwner(request, runId, { allowQuery? })` in `app/api/_shared.ts`, used by all five run routes (the events route's check moved into it): 400 without a valid `x-workspace-id` (the `?workspaceId=` query is read only when `allowQuery` is set, which only the events route does because EventSource cannot send headers), 404 for an unknown run, 403 for another workspace's run, checked after the rate limit and before any state load, lock, spend or policy line. Demo runs go through the same check (their session's workspace), so `POST /api/runs` with `mode: "demo"` now needs a `workspaceId` (400 otherwise) instead of minting a random one that nobody could reach.
+- **Before -> after:** a stranger's GET/step/stop/decision on a known id: 200 and acted -> 403, state version and spend unchanged.
+- **Test:** `eval/api-controls.test.ts` ("run routes check that the caller's workspace owns the run": 400/403/404 on every route, the stranger changes nothing, query not accepted, owner 200, demo run ownership); `eval/live-stream.test.ts` still covers the events route.
+- **Not covered:** the workspace id is a bearer secret kept in the visitor's localStorage, not an account; anyone who learns both ids has the run. The route-level `rate_limit` policy line (step) is still written for a run id before the owner check; it is throttled to one line per minute per run.
+- **Earlier:** a test per route listing the access matrix (no workspace, other workspace, unknown run, owner) when the events route was written would have shown four routes without it.
+
 ## What we would monitor weekly
 
 Extends SPEC-agent §14; a breach rolls back one stage.
@@ -226,6 +236,7 @@ Extends SPEC-agent §14; a breach rolls back one stage.
 | `lookup_retry` events by reason and outcome; lookups screened `quote_not_in_page` | Summariser noise; retries that did not help | 25 |
 | Accepted leads whose signal URL is listing-shaped (`jobs.`, `/job/`, `/careers/`) or whose domain is a board; `non_event_page` rejects by reason | Job boards the list does not know yet | 22, 26 |
 | Describe: share of profile requests ending in "Tell us in one sentence" by input shape (`kind` / `source`); candidates lists where nobody picks a domain | Input shapes the resolver misreads | 27 |
+| Run-route 403s (a stranger holding a run id) | Leaked run ids or a client not sending the workspace header | 28 |
 | Exa 429/retry count; p95 turn time vs the 60 s route limit | Load and hosting | — |
 | Judge parse failures; share of "cannot verify"; leads with no verdict | Eval health | 8–11 |
 | Runs with 0 verification reads  | The agent is not verifying | — |

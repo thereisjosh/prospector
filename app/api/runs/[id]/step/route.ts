@@ -1,6 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { NextResponse } from "next/server";
-import { InvalidIdError, assertRunId } from "../../../../../src/agent/ids";
+import { InvalidIdError } from "../../../../../src/agent/ids";
 import { checkLead } from "../../../../../src/gates";
 import { allowanceHandback, step } from "../../../../../src/agent/loop";
 import { addVisitorSpend, dollarsExhausted, loadQuota } from "../../../../../src/agent/quota";
@@ -9,7 +9,7 @@ import { isDemoRunId } from "../../../../../src/demo/mode";
 import { demoStep } from "../../../../../src/demo/replay";
 import { appendEvents } from "../../../../../src/agent/events";
 import { runEnded } from "../../../../../src/agent/online-eval";
-import { addDailySpend, dailyBudgetReached, dailyBudgetResponse, livePaused, rateLimit, recordRoutePolicy, routePolicyEvent } from "../../../_shared";
+import { addDailySpend, dailyBudgetReached, dailyBudgetResponse, livePaused, rateLimit, recordRoutePolicy, requireRunOwner, routePolicyEvent } from "../../../_shared";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -21,7 +21,8 @@ export async function POST(request: Request, { params }: { params: { id: string 
       await recordRoutePolicy(params.id, "rate_limit");
       return limited;
     }
-    assertRunId(params.id);
+    const owner = await requireRunOwner(request, params.id);
+    if (owner instanceof NextResponse) return owner;
     if (isDemoRunId(params.id)) return NextResponse.json(await demoStep(params.id));
     // Kill switch (LIVE_MODE=off, DAILY_SPEND_CAP_DOLLARS=0, or <DATA_DIR>/paused written by
     // POST /api/admin/pause): in-flight live runs stop spending too; they resume when unpaused.

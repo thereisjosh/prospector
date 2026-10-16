@@ -90,7 +90,7 @@ describe("admin pause route", () => {
     const { getV1Plan } = await import("./fixtures/v1-plans");
     await saveState(createRunState({ id: runId, workspaceId: "admin-test-ws", plan: getV1Plan(1) }));
     const { POST: stepPOST } = await import("../app/api/runs/[id]/step/route");
-    const stepRes = await stepPOST(req(`http://x/api/runs/${runId}/step`, { method: "POST" }), { params: { id: runId } });
+    const stepRes = await stepPOST(req(`http://x/api/runs/${runId}/step`, { method: "POST", headers: { "x-workspace-id": "admin-test-ws" } }), { params: { id: runId } });
     expect(stepRes.status).toBe(503);
     expect(await stepRes.json()).toEqual({ error: "paused" });
     const events = (await readFile(join(process.env.DATA_DIR!, "runs", runId, "events.jsonl"), "utf8")).trim().split("\n").map((l) => JSON.parse(l));

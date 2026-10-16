@@ -87,7 +87,7 @@ describe("visitor allowance on the LAST permitted run", () => {
     let continued = 0;
     let stopped = false;
     for (let i = 0; i < 60 && !stopped; i++) {
-      const res = await stepRoute(new Request("http://x/api/runs/id/step", { method: "POST", headers: { "x-forwarded-for": crypto.randomUUID() } }), { params: { id } });
+      const res = await stepRoute(new Request("http://x/api/runs/id/step", { method: "POST", headers: { "x-forwarded-for": crypto.randomUUID(), "x-workspace-id": workspaceId } }), { params: { id } });
       expect(res.status).toBe(200);
       const body = (await res.json()) as { status: string };
       const quota = await loadQuota(workspaceId);

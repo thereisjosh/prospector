@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
-import { InvalidIdError, assertRunId } from "../../../../src/agent/ids";
+import { InvalidIdError } from "../../../../src/agent/ids";
 import { readLastEvents } from "../../../../src/agent/events";
 import { loadState, screenedByCode } from "../../../../src/agent/state";
 import { isDemoRunId } from "../../../../src/demo/mode";
 import { demoSnapshot } from "../../../../src/demo/replay";
-import { rateLimit } from "../../_shared";
+import { rateLimit, requireRunOwner } from "../../_shared";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -13,7 +13,8 @@ export async function GET(request: Request, { params }: { params: { id: string }
   try {
     const limited = rateLimit(request);
     if (limited) return limited;
-    assertRunId(params.id);
+    const owner = await requireRunOwner(request, params.id);
+    if (owner instanceof NextResponse) return owner;
     if (isDemoRunId(params.id)) return NextResponse.json(await demoSnapshot(params.id));
     const state = await loadState(params.id);
     const events = await readLastEvents(params.id, 50);

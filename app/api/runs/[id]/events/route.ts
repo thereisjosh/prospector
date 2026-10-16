@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import { InvalidIdError, assertRunId } from "../../../../../src/agent/ids";
+import { InvalidIdError } from "../../../../../src/agent/ids";
 import { openEventStream, readRunAccess } from "../../../../../src/agent/live";
 import { isDemoRunId } from "../../../../../src/demo/mode";
 import { demoRunAccess } from "../../../../../src/demo/replay";
-import { missingWorkspaceResponse, rateLimit, workspaceIdFromRequest } from "../../../_shared";
+import { rateLimit, requireRunOwner } from "../../../_shared";
 
 // Long-lived stream: Node runtime (fs.watch, the in-process live bus), never cached or prerendered.
 export const runtime = "nodejs";
@@ -19,12 +19,8 @@ export async function GET(request: Request, { params }: { params: { id: string }
   try {
     const limited = rateLimit(request);
     if (limited) return limited;
-    assertRunId(params.id);
-    const workspaceId = workspaceIdFromRequest(request);
-    if (!workspaceId) return missingWorkspaceResponse();
-    const access = isDemoRunId(params.id) ? await demoRunAccess(params.id) : await readRunAccess(params.id);
-    if (!access) return NextResponse.json({ error: "Not found." }, { status: 404 });
-    if (access.workspaceId !== workspaceId) return NextResponse.json({ error: "Forbidden." }, { status: 403 });
+    const owner = await requireRunOwner(request, params.id, { allowQuery: true });
+    if (owner instanceof NextResponse) return owner;
     const url = new URL(request.url);
     const after = Math.max(seqParam(url.searchParams.get("after")), seqParam(request.headers.get("last-event-id")));
     const readStatus = async () => (isDemoRunId(params.id) ? await demoRunAccess(params.id) : await readRunAccess(params.id))?.status;

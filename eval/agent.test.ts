@@ -96,6 +96,11 @@ const checker: LeadChecker = (_p, input) => {
   };
 };
 
+/** A request from the run's own workspace (every run route checks ownership). */
+function asOwner(s: RunState, method = "GET") {
+  return new Request("http://x", { method, headers: { "x-workspace-id": s.workspaceId } });
+}
+
 function state(over: Partial<RunState> = {}) {
   return {
     ...createRunState({ id: crypto.randomUUID(), workspaceId: crypto.randomUUID(), plan: plan(), createdAt: "2026-10-12T00:00:00.000Z" }),
@@ -687,10 +692,10 @@ describe("agent loop", () => {
     const { GET } = await import("../app/api/runs/[id]/route");
     const s = state({ summary: "Found two leads.", strategyApproved: true });
     await saveState(s);
-    const res = await GET(new Request("http://x"), { params: { id: s.id } });
+    const res = await GET(asOwner(s), { params: { id: s.id } });
     const body = await res.json();
     expect(body).toMatchObject({ summary: "Found two leads.", strategyApproved: true, id: s.id });
-    const bad = await GET(new Request("http://x"), { params: { id: "../etc" } });
+    const bad = await GET(asOwner(s), { params: { id: "../etc" } });
     expect(bad.status).toBe(400);
     expect(await bad.json()).toEqual({ error: "Invalid request." });
   });
@@ -699,7 +704,7 @@ describe("agent loop", () => {
     const { POST } = await import("../app/api/runs/[id]/stop/route");
     const s = state();
     await saveState(s);
-    const res = await POST(new Request("http://x", { method: "POST" }), { params: { id: s.id } });
+    const res = await POST(asOwner(s, "POST"), { params: { id: s.id } });
     expect(await res.json()).toMatchObject({ status: "stopped", stopReason: "user" });
     expect((await loadState(s.id)).status).toBe("stopped");
     expect((await POST(new Request("http://x"), { params: { id: "a/b" } })).status).toBe(400);
@@ -886,7 +891,7 @@ describe("agent loop", () => {
       const { GET } = await import("../app/api/runs/[id]/route");
       const s = state({ screened: [{ company: "A", code: "size", reason: "r", turn: 1, stage: "lookup" }, { company: "B", code: "size", reason: "r", turn: 1, stage: "lookup" }] });
       await saveState(s);
-      const body = await (await GET(new Request("http://x"), { params: { id: s.id } })).json();
+      const body = await (await GET(asOwner(s), { params: { id: s.id } })).json();
       expect(body.screened).toEqual([{ code: "size", count: 2, companies: ["A", "B"] }]);
     });
   });

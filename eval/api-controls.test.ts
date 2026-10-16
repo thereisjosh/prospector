@@ -71,6 +71,82 @@ afterEach(() => {
   for (const root of roots.splice(0)) rmSync(root, { recursive: true, force: true });
 });
 
+describe("run routes check that the caller's workspace owns the run (FAILURES #28)", () => {
+  const OWNER = "owner-ws";
+  const call = (method: string, workspace?: string, query = "") =>
+    new Request(`http://x/api/runs/id${query}`, {
+      method,
+      headers: { "x-forwarded-for": crypto.randomUUID(), "content-type": "application/json", ...(workspace ? { "x-workspace-id": workspace } : {}) },
+      body: method === "POST" ? JSON.stringify({ approve: true, toolUseId: "t" }) : undefined,
+    });
+
+  async function routes() {
+    const { createRunState, saveState } = await import("../src/agent/state");
+    const state = createRunState({ id: crypto.randomUUID(), workspaceId: OWNER, plan: plan() as never });
+    await saveState(state);
+    const run = await import("../app/api/runs/[id]/route");
+    const step = await import("../app/api/runs/[id]/step/route");
+    const stop = await import("../app/api/runs/[id]/stop/route");
+    const decision = await import("../app/api/runs/[id]/decision/route");
+    const unknownId = crypto.randomUUID();
+    return {
+      id: state.id,
+      unknownId,
+      all: [
+        { name: "GET run", call: (r: Request, id: string) => run.GET(r, { params: { id } }), method: "GET" },
+        { name: "POST step", call: (r: Request, id: string) => step.POST(r, { params: { id } }), method: "POST" },
+        { name: "POST stop", call: (r: Request, id: string) => stop.POST(r, { params: { id } }), method: "POST" },
+        { name: "POST decision", call: (r: Request, id: string) => decision.POST(r, { params: { id } }), method: "POST" },
+      ],
+    };
+  }
+
+  it("400 without a workspace, 403 for another workspace, 404 for an unknown run, on every run route", async () => {
+    const { id, unknownId, all } = await routes();
+    for (const route of all) {
+      expect((await route.call(call(route.method), id)).status, `${route.name} no workspace`).toBe(400);
+      expect((await route.call(call(route.method, "stranger"), id)).status, `${route.name} other workspace`).toBe(403);
+      expect((await route.call(call(route.method, OWNER), unknownId)).status, `${route.name} unknown run`).toBe(404);
+    }
+  });
+
+  it("a stranger's step, stop and decision change nothing and spend nothing", async () => {
+    const { id, all } = await routes();
+    const { loadState } = await import("../src/agent/state");
+    const before = await loadState(id);
+    for (const route of all) await route.call(call(route.method, "stranger"), id);
+    const after = await loadState(id);
+    expect(after.status).toBe(before.status);
+    expect(after.version).toBe(before.version);
+    expect(after.spend.total).toBe(0);
+  });
+
+  it("?workspaceId= is not accepted on the run routes (only the EventSource route reads the query)", async () => {
+    const { id, all } = await routes();
+    for (const route of all) expect((await route.call(call(route.method, undefined, `?workspaceId=${OWNER}`), id)).status, route.name).toBe(400);
+  });
+
+  it("the owner gets through: GET run 200, stop 200", async () => {
+    const { id, all } = await routes();
+    expect((await all[0].call(call("GET", OWNER), id)).status).toBe(200);
+    expect((await all[2].call(call("POST", OWNER), id)).status).toBe(200);
+  });
+
+  it("the demo run belongs to the workspace that created it; creating one needs a workspace", async () => {
+    const { POST: create } = await import("../app/api/runs/route");
+    const { GET } = await import("../app/api/runs/[id]/route");
+    const { POST: step } = await import("../app/api/runs/[id]/step/route");
+    expect((await create(jsonRequest("http://x/api/runs", { mode: "demo", plan: plan() }))).status).toBe(400);
+    const made = await create(jsonRequest("http://x/api/runs", { mode: "demo", workspaceId: OWNER, plan: plan() }));
+    expect(made.status).toBe(200);
+    const { id } = (await made.json()) as { id: string };
+    expect((await GET(call("GET", OWNER), { params: { id } })).status).toBe(200);
+    expect((await GET(call("GET", "stranger"), { params: { id } })).status).toBe(403);
+    expect((await step(call("POST", "stranger"), { params: { id } })).status).toBe(403);
+    expect((await step(call("POST", OWNER), { params: { id } })).status).toBe(200);
+  });
+});
+
 describe("R1 public controls", () => {
   it("POST /api/runs records live runs and returns 402 when the visitor run allowance is exhausted", async () => {
     process.env.VISITOR_MAX_LIVE_RUNS = "1";
@@ -160,7 +236,7 @@ describe("R1 public controls", () => {
     const { POST } = await import("../app/api/runs/[id]/step/route");
     const state = createRunState({ id: crypto.randomUUID(), workspaceId: "step-spend", plan: plan() as never });
     await saveState(state);
-    const res = await POST(new Request("http://x/api/runs/id/step", { method: "POST", headers: { "x-forwarded-for": crypto.randomUUID() } }), { params: { id: state.id } });
+    const res = await POST(new Request("http://x/api/runs/id/step", { method: "POST", headers: { "x-forwarded-for": crypto.randomUUID(), "x-workspace-id": "step-spend" } }), { params: { id: state.id } });
     expect(res.status).toBe(200);
     const { loadQuota } = await import("../src/agent/quota");
     expect((await loadQuota("step-spend")).spentDollars).toBeGreaterThan(0);
@@ -174,7 +250,7 @@ describe("R1 public controls", () => {
     const state = createRunState({ id: crypto.randomUUID(), workspaceId: "spent-out", plan: plan() as never });
     await saveState(state);
     await addVisitorSpend("spent-out", 0.01);
-    const res = await POST(new Request("http://x/api/runs/id/step", { method: "POST", headers: { "x-forwarded-for": crypto.randomUUID() } }), { params: { id: state.id } });
+    const res = await POST(new Request("http://x/api/runs/id/step", { method: "POST", headers: { "x-forwarded-for": crypto.randomUUID(), "x-workspace-id": "spent-out" } }), { params: { id: state.id } });
     expect(res.status).toBe(200);
     expect(await res.json()).toMatchObject({ status: "stopped", handback: { shortfall: "0 of 10" } });
     expect(await loadState(state.id)).toMatchObject({ status: "stopped", stopReason: "visitor_allowance" });

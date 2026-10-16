@@ -22,8 +22,10 @@ export async function POST(request: Request) {
     const validation = validatePlan(body.plan);
     if (!validation.ok) return NextResponse.json({ error: "Invalid plan." }, { status: 400 });
     const workspaceId = workspaceIdFrom(body.workspaceId);
-    if (body.mode === "demo" || isDemoMode()) return NextResponse.json(await createDemoRun(workspaceId ?? randomUUID()));
+    // Demo runs belong to the caller's workspace too: every run route checks ownership, so a demo run
+    // created under a made-up workspace would be unreachable.
     if (!workspaceId) return missingWorkspaceResponse();
+    if (body.mode === "demo" || isDemoMode()) return NextResponse.json(await createDemoRun(workspaceId));
     assertWorkspaceId(workspaceId);
     if (await dailyBudgetReached()) return dailyBudgetResponse();
     // Atomic check-and-reserve: two concurrent requests cannot both pass the allowance check.
