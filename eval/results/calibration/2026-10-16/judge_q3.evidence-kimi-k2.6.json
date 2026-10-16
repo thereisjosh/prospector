@@ -1,0 +1,125 @@
+{
+  "judge": "judge_q3",
+  "model": "kimi-k2.6",
+  "promptSource": "repo",
+  "langfusePromptVersion": 3,
+  "promptMatchesLangfuse": true,
+  "itemFilter": null,
+  "createdAt": "2026-10-16T14:07:48.182Z",
+  "correct": 9,
+  "total": 10,
+  "errors": 0,
+  "spentDollars": 0.06773292000000003,
+  "items": [
+    {
+      "datasetItemId": "judge_q3-spot-10",
+      "company": "Miter",
+      "signal_url": "https://nextplayso.substack.com/p/should-you-join-miter",
+      "expected": "yes",
+      "traceId": null,
+      "actual": "yes",
+      "correct": true,
+      "reasoning": "signal_title is \"Should you join: Miter - next play\" and signal_excerpt shows \"Should you join: Miter - next play ### What it’s like to build the operating system for the built world Oct 08, 2026 ... Today I’m writing about a startup that could satisfy all of those criteria: Miter.\" The article is part of a \"Should You Join\" series, explicitly framed around recruiting talent to join Miter, and describes the team building its construction operating system. The signal_published_date and contract_summary.event_date are both 2026-10-08, which is inside the contract.window of 2026-04-13..2026-10-13. The page names Miter and describes a concrete hiring/recruitment event.",
+      "costDollars": 0.016771400000000002
+    },
+    {
+      "datasetItemId": "judge_q3-spot-09",
+      "company": "Sybill",
+      "signal_url": "https://www.linkedin.com/posts/miralkshah_excited-to-share-that-ive-joined-sybill-activity-7498081981184983040-TdwX",
+      "expected": "yes",
+      "traceId": null,
+      "actual": "yes",
+      "correct": true,
+      "reasoning": "The signal_excerpt names the company (\"joined Sybill\") and describes the exact claimed event: a founding Revenue Operations hire. The excerpt states: \"Excited to share that I’ve joined Sybill as Founding Revenue Operations Lead!🚀 I’m excited to take on a broad mandate across GTM strategy, revenue planning, forecasting, systems, and operational scale as Sybill continues to build and grow. What makes this opportunity especially exciting is the chance to build RevOps from the inside while helping shape a product built for revenue teams.\" The signal_published_date is 2026-08-25 and the contract_summary.event_date is 2026-08-25, both of which fall inside the contract.window of 2026-04-13..2026-10-13. This is not a job board posting (it is a LinkedIn activity post from the new employee), so the job-post restriction does not apply. The event is concrete, specific, and within the window.",
+      "costDollars": 0.00979169
+    },
+    {
+      "datasetItemId": "judge_q3-spot-08",
+      "company": "Healthleap",
+      "signal_url": "https://www.citybiz.co/article/915648/healthleap-lands-38m-from-sequoia-and-first-round-to-deploy-ai-that-catches-missed-hospital-diagnoses/",
+      "expected": "yes",
+      "traceId": null,
+      "actual": "yes",
+      "correct": true,
+      "reasoning": "The signal_excerpt names the company \"Healthleap\" multiple times and describes a concrete funding event: \"Today, San Francisco-based Healthleap announced a combined $38 million Seed and Series A funding round backed by Sequoia Capital, First Round Capital, and Hummingbird Ventures to scale a clinical AI platform designed to fix this systemic blind spot.\" The excerpt explicitly states the event date as \"October 7, 2026\", which is inside the contract window of 2026-04-13..2026-10-13 and matches both signal_published_date and contract_summary.event_date. The claimed why-now ($38M Seed and Series A from Sequoia and First Round in October 2026) is fully supported by the excerpt.",
+      "costDollars": 0.006238100000000001
+    },
+    {
+      "datasetItemId": "judge_q3-spot-07",
+      "company": "Capacity LLC",
+      "signal_url": "https://www.citybiz.co/article/916149/capacity-llc-acquires-majority-stake-in-uk-based-core-fulfilment-expanding-transatlantic-logistics-network/",
+      "expected": "yes",
+      "traceId": null,
+      "actual": "yes",
+      "correct": true,
+      "reasoning": "The signal_excerpt names the company (\"Capacity LLC\") and describes the claimed event as a concrete acquisition: \"October 8, 2026 Capacity LLC... has acquired a majority stake in UK-based Core Fulfilment.\" The stated date in the excerpt is October 8, 2026, which aligns with signal_published_date \"2026-10-08T00:00:00.000Z\" and contract_summary.event_date \"2026-10-08\". This date falls inside contract.window \"2026-07-12..2026-10-12\". Therefore the why-now is real, specific, and inside the window.",
+      "costDollars": 0.0048293400000000005
+    },
+    {
+      "datasetItemId": "judge_q3-spot-06",
+      "company": "Agave",
+      "signal_url": "https://www.businesswire.com/news/home/20260707861533/en/Agave-Raises-%2415M-Series-A-to-Bring-AI-to-Construction-Financials",
+      "expected": "yes",
+      "traceId": null,
+      "actual": "yes",
+      "correct": true,
+      "reasoning": "The signal_excerpt names the company ('Agave') and describes a concrete funding event: 'raised a $15M Series A funding round from Accel, who led Agave's Seed round, with continued participation from YCombinator.' The signal_title also confirms this. The event date is given in the excerpt as 'Jul 7, 2026' and in signal_published_date as 2026-07-07, which is inside the contract.window of 2026-04-13..2026-10-13. The why_now claim about the Series A funding is therefore real, specific, and within the window.",
+      "costDollars": 0.005465940000000001
+    },
+    {
+      "datasetItemId": "judge_q3-spot-05",
+      "company": "Away Team (Spreetail)",
+      "signal_url": "https://www.ihirelogistics.com/jobs/view/539499978",
+      "expected": "no",
+      "traceId": null,
+      "actual": "no",
+      "correct": true,
+      "reasoning": "The signal_url is a third-party job board (ihirelogistics.com/jobs/view/539499978), not Spreetail's own site. The signal_excerpt describes exactly one role: \"Senior Fulfillment Operations Manager, Away Team - Spreetail - Savannah, Georgia\". The rubric states: \"A job post counts only if it is on the company's own site or names ≥2 roles.\" It also explicitly calls out that \"a single job on a job board such as a /jobs/view/<id> page\" does not qualify. This is a single job on a /jobs/view/<id> page naming only one role, so it fails the rubric's job-post test.",
+      "costDollars": 0.0048569400000000006
+    },
+    {
+      "datasetItemId": "judge_q3-spot-04",
+      "company": "Hollingsworth Logistics",
+      "signal_url": "https://newzmedia.us/article/analysis-hollingsworth-logistics-to-add-150-jobs-with-schertz-expansion-yahoo",
+      "expected": "yes",
+      "traceId": null,
+      "actual": "cannot_verify",
+      "correct": false,
+      "reasoning": "The evidence fields are all empty: signal_excerpt is \"\", signal_title is \"\", and signal_published_date is \"\". Because the signal page text was not captured, there is no source material to confirm that the page names Hollingsworth Logistics, describes a concrete hiring-wave/expansion event, or states an event date inside the contract window 2026-07-12..2026-10-12. Per the Q3 rules, \"cannot_verify\" is the required answer when signal_excerpt is empty.",
+      "costDollars": 0.0034843900000000004
+    },
+    {
+      "datasetItemId": "judge_q3-spot-03",
+      "company": "Southern AG Carriers, Inc.",
+      "signal_url": "https://choosealbany.com/news/article/southern-ag-carriers-inc-expands-regional-operations-with-new-terminal-facility-in-albany",
+      "expected": "yes",
+      "traceId": null,
+      "actual": "yes",
+      "correct": true,
+      "reasoning": "signal_title names 'Southern AG Carriers, Inc.' and signal_excerpt describes a concrete facility event: 'Southern AG Carriers, Inc. expanded its regional operations with the opening of a new terminal facility in Albany, Georgia' with a ribbon-cutting ceremony on 'Tuesday, September 15, 2026'. September 15, 2026 falls inside contract.window (2026-07-12..2026-10-12).",
+      "costDollars": 0.00472584
+    },
+    {
+      "datasetItemId": "judge_q3-spot-02",
+      "company": "Metropolitan Warehouse and Delivery",
+      "signal_url": "https://re-nj.com/rockefeller-group-metropolitan-warehouse-and-delivery-ink-530000-sq-ft-lease-at-new-carneys-point-logistics-campus/",
+      "expected": "yes",
+      "traceId": null,
+      "actual": "yes",
+      "correct": true,
+      "reasoning": "The signal_excerpt names the company ('Metropolitan Warehouse and Delivery') and describes a concrete facility event: 'leasing 530,000 square feet' at the 'Carneys Point facility' at '49 Forest Lane, Building A.' The excerpt also states the date 'Sep 23, 2026,' which matches the signal_published_date of 2026-09-23 and contract_summary.event_date of 2026-09-23. This date falls inside the contract window of 2026-07-12..2026-10-12. The signal_title likewise names the company and the 530,000 sq. ft. lease. Therefore the why-now is real, specific, and inside the window.",
+      "costDollars": 0.005981640000000001
+    },
+    {
+      "datasetItemId": "judge_q3-spot-01",
+      "company": "RGL Logistics",
+      "signal_url": "https://thebusinessnews.com/northeast/rgl-logistics-unveils-new-warehouse-in-appleton/",
+      "expected": "yes",
+      "traceId": null,
+      "actual": "yes",
+      "correct": true,
+      "reasoning": "signal_title names 'RGL Logistics' and signal_excerpt describes the concrete facility event: 'The Green Bay-based company recently completed construction on a new warehouse at its Appleton campus... the new building adds 427,500 square feet.' The date in the excerpt is 'October 5, 2026' and signal_published_date is 2026-10-05, which is inside contract.window 2026-07-12..2026-10-12.",
+      "costDollars": 0.0055876400000000005
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+{
+  "judge": "judge_q1",
+  "model": "claude-sonnet-5-5",
+  "promptSource": "repo",
+  "langfusePromptVersion": 3,
+  "promptMatchesLangfuse": true,
+  "itemFilter": null,
+  "createdAt": "2026-10-16T14:12:31.627Z",
+  "correct": 7,
+  "total": 10,
+  "errors": 0,
+  "spentDollars": 0.13487,
+  "items": [
+    {
+      "datasetItemId": "judge_q1-spot-10",
+      "company": "Miter",
+      "signal_url": "https://nextplayso.substack.com/p/should-you-join-miter",
+      "expected": "no",
+      "traceId": null,
+      "actual": "cannot_verify",
+      "correct": false,
+      "reasoning": "",
+      "costDollars": 0.018688
+    },
+    {
+      "datasetItemId": "judge_q1-spot-09",
+      "company": "Sybill",
+      "signal_url": "https://www.linkedin.com/posts/miralkshah_excited-to-share-that-ive-joined-sybill-activity-7498081981184983040-TdwX",
+      "expected": "no",
+      "traceId": null,
+      "actual": "cannot_verify",
+      "correct": false,
+      "reasoning": "",
+      "costDollars": 0.019164
+    },
+    {
+      "datasetItemId": "judge_q1-spot-08",
+      "company": "Healthleap",
+      "signal_url": "https://www.citybiz.co/article/915648/healthleap-lands-38m-from-sequoia-and-first-round-to-deploy-ai-that-catches-missed-hospital-diagnoses/",
+      "expected": "yes",
+      "traceId": null,
+      "actual": "yes",
+      "correct": true,
+      "reasoning": "company_lookup.description: \"HealthLeap is an inpatient risk platform that surfaces at-risk inpatients earlier... AI screening platform supports clinicians in identifying, treating, and billing patients\". signal_excerpt: \"San Francisco-based Healthleap announced a combined $38 million Seed and Series A funding round backed by Sequoia Capital, First Round Capital... to scale a clinical AI platform\"; dated October 7, 2026. The product is sold to hospitals (hospital revenue, clinical teams), so it is B2B. The Seed and Series A round is recent and no earlier later-stage rounds are mentioned. Both contract.who questions are met.",
+      "costDollars": 0.012094
+    },
+    {
+      "datasetItemId": "judge_q1-spot-07",
+      "company": "Capacity LLC",
+      "signal_url": "https://www.citybiz.co/article/916149/capacity-llc-acquires-majority-stake-in-uk-based-core-fulfilment-expanding-transatlantic-logistics-network/",
+      "expected": "yes",
+      "traceId": null,
+      "actual": "yes",
+      "correct": true,
+      "reasoning": "company_lookup.description: \"Capacity is a Transportation, Logistics, Supply Chain and Storage company providing 3PL fulfillment solutions across beauty, health & wellness, apparel...\" signal_excerpt: \"a New Jersey-based third-party logistics provider ... supporting retail and direct-to-consumer brands with warehousing, order processing and distribution services.\" Capacity serves other companies (brands) with warehousing and fulfillment as its primary business, not a brand running its own warehouses. This meets contract.who.",
+      "costDollars": 0.011442
+    },
+    {
+      "datasetItemId": "judge_q1-spot-06",
+      "company": "Agave",
+      "signal_url": "https://www.businesswire.com/news/home/20260707861533/en/Agave-Raises-%2415M-Series-A-to-Bring-AI-to-Construction-Financials",
+      "expected": "yes",
+      "traceId": null,
+      "actual": "yes",
+      "correct": true,
+      "reasoning": "company_lookup.description: \"Agave is an AI financial operations company that connects construction software systems, automates Accounts Payable workflows...\" with industry \"Software Development\". The signal_excerpt says Agave is \"the AI platform for construction financials\" that \"help[s] hundreds of contractors\" and \"works with more than 500 general and specialty contractors\". That makes it a B2B company, because its customers are businesses. The excerpt, dated Jul 7, 2026, says it \"raised a $15M Series A funding round from Accel, who led Agave's Seed round\". Total funding is just over $20M, so there are no earlier later-stage rounds that would contradict a recent seed or Series A. Both contract.who questions are supported by the evidence, not only by gate_fields.",
+      "costDollars": 0.012094
+    },
+    {
+      "datasetItemId": "judge_q1-spot-05",
+      "company": "Away Team (Spreetail)",
+      "signal_url": "https://www.ihirelogistics.com/jobs/view/539499978",
+      "expected": "no",
+      "traceId": null,
+      "actual": "no",
+      "correct": true,
+      "reasoning": "The lead company is \"Away Team (Spreetail)\". The signal_title and excerpt show \"Away Team\" is a team inside Spreetail: \"Senior Fulfillment Operations Manager, Away Team - Spreetail\". The role is to run Spreetail's own fulfillment sites (\"Run the full building\", \"facility and network P&L\"). Own knowledge: Spreetail is primarily an ecommerce retailer/marketplace seller that operates its own warehouses. The contract requires a provider of logistics services to other businesses, and a brand or retailer running its own warehouses is a \"no\". \"Away Team\" is also an internal team named as if it were a company. Nothing in the evidence shows Spreetail provides logistics services to other businesses as its primary business.",
+      "costDollars": 0.01443
+    },
+    {
+      "datasetItemId": "judge_q1-spot-04",
+      "company": "Hollingsworth Logistics",
+      "signal_url": "https://newzmedia.us/article/analysis-hollingsworth-logistics-to-add-150-jobs-with-schertz-expansion-yahoo",
+      "expected": "yes",
+      "traceId": null,
+      "actual": "cannot_verify",
+      "correct": false,
+      "reasoning": "Every evidence field is empty: gate_result is null, company_lookup is null, signal_excerpt is \"\" and signal_title is \"\". The only information is the company name \"Hollingsworth Logistics\" and the why_now line \"to add 150 jobs with Schertz expansion\". The rules say a name like \"X Logistics\" alone is not enough. The evidence doesn't say whether the company provides logistics services to other businesses or runs its own warehouses as a brand or retailer. It neither supports nor contradicts contract.who, and I have no certain own knowledge to settle it.",
+      "costDollars": 0.011422
+    },
+    {
+      "datasetItemId": "judge_q1-spot-03",
+      "company": "Southern AG Carriers, Inc.",
+      "signal_url": "https://choosealbany.com/news/article/southern-ag-carriers-inc-expands-regional-operations-with-new-terminal-facility-in-albany",
+      "expected": "yes",
+      "traceId": null,
+      "actual": "yes",
+      "correct": true,
+      "reasoning": "company_lookup.description: \"Southern AG Carriers, Inc is a trusted transportation provider specializing in agricultural and refrigerated freight solutions across the United States, connecting farms, food producers and businesses with reliable transportation and supply chain services.\" Industry: \"Truck Transportation\". This describes a for-hire freight carrier serving other businesses (farms, food producers) as its primary activity, not a brand or retailer running its own warehouses. That meets the contract.who gate of providing freight logistics services to other companies. The signal excerpt (new terminal facility, CEO of Southern AG Holdings) is consistent with a carrier business.",
+      "costDollars": 0.01183
+    },
+    {
+      "datasetItemId": "judge_q1-spot-02",
+      "company": "Metropolitan Warehouse and Delivery",
+      "signal_url": "https://re-nj.com/rockefeller-group-metropolitan-warehouse-and-delivery-ink-530000-sq-ft-lease-at-new-carneys-point-logistics-campus/",
+      "expected": "yes",
+      "traceId": null,
+      "actual": "yes",
+      "correct": true,
+      "reasoning": "company_lookup.description: \"Metropolitan Warehouse & Delivery Corp. is a Transportation, Logistics, Supply Chain and Storage company offering white-glove delivery and 3PL warehousing and fulfillment services across the United States for E-commerce retailers, furniture vendors, designers, and manufacturers.\" The signal_excerpt agrees: a \"logistics firm\" providing \"white-glove logistics, warehousing and delivery services\" to customers across the Northeast and Mid-Atlantic. Both sources show it sells warehousing, fulfillment and last-mile delivery to other businesses as its primary activity. It is not a brand or retailer running its own warehouses. This meets contract.who.",
+      "costDollars": 0.012238
+    },
+    {
+      "datasetItemId": "judge_q1-spot-01",
+      "company": "RGL Logistics",
+      "signal_url": "https://thebusinessnews.com/northeast/rgl-logistics-unveils-new-warehouse-in-appleton/",
+      "expected": "yes",
+      "traceId": null,
+      "actual": "yes",
+      "correct": true,
+      "reasoning": "company_lookup.description: \"RGL Logistics is a Transportation, Logistics, Supply Chain and Storage company offering full warehousing, distribution, and transportation management services.\" The signal_excerpt supports this. It describes a warehouse built \"to create additional capacity and flexibility... while continuing to respond to customers' needs\" and \"customer partnerships\". It also mentions Michelle Wellens, \"director of transportation solutions\". Together these show a third-party provider of warehousing and transportation services to other businesses, and not a brand running its own warehouses. This meets the contract.who requirement.",
+      "costDollars": 0.011468
+    }
+  ]
+}

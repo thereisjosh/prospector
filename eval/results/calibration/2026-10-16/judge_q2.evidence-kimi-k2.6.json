@@ -1,0 +1,125 @@
+{
+  "judge": "judge_q2",
+  "model": "kimi-k2.6",
+  "promptSource": "repo",
+  "langfusePromptVersion": 3,
+  "promptMatchesLangfuse": true,
+  "itemFilter": null,
+  "createdAt": "2026-10-16T14:05:50.584Z",
+  "correct": 8,
+  "total": 10,
+  "errors": 0,
+  "spentDollars": 0.03910492,
+  "items": [
+    {
+      "datasetItemId": "judge_q2-spot-10",
+      "company": "Miter",
+      "signal_url": "https://nextplayso.substack.com/p/should-you-join-miter",
+      "expected": "yes",
+      "traceId": null,
+      "actual": "yes",
+      "correct": true,
+      "reasoning": "evidence.company_lookup.employee_estimate is 194, backed by the quoted phrase in employee_estimate_source: \"Employees: 194\". 194 falls inside the contract size_band of 30–200 employees, so the company is within the band.",
+      "costDollars": 0.0050722
+    },
+    {
+      "datasetItemId": "judge_q2-spot-09",
+      "company": "Sybill",
+      "signal_url": "https://www.linkedin.com/posts/miralkshah_excited-to-share-that-ive-joined-sybill-activity-7498081981184983040-TdwX",
+      "expected": "yes",
+      "traceId": null,
+      "actual": "yes",
+      "correct": true,
+      "reasoning": "The `company_lookup` field shows `employee_estimate`: 54, backed by the phrase `\"Employees: 54\"` in `employee_estimate_source`. A headcount of 54 lies inside the contract size band of 30–200 employees.",
+      "costDollars": 0.0037324899999999998
+    },
+    {
+      "datasetItemId": "judge_q2-spot-08",
+      "company": "Healthleap",
+      "signal_url": "https://www.citybiz.co/article/915648/healthleap-lands-38m-from-sequoia-and-first-round-to-deploy-ai-that-catches-missed-hospital-diagnoses/",
+      "expected": "yes",
+      "traceId": null,
+      "actual": "yes",
+      "correct": true,
+      "reasoning": "The evidence field `company_lookup.employee_estimate` gives 30 employees, backed by the phrase quoted in `company_lookup.employee_estimate_source`: \"Employees: 30\". This is a specific, quoted headcount. The contract size band is 30–200 employees. A headcount of 30 lies exactly at the lower boundary of that band, so it is inside the band. This settles Q2.",
+      "costDollars": 0.004570899999999999
+    },
+    {
+      "datasetItemId": "judge_q2-spot-07",
+      "company": "Capacity LLC",
+      "signal_url": "https://www.citybiz.co/article/916149/capacity-llc-acquires-majority-stake-in-uk-based-core-fulfilment-expanding-transatlantic-logistics-network/",
+      "expected": "cannot_verify",
+      "traceId": null,
+      "actual": "yes",
+      "correct": false,
+      "reasoning": "The evidence.company_lookup shows employee_estimate: 362 with employee_estimate_source: \"Employees: 362\". This provides a specific headcount figure backed by a quoted phrase. 362 falls squarely inside the contract size_band of 100–1000 employees, so the company is inside the size band.",
+      "costDollars": 0.0032941400000000005
+    },
+    {
+      "datasetItemId": "judge_q2-spot-06",
+      "company": "Agave",
+      "signal_url": "https://www.businesswire.com/news/home/20260707861533/en/Agave-Raises-%2415M-Series-A-to-Bring-AI-to-Construction-Financials",
+      "expected": "yes",
+      "traceId": null,
+      "actual": "yes",
+      "correct": true,
+      "reasoning": "The evidence includes company_lookup.employee_estimate = 95, backed by the quoted phrase in employee_estimate_source: \"Employees: 95\". A headcount of 95 clearly lies inside the contract size_band of 30–200 employees.",
+      "costDollars": 0.0029587399999999996
+    },
+    {
+      "datasetItemId": "judge_q2-spot-05",
+      "company": "Away Team (Spreetail)",
+      "signal_url": "https://www.ihirelogistics.com/jobs/view/539499978",
+      "expected": "cannot_verify",
+      "traceId": null,
+      "actual": "cannot_verify",
+      "correct": true,
+      "reasoning": "The evidence contains no headcount or employee range for this company. The `company_lookup` field is null, so there is no `employee_estimate` or `employee_estimate_source`. The `signal_excerpt` is a job posting that describes role responsibilities and benefits but never states the company’s size or employee count. Because no evidence field gives a figure for this company, Q2 is unverifiable from the evidence provided.",
+      "costDollars": 0.00435374
+    },
+    {
+      "datasetItemId": "judge_q2-spot-04",
+      "company": "Hollingsworth Logistics",
+      "signal_url": "https://newzmedia.us/article/analysis-hollingsworth-logistics-to-add-150-jobs-with-schertz-expansion-yahoo",
+      "expected": "yes",
+      "traceId": null,
+      "actual": "cannot_verify",
+      "correct": false,
+      "reasoning": "The evidence block is entirely empty on size-related fields: company_lookup is null, signal_excerpt is \"\", signal_title is \"\", and signal_published_date is \"\". There is no quoted headcount, employee estimate, or phrase backing any employee figure. Because the evidence is silent on the company’s size, there is no basis to place Hollingsworth Logistics inside or outside the 100–1000 band.",
+      "costDollars": 0.0032451900000000002
+    },
+    {
+      "datasetItemId": "judge_q2-spot-03",
+      "company": "Southern AG Carriers, Inc.",
+      "signal_url": "https://choosealbany.com/news/article/southern-ag-carriers-inc-expands-regional-operations-with-new-terminal-facility-in-albany",
+      "expected": "yes",
+      "traceId": null,
+      "actual": "yes",
+      "correct": true,
+      "reasoning": "`evidence.company_lookup.employee_estimate` is 119, backed by `evidence.company_lookup.employee_estimate_source` = \"Employees: 119\". This quoted headcount lies inside the contract size_band of 100–1000 employees, so Q2 is satisfied.",
+      "costDollars": 0.0034306400000000004
+    },
+    {
+      "datasetItemId": "judge_q2-spot-02",
+      "company": "Metropolitan Warehouse and Delivery",
+      "signal_url": "https://re-nj.com/rockefeller-group-metropolitan-warehouse-and-delivery-ink-530000-sq-ft-lease-at-new-carneys-point-logistics-campus/",
+      "expected": "yes",
+      "traceId": null,
+      "actual": "yes",
+      "correct": true,
+      "reasoning": "evidence.company_lookup.employee_estimate is 541, backed by employee_estimate_source \"Employees: 541\". 541 is inside the contract size_band of 100–1000 employees.",
+      "costDollars": 0.004170439999999999
+    },
+    {
+      "datasetItemId": "judge_q2-spot-01",
+      "company": "RGL Logistics",
+      "signal_url": "https://thebusinessnews.com/northeast/rgl-logistics-unveils-new-warehouse-in-appleton/",
+      "expected": "yes",
+      "traceId": null,
+      "actual": "yes",
+      "correct": true,
+      "reasoning": "The evidence provides a quoted headcount for RGL Logistics: evidence.company_lookup.employee_estimate is 232, backed by evidence.company_lookup.employee_estimate_source = \"Employees: 232\". A headcount of 232 falls inside the contract size_band of 100–1000 employees, so the company is inside the size band.",
+      "costDollars": 0.00427644
+    }
+  ]
+}

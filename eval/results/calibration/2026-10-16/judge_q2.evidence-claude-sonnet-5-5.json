@@ -1,0 +1,125 @@
+{
+  "judge": "judge_q2",
+  "model": "claude-sonnet-5-5",
+  "promptSource": "repo",
+  "langfusePromptVersion": 3,
+  "promptMatchesLangfuse": true,
+  "itemFilter": null,
+  "createdAt": "2026-10-16T14:13:13.036Z",
+  "correct": 8,
+  "total": 10,
+  "errors": 0,
+  "spentDollars": 0.11224,
+  "items": [
+    {
+      "datasetItemId": "judge_q2-spot-10",
+      "company": "Miter",
+      "signal_url": "https://nextplayso.substack.com/p/should-you-join-miter",
+      "expected": "yes",
+      "traceId": null,
+      "actual": "yes",
+      "correct": true,
+      "reasoning": "evidence.company_lookup.employee_estimate is 194, and employee_estimate_source is the quoted phrase \"Employees: 194\". The contract size_band is \"30–200 employees\", so 194 is inside the band. The source is not empty, so the figure is quoted and not an unquoted guess.",
+      "costDollars": 0.010354
+    },
+    {
+      "datasetItemId": "judge_q2-spot-09",
+      "company": "Sybill",
+      "signal_url": "https://www.linkedin.com/posts/miralkshah_excited-to-share-that-ive-joined-sybill-activity-7498081981184983040-TdwX",
+      "expected": "yes",
+      "traceId": null,
+      "actual": "yes",
+      "correct": true,
+      "reasoning": "evidence.company_lookup.employee_estimate = 54, with employee_estimate_source \"Employees: 54\", a quoted phrase. The contract size_band is 30–200 employees, and 54 is inside it. gate_result also lists employees: 54. The quoted source backs the estimate, so Q2 is a yes.",
+      "costDollars": 0.01092
+    },
+    {
+      "datasetItemId": "judge_q2-spot-08",
+      "company": "Healthleap",
+      "signal_url": "https://www.citybiz.co/article/915648/healthleap-lands-38m-from-sequoia-and-first-round-to-deploy-ai-that-catches-missed-hospital-diagnoses/",
+      "expected": "yes",
+      "traceId": null,
+      "actual": "yes",
+      "correct": true,
+      "reasoning": "evidence.company_lookup.employee_estimate = 30, with employee_estimate_source = \"Employees: 30\", so the figure is quoted and not an unquoted guess. The size band is 30–200 employees, and 30 sits on the lower boundary, which is inside the band. The signal_excerpt gives no conflicting headcount. This is a quoted headcount in the band, so Q2 is yes.",
+      "costDollars": 0.01118
+    },
+    {
+      "datasetItemId": "judge_q2-spot-07",
+      "company": "Capacity LLC",
+      "signal_url": "https://www.citybiz.co/article/916149/capacity-llc-acquires-majority-stake-in-uk-based-core-fulfilment-expanding-transatlantic-logistics-network/",
+      "expected": "cannot_verify",
+      "traceId": null,
+      "actual": "yes",
+      "correct": false,
+      "reasoning": "evidence.company_lookup.employee_estimate = 362, backed by employee_estimate_source \"Employees: 362\". The contract size_band is 100–1000 employees, and 362 is inside it. The quoted source phrase is present, so the figure isn't an unquoted guess. The company is not a public enterprise (is_public_or_enterprise: false), and nothing in the evidence contradicts the headcount.",
+      "costDollars": 0.011028
+    },
+    {
+      "datasetItemId": "judge_q2-spot-06",
+      "company": "Agave",
+      "signal_url": "https://www.businesswire.com/news/home/20260707861533/en/Agave-Raises-%2415M-Series-A-to-Bring-AI-to-Construction-Financials",
+      "expected": "yes",
+      "traceId": null,
+      "actual": "yes",
+      "correct": true,
+      "reasoning": "evidence.company_lookup.employee_estimate = 95, with employee_estimate_source = \"Employees: 95\" (a quoted phrase, not empty). The contract size_band is 30–200 employees, and 95 is inside it. The signal_excerpt gives no conflicting headcount. It says only that Agave serves 500+ contractors and will expand its team, which doesn't contradict a headcount of 95.",
+      "costDollars": 0.01098
+    },
+    {
+      "datasetItemId": "judge_q2-spot-05",
+      "company": "Away Team (Spreetail)",
+      "signal_url": "https://www.ihirelogistics.com/jobs/view/539499978",
+      "expected": "cannot_verify",
+      "traceId": null,
+      "actual": "cannot_verify",
+      "correct": true,
+      "reasoning": "company_lookup is null, so there is no employee_estimate or quoted source. signal_excerpt is a job post for a Senior Fulfillment Operations Manager at Away Team (Spreetail) in Savannah and states no headcount. contract_summary.size_basis \"quoted\" is only the agent's label, and no quoted figure appears in the evidence. I don't know Spreetail's headcount with certainty. The evidence holds no headcount for this company.",
+      "costDollars": 0.014486
+    },
+    {
+      "datasetItemId": "judge_q2-spot-04",
+      "company": "Hollingsworth Logistics",
+      "signal_url": "https://newzmedia.us/article/analysis-hollingsworth-logistics-to-add-150-jobs-with-schertz-expansion-yahoo",
+      "expected": "yes",
+      "traceId": null,
+      "actual": "cannot_verify",
+      "correct": false,
+      "reasoning": "The evidence has no headcount for this company. company_lookup is null, signal_excerpt is \"\", and signal_title is \"\". The only size hint is contract_summary.size_basis = \"quoted\". That is the agent's own label, and the rubric says it is not enough for \"yes\". The why_now text says \"add 150 jobs\", which is a hiring figure and not a company headcount. I don't know the company's size with certainty, so I can't say \"no\" either. The evidence is silent on size.",
+      "costDollars": 0.010658
+    },
+    {
+      "datasetItemId": "judge_q2-spot-03",
+      "company": "Southern AG Carriers, Inc.",
+      "signal_url": "https://choosealbany.com/news/article/southern-ag-carriers-inc-expands-regional-operations-with-new-terminal-facility-in-albany",
+      "expected": "yes",
+      "traceId": null,
+      "actual": "yes",
+      "correct": true,
+      "reasoning": "company_lookup.employee_estimate = 119, with employee_estimate_source \"Employees: 119\" (a quoted phrase, not empty). The size band is 100–1000 employees, and 119 is inside it. contract_summary.size_basis is \"quoted\", which agrees. Nothing in the evidence contradicts the figure.",
+      "costDollars": 0.010796
+    },
+    {
+      "datasetItemId": "judge_q2-spot-02",
+      "company": "Metropolitan Warehouse and Delivery",
+      "signal_url": "https://re-nj.com/rockefeller-group-metropolitan-warehouse-and-delivery-ink-530000-sq-ft-lease-at-new-carneys-point-logistics-campus/",
+      "expected": "yes",
+      "traceId": null,
+      "actual": "yes",
+      "correct": true,
+      "reasoning": "evidence.company_lookup.employee_estimate is 541, and employee_estimate_source is the quoted phrase \"Employees: 541\". That is a quoted figure, not an empty-source guess. It falls inside the contract's 100–1000 size band. The signal_excerpt mentions \"more than 80 employees expected to be on site\". That describes one site, not total headcount, so it doesn't conflict with 541.",
+      "costDollars": 0.011234
+    },
+    {
+      "datasetItemId": "judge_q2-spot-01",
+      "company": "RGL Logistics",
+      "signal_url": "https://thebusinessnews.com/northeast/rgl-logistics-unveils-new-warehouse-in-appleton/",
+      "expected": "yes",
+      "traceId": null,
+      "actual": "yes",
+      "correct": true,
+      "reasoning": "evidence.company_lookup.employee_estimate = 232, with employee_estimate_source \"Employees: 232\" (a quoted phrase, so not an empty source). That is inside the contract size_band of 100–1000 employees. gate_result.employees also says 232. The signal_excerpt gives no conflicting headcount.",
+      "costDollars": 0.010604
+    }
+  ]
+}
