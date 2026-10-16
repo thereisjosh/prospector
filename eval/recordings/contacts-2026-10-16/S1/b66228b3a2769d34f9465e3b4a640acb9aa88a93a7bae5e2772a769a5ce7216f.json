@@ -1,0 +1,228 @@
+{
+  "request": {
+    "query": "The Anderson-DuBose Company",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "e7971cded0b23af5c57a8fe4d8165f9b",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/vzsr97424vc",
+        "title": "The Anderson-DuBose Company",
+        "url": "https://a-d.us/",
+        "text": "# The Anderson-DuBose Company\n\nThe Anderson-DuBose Company is a Transportation, Logistics, Supply Chain and Storage company. The Anderson-DuBose Company employs 168 people (+19.1% YoY, +27 people), founded in 1991. Headquartered in Lordstown, Ohio, United States, with offices in Jefferson City, Rochester, Jacksonville, and Warren.\n\n## About\n\nThe Anderson-DuBose Company is dedicated to being a leader in the distribution industry by providing world-class service and brand protection to our valued business partners. Our esteemed associates are committed to operational excellence, continuous improvement, environmental sustainability, respect for each other, community engagement, and ethical conduct while fostering a culture of employee appreciation.\n\nThe Anderson-DuBose Company provides logistics solutions and unparalleled service to the world's most elite corporations in the quick service industry. We are proud to be an integral part of the greatest supply chain in the world. Our talented and dedicated team is committed to excellence, quality, and customer satisfaction at every stage of the distribution process. The Anderson-DuBose name represents quality to our customers, our vendors, and our community.\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Privately held\n- Headquarters: Lordstown, United States\n- Founded Year: 1991\n- Homepage: a-d.us\n- Aliases: anderson and dubose, inc., anderson dubose company, the anderson-dubose, the anderson-dubose company\n- LinkedIn: linkedin.com/company/the-anderson-dubose-company\n- Linkedin Followers: 2,054\n- Phone: +1 440-248-8800, 440.248.88\n\n## Workforce\n- Employees: 168\n- Company Size: 201-500 employees\n  - Monthly Growth: +1.2%\n  - Yearly Growth: +19.1%\n- Key Executives:\n  - Mike Boddy: President\n  - Paul Hammond: Vice President Operations\n  - Rafael Rojas, BSME, MBA Fin, MBA Int. Bus.: Sr. Director of Engineering and Program Management\n  - Tim Potter: Supply Chain Advisory Committee Chair\n  - WARREN ANDERSON: CEO President\n- Breakdown:\n  - By Country: United States: 72 (43%)\n  - By Department: Operations: 38 (23%), General Management: 8 (5%), Hr: 7 (4%), Trades: 7 (4%), Finance: 4 (2%), Other Department: 4 (2%), Administrative: 2 (1%), Consulting: 1 (1%), Customer Service: 1 (1%), Project Management: 1 (1%) (+1 more)\n  - By Seniority: Manager: 32 (19%), Specialist: 31 (18%), Other Management: 6 (4%), Vp: 2 (1%), Clevel: 1 (1%), Director: 1 (1%), Head: 1 (1%), Intern: 1 (1%), Senior: 1 (1%)\n- Active job postings: 5\n- Salary ranges (20 of 31 roles):\n  - Logistics Analyst: median $79,110.34 per year\n  - Warehouse Manager: median $69,694.03 per year\n  - Class A Truck Driver: median $63,755.86 per year\n  - Warehouse Supervisor: median $61,020.15 per year\n  - Local Driver: median $60,429.77 per year\n  - Truck Driver: median $60,120.09 per year\n  - Logistics Coordinator: median $53,780.2 per year\n  - Administrative: median $49,548.64 per year\n  - Accounting Coordinator: median $48,987.2 per year\n  - HR Coordinator: median $47,909.58 per year\n  - Graduate Student: median $47,050.69 per year\n  - Human Resources Coordinator (HR Coordinator): median $46,228.3 per year\n  - Coordinator: median $45,623.8 per year\n  - Operations Clerk III: median $44,861.29 per year\n  - Driver: median $43,670.2 per year\n  - Culture Specialist: median $42,713.83 per year\n  - Inventory Coordinator: median $42,554.12 per year\n  - Warehouse Selector: median $41,885.24 per year\n  - Order Selector: median $41,116.65 per year\n  - Delivery Driver: median $40,434.55 per year\n- Talent Sources: Golden State Foods (6), US Foods (4), UPS (4), DICK'S Sporting Goods (3), Things Remembered (2), Nick Strimbu Inc. (2), Martin Brower (2), L3Harris Technologies (2), Core-Mark International (2), Big Lots (2)\n- Alumni Go To: COMPASS FAMILY AND COMMUNITY SERVICES (3), eLogic (now Avanade) (2), Youngstown State University (2), Wegmans Food Markets (2), Ultium Cells LLC (2), SUMMIT LUBRICANTS  - A Quaker Houghton Company (2), Rochester Regional Health (2), PURFOODS LLC (2), Nestlé (2), HD Growth Partners (2)\n\n## Products & Technology\n- Tech Stack: aos, canva, constant contact, expedient, facebook, geotab, linkedin, microsoft, microsoft excel, microsoft office, microsoft word, power bi, samsara, recognize, workday, peoplenet, salesforce, xata, ifs, paycor, adp, sql, windows 10, c, charter, impact, mix, ups, well, adobe, electric, ibm i\n\n## Web presence\n\n- Crunchbase: crunchbase.com/organization/anderson-and-dubose-inc\n- Web traffic:\n  - Monthly visits: 4,779\n  - Global rank: 3,427,206\n  - Bounce rate: 28.0%\n  - Pages per visit: 2.2\n  - Average visit duration: 3s\n\n## Reviews & Ratings\n- Employer Rating: 3.5/5.0 (42 reviews)\n  - Breakdown: Work-Life: 2.9, Compensation: 3.9, Culture: 3.4, Career: 3.2\n\n## Categories\n\nbrand marketing, food and beverage, food delivery, food processing, logistics, restaurants, supply chain management, transportation, warehousing\n\n## Recent News\n- [2026-10-03]\n  - Bloomberg: Cities Across the US Are Turning Attics, Backyards and Garages Into Housing\n  - PPC Land: DAX US wins dynamic ad sales across TWiT's 13 tech podcasts\n  - WRAL: Major Republican group pauses US Senate ad spending in NC, where GOP’s Whatley trails in polls\n  - ABC News - Breaking News, Latest News and Videos: Pro-Trump ad campaign was financed by DHS: Sources\n  - KSL.com: Swedish ball-bearing ad revives Greta Garbo with US, Chinese AI\n- [2026-10-02]\n  - Insideradio.com: AI, Streaming, Sports Reshape Growing U.S. Ad Market.\n  - MyrtleBeachSC news: Are ADUs Coming to North Myrtle Beach? What Residents Should Know Before Monday’s Vote\n  - Reuters: Democratic lawmakers seek probe of US government ads featuring Trump\n  - The Guardian: Lawmakers call for action on ‘plainly illegal’ taxpayer-funded ads to promote Trump\n  - ABC News - Breaking News, Latest News and Videos: Trump defends spending millions on taxpayer-funded promotional ads: 'For the country'\n- [2026-10-01]\n  - MediaPost: Kin Selected To Create First US Ad Campaign For Sightsavers 10/01/2026\n  - Status: MS NOW’s Trump Ad Dilemma\n  - The Guardian: Trump campaign ads paid with public money violate federal law, critics say\n  - The News International: US FCC chair addresses concerns over Trump-featured government ads\n  - Reuters: US FCC chair says government ads featuring Trump do not raise concerns\n- [2026-09-30]\n  - The New York Times: A Tough Ad Reminds Nebraska Voters About a Brutal Crime and a Pardon\n  - The New York Times: Ad About Welfare Fraud Draws MAGA Backlash\n  - CBS News: Can the government use taxpayer money for political commercials? New pro-Trump TV ads raise questions\n  - Search Engine Journal: ChatGPT Ad CTR Topped 1% In 4 Markets, Not In The U.S.: Report\n  - KCUR: Sen. Roger Marshall alleges defamation by ad about former Kansas patient arrested in debt\n- [2026-09-24] [Tax Abatement Committee issues favorable rec for Project Bobcat developer; Cold food storage facility to house McDonald's products \\| News \\| shelbynews.com](https://www.shelbynews.com/news/tax-abatement-committee-issues-favorable-rec-for-project-bobcat-developer-cold-food-storage-facility-to/article_3d487cf6-b70b-576f-bf77-97cc585a89c4.html)\n- [2026-08-22] [AD Bearings & Power Transmission Division Draws Record Attendance at 2026 Meeting \\| Supply House Times](https://www.supplyht.com/articles/107386-ad-bearings-and-power-transmission-division-draws-record-attendance-at-2026-meeting)\n\n## Social\n\n### Linkedin\n\n- [2026-10-06 · Posted · 5 reactions] [It’s time to play! Monopoly at McDonald's returns today, and...](https://www.linkedin.com/posts/the-anderson-dubose-company_adproud-monopolyatmcdonalds-mcdsupplier-activity-7513212102615080961-cWCw)\n  > It’s time to play! Monopoly at McDonald's returns today, and customers can pre-register in the app now!🎉\n  >\n  > At Anderson-DuBose, we’re proud to help bring this iconic promotion to life and give fans a chance to “Get Their Bag.”💰\n  >\n  > #ADProud #MonopolyatMcDonalds #McDSupplier\n\n- [2026-10-01 · Posted · 19 reactions] [Big milestones call for a cookout! 🔥🍔 The Knoxville team gathered...](https://www.linkedin.com/posts/the-anderson-dubose-company_theadway-adproud-adknoxville-activity-7511445634428608512-Qn-V)\n  > Big milestones call for a cookout! 🔥🍔\n  >\n  > The Knoxville team gathered yesterday to celebrate how far we’ve come and everything we’ve accomplished together.🎉\n  >\n  > With our team continuing to grow and operations reaching exciting new milestones, it was the perfect opportunity to step away from the day-to-day, enjoy some time together, and recognize the people who keep Knoxville moving forward.\n  >\n  > Here’s to the people behind the progress and all that’s still ahead. That’s #TheADWay!💙\n  >\n  > #ADProud #ADKnoxville\n\n- [2026-09-28 · Posted · 30 reactions] [A night worth celebrating!🥂 We had the honor of attending the 2026...](https://www.linkedin.com/posts/the-anderson-dubose-company_adproud-theadway-nc99-activity-7510394033949626369-EAJV)\n  > A night worth celebrating!🥂\n  >\n  > We had the honor of attending the 2026 NorthCoast 99 celebration in Cleveland, where Anderson-DuBose was recognized for the 12th consecutive year as one of Northeast Ohio’s top places to work!\n  >\n  > We were also honored with the Award of Excellence for Mid-Size Organization, making the evening even more special. Our Director of HR, Linsey Gray, took the stage to share a few words on what makes AD such a great place to work.\n  >\n  > A big thank you to ERC for another incredible evening, and congratulations to all of this year’s NorthCoast 99 winners! We are so grateful to celebrate alongside so many deserving organizations.💙\n  >\n  > Just another reason to be #ADProud!✨\n  >\n  > #TheADWay #NC99\n\n- [2026-09-24 · Posted · 35 reactions] [The perfect day to tee up some good!⛳️ We were proud to sponsor the...](https://www.linkedin.com/posts/the-anderson-dubose-company_adproud-theadway-adknoxville-activity-7508910658055409665-JMZA)\n  > The perfect day to tee up some good!⛳️\n  >\n  > We were proud to sponsor the 2026 Charity Golf Tournament hosted by the Ronald McDonald House Charities of Knoxville and spend the day supporting the incredible work they do for families in our community.\n  >\n  > We’re grateful to play a small part in a big mission.❤️\n  >\n  > #ADProud #TheADWay #ADKnoxville\n\n- [2026-09-22 · Posted · 3 reactions] [Last week, we celebrated the MVPs of the road! 🚛 Driver...](https://www.linkedin.com/posts/the-anderson-dubose-company_adproud-theadway-nationaldriverappreciationweek-activity-7508240653470920706-kuYD)\n  > Last week, we celebrated the MVPs of the road! 🚛\n  >\n  > Driver Appreciation Week was all about recognizing the incredible drivers who keep our operation moving, mile after mile and delivery after delivery. From early mornings to the final delivery of the day, they show up, put in the work, and keep driving us toward the end zone. 🏈🏆\n  >\n  > We’re grateful for the dedication, teamwork, and hustle our drivers bring to the field every day. They’re always ready to take the handoff, make the play, and keep the whole team moving down the field.\n  >\n  > Thank you for being a key part of AD and helping us score big every day! 👏\n  >\n  > #ADProud #TheADWay #NationalDriverAppreciationWeek\n\n- [2026-09-17 · Posted · 11 reactions] [Learning, connecting, and having fun along the way!🌟📊 Last month...](https://www.linkedin.com/posts/the-anderson-dubose-company_adjacksonville-adproud-theadway-activity-7506401448751169536-fZgK)\n  > Learning, connecting, and having fun along the way!🌟📊\n  >\n  > Last month, the #ADJacksonville team hosted a training workshop for the FGL Atlanta Field Office, bringing together 50+ participants for a day filled with collaboration.\n  >\n  > With a group this size, we brought our operations outside of our facility with a virtual warehouse tour, along with interactive games, prizes, and plenty of friendly competition.\n  >\n  > We’re proud of the team that brought it all together and grateful for the opportunity to continue growing alongside our customers.👏💙\n  >\n  > #ADProud #TheADWay\n\n- [2026-09-17 · 11 reactions] Learning, connecting, and having fun along the way!🌟📊 Last month, the #ADJacksonville team hosted a training workshop for the FGL Atlanta Field Office, bringing together 50+ participants for a day...\n\n- [2026-09-14 · Posted · 23 reactions] [We’re proud to be featured in NorthCoast 99’s Awards of...](https://www.linkedin.com/posts/the-anderson-dubose-company_adproud-theadway-activity-7505342355168899072-VWVv)\n  > We’re proud to be featured in NorthCoast 99’s Awards of Excellence!👏\n  >\n  > For more than 35 years, Anderson-DuBose has built a culture centered around our people, our customers, and our communities. We believe in creating opportunities for associates to grow, recognizing their contributions, and providing an environment where people can build meaningful careers. Check out this ERC feature, where President Mike Boddy shares more about the culture and values that continue to shape Anderson-DuBose and our associates.\n  >\n  > We’re grateful for the opportunity to share a little more about what makes AD a special place to work, and even prouder of the people who bring it to life every day.💙\n  >\n  > Check out the other organizations recognized in the 2026 North Coast 99 Magazine: https://lnkd.in/gYbiwYpC\n  >\n  > #ADProud #TheADWay\n\n- [2026-09-14 · 40 reactions, 4 comments] We’re proud to be featured in NorthCoast 99’s Awards of Excellence!👏 For more than 35 years, Anderson-DuBose has built a culture centered around our people, our customers, and our communities. We b...\n\n- [2026-09-13 · Posted · 10 reactions] [No matter who you’re rooting for, we can all agree on one thing…...](https://www.linkedin.com/posts/the-anderson-dubose-company_adproud-theadway-activity-7504931978467557376-R_Cf)\n  > No matter who you’re rooting for, we can all agree on one thing…\n  >\n  > Jersey Day is a pretty good way to kick off football season.👏\n  >\n  > Happy first Sunday of football!🏈\n  >\n  > #ADProud #TheADWay\n\n- [2026-09-11 · Posted · 13 reactions] [Today, our teams come together to honor and remember September 11...](https://www.linkedin.com/posts/the-anderson-dubose-company_adproud-theadway-activity-7504152652428058624-CCoX)\n  > Today, our teams come together to honor and remember September 11, 2001.\n  >\n  > From each of our distribution centers, we pause to reflect on the lives lost, the heroes who stepped forward, and the lasting strength and unity that followed.\n  >\n  > We will never forget.🤍\n  >\n  > #ADProud #TheADWay\n\n- [2026-09-11 · 13 reactions] Today, our teams come together to honor and remember September 11, 2001. From each of our distribution centers, we pause to reflect on the lives lost, the heroes who stepped forward, and the lastin...\n\n- [2026-09-09 · Posted · 10 reactions] [Our #ADRochester team hit the green at The Willow Classic: Drive...](https://www.linkedin.com/posts/the-anderson-dubose-company_adrochester-adproud-theadway-activity-7503484815128662016-NpTd)\n  > Our #ADRochester team hit the green at The Willow Classic: Drive for Change Golf Tournament this month! ⛳️\n  >\n  > We’re proud to support the Willow Domestic Violence Center of Greater Rochester and the important work they do to create a stronger, safer community. Thank you for bringing everyone together for a great day on the course and an even greater cause! 💙\n  >\n  > #ADProud #TheADWay\n\n- [2026-09-09 · 10 reactions] Our #ADRochester team hit the green at The Willow Classic: Drive for Change Golf Tournament this month! ⛳️ We’re proud to support the Willow Domestic Violence Center of Greater Rochester and the im...\n\n- [2026-09-05 · Posted · 3 reactions] [Giving back is a big part of #TheADWay.💙 This International Day of...](https://www.linkedin.com/posts/the-anderson-dubose-company_theadway-adproud-internationaldayofcharity-activity-7502002941625675778-z-M9)\n  > Giving back is a big part of #TheADWay.💙\n  >\n  > This International Day of Charity, we’re proud to shine a spotlight on our partnership with Ronald McDonald House. Across all four of our facilities, our teams have come together to give their time, lend a hand, and support families in the communities we call home.\n  >\n  > We’re grateful for every opportunity to support an organization making a meaningful difference for families when they need it most.🌟\n  >\n  > #ADProud #InternationalDayofCharity\n\n- [2026-09-05 · 17 reactions] Giving back is a big part of #TheADWay.💙 This International Day of Charity, we’re proud to shine a spotlight on our partnership with Ronald McDonald House. Across all four of our facilities, our te...\n\n- [2026-09-03 · Posted · 4 reactions] [From planting to harvest, it’s been a summer well spent! 🌱☀️ As...](https://www.linkedin.com/posts/the-anderson-dubose-company_adproud-theadway-activity-7501289170431057920-wU52)\n  > From planting to harvest, it’s been a summer well spent! 🌱☀️\n  >\n  > As part of our Earth Day sustainability initiative, each of our facilities planted a garden and spent the summer tending, growing, and watching it come to life. Now, as summer winds down, we’re enjoying the fruits (and vegetables!) of our labor.\n  >\n  > Sustainability is an important part of AD’s commitment to creating a positive impact, and these gardens are one way our teams are putting that commitment into action across both our facilities and communities.🌎💚\n  >\n  > #ADProud #TheADWay\n\n- [2026-09-03 · 8 reactions] From planting to harvest, it’s been a summer well spent! 🌱☀️ As part of our Earth Day sustainability initiative, each of our facilities planted a garden and spent the summer tending, growing, and w...\n\n- [2026-08-31 · Posted · 16 reactions] [This month, we were pleased to welcome the Delligatti...](https://www.linkedin.com/posts/the-anderson-dubose-company_adlordstown-adproud-theadway-activity-7500268273150812161-rL_Z)\n  > This month, we were pleased to welcome the Delligatti Organization/M & J Management/McDonald's to #ADLordstown for a collaborative training workshop focused on inventory management and supply chain operations!📊👏\n  >\n  > Opportunities like these allow us to share our expertise, exchange ideas, and strengthen the knowledge and capabilities that drive operational excellence across the supply chain.\n  >\n  > We’re proud to support the development within our industry and look forward to creating more opportunities to learn together.💙\n  >\n  > #ADProud #TheADWay\n\n- [2026-08-31 · 19 reactions] This month, we were pleased to welcome the Delligatti Organization/M & J Management/McDonald's to #ADLordstown for a collaborative training workshop focused on inventory management and supply chain...\n\n## Locations\n- Headquarters: lordstown, ohio, united states (US)\n- Offices: jefferson city, tennessee, united states (US), rochester, new york, united states (US), jacksonville, florida, united states (US), lordstown, ohio, united states (US), warren, ohio, united states (US)",
+        "summary": "{\"description\":\"The Anderson-DuBose Company is a Transportation, Logistics, Supply Chain and Storage company focused on distribution, service and brand protection for business partners.\",\"employee_estimate\":168,\"employee_estimate_source\":\"Employees: 168\",\"hq\":\"Lordstown, United States\",\"hq_quote\":\"Headquarters: Lordstown, United States\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":null,\"is_third_party_logistics_quote\":\"null\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQGup5FbFTSPQQ/company-logo_200_200/B56Zfrjii5G0AU-/0/1752003652154/the_anderson_dubose_company_logo?e=2147483647&v=beta&t=mOGtPVj_8yrQVy8vhZBuPLwDAWYTADhzY-oEcGCOsvA",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/vzsr97424vc",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "The Anderson-DuBose Company",
+              "foundedYear": 1991,
+              "description": "The Anderson-DuBose Company is dedicated to being a leader in the distribution industry by providing world-class service and brand protection to our valued business partners. Our esteemed associates are committed to operational excellence, continuous improvement, environmental sustainability, respect for each other, community engagement, and ethical conduct while fostering a culture of employee appreciation.\n\nThe Anderson-DuBose Company provides logistics solutions and unparalleled service to the world's most elite corporations in the quick service industry. We are proud to be an integral part of the greatest supply chain in the world. Our talented and dedicated team is committed to excellence, quality, and customer satisfaction at every stage of the distribution process. The Anderson-DuBose name represents quality to our customers, our vendors, and our community.",
+              "workforce": {
+                "total": 168
+              },
+              "headquarters": {
+                "address": "325 Warrens Way, Jefferson City, Tennessee 37760, US",
+                "city": "Lordstown",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 4779,
+                "countryRank": 1018770,
+                "avgDurationSeconds": 3,
+                "history": [
+                  {
+                    "value": 14661,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 9256,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 7374,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 1155,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 5165,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 4779,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/f4mdsw1dyyz",
+        "title": "Alexander Dubose & Jefferson LLP",
+        "url": "https://adjtlaw.com/",
+        "text": "# Alexander Dubose & Jefferson LLP\n\nAlexander Dubose & Jefferson LLP is a Law Practice company. Alexander Dubose & Jefferson LLP employs 32 people and has an annual revenue of $6.9M, founded in 2003. Headquartered in Austin, Texas, United States, with offices in San Antonio, Houston, and Dallas.\n\n## About\n\nAlexander Dubose & Jefferson is an internationally-recognized appellate boutique with offices in Austin, Dallas and Houston. We've gathered highly-experienced, successful appellate practitioners from across Texas and assembled them into one firm devoted exclusively to the practice of appellate law. As a result, we are extraordinarily qualified to handle complex appellate matters and provide legal support in high-stakes litigation.\n\n## Company Details\n- Industry: Law Practice\n- Type: Partnership\n- Headquarters: Austin, United States\n- Founded Year: 2003\n- Homepage: adjtlaw.com\n- Aliases: Alexander Dubose Jefferson LLP, alexander dubose & jefferson, alexander dubose & jefferson llp, alexander dubose jefferson, alexander dubose jefferson & townsend llp\n- LinkedIn: linkedin.com/company/adjtlaw\n- Linkedin Followers: 263\n- Phone: 1-512-482-93, 512.482.9300\n\n## Financials\n- Annual Revenue: USD 6,890,313\n\n## Workforce\n- Employees: 32\n- Company Size: 11-50 employees\n- Key Executives:\n  - Alexandra Wilson Albright: Partner\n  - Anne Bergen: CFO / Firm Administrator\n  - Bill Boyce: Partner\n  - Doug Alexander: Partner\n  - Hon. Paul W. Green: Partner\n  - Kevin Dubose: Partner\n  - Kirsten Castañeda: Partner\n  - Marcy Greer - Civil Trial & Appellate Attorney: Managing Partner\n  - Marcy Greer - Civil Trial & Appellate Attorney: Partner\n  - Nick Bacarisse: Partner\n- Breakdown:\n  - By Country: United States: 25 (78%)\n  - By Department: General Management: 11 (34%), Legal: 8 (25%), Finance: 3 (9%), Administrative: 2 (6%), Other Department: 1 (3%)\n  - By Seniority: Partner: 11 (34%), Specialist: 11 (34%), Clevel: 1 (3%), Other Management: 1 (3%), Senior: 1 (3%)\n- Talent Sources: The University of Texas School of Law (3), Norton Rose Fulbright (3), United Ag & Turf (2), Supreme Court of Texas (2), Scott Douglass & McConnico LLP (2), McGarrah Jessee (2), South Texas Youth Soccer Association (1), Munsch Hardt Kopf & Harr, P.C. (1), Emerson (1), Beck Redden LLP (1)\n- Alumni Go To: The University of Texas School of Law (2), Toler Law Group pc (1), Serpe Andrews, PLLC (1), Reynolds Frizzell LLP (1), Hahn (1), Fletcher, Farley, Shipman & Salinas LLP (1), Emerson (1), DA Counseling (1), Cokinos | Young (1), Caldwell Boudreaux Lefler PLLC (1)\n\n## Web presence\n\n- Crunchbase: crunchbase.com/organization/alexander-dubose-jefferson\n- Web traffic:\n  - Monthly visits: 3,587\n  - Global rank: 3,109,468\n  - Bounce rate: 29.0%\n  - Pages per visit: 4.8\n  - Average visit duration: 210s\n\n## Categories\n\namicus support, appeals and mandamus proceedings, appellate mediation, attorneys, business-services, complex case management, ethical, law enforcement, law-firm, law_and_government/legal, legal, legal services, legal-support, litigation, moot court preparation for oral argument, post-trial legal support, pre-litigation risk assesment and evaluation, pre-trial legal support, professional services, services, texas appellate courts, trial legal support\n\n## Competitors\n\nlinklaters, jones day, clifford chance, a&o shearman\n\n## Recent News\n- [2026-05-21] Morningstar: Former Texas Chief Justice Wallace B. Jefferson Installed as President of the American Law Institute\n- [2025-10-16] FinancialContent: Texas Appellate Firm Alexander Dubose & Jefferson Welcomes Barbara DePeña to Houston Office\n\n## Locations\n- Headquarters: austin, texas, united states\n- Offices: san antonio, texas, united states (US), houston, texas, united states, austin, texas, united states, dallas, texas, united states (US)",
+        "summary": "{\"description\":\"Alexander Dubose & Jefferson LLP is an internationally-recognized appellate boutique law firm with offices in Austin, Dallas and Houston.\",\"employee_estimate\":32,\"employee_estimate_source\":\"Employees: 32\",\"hq\":\"Austin, United States\",\"hq_quote\":\"Headquartered in Austin, Texas, United States\",\"industry\":\"Law Practice\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":false,\"is_third_party_logistics_quote\":\"None\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C560BAQEhBEnMMdzLmA/company-logo_200_200/company-logo_200_200/0/1630671232564/alexander_dubose__townsend_llp_logo?e=2147483647&v=beta&t=9iZXaJSNVbIjbSqOHEAMoIvLdP0FouGOmmT7u5ZTH-4",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/f4mdsw1dyyz",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Alexander Dubose & Jefferson LLP",
+              "foundedYear": 2003,
+              "description": "Alexander Dubose & Jefferson is an internationally-recognized appellate boutique with offices in Austin, Dallas and Houston. We've gathered highly-experienced, successful appellate practitioners from across Texas and assembled them into one firm devoted exclusively to the practice of appellate law. As a result, we are extraordinarily qualified to handle complex appellate matters and provide legal support in high-stakes litigation.",
+              "workforce": {
+                "total": 32
+              },
+              "headquarters": {
+                "address": "515 Congress Ave, Suite 2350, Austin, TX 78701, US",
+                "city": "Austin",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 6890313,
+                "fundingTotal": null,
+                "fundingLatestRound": null
+              },
+              "webTraffic": {
+                "visitsMonthly": 3587,
+                "countryRank": 892744,
+                "avgDurationSeconds": 210,
+                "history": [
+                  {
+                    "value": 4304,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 4096,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 3043,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 5646,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 4583,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 3587,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 7816.7,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

@@ -1,0 +1,197 @@
+{
+  "request": {
+    "query": "Camrett Logistics",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "2e967574f87ec6eb1552c987c546b450",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/wcqkmf4gmmm",
+        "title": "Camrett Logistics",
+        "url": "https://www.camrett.com/",
+        "text": "# Camrett Logistics\n\nCamrett Logistics is a Warehousing and Storage company. Camrett Logistics provides 3PL services and warehousing/distribution since 1995. They are located along the I-81 corridor in southwest Virginia. Camrett Logistics employs 83 people (+12.2% YoY, +9 people) and has an annual revenue of $27.2M, founded in 1995. Headquartered in Wytheville, Virginia, United States, with offices including Rural Retreat, Atkins, Pulaski, Roanoke, and Beaver.\n\n## About\n\nCamrett Logistics has been providing 3PL services: warehousing & distribution services since 1995. \nCamrett is a SmartWay Transport Provider and has several warehouses that are AIB certified for Food Safety.\nWe employ highly-trained personnel and smart technology to offer value-added services thereby optimizing your supply chain management and cost.\n\n## Company Details\n- Industry: Warehousing and Storage\n- Type: Privately held\n- Headquarters: Wytheville, United States\n- Founded Year: 1995\n- Homepage: camrett.com\n- Aliases: camrett logistics\n- LinkedIn: linkedin.com/company/camrett-logistics\n- Linkedin Followers: 607\n- Emails: info@camrett.com, sales@camrett.com\n- Phone: (276) 625-8100, (800) 392-7783, (888) 985-07, 800-392-7783\n\n## Financials\n- Annual Revenue: USD 27,180,059\n\n## Workforce\n- Employees: 83\n- Company Size: 51-200 employees\n  - Yearly Growth: +12.2%\n- Breakdown:\n  - By Country: United States: 23 (28%)\n  - By Department: Operations: 9 (11%), General Management: 4 (5%), Trades: 4 (5%), Project Management: 3 (4%), Finance: 2 (2%), Customer Service: 1 (1%), Marketing: 1 (1%), Other Department: 1 (1%)\n  - By Seniority: Specialist: 12 (14%), Manager: 9 (11%), Other Management: 2 (2%)\n- Salary ranges:\n  - General Manager: median $100,992.6 per year\n  - Assistant Operations Manager: median $74,227.59 per year\n  - Truck Driver: median $66,748.55 per year\n  - Forklift Operator: median $43,680.32 per year\n  - Material Handler: median $43,273.18 per year\n  - Customer Service Representative (CSR): median $42,891.6 per year\n  - Production: median $42,265.08 per year\n  - Inventory Management/CRS: median $40,537.63 per year\n  - Warehouse Worker: median $39,522.55 per year\n- Talent Sources: UFP Industries (1), The Cincinnati Insurance Companies (1), Riley Life Logistics (1), Pi Beta Phi Fraternity for Women (1), Phoenix Packaging Group (1), KIK Consumer Products (1), Humana (1), FRUIT NINJA LIMITED (1), Bosselman Enterprises (1), BAE Systems (1)\n- Alumni Go To: Patton Warehousing & Logistics (2), WINTERS CHIROPRACTIC & PHYSICAL THERAPY, INC. (1), Under Armour (1), Mountain River Trucking Co., Inc. (1), Marvin (1), LaborAI (1), LESTER INSURANCE GROUP, INC (1), Greater Durham Chamber of Commerce (1), GUYNN FURNITURE CO INC (1), BAE Systems (1)\n\n## Products & Technology\n- Tech Stack: microsoft, microsoft office, gps, signal, ups, electric, medium, well, quickbooks, spring, adp, html\n\n## Web presence\n\n- Twitter: twitter.com/camrettl\n- Facebook: facebook.com/camrett\n- Instagram: instagram.com/camrettlogistics\n- Crunchbase: crunchbase.com/organization/camrett-logistics\n- Web traffic:\n  - Monthly visits: 3,323\n  - Global rank: 4,772,606\n  - Bounce rate: 17.0%\n  - Pages per visit: 1.7\n  - Average visit duration: 10s\n\n## Reviews & Ratings\n- Employer Rating: 3.6/5.0 (7 reviews)\n  - Breakdown: Work-Life: 4.0, Compensation: 3.4, Culture: 3.7, Career: 3.5\n\n## Categories\n\n3pl, 3pl services, automotive-transportation, distribution, distribution center, logistics, packaging services, road-transportation, shipping, supply chain, transportation, value-added services, warehousing\n\n## Competitors\n\ngoin' 2 the dogs pet resort, yoder woodcrafters, rotenizer drapery & carpet, meadow creek dairy, itm logistics, milsped, hutchison ports ect rotterdam, dart, c.h. robinson\n\n## Social\n\n### Linkedin\n\n- [2026-09-29 · Posted · 21 reactions] [Camrett's Wytheville location had some visitors today. We welcomed...](https://www.linkedin.com/posts/camrett-logistics_camretts-wytheville-location-had-some-visitors-activity-7510719119013498880-6Z_L)\n  > Camrett's Wytheville location had some visitors today. We welcomed George Wythe High School students with the Mount Rogers Connect program. Everyone was so polite and inquisitive. Thanks for coming out and touring our facility.\n\n- [2026-09-28 · Posted · 1 reaction] [Great Article! https://lnkd.in/eeK4rHA8](https://www.linkedin.com/posts/camrett-logistics_electric-trucking-finds-a-welcome-home-in-activity-7510311799305629696-aGSY)\n  > Great Article!\n  > https://lnkd.in/eeK4rHA8\n\n- [2026-09-24 · Posted · 1 reaction] [Alright Camrett peeps! What is it? This one is a little harder (I...](https://www.linkedin.com/posts/camrett-logistics_alright-camrett-peeps-what-is-it-this-one-activity-7508947978368311296-EVf2)\n  > Alright Camrett peeps! What is it?\n  > This one is a little harder (I think) 😁\n  > I found this one just hanging around the Wytheville warehouse!\n  > Put your guess in the comments below.\n\n- [2026-09-24 · Posted · 25 reactions] [Giving a BIG shout out to our team and the Safety Manager, Sheridon...](https://www.linkedin.com/posts/camrett-logistics_safetyalways-camrett-3pl-activity-7508858573100130304-l-w9)\n  > Giving a BIG shout out to our team and the Safety Manager, Sheridon Reece!!\n  > For our 2025 policy year our insurance captive awarded Camrett with the 2025 Most Improved Risk Control for Workers Compensation Performance and the 2025 Fleet Performance for safety!!\n  > Great Job Team!!!\n  > #safetyalways #camrett #3pl #safety #WorkplaceSafety\n\n- [2026-09-17 · Posted] [What is it? Some may know but do you? Comment your guess below.](https://www.linkedin.com/posts/camrett-logistics_what-is-it-some-may-know-but-do-you-comment-activity-7506396954600402944-X6v7)\n  > What is it? Some may know but do you? Comment your guess below.\n\n- [2026-09-15 · Posted · 5 reactions] [Join Camrett in a BIG shout out to the Truck Drivers!! Thank you...](https://www.linkedin.com/posts/camrett-logistics_join-camrett-in-a-big-shout-out-to-the-truck-activity-7505698782135816194-v0g2)\n  > Join Camrett in a BIG shout out to the Truck Drivers!! Thank you for keeping everything moving!\n  >\n  > Thanks to all Camrett drivers and all the other drivers too!\n\n- [2026-09-10 · Posted] [What it it? These show up in the warehouse from all over. What do...](https://www.linkedin.com/posts/camrett-logistics_whatisit-camrett-camrettlogistics-activity-7503859856567607296-SEj-)\n  > What it it? These show up in the warehouse from all over.\n  > What do you think it is? Put your guess in the comments.\n  > #whatisit #camrett #camrettlogistics\n\n- [2026-09-03 · Posted] [What is it? Ok I was told I was going to easy on you guys with my...](https://www.linkedin.com/posts/camrett-logistics_whatisit-camrett-camrettlogistics-activity-7501305421526134784-8is6)\n  > What is it? Ok I was told I was going to easy on you guys with my first few \"What is it?\" posts. So let's try this one. Write your guess in the comments below.\n  > I'll be on vacation for the next week, so you'll have to wait till I get back to tell you if your guess is correct. Have a great and safe week!\n  >\n  > #whatisit #camrett #camrettlogistics\n\n- [2026-09-03 · 1 comment] What is it? Ok I was told I was going to easy on you guys with my first few \"What is it?\" posts. So let's try this one. Write your guess in the comments below. I'll be on vacation for the next week...\n\n- [2026-08-20 · Posted · 1 reaction] [What is it? You not necessarily going to find this in Camrett's...](https://www.linkedin.com/posts/camrett-logistics_what-is-it-you-not-necessarily-going-to-activity-7496234670406221825-H5Fl)\n  > What is it? You not necessarily going to find this in Camrett's warehouse. However, we see them multiple times a day. Put your guess in the comments below⬇\n\n- [2026-08-18 · Posted · 3 reactions] [2026 Fun Day for Camrett employees is in the books. Thanks to...](https://www.linkedin.com/posts/camrett-logistics_2026-fun-day-for-camrett-employees-is-in-activity-7495566201327267840-14zn)\n  > 2026 Fun Day for Camrett employees is in the books. Thanks to everyone that came out and added to the fun of Fun Day. Please feel free to tag yourself in the photos.\n  >\n  > Photo credit to Susi Lawson Photography.\n  >\n  > A special thanks to It's Game Time At The Superbowl for the amazing location and food.\n\n- [2026-08-18 · 15 reactions] 2026 Fun Day for Camrett employees is in the books. Thanks to everyone that came out and added to the fun of Fun Day. Please feel free to tag yourself in the photos. Photo credit to Susi Lawson Pho...\n\n- [2026-08-17 · Posted · 37 reactions] [🎉 Camrett Logistics is proud to announce the promotion of Derek...](https://www.linkedin.com/posts/camrett-logistics_camrett-logistics-is-proud-to-announce-activity-7495179904804716544-aB6J)\n  > 🎉 Camrett Logistics is proud to announce the promotion of Derek Poff to Vice President of Operations!\n  > Derek’s career with Camrett began while he was a student at Virginia Tech, working part-time at our Newbern Road facility. After earning his degree, he joined Camrett full-time in 2006 and has spent the past 20 years building extensive experience across our operations.\n  > Throughout his career, Derek has held leadership roles supporting warehousing, repackaging, transportation, automotive sequencing, and customer-specific logistics solutions across multiple Camrett facilities and customer locations. Most recently, as Director of Operations, he provided leadership across Camrett’s daily operations, helping connect executive strategy with frontline execution while driving efficiency and operational performance.\n  > In his new role as Vice President of Operations, Derek will provide strategic leadership across Camrett’s locations with a continued focus on operational excellence, customer satisfaction, workforce development, and continuous improvement.\n  > Derek’s journey from a part-time employee while attending college to Vice President of Operations reflects the experience, dedication, and leadership he has brought to Camrett throughout his career.\n  > Please join us in congratulating Derek on this well-earned promotion! 👏\n  > Congratulations, Derek!\n\n- [2026-08-17 · 84 reactions, 12 comments] 🎉 Camrett Logistics is proud to announce the promotion of Derek Poff to Vice President of Operations! Derek’s career with Camrett began while he was a student at Virginia Tech, working part-time at...\n\n- [2026-08-13 · Posted · 2 reactions] [What is it? You'll find this in Camrett's warehouses. Put your...](https://www.linkedin.com/posts/camrett-logistics_what-is-it-youll-find-this-in-camretts-activity-7493697980500406272-Bf5J)\n  > What is it? You'll find this in Camrett's warehouses. Put your guess in the comments below ⏬\n\n- [2026-08-07 · Posted] [What is it? Another warehouse item. Enter your guess in the...](https://www.linkedin.com/posts/camrett-logistics_what-is-it-another-warehouse-item-enter-activity-7491544677309952000-u7JP)\n  > What is it? Another warehouse item. Enter your guess in the comments below ⏬\n\n- [2026-07-30 · Posted · 3 reactions] [Do you know what this is? You will find this in every Camrett...](https://www.linkedin.com/posts/camrett-logistics_do-you-know-what-this-is-you-will-find-this-activity-7488675498517151744-fjyl)\n  > Do you know what this is?\n  > You will find this in every Camrett warehouse.\n  > Put your guess in the comments below ⏬\n\n- [2026-06-17 · Posted] [Thank you to our shop and maintenance that keep us moving! #camrett...](https://www.linkedin.com/posts/camrett-logistics_camrett-camrettlogistics-technicianappreciation-activity-7473035954707009537---Os)\n  > Thank you to our shop and maintenance that keep us moving!\n  >\n  > #camrett #camrettlogistics #technicianappreciation  #3PL\n\n- [2026-06-09 · 10 reactions] Camrett's Dublin VA location is growing! Apply now for these immediate openings! Current openings at the Dublin Warehouse include: *Local Truck Drivers both 1st and 2nd Shifts *Warehouse Supervisor...\n\n- [2026-06-09 · 4 reactions] Added two more day shift openings for the Dublin, VA location! Looking for More Than a Desk Job? At Camrett Logistics, our Customer Service Representatives are at the center of the action—working w...\n\n## Locations\n- Headquarters: wytheville, virginia, united states (US)\n- Offices: dublin, virginia, united states (US), atkins, virginia, united states (US), wytheville, virginia, united states (US), beaver, west virginia, united states (US), fairlawn, virginia, united states (US), pulaski, virginia, united states (US), rural retreat, virginia, united states (US), bluefield, virginia, united states (US), roanoke, virginia, united states (US)",
+        "summary": "{\"description\":\"Camrett Logistics is a privately held warehousing, distribution and 3PL services provider with multiple offices along the I-81 corridor in southwest Virginia, founded in 1995 and headquartered in Wytheville, VA.\",\"employee_estimate\":83,\"employee_estimate_source\":\"Employees: 83\",\"hq\":\"Wytheville, Virginia, United States\",\"hq_quote\":\"Headquartered in Wytheville, Virginia, United States\",\"industry\":\"Warehousing and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"Camrett Logistics has been providing 3PL services: warehousing & distribution services since 1995. \"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4D0BAQH2yi_kMdezOw/company-logo_200_200/company-logo_200_200/0/1637694077427/camrett_logistics_logo?e=2147483647&v=beta&t=ChCkH0fyedxkXYp5SpRMvWZRC-s0s4vLpn3AVihCxR0",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/wcqkmf4gmmm",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Camrett Logistics",
+              "foundedYear": 1995,
+              "description": "Camrett Logistics has been providing 3PL services: warehousing & distribution services since 1995. \nCamrett is a SmartWay Transport Provider and has several warehouses that are AIB certified for Food Safety.\nWe employ highly-trained personnel and smart technology to offer value-added services thereby optimizing your supply chain management and cost.",
+              "workforce": {
+                "total": 83
+              },
+              "headquarters": {
+                "address": "2460 N 4th St, Wytheville, Virginia 24382, US",
+                "city": "Wytheville",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 27180059,
+                "fundingTotal": null,
+                "fundingLatestRound": null
+              },
+              "webTraffic": {
+                "visitsMonthly": 3323,
+                "countryRank": 1563753,
+                "avgDurationSeconds": 10,
+                "history": [
+                  {
+                    "value": 1636,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 1381,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 1306,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 1346,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 495,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 3323,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/lv9mkbd66kv",
+        "title": "Capretti Transporte e Logística",
+        "url": "https://caprettitransportes.com.br/",
+        "text": "# Capretti Transporte e Logística\n\nCapretti Transporte e Logística is a Transportation, Logistics, Supply Chain and Storage company. Capretti Transporte e Logística employs 16 people. Headquartered in Ribeirão Preto, São Paulo, Brazil, with an office in Cuiabá.\n\n## About\n\nCargas secas. \nCarga Fracionadas, Carga Lotação, Distribuição, Expedição e Armazenagem\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Privately held\n- Headquarters: Ribeirão Preto, Brazil\n- Homepage: caprettitransportes.com.br\n- Aliases: capretti transporte e logística\n- LinkedIn: linkedin.com/company/capretti-transportes-log%C3%ADstica\n- Linkedin Followers: 496\n\n## Workforce\n- Employees: 16\n- Company Size: 11-50 employees\n- Breakdown:\n  - By Country: Brazil: 14 (88%)\n  - By Department: Operations: 5 (31%), General Management: 3 (19%), Administrative: 2 (12%), Finance: 2 (12%), Medical: 1 (6%), Sales: 1 (6%)\n  - By Seniority: Other Management: 7 (44%), Manager: 4 (25%), Specialist: 3 (19%)\n- Talent Sources: JLOG Transportes (3), Êxito Logística | Armazenagem, Transporte e Montagem de Pedidos (2), Khouse (2), Jamef Transportes (2), Braspress Transportes Urgentes (2), Savegnago Supermercados (1), RDR Soluções Logísticas (1), J&T Express Brasil (1), Instituto SEB (1), Grupo Troca Transportes (1)\n- Alumni Go To: FedEx (2), Trans Wells Transportes (1), Theatro Pedro II (1), Mialich Supermercados (1), Magalog (1), Lealdade Transportes (1), Hapvida NotreDame Intermédica (1), Grupo Real (1), Expresso Rio Vermelho Transportes (1), Andrade & Menezes Negócios Imobiliarios (1)\n\n## Products & Technology\n- Tech Stack: ativo, ativa, aos, whatsapp, c\n\n## Web presence\n\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Social\n\n### Linkedin\n\n- [2024-01-25 · 9 reactions] São Paulo, a cidade que não para de mover! Há 470 anos conectando vidas e impulsionando o progresso. Parabéns para metrópole que faz a engrenagem da inovação girar! 🚚🏙️ #sãopaulo #transporte #logís...\n\n- [2024-01-10 · 9 reactions] Conheça as regiões onde a Capretti atua! 🚚🗺\n\n- [2024-01-01 · 10 reactions] Que em cada curva da estrada da vida, encontremos novas oportunidades e trajetos de prosperidade. Feliz 2024! 🛣️🎆 #FelizAnoNovo #2024\n\n- [2023-11-20 · 6 reactions] \"Cada voz importa, cada história é valiosa. Vamos celebrar a diversidade e lutar contra o racismo. #ConscienciaNegra\"\n\n- [2023-11-17 · 1 reaction] No dia 20/11 será dia de reconhecer e celebrar a importância da Consciência Negra. Por isso, não teremos expediente. Voltamos no dia 21/11!!\n\n- [2023-11-15 · 3 reactions] Proclamação da República, um marco histórico que nos recorda da força da democracia e da busca constante por um futuro mais justo. ✨ #ProclamaçãoDaRepública #HistóriaDoBrasil\"\n\n- [2023-11-14 · 11 reactions] Vagas!\n\n- [2023-11-14 · 4 reactions] Em celebração ao feriado da Proclamação da República, informamos que não haverá expediente amanhã. Desejamos a todos um excelente feriado e momentos de descanso. Retornaremos às atividades normais...\n\n- [2023-11-06 · 5 reactions] \"Unidos pela saúde masculina, nós apoiamos o Novembro Azul. É hora de cuidar e prevenir. 💙 #NovembroAzul #SaúdeMasculina #Prevenção\"\n\n- [2023-10-13 · 4 reactions] O Outubro Rosa vem para disseminar a importância da conscientização sobre o câncer de mama e mostrar como o diagnóstico precoce pode salvar vidas. Informe-se, faça o autoexame e consulte o seu médi...\n\n- [2023-10-11] Amanhã daremos uma pausa nos serviços do nosso escritório central, mas dia 13 de outubro retornaremos com os motores renovados após o descanso.\n\n- [2023-10-01 · 14 reactions] Hoje comemoramos mais um ano de história e estamos prontos para desbravar novos caminhos, oferecendo um serviço de excelência e proporcionando soluções logísticas eficientes para os nossos clientes...\n\n## Locations\n- Headquarters: ribeirão preto, são paulo, brazil\n- Offices: cuiabá, mato grosso, brazil, ribeirão preto, são paulo, brazil",
+        "summary": "{\"description\":\"Capretti Transporte e Logística is a Transportation, Logistics, Supply Chain and Storage company.\",\"employee_estimate\":\"16\",\"employee_estimate_source\":\"Employees: 16\",\"hq\":\"Ribeirão Preto, Brazil\",\"hq_quote\":\"Headquartered in Ribeirão Preto, São Paulo, Brazil, with an office in Cuiabá.\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"Cargo Fracionadas, Carga Lotação, Distribuição, Expedição e Armazenagem (implies logistics services to others)\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4D0BAQFZs6j3ywqEOg/company-logo_200_200/company-logo_200_200/0/1687964464968/capretti_transportes_logstica_logo?e=2147483647&v=beta&t=2uoTlHgLlT8Skwrva1ur4CYP8q-rqBo-iFqJzN4NnzQ",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/lv9mkbd66kv",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Capretti Transporte e Logística",
+              "foundedYear": null,
+              "description": "Cargas secas. \nCarga Fracionadas, Carga Lotação, Distribuição, Expedição e Armazenagem",
+              "workforce": {
+                "total": 16
+              },
+              "headquarters": {
+                "address": "Avenida Celso Daniel 1315, Ribeirão Preto, São Paulo 14072-085, BR",
+                "city": "Ribeirão Preto",
+                "postalCode": null,
+                "country": "Brazil"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": []
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 4518.4,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

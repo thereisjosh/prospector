@@ -1,0 +1,152 @@
+{
+  "request": {
+    "query": "Super Smart Services",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "f99f2d1979399ea2fce09ef8d5c58ea0",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/w7sfnwf9xyw",
+        "title": "Super Smart Service Ltd",
+        "url": "https://www.supersmartservice.co.uk/",
+        "text": "# Super Smart Service Ltd\n\nSuper Smart Service Ltd is a Transportation, Logistics, Supply Chain and Storage company. CIRRO Fulfillment offers comprehensive 3PL fulfillment services with efficient order fulfillment, global shipping, and tailored solutions for e-commerce businesses. Affordable rates, customized packaging, and value-added services. Super Smart Service Ltd employs 315 people (+29.1% YoY, +71 people). Headquartered in United Kingdom, with an office in Cannock. Its workforce is distributed across United Kingdom and Nepal.\n\n## About\n\nSuper Smart Service has a new brand name CIRRO Fulfillment\n\nFollow us and find out more at CIRRO Fulfillment's:\n\nLinkedIn: https://www.linkedin.com/company/cirro-fulfillment\nFacebook: https://www.facebook.com/cirroglobal\nYouTube: https://www.youtube.com/@cirroglobal/\nVisit our new website at http://www.cirrofulfillment.com/\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Privately held\n- Aliases: Super Smart Service Ltd., super smart service, super smart service ltd\n- LinkedIn: linkedin.com/company/super-smart-service-ltd\n- Linkedin Followers: 1,958\n- Emails: partnerships@supersmartservice.co.uk\n\n## Workforce\n- Employees: 315\n- Company Size: 501-1000 employees\n  - Monthly Growth: +0.3%\n  - Yearly Growth: +29.1%\n- Key Executives:\n  - Vivian Chen: Human Resources Business Partner\n- Breakdown:\n  - By Country: United Kingdom: 62 (20%), Nepal: 2 (1%)\n  - By Department: Operations: 32 (10%), Hr: 5 (2%), Other Department: 5 (2%), Trades: 5 (2%), Administrative: 4 (1%), Finance: 4 (1%), General Management: 2 (1%), Marketing: 2 (1%), Sales: 2 (1%), Legal: 1 (+2 more)\n  - By Seniority: Specialist: 44 (14%), Manager: 10 (3%), Other Management: 7 (2%), Intern: 1, Partner: 1, Senior: 1\n- Talent Sources: NHS (2), NARS Cosmetics (2), L&B Technical Services Ltd (2), HungryPanda Ltd 熊猫外卖 (2), ELECTRIC METER SALES LIMITED (2), CWG Choices Limited (2), Amazon (2), Zongteng Group (1), Kaplan UK (1), KPI Recruiting Ltd (1)\n- Alumni Go To: CIRRO (3), Tesco (2), REXVILLE SOLUTIONS LIMITED (2), Keele University (2), Homary.com (2), Greggs (2), Florette UK & Ireland (2), Atul Ltd (2), Ardent (2), AM2PM Group (2)\n\n## Products & Technology\n- Tech Stack: linkedin, microsoft, microsoft office, operative, tiktok, square, upkeep, visa, impact, well, amp\n\n## Web presence\n\n- Facebook: facebook.com/uksupersmartservice\n- Crunchbase: crunchbase.com/organization/super-smart-service\n\n## Categories\n\n3pl fulfillment, customized solutions, e-commerce, e-commerce businesses, fulfillment services, global shipping, logistics, order management, shipping, warehousing\n\n## Recent News\n- [2026-08-25] [Logistics group takes major Nottingham facility to support its “continued growth” \\| Insider Media](https://www.insidermedia.com/news/midlands/logistics-group-takes-major-nottingham-facility-to-support-its-continued-growth)\n- [2026-08-24]\n  - [Major 362,000 sq ft Nottingham warehouse snapped up in 15-year deal \\| TheBusinessDesk.com](https://www.thebusinessdesk.com/eastmidlands/news/2114200-major-362000-sq-ft-nottingham-warehouse-snapped-up-in-15-year-deal)\n  - [Barwood Capital lets 362,000 sq ft Nottingham unit \\| BE News](https://benews.co.uk/barwood-capital-lets-362000-sq-ft-nottingham-unit/)\n  - [Barwood ties-up logistics letting at Nottingham 360 - Place Midlands](https://www.placemidlands.co.uk/barwood-ties-up-nottingham-360-logistics-deal/)\n  - [Global fulfilment solutions company swoops for 360,000 sq ft Nottingham logistics facility \\| East Midlands Business Link](https://www.eastmidlandsbusinesslink.co.uk/mag/featured/global-fulfilment-solutions-company-swoops-for-360000-sq-ft-nottingham-logistics-facility/)\n- [2025-09-04] IndiaTimes: Chinese ecommerce giants rush to Europe as Trump upends trade\n\n## Social\n\n### Linkedin\n\n- [2023-03-09 · 15 reactions] 📢 We are changing our name to CIRRO! We are excited to share the vibrant new look and our commitment to being your thoughtful partner in the e-commerce logistics and fulfillment world. CIRRO is mor...\n\n- [2022-07-22 · 7 reactions, 2 comments] We are hiring a HR assistant (preferable Mandarin speaking) to join our fast-paced growing company!! Know anyone is interested in position? Send your CV to: hh.chen@supersmartservice.co.uk #hr #hir...\n\n- [2021-12-24 · 1 reaction] We would like to wish you all a very Merry Christmas and Happy New Year! #merrychristmas2021 #logisticsservices URL: https://bit.ly/3qnQPeX\n\n## Locations\n- Headquarters: cannock, staffordshire ws11 8aa, united kingdom (GB)\n- Offices: cannock, united kingdom (GB), cannock, staffordshire, united kingdom (GB), cannock, staffordshire ws11 8aa, united kingdom (GB)",
+        "summary": "{\"description\":\"Super Smart Service Ltd is a Transportation, Logistics, Supply Chain and Storage company offering 3PL fulfillment services with global shipping and tailored solutions for e-commerce businesses.\",\"employee_estimate\":315,\"employee_estimate_source\":\"Employees: 315\",\"hq\":\"Headquartered in United Kingdom, with an office in Cannock.\",\"hq_quote\":\"Headquartered in United Kingdom, with an office in Cannock.\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"3pl fulfillment, customized solutions, e-commerce, e-commerce businesses, fulfillment services, global shipping, logistics, order management, shipping, warehousing\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4D0BAQFk4yGKpjFR5Q/company-logo_200_200/company-logo_200_200/0/1630553004588/super_smart_service_ltd_logo?e=2147483647&v=beta&t=DAfXlTCC6iKh-avjrSMkdflEiFBsj-rJVjVPECzem1w",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/w7sfnwf9xyw",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Super Smart Service Ltd",
+              "foundedYear": null,
+              "description": "Super Smart Service has a new brand name CIRRO Fulfillment\n\nFollow us and find out more at CIRRO Fulfillment's:\n\nLinkedIn: https://www.linkedin.com/company/cirro-fulfillment\nFacebook: https://www.facebook.com/cirroglobal\nYouTube: https://www.youtube.com/@cirroglobal/\nVisit our new website at http://www.cirrofulfillment.com/",
+              "workforce": {
+                "total": 315
+              },
+              "headquarters": {
+                "address": "Cley Road, Kingswood Lakeside, CANNOCK, Staffordshire WS11 8AA, GB",
+                "city": null,
+                "postalCode": null,
+                "country": "United Kingdom"
+              },
+              "financials": null,
+              "webTraffic": null,
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/4l89ldh5tkw",
+        "title": "4S (SUPER SMART SERVICES & SOLUTIONS) CREATEUR DE SERVICES ET SOLUTIONS A FORTE VALEUR AJOUTEE",
+        "url": "https://linkedin.com/company/4s-super-smart-services-&-solutions-createur-de-services-et-solutions-a-forte-valeur-ajoutee",
+        "text": "# 4S (SUPER SMART SERVICES & SOLUTIONS) CREATEUR DE SERVICES ET SOLUTIONS A FORTE VALEUR AJOUTEE\n\n4S (SUPER SMART SERVICES & SOLUTIONS) CREATEUR DE SERVICES ET SOLUTIONS A FORTE VALEUR AJOUTEE is a Business Consulting and Services company. 4S (SUPER SMART SERVICES & SOLUTIONS) CREATEUR DE SERVICES ET SOLUTIONS A FORTE VALEUR AJOUTEE employs 6 people (-14.3% YoY, -1 person). Headquartered in Rueil-Malmaison, Île-de-France, France, with an office in Rueil Malmaison.\n\n## Company Details\n- Industry: Business Consulting and Services\n- Headquarters: Rueil-Malmaison, France\n- Aliases: 4s (super smart services & solutions) createur de services et solutions a forte valeur ajoutee\n- LinkedIn: linkedin.com/company/4s-super-smart-services-&-solutions-createur-de-services-et-solutions-a-forte-valeur-ajoutee\n- Linkedin Followers: 9\n\n## Workforce\n- Employees: 6\n- Company Size: 1-10 employees\n  - Yearly Growth: -14.3%\n- Talent Sources: BENIBLA CLOTHING (1)\n- Alumni Go To: Eurovision Services (1)\n\n## Locations\n- Headquarters: rueil-malmaison, île-de-france, france\n- Offices: rueil malmaison, île-de-france, france",
+        "summary": "{\"description\":\"4S (SUPER SMART SERVICES & SOLUTIONS) CREATEUR DE SERVICES ET SOLUTIONS A FORTE VALEUR AJOUTEE is a Business Consulting and Services company.\",\"employee_estimate\":6,\"employee_estimate_source\":\"Employees: 6\",\"hq\":\"Headquartered in Rueil-Malmaison, Île-de-France, France, with an office in Rueil Malmaison.\",\"hq_quote\":\"Headquartered in Rueil-Malmaison, Île-de-France, France, with an office in Rueil Malmaison.\",\"industry\":\"Business Consulting and Services\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":false,\"is_third_party_logistics_quote\":\"false – not stated as third-party logistics services; page describes company as a business consulting and services firm with employees and locations, not a 3PL provider.\"}",
+        "image": "https://static.licdn.com/aero-v1/sc/h/cs8pjfgyw96g44ln9r7tct85f",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/4l89ldh5tkw",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "4S (SUPER SMART SERVICES & SOLUTIONS) CREATEUR DE SERVICES ET SOLUTIONS A FORTE VALEUR AJOUTEE",
+              "foundedYear": null,
+              "description": null,
+              "workforce": {
+                "total": 6
+              },
+              "headquarters": {
+                "address": "39 RUE HAUTE, Rueil Malmaison, Îledefrance 92500, FR",
+                "city": "Rueil-Malmaison",
+                "postalCode": null,
+                "country": "France"
+              },
+              "financials": null,
+              "webTraffic": null,
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 4604.3,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

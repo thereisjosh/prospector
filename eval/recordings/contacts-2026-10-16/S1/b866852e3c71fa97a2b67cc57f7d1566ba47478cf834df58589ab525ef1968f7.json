@@ -1,0 +1,228 @@
+{
+  "request": {
+    "query": "Bay Logistics",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "5bcbb4a48260c8c4b13fb2d17491508f",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/j92n2ntl0n6",
+        "title": "Bay Logistics, Inc.",
+        "url": "https://www.baylogistics.com/",
+        "text": "# Bay Logistics, Inc.\n\nBay Logistics, Inc. is a Transportation, Logistics, Supply Chain and Storage company. Bay Logistics is a supply chain management firm providing solutions for transportation, warehousing, inventory management, order fulfillment, distribution, quality inspection, storage, and other logistics services. Bay Logistics, Inc. employs 167 people (+14.4% YoY, +21 people) and has an annual revenue of $41.2M, founded in 1992. Headquartered in Spring Lake, Michigan, United States, with offices in Romulus and Byron Center. Its workforce is distributed across United States and Ghana.\n\n## About\n\nBAY LOGISTICS is a comprehensive provider of supply chain management services including warehousing, transportation, logistics, repacking, sequencing, quality inspections, light assembly, packaging, sorting, kitting, local shuttle, and inventory management. BAY LOGISTICS'​ investment in facilities, infrastructure and IT systems allows clients to focus resources on core competencies and areas of expertise.\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Privately held\n- Headquarters: Spring Lake, United States\n- Founded Year: 1992\n- Homepage: baylogistics.com\n- Aliases: bay logistics, bay logistics, inc.\n- LinkedIn: linkedin.com/company/bay-mps\n- Linkedin Followers: 1,600\n- Emails: info@baylogistics.com\n- Phone: (616) 281-755, (616) 432-5499, -616-432-5499, 616-432-5499\n\n## Financials\n- Annual Revenue: USD 41,200,000\n\n## Workforce\n- Employees: 167\n- Company Size: 51-200 employees\n  - Monthly Growth: +0.6%\n  - Yearly Growth: +14.4%\n- Key Executives:\n  - Brett McGovern: Chief Executive Officer\n  - Chili Akoma: Director of Business Development\n  - Donald Finney: Operational Director Mentor\n  - John Kutilek: Director Of Business Development, West MI\n  - Jon Swart: Vice President Operations\n  - Lisa England, SHRM-CP, PHR: Human Resources Director\n  - kurt cuncannan: Vice President of Sales & Marketing\n- Breakdown:\n  - By Country: United States: 44 (26%), Ghana: 1 (1%)\n  - By Department: Operations: 14 (8%), Trades: 8 (5%), Project Management: 5 (3%), Sales: 5 (3%), General Management: 4 (2%), Other Department: 3 (2%), Administrative: 2 (1%), Customer Service: 2 (1%), Hr: 2 (1%), Finance: 1 (1%)\n  - By Seniority: Manager: 20 (12%), Specialist: 14 (8%), Director: 4 (2%), Other Management: 4 (2%), Vp: 2 (1%), Clevel: 1 (1%), Intern: 1 (1%)\n- Talent Sources: Columbian Logistics Network (4), Martin Transportation Systems (3), Vital Pharmaceuticals, Inc VPX (2), Keenan Marina (2), Steelcase (1), Robert Half (1), Kenco Group (1), Kay Jewelers (1), Databricks (1), Allied Van Lines (1)\n- Alumni Go To: Shape Corp. (2), SANOVO TECHNOLOGY GROUP (2), M&K Truck Centers (2), Ideal Setech LLC (2), Valley Farms Supply (1), University of Michigan (1), Subaru of Indiana Automotive (1), Stellantis (1), RJ Logistics (1), Ground Effects Ltd. (1)\n\n## Products & Technology\n- Tech Stack: microsoft, microsoft excel, microsoft office, microsoft word, mulesoft, sps commerce, sql, truecommerce, power bi, json, python, spring, square, well\n\n## Web presence\n\n- Twitter: twitter.com/logistics_bay\n- Facebook: facebook.com/bay-logistics-inc-1036122443116703\n- Instagram: instagram.com/baylogisticsinc\n- Crunchbase: crunchbase.com/organization/bay-logistics\n- Web traffic:\n  - Monthly visits: 6,048\n  - Global rank: 2,848,612\n  - Bounce rate: 55.0%\n  - Pages per visit: 2.5\n  - Average visit duration: 450s\n\n## Categories\n\nautomotive, automotive-transportation, food grade, hazardous material, inventory management, logistics, order fulfillment, quality control, shipping, storage, supply chain, supply chain management, supply-chain-management, transportation, warehousing\n\n## Competitors\n\nsupply chain services international, stratosphere quality, g&d integrated, trax, aql, spinnaker management group, llc., river rock advisors, 2am group, ctsi-global, data2logistics, formel d, controlpay, ceva logistics, pls logistics, pls, ltx solutions, rohlig suus logistics, multiterminais, choice logistics, challenger motor freight\n\n## Social\n\n### Linkedin\n\n- [2026-10-02 · 9 reactions] Are you a skilled stand-up forklift operator who values safety and takes pride in your work? We are seeking experienced operators to become part of our warehouse team and ensure our operations run...\n\n- [2026-09-18 · 7 reactions] Bay Logistics operates a premier refrigerated and frozen warehouse strategically positioned in central Phoenix, delivering seamless connectivity to both the I-10 and I-17 freeway corridors. This co...\n\n- [2026-09-14 · 6 reactions] This National Truck Driver Appreciation Week, we would like to express our gratitude to the professional truck drivers who work tirelessly to deliver America's critical goods. Thank you for your ha...\n\n- [2026-09-10 · 7 reactions] The Bay Logistics refrigerated and frozen warehouse is ideally located in the heart of Phoenix, ensuring easy access from both the I-10 and I-17 freeway systems. This expansive distribution center...\n\n- [2026-09-04 · 10 reactions] Bay Logistics would like to wish everyone a Happy Labor Day! We especially want to thank the entire Bay Logistics staff for your hard work and commitment. Please have a safe and enjoyable weekend!...\n\n- [2026-08-18 · 11 reactions] Are you a skilled stand-up forklift operator who values safety and takes pride in your work? We are seeking experienced operators to become part of our warehouse team and ensure our operations run...\n\n- [2026-08-05 · 21 reactions] Bay Logistics is extending its network south with a new warehousing and distribution center opening in Murfreesboro, Tennessee this August — linking our Detroit and Flint operations, the heart of M...\n\n- [2026-07-04 · 5 reactions] Land of the free, because of the brave! Happy 4th of July to all our amazing customers and employees! #happyFourthofJuly #july4 #theFourth #partyintheusa #redwhiteandblue #america #proudtobeanameri...\n\n- [2026-07-02 · 15 reactions] Please join us in extending a warm welcome to our newest associate member Bay Logistics, Inc.!\n\n- [2026-06-28 · 7 reactions] Happy National Logistics Day! Honoring the work of the hardworking professionals in the logistics sector! #NationalLogisticsDay Learn more: https://lnkd.in/gN9QRn4H Contact Bay Logistics: https://l...\n\n- [2026-06-21 · 6 reactions] Happy Father's Day to all the hard-working fathers out there! We appreciate all you do! #fathersday #happyfathersday #warehouse #logistics Contact Bay Today: https://lnkd.in/gfHHgeVT\n\n- [2026-06-19 · 3 reactions] Celebrating the end of slavery in America and the freedom of all Americans! #juneteenth #freedom #juneteenthcelebration #happyjuneteenth #mts #baylogistics\n\n- [2026-06-04 · 15 reactions] Join the Greater Phoenix Chamber in welcoming our newest Premier Members! Bay Logistics, Inc. CGI Foster Fuels, Inc. Justworks Niagara Bottling Womble Bond Dickinson (US) LLP Elevate Your Business...\n\n- [2026-05-25 · 6 reactions] Home of the free, because of the brave. On Memorial Day, we honor and remember those who paid the ultimate sacrifice. #memorialday #memorialdayweekend #usa #america #military #veterans #happymemori...\n\n- [2026-05-10 · 9 reactions] Happy Mother's Day to all the hard-working mother's out there! We appreciate all you do! #mothersday #happymothersday #logistics #warehousing Contact Bay Today: https://lnkd.in/gfHHgeVT\n\n- [2026-05-05 · 7 reactions] Happy CINCO DE MAYO from all of us at Bay Logistics! #cincodemayo #party #fiesta #celebration Contact Bay Today: https://lnkd.in/gfHHgeVT\n\n- [2026-04-30 · 2 reactions] Cut cost and save time with Bay Logistics' state-of-the-art Billing System! • Built for complexity • Unlimited available fee calculations with precision and ease • Flexible formatting supporting sc...\n\n- [2026-04-05 · 5 reactions] May you experience peace and joy as you celebrate Easter this year. Happy Easter from everyone at Bay logistics! #easter https://lnkd.in/gfHHgeVT\n\n- [2026-03-24 · 17 reactions] Bay Logistics has a new facility in Grand Rapids, Michigan! Features: • 250,000 square feet • 24 dock doors / 6 grade-level doors • Food grade • Multi-tenant design • 10,000 SF of modern office spa...\n\n- [2026-03-17 · 8 reactions] We wish you lots of happiness, luck, and success on this St. Patrick's Day. Happy St. Patrick's Day from everyone at Bay Logistics! #shamrock #leprechaun #green #clover #stpattys #stpatricksday #ir...\n\n## Locations\n- Headquarters: spring lake, michigan, united states (US)\n- Offices: romulus, michigan, united states, byron center, michigan, united states (US), spring lake, michigan, united states (US)",
+        "summary": "{\"description\":\"Bay Logistics, Inc. is a Transportation, Logistics, Supply Chain and Storage company providing solutions for transportation, warehousing, inventory management, order fulfillment, distribution, quality inspection, storage, and other logistics services.\",\"employee_estimate\":167,\"employee_estimate_source\":\"Employees: 167\",\"hq\":\"Spring Lake, Michigan, United States\",\"hq_quote\":\"Headquartered in Spring Lake, Michigan, United States, with offices in Romulus and Byron Center.\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"BAY LOGISTICS is a comprehensive provider of supply chain management services including warehousing, transportation, logistics, repacking, sequencing, quality inspections, light assembly, packaging, sorting, kitting, local shuttle, and inventory management.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C560BAQEbSinmPm976A/company-logo_200_200/company-logo_200_200/0/1647009979730/bay_mps_logo?e=2147483647&v=beta&t=o-t-sG-PMqRtPqz33z7A6C2pE9usMzepDmhJ1tvyijQ",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/j92n2ntl0n6",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Bay Logistics, Inc.",
+              "foundedYear": 1992,
+              "description": "BAY LOGISTICS is a comprehensive provider of supply chain management services including warehousing, transportation, logistics, repacking, sequencing, quality inspections, light assembly, packaging, sorting, kitting, local shuttle, and inventory management. BAY LOGISTICS'​ investment in facilities, infrastructure and IT systems allows clients to focus resources on core competencies and areas of expertise.",
+              "workforce": {
+                "total": 167
+              },
+              "headquarters": {
+                "address": "1202 Pontaluna Road, Spring Lake, MI 49456, US",
+                "city": "Spring Lake",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 41200000,
+                "fundingTotal": null,
+                "fundingLatestRound": null
+              },
+              "webTraffic": {
+                "visitsMonthly": 6048,
+                "countryRank": 796073,
+                "avgDurationSeconds": 450,
+                "history": [
+                  {
+                    "value": 8362,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 6262,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 6606,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 5760,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 2597,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 6048,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/l6b8kjg33jh",
+        "title": "Bay Logistik GmbH + Co. KG",
+        "url": "https://bay-logistik.de/",
+        "text": "# Bay Logistik GmbH + Co. KG\n\nBay Logistik GmbH + Co. KG is a Transportation/Trucking/Railroad company. Bay Logistik is a company that specializes in transport and storage of liquid and granulated chemicals, both loosely and packaged. They aim to reduce costs and fully storage costs for their customers. Bay Logistik GmbH + Co. KG employs 20 people (-9.1% YoY, -2 people), founded in 1945. Headquartered in Waiblingen, Baden-Württemberg, Germany, with presence in United States.\n\n## About\n\nInnovative Logistics Provider for Transport of liquid and dry bulk throughout Europe. \nWe provide homegrown, but modern and efficient logistics. As specialists in our field, we implement any logistical solutions in a truly professional way.\n\nHighly efficient and competitive logistics - throughout Europe. We focus on the use of reliable and renewable modern technology in all areas of our field.\nReliable, Renewable, Efficient and Flexible.\nTransparency and quality in logistics since 1945. Our flexible and proven logistical solutions provide perfectly synchronized transport services, built on strong cooperation between customer and employee.\n\nAmong our other services, we store chemicals, both fluid and granulated in loose and packed up states, which allows us to reduce high storage costs to a minimum or even cut them entirely.\nWe transport\nFoodstuff\nFluids\nChemicals\nGranules\nHazardous Materials\n\n## Company Details\n- Industry: Transportation/Trucking/Railroad\n- Type: Partnership\n- Headquarters: Waiblingen, Germany\n- Founded Year: 1945\n- Homepage: bay-logistik.de\n- Aliases: bay logistics, bay logistik, bay logistik gmbh + co. kg, bay logistik gmbh + co. kg - the better choice\n- LinkedIn: linkedin.com/company/bay-logistik-gmbh-co-kg\n- Linkedin Followers: 715\n- Emails: info@bay-logistik.de\n- Phone: +49 7151 5002 1, +49 7151 5002 119, +49 7151 5002 345, +497151500210, +4971515002345\n\n## Workforce\n- Employees: 20\n- Company Size: 201-500 employees\n  - Yearly Growth: -9.1%\n- Key Executives:\n  - Michael Schaaf: Unternehmensinhaber\n  - Rainer Wagner: Logistikmanager Bereichsleiter Tank\n- Breakdown:\n  - By Country: Germany: 12 (60%)\n  - By Department: Operations: 6 (30%), Other Department: 2 (10%), Sales: 2 (10%), Administrative: 1 (5%), General Management: 1 (5%)\n  - By Seniority: Manager: 3 (15%), Specialist: 3 (15%), Intern: 2 (10%), Other Management: 2 (10%), Head: 1 (5%), Owner: 1 (5%)\n- Talent Sources: RAILONE (1), Kobler Tankwagenreinigung und Transport GmbH (1), KURZ Gruppe (1), J. MÜLLER Weser GmbH & Co. KG (1), Hellmann Worldwide Logistics (1), Gebr. Roggendorf GmbH (1), Fritz Gruppe (1), Deutsche Post und DHL (1), DB Schenker (1), Chemion Logistik GmbH (1)\n- Alumni Go To: winkler Unternehmensgruppe (1), Zeitungsverlag GmbH & Co Waiblingen KG (1), Siko Food Logistics GmbH (1), PRETTL Kabelkonfektion GmbH (1), Mercedes-Benz AG (1), Fritz Gruppe (1), Ecobat (1), DSV - Global Transport and Logistics (1), Bulkhaul (Germany) GmbH (1), Acorn Treppenlifte GmbH (1)\n\n## Products & Technology\n- Tech Stack: operative, c\n\n## Web presence\n\n- Facebook: facebook.com/baylogistik\n- Instagram: instagram.com/bay_logistik\n- YouTube: youtube.com/channel/ucaasskvtqmxus3ryreh0h_g\n- Crunchbase: crunchbase.com/organization/bay-logistics-af6d\n- Web traffic:\n  - Monthly visits: 1,846\n  - Global rank: 3,439,397\n  - Bounce rate: 23.0%\n  - Pages per visit: 13.5\n  - Average visit duration: 422s\n\n## Categories\n\nautomotive-transportation, chemicals, container stock, container trucking, freight, freight service, granulated, liquid, logistics, road-transportation, self-storage, tank cleaning, tank- und siloreinigung, tank- und silotransport, transport, transport von losen chemischen gütern, transport von losen trockengütern / lebensmittel, transportation, transportation and logistics, transportation of liquid and dry bulk\n\n## Competitors\n\nzech logistics, triple m, grindrod, dlg logistics group\n\n## Recent News\n- [2026-10-02] Materialfluss: Beleuchtung für Industrie und Logistik: High-Bay-Leuchte passt sich der Halle an\n- [2026-09-26] IndexBox: Green Bays Fracht-Fußabdruck und das neue Gleichgewicht des Frachtmarkts\n- [2026-08-27] Vietnam.vn: Dong Nai City: Gestaltung eines neuen Wachstumszentrums durch Flughafen, Seehafen und Logistik.\n- [2026-07-06] Ad-hoc-news.de: Bay Point Commerce Center von The St. Joe Company - Logistikdrehscheibe im Wachstum\n- [2026-05-21]\n  - Vietnam.vn: Ho-Chi-Minh-Stadt prüft die Einrichtung einer UAV-Testflugzone für Logistik- und Stadtmanagementzwecke.\n  - it boltwise: Shenzhen International Holdings: Logistik- und Infrastruktur im Greater-Bay-Fokus\n- [2026-05-18] it boltwise: Shenzhen International: Logistik- und Mautinfrastruktur im Wandel der Greater Bay\n- [2026-03-21] Vietnam.vn: Logistikfachkräfte im Zeitalter der digitalen Transformation: Wie entkommt man der „Falle des Fachkräftemangels“?\n- [2026-01-09] Eurotransport: Marktlage 2026: Logistiker fordern politische Hebel\n- [2026-01-07] Immobilien Zeitung: Zalando schließt Logistikzentrum in Erfurt\n- [2025-12-26] DEKRA.net: Transport und Logistik 2026: Was das neue Jahr bringt\n- [2025-04-17] Logistik Heute: Analyse: Recyclingquote bei Plastik bleibt global niedrig\n\n## Social\n\n### Linkedin\n\n- [2026-06-26 · 18 reactions] 🚛🚆 Rettet den Kombinierten Verkehr! Jeden Tag verlagern wir bei Bay Logistik⁠ einen erheblichen Teil unserer Transporte von der Straße auf die Schiene. Wir investieren seit Jahren in den Kombiniert...\n\n- [2026-04-14 · 3 reactions] Vielen Dank für deinen tollen Beitrag und die wertschätzenden Worte! 😊 Es freut uns sehr zu lesen, dass du deine Zeit bei uns als so lehrreich und bereichernd empfunden hast. Besonders beeindruckt...\n\n- [2025-10-30 · 12 reactions] Sicherheit und Qualität – bestätigt bis 2028! Wir freuen uns, dass sowohl Bay Logistik GmbH + Co. KG als auch SIKO Food Logistics GmbH erneut erfolgreich nach GMP+ Feed Safety Assurance 2020 zertif...\n\n- [2025-08-29 · 61 reactions] 🚀 Bay Logistik is heading to Berlin! From 22–25 September 2025, we will join the 59th EPCA Annual Meeting under the motto “Thrive through Turbulence”. As a proud member of EPCA and ECTA, we are loo...\n\n- [2025-07-30 · 12 reactions] Wir suchen starke Partner für 2025! Bay Logistik ist seit über 80 Jahren als familiengeführte Spedition erfolgreich und steht für Service, Qualität und Zuverlässigkeit. Wir möchten unser Netzwerk w...\n\n- [2025-05-09 · 53 reactions, 1 comment] Die ersten neuen Zugmaschinen Actros Pro gehen in den Einsatz. In Summe tauschen wir dieses Jahr noch 30 Zugmaschinen aus. Alles Fahrzeuge habe eine Vollausstattung an Sicherheitstechnik und Fahrer...\n\n- [2025-04-19 · 231 reactions, 14 comments] Frischer Look, bewährte Leistung. Unsere Flotte bekommt ein neues Gesicht: Die ersten Zugmaschinen von Bay Logistik rollen ab sofort im modernen Weiß mit dynamischem Foliendesign auf die Straße. Da...\n\n- [2025-03-06 · 3 reactions, 1 comment] @ECTA just published its ECTA Responsible Care Members for 2025 and Bay Logistik is part of it! By being part of the ECTA RC program, we commit to the Guiding Principles to: - Continuously improve...\n\n## Locations\n- Headquarters: waiblingen, baden-württemberg, germany\n- Offices: waiblingen, germany (DE), waiblingen, baden-württemberg, germany, hürth - knapsack, nordrhein-westfalen, germany (DE)",
+        "summary": "{\"description\":\"Bay Logistik GmbH + Co. KG is a Transportation/Trucking/Railroad company that specializes in transport and storage of liquid and granulated chemicals, offering solutions to reduce storage costs for customers. It operates in Europe with headquarters in Waiblingen, Germany, and has a presence in the United States.\",\"employee_estimate\":20,\"employee_estimate_source\":\"Employees: 20\",\"hq\":\"Waiblingen, Baden-Württemberg, Germany\",\"hq_quote\":\"Headquartered in Waiblingen, Baden-Württemberg, Germany, with presence in United States.\",\"industry\":\"Transportation/Trucking/Railroad\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"Among our other services, we store chemicals, both fluid and granulated in loose and packed up states, which allows us to reduce high storage costs to a minimum or even cut them entirely.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4D0BAQHzgsOMIv81Bg/company-logo_200_200/company-logo_200_200/0/1630576162500/bay_logistik_gmbh_co_kg_logo?e=2147483647&v=beta&t=5yfF0q5ZaHR0mWOx_5CoThVUbjTB72xv1VMmjUth6Bk",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/l6b8kjg33jh",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Bay Logistik GmbH + Co. KG",
+              "foundedYear": 1945,
+              "description": "Innovative Logistics Provider for Transport of liquid and dry bulk throughout Europe. \nWe provide homegrown, but modern and efficient logistics. As specialists in our field, we implement any logistical solutions in a truly professional way.\n\nHighly efficient and competitive logistics - throughout Europe. We focus on the use of reliable and renewable modern technology in all areas of our field.\nReliable, Renewable, Efficient and Flexible.\nTransparency and quality in logistics since 1945. Our flexible and proven logistical solutions provide perfectly synchronized transport services, built on strong cooperation between customer and employee.\n\nAmong our other services, we store chemicals, both fluid and granulated in loose and packed up states, which allows us to reduce high storage costs to a minimum or even cut them entirely.\nWe transport\nFoodstuff\nFluids\nChemicals\nGranules\nHazardous Materials\n",
+              "workforce": {
+                "total": 20
+              },
+              "headquarters": {
+                "address": "Schuettelgrabenring 3, Waiblingen, Baden-Württemberg 71332, DE",
+                "city": "Waiblingen",
+                "postalCode": null,
+                "country": "Germany"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 1846,
+                "countryRank": 24082,
+                "avgDurationSeconds": 422,
+                "history": [
+                  {
+                    "value": 346,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 954,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 536,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 1044,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 1598,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 1846,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 6184.9,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

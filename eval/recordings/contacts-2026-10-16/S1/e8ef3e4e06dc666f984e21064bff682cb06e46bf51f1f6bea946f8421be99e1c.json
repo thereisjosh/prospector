@@ -1,0 +1,173 @@
+{
+  "request": {
+    "query": "Hawks Haulage",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "eff90550e83bd0f2f96827fd42e61ea7",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/fj0ddb2d1nw",
+        "title": "Hawks Haulage Ltd",
+        "url": "https://hawkshaulage.com/",
+        "text": "# Hawks Haulage Ltd\n\nHawks Haulage Ltd is a Transportation, Logistics, Supply Chain and Storage company. Hawks Haulage is a trusted Leicester based haulage company that offers logistics and distribution services. Hawks Haulage Ltd employs 4 people, founded in 2017. Headquartered in Leicester, England, United Kingdom.\n\n## About\n\nFounded in 2017, Hawks Haulage is amongst the fastest growing haulage companies in the Midlands and stands as a trusted UK Warehouse and Distribution specialist.\nServing clients nationwide, we offer a fully integrated suite of services - from secure storage and stock management in an over 30,000ft² warehouse to nationwide distribution and bespoke fulfilment.\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Privately held\n- Headquarters: Leicester, United Kingdom\n- Founded Year: 2017\n- Homepage: hawkshaulage.com\n- Aliases: hawks haulage ltd\n- LinkedIn: linkedin.com/company/hawks-haulage-ltd\n- Linkedin Followers: 22\n- Emails: sales@hawkshaulage.co.uk\n- Phone: 116 507 7456\n\n## Workforce\n- Employees: 4\n- Company Size: 11-50 employees\n- Breakdown:\n  - By Country: United Kingdom: 1 (25%)\n  - By Department: Sales: 1 (25%)\n  - By Seniority: Manager: 1 (25%)\n- Talent Sources: D & D Transport (1)\n\n## Web presence\n\n- Web traffic:\n  - Monthly visits: 1,907\n  - Global rank: 10,631,565\n  - Bounce rate: 100.0%\n  - Pages per visit: 1.0\n  - Average visit duration: 0s\n\n## Categories\n\nleicester based, logistics, pallet distribution, trusted, warehousing\n\n## Social\n\n### Linkedin\n\n- [2026-06-02 · 3 reactions] Great.\n\n- [2026-04-14] We were delighted to welcome the BBC to see firsthand the impact our transport business is making. One of the key topics discussed was the ongoing impact of fuel price hikes on the transport and lo...\n\n- [2025-11-23 · 1 reaction] Another productive day from a hardworking team committed to keeping the wheels turning and our fleet in top shape. We also support a number of other operators who rely on us for keeping their vehic...\n\n## Locations\n- Headquarters: leicester, england, united kingdom (GB)\n- Offices: leicester, england le4 9jr, united kingdom (GB)",
+        "summary": "{\"description\":\"Hawks Haulage Ltd is a Leicester-based transportation and logistics company offering storage, distribution and nationwide fulfilment services with a small workforce.\",\"employee_estimate\":4,\"employee_estimate_source\":\"Employees: 4\",\"hq\":\"Leicester, United Kingdom\",\"hq_quote\":\"Headquartered in Leicester, England, United Kingdom.\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"Hawks Haulage Ltd employs 4 people, founded in 2017. Headquartered in Leicester, England, United Kingdom.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQEuW4cnRTBflg/company-logo_200_200/B4EZqtf975KYAI-/0/1763847430278?e=2147483647&v=beta&t=fubLtjazZ-w3038mdd0YhKozVPAHgHePJhJfjHOwkm4",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/fj0ddb2d1nw",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Hawks Haulage Ltd",
+              "foundedYear": 2017,
+              "description": "Founded in 2017, Hawks Haulage is amongst the fastest growing haulage companies in the Midlands and stands as a trusted UK Warehouse and Distribution specialist.\nServing clients nationwide, we offer a fully integrated suite of services - from secure storage and stock management in an over 30,000ft² warehouse to nationwide distribution and bespoke fulfilment. ",
+              "workforce": {
+                "total": 4
+              },
+              "headquarters": {
+                "address": "219 Humberstone Lane, Leicester, England LE4 9JR, GB",
+                "city": "Leicester",
+                "postalCode": null,
+                "country": "United Kingdom"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 1907,
+                "countryRank": 953051,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 9548,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 1907,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 1907,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/gjfv543gy9n",
+        "title": "HAULAGE HAWK LTD",
+        "url": "https://uk.linkedin.com/company/haulage-hawk-ltd",
+        "text": "# HAULAGE HAWK LTD\n\nHAULAGE HAWK LTD is a Transportation Programs company. HAULAGE HAWK LTD employs 1 person, founded in 2021. Headquartered in Slough, United Kingdom.\n\n## About\n\nHaulage Hawk provides a high quality, reliable and dedicated Road Transport and Road Haulage service throughout the UK.\n\n- Providing fully managed logistic solutions for clients requiring hassle free distribution of their goods.\n\n- Our vehicle fleet covers all sizes; we can also facilitate tail lift, Moffett movements. Airfreight is a fast moving time critical business that requires a flexible team to react to you and your customer needs. We also operate part and full loads for general haulage customers.\n\nWe aim to be an extension of your business making every movement as smooth as possible.\n\n## Company Details\n- Industry: Transportation Programs\n- Type: Self-employed\n- Headquarters: Slough, United Kingdom\n- Founded Year: 2021\n- Aliases: haulage hawk ltd\n- LinkedIn: linkedin.com/company/haulage-hawk-ltd\n- Linkedin Followers: 65\n\n## Workforce\n- Employees: 1\n- Company Size: 11-50 employees\n\n## Categories\n\nairfreight, haulage customers, hgv trucking, road haulage, transporting goods\n\n## Social\n\n### Linkedin\n\n- [2022-11-03 · 1 reaction] Our Hawk feeling the breeze by the river. #london#dedication#windy#ontime#reliable\n\n- [2022-10-11 · 3 reactions] Our brand new addition to haulage hawk Ltd #volvo #brandnew #excited 😁\n\n- [2022-10-09] We’re #hiring. Know anyone who might be interested?\n\n- [2022-09-20 · 4 reactions] ➤ Customized and personalized support for road haulage & transport services. ➤ Through the combined efforts of our experienced specialists and dedicated service team, we can guarantee our cargo wil...\n\n- [2022-09-19 · 5 reactions] ➡ Haulage Hawk offers an end-to-end road transportation solution. ➡ Flexible, prompt and efficient road transport solutions custom fit for your business. Integrated road transport across multiple t...\n\n- [2022-09-18 · 12 reactions] ➤ Providing fully managed logistic solutions for clients requiring hassle free distribution of their goods. ➤ To us, road haulage is far more than simply moving something from A to B. Through our t...\n\n- [2022-09-17 · 11 reactions] ➡ We aim to be an extension of your business making every movement as smooth as possible. ➡ Receive or send your goods to any corner with the peace of mind of hiring a punctual, safe transport serv...\n\n- [2022-09-16 · 3 reactions] ➤ HAULAGE HAWK, as experts in haulage services in the UK, you can relax knowing that you’re in capable hands. ➤ Let us simplify and connect your supply chain from end to end. Visit our website toda...\n\n- [2022-09-15 · 4 reactions] ➡ Providing fully managed logistic solutions for clients requiring hassle free distribution of their goods. We aim to be an extension of your business making every movement as smooth as possible. ➡...\n\n- [2022-09-14 · 4 reactions] ⏩ We work with you to understand your business and offer tailored solutions best suited to your transport needs. ⏩ At HAULAGE HAWK, we always start our journey with you by identifying your business...\n\n## Locations\n- Headquarters: slough, slough, united kingdom (GB)\n- Offices: slough, slough, united kingdom (GB)",
+        "summary": "{\"description\":\"HAULAGE HAWK LTD is a Transportation Programs company providing road transport and road haulage services across the UK.\",\"employee_estimate\":1,\"employee_estimate_source\":\"Employees: 1\",\"hq\":\"Slough, United Kingdom\",\"hq_quote\":\"Headquartered in Slough, United Kingdom.\",\"industry\":\"Transportation Programs\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"Providing fully managed logistic solutions for clients requiring hassle free distribution of their goods.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4D0BAQGxVehCZp5pYA/company-logo_200_200/company-logo_200_200/0/1662845788916/haulage_hawk_ltd_logo?e=2147483647&v=beta&t=hnT40NoG6MRZKopZ1CNKhOpF2eII_8OVvuu1xbHYo0g",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/gjfv543gy9n",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "HAULAGE HAWK LTD",
+              "foundedYear": 2021,
+              "description": "Haulage Hawk provides a high quality, reliable and dedicated Road Transport and Road Haulage service throughout the UK.\n\n- Providing fully managed logistic solutions for clients requiring hassle free distribution of their goods.\n\n- Our vehicle fleet covers all sizes; we can also facilitate tail lift, Moffett movements. Airfreight is a fast moving time critical business that requires a flexible team to react to you and your customer needs. We also operate part and full loads for general haulage customers.\n\nWe aim to be an extension of your business making every movement as smooth as possible.",
+              "workforce": {
+                "total": 1
+              },
+              "headquarters": {
+                "address": "Slough, United Kingdom, Slough, GB",
+                "city": "Slough",
+                "postalCode": null,
+                "country": "United Kingdom"
+              },
+              "financials": null,
+              "webTraffic": null,
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 4794,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}
