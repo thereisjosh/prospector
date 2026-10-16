@@ -24,12 +24,13 @@ vi.mock("../src/demo/mode", async (original) => ({ ...(await original<typeof imp
 import { MemoryPanel } from "../app/ui/Memory";
 import { eventLine, seenWhen, screenedFrom } from "../app/ui/copy";
 import type { MemoryView } from "../app/ui/types";
-import { GET as memoryGET } from "../app/api/workspaces/[id]/memory/route";
+import { DELETE as memoryDELETE, GET as memoryGET } from "../app/api/workspaces/[id]/memory/route";
 import { DELETE as itemDELETE } from "../app/api/workspaces/[id]/memory/items/[itemId]/route";
 import { POST as feedbackPOST } from "../app/api/workspaces/[id]/feedback/route";
 import { readLastEvents } from "../src/agent/events";
 import { step, type LoopDeps } from "../src/agent/loop";
 import {
+  LEGACY_SEARCH,
   NOTES_CAP,
   NOTE_TTL_MS,
   addFeedback,
@@ -37,6 +38,10 @@ import {
   clearMemory,
   compact,
   deleteMemoryItem,
+  deleteSeenGroup,
+  groupSeen,
+  planSignature,
+  searchOf,
   loadMemory,
   migrateMemory,
   saveMemory,
@@ -95,6 +100,7 @@ const pref = (over: Partial<Preference> = {}): Preference => ({
 });
 const seenItem = (name: string, over: Partial<SeenItem> = {}): SeenItem => ({
   id: `s${++counter}`,
+  search: LEGACY_SEARCH,
   name,
   squashed: squashName(name),
   verdict: "accepted",
@@ -258,12 +264,12 @@ describe("recall", () => {
 });
 
 describe("compact", () => {
-  it("seen and preferences never expire; notes past the cap evict expired first, then oldest", () => {
+  it("preferences never expire; notes past the cap evict expired first, then oldest", () => {
     const expired = (i: number) => note({ id: `e${i}`, at: iso(NOW.getTime() - (400 - i) * DAY), expiresAt: iso(NOW.getTime() - DAY) });
     const live = (i: number) => note({ id: `l${i}`, at: iso(NOW.getTime() - (300 - i) * DAY), expiresAt: iso(NOW.getTime() + DAY) });
     // 195 live + 10 expired = 205: the 5 oldest expired go, every live note stays
     const m = migrateMemory({
-      seen: [seenItem("Ancient", { at: "2020-01-01T00:00:00.000Z" })],
+      seen: [seenItem("Recent", { at: iso(NOW.getTime() - 170 * DAY) })],
       preferences: [pref({ at: "2020-01-01T00:00:00.000Z" })],
       notes: [...Array.from({ length: 195 }, (_, i) => live(i)), ...Array.from({ length: 10 }, (_, i) => expired(i))],
     });
@@ -481,7 +487,7 @@ describe("memory API", () => {
 
   it("GET returns the lists with provenance (active only, seen bounded to the last 50); DELETE removes one item and nothing else", async () => {
     const w = ws();
-    const seen = Array.from({ length: 60 }, (_, i) => seenItem(`Co ${i}`, { id: `seen-${i}`, at: iso(NOW.getTime() - (100 - i) * 1000), signalUrl: i === 59 ? "https://n.example/59" : undefined }));
+    const seen = Array.from({ length: 60 }, (_, i) => seenItem(`Co ${i}`, { id: `seen-${i}`, at: iso(Date.now() - (100 - i) * 1000), signalUrl: i === 59 ? "https://n.example/59" : undefined }));
     await saveMemory(w, mem({
       seen,
       preferences: [pref({ id: "p-old", company: "Acme", supersededBy: "p-new" }), pref({ id: "p-new", company: "Acme", verdict: "up", runId: "run-9" })],
@@ -491,8 +497,10 @@ describe("memory API", () => {
     const res = await memoryGET(new Request("http://x"), params(w));
     const body = await res.json();
     expect(body.seenCount).toBe(60);
-    expect(body.seen).toHaveLength(50);
-    expect(body.seen[0]).toMatchObject({ id: "seen-59", name: "Co 59", signalUrl: "https://n.example/59", runId: "run-0", verdict: "accepted" });
+    expect(body.groups).toHaveLength(1); // 60 legacy entries, one group
+    expect(body.groups[0]).toMatchObject({ planKey: "legacy", label: "earlier searches", count: 60, current: true });
+    expect(body.groups[0].items).toHaveLength(50);
+    expect(body.groups[0].items[0]).toMatchObject({ id: "seen-59", name: "Co 59", signalUrl: "https://n.example/59", runId: "run-0", verdict: "accepted" });
     expect(body.preferences.map((p: Preference) => p.id)).toEqual(["p-new"]);
     expect(body.preferences[0]).toMatchObject({ company: "Acme", verdict: "up", runId: "run-9" });
     expect(body.notes.map((n: Note) => n.id)).toEqual(["n-live"]);
@@ -529,9 +537,14 @@ describe("memory API", () => {
 describe("MemoryPanel", () => {
   const view: MemoryView = {
     seenCount: 2,
-    seen: [
-      { id: "s1", name: "Acme Corp", squashed: "acmecorp", verdict: "accepted", reason: "accepted", runId: "r1", at: "2026-10-12T09:00:00.000Z" },
-      { id: "s2", name: "Bolt Ltd", squashed: "boltltd", verdict: "rejected", reason: "size: x", runId: "r1", at: "2026-10-03T09:00:00.000Z" },
+    groups: [
+      {
+        planKey: "plan_a", label: "Logistics ops", count: 2, firstAt: "2026-10-03T09:00:00.000Z", lastAt: "2026-10-12T09:00:00.000Z", current: true,
+        items: [
+          seenItem("Acme Corp", { id: "s1", runId: "r1", at: "2026-10-12T09:00:00.000Z" }),
+          seenItem("Bolt Ltd", { id: "s2", verdict: "rejected", reason: "size: x", runId: "r1", at: "2026-10-03T09:00:00.000Z" }),
+        ],
+      },
     ],
     preferences: [{ id: "p1", company: "Acme Corp", verdict: "down", reason: "runs its own fleet", at: "2026-10-13T09:00:00.000Z" }],
     notes: [{ id: "n1", text: "New-warehouse news worked.", tags: ["new_facility"], runId: "r1", at: "2026-10-12T09:00:00.000Z", expiresAt: "2026-12-11T09:00:00.000Z" }],
@@ -558,11 +571,11 @@ describe("MemoryPanel", () => {
   });
 
   it("omits empty groups, shows the empty and error states, and disables forgetting during a run", () => {
-    const onlyNotes = html({ ...view, seen: [], seenCount: 0, preferences: [] });
+    const onlyNotes = html({ ...view, groups: [], seenCount: 0, preferences: [] });
     expect(onlyNotes).toContain("What the agent learned");
     expect(onlyNotes).not.toContain("Companies already seen");
     expect(onlyNotes).not.toContain("Your feedback");
-    expect(html({ ...view, seen: [], seenCount: 0, preferences: [], notes: [] })).toContain("Nothing yet.");
+    expect(html({ ...view, groups: [], seenCount: 0, preferences: [], notes: [] })).toContain("Nothing yet.");
     expect(html(null, { error: true })).toContain("Couldn&#x27;t load memory.");
     expect(html(view, { disabled: true })).toMatch(/class="memory-forget"[^>]*disabled=""/);
   });
@@ -583,9 +596,10 @@ describe("demo: second workspace state and the skipped line", () => {
     process.env.DEMO_MODE = "1";
     try {
       const body = await (await memoryGET(new Request("http://x"), { params: { id: w } } as never)).json();
-      expect(body.seen).toHaveLength(before.length);
+      expect(body.groups).toHaveLength(1);
+      expect(body.groups[0].items).toHaveLength(before.length);
       expect(body.seenCount).toBe(7);
-      expect(body.seen[0]).toMatchObject({ verdict: "accepted", runId: expect.any(String), signalUrl: expect.stringMatching(/^https:/) });
+      expect(body.groups[0].items[0]).toMatchObject({ verdict: "accepted", runId: expect.any(String), signalUrl: expect.stringMatching(/^https:/) });
       expect(body.notes).toHaveLength(0); // the recorded run recalled no notes
     } finally {
       delete process.env.DEMO_MODE;
@@ -653,5 +667,128 @@ describe("demo: second workspace state and the skipped line", () => {
     expect(Date.parse(after.notes[0]!.expiresAt)).toBeGreaterThan(Date.now() + 50 * 24 * 3600 * 1000);
     const body = await (await memoryGET(new Request("http://x"), { params: { id: w2 } } as never)).json();
     expect(body.notes.map((n: { text: string }) => n.text)).toEqual([rec.notes[0].text]);
+  });
+});
+
+
+describe("search-scoped constraints", () => {
+  const pets = () => plan({ label: "Pet shops in Singapore", gateFields: [{ key: "is_pet_shop", question: "Pet shop?", required: true }], signalTypes: ["new_outlet"], hqCountries: ["SG"] });
+  const logistics = plan();
+  const scoped = (name: string, p: SearchPlan, over: Partial<SeenItem> = {}) => seenItem(name, { search: searchOf(p), ...over });
+  const keysFor = (memory: ReturnType<typeof mem>, p: SearchPlan, now = NOW) => recall(memory, p, { budgetTokens: 100, now }).constraints.seenKeys.sort();
+
+  it("planSignature: size, HQ, recency, label and queries keep the key; gates, signal types or industry change it", () => {
+    const base = planSignature(plan());
+    expect(planSignature(plan({ employeeRange: { min: 1, max: 9, unknownPolicy: "reject" }, hqCountries: ["SG", "MY"], months: 9, label: "renamed", signalQueries: ["other"] }))).toBe(base);
+    expect(planSignature(plan({ signalTypes: ["ops_hiring_wave", "new_facility"] }))).toBe(base); // order is not identity
+    expect(base).toMatch(/^plan_[0-9a-f]{12}$/);
+    expect(planSignature(plan({ gateFields: [{ key: "is_pet_shop", question: "?", required: true }] }))).not.toBe(base);
+    expect(planSignature(plan({ gateFields: [...plan().gateFields, { key: "extra_gate", question: "?", required: false }] }))).not.toBe(base);
+    expect(planSignature(plan({ signalTypes: ["new_facility"] }))).not.toBe(base);
+    expect(planSignature(plan({ companySummaryQuery: "firmographics. Prefer industry: cold chain." }))).not.toBe(base);
+    expect(searchOf(plan({ companySummaryQuery: "x. Prefer industry: Cold Chain." }))).toMatchObject({ label: "Logistics ops scaling now", industry: "cold chain" });
+  });
+
+  it("migrates old entries to the legacy scope, and keeps a scope that is already there", () => {
+    const m = migrateMemory({
+      seen: [
+        { name: "OldCo", squashed: "oldco", at: iso(NOW.getTime() - DAY) },
+        { name: "NewCo", squashed: "newco", at: iso(NOW.getTime() - DAY), search: { planKey: "plan_x", label: "Pet shops" } },
+        { name: "BadScope", squashed: "badscope", at: iso(NOW.getTime() - DAY), search: { label: "no key" } },
+      ],
+    });
+    expect(m.seen.map((s) => s.search)).toEqual([{ planKey: "legacy", label: "earlier searches" }, { planKey: "plan_x", label: "Pet shops" }, { planKey: "legacy", label: "earlier searches" }]);
+  });
+
+  it("recall passes a seen key to the gate only for the same search, or for legacy entries under 30 days", () => {
+    const memory = mem({
+      seen: [
+        scoped("Pet Palace", pets()),
+        scoped("Haul Co", logistics),
+        seenItem("Fresh Legacy", { at: iso(NOW.getTime() - 10 * DAY) }),
+        seenItem("Stale Legacy", { at: iso(NOW.getTime() - 40 * DAY) }),
+      ],
+    });
+    expect(keysFor(memory, logistics)).toEqual([squashName("Fresh Legacy"), squashName("Haul Co")].sort());
+    expect(keysFor(memory, pets())).toEqual([squashName("Fresh Legacy"), squashName("Pet Palace")].sort());
+    // an edited pet-shop plan (other HQ, other size) is still the same search
+    expect(keysFor(memory, { ...pets(), hqCountries: ["MY"], employeeRange: { min: 1, max: 5, unknownPolicy: "reject" } })).toContain(squashName("Pet Palace"));
+    // ignored for the gate, still in memory
+    expect(memory.seen).toHaveLength(4);
+  });
+
+  it("seen entries stop applying at 90 days and are evicted by compact after 180", () => {
+    const at = (days: number) => iso(NOW.getTime() - days * DAY);
+    const memory = mem({ seen: [scoped("Day 89", logistics, { at: at(89) }), scoped("Day 91", logistics, { at: at(91) }), scoped("Day 179", logistics, { at: at(179) }), scoped("Day 181", logistics, { at: at(181) })] });
+    expect(keysFor(memory, logistics)).toEqual([squashName("Day 89")]);
+    const m = migrateMemory(memory);
+    compact(m, NOW);
+    expect(m.seen.map((s) => s.name)).toEqual(["Day 89", "Day 91", "Day 179"]);
+    // legacy entries inside 30 days apply to any plan; the same entry at 31 days no longer does
+    expect(keysFor(mem({ seen: [seenItem("L30", { at: at(30) })] }), logistics)).toHaveLength(1);
+    expect(keysFor(mem({ seen: [seenItem("L31", { at: at(31) })] }), logistics)).toHaveLength(0);
+  });
+
+  it("appendRunToMemory scopes new entries to the run's plan and re-records a company seen under another search", async () => {
+    const w = ws();
+    const lead = { company: "Shared Co", signal_url: "https://n.example/s", why_now: "x", summary: { company_name: "Shared Co", signal_type: "new_facility", signal_summary: "x", signal_date: "2026-10-01" }, details: {}, turn: 1 };
+    const a = createRunState({ id: crypto.randomUUID(), workspaceId: w, plan: pets() });
+    a.leads.push(lead);
+    await appendRunToMemory(a);
+    const b = createRunState({ id: crypto.randomUUID(), workspaceId: w, plan: logistics });
+    b.leads.push(lead);
+    await appendRunToMemory(b);
+    const m = await loadMemory(w);
+    expect(m.seen.map((s) => [s.search.planKey, s.search.label])).toEqual([[planSignature(pets()), "Pet shops in Singapore"], [planSignature(logistics), "Logistics ops scaling now"]]);
+  });
+
+  it("GET groups by search, current first; DELETE ?search= forgets only that group", async () => {
+    const w = ws();
+    const now = Date.now();
+    await saveMemory(w, mem({
+      seen: [
+        scoped("Pet A", pets(), { at: iso(now - 5 * DAY) }),
+        scoped("Pet B", pets(), { at: iso(now - 4 * DAY) }),
+        scoped("Haul A", logistics, { at: iso(now - 1 * DAY) }),
+        seenItem("Old A", { at: iso(now - 20 * DAY) }),
+        scoped("Expired", logistics, { at: iso(now - 100 * DAY) }),
+      ],
+      preferences: [pref()],
+      notes: [note({ expiresAt: iso(now + DAY) })],
+    }) as WorkspaceMemory);
+    const get = async (q = "") => (await memoryGET(new Request(`http://x${q}`), { params: { id: w } } as never)).json();
+    const body = await get();
+    expect(body.groups.map((g: { label: string; count: number; current: boolean }) => [g.label, g.count, g.current])).toEqual([
+      ["Logistics ops scaling now", 1, true], // newest group is current by default; the expired entry is not listed
+      ["Pet shops in Singapore", 2, false],
+      ["earlier searches", 1, false],
+    ]);
+    expect(body.seenCount).toBe(4);
+    expect(body.groups[1]).toMatchObject({ firstAt: iso(now - 5 * DAY), lastAt: iso(now - 4 * DAY) });
+    expect(body.groups[1].items.map((i: SeenItem) => i.name)).toEqual(["Pet B", "Pet A"]);
+    expect((await get(`?planKey=${planSignature(pets())}`)).groups[0].label).toBe("Pet shops in Singapore");
+
+    const del = (q: string) => memoryDELETE(new Request(`http://x${q}`, { method: "DELETE" }), { params: { id: w } } as never);
+    expect((await del("?search=bad key!")).status).toBe(400);
+    expect((await del("?search=plan_nothere")).status).toBe(404);
+    expect((await del(`?search=${planSignature(pets())}`)).status).toBe(200);
+    const after = await loadMemory(w);
+    expect(after.seen.map((s) => s.name).sort()).toEqual(["Expired", "Haul A", "Old A"]);
+    expect(after.preferences).toHaveLength(1);
+    expect(after.notes).toHaveLength(1);
+    expect(await deleteSeenGroup(w, "legacy")).toBe(1);
+    expect(groupSeen((await loadMemory(w)).seen, new Date(now))).toHaveLength(1);
+  });
+
+  it("MemoryPanel: group title with date range and count, current group open, a forget-search button per group", () => {
+    const g = (planKey: string, label: string, current: boolean) => ({ planKey, label, count: 14, firstAt: "2026-10-05T00:00:00.000Z", lastAt: "2026-10-12T00:00:00.000Z", current, items: [seenItem(`${label} Co`, { id: `i-${planKey}` })] });
+    const view: MemoryView = { seenCount: 28, groups: [g("plan_a", "Logistics", true), g("plan_b", "Pet shops in Singapore", false)], preferences: [], notes: [], preferenceNotes: [] };
+    const out = renderToStaticMarkup(createElement(MemoryPanel, { memory: view, error: false, onClear: () => undefined, onForget: () => undefined, onForgetGroup: () => undefined, disabled: false }));
+    expect(out).toContain("Pet shops in Singapore · 5 Oct – 12 Oct · 14 companies");
+    expect(out.indexOf("Logistics ·")).toBeLessThan(out.indexOf("Pet shops in Singapore ·"));
+    expect(out.match(/Forget this search/g)).toHaveLength(2);
+    const open = [...out.matchAll(/<div ([^>]*)data-slot="collapsible" class="pr-mem-search">/g)].map((m) => m[1]!.includes("data-open"));
+    expect(open).toEqual([true, false]);
+    expect(out.match(/class="memory-forget"/g)).toHaveLength(2); // per-item buttons stay
   });
 });

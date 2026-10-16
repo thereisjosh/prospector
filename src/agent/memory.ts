@@ -12,13 +12,24 @@ export { squashName };
 
 /**
  * Long-term memory for one workspace. A fact lives in exactly one home, chosen by who may act on it:
- *   seen[]         constraint  -> code (the gate rejects `already_seen`; never ranked, never expires)
+ *   seen[]         constraint  -> code (the gate rejects `already_seen`; never ranked; scoped to the search that
+ *                                 produced it, applied for 90 days, evicted after 180)
  *   preferences[]  user opinion -> model (ranked into the first message; ends only by supersession)
  *   notes[]        episodic     -> model (ranked into the first message; expires)
  * Working memory (todo, caches) stays in the run state. Every item carries provenance and a stable id.
  */
+/** Which search an entry came from. `planKey` is planSignature(plan); "legacy" marks entries that predate scoping. */
+export type SeenSearch = { planKey: string; label: string; industry?: string };
+
+export const LEGACY_PLAN_KEY = "legacy";
+export const LEGACY_SEARCH: SeenSearch = { planKey: LEGACY_PLAN_KEY, label: "earlier searches" };
+
 export type SeenItem = {
   id: string;
+  /** The search that produced this entry; the gate only sees it for the same search (see recall.ts). */
+  search: SeenSearch;
+  /** Demo seed only: never expires, so the replay keeps its two recorded skips whatever the date. */
+  pinned?: boolean;
   name: string;
   squashed: string;
   /** "accepted" (delivered) or "rejected" (turned down by a gate). */
@@ -76,6 +87,114 @@ export const NOTES_CAP = 200;
 export const NOTE_TTL_DAYS = 60;
 export const NOTE_TTL_MS = NOTE_TTL_DAYS * 24 * 60 * 60 * 1000;
 const DAY_MS = 24 * 60 * 60 * 1000;
+/** A seen entry stops being a constraint this long after `at`; compact() evicts it after SEEN_EVICT_DAYS. */
+export const SEEN_TTL_DAYS = 90;
+export const SEEN_EVICT_DAYS = 180;
+/** Pre-scoping entries ("legacy") still constrain any search, but only this recently. */
+export const LEGACY_SEEN_DAYS = 30;
+
+/* ---------- search scope ---------- */
+
+type SignatureInput = { gateFields: Array<{ key: string }>; signalTypes: string[]; companySummaryQuery?: string };
+
+const INDUSTRY_PHRASE = /Prefer industry:\s*([^.]+)\./i;
+
+/** The explicit industry phrase a scope change adds to a plan; "" when the plan has none (plans carry no industry field). */
+export function planIndustry(plan: Pick<SignatureInput, "companySummaryQuery">): string {
+  return INDUSTRY_PHRASE.exec(plan.companySummaryQuery ?? "")?.[1]?.trim().toLowerCase() ?? "";
+}
+
+/**
+ * Stable identity of "the same search": sha1 over the sorted gate keys, the sorted signal types and the
+ * industry phrase, if any. Size, HQ, recency, label, queries and exclusions are not part of it, so
+ * editing them keeps the key; a different industry (which a plan expresses through its gates) or gate set changes it.
+ */
+export function planSignature(plan: SignatureInput): string {
+  const body = JSON.stringify({
+    gates: [...plan.gateFields.map((g) => g.key)].sort(),
+    industry: planIndustry(plan),
+    signals: [...plan.signalTypes].sort(),
+  });
+  return `plan_${createHash("sha1").update(body).digest("hex").slice(0, 12)}`;
+}
+
+export function searchOf(plan: SignatureInput & { label: string }): SeenSearch {
+  const industry = planIndustry(plan);
+  return { planKey: planSignature(plan), label: plan.label, ...(industry ? { industry } : {}) };
+}
+
+/** Entries with no scope (read straight from an old file, or built by hand) are legacy. */
+export function seenSearch(item: Pick<SeenItem, "search">): SeenSearch {
+  return item.search ?? LEGACY_SEARCH;
+}
+
+/** Still a constraint at all: under 90 days old (or pinned). Scope is checked separately by seenApplies. */
+export function isActiveSeen(item: Pick<SeenItem, "at" | "pinned">, now: Date): boolean {
+  if (item.pinned) return true;
+  const at = Date.parse(item.at);
+  return !Number.isNaN(at) && now.getTime() - at < SEEN_TTL_DAYS * DAY_MS;
+}
+
+/** Does this entry go to the gate for a plan with this signature? Same search, or legacy and recent. */
+export function seenApplies(item: Pick<SeenItem, "search" | "at" | "pinned">, planKey: string, now: Date): boolean {
+  if (!isActiveSeen(item, now)) return false;
+  const key = seenSearch(item).planKey;
+  if (key === planKey) return true;
+  if (key !== LEGACY_PLAN_KEY) return false;
+  const at = Date.parse(item.at);
+  return item.pinned === true || (!Number.isNaN(at) && now.getTime() - at <= LEGACY_SEEN_DAYS * DAY_MS);
+}
+
+/** One search's remembered companies, as the memory panel shows them. */
+export type SeenGroup = {
+  planKey: string;
+  label: string;
+  industry?: string;
+  /** Unique companies in the group (can exceed items.length, which is capped). */
+  count: number;
+  /** Oldest and newest `at` in the group. */
+  firstAt: string;
+  lastAt: string;
+  /** The search the user is on now: the group sent as `currentKey`, else the most recently touched one. */
+  current: boolean;
+  /** Newest first, at most SEEN_GROUP_ITEMS. */
+  items: SeenItem[];
+};
+
+export const SEEN_GROUP_ITEMS = 50;
+
+/** Live (under 90 days) seen entries grouped by search; the current group first, then newest-touched first. */
+export function groupSeen(seen: SeenItem[], now: Date, currentKey?: string): SeenGroup[] {
+  const byKey = new Map<string, Array<{ item: SeenItem; index: number }>>();
+  seen.forEach((item, index) => {
+    if (!isActiveSeen(item, now)) return;
+    const key = seenSearch(item).planKey;
+    byKey.set(key, [...(byKey.get(key) ?? []), { item, index }]);
+  });
+  const groups = [...byKey.entries()].map(([planKey, rows]) => {
+    rows.sort((a, b) => b.item.at.localeCompare(a.item.at) || b.index - a.index);
+    const newest = seenSearch(rows[0]!.item);
+    const dates = rows.map((r) => r.item.at).sort();
+    return {
+      planKey,
+      label: newest.label,
+      ...(newest.industry ? { industry: newest.industry } : {}),
+      count: new Set(rows.map((r) => r.item.squashed)).size,
+      firstAt: dates[0]!,
+      lastAt: dates[dates.length - 1]!,
+      current: false as boolean,
+      items: rows.slice(0, SEEN_GROUP_ITEMS).map((r) => r.item),
+    } satisfies SeenGroup;
+  });
+  groups.sort((a, b) => b.lastAt.localeCompare(a.lastAt));
+  const current = groups.find((g) => g.planKey === currentKey) ?? groups[0];
+  if (current) {
+    current.current = true;
+    groups.splice(groups.indexOf(current), 1);
+    groups.unshift(current);
+  }
+  return groups;
+}
 
 /* ---------- rendering (shared by the compat getter and recall) ---------- */
 
@@ -161,8 +280,14 @@ export function migrateMemory(raw: unknown, fallbackAt: string = new Date(0).toI
     const verdict = str(r.verdict) ?? "rejected";
     const given = str(r.id);
     const id = given && !taken.has(given) ? (taken.add(given), given) : uniqueId("seen", taken, squashed, runId, at, verdict);
+    const rs = rec(r.search);
+    const planKey = str(rs.planKey);
     seen.push({
       id,
+      search: planKey
+        ? { planKey, label: str(rs.label) ?? LEGACY_SEARCH.label, ...(str(rs.industry) ? { industry: str(rs.industry) } : {}) }
+        : { ...LEGACY_SEARCH },
+      ...(r.pinned === true ? { pinned: true } : {}),
       name,
       squashed,
       verdict,
@@ -241,11 +366,16 @@ export function migrateMemory(raw: unknown, fallbackAt: string = new Date(0).toI
 /* ---------- compaction ---------- */
 
 /**
- * Called on every save. `seen` never expires and preferences end only by supersession, so only the
- * notes list is trimmed: past NOTES_CAP, expired notes go first (oldest first), then the oldest note.
- * Reads already ignore expired notes, so keeping them until the cap forces them out is harmless.
+ * Called on every save. `seen` entries older than SEEN_EVICT_DAYS are dropped (recall stopped applying them at
+ * SEEN_TTL_DAYS); preferences end only by supersession; notes past NOTES_CAP lose expired ones first
+ * (oldest first), then the oldest. Reads already ignore expired items, so keeping them until then is harmless.
  */
 export function compact(memory: WorkspaceMemory, now: Date): WorkspaceMemory {
+  memory.seen = memory.seen.filter((s) => {
+    if (s.pinned) return true;
+    const at = Date.parse(s.at);
+    return Number.isNaN(at) || now.getTime() - at <= SEEN_EVICT_DAYS * DAY_MS;
+  });
   if (memory.notes.length <= NOTES_CAP) return memory;
   const excess = memory.notes.length - NOTES_CAP;
   const byAge = [...memory.notes].sort((a, b) => a.at.localeCompare(b.at));
@@ -351,21 +481,38 @@ export async function deleteMemoryItem(workspaceId: string, itemId: string): Pro
   return found;
 }
 
+/** Forget every seen entry of one search; returns how many went. Preferences and notes are untouched. */
+export async function deleteSeenGroup(workspaceId: string, planKey: string): Promise<number> {
+  let removed = 0;
+  await updateMemory(workspaceId, (memory) => {
+    const keep = memory.seen.filter((s) => seenSearch(s).planKey !== planKey);
+    removed = memory.seen.length - keep.length;
+    memory.seen = keep;
+  });
+  return removed;
+}
+
 /**
  * Promote one finished run into memory: its leads and rejections become `seen` items, its
  * self-notes become `notes`. Idempotent per run (a company already recorded for this run, or a
  * note id already stored, is skipped), and a company already in `seen` is not recorded twice.
  */
 export async function appendRunToMemory(state: RunState): Promise<void> {
-  const at = new Date().toISOString();
+  const now = new Date();
+  const at = now.toISOString();
+  // The run's own search: the plan it started from (scope changes made mid-run do not move its entries).
+  const plan = state.initialContract ?? state.contract;
+  const search: SeenSearch = plan && Array.isArray(plan.gateFields) && Array.isArray(plan.signalTypes) ? searchOf(plan) : { ...LEGACY_SEARCH };
   await updateMemory(state.workspaceId, (memory) => {
-    const known = new Set(memory.seen.map((s) => s.squashed));
+    // Dedupe only against live entries of this same search: a company seen under another search, or long ago, is recorded again here.
+    const known = new Set(memory.seen.filter((s) => seenSearch(s).planKey === search.planKey && isActiveSeen(s, now)).map((s) => s.squashed));
     state.leads.forEach((lead, index) => {
       const squashed = squashName(lead.company);
       if (known.has(squashed)) return;
       known.add(squashed);
       memory.seen.push({
         id: randomUUID(),
+        search,
         name: lead.company,
         squashed,
         verdict: "accepted",
@@ -382,6 +529,7 @@ export async function appendRunToMemory(state: RunState): Promise<void> {
       known.add(squashed);
       memory.seen.push({
         id: randomUUID(),
+        search,
         name: rejection.company,
         squashed,
         verdict: "rejected",

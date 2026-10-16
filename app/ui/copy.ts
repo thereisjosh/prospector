@@ -230,7 +230,16 @@ export const MEMORY_COPY = {
   latestOnly: (shown: number, total: number) => `Showing the latest ${shown} of ${total}.`,
   expires: (iso: string) => `expires ${shortDate(iso)}`,
   panelTitle: "What I remember",
-  seenSummary: (n: number) => `${int(n)} compan${n === 1 ? "y" : "ies"} already seen. Future runs skip them.`,
+  seenSummary: (n: number) => `${int(n)} compan${n === 1 ? "y" : "ies"} already seen. A search skips only the ones it saw itself.`,
+  /** "Pet shops in Singapore · 12 Oct · 14 companies" (a date range when the group spans days). */
+  groupTitle: (label: string, firstAt: string, lastAt: string, count: number): string => {
+    const first = shortDate(firstAt);
+    const last = shortDate(lastAt);
+    const range = first && last && first !== last ? `${first} – ${last}` : last || first;
+    return [label, range, `${int(count)} compan${count === 1 ? "y" : "ies"}`].filter(Boolean).join(" · ");
+  },
+  forgetSearch: "Forget this search",
+  forgetSearchLabel: (label: string) => `Forget the search ${label}`,
   liked: "Liked",
   rejected: "Rejected",
   forgetFeedback: (company: string) => `your feedback on ${company}`,

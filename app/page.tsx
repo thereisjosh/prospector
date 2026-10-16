@@ -447,6 +447,15 @@ export default function Page() {
     }
   }
 
+  async function forgetMemoryGroup(planKey: string) {
+    try {
+      await api(`/api/workspaces/${encodeURIComponent(workspaceId)}/memory?search=${encodeURIComponent(planKey)}`, { method: "DELETE" });
+      await refreshMemory(workspaceId);
+    } catch {
+      setMemoryError(true);
+    }
+  }
+
   /* ---------- live feed: events as they are written, and the model's text as it streams ---------- */
 
   const liveFeed = step === "run" && !!runId && !pausedByUser && (stepping || snapshot?.status === "running" || snapshot?.status === "awaiting_approval");
@@ -527,7 +536,7 @@ export default function Page() {
 
       {/* Cross-run memory: one full-width row under the nav, on every step (DESIGN.md §4). */}
       <div className="memory-row">
-        <MemoryPanel memory={memory} error={memoryError} onClear={clearMemory} onForget={forgetMemoryItem} disabled={runActive} lastRun={lastRun} />
+        <MemoryPanel memory={memory} error={memoryError} onClear={clearMemory} onForget={forgetMemoryItem} onForgetGroup={forgetMemoryGroup} disabled={runActive} lastRun={lastRun} />
       </div>
 
       <main className="content" data-step={step}>

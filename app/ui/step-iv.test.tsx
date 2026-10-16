@@ -148,9 +148,14 @@ describe("handback: gate codes are translated, never shown", () => {
 describe("MemoryPanel (SSR): groups, provenance, budget-stop line", () => {
   const view: MemoryView = {
     seenCount: 3,
-    seen: [
-      { id: "s1", name: "Acme Corp", squashed: "acmecorp", verdict: "accepted", reason: "accepted", runId: "9cb72d3f-844f-4571", at: "2026-10-15T09:00:00.000Z" },
-      { id: "s2", name: "Bolt Ltd", squashed: "boltltd", verdict: "rejected", reason: "size: x", runId: "9cb72d3f-844f-4571", at: "2026-10-03T09:00:00.000Z" },
+    groups: [
+      {
+        planKey: "plan_a", label: "Logistics ops", count: 3, firstAt: "2026-10-03T09:00:00.000Z", lastAt: "2026-10-15T09:00:00.000Z", current: true,
+        items: [
+          { id: "s1", search: { planKey: "plan_a", label: "Logistics ops" }, name: "Acme Corp", squashed: "acmecorp", verdict: "accepted", reason: "accepted", runId: "9cb72d3f-844f-4571", at: "2026-10-15T09:00:00.000Z" },
+          { id: "s2", search: { planKey: "plan_a", label: "Logistics ops" }, name: "Bolt Ltd", squashed: "boltltd", verdict: "rejected", reason: "size: x", runId: "9cb72d3f-844f-4571", at: "2026-10-03T09:00:00.000Z" },
+        ],
+      },
     ],
     preferences: [{ id: "p1", company: "Acme Corp", verdict: "up", reason: "right size", runId: "run-2", at: "2026-10-13T09:00:00.000Z" }],
     notes: [{ id: "n1", text: "Lease news found mid-size 3PLs.", tags: ["3pl"], runId: "9cb72d3f-844f-4571", at: "2026-10-12T09:00:00.000Z", expiresAt: "2026-12-11T09:00:00.000Z" }],
@@ -169,7 +174,7 @@ describe("MemoryPanel (SSR): groups, provenance, budget-stop line", () => {
     expect(html).toMatch(/>turned down 3 Oct · run 9cb72d3f</);
     expect(html).toMatch(/>Liked 13 Oct · run run-2</);
     expect(html).toMatch(/>saved 12 Oct · expires 11 Dec · run 9cb72d3f</);
-    expect(html).toContain("3 companies already seen. Future runs skip them.");
+    expect(html).toContain("3 companies already seen. A search skips only the ones it saw itself.");
     expect(html).toContain("Showing the latest 2 of 3.");
   });
 
@@ -211,7 +216,7 @@ describe("MemoryPanel (SSR): groups, provenance, budget-stop line", () => {
     const withOld = panel(view, { stopReason: "budget", selfNotes: 0 });
     expect(withOld.indexOf(line)).toBeLessThan(withOld.indexOf("Lease news found mid-size 3PLs."));
     // an otherwise empty memory still says it, instead of "Nothing yet"
-    const empty = panel({ ...view, seen: [], seenCount: 0, preferences: [], notes: [] }, { stopReason: "budget", selfNotes: 0 });
+    const empty = panel({ ...view, groups: [], seenCount: 0, preferences: [], notes: [] }, { stopReason: "budget", selfNotes: 0 });
     expect(empty).toContain(line);
     expect(empty).not.toContain("Nothing yet.");
     expect(budgetStoppedWithoutNote({ stopReason: "budget", selfNotes: 0 })).toBe(true);

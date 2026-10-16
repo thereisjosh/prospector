@@ -25,6 +25,8 @@ type Props = {
   onClear: () => void;
   /** Forget one item (a seen company, a piece of feedback, a note) by its id. */
   onForget: (itemId: string) => void | Promise<void>;
+  /** Forget every company remembered from one search, by its plan key. */
+  onForgetGroup?: (planKey: string) => void | Promise<void>;
   disabled: boolean;
   lastRun?: LastRun;
   /** Tests and first paint: open before localStorage is read. */
@@ -95,7 +97,7 @@ function MemoryLine({
   );
 }
 
-export function MemoryPanel({ memory, error, onClear, onForget, disabled, lastRun, defaultOpen = false }: Props) {
+export function MemoryPanel({ memory, error, onClear, onForget, onForgetGroup, disabled, lastRun, defaultOpen = false }: Props) {
   const [open, setOpen] = useState(defaultOpen);
   const [confirming, setConfirming] = useState(false);
   const [pending, setPending] = useState<ReadonlySet<string>>(new Set());
@@ -130,9 +132,13 @@ export function MemoryPanel({ memory, error, onClear, onForget, disabled, lastRu
     setPending((p) => new Set(p).add(id));
     void onForget(id);
   };
+  const forgetGroup = (planKey: string) => {
+    setPending((p) => new Set(p).add(`group:${planKey}`));
+    void onForgetGroup?.(planKey);
+  };
 
   const budgetLine = budgetStoppedWithoutNote(lastRun);
-  const empty = memory && memory.seen.length === 0 && memory.preferences.length === 0 && memory.notes.length === 0 && !budgetLine;
+  const empty = memory && memory.groups.length === 0 && memory.preferences.length === 0 && memory.notes.length === 0 && !budgetLine;
   const total = memory ? memory.seenCount + memory.preferences.length + memory.notes.length : 0;
   const forgetProps = (id: string) => ({ id, onForget: forget, disabled, pending: pending.has(id) });
 
@@ -152,24 +158,49 @@ export function MemoryPanel({ memory, error, onClear, onForget, disabled, lastRu
           <p className="memory-text">{MEMORY_COPY.empty}</p>
         ) : (
           <>
-            {memory.seen.length > 0 && (
+            {memory.groups.length > 0 && (
               <section className="memory-group" aria-label={MEMORY_COPY.seenHeading}>
                 <h3>{MEMORY_COPY.seenHeading}</h3>
                 <p className="memory-text">{MEMORY_COPY.seenSummary(memory.seenCount)}</p>
-                <Trace className="pr-mem-list">
-                  <ul className="pr-mem-items">
-                    {memory.seen.map((item) => (
-                      <MemoryLine
-                        key={item.id}
-                        icon={Building2Icon}
-                        title={item.name}
-                        description={provenance(seenWhen(item), runLabel(item.runId))}
-                        forget={<Forget what={item.name} {...forgetProps(item.id)} />}
-                      />
-                    ))}
-                  </ul>
-                </Trace>
-                {memory.seenCount > memory.seen.length && <p className="memory-meta">{MEMORY_COPY.latestOnly(memory.seen.length, memory.seenCount)}</p>}
+                {memory.groups.map((group) => (
+                  // Collapsed except the search the user is on now. The group's forget button sits beside the
+                  // trigger, not inside it (a button in a button is invalid).
+                  <Collapsible key={group.planKey} defaultOpen={group.current} className="pr-mem-search">
+                    <div className="pr-mem-search-head">
+                      <CollapsibleTrigger className="pr-mem-trigger pr-press">
+                        <ChevronRightIcon aria-hidden="true" className="pr-mem-chevron" />
+                        <span>{MEMORY_COPY.groupTitle(group.label, group.firstAt, group.lastAt, group.count)}</span>
+                      </CollapsibleTrigger>
+                      {onForgetGroup && (
+                        <button
+                          type="button"
+                          className="ghost-btn small memory-forget-group"
+                          disabled={disabled || pending.has(`group:${group.planKey}`)}
+                          aria-label={MEMORY_COPY.forgetSearchLabel(group.label)}
+                          onClick={() => forgetGroup(group.planKey)}
+                        >
+                          {MEMORY_COPY.forgetSearch}
+                        </button>
+                      )}
+                    </div>
+                    <CollapsibleContent keepMounted>
+                      <Trace className="pr-mem-list">
+                        <ul className="pr-mem-items">
+                          {group.items.map((item) => (
+                            <MemoryLine
+                              key={item.id}
+                              icon={Building2Icon}
+                              title={item.name}
+                              description={provenance(seenWhen(item), runLabel(item.runId))}
+                              forget={<Forget what={item.name} {...forgetProps(item.id)} />}
+                            />
+                          ))}
+                        </ul>
+                      </Trace>
+                      {group.count > group.items.length && <p className="memory-meta">{MEMORY_COPY.latestOnly(group.items.length, group.count)}</p>}
+                    </CollapsibleContent>
+                  </Collapsible>
+                ))}
               </section>
             )}
 

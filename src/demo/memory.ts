@@ -2,7 +2,7 @@ import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { join } from "node:path";
 import { WORKSPACES_DIR } from "../agent/config";
 import { assertWorkspaceId } from "../agent/ids";
-import { updateMemory, type SeenItem } from "../agent/memory";
+import { searchOf, updateMemory, type SeenItem } from "../agent/memory";
 import { demoDir } from "./mode";
 
 /**
@@ -18,6 +18,7 @@ import { demoDir } from "./mode";
  */
 
 type RunRecord = { memoryBefore?: { seen?: SeenItem[] } };
+type StateRecord = { initialContract?: Parameters<typeof searchOf>[0]; contract?: Parameters<typeof searchOf>[0] };
 
 const MARKER = ".demo-seeded";
 
@@ -31,6 +32,13 @@ export async function recordedMemoryBefore(): Promise<SeenItem[]> {
   }
 }
 
+async function recordedSearch() {
+  const state = JSON.parse(await readFile(join(demoDir(), "run", "state.json"), "utf8")) as StateRecord;
+  const plan = state.initialContract ?? state.contract;
+  if (!plan) throw new Error("demo recording has no plan");
+  return searchOf(plan);
+}
+
 export async function seedDemoMemory(workspaceId: string, now: Date = new Date()): Promise<void> {
   const dir = join(WORKSPACES_DIR, assertWorkspaceId(workspaceId));
   const marker = join(dir, MARKER);
@@ -42,13 +50,16 @@ export async function seedDemoMemory(workspaceId: string, now: Date = new Date()
   }
   const seen = await recordedMemoryBefore();
   if (seen.length === 0) return;
+  // Scope: the recorded run's own plan, so the demo (same plan) skips exactly what it did before scoping.
+  // Pinned: the entries carry fixed 2026-10 dates and the 90/180-day expiry must not eat the demo later.
+  const search = await recordedSearch();
   await mkdir(dir, { recursive: true });
   await writeFile(marker, now.toISOString(), "utf8");
   await updateMemory(
     workspaceId,
     (memory) => {
       if (memory.seen.length > 0 || memory.notes.length > 0 || memory.preferences.length > 0) return; // real memory wins
-      for (const item of seen) memory.seen.push({ ...item });
+      for (const item of seen) memory.seen.push({ ...item, search, pinned: true });
     },
     now,
   );

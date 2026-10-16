@@ -357,6 +357,8 @@ export async function demoStep(id: string) {
       await appendRunToMemory({
         id: session.id,
         workspaceId: session.workspaceId,
+        // The recorded run's plan, so its entries carry the same search scope as the seeded ones.
+        initialContract: rec.state.initialContract ?? rec.state.contract,
         leads: rec.state.leads.filter((l) => !(session.seen ?? {})[squashName(l.company)]),
         rejected: rec.state.rejected,
         // The recorded note, saved by this replayed run: same provenance and clock as its leads above

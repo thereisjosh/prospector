@@ -1,9 +1,9 @@
 import type { SearchPlan } from "../plan";
-import { isActiveNote, isActivePreference, renderPreference, squashName, type Note, type Preference, type WorkspaceMemory } from "./memory";
+import { isActiveNote, isActivePreference, planSignature, renderPreference, seenApplies, squashName, type Note, type Preference, type WorkspaceMemory } from "./memory";
 
 /**
  * The only way a run reads long-term memory. Constraints bypass ranking (the gate needs every seen
- * key, always); preferences and notes are ranked against the plan and cut to a token budget.
+ * key that applies to this search, see seenApplies); preferences and notes are ranked against the plan and cut to a token budget.
  * Pure: same memory, plan and clock give the same answer.
  */
 
@@ -95,8 +95,12 @@ export function recall(
 ): RecallResult {
   const { now } = opts;
 
+  // Constraints are scoped: only entries from this same search (or recent legacy ones) reach the gate.
+  // The rest stay in memory but are not passed on. Still no ranking.
+  const planKey = planSignature(plan);
   const seenInfo: Record<string, SeenInfo> = {};
   for (const s of memory.seen) {
+    if (!seenApplies(s, planKey, now)) continue;
     const key = s.squashed || squashName(s.name);
     // The first record of a company is the provenance ("delivered on ...").
     seenInfo[key] ??= { name: s.name, verdict: s.verdict, at: s.at, runId: s.runId };

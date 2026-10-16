@@ -3,7 +3,7 @@ import type { AcceptedLead, Handback, RunStatus } from "../../src/agent/state";
 import type { SearchPlan } from "../../src/plan";
 import type { SellerProfile } from "../../src/planner/profile";
 import type { ResolveSource, SiteCandidate, UnusableReason } from "../../src/planner/resolve";
-import type { Note, Preference, SeenItem } from "../../src/agent/memory";
+import type { Note, Preference, SeenGroup } from "../../src/agent/memory";
 import type { ContractView } from "./copy";
 
 /** POST /api/planner/profile */
@@ -54,9 +54,10 @@ export type Feedback = { verdict?: "up" | "down"; reason?: string; open?: boolea
 
 /** GET /api/workspaces/:id/memory: the lists themselves, newest first, with provenance. */
 export type MemoryView = {
-  /** Unique companies the gate skips (can exceed seen.length, which is the latest 50). */
+  /** Unique companies remembered across all searches (live ones, under 90 days). */
   seenCount: number;
-  seen: SeenItem[];
+  /** Remembered companies grouped by the search they came from; the current search's group first. */
+  groups: SeenGroup[];
   preferences: Preference[];
   notes: Note[];
   preferenceNotes: string[];
