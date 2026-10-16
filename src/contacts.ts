@@ -1,15 +1,17 @@
 /**
  * Named contacts at an accepted lead (docs/SPEC-agent.md §5b, docs/RESEARCH-contacts-and-graph.md §5).
  *
- * Two Exa calls under the run's CostGuard:
+ * Three Exa calls under the run's CostGuard:
  *   A. people index (`category: "people"`): names and LinkedIn profile URLs. Nothing else from a profile is
  *      kept or shown (LinkedIn User Agreement §8.2): the index title is read only to say which approved
  *      role a person was listed under (their "role bucket").
  *   B. a plain web search that excludes LinkedIn, its copies and people-data aggregators, with page text
  *      and a summariser that lists the people each page names with their title as written.
+ *   C. the same search with `category: "news"`: every result is a news page by Exa's own classification.
  * Code then decides every tier with `checkContact` (src/gates.ts): `verified` needs a page that names the
- * person next to a title fitting an approved role, both checked on the page text, and that page is the
- * company's own domain or real press (not a profile/directory page, with prose around the quote); press older
+ * person next to a title fitting an approved role, both checked on the page text, and that page is on an
+ * allowlist (FAILURES #31): the company's own domain, press (a newswire or a result of call C) or a conference/association
+ * bio page; off the company's domain it is also not a profile/directory page and has prose around the quote. Press older
  * than 24 months also needs the people index to list the person in a current approved role. `inferred` is a
  * people-index listing in an approved role (name + profile link only), or an old press page (title as quoted,
  * "last confirmed <year>"). A name only the summariser
@@ -57,10 +59,12 @@ export type LeadContacts = {
 
 export const CONTACT_LIMITS = {
   maxContacts: 3,
-  /** Per-lead cap on the two calls' worst-case estimate (src/exa.ts estimateExaCost, margin included). */
-  maxCostDollars: 0.03,
+  /** Per-lead cap on the three calls' worst-case estimate (src/exa.ts estimateExaCost, margin included). */
+  maxCostDollars: 0.045,
   peopleResults: 5,
-  pageResults: 5,
+  pageResults: 4,
+  /** The `category: "news"` search (call C). */
+  newsResults: 3,
   pageTextMax: 20_000,
   /** Roles named in a query. */
   queryRoles: 3,
@@ -118,13 +122,18 @@ const PEOPLE_SCHEMA = {
   required: ["people"],
 } as const;
 
-/** Call B: public pages (not LinkedIn, its copies or aggregators) that name people at the company, with text and a people summary. */
-export function pageSearchBody(company: string, roles: string[], names: string[]): Record<string, unknown> {
+/**
+ * Call B: public pages (not LinkedIn, its copies or aggregators) that name people at the company, with text and a people
+ * summary. `news: true` is call C: the same search with `category: "news"`, so every result is a news page by Exa's own
+ * classification; the gate treats those (and newswires) as press (FAILURES #31).
+ */
+export function pageSearchBody(company: string, roles: string[], names: string[], opts: { news?: boolean } = {}): Record<string, unknown> {
   const known = names.length > 0 ? ` If the page names any of these people, include them: ${names.slice(0, CONTACT_LIMITS.peopleResults).join(", ")}.` : "";
   return {
-    query: `"${company}" ${roleWords(roles)} leadership team`,
+    query: opts.news ? `"${company}" ${roleWords(roles)} appoints OR names OR promotes` : `"${company}" ${roleWords(roles)} leadership team`,
+    ...(opts.news ? { category: "news" } : {}),
     type: "auto",
-    numResults: CONTACT_LIMITS.pageResults,
+    numResults: opts.news ? CONTACT_LIMITS.newsResults : CONTACT_LIMITS.pageResults,
     excludeDomains: [...CONTACT_NON_EVIDENCE_DOMAINS],
     contents: {
       text: { maxCharacters: CONTACT_LIMITS.pageTextMax },
@@ -137,9 +146,9 @@ export function pageSearchBody(company: string, roles: string[], names: string[]
   };
 }
 
-/** Worst-case estimate of one lead's two calls (call B's estimate does not depend on the names it lists). */
+/** Worst-case estimate of one lead's three calls (B's and C's estimates do not depend on the names they list). */
 export function estimateContactCost(company: string, roles: string[]): number {
-  return estimateExaCost(peopleSearchBody(company, roles)) + estimateExaCost(pageSearchBody(company, roles, []));
+  return estimateExaCost(peopleSearchBody(company, roles)) + estimateExaCost(pageSearchBody(company, roles, [])) + estimateExaCost(pageSearchBody(company, roles, [], { news: true }));
 }
 
 function actualCost(response: ExaSearchResponse | undefined, fallback: number): number {
@@ -275,7 +284,13 @@ export async function findContacts(input: FindContactsInput, deps: FindContactsD
   const pageBody = pageSearchBody(input.company, roles, indexed.map((p) => p.name));
   const pages = (await search(pageBody, deps.credentials, input.guard)) as ExaSearchResponse;
   cost += actualCost(pages, estimateExaCost(pageBody));
-  const pageClaims = (pages.results ?? []).map((result) => ({ result, claims: parsePagePeople(result.summary) }));
+  const pageClaims = (pages.results ?? []).map((result) => ({ result, claims: parsePagePeople(result.summary), news: false }));
+
+  // C: press pages. `category: "news"` makes every result a news page by Exa's classification (FAILURES #31).
+  const newsBody = pageSearchBody(input.company, roles, indexed.map((p) => p.name), { news: true });
+  const news = (await search(newsBody, deps.credentials, input.guard)) as ExaSearchResponse;
+  cost += actualCost(news, estimateExaCost(newsBody));
+  for (const result of news.results ?? []) pageClaims.push({ result, claims: parsePagePeople(result.summary), news: true });
 
   // Everyone to consider: index names first (in index order), then names only a page lists.
   const candidates: Array<{ name: string; index?: IndexPerson }> = indexed.map((p) => ({ name: p.name, index: p }));
@@ -294,13 +309,14 @@ export async function findContacts(input: FindContactsInput, deps: FindContactsD
     let stale: NonNullable<Refused["stale"]> | undefined;
     let changed: NonNullable<Refused["changed"]> | undefined;
     const codes = new Set<ContactGateCode>();
-    for (const { result, claims } of pageClaims) {
+    let sourceNote: string | undefined;
+    for (const { result, claims, news } of pageClaims) {
       const titles = claims.filter((c) => personKey(c.name) === key).map((c) => c.title_quote);
       for (const title_quote of titles.length > 0 ? titles : [undefined]) {
         const verdict = checkContact(
           { name: person.name, company: input.company, ...(title_quote ? { title_quote } : {}) },
           {
-            page: { url: result.url, ...(result.text ? { text: result.text } : {}), ...(result.publishedDate ? { publishedDate: result.publishedDate } : {}) },
+            page: { url: result.url, ...(result.text ? { text: result.text } : {}), ...(result.publishedDate ? { publishedDate: result.publishedDate } : {}), ...(news ? { news: true } : {}) },
             buyerRoles: roles,
             companyUrl: input.companyUrl,
             // The index lists them in a CURRENT position at this company in an approved role.
@@ -321,6 +337,7 @@ export async function findContacts(input: FindContactsInput, deps: FindContactsD
           break;
         }
         codes.add(verdict.code);
+        if (verdict.note) sourceNote = verdict.note;
         if (verdict.changed && !changed) changed = verdict.changed;
         if (verdict.stale && (!stale || verdict.stale.published > stale.published)) stale = verdict.stale;
       }
@@ -357,6 +374,7 @@ export async function findContacts(input: FindContactsInput, deps: FindContactsD
         profile_url: person.index.profileUrl,
         found_via: "people_index",
         code: worst,
+        ...(worst === "contact_unverified" && sourceNote ? { note: sourceNote } : {}),
       });
       checked.push({ name: person.name, outcome: "inferred", code: worst });
     } else if (stale && !roleMismatch) {
@@ -405,9 +423,11 @@ export function contactsToolResult(company: string, found: Pick<FindContactsResu
       why:
         c.tier === "verified"
           ? `title on ${safeDomain(c.evidence?.url ?? "") ?? "a public page"}: "${c.why}"`
-          : c.note
-            ? `${c.note}; title as a public page quotes it: "${c.why}"`
-            : `listed in a people index as ${c.role}; title not confirmed`,
+          : c.note && c.code === "contact_unverified"
+            ? `listed in a people index as ${c.role}; ${c.note}`
+            : c.note
+              ? `${c.note}; title as a public page quotes it: "${c.why}"`
+              : `listed in a people index as ${c.role}; title not confirmed`,
       ...(c.evidence ? { evidence_url: c.evidence.url } : {}),
     })),
     note:

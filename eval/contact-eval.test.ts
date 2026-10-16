@@ -76,7 +76,7 @@ describe("contact-eval run", () => {
     expect(rows.map((r) => r.company)).toEqual(["A"]);
     expect(summary.stoppedByGuard).toBe(true);
     expect(summary.companiesRun).toBe(1);
-    expect(summary.exaDollars).toBeCloseTo(0.02, 5);
+    expect(summary.exaDollars).toBeCloseTo(0.03, 5); // three calls at 0.01
 
     const line = JSON.parse(readFileSync(join(dir, "res", "contacts.jsonl"), "utf8").trim()) as Record<string, unknown>;
     expect(Object.keys(line).sort()).toEqual(["company", "contacts", "cost", "latencyMs", "roles", "scenarioId"]);

@@ -265,7 +265,11 @@ export type ContactEvidence = {
   title_quote: string;
   /** When the page was written: `YYYY`, `YYYY-MM` or `YYYY-MM-DD` (Exa's publishedDate, else a date near the quote). Absent = unknown. */
   published?: string;
+  /** Which kind of page verified the contact (FAILURES #31): the company's own domain, a press/news page, or another allowed page (conference/association bio). */
+  sourceKind?: ContactSourceKind;
 };
+
+export type ContactSourceKind = "company" | "news" | "other";
 
 /** The bounded evidence object. The spans are verbatim, so an over-long one is refused, never cut. */
 export function contactEvidence(parts: ContactEvidence): ContactEvidence | undefined {
@@ -273,5 +277,6 @@ export function contactEvidence(parts: ContactEvidence): ContactEvidence | undef
   const title = parts.title_quote.replace(/\s+/g, " ").trim();
   if (!parts.url || !quote || !title || quote.length > CONTACT_QUOTE_MAX || title.length > CONTACT_TITLE_MAX) return undefined;
   const published = parts.published && /^\d{4}(-\d{2}(-\d{2})?)?$/.test(parts.published) ? parts.published : undefined;
-  return { url: parts.url, quote, title_quote: title, ...(published ? { published } : {}) };
+  const sourceKind = parts.sourceKind === "company" || parts.sourceKind === "news" || parts.sourceKind === "other" ? parts.sourceKind : undefined;
+  return { url: parts.url, quote, title_quote: title, ...(published ? { published } : {}), ...(sourceKind ? { sourceKind } : {}) };
 }

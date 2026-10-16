@@ -1,0 +1,133 @@
+{
+  "request": {
+    "query": "RoadOne IntermodaLogistics",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "625cba3dd2f75f2754c359c8f36aa0ea",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/48r1m1g9v6q",
+        "title": "RoadOne IntermodaLogistics",
+        "url": "https://www.roadone.com/",
+        "text": "# RoadOne IntermodaLogistics\n\nRoadOne IntermodaLogistics is a Transportation, Logistics, Supply Chain and Storage company. RoadOne IntermodaLogistics employs 567 people (+7.6% YoY, +40 people) and has an annual revenue of $489.3M, founded in 2013. Headquartered in Randolph, Massachusetts, United States, with offices including Tampa, atlanta, baltimore, bloomingdale, and centre. Its workforce is distributed across United States and Mexico.\n\n## About\n\nRoadOne is North America's premier intermodal logistics provider. With over 2,500 trucks at 100+ locations nationwide, and 5 million sq/ft of warehouse & transload space, RoadOne can act as your single source solution providing true port to floor coverage.\n\nRoadOne offers the following solutions nationwide:\n-International drayage\n-Domestic drayage\n-Dedicated fleet and power only solutions\n-Container terminal and yard management\n-Transload and value add\n-National brokerage\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Privately held\n- Headquarters: Randolph, United States\n- Founded Year: 2013\n- Homepage: notjustdrayage.com\n- Aliases: RoadOne IntermodaLogistics, Inc., roadone intermoda logistics, roadone intermodalogistics\n- LinkedIn: linkedin.com/company/roadone-intermodalogistics\n- Linkedin Followers: 4,687\n- Emails: info@roadone.com\n- Phone: 1-781-961-82, 781-961-8200\n\n## Financials\n- Annual Revenue: USD 489,320,992\n  - Private equity (2023-01-05)\n  - Private equity (2019-01-01)\n\n## Acquisitions\n- Acquired by: Nonantum Capital Partners (2019-01-08)\n- Acquired Higgins Transport Service (2026-08-21)\n- Acquired Ace Transport Miami (2023-04-18)\n- Acquired Ace Transport Miami LLC (2023-04-01)\n- Acquired The Transporter, Inc. (2023-01-17)\n- Acquired The Transporter, Inc (2023-01-01)\n\n## Workforce\n- Employees: 567\n- Company Size: 1001-5000 employees\n  - Monthly Growth: +0.5%\n  - Yearly Growth: +7.6%\n- Key Executives:\n  - Aaron Keen: Vice President Field Operations\n  - Berta Moreno, MATD: Sr. Director, Capacity Management & Compliance\n  - Bill Boice: Director IT\n  - Chris Sloope: Vice President - Warehouse Operations, Southeast\n  - Chuck Henderson: Director of Business Development\n  - Chuck Henderson: VP of Sales\n  - Chuck Henderson: Vice President of Sales - West Region\n  - Don Ingersoll: Chief Operating Officer\n  - Gary Richardson: Vice President NE\n  - Jeremiah Carruthers: Executive Vice President\n- Breakdown:\n  - By Country: United States: 200 (35%), Mexico: 2\n  - By Department: Operations: 87 (15%), Sales: 20 (4%), Finance: 19 (3%), General Management: 14 (2%), Trades: 14 (2%), Customer Service: 13 (2%), Other Department: 11 (2%), Administrative: 9 (2%), Technical: 6 (1%), Hr: 5 (1%) (+4 more)\n  - By Seniority: Specialist: 97 (17%), Manager: 54 (10%), Other Management: 19 (3%), Vp: 16 (3%), Director: 12 (2%), Senior: 5 (1%), Owner: 2, Clevel: 1, Partner: 1\n- Salary ranges (20 of 42 roles):\n  - Owner Operator: median $231,055.45 per year\n  - National Vice President: median $199,681.88 per year\n  - Owner Operator Driver: median $159,291.52 per year\n  - Air Force Officer (Captain): median $120,262.85 per year\n  - Agent: median $114,440.63 per year\n  - Trucker Driver: median $107,469.16 per year\n  - Terminal Manager: median $97,821.91 per year\n  - Manager: median $96,141.1 per year\n  - Class A Cdl Truck Driver: median $95,856.29 per year\n  - Truck Drver: median $94,998.9 per year\n  - IT: median $89,593.33 per year\n  - Operations Manager: median $88,484.71 per year\n  - Transportation: median $87,514.69 per year\n  - Senior HR Generalist: median $86,145.86 per year\n  - Account Manager: median $85,773.05 per year\n  - Yard Dog Jockey Driver: median $78,465.77 per year\n  - Intermodal Operations: median $78,169.05 per year\n  - Truck Driver: median $76,099.55 per year\n  - Human Resources: median $73,225.79 per year\n  - Compliance Officer: median $73,077.13 per year\n- Talent Sources: Schneider (10), Exxact Express (5), Universal Logistics Holdings, Inc. (4), U.S. Xpress, Inc. (4), Penske Logistics (4), Bridge Terminal Transport (4), Amazon (4), A.P. Moller - Maersk (4), J.B. Hunt Transport Services, Inc. (3), BlueGrace Logistics (3)\n- Alumni Go To: A.P. Moller - Maersk (5), XPO (4), C&K Trucking, LLC (4), Whitacre Logistics LLC (3), NFI (3), Marten Transport (3), IMC Logistics (3), ContainerPort Group (3), Amazon (3), Source Interlink Companies (2)\n\n## Products & Technology\n- Tech Stack: adp, cisco vpn, citrix xenapp, constant contact, salesforce, sql, tableau, amp, square\n\n## Web presence\n\n- Twitter: twitter.com/roadonetrans\n- Facebook: facebook.com/roadoneil\n- Instagram: instagram.com/roadoneintermodalogistics\n- YouTube: youtube.com/user/roadoneintermodal\n- Crunchbase: crunchbase.com/organization/roadone-intermoda-logistics\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Reviews & Ratings\n- Employer Rating: 3.6/5.0 (59 reviews)\n  - Breakdown: Work-Life: 2.9, Compensation: 2.5, Culture: 2.6, Career: 2.5\n\n## Categories\n\nautomotive, automotive-transportation, container termianl solutions, dedicated fleet replacement, distribution, domestic & international intermodal trucking, logistics, marine, national warehousing, rail, supply chain management, supply chain solutions, transloading & deconsolidation\n\n## Competitors\n\ndevine intermodal, intermodal bridge transport, inc., gsc enterprises, southern counties express, horizon lines, matson, crowley, linn star transfer, inc., oceanstar, california cartage  company, chouinard & myhre, inc., roll-rite tarp, green fleet systems, ab trucking, oracle, zim, the washington companies, gulf intermodal services, dnj intermodal services, denver intermodal express, brado logistica, atlantic intermodal services\n\n## Recent News\n- [2026-08-21]\n  - [RoadOne acquired S.C.-based Higgins Transport Service](https://www.ccjdigital.com/business/mergers-acquisitions/article/15833038/roadone-acquired-scbased-higgins-transport-service)\n  - [RoadOne expands Port of Charleston operations with acquisition - FreightWaves](https://www.freightwaves.com/news/roadone-expands-port-of-charleston-operations-with-acquisition)\n- [2026-08-20] [RoadOne acquires Higgins Transport Service \\| Trucking Dive](https://www.truckingdive.com/news/roadone-acquires-higgins-transport-service/828163/)\n- [2026-08-19]\n  - [RoadOne acquires Higgins Transport Service in Charleston - Container News](https://container-news.com/roadone-acquires-higgins-transport-service-in-charleston/)\n  - [Weekly rail traffic for the week ending August 15, 2026 - NewsBreak](https://www.newsbreak.com/news/4837987649679-weekly-rail-traffic-for-the-week-ending-august-15-2026)\n- [2026-08-18] [RoadOne acquires Higgins Transport Service, expanding southeast logistics presence](https://www.ajot.com/news/roadone-acquires-higgins-transport-service-expanding-southeast-logistics-presence)\n- [2025-06-18]\n  - citybiz: IRG Develops 200,000+ Sq. Ft. Warehouse for RoadOne Intermodal Logistics\n  - PR Newswire: IRG Develops 200,000+ sq. ft. Warehouse for RoadOne Intermodal Logistics' Market Expansion\n- [2025-01-06] GlobeNewswire News Room: Intermodal Freight Transportation Market to Surge to $58.85 Billion by 2024, Growth Driven by Advanced Logistics and Expansion of Global Trade - Global Long-term Forecasts to 2028 and 2033\n- [2024-05-26] LinkedIn: Frampton Construction on LinkedIn: Groundbreaking ceremony marks start of new 100-acre industrial hub in…\n- [2024-02-14] North Signal Capital and Fox Capital Partners Announce Full Lease of 1000 Imeson Park Boulevard to RoadOne ...\n- [2024-02-06]\n  - RoadOne IntermodaLogistics Prepares for 2024 Freight Market Upswing with New Executive Appointments\n  - RoadOne IntermodaLogistics adds rockstar sales executive team\n  - RoadOne appoints Don Ingersoll to COO position\n- [2023-01-05] PE Hub: Ridgemont recaps trucking company RoadOne IntermodaLogistics\n\n## Social\n\n### Linkedin\n\n- [2026-10-06 · Posted · 12 reactions] [Each driver has something different they love about their career...](https://www.linkedin.com/posts/roadone-intermodalogistics_teamroadone-thankatrucker-activity-7513255705618067456-HGD2)\n  > Each driver has something different they love about their career.\n  >\n  > Many of our drivers say they enjoy being able to do their work, run their truck like their own business, and know that they have the support and backup of a stellar RoadOne ops team throughout the day.\n  >\n  > David likes being his own boss and spending time on his own out on the road. Here's a photo getting ready for the day on a beautiful early morning in SoCal.\n  >\n  > Thanks for all you do!\n  >\n  > Learn more about our driver programs here: https://lnkd.in/gmPEiEtm\n  >\n  > #TeamRoadOne #ThankaTrucker\n\n- [2026-10-05 · Posted · 19 reactions] [If you thought September was packed with industry events, that was...](https://www.linkedin.com/posts/roadone-intermodalogistics_if-you-thought-september-was-packed-with-activity-7512900794027884544-ZQ-7)\n  > If you thought September was packed with industry events, that was just a warm up.\n  >\n  > This month, the RoadOne IntermodaLogistics team will be at events all over the country, speaking on panels, meeting with our customers, and connecting with soon-to-be customers!\n  >\n  > Here's where you can find us this month:\n  >\n  > 📍Memphis World Trade Club / Port of New Orleans, Oct 1.\n  > 📍CSCMP EDGE, Nashville, Oct 4-7.\n  > 📍GAMA Southern Supply Chain Summit, Atlanta, Oct 6-8.\n  > 📍VMA26, Norfolk, Oct 13-15.\n  > 📍NAFTZ, San Diego, Oct 18-21.\n  > 📍Harris Williams 3PL Conference, Nashville, Oct 21-23.\n  > 📍SCITC, Kiawah Island, Oct 27-29.\n  >\n  > Will we see you at any of these? Let us know!\n  >\n  > Get in touch with the team anytime here: https://lnkd.in/gCNY_5Uk\n\n- [2026-10-01 · Posted · 22 reactions] [Every mile you drag a loaded container inland is another mile on a...](https://www.linkedin.com/posts/roadone-intermodalogistics_every-mile-you-drag-a-loaded-container-inland-activity-7511502818781020160-iV2X)\n  > Every mile you drag a loaded container inland is another mile on a chassis and another day on the per diem clock.\n  >\n  > RoadOne IntermodaLogistics manages over 5 million square feet of transload space at the ports so freight gets stripped and floor loaded where it lands.\n  >\n  > If your containers are traveling farther than your freight needs to, let's talk 👉  https://lnkd.in/gMVXC-M5\n\n- [2026-09-30 · Posted · 23 reactions] [While we're glad we get to celebrate with Truck Driver Appreciation...](https://www.linkedin.com/posts/roadone-intermodalogistics_teamroadone-thankatrucker-activity-7511096448940142593-uges)\n  > While we're glad we get to celebrate with Truck Driver Appreciation week each year, we like to keep the gratitude going on a daily basis.\n  >\n  > Thank you to our drivers for everything you do to keep our customers' freight moving!\n  >\n  > Our customers and team know that RoadOne drivers are the best on the road and amazing to work with. They show up ready to put the hard work in, every route, every shift, in every kind of weather, all over the country.\n  >\n  > #TeamRoadOne #ThankaTrucker\n\n- [2026-09-28 · Posted · 29 reactions] [RoadOne closes out September at INLAND by JOC.com, September 28-30...](https://www.linkedin.com/posts/roadone-intermodalogistics_inland26-activity-7510341583641305088-lDoW)\n  > RoadOne closes out September at INLAND by JOC.com, September 28-30.\n  >\n  > You can catch Keefe Murtaugh, Tyler Kruse, and Don Ingersoll this week in Chicago.\n  >\n  > See you there!\n  >\n  > #Inland26\n\n- [2026-09-25 · Posted · 34 reactions] [Looking for secure yard storage in Chicago? This RoadOne location...](https://www.linkedin.com/posts/roadone-intermodalogistics_looking-for-secure-yard-storage-in-chicago-activity-7509269585855127553-VGBe)\n  > Looking for secure yard storage in Chicago?\n  >\n  > This RoadOne location is:\n  >\n  > -> 7.5-acre yard, with close proximity to Global 4 UP Rail (0.1-miles)\n  >\n  > -> Fully Secured with 18 - 24/7 high-definition CCTV surveillance covering all perimeter fencing, ingress/egress gates, and container storage rows.\n  >\n  > -> In process to be customs bonded for bonded container storage\n  >\n  > Check out all RoadOne locations and learn more here: https://lnkd.in/g3GStvBj\n\n- [2026-09-24 · Posted · 56 reactions] [What a great week in Long Beach. Thank you to everyone who stopped...](https://www.linkedin.com/posts/roadone-intermodalogistics_what-a-great-week-in-long-beach-thank-activity-7508914835191930880-KyBm)\n  > What a great week in Long Beach.\n  >\n  > Thank you to everyone who stopped by to talk intermodal with our team at IANA.\n  >\n  > See you at the next event!\n  >\n  > Ken Joy\n  > Chuck Henderson\n  > Kelly DiNapoli\n  > Russ Frayer\n\n- [2026-09-23 · Posted · 100 reactions] [Soaking up the final day of Breakbulk Americas? Stop by Booth P16...](https://www.linkedin.com/posts/roadone-intermodalogistics_breakbulkamericas-teamroadone-activity-7508538977826766848-n1fB)\n  > Soaking up the final day of Breakbulk Americas?\n  >\n  > Stop by Booth P16 to say hi to this crew!\n  >\n  > #BreakbulkAmericas\n  > #TeamRoadOne\n\n- [2026-09-21 · Posted · 21 reactions] [Breakbulk Americas kicks off in Houston this week, and RoadOne will...](https://www.linkedin.com/posts/roadone-intermodalogistics_breakbulkamericas-teamroadone-activity-7507868619998015489-vYLV)\n  > Breakbulk Americas kicks off in Houston this week, and RoadOne will be there in style.\n  >\n  > Find Brian McAlexander, Chris Sloope, and the RoadOne IntermodaLogistics crew at Booth # P16!\n  >\n  > #BreakbulkAmericas #TeamRoadOne\n  > Breakbulk Events & Media\n\n- [2026-09-18 · Posted · 25 reactions] [Happy Truck Driver Appreciation week! We sat down with a few of our...](https://www.linkedin.com/posts/roadone-intermodalogistics_teamroadone-activity-7506745605973721088-ekO4)\n  > Happy Truck Driver Appreciation week!\n  >\n  > We sat down with a few of our drivers this week from our Southern California service center to learn more about their experience and celebrate them.\n  >\n  > Meet Andrew:\n  > His positive attitude and smile is contagious, and he does amazing work on the team. He said he loves driving and wishes he had found out how great the career was sooner, and he's excited for the growth and opportunity ahead.\n  >\n  > He gave a few shoutouts to this teammates to share the celebration as well!\n  >\n  > 👏 Thank you to Andrew and every driver on #TeamRoadOne, today and every day.\n\n- [2026-09-18 · 25 reactions] Happy Truck Driver Appreciation week! We sat down with a few of our drivers this week from our Southern California service center to learn more about their experience and celebrate them. Meet Andre...\n\n- [2026-09-17 · Posted · 26 reactions] [Behind the wheel of a RoadOne truck is one of the best drivers on...](https://www.linkedin.com/posts/roadone-intermodalogistics_teamroadone-activity-7506388947212607488-jvgS)\n  > Behind the wheel of a RoadOne truck is one of the best drivers on the road.\n  >\n  > Our testing and compliance standards are rigorous to ensure top quality drivers, and only 20% of applicants make it through the process to become a RoadOne driver.\n  >\n  > Our drivers are the face of this company. Customers trust them with their freight every day, all across the country, and our whole team is thankful for the skill, hard work, and attitude they bring day in and day out.\n  >\n  > Happy Truck Driver Appreciation Week!\n  >\n  > #TeamRoadOne\n\n- [2026-09-17 · 36 reactions, 3 comments] Behind the wheel of a RoadOne truck is one of the best drivers on the road. Our testing and compliance standards are rigorous to ensure top quality drivers, and only 20% of applicants make it throu...\n\n- [2026-09-10 · Posted · 38 reactions] [Next week is Truck Driver Appreciation Week! Join us in celebrating...](https://www.linkedin.com/posts/roadone-intermodalogistics_thankadriver-teamroadone-truckdriverappreciationweek-activity-7503848726575071232-570u)\n  > Next week is Truck Driver Appreciation Week!\n  >\n  > Join us in celebrating the more than 2500 RoadOne drivers who keep your freight moving all across the country.\n  >\n  > Thank you for all you do!\n  >\n  > #ThankaDriver #TeamRoadOne #TruckDriverAppreciationWeek\n\n- [2026-09-10 · 41 reactions, 2 comments] Next week is Truck Driver Appreciation Week! Join us in celebrating the more than 2500 RoadOne drivers who keep your freight moving all across the country. Thank you for all you do! #ThankaDriver #...\n\n- [2026-09-08 · Posted · 17 reactions] [Many of our customers start with RoadOne IntermodaLogistics when...](https://www.linkedin.com/posts/roadone-intermodalogistics_many-of-our-customers-start-with-roadone-activity-7503098575363395584--ufZ)\n  > Many of our customers start with RoadOne IntermodaLogistics when they are looking for reliable and top notch drayage in one specific location, then stick around for everything else we do.\n  >\n  > Transloading.\n  > Dedicated fleet.\n  > Warehousing.\n  > Terminal solutions.\n  >\n  > Every mode your freight needs from port to floor, all across the country.\n  >\n  > See how our full solution set works 👉  https://lnkd.in/g-YSJTaD\n\n- [2026-09-08 · 17 reactions] Many of our customers start with RoadOne IntermodaLogistics when they are looking for reliable and top notch drayage in one specific location, then stick around for everything else we do. Transload...\n\n- [2026-09-03 · Posted · 25 reactions] [The IANA Intermodal Expo is one of the biggest gatherings in our...](https://www.linkedin.com/posts/roadone-intermodalogistics_teamroadone-intermodal-activity-7501296766064074753-y_ow)\n  > The IANA Intermodal Expo is one of the biggest gatherings in our industry, and RoadOne IntermodaLogistics will be in town.\n  >\n  > Ken Joy and Chuck Henderson head to Long Beach September 14-16 to connect with partners and talk through what's next in intermodal.\n  >\n  > If you're attending, let's connect!\n  >\n  > #TeamRoadOne #Intermodal\n\n- [2026-09-03 · 28 reactions, 1 comment] The IANA Intermodal Expo is one of the biggest gatherings in our industry, and RoadOne IntermodaLogistics will be in town. Ken Joy and Chuck Henderson head to Long Beach September 14-16 to connect...\n\n- [2026-09-02 · Posted · 77 reactions] [Location spotlight: Savannah, GA. RoadOne IntermodaLogistics's key...](https://www.linkedin.com/posts/roadone-intermodalogistics_location-spotlight-savannah-ga-roadone-activity-7500994385568813057-Ee4k)\n  > Location spotlight: Savannah, GA.\n  >\n  > RoadOne IntermodaLogistics's key distribution facility is 526,000 square feet and located within 6-miles of the Port of Savannah, one of the fastest-growing ports in the country.\n  >\n  > Transloading, warehousing, pick and pack, container freight, and yard management.\n  >\n  > Check out this and all RoadOne locations: https://lnkd.in/gBKbU5t2\n\n## Locations\n- Headquarters: randolph, massachusetts, united states\n- Offices: milford, connecticut, united states (US), chesapeake, virginia, united states (US), houston, texas, united states, kaufman, texas, united states (US), jacksonville, florida, united states (US), philadelphia, pennsylvania, united states (US), st. louis, missouri, united states (US), port wentworth, georgia, united states (US), randolph, massachusetts, united states, meriden, connecticut, united states (US), zuni, virginia, united states (US), cincinatti, ohio, united states (US), fairburn, georgia, united states (US), joliet, illinois, united states (US), atlanta, georgia, united states (US), elizabeth, new jersey, united states (US), charlotte, north carolina, united states (US), fife, washington, united states (US), rosedale, maryland, united states (US), cleveland, ohio, united states (US), charleston, south carolina, united states (US), guyton, georgia, united states (US), lincoln park, michigan, united states (US), nashville, tennessee, united states (US), medley, florida, united states (US), wallisville, texas, united states (US), stockbridge, georgia",
+        "summary": "{\"description\":\"RoadOne IntermodaLogistics is a Transportation, Logistics, Supply Chain and Storage company.\",\"employee_estimate\":567,\"employee_estimate_source\":\"Employees: 567\",\"hq\":\"Randolph, Massachusetts, United States\",\"hq_quote\":\"Headquartered in Randolph, Massachusetts, United States\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"RoadOne IntermodaLogistics is a Transportation, Logistics, Supply Chain and Storage company.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4D0BAQFSrfJZLnlJCA/company-logo_200_200/company-logo_200_200/0/1738962294251/roadone_intermodalogistics_logo?e=2147483647&v=beta&t=4eHCZY3yIlHC3thD_AL8IXqfUzPwmw9F9K4UhIKKySU",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/48r1m1g9v6q",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "RoadOne IntermodaLogistics",
+              "foundedYear": 2013,
+              "description": "RoadOne is North America's premier intermodal logistics provider. With over 2,500 trucks at 100+ locations nationwide, and 5 million sq/ft of warehouse & transload space, RoadOne can act as your single source solution providing true port to floor coverage.\n\nRoadOne offers the following solutions nationwide:\n-International drayage\n-Domestic drayage\n-Dedicated fleet and power only solutions\n-Container terminal and yard management\n-Transload and value add\n-National brokerage ",
+              "workforce": {
+                "total": 567
+              },
+              "headquarters": {
+                "address": "One Kellaway Drive, Randolph, MA 02368, US",
+                "city": "Randolph",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 489320992,
+                "fundingTotal": null,
+                "fundingLatestRound": {
+                  "name": "Private equity",
+                  "date": "2023-01-05",
+                  "amount": null
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": []
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 6606,
+    "costDollars": {
+      "total": 0.008,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.001
+    }
+  }
+}

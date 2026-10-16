@@ -1,0 +1,196 @@
+{
+  "request": {
+    "query": "TRAMUC LLC",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "6d267371f57358ad6c5103e87263a5d6",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/xxdf72k4jsh",
+        "title": "TRAMUC LLC",
+        "url": "https://linkedin.com/company/tramuc-llc",
+        "text": "# TRAMUC LLC\n\nTRAMUC LLC employs 7 people, founded in 2015. Headquartered in Mission, Texas, United States.\n\n## Company Details\n- Headquarters: Mission, United States\n- Founded Year: 2015\n- Aliases: tramuc llc\n- LinkedIn: linkedin.com/company/tramuc-llc\n- Linkedin Followers: 10\n\n## Workforce\n- Employees: 7\n- Company Size: 11-50 employees\n- Key Executives:\n  - Alfredo A. Nieva: President & CEO\n- Breakdown:\n  - By Country: United States: 4 (57%)\n  - By Department: Finance: 1 (14%), General Management: 1 (14%), Operations: 1 (14%), Trades: 1 (14%)\n  - By Seniority: Manager: 2 (29%), Clevel: 1 (14%), Specialist: 1 (14%)\n- Talent Sources: Swift Transportation (1), Reveille Trucking Inc (1), Protans International (1), ProTrans (1), Almanza Villarreal (1)\n- Alumni Go To: First In Freight, Inc. (1)\n\n## Locations\n- Headquarters: mission, texas, united states (US)\n- Offices: mission, texas, united states (US)",
+        "summary": "{\"description\":\"TRAMUC LLC is a small US-based company headquartered in Mission, Texas. The page lists a founder/CEO, a workforce of 7 employees, and links to LinkedIn. It does not specify whether it operates as a 3PL, freight, warehousing, fulfillment, or last-mile provider, beyond general company details.\",\"employee_estimate\":7,\"employee_estimate_source\":\"Employees: 7\",\"hq\":\"Mission, Texas, United States\",\"hq_quote\":\"Headquarters: Mission, United States\",\"industry\":\"Not explicitly stated on the page\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":null,\"is_third_party_logistics_quote\":\"\"}",
+        "image": "https://static.licdn.com/aero-v1/sc/h/cs8pjfgyw96g44ln9r7tct85f",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/xxdf72k4jsh",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "TRAMUC LLC",
+              "foundedYear": 2015,
+              "description": null,
+              "workforce": {
+                "total": 7
+              },
+              "headquarters": {
+                "address": "4001 S SHARY RD, Mission, Texas 78572, us",
+                "city": "Mission",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": null,
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/q7xgqqtjl12",
+        "title": "Tramec, LLC",
+        "url": "https://linkedin.com/company/tramec-llc",
+        "text": "# Tramec, LLC\n\nTramec, LLC is a Manufacturing company. Tramec LLC manufactures and distributes heavy duty trucking and industrial products through its industry-leading brands and \"American-Made\" business model. Tramec, LLC employs 30 people (+15.4% YoY, +4 people) and has an annual revenue of $49.6M. Headquartered in Iola, Kansas, United States, with an office in Shawnee. Its workforce is distributed across United States, Australia, and Sri Lanka.\n\n## About\n\nTramec is a family of companies providing a broad variety of components and assemblies for commercial vehicle, heavy equipment, air handling, fluid control, automotive, and construction markets. Our companies include Continental-Aero, CS Automation, Esdan Plastics, Fleet Engineers, Penz Products, Tramec Plastics & Composites, and Tramec Sloan.\n\n## Company Details\n- Industry: Manufacturing\n- Type: Privately held\n- Headquarters: Iola, United States\n- Aliases: tramec, tramec, llc\n- LinkedIn: linkedin.com/company/tramec-llc\n- Linkedin Followers: 481\n- Phone: 800-835-0021\n\n## Financials\n- Annual Revenue: USD 49,640,611\n  - Private equity (2021-09-08)\n\n## Acquisitions\n- Acquired Johnson Welded Products (2024-03-05)\n- Acquired Johnson Welded Products, Inc (2024-03-01)\n- Acquired Boehm + Leckner Multi Moulds (2023-09-30)\n- Acquired CS Automation (2023-06-01)\n- Acquired Penz Products Inc (2022-01-07)\n\n## Workforce\n- Employees: 30\n- Company Size: 501-1000 employees\n  - Yearly Growth: +15.4%\n- Key Executives:\n  - Alejandro De Marco: President of Commercial Vehicle Segment\n  - Chris Baldassarre: VP of Business Development - OEM Power\n  - Derek Spearman, MBA: President\n  - STEPHANIE K. FARRELL, EMBA, REM, CESM: Environmental, Safety & Health Dir\n- Breakdown:\n  - By Country: United States: 16 (53%), Australia: 1 (3%), Sri Lanka: 1 (3%)\n  - By Department: Sales: 7 (23%), General Management: 2 (7%), Operations: 2 (7%), Other Department: 2 (7%), Technical: 2 (7%), Customer Service: 1 (3%), Finance: 1 (3%), Hr: 1 (3%), Product: 1 (3%), Trades: 1 (3%)\n  - By Seniority: Manager: 8 (27%), Specialist: 5 (17%), Other Management: 3 (10%), Vp: 3 (10%), Director: 1 (3%)\n- Talent Sources: Tramec Sloan (2), SAF-HOLLAND Inc. (2), Wigton Energy Limited (1), TECT AEROSPACE WELLINGTON INC. (1), Midas Safety (1), MacLean Power Systems (1), Entech, Inc (1), Arkema (1), American Repair Maintenance (1), Agrisolutions (1)\n- Alumni Go To: Trux Accessories (1), Tramec Sloan (1), Saint-Gobain (1), Roskam Foods (1), Muskegon Community College (1), Knight Material Technologies (1), City of Wellington, KS (1)\n\n## Products & Technology\n- Tech Stack: autocad, microsoft, microsoft office, paylocity, prototype, solidworks, gauges, scribe, amp, segment, visa, braze, electric, fedex, ups, well, elk\n\n## Web presence\n\n- Crunchbase: crunchbase.com/organization/tramec-d081\n- Web traffic:\n  - Monthly visits: 24,532\n  - Global rank: 739,348\n  - Bounce rate: 36.0%\n  - Pages per visit: 6.7\n  - Average visit duration: 248s\n\n## Categories\n\namerican-made, brands, cables, industrial, industrial manufacturing, industrial products, manufacturing, manufacturing-industrial, manufacturing/industrial, mechanical components, mechanical engineering, metal-products, trucking\n\n## Competitors\n\nslingco, r&l spring, pivot point, kern liebers, fis blue, essex solutions, eltech, cunext group, connect tech products, baoji titanium industry\n\n## Recent News\n- [2025-08-05] Automazione Plus: Partnership strategica fra Mitsubishi Electric e Tramec per offrire soluzioni di azionamento avanzate\n- [2023-11-09] Business Wire: Update on ElectraMeccanica Litigation Dispute With Tevva\n\n## Social\n\n### Linkedin\n\n- [2026-09-21 · 2 reactions] Johnson Welded Products is seeking a hands-on Environmental, Health & Safety (EHS) Manager to lead and strengthen our safety and environmental programs. In this role, you'll be both a strategic par...\n\n- [2026-09-17 · 2 reactions] Johnson Welded Products, Inc. is seeking a hands-on Environmental, Health & Safety (EHS) Manager to lead and strengthen our safety and environmental programs. In this role, you'll be both a strateg...\n\n- [2026-07-29 · 5 reactions] Join our Tramec team! We are currently seeking an Epicor ERP Systems Analyst to join either our Tramec Sloan facility in Holland, Michigan or our Fleet Engineers Facility in Muskegon, Michigan. Wit...\n\n- [2026-06-25 · 15 reactions] Now Hiring: Purchasing & Inventory Coordinator – Manufacturing Tramec is looking for a detail-oriented, organized, and proactive individual to support purchasing, supplier communication, inventory...\n\n- [2026-06-08 · 9 reactions, 1 comment] Extend the Life of your Landing Legs! Fleet Engineers & Penz Products manufacture dependable landing gear components in the USA. Our parts ensure smooth operation, provide superior ground stability...\n\n- [2026-05-13 · 4 reactions] Do your fenders turn heads? Get the sleek look of a classic metal fender, made in the USA by Fleet Engineers! Choose reliable steel or aluminum Spray Master fenders for the important job of spray c...\n\n- [2026-03-25 · 23 reactions, 3 comments] Tramec is thrilled to share that PACCAR has honored Johnson Welded Products (JWP) with their SPM Achiever award for 2025! These awards recognize PACCAR’s top performing suppliers in areas such as p...\n\n- [2026-03-17 · 7 reactions] ☘️ You don't need luck with a Sonogrip! Tramec Sloan’s Sonogrip ABS cables are packed with premium features that ensure you never have to worry about an unreliable connection. The over-molded, soli...\n\n- [2026-02-20 · 8 reactions] Tramec is hiring! With manufacturing facilities across the United States, we likely have the perfect opportunity for you! We offer steady work, competitive pay, and a strong benefits package in a h...\n\n- [2026-01-21 · 15 reactions] We are pleased to share that Tramec has been recognized for Data Excellence at HDAW ’26! We are honored to be identified as a leader in advancing product data standards. It’s always our goal to pro...\n\n- [2026-01-19 · 11 reactions] Join Tramec this week at booth #417 for the Heavy Duty Aftermarket Week (HDAW) Product Expo! Come say hello and get the latest scoop from our heavy duty brands. #HDAW26 #Trucking #HeavyDuty\n\n- [2025-11-06 · 7 reactions] More robust than the competition, our High Tension Tender Springs will always “snap-back” from tight turns and prevent “sag & snag” failures. Pair with one of our corrosion-free, tool-free clamps,...\n\n- [2025-10-23 · 4 reactions] Boost fleet efficiency with the AeroSlipper Aerodynamic Quarter Fender. When it comes to performance and appearance, small details make a big impact. The AeroSlipper Quarter Fender from Fleet Engin...\n\n- [2025-10-14 · 8 reactions] 🚛 We’re headed to Expo Transporte Anpact this November! Join us at Booth G0247 to see the latest in fleet innovation. Here’s a preview of what you’ll find: ✅ Spray Master® Poly Fenders with Slidetr...\n\n- [2025-10-09 · 11 reactions] Don’t take the risk this winter…be prepared with GoTreads®, providing emergency traction when ice, snow, or mud have you spinning your wheels. MINIMIZE DOWNTIME and stay ahead of delays. This tract...\n\n## Locations\n- Headquarters: iola, kansas, united states (US)\n- Offices: shawnee, kansas, united states (US), iola, kansas, united states (US)\n\n## Parent organization\n\n- MacLean-Fogg",
+        "summary": "{\"description\":\"Tramec, LLC is a Manufacturing company that provides components and assemblies for commercial vehicle, heavy equipment, air handling, fluid control, automotive, and construction markets. It operates as a family of companies with several brands and an American-made business model.\",\"employee_estimate\":30,\"employee_estimate_source\":\"Employees: 30\",\"hq\":\"Iola, United States\",\"hq_quote\":\"Headquartered in Iola, Kansas, United States, with an office in Shawnee.\",\"industry\":\"Manufacturing\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":null,\"is_third_party_logistics_quote\":\"\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQGxnPlXrzAXrg/company-logo_200_200/company-logo_200_200/0/1686060697640?e=2147483647&v=beta&t=NQ2EDVrpNRrpVb-8pl4jCzMix59aye2sgUazIxpUqvM",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/q7xgqqtjl12",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Tramec, LLC",
+              "foundedYear": null,
+              "description": "Tramec is a family of companies providing a broad variety of components and assemblies for commercial vehicle, heavy equipment, air handling, fluid control, automotive, and construction markets. Our companies include Continental-Aero, CS Automation, Esdan Plastics, Fleet Engineers, Penz Products, Tramec Plastics & Composites, and Tramec Sloan.",
+              "workforce": {
+                "total": 30
+              },
+              "headquarters": {
+                "address": "PO Box 716; Iola, Kansas 66749, United States",
+                "city": "Iola",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 49640611,
+                "fundingTotal": null,
+                "fundingLatestRound": {
+                  "name": "Private equity",
+                  "date": "2021-09-08",
+                  "amount": null
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 24532,
+                "countryRank": 200433,
+                "avgDurationSeconds": 248,
+                "history": [
+                  {
+                    "value": 16912,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 11969,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 14535,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 12133,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 14315,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 24532,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 8324.5,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

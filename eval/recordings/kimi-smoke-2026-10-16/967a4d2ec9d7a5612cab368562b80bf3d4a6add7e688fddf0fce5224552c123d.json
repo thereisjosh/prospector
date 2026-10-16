@@ -1,0 +1,188 @@
+{
+  "request": {
+    "query": "XDP",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "d0d4a2a1f54fa4478cf2e15258a34442",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/plsvsrd81cx",
+        "title": "XDP LTD",
+        "url": "https://xdp.co.uk/",
+        "text": "# XDP LTD\n\nXDP LTD is a Transportation, Logistics, Supply Chain and Storage company. XDP is a leading parcel and freight network, offering expert delivery services nationwide. With over 25 years of experience within the freight and logistics industry, XDP is a leading parcel and freight network, offering expert delivery services nationwide. XDP LTD employs 263 people (+4.4% YoY, +11 people), founded in 1995. Headquartered in Curdworth, England, United Kingdom, with offices in Tamworth and Minworth. Its workforce is distributed across United Kingdom, Hong Kong, and Nepal.\n\n## About\n\nXDP was formed in 1995 and has since grown to be the largest privately owned parcel and freight network in the UK. Specialising in irregular dimension and weight freight, we are constantly building on our reputation for reliability and quality of service.\n\nWe understand how important the final mile of your delivery is, that’s why we are there every step of the way. With an extensive national team covering our final-mile delivery depots, alongside a nationwide fleet of delivery partners, our reputation for customer focused logistics continues to go from strength to strength. \n\nThrough offering a variety of bespoke delivery service packages, ranging from 1 and 2Man services, through to Storage and Distribution offerings, we are the B2C carrier of choice for large and non-standard freight.\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Privately held\n- Headquarters: Curdworth, United Kingdom\n- Founded Year: 1995\n- Homepage: xdp.co.uk\n- Aliases: xdp, xdp ltd\n- LinkedIn: linkedin.com/company/xdp-ltd\n- Linkedin Followers: 2,921\n- Emails: trackingupdates@xdp.co.uk\n\n## Workforce\n- Employees: 263\n- Company Size: 501-1000 employees\n  - Monthly Growth: +0.4%\n  - Yearly Growth: +4.4%\n- Key Executives:\n  - Colin Walters: Finance and Commercial Director\n  - Daniel Lewsley: Director of Network Operations\n  - David Jagger: Hub Operations Director\n  - Dawn Clark: Head of People & Special Projects\n  - Isabella Wayte: Managing Director\n  - Louis John: CEO\n  - Louis John: Chairman\n  - MARC DAVIS: franchise owner\n  - Ross Aitken: Self Employed\n- Breakdown:\n  - By Country: United Kingdom: 65 (25%), Hong Kong: 1, Nepal: 1\n  - By Department: Operations: 22 (8%), General Management: 12 (5%), Other Department: 6 (2%), Sales: 6 (2%), Customer Service: 5 (2%), Trades: 4 (2%), Administrative: 3 (1%), Marketing: 3 (1%), Hr: 2 (1%), Project Management: 2 (1%) (+3 more)\n  - By Seniority: Specialist: 28 (11%), Manager: 23 (9%), Other Management: 8 (3%), Director: 4 (2%), Owner: 2 (1%), Clevel: 1, Head: 1, Senior: 1, Vp: 1\n- Talent Sources: Tuffnells Parcels Express (11), Biffa (3), Romac Logistics (2), Property Perspective Limited (2), NETFOLD LIMITED (2), Hermes (2), Freightline Carriers (2), City Link (2), British Army (2), Amazon (2)\n- Alumni Go To: DX Group (5), DPD UK (4), TPN - THE Pallet Network (3), TNT (3), Wrights Foodservice (2), Mansell Construction Services Ltd (2), GXO Logistics, Inc. (2), DHL Supply Chain (2), Catering Academy (2), Bunzl Catering Supplies (2)\n\n## Products & Technology\n- Features: Mobile App\n- Tech Stack: microsoft, microsoft office, box, grafana, upkeep, c, microsoft excel, sage, well, amp\n\n## Web presence\n\n- Twitter: twitter.com/xdpltd\n- Facebook: facebook.com/xdplimited\n- YouTube: youtube.com/channel/uc5ghdg_fso9qvzrhljvsvaq\n- Crunchbase: crunchbase.com/organization/xdp\n- Web traffic:\n  - Monthly visits: 305,346\n  - Global rank: 166,253\n  - Bounce rate: 39.0%\n  - Pages per visit: 2.8\n  - Average visit duration: 141s\n\n## Categories\n\nautomotive-transportation, business_and_consumer_services/shipping_and_logistics, expert delivery services, final mile delivery, flexibility, freight, idw freight, integration, logistics, manual sortation, nationwide, network, parcel, supply-chain, transportation\n\n## Competitors\n\ntermaco participacoes, stg logistics, quehenberger logistics, italtrans\n\n## Recent News\n- [2026-09-03] [GUEST COMMENT: When the demand forecast is wrong, what happens next - InternetRetailing](https://internetretailing.net/guest-comment-when-the-demand-forecast-is-wrong-what-happens-next/)\n- [2026-08-13] Motor Transport: [XDP launches new Carlisle depot to boost regional deliveries](https://motortransport.co.uk/operator-news/xdp-launches-new-carlisle-depot-to-boost-regional-deliveries/90937.article)\n- [2026-08-12]\n  - [XDP expands Carlisle presence \\| Logistics Manager](https://www.logisticsmanager.com/xdp-expands-carlisle-presence/)\n  - Logistics Manager: XDP expands Carlisle presence\n- [2026-08-11]\n  - [XDP launches new Carlisle depot for North West and Scotland \\| News and Star](https://www.newsandstar.co.uk/news/26454252.xdp-launches-new-carlisle-depot-north-west-scotland/)\n  - News & Star: New delivery depot opens to boost logistics across North West and Scotland\n\n## Social\n\n### Linkedin\n\n- [2026-10-02 · Posted · 6 reactions] [Another fantastic review from a consignee in Sheffield! We pride...](https://www.linkedin.com/posts/xdp-ltd_insidexdp-customerservice-finalmiledelivery-activity-7511726755183972353-rXFp)\n  > Another fantastic review from a consignee in Sheffield!\n  >\n  > We pride ourselves on going the extra mile and this review says it all.\n  >\n  > From full tracking and clear delivery updates to a courtesy call 10 minutes before arrival, our driver made sure the customer knew exactly when to expect their parcel. 📦\n  >\n  > And even better, the driver helped carry the large box right up to the front door, all with a smile! 👏\n  >\n  > A huge thank you to our team for delivering the kind of service that makes a difference.\n  >\n  > #insidexdp #customerservice #finalmiledelivery #feelgoodfriday #feedback\n\n- [2026-09-30 · Posted · 5 reactions] [We’re proud to be supporting Row Town Rangers in Addlestone. ⚽️ XDP...](https://www.linkedin.com/posts/xdp-ltd_insidexdp-sponsorship-community-activity-7511002266032816132--HWp)\n  > We’re proud to be supporting Row Town Rangers in Addlestone. ⚽️\n  >\n  > XDP are delighted to announce our sponsorship with Row Town Rangers, the football team of our Ashford depot managers’son.\n  >\n  > Supporting the next generation and getting behind local communities to help young players enjoy the game is something we’re really pleased to be a part of.\n  >\n  > Wishing the team a fantastic season, we’ll be cheering you on from the sidelines! 👏\n  >\n  > #insidexdp #sponsorship #community\n\n- [2026-09-28 · Posted · 21 reactions] [Some exciting new XDP vans are on the way! 🚐 A brand-new look, and...](https://www.linkedin.com/posts/xdp-ltd_insidexdp-fleet-finalmiledelivery-activity-7510277223841538050-X9OZ)\n  > Some exciting new XDP vans are on the way! 🚐\n  >\n  > A brand-new look, and a fresh addition to the fleet. We’re looking forward to seeing these out on the roads and making deliveries!\n  >\n  > #insidexdp #fleet #finalmiledelivery #vehicles\n\n- [2026-09-25 · Posted · 13 reactions] [Macmillan Coffee Morning at XDP! ☕🍰 Every year, the XDP team comes...](https://www.linkedin.com/posts/xdp-ltd_macmillancoffeecorning-employeenegagement-activity-7509203311410130945-yi-C)\n  > Macmillan Coffee Morning at XDP! ☕🍰\n  >\n  > Every year, the XDP team comes together at our Head Office to take part in Macmillan Coffee Morning, raising vital funds for Macmillan Cancer Support.\n  >\n  > This year, we’re putting our baking skills to the test with a Bake Off-themed event! 👩🍳\n  >\n  > Our colleagues have been busy baking up a storm, with plenty of treats on display, all in support of a fantastic cause.\n  >\n  > Take a look at some of the sweet treats our team has brought in! 🧁🍪🎂\n  >\n  > #macmillancoffeecorning #employeenegagement #insidexdp #bakeoff\n\n- [2026-09-15 · Posted · 2 reactions] [Communication is just as important as delivery. 📲 With XDP's 1+...](https://www.linkedin.com/posts/xdp-ltd_insidexdp-idwfreight-services-activity-7505566561278160897-zFI_)\n  > Communication is just as important as delivery. 📲\n  >\n  > With XDP's 1+ Delivery Service, your customers stay informed every step of the way.\n  >\n  > ✅ Full parcel tracking\n  > ✅ Two-hour delivery window\n  > ✅ \"You're Next\" notifications\n  > ✅ Photo proof of delivery\n  >\n  > We know a great delivery experience starts with great communication.\n  >\n  > Want to enhance your customer experience?\n  >\n  > https://lnkd.in/eaDXHWd3 | sales@xdp.co.uk\n  >\n  > #1+#insidexdp #idwfreight #services #finalmiledelivery #communication\n\n- [2026-09-15 · 2 reactions] Communication is just as important as delivery. 📲 With XDP's 1+ Delivery Service, your customers stay informed every step of the way. ✅ Full parcel tracking ✅ Two-hour delivery window ✅ \"You're Nex...\n\n- [2026-09-14 · Posted · 2 reactions] [Peak season shouldn’t mean peak pricing. At XDP, we believe your...](https://www.linkedin.com/posts/xdp-ltd_insidexdp-finalmiledelivery-peakseason-activity-7505188597113753600-M-Dr)\n  > Peak season shouldn’t mean peak pricing.\n  >\n  > At XDP, we believe your delivery costs should be predictable, all year round. That’s why we don't add any peak surcharges or seasonal pricing.\n  >\n  > Some carriers are introducing additional charges during the 2026 peak period, at XDP we take a different approach.\n  >\n  > ❌ No peak fuel escalators\n  > ❌ No seasonal rate increases\n  > ❌ No emergency surge fees\n  > ❌ No demand surcharges simply because volumes increase\n  >\n  > Instead, we maintain a consistent, transparent pricing structure throughout the year, with no additional peak or seasonal surcharges, giving our customers greater certainty and predictability when planning their costs.\n  >\n  > We know that peak trading is already challenging enough for retailers, the last thing you need is an unexpected surcharge appearing on your delivery invoice. The price we agree with you isn’t suddenly increased because it’s peak season.\n  >\n  > Choose XDP for transparent pricing, reliable service and no peak-season surprises.\n  >\n  > #insidexdp #finalmiledelivery #peakseason #idwfreight\n\n- [2026-09-14 · 2 reactions] Peak season shouldn’t mean peak pricing. At XDP, we believe your delivery costs should be predictable, all year round. That’s why we don't add any peak surcharges or seasonal pricing. Some carriers...\n\n- [2026-09-10 · Reshared · 3 reactions] [Frasers Group ’s deal for Harvey Nichols leaves suppliers facing...](https://www.linkedin.com/posts/xdp-ltd_activity-7503728763898363905-VvWA): Frasers Group ’s deal for Harvey Nichols leaves suppliers facing £270M in losses, putting renewed strain on high-end brand relationships and its luxury \"Elevation Strategy.\" Frasers & Harvey Nichol...\n\n- [2026-09-10 · Posted · 1 reaction] [Are you prepared for peak? The busiest time of year is fast...](https://www.linkedin.com/posts/xdp-ltd_logistics-peakplanning-delivery-activity-7503754171712446464-Jm2w)\n  > Are you prepared for peak?\n  >\n  > The busiest time of year is fast approaching, and at XDP we’re always preparing for the increased demand.\n  >\n  > Peak doesn’t have to mean pressure. With the right preparation and communication, businesses can keep deliveries moving.\n  >\n  > Here are a few ways to get ahead:\n  >\n  > ✅ Forecast volumes early\n  > ✅ Review collection schedules\n  > ✅ Communicate with your carrier\n  > ✅ Plan ahead for your busiest days\n  >\n  > Our teams are working behind the scenes to prepare for peak, and we’re here to help our customers do the same.🚚\n  >\n  > #logistics #peakplanning #delivery\n\n- [2026-09-10 · 3 reactions] Frasers Group’s deal for Harvey Nichols leaves suppliers facing £270M in losses, putting renewed strain on high-end brand relationships and its luxury \"Elevation Strategy.\" Frasers & Harvey Nichols...\n\n- [2026-09-10 · 1 reaction] Are you prepared for peak? The busiest time of year is fast approaching, and at XDP we’re always preparing for the increased demand. Peak doesn’t have to mean pressure. With the right preparation a...\n\n- [2026-09-08 · Posted · 1 reaction] [Helping bring Christmas to doorsteps across the UK! 🎄 For over a...](https://www.linkedin.com/posts/xdp-ltd_xdp-christmastreedelivery-logistics-activity-7503036955123941377-YQDc)\n  > Helping bring Christmas to doorsteps across the UK! 🎄\n  >\n  > For over a decade, we’ve been proud to support Christmas tree businesses with the delivery of real trees across the country.\n  >\n  > It’s a unique challenge with oversized items, tight deadlines and an increase in demand, but our teams work hard to keep deliveries moving.\n  >\n  > During the festive peak, our depot teams go the extra mile to provide a reliable service when it matters most.\n  >\n  > We’re proud to play our part in bringing Christmas to doorsteps across the UK. 🎅📦\n  >\n  > #XDP #ChristmasTreeDelivery #Logistics #Delivery #PeakSeason\n\n- [2026-09-08 · 1 reaction] Helping bring Christmas to doorsteps across the UK! 🎄 For over a decade, we’ve been proud to support Christmas tree businesses with the delivery of real trees across the country. It’s a unique chal...\n\n- [2026-09-07 · Posted · 1 reaction] [Think your freight is too big for certain delivery services? Think...](https://www.linkedin.com/posts/xdp-ltd_insidexdp-idwfreight-services-activity-7502667027543851010-q1X6)\n  > Think your freight is too big for certain delivery services? Think again. 📦\n  >\n  > XDP's 1+ Delivery Service is designed for non-standard freight up to 75kg and 3.5m in length, making it ideal for larger, bulkier items.\n  >\n  > Speak to our team to see how 1+ could support your business. 💬\n  >\n  > https://lnkd.in/eaDXHWd3 | sales@xdp.co.uk\n  >\n  > #1+ #insidexdp #idwfreight #services #finalmiledelivery\n\n- [2026-09-07 · 1 reaction] Think your freight is too big for certain delivery services? Think again. 📦 XDP's 1+ Delivery Service is designed for non-standard freight up to 75kg and 3.5m in length, making it ideal for larger,...\n\n- [2026-09-04 · Posted · 1 reaction] [In retail and eCommerce, demand can change almost overnight. A...](https://www.linkedin.com/posts/xdp-ltd_guest-comment-when-the-demand-forecast-is-activity-7501564973748342784-IFfm)\n  > In retail and eCommerce, demand can change almost overnight. A promotion performs better than expected, a product goes viral, or the weather suddenly shifts what customers want.\n  >\n  > The result? Additional freight, and more pressure on the delivery network.\n  >\n  > At XDP, we believe resilience isn’t about having a perfect forecast, it’s about having the agility to respond when reality doesn’t match the plan.\n  >\n  > For large and irregular freight, that means having the people and operational flexibility to adapt quickly and keep deliveries moving. 🚚\n  >\n  > Read CEO Isabella Wayte’s latest article in InternetRetailing: “When the demand forecast is wrong, what happens next?” 👇\n  >\n  > https://lnkd.in/eyijPjYF\n  >\n  > #logistics #supplychain #eCommerce #retail #finalmile #delivery #idwfreight\n\n- [2026-09-04 · 1 reaction] In retail and eCommerce, demand can change almost overnight. A promotion performs better than expected, a product goes viral, or the weather suddenly shifts what customers want. The result? Additio...\n\n- [2026-09-03 · Posted · 8 reactions] [Just 5 weeks to go until Leaders in Logistics! 🚚 We’re excited to...](https://www.linkedin.com/posts/xdp-ltd_leadersinlogistics-womeninlogistics-logistics-activity-7501225068497108994-mMwt)\n  > Just 5 weeks to go until Leaders in Logistics! 🚚\n  >\n  > We’re excited to share that our CEO, Isabella Wayte, will be joining the Cross-border logistics panel “Unlocking cross-border growth as complexity mounts.”\n  >\n  > We’re looking forward to hearing Isabella’s perspective and being part of the wider conversation with industry leaders shaping the future of logistics.\n  >\n  > 5 weeks to go, see you there! 👋\n  >\n  > #leadersinlogistics #womeninlogistics #logistics\n\n- [2026-09-03 · 11 reactions] Just 5 weeks to go until Leaders in Logistics! 🚚 We’re excited to share that our CEO, Isabella Wayte, will be joining the Cross-border logistics panel “Unlocking cross-border growth as complexity m...\n\n## Locations\n- Headquarters: curdworth, england, united kingdom (GB)\n- Offices: curdworth, england, united kingdom (GB), tamworth, staffordshire, united kingdom (GB), minworth, birmingham, united kingdom (GB)",
+        "summary": "{\"description\":\"XDP LTD is a Transportation, Logistics, Supply Chain and Storage company offering expert delivery services nationwide with a nationwide network of final-mile depots and delivery partners.\",\"employee_estimate\":263,\"employee_estimate_source\":\"Employees: 263\",\"hq\":\"Curdworth, United Kingdom\",\"hq_quote\":\"Headquartered in Curdworth, England, United Kingdom, with offices in Tamworth and Minworth.\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"XDP LTD employs 263 people (+4.4% YoY, +11 people), founded in 1995. Headquartered in Curdworth, England, United Kingdom, with offices in Tamworth and Minworth.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4E0BAQGWscgYIizEPg/company-logo_200_200/company-logo_200_200/0/1673005643903/xdp_ltd_logo?e=2147483647&v=beta&t=sWMcPq2HDq3gkWuxZTXMdG06Knb3bb-4sd3-3KylRuI",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/plsvsrd81cx",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "XDP LTD",
+              "foundedYear": 1995,
+              "description": "XDP was formed in 1995 and has since grown to be the largest privately owned parcel and freight network in the UK. Specialising in irregular dimension and weight freight, we are constantly building on our reputation for reliability and quality of service.\n\nWe understand how important the final mile of your delivery is, that’s why we are there every step of the way. With an extensive national team covering our final-mile delivery depots, alongside a nationwide fleet of delivery partners, our reputation for customer focused logistics continues to go from strength to strength. \n\nThrough offering a variety of bespoke delivery service packages, ranging from 1 and 2Man services, through to Storage and Distribution offerings, we are the B2C carrier of choice for large and non-standard freight.\n",
+              "workforce": {
+                "total": 263
+              },
+              "headquarters": {
+                "address": "Curdworth House, Curdworth, England B76 9EE, GB",
+                "city": "Curdworth",
+                "postalCode": null,
+                "country": "United Kingdom"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 305346,
+                "countryRank": 6372,
+                "avgDurationSeconds": 141,
+                "history": [
+                  {
+                    "value": 378688,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 437755,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 386042,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 378734,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 378036,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 305346,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/kvnp8tpf1s0",
+        "title": "XDP - Xtreme Diesel Performance, LLC",
+        "url": "https://www.xtremediesel.com/",
+        "text": "# XDP - Xtreme Diesel Performance, LLC\n\nXDP - Xtreme Diesel Performance, LLC is a Retail company. XDP is a company that provides direct fit OE replacement parts, aftermarket diesel performance parts, truck accessories, suspension and lighting. XDP - Xtreme Diesel Performance, LLC employs 47 people (-2.1% YoY, -1 person), founded in 2003. Headquartered in wall township, New Jersey, United States, with offices in Lakewood, Las Vegas, and Howell.\n\n## About\n\nXDP is a leading retailer, distributor, and manufacturer of top-quality OE, OER, and aftermarket diesel parts and accessories. Strategically positioned across the United States, XDP houses one of the largest and most diverse diesel-specific inventories in the industry. For the last 20 years, XDP has proudly served the diesel community and diesel industry across North America and Canada.\n\n## Company Details\n- Industry: Retail\n- Type: Privately held\n- Headquarters: wall township, United States\n- Founded Year: 2003\n- Homepage: xtremediesel.com\n- Aliases: xdp - xtreme diesel performance, llc, xtreme diesel performance\n- LinkedIn: linkedin.com/company/xdp---xtreme-diesel-performance\n- Linkedin Followers: 687\n- Phone: (888) 343-7354, 011-2016, 2002-2026\n\n## Workforce\n- Employees: 47\n- Company Size: 51-200 employees\n  - Yearly Growth: -2.1%\n- Key Executives:\n  - Dan Stewart: Partner\n  - Dave Armstrong: Technical Lead\n- Breakdown:\n  - By Country: United States: 27 (57%)\n  - By Department: Marketing: 6 (13%), Finance: 3 (6%), Operations: 3 (6%), Technical: 3 (6%), Administrative: 2 (4%), Customer Service: 2 (4%), General Management: 2 (4%), Sales: 2 (4%), Design: 1 (2%), Other Department: 1 (2%) (+2 more)\n  - By Seniority: Specialist: 14 (30%), Manager: 10 (21%), Other Management: 2 (4%), Head: 1 (2%), Partner: 1 (2%), Senior: 1 (2%)\n- Talent Sources: Ultrarev Inc (2), H&R Healthcare (2), Whole Foods Market (1), University Medical Center of Princeton at Plainsboro (1), The Arbor Company (1), Spencer's (1), Red Bull (1), Outlier (1), MCVSD (1), Fidelity National Home Warranty (1)\n- Alumni Go To: King Engine Bearings (2), Christian Brothers Academy (2), Wurth International Trading America (1), William Hill (1), Stanford Sierra Conference Center (1), Revlon (1), Oxford Global Resources (1), GEM Ambulance (1), Bank of America Merrill Lynch (1), Ball Corporation (1)\n\n## Products & Technology\n- Tech Stack: power bi, tiktok, visual basic, youtube, amp, well\n\n## Web presence\n\n- Twitter: twitter.com/xdpdiesel\n- Facebook: facebook.com/xdp-129370042365\n- Instagram: instagram.com/xdpdiesel\n- YouTube: youtube.com/c/xtremediesel\n- Crunchbase: crunchbase.com/organization/xtreme-diesel-performance\n\n## Categories\n\naftermarket diesel performance parts, automotive, diesel performance, oe replacement parts, retail, suspension and lighting, truck accessories, wholesale\n\n## Social\n\n### Linkedin\n\n- [2018-07-06 · Posted · 6 reactions] [https://lnkd.in/ekGU6bm](https://www.linkedin.com/posts/xdp---xtreme-diesel-performance_xdp-opens-new-east-coast-distribution-warehouse-activity-6421090201212370944-DQuD)\n  > https://lnkd.in/ekGU6bm\n\n## Locations\n- Headquarters: wall township, new jersey, united states (US)\n- Offices: wall township, new jersey, united states (US), las vegas, nevada, united states (US), lakewood, new jersey, united states (US), howell, new jersey, united states (US)",
+        "summary": "{\"description\":\"XDP - Xtreme Diesel Performance, LLC is a Retail company that provides direct fit OE replacement parts, aftermarket diesel performance parts, truck accessories, suspension and lighting.\",\"employee_estimate\":47,\"employee_estimate_source\":\"Employees: 47\",\"hq\":\"wall township, New Jersey, United States\",\"hq_quote\":\"Headquartered in wall township, New Jersey, United States\",\"industry\":\"Retail\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":false,\"is_third_party_logistics_quote\":\"-\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQEGB6OyDmfQPA/company-logo_200_200/B4EZrmcwSvKMAM-/0/1764802889564/xdp___xtreme_diesel_performance_logo?e=2147483647&v=beta&t=7IKV14RLISP9Cf7hGTvFYfBXC-DdDPBeX6cNrGbDBT8",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/kvnp8tpf1s0",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "XDP - Xtreme Diesel Performance, LLC",
+              "foundedYear": 2003,
+              "description": "XDP is a leading retailer, distributor, and manufacturer of top-quality OE, OER, and aftermarket diesel parts and accessories. Strategically positioned across the United States, XDP houses one of the largest and most diverse diesel-specific inventories in the industry. For the last 20 years, XDP has proudly served the diesel community and diesel industry across North America and Canada.",
+              "workforce": {
+                "total": 47
+              },
+              "headquarters": {
+                "address": "1758 State Route 34 North, Wall Township, NJ 07727, US",
+                "city": "wall township",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": null,
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 7235.8,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

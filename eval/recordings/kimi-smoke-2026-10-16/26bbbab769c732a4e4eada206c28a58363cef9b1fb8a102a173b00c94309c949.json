@@ -1,0 +1,228 @@
+{
+  "request": {
+    "query": "Circle Logistics",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "263fe15dff851280406f0f33585ecbcf",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/6f5hv4r42c8",
+        "title": "Circle Logistics, Inc",
+        "url": "https://circledelivers.com/",
+        "text": "# Circle Logistics, Inc\n\nCircle Logistics, Inc is a Truck Transportation company. Circle Logistics is a company that provides dependable freight and 3PL services. They offer real-time visibility, responsive support, and nationwide coverage. Circle Logistics, Inc employs 972 people (+24.5% YoY, +191 people) and has an annual revenue of $177.5M, founded in 2011. Headquartered in Fort Wayne, Indiana, United States, with offices including Chicago, Tinley Park, Taylor, Nashville, and Zimmerman. Its workforce is distributed across 6 countries (including United States, Panama, Colombia, Philippines, and Mexico).\n\n## About\n\nCircle Logistics was founded in Fort Wayne, Indiana in 2011 by Eric Fortmeyer and Chad Buchanan. Fifteen years later, we're a privately held 3PL moving roughly 33,000 loads a month across the U.S., Canada, and Mexico, with an asset-based fleet, a vetted carrier network, and branches across the country. We've grown without losing the part that mattered most at the beginning: when something is on the line, a real person picks up the phone.\n\nFor shippers. We move freight across every major mode (dry van, reefer, flatbed, expedite, oversize, auto, bulk, LTL, and air) for customers ranging from family-owned manufacturers to Fortune 500 supply chains. Our work is built on three commitments we make on every load: No Fail Service, Personalized Communication, and Innovative Solutions. No Fail Service means we own the load from tender to delivery and solve problems rather than explain them. Personalized Communication means a named point of contact who knows your freight. Innovative Solutions means we invest in the technology and visibility tools that keep you out of the weeds.\n\nFor our team. Circle is built on an intrapreneurial branch model. Top performers don't hit a ceiling. They build books, build teams, and in many cases build branches of their own with real ownership of the outcome.\n\nFor carriers. We work with a hand-selected network of strategic partners because our customers only work with the best. That means fair rates, fast pay, and dispatchers who treat drivers like partners.\n\nBig enough to handle complex freight at scale. Small enough that the people running your account actually know your business.\n\n## Company Details\n- Industry: Truck Transportation\n- Type: Privately held\n- Headquarters: Fort Wayne, United States\n- Founded Year: 2011\n- Homepage: circledelivers.com\n- Aliases: Circle Logistics, Inc., circle logistics, circle logistics, inc\n- LinkedIn: linkedin.com/company/circle-logistics-inc\n- Linkedin Followers: 85,651\n- Emails: fortwayne@circledelivers.com, info@circledelivers.com\n- Phone: +1 206 208 4500, 1-260-208-45\n\n## Financials\n- Annual Revenue: USD 177,500,000\n\n## Workforce\n- Employees: 972\n- Company Size: 501-1000 employees\n  - Monthly Growth: +5.1%\n  - Yearly Growth: +24.5%\n- Key Executives:\n  - Andrew Fischer: Director of Sales & Operations\n  - Brandon Smith: Director of Operations\n  - Carrigan Charnstrom: Vice President Operations\n  - Chad Buchanan: Chief Financial Officer Owner\n  - Chris Horton: Branch Sales Director\n  - Christian Beckwith: Specialized Director\n  - Cody Steigerwald: Director of Operations\n  - Colleen Kupniewski: Director Of Operations\n  - Cory Petersen: Vice President of Sales & Operations\n  - Daniel Guilfoil: Director of Business Analytics\n- Breakdown:\n  - By Country: United States: 523 (54%), Panama: 85 (9%), Colombia: 8 (1%), Philippines: 5 (1%), Mexico: 2, India: 1\n  - By Department: Sales: 362 (37%), Operations: 98 (10%), Customer Service: 40 (4%), Other Department: 31 (3%), General Management: 30 (3%), Finance: 26 (3%), Hr: 21 (2%), Project Management: 14 (1%), Technical: 11 (1%), Consulting: 8 (1%) (+6 more)\n  - By Seniority: Specialist: 304 (31%), Manager: 141 (15%), Senior: 109 (11%), Other Management: 59 (6%), Director: 27 (3%), Vp: 15 (2%), Intern: 2, Owner: 2, Head: 1\n- Active job postings: 92\n- Salary ranges (20 of 26 roles):\n  - Director: median $165,432.09 per year\n  - Client Strategy Manager: median $120,665.49 per year\n  - Senior Account Executive: median $113,894.8 per year\n  - SDR Manager: median $113,081.52 per year\n  - Broker: median $85,396.38 per year\n  - Carrier Sales: median $70,337.11 per year\n  - Account Executive: median $69,485.84 per year\n  - Sales: median $67,061.85 per year\n  - Staff Accountant: median $65,366.09 per year\n  - Inside Sales Account Manager: median $65,093.08 per year\n  - Sales Representative: median $59,872.43 per year\n  - Carrier Sales Representative: median $59,219.18 per year\n  - Sales Development Representative (SDR): median $58,970.46 per year\n  - Sales Development Representative: median $57,529.59 per year\n  - Corporate Recruiter: median $56,766.63 per year\n  - Driver Manager: median $56,589.53 per year\n  - Team Lead: median $51,263.93 per year\n  - Intern: median $49,723.9 per year\n  - Recruiter: median $47,743.93 per year\n  - Dispatcher: median $44,806.64 per year\n- Talent Sources: Alorica (20), Echo Global Logistics (15), Nolan Transportation Group (NTG) (13), Foundever (13), Sitel Group (10), Ruoff Mortgage (10), Indiana Institute of Technology (9), Center Source Group (9), iQor (8), CRST The Transportation Solution, Inc. (7)\n- Alumni Go To: Grainger (12), Fura (9), Armstrong Transport Group (7), Insignia Resources (6), Traffic Tech (5), Samsung Electronics (5), Dell Technologies (5), Amazon (5), Philips (4), Foundever (4)\n\n## Products & Technology\n- Tech Stack (showing 50 of 81): aws lambda, continua, glassdoor, google sheets, google workspace, gps, helpdesk, hubspot, icims, indeed, linkedin, microsoft, microsoft office, mongodb, power bi, python, salesintel, sql, ziprecruiter, zoominfo, branch metrics, envi, git, github, gmail, google cloud, google drive, harvest, html, hubspot crm, hubspot sales, javascript, juris, linkedin recruiter, microsoft 365, microsoft excel, microsoft word, openai, prototype, quali, quickbooks, ramp, react, recognize, salesforce, salesloft, tableau, typescript, zapier, zoho\n\n## Web presence\n\n- Twitter: twitter.com/circledelivers_\n- Facebook: facebook.com/circledelivers1\n- Instagram: instagram.com/circlelogisticsinc\n- YouTube: youtube.com/@circlelogistics2025\n- Crunchbase: crunchbase.com/organization/circle-logistics-inc\n- Web traffic:\n  - Monthly visits: 7,792\n  - Global rank: 2,406,469\n  - Bounce rate: 59.0%\n  - Pages per visit: 2.0\n  - Average visit duration: 84s\n\n## Reviews & Ratings\n- Employer Rating: 3.1/5.0 (222 reviews)\n  - Breakdown: Work-Life: 2.8, Compensation: 2.9, Culture: 2.8, Career: 3.1\n\n## Categories\n\n3pl services, automotive-transportation, business_and_consumer_services/shipping_and_logistics, freight, logistics, nationwide coverage, real-time visibility, responsive support, road-transportation, shipping, supply chain management, transport solutions, transportation, trucking\n\n## Competitors\n\nbuchanan hauling & rigging, jdcustom delivery, fremont contract carriers, inc., bestcompaniesny, premier transportation, adamsindustriesinc, oakley transport, huaihe energy, daseke, ceva logistics europe, bollore transport & logistics\n\n## Recent News\n- [2026-09-18] [Circle Logistics expands reefer LTL shipping](https://www.thetrucker.com/trucking-news/business/circle-logistics-expands-reefer-ltl-shipping)\n- [2026-09-14]\n  - [Circle Logistics expands reefer LTL service for food shippers](https://www.trucknews.com/transportation/circle-logistics-expands-reefer-ltl-service-for-food-shippers/1003221612/)\n  - The Manila Times: [Circle Logistics Expands Reefer LTL Shipping to Meet Rising Demand from Food and Beverage Companies](https://au.finance.yahoo.com/news/circle-logistics-expands-reefer-ltl-140000011.html)\n- [2026-09-11] [⚖️ Fort Wayne Legal Jobs – Multiple Attorney Roles From $65K+ - NewsBreak](https://www.newsbreak.com/fort-wayne-in-daily-brief-373192175/4879294678261-fort-wayne-legal-jobs-multiple-attorney-roles-from-65k)\n- [2026-09-08]\n  - [Baraka Nevels Joins Circle Logistics to Lead Branch Performance and Operational Expansion](https://sg.finance.yahoo.com/news/baraka-nevels-joins-circle-logistics-140000470.html)\n  - [Circle Logistics Hires Baraka Nevels for Branch Expansion \\| Press Releases \\| wtnzfox43.com](https://www.wtnzfox43.com/online_features/press_releases/circle-logistics-hires-baraka-nevels-for-branch-expansion/article_acd1f87a-abef-5b55-b11c-9a6911328df3.html)\n- [2026-08-25] The Manila Times: Circle Logistics Strengthens Leadership Team with Two New Vice Presidents\n- [2026-08-24] [Circle Logistics Strengthens Leadership Team with Two New Vice Presidents \\|  \\| caledonianrecord.com](https://www.caledonianrecord.com/circle-logistics-strengthens-leadership-team-with-two-new-vice-presidents/article_454db3a6-3eaf-575f-b460-80e6761f4693.html)\n- [2026-08-21] The Manila Times: Cold Chain Compliance and Carrier Vetting: Circle Logistics Details Its Middle-Mile Broker Liability Protections\n- [2026-08-20] [Cold Chain Compliance and Carrier Vetting: Circle Logistics Details Its Middle-Mile Broker Liability Protections – News Radio KOTA](https://lifestyle.kotaradio.com/story/386874/cold-chain-compliance-and-carrier-vetting-circle-logistics-details-its-middle-mile-broker-liability-protections/)\n- [2026-08-18] [Circle Logistics strengthens cold chain tracking and carrier vetting for food freight \\| FleetOwner](https://www.fleetowner.com/refrigerated-transporter/reefer-operations/news/55398583/circle-logistics-strengthens-cold-chain-tracking-and-carrier-vetting-for-food-freight)\n- [2026-08-17]\n  - [Cold Chain Compliance and Carrier Vetting: Circle Logistics Details Its Middle-Mile Broker ... \\| Associated Press \\| syndication news \\| enidnews.com](https://www.enidnews.com/region/cold-chain-compliance-and-carrier-vetting-circle-logistics-details-its-middle-mile-broker/article_294e3034-7652-55cf-9f9b-41f489a1c101.html)\n  - [Trucking Announcements: new CFO at Commercial Vehicle Group; sales hires at CMA/Double Coin, Link](https://www.trucknews.com/human-resources/trucking-announcements-new-cfo-at-commercial-vehicle-group-new-sales-hires-at-cma-double-coin-link/1003220006/)\n  - [Financial News \\| myMotherLode.com - Cold Chain Compliance and Carrier Vetting: Circle Logistics Details Its Middle-Mile Broker Liability Protections](http://money.mymotherlode.com/clarkebroadcasting.mymotherlode/article/gnwcq-2026-8-17-cold-chain-compliance-and-carrier-vetting-circle-logistics-details-its-middle-mile-broker-liability-protections)\n- [2026-08-11] The Manila Times: Circle Logistics Expands Port and Rail Drayage Operations with New Operations Manager\n- [2026-08-10] [Financial News \\| myMotherLode.com - Circle Logistics Expands Port and Rail Drayage Operations with New Operations Manager](http://money.mymotherlode.com/clarkebroadcasting.mymotherlode/article/gnwcq-2026-8-10-circle-logistics-expands-port-and-rail-drayage-operations-with-new-operations-manager)\n- [2026-08-03]\n  - [Circle Logistics Strengthens U.S.-Mexico Cross-Border Operations with New Mexico Freight Operations Manager \\| The Manila Times](https://www.manilatimes.net/2026/08/03/tmt-newswire/globenewswire/circle-logistics-strengthens-us-mexico-cross-border-operations-with-new-mexico-freight-operations-manager/2397180)\n  - [Circle Logistics Strengthens U.S.-Mexico Cross-Border Operations with New Mexico Freight ... \\| Healthcare \\| postregister.com](https://www.postregister.com/businessreport/healthcare/circle-logistics-strengthens-u-s--mexico-cross-border-operations-with-new-mexico-freight/article_a0d6a63b-4522-5ace-93a3-09ebf704add7.html)\n- [2026-07-16] [Circle Logistics Highlights Drayage Capabilities to Meet Surging Demand at U.S. Ports \\| AJOT.COM](https://www.ajot.com/news/circle-logistics-highlights-drayage-capabilities-to-meet-surging-demand-at-u.s-ports)\n- [2025-08-05] GXO Logistics: GXO Reports Second Quarter 2025 Results\n- [2025-06-02] Circle Logistics: Circle Logistics Recognized as a 2025 Top 3PL & Cold Storage Provider by Food Logistics\n- [2024-06-30] Global Trade Magazine: Circle Logistics Expands Cross-Border Freight Services Between U.S. and Mexico\n- [2024-05-03] LinkedIn: Aaron Ma on LinkedIn: Meeting Circle Logistics Vietnam team at a recruitment event organized by…\n- [2024-03-06] IBS Intelligence: Banking Circle delivers innovative Agency Banking service\n- [2024-02-06] Circle Logistics Appoints Philip Barnes as New VP of Marketing\n- [2024-01-09] LinkedIn: Lucas Piqueras on LinkedIn: Today marks my 1 year Anniversary at Circle Logistics, Inc and what a… \\| 19 comments\n- [2023-11-17] Circle Logistics appoints new VP of national sales, new chief technology officer\n- [2023-11-07] Supply Chain Quarterly: Circle Logistics Appoints Steve Schroeder as VP of National Sales\n- [2023-10-24] GlobeNewswire: Circle Logistics Appoints Cody Harris as New Chief Technology Officer\n- [2020-07-15] The New Indian Express: How Uttarakhand Postal Circle Delivers Gangajal\n- [2017-09-22] Glide Magazine: For Better or Worse, 'Kingsman: The Golden Circle' Delivers What You Came For \\(FILM REVIEW\\)\n- [2017-09-21] Leighton Buzzard Observer: REVIEW: Kingsman - The Golden Circle delivers a full-on feel-good adrenalin overload\n\n## Social\n\n### Linkedin\n\n- [2026-10-09 · Reshared · 11 reactions] [Huntington, we’re coming your way! Circle Logistics is heading to...](https://www.linkedin.com/posts/circle-logistics-inc_activity-7514403874695168000-mHJF): Huntington, we’re coming your way! Circle Logistics is heading to Huntington University for the HU Career Fair! 📍 Huntington University 📅 Tuesday, October 13 ⏰ 9:00 AM–2:00 PM This time, Wes Wheele...\n\n- [2026-10-08 · Posted · 20 reactions] [Hurricane Isaias is heading for the Gulf Coast and expected to make...](https://www.linkedin.com/posts/circle-logistics-inc_hurricaneisaias-circlelogistics-freight-activity-7514021905838919681-zXU9)\n  > Hurricane Isaias is heading for the Gulf Coast and expected to make landfall tomorrow night.\n  >\n  > If you have freight moving through Mississippi, Alabama or the Florida Panhandle this week, let's talk today. We are working with our carrier network to plan around closures and delays and keep your loads on track.\n  >\n  > Reach out anytime: https://hubs.la/Q04zDM1H0\n  >\n  > And to everyone in the storm's path, please stay safe.\n  >\n  > #HurricaneIsaias #CircleLogistics #Freight\n\n- [2026-10-07 · Posted · 15 reactions] [Spooky season is here and you know what is scary, leaving money on...](https://www.linkedin.com/posts/circle-logistics-inc_lessthantruckload-freightsolutions-supplychain-activity-7513583978734305281-IBZa)\n  > Spooky season is here and you know what is scary, leaving money on the table.\n  >\n  > Circle Logistics offers consildation freight solutions designed to get your smaller shipments moving with the same reliability and visibility you'd expect from a full truckload. No compromises, no guesswork.\n  >\n  > Get a quote in minutes.\n  >\n  > https://hubs.la/Q04zmDB20\n  >\n  > #LessThanTruckload #FreightSolutions #SupplyChain #NoFailService\n\n- [2026-10-05 · Posted · 43 reactions] [85,000 of you. Thank you. Whether you're a shipper, a carrier, a...](https://www.linkedin.com/posts/circle-logistics-inc_circlelogistics-freight-logistics-activity-7512859859319648256-nIiS)\n  > 85,000 of you. Thank you.\n  >\n  > Whether you're a shipper, a carrier, a Circle employee, or just someone who likes watching freight move, we're grateful you're here. Every follow, comment, and share helps us tell the story of the people who keep supply chains running.\n  >\n  > Here's to the next milestone. 🚚\n  >\n  > #CircleLogistics #Freight #Logistics #ThankYou\n\n- [2026-10-02 · Posted · 24 reactions] [This Sunday is National Truckers Day, and we're celebrating a...](https://www.linkedin.com/posts/circle-logistics-inc_nationaltruckersday-trucking-truckdrivers-activity-7511764589517230082-2XCi)\n  > This Sunday is National Truckers Day, and we're celebrating a little early! 🚛\n  >\n  > Every load we book depends on two things: a carrier partner we can count on and a professional driver behind the wheel. Every shelf stocked, every job site supplied, and every delivery made on time starts with them.\n  >\n  > To the carriers we work with and the truckers who run for them: thank you for the miles, the early mornings, and the commitment it takes to get freight there safe and on time. We couldn't do what we do without you.\n  >\n  > #NationalTruckersDay #Trucking #TruckDrivers #CircleLogistics #FreightPartners\n\n- [2026-09-30 · Posted · 37 reactions] [⛳ We're set up and ready to tee off! Maria Weybright and Drew Bogs...](https://www.linkedin.com/posts/circle-logistics-inc_circlelogistics-exxonmobil-unitedway-activity-7511068059973922816-SK1z)\n  > ⛳ We're set up and ready to tee off!\n  >\n  > Maria Weybright and Drew Bogs are representing Circle Logistics on the course at the ExxonMobil Supply Chain United Way Golf Tournament in Texas, and the day is just getting started. Thank you to ExxonMobil for hosting an event that brings the supply chain community together for a great cause. 💙\n  >\n  > Here's to a great day of golf and giving back!\n  >\n  > #CircleLogistics #ExxonMobil #UnitedWay #GolfTournament #SupplyChain #GivingBack #CommunityImpact\n\n- [2026-09-28 · Posted · 137 reactions] [Leadership isn't just a title, it's about action, dedication, and...](https://www.linkedin.com/posts/circle-logistics-inc_teamcircle-logisticsleadership-careersuccess-activity-7510322693993439233-NePB)\n  > Leadership isn't just a title, it's about action, dedication, and elevating those around you.\n  >\n  > That’s why we’re so proud to announce the promotion of Justin Anzalone to Branch Manager in Phoenix at Circle Logistics! Justin’s commitment to excellence and driving results makes him the perfect fit to lead our branch forward.\n  >\n  > Congratulations, Justin, we can't wait to see what this next chapter brings! 🙌\n  >\n  > #TeamCircle #LogisticsLeadership #CareerSuccess #LogisticsIndustry\n\n- [2026-09-25 · Posted · 83 reactions] [Record month in Fort Wayne, so we did what any team would do. We...](https://www.linkedin.com/posts/circle-logistics-inc_circlelogistics-fortwayne-cultureatcircle-activity-7509227920490631168-bXTm)\n  > Record month in Fort Wayne, so we did what any team would do. We threw a blind giveaway.\n  >\n  > Nobody knew what they were picking. Everyone walked away with something good. Crock pots, cookware, a record player, a TV, a fishing rod, power tools, and a few surprises in between.\n  >\n  > Congrats to every single one of you. This month happened because our Fort Wayne office showed up and did the work, load after load, call after call.\n  >\n  > Thank you for all you do.\n  >\n  > #CircleLogistics #FortWayne #CultureAtCircle #Freight #Logistics\n\n- [2026-09-24 · Reshared · 15 reactions] [Trine students, we're coming your way! Circle Logistics is heading...](https://www.linkedin.com/posts/circle-logistics-inc_activity-7508897013753634816-GYgw): Trine students, we're coming your way! Circle Logistics is heading to the Trine Tailgate Networking Expo tomorrow, Thursday, September 24, from 12–3 PM on the UC Lawn ! Come say hi and get to know...\n\n- [2026-09-23 · Posted · 20 reactions] [5 Stars. Endless Dedication. ⭐⭐⭐⭐⭐ There’s nothing better than...](https://www.linkedin.com/posts/circle-logistics-inc_logisticssolutions-freight-clientfeedback-activity-7508510738236391424-SwxV)\n  > 5 Stars. Endless Dedication. ⭐⭐⭐⭐⭐\n  >\n  > There’s nothing better than hearing how our team helps our partners grow year after year. Thank you to our incredible clients for the kind words, and shoutout to Keagan Stuckey and Tyler Taylor for delivering top-tier service!\n  >\n  > Looking to elevate your logistics? Message us today to connect.\n  >\n  > #LogisticsSolutions #Freight #ClientFeedback #Shipping #CircleLogistics\n\n- [2026-09-21 · Posted · 21 reactions] [Meet our Fall Intern class! 🎓 We put our new team members in the...](https://www.linkedin.com/posts/circle-logistics-inc_circlelogistics-companyculture-internshipprogram-activit",
+        "summary": "{\"description\":\"Circle Logistics, Inc is a Truck Transportation company providing dependable freight and 3PL services with real-time visibility, responsive support, and nationwide coverage.\",\"employee_estimate\":972,\"employee_estimate_source\":\"Employees: 972\",\"hq\":\"Fort Wayne, Indiana, United States\",\"hq_quote\":\"Headquartered in Fort Wayne, Indiana, United States\",\"industry\":\"Truck Transportation\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"Circle Logistics is a privately held 3PL moving roughly 33,000 loads a month across the U.S., Canada, and Mexico, with an asset-based fleet, a vetted carrier network, and branches across the country.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4D0BAQFglI0jK0iLAg/company-logo_200_200/company-logo_200_200/0/1631368151469/circle_logistics_inc_logo?e=2147483647&v=beta&t=s-YjvLj-q2tI47O2kOtwvIXqVdHt9c7jGL0gwN1XYIU",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/6f5hv4r42c8",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Circle Logistics, Inc",
+              "foundedYear": 2011,
+              "description": "Circle Logistics was founded in Fort Wayne, Indiana in 2011 by Eric Fortmeyer and Chad Buchanan. Fifteen years later, we're a privately held 3PL moving roughly 33,000 loads a month across the U.S., Canada, and Mexico, with an asset-based fleet, a vetted carrier network, and branches across the country. We've grown without losing the part that mattered most at the beginning: when something is on the line, a real person picks up the phone.\n\nFor shippers. We move freight across every major mode (dry van, reefer, flatbed, expedite, oversize, auto, bulk, LTL, and air) for customers ranging from family-owned manufacturers to Fortune 500 supply chains. Our work is built on three commitments we make on every load: No Fail Service, Personalized Communication, and Innovative Solutions. No Fail Service means we own the load from tender to delivery and solve problems rather than explain them. Personalized Communication means a named point of contact who knows your freight. Innovative Solutions means we invest in the technology and visibility tools that keep you out of the weeds.\n\nFor our team. Circle is built on an intrapreneurial branch model. Top performers don't hit a ceiling. They build books, build teams, and in many cases build branches of their own with real ownership of the outcome.\n\nFor carriers. We work with a hand-selected network of strategic partners because our customers only work with the best. That means fair rates, fast pay, and dispatchers who treat drivers like partners.\n\nBig enough to handle complex freight at scale. Small enough that the people running your account actually know your business.",
+              "workforce": {
+                "total": 972
+              },
+              "headquarters": {
+                "address": "1950 W Cook Rd, Suite 102, Fort Wayne, Indiana 46818, US",
+                "city": "Fort Wayne",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 177500000,
+                "fundingTotal": null,
+                "fundingLatestRound": null
+              },
+              "webTraffic": {
+                "visitsMonthly": 7792,
+                "countryRank": 644228,
+                "avgDurationSeconds": 84,
+                "history": [
+                  {
+                    "value": 5194,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 8466,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 22193,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 14933,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 11518,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 7792,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/q5hqb76ld3w",
+        "title": "Circle Logistics",
+        "url": "https://circlelogistics.com/",
+        "text": "# Circle Logistics\n\nCircle Logistics is a Transportation, Logistics, Supply Chain and Storage company. Circle Logistics is a logistics company that provides transportation and logistics services to and from Mexico and through-out North America. Circle Logistics employs 3 people (+50.0% YoY, +1 person), founded in 2010. Headquartered in Laredo, Texas, United States.\n\n## About\n\nAt Circle Logistics, we take the time to understand your company’s transportation and logistics needs, working closely with you to find ways to make your supply chain more efficient. Everything we do is guided by your business goals, with a focus on continuous improvements every step of the way.\n\nBased in Laredo, Texas, right by the Mexico border, Circle Logistics has years of experience handling cross-border logistics, ensuring smooth and reliable transportation worldwide.\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Self-owned\n- Headquarters: Laredo, United States\n- Founded Year: 2010\n- Homepage: circlelogistics.com\n- Aliases: circle logistics\n- LinkedIn: linkedin.com/company/circlelogistics\n- Linkedin Followers: 83\n- Phone: 956.726.6991\n\n## Workforce\n- Employees: 3\n- Company Size: 1-10 employees\n  - Yearly Growth: +50.0%\n- Talent Sources: Transportes FEMA (1), Ravisa México SC (1)\n- Alumni Go To: GRT Move (1)\n\n## Web presence\n\n- Web traffic:\n  - Monthly visits: 923\n  - Global rank: 4,725,000\n  - Bounce rate: 36.0%\n  - Pages per visit: 2.5\n  - Average visit duration: 67s\n\n## Categories\n\n3pl (third-party logistics), cold chain logistics, cross-border logistics, customs compliance, distribution, distribution network management, freight brokerage services, freight forwarding, global trade logistics, international shipping, inventory management, last-mile delivery solutions, logistics, risk management in logistics, supply chain management, transportation, transportation optimization, truckload, warehouse, warehouse management\n\n## Recent News\n- [2026-09-17] TheTrucker.com: Circle Logistics expands reefer LTL shipping\n\n## Social\n\n### Linkedin\n\n- [2025-06-04 · 5 reactions, 1 comment] ✈️ Need seamless coordination for your air freight shipments? At Circle Logistics, we specialize in providing reliable, real-time solutions that keep your supply chain moving—fast and efficiently....\n\n- [2025-05-21 · 2 reactions, 1 comment] 🚚 Need it there FAST? Count on Circle Logistics Hot Shot Delivery! When time is critical, Circle Logistics delivers—literally. Our Hot Shot Delivery Service is built for speed, flexibility, and pre...\n\n- [2025-05-21] Call us with the most reliable service in the South! 956-726-6991\n\n- [2025-05-06 · 1 reaction] We’ve just updated our Page. Visit our Page to see the latest updates.\n\n- [2025-05-05 · 4 reactions] 🚛 Simplify Your Supply Chain at the Texas/Mexico Border 🌐 At Circle Logistics, we’re redefining cross-border logistics with flexible, tech-driven solutions: ✅ Combined warehouse space ✅ Customized...\n\n- [2025-04-28 · 7 reactions] 🚛 Why Full Truckload (FTL) Matters — And Why Circle Logistics Is Your Best Bet 🚛 In the fast-paced world of freight, Full Truckload (FTL) shipping remains one of the most efficient, secure, and cos...\n\n- [2025-04-22 · 9 reactions] 🚚 Need Reliable LTL Shipping? We've Got You Covered. At Circle Logistics, we specialize in LTL (Less Than Truckload) freight solutions tailored to your business needs. Whether you're moving a few p...\n\n- [2025-04-20 · 9 reactions] At Circle Logistics, we know that while every shipment is important, some require custom, solution-based logistics to get the job done. There are times when standard transportation modes just won’t...\n\n## Locations\n- Headquarters: laredo, texas, united states (US)\n- Offices: laredo, texas, united states (US)",
+        "summary": "{\"description\":\"Circle Logistics is a Transportation, Logistics, Supply Chain and Storage company that provides cross-border and North American logistics services, including transportation and storage.\",\"employee_estimate\":3,\"employee_estimate_source\":\"Employees: 3\",\"hq\":\"Laredo, United States\",\"hq_quote\":\"Headquartered in Laredo, Texas, United States.\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"3pl (third-party logistics), cross-border logistics, ... logistics, transportation, storage\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQGS9dieZResIA/company-logo_200_200/B4EZXJs.O5H0AI-/0/1742845765166?e=2147483647&v=beta&t=fiN2crOJ5NPMMzJNnSJ2RTiE0VgNVvSV7qhht2Y7E_o",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/q5hqb76ld3w",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Circle Logistics",
+              "foundedYear": 2010,
+              "description": "At Circle Logistics, we take the time to understand your company’s transportation and logistics needs, working closely with you to find ways to make your supply chain more efficient. Everything we do is guided by your business goals, with a focus on continuous improvements every step of the way.\n\nBased in Laredo, Texas, right by the Mexico border, Circle Logistics has years of experience handling cross-border logistics, ensuring smooth and reliable transportation worldwide.",
+              "workforce": {
+                "total": 3
+              },
+              "headquarters": {
+                "address": "308 Enterprise St, Laredo, Texas 78045, US",
+                "city": "Laredo",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 923,
+                "countryRank": 4052424,
+                "avgDurationSeconds": 67,
+                "history": [
+                  {
+                    "value": 1486,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 1202,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 1354,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 3050,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 2869,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 923,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 6690,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

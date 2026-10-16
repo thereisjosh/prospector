@@ -1,0 +1,240 @@
+{
+  "request": {
+    "query": "Fura",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "3169f9fa8a1db0c9977a6658c4b509b3",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/lsdpxtdj24n",
+        "title": "Fura",
+        "url": "https://fura.com/",
+        "text": "# Fura\n\nFura is a Truck Transportation company. Fura is a digital freight broker that aims to deliver a zero-waste supply chain. They are backed by next-generation technology and a dedicated team of industry experts. They empower shippers and carriers to take control of their freight and deliver on their goals. Fura employs 77 people (+26.2% YoY, +16 people), founded in 2017. Headquartered in Frisco, Texas, United States. Its workforce is distributed across 11 countries (including United States, Serbia, Russia, United Arab Emirates, and Panama).\n\n## About\n\nFura is a logistics service provider that implements a fundamentally new vision of how freight is moved – empowered with digital technology. We believe in creating seamless, flexible, and transparent supply chains as a result of combining technology, expertise, and a collaborative infrastructure.\n\nBacked by next-generation technology and a dedicated team of industry experts, Fura is not just another logistics company. It’s a platform and service that empowers shippers and carriers of all sizes to take control of their freight and deliver on their goals.\n\n## Company Details\n- Industry: Truck Transportation\n- Type: Privately held\n- Headquarters: Frisco, United States\n- Founded Year: 2017\n- Homepage: fura.com\n- Aliases: Fura, Inc., fura\n- LinkedIn: linkedin.com/company/fura-inc\n- Linkedin Followers: 2,549\n- Emails: info@fura.com\n- Phone: 5000 2026\n\n## Financials\n- Total Funding: USD 15,630,000\n  - Seed (2024-01-20): USD 2.5M\n  - Venture (2022-02-01): USD 5.5M\n  - Seed (2021-12-10): USD 5.5M\n  - Pre seed (2020-11-10): USD 2.0M\n  - Seed (2020-04-01): USD 130,000\n\n## Acquisitions\n- Acquired Pinwheel Logistics (2024-12-27)\n- Acquired High Rise Logistics\n- Acquired Barton Logistics\n\n## Workforce\n- Employees: 77\n- Company Size: 51-200 employees\n  - Yearly Growth: +26.2%\n- Key Executives:\n  - Aleksei Bogomolov: Vice President of Engineering\n  - Anthony Kunz: Head of Onboarding & Training\n  - Arthur Khachaturov: Chief Digital and Technology Officer\n  - Cassandra Lowery, MS, SPHR: Director of People\n  - Denis Belkin: Head of ML Product (pricing)\n  - Evgeny Orlov, FCCA: VP of Finance\n  - Gevork Sarkisyan: Co-Founder and Executive Chairman\n  - Jeff Dangelo: Co-Founder and CEO\n  - Joe Babcock: Sales and Solutions Director\n  - Kirill Kurochkin: Partner\n- Breakdown:\n  - By Country: United States: 24 (31%), Serbia: 7 (9%), Russia: 6 (8%), United Arab Emirates: 5 (6%), Panama: 4 (5%), Colombia: 3 (4%), Kazakhstan: 1 (1%), Lithuania: 1 (1%), Portugal: 1 (1%), Spain: 1 (1%) (+1 more)\n  - By Department: Sales: 13 (17%), Operations: 10 (13%), General Management: 7 (9%), Other Department: 7 (9%), Finance: 5 (6%), Technical: 5 (6%), Consulting: 4 (5%), Hr: 3 (4%), Product: 2 (3%), Research: 1 (1%)\n  - By Seniority: Specialist: 18 (23%), Other Management: 9 (12%), Senior: 7 (9%), Manager: 5 (6%), Clevel: 4 (5%), Director: 4 (5%), Head: 4 (5%), Founder: 2 (3%), Vp: 2 (3%), Partner: 1 (1%)\n- Salary ranges:\n  - Chief Sales Officer: median $482,522.73 per year\n  - Creative Strategist: median $108,510.28 per year\n  - M&A Analyst: median $72,473.87 per year\n- Talent Sources: Circle Logistics, Inc (9), Must (5), Pinwheel Logistics (4), High Rise Logistics (4), Amazon (3), eGateway Capital (2), VESTA Logistic Company (2), Sportmaster (2), Lean Solutions Group (2), BMM Logistics, Inc. (2)\n- Alumni Go To: UNITY (2), Pinned (2), Emex Group (2), Tower - Hub & Community for Startup Founders (1), Superior Logistics (1), Raiffeisen Bank Russia (1), Krew Guru (1), BHFT (1), Allsikes (1), AVTODOM (1)\n\n## Products & Technology\n- Features: Demo Available, Mobile App\n- Tech Stack: appium, datagrip, postman, sql, notion, impact, usps, c\n\n## Web presence\n\n- Crunchbase: crunchbase.com/organization/fura\n- Web traffic:\n  - Monthly visits: 1,588\n  - Global rank: 10,297,346\n  - Bounce rate: 30.0%\n  - Pages per visit: 1.6\n  - Average visit duration: 13s\n\n## Reviews & Ratings\n- Employer Rating: 3.4/5.0 (2 reviews)\n  - Breakdown: Work-Life: 3.4, Compensation: 3.4, Culture: 3.9, Career: 3.4\n\n## Categories\n\nagentic ai, artificial intelligence (ai), digital, freight broker, freight service, ftl, logistics, ltl, platform, service, supply chain, supply chain management, technology, trucking\n\n## Recent News\n- [2026-08-17] The National Law Review: Fura Named Ace Hardware’s Outbound Carrier of the Year for 2026\n- [2026-08-14] [Fura Named Ace Hardware’s Outbound Carrier of the Year for 2026 – KBEW – The Information Station](https://lifestyle.kbew98country.com/story/383529/fura-named-ace-hardwares-outbound-carrier-of-the-year-for-2026/)\n- [2026-08-12] [AI Freight Roll-Up: Why Fura Bought High-Rise](https://finance.yahoo.com/technology/ai/articles/ai-freight-roll-why-fura-195205921.html)\n- [2026-08-11] [Fura acquires Pacific Northwest freight broker - FreightWaves](https://www.freightwaves.com/news/fura-acquires-pacific-northwest-freight-broker)\n- [2026-06-23] [AI jako motor růstu: Logistická Fura zvýšila tržby na 90 milionů dolarů navzdory útlumu trhu](https://burzovnisvet.cz/2026/06/ai-jako-motor-rustu-logisticka-fura-zvysila-trzby-na-90-milionu-dolaru-navzdory-utlumu-trhu/)\n- [2025-08-12] EIN Presswire: Fura Named to 2025 Inc. 5000 Fastest-Growing Companies List. Ranking No. 777 Nationally and No. 26 in Logistics\n- [2025-06-18] PR.com: Top Flexport and XPO Executives Join Digital Freight Brokerage Fura to Drive Next-Gen Logistics Innovation\n- [2025-05-06] PR.com: Fura Ships Over 350 MW of Solar Modules in Q1 2025, Accelerating U.S. Clean Energy Transition\n- [2025-04-24] Seattle TechFlash: 22 of the region's hottest startups named finalists for 2025 Cincy Inno Fire Awards\n- [2024-10-04] News is my Business: Police Dept., Aerostar sign agreement for new $8M HQ for FURA\n- [2022-02-18] East-West Digital News: Russian entrepreneurs want to disrupt delivery, freight and mobility industries across the world\n- [2020-11-12] East-West Digital News: After raising $2.1 million, this Russian truck driving startup wants to become a unicorn\n\n## Social\n\n### Linkedin\n\n- [2026-07-17 · 42 reactions, 8 comments] We have been so busy building at Fura sometimes it’s hard to stop and appreciate it. We hit a pretty cool milestone for the first time just earlier this year, and recently hit 2x that milestone, ju...\n\n- [2026-06-09 · 4 reactions] https://lnkd.in/eweHZq2Q\n\n- [2026-02-09 · 16 reactions, 2 comments] Fura Accelerates Growth Through Strategic Integration with Organizing Transport In 2023, Fura welcomed Organizing Transport, led by founder Igor Perkunic, into its platform—marking a strategic expa...\n\n- [2025-11-26 · 6 reactions] From the team at Fura, have an amazing Thanksgiving! We are thankful for our carrier partners, our team, their families, our vendors and our customers! Thank you for an amazing year! #Fura #HappyTh...\n\n- [2025-10-16 · 10 reactions, 1 comment] Fura's own Ryan Morrow was on 2 Dawgs, 1 Pod. yesterday! What a great interview! Ryan details a variety of subjects including Fura's story, the go to market, problems in transformation, AI, and acq...\n\n- [2025-10-06 · 92 reactions, 17 comments] Fura is proud to announce the promotion of Ryan Morrow to Chief Revenue Officer! Ryan has been instrumental in Fura's growth of more than 500% in less than 2 years. We are excited to have Ryan in t...\n\n- [2025-08-12 · 18 reactions, 3 comments] It's an honor for everyone at Fura to make the INC5000 list at #777 overall and #26 of all logistics and transportation companies with a 3-year growth rate of over 540%. Thank you to our customers,...\n\n- [2025-07-28 · 7 reactions] Fura's company values are about bringing in the best and fostering them to grow, build, and serve: -Be data driven -Be vocal -Think like an owner -Build trust -Raise the bar -Develop leaders -Achie...\n\n- [2025-06-18 · 11 reactions] We are so excited that Kelsey and Courtney have joined! https://lnkd.in/gthW2KRz Kelsey Chabolla Courtney M. Privitera\n\n- [2025-06-09 · 212 reactions, 45 comments] We extremely excited to announce the hiring of Courtney M. Privitera as Fura's new VP of Growth! Courtney has an amazing background in logistics, renewable energy, M&A, etc and will super charge Fu...\n\n## Locations\n- Headquarters: frisco, texas, united states (US)\n- Offices: frisco, texas, united states (US)",
+        "summary": "{\"description\":\"Fura is a Truck Transportation company and digital freight broker aiming to deliver a zero-waste supply chain. It combines technology, expertise, and a collaborative infrastructure to empower shippers and carriers.\",\"employee_estimate\":77,\"employee_estimate_source\":\"Annual report/summary: Employees: 77\",\"hq\":\"Frisco, United States\",\"hq_quote\":\"Headquartered in Frisco, Texas, United States.\",\"industry\":\"Truck Transportation\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"Fura is a logistics service provider that implements a fundamentally new vision of how freight is moved – empowered with digital technology. We believe in creating seamless, flexible, and transparent supply chains as a result of combining technology, expertise, and a collaborative infrastructure.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4D0BAQEQcszQUpl-tg/company-logo_200_200/company-logo_200_200/0/1673900964413/fura_inc_logo?e=2147483647&v=beta&t=RLlD_o4Atntf3XxmXORx9v_69RugFBCNZVdzrnNYd5I",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/lsdpxtdj24n",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Fura",
+              "foundedYear": 2017,
+              "description": "Fura is a logistics service provider that implements a fundamentally new vision of how freight is moved – empowered with digital technology. We believe in creating seamless, flexible, and transparent supply chains as a result of combining technology, expertise, and a collaborative infrastructure.\n\nBacked by next-generation technology and a dedicated team of industry experts, Fura is not just another logistics company. It’s a platform and service that empowers shippers and carriers of all sizes to take control of their freight and deliver on their goals.",
+              "workforce": {
+                "total": 77
+              },
+              "headquarters": {
+                "address": "2601 Preston Rd, Frisco, Texas 75034, US",
+                "city": "Frisco",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 15630000,
+                "fundingLatestRound": {
+                  "name": "Seed",
+                  "date": "2024-01-20",
+                  "amount": 2500000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 1588,
+                "countryRank": 4043704,
+                "avgDurationSeconds": 13,
+                "history": [
+                  {
+                    "value": 3296,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 3249,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 3915,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 8430,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 3066,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 1588,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/ffkjs1b6gwq",
+        "title": "Fura Gems Inc.",
+        "url": "https://furagems.com/",
+        "text": "# Fura Gems Inc.\n\nFura Gems Inc. is a Mining company. Fura Gems is a forward thinking mining and marketing company specializing in coloured stones. Fura Gems Inc. employs 387 people, founded in 2017. Headquartered in Dubai, United Arab Emirates, with presence in Canada. Its workforce is distributed across 9 countries (including Mozambique, Colombia, India, United Arab Emirates, and Madagascar).\n\n## About\n\nFURA Gems is a pioneering colored gemstone company dedicated to the responsible extraction of rubies and sapphires in Mozambique and Australia. Operating across three continents, the company combines disciplined growth with a strong commitment to transparency, traceability, and operational excellence.\n\nFURA’s mission is to deliver a consistent and fully traceable supply of responsibly mined gemstones, from rough to retail.\nAs a founding member of a blockchain-based traceability system, every gemstone is accompanied by a digital Proof of Provenance certificate.\n\nIn 2026, FURA achieved certification from the Responsible Jewellery Council (RJC), a major milestone that underscores its leadership in environmental, social, and governance (ESG) best practices.\n\nFURA aligns its growth with the long-term development of local communities, creating positive impact that extends well beyond the life of each mine.\n\n## Company Details\n- Industry: Mining\n- Type: Privately held\n- Headquarters: Dubai, United Arab Emirates\n- Founded Year: 2017\n- Homepage: furagems.com\n- Aliases: fura gems, fura gems inc., fura gems, inc.\n- LinkedIn: linkedin.com/company/fura-gems\n- Linkedin Followers: 22,432\n- Emails: info@furagems.com\n- Phone: +1-416-8612269, 971-4-240-876\n\n## Financials\n- Total Funding: USD 31,371,312\n  - Post ipo debt (2020-02-10): USD 5.5M\n  - Post ipo equity (2019-06-27): USD 25.9M\n\n## Acquisitions\n- Acquired Great Northern Mining (2020-08-01)\n\n## Workforce\n- Employees: 387\n- Company Size: 1001-5000 employees\n  - Monthly Growth: +1.0%\n- Key Executives:\n  - Amit V Sharma: HOD - (Geology)\n  - Babu Ram Sharma: Head - Global Command Centre\n  - Bibekananda Behera: Plant head\n  - Bibekananda Behera: Plant project Head\n  - Chandra Shekhar Singh: Director\n  - Gianluca Maina: Global Marketing & Communications Director\n  - Joaquim Chassueca: Head chef\n  - Kapilgiri Goswami: Head of Mining\n  - Mohun Raaman: Head Of Security\n  - Praveen Sunny: Group Head Information Technology\n- Breakdown:\n  - By Country: Mozambique: 105 (27%), Colombia: 28 (7%), India: 19 (5%), United Arab Emirates: 17 (4%), Madagascar: 6 (2%), Peru: 2 (1%), Australia: 1, France: 1, Kenya: 1\n  - By Department: Operations: 58 (15%), Technical: 28 (7%), Trades: 24 (6%), Research: 16 (4%), Finance: 11 (3%), Hr: 9 (2%), Administrative: 8 (2%), General Management: 8 (2%), Other Department: 8 (2%), Project Management: 6 (2%) (+5 more)\n  - By Seniority: Specialist: 96 (25%), Manager: 42 (11%), Other Management: 22 (6%), Head: 8 (2%), Senior: 7 (2%), Director: 5 (1%), Intern: 2 (1%), Clevel: 1\n- Talent Sources: Gemfields Group (12), Montepuez Ruby Mining (11), Jindal Steel Ltd. (8), Atico Mining Corporation (7), Kenmare Moma Processing (Mauritius) Ltd (4), Hindustan Zinc (4), Syrah Resources Ltd (3), JSW Steel (3), African Industries Group (3), Adani Enterprises Limited (3)\n- Alumni Go To: Montepuez Ruby Mining (8), GM GREEN MINE SAS (8), Aris Mining Colombia (7), Soma Gold Corp (5), Aris Mining (4), Zijin-Continental Gold (3), Jemora Group (3), Gemfields Group (3), INCIMMET (2), GEMROCK MOZAMBIQUE LIMITADA (2)\n\n## Products & Technology\n- Tech Stack: aos, blockchain, cielo, comit, fico, namely, neos, rake, ruby, scada, sei, gps, continua, minero, seg, amp, c, impact, swift, well, gravity, microsoft, sonicwall, square\n\n## Web presence\n\n- Twitter: twitter.com/furagems\n- Facebook: facebook.com/furagemsmining\n- Instagram: instagram.com/furagems\n- Crunchbase: crunchbase.com/organization/fura-gems-inc\n- Web traffic:\n  - Monthly visits: 2,782\n  - Global rank: 6,147,200\n  - Bounce rate: 36.0%\n  - Pages per visit: 1.7\n  - Average visit duration: 20s\n\n## Reviews & Ratings\n- Employer Rating: 4.2/5.0 (3 reviews)\n  - Breakdown: Work-Life: 4.2, Compensation: 4.6, Culture: 4.2, Career: 4.6\n\n## Categories\n\ncoloured stones, company, forward thinking, marketing, mining, mining and marketing, natural resources\n\n## Recent News\n- [2026-09-11] nationaljeweler.com: Fura Gems Notes ‘Remarkable’ Interest in Larger Rubies at Latest Sale\n- [2026-09-09] [Fura Gems Notes ‘Remarkable’ Interest in Larger Rubies at Latest Sale \\| National Jeweler](https://nationaljeweler.com/articles/15296-fura-gems-notes-remarkable-interest-in-larger-rubies-at-latest-sale)\n- [2025-12-30] ELTIEMPO.COM: Las deudas de Fura Gems, la intervención del Gobierno y lo que hay detrás de caos y saqueos en histórica mina de esmeraldas de Boyacá\n- [2025-12-28] Boyacá 7 Días: FuraGems archivos\n- [2025-09-23]\n  - Boyacá 7 Días: La razón por la cual la multinacional Fura Gems suspendió operaciones en su mina de Coscuez #Tolditos7días\n  - Portafolio: ¿Por qué Fura Gems solicitó la suspensión temporal de su operación en Coscuez?\n- [2025-08-12] Boyacá 7 Días: Los compromisos de Fura Gems con comunidades del occidente de Boyacá #Tolditos7días\n- [2025-08-05] Semana.com: Minera Fura Gems denuncia amenazas contra sus trabajadores tras paro en Boyacá: respondió a Carlos Amaya\n- [2025-06-25] EIN Presswire: Global Gemstone Market Set For 6.3% Growth, Reaching $42.76 Billion By 2029\n- [2025-04-23] Guapacho.com: Con más de $120 millones en inversión social, Fura, a través de su filial en Colombia Coscuez S.A. fortalece su compromiso con la transformación del occidente de Boyacá\n- [2020-10-24] Yahoo News: Fura Provides Update on Going Private Transaction\n- [2020-08-07] Globe Newswire: Fura to Acquire Australian Mining Company\n- [2019-11-01] Canadian News Wire: Lord of Seven Hills Holdings FZE Announces Investment in Fura Gems Inc.\n- [2018-07-17] ABN Newswire: Mustang Resources Ltd \\(ASX:MUS\\) Agrees Ruby Asset Merger with Fura Gems Inc \\(CVE:FURA\\)\n\n## Social\n\n### Linkedin\n\n- [2026-09-17 · 62 reactions] FURA Mozambican Pink Sapphire Auction returns to Bangkok from 12 – 15 October 2026, featuring the breadth of the pink palette. From soft blush tones to vibrant pinks and orangey pink hues. #FuraGem...\n\n- [2026-09-16 · 31 reactions] As responsible sourcing becomes increasingly important to the coloured gemstone industry, certification and traceability are moving from commitments to systems that can be independently assessed an...\n\n- [2026-08-18 · 90 reactions, 2 comments] Auction Preview | Swipe through a selection of single rubies featured in our upcoming Mozambican Ruby Auction in Bangkok. From exceptional size and vibrant colour to purplish-red tones, natural tex...\n\n- [2026-08-03 · 156 reactions, 2 comments] Bangkok once again sets the stage for FURA's next Mozambican Ruby Auction, taking place from 24 August to 1 September 2026. From one hue to the next, every ruby brings a different shade to life. Fo...\n\n- [2026-07-23 · 48 reactions] RED IS IN SEASON | Ruby Month with FURA Every July, we celebrate Ruby Month. A time to spotlight one of nature's most remarkable colored gemstones. This year, we celebrated Ruby Month through a ser...\n\n- [2026-06-08 · 34 reactions, 4 comments] We were at JCK Las Vegas 2026. ✨ Five days of conversations with miners, traders, jewellers, and brands from across the supply chain. One question kept coming up on every booth floor: can you prove...\n\n- [2026-06-02 · 61 reactions] A spectrum unlike any other. From timeless blues to distinctive teals, Australian sapphires continue to capture our attention through their remarkable range of vibrant colors. This diversity sits a...\n\n- [2026-05-28 · 103 reactions, 1 comment] Provenance Proof Blockchain supports a more connected and transparent approach to coloured gemstone sourcing across the FURA supply chain. Designed to strengthen traceability from rough to cut, the...\n\n- [2026-05-15 · 53 reactions] 2 Weeks to Go until the jewelry industry’s leading global gathering, bringing together designers, retailers, gemstone suppliers, manufacturers and industry leaders from around the world in Las Vega...\n\n- [2026-05-12 · 118 reactions, 6 comments] Certified by the Responsible Jewellery Council (RJC).⁣ This milestone recognises the way we operate — with a focus on responsible business practices, transparency, and traceability across our color...\n\n- [2026-05-07 · 50 reactions, 7 comments] RJC certification reflects the strength of the systems behind how we operate — from governance and environmental management to responsible mining practices. It brings together the work already in p...\n\n- [2026-05-05 · 47 reactions] I’m delighted to be joining the 6th ORIGINALLUXURY Luxury Roundtable – Luxury in Acceleration, on 6 May 2026 at Château Le Rosey. An inspiring setting for a thoughtful, closed-door exchange with in...\n\n- [2026-04-02 · 117 reactions, 2 comments] Auction Week | Mozambican Rubies FURA Gems is pleased to present its rough ruby auction, featuring a significant offering from Mozambique. 111 carefully prepared schedules are being presented, repr...\n\n- [2026-03-30 · 102 reactions, 5 comments] Auction week has begun! A closer look at one of the rubies presented at our auction, defined by its natural fluorescence and vivid red intensity. Part of a broader selection carefully sorted and pr...\n\n- [2026-03-23 · 114 reactions, 2 comments] FURA Gems announces its next upcoming Mozambican Ruby Auction. A curated selection of rough rubies will be presented to the market. 🗓️ 30 March - 9 April 2026 📍 Bangkok For further information on p...\n\n- [2026-03-19 · 72 reactions] We are pleased to share that FURA Gems has achieved Responsible Jewellery Council (RJC) certification, following an independent third-party audit against the RJC Code of Practices. This milestone r...\n\n- [2026-03-14 · 82 reactions, 2 comments] 20.90 cts Sapphire | Presented as a highlight stone at our upcoming auction, where pink meets orange in one of sapphire’s most distinctive color expressions. FURA Mozambican Pink Sapphire Auction 🗓...\n\n- [2026-03-13 · 87 reactions, 2 comments] A closer look at the rough pink sapphires prepared for our upcoming auction, presented across a range of pink hues and sizes.⁣ ⁣ FURA Mozambican Pink Sapphire Auction⁣ 🗓️ New Dates: 16 - 19 March 2...\n\n- [2026-03-05 · 49 reactions] Together, they reveal the spectrum.⁣ A group of FURA’s pink sapphires, each carrying its own tone, texture, and character.⁣ From the source, the journey from mine to market begins. FURA Mozambican...\n\n- [2026-03-04 · 85 reactions] Why a pink sapphire holds our attention. Pink sapphire is considered one of the rarer color varieties within the sapphire family, shaped by trace elements that influence its distinctive hue. Presen...\n\n## Locations\n- Headquarters: dubai, uae, united arab emirates\n- Offices: toronto, ontario, canada, dubai, united arab emirates (AE), toronto, ontario m5h 2m5, canada, dubai, uae, united arab emirates",
+        "summary": "{\"description\":\"Fura Gems Inc. is a mining company with a global presence, focused on coloured stones. It is privately held, founded in 2017, and headquartered in Dubai, United Arab Emirates, with offices in multiple countries.\",\"employee_estimate\":387,\"employee_estimate_source\":\"Employees: 387\",\"hq\":\"Dubai, United Arab Emirates\",\"hq_quote\":\"Headquartered in Dubai, United Arab Emirates, with presence in Canada.\",\"industry\":\"Mining\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":null,\"is_third_party_logistics_quote\":\"\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4D0BAQGsR4p3VEsKUQ/company-logo_200_200/company-logo_200_200/0/1699426980724/fura_gems_logo?e=2147483647&v=beta&t=WwNYWo7o-LZy21BbejJwbkOeELc9g8cUICP0c0uNiFI",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/ffkjs1b6gwq",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Fura Gems Inc.",
+              "foundedYear": 2017,
+              "description": "FURA Gems is a pioneering colored gemstone company dedicated to the responsible extraction of rubies and sapphires in Mozambique and Australia. Operating across three continents, the company combines disciplined growth with a strong commitment to transparency, traceability, and operational excellence.\n\nFURA’s mission is to deliver a consistent and fully traceable supply of responsibly mined gemstones, from rough to retail.\nAs a founding member of a blockchain-based traceability system, every gemstone is accompanied by a digital Proof of Provenance certificate.\n\nIn 2026, FURA achieved certification from the Responsible Jewellery Council (RJC), a major milestone that underscores its leadership in environmental, social, and governance (ESG) best practices.\n\nFURA aligns its growth with the long-term development of local communities, creating positive impact that extends well beyond the life of each mine.",
+              "workforce": {
+                "total": 387
+              },
+              "headquarters": {
+                "address": "Fura Gems Inc, 2501G-2506G, JBC2  Jumeirah Lake Towers, Dubai, UAE, AE",
+                "city": "Dubai",
+                "postalCode": null,
+                "country": "United Arab Emirates"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 31371312,
+                "fundingLatestRound": {
+                  "name": "Post ipo debt",
+                  "date": "2020-02-10",
+                  "amount": 5500000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 2782,
+                "countryRank": 512405,
+                "avgDurationSeconds": 20,
+                "history": [
+                  {
+                    "value": 146,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 1605,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 3873,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 1901,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 2238,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 2782,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 5705.6,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

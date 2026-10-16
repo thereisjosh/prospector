@@ -7,7 +7,7 @@ import { nameMatchesSignal, normalizeName } from "./eval";
 import { textInCountries } from "./geo";
 import { normalizeNullish, normalizeSignalDate, type SearchPlan } from "./plan";
 import type { CompanySummary, SignalSummary } from "./types";
-import { CONTACT_TITLE_MAX, contactEvidence, mentionOffsets, type ContactEvidence } from "./evidence";
+import { CONTACT_TITLE_MAX, contactEvidence, mentionOffsets, type ContactEvidence, type ContactSourceKind } from "./evidence";
 
 export type GateCode =
   | "stale_date"
@@ -968,7 +968,45 @@ export const CONTACT_NON_EVIDENCE_DOMAINS = [
   "aeroleads.com",
   "globaldatabase.com",
   "kompass.com",
+  // Added 2026-10-16 (FAILURES #31): people-data mirrors found among the verified contacts of the 25-company eval.
+  // Belt and braces only: the rule is the allowlist in checkContact, not this list.
+  "prospeo.io",
+  "prospectoo.com",
+  "startupintros.com",
+  "fundup.ai",
+  "fireround.dev",
+  "swapcard.com",
 ] as const;
+
+/** Newswire domains: a page here is press by construction (FAILURES #31). Other news sources come from Exa's `category: "news"`. */
+export const CONTACT_WIRE_DOMAINS = ["prnewswire.com", "businesswire.com", "globenewswire.com", "newswire.ca", "accesswire.com", "einpresswire.com", "prweb.com"] as const;
+
+/** Path segments of a conference / association bio page (rule c). Deliberately short; exhibitor and member lists are field lists and are not here. */
+const BIO_PATH_SEGMENTS = new Set(["speaker", "speakers", "bio", "bios", "presenter", "presenters", "panelist", "panelists", "faculty", "session", "sessions", "agenda", "keynote", "keynotes"]);
+
+export const CONTACT_SOURCE_NOTE = "source not a company or news page";
+
+export function isWirePressUrl(url: string): boolean {
+  const d = registrableDomain(url);
+  return d !== undefined && (CONTACT_WIRE_DOMAINS as readonly string[]).includes(d);
+}
+
+function isBioShapedUrl(url: string): boolean {
+  try {
+    return new URL(url).pathname.toLowerCase().split("/").some((seg) => BIO_PATH_SEGMENTS.has(seg));
+  } catch {
+    return false;
+  }
+}
+
+/** The blank-line-delimited paragraph holding [start, end) (the whole span if it crosses one), capped at 1500 characters. */
+function paragraphAround(text: string, start: number, end: number): string {
+  const before = text.slice(0, start);
+  const lo = Math.max(before.lastIndexOf("\n\n"), before.lastIndexOf("\r\n\r\n"), -1) + 1;
+  const after = text.slice(end).search(/\n\s*\n/);
+  const hi = after < 0 ? text.length : end + after;
+  return text.slice(lo, hi).slice(0, 1500);
+}
 
 /** Path segments (or a `person` query key) that mark a scraped-profile / people-directory page. */
 const AGGREGATOR_PATH_SEGMENTS = new Set(["profile", "profiles", "person", "people", "employee", "employees", "contact", "contacts", "in", "pub", "directory"]);
@@ -1270,6 +1308,8 @@ export type ContactPage = {
   text?: string;
   /** Exa's `publishedDate` for the result, if any. */
   publishedDate?: string;
+  /** True when the page came from the `category: "news"` search, so Exa itself classed it as news (FAILURES #31). */
+  news?: boolean;
 };
 
 export type ContactVerdict =
@@ -1286,6 +1326,8 @@ export type ContactVerdict =
       tier: "inferred" | "rejected";
       code: ContactGateCode;
       reason: string;
+      /** Set when the page's source is not on the allowlist (company domain, news, bio page): "source not a company or news page". */
+      note?: string;
       /** `contact_stale` only: the title the old page gave and when it was written (the person is not shown as verified). */
       stale?: { role: string; title_quote: string; published: string; url: string };
       /** `contact_role_changed` only: the approved role the page names as FORMER, and the phrase that says so. */
@@ -1354,9 +1396,13 @@ export function formerRoleNear(text: string, start: number, end: number, surname
 /**
  * Is this person a verified contact on this page? Verified needs all of:
  * 1. a page with its text captured that is not LinkedIn, a LinkedIn copy or a people-data aggregator;
- * 2. the page is the company's own registrable domain, OR a press/news page: not shaped like a profile or
- *    directory (isAggregatorShapedUrl), naming the company, with at least CONTACT_MIN_PROSE_CHARS of prose
- *    around the name and title (aggregators are field lists; the domain list can never be complete);
+ * 2. an ALLOWED SOURCE (FAILURES #31; a blocklist cannot beat endless mirrors): (a) the company's own registrable
+ *    domain ("company"), or (b) press: a newswire (CONTACT_WIRE_DOMAINS) or a page `ctx.page.news` marks as returned by
+ *    Exa's `category: "news"` search ("news"), or (c) a conference/association bio page (URL has a speaker/bio/session
+ *    segment) where the company, the name and the title share one paragraph ("other"). Off the company's domain the
+ *    page must also not be shaped like a profile or directory (isAggregatorShapedUrl), name the company, and hold at
+ *    least CONTACT_MIN_PROSE_CHARS of prose around the name and title (aggregators are field lists). Any other source
+ *    is `contact_unverified` with `note` CONTACT_SOURCE_NOTE. The evidence records `sourceKind`;
  * 3. a title quote of at most 120 characters;
  * 4. the full name, and the title quote verbatim (quoteMatch), both on the page text,
  *    the title within CONTACT_PROXIMITY characters of the name;
@@ -1378,16 +1424,21 @@ export function checkContact(
   ctx: { page?: ContactPage; buyerRoles: readonly string[]; companyUrl?: string; currentInIndex?: boolean; now?: Date },
 ): ContactVerdict {
   const inferred = (reason: string): ContactVerdict => ({ ok: false, tier: "inferred", code: "contact_unverified", reason });
+  const badSource = (reason: string): ContactVerdict => ({ ok: false, tier: "inferred", code: "contact_unverified", reason, note: CONTACT_SOURCE_NOTE });
   const notInPage = (reason: string): ContactVerdict => ({ ok: false, tier: "rejected", code: "contact_quote_not_in_page", reason });
   const page = ctx.page;
   if (!page || !/^https?:\/\//i.test(page.url) || !safeDomain(page.url)) return inferred("no page other than a profile names this person");
-  if (isContactNonEvidenceUrl(page.url)) return inferred(`${safeDomain(page.url)} is LinkedIn or a people-data site, not evidence`);
+  if (isContactNonEvidenceUrl(page.url)) return badSource(`${safeDomain(page.url)} is LinkedIn or a people-data site, not evidence`);
   const text = (page.text ?? "").slice(0, CONTACT_PAGE_TEXT_MAX).normalize("NFC");
   if (!text.trim()) return inferred("the page text was not captured");
   const now = ctx.now ?? new Date();
   const pageDomain = registrableDomain(page.url);
   const ownDomain = pageDomain !== undefined && pageDomain === registrableDomain(ctx.companyUrl);
-  if (!ownDomain && isAggregatorShapedUrl(page.url)) return inferred(`${safeDomain(page.url)} is not the company's site and the URL looks like a profile or directory page, not press`);
+  // The allowlist (FAILURES #31): a page verifies only from the company's own domain, a press/news source, or a
+  // conference/association bio page. Everything else is inferred, whatever the page says.
+  const sourceKind: ContactSourceKind = ownDomain ? "company" : isWirePressUrl(page.url) || page.news === true ? "news" : "other";
+  if (!ownDomain && isAggregatorShapedUrl(page.url)) return badSource(`${safeDomain(page.url)} is not the company's site and the URL looks like a profile or directory page, not press`);
+  if (sourceKind === "other" && !isBioShapedUrl(page.url)) return badSource(`${safeDomain(page.url)} is not the company's site, a newswire or a news result, nor a conference/association bio page`);
   if (!ownDomain && mentionOffsets(contact.company, text, 1).length === 0) return inferred(`the page does not name ${contact.company}`);
   const title = (contact.title_quote ?? "").replace(/\s+/g, " ").trim();
   if (!title) return inferred("the page gives no title for this person");
@@ -1412,6 +1463,11 @@ export function checkContact(
   if (!best || best.gap > CONTACT_PROXIMITY) return notInPage("the title is not next to the name on the page");
   if (!ownDomain && proseCharsAround(text, best.start, best.end) < CONTACT_MIN_PROSE_CHARS) {
     return inferred(`${safeDomain(page.url)} is not the company's site and the page has under ${CONTACT_MIN_PROSE_CHARS} characters of prose around the name: a field list, not press`);
+  }
+  if (sourceKind === "other") {
+    // (c) a bio page verifies only when the person, the title and the company share one paragraph.
+    const para = paragraphAround(text, best.start, best.end);
+    if (mentionOffsets(contact.company, para, 1).length === 0) return badSource(`${safeDomain(page.url)}: the company, the name and the title are not in one paragraph`);
   }
   // Former roles are not current (FAILURES #30). A phrase in the title quote that splits it ("Managing Director,
   // stepping up from his previous role as COO"): the part before it is the person's NEW title and must fit a role
@@ -1446,7 +1502,7 @@ export function checkContact(
     };
   }
   const published = normalizePageDate(page.publishedDate, now) ?? dateNearSpan(text, best.start, best.end, now);
-  const evidence = contactEvidence({ url: page.url, quote: text.slice(best.start, best.end), title_quote: roleTitle, ...(published ? { published } : {}) });
+  const evidence = contactEvidence({ url: page.url, quote: text.slice(best.start, best.end), title_quote: roleTitle, ...(published ? { published } : {}), sourceKind });
   if (!evidence) return notInPage("the name and title span is too long to quote");
   if (!ownDomain && published && monthsSince(published, now) > CONTACT_MAX_PAGE_AGE_MONTHS && !ctx.currentInIndex) {
     return {

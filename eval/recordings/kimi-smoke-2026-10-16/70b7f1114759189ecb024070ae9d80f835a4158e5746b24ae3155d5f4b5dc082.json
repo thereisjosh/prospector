@@ -1,0 +1,175 @@
+{
+  "request": {
+    "query": "third-party logistics company opened a new warehouse or fulfillment center",
+    "type": "neural",
+    "numResults": 10,
+    "startPublishedDate": "2026-07-16T13:53:30.087Z",
+    "contents": {
+      "summary": {
+        "query": "third-party logistics company opened a new warehouse or fulfillment center Set signal_date to the date the EVENT itself happened or was announced (not the article's publish date), in ISO format YYYY-MM-DD. Set signal_type to exactly one of: new_facility, expansion, ops_hiring_wave, ops_hire, other. For signal_quote, copy the exact sentence from the page that states the event; use \"\" if no sentence states an event. For signal_date_quote, copy the exact date phrase from the page; use \"\" if no date phrase is stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "company_name": {
+              "type": "string"
+            },
+            "signal_type": {
+              "type": "string",
+              "enum": [
+                "new_facility",
+                "expansion",
+                "ops_hiring_wave",
+                "ops_hire",
+                "other"
+              ]
+            },
+            "signal_summary": {
+              "type": "string"
+            },
+            "signal_date": {
+              "type": "string"
+            },
+            "signal_quote": {
+              "type": "string"
+            },
+            "signal_date_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "company_name",
+            "signal_type",
+            "signal_summary",
+            "signal_date",
+            "signal_quote",
+            "signal_date_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 1200
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "95b982388ddf85bd5fab6e8f7b922f53",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://www.linkedin.com/posts/stuart-evans28_idlogistics-letsbuildouridlogisticstogether-activity-7492972061078839296-OdYu",
+        "title": "Launching a new warehouse is a major milestone, but what makes me most proud is the incredible teamwork behind it.",
+        "url": "https://www.linkedin.com/posts/stuart-evans28_idlogistics-letsbuildouridlogisticstogether-activity-7492972061078839296-OdYu",
+        "publishedDate": "2026-08-11T00:00:00.000Z",
+        "author": "Stuart Evans",
+        "score": 1,
+        "text": "# Launching a new warehouse is a major milestone, but what makes me most proud is the incredible teamwork behind it. · 2026-08-11T00:00:00+00:00\n\nLaunching a new warehouse is a major milestone, but what makes me most proud is the incredible teamwork behind it.\n\nToday, we celebrate the opening of ID Logistics in Rugby; a significant investment in our future, our customers, and our continued growth. Facilities and infrastructure are important, but the real success story is the people who made it happen.\n\nOver just 11 weeks, colleagues from across the business have come together with a shared goal; rolling up their sleeves, supporting one another, and demonstrating the commitment, collaboration and determination that define our culture. From planning and preparation to execution, every team and every individual played a part in making this launch happen on schedule.\n\nSeeing so many people step outside their day-to-day roles to support the project has been truly inspiring. It is a powerful reminder that when we work together as one team, we can achieve extraordinary things.\n\nA huge thank you to everyone involved. Your hard work, flexibility, and dedication continue to lay the foundatio",
+        "summary": "{\"company_name\":\"ID Logistics\",\"signal_date\":\"2026-08-11\",\"signal_date_quote\":\"2026-08-11T00:00:00+00:00\",\"signal_quote\":\"Launching a new warehouse is a major milestone, but what makes me most proud is the incredible teamwork behind it.\",\"signal_summary\":\" third-party logistics company opened a new warehouse or fulfillment center\",\"signal_type\":\"new_facility\"}"
+      },
+      {
+        "id": "https://www.lpp.com/en/press-releases/lpp-logistics-is-launching-a-new-distribution-centre-in-romania-the-facility-will-support-the-lpp-groups-expansion-in-south-eastern-europe/",
+        "title": "LPP Logistics is launching a new distribution centre in Romania. The facility will support the LPP Group’s expansion in South-Eastern Europe - The official website of LPP SA",
+        "url": "https://www.lpp.com/en/press-releases/lpp-logistics-is-launching-a-new-distribution-centre-in-romania-the-facility-will-support-the-lpp-groups-expansion-in-south-eastern-europe/",
+        "publishedDate": "2026-07-28T00:00:00.000Z",
+        "author": "Adam Siuchniński",
+        "score": 0.8888888888888888,
+        "text": "LPP Logistics is launching a new distribution centre in Romania. The facility will support the LPP Group’s expansion in South-Eastern Europe - The official website of LPP SA\n\n# LPP Logistics is launching a new distribution centre in Romania. The facility will support the LPP Group’s expansion in South-Eastern Europe \n\nPublication date: 28.07.2026 Business\n\nLPP Logistics is expanding its operational capabilities in South-Eastern Europe by launching a distribution centre near Bucharest. The 56,000 m² facility has begun serving the LPP Group’s stores in Romania, Bulgaria and Greece, enhancing the efficiency of the regional supply chain. The warehouse, with a capacity of approximately 35 million items, has been designed with further expansion in mind and will support the growth of the Sinsay brand and the LPP Group’s operations in the region.\n\nThe investment strengthens LPP Logistics’ logistics infrastructure in South-East Europe. Thanks to its strategic location near Bucharest, adjacent to the fulfilment centre launched in November 2025, the company can handle both deliveries to high-street stores and online orders from a single location. An additional advantage of the location is its",
+        "summary": "{\"company_name\":\"LPP Logistics\",\"signal_date\":\"2026-07-28\",\"signal_date_quote\":\"Publication date: 28.07.2026\",\"signal_quote\":\"LPP Logistics is expanding its operational capabilities in South-Eastern Europe by launching a distribution centre near Bucharest.\",\"signal_summary\":\"LPP Logistics launches a new distribution centre near Bucharest, expanding capabilities in South-Eastern Europe to serve Romania, Bulgaria and Greece.\",\"signal_type\":\"new_facility\"}"
+      },
+      {
+        "id": "https://cij.world/lpp-logistics-opens-new-warehouse-near-bucharest/",
+        "title": "LPP Logistics Opens New Warehouse near Bucharest   - CIJ.World",
+        "url": "https://cij.world/lpp-logistics-opens-new-warehouse-near-bucharest/",
+        "publishedDate": "2026-07-30T00:00:00.000Z",
+        "author": "tudor@cijeurope.com",
+        "score": 0.7777777777777778,
+        "text": "LPP Logistics Opens New Warehouse near Bucharest - CIJ.World \n\n# LPP Logistics Opens New Warehouse near Bucharest \n\n30 July 2026\n\nLPP Logistics, the company that provides logistics for the Reserved, Cropp, House, Mohito and Sinsay brands, is expanding its operational capacities in South-Eastern Europe by opening a distribution center near Bucharest.\n\nThe unit, with an area of ​​56,000 sqm, serves the LPP Group stores in Romania, Bulgaria and Greece. An additional advantage of the location is its proximity to the port of Constanta, which streamlines the organization of deliveries by sea.\n\nThe launch of the new center also marks the completion of the reconstruction of the logistics infrastructure following the fire that occurred at the warehouse last year.\n\n“The launch of the new distribution center just one year after the decommissioning of the previous warehouse demonstrates the operational efficiency of LPP Logistics and the ability of our team to quickly rebuild the infrastructure essential for business continuity. An important aspect is that we did not limit ourselves to restoring previous capacities, but launched a modern unit prepared for the future expansion of the LPP Group,",
+        "summary": "{\"company_name\":\"LPP Logistics\",\"signal_date\":\"2026-07-30\",\"signal_date_quote\":\"30 July 2026\",\"signal_quote\":\"LPP Logistics, the company that provides logistics for the Reserved, Cropp, House, Mohito and Sinsay brands, is expanding its operational capacities in South-Eastern Europe by opening a distribution center near Bucharest.\",\"signal_summary\":\"LPP Logistics opens a new distribution center near Bucharest to expand its operations in South-Eastern Europe, serving Romania, Bulgaria and Greece, with proximity to Constanta port.\",\"signal_type\":\"new_facility\"}",
+        "image": "https://cij.world/storage/2026/07/lpp.jpg"
+      },
+      {
+        "id": "https://transport-online.de/news/id-logistics-neues-xl-fulfillment-center-betrieb-kontraktlogistik-erweitert-193182.html",
+        "title": "ID Logistics: Neues XL-Fulfillment-Center in Betrieb -Kontraktlogistik erweitert - E-Commerce,Kontraktlogistik (auch E-Fulfilment),Neubau (Logistikimmobilien),Unternehmens-, Wirtschaft- und Branchen-Nachrichten (sonst.) | News | TRANSPORT - die Zeitung für den Güterverkehr (Lkw, Speditionen, Fuhrpark, Nutzfahrzeuge, Verkehrspolitik, Wirtschaft)",
+        "url": "https://transport-online.de/news/id-logistics-neues-xl-fulfillment-center-betrieb-kontraktlogistik-erweitert-193182.html",
+        "publishedDate": "2026-09-15T00:00:00.000Z",
+        "author": "Daniela Sawary-Kohnen",
+        "score": 0.6666666666666667,
+        "text": "ID Logistics: Neues XL-Fulfillment-Center in Betrieb -Kontraktlogistik erweitert - E-Commerce,Kontraktlogistik (auch E-Fulfilment),Neubau (Logistikimmobilien),Unternehmens-, Wirtschaft- und Branchen-Nachrichten (sonst.) | News | TRANSPORT - die Zeitung für den Güterverkehr (Lkw, Speditionen, Fuhrpark, Nutzfahrzeuge, Verkehrspolitik, Wirtschaft)\n\n# ID Logistics: Neues XL-Fulfillment-Center in Betrieb -Kontraktlogistik erweitert\n\n15. September 2026, 09:11 Uhr\n\nDaniela Sawary-Kohnen\n\nDas Logistikunternehmen hat in der Metropolregion Hannover ein neues Distributionszentrum für schwere und sperrige Güter eröffnet. Damit wird der Geschäftsbereich XL-Kontraktlogistik weiter ausgebaut.\n\nIn diesem exklusiven Webinar gibt MAN Truck & Bus Deutschland einen Blick hinter die Kulissen der eTruck-Strategie. Warum entstehen neue Fahrzeugkonzepte, welche Anforderungen müssen sie erfüllen und wie werden daraus konkrete Lösungen?\n\n(v.l.) Jens Beckmeyer (Samtgemeindebürgermeister Mittelweser) und Jens Lange (Bürgermeister Gemeinde Estorf) erhalten von Daniele Carelli (Standortleiter Estorf ID Logistics Germany), Gregor Eich (VP Operations ID Logistics Germany) und Sergie Schiller (Head of XL ID Logist",
+        "summary": "{\"company_name\":\"ID Logistics\",\"signal_date\":\"2026-09-15\",\"signal_date_quote\":\"15. September 2026, 09:11 Uhr\",\"signal_quote\":\"ID Logistics: Neues XL-Fulfillment-Center in Betrieb -Kontraktlogistik erweitert\",\"signal_summary\":\"ID Logistics opens a new XL fulfillment center in the Hannover metropolitan region, expanding XL contract logistics for heavy and bulky goods.\",\"signal_type\":\"new_facility\"}",
+        "image": "https://transport-online.de/sites/default/files/public/styles/_news_2100x1400_/public/images-news-teaser/id-logistics-9.jpg"
+      },
+      {
+        "id": "https://racklify.com/news/rjw-logistics-group-announces-major/",
+        "title": "Rjw Logistics Group Announces Major | Warehouse & 3PL Logistics News",
+        "url": "https://racklify.com/news/rjw-logistics-group-announces-major/",
+        "publishedDate": "2026-08-10T00:00:00.000Z",
+        "score": 0.5555555555555556,
+        "text": "Rjw Logistics Group Announces Major | Warehouse & 3PL Logistics News\n\n# RJW Logistics Group Announces Major East Coast Hub in Hazleton, PA\n\nRJW Logistics Group has officially announced a massive new fulfillment center in Hazleton, Pennsylvania—its first East Coast facility and a key milestone in the company’s national growth. The new 1 million+ square foot distribution center will bring over 350 new jobs to the Greater Hazleton area, while supporting RJW’s signature One-Inventory Strategy for more streamlined and sustainable retail supply chains. This move strengthens RJW’s logistics capabilities across the Northeast and Mid-Atlantic regions, showcasing a deep commitment to innovation, environmental responsibility, and community development.\n\n###### ERWIN RICHMOND ECHON\n\nerwin@racklify.com\n\n22 Apr 2025 8:41 PM\n\nRJW Logistics Group has announced a new 1 million+ sq ft facility in Hazleton, PA, marking its first East Coast expansion and creating over 350 jobs.\n\nThe new hub supports RJW's One-Inventory Strategy, enabling faster, more efficient deliveries to retailers in the Northeast and Mid-Atlantic.\n\nHazleton's facility aligns with RJW’s commitment to community growth and sustainabi",
+        "summary": "{\"company_name\":\"RJW Logistics Group\",\"signal_date\":\"2025-04-22\",\"signal_date_quote\":\"22 Apr 2025 8:41 PM\",\"signal_quote\":\"RJW Logistics Group has officially announced a massive new fulfillment center in Hazleton, Pennsylvania—its first East Coast facility and a key milestone in the company’s national growth.\",\"signal_summary\":\"RJW Logistics Group announced a major new fulfillment center in Hazleton, PA, its first East Coast facility, creating 350+ jobs and advancing its One-Inventory Strategy.\",\"signal_type\":\"new_facility\"}",
+        "image": "https://storage.googleapis.com/racklify-production/warehouse/1791446242687_file.jpeg"
+      },
+      {
+        "id": "https://www.constructionworld.in/urban-infrastructure/warehouse-and-logistics/emiza-expands-bhiwandi-fulfilment-capacity-by-2.32-lakh-sq-ft/97365",
+        "title": "Emiza Expands Bhiwandi Fulfilment Capacity by 2.32 Lakh Sq Ft",
+        "url": "https://www.constructionworld.in/urban-infrastructure/warehouse-and-logistics/emiza-expands-bhiwandi-fulfilment-capacity-by-2.32-lakh-sq-ft/97365",
+        "publishedDate": "2026-09-11T00:00:00.000Z",
+        "author": "CW Team",
+        "score": 0.4444444444444444,
+        "text": "Emiza Expands Bhiwandi Fulfilment Capacity by 2.32 Lakh Sq Ft\n\n# Emiza Expands Bhiwandi Fulfilment Capacity by 2.32 Lakh Sq Ft\n\n 11 Sep 2026 2 Min Read CW Team \n\nEmiza, a leading third-party logistics (3PL) provider, has expanded its Mumbai operations with the launch of two new fulfilment facilities in Bhiwandi, adding a combined capacity of 2.32 lakh sq ft to its network.\n\nThe new facilities, spread across 75,000 sq ft and 1,57,000 sq ft, mark Emiza’s fifth and sixth warehouses in the Mumbai region. The expansion strengthens the company’s fulfilment infrastructure in Western India amid the rapid growth of India’s digital commerce ecosystem.\n\nWith increasing online consumption, wider product categories and rising customer expectations for faster delivery, businesses are focusing on building efficient fulfilment networks. Emiza’s new facilities are designed to help brands position inventory closer to demand, manage higher order volumes and improve supply chain efficiency.\n\nThe multi-client fulfilment centres will enable businesses to scale their warehousing capacity without making large infrastructure investments. The facilities will support inventory management, order processing an",
+        "summary": "{\"company_name\":\"Emiza\",\"signal_date\":\"2026-09-11\",\"signal_date_quote\":\"11 Sep 2026\",\"signal_quote\":\"Emiza, a leading third-party logistics (3PL) provider, has expanded its Mumbai operations with the launch of two new fulfilment facilities in Bhiwandi, adding a combined capacity of 2.32 lakh sq ft to its network.\",\"signal_summary\":\"Emiza expands Bhiwandi fulfilment capacity with two new facilities totaling 2.32 lakh sq ft in Mumbai.\",\"signal_type\":\"expansion\"}",
+        "image": "https://www.constructionworld.in/assets/uploads/s_32ddd8ac8a1f5609128e3227589ae207.webp"
+      },
+      {
+        "id": "https://www.linkedin.com/posts/id-logistics-uk_ecommerce-idlogistics-logistics-activity-7492947436349607936-kwjj",
+        "title": "From an empty space to a fully functioning 𝟲𝟳𝟯,𝟮𝟳𝟬 𝘀𝗾 𝗳𝘁 fulfilment centre in just 𝗳𝗼𝘂𝗿 𝗺𝗼𝗻𝘁𝗵𝘀! We’ve officially launched our new Rugby site, bringing 𝟮𝟬𝟬 𝗻𝗲𝘄 𝗷𝗼𝗯𝘀 to the local area …",
+        "url": "https://www.linkedin.com/posts/id-logistics-uk_ecommerce-idlogistics-logistics-activity-7492947436349607936-kwjj",
+        "publishedDate": "2026-08-11T00:00:00.000Z",
+        "author": "ID Logistics UK",
+        "score": 0.33333333333333337,
+        "text": "# From an empty space to a fully functioning 𝟲𝟳𝟯,𝟮𝟳𝟬 𝘀𝗾 𝗳𝘁 fulfilment centre in just 𝗳𝗼𝘂𝗿 𝗺𝗼𝗻𝘁𝗵𝘀! We’ve officially launched our new Rugby site, bringing 𝟮𝟬𝟬 𝗻𝗲𝘄 𝗷𝗼𝗯𝘀 to the local area … · 2026-08-11T00:00:00+00:00\n\nFrom an empty space to a fully functioning 𝟲𝟳𝟯,𝟮𝟳𝟬 𝘀𝗾 𝗳𝘁 #ecommerce fulfilment centre in just 𝗳𝗼𝘂𝗿 𝗺𝗼𝗻𝘁𝗵𝘀! We’ve officially launched our new Rugby site, bringing 𝟮𝟬𝟬 𝗻𝗲𝘄 𝗷𝗼𝗯𝘀 to the local area and strengthening our UK network. 🎉\n\nIt’s been an incredible team effort and we’re so proud of our colleagues’ speed and agility. Moving this fast while maintaining top-tier precision shows what we can achieve together. 💫\n\nUK MD Stuart Evans says, “One of the core values at ID Logistics is teamwork, which we have truly seen in action bringing this fourth site to life. I am incredibly proud of the massive collaboration across our entire UK network and the tireless work of our project team. Thank you to all our new colleagues for choosing ID Logistics and joining our journey.”\n\nThank you to all those who attended our launch event, marking this memorable occasion. Strong people, strong start and a bright future ahead for Ru",
+        "summary": "{\"company_name\":\"ID Logistics\",\"signal_date\":\"2026-08-11\",\"signal_date_quote\":\"· 2026-08-11T00:00:00+00:00\",\"signal_quote\":\"From an empty space to a fully functioning 𝟲𝟳𝟭,𝟮𝟴𝟬 𝘀𝗾 𝗳𝘁 #ecommerce fulfilment centre in just 𝗳𝗼𝘂𝗿 𝗺𝗼𝗻𝘁𝗵𝘀! We’ve officially launched our new Rugby site, bringing 𝟮𝟬𝟬 𝗻𝗲𝘄 𝗷𝗼𝗯𝘀 to the local area and strengthening our UK network.\",\"signal_summary\":\"ID Logistics announced the launch of a new Rugby site, a 673,270 sq ft e-commerce fulfilment centre, creating 200 new jobs in the local area.\",\"signal_type\":\"new_facility\"}"
+      },
+      {
+        "id": "https://www.logisticsgreat.com/2026/08/03/maersk-commits-us100m-to-new-hopedale-fulfillment-center-advancing-integrated-logistics-push-in-the-us-northeast/",
+        "title": "Maersk Commits US$100m to New Hopedale Fulfillment Center, Advancing Integrated Logistics Push in the US Northeast | Logistics Great",
+        "url": "https://www.logisticsgreat.com/2026/08/03/maersk-commits-us100m-to-new-hopedale-fulfillment-center-advancing-integrated-logistics-push-in-the-us-northeast/",
+        "publishedDate": "2026-08-03T00:00:00.000Z",
+        "author": "Jeda",
+        "score": 0.2222222222222222,
+        "text": "Maersk Commits US$100m to New Hopedale Fulfillment Center, Advancing Integrated Logistics Push in the US Northeast | Logistics Great\n\n# Maersk Commits US$100m to New Hopedale Fulfillment Center, Advancing Integrated Logistics Push in the US Northeast\n\nMaersk, the global integrator of container logistics operating across more than 130 countries, is deepening its footprint in North American contract logistics with a US$100m investment in a new fulfillment center in Hopedale, Massachusetts. The 617,000-square-foot facility is scheduled to open in late August 2026, positioning the company to strengthen fulfillment capacity for cargo owners across the region.\n\nBuilt around the requirements of a single major e-commerce customer, the site will function as a central node in Maersk’s contract logistics network throughout the US Northeast. During peak periods, the center is engineered to process up to 330,000 units a day, a throughput enabled by advanced conveyor and sortation systems designed for high-volume, rapid-turnaround operations.\n\nDave Hune, Head of Maersk Contract Logistics North America, framed the commitment as a direct response to sustained customer demand for modern fulfillment",
+        "summary": "{\"company_name\":\"Maersk\",\"signal_date\":\"2026-08-03\",\"signal_date_quote\":\"August 3, 2026\",\"signal_quote\":\"Maersk, the global integrator of container logistics operating across more than 130 countries, is deepening its footprint in North American contract logistics with a US$100m investment in a new fulfillment center in Hopedale, Massachusetts.\",\"signal_summary\":\"Maersk commits US$100m to a new 617,000-square-foot fulfillment center in Hopedale, MA, opening late Aug 2026, expanding contract logistics in the US Northeast.\",\"signal_type\":\"new_facility\"}"
+      },
+      {
+        "id": "https://transport-online.de/en/news/id-logistics-logistics-center-alsdorf-commences-operations-192038.html",
+        "title": "ID Logistics: Logistics Center in Alsdorf Commences Operations - Contract logistics (including e-fulfilment),E-commerce,Modernization and retrofit | News | TRANSPORT - die Zeitung für den Güterverkehr (Lkw, Speditionen, Fuhrpark, Nutzfahrzeuge, Verkehrspolitik, Wirtschaft)",
+        "url": "https://transport-online.de/en/news/id-logistics-logistics-center-alsdorf-commences-operations-192038.html",
+        "publishedDate": "2026-08-10T00:00:00.000Z",
+        "author": "Alina Venediktova",
+        "score": 0.11111111111111116,
+        "text": "ID Logistics: Logistics Center in Alsdorf Commences Operations - Contract logistics (including e-fulfilment),E-commerce,Modernization and retrofit | News | TRANSPORT - die Zeitung für den Güterverkehr (Lkw, Speditionen, Fuhrpark, Nutzfahrzeuge, Verkehrspolitik, Wirtschaft)\n\n# ID Logistics: Logistics Center in Alsdorf Commences Operations\n\n10. August 2026, 20:21 Uhr\n\nAlina Venediktova\n\nThe contract logistician supplies the fulfillment and distribution centers of an e-commerce retailer from the site near Aachen. All eight halls are expected to be operational by the second quarter of 2027.\n\nFor its warehousing processes, ID Logistics uses 45 man-up trucks, with which employees can pick goods directly from high shelving units. | Photo: ID Logistics\n\nThe contract logistics provider ID Logistics Germany opened a new logistics center in Alsdorf in the Aachen region on August 4, 2026. From this location in the tri-border area of Germany, the Netherlands, and Belgium, the company supplies the fulfillment and distribution centers of an unnamed e-commerce retailer.\n\n In narrow aisle shelving, special man-up trucks are used, where the operator is lifted together with the driver's cabin for ord",
+        "summary": "{\"company_name\":\"ID Logistics\",\"signal_date\":\"2026-08-04\",\"signal_date_quote\":\"The contract logistics provider ID Logistics Germany opened a new logistics center in Alsdorf in the Aachen region on August 4, 2026.\",\"signal_quote\":\"The contract logistics provider ID Logistics Germany opened a new logistics center in Alsdorf in the Aachen region on August 4, 2026.\",\"signal_summary\":\"ID Logistics opened a new logistics center in Alsdorf (Aachen region) to supply fulfillment and distribution centers for an unnamed e-commerce retailer; all eight halls planned to be operational by Q2 2027.\",\"signal_type\":\"new_facility\"}",
+        "image": "https://transport-online.de/sites/default/files/public/styles/_news_2100x1400_/public/images-news-teaser/grossalsdorf-man.jpeg.jpg"
+      },
+      {
+        "id": "https://transport-online.de/en/news/id-logistics-new-xl-fulfillment-center-operation-contract-logistics-expanded-193182.html",
+        "title": "ID Logistics: New XL Fulfillment Center in Operation - Contract Logistics Expanded - E-commerce,Contract logistics (including e-fulfilment),New construction (logistics real estate),Corporate, economic and industry news (misc.) | News | TRANSPORT - die Zeitung für den Güterverkehr (Lkw, Speditionen, Fuhrpark, Nutzfahrzeuge, Verkehrspolitik, Wirtschaft)",
+        "url": "https://transport-online.de/en/news/id-logistics-new-xl-fulfillment-center-operation-contract-logistics-expanded-193182.html",
+        "publishedDate": "2026-09-15T00:00:00.000Z",
+        "author": "Daniela Sawary-Kohnen",
+        "score": 0,
+        "text": "ID Logistics: New XL Fulfillment Center in Operation - Contract Logistics Expanded - E-commerce,Contract logistics (including e-fulfilment),New construction (logistics real estate),Corporate, economic and industry news (misc.) | News | TRANSPORT - die Zeitung für den Güterverkehr (Lkw, Speditionen, Fuhrpark, Nutzfahrzeuge, Verkehrspolitik, Wirtschaft)\n\n# ID Logistics: New XL Fulfillment Center in Operation - Contract Logistics Expanded\n\n15. September 2026, 10:48 Uhr\n\nDaniela Sawary-Kohnen\n\nThe logistics company has opened a new distribution center for heavy and bulky goods in the Hanover metropolitan region. This further expands the XL contract logistics division.\n\nIn diesem exklusiven Webinar gibt MAN Truck & Bus Deutschland einen Blick hinter die Kulissen der eTruck-Strategie. Warum entstehen neue Fahrzeugkonzepte, welche Anforderungen müssen sie erfüllen und wie werden daraus konkrete Lösungen?\n\n(v.l.) Jens Beckmeyer (Mayor of the Samtgemeinde Mittelweser) and Jens Lange (Mayor of the Municipality of Estorf) receive an insight into the new logistics center in Mittelweserpark from Daniele Carelli (Site Manager Estorf ID Logistics Germany), Gregor Eich (VP Operations ID Logistics ",
+        "summary": "{\"company_name\":\"ID Logistics\",\"signal_date\":\"2026-09-15\",\"signal_date_quote\":\"15. September 2026, 10:48 Uhr\",\"signal_quote\":\"The logistics company has opened a new distribution center for heavy and bulky goods in the Hanover metropolitan region. This further expands the XL contract logistics division.\",\"signal_summary\":\"ID Logistics opened a new XL fulfillment center in the Hanover region, expanding its XL contract logistics division.\",\"signal_type\":\"new_facility\"}",
+        "image": "https://transport-online.de/sites/default/files/public/styles/_news_2100x1400_/public/images-news-teaser/id-logistics-9.jpg"
+      }
+    ],
+    "searchTime": 2522.8,
+    "costDollars": {
+      "total": 0.014,
+      "search": {
+        "neural": 0.004
+      },
+      "summary": 0.01
+    }
+  }
+}

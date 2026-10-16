@@ -147,7 +147,7 @@ export function firstUserMessage(contract: Contract, opts: { today?: string } = 
           "",
           "## Who to reach",
           `- Approved buyer roles: ${contract.buyerRoles.join("; ")}.`,
-          "- After a lead is accepted, `find_contacts` looks for up to 3 people in these roles at it (about $0.03 per lead).",
+          "- After a lead is accepted, `find_contacts` looks for up to 3 people in these roles at it (about $0.04 per lead).",
         ]
       : []),
     "",

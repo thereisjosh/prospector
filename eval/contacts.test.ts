@@ -8,7 +8,7 @@ import type { AgentEvent } from "../src/agent/events";
 import { createRunState, type AcceptedLead, type RunState } from "../src/agent/state";
 import { agentTools, executeTool, validateNote, type ToolDeps } from "../src/agent/tools";
 import { contactCounts, toObservations } from "../src/agent/trace";
-import { CONTACT_LIMITS, dedupeContacts, estimateContactCost, findContacts, pageSearchBody, peopleSearchBody, personKey, type Contact, type FindContactsResult } from "../src/contacts";
+import { CONTACT_LIMITS, contactsToolResult, dedupeContacts, estimateContactCost, findContacts, pageSearchBody, peopleSearchBody, personKey, type Contact, type FindContactsResult } from "../src/contacts";
 import { BudgetExceededError, CostGuard, estimateExaCost } from "../src/exa";
 import { CONTACT_NON_EVIDENCE_DOMAINS, checkContact, formerRoleMarker, isAggregatorShapedUrl, normalizePageDate, personNameTokens, properCaseName, titleMatchesRole } from "../src/gates";
 import { validatePlan, type SearchPlan } from "../src/plan";
@@ -92,9 +92,9 @@ describe("checkContact: code decides the tier", () => {
   });
 
   it("verified on another site only when it names the company", () => {
-    const press = { url: "https://news.example.com/verst", text: PRESS_TEXT };
+    const press = { url: "https://news.example.com/verst", text: PRESS_TEXT, news: true };
     expect(checkContact(base, { ...ctx, page: press }).ok).toBe(true);
-    const unnamed = { url: "https://news.example.com/x", text: PRESS_TEXT.replace(/Verst Logistics/g, "the company") };
+    const unnamed = { url: "https://news.example.com/x", text: PRESS_TEXT.replace(/Verst Logistics/g, "the company"), news: true };
     expect(checkContact(base, { ...ctx, page: unnamed })).toMatchObject({ ok: false, tier: "inferred", code: "contact_unverified" });
   });
 
@@ -151,7 +151,7 @@ describe("checkContact: only the company's own site or real press can verify; ol
     // An aggregator the list does not know, with a profile-shaped URL.
     expect(checkContact(v, { ...ctx, page: { url: "https://peoplemirror.example/profile/virgil-chandler", text: FIELD_LIST } })).toMatchObject({ ok: false, code: "contact_unverified", reason: expect.stringContaining("profile or directory") });
     // Unknown domain, neutral URL, but the page is a field list: the prose rule.
-    expect(checkContact(v, { ...ctx, page: { url: "https://peoplemirror.example/v/virgil-chandler", text: FIELD_LIST } })).toMatchObject({ ok: false, code: "contact_unverified", reason: expect.stringContaining("prose") });
+    expect(checkContact(v, { ...ctx, page: { url: "https://peoplemirror.example/v/virgil-chandler", text: FIELD_LIST, news: true } })).toMatchObject({ ok: false, code: "contact_unverified", reason: expect.stringContaining("prose") });
   });
 
   it.each([
@@ -179,8 +179,8 @@ describe("checkContact: only the company's own site or real press can verify; ol
 
   it("prose rule: a press-shaped URL with a bare name-and-title line is inferred; the same name in an article verifies", () => {
     const bare = "Todd Johnson, President and COO. Verst Logistics.";
-    expect(checkContact(todd, { ...base, page: { url: "https://news.example.com/a", text: bare, publishedDate: "2026-09-01" } })).toMatchObject({ ok: false, code: "contact_unverified" });
-    expect(checkContact(todd, { ...base, page: { url: "https://news.example.com/a", text: press("Sep 1, 2026"), publishedDate: "2026-09-01" } })).toMatchObject({ ok: true });
+    expect(checkContact(todd, { ...base, page: { url: "https://news.example.com/a", text: bare, publishedDate: "2026-09-01", news: true } })).toMatchObject({ ok: false, code: "contact_unverified" });
+    expect(checkContact(todd, { ...base, page: { url: "https://news.example.com/a", text: press("Sep 1, 2026"), publishedDate: "2026-09-01", news: true } })).toMatchObject({ ok: true });
   });
 
   it("the company's own domain verifies whatever its age or shape, and records the date when it has one", () => {
@@ -209,14 +209,83 @@ describe("checkContact: only the company's own site or real press can verify; ol
   it("the date comes from the text near the quote when Exa gave none; no date at all means the age rule has nothing to apply", () => {
     const fromText = checkContact(todd, { ...base, page: { url: PRESS_URL, text: press("June 3, 2019") } });
     expect(fromText).toMatchObject({ ok: false, code: "contact_stale", stale: { published: "2019-06-03" } });
-    const undated = checkContact(todd, { ...base, page: { url: "https://news.example.com/a", text: press("") } });
+    const undated = checkContact(todd, { ...base, page: { url: "https://news.example.com/a", text: press(""), news: true } });
     expect(undated).toMatchObject({ ok: true });
     if (undated.ok) expect(undated.evidence.published).toBeUndefined();
   });
 
   it("24 months is the line: 23 months old verifies, 25 does not", () => {
-    expect(checkContact(todd, { ...base, page: { url: "https://news.example.com/a", text: press(""), publishedDate: "2024-11-10" } })).toMatchObject({ ok: true });
-    expect(checkContact(todd, { ...base, page: { url: "https://news.example.com/a", text: press(""), publishedDate: "2024-09-10" } })).toMatchObject({ ok: false, code: "contact_stale" });
+    expect(checkContact(todd, { ...base, page: { url: "https://news.example.com/a", text: press(""), publishedDate: "2024-11-10", news: true } })).toMatchObject({ ok: true });
+    expect(checkContact(todd, { ...base, page: { url: "https://news.example.com/a", text: press(""), publishedDate: "2024-09-10", news: true } })).toMatchObject({ ok: false, code: "contact_stale" });
+  });
+
+  /* ---------- the allowlist (FAILURES #31) ---------- */
+
+  describe("allowlist: company domain, press, or a narrow bio page; everything else is inferred", () => {
+    const SOURCE_NOTE = "source not a company or news page";
+    // The eval's prospeo case: a people-data mirror whose `/c/<slug>` matched no URL shape and whose text read as prose.
+    const MIRROR_PROSE =
+      "Avarra Revenue is a growing company and Mira Patel, Head of Sales, leads the revenue team there. " +
+      "The team works with customers across the region to grow the pipeline and close new deals every quarter, and she reports to the founders.";
+    const mira = { name: "Mira Patel", company: "Avarra Revenue", title_quote: "Head of Sales" };
+    const ctx = { buyerRoles: ["Head of Sales", "Founder"], companyUrl: "https://avarra.ai", now: NOW_D };
+
+    it("(a) the company's own registrable domain verifies, sourceKind company", () => {
+      const v = checkContact(mira, { ...ctx, page: { url: "https://www.avarra.ai/about", text: MIRROR_PROSE } });
+      expect(v).toMatchObject({ ok: true, tier: "verified", evidence: { sourceKind: "company" } });
+    });
+
+    it("the prospeo case: an aggregator page that is prose-like, off the company domain, not news, is inferred with the source note", () => {
+      for (const url of ["https://prospeo.io/c/avarra-revenue", "https://unknown-mirror.example/c/avarra-revenue"]) {
+        const v = checkContact(mira, { ...ctx, page: { url, text: MIRROR_PROSE } });
+        expect(v, url).toMatchObject({ ok: false, tier: "inferred", code: "contact_unverified", note: SOURCE_NOTE });
+      }
+      // The same mirror host is on the blocklist as well (belt and braces).
+      for (const d of ["prospeo.io", "prospectoo.com", "startupintros.com", "fundup.ai", "fireround.dev", "swapcard.com"]) {
+        expect(CONTACT_NON_EVIDENCE_DOMAINS.some((x) => d === x || d.endsWith(`.${x}`)), d).toBe(true);
+      }
+    });
+
+    it("(b) a newswire verifies without the news flag; a result of the news search verifies; sourceKind news", () => {
+      const text = MIRROR_PROSE.replace("Avarra Revenue is a growing company and ", "Avarra Revenue today announced that ");
+      for (const url of [
+        "https://www.prnewswire.com/news-releases/avarra-1.html",
+        "https://www.businesswire.com/news/home/2026/avarra",
+        "https://www.globenewswire.com/news-release/2026/10/01/avarra.html",
+        "https://www.newswire.ca/news-releases/avarra.html",
+        "https://www.accesswire.com/1/avarra",
+        "https://www.einpresswire.com/article/1/avarra",
+        "https://www.prweb.com/releases/avarra.html",
+      ]) {
+        expect(checkContact(mira, { ...ctx, page: { url, text, publishedDate: "2026-09-01" } }), url).toMatchObject({ ok: true, evidence: { sourceKind: "news" } });
+      }
+      expect(checkContact(mira, { ...ctx, page: { url: "https://citybiz.example/article/12", text, publishedDate: "2026-09-01", news: true } })).toMatchObject({ ok: true, evidence: { sourceKind: "news" } });
+      // The same article, not returned by the news search and not a wire: inferred.
+      expect(checkContact(mira, { ...ctx, page: { url: "https://citybiz.example/article/12", text, publishedDate: "2026-09-01" } })).toMatchObject({ ok: false, code: "contact_unverified", note: SOURCE_NOTE });
+    });
+
+    it("(b) keeps the secondary guards: a news-flagged page that is profile-shaped or a bare field list is still inferred", () => {
+      expect(checkContact(mira, { ...ctx, page: { url: "https://news.example/profile/mira", text: MIRROR_PROSE, news: true } })).toMatchObject({ ok: false, code: "contact_unverified", note: SOURCE_NOTE });
+      expect(checkContact(mira, { ...ctx, page: { url: "https://news.example/a", text: "Mira Patel, Head of Sales. Avarra Revenue.", news: true } })).toMatchObject({ ok: false, code: "contact_unverified" });
+    });
+
+    it("(c) a bio page verifies only with company, name and title in one paragraph; sourceKind other", () => {
+      const url = "https://conference.example/speakers/mira-patel";
+      const together = "Speakers\n\n" + MIRROR_PROSE;
+      expect(checkContact(mira, { ...ctx, page: { url, text: together } })).toMatchObject({ ok: true, evidence: { sourceKind: "other" } });
+      // Company in a different paragraph from the name and title.
+      const apart = "Mira Patel, Head of Sales, runs the revenue team and talks to customers across the region about how to grow the pipeline every quarter. She also advises several other teams on how to plan their territories and hire well.\n\nAvarra Revenue sponsors the conference.";
+      expect(checkContact(mira, { ...ctx, page: { url, text: apart } })).toMatchObject({ ok: false, code: "contact_unverified", note: SOURCE_NOTE });
+      // Same text on a URL with no bio segment: unsure, so inferred.
+      expect(checkContact(mira, { ...ctx, page: { url: "https://conference.example/exhibitors/avarra", text: together } })).toMatchObject({ ok: false, code: "contact_unverified", note: SOURCE_NOTE });
+      // A bio-shaped path on an aggregator host never verifies.
+      expect(checkContact(mira, { ...ctx, page: { url: "https://prospeo.io/speakers/mira", text: together } })).toMatchObject({ ok: false, code: "contact_unverified" });
+    });
+
+    it("sourceKind is on the evidence of every verified contact", () => {
+      const v = checkContact(todd, { ...base, page: { url: "https://www.verstlogistics.com/team", text: "Todd Johnson, President and COO." } });
+      expect(v).toMatchObject({ ok: true, evidence: { sourceKind: "company" } });
+    });
   });
 
   it("date helpers", () => {
@@ -253,15 +322,15 @@ const PAGES: ExaResult[] = [
   ]),
 ];
 
-function fakeExa(people: ExaResult[], pages: ExaResult[]) {
+function fakeExa(people: ExaResult[], pages: ExaResult[], news: ExaResult[] = []) {
   const calls: Array<Record<string, unknown>> = [];
   const fn = vi.fn(async (body: Record<string, unknown>, _creds?: unknown, guard?: CostGuard): Promise<ExaSearchResponse> => {
     calls.push(body);
     const estimate = estimateExaCost(body);
     guard?.reserve(estimate);
-    const actual = body.category === "people" ? 0.007 : 0.012;
+    const actual = body.category === "people" ? 0.007 : body.category === "news" ? 0.005 : 0.012;
     guard?.settle(estimate, actual);
-    return { results: body.category === "people" ? people : pages, costDollars: { total: actual } };
+    return { results: body.category === "people" ? people : body.category === "news" ? news : pages, costDollars: { total: actual } };
   });
   return { fn, calls };
 }
@@ -285,7 +354,7 @@ describe("findContacts", () => {
       { name: "Chris Verst", outcome: "dropped", code: "contact_role_mismatch" },
       { name: "Pat Ghost", outcome: "dropped", code: "contact_quote_not_in_page" },
     ]));
-    expect(r.cost).toBeCloseTo(0.019, 9);
+    expect(r.cost).toBeCloseTo(0.024, 9);
   });
 
   it("sends a people search with no contents, then a page search that excludes LinkedIn and aggregators", async () => {
@@ -294,7 +363,12 @@ describe("findContacts", () => {
     expect(exa.calls[0]).toEqual(peopleSearchBody("Verst Logistics", ROLES));
     expect(exa.calls[0]).toMatchObject({ category: "people", numResults: 5, query: "VP of Operations or Warehouse general manager at Verst Logistics" });
     expect(exa.calls[0]!.contents).toBeUndefined();
-    expect(exa.calls[1]).toMatchObject({ query: '"Verst Logistics" VP of Operations or Warehouse general manager leadership team', numResults: 5 });
+    expect(exa.calls[1]).toMatchObject({ query: '"Verst Logistics" VP of Operations or Warehouse general manager leadership team', numResults: 4 });
+    expect(exa.calls[1]!.category).toBeUndefined();
+    // Call C: the same search as a news search, so every result is news by Exa's classification (FAILURES #31).
+    expect(exa.calls[2]).toMatchObject({ category: "news", numResults: 3 });
+    expect(exa.calls[2]!.excludeDomains).toEqual(exa.calls[1]!.excludeDomains);
+    expect(exa.calls).toHaveLength(3);
     expect(exa.calls[1]!.excludeDomains).toEqual(expect.arrayContaining(["linkedin.com", "exa.ai", "theorg.com", "zoominfo.com"]));
     expect(JSON.stringify((exa.calls[1]!.contents as { summary: { query: string } }).summary.query)).toContain("Travis French");
   });
@@ -317,7 +391,7 @@ describe("findContacts", () => {
 
   it("zero contacts when the only name is absent from its page", async () => {
     const r = await findContacts(
-      { company: "Verst Logistics", buyerRoles: ROLES },
+      { company: "Verst Logistics", companyUrl: "https://verstlogistics.com", buyerRoles: ROLES },
       { exaSearch: fakeExa([], [page(TEAM_URL, "Verst Logistics has a great team.", [{ name: "Pat Ghost", title_quote: "VP Operations" }])]).fn as never },
     );
     expect(r.contacts).toEqual([]);
@@ -332,16 +406,17 @@ describe("findContacts", () => {
     expect(r.contacts).toHaveLength(CONTACT_LIMITS.maxContacts);
   });
 
-  it("cost cap: the two calls' worst case is at most $0.03, and a run guard without room refuses before any call", async () => {
+  it("cost cap: the three calls' worst case is at most CONTACT_LIMITS.maxCostDollars, and a run guard without room refuses before any call", async () => {
     expect(estimateContactCost("Verst Logistics", ROLES)).toBeLessThanOrEqual(CONTACT_LIMITS.maxCostDollars + 1e-9);
     expect(estimateExaCost(pageSearchBody("X", ROLES, ["A B", "C D"]))).toBe(estimateExaCost(pageSearchBody("X", ROLES, [])));
+    expect(estimateExaCost(pageSearchBody("X", ROLES, ["A B"], { news: true }))).toBe(estimateExaCost(pageSearchBody("X", ROLES, [], { news: true })));
     const exa = fakeExa(PEOPLE, PAGES);
-    const guard = new CostGuard(0.02);
+    const guard = new CostGuard(0.03);
     await expect(findContacts({ company: "Verst Logistics", buyerRoles: ROLES, guard }, { exaSearch: exa.fn as never })).rejects.toBeInstanceOf(BudgetExceededError);
     expect(exa.fn).not.toHaveBeenCalled();
     const roomy = new CostGuard(1);
     await findContacts({ company: "Verst Logistics", buyerRoles: ROLES, guard: roomy }, { exaSearch: exa.fn as never });
-    expect(roomy.spent).toBeCloseTo(0.019, 9);
+    expect(roomy.spent).toBeCloseTo(0.024, 9);
   });
 
   it("a people-data mirror page cannot verify a contact; an old press page needs the index, else the contact is inferred with 'last confirmed'", async () => {
@@ -378,11 +453,27 @@ describe("findContacts", () => {
     expect(alone.contacts.some((c) => c.tier === "verified")).toBe(false);
   });
 
+  it("FAILURES #31: a prose-like mirror in the web results never verifies (index listing is inferred with the source note); the same facts in a news result verify", async () => {
+    const roles = ["Head of Sales", "Founder"];
+    const text =
+      "Avarra Revenue today announced that Mira Patel, Head of Sales, will lead the revenue team. " +
+      "The team works with customers across the region to grow the pipeline and close new deals every quarter, and she reports to the founders.";
+    const mirror = page("https://prospeo.io/c/avarra-revenue", text, [{ name: "Mira Patel", title_quote: "Head of Sales" }]);
+    const people = [person("https://www.linkedin.com/in/mira-patel", "Mira Patel", [{ title: "Head of Sales", company: "Avarra Revenue" }])];
+    // The web search returns the mirror only: inferred, with the note, never verified.
+    const web = await findContacts({ company: "Avarra Revenue", companyUrl: "https://avarra.ai", buyerRoles: roles }, { exaSearch: fakeExa(people, [mirror], []).fn as never });
+    expect(web.contacts).toEqual([{ name: "Mira Patel", tier: "inferred", role: "Head of Sales", why: "Head of Sales", profile_url: "https://www.linkedin.com/in/mira-patel", found_via: "people_index", code: "contact_unverified", note: "source not a company or news page" }]);
+    expect(contactsToolResult("Avarra Revenue", web)).toContain("listed in a people index as Head of Sales; source not a company or news page");
+    // The identical page returned by the news search is press: verified, sourceKind news.
+    const news = await findContacts({ company: "Avarra Revenue", companyUrl: "https://avarra.ai", buyerRoles: roles }, { exaSearch: fakeExa(people, [], [{ ...mirror, url: "https://www.citybiz.example/article/1", publishedDate: "2026-09-01" }]).fn as never });
+    expect(news.contacts[0]).toMatchObject({ tier: "verified", evidence: { url: "https://www.citybiz.example/article/1", sourceKind: "news" } });
+  });
+
   it("the run's guard is input.guard: spend lands on it; a guard passed through deps is refused, not silently ignored", async () => {
     const exa = fakeExa(PEOPLE, PAGES);
     const guard = new CostGuard(1);
     const r = await findContacts({ company: "Verst Logistics", buyerRoles: ROLES, guard }, { exaSearch: exa.fn as never });
-    expect(r.cost).toBeCloseTo(0.019, 9);
+    expect(r.cost).toBeCloseTo(0.024, 9);
     expect(guard.spent).toBeCloseTo(r.cost, 9);
     expect(exa.fn.mock.calls.every((c) => c[2] === guard)).toBe(true);
     const other = new CostGuard(1);
@@ -524,7 +615,7 @@ describe("find_contacts tool", () => {
     expect(r.result.is_error).toBeUndefined();
     expect(s.leads[0]!.contacts!.contacts.map((c) => c.tier)).toEqual(["verified", "inferred"]);
     expect(s.leads[0]!.contacts!.cost).toBeCloseTo(guard.spent, 9);
-    expect(s.spend.exa).toBeCloseTo(0.019, 9);
+    expect(s.spend.exa).toBeCloseTo(0.024, 9);
   });
 
   it("remember refuses a note that names a person find_contacts returned", async () => {

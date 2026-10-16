@@ -20,7 +20,7 @@ import type { AgentEvent } from "../src/agent/events";
 import type { LeadChecker } from "../src/agent/gate-port";
 import { contactsPhaseTurn, step } from "../src/agent/loop";
 import { createRunState, type AcceptedLead, type RunState } from "../src/agent/state";
-import type { FindContactsInput, FindContactsResult } from "../src/contacts";
+import { CONTACT_LIMITS, type FindContactsInput, type FindContactsResult } from "../src/contacts";
 import { squashName } from "../src/gates";
 import type { SearchPlan } from "../src/plan";
 
@@ -124,8 +124,8 @@ describe("contacts phase", () => {
     const findContacts = vi.fn(async (input: FindContactsInput) => {
       remaining.push(input.guard!.remaining);
       // The real lookup settles its spend on the guard.
-      input.guard!.reserve(0.03);
-      input.guard!.settle(0.03, 0.02);
+      input.guard!.reserve(CONTACT_LIMITS.maxCostDollars);
+      input.guard!.settle(CONTACT_LIMITS.maxCostDollars, 0.02);
       return found(1);
     });
     const c = client(
@@ -141,13 +141,13 @@ describe("contacts phase", () => {
 
     const phase = await step(s, deps); // the contacts phase turn
     const [entered] = phaseEvents(phase.events);
-    expect(entered).toMatchObject({ scope: "loop", check: "contacts_phase", outcome: "pass", leadsWithoutContacts: 3, phaseTurn: 1, maxTurns: 1, budgetDollars: 0.09 });
-    expect(s.contactsPhase).toMatchObject({ maxTurns: 1, turnsUsed: 1, budgetDollars: 0.09 });
+    expect(entered).toMatchObject({ scope: "loop", check: "contacts_phase", outcome: "pass", leadsWithoutContacts: 3, phaseTurn: 1, maxTurns: 1, budgetDollars: 3 * CONTACT_LIMITS.maxCostDollars });
+    expect(s.contactsPhase).toMatchObject({ maxTurns: 1, turnsUsed: 1, budgetDollars: 3 * CONTACT_LIMITS.maxCostDollars });
     // The nudge is on the user message the model read this turn.
     expect(sentAt.at(-1)).toContain("Target reached: look up contacts for the 3 leads without them (A Co, B Co, C Co) with find_contacts, then finish.");
     expect(findContacts).toHaveBeenCalledTimes(3);
-    // The phase's Exa budget (3 × $0.03) bounds the guard: never more room than that.
-    expect(Math.max(...remaining)).toBeLessThanOrEqual(0.09 + 1e-9);
+    // The phase's Exa budget (3 × CONTACT_LIMITS.maxCostDollars) bounds the guard: never more room than that.
+    expect(Math.max(...remaining)).toBeLessThanOrEqual(3 * CONTACT_LIMITS.maxCostDollars + 1e-9);
     expect(s.leads.every((l) => l.contacts && l.contacts.contacts.length === 1)).toBe(true);
     expect(s.status).toBe("running");
 
@@ -199,7 +199,7 @@ describe("contacts phase", () => {
 
   it("skipped when the budget left cannot pay for one lookup", async () => {
     const s = runState([lead("A Co"), lead("B Co"), lead("C Co")]);
-    // $1 cap, $0.05 handback reserve: $0.02 left, under one lookup's $0.03 (and not yet the budget stop).
+    // $1 cap, $0.05 handback reserve: $0.02 left, under one lookup's cap (and not yet the budget stop).
     s.spend = { exa: 0.5, claude: 0.43, total: 0.93 };
     const c = client();
     const r = await step(s, { client: c as never, checkLead: checker, now: NOW });
@@ -218,8 +218,8 @@ describe("contacts phase", () => {
     const s = runState([lead("A Co"), lead("B Co"), lead("C Co")], {}, 3);
     s.leads.push(lead("D Co"), lead("E Co"), lead("F Co"), lead("G Co"));
     expect(contactsPhaseTurn(s)).toMatchObject({ pending: ["A Co", "B Co", "C Co", "D Co", "E Co", "F Co", "G Co"] });
-    expect(s.contactsPhase).toMatchObject({ maxTurns: 3, budgetDollars: 7 * 0.03 });
-    s.spend.exa += 0.19; // 0.21 budget, 0.02 left
+    expect(s.contactsPhase).toMatchObject({ maxTurns: 3, budgetDollars: 7 * CONTACT_LIMITS.maxCostDollars });
+    s.spend.exa += 7 * CONTACT_LIMITS.maxCostDollars - 0.02; // budget minus 0.02: under one lookup left
     expect(contactsPhaseTurn(s)).toBeUndefined();
   });
 });

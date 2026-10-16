@@ -1,0 +1,175 @@
+{
+  "request": {
+    "query": "US 3PL company acquired a warehousing business recently",
+    "type": "neural",
+    "numResults": 10,
+    "startPublishedDate": "2026-07-16T13:57:24.005Z",
+    "contents": {
+      "summary": {
+        "query": "US 3PL company acquired a warehousing business recently Set signal_date to the date the EVENT itself happened or was announced (not the article's publish date), in ISO format YYYY-MM-DD. Set signal_type to exactly one of: new_facility, expansion, ops_hiring_wave, ops_hire, other. For signal_quote, copy the exact sentence from the page that states the event; use \"\" if no sentence states an event. For signal_date_quote, copy the exact date phrase from the page; use \"\" if no date phrase is stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "company_name": {
+              "type": "string"
+            },
+            "signal_type": {
+              "type": "string",
+              "enum": [
+                "new_facility",
+                "expansion",
+                "ops_hiring_wave",
+                "ops_hire",
+                "other"
+              ]
+            },
+            "signal_summary": {
+              "type": "string"
+            },
+            "signal_date": {
+              "type": "string"
+            },
+            "signal_quote": {
+              "type": "string"
+            },
+            "signal_date_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "company_name",
+            "signal_type",
+            "signal_summary",
+            "signal_date",
+            "signal_quote",
+            "signal_date_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 1200
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "bb55b23b832b172922941035f955a8b1",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://palmsprings.newsnetmedia.com/story/416957/spartan-logistics-expands-toledo-presence-through-strategic-acquisition/",
+        "title": "Spartan Logistics Expands Toledo Presence Through Strategic Acquisition – NEWSnet Palm Springs",
+        "url": "https://palmsprings.newsnetmedia.com/story/416957/spartan-logistics-expands-toledo-presence-through-strategic-acquisition/",
+        "publishedDate": "2026-09-09T00:00:00.000Z",
+        "score": 1,
+        "text": "Spartan Logistics Expands Toledo Presence Through Strategic Acquisition – NEWSnet Palm Springs\n\n# Spartan Logistics Expands Toledo Presence Through Strategic Acquisition\n\nSeptember 9, 2026\n\nSpartan Logistics\n\n# Spartan Logistics Expands Toledo Presence Through Strategic Acquisition\n\nWHITEHOUSE, Ohio, Sept. 9, 2026\n\nWHITEHOUSE, Ohio, Sept. 9, 2026 /PRNewswire/ — Spartan Logistics, a family-owned third-party logistics provider specializing in warehousing and transportation services, today announces the acquisition of Allen Logistics, a warehousing company supporting customers in Whitehouse, Ohio. The acquisition became effective September 1, 2026.\n\n \n\nThe acquisition adds 100,000 SF of warehousing capacity to Spartan’s existing Toledo operations as the seventh warehouse operation in Northwest Ohio, a market that has been an important part of Spartan’s network and long-term growth strategy. This brings the company to 4.5 million SF of total space and 950,000 SF in Northwest Ohio.\n\nSpartan is focused on providing a seamless transition for existing customers and providing resources, technology, and efficiencies to the facility, while also identifying opportunities to bring additional bu",
+        "summary": "{\"company_name\":\"Spartan Logistics\",\"signal_date\":\"2026-09-01\",\"signal_date_quote\":\"September 1, 2026\",\"signal_quote\":\"the acquisition became effective September 1, 2026.\",\"signal_summary\":\"Spartan Logistics expands Toledo presence by acquiring Allen Logistics, adding 100,000 SF of warehousing capacity in Whitehouse, Ohio, as part of its Northwest Ohio expansion.\",\"signal_type\":\"expansion\"}"
+      },
+      {
+        "id": "https://lifestyle.brownplanet.com/story/852614/spartan-logistics-expands-toledo-presence-through-strategic-acquisition/",
+        "title": "Spartan Logistics Expands Toledo Presence Through Strategic Acquisition | lifestyle.brownplanet.com",
+        "url": "https://lifestyle.brownplanet.com/story/852614/spartan-logistics-expands-toledo-presence-through-strategic-acquisition/",
+        "publishedDate": "2026-09-09T00:00:00.000Z",
+        "author": "Spartan Logistics",
+        "score": 0.8888888888888888,
+        "text": "Spartan Logistics Expands Toledo Presence Through Strategic Acquisition | lifestyle.brownplanet.com\n\n# Spartan Logistics Expands Toledo Presence Through Strategic Acquisition\n\nSpartan Logistics\n\n# Spartan Logistics Expands Toledo Presence Through Strategic Acquisition\n\nPR Newswire\n\nWHITEHOUSE, Ohio, Sept. 9, 2026\n\nWHITEHOUSE, Ohio, Sept. 9, 2026 /PRNewswire/ — Spartan Logistics, a family-owned third-party logistics provider specializing in warehousing and transportation services, today announces the acquisition of Allen Logistics, a warehousing company supporting customers in Whitehouse, Ohio. The acquisition became effective September 1, 2026.\n\n \n\nThe acquisition adds 100,000 SF of warehousing capacity to Spartan’s existing Toledo operations as the seventh warehouse operation in Northwest Ohio, a market that has been an important part of Spartan’s network and long-term growth strategy. This brings the company to 4.5 million SF of total space and 950,000 SF in Northwest Ohio.\n\nSpartan is focused on providing a seamless transition for existing customers and providing resources, technology, and efficiencies to the facility, while also identifying opportunities to bring additional bus",
+        "summary": "{\"company_name\":\"Spartan Logistics\",\"signal_date\":\"2026-09-01\",\"signal_date_quote\":\"The acquisition became effective September 1, 2026.\",\"signal_quote\":\"the acquisition of Allen Logistics, a warehousing company supporting customers in Whitehouse, Ohio.\",\"signal_summary\":\"Spartan Logistics announces acquisition of Allen Logistics to expand Toledo/W Northwest Ohio warehousing capacity; adds 100,000 SF and brings total space to 4.5 million SF.\",\"signal_type\":\"expansion\"}",
+        "image": "https://pix.xpr.media/p/eyJzIjoiYWY3M2FiZTctYzkzMC00Yzc4LTgyNjgtN2FiODIxNTQ4YTI3IiwiYyI6IjY1OTNkODExLTMzZDYtNGFiZS1iMGVlLTRhOWJjZDQ0MDI4NyIsInYiOjF9.8ggWZVPunsYMFNc0hgUoK7hBa7bHC0F1HxCpSCYEBiI.gif"
+      },
+      {
+        "id": "https://lifestyle.awe.sm/story/346641/spartan-logistics-expands-toledo-presence-through-strategic-acquisition/",
+        "title": "Spartan Logistics Expands Toledo Presence Through Strategic Acquisition - Awesome - Lifestyle",
+        "url": "https://lifestyle.awe.sm/story/346641/spartan-logistics-expands-toledo-presence-through-strategic-acquisition/",
+        "publishedDate": "2026-09-09T00:00:00.000Z",
+        "author": "Spartan Logistics",
+        "score": 0.7777777777777778,
+        "text": "Spartan Logistics Expands Toledo Presence Through Strategic Acquisition - Awesome - Lifestyle\n\n# Spartan Logistics Expands Toledo Presence Through Strategic Acquisition\n\nSpartan Logistics\n\n# Spartan Logistics Expands Toledo Presence Through Strategic Acquisition\n\nPR Newswire\n\nWHITEHOUSE, Ohio, Sept. 9, 2026\n\nWHITEHOUSE, Ohio, Sept. 9, 2026 /PRNewswire/ — Spartan Logistics, a family-owned third-party logistics provider specializing in warehousing and transportation services, today announces the acquisition of Allen Logistics, a warehousing company supporting customers in Whitehouse, Ohio. The acquisition became effective September 1, 2026.\n\n \n\nThe acquisition adds 100,000 SF of warehousing capacity to Spartan’s existing Toledo operations as the seventh warehouse operation in Northwest Ohio, a market that has been an important part of Spartan’s network and long-term growth strategy. This brings the company to 4.5 million SF of total space and 950,000 SF in Northwest Ohio.\n\nSpartan is focused on providing a seamless transition for existing customers and providing resources, technology, and efficiencies to the facility, while also identifying opportunities to bring additional business ",
+        "summary": "{\"company_name\":\"Spartan Logistics\",\"signal_date\":\"2026-09-01\",\"signal_date_quote\":\"the acquisition became effective September 1, 2026\",\"signal_quote\":\"the acquisition of Allen Logistics, a warehousing company supporting customers in Whitehouse, Ohio\",\"signal_summary\":\"Spartan Logistics announces the acquisition of Allen Logistics, adding 100,000 SF of warehousing capacity and expanding to 4.5 million SF total space; the acquisition became effective September 1, 2026.\",\"signal_type\":\"expansion\"}",
+        "image": "https://pix.xpr.media/p/eyJzIjoiYWY3M2FiZTctYzkzMC00Yzc4LTgyNjgtN2FiODIxNTQ4YTI3IiwiYyI6ImYwOTlmZjE0LTBjMzItNDE3OS1iYzg4LWVjMDUwZTk2MTVlYSIsInYiOjF9.7-Q8naxa3m1AtbSE7Lf0K6IyPVjfPWZt3dUlsYMiTbU.gif"
+      },
+      {
+        "id": "https://lifestyle.thenyctimes.com/story/847970/spartan-logistics-expands-toledo-presence-through-strategic-acquisition/",
+        "title": "Spartan Logistics Expands Toledo Presence Through Strategic Acquisition | lifestyle.thenyctimes.com",
+        "url": "https://lifestyle.thenyctimes.com/story/847970/spartan-logistics-expands-toledo-presence-through-strategic-acquisition/",
+        "publishedDate": "2026-09-09T00:00:00.000Z",
+        "author": "Spartan Logistics",
+        "score": 0.6666666666666667,
+        "text": "Spartan Logistics Expands Toledo Presence Through Strategic Acquisition | lifestyle.thenyctimes.com\n\n# Spartan Logistics Expands Toledo Presence Through Strategic Acquisition\n\nSpartan Logistics\n\n# Spartan Logistics Expands Toledo Presence Through Strategic Acquisition\n\nPR Newswire\n\nWHITEHOUSE, Ohio, Sept. 9, 2026\n\nWHITEHOUSE, Ohio, Sept. 9, 2026 /PRNewswire/ — Spartan Logistics, a family-owned third-party logistics provider specializing in warehousing and transportation services, today announces the acquisition of Allen Logistics, a warehousing company supporting customers in Whitehouse, Ohio. The acquisition became effective September 1, 2026.\n\n \n\nThe acquisition adds 100,000 SF of warehousing capacity to Spartan’s existing Toledo operations as the seventh warehouse operation in Northwest Ohio, a market that has been an important part of Spartan’s network and long-term growth strategy. This brings the company to 4.5 million SF of total space and 950,000 SF in Northwest Ohio.\n\nSpartan is focused on providing a seamless transition for existing customers and providing resources, technology, and efficiencies to the facility, while also identifying opportunities to bring additional bus",
+        "summary": "{\"company_name\":\"Spartan Logistics\",\"signal_date\":\"2026-09-01\",\"signal_date_quote\":\"September 1, 2026\",\"signal_quote\":\"the acquisition became effective September 1, 2026.\",\"signal_summary\":\"Spartan Logistics acquired Allen Logistics, expanding warehousing capacity in Northwest Ohio and bringing total space to 4.5 million SF.\",\"signal_type\":\"expansion\"}",
+        "image": "https://pix.xpr.media/p/eyJzIjoiYWY3M2FiZTctYzkzMC00Yzc4LTgyNjgtN2FiODIxNTQ4YTI3IiwiYyI6IjVmZGYxYWQ2LTExMWMtNGYxMy1iZWYyLTc4YjkwMGJmNzM2MyIsInYiOjF9.LekXyDAqG39RjvM1oZKh0TiQHMsZb7uEEdb6TS7wNrg.gif"
+      },
+      {
+        "id": "https://lifestyle.mmminimal.com/story/863188/spartan-logistics-expands-toledo-presence-through-strategic-acquisition/",
+        "title": "Spartan Logistics Expands Toledo Presence Through Strategic Acquisition | lifestyle.mmminimal.com",
+        "url": "https://lifestyle.mmminimal.com/story/863188/spartan-logistics-expands-toledo-presence-through-strategic-acquisition/",
+        "publishedDate": "2026-09-09T00:00:00.000Z",
+        "author": "Spartan Logistics",
+        "score": 0.5555555555555556,
+        "text": "Spartan Logistics Expands Toledo Presence Through Strategic Acquisition | lifestyle.mmminimal.com\n\n# Spartan Logistics Expands Toledo Presence Through Strategic Acquisition\n\nSpartan Logistics\n\n# Spartan Logistics Expands Toledo Presence Through Strategic Acquisition\n\nWHITEHOUSE, Ohio, Sept. 9, 2026\n\nWHITEHOUSE, Ohio, Sept. 9, 2026 /PRNewswire/ — Spartan Logistics, a family-owned third-party logistics provider specializing in warehousing and transportation services, today announces the acquisition of Allen Logistics, a warehousing company supporting customers in Whitehouse, Ohio. The acquisition became effective September 1, 2026.\n\n \n\nThe acquisition adds 100,000 SF of warehousing capacity to Spartan’s existing Toledo operations as the seventh warehouse operation in Northwest Ohio, a market that has been an important part of Spartan’s network and long-term growth strategy. This brings the company to 4.5 million SF of total space and 950,000 SF in Northwest Ohio.\n\nSpartan is focused on providing a seamless transition for existing customers and providing resources, technology, and efficiencies to the facility, while also identifying opportunities to bring additional business to the op",
+        "summary": "{\"company_name\":\"Spartan Logistics\",\"signal_date\":\"2026-09-01\",\"signal_date_quote\":\"September 1, 2026\",\"signal_quote\":\"the acquisition became effective September 1, 2026.\",\"signal_summary\":\"Spartan Logistics acquired Allen Logistics, adding 100,000 SF of warehousing capacity to its Toledo operations and expanding its Northwest Ohio footprint.\",\"signal_type\":\"new_facility\"}",
+        "image": "https://pix.xpr.media/p/eyJzIjoiYWY3M2FiZTctYzkzMC00Yzc4LTgyNjgtN2FiODIxNTQ4YTI3IiwiYyI6IjFiMTEwMDNmLWU5N2UtNGJmNi1iYTJmLTBhYzQyZTgwOWY1OCIsInYiOjF9.8v6DRvmtgMaAChd_OfCNVUzWmW45GVHMtRTvfriSYdw.gif"
+      },
+      {
+        "id": "https://www.freightwaves.com/news/fura-acquires-pacific-northwest-freight-broker",
+        "title": "Fura acquires Pacific Northwest freight broker - FreightWaves",
+        "url": "https://www.freightwaves.com/news/fura-acquires-pacific-northwest-freight-broker",
+        "publishedDate": "2026-08-11T00:00:00.000Z",
+        "author": "Todd Maiden",
+        "score": 0.4444444444444444,
+        "text": "Fura acquires Pacific Northwest freight broker - FreightWaves\n\n## High Rise Logistics acquisition marks deal 7 for AI-powered roll-up \n\n Todd Maiden \n\n· Tuesday, August 11, 2026 \n\n AI-powered broker Fura has acquired has acquired High Rise Logistics for an undisclosed sum. (Photo: Jim Allen/FreightWaves) \n\nFreight broker Fura announced Tuesday that it has acquired High Rise Logistics. The latest transaction marked the seventh acquisition for the Cincinnati-based AI-powered 3PL.\n\nVancouver, Washington–based High Rise provides flatbed, expedited, truckload and less-than-truckload transportation. It has a large presence in the Pacific Northwest and also offers intermodal, drayage and warehousing services.\n\nFinancial terms of the transaction were not disclosed.\n\nFura is rolling up freight brokers and layering tech and automation into their operations to magnify scale.\n\n“What we’re doing has never been done in logistics — we’re buying great businesses and transforming them at a speed this industry has never seen,” said Jeff Dangelo, co-founder and CEO of Fura. “High Rise is a perfect fit for our roll-up: great customers, a great team, and exactly the kind of business that gets superchar",
+        "summary": "{\"company_name\":\"Fura\",\"signal_date\":\"2026-08-11\",\"signal_date_quote\":\"Tuesday, August 11, 2026\",\"signal_quote\":\"Fura announced Tuesday that it has acquired High Rise Logistics.\",\"signal_summary\":\"AI-powered broker Fura expands with acquisition of High Rise Logistics, marking its seventh acquisition; High Rise serves Pacific Northwest with flatbed, expedited, and truckload services.\",\"signal_type\":\"expansion\"}"
+      },
+      {
+        "id": "https://crossdockinsights.com/p/us-3pl-acquisitions-that-are-reshaping-american-logistics",
+        "title": "U.S. 3PL Acquisitions That Are Reshaping American Logistics",
+        "url": "https://crossdockinsights.com/p/us-3pl-acquisitions-that-are-reshaping-american-logistics",
+        "publishedDate": "2026-08-05T00:00:00.000Z",
+        "author": "CrossDock Insights",
+        "score": 0.33333333333333337,
+        "text": "U.S. 3PL Acquisitions That Are Reshaping American Logistics\n\n# U.S. 3PL Acquisitions That Are Reshaping American Logistics\n\nDiscover the most important U.S. 3PL mergers and acquisitions of 2025–2026. Learn which logistics companies acquired which, and why the deals happened.\n\nAug 5, 2026\n\nThe U.S. 3PL industry is in the middle of a consolidation wave. Large logistics providers are acquiring companies to expand into higher-value segments such as healthcare logistics, customs brokerage, fulfillment, managed transportation, and cross-border logistics. At the same time, mid-market and regional 3PLs are buying niche operators to broaden their service offerings, strengthen their geographic reach, and add warehouse capacity. Across the industry, acquisitions have become one of the primary ways logistics companies are growing and differentiating themselves.\n\nBelow are some of the most important U.S. 3PL mergers and acquisitions announced or completed between 2025 and 2026, and why each deal matters.\n\n## 1. UPS Acquires Andlauer Healthcare Group for $1.6 Billion\n\nUPS doubled down on healthcare logistics in April 2025 with its $1.6 billion acquisition of Andlauer Healthcare Group, one of Can",
+        "summary": "{\"company_name\":\"UPS\",\"signal_date\":\"2025-04-\",\"signal_date_quote\":\"\",\"signal_quote\":\"UPS Acquires Andlauer Healthcare Group for $1.6 Billion\",\"signal_summary\":\"UPS acquisition of Andlauer Healthcare Group signals a strategic expansion into healthcare logistics.\",\"signal_type\":\"expansion\"}",
+        "image": "https://media.beehiiv.com/cdn-cgi/image/fit=scale-down,quality=80,width=1200,onerror=redirect/uploads/asset/file/f2d54650-65fd-4df3-a00d-91ef01ce726f/74079.jpg?t=1785919377"
+      },
+      {
+        "id": "https://peprofessional.com/2023/02/fort-point-stays-busy-with-buy-of-yandell/",
+        "title": "Fort Point Stays Busy with Buy of Yandell",
+        "url": "https://peprofessional.com/2023/02/fort-point-stays-busy-with-buy-of-yandell/",
+        "publishedDate": "2026-08-13T00:00:00.000Z",
+        "author": "John McNulty",
+        "score": 0.2222222222222222,
+        "text": "Fort Point Stays Busy with Buy of Yandell\n\n# Fort Point Stays Busy with Buy of Yandell\n\n \n\n February 20, 2023| John McNulty\n\nFort Point Capital has acquired The Yandell Family of Companies, a provider of transportation and logistics services to the wine, food, and beverage industries.\n\nYandell’s services include transportation, warehousing, and logistics, which are provided by SC Warehouses, an operator of temperature-controlled warehouses; Yandell Truckaway, a provider of transportation and trucking services throughout Northern and Central California; and Yes! Logistics, a provider of freight brokerage services. Yandell was founded in 1945 and is headquartered near San Francisco in Benicia, California.\n\nSource: Yandell Truckaway\n\n“After operating independently for the last 78 years, our family is excited to be partnering with Fort Point Capital,” said John Yandell Jr., the president of Yandell. “Their extensive experience investing in the logistics space combined with their partnership approach will provide us with the resources we need to enhance our service offering, invest in sales and marketing, and expand geographically.”\n\n“Yandell is a well-established player in the wine log",
+        "summary": "{\"company_name\":\"Fort Point Capital\",\"signal_date\":\"2023-02-20\",\"signal_date_quote\":\"February 20, 2023\",\"signal_quote\":\"Fort Point Capital has acquired The Yandell Family of Companies, a provider of transportation and logistics services to the wine, food, and beverage industries.\",\"signal_summary\":\"Fort Point Capital acquires The Yandell Family of Companies (Yandell Truckaway, SC Warehouses, Yes! Logistics), expanding its logistics/3PL footprint in California.\",\"signal_type\":\"expansion\"}"
+      },
+      {
+        "id": "https://www.linkedin.com/posts/ams-fulfillment-inc-_we-are-very-pleased-to-announce-that-ams-activity-7501706352696766465-ivRC",
+        "title": "We are very pleased to announce that AMS Fulfillment has acquired VOX Fulfillment, a third-party logistics provider based in Provo, Utah. This is an important milestone in AMS’s continued growth.",
+        "url": "https://www.linkedin.com/posts/ams-fulfillment-inc-_we-are-very-pleased-to-announce-that-ams-activity-7501706352696766465-ivRC",
+        "publishedDate": "2026-09-04T00:00:00.000Z",
+        "author": "AMS Fulfillment",
+        "score": 0.11111111111111116,
+        "text": "# We are very pleased to announce that AMS Fulfillment has acquired VOX Fulfillment, a third-party logistics provider based in Provo, Utah. This is an important milestone in AMS’s continued growth. · 2026-09-04T00:00:00+00:00\n\nWe are very pleased to announce that AMS Fulfillment has acquired VOX Fulfillment, a third-party logistics provider based in Provo, Utah. This is an important milestone in AMS’s continued growth.\n\nVOX operates two facilities totaling approximately 155,000 square feet and has about 125 employees. The company brings an impressive group of customers to AMS, expands our geographic footprint and further strengthens our position in the health, wellness and beauty market. VOX customers will now have access to AMS’s bi-coastal fulfillment network, technology and broader operational resources.\n\nOur team has been working closely with VOX for approximately six months to evaluate the business and plan for a successful transition. We have been impressed by the quality of its operations, customer relationships and employees. Most importantly, we believe there is a strong cultural fit between our organizations. Like AMS, the VOX team cares deeply about its customers, its pe",
+        "summary": "{\"company_name\":\"AMS Fulfillment\",\"signal_date\":\"2026-09-04\",\"signal_date_quote\":\"· 2026-09-04T00:00:00+00:00\",\"signal_quote\":\"We are very pleased to announce that AMS Fulfillment has acquired VOX Fulfillment, a third-party logistics provider based in Provo, Utah. This is an important milestone in AMS’s continued growth.\",\"signal_summary\":\"AMS Fulfillment has acquired VOX Fulfillment, expanding its geographic footprint and capabilities in the health, wellness and beauty market, with VOX operating two facilities (~155,000 sq ft) and ~125 employees.\",\"signal_type\":\"expansion\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D5622AQF5c4LYhZBv3w/feedshare-shrink_800/B56aBnitkkK8Ac-/0/1788443548196?e=2147483647&v=beta&t=9EuWl9bCSmjIlhhOV3LAkbSwkowhSsRTltB-1qLpptg"
+      },
+      {
+        "id": "https://airfreight.news/articles/full/roadone-acquires-higgins-transport-service-expanding-southeast-logistics-presence",
+        "title": "RoadOne acquires Higgins Transport Service, expanding southeast logistics presence | Air Freight News",
+        "url": "https://airfreight.news/articles/full/roadone-acquires-higgins-transport-service-expanding-southeast-logistics-presence",
+        "publishedDate": "2026-08-18T00:00:00.000Z",
+        "score": 0,
+        "text": "RoadOne acquires Higgins Transport Service, expanding southeast logistics presence | Air Freight News\n\n# RoadOne acquires Higgins Transport Service, expanding southeast logistics presence \n\nAug 18, 2026\n\nRoadOne IntermodaLogistics announces the acquisition of Higgins Transport Service LLC, a Charleston, South Carolina-based agent of Wall Street Intermodal that provides port drayage and intermodal freight transportation services.\n\nThe acquisition expands RoadOne’s drayage and intermodal capacity in the Charleston market, further strengthening the company’s ability to serve importers, exporters, retailers and manufacturers moving freight through one of the Southeast’s most important global trade gateways. In addition to bringing experienced leadership to the market, RoadOne will add 15 drivers to its Charleston operations, strengthening local transportation capacity and complementing the company’s growing warehousing and distribution capabilities across the region.\n\nJustin Higgins, owner of Higgins Transport Service, stated, “When you work in this industry, you quickly learn who the major players are, and RoadOne IntermodaLogistics is a true leader in our space. Joining their team th",
+        "summary": "{\"company_name\":\"RoadOne IntermodaLogistics\",\"signal_date\":\"2026-08-18\",\"signal_date_quote\":\"Aug 18, 2026\",\"signal_quote\":\"RoadOne IntermodaLogistics announces the acquisition of Higgins Transport Service LLC, a Charleston, South Carolina-based agent of Wall Street Intermodal that provides port drayage and intermodal freight transportation services.\",\"signal_summary\":\"RoadOne IntermodaLogistics announced the acquisition of Higgins Transport Service LLC, expanding its drayage and intermodal capacity in Charleston and strengthening Southeast logistics presence.\",\"signal_type\":\"expansion\"}",
+        "image": "https://www.ajot.com/images/uploads/article/_large/RoadOne-IntermodaLogistics-Norfolk-distribution-and-fulfillment-facility.jpg"
+      }
+    ],
+    "searchTime": 2453.9,
+    "costDollars": {
+      "total": 0.014,
+      "search": {
+        "neural": 0.004
+      },
+      "summary": 0.01
+    }
+  }
+}

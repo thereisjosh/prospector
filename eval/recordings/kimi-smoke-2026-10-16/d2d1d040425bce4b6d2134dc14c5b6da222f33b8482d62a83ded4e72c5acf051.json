@@ -1,0 +1,177 @@
+{
+  "request": {
+    "query": "UK freight and warehousing company opened a new distribution centre recently",
+    "type": "neural",
+    "numResults": 10,
+    "startPublishedDate": "2026-07-16T13:55:41.157Z",
+    "contents": {
+      "summary": {
+        "query": "UK freight and warehousing company opened a new distribution centre recently Set signal_date to the date the EVENT itself happened or was announced (not the article's publish date), in ISO format YYYY-MM-DD. Set signal_type to exactly one of: new_facility, expansion, ops_hiring_wave, ops_hire, other. For signal_quote, copy the exact sentence from the page that states the event; use \"\" if no sentence states an event. For signal_date_quote, copy the exact date phrase from the page; use \"\" if no date phrase is stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "company_name": {
+              "type": "string"
+            },
+            "signal_type": {
+              "type": "string",
+              "enum": [
+                "new_facility",
+                "expansion",
+                "ops_hiring_wave",
+                "ops_hire",
+                "other"
+              ]
+            },
+            "signal_summary": {
+              "type": "string"
+            },
+            "signal_date": {
+              "type": "string"
+            },
+            "signal_quote": {
+              "type": "string"
+            },
+            "signal_date_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "company_name",
+            "signal_type",
+            "signal_summary",
+            "signal_date",
+            "signal_quote",
+            "signal_date_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 1200
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "2fa27ba0139830498e41d76443956dbc",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://infomarine.net/en/insight/54-container-news/81921-ceva-logistics-opens-derby-dis.html",
+        "title": "Infomarine On-Line Maritime News - CEVA Logistics opens Derby distribution centre for UK eCommerce",
+        "url": "https://infomarine.net/en/insight/54-container-news/81921-ceva-logistics-opens-derby-dis.html",
+        "publishedDate": "2026-09-13T00:00:00.000Z",
+        "score": 1,
+        "text": "Infomarine On-Line Maritime News - CEVA Logistics opens Derby distribution centre for UK eCommerce\n\n# CEVA Logistics opens Derby distribution centre for UK eCommerce \n\n \n\n> CEVA Logistics opens Derby distribution centre for UK eCommerce \n\nCEVA Logistics has opened a new 508,000-square-foot distribution centre in Derby, expanding its UK contract logistics network to support growing demand from the eCommerce sector.\n\nThe facility is scheduled to become fully operational in August 2026. It will provide storage, handling and distribution services for global eCommerce customers, helping speed up deliveries across the UK.\n\nThe new operation is expected to create around 300 jobs, strengthening the regional logistics sector while supporting CEVA’s continued investment in the UK market.\n\nThe warehouse was designed with sustainability and scalability in mind. It has achieved BREEAM Excellent and EPC A+ certifications and features a rooftop solar installation to reduce energy consumption.\n\nThe site includes more than 147,000 dynamic pick faces and flexible storage areas. CEVA said the layout allows additional capacity to be added as customer demand grows while maintaining operational efficien",
+        "summary": "{\"company_name\":\"CEVA Logistics\",\"signal_date\":\"2026-08-01\",\"signal_date_quote\":\"The facility is scheduled to become fully operational in August 2026.\",\"signal_quote\":\"CEVA Logistics has opened a new 508,000-square-foot distribution centre in Derby, expanding its UK contract logistics network to support growing demand from the eCommerce sector.\",\"signal_summary\":\"CEVA Logistics opened a new Derby distribution centre to support UK eCommerce, creating ~300 jobs; operation slated to start August 2026 with BREEAM Excellent and EPC A+ ratings and rooftop solar.\",\"signal_type\":\"new_facility\"}",
+        "image": "https://infomarine.net/"
+      },
+      {
+        "id": "https://www.linkedin.com/posts/bleckmann_bleckmann-supplychain-logistics-activity-7486042572990304256-MNNi",
+        "title": "#bleckmann #supplychain #logistics #fashionlogistics #lifestylebrands #warehousing #ecommerce #uklogistics #innovation | Bleckmann | 17 comments",
+        "url": "https://www.linkedin.com/posts/bleckmann_bleckmann-supplychain-logistics-activity-7486042572990304256-MNNi",
+        "publishedDate": "2026-07-23T00:00:00.000Z",
+        "author": "Bleckmann",
+        "score": 0.8888888888888888,
+        "text": "#bleckmann #supplychain #logistics #fashionlogistics #lifestylebrands #warehousing #ecommerce #uklogistics #innovation | Bleckmann | 17 comments\n\n# Bleckmann’s Post\n\n Bleckmann \n\n🚀 Another milestone reached! We're proud to announce the successful go-live of our newest distribution centre in Lutterworth, UK. Covering over 70,000 m² (761,932 sq ft), the facility was fully operational in less than four months, demonstrating the speed, flexibility and scalability that define Bleckmann. As demand for specialised supply chain solutions continues to grow, we're investing in the infrastructure that helps our customers scale with confidence. A big thank you to everyone who made this achievement possible! 👏 Full press release: https://lnkd.in/e_4dRcMW #Bleckmann #SupplyChain #Logistics #FashionLogistics #LifestyleBrands #Warehousing #Ecommerce #UKLogistics #Innovation \n\n Victor Queiroz 2mo \n\nA significant achievement and a strong example of what focused execution can deliver in a very short timeframe. Looking forward to see how the site continues to evolve as volumes grow and consumer demands become increasingly complex. Congratulations to everyone involved.\n\n Luke Diggs 1mo \n\nVery happy t",
+        "summary": "{\"company_name\":\"Bleckmann\",\"signal_date\":\"2024-11-??\",\"signal_date_quote\":\"\",\"signal_quote\":\"\\\"We're proud to announce the successful go-live of our newest distribution centre in Lutterworth, UK.\\\"\",\"signal_summary\":\"Bleckmann announces go-live of a new distribution centre in Lutterworth, UK, covering 70,000 m², operational in less than four months.\",\"signal_type\":\"new_facility\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E10AQEqJMXn6iou-w/image-shrink_1280/B4EZ.PEB7nKoAg-/0/1784811626869?e=2147483647&v=beta&t=SVzq-1LUKh80NrSQp9g-J3rDH_v8PlvnjXFgnsRNkIc"
+      },
+      {
+        "id": "https://www.linkedin.com/posts/martin-brower_martinbrower-uk-darlington-activity-7485729707368308736-Ua_p",
+        "title": "Welcome to our Darlington, UK distribution center! Since opening in 2025, this UK facility has been supporting more than 200 restaurants. | Martin Brower",
+        "url": "https://www.linkedin.com/posts/martin-brower_martinbrower-uk-darlington-activity-7485729707368308736-Ua_p",
+        "publishedDate": "2026-07-22T00:00:00.000Z",
+        "author": "Martin Brower",
+        "score": 0.7777777777777778,
+        "text": "# Welcome to our Darlington, UK distribution center! Since opening in 2025, this UK facility has been supporting more than 200 restaurants. | Martin Brower · LinkedIn · 2026-07-22\n\n**Martin Brower**: Martin Brower is a leading logistics service provider for restaurant chains around the world, creating an outstanding work environment for our employees and delivering unmatched value for our customers while protecting their brands. Martin Brower has 1,000-2,000 employees and has annual revenue in the $2B-$3B range. with offices in Rosemont and Des Plaines. Its workforce is distributed across 23 countries (including United States, Brazil, Canada, United Kingdom, and Australia).\n\n---\n\nWelcome to our Darlington, UK distribution center! Since opening in 2025, this UK facility has been supporting more than 200 restaurants.\n\nExplore MB Darlington by clicking the link below.\n\nhttps://lnkd.in/g8ufghfC\n\n#martinbrower #uk #darlington\n\nWelcome to our Darlington, UK distribution center! Since opening in 2025, this UK facility has been supporting more than 200 restaurants. | Martin Brower image\n\n## Comments\n\n**Zoë Tweddle** · 2026-07-22\n> So proud to be part of #teamdarlo 🖤\n\n**Lisette Castanon** ",
+        "summary": "{\"company_name\":\"Martin Brower\",\"signal_date\":\"2025-01-01\",\"signal_date_quote\":\"Welcome to our Darlington, UK distribution center! Since opening in 2025, this UK facility has been supporting more than 200 restaurants.\",\"signal_quote\":\"Welcome to our Darlington, UK distribution center! Since opening in 2025, this UK facility has been supporting more than 200 restaurants.\",\"signal_summary\":\"UK freight and warehousing company opened a new distribution centre recently\",\"signal_type\":\"new_facility\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D5622AQHKGQ6pHPulkg/feedshare-shrink_800/B56Z.KngIeGcAc-/0/1784737039294?e=2147483647&v=beta&t=KVVsYvsW-ZYefVrR-ZLX4Mg3ZwyG1wAmYwcP0Hh3REQ"
+      },
+      {
+        "id": "https://www.logisticsmatters.co.uk/news/family-food-business-opens-landmark-distribution-centre/",
+        "title": "Family food business opens landmark DC | Logistics Matters",
+        "url": "https://www.logisticsmatters.co.uk/news/family-food-business-opens-landmark-distribution-centre/",
+        "publishedDate": "2026-08-03T00:00:00.000Z",
+        "author": "Liza Helps",
+        "score": 0.6666666666666667,
+        "text": "Family food business opens landmark DC | Logistics Matters\n\n# Family food business opens landmark DC\n\nPosted on Monday 3 August 2026 Share: \n\nFamily-owned fine foods manufacturer and distributor, Bramble Foods has opened a new 67,000 ft2 distribution centre in Market Harborough, Leicestershire, East Midlands.\n\nBy Liza Helps, Property Editor, Logistics Matters\n\nTHE COMPANY pre-let the facility on the final phase of Leicestershire Council’s Airfield Business Park last year. It currently leases a unit on and will be taking the additional new unit to further expand their growing business.\n\nThe state-of-the-art facility becomes Bramble Foods’ main national distribution hub, significantly increasing warehousing and distribution capacity while supporting the company’s expanding portfolio of premium food brands which includes Whitakers Chocolates, The Bay Tree and Lings.\n\nAirfield Business Park was first opened in 2019 and is home to 14 businesses.\n\nThe new facility known as Lancaster House includes a number of sustainability features and boasts an EPC A+ rating of A+, a 50kW solar array that should save between 45,000 and 50,000 kWh a year as well as two electric vehicle charging points.\n",
+        "summary": "{\"company_name\":\"Bramble Foods\",\"signal_date\":\"2026-08-03\",\"signal_date_quote\":\"Posted on Monday 3 August 2026\",\"signal_quote\":\"Family-owned fine foods manufacturer and distributor, Bramble Foods has opened a new 67,000 ft2 distribution centre in Market Harborough, Leicestershire, East Midlands.\",\"signal_summary\":\"Family-owned Bramble Foods opens a new 67,000 ft2 distribution centre in Market Harborough, expanding national distribution capacity.\",\"signal_type\":\"new_facility\"}",
+        "image": "https://www.logisticsmatters.co.uk/wp-content/uploads/2026/08/landmark.jpeg"
+      },
+      {
+        "id": "https://www.bdaily.co.uk/articles/2026/08/29/translink-express-makes-four-senior-appointments",
+        "title": "Translink Express makes four senior appointments |\n        Bdaily",
+        "url": "https://www.bdaily.co.uk/articles/2026/08/29/translink-express-makes-four-senior-appointments",
+        "publishedDate": "2026-08-29T00:00:00.000Z",
+        "author": "Bdaily Business News",
+        "score": 0.5555555555555556,
+        "text": "Translink Express makes four senior appointments | Bdaily \n\nPictured, from left to right, are Daniel Green, Shanice Walsh, Ryan Wallis and Lee Barrett of Translink Express Logistics\n\n Published by Bdaily Bdaily Business News on 29 Aug 2026 \n\n# Translink Express makes four senior appointments\n\nLeicestershire logistics firm Translink Express Logistics has made four senior appointments following 32 per cent growth over the past two years.\n\nLee Barrett has been promoted to head of traffic; Dan Green takes the newly created role of head of project management; and Shanice Walsh becomes head of operations.\n\nRyan Wallis has also joined the family-owned business as head of warehousing.\n\nThe new management team will take responsibility for the day-to-day running of Translink Express, allowing its directors to focus more closely on long-term strategy as the business approaches its 40th anniversary.\n\nChris Hobbis, director at Translink Express Logistics, said: “In two years we’ve seen record growth – just shy of 32 per cent, which is phenomenal.\n\n“The growth is twofold, coming from new customers and existing customers expanding the range of services they use from us.\n\n“Now what we must do is p",
+        "summary": "{\"company_name\":\"Translink Express Logistics\",\"signal_date\":\"2026-08-29\",\"signal_date_quote\":\"Published by Bdaily Bdaily Business News on 29 Aug 2026\",\"signal_quote\":\"Translink Express Logistics has made four senior appointments following 32 per cent growth over the past two years.\",\"signal_summary\":\"Translink Express Logistics announced four senior appointments (head of traffic, head of project management, head of operations, and head of warehousing) as part of growth strategy ahead of its 40th anniversary.\",\"signal_type\":\"expansion\"}",
+        "image": "https://bdaily.co.uk/images/uploads/VZBGLbXvxsarIP4AnROtP4LvuTSPUGY2f4fONKit.png?w=1200&h=630&fm=jpg&fit=crop-50-50&s=ec3828ef918526c875124f6a42276509"
+      },
+      {
+        "id": "https://www.linkedin.com/posts/id-logistics-uk_ecommerce-idlogistics-logistics-activity-7492947436349607936-kwjj",
+        "title": "From an empty space to a fully functioning 𝟲𝟳𝟯,𝟮𝟳𝟬 𝘀𝗾 𝗳𝘁 fulfilment centre in just 𝗳𝗼𝘂𝗿 𝗺𝗼𝗻𝘁𝗵𝘀! We’ve officially launched our new Rugby site, bringing 𝟮𝟬𝟬 𝗻𝗲𝘄 𝗷𝗼𝗯𝘀 to the local area …",
+        "url": "https://www.linkedin.com/posts/id-logistics-uk_ecommerce-idlogistics-logistics-activity-7492947436349607936-kwjj",
+        "publishedDate": "2026-08-11T00:00:00.000Z",
+        "author": "ID Logistics UK",
+        "score": 0.4444444444444444,
+        "text": "# From an empty space to a fully functioning 𝟲𝟳𝟯,𝟮𝟳𝟬 𝘀𝗾 𝗳𝘁 fulfilment centre in just 𝗳𝗼𝘂𝗿 𝗺𝗼𝗻𝘁𝗵𝘀! We’ve officially launched our new Rugby site, bringing 𝟮𝟬𝟬 𝗻𝗲𝘄 𝗷𝗼𝗯𝘀 to the local area … · 2026-08-11T00:00:00+00:00\n\nFrom an empty space to a fully functioning 𝟲𝟳𝟯,𝟮𝟳𝟬 𝘀𝗾 𝗳𝘁 #ecommerce fulfilment centre in just 𝗳𝗼𝘂𝗿 𝗺𝗼𝗻𝘁𝗵𝘀! We’ve officially launched our new Rugby site, bringing 𝟮𝟬𝟬 𝗻𝗲𝘄 𝗷𝗼𝗯𝘀 to the local area and strengthening our UK network. 🎉\n\nIt’s been an incredible team effort and we’re so proud of our colleagues’ speed and agility. Moving this fast while maintaining top-tier precision shows what we can achieve together. 💫\n\nUK MD Stuart Evans says, “One of the core values at ID Logistics is teamwork, which we have truly seen in action bringing this fourth site to life. I am incredibly proud of the massive collaboration across our entire UK network and the tireless work of our project team. Thank you to all our new colleagues for choosing ID Logistics and joining our journey.”\n\nThank you to all those who attended our launch event, marking this memorable occasion. Strong people, strong start and a bright future ahead for Ru",
+        "summary": "{\"company_name\":\"ID Logistics\",\"signal_date\":\"2026-08-11\",\"signal_date_quote\":\"· 2026-08-11T00:00:00+00:00\",\"signal_quote\":\"From an empty space to a fully functioning 𝟲𝟳𝟯,𝟮𝟳𝟬 𝘀𝗾 𝗳𝘁 #ecommerce fulfilment centre in just 𝗳𝗼𝘂𝗿 𝗺𝗼𝗻𝘁𝗵𝘀! We’ve officially launched our new Rugby site, bringing 𝟮𝟬𝟬 𝗻𝗲𝘄 𝗷𝗼𝗯𝘀 to the local area and strengthening our UK network.\",\"signal_summary\":\"ID Logistics announces the launch of a new Rugby fulfilment centre, creating around 200 new jobs and expanding the UK network.\",\"signal_type\":\"new_facility\"}"
+      },
+      {
+        "id": "https://martinbrower.com/newsroom/dc-darlo",
+        "title": "DC Spotlight | Darlington, UK",
+        "url": "https://martinbrower.com/newsroom/dc-darlo",
+        "publishedDate": "2026-07-22T00:00:00.000Z",
+        "author": "Parv Sangera",
+        "score": 0.33333333333333337,
+        "text": "DC Spotlight | Darlington, UK\n\n# DC Spotlight | Darlington, UK\n\n- Darlington, UK\n- · 3 min read\n\nLast year, Martin Brower proudly opened its new distribution center in Darlington, UK, expanding service capabilities across the northeast region. Designed with both sustainability and people in mind, the site reflects our ongoing commitment to responsible operations and a positive employee experience. \n\nSpanning nearly 140,000 square feet, the facility supports more than 200 restaurants and has been designed and constructed to BREEAM Excellent Net‑Zero Carbon Construction standards, supporting our journey toward net zero goals. \n\n> The skill, energy, and dedication of our team members has been outstanding to witness. The demonstration of our CARES values has truly shone through as our teams have come together, putting safety, quality, and service at the forefront of everything we do. Thank you to everyone involved for making this launch such a success.\n> \n> Parv Sangera Managing Director, UK & Ireland\n\nThe Darlington DC also includes features that support efficient, sustainable operations, such as: \n\n- Onsite refueling facilities \n\n- Recycling facilities \n\n- EV charging spaces \n\n- Sola",
+        "summary": "{\"company_name\":\"Martin Brower\",\"signal_date\":\"2023-11-??\",\"signal_date_quote\":\"\",\"signal_quote\":\"\",\"signal_summary\":\"Martin Brower opened a new distribution center in Darlington, UK, spanning nearly 140,000 sq ft to serve 200+ restaurants, built to BREEAM Excellent Net‑Zero Carbon Construction standards.\",\"signal_type\":\"new_facility\"}",
+        "image": "https://panel.martinbrower.com/assets/articles/48-gigpx-high-fidelity-v2-6x.jpg"
+      },
+      {
+        "id": "https://www.logisticsmatters.co.uk/article/automation-with-a-purpose-why-sustainability-must-be-at-the-heart-of-the-modern-warehouse/",
+        "title": "Automation with a purpose: why sustainability must be at the heart of the modern warehouse | Logistics Matters",
+        "url": "https://www.logisticsmatters.co.uk/article/automation-with-a-purpose-why-sustainability-must-be-at-the-heart-of-the-modern-warehouse/",
+        "publishedDate": "2026-09-01T00:00:00.000Z",
+        "author": "Simon Duddy",
+        "score": 0.2222222222222222,
+        "text": "Automation with a purpose: why sustainability must be at the heart of the modern warehouse | Logistics Matters\n\n# Automation with a purpose: why sustainability must be at the heart of the modern warehouse\n\nPosted on Tuesday 1 September 2026 Share: \n\nThe warehouse has undergone a remarkable transformation over the last decade, says Yusen Logistics UK.\n\nONCE VIEWED primarily as a storage location within the supply chain, today’s warehouse has become a critical hub for operational excellence, customer experience, business resilience and sustainability. As supply chains become increasingly complex, organisations are under growing pressure to deliver greater speed, accuracy and flexibility while reducing environmental impact and controlling costs.\n\nFor many businesses, warehouse automation has become a key part of the solution. However, automation alone is no longer enough.\n\nThe real opportunity lies in combining automation, digitalisation and sustainability to create facilities that are not only operationally efficient but capable of supporting long-term business and environmental goals. Yusen Logistics, believe these objectives should be integrated into every decision made across ware",
+        "summary": "{\"company_name\":\"Yusen Logistics UK\",\"signal_date\":\"2026-09-01\",\"signal_date_quote\":\"Tuesday 1 September 2026\",\"signal_quote\":\"The real opportunity lies in combining automation, digitalisation and sustainability to create facilities that are not only operationally efficient but capable of supporting long-term business and environmental goals.\",\"signal_summary\":\"Article discusses integrating automation, digitalisation, and sustainability in warehouses, highlighting the evolution of warehousing and the importance of sustainability in automation strategies.\",\"signal_type\":\"new_facility\"}",
+        "image": "https://www.logisticsmatters.co.uk/wp-content/uploads/2026/09/20250616-B0015800.jpg"
+      },
+      {
+        "id": "https://uk.marketscreener.com/news/ap-moller-maersk-maersk-expands-partnership-with-columbia-sportswear-with-uk-warehousing-and-distr-ce7859dcd188ff27",
+        "title": "AP Moller Maersk : Maersk expands partnership with Columbia Sportswear with UK warehousing and distribution agreement | MarketScreener UK",
+        "url": "https://uk.marketscreener.com/news/ap-moller-maersk-maersk-expands-partnership-with-columbia-sportswear-with-uk-warehousing-and-distr-ce7859dcd188ff27",
+        "publishedDate": "2026-08-18T00:00:00.000Z",
+        "author": "Publicnow",
+        "score": 0.11111111111111116,
+        "text": "AP Moller Maersk : Maersk expands partnership with Columbia Sportswear with UK warehousing and distribution agreement | MarketScreener UK\n\n## AP Moller Maersk \n\n## MAERSK B \n\n## DK0010244508 \n\n## Marine Freight & Logistics \n\n \n\n +24.92% \n\n +44.67% \n\n| 08-17 | UBS raises Maersk price target after stronger freight rates | FW |\n| --- | --- | --- |\n| 08-17 | AP Moller-Maersk: 2026 guidance raised | |\n\n# AP Moller Maersk : Maersk expands partnership with Columbia Sportswear with UK warehousing and distribution agreement \n\nPublished on 08/18/2026 at 09:15 am BST\n\n-2.17%\n\n Copenhagen, Denmark / Tamworth, UK - A.P. Moller - Maersk (Maersk) has signed a new agreement with Columbia Sportswear Company (Columbia), a global leader in outdoor, active and lifestyle products, to provide warehousing and distribution services for its Pick & Pack operations in the United Kingdom and Ireland. \n\n Under the agreement, Maersk will operate Columbia's UK and Ireland Pick & Pack business from its existing multi-customer facility in Tamworth near Birmingham, UK. The new setup will replace Columbia's current distribution setup serving the market from Cambrai, France, enabling a more localised and responsive s",
+        "summary": "{\"company_name\":\"AP Moller Maersk\",\"signal_date\":\"2026-08-18\",\"signal_date_quote\":\"Published on 08/18/2026 at 09:15 am BST\",\"signal_quote\":\"Maersk has signed a new agreement with Columbia Sportswear Company (Columbia)… to provide warehousing and distribution services for its Pick & Pack operations in the United Kingdom and Ireland.\",\"signal_summary\":\"Maersk expands partnership with Columbia Sportswear to provide UK and Ireland warehousing and distribution (Pick & Pack) from Tamworth, UK, replacing Cambrai, France.\",\"signal_type\":\"expansion\"}",
+        "image": "https://uk.marketscreener.com/images/twitter_MS_fdblanc.png"
+      },
+      {
+        "id": "https://www.linkedin.com/posts/bramble-foods-limited_a-new-chapter-begins-for-bramble-foods-activity-7489972326604734464-_7qn",
+        "title": "We've Officially Opened Our New National Distribution Centre. More than simply a new warehouse, Lancaster House represents our continued investment in our people, our customers and the future of our business.",
+        "url": "https://www.linkedin.com/posts/bramble-foods-limited_a-new-chapter-begins-for-bramble-foods-activity-7489972326604734464-_7qn",
+        "publishedDate": "2026-08-03T00:00:00.000Z",
+        "author": "BRAMBLE FOODS LIMITED",
+        "score": 0,
+        "text": "# We've Officially Opened Our New National Distribution Centre. More than simply a new warehouse, Lancaster House represents our continued investment in our people, our customers and the future of our business. · 2026-08-03T00:00:00+00:00\n\nWe've Officially Opened Our New National Distribution Centre. More than simply a new warehouse, Lancaster House represents our continued investment in our people, our customers and the future of our business.\n\n## Comments (10 shown of 19 reported)\n\n**Roddy Seivwright** · 2026-08-03T00:00:00+00:00 · 1 reaction\n> It looks amazing. Congrats to whole Bramble team for investing in their future business & employment in the area.🥂🍾💪\n\n**victor fox** · 2026-08-03T00:00:00+00:00 · 2 reactions\n> What an achievement proud to be a supplier to this fantastic business \n> Whisky marmalade 👍👍👍\n> Good luck for the future \n> Victor Fox\n\n**Hannah Kenyon** · 2026-08-03T00:00:00+00:00 · 1 reaction\n> Congratulations! Great to see the success and long may it continue 🍪 🍓 🍬\n\n**Paul Bagshaw** · 2026-08-03T00:00:00+00:00\n> Looks great..\n>\n> Do you a tactical van salesman person, short term contracts?\n> Thanks…\n\n**Ian Pears** · 2026-08-03T00:00:00+00:00 · 1 reactio",
+        "summary": "{\"company_name\":\"Bramble Foods Limited\",\"signal_date\":\"2026-08-03\",\"signal_date_quote\":\"2026-08-03T00:00:00+00:00\",\"signal_quote\":\"We've Officially Opened Our New National Distribution Centre. More than simply a new warehouse, Lancaster House represents our continued investment in our people, our customers and the future of our business.\",\"signal_summary\":\"UK freight and warehousing company opened a new distribution centre\",\"signal_type\":\"new_facility\"}"
+      }
+    ],
+    "searchTime": 2429.9,
+    "costDollars": {
+      "total": 0.014,
+      "search": {
+        "neural": 0.004
+      },
+      "summary": 0.01
+    }
+  }
+}

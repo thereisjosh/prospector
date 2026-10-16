@@ -92,7 +92,7 @@ export function agentTools(): Anthropic.Tool[] {
     },
     {
       name: "find_contacts",
-      description: "Find up to 3 people to reach at one ACCEPTED lead, in the buyer roles the user approved. Call it once per accepted lead when budget allows (about $0.03), in a later turn than its submit_lead; several leads can go in one turn. `company`: exactly the accepted lead's name. Code finds and checks everyone: `verified` = a public page that is not LinkedIn names the person with a title in an approved role, quote checked on the page; `inferred` = a people index lists them in an approved role, title unconfirmed, link only. Returns JSON {company, contacts: [{name, tier, why, evidence_url?}], note}. A non-accepted company, a second call for a lead, or no approved roles is an error and costs nothing. Never name or add a person yourself, or put one in `remember`.",
+      description: "Find up to 3 people to reach at one ACCEPTED lead, in the buyer roles the user approved. Call it once per accepted lead when budget allows (about $0.04), in a later turn than its submit_lead; several leads can go in one turn. `company`: exactly the accepted lead's name. Code finds and checks everyone: `verified` = a public page that is not LinkedIn names the person with a title in an approved role, quote checked on the page; `inferred` = a people index lists them in an approved role, title unconfirmed, link only. Returns JSON {company, contacts: [{name, tier, why, evidence_url?}], note}. A non-accepted company, a second call for a lead, or no approved roles is an error and costs nothing. Never name or add a person yourself, or put one in `remember`.",
       input_schema: objectSchema({ company: { type: "string" } }, ["company"]),
       strict: true,
     },

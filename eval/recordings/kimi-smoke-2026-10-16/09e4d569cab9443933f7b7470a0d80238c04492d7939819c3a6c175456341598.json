@@ -1,0 +1,176 @@
+{
+  "request": {
+    "query": "US fulfillment company opened a new facility in the last three months",
+    "type": "neural",
+    "numResults": 10,
+    "startPublishedDate": "2026-07-16T13:59:27.960Z",
+    "contents": {
+      "summary": {
+        "query": "US fulfillment company opened a new facility in the last three months Set signal_date to the date the EVENT itself happened or was announced (not the article's publish date), in ISO format YYYY-MM-DD. Set signal_type to exactly one of: new_facility, expansion, ops_hiring_wave, ops_hire, other. For signal_quote, copy the exact sentence from the page that states the event; use \"\" if no sentence states an event. For signal_date_quote, copy the exact date phrase from the page; use \"\" if no date phrase is stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "company_name": {
+              "type": "string"
+            },
+            "signal_type": {
+              "type": "string",
+              "enum": [
+                "new_facility",
+                "expansion",
+                "ops_hiring_wave",
+                "ops_hire",
+                "other"
+              ]
+            },
+            "signal_summary": {
+              "type": "string"
+            },
+            "signal_date": {
+              "type": "string"
+            },
+            "signal_quote": {
+              "type": "string"
+            },
+            "signal_date_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "company_name",
+            "signal_type",
+            "signal_summary",
+            "signal_date",
+            "signal_quote",
+            "signal_date_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 1200
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "0e772d717f2120e32d706cb86d28147e",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://www.recordpatriot.com/news/article/amazon-bad-axe-warehouse-22373882.php",
+        "title": "Client Challenge",
+        "url": "https://www.recordpatriot.com/news/article/amazon-bad-axe-warehouse-22373882.php",
+        "publishedDate": "2026-08-06T00:00:00.000Z",
+        "author": "Tyler Davis",
+        "score": 1,
+        "text": "Client Challenge\n\nA required part of this site couldn’t load. This may be due to a browser extension, network issues, or browser settings. Please check your connection, disable any ad blockers, or try using a different browser.",
+        "summary": "{\"company_name\":\"Record Patriot\",\"signal_date\":\"2023-11-??\",\"signal_date_quote\":\"\",\"signal_quote\":\"\",\"signal_summary\":\"Client Challenge\",\"signal_type\":\"new_facility\"}"
+      },
+      {
+        "id": "https://www.ucbjournal.com/averitt-opens-new-distribution-and-fulfillment-facility-in-jackson-mississippi/",
+        "title": "Averitt Opens New Distribution And Fulfillment Facility In Jackson, Mississippi - UCBJ - Upper Cumberland Business Journal",
+        "url": "https://www.ucbjournal.com/averitt-opens-new-distribution-and-fulfillment-facility-in-jackson-mississippi/",
+        "publishedDate": "2026-09-03T00:00:00.000Z",
+        "author": "Ron Moses",
+        "score": 0.8888888888888888,
+        "text": "Averitt Opens New Distribution And Fulfillment Facility In Jackson, Mississippi - UCBJ - Upper Cumberland Business Journal\n\n# Averitt Opens New Distribution And Fulfillment Facility In Jackson, Mississippi\n\nCustomers can use the space for overflow inventory\n\n September 3, 2026 \n\n## New Facility Offers Contract-Free Warehousing\n\n(UCBJ) – Averitt’s 100,000-square-foot Jackson Distribution & Fulfillment facility opened on August 24 th and is located at the crossroads of Interstate 20 and Interstate 55, next door to Averitt’s existing 57-door LTL service center.\n\nThe location provides access to key markets, rail connections, and port services through New Orleans and Mobile, while allowing customers to connect warehousing and transportation services in one location.\n\nThe new facility offers contract-free warehousing, giving businesses the ability to add space when they need it without committing to a long-term contract. Customers can use the space for overflow inventory, seasonal needs, emergency staging, or a broader distribution and fulfillment solution. This allows businesses to adjust their warehousing needs as demand changes, rather than committing to more space than they currently",
+        "summary": "{\"company_name\":\"Averitt\",\"signal_date\":\"2026-08-24\",\"signal_date_quote\":\"opened on August 24 th\",\"signal_quote\":\"Averitt’s 100,000-square-foot Jackson Distribution & Fulfillment facility opened on August 24 th\",\"signal_summary\":\"Averitt opened a new 100,000-square-foot distribution and fulfillment facility in Jackson, Mississippi, offering contract-free warehousing and the ability to scale space for overflow inventory and other needs.\",\"signal_type\":\"new_facility\"}",
+        "image": "https://www.ucbjournal.com/wp-content/uploads/2026/09/JDF-first-pic.jpg"
+      },
+      {
+        "id": "https://www.metrowestdailynews.com/story/business/2026/07/21/maersk-will-open-hopedale-ma-fulfillment-center-bringing-nearly-1000-jobs-to-town/90961315007/",
+        "title": "Maersk to open Hopedale fulfillment center, bringing nearly 1,000 jobs",
+        "url": "https://www.metrowestdailynews.com/story/business/2026/07/21/maersk-will-open-hopedale-ma-fulfillment-center-bringing-nearly-1000-jobs-to-town/90961315007/",
+        "publishedDate": "2026-07-21T00:00:00.000Z",
+        "score": 0.7777777777777778,
+        "text": "Maersk to open Hopedale fulfillment center, bringing nearly 1,000 jobs\n\nBUSINESS\n\n# Fulfillment center to bring 1,000 jobs to Hopedale MA. What to know\n\nCaroline Bunnell\n\nThe Milford Daily News\n\nJuly 21, 2026Updated July 22, 2026, 12:19 p.m. ET\n\nShare to Facebook Share to Twitter Share by email\n\nNearly 1,000 new jobs are soon coming to Hopedale as global shipping and logistics company Maersk prepares to open a fulfillment hub in town later this summer.\n\nThe announcement arrives as Hopedale has explored new housing and development opportunities in recent years, with officials of the cash-strapped community citing the need for additional revenue and long-term economic growth.\n\nMaersk's 617,000-square-foot facility, at 75 Plain St., will serve as a fulfillment center for the Danish company, which manages ocean shipping, warehousing and supply chain operations for customers all over the world. Company officials say the Hopedale site will be used for high-volume fulfillment operations and allow services to reach customers throughout New England more quickly and efficiently.\n\nA Maersk spokesperson told the Daily News that Hopedale was selected due to its \"strategic location,\" which will ",
+        "summary": "{\"company_name\":\"Maersk\",\"signal_date\":\"2026-07-21\",\"signal_date_quote\":\"Nearly 1,000 new jobs are soon coming to Hopedale as global shipping and logistics company Maersk prepares to open a fulfillment hub in town later this summer.\",\"signal_quote\":\"Maersk's 617,000-square-foot facility, at 75 Plain St., will serve as a fulfillment center for the Danish company, which manages ocean shipping, warehousing and supply chain operations for customers all over the world.\",\"signal_summary\":\"Maersk plans to open a 617,000-square-foot fulfillment center in Hopedale, MA, creating nearly 1,000 new jobs.\",\"signal_type\":\"new_facility\"}",
+        "image": "https://www.metrowestdailynews.com/gcdn/authoring/authoring-images/2026/07/20/NMWD/90985420007-fulfillment-facility-image.jpg?crop=3423,1925,x1288,y0&width=3200&height=1800&format=pjpg&auto=webp"
+      },
+      {
+        "id": "http://www.larskarlsson.com/?p=15135",
+        "title": "Breaking News: Maersk opens a new fullfillment hub in U.S – Lars Karlsson: CapacityNow",
+        "url": "http://www.larskarlsson.com/?p=15135",
+        "publishedDate": "2026-07-16T00:00:00.000Z",
+        "author": "admin",
+        "score": 0.6666666666666667,
+        "text": "Breaking News: Maersk opens a new fullfillment hub in U.S – Lars Karlsson: CapacityNow\n\n# Breaking News: Maersk opens a new fullfillment hub in U.S\n\n Posted: 16 July, 2026 by admin\n\nA.P. Moller – Maersk has announced the opening in late August of a new fulfillment hub in Hopedale, Massachusetts, a $100 million investment that will create approximately 1,000 jobs and expand the company’s logistics footprint in the Northeast. The 617,000-square-foot facility will support a major e-commerce customer and enhance Maersk’s ability to deliver faster, more reliable fulfillment services to consumers across the region.\n\nThe facility will begin operations in late August and serves as a major addition to Maersk’s North American Contract Logistics network. Designed to support high-volume fulfillment operations, the site expands Maersk’s ability to help customers meet growing consumer expectations for faster, more reliable delivery.\n\nA.P. Moller – Maersk has announced the opening in late August of a new fulfillment hub in Hopedale, Massachusetts, a $100 million investment that will create approximately 1,000 jobs and expand the company’s logistics footprint in the Northeast. The 617,000-square-f",
+        "summary": "{\"company_name\":\"Maersk\",\"signal_date\":\"2026-08-31\",\"signal_date_quote\":\"late August\",\"signal_quote\":\"A.P. Moller – Maersk has announced the opening in late August of a new fulfillment hub in Hopedale, Massachusetts\",\"signal_summary\":\"Maersk announces opening of a new fulfillment hub in Hopedale, MA, as part of its North American Contract Logistics expansion, with investment and job creation.\",\"signal_type\":\"new_facility\"}",
+        "image": "http://www.larskarlsson.com/wp-content/uploads/2026/07/img_3271.jpg"
+      },
+      {
+        "id": "https://www.prnewswire.com/news-releases/g10-fulfillment-to-celebrate-grand-opening-of-new-kenosha-distribution-facility-with-ribbon-cutting-ceremony-302865623.html",
+        "title": "G10 Fulfillment to Celebrate Grand Opening of New Kenosha Distribution Facility with Ribbon-Cutting Ceremony",
+        "url": "https://www.prnewswire.com/news-releases/g10-fulfillment-to-celebrate-grand-opening-of-new-kenosha-distribution-facility-with-ribbon-cutting-ceremony-302865623.html",
+        "publishedDate": "2026-09-01T00:00:00.000Z",
+        "author": "Geneva10",
+        "score": 0.5555555555555556,
+        "text": "G10 Fulfillment to Celebrate Grand Opening of New Kenosha Distribution Facility with Ribbon-Cutting Ceremony\n\n# G10 Fulfillment to Celebrate Grand Opening of New Kenosha Distribution Facility with Ribbon-Cutting Ceremony\n\n Geneva10 \n\nSep 01, 2026, 08:34 ET\n\nMayor and Kenosha County Executive to join company and community leaders in marking the milestone expansion\n\nKENOSHA, Wis., Sept. 1, 2026 /PRNewswire/ -- G10 Fulfillment, a North American third-party logistics and fulfillment provider, will hold a ribbon-cutting ceremony celebrating the grand opening of its new distribution facility in Kenosha, Wisconsin, on Thursday, September 10, 2026, at 11:00 a.m. at 12345 38th Street.\n\nThe new 315,000-square-foot facility replaces G10's former Twin Lakes location and more than doubles the company's Midwest warehouse capacity. Positioned along the Chicago–Milwaukee freight corridor, the site supports large-scale order fulfillment and regional inventory distribution as part of G10's broader logistics network.\n\nLocal officials will join G10 leadership to mark the occasion. Kenosha Mayor David Bogdala and Kenosha County Executive Samantha Kerkmam will offer remarks, with the Kenosha Area Busine",
+        "summary": "{\"company_name\":\"G10 Fulfillment\",\"signal_date\":\"2026-09-10\",\"signal_date_quote\":\"on Thursday, September 10, 2026\",\"signal_quote\":\"G10 Fulfillment, a North American third-party logistics and fulfillment provider, will hold a ribbon-cutting ceremony celebrating the grand opening of its new distribution facility in Kenosha, Wisconsin, on Thursday, September 10, 2026, at 11:00 a.m. at 12345 38th Street.\",\"signal_summary\":\"G10 Fulfillment announces a ribbon-cutting ceremony for the grand opening of its new Kenosha distribution facility in Wisconsin.\",\"signal_type\":\"new_facility\"}"
+      },
+      {
+        "id": "https://coldtrack.com/blog/coldtrack-expands-fulfillment-footprint-with-brand-new-southeast-facility-in-jacksonville-florida/",
+        "title": "ColdTrack Expands with New Jacksonville, FL Facility",
+        "url": "https://coldtrack.com/blog/coldtrack-expands-fulfillment-footprint-with-brand-new-southeast-facility-in-jacksonville-florida/",
+        "publishedDate": "2026-08-04T00:00:00.000Z",
+        "author": "Daniel Cooke",
+        "score": 0.4444444444444444,
+        "text": "ColdTrack Expands with New Jacksonville, FL Facility\n\n# ColdTrack Expands Fulfillment Footprint with Brand New Southeast Facility in Jacksonville, Florida\n\n Daniel Cooke August 4, 2026 August 20th, 2026 \n\nColdTrack Expands Fulfillment Footprint with Brand New Southeast Facility in Jacksonville, Florida\n\nEDISON, NJ – August 4, 2026 – ColdTrack, the leading provider of pick-and-pack, logistics, and purpose-built software for cold and frozen eCommerce brands, today announced the opening of a new temperature-controlled fulfillment facility in Jacksonville, FL, the second site launched in the last year, significantly increasing reach and improving time-in-transit for perishable brands shipping to the Southeast, especially Miami and southern Florida.\n\nThe expansion accommodates the demand created by rapid customer growth and reflects ColdTrack’s broader strategy to strengthen its national fulfillment network in response to evolving direct-to-consumer shipping patterns across the United States.\n\nColdTrack launched a Midwest location in Indianapolis, IN during summer 2025 and this recent expansion to Florida enhances the company’s ability to support perishable food, beverage, pet food, and",
+        "summary": "{\"company_name\":\"ColdTrack\",\"signal_date\":\"2026-08-04\",\"signal_date_quote\":\"EDISON, NJ – August 4, 2026\",\"signal_quote\":\"ColdTrack, the leading provider of pick-and-pack, logistics, and purpose-built software for cold and frozen eCommerce brands, today announced the opening of a new temperature-controlled fulfillment facility in Jacksonville, FL, the second site launched in the last year, significantly increasing reach and improving time-in-transit for perishable brands shipping to the Southeast, especially Miami and southern Florida.\",\"signal_summary\":\"ColdTrack announced the opening of a new temperature-controlled fulfillment facility in Jacksonville, FL, expanding its Southeast footprint.\",\"signal_type\":\"new_facility\"}",
+        "image": "https://coldtrack.com/wp-content/uploads/2026/08/ColdTrack-Jacksonville-FL.jpg"
+      },
+      {
+        "id": "https://www.bizjournals.com/milwaukee/news/2026/09/11/g10-fulfillment-kenosha-amazon.html",
+        "title": "G10 Fulfillment opens 315K-square-foot Kenosha warehouse - Milwaukee Business Journal",
+        "url": "https://www.bizjournals.com/milwaukee/news/2026/09/11/g10-fulfillment-kenosha-amazon.html",
+        "publishedDate": "2026-09-11T00:00:00.000Z",
+        "author": "Juan Lasso",
+        "score": 0.33333333333333337,
+        "text": "G10 Fulfillment opens 315K-square-foot Kenosha warehouse - Milwaukee Business Journal\n\n# New Kenosha hub significantly expands G10 Fulfillment's Midwest warehouse capacity\n\nexpand\n\nG10 Fulfillment has opened a 315,000-square-foot Kenosha facility as it expands its logistics network.\n\nJuan Lasso\n\n By Juan Lasso – Reporter, Milwaukee Business Journal\n\nSep 11, 2026\n\nG10 Fulfillment expanded in Kenosha with a new 315,000-square-foot hub as it builds out its national logistics network.\n\nDeadline: Friday, November 20, 2026",
+        "summary": "{\"company_name\":\"G10 Fulfillment\",\"signal_date\":\"2026-09-11\",\"signal_date_quote\":\"Sep 11, 2026\",\"signal_quote\":\"G10 Fulfillment has opened a 315,000-square-foot Kenosha facility as it expands its logistics network.\",\"signal_summary\":\"G10 Fulfillment opened a 315,000-square-foot hub in Kenosha to expand its Midwest warehouse capacity and national logistics network.\",\"signal_type\":\"new_facility\"}",
+        "image": "https://media.bizj.us/view/img/13270328/g10building*1200xx4000-2247-0-274.jpg"
+      },
+      {
+        "id": "https://lifestyle.rushprnews.com/story/322805/shein-celebrates-grand-opening-of-new-distribution-warehouse-in-lebanon-indiana/",
+        "title": "SHEIN Celebrates Grand Opening of New Distribution Warehouse in Lebanon, Indiana - RushPR News - Lifestyle",
+        "url": "https://lifestyle.rushprnews.com/story/322805/shein-celebrates-grand-opening-of-new-distribution-warehouse-in-lebanon-indiana/",
+        "publishedDate": "2026-09-10T00:00:00.000Z",
+        "author": "SHEIN",
+        "score": 0.2222222222222222,
+        "text": "SHEIN Celebrates Grand Opening of New Distribution Warehouse in Lebanon, Indiana - RushPR News - Lifestyle\n\n# SHEIN Celebrates Grand Opening of New Distribution Warehouse in Lebanon, Indiana\n\nSHEIN\n\n# SHEIN Celebrates Grand Opening of New Distribution Warehouse in Lebanon, Indiana\n\nPR Newswire\n\nLEBANON, Ind., Sept. 10, 2026\n\nNew 737,000-square-foot automated facility will create hundreds of jobs and expand SHEIN’s Indiana campus to over 2.5 million square feet\n\nLEBANON, Ind., Sept. 10, 2026 /PRNewswire/ — SHEIN, a global online fashion and lifestyle retailer, today celebrated the grand opening of its new 737,000-square-foot automated fulfillment facility in Lebanon, Indiana, bringing together company leaders, federal, state and local officials, community partners and other stakeholders to mark the latest milestone in SHEIN’s growing Indiana presence.\n\n \n\nThe new facility expands SHEIN’s physical footprint in Indiana to more than 2.5 million square feet and will create hundreds of new jobs as operations ramp up, further building on the company’s significant workforce and economic presence in the state. The facility features a goods-to-person fulfillment system and is designed to sup",
+        "summary": "{\"company_name\":\"SHEIN\",\"signal_date\":\"2026-09-10\",\"signal_date_quote\":\"LEBANON, Ind., Sept. 10, 2026\",\"signal_quote\":\"SHEIN, a global online fashion and lifestyle retailer, today celebrated the grand opening of its new 737,000-square-foot automated fulfillment facility in Lebanon, Indiana, bringing together company leaders, federal, state and local officials, community partners and other stakeholders to mark the latest milestone in SHEIN’s growing Indiana presence.\",\"signal_summary\":\"SHEIN opened a new 737,000-square-foot automated fulfillment facility in Lebanon, Indiana, expanding its Indiana footprint to over 2.5 million square feet and creating hundreds of jobs.\",\"signal_type\":\"new_facility\"}",
+        "image": "https://pix.xpr.media/p/eyJzIjoiZTY4NWY5ZjctMjlmYy00NDQ3LWE0NzAtMWZlNzVlZWM2NTE0IiwiYyI6IjgwMDFiYjU0LTA3MzctNDYzOC04YzUxLWQ2ZTNlMjM5Y2E1ZiIsInYiOjF9.MEgDfDlBFMopfoZpkkjjgtxpa3gKuKDTpYApDmhYIkY.gif"
+      },
+      {
+        "id": "https://lifestyle.myeaglecountry.com/story/408246/grip-expands-west-coast-operations-with-new-reno-facility/",
+        "title": "Grip Expands West Coast Operations With New Reno Facility – Eagle Country",
+        "url": "https://lifestyle.myeaglecountry.com/story/408246/grip-expands-west-coast-operations-with-new-reno-facility/",
+        "publishedDate": "2026-09-01T00:00:00.000Z",
+        "author": "Written By: EIN Presswire",
+        "score": 0.11111111111111116,
+        "text": "Grip Expands West Coast Operations With New Reno Facility – Eagle Country\n\n# Grip Expands West Coast Operations With New Reno Facility\n\nSeptember 1, 2026\n\nWritten By: EIN Presswire\n\nNew Northern Nevada hub extends the category leader’s temperature-controlled fulfillment network across the West\n\nRENO, NV, UNITED STATES, September 1, 2026 / EINPresswire.com/ — Grip, the technology, fulfillment and logistics company revolutionizing the frozen and refrigerated e-commerce space, has opened a 150,000-square-foot facility creating more than 60 jobs in the Reno-Sparks area. The hub is the company’s fifth nationwide and anchors its West Coast operations.\n\n The facility places Grip within one-day ground shipping reach of approximately 60 million people across 11 Western states, including the Los Angeles, San Francisco, Seattle and Salt Lake City markets.\n\n “We chose Reno-Sparks for its strategic location, giving us faster access to major markets across the Western U.S.” said Juan C. Meisel, founder and CEO of Grip. “Paired with our technology, it means our customers get faster, more reliable deliveries at a lower cost.”\n\n The new hub joins Grip facilities in New Jersey, Michigan, Texas and F",
+        "summary": "{\"company_name\":\"Grip\",\"signal_date\":\"2026-09-01\",\"signal_date_quote\":\"September 1, 2026\",\"signal_quote\":\"Grip, the technology, fulfillment and logistics company revolutionizing the frozen and refrigerated e-commerce space, has opened a 150,000-square-foot facility creating more than 60 jobs in the Reno-Sparks area.\",\"signal_summary\":\"Grip expands West Coast operations by opening a 150,000-square-foot facility in Reno, NV, creating 60+ jobs and extending its West Coast reach.\",\"signal_type\":\"new_facility\"}"
+      },
+      {
+        "id": "https://lifestyle.pspl.com/story/826920/grip-expands-west-coast-operations-with-new-reno-facility/",
+        "title": "Grip Expands West Coast Operations With New Reno Facility | lifestyle.pspl.com",
+        "url": "https://lifestyle.pspl.com/story/826920/grip-expands-west-coast-operations-with-new-reno-facility/",
+        "publishedDate": "2026-09-01T00:00:00.000Z",
+        "author": "Written By: EIN Presswire",
+        "score": 0,
+        "text": "Grip Expands West Coast Operations With New Reno Facility | lifestyle.pspl.com\n\n# Grip Expands West Coast Operations With New Reno Facility\n\nWritten By: EIN Presswire\n\nNew Northern Nevada hub extends the category leader’s temperature-controlled fulfillment network across the West\n\nRENO, NV, UNITED STATES, September 1, 2026 / EINPresswire.com/ — Grip, the technology, fulfillment and logistics company revolutionizing the frozen and refrigerated e-commerce space, has opened a 150,000-square-foot facility creating more than 60 jobs in the Reno-Sparks area. The hub is the company’s fifth nationwide and anchors its West Coast operations.\n\n The facility places Grip within one-day ground shipping reach of approximately 60 million people across 11 Western states, including the Los Angeles, San Francisco, Seattle and Salt Lake City markets.\n\n “We chose Reno-Sparks for its strategic location, giving us faster access to major markets across the Western U.S.” said Juan C. Meisel, founder and CEO of Grip. “Paired with our technology, it means our customers get faster, more reliable deliveries at a lower cost.”\n\n The new hub joins Grip facilities in New Jersey, Michigan, Texas and Florida. It sit",
+        "summary": "{\"company_name\":\"Grip\",\"signal_date\":\"2026-09-01\",\"signal_date_quote\":\"RENO, NV, UNITED STATES, September 1, 2026\",\"signal_quote\":\"Grip, the technology, fulfillment and logistics company revolutionizing the frozen and refrigerated e-commerce space, has opened a 150,000-square-foot facility creating more than 60 jobs in the Reno-Sparks area.\",\"signal_summary\":\"Grip expands West Coast operations with a new Reno facility, establishing a 150,000-square-foot hub in Reno-Sparks to extend its temperature-controlled fulfillment network across the West.\",\"signal_type\":\"new_facility\"}",
+        "image": "https://pix.xpr.media/p/eyJzIjoiZmY2NjJlMjctOGFhNi00NDAwLWIxZDgtOTM2Zjc4MjM1NTQxIiwiYyI6IjNiZjI5MzVhLTMzZTQtNDNlOS04NjQ1LTNkZWE2Y2RmYzFmZSIsInYiOjF9.SK72juS4I-ZuJkIF_i9daCBut1I0ob0wA48HfgruuN4.gif"
+      }
+    ],
+    "searchTime": 2393.1,
+    "costDollars": {
+      "total": 0.014,
+      "search": {
+        "neural": 0.004
+      },
+      "summary": 0.01
+    }
+  }
+}
