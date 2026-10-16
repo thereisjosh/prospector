@@ -1,12 +1,12 @@
 import "dotenv/config";
 import { judgeLeadFromState, normalizeJudgeLead } from "../../src/agent/judge-input";
-import Anthropic from "@anthropic-ai/sdk";
 import { randomUUID } from "node:crypto";
 import { existsSync, readFileSync } from "node:fs";
 import { copyFile, mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { pathToFileURL } from "node:url";
-import { AGENT_MODELS, RUNS_DIR } from "../../src/agent/config";
+import { RUNS_DIR } from "../../src/agent/config";
+import { createModelClient } from "../../src/agent/providers";
 import { emptyJudgeEvidence, type JudgeEvidence } from "../../src/evidence";
 import { checkLead } from "../../src/gates";
 import { rowEvidenceKey } from "../../src/score";
@@ -20,7 +20,7 @@ import { RECALL_BUDGET_TOKENS, recall, type RecallResult } from "../../src/agent
 import { getV1Plan } from "../fixtures/v1-plans";
 import { driveRun } from "../run-agent";
 import { applyFirstHandbackSuggestion } from "./sim-user";
-import type { Arm, LeadRecord, MemorySnapshot, RunCellDeps, RunRecord, Scenario } from "./types";
+import { ARM_MODELS, type Arm, type LeadRecord, type MemorySnapshot, type RunCellDeps, type RunRecord, type Scenario } from "./types";
 
 const DEFAULT_RESULTS_ROOT = "eval/results";
 
@@ -56,6 +56,7 @@ export function normalizeArm(value: string): Arm {
   if (value === "A" || value === "A_workflow") return "A_workflow";
   if (value === "B" || value === "B_agent_opus") return "B_agent_opus";
   if (value === "C" || value === "C_agent_sonnet") return "C_agent_sonnet";
+  if (value === "D" || value === "D_agent_kimi") return "D_agent_kimi";
   throw new Error(`unknown arm ${value}`);
 }
 
@@ -214,7 +215,7 @@ export async function runCell(scenario: Scenario, arm: Arm, rep: number, deps: R
       id: randomUUID(),
       workspaceId,
       plan: scenario.plan,
-      model: arm === "B_agent_opus" ? AGENT_MODELS.opus : AGENT_MODELS.sonnet,
+      model: ARM_MODELS[arm],
       targetLeads: scenario.targetLeads,
       maxCostDollars: scenario.maxCostDollars,
       ...(recalled ? { recalled } : { preferenceNotes: [], seenKeys: [] }),
@@ -226,7 +227,7 @@ export async function runCell(scenario: Scenario, arm: Arm, rep: number, deps: R
       final = await (deps.driveRun ?? driveRun)(
         state,
         {
-          client: deps.createClient ? deps.createClient() : new Anthropic(),
+          client: deps.createClient ? deps.createClient() : createModelClient(state.model),
           checkLead: deps.checkLead ?? checkLead,
           now,
         },
@@ -404,11 +405,11 @@ async function main() {
   const scenarioId = String(args.scenario ?? "");
   const armArg = String(args.arm ?? "");
   const rep = Number(args.rep ?? 1);
-  if (!scenarioId || !armArg) throw new Error("pass --scenario <id> --arm <A|B|C> --rep <n>, or --matrix");
+  if (!scenarioId || !armArg) throw new Error("pass --scenario <id> --arm <A|B|C|D> --rep <n>, or --matrix");
   const scenario = defaultScenario(scenarioId);
   const arm = normalizeArm(armArg);
   const deps: RunCellDeps = { runSetId: setId, log, langfuseExperiment, ...(args.workspace ? { workspaceId: String(args.workspace) } : {}) };
-  if (args.workspace && arm === "A_workflow") throw new Error("--workspace needs an agent arm (B or C); the workflow arm has no memory");
+  if (args.workspace && arm === "A_workflow") throw new Error("--workspace needs an agent arm (B, C or D); the workflow arm has no memory");
   const record = await runCell(scenario, arm, rep, deps);
   if (args.handback) await runHandbackRerun(record, scenario, arm, rep, deps, setId);
   console.log(`cell wrote ${scenarioId}/${record.arm}/${rep}; spend $${record.spend.total.toFixed(4)}; leads ${record.leads.length}`);

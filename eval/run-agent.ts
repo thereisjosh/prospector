@@ -2,7 +2,7 @@
  * CLI driver for the agent loop (live smoke runs).
  *
  *   npx tsx eval/run-agent.ts --icp 1 [--max-cost 1.00] [--target 10] [--workspace smoke]
- *       [--model opus|sonnet|<model id>] [--approve auto|ask|deny] [--record <dir>]
+ *       [--model opus|sonnet|kimi|<model id>] [--approve auto|ask|deny] [--record <dir>]
  *   npx tsx eval/run-agent.ts --plan path/to/plan.json ...
  *   npx tsx eval/run-agent.ts --resume <runId> [--approve ...]
  *
@@ -13,7 +13,6 @@
  * <dir>/agent/. Exit code: 0 on done/stopped, 1 on error.
  */
 import "dotenv/config";
-import Anthropic from "@anthropic-ai/sdk";
 import { randomUUID } from "node:crypto";
 import { copyFile, mkdir } from "node:fs/promises";
 import { join } from "node:path";
@@ -21,6 +20,7 @@ import { pathToFileURL } from "node:url";
 import { readFileSync } from "node:fs";
 import { createInterface } from "node:readline/promises";
 import { AGENT_MODELS, isAgentModel, RUNS_DIR, type AgentModel } from "../src/agent/config";
+import { createModelClient } from "../src/agent/providers";
 import type { AgentEvent } from "../src/agent/events";
 import { decide, step, type LoopDeps } from "../src/agent/loop";
 import { loadMemory } from "../src/agent/memory";
@@ -249,8 +249,9 @@ function resolveModel(value: string | undefined): AgentModel | undefined {
   if (!value) return undefined;
   if (value === "opus") return AGENT_MODELS.opus;
   if (value === "sonnet") return AGENT_MODELS.sonnet;
+  if (value === "kimi") return AGENT_MODELS.kimi;
   if (isAgentModel(value)) return value;
-  throw new Error(`unknown --model "${value}" (use opus, sonnet, or ${Object.values(AGENT_MODELS).join(" / ")})`);
+  throw new Error(`unknown --model "${value}" (use opus, sonnet, kimi, or ${Object.values(AGENT_MODELS).join(" / ")})`);
 }
 
 function loadPlan(args: Record<string, string>): SearchPlan {
@@ -301,7 +302,8 @@ async function main() {
   };
 
   try {
-    await driveRun(state, { client: new Anthropic(), checkLead }, policy, { ask });
+    // The provider follows the run's model (kimi-k2.6 -> Moonshot; Claude ids -> new Anthropic() as before).
+    await driveRun(state, { client: createModelClient(state.model), checkLead }, policy, { ask });
   } finally {
     rl?.close();
   }

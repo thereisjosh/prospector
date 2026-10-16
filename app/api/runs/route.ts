@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { NextResponse } from "next/server";
 import { InvalidIdError, assertWorkspaceId } from "../../../src/agent/ids";
-import { isAgentModel } from "../../../src/agent/config";
+import { isAgentModel, providerOf } from "../../../src/agent/config";
 import { loadMemory } from "../../../src/agent/memory";
 import { RECALL_BUDGET_TOKENS, recall } from "../../../src/agent/recall";
 import { releaseLiveRun, reserveLiveRun } from "../../../src/agent/quota";
@@ -38,7 +38,8 @@ export async function POST(request: Request) {
         id: randomUUID(),
         workspaceId,
         plan: validation.plan,
-        model: isAgentModel(body.model) ? body.model : undefined,
+        // The public app runs Anthropic models only; kimi-k2.6 is an eval-CLI model (docs/RESEARCH-kimi.md).
+        model: isAgentModel(body.model) && providerOf(body.model) === "anthropic" ? body.model : undefined,
         targetLeads: clampTargetLeads(body.targetLeads),
         maxCostDollars: maxCost,
         // Memory reaches the run only through recall(): all seen keys, plus the ranked preferences and notes.

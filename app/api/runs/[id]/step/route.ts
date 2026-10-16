@@ -1,4 +1,4 @@
-import Anthropic from "@anthropic-ai/sdk";
+import { createModelClient } from "../../../../../src/agent/providers";
 import { NextResponse } from "next/server";
 import { InvalidIdError } from "../../../../../src/agent/ids";
 import { checkLead } from "../../../../../src/gates";
@@ -50,7 +50,7 @@ export async function POST(request: Request, { params }: { params: { id: string 
       }
       const before = state.spend.total;
       let allowanceStop = false;
-      const result = await step(state, { client: new Anthropic(), checkLead });
+      const result = await step(state, { client: createModelClient(state.model), checkLead });
       const delta = Math.max(0, result.state.spend.total - before);
       await addDailySpend(delta);
       const updatedQuota = await addVisitorSpend(result.state.workspaceId, delta);

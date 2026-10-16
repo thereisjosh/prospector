@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 import type Anthropic from "@anthropic-ai/sdk";
 import { rejectionCounts, type RunState } from "./state";
+import { MODEL_REGISTRY, providers, type ProviderId } from "./config";
 
 /**
  * Working memory: what the model sees each turn. `state.messages` stays the full append-only record
@@ -190,6 +191,9 @@ export async function measureRequestTokens(
   const key = tokenCountKey(state.model, state.messages.length, request.system, request.tools);
   if (state.tokenCount?.key === key) return { tokens: state.tokenCount.tokens, source: "cached" };
   try {
+    // count_tokens is Anthropic-only (Moonshot documents no such endpoint): other providers are estimated.
+    const entry = (MODEL_REGISTRY as Record<string, { provider: ProviderId } | undefined>)[state.model];
+    if (entry && !providers[entry.provider].countTokens) throw new Error(`count_tokens is Anthropic-only; provider ${entry.provider} has none`);
     if (typeof client.messages.countTokens !== "function") throw new Error("client has no countTokens");
     const result = await client.messages.countTokens({
       model: state.model,

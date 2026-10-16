@@ -1,5 +1,5 @@
 import "dotenv/config";
-import Anthropic from "@anthropic-ai/sdk";
+import type Anthropic from "@anthropic-ai/sdk";
 import { existsSync, readFileSync } from "node:fs";
 import { readdir, unlink } from "node:fs/promises";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
@@ -7,11 +7,33 @@ import { dirname, join } from "node:path";
 import { pathToFileURL } from "node:url";
 import { eventInWindow, findVerdictFile, truthKey } from "./truth";
 import type { BlindLead } from "./blind";
-import { claudeCostDollars } from "../../src/agent/config";
+import { AGENT_MODELS, claudeCostDollars, type AgentModel } from "../../src/agent/config";
+import { createModelClient } from "../../src/agent/providers";
+import { moonshotSearch, type MoonshotSearchResult } from "../../src/judges/moonshot-search";
+import { kimiJudgeCall, type PageFetchResult } from "./judge-kimi";
 import { judgePayload } from "../../src/agent/judge-input";
 import type { RubricAnswer, Verdict } from "./types";
 
 type JudgeClient = Pick<Anthropic, "messages">;
+
+/**
+ * `--model`: opus (default) is the offline authority and writes eval/truth. sonnet and kimi are comparison
+ * judges: their verdicts go to eval/results/<set>/judge-<model>/<scenario>/ and never touch eval/truth.
+ * opus/sonnet use Anthropic's server tools; kimi gets the same two tools as client tools (judge-kimi.ts).
+ */
+export type JudgeModelName = "opus" | "sonnet" | "kimi";
+export const JUDGE_MODEL_IDS: Record<JudgeModelName, AgentModel> = { opus: AGENT_MODELS.opus, sonnet: AGENT_MODELS.sonnet, kimi: AGENT_MODELS.kimi };
+
+export function parseJudgeModelName(value: string | undefined): JudgeModelName {
+  if (value === undefined || value === "opus") return "opus";
+  if (value === "sonnet" || value === "kimi") return value;
+  throw new Error(`--model takes opus, sonnet or kimi, got ${JSON.stringify(value)}`);
+}
+
+/** Where a comparison judge's verdicts live (the truthRoot passed to truthPath): never eval/truth. */
+export function comparisonTruthRoot(model: JudgeModelName, setId: string, resultsRoot = "eval/results"): string {
+  return join(resultsRoot, setId, `judge-${model}`);
+}
 
 type JudgeJson = {
   q1: RubricAnswer;
@@ -127,8 +149,8 @@ function fetchErrorCode(block: unknown): string | undefined {
   return c.type === "web_fetch_tool_error" ? "unknown_error" : undefined;
 }
 
-/** Token usage, dollar cost (Opus prices), web-search and web-fetch counts of one response. */
-export function responseCost(response: unknown): { usage: JudgeUsage; costDollars: number; webSearches: number; webFetches: number; fetchErrors: string[] } {
+/** Token usage, dollar cost (priced by `model`, default Opus), web-search and web-fetch counts of one response. */
+export function responseCost(response: unknown, model: AgentModel = AGENT_MODELS.opus): { usage: JudgeUsage; costDollars: number; webSearches: number; webFetches: number; fetchErrors: string[] } {
   const u = (response as { usage?: Record<string, number | null | undefined> }).usage ?? {};
   const usage = {
     input: u.input_tokens ?? 0,
@@ -142,7 +164,7 @@ export function responseCost(response: unknown): { usage: JudgeUsage; costDollar
   const fetches = ofType("web_fetch_tool_result");
   return {
     usage,
-    costDollars: claudeCostDollars("claude-opus-5-5", u),
+    costDollars: claudeCostDollars(model, u),
     webSearches: ofType("web_search_tool_result").length,
     webFetches: fetches.length,
     fetchErrors: fetches.map(fetchErrorCode).filter((c): c is string => c !== undefined),
@@ -198,7 +220,7 @@ export function settleQ3(parsed: JudgeJson, one: Pick<Spent, "webFetches" | "fet
   return "none";
 }
 
-function fallback(lead: BlindLead, scenarioId: string, spent?: Spent): Verdict {
+function fallback(lead: BlindLead, scenarioId: string, spent?: Spent, judge: JudgeModelName = "opus"): Verdict {
   return {
     ...spentFields(spent),
     company: lead.company,
@@ -211,7 +233,7 @@ function fallback(lead: BlindLead, scenarioId: string, spent?: Spent): Verdict {
     q3_source: "",
     good: false,
     judgedAt: new Date().toISOString(),
-    judge: "opus",
+    judge,
   };
 }
 
@@ -222,7 +244,7 @@ function cleanNote(note: unknown): { note: string } | Record<string, never> {
   return trimmed ? { note: trimmed } : {};
 }
 
-function toVerdict(lead: BlindLead, scenarioId: string, parsed: JudgeJson, now: Date, spent?: Spent): Verdict {
+function toVerdict(lead: BlindLead, scenarioId: string, parsed: JudgeJson, now: Date, spent?: Spent, judge: JudgeModelName = "opus"): Verdict {
   return {
     ...spentFields(spent),
     company: lead.company,
@@ -239,7 +261,7 @@ function toVerdict(lead: BlindLead, scenarioId: string, parsed: JudgeJson, now: 
     ...cleanNote(parsed.note),
     good: parsed.q1 === "yes" && parsed.q3 === "yes" && parsed.q2 !== "no",
     judgedAt: new Date().toISOString(),
-    judge: "opus",
+    judge,
   };
 }
 
@@ -259,8 +281,9 @@ export function userPrompt(lead: BlindLead): string {
 }
 
 /** Keep the raw reply when parsing fails, and say so on stderr: a judge failure is never silent. */
-async function recordFailure(options: { resultsRoot?: string; setId?: string; scenarioId: string; lead: BlindLead }, text: string, stopReason: unknown) {
-  const file = join(options.resultsRoot ?? "eval/results", options.setId ?? "adhoc", options.scenarioId, "judge-failures", `${truthKey(options.lead.company, options.lead.signal_url)}.txt`);
+async function recordFailure(options: { resultsRoot?: string; setId?: string; scenarioId: string; lead: BlindLead; model?: JudgeModelName }, text: string, stopReason: unknown) {
+  const dir = !options.model || options.model === "opus" ? "judge-failures" : `judge-failures-${options.model}`;
+  const file = join(options.resultsRoot ?? "eval/results", options.setId ?? "adhoc", options.scenarioId, dir, `${truthKey(options.lead.company, options.lead.signal_url)}.txt`);
   await mkdir(dirname(file), { recursive: true });
   await writeFile(file, `stop_reason: ${String(stopReason)}\n\n${text}\n`, "utf8");
   console.error(`judge: could not parse a verdict for ${options.lead.company} (stop_reason ${String(stopReason)}); raw reply saved to ${file}`);
@@ -279,7 +302,17 @@ export async function judgeLead(options: {
   /** Where judge-failures/ is written. */
   setId?: string;
   resultsRoot?: string;
+  /** Default opus. A non-opus model needs truthRoot (comparisonTruthRoot) so it never writes eval/truth. */
+  model?: JudgeModelName;
+  /** kimi only, test seams: the Moonshot search and the page fetcher. */
+  search?: (query: string) => Promise<MoonshotSearchResult[]>;
+  fetchPage?: (url: string) => Promise<PageFetchResult>;
 }): Promise<Verdict> {
+  const judgeName = options.model ?? "opus";
+  const modelId = JUDGE_MODEL_IDS[judgeName];
+  if (judgeName !== "opus" && (options.truthRoot === undefined || options.truthRoot === "eval/truth")) {
+    throw new Error(`judge --model ${judgeName} must write outside eval/truth (pass truthRoot = comparisonTruthRoot(...))`);
+  }
   const file = truthPath(options.scenarioId, options.lead.company, options.lead.signal_url, options.truthRoot);
   const now = options.now ?? new Date();
   if (!options.force && existsSync(file)) {
@@ -288,12 +321,29 @@ export async function judgeLead(options: {
     if (!windowKnown || eventInWindow(options.lead.event_date, options.now!, options.months!)) return cached;
   }
 
-  const client = options.client ?? new Anthropic();
+  const client = options.client ?? createModelClient(modelId);
   const rubric = options.rubricText ?? readFileSync("eval/RUBRIC.md", "utf8");
   let spent: Spent | undefined;
   for (let attempt = 0; attempt < 2; attempt += 1) {
+    if (judgeName === "kimi") {
+      const r = await kimiJudgeCall(
+        { client, model: modelId, search: options.search ?? ((q) => moonshotSearch(q)), fetchPage: options.fetchPage },
+        { system: rubric, user: userPrompt(options.lead) },
+      );
+      const one: Spent = { usage: r.usage, costDollars: r.costDollars, webSearches: r.webSearches, webFetches: r.webFetches, fetchErrors: r.fetchErrors };
+      spent = addSpent(spent, one);
+      const parsed = parseJudgeJson(r.text);
+      if (parsed) {
+        const q3Basis = settleQ3(parsed, one);
+        const verdict = { ...toVerdict(options.lead, options.scenarioId, parsed, now, spent, judgeName), q3_basis: q3Basis };
+        await writeJson(file, verdict);
+        return verdict;
+      }
+      if (attempt === 1) await recordFailure({ ...options, model: judgeName }, r.text, r.stopReason);
+      continue;
+    }
     const response = await client.messages.create({
-      model: "claude-opus-5-5",
+      model: modelId,
       max_tokens: 4000,
       system: rubric,
       messages: [{ role: "user", content: userPrompt(options.lead) }],
@@ -303,7 +353,7 @@ export async function judgeLead(options: {
         { type: "web_fetch_20260209", name: "web_fetch", max_uses: MAX_FETCHES, max_content_tokens: 6000 },
       ],
     } as never);
-    const one = responseCost(response);
+    const one = responseCost(response, modelId);
     if (one.webSearches > MAX_SEARCHES) {
       console.error(`judge: ${options.lead.company}: API returned ${one.webSearches} web searches for max_uses ${MAX_SEARCHES}`);
     }
@@ -312,14 +362,14 @@ export async function judgeLead(options: {
     const parsed = parseJudgeJson(text);
     if (parsed) {
       const q3Basis = settleQ3(parsed, one);
-      const verdict = { ...toVerdict(options.lead, options.scenarioId, parsed, now, spent), q3_basis: q3Basis };
+      const verdict = { ...toVerdict(options.lead, options.scenarioId, parsed, now, spent, judgeName), q3_basis: q3Basis };
       await writeJson(file, verdict);
       return verdict;
     }
-    if (attempt === 1) await recordFailure(options, text, (response as { stop_reason?: unknown }).stop_reason);
+    if (attempt === 1) await recordFailure({ ...options, model: judgeName }, text, (response as { stop_reason?: unknown }).stop_reason);
   }
   // The all-cannot_verify fallback is returned but never cached: a transient judge failure must not become truth.
-  return fallback(options.lead, options.scenarioId, spent);
+  return fallback(options.lead, options.scenarioId, spent, judgeName);
 }
 
 export async function judgeBlind(options: {
@@ -333,20 +383,30 @@ export async function judgeBlind(options: {
   months?: number;
   /** Judge only the first N blind leads. */
   limit?: number;
+  /** Default opus. sonnet/kimi write to comparisonTruthRoot and print agreement with eval/truth (the Opus verdicts). */
+  model?: JudgeModelName;
+  /** Where the Opus verdicts are read from for the agreement report (default eval/truth). */
+  authorityRoot?: string;
+  search?: (query: string) => Promise<MoonshotSearchResult[]>;
+  fetchPage?: (url: string) => Promise<PageFetchResult>;
 }): Promise<Verdict[]> {
   const root = options.resultsRoot ?? "eval/results";
+  const judgeName = options.model ?? "opus";
+  const truthRoot = judgeName === "opus" ? options.truthRoot : (options.truthRoot ?? comparisonTruthRoot(judgeName, options.setId, root));
   const blindFile = join(root, options.setId, options.scenarioId, "blind.json");
   let leads = JSON.parse(await readFile(blindFile, "utf8")) as BlindLead[];
   if (options.limit !== undefined) leads = leads.slice(0, options.limit);
   const verdicts: Verdict[] = [];
   const perLead: Array<{ company: string; signal_url: string; costDollars: number; webSearches: number; webFetches?: number; usage?: Verdict["usage"]; error?: string }> = [];
   let total = 0;
-  const writeCost = () => writeJson(join(root, options.setId, options.scenarioId, "judge-cost.json"), { totalDollars: total, leads: perLead.length, perLead });
+  const costName = judgeName === "opus" ? "judge-cost.json" : `judge-cost-${judgeName}.json`;
+  const writeCost = () => writeJson(join(root, options.setId, options.scenarioId, costName), { model: JUDGE_MODEL_IDS[judgeName], totalDollars: total, leads: perLead.length, perLead });
   for (const lead of leads) {
     try {
       const verdict = await judgeLead({
-        scenarioId: options.scenarioId, lead, client: options.client, truthRoot: options.truthRoot,
+        scenarioId: options.scenarioId, lead, client: options.client, truthRoot,
         force: options.force, now: options.now, months: options.months, setId: options.setId, resultsRoot: root,
+        model: judgeName, search: options.search, fetchPage: options.fetchPage,
       });
       verdicts.push(verdict);
       const cost = verdict.costDollars ?? 0;
@@ -361,7 +421,48 @@ export async function judgeBlind(options: {
     }
     await writeCost();
   }
+  if (judgeName !== "opus") {
+    const agreement = await judgeAgreement(verdicts, options.scenarioId, options.authorityRoot);
+    for (const line of agreementLines(judgeName, agreement)) console.log(line);
+    await writeJson(join(root, options.setId, options.scenarioId, `judge-agreement-${judgeName}.json`), { model: JUDGE_MODEL_IDS[judgeName], ...agreement });
+  }
   return verdicts;
+}
+
+export type Agreement = {
+  compared: number;
+  missingAuthority: string[];
+  fields: Record<"q1" | "q2" | "q3" | "good", { agree: number; total: number }>;
+  disagreements: Array<{ company: string; signal_url?: string; field: "q1" | "q2" | "q3" | "good"; authority: unknown; candidate: unknown }>;
+};
+
+/** Field-by-field agreement of comparison verdicts with the stored Opus verdicts (the human-reviewed truth). */
+export async function judgeAgreement(verdicts: Verdict[], scenarioId: string, authorityRoot = "eval/truth"): Promise<Agreement> {
+  const fields = ["q1", "q2", "q3", "good"] as const;
+  const out: Agreement = { compared: 0, missingAuthority: [], fields: { q1: { agree: 0, total: 0 }, q2: { agree: 0, total: 0 }, q3: { agree: 0, total: 0 }, good: { agree: 0, total: 0 } }, disagreements: [] };
+  for (const v of verdicts) {
+    const file = findVerdictFile(join(authorityRoot, scenarioId), v.company, v.signal_url ?? "");
+    if (!file) {
+      out.missingAuthority.push(v.company);
+      continue;
+    }
+    const authority = JSON.parse(await readFile(file, "utf8")) as Verdict;
+    out.compared += 1;
+    for (const f of fields) {
+      out.fields[f].total += 1;
+      if (authority[f] === v[f]) out.fields[f].agree += 1;
+      else out.disagreements.push({ company: v.company, signal_url: v.signal_url, field: f, authority: authority[f], candidate: v[f] });
+    }
+  }
+  return out;
+}
+
+export function agreementLines(model: JudgeModelName, a: Agreement): string[] {
+  const pct = (x: { agree: number; total: number }) => (x.total ? `${x.agree}/${x.total} (${Math.round((x.agree / x.total) * 100)}%)` : "0/0");
+  const lines = [`agreement ${model} vs stored Opus verdicts over ${a.compared} leads: q1 ${pct(a.fields.q1)} · q2 ${pct(a.fields.q2)} · q3 ${pct(a.fields.q3)} · good ${pct(a.fields.good)}`];
+  if (a.missingAuthority.length) lines.push(`no stored Opus verdict for: ${a.missingAuthority.join(", ")}`);
+  for (const d of a.disagreements) lines.push(`  ${d.company} ${d.field}: opus ${String(d.authority)} / ${model} ${String(d.candidate)}`);
+  return lines;
 }
 
 function parseFields(value: string): Array<"q1" | "q2" | "q3"> {
@@ -585,7 +686,9 @@ async function main() {
     console.log(`--- system (rubric) ---\n${readFileSync("eval/RUBRIC.md", "utf8")}\n--- user ---\n${userPrompt(first)}`);
     return;
   }
+  const model = parseJudgeModelName(args.model === undefined ? undefined : String(args.model));
   const verdicts = await judgeBlind({
+    model,
     limit: args.limit ? Number(args.limit) : undefined,
     setId: String(args.set),
     scenarioId: String(args.scenario),

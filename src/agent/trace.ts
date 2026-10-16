@@ -89,7 +89,7 @@ export function hashWorkspaceId(workspaceId: string, secret = process.env.TRACE_
 /* ------------------------------------------------------------------ */
 
 const MAX_STRING = 2000;
-const SECRET_ENV_VARS = ["ANTHROPIC_API_KEY", "EXA_API_KEY", "ADMIN_TOKEN", "LANGFUSE_SECRET_KEY", "TRACE_HMAC_SECRET"];
+const SECRET_ENV_VARS = ["ANTHROPIC_API_KEY", "EXA_API_KEY", "ADMIN_TOKEN", "LANGFUSE_SECRET_KEY", "TRACE_HMAC_SECRET", "KIMI_API_KEY"];
 
 const PATTERNS: Array<[RegExp, string]> = [
   [/-----BEGIN [A-Z ]*PRIVATE KEY-----[\s\S]*?-----END [A-Z ]*PRIVATE KEY-----/g, "[redacted:key]"],

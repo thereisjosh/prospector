@@ -21,7 +21,7 @@ import { observationIdFor, toObservations } from "../../src/agent/trace";
 import { readDataset, type DatasetItem } from "../datasets";
 import type { GradeReport } from "../graders";
 import type { CellMetric } from "../harness/score";
-import type { RunRecord, Verdict } from "../harness/types";
+import { ARM_MODELS, type RunRecord, type Verdict } from "../harness/types";
 import { EVAL_ENVIRONMENT } from "./client";
 import { exportExperimentItemSpans, type ExperimentItemSpan } from "./otel";
 import { syncDataset } from "./sync";
@@ -190,7 +190,7 @@ export function planCell(input: PlanCellInput): CellPlan {
           set: input.experimentName,
           arm: record.arm,
           rep: String(record.rep),
-          ...(record.arm === "A_workflow" ? {} : { model: record.arm === "B_agent_opus" ? "claude-opus-5-5" : "claude-sonnet-5-5" }),
+          ...(record.arm === "A_workflow" ? {} : { model: ARM_MODELS[record.arm] }),
         },
         itemMetadata: { scenarioId: record.scenarioId },
         expectedOutput: input.datasetItem.expectedOutput,

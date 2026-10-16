@@ -1,4 +1,5 @@
 import type Anthropic from "@anthropic-ai/sdk";
+import { AGENT_MODELS, type AgentModel } from "../../src/agent/config";
 import type { LoopDeps } from "../../src/agent/loop";
 import type { RunState } from "../../src/agent/state";
 import type { SearchPlan } from "../../src/plan";
@@ -15,7 +16,14 @@ export type Scenario = {
   maxCostDollars: number;
 };
 
-export type Arm = "A_workflow" | "B_agent_opus" | "C_agent_sonnet";
+export type Arm = "A_workflow" | "B_agent_opus" | "C_agent_sonnet" | "D_agent_kimi";
+
+/** The model each agent arm runs (D: Moonshot kimi-k2.6, docs/RESEARCH-kimi.md). */
+export const ARM_MODELS: Record<Exclude<Arm, "A_workflow">, AgentModel> = {
+  B_agent_opus: AGENT_MODELS.opus,
+  C_agent_sonnet: AGENT_MODELS.sonnet,
+  D_agent_kimi: AGENT_MODELS.kimi,
+};
 
 export type LeadRecord = {
   company: string;
@@ -91,7 +99,8 @@ export type Verdict = {
   /** How Q3 was verified: the page was fetched, a different site corroborated the event, or neither. */
   q3_basis?: "fetched" | "corroborated" | "none";
   judgedAt: string;
-  judge: "opus" | "human";
+  /** opus = the offline authority (eval/truth); sonnet / kimi verdicts live under eval/results/<set>/judge-<model>/ (judge.ts --model). */
+  judge: "opus" | "sonnet" | "kimi" | "human";
 };
 
 export type RunCellDeps = {
