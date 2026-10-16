@@ -48,6 +48,11 @@ const RULES: Record<JudgeQuestion, string> = {
 - "cannot_verify" only when signal_excerpt is empty or stops before the event is described.`,
 };
 
+/** The title and rules of one question, as text (also what the Jev adapter, src/judges/jev.ts, sends as the question's instructions). */
+export function judgeQuestionText(question: JudgeQuestion): { title: string; rules: string } {
+  return { title: TITLES[question], rules: RULES[question] };
+}
+
 /** The user message for one question; `{{lead}}` is the only variable. */
 export function judgeUserPrompt(question: JudgeQuestion): string {
   return `You are one of three online judges for a B2B prospecting agent. The agent accepted the lead below. Answer only ${TITLES[question]} Use RUBRIC §1 in the system message.

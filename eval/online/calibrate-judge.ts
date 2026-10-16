@@ -15,6 +15,14 @@
  * every mismatch (input, expected, actual, full reasoning), writes every verdict to
  * eval/results/calibration/<date>/<judge>.json, and confirms the run is listed by the Langfuse
  * Experiments API. It refuses to start if the estimate exceeds --max-dollars.
+ *
+ * --model jev (default anthropic) runs the same datasets through TypeSafe's Jev instead (src/judges/jev.ts,
+ * docs/RESEARCH-jev.md): the lead payload is the Jev state, the question's rules are its instructions, the
+ * answer is the top choice of yes / no / cannot_verify. Same report, same Langfuse experiment recording
+ * (model recorded as jev-<version>). --run needs JEV_API_KEY and refuses to start without it; --dry-run
+ * answers from a local fake fetch (no key, no network, $0). Jev has no reasoning text: the report's reasoning
+ * column holds the probabilities and confidence.
+ *   npx tsx eval/online/calibrate-judge.ts --model jev --run --max-dollars 0.5 [--judge judge_q1]
  */
 import "dotenv/config";
 import { mkdirSync, writeFileSync } from "node:fs";
@@ -25,8 +33,10 @@ import type { LangfuseClient } from "@langfuse/client";
 import { CLAUDE_PRICES_PER_MILLION, claudeCostDollars } from "../../src/agent/config";
 import { createLangfuseClient, EVAL_ENVIRONMENT, projectId, uiLink } from "../langfuse/client";
 import { startSdkTracing } from "../langfuse/otel";
+import { JEV_DEFAULT_MODEL, jevCostDollars, jevLeadJudge, requireJevKey, type JevOptions, type LeadQuestionId } from "../../src/judges/jev";
+import type { JudgePayload } from "../../src/agent/judge-input";
 import { calibrationDatasetName } from "./calibration-set";
-import { JUDGE_CATEGORIES, JUDGE_MODEL, JUDGE_QUESTIONS, LEAD_VARIABLE, judgeOutputDefinition, type JudgeAnswer, type JudgeQuestion } from "./judge-prompt";
+import { JUDGE_CATEGORIES, JUDGE_MODEL, JUDGE_QUESTIONS, LEAD_VARIABLE, judgeOutputDefinition, judgeQuestionText, type JudgeAnswer, type JudgeQuestion } from "./judge-prompt";
 
 /**
  * Output budget per verdict: adaptive thinking (always on for claude-opus-5-5) + reasoning + the
@@ -110,6 +120,40 @@ export async function judgeOnce(client: Pick<Anthropic, "messages">, question: J
   return { score, reasoning: String(block.input?.reasoning ?? ""), costDollars };
 }
 
+export type JudgeModel = "anthropic" | "jev";
+
+export function parseJudgeModel(value: string | undefined): JudgeModel {
+  if (value === undefined || value === "anthropic") return "anthropic";
+  if (value === "jev") return "jev";
+  throw new Error(`--model takes anthropic or jev, got ${JSON.stringify(value)}`);
+}
+
+/** One Jev verdict for a calibration item: the dataset's lead payload is the state, only this judge's question is asked. */
+export async function jevVerdict(question: JudgeQuestion, input: unknown, opts: JevOptions = {}): Promise<{ score: JudgeAnswer | "invalid"; reasoning: string; costDollars: number }> {
+  const id = question.replace("judge_", "") as LeadQuestionId;
+  const v = await jevLeadJudge(input as JudgePayload, { ...opts, only: [id] });
+  const p = v.probabilities[id] ?? {};
+  const probs = JUDGE_CATEGORIES.map((c) => `${c} ${(p[c] ?? 0).toFixed(2)}`).join(", ");
+  return { score: v[id] ?? "invalid", reasoning: `jev ${v.model}: ${probs}; confidence ${(v.confidence[id] ?? 0).toFixed(2)}`, costDollars: v.costDollars };
+}
+
+/** What --dry-run answers with: a Jev-shaped response built locally (always "yes" at 0.9), so the whole request/parse path runs with no key and no network. */
+export function fakeJevFetch(): typeof fetch {
+  return (async (_url: unknown, init?: { body?: string }) => {
+    const req = JSON.parse(String(init?.body)) as { questions: Record<string, unknown> };
+    const answers = Object.fromEntries(Object.keys(req.questions).map((id) => [id, { type: "choice", choice: "yes", probabilities: { yes: 0.9, no: 0.05, cannot_verify: 0.05 }, confidence: 0.8 }]));
+    return new Response(JSON.stringify({ model: JEV_DEFAULT_MODEL, answers, usage: { input_tokens: Math.ceil(String(init?.body).length / 2.2), output_tokens: 0 } }), { status: 200 });
+  }) as unknown as typeof fetch;
+}
+
+/** Upper-bound Jev cost of one item: state + this question's instructions, at CHARS_PER_TOKEN (the same conservative ratio as the Anthropic estimate). */
+export function estimateJevDollars(question: JudgeQuestion, input: unknown): { inputTokens: number; dollars: number } {
+  const { title, rules } = judgeQuestionText(question);
+  const chars = JSON.stringify(input).length + title.length + rules.length + 900; // 900: the fixed task text + criteria
+  const inputTokens = Math.ceil(chars / CHARS_PER_TOKEN);
+  return { inputTokens, dollars: jevCostDollars(inputTokens) };
+}
+
 /**
  * `dataset.runExperiment` (@langfuse/client) has no error channel: a throwing task is caught inside its worker loop,
  * logged at logger level as "Task failed with error: … Skipping item.", and the item is dropped from `itemResults`.
@@ -151,7 +195,7 @@ async function fetchSet(client: LangfuseClient, question: JudgeQuestion, itemFil
   return { items, messages: prompt.prompt.map((m) => ({ role: m.role, content: m.content })), promptVersion: prompt.version };
 }
 
-export async function estimate(client: LangfuseClient, questions: JudgeQuestion[], itemFilter?: string) {
+export async function estimate(client: LangfuseClient, questions: JudgeQuestion[], itemFilter?: string, model: JudgeModel = "anthropic") {
   const rows: Array<{ question: JudgeQuestion; items: number; promptVersion: number; inputTokens: number; dollars: number; labels: Record<string, number> }> = [];
   for (const q of questions) {
     const { items, messages, promptVersion } = await fetchSet(client, q, itemFilter);
@@ -159,7 +203,7 @@ export async function estimate(client: LangfuseClient, questions: JudgeQuestion[
     let dollars = 0;
     const labels: Record<string, number> = {};
     for (const item of items) {
-      const e = estimateCallDollars(compile(messages, item.input));
+      const e = model === "jev" ? estimateJevDollars(q, item.input) : estimateCallDollars(compile(messages, item.input));
       inputTokens += e.inputTokens;
       dollars += e.dollars;
       labels[String(item.expectedOutput)] = (labels[String(item.expectedOutput)] ?? 0) + 1;
@@ -269,16 +313,25 @@ export async function confirmExperiment(api: ExperimentsApi, opts: { experimentI
 
 export const DRY_RUN_PREFIX = "dry-run · ";
 
-async function run(client: LangfuseClient, questions: JudgeQuestion[], opts: { maxDollars?: number; dryRun: boolean; itemFilter?: string }) {
-  const { rows, total } = await estimate(client, questions, opts.itemFilter);
+async function run(client: LangfuseClient, questions: JudgeQuestion[], opts: { maxDollars?: number; dryRun: boolean; itemFilter?: string; model?: JudgeModel }) {
+  const modelKind = opts.model ?? "anthropic";
+  const modelName = modelKind === "jev" ? JEV_DEFAULT_MODEL : JUDGE_MODEL.model;
+  // Refuse before any Langfuse or model call: a Jev round without a key must not start (and never falls back to Anthropic).
+  const jevKey = modelKind === "jev" && !opts.dryRun ? requireJevKey() : undefined;
+  const { rows, total } = await estimate(client, questions, opts.itemFilter, modelKind);
   if (!opts.dryRun && total > (opts.maxDollars ?? 0)) throw new Error(`estimated $${total.toFixed(2)} > --max-dollars ${opts.maxDollars}; nothing was run`);
-  const judge = opts.dryRun
-    ? async (): Promise<Verdict> => ({ score: "invalid", reasoning: "dry-run", costDollars: 0 })
-    : await (async () => {
-        const { default: AnthropicSdk } = await import("@anthropic-ai/sdk");
-        const anthropic = new AnthropicSdk();
-        return (q: JudgeQuestion, messages: Message[]) => judgeOnce(anthropic, q, messages);
-      })();
+  const judge: (q: JudgeQuestion, messages: Message[], input: unknown) => Promise<Verdict> =
+    modelKind === "jev"
+      ? opts.dryRun
+        ? (q, _m, input) => jevVerdict(q, input, { apiKey: "dry-run", fetch: fakeJevFetch() })
+        : (q, _m, input) => jevVerdict(q, input, { apiKey: jevKey })
+      : opts.dryRun
+        ? async () => ({ score: "invalid", reasoning: "dry-run", costDollars: 0 })
+        : await (async () => {
+            const { default: AnthropicSdk } = await import("@anthropic-ai/sdk");
+            const anthropic = new AnthropicSdk();
+            return (q: JudgeQuestion, messages: Message[]) => judgeOnce(anthropic, q, messages);
+          })();
   const project = await projectId(client);
   const sdkTracing = await startSdkTracing({ environment: EVAL_ENVIRONMENT });
   let spent = 0;
@@ -290,15 +343,15 @@ async function run(client: LangfuseClient, questions: JudgeQuestion[], opts: { m
       const dataset = await client.dataset.get(calibrationDatasetName(q));
       const errors: Array<{ id: string; message: string }> = [];
       const startedAt = new Date().toISOString();
-      const runName = `${opts.dryRun ? DRY_RUN_PREFIX : ""}${q} prompt v${promptVersion}${opts.itemFilter ? ` · item ${opts.itemFilter}` : ""} · ${startedAt.slice(0, 16)}`;
+      const runName = `${opts.dryRun ? DRY_RUN_PREFIX : ""}${modelKind === "jev" ? "jev · " : ""}${q} prompt v${promptVersion}${opts.itemFilter ? ` · item ${opts.itemFilter}` : ""} · ${startedAt.slice(0, 16)}`;
       const result = (await dataset.runExperiment({
         name: `judge-calibration/${q}`,
         runName,
-        description: `Calibration of the online ${q} evaluator (prompt judge-calibration/${q} v${promptVersion}, ${JUDGE_MODEL.model})${opts.dryRun ? "; dry run, no model call" : ""}`,
-        metadata: { judge: q, promptVersion, model: JUDGE_MODEL.model, dryRun: opts.dryRun },
+        description: `Calibration of the online ${q} evaluator (prompt judge-calibration/${q} v${promptVersion}, ${modelName})${opts.dryRun ? "; dry run, no model call" : ""}`,
+        metadata: { judge: q, promptVersion, model: modelName, dryRun: opts.dryRun },
         data: selected,
         task: trackErrors(async (item: { id?: string; input: unknown }) => {
-          const out = await judge(q, compile(messages, item.input));
+          const out = await judge(q, compile(messages, item.input), item.input);
           spent += out.costDollars;
           return out;
         }, errors),
@@ -314,7 +367,7 @@ async function run(client: LangfuseClient, questions: JudgeQuestion[], opts: { m
         dataset: calibrationDatasetName(q),
         datasetId: selected[0]?.datasetId ?? null,
         promptVersion,
-        model: JUDGE_MODEL.model,
+        model: modelName,
         itemFilter: opts.itemFilter ?? null,
         createdAt: startedAt,
         correct,
@@ -405,6 +458,8 @@ function judgeArg(value: string | undefined, name: string): JudgeQuestion | unde
 
 async function main() {
   const argv = process.argv.slice(2);
+  const model = parseJudgeModel(flag(argv, "--model"));
+  if (model === "jev" && argv.includes("--run")) requireJevKey(); // refuse before any Langfuse call
   const client = await createLangfuseClient();
   const listJudge = judgeArg(flag(argv, "--list-runs"), "--list-runs");
   if (listJudge) {
@@ -416,18 +471,19 @@ async function main() {
   const questions = judge ? [judge] : JUDGE_QUESTIONS;
   if (argv.includes("--dry-run")) {
     if (argv.includes("--run")) throw new Error("--dry-run and --run are exclusive");
-    await run(client, questions, { dryRun: true, itemFilter });
+    await run(client, questions, { dryRun: true, itemFilter, model });
     return;
   }
   if (!argv.includes("--run")) {
-    const { rows, total } = await estimate(client, questions, itemFilter);
+    const { rows, total } = await estimate(client, questions, itemFilter, model);
+    const modelName = model === "jev" ? JEV_DEFAULT_MODEL : JUDGE_MODEL.model;
     for (const r of rows) console.log(`${r.question}: ${r.items} items, prompt v${r.promptVersion}, ~${r.inputTokens} input tokens, ≤ $${r.dollars.toFixed(3)}; labels ${JSON.stringify(r.labels)}`);
-    console.log(`total ≤ $${total.toFixed(2)} for one calibration round on ${JUDGE_MODEL.model} (${MAX_OUTPUT_TOKENS} output tokens budgeted per verdict). Nothing was run; pass --run --max-dollars <n> to run it.`);
+    console.log(`total ≤ $${total.toFixed(model === "jev" ? 4 : 2)} for one calibration round on ${modelName} (${model === "jev" ? "output tokens are free" : `${MAX_OUTPUT_TOKENS} output tokens budgeted per verdict`}). Nothing was run; pass --run --max-dollars <n> to run it.`);
     return;
   }
   const max = Number(flag(argv, "--max-dollars"));
   if (!Number.isFinite(max) || max <= 0) throw new Error("--run needs --max-dollars <n>");
-  await run(client, questions, { maxDollars: max, dryRun: false, itemFilter });
+  await run(client, questions, { maxDollars: max, dryRun: false, itemFilter, model });
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {

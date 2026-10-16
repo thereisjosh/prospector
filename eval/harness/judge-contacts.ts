@@ -10,13 +10,22 @@
  *   npx tsx eval/harness/judge-contacts.ts --cases eval/datasets/contact-cases.jsonl [--limit 1] [--out eval/results/contacts]
  *   npx tsx eval/harness/judge-contacts.ts --run runs/<id> [--limit 1]
  *
+ *   npx tsx eval/harness/judge-contacts.ts --model jev [--results eval/results/contact-eval-2026-10-16] [--recordings eval/recordings/contact-eval-2026-10-16] [--limit n]
+ *
+ * --model jev is the evidence-only variant (src/judges/jev.ts, docs/RESEARCH-jev.md): no web. It judges only the
+ * VERIFIED contacts of a contact-eval, on the evidence page text recorded in the Exa recordings, with one Noul
+ * ("does this page show NAME currently holds TITLE at COMPANY"), and prints agreement with the Opus verdicts
+ * (contacts-v1-*.jsonl in --results) where both exist. It needs JEV_API_KEY and refuses to start without it.
+ *
  * The labelled set (eval/datasets/contact-cases.jsonl) is one ContactCase per line; it ships empty until a
  * human labels it (research §5.7: ~25 companies, frozen before the first scored run).
  */
 import "dotenv/config";
 import Anthropic from "@anthropic-ai/sdk";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
+import { contactAnswerFromNoul, jevContactCurrent, requireJevKey, type JevOptions } from "../../src/judges/jev";
 import { pathToFileURL } from "node:url";
 import { allText, balancedJsonObjects, normalizeAnswer, responseCost } from "./judge";
 import type { RubricAnswer } from "./types";
@@ -197,12 +206,125 @@ export function contactMetrics(rows: Array<{ tier: "verified" | "inferred"; curr
   };
 }
 
+// --- --model jev: evidence-only, verified contacts, recorded page text ---------------------------
+
+export type JevContactCase = { company: string; name: string; title: string; evidenceUrl: string; published?: string; pageText: string };
+export type JevContactRow = JevContactCase & { pFound: number; current: RubricAnswer; costDollars: number };
+
+/** Same page, same key: lower-case host, no hash, no trailing slash. */
+export function normalizeUrl(url: string): string {
+  try {
+    const u = new URL(url);
+    return `${u.protocol}//${u.host.toLowerCase()}${u.pathname.replace(/\/+$/, "")}${u.search}`;
+  } catch {
+    return url.trim();
+  }
+}
+
+function jsonFiles(dir: string): string[] {
+  return readdirSync(dir, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? jsonFiles(join(dir, e.name)) : e.name.endsWith(".json") ? [join(dir, e.name)] : []));
+}
+
+/** url -> page text (and Exa's publishedDate) from every recorded Exa search response under `dir`. The longest text wins when a URL recurs. */
+export function pageTextIndex(dir: string): Map<string, { text: string; published?: string }> {
+  const index = new Map<string, { text: string; published?: string }>();
+  for (const file of jsonFiles(dir)) {
+    const rec = JSON.parse(readFileSync(file, "utf8")) as { response?: { results?: Array<{ url?: unknown; text?: unknown; publishedDate?: unknown }> } };
+    for (const r of rec.response?.results ?? []) {
+      if (typeof r.url !== "string" || typeof r.text !== "string" || !r.text.trim()) continue;
+      const key = normalizeUrl(r.url);
+      if ((index.get(key)?.text.length ?? 0) >= r.text.length) continue;
+      index.set(key, { text: r.text, ...(typeof r.publishedDate === "string" ? { published: r.publishedDate } : {}) });
+    }
+  }
+  return index;
+}
+
+/** Verified contacts of a contact-eval's contacts.jsonl, joined to the recorded text of their evidence page. Those without a recorded page are returned in `missing` (never judged on nothing). */
+export function verifiedContactCases(contactsJsonl: string, pages: Map<string, { text: string; published?: string }>): { cases: JevContactCase[]; missing: Array<{ company: string; name: string; reason: string }> } {
+  const cases: JevContactCase[] = [];
+  const missing: Array<{ company: string; name: string; reason: string }> = [];
+  for (const line of contactsJsonl.split("\n").filter((l) => l.trim())) {
+    const row = JSON.parse(line) as { company?: string; contacts?: Array<{ name?: string; tier?: string; why?: string; evidence?: { url?: string; title_quote?: string; published?: string } }> };
+    for (const c of row.contacts ?? []) {
+      if (c.tier !== "verified" || !row.company || !c.name) continue;
+      const url = c.evidence?.url;
+      const title = c.evidence?.title_quote ?? c.why;
+      if (!url || !title) {
+        missing.push({ company: row.company, name: c.name, reason: "no evidence url / title" });
+        continue;
+      }
+      const page = pages.get(normalizeUrl(url));
+      if (!page) {
+        missing.push({ company: row.company, name: c.name, reason: `no recorded page text for ${url}` });
+        continue;
+      }
+      cases.push({ company: row.company, name: c.name, title, evidenceUrl: url, ...(page.published ?? c.evidence?.published ? { published: page.published ?? c.evidence?.published } : {}), pageText: page.text });
+    }
+  }
+  return { cases, missing };
+}
+
+export async function judgeContactsWithJev(cases: JevContactCase[], opts: JevOptions = {}): Promise<JevContactRow[]> {
+  const rows: JevContactRow[] = [];
+  for (const c of cases) {
+    const v = await jevContactCurrent(c.pageText, c.name, c.title, c.company, { ...opts, pageUrl: c.evidenceUrl, ...(c.published ? { pageDate: c.published } : {}) });
+    rows.push({ ...c, pFound: v.pFound, current: contactAnswerFromNoul(v.pFound), costDollars: v.costDollars });
+  }
+  return rows;
+}
+
+const contactKey = (company: string, name: string) => `${company.trim().toLowerCase()}|${name.trim().toLowerCase()}`;
+
+/** Agreement of Jev's yes / no / cannot_verify with the Opus verdicts, matched on company + name; contacts without an Opus verdict are not compared. */
+export function agreementWithOpus(jev: JevContactRow[], opus: Array<Pick<ContactVerdict, "company" | "name" | "current">>) {
+  const byKey = new Map(opus.map((o) => [contactKey(o.company, o.name), o.current]));
+  const compared = jev.flatMap((j) => {
+    const o = byKey.get(contactKey(j.company, j.name));
+    return o ? [{ company: j.company, name: j.name, jev: j.current, pFound: j.pFound, opus: o }] : [];
+  });
+  return { compared, agree: compared.filter((c) => c.jev === c.opus).length, total: compared.length };
+}
+
+function opusVerdictsIn(dir: string): ContactVerdict[] {
+  return readdirSync(dir)
+    .filter((f) => /^contacts-v1-.*\.jsonl$/.test(f))
+    .flatMap((f) =>
+      readFileSync(join(dir, f), "utf8")
+        .split("\n")
+        .filter((l) => l.trim())
+        .map((l) => JSON.parse(l) as ContactVerdict),
+    );
+}
+
+async function mainJev() {
+  const resultsDir = arg("--results") ?? join("eval", "results", "contact-eval-2026-10-16");
+  const recordingsDir = arg("--recordings") ?? join("eval", "recordings", "contact-eval-2026-10-16");
+  const limit = Number(arg("--limit") ?? Infinity);
+  const apiKey = requireJevKey();
+  const { cases, missing } = verifiedContactCases(await readFile(join(resultsDir, "contacts.jsonl"), "utf8"), pageTextIndex(recordingsDir));
+  for (const m of missing) console.error(`skipped ${m.name} @ ${m.company}: ${m.reason}`);
+  const rows = await judgeContactsWithJev(cases.slice(0, limit), { apiKey });
+  for (const r of rows) console.log(`${r.name} @ ${r.company} (${r.title}): p=${r.pFound.toFixed(3)} -> ${r.current} ($${r.costDollars.toFixed(5)})`);
+  const opus = agreementWithOpus(rows, opusVerdictsIn(resultsDir));
+  for (const c of opus.compared) console.log(`vs opus: ${c.name} @ ${c.company}: jev ${c.jev} (p=${c.pFound.toFixed(3)}) / opus ${c.opus}`);
+  console.log(`agreement with Opus: ${opus.agree}/${opus.total} (contacts with an Opus verdict only)`);
+  const outDir = arg("--out") ?? join("eval", "results", "contacts");
+  await mkdir(outDir, { recursive: true });
+  const file = join(outDir, `jev-contacts-${new Date().toISOString().replace(/[:.]/g, "-")}.jsonl`);
+  await writeFile(file, `${rows.map((r) => JSON.stringify({ ...r, pageText: undefined, pageChars: r.pageText.length })).join("\n")}\n`, "utf8");
+  console.log(`judged ${rows.length} verified contact(s), ${missing.length} skipped, $${rows.reduce((n, r) => n + r.costDollars, 0).toFixed(5)} → ${file}`);
+}
+
 function arg(name: string): string | undefined {
   const i = process.argv.indexOf(name);
   return i >= 0 ? process.argv[i + 1] : undefined;
 }
 
 async function main() {
+  const model = arg("--model");
+  if (model !== undefined && model !== "anthropic" && model !== "jev") throw new Error(`--model takes anthropic or jev, got ${JSON.stringify(model)}`);
+  if (model === "jev") return mainJev();
   const casesPath = arg("--cases");
   const runDir = arg("--run");
   const limit = Number(arg("--limit") ?? Infinity);
