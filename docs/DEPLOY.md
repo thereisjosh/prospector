@@ -6,6 +6,8 @@ Live deployment: project `prospector`, service `web`, volume mounted at `/data`,
 
 `/api/health` reports `version: "dev"` on directory deploys (`railway up`), because `RAILWAY_GIT_COMMIT_SHA` is only set for GitHub-connected deploys. Set the version by hand with `railway variables --set APP_VERSION=<sha>`; the health route reads `RAILWAY_GIT_COMMIT_SHA ?? VERCEL_GIT_COMMIT_SHA ?? APP_VERSION ?? "dev"`.
 
+`railway up` uploads the working directory minus `.railwayignore`. The ignore file excludes `.agents/`, `.impeccable/`, `eval/recordings/`, `eval/results/`, `eval/truth/`, `docs/screenshots/` and `*.gif` (plus secrets, `node_modules`, `.next`, `runs`, `workspaces`) because nothing at runtime reads them: they are agent scratch, eval recordings and judge output, and README images. A directory upload that included them was ~1.7 GB and failed with "error sending request"; it is now ~5.5 MB. `eval/demo/` must stay uploaded: `src/demo/*` reads it for the demo replay (override with `DEMO_DIR`). Runs and workspaces live on the volume (`DATA_DIR`), not in the upload.
+
 Mount a persistent Railway volume at `/data` and set `DATA_DIR=/data`. The app stores runs in `/data/runs`, anonymous workspace memory and quota in `/data/workspaces`, and the daily spend ledger at `/data/spend-YYYY-MM-DD.json`.
 
 Environment variables:
