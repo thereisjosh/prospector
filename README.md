@@ -1,19 +1,21 @@
 # Prospector
 
-Prospector finds B2B sales leads. A seller pastes their website and approves a short plan; an agent (Claude Opus 5.5 over the Exa search API) looks for companies with a recent, cited "why now" event such as a new warehouse, a funding round or an operations hire. Code, not the model, checks each company against the plan. The output is leads with source links, the companies turned down and why, and a CSV. It is aimed at sellers whose buyers are mid-market companies with a public footprint (press, trade news, LinkedIn headcounts): logistics, SaaS, funded startups, manufacturers. The repo also holds a fixed-query workflow as a control arm.
+Prospector finds B2B sales leads. A seller pastes their website and approves a short plan; an agent (Claude Opus 5.5 over the Exa search API) looks for companies with a recent, cited "why now" event such as a new warehouse, a funding round or an operations hire. Code, not the model, checks each company against the plan. The output is leads with source links, the companies turned down and why, up to three named people to reach at each lead (each marked verified or inferred), and a CSV. It is aimed at sellers whose buyers are mid-market companies with a public footprint (press, trade news, LinkedIn headcounts): logistics, SaaS, funded startups, manufacturers. The repo also holds a fixed-query workflow as a control arm.
 
-**Result.** On 2 scenarios × 3 reps, judged blind, the agent passed every rep (pass^3 = 1) at $0.07–$0.14 per good lead. The workflow, with the same contract and the same $1.00 cap, passed none. The agent's S2 precision sits exactly on the 0.80 bar, and the agent has flaws the pass rate hides: it almost never checks pages (1 read in 9 runs), rarely changes tactics, and lets its checklist go stale. [§2](#2-whats-wrong-with-the-agent-observed) lists them with evidence.
+**Result.** On 2 scenarios × 3 reps, judged blind, the agent passed every rep (pass^3 = 1) at $0.07–$0.14 per good lead. The workflow, with the same contract and the same $1.00 cap, passed none. The agent's S2 precision sits exactly on the 0.80 bar, and the agent has flaws the pass rate hides: it almost never checks pages (1 read in 9 runs), rarely changes tactics, and lets its checklist go stale. [§2](#2-whats-wrong-with-the-agent-observed) lists them with evidence. Everything built after the pilot (live streaming, the input resolver, search-scoped memory, the contacts step, the new visual system) has tests but no judged run: the pilot numbers above predate it, and [§9](#9-what-is-not-built) lists what is still missing.
 
 | Document | What it is |
 |---|---|
-| [docs/FAILURES.md](docs/FAILURES.md) | 26 failures found in this build: symptom, layer, cause, fix, before → after |
+| [docs/FAILURES.md](docs/FAILURES.md) | 30 failures found in this build: symptom, layer, cause, fix, before → after |
 | [docs/EVAL-DETAIL.md](docs/EVAL-DETAIL.md) | Pre-pilot smoke run, S2 miss breakdown, judge history, build cost |
-| [docs/DECISIONS.md](docs/DECISIONS.md) | 16 decisions with alternatives, evidence and what would change them |
+| [docs/DECISIONS.md](docs/DECISIONS.md) | 22 decisions with alternatives, evidence and what would change them |
 | [docs/SPEC-agent.md](docs/SPEC-agent.md) | Agent spec: loop, tools, autonomy (§5a), guardrails, evals, rollout (§14) |
 | [docs/prompts.md](docs/prompts.md) | System prompt and tool descriptions, verbatim, with the reason for each section |
 | [eval/RUBRIC.md](eval/RUBRIC.md) | Scoring rubric, frozen before the first scored run |
 | [docs/DEMO.md](docs/DEMO.md) · [docs/DEPLOY.md](docs/DEPLOY.md) | 3-minute demo script · Railway deployment |
 | [docs/SPEC-v2.md](docs/SPEC-v2.md) · [docs/SPEC-givingsg-variant.md](docs/SPEC-givingsg-variant.md) | Planner and workflow engine · a design exercise, **not built** |
+| [DESIGN.md](DESIGN.md) · [docs/UI-REWORK.md](docs/UI-REWORK.md) | The visual system (pop.site reference, tokens, bans) · the UI rework plan, gate results (§7) and the rebuild (§8) |
+| [docs/RESEARCH-contacts-and-graph.md](docs/RESEARCH-contacts-and-graph.md) | Contacts and relationship-graph research: tools, LinkedIn limits, law, design, build order (step 1 is built) |
 
 ## 1. Results
 
@@ -83,9 +85,13 @@ Prospector finds B2B sales leads. A seller pastes their website and approves a s
 | 11 | **The judge had its own failures.** | Search-only v2 under-verified Q3: S1 8 → 14 and S2 10 → 15 good after adding `web_fetch` (FAILURES #10). A key change in name normalisation hid 2 good verdicts per S2 rep (6/6/6 → 8/8/8, pass^3 0 → 1; FAILURES #11). | Fixed |
 | 12 | **Not measured.** | Recall: no ground truth for how many qualifying companies exist. n = 3 per cell, 2 scenarios; S3/S4 never evaluated. Opus only: the Sonnet arm never ran. The blind pool mixed arms, but the 10 spot-checks (22%) were done by the author, who knows the project (`eval/truth/SPOT-CHECKS.md`). The public deployment is live for anonymous visitors, though SPEC-agent §14 gates that on pass^3 in 3 of 4 scenarios. | Open |
 | 13 | **Scope change is untested live.** | `request_scope_change` was called 0 times in all 9 runs, so the approval card exists only in mocked tests, and demo replay cannot show it (`docs/DEMO.md`). | Open |
-| 14 | **Limits by design.** | Memory is per browser (workspace id in `localStorage`, `app/ui/types.ts:53`); state and ledger are JSON files on one Railway volume (`docs/DEPLOY.md`); rate limit is an in-process `Map` (`app/api/_shared.ts:9`); no auth: anyone with a workspace id can read or clear its memory. | By design |
+| 14 | **Limits by design.** | Memory is per browser (workspace id in `localStorage`, `app/ui/types.ts:53`); state and ledger are JSON files on one Railway volume (`docs/DEPLOY.md`); rate limit is an in-process `Map` (`app/api/_shared.ts:9`); no accounts: the workspace id is a bearer secret, so anyone who learns it can read or clear its memory, and a run is reachable only with its owner's workspace id (flaw 19). | By design |
 | 15 | **Langfuse's per-lead `judge_good` disagrees with the scored good-lead count.** `judge_good` is each verdict's own `good`; the scorer also applies RUBRIC §1's one-Q2-`cannot_verify`-per-run tolerance. | Pilot agent leads in Langfuse (environment `eval`): 48 `judge_good` true of 55. `report.json`: 46 good (S1 9 + 7 + 6, S2 8 + 8 + 8). The 2 are SubBase in S2 reps 1 and 3 (`eval/truth/S2/subbase__ec8a88dd4e.json`, `good: true`), scored no as each run's second size `cannot_verify` (`eval/harness/score.ts` `leadGood`). Experiment-level `precision` and `cost_per_good_lead` use the scorer and agree with the report. | Open |
-| 16 | **Does memory help? Only the mechanism was shown.** Seen-company skipping and self-notes are in the loop; the question is whether run B beats a fresh run. | Measured 2026-10-15, S1, n = 1 per cell (EVAL-DETAIL, Memory eval): first run FAIL on the old quote gate (B 1/1 good vs control 8/8; the cause was lookup quote rejects and network failures, not memory, #25). Rerun with the gate fixed: B 8 good of 8, all new vs A, 2 lookups skipped; control 6 of 6 with 2 repeats of A; PASS. The difference of 2 is inside the pilot's noise, so this shows the mechanism, not a benefit. Notes recalled was 0 in the PASS run because run A stopped on budget and wrote none: the `remember` offer fires only on `finish` (`src/agent/tools.ts`), never on a limit stop. | Measured: B 8/8 new vs control 6/6 with 2 repeats; benefit unproven (n = 1); budget-stop skips the note offer, open |
+| 16 | **Does memory help? Only the mechanism was shown.** Seen-company skipping and self-notes are in the loop; the question is whether run B beats a fresh run. | Measured 2026-10-15, S1, n = 1 per cell (EVAL-DETAIL, Memory eval): first run FAIL on the old quote gate (B 1/1 good vs control 8/8; the cause was lookup quote rejects and network failures, not memory, #25). Rerun with the gate fixed: B 8 good of 8, all new vs A, 2 lookups skipped; control 6 of 6 with 2 repeats of A; PASS. The difference of 2 is inside the pilot's noise, so this shows the mechanism, not a benefit. Notes recalled was 0 in the PASS run because run A stopped on budget and wrote none: the `remember` offer fires only on `finish` (`src/agent/tools.ts`), never on a limit stop. Since this eval, seen entries are scoped to the search that produced them (commit `7977110`): a company blocks only a run with the same search signature (gate keys + signal types + industry), entries stop applying after 90 days and are evicted at 180, and the panel groups them by search with "Forget this search". The eval ran before that change and used one search, so it does not exercise scoping; scoping has unit tests, no live run. | Measured: B 8/8 new vs control 6/6 with 2 repeats; benefit unproven (n = 1); budget-stop skips the note offer, open. Scoping: fixed in code, tested, not measured live |
+| 17 | **Contact gate gaps found by the first live contacts run.** The gate decides each person's tier; its first rules let four wrong things through. | Live run 2026-10-16 (FAILURES #29, #30): a scraped-profile mirror (`muraena.ai/profile/…`) and a 2019 press release each produced a verified contact; a company-directory page (`visualvisitor.com/companies/<id>/…`) verified Donald Finney; "stepping up from his previous role as Chief Operating Officer" verified Paul Taylor as COO; one person appeared twice ("Neil Midgley" verified, "Neil Midgley FCILT" inferred); "kurt cuncannan" was lowercase. Replay of the recording at $0 (`npx tsx eval/replay-contacts.ts`): Finney verified → inferred, Paul Taylor verified → inferred (role changed), the two Neils become one verified record, the name is title-cased; 9 verified / 3 inferred becomes 7 verified / 5 inferred over 12 contacts. | Fixed in code, replayed on one recording (4 leads), not measured on a second run; the phrase and aggregator lists are finite; an undated press page can still verify |
+| 18 | **The input resolver misread every non-website input.** A Facebook page URL profiled facebook.com and came back "Tell us in one sentence"; a bare name became the offering; a Linktree, Shopee or Maps link was profiled at its host. | Observed live on a Facebook page URL (FAILURES #27). Fix: one pipeline, `classifyInput` then `resolveToSite`, one Exa search for social, bio-link, maps and bare-name inputs, shown as "Is this your website?", plus a soft browser-locale country hint that only ranks candidates. Test: `eval/planner-resolve.test.ts`. | Fixed in code; not re-measured live; how often the right domain is in the top 5 is unmeasured (one 3/3 Instagram probe) |
+| 19 | **Run routes accepted any caller who knew the run id.** Only the events route checked the workspace; GET, step, stop and decision did not, so a leaked run id could read, drive, approve or stop a run and spend the owner's allowance. | Found 2026-10-16 while adding the event stream (FAILURES #28); not exploited, run ids are UUIDv4. Fix: `requireRunOwner` on all five run routes (400 no workspace, 404 unknown, 403 other workspace). Test: `eval/api-controls.test.ts`. | Fixed in code and tested; the workspace id itself is a bearer secret in `localStorage`, not an account |
+| 20 | **Contacts are unmeasured.** | One live run (§5): 6 leads, 4 got contacts, 12 contacts. There is no labelled set (`eval/datasets/contact-cases.jsonl` has 0 lines) and the contact judge (`eval/harness/judge-contacts.ts`) has never run, so the rate of verified contacts that are right and the stale-title rate are unknown. | Open |
 
 The quote rule (flaws 5a/5b) has now run on live Exa once: 4 cells, 13 accepted leads, 12 good (§1). That is evidence that fresh summaries supply quotes and that the leads they admit are mostly right, not evidence of 98% precision (n = 13) and not a recall result: recall fell. The pilot replay in `eval/results/gate-replay-2026-10-14.md` predates it.
 
@@ -99,13 +105,13 @@ Local small businesses (cafés, clinics, pet shops) have no press coverage and t
 
 | What | Cost | Command or URL |
 |---|---|---|
-| Tests (mocked model and Exa) | $0 | `npm test`: 572 tests, 34 files, about 5 s |
+| Tests (mocked model and Exa) | $0 | `npm test`: 877 tests, 46 files, about 15 s (run with the API keys unset and `.env` hidden, as CI does: `env -u ANTHROPIC_API_KEY -u EXA_API_KEY DOTENV_CONFIG_PATH=/nonexistent npx vitest run`) |
 | Type check | $0 | `npm run typecheck` |
 | Demo replay, no keys | $0 | `npm install && DEMO_MODE=1 npm run dev`, open http://localhost:3000 |
 | Re-score the pilot from committed verdicts | $0 | `npm run eval:score -- --set pilot-2026-10-12` |
 | Tool-schema preflight | $0 (`count_tokens`, needs a key) | `npx tsx eval/check-tool-schemas.ts` |
 | Hosted live run | Free to you; ≈ $0.83 to the host | https://web-production-2b8f6.up.railway.app: 2 runs / $2.50 per visitor, $10/day across all visitors |
-| One local live run | Run $0.52–$0.87 in the 9 recordings, capped at $1.00; planner ≈ $0.05 in the public smoke ($0.88 ledger − $0.83 run) | `.env` with `ANTHROPIC_API_KEY`, `EXA_API_KEY`; `npm run dev`, or `npx tsx eval/run-agent.ts --icp 1 --max-cost 1.00 --approve auto --record <dir>` |
+| One local live run (the Exa account needs credit: a run with none fails mid-way with HTTP 402) | Run $0.52–$0.87 in the 9 recordings, capped at $1.00; planner ≈ $0.05 in the public smoke ($0.88 ledger − $0.83 run) | `.env` with `ANTHROPIC_API_KEY`, `EXA_API_KEY`; `npm run dev`, or `npx tsx eval/run-agent.ts --icp 1 --max-cost 1.00 --approve auto --record <dir>` |
 | Pilot matrix (12 cells) | ≈ $9.64 recorded for the pilot ($7.68 Exa + $1.96 Claude) | `npm run eval:cell -- --set <id> --matrix S1,S2 --arms A,B --reps 3 --max-total-dollars 10` |
 | Blind judge | ≈ $0.19 per verdict search-only, ≈ $0.34 with fetch | `npm run eval:judge -- --set <id> --scenario S1` |
 | Memory eval (does run A's memory change run B?) | Run twice on S1 (2026-10-15): $2.46 and $2.58 for cells, judge $4.11 and ≈$2.72 new. $0 dry run available | `npx tsx eval/memory-eval.ts --set <id> --scenario S1 --dry-run` · design and results: [EVAL-DETAIL](docs/EVAL-DETAIL.md#memory-eval) |
@@ -120,25 +126,26 @@ The walkthrough above (41 s, 1280 px, recorded 2026-10-16 from this replay, on t
 
 | Step | The user | The system |
 |---|---|---|
-| 1. Input | Pastes a website, @instagram handle or one sentence | Exa builds a seller profile |
-| 2. Cards | Edits who / why now / size / stage / geo / recency / exclusions | Claude suggests each card and marks hard filters vs estimates |
+| 1. Input | Pastes a website, a social profile, a link-in-bio page, a marketplace shop, a Maps link, a bare company name, or one sentence | One resolver (`classifyInput` then `resolveToSite`): a website or marketplace storefront is profiled at its own URL; social, link-in-bio, Maps and bare-name inputs are searched once on Exa and shown as "Is this your website?" with up to 3 candidates and their evidence, ranked with a soft hint from the browser's country (TLD, mention). A platform URL is never profiled as its host. Exa then builds a seller profile |
+| 2. Cards | Edits who / why now / size / stage / geo / recency / exclusions, and **who to reach** (buyer-role chips, pre-filled from the profile; none means no contact lookups) | Claude suggests each card and marks hard filters vs estimates |
 | 3. **Contract** | **Approves** target lead count and max spend | Cards compile to a validated `SearchPlan` |
 | 4. **Strategy** | **Approves, edits or declines** angles, first 3 queries, cost estimate | No spend before this approval (enforced in code) |
-| 5. Live run | Watches todo, spend meter, activity feed; can Stop | One model turn per request; leads appear as code accepts them |
+| 5. Live run | Watches the ledger, the model's sentence as it is written, todo, spend meter; can Stop | One model turn per request. Events are written as each tool starts and settles, each with a `seq`, and streamed over SSE; visible model text streams as ephemeral deltas (thinking is never forwarded). If the stream fails, the ledger fills one step at a time from the step responses; if the model stream fails, the turn is retried once non-streaming and logged as `stream_fallback` |
 | 6. **Scope change** | **Approves, edits or declines** relaxing one constraint | The run pauses durably; code, not the model, edits the contract |
-| 7. Results | Leads with sources, "considered but not added" by reason, CSV | If short, a structured handback with ≤ 2 one-click card changes |
-| 8. Feedback | Rates leads 👍/👎 with a reason; can view or clear memory | Seen companies skipped next run (without paying for the lookup); 👎 reasons and the agent's own dated lessons go into the first message; every remembered item is listed with where it came from and can be forgotten one by one |
+| 7. Results | Leads with sources, up to 3 contacts per lead (verified or inferred), "considered but not added" by reason, CSV | If short, a structured handback with ≤ 2 one-click card changes |
+| 8. Feedback | Rates leads 👍/👎 with a reason; can view or clear memory | Companies seen in an earlier run of the same search skipped (without paying for the lookup; 90-day expiry); 👎 reasons and the agent's own dated lessons go into the first message; every remembered item is listed with where it came from and can be forgotten one by one |
 
 ```
 Browser (app/page.tsx)                      Server: one HTTP request = one agent turn
 POST /api/runs ──────────────────────────▶ validate plan → runs/<id>/state.json
-POST /api/runs/:id/step  (repeat) ───────▶ lock run, load state (versioned)
+POST /api/runs/:id/step  (repeat) ───────▶ requireRunOwner, lock run, load state (versioned)
                                            limits? budget / 30 turns / 6 min / 4 no-progress / target
                                            messages.create(cached system + 10 tools, append-only history)
                                            run tool_use blocks in parallel (≤6) ──▶ Exa (one CostGuard)
                                            submit_lead ──▶ checkLead (src/gates.ts)
                                            append tool_results, save state, append events.jsonl
 ◀──── status, events, spend ──────────────
+GET /api/runs/:id/events?after=seq ───────▶ SSE: events by seq, model-text deltas, heartbeat, end frame
 status = awaiting_approval → POST /api/runs/:id/decision appends the tool_result → next step
 ```
 
@@ -147,15 +154,18 @@ status = awaiting_approval → POST /api/runs/:id/decision appends the tool_resu
 | Loop | Hand-written tool-use loop on the stateless Messages API, one turn per `POST /step`; no framework (DECISIONS #1) | `src/agent/loop.ts`, `app/api/runs/[id]/step/route.ts` |
 | Orchestration | One agent, 10 narrow tools, up to 6 parallel calls per turn; no subagents (DECISIONS #3, #9) | `src/agent/tools.ts`, `src/agent/config.ts` |
 | Context engineering | Stable cached system prompt; contract and memory in the first user message; append-only history; compact tool results | `src/agent/prompts.ts`, `docs/prompts.md`, `src/agent/state.ts` |
-| Guardrails | `checkLead` is the only definition of a lead, shared by both arms; combined $ cap via CostGuard; turn, time and no-progress limits | `src/gates.ts`, `src/exa.ts`, `src/agent/config.ts` |
+| Guardrails | `checkLead` is the only definition of a lead, shared by both arms; combined $ cap via CostGuard; turn, time and no-progress limits; every run route checks that the caller's workspace owns the run (`requireRunOwner`) | `src/gates.ts`, `src/exa.ts`, `src/agent/config.ts` |
 | Approval | Strategy and scope change pause the run as an unanswered `tool_use`; the decision is bound to its `toolUseId` | `app/api/runs/[id]/decision/route.ts`, `src/agent/loop.ts` |
-| Memory | Four homes by who may act on a fact: seen list enforced in code; 👎 feedback and the agent's own 60-day lessons (`remember`) ranked into the first message by one `recall()` seam, each with provenance, viewable and forgettable in the UI; working state in the run | `src/agent/memory.ts`, `src/agent/recall.ts`, `app/api/workspaces/[id]/`, `app/ui/Memory.tsx` |
-| Observability | One event per step with tokens, Claude and Exa cost, latency, prompt version | `src/agent/events.ts`, `runs/<id>/events.jsonl` |
+| Memory | Four homes by who may act on a fact: seen list enforced in code and scoped to the search that produced it (same gate keys, signal types and industry; 90-day expiry, evicted at 180); 👎 feedback and the agent's own 60-day lessons (`remember`) ranked into the first message by one `recall()` seam, each with provenance, viewable and forgettable in the UI; working state in the run | `src/agent/memory.ts`, `src/agent/recall.ts`, `app/api/workspaces/[id]/`, `app/ui/Memory.tsx` |
+| Observability | One event per step with tokens, Claude and Exa cost, latency, prompt version; written as they happen, each with a `seq`, and tailed by the SSE route | `src/agent/events.ts`, `src/agent/live.ts`, `runs/<id>/events.jsonl` |
+| Interface | Pop.site-based visual system: white canvas, Satoshi, one signal-blue action per screen, state shown by ink weight, icon and word rather than green/amber/red, hairline cards, no shadows ([DESIGN.md](DESIGN.md)) | `app/globals.css`, `app/ui/` |
 | Evals | Cell runner, blind pooling, Opus judge, scorer, simulated user | `eval/harness/`, `eval/RUBRIC.md`, `eval/truth/` |
 
 `checkLead` runs in order: non-company or built-in job-board source · excluded name/domain · personal/non-event pages · seen in an earlier run · duplicate · event date in the window (publish date substituted only for a year-slip) · company named on the signal page · signal quote found on the page · lookup exists · not enterprise · HQ country with quote · size (the estimate must be backed by its quoted source) · required yes/no questions with quotes. Missing required proof is stored as a candidate, not an accepted lead. The results table is built only from accepted `submit_lead` records, never from the model's text.
 
-**Who to reach (built 2026-10-16, not yet run live).** After a lead is accepted, the agent can call `find_contacts` once for it: up to 3 people in the buyer roles the user approved on the Target step. Code decides each person's tier. **Verified** needs a page that is not LinkedIn (the company's site, press, a conference bio) naming the person next to a title that fits an approved role, both checked on the captured page text. **Inferred** is a people-index listing in an approved role, shown as a name and a profile link only: no LinkedIn text is copied or stored (LinkedIn User Agreement §8.2). No emails or phones; contacts live and die with the run. Worst case $0.03 of Exa per lead, capped in code. What is not known yet: how many leads get a verified contact, and how often a verified title is stale. Both need the contact eval (`eval/harness/judge-contacts.ts`, labelled set still empty). Design and limits: SPEC-agent §5b; research: `docs/RESEARCH-contacts-and-graph.md`.
+**Who to reach (built 2026-10-16, one live run).** After a lead is accepted, the agent can call `find_contacts` once for it: up to 3 people in the buyer roles the user approved on the Target step. Code decides each person's tier. **Verified** needs a page that names the person next to a title that fits an approved role, both checked on the captured page text, and the page must be the company's own domain or press: not LinkedIn, not an aggregator or directory (URL shape and a prose rule), and press older than 24 months verifies only if the people index also lists the person in a current role. A title qualified by a former-role phrase ("previous role", "stepping up from") is inferred. **Inferred** is a people-index listing in an approved role, shown as a name and a profile link only: no LinkedIn text is copied or stored (LinkedIn User Agreement §8.2), so LinkedIn-only people can only ever be inferred links. No emails or phones; contacts live and die with the run. Worst case $0.03 of Exa per lead, capped in code.
+
+*What the one live run showed* (2026-10-16, S1, buyer roles; `eval/recordings/contacts-2026-10-16/S1/agent/`): 6 leads accepted, 12 contacts on 4 of them, 9 verified and 3 inferred, $0.019 per lead with contacts ($0.076 in total, of a $0.873 run). The other 2 leads got none: Exa returned HTTP 402 (out of credit) mid-run, and the error is recorded on those leads. Reading the 12 showed the gate was too loose (flaw 17, FAILURES #29, #30). After the fixes, replaying the recording at $0 flips 2 contacts from verified to inferred, merges 1 duplicate, and leaves 7 verified and 5 inferred. Caveats: one run, four leads with contacts, and a replay of the same data the rules were written from, so it shows the rules do what they say, not that they generalise. There is no labelled set and no contact eval yet, so the share of verified contacts that are right, and how often a verified title is stale, are unknown (flaw 20). Design and limits: SPEC-agent §5b; research: `docs/RESEARCH-contacts-and-graph.md`.
 
 **Autonomy** (SPEC-agent §5a), with what the 9 runs actually did:
 
@@ -165,8 +175,9 @@ status = awaiting_approval → POST /api/runs/:id/decision appends the tool_resu
 | Opening strategy (angles, first queries, cost estimate) | | ✅ before any spend | | Proposed in all 9; auto-approved by the harness in the pilot, approved by a person live |
 | Scope change: size, recency, geography, adjacent industry | | ✅ with reason + evidence | | Never requested |
 | Budget increase | | ✅ | | Never requested |
+| Find named contacts at an accepted lead (`find_contacts`: once per lead, ≤ 3 people, ≤ $0.03) | ✅ only if the plan has approved buyer roles | | | 1 live run: 4 leads, 12 contacts |
 | Accepting a lead that fails a check | | | ✅ code refuses | 3 submissions refused |
-| Contacting anyone / any external side effect | | | ✅ no tool exists | n/a |
+| Contacting anyone / any external side effect (finding a contact is not contacting one) | | | ✅ no tool exists | n/a |
 
 ## 6. Observability and evals in Langfuse
 
@@ -174,7 +185,7 @@ status = awaiting_approval → POST /api/runs/:id/decision appends the tool_resu
 
 | Piece | What exists | Where |
 |---|---|---|
-| Traces | Session = run, trace = one turn: the model generation, one span per tool, approvals, policy checks. Page text, message history and IPs are dropped (except the ≤ 1,500-char signal excerpt in a judged lead's evidence); the workspace id is HMAC'd | `src/agent/trace.ts` |
+| Traces | Session = run, trace = one turn: the model generation, one span per tool, approvals, policy checks. Exa cost is on each tool observation, and the recall, retry, trim and repair events are exported. Page text, message history and IPs are dropped (except the ≤ 1,500-char signal excerpt in a judged lead's evidence); the workspace id is HMAC'd | `src/agent/trace.ts` |
 | Prompts | Agent system prompt and 2 planner prompts under label `production`, pinned per run, repo text as fallback; `diff` exits 1 on drift | `src/agent/prompt-store.ts`, `eval/langfuse-prompts.ts` |
 | Datasets, experiments | `prospector-scenarios` (2 items), `prospector-cases` (28 in `eval/datasets/`; synced to Langfuse by `eval/langfuse-sync.ts`); the pilot as 6 runs × 2 items with judge and grader scores | `eval/datasets/`, `eval/langfuse/` |
 | Code graders | 10 must-pass graders at every run end, posted as scores; an hourly worker opens one issue per failing run | `eval/graders/`, `src/agent/online-eval.ts`, `eval/online/worker.ts` |
@@ -187,7 +198,7 @@ Not live yet: the app does not run with `LANGFUSE_TRACING_ENVIRONMENT=production
 
 ## 7. Failures found and fixed
 
-26 entries in [docs/FAILURES.md](docs/FAILURES.md); the ones that changed measured numbers:
+30 entries in [docs/FAILURES.md](docs/FAILURES.md); the ones that changed measured numbers:
 
 | Symptom | Root cause | Fix | Before → after |
 |---|---|---|---|
@@ -197,6 +208,8 @@ Not live yet: the app does not run with `LANGFUSE_TRACING_ENVIRONMENT=production
 | S2 workflow crashed 3/3 on the cap | Guard refusal escaped the pipeline | Skip remaining lookups, score, record spend | 3 crashes → 3 budget stops (#7) |
 | Judge parsed 0 of 22 verdicts | Parser read the first text block, not the last | Last valid JSON across blocks | 0/22 → 22/22 and 23/23 (#8) |
 | S2 agent scored 6/6/6 | Verdict keys broke on a normalisation change | URL-hash fallback, key migration | 6/6/6 → 8/8/8 (#11) |
+| 2 of 12 contacts verified on a directory page or a former role; 1 person listed twice | The contact gate checked that a fitting title was on the page, not what kind of page or whether the role was over | Directory/aggregator shapes, former-role phrases, post-nominal dedupe (#29, #30) | 9 verified / 3 inferred → 7 verified / 5 inferred over 12 contacts, replayed at $0 on one recording |
+| A stranger holding a run id could read, drive, approve or stop the run | Ownership was checked in one route of five | `requireRunOwner` on all five | 200 and acted → 403, state and spend unchanged (#28) |
 
 ## 8. Other limits
 
@@ -204,15 +217,29 @@ Not live yet: the app does not run with `LANGFUSE_TRACING_ENVIRONMENT=production
 - **Route timeout:** each route has `maxDuration = 60`; model calls max out at 19.5 s in the recordings, but per-turn tool time is not logged, so p95 turn time is unknown.
 - The `eval/recordings/icp1-2026-10-11b` replay no longer matches current request hashes ("replay miss").
 
-## 9. Repo map
+## 9. What is not built
+
+- **Warm paths from a connections export.** Upload a LinkedIn Connections CSV and join it to leads (build step 3 in the research doc). Not started.
+- **Email reveal through the user's own provider key** (Apollo or Lusha; step 4). No email or phone is fetched, stored or shown today.
+- **The contact eval.** A frozen labelled set (`eval/datasets/contact-cases.jsonl` is empty) and a run of the contact judge (`eval/harness/judge-contacts.ts`, code only, never run). Until then the contact numbers in §5 are one run.
+- **The 150-lead measurement.** Showing 98% precision takes on the order of 150 leads with no miss (§1); the largest judged set is 13.
+- **The online judge, enabled.** The rule is disabled and the evidence-backed calibration round has not run (§6).
+- **Live re-measurement of the gate fixes** for job listings (FAILURES #26), the input resolver (#27) and the contact rules (#29, #30), and a judged run of the post-pilot agent as a whole.
+- **Exa credit.** Live runs need an Exa account with credit; without it a run stops on HTTP 402 and the contacts recording shows two leads with no contact lookup for that reason.
+
+## 10. Repo map
 
 | Path | What |
 |---|---|
 | `app/page.tsx`, `app/ui/` | Product UI: cards → contract → live run → approvals → results → memory |
 | `app/api/planner/*` | Input → seller profile → cards → compiled plan |
-| `app/api/runs/*`, `app/api/workspaces/*` | Create / step / decision / stop / state; memory and feedback |
+| `app/api/runs/*`, `app/api/workspaces/*` | Create / step / decision / stop / state / events (SSE), all behind `requireRunOwner`; grouped memory and feedback |
 | `src/agent/` | Loop, tools, prompts, state, memory, events, costs, quota |
-| `src/gates.ts` | `checkLead`, the lead definition |
+| `src/gates.ts` | `checkLead`, the lead definition; `checkContact`, the contact tiers |
+| `src/contacts.ts` | `findContacts`: the two Exa calls (people index, public pages) and the contact data model |
+| `src/planner/` | Input classification and resolution (`resolve.ts`), seller profile, cards, plan compile |
+| `src/agent/live.ts`, `src/agent/live-bus.ts` | SSE tail of `events.jsonl` and the ephemeral model-text bus |
+| `DESIGN.md`, `docs/design-reference/` | Visual system and the pop.site reference tokens |
 | `src/exa.ts` | Exa client: CostGuard, record/replay, ≤ 4 in flight, 429 retry |
 | `src/pipeline.ts`, `src/plan.ts` | Workflow arm and `SearchPlan` validation |
 | `eval/*.test.ts`, `eval/harness/` | Mocked unit tests; eval runner, judge, scorer |
@@ -224,6 +251,6 @@ Not live yet: the app does not run with `LANGFUSE_TRACING_ENVIRONMENT=production
 | `eval/ci/` | CI experiment gate: replay runner, threshold logic, approved baseline |
 | `eval/recordings/`, `eval/results/`, `eval/truth/` | Real traces, pilot results, judge verdicts |
 
-## 10. Build notes
+## 11. Build notes
 
 This build was AI-assisted: I orchestrated coding agents (Claude models and Codex), and commit trailers say so. The product decisions are mine: architecture, autonomy boundaries, rubric and eval design, which failures to chase, what to claim, and the live-API probes behind them. Every number above comes from a file in this repo or is marked "author's log", "Railway log" or "server run"; anything unmeasured is marked. Stack: Next.js 14 · React 18 · TypeScript · `@anthropic-ai/sdk` (Messages API) · Exa · Vitest.
