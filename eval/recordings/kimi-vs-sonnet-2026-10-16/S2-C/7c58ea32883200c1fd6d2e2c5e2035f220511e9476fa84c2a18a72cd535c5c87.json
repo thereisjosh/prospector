@@ -1,0 +1,226 @@
+{
+  "request": {
+    "query": "Billables AI",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "caf447c0a822836f09d44ad6bc6ea43b",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/khfyxdnlh46",
+        "title": "Billables AI",
+        "url": "https://billables.ai/",
+        "text": "# Billables AI\n\nBillables AI is a Technology, Information and Internet company. Billables AI provides automated timekeeping and task intelligence solutions designed for lawyers, consultants, and professional services. They capture billable time automatically while attorneys work and turn daily activity into accurate, ready-to-review entries for their clients. Billables AI employs 14 people (+27.3% YoY, +3 people), founded in 2023. Headquartered in San Francisco, California, United States. Its workforce is distributed across United States and Canada.\n\n## About\n\nOur mission is to transform the way professional service providers work, freeing them up to focus on the most creative and intellectual parts of their business. \n\nThe Billables AI Automated Time Report is a first-of-its-kind professional service product, powered by AI and designed for lawyers, agencies, and consultants. We’re building state-of-the-art AI tools to help people reduce the time spent on mundane operational tasks. Our team brings a deep history of AI expertise, B2B software development, and user-centric product experiences to transform billing and timekeeping forever.\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Headquarters: San Francisco, United States\n- Founded Year: 2023\n- Homepage: billables.ai\n- Aliases: Billables Inc., billables ai\n- LinkedIn: linkedin.com/company/billables\n- Linkedin Followers: 2,475\n- Emails: hello@billables.ai\n\n## Financials\n- Total Funding: USD 14,100,000\n  - Series a (2026-06-01): USD 10.2M\n  - Seed (2024-10-02): USD 3.9M\n  - Seed (2024-03-19)\n\n## Workforce\n- Employees: 14\n- Company Size: 11-50 employees\n  - Yearly Growth: +27.3%\n- Key Executives:\n  - Arvind Sujeeth: Co-Founder and CEO\n  - John Ing: Head of Sales\n  - Laura Maddox: Founding VP Engineering\n  - Nancy Jeng: Co-Founder\n- Breakdown:\n  - By Country: United States: 9 (64%), Canada: 2 (14%)\n  - By Department: Technical: 3 (21%), Project Management: 2 (14%), Sales: 2 (14%), Consulting: 1 (7%), Customer Service: 1 (7%), General Management: 1 (7%), Real Estate: 1 (7%)\n  - By Seniority: Manager: 3 (21%), Specialist: 3 (21%), Founder: 2 (14%), Owner: 1 (7%), Senior: 1 (7%), Vp: 1 (7%)\n- Talent Sources: SambaNova (2), Consilio LLC (2), The Stepstone Group (1), Supio (1), Paul, Weiss, Rifkind, Wharton & Garrison LLP (1), Ontra (1), Meeno (1), Gomez Law, APC (1), FacilityOS (1), Applied GTM Strategies Inc. (1)\n- Alumni Go To: Fresh City (1), Cimplifi (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: chrome, google chrome, hubspot, microsoft, microsoft 365, zoom\n\n## Web presence\n\n- Facebook: facebook.com/billablesai\n- Instagram: instagram.com/billablesai\n- Crunchbase: crunchbase.com/organization/billables-ai\n- Web traffic:\n  - Monthly visits: 33,972\n  - Global rank: 621,483\n  - Bounce rate: 36.0%\n  - Pages per visit: 7.0\n  - Average visit duration: 154s\n\n## Categories\n\naccounting, advertising agencies, ai, artificial intelligence (ai), automated timekeeping, b2b software, billables, billables ai, consultants, consulting, emerging ai software, generative ai, lawyers, legal, legal tech, marketing, productivity, professional services, small business, software, task intelligence, technology/software, time-tracking\n\n## Recent News\n- [2026-09-29] Yahoo Finance: Morae Launches MorAI Legal Intelligence Platform with Spend Module Combining AI and Human Review\n- [2026-09-27]\n  - Yahoo Finance: Introducing 8am Showcase: MyCase MCP, Plus AI and Financial Solutions to Help Firms Grow\n  - Yahoo Finance: InvoiceCloud CEO to Speak at GAI World 2026 as Company Builds AI Momentum\n- [2026-09-07] Trend Hunter: Deeper Legal Workflows: Stripe Has Acquired Legal Infrastructure Provider Clerky\n- [2026-09-06] Yahoo Finance: Nimonik Acquires LegiNation, Owner of BillTrack50, to Strengthen Global Regulatory and Legislative Intelligence\n- [2026-08-24] Bar and Bench: Law firms should bill fewer hours when AI cuts time spent on work: Senior General Counsel\n- [2026-07-15] Yahoo Finance: Referent Launches AI-Native Legal Practice Management Platform as Solo Lawyers Lose Up to 15 Hours a Week Before Billing a Single Minute\n- [2026-06-11] Dailyhunt: BRIEF-Billables AI Raises $10 Mln Series A\n- [2026-05-22] Yahoo Finance: New Intapp Time release brings AI deeper into the time entry workflow to capture more billable hours and protect earned revenue\n- [2026-05-19] Lawyers Weekly: The billable hour is not the problem – the conversation avoiding it is\n- [2026-03-17] Mint: IT firms rethink billing as artificial intelligence reshapes work\n- [2026-03-12] www.tradekaizen.in: MIND CTI’s 2025 Revenue Dip Warns of AI Pricing Pressure\n- [2025-12-04] The Wall Street Journal: Say Goodbye to the Billable Hour, Thanks to AI\n- [2025-11-01] Zoom Bangla News: AI Legal Billing Revolution Threatens the Billable Hour’s Reign\n- [2025-10-31] The Economic Times: How a family used AI chatbot to slash down a hospital bill by over Rs 1 crore\n- [2025-06-30]\n  - Zazoom Social News: Billing ai saluti \\| il messaggio social ha commosso tutti\n  - Spazio Napoli: Billing ai saluti: il messaggio social ha commosso tutti\n  - Napoli Magazine: IL MESSAGGIO - Napoli, Billing ai saluti: \"Sono orgoglioso di aver rappresentato questo club, ricorderò per sempre i tifosi e la vittoria dello scudetto, grazie dal profondo del cuore\"\n- [2024-10-03] Global FinTech Series: Billables AI Announces $3.9M in Seed Funding to Modernize Billing with AI-Powered Timekeeping\n\n## Social\n\n### Linkedin\n\n- [2026-09-19 · 12 reactions] 🎤 𝗦𝗽𝗲𝗮𝗸𝗲𝗿 𝗜𝗻𝘁𝗿𝗼𝗱𝘂𝗰𝘁𝗶𝗼𝗻: John Ing , Head of Sales at Billables AI With nearly a decade of experience in legal tech sales, John Ing brings a deep understanding of how law firms evaluate, adopt and sc...\n\n- [2026-09-18 · 14 reactions] Thanks to everyone who joined us for \"𝗧𝗵𝗲 𝗛𝗼𝘂𝗿𝘀 𝗬𝗼𝘂'𝗿𝗲 𝗡𝗼𝘁 𝗕𝗶𝗹𝗹𝗶𝗻g,\" and a big thank-you to our partners at Billables AI for teaming up with us on this one! We covered how midsize firms are recover...\n\n- [2026-09-17 · 3 reactions] Starting soon - join us for a webinar as we discuss time leakage and how AI can help recover the hours you're losing.\n\n- [2026-09-14 · 97 reactions, 4 comments] Excited to be in beautiful Savannah, Georgia this week at SurePoint Technologies annual conference, Ignite. The irony of this event? Savannah was designed on purpose to be a city without lawyers. I...\n\n- [2026-09-14 · 31 reactions, 1 comment] Billables AI is at SurePoint Technologies Ignite 2026 in Savannah this week! Three days of conversations with the finance, accounting, IT, and operations leaders who feel the cost of lost time and...\n\n- [2026-09-08 · 31 reactions, 1 comment] Attorneys don't lose billable time because they're careless. They lose it because the work moves faster than anyone can write it down. A client call, three emails, a quick doc review, and by 6pm yo...\n\n- [2026-09-02 · 16 reactions] Manual timekeeping has a ceiling, even for the most diligent attorneys. Join us + Billables AI to see how midsize firms are recovering 10–30% more billable time without extra effort. You'll see how...\n\n- [2026-08-28 · 29 reactions] Next week's Webinar: Let’s talk about the last manual timesheet. Timekeeping is still one of the most manual parts of a lawyer’s day. Reconstructing time, switching between matters, and keeping up...\n\n- [2026-08-19 · 29 reactions] Timekeeping is one of the most important parts of a law firm's business, yet for many attorneys it is still one of the most manual. Reconstructing time at the end of the day, remembering what happe...\n\n- [2026-08-17 · 64 reactions, 3 comments] For years, timekeeping tech has basically asked lawyers to become better data entry clerks. AI lets us flip it: the work creates the record, and the timekeeper edits instead of excavates. The resul...\n\n- [2026-08-14 · 21 reactions] The legal industry has talked about moving beyond the billable hour for decades. Now, AI is making that conversation impossible to ignore. Together with legal industry leaders Gwen Griggs, JD, CEPA...\n\n- [2026-08-05 · 36 reactions, 2 comments] Nancy Jeng, Co-founder of Billable AI, and I recently co-authored an article for the International Legal Technology Association (ILTA), “From Time Capture to Strategic Insight: Building a Multidime...\n\n- [2026-07-31 · 24 reactions, 2 comments] When William Grady and I sat down to write about the evolution of timekeeping for International Legal Technology Association (ILTA), we did not expect UTBMS codes to be an inspiration for a whole n...\n\n- [2026-07-24 · 18 reactions, 1 comment] It's Friday. Turns out your busiest attorneys are often your leakiest, and it's not their fault. Nobody can rebuild a 50-hour week from memory on a Friday afternoon. 🤦♂️ We wrote about why the leak...\n\n- [2026-07-22 · 36 reactions, 3 comments] 🔒 Big news: Billables AI is now SOC 2 Type II certified. Security has been core to how we've built this product from day one, not bolted on after the fact. That's why we've always taken a different...\n\n- [2026-07-15 · 19 reactions, 2 comments] Quick math that might be painful on a Monday: 30 attorneys. Just 1 lost billable hour each, last week. $350/hour average. That's north of $10K walking out the door in a single week, and nobody noti...\n\n- [2026-06-23 · 12 reactions, 3 comments] Billables AI is joining the Demo Dozen on June 24, hosted by our friends at Legaltech Hub. 15 minutes. Live demo. No slides, no fluff — just the product working. If you're evaluating legal tech thi...\n\n- [2026-06-16 · 14 reactions, 1 comment] Clients aren't just asking for lower bills. They're asking for bills that make sense. That pressure is reshaping how firms think about pricing and what it takes operationally to back it up. Time-ba...\n\n- [2026-06-16 · 24 reactions, 1 comment] Clients are demanding more predictability, transparency, and value from their law firms. The firms gaining a competitive edge aren't just changing pricing models—they're aligning pricing strategy w...\n\n- [2026-06-10 · 19 reactions, 1 comment] 🚀 Partner News: Billables AI Raises $10M to Rethink Law Firm Economics Billables AI has raised $10 million in Series A funding to accelerate the development of its AI-powered operational intelligen...\n\n## Locations\n- Headquarters: san francisco, california, united states (US)\n- Offices: san francisco, california, united states (US)",
+        "summary": "{\"description\":\"Billables AI is a Technology, Information and Internet company providing automated timekeeping and task intelligence solutions designed for lawyers, consultants, and professional services.\",\"employee_estimate\":14,\"employee_estimate_source\":\"Employees: 14\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Headquartered in San Francisco, California, United States.\",\"hq\":\"San Francisco, United States\",\"hq_quote\":\"Headquartered in San Francisco, California, United States.\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Billables AI provides automated timekeeping and task intelligence solutions designed for lawyers, consultants, and professional services.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 14,100,000 - Series a (2026-06-01): USD 10.2M, Seed (2024-10-02): USD 3.9M, Seed (2024-03-19)\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQEFr2O4HZgyNw/company-logo_200_200/B56ZvoCXDiIYAQ-/0/1769124491766/billables_logo?e=2147483647&v=beta&t=2JX_lw5pff2mflPr5MpsjptIRgo3t7obmS9E_lMNZGI",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/khfyxdnlh46",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Billables AI",
+              "foundedYear": 2023,
+              "description": "Our mission is to transform the way professional service providers work, freeing them up to focus on the most creative and intellectual parts of their business. \n\nThe Billables AI Automated Time Report is a first-of-its-kind professional service product, powered by AI and designed for lawyers, agencies, and consultants. We’re building state-of-the-art AI tools to help people reduce the time spent on mundane operational tasks. Our team brings a deep history of AI expertise, B2B software development, and user-centric product experiences to transform billing and timekeeping forever.",
+              "workforce": {
+                "total": 14
+              },
+              "headquarters": {
+                "address": "San Francisco, CA, US",
+                "city": "San Francisco",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 14100000,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2026-06-01",
+                  "amount": 10200000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 33972,
+                "countryRank": 146013,
+                "avgDurationSeconds": 154,
+                "history": [
+                  {
+                    "value": 34500,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 34357,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 30056,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 26548,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 19171,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 33972,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/msmqrsp67n0",
+        "title": "BillTime.ai",
+        "url": "https://billtime.ai/",
+        "text": "# BillTime.ai\n\nBillTime.ai is a Technology, Information and Internet company. BillTime.ai provides time and billing solutions for professionals, aiming to automate billable hours, improve cash flow, and focus on client service. BillTime.ai employs 8 people.\n\n## About\n\nBillTime.ai automatically creates time sheets for you from your work activities so you capture all your billable hour revenue, improve cash flow and focus on client service. \n\nNever miss a moment.\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Homepage: billtime.ai\n- Aliases: billtime.ai\n- LinkedIn: linkedin.com/company/billtimeai\n- Linkedin Followers: 29\n\n## Workforce\n- Employees: 8\n- Company Size: 1-10 employees\n  - Monthly Growth: -11.1%\n- Key Executives:\n  - James Laframboise: Head of Applied AI\n  - Pallavi M.: Head of Product\n- Breakdown:\n  - By Country: United States: 4 (50%)\n  - By Department: Product: 2 (25%), Consulting: 1 (12%), Other Department: 1 (12%)\n  - By Seniority: Head: 2 (25%), Other Management: 1 (12%), Specialist: 1 (12%)\n- Talent Sources: Coupa (2), lululemon (1), UC San Diego Computer Science and Engineering Department (CSE) (1), NCAA Student Athlete Advisory Committee (1), Irvine Consulting Group (1), Buona Forchetta (1), AllCaps (1)\n- Alumni Go To: UC San Diego Men's Rowing (1), UC Irvine (1), OneHealthEHR (1), Loco Taqueria & Oyster Bar (1), Instagram (1)\n\n## Web presence\n\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Categories\n\n#billtimeai, automate timesheets, automated time tracking, billable hours, cash flow, client service, delegate timesheets, technology/software, time and billing solutions",
+        "summary": "{\"description\":\"BillTime.ai provides time and billing solutions for professionals, aiming to automate billable hours, improve cash flow, and focus on client service.\",\"employee_estimate\":8,\"employee_estimate_source\":\"Employees: 8\",\"hiring_first_ops_or_revops\":false,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"United States\",\"hq_quote\":\"\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"BillTime.ai provides time and billing solutions for professionals, aiming to automate billable hours, improve cash flow, and focus on client service.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":null,\"recently_funded_seed_or_series_a_quote\":\"\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQFE78rSpu4CfQ/company-logo_200_200/B56ZsF9Q6FHkAI-/0/1765331505389/billtime_ai_logo?e=2147483647&v=beta&t=-kKOEuM_mqsgbfOGFzzBws42Zp4oOUujhr7k3OgJrMI",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/msmqrsp67n0",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "BillTime.ai",
+              "foundedYear": null,
+              "description": "BillTime.ai automatically creates time sheets for you from your work activities so you capture all your billable hour revenue, improve cash flow and focus on client service. \n\nNever miss a moment.",
+              "workforce": {
+                "total": 8
+              },
+              "headquarters": null,
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": []
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 9544.4,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

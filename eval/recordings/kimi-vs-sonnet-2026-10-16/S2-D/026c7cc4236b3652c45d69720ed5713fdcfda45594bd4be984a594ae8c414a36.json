@@ -1,0 +1,262 @@
+{
+  "request": {
+    "query": "Didero",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "7c1c626dcb6bd790a5b3e62509e564ce",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/8n0mkbpl6ms",
+        "title": "Didero",
+        "url": "https://www.didero.ai/",
+        "text": "# Didero\n\nDidero is a Software Development company. Didero is an AI procurement agent that executes direct spend workflows across procurement, supply chain, and finance on top of the systems you already use. built for the physical economy. Didero employs 37 people (+105.6% YoY, +19 people). Headquartered in New York, New York, United States. Its workforce is distributed across United States, Philippines, and Canada.\n\n## About\n\nDidero is the AI execution layer for physical spend.\n\nOur AI agents sit on top of your ERP, turn demand and inventory signals into purchasing action, and chase suppliers so your team doesn't have to.\n\nManufacturers and distributors use Didero to cut costs, move faster, and stay ahead of a trade landscape that changes weekly.\n\nWe're hiring!\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: New York, United States\n- Homepage: didero.ai\n- Aliases: Didero Inc., didero\n- LinkedIn: linkedin.com/company/didero-ai\n- Linkedin Followers: 4,864\n\n## Financials\n- Total Funding: USD 37,000,000\n  - Series a (2026-02-01): USD 30.0M\n  - Seed (2024-07-17): USD 7.0M\n\n## Workforce\n- Employees: 37\n- Company Size: 51-200 employees\n  - Monthly Growth: +2.8%\n  - Yearly Growth: +105.6%\n- Key Executives:\n  - Bart Lynn Jr.: Founding GTM\n  - David Martin, MBA: Founding GTM\n  - Davis Wong: Founding GTM\n  - Jason Steele: Founding GTM\n  - Jory White: Founding GTM\n  - Lorenz Pallhuber: Co-Founder of Didero\n  - Luke Xu: Head of Engineering\n  - Michael Mullen: Founding GTM Executive\n  - Mohamed Barakat: Head of Product\n  - Noah Ramsay: Founding GTM\n- Breakdown:\n  - By Country: United States: 27 (73%), Philippines: 2 (5%), Canada: 1 (3%)\n  - By Department: General Management: 12 (32%), Technical: 4 (11%), Operations: 3 (8%), Product: 3 (8%), Design: 2 (5%), Marketing: 2 (5%), Other Department: 2 (5%), Customer Service: 1 (3%), Sales: 1 (3%)\n  - By Seniority: Founder: 10 (27%), Specialist: 8 (22%), Manager: 5 (14%), Head: 3 (8%), Other Management: 3 (8%), Partner: 1 (3%)\n- Active job postings: 4\n- Talent Sources: JAGGAER (2), UpHonest Capital (1), Taxwire (1), Shipmates (1), Protégé Ventures (1), Massive (1), Etsy Shop (1), Ensemble AI (1), DeepHow (1), Airbase (1)\n- Alumni Go To: inVest Ventures (1), Vyrtices (1), Tencent (1), OpenAI (1), Motion (Creative Analytics) (1), Inland Revenue Authority of Singapore (IRAS) (1), Harvard Business School (1), Decagon (1), Center for Consumer Products (1), 7th Key Development (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: celery, django, docker, figma, java, linkedin, microsoft, netsuite, netsuite suitetalk, odata, prototype, python, rabbitmq, react, redis, teladoc, typescript, webflow, ifs, oracle, persona, google analytics, hubspot, marketo, salesforce, tableau, wordpress, css, html, javascript, user interviews, 6sense, clearbit, demandbase, saml, sql, zoominfo, impact, sprint, well, xero\n\n## Web presence\n\n- Twitter: twitter.com/dideroai\n- Instagram: instagram.com/dideroai\n- YouTube: youtube.com/@dideroai\n- Crunchbase: crunchbase.com/organization/didero\n- Web traffic:\n  - Monthly visits: 14,969\n  - Global rank: 1,667,161\n  - Bounce rate: 61.0%\n  - Pages per visit: 1.7\n  - Average visit duration: 60s\n\n## Categories\n\nai procurement agents, artificial intelligence (ai), artificial-intelligence, direct spend workflows, finance, finance/finance, industrial automation, physical economy, platform, procurement, supply chain, supply chain management, supply-chain-management, technology\n\n## Competitors\n\npinpianyi, mainstem, calico, amplio\n\n## Recent News\n- [2026-08-28] Procurement Magazine: Amanda Prochaska: Rewriting Procurement at Wonder Services\n- [2026-08-21]\n  - GetLatka: Edza AI Revenue 2025: $1.4M Est. ARR \\(Bootstrapped\\)\n  - GetLatka: NextDimension AI Revenue 2025: $1.3M Est. ARR \\(Bootstrapped\\)\n  - GetLatka: PineGap.ai Revenue 2025: $1.4M Est. ARR \\(Bootstrapped\\)\n  - GetLatka: Satsuma.ai Revenue 2025: $1.4M Est. ARR \\(Bootstrapped\\)\n  - GetLatka: Terra AI Revenue 2025: $1.4M Est. ARR \\(Bootstrapped\\)\n- [2026-08-20]\n  - GetLatka: Browser Use Revenue 2025: $1.4M Est. ARR\n  - GetLatka: Deductive AI Revenue 2025: $1.3M Est. ARR\n  - GetLatka: Edza AI Revenue 2025: $1.4M Est. ARR\n- [2026-08-15] Luna Nuova: S.Didero: mercoledì 19 agosto a Susa i funerali di Ricky Gioberto\n- [2026-08-14]\n  - GetLatka: Addy AI Revenue 2025: $1.3M Est. ARR \\(Bootstrapped\\)\n  - GetLatka: Aura-AI Revenue 2025: $1.4M Est. ARR \\(Bootstrapped\\)\n  - GetLatka: Colors AI Revenue 2025: $1.3M Est. ARR \\(Bootstrapped\\)\n  - GetLatka: Concierge.ai Revenue 2025: $1.3M Est. ARR \\(Bootstrapped\\)\n  - GetLatka: DIDERO Revenue 2025: $1.5M Est. ARR \\(Bootstrapped\\)\n- [2026-08-13]\n  - GetLatka: Aegis AI Security Revenue 2025: $1.3M Est. ARR\n  - GetLatka: Atmo Revenue 2024: $1.3M Est. ARR \\(Bootstrapped\\)\n  - GetLatka: Aura-AI Revenue 2025: $1.4M Est. ARR\n  - GetLatka: Awako Revenue 2025: $1.4M ARR \\(Bootstrapped\\)\n  - GetLatka: Cimba.AI Revenue 2024: $1.5M Est. ARR \\(Bootstrapped\\)\n\n## Social\n\n### Linkedin\n\n- [2026-10-02 · Posted · 45 reactions] [Excited to announce that ASCM and Didero are teaching ASCM's first...](https://www.linkedin.com/posts/didero-ai_excited-to-announce-that-ascm-and-didero-activity-7511859798934634496-bjdb)\n  > Excited to announce that ASCM and Didero are teaching ASCM's first agentic AI program starting next Thursday, Oct 8 at 1PM CT!\n  >\n  > Live registration is free and there will be a certificate of completion. Several of our customers and Cheryl Cheng from Microsoft M12 will be joining us along the way:\n  >\n  > Oct 8 · Foundations of agentic execution\n  > Oct 22 · Build your first supply chain agent\n  > Nov 5 · Readiness: systems, rules, and thresholds\n  > Nov 19 · Agents at work: sourcing, POs, and inbound logistics\n  > Dec 3 · Implementation and governance\n  > Dec 17 · Capstone: your 90-day agent roadmap, with Cheryl Cheng (Microsoft M12)\n  >\n  > Register free here: https://lnkd.in/g9vimZvZ\n\n- [2026-09-28 · Posted · 38 reactions] [Didero is taking the stage at CHAINge in Long Beach this week...](https://www.linkedin.com/posts/didero-ai_chainge2026-activity-7510359950905270273--5S0)\n  > Didero is taking the stage at CHAINge in Long Beach this week.\n  >\n  > Lorenz Pallhuber is joining the Innovation Showcase to share how AI agents are already being put to work across procurement and supply chain.\n  >\n  > Tuesday, September 29 | 12:20pm | Main Stage\n  >\n  > For the rest of CHAINge, you’ll find us at booth 803. Stop by to see Didero in action!\n  >\n  > #CHAINge2026\n\n- [2026-09-28 · 38 reactions, 1 comment] Didero is taking the stage at CHAINge in Long Beach this week. Lorenz Pallhuber is joining the Innovation Showcase to share how AI agents are already being put to work across procurement and supply...\n\n- [2026-09-23 · Posted · 35 reactions] [That’s a wrap on NASCES in Las Vegas! It’s been a busy few days...](https://www.linkedin.com/posts/didero-ai_nasces2026-activity-7508564780853530624--NIe)\n  > That’s a wrap on NASCES in Las Vegas!\n  >\n  > It’s been a busy few days connecting with supply chain leaders and sharing how Didero is already putting agentic AI to work for our customers.\n  >\n  > Thanks to everyone who stopped by and shared their challenges, ideas and experiences. Plenty of exciting conversations to continue, and already looking forward to the next one!\n  >\n  > #NASCES2026\n\n- [2026-09-23 · 34 reactions] That’s a wrap on NASCES in Las Vegas! It’s been a busy few days connecting with supply chain leaders and sharing how Didero is already putting agentic AI to work for our customers. Thanks to everyo...\n\n- [2026-09-18 · Posted · 29 reactions] [Didero is in the top 10 on Harmonic's latest Hot 25 🔥 We’re...](https://www.linkedin.com/posts/didero-ai_didero-is-in-the-top-10-on-harmonics-latest-activity-7506728240103882752-Hqe5)\n  > Didero is in the top 10 on Harmonic's latest Hot 25 🔥\n  >\n  > We’re building AI agents to take on some of the hardest operational work in global supply chains, and there’s a lot more to come.\n  >\n  > Thanks for the recognition, Harmonic!\n\n- [2026-09-18 · 32 reactions, 1 comment] Didero is in the top 10 on Harmonic's latest Hot 25 🔥 We’re building AI agents to take on some of the hardest operational work in global supply chains, and there’s a lot more to come. Thanks for th...\n\n- [2026-09-16 · Posted · 34 reactions] [Tim Spencer is taking the main stage at the National Association of...](https://www.linkedin.com/posts/didero-ai_nawinnovators-activity-7506035583157436416-vv7c)\n  > Tim Spencer is taking the main stage at the National Association of Wholesaler-Distributors (NAW) Innovator Summit in Nashville this afternoon!\n  >\n  > He’ll be joining \"An Evening with Innovators\" to talk about what AI agents mean for distributors, and what we’ve learned from putting them to work across real operational processes.\n  >\n  > Hope to see some of you there!\n  >\n  > #NAWInnovators\n\n- [2026-09-16 · 43 reactions, 2 comments] Tim Spencer is taking the main stage at the National Association of Wholesaler-Distributors (NAW) Innovator Summit in Nashville this afternoon! He’ll be joining \"An Evening with Innovators\" to talk...\n\n- [2026-09-15 · Posted · 52 reactions] [Great first day at IMTS! We’re back for Day 2 in the North...](https://www.linkedin.com/posts/didero-ai_imts2026-activity-7505656244666544130-aDAX)\n  > Great first day at IMTS! We’re back for Day 2 in the North Building, Level 3, booth 237650.\n  >\n  > We’ve got Didero running live at the booth through Friday, so if you’re curious about what our agents can actually do, stop by and see them in action.\n  >\n  > #IMTS2026\n\n- [2026-09-15 · 55 reactions, 1 comment] Great first day at IMTS! We’re back for Day 2 in the North Building, Level 3, booth 237650. We’ve got Didero running live at the booth through Friday, so if you’re curious about what our agents can...\n\n- [2026-09-11 · Reshared · 6 reactions] [Honored to be recognized alongside such a great group. See you in...](https://www.linkedin.com/posts/didero-ai_honored-to-be-recognized-alongside-such-a-activity-7504205803902578688-x6XA): Honored to be recognized alongside such a great group. See you in Chicago!\n\n- [2026-09-09 · Posted · 14 reactions] [IMTS 2026 kicks off Monday! From Sep 14–19, the Didero team will be...](https://www.linkedin.com/posts/didero-ai_imts2026-activity-7503476780847083520-Kby3)\n  > IMTS 2026 kicks off Monday!\n  >\n  > From Sep 14–19, the Didero team will be in Chicago showing how AI agents can take on the day-to-day supply chain work that keeps teams busy: sourcing new suppliers, managing POs, chasing confirmations, tracking deliveries, and handling the follow-up in between.\n  >\n  > If you’re at the show, find us in the North Building, Level 3, booth 237650, right next to Starbucks.\n  >\n  > #IMTS2026\n\n- [2026-09-09 · 14 reactions, 5 comments] IMTS 2026 kicks off Monday! From Sep 14–19, the Didero team will be in Chicago showing how AI agents can take on the day-to-day supply chain work that keeps teams busy: sourcing new suppliers, mana...\n\n- [2026-09-08 · Posted · 33 reactions] [Tim Spencer is speaking at Procurement & Supply Chain LIVE, with...](https://www.linkedin.com/posts/didero-ai_tim-spencer-is-speaking-at-procurement-activity-7503102024524349440-iJ3f)\n  > Tim Spencer is speaking at Procurement & Supply Chain LIVE, with his first session kicking off in just 10 minutes!\n  >\n  > If you’re at the show, here’s where to catch him:\n  >\n  > Today, 4:00–4:30pm · Innovation Zone, Floor 3\n  > “You've heard about agents all day. Physical supply chains pose a different problem.”\n  >\n  > Tomorrow, 12:00–12:45pm · Supply Chain Insight Room Moore, Floor 4\n  > Workshop: “Supply Chains on Autopilot”\n  >\n  > We'll be covering why direct procurement may as well live in a different universe from indirect procurement, how to build production-ready AI agents (and when it might be a good idea to call in the experts!), and more.\n  >\n  > Both sessions are open to all attendees. You’ll find the Didero team at booth C8 the rest of the show.\n\n- [2026-09-08 · 35 reactions, 1 comment] Tim Spencer is speaking at Procurement & Supply Chain LIVE, with his first session kicking off in just 10 minutes! If you’re at the show, here’s where to catch him: Today, 4:00–4:30pm · Innovation...\n\n- [2026-09-01 · Posted · 30 reactions] [September is a big month with seven shows on the calendar! We're...](https://www.linkedin.com/posts/didero-ai_september-is-a-big-month-with-seven-shows-activity-7500596584074821632-L5gQ)\n  > September is a big month with seven shows on the calendar! We're headed to:\n  >\n  > Sep 8-9 · Procurement & Supply Chain Live, London\n  > Sep 14-19 · IMTS, Chicago\n  > Sep 16-18 · NAW Innovator Summit, Nashville\n  > Sep 21-23 · NASCES, Las Vegas\n  > Sep 22-24 · AHTD Fall Meeting, Carlsbad\n  > Sep 29-30 · CHAINge National Conference, Long Beach\n  > Sep 30-Oct 1 · DPW Amsterdam\n  >\n  > If you're going, stop by and tell us about your worst workflow and we'll show you examples of agents already doing the work for our customers.\n\n- [2026-09-01 · 34 reactions, 3 comments] September is a big month with seven shows on the calendar! We're headed to: Sep 8-9 · Procurement & Supply Chain Live, London Sep 14-19 · IMTS, Chicago Sep 16-18 · NAW Innovator Summit, Nashville S...\n\n- [2026-08-27 · Reshared · 10 reactions] [Looking forward to this one! Join us in London to see Didero’s...](https://www.linkedin.com/posts/didero-ai_looking-forward-to-this-one-join-us-in-london-activity-7498763603492200449-zazn): Looking forward to this one! Join us in London to see Didero’s agents in action 👇\n\n- [2026-08-26 · Posted · 61 reactions] [Having a global team is awesome. It means we can bring together...](https://www.linkedin.com/posts/didero-ai_having-a-global-team-is-awesome-it-means-activity-7498401349550907392-HgxU)\n  > Having a global team is awesome. It means we can bring together great talent from around the world and stay close to our customers, wherever they are. But it also means it’s rare to have everyone in the same place.\n  >\n  > This month was a big one for Didero. The full team got together in France for a week of hard work, big conversations about what’s ahead and time spent defining our company values for this next phase of growth.\n  >\n  > The work sessions were great, but some of the best collaboration happened in the time between them. Conversations over breakfast, morning runs together, sharing wine over dinner and simply having the whole team in one place.\n  >\n  > And, naturally, a little friendly sumo wrestling.\n  >\n  > We’re lucky to have such a talented and committed team, so getting everyone together like this was a real win.\n  >\n  > Very grateful for the week and already excited for the next one!\n\n## Locations\n- Headquarters: new york, new york, united states (US)\n- Offices: new york, new york, united states (US)",
+        "summary": "{\"description\":\"Didero is an AI procurement agent that executes direct spend workflows across procurement, supply chain, and finance on top of the systems you already use. built for the physical economy.\",\"employee_estimate\":37,\"employee_estimate_source\":\"Employees: 37\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Head of Engineering\",\"hq\":\"New York, New York, United States\",\"hq_quote\":\"Headquartered in New York, New York, United States.\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Didero is an AI procurement agent that executes direct spend workflows across procurement, supply chain, and finance on top of the systems you already use.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 37,000,000 - Series a (2026-02-01): USD 30.0M; Seed (2024-07-17): USD 7.0M\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQFcGBh6aLyuxQ/company-logo_200_200/B56Z9Ch0b4JoAI-/0/1783527589820/didero_ai_logo?e=2147483647&v=beta&t=G42mFL6pPXJ7jHMpwMaWcs8Ai0ncAFpaYCjdpIJAGcQ",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/8n0mkbpl6ms",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Didero",
+              "foundedYear": null,
+              "description": "Didero is the AI execution layer for physical spend.\n\nOur AI agents sit on top of your ERP, turn demand and inventory signals into purchasing action, and chase suppliers so your team doesn't have to.\n\nManufacturers and distributors use Didero to cut costs, move faster, and stay ahead of a trade landscape that changes weekly.\n\nWe're hiring!",
+              "workforce": {
+                "total": 37
+              },
+              "headquarters": {
+                "address": "99 Wall St, New York, NY 10005, US",
+                "city": "New York",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 37000000,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2026-02-01",
+                  "amount": 30000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 14969,
+                "countryRank": 417318,
+                "avgDurationSeconds": 60,
+                "history": [
+                  {
+                    "value": 15909,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 5859,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 7075,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 9423,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 13298,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 7979,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/93pxv6q7f45",
+        "title": "Diderio-Paris",
+        "url": "https://diderioparis.com/",
+        "text": "# Diderio-Paris\n\nDiderio-Paris is a Individual and Family Services company. Diderio Paris is a company that operates hair salons in various cities in Île-de-France. They offer hair coloration and hair extensions. Diderio-Paris employs 3 people. Headquartered in Orly, France.\n\n## About\n\nDiderio Paris is a company that operates hair salons in various cities in Île-de-France. They offer hair coloration and hair extensions.\n\n## Company Details\n- Industry: Individual and Family Services\n- Headquarters: Orly, France\n- Homepage: diderioparis.com\n- Aliases: diderio paris, diderio-paris\n- LinkedIn: linkedin.com/company/diderio-paris\n\n## Workforce\n- Employees: 3\n\n## Web presence\n\n- Web traffic:\n  - Monthly visits: 1,011\n  - Global rank: 11,862,993\n  - Bounce rate: 26.0%\n  - Pages per visit: 2.5\n  - Average visit duration: 69s\n\n## Categories\n\nbeauty & personal care, hair coloration, hair extensions, hair salons, paris, île-de-france\n\n## Locations\n- Headquarters: orly, france\n- Offices: orly, france, orly, île-de-france, france",
+        "summary": "{\"description\":\"Diderio-Paris is described as an Individual and Family Services company operating hair salons in Île-de-France, offering hair coloration and extensions. Headquarters listed: Orly, France. Workforce: 3 employees.\",\"employee_estimate\":3,\"employee_estimate_source\":\"Employees: 3\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Orly, France\",\"hq_quote\":\"Headquarters: Orly, France\",\"industry\":\"Individual and Family Services\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Diderio Paris is a company that operates hair salons in various cities in Île-de-France. They offer hair coloration and hair extensions.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":false,\"recently_funded_seed_or_series_a_quote\":\"There is no mention of seed or Series A funding on the page.\"}",
+        "image": "https://static.licdn.com/aero-v1/sc/h/cs8pjfgyw96g44ln9r7tct85f",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/93pxv6q7f45",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Diderio-Paris",
+              "foundedYear": null,
+              "description": "Diderio Paris is a company that operates hair salons in various cities in Île-de-France. They offer hair coloration and hair extensions.",
+              "workforce": {
+                "total": 3
+              },
+              "headquarters": {
+                "address": "31 RUE 11 NOVEMBRE 1918, Orly, 94310, FR",
+                "city": "Orly",
+                "postalCode": null,
+                "country": "France"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 1011,
+                "countryRank": 428474,
+                "avgDurationSeconds": 69,
+                "history": [
+                  {
+                    "value": 557,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 699,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 428,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 654,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 2502,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 1011,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 6936.3,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

@@ -1,0 +1,226 @@
+{
+  "request": {
+    "query": "Lightsage",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "0dc19c228c05f21497a3be2ceb6cdbe1",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/tqw2kx06pz3",
+        "title": "Lightsage",
+        "url": "https://lightsage.com/",
+        "text": "# Lightsage\n\nLightsage is a Technology, Information and Internet company. Lightsage is an Agent-Led Growth Platform for software companies that helps AI agents discover, recommend, and use their products. Lightsage employs 3 people. Headquartered in San Francisco, California, United States. Its workforce is distributed across United States and Singapore.\n\n## About\n\nInfrastructure for the Agent Economy and Agent-Led Growth. Track, benchmark, and improve how coding agents discover and use your API, CLI and MCP. Powering enterprises and unicorn startups to be the default tool agent recommends. Learn more about agent experience: https://lightsage.com.\n\nCreators of DevToolArena.com, our public benchmark ranking developer tools across auth, inference, voice, and more using Claude Code and Codex.\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Headquarters: San Francisco, United States\n- Homepage: lightsage.com\n- Aliases: lightsage\n- LinkedIn: linkedin.com/company/lightsage\n- Linkedin Followers: 713\n\n## Workforce\n- Employees: 3\n- Company Size: 1-10 employees\n  - Monthly Growth: +50.0%\n- Key Executives:\n  - Jun Liang LEE: Cofounder & CEO\n  - Sean Er: Co-Founder & CTO\n- Breakdown:\n  - By Country: United States: 2 (67%), Singapore: 1 (33%)\n  - By Department: Technical: 2 (67%), General Management: 1 (33%)\n  - By Seniority: Founder: 2 (67%), Other Management: 1 (33%)\n- Active job postings: 2\n- Talent Sources: sampleapp.ai (2), Republic (1), Nan Hua High School (1)\n- Alumni Go To: National Cadet Corps Singapore (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: css, figma, github, html, microsoft, microsoft azure, prototype, react, typescript\n\n## Web presence\n\n- Twitter: twitter.com/lightsagehq\n- GitHub: github.com/lightsagehq\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Categories\n\nadoption, agent-led growth platform, ai agents, discovery, recommendations, software development\n\n## Recent News\n- [2026-09-19] BackScoop: $4M for Lightsage to help companies make their products more discoverable by AI agents\n- [2026-09-12]\n  - Forbes: How Lightsage Helps Firms Sell To A New Generation Of Agent Customers\n  - SiliconANGLE: Lightsage gets $4M in funding to help software makers sell directly to autonomous AI agents\n  - The American Bazaar: Lightsage raises $4M as AI agents change how users discover and use software\n  - Yahoo Finance: Lightsage raises $4M to build the growth stack for internet’software’s newest customer: AI agents\n- [2026-09-10]\n  - HackerNoon: Lightsage Raises $4M Led by Nexus to Build the Growth Stack for AI Agents\n  - The Next Web: Lightsage raises $4M to build the growth stack for software’s newest customer\n\n## Social\n\n### Linkedin\n\n- [2026-09-16 · 5 reactions, 4 comments] Your next software customer might not be human. 🤖 Singaporean founders Sean Er and Jun Liang LEE Lee have raised US$4M for Lightsage, a startup built entirely around a strange new reality: AI codin...\n\n- [2026-09-16 · 14 reactions, 3 comments] Thank you for the feature on e27 (Optimatic), Sainul Abudheen K! Really appreciate the support for singaporean founders. Excited to be building the infrastructure for agent-led growth and agent exp...\n\n- [2026-09-08 · 118 reactions, 7 comments] We just raised $4M at Lightsage, led by Nexus Venture Partners, to build the growth stack for internet’s newest customer: AI agents. Claude Code, Codex, Cursor and other agents can already discover...\n\n- [2026-09-08 · 3 reactions] Excited to be building the infrastructure for agent-led growth!! 🔥 🚀 Jun Liang LEE Sean Er\n\n- [2026-09-08 · 3 reactions, 1 comment] Excited to be building the Infra for Agent-Led Growth! 🔥\n\n- [2026-08-27 · 4 reactions] Can agents pay for your product? 🚀 Introducing Agent Payments Arena We benchmarked 2,353 companies across x402 / MPP / UCP / ACP and more to measure whether agents like Claude Code and Codex can di...\n\n- [2026-07-29 · 3 reactions] Explore the full benchmark at AgentExperienceArena.com. Reach out or comment below if you'd like to be added to the list.\n\n- [2026-07-08 · 8 reactions, 1 comment] Super honoured to have Box and Chris Kim demo at our Sapient Agent Experience Demo night yesterday with more than 900+ signups 🔥🔥🔥 Box is building the file systems for AI agents. Agents like Hermes...\n\n- [2026-07-08 · 6 reactions, 1 comment] Shoutout to Patrick Coleman and Rime for the amazing demo infront of a packed crowd 🔥 If you're a devtool company building API/MCP/CLI for agents, and love to demo at our next Agent Experience demo...\n\n- [2026-07-08 · 4 reactions] Shoutout to Docusign Developers and Paige Rossi for the amazing demo last night :) Really cool how they are building their API and MCP for both human developers and agents 🔥 And making it easier to...\n\n- [2026-07-08 · 1 reaction] Huge thank you to everyone who came down for our Agent Experience Demo Night!! If you're a devtool company building APIs, MCPs or CLIs for agents, get a free agent audit here at https://usesapient....\n\n- [2026-07-08 · 11 reactions, 2 comments] Hanging out with Jun Liang LEE of Sapient at their killer agent-led-growth demo night. https://lnkd.in/gs5mgnET Thanks for hosting, Fred P. @Auth0 🙏\n\n## Locations\n- Headquarters: san francisco, california, united states (US)\n- Offices: san francisco, california, united states (US)",
+        "summary": "{\"description\":\"Lightsage is an Agent-Led Growth Platform for software companies that helps AI agents discover, recommend, and use their products. Infrastructure for the Agent Economy and Agent-Led Growth.\",\"employee_estimate\":3,\"employee_estimate_source\":\"Employees: 3\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Active job postings: 2\",\"hq\":\"San Francisco, United States\",\"hq_quote\":\"Headquarters: San Francisco, United States\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Lightsage is a Technology, Information and Internet company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"BackScoop: $4M for Lightsage to help companies make their products more discoverable by AI agents\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQEG1S9-axrCXw/company-logo_200_200/B56Z85NA0LLAAI-/0/1783371140638?e=2147483647&v=beta&t=zraqwMZ-NOs_edqKvZBVYoCCxBw4KGqLgCc09Yf4FoE",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/tqw2kx06pz3",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Lightsage",
+              "foundedYear": null,
+              "description": "Infrastructure for the Agent Economy and Agent-Led Growth. Track, benchmark, and improve how coding agents discover and use your API, CLI and MCP. Powering enterprises and unicorn startups to be the default tool agent recommends. Learn more about agent experience: https://lightsage.com.\n\nCreators of DevToolArena.com, our public benchmark ranking developer tools across auth, inference, voice, and more using Claude Code and Codex.",
+              "workforce": {
+                "total": 3
+              },
+              "headquarters": {
+                "address": "2261 Market St, San Francisco, California 94114, US",
+                "city": "San Francisco",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": []
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/gjjwp52kvq1",
+        "title": "Lightsprint (YC P26)",
+        "url": "https://lightsprint.ai/",
+        "text": "# Lightsprint (YC P26)\n\nLightsprint (YC P26) is a Software Development company. LightSprint is a company that helps PMs, designers, and engineers plan, build, and ship in one shared session on their existing codebase. They offer services like Google Docs for coding agents. Lightsprint (YC P26) employs 4 people. Headquartered in San Francisco, California, United States, with an office in Dover. Its workforce is distributed across Singapore and United States.\n\n## About\n\nLightsprint is a collaborative product development platform. We bring codebases to the cloud so the entire product team can safely ship features to production, with guardrails and engineering review gates built in.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: San Francisco, United States\n- Homepage: lightsprint.ai\n- Aliases: Lightsprint, Inc., lightsprint, lightsprint (yc p26)\n- LinkedIn: linkedin.com/company/lightsprint\n- Linkedin Followers: 1,031\n\n## Financials\n- Total Funding: USD 500,000\n  - Seed (2026-06-01)\n  - Pre seed (2026-04-01): USD 500,000\n\n## Workforce\n- Employees: 4\n- Company Size: 1-10 employees\n- Key Executives:\n  - Ben Ong: Co-Founder\n  - Benedict Chan: CTO\n  - Heng Hong Lee: Co-Founder\n- Breakdown:\n  - By Country: Singapore: 2 (50%), United States: 2 (50%)\n  - By Department: Consulting: 2 (50%), Technical: 2 (50%)\n  - By Seniority: Founder: 2 (50%), Clevel: 1 (25%), Specialist: 1 (25%)\n- Active job postings: 4\n- Talent Sources: Topo (YC W24) (1), January Capital (1), Gnosis Business (1), Chainlink Labs (1)\n\n## Products & Technology\n- Tech Stack: css, davinci resolve, discord, figma, github, linkedin, prototype, react, typescript\n\n## Web presence\n\n- Twitter: twitter.com/lightsprintai\n- YouTube: youtube.com/@lightsprint_ai\n- Crunchbase: crunchbase.com/organization/lightsprint\n- GitHub: github.com/sprintsai\n- Web traffic:\n  - Monthly visits: 5,553\n  - Global rank: 1,952,897\n  - Bounce rate: 33.0%\n  - Pages per visit: 9.9\n  - Average visit duration: 265s\n\n## Categories\n\nartificial intelligence (ai), cloud computing, codebase, collaboration, designers, developer tools, engineers, enterprise software, machine learning, pms, productivity tools, ship, software, software engineering, technology/software development\n\n## Recent News\n- [2026-08-10] LinkedIn: Singapore start-up Collar AI by poly grads makes it to Y Combinator\n- [2026-06-04] TOUR: Women's Giro d'Italia - Bike too light: Sprint winner Wiebes excluded from Giro\n- [2016-09-22] TechCrunch: Kids can build a LEGO drone with Flybrix kits\n\n## Social\n\n### Linkedin\n\n- [2026-10-08 · 14 reactions] Teams are shipping faster, and some now have PMs and designers shipping too. PR review is the new bottleneck. Lightsprint (YC P26) already consolidates feedback from all your code review agents (Ge...\n\n- [2026-10-03 · 7 reactions] Coding agents can produce an implementation before the team has finished agreeing on what it should do. That sounds like progress. Sometimes it is. But a faster build doesn't answer the questions a...\n\n- [2026-09-25 · 25 reactions, 2 comments] We just shipped chat mode in LightSprint. And we built it with LightSprint. All in an hour. 🔥 Our PM scoped the feature with Lightsprint's planning agent, agents built and tested it in a sandbox, a...\n\n- [2026-09-22 · 9 reactions] Jira and Bitbucket integrations are live. If your team runs on the Atlassian stack, Lightsprint now picks up tickets from Jira / opens PRs into Bitbucket. Same workflow GitHub teams had, no migrati...\n\n- [2026-09-22 · 30 reactions] It was great sharing Lightsprint (YC P26) with engineers and PMs at NetApp ! Heng Hong Lee walked through how Lightsprint handles the problems that only show up at enterprise scale: agents working...\n\n- [2026-09-22 · 7 reactions] A practical five-stage model for moving from individual AI assistance to an agentic software factory, covering repository readiness, team workflows, and governance.\n\n- [2026-09-21 · 8 reactions] Worktrees keep parallel software changes separate. LightSprint gives every feature request its own sandbox, so PMs and designers get to build safely without learning Git.\n\n- [2026-09-14 · 6 reactions, 2 comments] Most agent tools bury you in a chat or a board. Never both. Console mode: flip from kanban to an IDE-style view. Agent session on one side, live preview on the other. Same task, same PR. Built for...\n\n- [2026-09-14 · 19 reactions] Firing off endless tasks with OpenAI's Astra 6 is way too much fun 🚀\n\n- [2026-08-27 · 36 reactions] Great to be invited into a room of CXOs to discuss the opportunity AI is creating and how quickly roles are being rewritten with Tech Talent AssemBly (TTAB) and industry veterans Barry Chou James C...\n\n- [2026-08-24 · 46 reactions] Ben Ong shared Lightsprint with a room full of developers and product managers and the response was energising. We explored the future of collaborative product development: a future where building...\n\n- [2026-08-20 · 11 reactions] What if your entire product team could safely collaborate on code? Great to visit Alta Exchange, Southeast Asia’s largest licensed digital marketplace and exchange for alternative assets. We’ve bee...\n\n- [2026-08-17 · 22 reactions] Ramp AI Index data, charted by a16z. AI spend per employee per month: Top 1%: ~$700 → ~$7,500 Top 10%: ~$90 → ~$660 Median: ~$3 → ~$12 Every curve inflects hard in 2026. But the median engineering...\n\n- [2026-08-04 · 18 reactions] 🚀 QA Screenshot Verification is now live! No more taking \"it works\" on faith. Our agent now spins up a sandbox, runs your workflow, and captures screenshots - visual proof that the work was actuall...\n\n- [2026-07-28 · 17 reactions, 1 comment] The next generation of product builders won’t come from product teams alone. They’ll come from operations, marketing, design, sales, support, finance - and anywhere great ideas live. Welcome to the...\n\n- [2026-07-16 · 13 reactions, 2 comments] Excited to work with the team @ Founders Capital !\n\n- [2026-07-14 · 35 reactions] Product managers and designers are moving from prototypes to production. The next generation of product builders will not stop at generating new apps. They will build safely on the real codebase al...\n\n- [2026-07-02 · 50 reactions, 4 comments] Claude Fable 5 and Sonnet 5 by Anthropic are now both available on Lightsprint (YC P26)! We're seeing many users already fixing bugs, improving UX flows, and shipping complex features with Fable 5 🚀\n\n- [2026-06-25 · 27 reactions, 1 comment] Thanks so much for the shoutout Matt Ridenour ! It was great meeting you and the Google DeepMind team. We’re excited to be building on the frontier of AI and to use the latest Gemini models to powe...\n\n- [2026-06-22 · 76 reactions, 9 comments] Salt Lake to Berlin to San Francisco - and three new companies building at the AI frontier. Bridge Funding Global is one of the better emerging manager convenings in the country right now - investo...\n\n## Locations\n- Headquarters: san francisco, california, united states (US)\n- Offices: dover, delaware, united states (US), san francisco, california, united states (US), united states (US)",
+        "summary": "{\"description\":\"Lightsprint (YC P26) is a Software Development company that helps PMs, designers, and engineers plan, build, and ship in one shared session on their existing codebase; brings codebases to the cloud for collaborative product development with guardrails and review gates.\",\"employee_estimate\":4,\"employee_estimate_source\":\"Employees: 4\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Active job postings: 4\",\"hq\":\"San Francisco, California, United States\",\"hq_quote\":\"Headquartered in San Francisco, California, United States, with an office in Dover.\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"- Industry: Software Development\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 500,000 - Seed (2026-06-01) - Pre seed (2026-04-01): USD 500,000\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQFcvajtRS8S_Q/company-logo_200_200/B56aBAxAiaJsAE-/0/1787792984460/lightsprint_logo?e=2147483647&v=beta&t=mv0JWkoumx-rObU0eWaaLtPuj0626kMLhlHl4QOGHQg",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/gjjwp52kvq1",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Lightsprint (YC P26)",
+              "foundedYear": null,
+              "description": "Lightsprint is a collaborative product development platform. We bring codebases to the cloud so the entire product team can safely ship features to production, with guardrails and engineering review gates built in.",
+              "workforce": {
+                "total": 4
+              },
+              "headquarters": {
+                "address": "San Francisco, California, US",
+                "city": "San Francisco",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 500000,
+                "fundingLatestRound": {
+                  "name": "Seed",
+                  "date": "2026-06-01",
+                  "amount": null
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 5553,
+                "countryRank": 501504,
+                "avgDurationSeconds": 265,
+                "history": [
+                  {
+                    "value": 2242,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 1514,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 29167,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 8000,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 5553,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 6234.1,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

@@ -1,0 +1,231 @@
+{
+  "request": {
+    "query": "Vieu",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "bcf5bffea31341fa11876e1c43c2ade2",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/1w3pf913nbz",
+        "title": "Vieu",
+        "url": "https://vieu.com/",
+        "text": "# Vieu\n\nVieu is a Technology, Information and Internet company. Vieu's AI-powered Business Graph helps Sales, Marketing, Customer Success, Partnerships, HR and Fundraising teams discover warm introductions and relationship intelligence. Vieu employs 91 people (+52.5% YoY, +31 people), founded in 2022. Headquartered in Seattle, United States. Its workforce is distributed across 5 countries (including India, United States, Canada, United Arab Emirates, and United Kingdom).\n\n## About\n\nAs AI makes reach infinite, human relationships become the scarcest asset in business. \n\nThat's why we have Vieu: World's Business Graph with 4 billion entities, 13 billion relationships, every single one observed rather than self-reported: shared work history, board affiliations, co-authored research, real collaboration. Always on. Always building.\n \nWhat teams use Vieu for:\n- Sales: executive-to-executive paths into strategic accounts\n- Marketing: precision targeting for events and ABM\n- Fundraising: warm investor introductions routed through existing relationships\n- Customer Success: churn prevention through executive engagement\n- HR/Talent: senior recruiting with built-in back-channel verification\n- BD & Partnerships: surfacing the real relationships between companies\n\nThe outcomes: faster access to decision-makers, higher conversion through warm paths, earlier churn detection, shorter senior hiring cycles, and pipeline discovered inside the network you already have.\n \nWhy it's different:\n1. Trust as Infrastructure: every relationship observed, verified, and earned\n2. Prompt vs Query: a prompt searches the web for 40 seconds; a Vieu query answers in 287 milliseconds\n3. Built for Agents & Humans: pre-indexed and queryable by Claude, Gemini, and your team, inside CRM, email, and Slack\n \n \nFounded by repeat founders and Microsoft veterans Samir Manjure and Simon Skaria. \n \nBacked by Trilogy, Vela Networks, and Incubate Fund, alongside 45+ prominent angel investors - CEOs, founders, and senior executives from companies like Meta, Microsoft, Google, Visa, and AWS. \n \nBuilt on one conviction: the AI era doesn't need better tools or more volume. It needs a better graph.\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Headquarters: Seattle, United States\n- Founded Year: 2022\n- Homepage: vieu.com\n- Aliases: Vieu Inc., vieu\n- LinkedIn: linkedin.com/company/vieu\n- Linkedin Followers: 4,489\n\n## Financials\n- Total Funding: USD 13,000,000\n  - Seed (2024-10-03): USD 11.0M\n  - Seed (2023-09-13): USD 2.0M\n\n## Workforce\n- Employees: 91\n- Company Size: 11-50 employees\n  - Monthly Growth: +3.4%\n  - Yearly Growth: +52.5%\n- Key Executives:\n  - Ashwani Bhat: Head of Talent Acquisition\n  - Chetan Patel: Head of Business Operations\n  - Ethan Shry: Head of Engineering\n  - Ishan Saraswat: Director, Product\n  - Josna Joseph: Customer Success Lead\n  - Purvi Soni: Marketing Lead\n  - Rahul Nair: Head of Demand Generation\n  - Ron Mondri: EVP, Enterprise\n  - Roshan Thomas: Head of Design\n  - Samir Manjure: Founder and CEO\n- Breakdown:\n  - By Country: India: 59 (66%), United States: 18 (20%), Canada: 1 (1%), United Arab Emirates: 1 (1%), United Kingdom: 1 (1%)\n  - By Department: Technical: 14 (16%), Customer Service: 13 (14%), Other Department: 12 (13%), Research: 12 (13%), Sales: 9 (10%), Consulting: 8 (9%), Marketing: 5 (6%), Product: 4 (4%), Design: 3 (3%), General Management: 3 (3%) (+3 more)\n  - By Seniority: Specialist: 36 (40%), Other Management: 18 (20%), Manager: 11 (12%), Head: 7 (8%), Senior: 7 (8%), Intern: 5 (6%), Clevel: 2 (2%), Director: 1 (1%), Founder: 1 (1%)\n- Talent Sources: RevGenius (4), Microsoft (3), YHonk (2), SeraOS (2), Paperflite (2), NielsenIQ (2), Mindtickle (2), Avoma (2), Amazon (2), 360iResearch™ (2)\n- Alumni Go To: Data Axle (2), Amazon (2), Zscaler (1), Vritti Solutions (1), Venice.ai (1), Twindo (1), Sprinto (1), IterateUX (1), Factors.ai (1), 1Kosmos (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: adobe, canva, figma, hubspot, linkedin, linkedin sales navigator, mongodb, neo4j, nodejs, postgresql, python, react, sales navigator, zoominfo, crunchbase, salesforce, microsoft, microsoft teams, netapp, google sheets, trilogy, zapier, q4, amp, impact, c\n\n## Web presence\n\n- YouTube: youtube.com/@vieu-inc\n- Crunchbase: crunchbase.com/organization/vieu\n- Web traffic:\n  - Monthly visits: 6,088\n  - Global rank: 2,891,446\n  - Bounce rate: 34.0%\n  - Pages per visit: 2.3\n  - Average visit duration: 32s\n\n## Reviews & Ratings\n- Employer Rating: 4.4/5.0 (9 reviews)\n  - Breakdown: Work-Life: 3.4, Compensation: 4.4, Culture: 3.9, Career: 4.3\n\n## Categories\n\naccount intelligence & planning, ai agents, ai-powered business graph, artificial intelligence (ai), business graph, business information systems, business_and_consumer_services/marketing_and_advertising, commercial graph, customer success, demand generation software, enterprise gtm, executive relationship management, lead intelligence, lead intelligence software, marketing, partnerships, revenue intelligence, sales, stakeholder mapping, system of connections, trust-based selling, vieu, warm introductions\n\n## Recent News\n- [2024-10-04] FinSMES: Vieu Raises $11M in Funding\n- [2024-10-03] GeekWire: Seattle startup Vieu raises $11M to reimagine B2B sales outreach, with help from AI\n- [2023-10-03] GeekWire: Entrepreneur who sold last startup to ZoomInfo lands cash for ...\n- [2023-09-18] Pulse 2.0: Vieu: $2 Million Secured To Offer AI-Generated Execution Sales Plans\n- [2023-09-13]\n  - FinSMES: Vieu Raises USD2M in Seed Funding\n  - Yahoo Finance: Vieu unlocks routes to enterprise sales as it unveils its platform\n\n## Social\n\n### Linkedin\n\n- [2026-10-05 · Posted · 57 reactions] [Every strong ecosystem starts with one customer problem worth...](https://www.linkedin.com/posts/vieu_catalystsummit-partnershipleaders-ecosystems-activity-7512904785453346816-UB24)\n  > Every strong ecosystem starts with one customer problem worth solving together.\n  >\n  > On October 20, our Chief Outcomes Officer, Serrah Linares, takes the stage at Catalyst Summit Seattle to talk about designing an ecosystem around that problem: how partners, data, and relationships come together when the customer sits at the center.\n  >\n  > If you're in Seattle and building partnerships that actually move outcomes, come find her at the BCG offices.\n  >\n  > #CatalystSummit #PartnershipLeaders #Ecosystems #Partnerships #WorldsBusinessGraph #B2BEvents #VieuIt\n\n- [2026-09-29 · Posted · 33 reactions] [Building the world's business graph takes a team that keeps...](https://www.linkedin.com/posts/vieu_shoutouts-for-september-activity-7510730806299054080-q93x)\n  > Building the world's business graph takes a team that keeps climbing.\n  > This round, we're recognizing Charaan Adipudi, Ritika Abbott and Ashish Verma for showing exactly what that looks like. Congratulations, all three of you.\n  >\n  > We're a lean team solving a hard problem: mapping how the business world is actually connected. Everyone here owns real work from day one, and growth like theirs is what that makes possible.\n  >\n  > On that note, we're hiring for multiple roles. If that sounds like your kind of challenge, join us.\n  >\n  > Samir Manjure Simon Skaria Serrah Linares Ron Mondri Ethan Shry\n  >\n  > #WorldsBusinessGraph #B2B #EnterpriseSelling #Sales #Marketing #Hiring #VieuIt\n\n- [2026-09-15 · Posted · 8 reactions] [We're a small team building something meant to map the entire...](https://www.linkedin.com/posts/vieu_values-we-live-by-activity-7505656783537930240-O3wN)\n  > We're a small team building something meant to map the entire business world.\n  >\n  > And no, we didn't write these values to put on a careers page, they showed up first as habits, in how long we'll sit with a bug before shipping a workaround, in how many times a pull request gets rewritten before anyone's happy with it, in how often we'll hold something back rather than ship an easier version we didn't actually want.\n  >\n  > Fewer people, deeper ownership, no room for anyone to hide behind a title.\n  >\n  > If any of this sounds like how you already think, we're hiring for multiple positions.\n  >\n  > Samir Manjure Simon Skaria Serrah Linares Ethan Shry Ron Mondri\n  >\n  > #WorldsBusinessGraph #OnTheGraph #Hiring #VieuIt\n\n- [2026-09-15 · 8 reactions] We're a small team building something meant to map the entire business world. And no, we didn't write these values to put on a careers page, they showed up first as habits, in how long we'll sit wi...\n\n- [2026-09-14 · Posted · 23 reactions] [Dreamforce starts tomorrow. Most teams will spend the first day or...](https://www.linkedin.com/posts/vieu_vieuit-worldsbusinessgraph-salesforce-activity-7505290975074856960--ZYn)\n  > Dreamforce starts tomorrow. Most teams will spend the first day or worse - all three just guessing who's actually worth meeting.\n  >\n  > Not anymore. Ask Vieu before every event:\n  > - Who's attending that you should actually meet\n  > - Your warmest path to each of them\n  > - Talking points that don't read generic\n  > - Which companies there are already using tech that makes them a fit\n  > - Which of your own customers or champions are walking the same floor\n  >\n  > Know your best meetings before you ever land. Close it, #Vieuit\n  >\n  > Samir Manjure Simon Skaria Serrah Linares Ron Mondri Ethan Shry\n  >\n  > #WorldsBusinessGraph #Salesforce #Dreamforce #B2BEvents\n\n- [2026-09-14 · 24 reactions] Dreamforce starts tomorrow. Most teams will spend the first day or worse - all three just guessing who's actually worth meeting. Not anymore. Ask Vieu before every event: - Who's attending that you...\n\n- [2026-09-10 · Posted · 28 reactions] [Vieu is coming exactly where your team already works. Find...](https://www.linkedin.com/posts/vieu_worldsbusinessgraph-b2b-enteprise-activity-7503844902573871104-Q9hp)\n  > Vieu is coming exactly where your team already works.\n  >\n  > Find connections, build account plans, request warm intros, get target intel, track champion movement and much more right where you already are, with one question in plain language.\n  >\n  > Coming soon. Stay tuned.\n  >\n  > Samir Manjure Simon Skaria Serrah Linares Ron Mondri Ethan Shry\n  >\n  > #WorldsBusinessGraph #B2B #Enteprise #AI #VieuIt\n\n- [2026-09-10 · 29 reactions] Vieu is coming exactly where your team already works. Find connections, build account plans, request warm intros, get target intel, track champion movement and much more right where you already are...\n\n- [2026-09-09 · 24 reactions, 1 comment] Most reps start a new territory the same way :( A spreadsheet of target accounts and no idea which ones are actually worth their time, let alone how to get in the door. That's the exact gap Vieu is...\n\n- [2026-09-08 · Reshared · 28 reactions] [The most expensive thing that happens in a deal isn't losing to a...](https://www.linkedin.com/posts/vieu_activity-7502984493453185024-Ria4): The most expensive thing that happens in a deal isn't losing to a competitor, it's spending three months building a relationship with someone who was never going to sign. (We've watched deals sit u...\n\n- [2026-09-07 · Posted · 15 reactions] [Days, sometimes months, that's how long it usually takes to work...](https://www.linkedin.com/posts/vieu_days-sometimes-months-thats-how-long-it-activity-7502743372969885696-6NXK)\n  > Days, sometimes months, that's how long it usually takes to work through an entire ICP and figure out who's actually worth reaching.\n  >\n  > Vieu compresses all of that into seconds, surfacing the strongest connections across your ICP automatically, instead of leaving it to manual research and guesswork.\n  >\n  > Find warm paths to your exec target accounts → https://lnkd.in/e6c4vnPk\n  >\n  > Samir Manjure Simon Skaria Ron Mondri Serrah Linares Ethan Shry\n  >\n  > #WhoKnowsVieu #B2BSales #EnterpriseSelling #WorldsBusinessGraph\n\n- [2026-09-07 · 15 reactions] Days, sometimes months, that's how long it usually takes to work through an entire ICP and figure out who's actually worth reaching. Vieu compresses all of that into seconds, surfacing the stronges...\n\n- [2026-09-04 · 120 reactions, 7 comments] You used Suger or Tackle or a 3P partner to get onto the marketplace. Now use Vieu to create enterprise opportunities on the marketplace. Amazing Partner Summit by Amazon Web Services (AWS) leaders...\n\n- [2026-09-01 · Posted · 9 reactions] [Every enterprise deal has a moment where the champion says some...](https://www.linkedin.com/posts/vieu_champion-vs-economic-buyer-activity-7500583315780042752-FD0P)\n  > Every enterprise deal has a moment where the champion says some version of \"let me check with my boss.\" That's the moment most deals actually die.\n  > Your champion and your economic buyer are almost never the same person.\n  >\n  > Vieu helps you find the executive who actually signs, not just the one in the room with you.\n  >\n  > Try it yourself: https://lnkd.in/e6c4vnPk\n  >\n  > Samir Manjure Simon Skaria Serrah Linares Ethan Shry Ron Mondri\n  >\n  > #WhoKnowsVieu #B2BSales #Sales #EnterpriseSelling #VieuIt #WorldsBusinessGraph\n\n- [2026-09-01 · 9 reactions] Every enterprise deal has a moment where the champion says some version of \"let me check with my boss.\" That's the moment most deals actually die. Your champion and your economic buyer are almost n...\n\n- [2026-08-28 · Reshared · 15 reactions] [I have had the great fortune of working closely with Socure, a...](https://www.linkedin.com/posts/vieu_activity-7498966066371665921-reVn): I have had the great fortune of working closely with Socure, a world class product solving a critical trust problem, and equally impressive GTM crew. Landing the top five U.S. banks and 600-plus fi...\n\n- [2026-08-26 · Posted · 10 reactions] [Most companies have a deep network, almost none of it is visible to...](https://www.linkedin.com/posts/vieu_whoknowsvieu-b2bsales-enterpriseselling-activity-7498408937642438656-QGuy)\n  > Most companies have a deep network, almost none of it is visible to the people who actually need it, at the moment they need it.\n  >\n  > That's the real gap: relationships exist, but they sit in individual heads, disconnected from the team trying to reach an economic buyer right now. Vieu closes that gap, turning who a company already knows into real, well-timed conversations with the executives who actually decide.\n  >\n  > Manifold's deep network across life sciences is now something the whole team can actually see and act on, not just something a few people carry in their heads.\n  >\n  > #WhoKnowsVieu #B2BSales #EnterpriseSelling #WorldsBusinessGraph\n\n- [2026-08-26 · 10 reactions] Most companies have a deep network, almost none of it is visible to the people who actually need it, at the moment they need it. That's the real gap: relationships exist, but they sit in individual...\n\n- [2026-08-24 · Posted · 67 reactions] [Sachin Aggarwal has built and sold six companies across...](https://www.linkedin.com/posts/vieu_vieuvisionaries-whoknowsvieu-worldsbusinessgraph-activity-7497691693723602944-O6rH)\n  > Sachin Aggarwal has built and sold six companies across cybersecurity, cloud infrastructure, and healthcare with acquisitions by Tenable, Qualys, and Omega Healthcare, a Goldman Sachs portfolio company.\n  >\n  > Twenty years into building, he's now CEO of StackGen, backed by leading venture funds, while mentoring the next generation of founders as an angel investor. Very few leaders have proven they can spot a category before it exists — six times over.\n  >\n  > Grateful to have founders like Sachin backing what we're building.\n  >\n  > Samir Manjure Simon Skaria Serrah Linares Ethan Shry Ron Mondri\n  >\n  > #VieuVisionaries #WhoKnowsVieu #WorldsBusinessGraph #EnterpriseSales\n\n- [2026-08-24 · 93 reactions, 2 comments] Sachin Aggarwal has built and sold six companies across cybersecurity, cloud infrastructure, and healthcare with acquisitions by Tenable, Qualys, and Omega Healthcare, a Goldman Sachs portfolio com...\n\n## Locations\n- Headquarters: seattle, united states (US)\n- Offices: seattle, washington, united states (US), seattle, united states (US)",
+        "summary": "{\"description\":\"Vieu is a technology, information and internet company offering an AI-powered Business Graph to help Sales, Marketing, Customer Success, Partnerships, HR and Fundraising teams discover warm introductions and relationship intelligence.\",\"employee_estimate\":91,\"employee_estimate_source\":\"Employees: 91\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"We're hiring for multiple roles.\",\"hq\":\"Seattle, United States\",\"hq_quote\":\"Headquartered in Seattle, United States.\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Technology, Information and Internet\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 13,000,000\\n  - Seed (2024-10-03): USD 11.0M\\n  - Seed (2023-09-13): USD 2.0M\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQETWOrMNhH6RQ/company-logo_200_200/B4EZ4mdGWrKsAE-/0/1778761623177/vieu_logo?e=2147483647&v=beta&t=kTRO2yW1ZUG7KuVOXTr4Kuz2Pdc-CQVrCRvYO7EXbWs",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/1w3pf913nbz",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Vieu",
+              "foundedYear": 2022,
+              "description": "As AI makes reach infinite, human relationships become the scarcest asset in business. \n\nThat's why we have Vieu: World's Business Graph with 4 billion entities, 13 billion relationships, every single one observed rather than self-reported: shared work history, board affiliations, co-authored research, real collaboration. Always on. Always building.\n \nWhat teams use Vieu for:\n- Sales: executive-to-executive paths into strategic accounts\n- Marketing: precision targeting for events and ABM\n- Fundraising: warm investor introductions routed through existing relationships\n- Customer Success: churn prevention through executive engagement\n- HR/Talent: senior recruiting with built-in back-channel verification\n- BD & Partnerships: surfacing the real relationships between companies\n\nThe outcomes: faster access to decision-makers, higher conversion through warm paths, earlier churn detection, shorter senior hiring cycles, and pipeline discovered inside the network you already have.\n \nWhy it's different:\n1. Trust as Infrastructure: every relationship observed, verified, and earned\n2. Prompt vs Query: a prompt searches the web for 40 seconds; a Vieu query answers in 287 milliseconds\n3. Built for Agents & Humans: pre-indexed and queryable by Claude, Gemini, and your team, inside CRM, email, and Slack\n \n \nFounded by repeat founders and Microsoft veterans Samir Manjure and Simon Skaria. \n \nBacked by Trilogy, Vela Networks, and Incubate Fund, alongside 45+ prominent angel investors - CEOs, founders, and senior executives from companies like Meta, Microsoft, Google, Visa, and AWS. \n \nBuilt on one conviction: the AI era doesn't need better tools or more volume. It needs a better graph.",
+              "workforce": {
+                "total": 91
+              },
+              "headquarters": {
+                "address": "Seattle, US",
+                "city": "Seattle",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 13000000,
+                "fundingLatestRound": {
+                  "name": "Seed",
+                  "date": "2024-10-03",
+                  "amount": 11000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 6088,
+                "countryRank": 983563,
+                "avgDurationSeconds": 32,
+                "history": [
+                  {
+                    "value": 24171,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 22510,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 6483,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 7743,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 19776,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 6088,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/vj2pnc94k9q",
+        "title": "Vieu Health",
+        "url": "https://vieu.ca/",
+        "text": "# Vieu Health\n\nVieu Health is a IT Services and IT Consulting company. Vieu Health employs 33 people, founded in 2007. Headquartered in Montréal, Québec, Canada, with presence in United States.\n\n## About\n\nVieu Health builds and manages modern health information networks, powered by a modular electronic health record and practice management system and supported by a standards-based health information exchange platform. Vieu supports reliable, real-time healthcare transactions through patent-pending eligibility verification and claims adjudication workflows.\n\n## Company Details\n- Industry: IT Services and IT Consulting\n- Type: Privately held\n- Headquarters: Montréal, Canada\n- Founded Year: 2007\n- Homepage: vieu.ca\n- Aliases: vieu health\n- LinkedIn: linkedin.com/company/vieu-health\n- Linkedin Followers: 42\n- Emails: vieuhealth@vieuhealth.com\n- Phone: +1 504 264 595\n\n## Workforce\n- Employees: 33\n- Company Size: 11-50 employees\n- Alumni Go To: Wheeling Pittsburgh Steel Corp (1)\n\n## Web presence\n\n- Twitter: twitter.com/vieu\n- Facebook: facebook.com/vieuhealth\n- Crunchbase: crunchbase.com/organization/vieu-health\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Categories\n\nelectronic health records, health care, healthcare information management, information technology, medical billing, practice management, software\n\n## Recent News\n- [2026-10-03] MaxPreps: Schedule - Mountain View Spartans \\(Mountain View, CA\\) Football 26-27\n- [2026-10-01]\n  - MaxPreps: Mountain View High School \\(CA\\) Soccer\n  - MaxPreps: Mountain View High School \\(CA\\) Softball\n- [2026-09-29]\n  - Stacker: Cities with the most expensive homes in the Oxnard metro area\n  - MLive.com: Who was the Friday night football hero in the Muskegon area for Week 5?\n- [2026-09-27] MaxPreps: Mountain View High School \\(CA\\) Football\n- [2026-09-26] MaxPreps: Mountain View High School \\(CA\\) Flag Football\n- [2026-09-16] MaxPreps: Saint Francis High School \\(Mountain View, CA\\) Football\n- [2026-09-15] NBC Bay Area: Mountain View's Century 16 movie theatre to close\n- [2026-09-14] MaxPreps: Schedule - Saint Francis Lancers \\(Mountain View, CA\\) Football 26-27\n- [2026-09-08] MaxPreps: Videos - Valley View Eagles \\(Moreno Valley, CA\\) Football\n- [2026-09-05] MaxPreps: Ocean View High School \\(Huntington Beach, CA\\) Football\n- [2026-08-30] Citizen app: Citizen: Keeping you safe & informed\n- [2026-08-29]\n  - Simply Wall Street: Magellan Aerospace \\(TSX:MAL\\) Could Be 17% Undervalued Following Strong Earnings\n  - KTVU: Solar eclipse reaches totality over Spain\n  - Los Angeles Times: Southern California has front-row seat for partial 'blood moon' eclipse: When to get the best view\n  - Town of Valleyview: What We Heard: 2027 Budget Public Participation Report\n- [2026-08-19] Sports Illustrated: California High School Football Final Scores — August 21\n- [2026-08-17] The Press Democrat: Pat Rollins Obituary\n- [2026-08-10] The Mercury News: Hiroji Kariya Obituary - Mountain View\n\n## Locations\n- Headquarters: montréal, québec, canada\n- Offices: new orleans, louisiana, united states (US), montreal, quebec h3b 4w5, canada, montréal, québec h3b 4w5, canada",
+        "summary": "{\"description\":\"Vieu Health is a private IT services and IT consulting company offering health information networks and an electronic health record/practice management system with a health information exchange platform. Headquartered in Montréal, Canada, with United States presence.\",\"employee_estimate\":33,\"employee_estimate_source\":\"Employees: 33\",\"hiring_first_ops_or_revops\":false,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Montréal, Québec, Canada\",\"hq_quote\":\"Headquartered in Montréal, Québec, Canada, with presence in United States.\",\"industry\":\"IT Services and IT Consulting\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Vieu Health is a IT Services and IT Consulting company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":null,\"recently_funded_seed_or_series_a_quote\":\"null\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4D0BAQFiSB17Jtd7kQ/company-logo_200_200/company-logo_200_200/0/1631349362725?e=2147483647&v=beta&t=IoRmOiKPOB5JH44PDoVYPeI4mXhGibSpUhJSQDpwaWA",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/vj2pnc94k9q",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Vieu Health",
+              "foundedYear": 2007,
+              "description": "Vieu Health builds and manages modern health information networks, powered by a modular electronic health record and practice management system and supported by a standards-based health information exchange platform. Vieu supports reliable, real-time healthcare transactions through patent-pending eligibility verification and claims adjudication workflows.",
+              "workforce": {
+                "total": 33
+              },
+              "headquarters": {
+                "address": "1000, rue de la Gauchetière ouest, bureau 2400, Montréal, Québec H3B 4W5, CA",
+                "city": "Montréal",
+                "postalCode": null,
+                "country": "Canada"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": []
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 5468.5,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

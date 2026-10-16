@@ -1,0 +1,232 @@
+{
+  "request": {
+    "query": "Yqn",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "a394101baf970853c9aff38b62c1ae09",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/cwfgt27r6bw",
+        "title": "YQN Logistics",
+        "url": "https://yqn.com/",
+        "text": "# YQN Logistics\n\nYQN Logistics is a Transportation, Logistics, Supply Chain and Storage company. YQN is China leading international online freight shipping marketplace for freight cargo, container market rates. YQN provides visibility and control, predictable supply chain solutions and fast transit times. YQN Logistics employs 453 people (+30.2% YoY, +105 people). Headquartered in Shanghai, Shanghai, China, operates in 9 countries (including Philippines, United States, Thailand, Singapore, and Japan). Its workforce is distributed across 12 countries (including China, United States, Hong Kong, Mexico, and Vietnam).\n\n## About\n\nFounded in 2015 and headquartered in Shanghai, YQN Logistics is deeply rooted in China’s logistics network, with offices in all major Chinese port cities. We maintain strong relationships with 300+ shipping and airline partners and 3,500+ supplier resources, delivering competitive rates on key trade lanes such as China–Southeast Asia, China–Latin America, China–Middle East, and China–EuroMed.\n\nWith 25 offices worldwide and 1,500+ employees, we provide end-to-end international freight services — including ocean, air, rail, multimodal transportation, trucking, customs clearance, insurance, global warehousing, and destination services — backed by quick response and professional operations.\n\nOur warehouses in the U.S., Canada, and Mexico offer over 4 million sq. ft. of storage and integrate seamlessly with leading e-commerce platforms like Amazon, Walmart, and TikTok Shop, enabling efficient cross-border fulfillment.\n\nMeanwhile, our digital platform gives businesses instant access to freight rates and real-time cargo tracking.\n\nShip from China, Go YQN!\n\n📩 inquiry@yqn.com\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Privately held\n- Headquarters: Shanghai, China\n- Homepage: yqn.com\n- Aliases: YQN, yqn logistics, yqnlink\n- LinkedIn: linkedin.com/company/yqn\n- Linkedin Followers: 23,806\n- Emails: info@yqn.com\n- Phone: +86 21 6126 0459, 31011502401533\n\n## Financials\n- Total Funding: USD 356,845,300\n  - Series d (2021-06-01): USD 150.0M\n  - Series d (2021-05-01): USD 100.0M\n  - Series c (2019-06-01): USD 70.0M\n  - Series b (2019-02-01)\n  - Series b (2018-11-01)\n\n## Workforce\n- Employees: 453\n- Company Size: 1001-5000 employees\n  - Monthly Growth: +0.4%\n  - Yearly Growth: +30.2%\n- Key Executives:\n  - Alan LEE: Sales VP\n  - Aspirin Zhang: Head of Talent Acquisition, Corporate\n  - Erin Jin: HR&Admin Head\n  - Felix Zhang: Director of West Coast Operation\n  - Jimmy Ji: Deputy General Manager Of Wuhan\n  - Lany Wang: M&A Lead\n  - Lynn Feng: Customer Experience Director\n  - Lynn Feng: Key Account Management Director\n  - Maggie Wang: Business VP\n  - Mandy Zhu: Director of Operations\n- Breakdown:\n  - By Country: China: 100 (22%), United States: 39 (9%), Hong Kong: 6 (1%), Mexico: 5 (1%), Vietnam: 4 (1%), Singapore: 3 (1%), Thailand: 3 (1%), Malaysia: 2, Australia: 1, India: 1 (+2 more)\n  - By Department: Sales: 56 (12%), Operations: 46 (10%), General Management: 12 (3%), Other Department: 11 (2%), Hr: 10 (2%), Customer Service: 7 (2%), Technical: 6 (1%), Project Management: 5 (1%), Finance: 4 (1%), Administrative: 3 (1%) (+7 more)\n  - By Seniority: Manager: 65 (14%), Specialist: 57 (13%), Other Management: 19 (4%), Director: 9 (2%), Senior: 8 (2%), Head: 3 (1%), Vp: 3 (1%), Intern: 2, Partner: 2\n- Active job postings: 108\n- Salary ranges:\n  - Human Resources Business Partner HRBP: median $119,142.75 per year\n  - Engineer: median $112,342.78 per year\n  - Operations: median $112,106.78 per year\n  - Operations Lead: median $86,864.75 per year\n  - Operator: median $77,920.1 per year\n  - Warehouse Operator: median $66,743.15 per year\n  - Intern: median $65,445.63 per year\n  - Logistic intern: median $60,817.09 per year\n  - Web Developer: median 4,630,603.27 JPY per year\n  - Managing Director: median 2,529,954 MXN per month\n  - Assistente: median 36,147.78 BRL per month\n- Talent Sources: YQN TRIMAN LOGISTICS CO., LTD (6), Kuehne+Nagel (5), GOFO (5), Panalpina (4), JD.COM (4), Cainiao Group (3), 美仓互联（上海）供应链管理有限公司 (2), Worldwide Logistics Group Co.,Ltd. (2), J&T EXPRESS (MALAYSIA) SDN BHD (2), Expeditors (2)\n- Alumni Go To: YQN TRIMAN LOGISTICS CO., LTD (2), YQN Brazil (2), SEA-SON LOGISTICS (2), Grupo Alonso (2), Carolina Logistics Inc (2), A.P. Moller - Maersk (2), Xin Point Holdings Ltd (1), Sammakorn PLC (1), OVP SHIPPING (1), CJNOO (1)\n\n## Products & Technology\n- Tech Stack: aos, apto, core hr, google sheets, google workspace, linkedin, microsoft, microsoft excel, microsoft office, mlops, propel, python, q4, ramp, sql, tiktok, wechat, autocad, greenhouse, seg, amp, box, c, mix, visa, well, microsoft word, fedex, ups, facebook, instagram\n\n## Web presence\n\n- Facebook: facebook.com/yqnlogistics\n- Crunchbase: crunchbase.com/organization/yqn\n- Web traffic:\n  - Monthly visits: 152,655\n  - Global rank: 245,480\n  - Bounce rate: 33.0%\n  - Pages per visit: 4.5\n  - Average visit duration: 337s\n\n## Reviews & Ratings\n- Employer Rating: 3.7/5.0 (8 reviews)\n  - Breakdown: Work-Life: 3.6, Compensation: 3.7, Culture: 3.1, Career: 3.8\n\n## Categories\n\nair freight, breakbulk, business_and_consumer_services/shipping_and_logistics, cargo tracking, china, cross-border e-commerce, custom clearance, digital logistics, fast transit times, fcl, freight forwarding, freight rate, freight service, freight shipping, global logistics, green logistics, lcl, logistics, multimodal transportation, ocean freight, online marketplace, project logistics, rail freight, road freight, shipping, supply chain, supply chain solutions, transportation, warehousing, wms\n\n## Recent News\n- [2025-01-08] PR Newswire: YQN at CES 2025: Redefining Smart Logistics for Global Trade\n- [2024-11-07] caixinglobal.com: Empowering Global Trade: YQN Demonstrates Innovative Logistics Solutions at CIIE 2024\n- [2024-07-25] Caixin Global: From China to the World: YQN's Digital Mission to Simplify Global Shipping\n\n## Social\n\n### Linkedin\n\n- [2026-09-25 · 2 reactions] 🌕 Wishing You a Happy Mid-Autumn Festival! The Mid-Autumn Festival is a time for reunion, gratitude, and sharing good wishes. From everyone at YQN, we wish our customers and partners around the wor...\n\n- [2026-09-24 · 3 reactions] 🚢 Happy World Maritime Day! Today, we celebrate the people, partnerships, and vessels that keep global trade moving. At YQN, we're proud to be part of the maritime community connecting businesses a...\n\n- [2026-09-24 · 1 reaction] YQN at Apsara Conference 2026: Putting AI to Work Across Global Logistics At Apsara Conference (云栖大会) 2026 in Hangzhou, AI took center stage as businesses explored how emerging technologies can cre...\n\n- [2026-09-23 · 21 reactions] Get ready for #ApsaraConference2026, where the next chapter of AI and cloud innovation comes to life. Join us in Hangzhou, China, for three days of ideas, insights, and breakthroughs shaping what’s...\n\n- [2026-09-20 · 3 reactions] Importing from China to Latin America? Here's a quick look at how YQN supports ocean freight to Mexico, Central America, the Caribbean and South America, etc. For route options and rates on your ne...\n\n- [2026-09-18 · 7 reactions] A smooth global shipment starts long before the vessel departs. From factory pickup to port delivery, what happens at origin often determines how the rest of the shipment performs. YQN's China Orig...\n\n- [2026-09-15 · 3 reactions, 1 comment] 🚢 What's behind Southeast Asia's freight rate surge this quarter? According to Drewry's Intra-Asia Container Index (IACI), rates climbed to $1,323 per 40ft container this week, marking the third co...\n\n- [2026-09-10 · 2 reactions] 🚢 Heads up if you're shipping out of China in the coming weeks: with the Mid-Autumn Festival and National Day holidays approaching, terminal productivity typically slows in the days leading up to b...\n\n- [2026-09-10 · 3 reactions] How European Freight Forwarders Can Build a More Reliable China Origin Strategy China origin operations are no longer just about booking vessels and arranging trucking. With fluctuating capacity, c...\n\n- [2026-09-08 · 9 reactions] 🏆 YQN Selected for the 2026 Fortune China Best Design List | Reshaping Ocean Freight Booking with AI YQN's AI-powered ocean freight booking automation system has been recognized for its innovative...\n\n- [2026-09-06 · 1 reaction] We're #hiring a new Warehouse Supervisor（Bilingual in English&Mandarin) in Port Reading, New Jersey. Apply today or share this post with your network.\n\n- [2026-09-05] We're #hiring a new Operations Customer Service in Ho Chi Minh City. Apply today or share this post with your network.\n\n- [2026-09-03 · 5 reactions] Almost two years after Chancay Port's inauguration, the numbers are starting to show what a direct Asia-South America gateway actually does for a trade lane. In the first half of 2026, the port han...\n\n- [2026-09-03 · 3 reactions] A resilient China-Europe lane starts with the right groundwork, not last-minute fixes. This upcoming webinar walks through how to get there. Sign up link in the article ⬇️ #OceanFreight #SupplyChai...\n\n- [2026-09-02 · 3 reactions] 📩 New newsletter is live: What's Changing in Global Trade This September? Ten regulatory updates are landing this month across the US, Canada, the EU, UK, Ireland, Vietnam, New Zealand, and the UAE...\n\n- [2026-08-28 · 3 reactions] 🚢 Peak season shipping to North America is underway. September marks the run-up to Prime's fall sale, Halloween, Black Friday, and Christmas, typically the busiest shipping month of the year for No...\n\n- [2026-08-28 · 2 reactions] 📈 Asia to US West Coast Rates Are Climbing, and It's Not Just Peak Season Rates on Asia to US West Coast lanes have been rising, and the usual explanation, peak season demand, only tells part of th...\n\n- [2026-08-24 · 8 reactions] How European Freight Forwarders Build a Reliable China Origin Strategy Demand on China-Europe lanes keeps growing, but many freight forwarders are losing margin to unpredictable schedules, supplier...\n\n- [2026-08-21 · 2 reactions] We're excited to announce that YQN will be heading to the Zhengzhou Cross-Border E-Commerce Fair 2026 alongside eBay. From August 28 to 30 at the Zhengzhou International Convention and Exhibition C...\n\n- [2026-08-14 · 28 reactions, 5 comments] We're pleased to share that YQN Logistics Co., Ltd. has renewed its JC Premium membership with JCtrans, now registered under our group company name. JCtrans is one of the largest global freight for...\n\n## Locations\n- Headquarters: shanghai, shanghai, china (CN)\n- Offices: 03800 cdmx，mexico, distrito federal, mexico, shanghai, shanghai, china (CN), qingdao, shandong, china (CN), xinghui bay, zhongshan, china (CN), california 91765, california, united states (US), bangkok 10310, bangkok, thailand, tokyo 103-0023, tokyo, japan (JP), room 2008, suzhou, china (CN), building 11, nanjing, china (CN), hefei, anhui, china (CN), no. 99， complex building, huzhou, china (CN), donghu wanggu 7, wuhan, china (CN), building 10, xiamen, china (CN), 13 floor, nanning, china (CN), ayala avenue makati city, makati city, philippines, #07-01，singapore, singapore (SG), tianjin, tianjin, china (CN), wilayah persekutuan kuala lumpur, kuala lumpur, malaysia (MY), ningbo, zhejiang, china (CN), shenzhen, guangdong, china (CN), hcmc, ho chi minh city, vietnam (VN), zhongtai isquare, guangzhou, china (CN)",
+        "summary": "{\"description\":\"YQN Logistics is a Transportation, Logistics, Supply Chain and Storage company providing end-to-end international freight services across ocean, air, rail, multimodal transportation, trucking, customs clearance, insurance, global warehousing, and destination services.\",\"employee_estimate\":453,\"employee_estimate_source\":\"Employees: 453\",\"hq\":\"Shanghai, Shanghai, China\",\"hq_quote\":\"Headquartered in Shanghai, Shanghai, China\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"With 25 offices worldwide and 1,500+ employees, we provide end-to-end international freight services — including ocean, air, rail, multimodal transportation, trucking, customs clearance, insurance, global warehousing, and destination services\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQES9xO4gsnO6w/company-logo_200_200/company-logo_200_200/0/1699349301741/yqn_logo?e=2147483647&v=beta&t=x0d9JLRIizMlLsUFLOUX9nqX9Ni7PAy77_4URORQyjg",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/cwfgt27r6bw",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "YQN Logistics",
+              "foundedYear": null,
+              "description": "Founded in 2015 and headquartered in Shanghai, YQN Logistics is deeply rooted in China’s logistics network, with offices in all major Chinese port cities. We maintain strong relationships with 300+ shipping and airline partners and 3,500+ supplier resources, delivering competitive rates on key trade lanes such as China–Southeast Asia, China–Latin America, China–Middle East, and China–EuroMed.\n\nWith 25 offices worldwide and 1,500+ employees, we provide end-to-end international freight services — including ocean, air, rail, multimodal transportation, trucking, customs clearance, insurance, global warehousing, and destination services — backed by quick response and professional operations.\n\nOur warehouses in the U.S., Canada, and Mexico offer over 4 million sq. ft. of storage and integrate seamlessly with leading e-commerce platforms like Amazon, Walmart, and TikTok Shop, enabling efficient cross-border fulfillment.\n\nMeanwhile, our digital platform gives businesses instant access to freight rates and real-time cargo tracking.\n\nShip from China, Go YQN!\n\n📩 inquiry@yqn.com",
+              "workforce": {
+                "total": 453
+              },
+              "headquarters": {
+                "address": "Pudong New Area，No. 958 Lingshan Road, Building No. 9, Shanghai, Shanghai 200000, CN",
+                "city": "Shanghai",
+                "postalCode": null,
+                "country": "China"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 356845300,
+                "fundingLatestRound": {
+                  "name": "Series d",
+                  "date": "2021-06-01",
+                  "amount": 150000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 152655,
+                "countryRank": 11062,
+                "avgDurationSeconds": 337,
+                "history": [
+                  {
+                    "value": 136781,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 130495,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 114818,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 151235,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 157896,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 152655,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/2yq2j84t09d",
+        "title": "YQN TRIMAN LOGISTICS CO., LTD",
+        "url": "https://trimanshipping.com/",
+        "text": "# YQN TRIMAN LOGISTICS CO., LTD\n\nYQN TRIMAN LOGISTICS CO., LTD is a Truck Transportation company. 三麦物流 is a leading international logistics service platform in China that combines internet and traditional international logistics. They provide comprehensive international logistics services for both domestic and international trade companies, including sea freight, air freight, trucking, customs clearance, warehouse interior design, and freight insurance. YQN TRIMAN LOGISTICS CO., LTD employs 58 people (+20.8% YoY, +10 people), founded in 2011. Headquartered in Shenzhen, Guangdong, China. Its workforce is distributed across China, Hong Kong, and Mexico.\n\n## About\n\nYQN TRIMAN LOGISTICS CO., LTD, China top brand in freight forwarding, was founded in 2011, with Headquarter based in Shenzhen metropolis and Serving Asian Cross-border traders. Our branches cover all major basic ports across China.\nWe are focused on providing one -stop services via Air & Sea shipping & Inland transport & cargo clearance & FBA e-commerce logistics... between Asia and Latin America.\nDeeply cultivating the Latin American market, from China/Asia to Latin America, such as Mexico, Panama, Guatemala, Honduras, Columbia, Chile, Peru, Brazil, Bolivia, Cuba and so on. Engaged with rich experience in routes and services.\n\n## Company Details\n- Industry: Truck Transportation\n- Type: Privately held\n- Headquarters: Shenzhen, China\n- Founded Year: 2011\n- Homepage: trimanshipping.com\n- Aliases: yqn triman logistics, yqn triman logistics co., ltd\n- LinkedIn: linkedin.com/company/trimanshipping\n- Linkedin Followers: 2,617\n- Emails: info@yqn.com\n\n## Workforce\n- Employees: 58\n- Company Size: 51-200 employees\n  - Monthly Growth: -1.7%\n  - Yearly Growth: +20.8%\n- Key Executives:\n  - 王林: Chief Operating Officer\n- Breakdown:\n  - By Country: China: 23 (40%), Hong Kong: 1 (2%), Mexico: 1 (2%)\n  - By Department: Sales: 19 (33%), General Management: 2 (3%), Operations: 2 (3%), Other Department: 2 (3%), Hr: 1 (2%)\n  - By Seniority: Manager: 11 (19%), Specialist: 11 (19%), Other Management: 3 (5%), Clevel: 1 (2%), Director: 1 (2%), Senior: 1 (2%)\n- Talent Sources: LONGSAIL International Logistics (5), YQN Logistics (2), careerfocus (1), Wingtech 闻泰科技 (1), Sundart Holdings Limited (1), R.H. Shipping & Chartering (1), Great Wall Securities (1), BUKA Cloud Communication (1), Anker Logística y Carga (1), Amphenol FCi (1)\n- Alumni Go To: YQN Logistics (6), Airsupply Logistics Limited (2), 深圳三麦国际货运代理有限公司 (1), SINO PACIFIC INTERNATIONAL LOGISTICS CO., LTD. (1), Rainbow Logistics Co.,Ltd. (1), PGS CBEL Company Ltd. (1), KEYLANE LOGISTICS (1), Gya Labs Limited (1), GRAND OCEAN SHIPPING CO.,LTD. (1), CIMC Wetrans Logistics Technology (Group) Co., Ltd. (1)\n\n## Products & Technology\n- Tech Stack: tiktok, wechat, whatsapp, amp\n\n## Web presence\n\n- Crunchbase: crunchbase.com/organization/yqn-triman-logistics-co-ltd\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Categories\n\nair freight, breakbulk and chartering, consolidation& de-consolidation, customer service, e-commerce, e-commerce logistics, exhibition and project handling, freight forwarder, freight service, international, land transportation, logistics, sea freight, sea&air shipping, shipping, software, supply chain management, transport, transportation, warehousing (free zone & free port) & distribution.\n\n## Recent News\n- [2026-06-20] [「699元國旅團」報名全滿！Joeman參加曝心得：好玩、景點不錯](https://tw.news.yahoo.com/699%E5%85%83%E5%9C%8B%E6%97%85%E5%9C%98-%E5%A0%B1%E5%90%8D%E5%85%A8%E6%BB%BF-joeman%E5%8F%83%E5%8A%A0%E6%9B%9D%E5%BF%83%E5%BE%97-%E5%A5%BD%E7%8E%A9-%E6%99%AF%E9%BB%9E%E4%B8%8D%E9%8C%AF-030652256.html)\n\n## Social\n\n### Linkedin\n\n- [2023-09-26 · 49 reactions, 1 comment] En su visita por Buenos Aires, recibimos en nuestras oficinas de Gruppe Heinlein a los agentes de TRIMAN SHIPPING CO.,LTD.\n\n- [2023-09-12 · 2 reactions] CMA CGM Group has completed the acquisition of Global Container Terminals (GCT) Bayonne and New York terminals, aiming to strengthen its position as a global port terminal operator.\n\n- [2023-08-31] Due to the sluggish demand during the peak season, it is anticipated that there may be a need for more blank sailings than in previous years, surpassing the levels seen between 2017 and 2019. This...\n\n- [2023-08-22 · 1 reaction] Hapag Lloyd increases rates from UAE to North Europe, West Med and North Africa. Read more: https://lnkd.in/gqXaYwgW\n\n- [2023-06-06 · 1 reaction] China's new canal stretches over 134 km with an estimated investment of around US$10.3 billion and aims to link the Xijiang River, a major waterway in southwest China, opening a shorter route to th...\n\n- [2023-04-24 · 1 reaction] Drewry’s composite World Container Index increased by 4% to $1,773.58 per 40ft container this week – the first increase in 15 weeks.\n\n- [2023-03-21 · 1 reaction] Hapag-Lloyd announced a new General Rate Increase (GRI) from Asia to the West Coast of Latin America, Mexico, the Caribbean and Central America. 20' Dry Container: US$350 40' Dry Container: US$500...\n\n- [2023-02-01 · 1 reaction] Japan and Netherlands agree to limit exports of chip-making equipment to China. Read more:👇\n\n- [2022-11-17 · 4 reactions] Are you also waiting for the Black Friday Sale? Get ready, the biggest sale of the year is on now! ⏰ Up to $200 off for the first order 🎁Free iPhone/iPad/iWatch for most teus Don’t miss the chance...\n\n- [2022-09-05 · 3 reactions] Cross-border e-commerce will pivot towards new logistics models in Latin America: As delivery predictability becomes more relevant for online retailers, we expect big consumer brands and e-commerce...\n\n## Locations\n- Headquarters: shenzhen, guangdong, china (CN)\n- Offices: shenzhen, guangdong, china (CN)",
+        "summary": "{\"description\":\"YQN TRIMAN LOGISTICS CO., LTD is a truck transportation and international logistics services provider offering air & sea shipping, inland transport, customs clearance, warehousing and freight-related services, serving Asia and Latin America with a Shenzhen headquarters.\",\"employee_estimate\":58,\"employee_estimate_source\":\"Employees: 58\",\"hq\":\"Shenzhen, Guangdong, China\",\"hq_quote\":\"Headquarters: Shenzhen, Guangdong, China (CN)\",\"industry\":\"Truck Transportation\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"- Industry: Truck Transportation\\n- Type: Privately held\\n- Headquarters: Shenzhen, China\\n- ...\\n- Offices: shenzhen, guangdong, china (CN)\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQESncqEySlB9Q/company-logo_200_200/company-logo_200_200/0/1699846597623/trimanshipping_logo?e=2147483647&v=beta&t=wJkhMeZumQS7T6xeTh2uaqvnuPRvXHWdgU2p-otvPJk",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/2yq2j84t09d",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "YQN TRIMAN LOGISTICS CO., LTD",
+              "foundedYear": 2011,
+              "description": "YQN TRIMAN LOGISTICS CO., LTD, China top brand in freight forwarding, was founded in 2011, with Headquarter based in Shenzhen metropolis and Serving Asian Cross-border traders. Our branches cover all major basic ports across China.\nWe are focused on providing one -stop services via Air & Sea shipping & Inland transport & cargo clearance & FBA e-commerce logistics... between Asia and Latin America.\nDeeply cultivating the Latin American market, from China/Asia to Latin America, such as Mexico, Panama, Guatemala, Honduras, Columbia, Chile, Peru, Brazil, Bolivia, Cuba and so on. Engaged with rich experience in routes and services.\n",
+              "workforce": {
+                "total": 58
+              },
+              "headquarters": {
+                "address": "Rd Zhongmei, Longhua districst, Shenzhen, Guangdong  518100, CN",
+                "city": "Shenzhen",
+                "postalCode": null,
+                "country": "China"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": 0,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 228,
+                    "dateFrom": "2025-02",
+                    "dateTo": "2025-02"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2025-03",
+                    "dateTo": "2025-03"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2025-04",
+                    "dateTo": "2025-04"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2025-05",
+                    "dateTo": "2025-05"
+                  },
+                  {
+                    "value": 84,
+                    "dateFrom": "2025-06",
+                    "dateTo": "2025-06"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 8502.4,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

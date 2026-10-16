@@ -1,0 +1,188 @@
+{
+  "request": {
+    "query": "Hawks Haulage",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "fc0e54319519e6f413034cf49e582830",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/69pwvjsf5mw",
+        "title": "Hawks Transportation",
+        "url": "https://hawkstrans.com/",
+        "text": "# Hawks Transportation\n\nHawks Transportation is a Truck Transportation company. hawks is a leading Canadian trucking company in Brampton that provides a comprehensive range of logistics services. They offer safety and reliable on-time delivery of shipments. Hawks Transportation employs 32 people (+10.3% YoY, +3 people), founded in 2014. Headquartered in Brampton, Ontario, Canada. Its workforce is distributed across India, Canada, and Mexico.\n\n## About\n\nWe are a full-service logistics provider for all your transportation and warehousing needs.We are an asset-based logistics company located in Brampton, ON provides transportation and delivery services to a range of customers and consumers throughout Canada, the United States, and Mexico.We are focused on providing outstanding customer service by communicating with the customers on a regular basis. We are not satisfied until the requested work is done and our customers are not completely satisfied.\nServices: \nFull truckload (FTL), Temperature Controlled shipments, Less than truckload (LTL), Expedited Service \nLocal Shipments within GTA, Nation Wide Shipments within Canada,Cross border Shipments, \nAsset-Based Logistics/Brokerage, Warehousing And Distribution\nCross Docking, Secure Truck yard, Safe storage.\n\n## Company Details\n- Industry: Truck Transportation\n- Type: Partnership\n- Headquarters: Brampton, Canada\n- Founded Year: 2014\n- Homepage: hawkstrans.com\n- Aliases: hawks transportation\n- LinkedIn: linkedin.com/company/hawkstrans\n- Linkedin Followers: 1,350\n- Emails: ar@hawkstrans.com, compliance@hawkstrans.com, custom@hawkstrans.com, customerservice@hawkstrans.com, dispatch@hawkstrans.com, harjeet@hawkstrans.com, safety@hawkstrans.com, sukh@hawkstrans.com\n- Phone: 647 574 5335, 647-574-533, 905 863 6441, 905-863-644, 905-863-6441, 905-863-6442, 905-863-6443, 905-863-6445, 905-863-6448\n\n## Workforce\n- Employees: 32\n- Company Size: 11-50 employees\n  - Yearly Growth: +10.3%\n- Key Executives:\n  - Rafael Rendón Esquivel: Vice President of Sales and MX Operations\n  - Sukhdeep Dhillon: Vice President Of Business Development\n- Breakdown:\n  - By Country: India: 11 (34%), Canada: 10 (31%), Mexico: 1 (3%)\n  - By Department: Operations: 10 (31%), Trades: 5 (16%), Finance: 2 (6%), Other Department: 2 (6%), Sales: 2 (6%), General Management: 1 (3%)\n  - By Seniority: Specialist: 13 (41%), Manager: 3 (9%), Other Management: 3 (9%), Vp: 2 (6%), Senior: 1 (3%)\n- Talent Sources: CARGO COUNTY GROUP (2), Xyna International School (1), Xpressbees (BusyBees Logistics Solutions Pvt. Ltd.) (1), Tung Air Transport (1), Transway Transport Inc (1), Roadmap Dispatch Inc (1), Haulage North America (1), DNAScale (1), BBN Transport LTD (1), Automan Express Inc (1)\n- Alumni Go To: Samsung India (1), SAFEX TRANSPORT (1), RK LOGISTICS (1), Pak Homes Builder Inc. (1), Nishan Transport Inc (1), Khaira Freight (1), Haulage North America (1), Everest Transportation Inc (1), Caltrans (1), ASL Distribution Services Limited (1)\n\n## Products & Technology\n- Tech Stack: gps, quickbooks, well, microsoft, ups\n\n## Web presence\n\n- Twitter: twitter.com/hawkstransport1\n- Facebook: facebook.com/hawkstrans\n- Instagram: instagram.com/hawkstrans\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Categories\n\nbrampton, brokerage, cross border shipments, distribution, expedited service, full truckload (ftl), less than truckload (ltl), local shipments within gta, logistics, nation wide shipments within canada, temperature controlled shipments, transportation, trucking\n\n## Social\n\n### Linkedin\n\n- [2022-08-03 · 2 reactions] We provide end to end logistics solutions. Your success and satisfaction are our top priorities. Call Now!#novascotia #trucking #transportation #truckload #transport #truck #ltlfreight #trucker #tr...\n\n- [2022-08-03 · 2 reactions, 1 comment] We provide end to end logistics solutions. Your success and satisfaction are our top priorities. Call Now! #novascotia #trucking #transportation #truckload #transport #truck #ltlfreight #trucker #t...\n\n- [2022-07-22 · 1 reaction] Become a Partner with Hawks Call Now!#novascotia #trucking #transportation #truckload #transport #truck #ltlfreight #trucker #trucknation #shipment #hawkstransportation #logistics #shipping #export...\n\n- [2022-07-22 · 1 reaction] Become a Partner with Hawks Call Now! #novascotia #trucking #transportation #truckload #transport #truck #ltlfreight #trucker #trucknation #shipment #hawkstransportation #logistics #shipping #expor...\n\n- [2022-07-18 · 1 reaction] #LTL #Freight #Trucking & #Shipping for #USA & #Canada Read More - http://hawkstrans.com Contact Now! Call: (647) 455-5335 #novascotia #trucking #transportation #truckload #transport #truck #ltlfre...\n\n- [2022-07-11 · 1 reaction] THE AREAS WE SERVE IN NORTH AMERICA The Midwest States, The Southern States, Southwest States as well as all provinces of CANADA & MEXICO.#midweststates #canada #maxico #southweststates #southernst...\n\n- [2022-07-11 · 1 reaction] THE AREAS WE SERVE IN NORTH AMERICA The Midwest States, The Southern States, Southwest States as well as all provinces of CANADA & MEXICO. #midweststates #canada #maxico #southweststates #southerns...\n\n- [2022-07-02 · 2 reactions] Read More -http://hawkstrans.com Contact Now! Call: (647) 455-5335 #novascotia #trucking #transportation #truckload #transport #truck #ltlfreight #trucker #trucknation #shipment #hawkstransportatio...\n\n- [2022-07-02 · 2 reactions] Read More - http://hawkstrans.com Contact Now! Call: (647) 455-5335 #novascotia #trucking #transportation #truckload #transport #truck #ltlfreight #trucker #trucknation #shipment #hawkstransportati...\n\n- [2022-06-24 · 1 reaction] Dedicated Lanes To Nova Scotia#novascotia #trucking #transportation #truckload #transport #truck #ltlfreight #trucker #trucknation #shipment #hawkstransportation #logistics #shipping #export #cargo...\n\n- [2022-06-24 · 1 reaction] Dedicated Lanes To Nova Scotia #novascotia #trucking #transportation #truckload #transport #truck #ltlfreight #trucker #trucknation #shipment #hawkstransportation #logistics #shipping #export #carg...\n\n- [2022-06-22 · 1 reaction] Dedicated Lanes To Montreal .............................................#trucking #transportation #truckload #transport #truck #ltlfreight #trucker #trucknation #shipment #hawkstransportation #log...\n\n- [2022-06-22 · 1 reaction] Dedicated Lanes To Montreal ............................................. #trucking #transportation #truckload #transport #truck #ltlfreight #trucker #trucknation #shipment #hawkstransportation #lo...\n\n- [2022-05-30 · 2 reactions] Easy, Fast and Free Freight Quote at Low Prices.#trucking #transportation #truckload #transport #truck #ltlfreight #trucker #trucknation #shipment #hawkstransportation #logistics #shipping #export...\n\n- [2022-05-30 · 2 reactions] Easy, Fast and Free Freight Quote at Low Prices. #trucking #transportation #truckload #transport #truck #ltlfreight #trucker #trucknation #shipment #hawkstransportation #logistics #shipping #export...\n\n- [2022-05-21 · 1 reaction] We deliver on the promises we make.... Call: (647) 455-5335 ................................................................#trucking #transportation #truckload #transport #truck #ltlfreight #truck...\n\n- [2022-05-21 · 1 reaction] We deliver on the promises we make.... Call: (647) 455-5335 ................................................................ #trucking #transportation #truckload #transport #truck #ltlfreight #truc...\n\n- [2022-05-12 · 2 reactions] We fully take care of your freight and make things simple and easy for you. Contact Now! Call: (647) 455-5335#logisticscompany #transportationservices #hawkstransportation #brampton #canada #trucki...\n\n- [2022-05-12 · 2 reactions] We fully take care of your freight and make things simple and easy for you. Contact Now! Call: (647) 455-5335 #logisticscompany #transportationservices #hawkstransportation #brampton #canada #truck...\n\n## Locations\n- Headquarters: brampton, ontario, canada\n- Offices: brampton, ontario l6s 6k9, canada",
+        "summary": "{\"description\":\"Hawks Transportation is a full-service logistics provider and asset-based trucking company offering transportation and warehousing services across Canada, the United States, and Mexico.\",\"employee_estimate\":32,\"employee_estimate_source\":\"Employees: 32\",\"hq\":\"Headquartered in Brampton, Ontario, Canada.\",\"hq_quote\":\"Headquartered in Brampton, Ontario, Canada.\",\"industry\":\"Truck Transportation\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"We are a full-service logistics provider for all your transportation and warehousing needs.We are an asset-based logistics company located in Brampton, ON provides transportation and delivery services to a range of customers and consumers throughout Canada, the United States, and Mexico.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C560BAQEmHWdgL66BoA/company-logo_200_200/company-logo_200_200/0/1630660689579?e=2147483647&v=beta&t=jwtSoLUrFNU7NrX_oyaA9OgOGxi4UM_ka2C7Vd2Qxkk",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/69pwvjsf5mw",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Hawks Transportation",
+              "foundedYear": 2014,
+              "description": "We are a full-service logistics provider for all your transportation and warehousing needs.We are an asset-based logistics company located in Brampton, ON provides transportation and delivery services to a range of customers and consumers throughout Canada, the United States, and Mexico.We are focused on providing outstanding customer service by communicating with the customers on a regular basis. We are not satisfied until the requested work is done and our customers are not completely satisfied.\nServices: \nFull truckload (FTL), Temperature Controlled shipments, Less than truckload (LTL), Expedited Service \nLocal Shipments within GTA, Nation Wide Shipments within Canada,Cross border Shipments, \nAsset-Based Logistics/Brokerage, Warehousing And Distribution\nCross Docking, Secure Truck yard, Safe storage.",
+              "workforce": {
+                "total": 32
+              },
+              "headquarters": {
+                "address": "4 Automatic Rd, 106, Brampton, Ontario L6S 6K9, CA",
+                "city": "Brampton",
+                "postalCode": null,
+                "country": "Canada"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 0,
+                    "dateFrom": "2025-01",
+                    "dateTo": "2025-01"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2025-02",
+                    "dateTo": "2025-02"
+                  },
+                  {
+                    "value": 70,
+                    "dateFrom": "2025-05",
+                    "dateTo": "2025-05"
+                  },
+                  {
+                    "value": 1400,
+                    "dateFrom": "2025-06",
+                    "dateTo": "2025-06"
+                  },
+                  {
+                    "value": 781,
+                    "dateFrom": "2025-10",
+                    "dateTo": "2025-10"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/91llf531ycz",
+        "title": "Hawk Hauling",
+        "url": "https://linkedin.com/company/hawk-hauling",
+        "text": "# Hawk Hauling\n\nHawk Hauling is a Truck Transportation company. Hawk Hauling employs 5 people. Headquartered in Albuquerque, New Mexico, United States.\n\n## Company Details\n- Industry: Truck Transportation\n- Headquarters: Albuquerque, United States\n- Aliases: hawk hauling\n- LinkedIn: linkedin.com/company/hawk-hauling\n- Linkedin Followers: 4\n\n## Workforce\n- Employees: 5\n- Company Size: 1-10 employees\n\n## Locations\n- Headquarters: albuquerque, new mexico, united states (US)\n- Offices: albuquerque, new mexico, united states (US)",
+        "summary": "{\"description\":\"Hawk Hauling is a Truck Transportation company.\",\"employee_estimate\":5,\"employee_estimate_source\":\"Employees: 5\",\"hq\":\"Albuquerque, New Mexico, United States\",\"hq_quote\":\"Headquartered in Albuquerque, New Mexico, United States.\",\"industry\":\"Truck Transportation\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":null,\"is_third_party_logistics_quote\":\"null if not stated; page does not specify third-party logistics services by Hawk Hauling beyond basic transportation services.\"}",
+        "image": "https://static.licdn.com/aero-v1/sc/h/cs8pjfgyw96g44ln9r7tct85f",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/91llf531ycz",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Hawk Hauling",
+              "foundedYear": null,
+              "description": null,
+              "workforce": {
+                "total": 5
+              },
+              "headquarters": {
+                "address": "513 Abbie Ln Sw, Albuquerque, New Mexico 87105-0701, US",
+                "city": "Albuquerque",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": null,
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 8104.5,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

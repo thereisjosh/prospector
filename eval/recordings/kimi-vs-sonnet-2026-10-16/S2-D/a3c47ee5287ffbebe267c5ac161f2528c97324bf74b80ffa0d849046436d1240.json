@@ -1,0 +1,252 @@
+{
+  "request": {
+    "query": "SiteVue AI",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "51b23566aaedca5e5b911b41fbc21a15",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/c948jggpg8j",
+        "title": "SiteVue AI",
+        "url": "https://www.sitevue.ai/",
+        "text": "# SiteVue AI\n\nSiteVue AI is a Mobile Computing Software Products company. SiteVue AI employs 41 people, founded in 2025. Headquartered in Franklin, Tennessee, United States.\n\n## About\n\nEmpowering the frontline worker with AI to drive automated continuous improvement while improving safety and employee engagement.\n\n## Company Details\n- Industry: Mobile Computing Software Products\n- Type: Privately held\n- Headquarters: Franklin, United States\n- Founded Year: 2025\n- Homepage: sitevue.ai\n- Aliases: SiteVue AI, Inc, sitevue ai\n- LinkedIn: linkedin.com/company/sitevueai\n- Linkedin Followers: 720\n- Phone: +1 (423) 366-7733\n\n## Financials\n- Total Funding: USD 8,135,000\n  - Seed (2026-05-01): USD 7.5M\n  - Pre seed (2025-12-01): USD 635,000\n\n## Workforce\n- Employees: 41\n- Company Size: 1-10 employees\n  - Monthly Growth: -2.4%\n- Key Executives:\n  - Andrew Jebasingh: Co-Founder\n  - Jamie Sharpsteen: Head of Design\n  - Markus Hay: Founding Principal Engineer, Head of Engineering\n  - Matt O'Roark: Head of Deployment\n- Breakdown:\n  - By Country: United States: 31 (76%)\n  - By Department: Technical: 14 (34%), Consulting: 3 (7%), Finance: 3 (7%), Marketing: 3 (7%), Other Department: 3 (7%), Design: 2 (5%), General Management: 1 (2%), Legal: 1 (2%), Operations: 1 (2%)\n  - By Seniority: Specialist: 14 (34%), Other Management: 6 (15%), Intern: 5 (12%), Head: 3 (7%), Manager: 2 (5%), Founder: 1 (2%), Senior: 1 (2%)\n- Talent Sources: OpenTest AI (2), Chick-fil-A Restaurants (2), Amazon (2), WET (Design) (1), The Daily Wire (1), Terabase Energy (1), SoFi (1), Publix Super Markets (1), Meta (1), Kappa Theta Pi - Professional Technology Fraternity (1)\n- Alumni Go To: Watt (1), Vanderbilt University Electrical and Computer Engineering (1), Red Mountain Expresso (1), Institute For Space And Defense Electronics (ISDE) (1), GE HealthCare (1)\n\n## Products & Technology\n- Tech Stack: quickbooks, quickbooks online, raspberry pi\n\n## Web presence\n\n- Twitter: twitter.com/sitevue\n- Crunchbase: crunchbase.com/organization/sitevue-ai\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Categories\n\nanalytics, artificial intelligence (ai), human resources, saas\n\n## Recent News\n- [2026-10-03] Yahoo Finance: Rajesh Iyengar’s Manufacturing AI Guide Reaches Amazon Bestseller Status and Times Square\n- [2026-09-19]\n  - Assembly Magazine: New Product of the Year Nominees\n  - Yahoo Finance: Rapta Closes $8 Million Funding Round to Scale AI-Powered Quality Assurance for Defense and Precision Manufacturing\n- [2026-09-16]\n  - Williamson Herald: Local business to fill Harpeth True Value space\n  - Yahoo\\! Finance Canada: Medical Care Technologies Inc. \\(OTCID:MDCE\\) Details StrainScan Pro's On-Device Visual Inspection Pipeline for iPad Air\n- [2026-09-04] Mediabistro: ASQ Center and ASQ Measurement Quality Division Conference Anchor Expanded Education for Quality Professionals at The ASSEMBLY Show\n- [2026-09-03] [SiteVue AI Lands $7.5M Seed Round](https://vcnewsdaily.com/sitevue-ai/venture-capital-funding/ynrgwcxhfn)\n- [2026-08-29] Vision Systems Design: Focus On Vision: Groundbreaking Developments Underwater and in Industry \\| August 26, 2026\n- [2026-08-28] Yahoo Finance: LuxTronic Launches FinalCheck™, Bringing AI-Powered Vision Inspection to the Final Stage of Beverage Packaging Production\n- [2026-08-26] [groundbreaking developments in underwater  \\| Vision Systems Design](https://www.vision-systems.com/nextgen/video/55400886/groundbreaking-developments-in-underwater)\n- [2026-08-19] [SiteVue AI Raises $7.5M in Seed Funding to Bring AI-Powered Vision to the Frontlines of Manufacturing, Food Processing, and Construction](https://theaiinsider.tech/2026/08/19/sitevue-ai-raises-7-5m-in-seed-funding-to-bring-ai-powered-vision-to-the-frontlines-of-manufacturing-food-processing-and-construction/)\n- [2026-08-18] InfotechLead: VC funding deals: VibeIQ, SiteVue AI, Vexev\n- [2026-08-13] [SiteVue AI Raises $7.5M Seed for AI Vision in Factories](https://www.startupresearcher.com/news/sitevue-ai-raises-7-5-million-seed-round-to-bring-ai-vision-to-manufacturing)\n- [2026-08-11] Pulse 2.0: SiteVue AI Raises $7.5 Million Seed Round To Expand AI-Powered Vision For Manufacturing\n- [2026-08-10] Yahoo Finance: SiteVue AI Secures $7.5M in Seed Funding to Bring AI-Powered Vision to the Frontlines of Manufacturing, Food Processing, and Construction\n- [2026-08-08] [Andrew Jebasingh Co-Founded SiteVue AI Scores $7.5M in Seed Funding - NewsBreak](https://www.newsbreak.com/news/4817780782161-andrew-jebasingh-co-founded-sitevue-ai-scores-7-5m-in-seed-funding)\n- [2026-08-07] [SiteVue AI Raises $7.5M in Seed Funding](https://www.finsmes.com/2026/08/sitevue-ai-raises-7-5m-in-seed-funding.html)\n- [2026-08-06]\n  - [SiteVue AI obtiene 7,5 millones de dólares en financiación inicial para llevar la visión impulsada por IA a la primera línea de la fabricación, el procesamiento de alimentos y la construcción](https://www.prnewswire.com/mx/comunicados-de-prensa/sitevue-ai-obtiene-7-5-millones-de-dolares-en-financiacion-inicial-para-llevar-la-vision-impulsada-por-ia-a-la-primera-linea-de-la-fabricacion-el-procesamiento-de-alimentos-y-la-construccion-302845294.html)\n  - [SiteVue AI Raises $7.5 Million Seed Round to Expand AI Vision Platform for Industrial Operations \\| citybiz](https://www.citybiz.co/article/885551/sitevue-ai-raises-7-5-million-seed-round-to-expand-ai-vision-platform-for-industrial-operations/)\n- [2026-08-04] citybiz: SiteVue AI Raises $7.5 Million Seed Round to Expand AI Vision Platform for Industrial Operations\n\n## Social\n\n### Linkedin\n\n- [2026-09-30 · 41 reactions, 4 comments] When the Wi-Fi failed in the middle of a SiteVue AI demo for a prospect, Andrew Jebasingh scaled the building and installed a Starlink so the demo could go on. He left the Starlink at home for our...\n\n- [2026-09-10 · 3 reactions] We're glad to be part of #NMIS2026 as a sponsor. Keep an eye out for our session on vision AI and innovation by our founder Andrew Jebasingh and then swing by booth #31 where we will be able to ans...\n\n- [2026-09-07 · 5 reactions, 2 comments] SiteVue AI will be at this year's 3686 Tech & Startup Job Fair. Stop by to see us Wednesday, Sept. 16, from 11a-2p at the Brooklyn Bowl in Nashville, TN. Make sure to register at the link below!\n\n- [2026-08-27 · 60 reactions, 1 comment] Want to revolutionize the industrial world, but the WiFi doesn’t work? Step 1: Climb on the roof Step 2: Install Starlink Step 3: Win seven-figure customer contract It’s pretty simple. Ask Andrew J...\n\n- [2026-08-25 · 23 reactions] Factories already generate enormous amounts of data, but most of it arrives too late to act on. Bottlenecks, defects, and unplanned downtime tend to surface in a report after the shift, long after...\n\n- [2026-08-24 · 16 reactions, 2 comments] The countdown begins. McCormick Place, Chicago September 14-19 Booth #135038 SiteVue AI is coming to this year's International Manufacturing Technology Show. We'll be in Chicago to talk with manufa...\n\n- [2026-08-20 · 47 reactions, 3 comments] We asked our interns what they expected this summer. Theo braced himself for \"small tasks nobody really cared about.\" Instead he built a new edge-computing detection system. Dalton expected \"menial...\n\n- [2026-08-20 · 3 reactions] Great perspective from George Bandarian and Untapped Ventures @Untapped Ventures on their investment in SiteVue AI @SiteVue AI. This is a really strong Middle Tennessee technology story. What stand...\n\n- [2026-08-20 · 24 reactions, 4 comments] A few people asked why we got excited about SiteVue AI beyond the round itself. Fair question - here's the actual thesis. Most manufacturers know what their floor looks like on an inspection day. T...\n\n- [2026-08-18 · 54 reactions, 3 comments] We're investing in Andrew Jebasingh and the team at SiteVue AI - and it's an easy one to explain. Most frontline industrial work is invisible to the people running the business. You know your quali...\n\n- [2026-08-13 · 23 reactions, 2 comments] We built an arcade game with the metrics that matter most in manufacturing. Cycle times Defect detection Product quality Safety While playing it you realize that KPIs are more than just looking at...\n\n- [2026-08-06 · 21 reactions, 1 comment] We are so excited to be presenting sponsor of this event and are eager to bring vision and manufacturing wins to the Tesla community! Pull up to our booth October 9th-10th to learn more about how v...\n\n- [2026-07-22 · 26 reactions] Most of what happens on your floor never gets measured. We're changing that. SiteVue AI pairs mounted and wearable cameras with AI video analytics, turning the work on your floor into visible data....\n\n- [2026-07-17 · 73 reactions, 8 comments] Made a field trip down to Franklin to visit the new SiteVue AI offices! So proud of Andrew Jebasingh. I loved shopping at their new swag shop and seeing some of the hardware shelves around still. K...\n\n- [2026-07-16 · 22 reactions, 1 comment] Thanks for continuing to vote for us! The journey to the top 16 has begun!\n\n- [2026-07-15 · 23 reactions, 2 comments] Go vote now! Link in comments.\n\n- [2026-07-14 · 28 reactions] See you at Giga Texas! 🚀\n\n- [2026-07-07 · 22 reactions, 1 comment] Your production is hindered by those few short stalls nobody notices. What are you doing about it? It's not the breakdown that stops the line for an hour. It's the insignificant idling that happens...\n\n- [2026-07-06 · 106 reactions, 4 comments] One year ago, SiteVue AI was just an idea. 2 months ago, they closed a $7M seed. The Lighthouse founder spotlight #2: Andrew Jebasingh Founder & CEO of SiteVue AI. SiteVue gives manufacturing facil...\n\n- [2026-07-06 · 36 reactions, 1 comment] Join SiteVue AI in celebrating America's 250th! We are blessed 🇺🇸\n\n## Locations\n- Headquarters: franklin, tennessee, united states (US)\n- Offices: franklin, tennessee, united states (US)",
+        "summary": "{\"description\":\"Mobile computing software products company delivering AI-powered vision for manufacturing, food processing, and construction.\",\"employee_estimate\":41,\"employee_estimate_source\":\"Employees: 41\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Franklin, United States\",\"hq_quote\":\"Headquartered in Franklin, Tennessee, United States.\",\"industry\":\"Mobile Computing Software Products\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Relevant highlights: SiteVue AI is a Mobile Computing Software Products company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 8,135,000 - Seed (2026-05-01): USD 7.5M; Pre seed (2025-12-01): USD 635,000\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQHBJ9QdCOv8vw/company-logo_200_200/B4EZh8tF1BGwAI-/0/1754438852276?e=2147483647&v=beta&t=buPZBi-7U4AgG1cHOBr1rmnuXgODy8gtZ9tTX7i3jxI",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/c948jggpg8j",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "SiteVue AI",
+              "foundedYear": 2025,
+              "description": "Empowering the frontline worker with AI to drive automated continuous improvement while improving safety and employee engagement.",
+              "workforce": {
+                "total": 41
+              },
+              "headquarters": {
+                "address": "230 Franklin Rd, 205, Franklin, Tennessee 37064, US",
+                "city": "Franklin",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 8135000,
+                "fundingLatestRound": {
+                  "name": "Seed",
+                  "date": "2026-05-01",
+                  "amount": 7500000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 1569,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 1048,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 206,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/gbnjt37k4z7",
+        "title": "SiteView",
+        "url": "https://site-view.de/",
+        "text": "# SiteView\n\nSiteView is a Software Development company. SiteView is a company that provides innovative webcam solutions for construction projects. SiteView employs 4 people (+33.3% YoY, +1 person), founded in 2022. Headquartered in Karlsruhe, Baden-Württemberg, Germany, with presence in United States.\n\n## About\n\nSiteView entwickelt softwarebasierte Lösungen rund um das Thema Baustellenwebcams. Unsere Software integriert Ihre Webcams stärker in den täglichen Arbeitsablauf, vereinfacht deren Anbindung an Speicherlösungen und setzt die aufgenommenen Bilder mit KI-optimierten Zeitraffervideos bestmöglich in Szene.\n\n## Company Details\n- Industry: Software Development\n- Type: Public company\n- Headquarters: Karlsruhe, Germany\n- Founded Year: 2022\n- Homepage: site-view.de\n- Aliases: SiteView GmbH, siteview\n- LinkedIn: linkedin.com/company/siteviewde\n- Linkedin Followers: 131\n- Emails: info@site-view.de\n- Phone: +49 152 03386082, +4915203386082\n\n## Workforce\n- Employees: 4\n- Company Size: 1-10 employees\n  - Yearly Growth: +33.3%\n- Key Executives:\n  - Philipp Orthey: Co-Founder\n  - Tim Scheurenbrand: Co-Founder\n- Breakdown:\n  - By Country: Germany: 3 (75%)\n  - By Department: Consulting: 2 (50%), Other Department: 1 (25%)\n  - By Seniority: Founder: 2 (50%), Other Management: 1 (25%)\n- Talent Sources: apic.ai (1), Phoenix Real Estate Development GmbH (1), Akademische Seglergruppe Karlsruhe e.V. (1)\n- Alumni Go To: [at] Group (1), Emch+Berger Deutschland (1)\n\n## Web presence\n\n- Crunchbase: crunchbase.com/organization/siteview-2811\n- Web traffic:\n  - Monthly visits: 387\n  - Bounce rate: 49.0%\n  - Pages per visit: 1.0\n  - Average visit duration: 0s\n\n## Categories\n\nbauprojekte, construction, construction cameras, drones, fpv-drohnenfilme, innovative, ki-optimierte zeitraffervideos, photography, real estate, software, video, video editing, web apps\n\n## Social\n\n### Linkedin\n\n- [2026-06-19 · 10 reactions, 1 comment] \"Was ist der Schlüssel für ein erfolgreiches Bauprojekt mit termingerechter Umsetzung?\" Viele denken dabei zuerst an die Bauphase. Unsere Erfahrung zeigt jedoch: Die entscheidenden Weichen werden b...\n\n- [2026-05-29 · 6 reactions] Spannend, die ersten Schritte beim Neubau der Firmenzentrale von PeTerra - Gesellschaft für Altlastenmanagement, Umwelt- und Geotechnik mbH in Schwarzach am Main begleiten zu dürfen. 🎥🏗️ Auch wenn...\n\n- [2026-05-29 · 4 reactions] Spannend, die ersten Schritte beim Neubau der Firmenzentrale von PeTerra - Gesellschaft für Altlastenmanagement, Umwelt- und Geotechnik mbH in Schwarzach am Main begleiten zu dürfen. 🎥🏗️ Auch wenn...\n\n- [2026-05-08 · 40 reactions] Update Baufortschritt Halle 50 Auf unserer Baustelle geht es sichtbar voran: Der Bau der Halle 50 entwickelt sich Schritt für Schritt zu einem zentralen Baustein unserer zukünftigen Logistik- und P...\n\n- [2026-04-28 · 38 reactions, 1 comment] DAS DOMIZIL Landau – Vom ersten Schritt bis zur Fertigstellung Ein Projekt beginnt mit einer Idee. Und endet mit einem Zuhause. Mit DAS DOMIZIL Landau konnten wir ein weiteres Projekt erfolgreich a...\n\n- [2025-03-20 · 12 reactions, 1 comment] Baustellendokumentation mit Zeitraffervideos! Für die WSW Wuppertaler Stadtwerke GmbH haben wir den Baufortschritt eines Windkraft-Projekts mit unseren Baustellenwebcams dokumentiert und daraus ein...\n\n- [2025-03-13 · 10 reactions] Wir begleiten das neue Sanierungsprojekt der Seifert Wohnconcept GmbH und der GREENOX GROUP in Stuttgart-Degerloch mit unseren Baustellenwebcams! 📹🏗️ Ein spannendes Projekt, bei dem ein Bestandsgeb...\n\n- [2024-12-16 · 20 reactions] Wir freuen uns, ein weiteres beeindruckendes Zeitraffervideo von Stuttgart21 zu teilen, bei dessen Erstellung wir unterstützen durften! Für dieses Video haben wir mehr als 100.000 Bilder optimiert:...\n\n- [2024-11-21 · 23 reactions, 3 comments] Neue Webcam in der Nähe von Münster installiert! Vor kurzem haben wir bereits die zweite Webcam am Institut Der Feuerwehr NRW erfolgreich in Betrieb genommen. Mit unseren Baustellenwebcams tragen w...\n\n- [2024-09-06 · 10 reactions] 🎉 SiteView Baustellenwebcams bei DERICHSuKONERTZ Gruppe Wir freuen uns, Derichs und Konertz als neuen Partner begrüßen zu dürfen! Sie setzen unsere Baustellenwebcam bei einem spannenden Projekt in...\n\n- [2024-06-27 · 16 reactions] 🚧🚄 Stuttgart 21 im Zeitraffer von SiteView! Über 90.000 Videoaufrufe in nur vier Tagen! Die Deutsche Bahn zeigt, wie modernes Projekt-Marketing erfolgreich genutzt werden kann, um die Öffentlichkei...\n\n- [2024-06-06 · 20 reactions] 📢 KI-Bildklassifizierung ermöglicht Projektvermarktung mit störungsfreien Zeitrafferaufnahmen! Konventionelle Zeitraffer leiden oft unter Umwelteinflüssen wie Nebel, Schnee und Regen sowie unter-/ü...\n\n- [2024-05-16 · 13 reactions] 📢 Wackelfreie Zeitrafferaufnahmen dank SiteView Bildstabilisierung! Immer wieder erhalten wir von unseren Kunden Bilder von Baustellenkameras, die an schwankenden Baukränen oder anderen wackelnden...\n\n- [2024-05-13 · 23 reactions, 2 comments] Wir freuen uns, PHOENIX Living GmbH erneut bei einem Zeitraffervideo unterstützt zu haben! Obwohl unsere eigenen Webcams bei diesem Projekt noch nicht zum Einsatz kamen, konnten wir unsere Optimier...\n\n## Locations\n- Headquarters: karlsruhe, baden-württemberg, germany\n- Offices: karlsruhe, baden-württemberg, germany",
+        "summary": "{\"description\":\"\",\"employee_estimate\":4,\"employee_estimate_source\":\"Employees: 4\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Karlsruhe, Baden-Wurttemberg, Germany\",\"hq_quote\":\"Headquarters: karlsruhe, baden-württemberg, germany\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Software Development\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":false,\"recently_funded_seed_or_series_a_quote\":\"SiteView is a Software Development company. SiteView is a company that provides innovative webcam solutions for construction projects.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4E0BAQHfaP90GlvH2Q/company-logo_200_200/company-logo_200_200/0/1663148966980?e=2147483647&v=beta&t=K7Yg4S4v67MXNriASBI7viaPOzRTRemmIBW_09SMfXM",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/gbnjt37k4z7",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "SiteView",
+              "foundedYear": 2022,
+              "description": "SiteView entwickelt softwarebasierte Lösungen rund um das Thema Baustellenwebcams. Unsere Software integriert Ihre Webcams stärker in den täglichen Arbeitsablauf, vereinfacht deren Anbindung an Speicherlösungen und setzt die aufgenommenen Bilder mit KI-optimierten Zeitraffervideos bestmöglich in Szene.",
+              "workforce": {
+                "total": 4
+              },
+              "headquarters": {
+                "address": "Karlsruhe, Baden-Württemberg 76131, DE",
+                "city": "Karlsruhe",
+                "postalCode": null,
+                "country": "Germany"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 387,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 667,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 322,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 1235,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 937,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 230,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 387,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 5854.3,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

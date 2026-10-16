@@ -1,0 +1,257 @@
+{
+  "request": {
+    "query": "Roadrunner",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "d5be1c66ed305d52cf7f47ef6b954c93",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/gdfg3kjxvp6",
+        "title": "Road Runner",
+        "url": "https://roadrunner.com/",
+        "text": "# Road Runner\n\nRoad Runner is a Technology, Information and Internet company. Road Runner employs 369 people (+0.8% YoY, +3 people), founded in 2021. Its workforce is distributed across 7 countries (including United States, India, Malaysia, Belgium, and Canada).\n\n## About\n\nDelivery service provider.\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Partnership\n- Founded Year: 2021\n- Homepage: roadrunner.com\n- Aliases: road runner\n- LinkedIn: linkedin.com/company/road-runner\n- Linkedin Followers: 603\n\n## Workforce\n- Employees: 369\n- Company Size: 11-50 employees\n  - Yearly Growth: +0.8%\n- Key Executives:\n  - Rudi Schepens: Dhr\n- Breakdown:\n  - By Country: United States: 13 (4%), India: 4 (1%), Malaysia: 2 (1%), Belgium: 1, Canada: 1, Lebanon: 1, Spain: 1\n  - By Department: Operations: 6 (2%), Other Department: 4 (1%), Trades: 4 (1%), General Management: 2 (1%), Marketing: 2 (1%), Administrative: 1, Customer Service: 1, Education: 1, Hr: 1, Technical: 1\n  - By Seniority: Specialist: 11 (3%), Other Management: 7 (2%), Manager: 4 (1%), Director: 1\n- Talent Sources: MediaOne (7), Time Warner Cable (4), WarnerMedia (2), UUNET (2), SDS2 (2), Lowe's Companies, Inc. (1), Ladybird Preschool (1), Jon-Don (1), Claritas (1), American Geophysical Union (1)\n- Alumni Go To: Time Warner Cable (21), Dell Technologies (3), RouteScience (2), EY (2), Quality Inn and Suites (1), Panasonic North America (1), Ollie Interactive LLC (1), Digex (1), Cox Communications (1), American Association of Pharmaceutical Scientists (AAPS) | @aapscomms (1)\n\n## Products & Technology\n- Tech Stack: acoustic, ups, amp\n\n## Web presence\n\n- Crunchbase: crunchbase.com/organization/road-runner\n- Web traffic:\n  - Monthly visits: 8,451\n  - Global rank: 2,730,019\n  - Bounce rate: 80.0%\n  - Pages per visit: 1.3\n  - Average visit duration: 65s\n\n## Categories\n\ncomputers_electronics_and_technology, field service management, field service management software, internet, road runner, telecommunications\n\n## Recent News\n- [2026-09-18] www.siegessaeule.de: Mondo Klit Rock Club at Roadrunner's Paradise\n- [2026-05-23] Eannace Funeral Home: Ashley J. \"A\" Peterson Obituary - Visitation & Funeral Information\n- [2026-04-16] Eannace Funeral Home: Mr. Bart D. Zurek Obituary - Visitation & Funeral Information\n- [2025-06-11] Eannace Funeral Home: Mr. Anthony \"Tony\" Grant Obituary - Visitation & Funeral Information\n- [2025-06-07] Eannace Funeral Home: Mr. James \"Dink\" Spratt, Jr. Obituary - Visitation & Funeral Information\n- [2025-05-22] Eannace Funeral Home: Shamika Dieshall Spratt-Lawson Obituary - Visitation & Funeral Information\n- [2018-06-22] Millwaukee Journal: 401\\(k\\) Adviser: Let strategy, not fear of emulating Wile E. Coyote, be your guide",
+        "summary": "{\"description\":\"Delivery service provider.\",\"employee_estimate\":\"369\",\"employee_estimate_source\":\"Employees: 369\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"roadrunner.com\",\"hq_quote\":\"Homepage: roadrunner.com\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Technology, Information and Internet\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":null,\"recently_funded_seed_or_series_a_quote\":\"\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4E0BAQHpY2XMkBzTCw/company-logo_200_200/company-logo_200_200/0/1630645934065?e=2147483647&v=beta&t=axkDIg_KqIq06N6N0OcwDHIHncz66cfqcA1qrNNzKvg",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/gdfg3kjxvp6",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Road Runner",
+              "foundedYear": 2021,
+              "description": "Delivery service provider.",
+              "workforce": {
+                "total": 369
+              },
+              "headquarters": null,
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 8451,
+                "countryRank": 754307,
+                "avgDurationSeconds": 65,
+                "history": [
+                  {
+                    "value": 1664,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 13645,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 3991,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 5674,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 8920,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 8451,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/lhqyqlvlf3h",
+        "title": "Roadrunner",
+        "url": "https://shiproadrunnerfreight.com/",
+        "text": "# Roadrunner\n\nRoadrunner (RRTS) is a Truck Transportation company. Roadrunner employs 866 people (+9.2% YoY, +73 people) and has an annual revenue of $1.8B, founded in 1984. Headquartered in Downers Grove, Illinois, United States, with an office in Cudahy. Its workforce is distributed across 7 countries (including United States, Canada, Colombia, Belgium, and France).\n\n## About\n\nRoadrunner is for ambitious, smart people who excel at execution over talking about it, and who would rather invent the next standard in freight than accept the current one.\n\nWe are looking for the Best of the Best. Action driven leaders who want to be part of real change and help design the future of LTL in the U.S. \n\nThis is a place where high performers can grow, influence outcomes, and make an impact while working directly with executives and smart people from across industries. Marketing, pricing, technology, accounting, operations: every function has room to lead and leave a mark.\n\nWe bring a winner mindset. We take ownership, raise the bar, and measure ourselves by results. We Run Safe. We Run Smart. We Run Together. These principles create an environment of high standards, clear ownership, and direct collaboration. We trust data over tradition, move with urgency, and hold each other accountable because winning requires it.\n\nRoadrunner exists to prove that LTL can be better than the industry has settled for. Most carriers still run on old assumptions: too many handoffs, limited visibility, and the quiet belief that “this is just how it works.” We rejected that story. We built a proprietary Smart Network™ for direct, long haul, metro to metro service that delivers fewer touches, faster transit, real time visibility, and genuine accountability. We are the most tech forward company in LTL, and we are not finished widening the gap.\nThe foundation is already strong. Recognized as one of Built In Chicago’s Best Large Places to Work. Earning top marks for improvement, quality, and service. The real opportunity is still ahead: helping invent what comes next.\n\nIf you want to be evaluated among the Best of the Best and help set the new standard in LTL, we should talk.\n\n## Company Details\n- Industry: Truck Transportation\n- Type: Public company\n- Headquarters: Downers Grove, United States\n- Founded Year: 1984\n- Homepage: shiproadrunnerfreight.com\n- Aliases: Roadrunner Corporate, roadrunner, roadrunner freight, roadrunner transportation systems\n- LinkedIn: linkedin.com/company/roadrunner-freight\n- Linkedin Followers: 34,301\n- Emails: rrtsmarketing@rrts.com\n- Phone: (253) 863-0108, (317) 791-8978, (414) 615-1500, (502) 912-6277, (513) 771-6622, (615) 453-6500, (734) 946-8480, (763) 767-1325, (855) 776-3567, (901) 300-7860, (925) 373-1625, (951) 361-5900, +1 414 489 6918, -414-615-1500, 55-603-0157, 630-679-2800, 800-486-8754, 800-522-0662, 800-537-1154, 800-582-9292, 800-695-1699, 800-697-7337, 855-395-395, 855-776-3567\n- Stock Symbols: RRTS\n- Stock Symbols: RRTS (OTCMKTS)\n\n## Financials\n- Annual Revenue: USD 1,847,862,000\n- Total Funding: USD 50,000,000\n  - Private equity (2021-03-25): USD 50.0M\n\n## Acquisitions\n- Acquired by: American Capital (2003-08-01)\n- Acquired Stagecoach Carthage & Distribution, LP (2015-07-01) for USD 35.0M\n- Acquired Ascent Global Logistics (2014-08-12) for USD 115.0M\n- Acquired Active Aero Group, Inc. (2014-08-01) for USD 115.0M\n- Acquired Integrated Services Incorporated (2014-07-01) for USD 13.0M\n- Acquired Unitrans International Corporation (2014-03-01) for USD 55.5M\n\n## Workforce\n- Employees: 866\n- Company Size: 501-1000 employees\n  - Monthly Growth: +0.1%\n  - Yearly Growth: +9.2%\n- Key Executives:\n  - Amanda Brady, M.S.: Director, People & Organizational Effectiveness\n  - Amy K.: Senior Director Customer Experience\n  - Andrea Anderson: Director of Maintenance\n  - Andrew Leto: Board Member & Investor\n  - Chad Robertson: Vice President of Enterprise and Premium Sales\n  - Christian Escartin: Owner operator\n  - Christopher Allard: Director of Enterprise Accounts\n  - Dave Black: Vice-President of Enterprise Sales\n  - Dave Ross: EVP, Chief Strategy Officer\n  - David Seitz: Director Of Maintenance and Compliance\n- Breakdown:\n  - By Country: United States: 253 (29%), Canada: 3, Colombia: 2, Belgium: 1, France: 1, Philippines: 1, Portugal: 1\n  - By Department: Sales: 74 (9%), Operations: 69 (8%), Technical: 23 (3%), Finance: 16 (2%), Customer Service: 15 (2%), Other Department: 14 (2%), General Management: 12 (1%), Trades: 12 (1%), Hr: 8 (1%), Marketing: 6 (1%) (+6 more)\n  - By Seniority: Specialist: 121 (14%), Manager: 66 (8%), Other Management: 29 (3%), Director: 23 (3%), Senior: 12 (1%), Owner: 5 (1%), Vp: 5 (1%), Head: 3, Clevel: 1, Founder: 1 (+1 more)\n- Active job postings: 87\n- Talent Sources: Yellow (23), XPO (15), TForce Freight (14), YRC Freight (12), UPS Freight (12), Daylight Transport (10), UPS (9), Roadrunner Transportation Systems (8), R+L Carriers (8), Ascent Global Logistics (7)\n- Alumni Go To: XPO (11), R+L Carriers (8), Ascent Global Logistics (7), Saia Inc. (6), Central Transport (6), PITT OHIO (5), Old Dominion Freight Line (5), STG Logistics (4), FedEx Freight (4), AAA Cooper Transportation (4)\n\n## Products & Technology\n- Tech Stack (showing 50 of 110): adobe, adobe creative suite, angular, asp, atlassian, azure data factory, azure sql, billtrust, canva, ccaas, cleo clarify, coupa, css, facebook, five9, git, github, github actions, google analytics, hcm, html5, hubspot, indeed, javascript, jira, linkedin, linkedin recruiter, looker, mcleod software, mdx, microservices, microsoft, microsoft access, microsoft azure, microsoft azure devops, microsoft excel, microsoft office, microsoft outlook, microsoft sql server, microsoft teams, mvc, network critical, openai, peoplenet, power bi, prototype, python, react, recognize, sd wan\n\n## Web presence\n\n- Twitter: twitter.com/rrts_careers\n- Facebook: facebook.com/roadrunnerltl\n- Instagram: instagram.com/runforroadrunner\n- YouTube: youtube.com/channel/ucaoqsjskb9hc5-t3t3w2xpg\n- Crunchbase: crunchbase.com/organization/roadrunner-transportation-systems\n- Web traffic:\n  - Monthly visits: 11,729\n  - Global rank: 2,012,514\n  - Bounce rate: 43.0%\n  - Pages per visit: 1.6\n  - Average visit duration: 28s\n\n## Categories\n\n3pl, automotive-transportation, business_and_consumer_services/shipping_and_logistics, customer service, delivery, dock automation, freight, great value, less-than-truckload, logistics, long haul, ltl freight carrier, metro-to-metro, metro-to-metro less-than-truckload, non-stop service, on time shipments, power lanes, roadrunner freight, shipping, transportation, transportation/logistics, warehousing\n\n## Competitors\n\necho, coyote, freightquote, xpo, fedex, c.h. robinson, hub group, expeditors, saia, odfl, estes, j.b. hunt, landstar, porter transport hot shot delivery, lb omni, alpi express\n\n## Recent News\n- [2026-09-15]\n  - [Short Interest in Roadrunner Transportation Systems, Inc \\(OTCMKTS:RRTS\\) Grows By 92.4% - Zolmax](https://zolmax.com/investing/short-interest-in-roadrunner-transportation-systems-inc-otcmktsrrts-grows-by-92-4/11994887.html)\n  - [Roadrunner Transportation Systems, Inc \\(OTCMKTS:RRTS\\) Short Interest Up 92.4% in August - Daily Political](https://www.dailypolitical.com/2026/09/15/roadrunner-transportation-systems-inc-otcmktsrrts-short-interest-up-92-4-in-august.html)\n- [2026-09-12] [Roadrunner Transportation Systems \\(OTCMKTS:RRTS\\)  Shares Down 0.7%   – Here’s Why - Zolmax](https://zolmax.com/investing/roadrunner-transportation-systems-otcmktsrrts-shares-down-0-7-heres-why/11992090.html)\n- [2026-08-22] [Roadrunner Transportation Systems \\(OTCMKTS:RRTS\\)  Shares Down 8.2%   – Should You Sell? - Daily Political](https://www.dailypolitical.com/2026/08/22/roadrunner-transportation-systems-otcmktsrrts-shares-down-8-2-should-you-sell.html)\n- [2026-08-21] [Roadrunner Transportation Systems \\(OTCMKTS:RRTS\\) Stock Price Down 8.2%  – Here’s Why - Zolmax](https://zolmax.com/investing/roadrunner-transportation-systems-otcmktsrrts-stock-price-down-8-2-heres-why/11961781.html)\n- [2026-07-31] [Roadrunner Transportation Systems \\(OTCMKTS:RRTS\\)  Shares Down 1.9%   – Here’s What Happened - Stock Observer](https://www.thestockobserver.com/2026/07/31/roadrunner-transportation-systems-otcmktsrrts-shares-down-1-9-heres-what-happened.html)\n- [2026-07-08] [Roadrunner Transportation Systems \\(OTCMKTS:RRTS\\) Trading Down 2.8%  – What’s Next? - American Market News](https://www.americanbankingnews.com/2026/07/08/roadrunner-transportation-systems-otcmktsrrts-trading-down-2-8-whats-next.html)\n- [2026-06-27] [Growth Marketing Manager - B2B, Full-Funnel & Automation Job in Downers Grove, IL at Roadrunner Freight](https://www.mediabistro.com/jobs/3541089978-growth-marketing-manager-b2b-full-funnel-automation)\n- [2025-07-25] FOX4KC.com: Roadrunner Does It Again \\(and Again\\): Accelerates Growth with Over 100 New Lanes, Opens Kansas City Market, and Expands Guaranteed Routes Adding 21,000+ Miles to Its Smart LTL Network\n- [2025-04-30] Research and Markets: U.S. Refrigerated Trucking Market Outlook, 2030: Agriculture and Pharmaceuticals Drive Demand\n- [2024-11-22]\n  - MarketScreener: Industrial Shares Lead Market Higher -- Industrials Roundup\n  - TradingView: Industrial Shares Lead Market Higher — Industrials Roundup\n  - BizTimes - Milwaukee Business News: Private equity fund led by Fiduciary Management founder Ted Kellner acquires Roadrunner Transportation Systems\n- [2024-06-24] Reuters: Roadrunner enters amendment to credit agreement with U.S. Bank National Association\n- [2024-06-22]\n  - Reuters: Roadrunner Transportation Systems Estimates FY 2017 Adj EBITDA To Exceed FY 2016 Adj EBITDA Of $7.8 Mln\n  - Reuters: Roadrunner Transportation Systems entered into Forbearance Agreement Extension, third amendment to sixth ...\n- [2024-03-29] www.tradingview.com: Non-controlling/minority interest of Roadrunner Transportation Systems, Inc. – OTC:RRTS – TradingView\n- [2023-08-22] Supply Chain Quarterly: H.I.G. Capital agrees to acquire Ascent Global Logistics from ...\n- [2023-08-14] GlobeNewswire: Freight Trucking Market to surpass $430 Bn by 2032, Says ...\n- [2021-11-25] Yahoo Finance: Is Roadrunner Transportation Systems \\(RRTS\\) Still a Worthy Investment?\n\n## Social\n\n### Linkedin\n\n- [2026-10-05 · Posted · 40 reactions] [Happy Customer Care Appreciation Week! 🧡 From October 5-9, we’re...](https://www.linkedin.com/posts/roadrunner-freight_customercareappreciationweek-celebratecustomercare-activity-7512973816076189696-jxgr)\n  > Happy Customer Care Appreciation Week! 🧡\n  >\n  > From October 5-9, we’re taking some extra time to celebrate and recognize our incredible Customer Care Team and everything they do each and every day.\n  >\n  > From answering questions to understanding our customers' specific transportation needs and everything in between, they're always there to support our customers and make sure they get the help they need.\n  >\n  > Thank you to our Customer Care Team for all that you do. We’re lucky to have you!\n  >\n  > #CustomerCareAppreciationWeek #CelebrateCustomerCare  #RoadrunnerCustomerSupport #GratefulForOurTeam #CustomerServiceExcellence #RoadrunnerLTL\n\n- [2026-10-02 · Posted · 38 reactions] [Yesterday, Breast Cancer Awareness Month began. Throughout October...](https://www.linkedin.com/posts/roadrunner-freight_breastcancerawareness-roadrunnerinpink-activity-7511897652670865408-AT1e)\n  > Yesterday, Breast Cancer Awareness Month began.\n  >\n  > Throughout October, we’re proud to show our support for those impacted by breast cancer and help raise awareness around the importance of early detection and preventive care.\n  >\n  > Our teams started the month by wearing pink and coming together to recognize a cause that touches so many lives. 💗\n  >\n  > #BreastCancerAwareness #RoadrunnerInPink #BreastCancerSupport #PreventionIsKey #SupportSurvivors #TogetherForTheCause #RoadrunnerLTL\n\n- [2026-09-28 · Posted · 29 reactions] [When was the last time you looked at your LTL strategy beyond rates...](https://www.linkedin.com/posts/roadrunner-freight_ltlstrategy-freightvisibility-smartshipping-activity-7510439211863367680-Si6P)\n  > When was the last time you looked at your LTL strategy beyond rates and transit times?\n  >\n  > How your freight moves, how many times it’s handled and how much visibility you have along the way all matter.\n  >\n  > Roadrunner’s direct metro-to-metro network, 0% rail and enhanced visibility give shippers a smarter way to think about LTL.\n  >\n  > It’s not just about moving the next shipment. It’s about building a better strategy for every shipment after it.\n  >\n  > #LTLStrategy #FreightVisibility #SmartShipping #EnhancedNetwork #BetterFreightStrategy #RoadrunnerLTL\n\n- [2026-09-18 · Posted · 49 reactions] [Another National Truck Driver Appreciation Week for the books! 🙌...](https://www.linkedin.com/posts/roadrunner-freight_thankatrucker-nationaltruckdriverappreciationweek-activity-7506844184700469248-LoQq)\n  > Another National Truck Driver Appreciation Week for the books! 🙌\n  >\n  > This week, the Roadrunner family had the chance to kick back and cook out in Chicago, Dallas, Commerce, and Mira Loma. Turns out, we were right all along: there's no party like a Roadrunner party!\n  >\n  > The holiday may be coming to an end, but it's always a good week to #ThankATrucker\n  >\n  > #NationalTruckDriverAppreciationWeek #RoadrunnerFamily #TruckerCelebrations #CelebratingTruckers #RoadrunnerCommunity #DrivingAmerica #RoadrunnerDrivers #RoadrunnerLTL\n\n- [2026-09-18 · 56 reactions, 2 comments] Another National Truck Driver Appreciation Week for the books! 🙌 This week, the Roadrunner family had the chance to kick back and cook out in Chicago, Dallas, Commerce, and Mira Loma. Turns out, we...\n\n- [2026-09-11 · Posted · 32 reactions] [Today, Roadrunner joins our nation in remembering the lives lost on...](https://www.linkedin.com/posts/roadrunner-freight_remember911-honoringheroes-nationremembers-activity-7504278734175203329-VPs6)\n  > Today, Roadrunner joins our nation in remembering the lives lost on September 11, 2001, and honoring the heroes who stepped forward when they were needed most.\n  >\n  > As we mark 25 years, we reflect on the strength and unity our country showed in the days that followed. Our thoughts remain with the families, loved ones, and all those whose lives were forever changed. Today and always, we honor their memory.\n  >\n  > #Remember911 #HonoringHeroes #NationRemembers #HonoringTheFallen #TributeToHeroes #UnitedWeStand #25thAnniversary\n\n- [2026-09-11 · 46 reactions] Today, Roadrunner joins our nation in remembering the lives lost on September 11, 2001, and honoring the heroes who stepped forward when they were needed most. As we mark 25 years, we reflect on th...\n\n- [2026-09-07 · Posted · 21 reactions] [Happy Labor Day from Roadrunner! Today is all about the people who...](https://www.linkedin.com/posts/roadrunner-freight_happylaborday-roadrunnerteam-hardworkpaysoff-activity-7502772745135570944-wDn9)\n  > Happy Labor Day from Roadrunner!\n  >\n  > Today is all about the people who keep Roadrunner moving. To our drivers, dock teams, service center teams and everyone behind the scenes, thank you for the hard work and dedication you bring every day.\n  >\n  > We’re proud of what we’re building together and even more proud of the people behind it. Wishing our entire Roadrunner team a safe and well deserved Labor Day!\n  >\n  > #HappyLaborDay #RoadrunnerTeam #HardWorkPaysOff #LaborDayThanks #ProudToBeRoadrunner #RoadrunnerLTL\n\n- [2026-09-07 · 33 reactions] Happy Labor Day from Roadrunner! Today is all about the people who keep Roadrunner moving. To our drivers, dock teams, service center teams and everyone behind the scenes, thank you for the hard wo...\n\n- [2026-09-02 · Posted · 16 reactions] [From city lights to sunrise, Roadrunner Smart Guarantee keeps your...](https://www.linkedin.com/posts/roadrunner-freight_roadrunnersmartguarantee-ontimeoritsonus-activity-7501023417148620800-9R5C)\n  > From city lights to sunrise, Roadrunner Smart Guarantee keeps your freight moving with one promise in mind. On time or it’s on us.\n  >\n  > Across the miles and around the clock, we deliver the speed, precision and reliability your freight demands. Every shipment stays focused on what matters most and moves efficiently from pickup to final delivery.\n  >\n  > When your deadline matters, we make it ours too. That means keeping your freight moving and your timeline on track while giving you confidence that we’ll deliver on the promise we made.\n  >\n  > #RoadrunnerSmartGuarantee #OnTimeOrItsOnUs #DeadlineFocused #EfficientShipping #ShipmentPrecision #KeepingYouOnTrack #RoadrunnerNetwork #RoadrunnerSmartGuarantee #RoadrunnerLTL\n\n- [2026-09-02 · 24 reactions] From city lights to sunrise, Roadrunner Smart Guarantee keeps your freight moving with one promise in mind. On time or it’s on us. Across the miles and around the clock, we deliver the speed, preci...\n\n- [2026-08-31 · Posted · 21 reactions] [The best way forward starts with seeing the road from your point of...](https://www.linkedin.com/posts/roadrunner-freight_customerpointofview-customercentric-priorityguidedservice-activity-7500288842709499904-Ke4z)\n  > The best way forward starts with seeing the road from your point of view.\n  >\n  > That’s the idea behind Customer Point of View (CPOV) at Roadrunner. We put you at the center and use what matters most to you to guide how we move freight, communicate and deliver service.\n  >\n  > On-time delivery. Real-time visibility. Responsive service. An experience that’s easy to do business with. Each one connects back to the same starting point: your priorities.\n  >\n  > Keeping you at the center keeps us moving in the right direction.\n  >\n  > #CustomerPointOfView #CustomerCentric #PriorityGuidedService #RoadrunnerCPOV #RoadrunnerDifference #RoadrunnerLTL\n\n- [2026-08-31 · 27 reactions] The best way forward starts with seeing the road from your point of view. That’s the idea behind Customer Point of View (CPOV) at Roadrunner. We put you at the center and use what matters most to y...\n\n- [2026-08-28 · Posted · 13 reactions] [A smarter network isn’t about adding more stops. It’s about...](https://www.linkedin.com/posts/roadrunner-freight_smarternetwork-directmetronetwork-longhaulltl-activity-7499148937489014784-X6na)\n  > A smarter network isn’t about adding more stops. It’s about creating a better path forward.\n  >\n  > Roadrunner’s direct metro-to-metro network is built to keep long-haul LTL freight moving efficiently, with 0% rail and fewer unnecessary touches along the way. The result is a streamlined approach designed around what shippers need most: speed, reliability and confidence from pickup to destination.\n  >\n  > A more direct way to move freight and a better path forward for the future of LTL.\n  >\n  > #SmarterNetwork #DirectMetroNetwork #LongHaulLTL #ReliableFreight #FutureOfLTL #RoadrunnerLTL\n\n- [2026-08-28 · 21 reactions] A smarter network isn’t about adding more stops. It’s about creating a better path forward. Roadrunner’s direct metro-to-metro network is built to keep long-haul LTL freight moving efficiently, wit...\n\n- [2026-08-27 · Posted · 10 reactions] [When there’s an opportunity on the field, do you go after it? At...](https://www.linkedin.com/posts/roadrunner-freight_when-theres-an-opportunity-on-the-field-activity-7498786507009228800-AUmX)\n  > When there’s an opportunity on the field, do you go after it?\n  >\n  > At Roadrunner, winning starts with having the drive to compete and the determination to keep pushing forward. We’re looking for Field Sales Account Executives who know how to spot an opening, make the play, and turn opportunities into results.\n  >\n  > We want sales professionals who are motivated by the chase for new business, confident in building lasting customer relationships, and always looking for the next win. Because when you’re surrounded by people who want",
+        "summary": "{\"description\":\"Roadrunner (RRTS) is a Truck Transportation company with operations across multiple countries, headquartered in Downers Grove, Illinois, United States, and an office in Cudahy. It is publicly listed and has substantial revenue and employee counts.\",\"employee_estimate\":866,\"employee_estimate_source\":\"Employees: 866\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Active job postings: 87\",\"hq\":\"Downers Grove, Illinois, United States\",\"hq_quote\":\"Headquartered in Downers Grove, Illinois, United States, with an office in Cudahy.\",\"industry\":\"Truck Transportation\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Truck Transportation\",\"is_public_or_enterprise\":true,\"recently_funded_seed_or_series_a\":false,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 50,000,000\\n  - Private equity (2021-03-25): USD 50.0M\\n...\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQExl3QIaQrXBQ/company-logo_200_200/B4EZ35aADEHUAM-/0/1778005836513/roadrunner_freight_logo?e=2147483647&v=beta&t=vfoCKKCoT8OU06tR6oJbgE3LnFBHsxq8KEo07W9fm9o",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/lhqyqlvlf3h",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Roadrunner",
+              "foundedYear": 1984,
+              "description": "Roadrunner is for ambitious, smart people who excel at execution over talking about it, and who would rather invent the next standard in freight than accept the current one.\n\nWe are looking for the Best of the Best. Action driven leaders who want to be part of real change and help design the future of LTL in the U.S. \n\nThis is a place where high performers can grow, influence outcomes, and make an impact while working directly with executives and smart people from across industries. Marketing, pricing, technology, accounting, operations: every function has room to lead and leave a mark.\n\nWe bring a winner mindset. We take ownership, raise the bar, and measure ourselves by results. We Run Safe. We Run Smart. We Run Together. These principles create an environment of high standards, clear ownership, and direct collaboration. We trust data over tradition, move with urgency, and hold each other accountable because winning requires it.\n\nRoadrunner exists to prove that LTL can be better than the industry has settled for. Most carriers still run on old assumptions: too many handoffs, limited visibility, and the quiet belief that “this is just how it works.” We rejected that story. We built a proprietary Smart Network™ for direct, long haul, metro to metro service that delivers fewer touches, faster transit, real time visibility, and genuine accountability. We are the most tech forward company in LTL, and we are not finished widening the gap.\nThe foundation is already strong. Recognized as one of Built In Chicago’s Best Large Places to Work. Earning top marks for improvement, quality, and service. The real opportunity is still ahead: helping invent what comes next.\n\nIf you want to be evaluated among the Best of the Best and help set the new standard in LTL, we should talk.",
+              "workforce": {
+                "total": 866
+              },
+              "headquarters": {
+                "address": "1431 Opus Place, Suite #530, Downers Grove, Illinois 60515, US",
+                "city": "Downers Grove",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 1847862000,
+                "fundingTotal": 50000000,
+                "fundingLatestRound": {
+                  "name": "Private equity",
+                  "date": "2021-03-25",
+                  "amount": 50000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 11729,
+                "countryRank": 687736,
+                "avgDurationSeconds": 28,
+                "history": [
+                  {
+                    "value": 9742,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 13984,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 13385,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 13724,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 15081,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 11729,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 8560.8,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

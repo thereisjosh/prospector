@@ -1,0 +1,270 @@
+{
+  "request": {
+    "query": "Greptile",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "90091568927afaf5c577338e7b885459",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/1tzr86zpdr9",
+        "title": "Greptile",
+        "url": "https://greptile.com/",
+        "text": "# Greptile\n\nGreptile is a Technology, Information and Internet company. Greptile is an AI Code Review company that helps automate PR reviews, catch bugs faster, and improve code quality with AI-driven analysis. Greptile employs 41 people (+173.3% YoY, +26 people), founded in 2024. Headquartered in San Francisco, California, United States. Its workforce is distributed across United States, Singapore, Canada, and India.\n\n## About\n\nBuilding the universal code validation layer, starting with AI agents that review pull requests with full codebase context.\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Headquarters: San Francisco, United States\n- Founded Year: 2024\n- Homepage: greptile.com\n- Aliases: Tabnam, Inc., greptile, onboard ai\n- LinkedIn: linkedin.com/company/greptile\n- Linkedin Followers: 10,038\n- Emails: hello@greptile.com\n\n## Financials\n- Total Funding: USD 32,075,000\n  - Series a (2025-10-23): USD 25.0M\n  - Seed (2024-06-06): USD 3.8M\n  - Pre seed (2024-04-03): USD 500,000\n  - Seed (2024-03-01): USD 125,000\n  - Pre seed (2023-08-17): USD 1.0M\n\n## Workforce\n- Employees: 41\n- Company Size: 11-50 employees\n  - Monthly Growth: +5.1%\n  - Yearly Growth: +173.3%\n- Key Executives:\n  - DJ Parker: Enterprise Account Director\n  - Daksh Gupta: Co-Founder, CEO\n  - Eddie Medak: Chief Revenue Officer\n  - Jihoon Choi: Founding Account Executive\n  - Kelvin Song: Head of Information Technology\n  - Rahul Bathija: Head of Growth\n  - Soohoon Choi: CTO, Cofounder\n  - Vaishant Kameswaran: Co-Founder\n- Breakdown:\n  - By Country: United States: 31 (76%), Singapore: 2 (5%), Canada: 1 (2%), India: 1 (2%)\n  - By Department: Technical: 18 (44%), Sales: 4 (10%), Marketing: 3 (7%), Research: 2 (5%), Administrative: 1 (2%), Consulting: 1 (2%), General Management: 1 (2%), Hr: 1 (2%), Legal: 1 (2%), Operations: 1 (2%) (+2 more)\n  - By Seniority: Other Management: 13 (32%), Specialist: 11 (27%), Clevel: 3 (7%), Intern: 3 (7%), Founder: 2 (5%), Head: 2 (5%), Director: 1 (2%), Manager: 1 (2%)\n- Active job postings: 16\n- Talent Sources: Stripe (2), Anyscale (2), Zillow (1), Vidyard (1), N-able (1), Material Security (1), Liberate (1), Georgia Tech VIP Program (1), College of Computing at Georgia Tech (1), Cisco (1)\n- Alumni Go To: Zillow (1), Suno (1), Startup (1), Prism (1), Pierre Computer Company (1), Kryterion, Inc. (1), Honeywell Technologies (1), Data Science @ GT (1), Confidential (1), Amazon Web Services (AWS) (1)\n\n## Products & Technology\n- Features: Free Trial\n- Tech Stack: bitbucket, coinbase, docker, figma, git, github, gitlab, html, javascript, klaviyo, kubernetes, linkedin, linux, mlops, nvidia, prototype, saml, sql, stripe, terraform, typescript, zapier, twitter, well\n\n## Web presence\n\n- Twitter: twitter.com/getonboardai\n- YouTube: youtube.com/@greptileai\n- Crunchbase: crunchbase.com/organization/tabnam\n- GitHub: github.com/greptileai\n- Web traffic:\n  - Monthly visits: 277,559\n  - Global rank: 161,643\n  - Bounce rate: 49.0%\n  - Pages per visit: 2.8\n  - Average visit duration: 91s\n\n## Reviews & Ratings\n- Product Reviews: 4.2/5.0 (19 reviews)\n\n## Categories\n\nai code review, ai coding assistants, ai-driven analysis, artificial-intelligence, bug catching, cloud-services, code quality, computers_electronics_and_technology/programming_and_developer_software, developer tools, developer-tools, devsecops software, enterprise software, greptile, machine learning, pr reviews, secure code review, secure code review software, software, technology, technology/software\n\n## Competitors\n\nnexus frontiertech, level4, deepcode, cloud9\n\n## Recent News\n- [2026-10-04] BigGo Finance: AI-Generated Code Now Matches Human Quality, Greptile's Daksh Gupta Says\n- [2026-09-28] [Enterprise AI desperately needs to protect data and models. Here's how confidential AI could do it. - The New Stack](https://thenewstack.io/confidential-ai-sensitive-enterprise-data/)\n- [2026-09-25] [Where agents find answers](https://parallel.ai/)\n- [2026-09-24] [Nvidia–Greptile collaboration reportedly cuts merge times by up to 80% · Digg](https://digg.com/ai/t8p2sx22)\n- [2026-09-21] [Daksh Miglani: Build the Rubric Before Building the Agent Loop](https://www.dnaindia.com/insights/report-daksh-miglani-build-the-rubric-before-building-the-agent-loop-3220941)\n- [2026-09-10] GetLatka: Greptile Revenue 2024: $1M Est. ARR, $180M Valuation\n- [2026-09-09]\n  - [Claude did best on a new benchmark for agents that build agents. It still passed fewer than a quarter of the tests. - The New Stack](https://thenewstack.io/claude-build-agents-benchmark/)\n  - [\"It could kill us all\": what Anthropic's own researchers really think about superintelligence - The New Stack](https://thenewstack.io/anthropic-alignment-superintelligence-warnings/)\n  - [How much control should AI get? A CISO roundtable takes on SOC autonomy - The New Stack](https://thenewstack.io/ai-agents-soc-autonomy/)\n  - [K2 Horizon just shipped as six new fully open models — developers aren't fully convinced - The New Stack](https://thenewstack.io/k2-horizon-fully-open/)\n  - [Harness rebuilt its Git repository for nonstop AI agent traffic - The New Stack](https://thenewstack.io/harness-ai-code-review/)\n- [2026-09-08]\n  - [DeepSeek is hiring 150 engineers, and none of them will touch a model - The New Stack](https://thenewstack.io/deepseek-dsec-agent-hiring/)\n  - [After nine years as HashiCorp CEO, Dave McJannet now wants to \"unblock\" enterprise AI agents - The New Stack](https://thenewstack.io/hashicorp-mcjannet-dome-agents/)\n- [2026-09-07]\n  - [“Twenty years of brand building simply froze in time”: How coding agents select their tools of choice - The New Stack](https://thenewstack.io/coding-agents-tool-choice/)\n  - [Permissions belong in the assembly context - The New Stack](https://thenewstack.io/enterprise-rag-permission-assembly/)\n- [2026-09-06] [Polars 2.0 pre-release comes with a 5x speed boost — but it could change row order - The New Stack](https://thenewstack.io/polars-streaming-row-order/)\n- [2026-09-05]\n  - [Claude Fable 5.1 vs. Fable 5: On real work, I couldn't tell them apart. - The New Stack](https://thenewstack.io/claude-fable-upgrade-tested/)\n  - [Building trust in agentic RAG starts with evidence - The New Stack](https://thenewstack.io/building-trust-agentic-rag/)\n- [2026-09-04]\n  - [AI agent evaluations are part of the product - The New Stack](https://thenewstack.io/ai-agent-evaluation-gates/)\n  - [\"1% of my engineers are responsible for 40% of token spend\": Why Coder and SpaceXAI want to give developers nice things - The New Stack](https://thenewstack.io/coder-cursor-agent-relay/)\n- [2026-09-01] [Vibe-coded apps are the new shadow IT - The New Stack](https://thenewstack.io/vibe-coded-shadow-it/)\n- [2026-08-31] [MCP was supposed to solve the agent tooling problem. It missed a step. - The New Stack](https://thenewstack.io/ard-agent-discovery-specification/)\n- [2026-08-21] Mshale: WTF Is An \"AI Agent Loop\"? Genius Or Hype? Ryan Seacrest \\(Hl26Fywq4R\\)\n- [2026-08-14] GetLatka: Greptile Revenue 2024: $1M Est. ARR\n- [2026-06-27] The New Stack: Greptile, Cursor, and Devin agree that agents should run their code. What they run it against matters.\n- [2026-05-15] MSN: Who is Daksh Gupta, 23-year-old Indian-origin CEO going viral for 9-9-6 rule?\n- [2025-09-13] Times of India: An AI start-up wants you to work 9am–9pm, 6 days a week. You will be paid rather well. Would you?\n- [2025-09-03] Livemint.com: Who is Daksh Gupta, the 23-year-old AI startup CEO, and what is his viral ‘9-9-6’ rule?\n- [2025-09-01]\n  - Livemint.com: 90-hour work week debate: Meet Daksh Gupta, 23-year-old Indian-origin CEO who advocates 12-hour workdays\n  - Livemint.com: Indian-origin CEO Daksh Gupta offers ₹1.5 crore salary package for freshers, but there’s a ‘9-9-6’ rule\n- [2025-07-21] Tech Funding News: AI startup Greptile eyes $180M valuation to disrupt future of AI code review\n- [2025-07-18] TechCrunch: Benchmark in talks to lead Series A for Greptile, valuing AI-code reviewer at $180M, sources say\n- [2024-11-18]\n  - mint: Indian-American CEO says ‘20% death threats and 80% job applications…’ after post about company’s 84-hour workweeks\n  - Times Now: Job or 'Modern-Day Slavery': Indian-Origin CEO Faces Backlash Over '84-Hour Workweek' Policy\n  - Times Now: Work-Life Balance No Longer A Necessity? THIS Indian-Origin CEO’s 14-Hour Workday Policy Stirs Controversy\n- [2024-11-04] Crunchbase News: How Startups Stopped Being Fun\n- [2024-06-30] TechCrunch: Greptile raises $4M to build an AI-fueled code base expert\n- [2024-06-18] Crunchbase News: Right Off The Batch: 50% Of YC W24 Is Built With AI. Who Got Funded?\n- [2024-06-07] The SaaS News: Greptile Raises $4 Million in Seed Round\n- [2024-06-06] FinSMES: Greptile Raises $4.1M in Seed Funding\n\n## Social\n\n### Linkedin\n\n- [2026-10-02 · Posted · 46 reactions] [\"The thought of adding an agent to PRs to do code reviews, a...](https://www.linkedin.com/posts/greptile_the-thought-of-adding-an-agent-to-prs-to-activity-7511819894083047424-HMaN)\n  > \"The thought of adding an agent to PRs to do code reviews, a potential slop cannon, was extremely contentious. We took the leap and we're so glad we did.\"\n  >\n  > Austin Pray, Eng Manager at Mixpanel, on how they review agent-written code at scale.\n  >\n  > Mixpanel tried building their own AI reviewer first. It was expensive and buried real bugs under nitpicks. Now Greptile reviews ~2,900 of their PRs a month, including ones written by TAL, their in-house coding agent.\n  >\n  > Read the full story: https://lnkd.in/e4YQBS8t\n\n- [2026-09-30 · Posted · 48 reactions] [We're a launch partner for the OpenAI Marketplace. OpenAI...](https://www.linkedin.com/posts/greptile_were-a-launch-partner-for-the-openai-marketplace-activity-7511114029856325635-_tO7)\n  > We're a launch partner for the OpenAI Marketplace.\n  >\n  > OpenAI enterprise customers can now apply part of their existing commitment toward Greptile for code review on every PR.\n  >\n  > Learn more: https://lnkd.in/gf_c3bdJ\n\n- [2026-09-24 · Posted · 61 reactions] [Todd Tanber, Senior Engineering Manager at NVIDIA: \"Most code...](https://www.linkedin.com/posts/greptile_todd-tanber-senior-engineering-manager-at-activity-7508906063442735104-Rnrn)\n  > Todd Tanber, Senior Engineering Manager at NVIDIA: \"Most code review tools just look at the diff. Greptile reads across the entire codebase. That's essential for NVIDIA at the scale in which we operate.\"\n  >\n  > Greptile has reviewed over 395,000 pull requests across NVIDIA's large, complex codebases, where keeping up with code review was taking a growing share of engineers' time.\n  >\n  > Greptile reviews first against NVIDIA's own coding standards. Praveen Dorairaj, who used to review code for everyone on a team of 6, now gets changes after they've been through a couple of rounds with Greptile.\n  >\n  > On one team, the average time to merge went from more than 24 hours to 6 hours.\n\n- [2026-09-24 · 31 reactions, 2 comments] Todd Tanber, Senior Engineering Manager at NVIDIA: \"Most code review tools just look at the diff. Greptile reads across the entire codebase. That's essential for NVIDIA at the scale in which we ope...\n\n- [2026-09-21 · Posted · 9 reactions] [We're starting a lecture series at The Interval called Blackboard...](https://www.linkedin.com/posts/greptile_were-starting-a-lecture-series-at-the-interval-activity-7507878854913417216-FWyZ)\n  > We're starting a lecture series at The Interval called Blackboard Lectures on Tap.\n  >\n  > Developers, founders, and researchers can share what they’re working on, thinking about, or know way too much about.\n  >\n  > First edition tomorrow, Sept 22, 6:30pm with:\n  >\n  > Jacob Thornton : Reinventing the wheel and the capacity for work\n  > Hahnbee Lee : Rebuilding docs infrastructure to a 100% cache hit rate\n  > James Wu : Scaling agentic workloads on Kubernetes with MicroVMs\n  >\n  > Come learn something, ask questions, stay for drinks.\n\n- [2026-09-21 · 13 reactions, 2 comments] We're starting a lecture series at The Interval called Blackboard Lectures on Tap. Developers, founders, and researchers can share what they’re working on, thinking about, or know way too much abou...\n\n- [2026-09-16 · Posted · 107 reactions] [Introducing the Knowledge Base MCP. Greptile maintains a detailed...](https://www.linkedin.com/posts/greptile_introducing-the-knowledge-base-mcp-greptile-activity-7506034315932213248-7OE1)\n  > Introducing the Knowledge Base MCP.\n  >\n  > Greptile maintains a detailed knowledge base of how every part of your codebase works, as well as a history of past incidents.\n  >\n  > Starting today coding agents like Codex, Claude can access the Knowledge Base via Greptile's MCP, so they can use Greptile's learnings to write better code.\n\n- [2026-09-16 · 131 reactions, 9 comments] Introducing the Knowledge Base MCP. Greptile maintains a detailed knowledge base of how every part of your codebase works, as well as a history of past incidents. Starting today coding agents like...\n\n- [2026-08-26 · Posted · 51 reactions] [On Sunday we hosted our second Fast Hackathon at Y Combinator...](https://www.linkedin.com/posts/greptile_on-sunday-we-hosted-our-second-fast-hackathon-activity-7498394084353458176-vdRu)\n  > On Sunday we hosted our second Fast Hackathon at Y Combinator sponsored by Stripe, OpenAI, Modal, Amazon Web Services (AWS), and DoorDash.\n  >\n  > Congratulations to all the winners! Here are the top 3 projects that were built in just 4 hours.\n  >\n  > 1st Place: AltShift catches accessibility bugs by using browser agents to compare standard and simulated assisted experiences on websites.\n  >\n  > 2nd Place: Leo is a voice SRE (site reliability engineer) agent that detects, diagnoses, and fixes issues in your infrastructure. It can be your helper when oncall or when you need a second opinion.\n  >\n  > 3rd Place: Repo world is a gamified way to visualize and understand your codebase. Fight bugs with Greptile and explore the city.\n  >\n  > People's Choice Award: Autofix self-heals bad API requests in real time so your apps and agents never go down.\n  >\n  > Claude-mem Prize Track: Team Brain\n  >\n  > Thank you to all the participants, judges, partners, and our amazing Greptile team that made this all possible!\n\n- [2026-08-26 · 67 reactions, 5 comments] On Sunday we hosted our second Fast Hackathon at Y Combinator sponsored by Stripe, OpenAI, Modal, Amazon Web Services (AWS), and DoorDash. Congratulations to all the winners! Here are the top 3 pro...\n\n- [2026-08-18 · Reshared · 8 reactions] [GREP SUMMER!](https://www.linkedin.com/posts/greptile_grep-summer-activity-7495616385625255936-3CkI): GREP SUMMER!\n\n- [2026-08-05 · Reshared · 259 reactions] [Introducing Greptile v5, a ground-up rewrite of the Greptile coding...](https://www.linkedin.com/posts/greptile_activity-7490824604379377664-cbOo): Introducing Greptile v5, a ground-up rewrite of the Greptile coding agent. It catches more bugs, with higher precision, and 2x faster (~2 minutes per review) 3 things are better: First, it catches...\n\n- [2026-07-29 · Reshared · 182 reactions] [Introducing Greptile security agent. It combines static analysis...](https://www.linkedin.com/posts/greptile_activity-7488264059549548548-nrn7): Introducing Greptile security agent. It combines static analysis, SCA, and AI agents to efficiently catch security flaws before merge. Why did we build this? - Coding agents have caused the frequen...\n\n- [2026-07-25 · Reshared · 1,199 reactions] [Introducing model inversion. Greptile detects if your PR was...](https://www.linkedin.com/posts/greptile_activity-7486838208698396672-lihW): Introducing model inversion. Greptile detects if your PR was generated using GPT or Claude models, and uses the other model for review. Rohan and Rodrigo from our research team share why we do this:\n\n- [2026-07-22 · Posted · 2 reactions] [Greptile reviews every PR against your whole codebase, so it...](https://www.linkedin.com/posts/greptile_contact-sales-greptile-activity-7485751385309802496-KqVX)\n  > Greptile reviews every PR against your whole codebase, so it catches bugs a diff-only reviewer misses. 10,000+ teams run it on their repos. Add it to yours in a few minutes.\n\n- [2026-07-22 · Posted · 3 reactions] [The State of AI Coding - 2026 Report: A cross-industry study on...](https://www.linkedin.com/posts/greptile_ai-code-review-greptile-merge-4x-faster-activity-7485719448209752064-tnvG)\n  > The State of AI Coding - 2026 Report: A cross-industry study on recent trends in AI software development.\n\n- [2026-07-21 · Posted · 5 reactions] [Greptile now reviews your PostHog code with additional context...](https://www.linkedin.com/posts/greptile_partners-greptile-activity-7485474567898202112-Trfh)\n  > Greptile now reviews your PostHog code with additional context directly from PostHog. Better context, more catches.\n\n- [2026-07-21 · Posted · 3 reactions] [Greptile now reviews your Braintrust code with additional context...](https://www.linkedin.com/posts/greptile_partners-greptile-activity-7485480288953712641-0Fbt)\n  > Greptile now reviews your Braintrust code with additional context directly from Braintrust. Better context, more catches.\n\n- [2026-07-21 · Posted · 4 reactions] [Greptile now reviews your Mintlify code with additional context...](https://www.linkedin.com/posts/greptile_partners-greptile-activity-7485475665434275841-vRbm)\n  > Greptile now reviews your Mintlify code with additional context directly from Mintlify. Better context, more catches.\n\n- [2026-07-07 · 131 reactions, 3 comments] T-rex is a new feature that spins up your stacks and runs your code to find bugs in every PR. Here is how we use it internally at Greptile:\n\n## Locations\n- Headquarters: san francisco, california, united states (US)\n- Offices: san francisco, california, united states (US)",
+        "summary": "{\"description\":\"Greptile is a Technology, Information and Internet company that provides AI-driven code review to automate PR reviews, catch bugs faster, and improve code quality.\",\"employee_estimate\":41,\"employee_estimate_source\":\"Employees: 41\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Active job postings: 16\",\"hq\":\"San Francisco, California, United States\",\"hq_quote\":\"Headquartered in San Francisco, California, United States.\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Greptile is a Technology, Information and Internet company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 32,075,000\\n  - Series a (2025-10-23): USD 25.0M\\n  - Seed (2024-06-06): USD 3.8M\\n  - Pre seed (2024-04-03): USD 500,000\\n  - Seed (2024-03-01): USD 125,000\\n  - Pre seed (2023-08-17): USD 1.0M\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQE8tnWiA02OCg/company-logo_200_200/B56Z2TOlyHIsAI-/0/1776291569102/greptile_logo?e=2147483647&v=beta&t=bY9btxNJ7E2nWe6joJOCniVFlwyvo9o4x_d7M8vXBnA",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/1tzr86zpdr9",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Greptile",
+              "foundedYear": 2024,
+              "description": "Building the universal code validation layer, starting with AI agents that review pull requests with full codebase context. ",
+              "workforce": {
+                "total": 41
+              },
+              "headquarters": {
+                "address": "San Francisco, California 94133, US",
+                "city": "San Francisco",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 32075000,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2025-10-23",
+                  "amount": 25000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 277559,
+                "countryRank": 87917,
+                "avgDurationSeconds": 91,
+                "history": [
+                  {
+                    "value": 231636,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 226099,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 283525,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 268857,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 253151,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 277559,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/vpqr0h5c5vv",
+        "title": "Greptime",
+        "url": "https://greptime.com/",
+        "text": "# Greptime\n\nGreptime is a Technology, Information and Internet company. GreptimeDB is an open-source observability database that provides metrics, logs, and traces for automotive companies. It offers edge-cloud integrated solutions that align closely with the specific business scenarios of automotive companies. The database also provides emqx real-time data solutions built for emqx and mqtt workloads with scalable ingestion, efficient storage, and real-time analytics.[/summa. Greptime employs 16 people (-15.8% YoY, -3 people), founded in 2022. Headquartered in Sunnyvale, California, United States. Its workforce is distributed across China and United States.\n\n## About\n\nGreptimeDB is the open-source Observability 2.0 database — treating metrics, logs, and traces as unified wide events instead of three separate pillars.\n\nThe three-pillar model (Prometheus + Loki + Jaeger) creates data silos, redundant infrastructure, and cross-system correlation pain. GreptimeDB replaces all three with one columnar engine on object storage, enabling cross-signal SQL JOINs, up to 50x cost reduction, and native support for emerging workloads like AI agent observability.\n\nWhy teams switch:\n▪️Logs: Full-text indexing where Loki only indexes labels. 10x faster queries, 30% lower TCO. (OB Cloud: billions of logs daily across 170+ availability zones.)\n▪️Metrics: Compute-storage separation — no more Thanos/Mimir complexity. SQL + PromQL replaces Prometheus + your data warehouse.\n▪️Traces: Columnar storage vs. ES inverted indexes — 45x less storage, Jaeger-compatible, one-week migration.\n▪️AI/LLM: Store high-volume conversation data, agent traces, and token metrics via OpenTelemetry GenAI conventions.\n\nWritten in Rust, OpenTelemetry-native, deploys on Kubernetes with compute-storage separation. Used in production by teams processing billions of data points daily.\n\n▪️Open-source: https://github.com/GreptimeTeam/greptimedb\n▪️Learn more in Why GreptimeDB: https://docs.greptime.com/user-guide/concepts/why-greptimedb/\n▪️Learn about Observability 2.0: https://docs.greptime.com/user-guide/concepts/observability-2/\n▪️Enterprise & Cloud: https://greptime.com\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Headquarters: Sunnyvale, United States\n- Founded Year: 2022\n- Homepage: greptime.com\n- Aliases: Greptime Inc., greptime\n- LinkedIn: linkedin.com/company/greptime\n- Linkedin Followers: 1,609\n- Emails: info@greptime.com\n- Phone: 026-08-27, 2026-08-2, 2026-08-3\n\n## Financials\n  - Series a (2024-08-07)\n  - Seed (2022-04-01)\n\n## Workforce\n- Employees: 16\n- Company Size: 11-50 employees\n  - Yearly Growth: -15.8%\n- Key Executives:\n  - Xiaodan Zhuang: Chief Executive Officer\n- Breakdown:\n  - By Country: China: 7 (44%), United States: 2 (12%)\n  - By Department: Technical: 6 (38%), Consulting: 1 (6%), General Management: 1 (6%), Product: 1 (6%)\n  - By Seniority: Specialist: 4 (25%), Senior: 2 (12%), Clevel: 1 (6%), Manager: 1 (6%), Other Management: 1 (6%)\n- Talent Sources: Ant Group (6), DiDi (2), Tubi (1), TikTok (1), TapTap (1), LeanCloud (1), Confluent, an IBM Company (1), Apple (1), Alibaba Digital Media & Entertainment Group (1), Alibaba Cloud (1)\n- Alumni Go To: Timekettle (2), Zilliz (1), Union.ai (1), Timecho (1), The Apache Software Foundation (1), Tencent (1), Protocol Labs Dev Guild (1), Arizona State University (1)\n\n## Products & Technology\n- Tech Stack: amp, linkedin, slack, youtube, java, javascript, prometheus, python, hunter, impact, well, github, openai\n\n## Web presence\n\n- Twitter: twitter.com/greptime\n- Facebook: facebook.com/greptimedb\n- YouTube: youtube.com/@greptime\n- Crunchbase: crunchbase.com/organization/greptime\n- GitHub: github.com/greptimeteam\n- Web traffic:\n  - Monthly visits: 9,004\n  - Global rank: 2,270,337\n  - Bounce rate: 37.0%\n  - Pages per visit: 2.1\n  - Average visit duration: 36s\n\n## Categories\n\ncloud infrastructure, cloud-native, computers_electronics_and_technology/programming_and_developer_software, data monitoring, database, dbaas, devops, edge-cloud integrated solution, information technology, infrastructure, internet of things, it infrastructure, logs, metrics, monitoring, observability, observability database, open source, opensource, opentelemetry, rust, software, time series database, traces\n\n## Recent News\n- [2025-07-11] Amazon.com: 边缘协同，云上智能：重构智能汽车数采新架构\n- [2023-10-18] PR Newswire: Cloud Native Computing Foundation Continues to Drive ...\n- [2022-11-15] greptime.com: This Time, for Real - GreptimeDB is Now Open Source\n\n## Social\n\n### Linkedin\n\n- [2026-09-28 · Posted · 1 reaction] [Observability data usually sits in one system and the data platform...](https://www.linkedin.com/posts/greptime_greptimedb-enterprise-26051-compaction-activity-7510360536862289920-tAFE)\n  > Observability data usually sits in one system and the data platform in another. The usual bridge is an ETL job or a dual-write pipeline: a second copy of the data, extra storage, and copies that drift out of sync.\n  >\n  > GreptimeDB Enterprise 26.05.1 ships an early preview of a different approach: 𝗮 𝗺𝗲𝘁𝗮𝗱𝗮𝘁𝗮 𝗱𝘂𝗮𝗹 𝘄𝗿𝗶𝘁𝗲.\n  >\n  > GreptimeDB already writes its SST files as Parquet to object storage. Whenever it writes one (on flush or compaction), it now also writes Iceberg manifests, manifest lists, and snapshots that point at those same files. The frontend serves an Iceberg REST catalog at /v1/iceberg. Spark, Trino, DuckDB, and pyiceberg read the tables straight from object storage.\n  >\n  > - 𝐍𝐨 𝐝𝐮𝐩𝐥𝐢𝐜𝐚𝐭𝐞𝐝 𝐝𝐚𝐭𝐚 𝐟𝐢𝐥𝐞𝐬. Only the Iceberg metadata is extra.\n  > - 𝐕𝐢𝐬𝐢𝐛𝐥𝐞 𝐚𝐟𝐭𝐞𝐫 𝐟𝐥𝐮𝐬𝐡. Each flush and compaction publishes a new snapshot.\n  > - 𝐋𝐢𝐟𝐞𝐜𝐲𝐜𝐥𝐞 𝐜𝐨𝐯𝐞𝐫𝐞𝐝. ALTER TABLE, repartition, truncate, drop, bulk ingestion, and remote compaction keep the exported state consistent.\n  >\n  > The preview is read-only, exposes only the latest snapshot, and maps a few types lossily.\n  >\n  > The release also adds cron-scheduled compaction, region balancing that tracks query CPU alongside write throughput, an opt-in recycle bin for dropped tables, and finer-grained access control, all on the open-source v1.2 engine.\n  >\n  > https://lnkd.in/g5JBEU4S\n  >\n  > #ApacheIceberg #Observability #DataEngineering #GreptimeDB\n\n- [2026-09-21 · Posted] [More teams are running GreptimeDB in production. Their requirements...](https://www.linkedin.com/posts/greptime_greptimedb-roadmap-2026-mid-year-review-activity-7507763663647342592-nhG2)\n  > More teams are running GreptimeDB in production. Their requirements are shaping both what we build and how we release it.\n  >\n  > Seven months into our 2026 roadmap, three GA releases have shipped:\n  >\n  > • 𝐯𝟏.𝟎 𝐞𝐬𝐭𝐚𝐛𝐥𝐢𝐬𝐡𝐞𝐝 𝐭𝐡𝐞 𝐆𝐀 𝐛𝐚𝐬𝐞𝐥𝐢𝐧𝐞, made flat SST the default storage format, and added batched Prometheus writes and bulk ingestion for the open-source Metric Engine.\n  > • 𝐯𝟏.𝟏 𝐝𝐞𝐥𝐢𝐯𝐞𝐫𝐞𝐝 𝐨𝐧𝐥𝐢𝐧𝐞 𝐫𝐞𝐩𝐚𝐫𝐭𝐢𝐭𝐢𝐨𝐧𝐢𝐧𝐠 and introduced an experimental semantic layer. Query optimization reduced average PromQL latency by 20–40% in benchmarks, with the TSBS cpu-max-all-8 query running 4.5×\n  > faster. Gains depend on data and workload.\n  > • 𝐯𝟏.𝟐 𝐟𝐨𝐜𝐮𝐬𝐞𝐝 𝐨𝐧 𝐉𝐒𝐎𝐍𝟐 𝐚𝐧𝐝 𝐈𝐦𝐩𝐨𝐫𝐭/𝐄𝐱𝐩𝐨𝐫𝐭 𝐯𝟐, including parallel chunking and resumable transfers. It also added dictionary-encoded series keys and per-region write buffer limits to isolate write pressure.\n  >\n  > As production use grows, we’re putting more effort into 𝐬𝐭𝐚𝐛𝐢𝐥𝐢𝐭𝐲, 𝐩𝐞𝐫𝐟𝐨𝐫𝐦𝐚𝐧𝐜𝐞, 𝐚𝐧𝐝 𝐬𝐞𝐜𝐮𝐫𝐢𝐭𝐲.. Starting with v1.2, two betas precede GA to catch compatibility issues earlier. Security work across these releases added hashed password storage, table-level permissions, Postgres SCRAM authentication, and a SQL local file access sandbox.\n  >\n  > These priorities changed the roadmap: adaptive resource management moved to v1.4/v1.5, and production-ready Remote Compaction/Indexing moved to v1.5.\n  >\n  > Our review explains the deliveries, the decisions behind the changes, and the revised plan for the rest of 2026:\n  >\n  > https://lnkd.in/gA79hX9R\n  >\n  > #Observability #Opensource #GreptimeDB #Roadmap\n\n- [2026-09-21] More teams are running GreptimeDB in production. Their requirements are shaping both what we build and how we release it. Seven months into our 2026 roadmap, three GA releases have shipped: • 𝐯𝟏.𝟎...\n\n- [2026-09-17 · Posted · 4 reactions] [GreptimeDB now reuses work across overlapping windows when it...](https://www.linkedin.com/posts/greptime_promql-observability-rust-activity-7506337902033911809-U6t-)\n  > GreptimeDB now reuses work across overlapping windows when it evaluates PromQL 𝐦𝐢𝐧_𝐨𝐯𝐞𝐫_𝐭𝐢𝐦𝐞 and 𝐦𝐚𝐱_𝐨𝐯𝐞𝐫_𝐭𝐢𝐦𝐞. In our local benchmark on changing gauges, query time for a 2h window at a 30s step dropped about 68%.\n  >\n  > A range query usually steps much less than its window width. With a 2h window and a 30s step, consecutive windows share almost all their samples. The old code rescanned each window.\n  >\n  > PR #9099, written by our engineer Bowen, keeps a monotonic deque of candidates across windows. A sample is removed once a later sample is higher, because it cannot be the max of any later window. Samples that leave the window are removed from the front. The front of the deque is the result. This is the standard sliding window maximum algorithm.\n  >\n  > When windows barely overlap, maintaining the deque costs more than a scan. The evaluator is chosen per batch: the deque is used with at least 4 windows, at least 32 samples per window on average, and a step of at most a quarter of the window. Other batches use the plain scan. Both paths return bit-identical results.\n  >\n  > Same benchmark, 30s step, end-to-end query time:\n  >\n  > 5m window: −24%\n  > 30m window: −45%\n  > 2h window: −68%\n  >\n  > The animation shows the deque on a small example.\n  >\n  > https://lnkd.in/giUpmCsw\n  >\n  > #PromQL #Observability #Rust #OpenSource\n\n- [2026-09-17 · 4 reactions] GreptimeDB now reuses work across overlapping windows when it evaluates PromQL 𝐦𝐢𝐧_𝐨𝐯𝐞𝐫_𝐭𝐢𝐦𝐞 and 𝐦𝐚𝐱_𝐨𝐯𝐞𝐫_𝐭𝐢𝐦𝐞. In our local benchmark on changing gauges, query time for a 2h window at a 30s step d...\n\n- [2026-09-14 · Posted · 1 reaction] [The query interface belongs in your RCA agent evaluation. In Agent...](https://www.linkedin.com/posts/greptime_the-query-interface-belongs-in-your-rca-agent-activity-7505283381329547264-VBea)\n  > The query interface belongs in your RCA agent evaluation.\n  >\n  > In Agent RCA Bench, we kept the model configuration, incident data, investigation instructions, and tool-call budget the same within each comparison. We changed how the agent queried the telemetry.\n  >\n  > Across six models and 14 incidents, with two repetitions per interface, GreptimeDB’s SQL/PromQL interface produced 130 correct diagnoses out of 168, versus 105 through our Prometheus/Loki/Tempo API wrappers. Total input tokens were about 48% lower.\n  >\n  > All six models used fewer input tokens. Five produced more correct diagnoses.\n  >\n  > The investigation traces show what an interface can change. In one run, a SQL self-join paired client and server spans and returned two rows comparing durations before and during the incident. The model could inspect that comparison directly.\n  >\n  > That example doesn’t establish how much SQL contributed to the overall result. The benchmark compares complete bundles of storage, query language, and tool design.\n  >\n  > It gives us a practical reason to evaluate those choices: the interface determines what work happens in a query and what comparisons the model must make itself.\n  >\n  > Interactive report: https://lnkd.in/gunGWVgF\n  > Full writeup: https://lnkd.in/gCrbDmyJ\n\n- [2026-09-14 · 1 reaction] The query interface belongs in your RCA agent evaluation. In Agent RCA Bench, we kept the model configuration, incident data, investigation instructions, and tool-call budget the same within each c...\n\n- [2026-09-10 · Reshared] [GreptimeDB v1.2.0 ships JSON2](https://www.linkedin.com/posts/greptime_greptimedb-v120-ships-json2-activity-7503793181629599745-gTUs): GreptimeDB v1.2.0 ships JSON2\n\n- [2026-09-03 · Posted · 6 reactions] [Routing metrics between services at TVU Networks used to take days...](https://www.linkedin.com/posts/greptime_mqtt-iot-timeseries-activity-7501259886056513537-7END)\n  > Routing metrics between services at TVU Networks used to take days of cross-team coordination. Now it's topic design.\n  >\n  > TVU Networks runs MediaHub, a cloud-native media workflow platform coordinating distributed transcoding, streaming and monitoring across North America and Europe. Much of what it coordinates sits behind restrictive internal networks, so every new codec or service module meant port mapping and networking changes before it could talk to anything.\n  >\n  > They moved both halves onto EMQX Cloud from EMQ Technologies: the EMQX Broker for real-time service messaging, EMQX Tables for the operational metrics those services emit. GreptimeDB is the storage engine inside EMQX Tables.\n  >\n  > What's interesting from our side is the shape of the integration. MediaHub components — RTMP decoder, video decoder, audio encoder, video mixer — report to MQTT topics, and the EMQX rule engine writes them into GreptimeDB over InfluxDB line protocol. Tables and columns are created from the incoming payload, so a new message type doesn't need a schema migration ahead of it. 𝐓𝐡𝐞𝐫𝐞'𝐬 𝐧𝐨 𝐄𝐓𝐋 𝐬𝐭𝐞𝐩 𝐚𝐧𝐲𝐰𝐡𝐞𝐫𝐞 𝐢𝐧 𝐭𝐡𝐚𝐭 𝐩𝐚𝐭𝐡.\n  >\n  > They picked EMQX Tables over the alternatives they evaluated, on integration effort and operational overhead — and the storage engine came with it. From our side that's the interesting part of shipping inside someone else's platform: what gets judged is how little work you create, not how you benchmark.\n  >\n  > Full story, originally published by EMQ:\n  > https://lnkd.in/gRStP33U\n  >\n  > #MQTT #IoT #TimeSeries #Observability\n\n- [2026-09-03 · 6 reactions] Routing metrics between services at TVU Networks used to take days of cross-team coordination. Now it's topic design. TVU Networks runs MediaHub, a cloud-native media workflow platform coordinating...\n\n- [2026-08-28 · Reshared · 2 reactions] [Object storage is not a disaster recovery plan. It's one of three...](https://www.linkedin.com/posts/greptime_activity-7498934336176619521-R2Dm): Object storage is not a disaster recovery plan. It's one of three things that have to survive. For a GreptimeDB ( Greptime ) cluster to actually come back, you need all of: 𝐖𝐀𝐋 — accepted writes th...\n\n- [2026-08-28 · 2 reactions, 2 comments] Object storage is not a disaster recovery plan. It's one of three things that have to survive. For a GreptimeDB (Greptime) cluster to actually come back, you need all of: 𝐖𝐀𝐋 — accepted writes that...\n\n- [2026-08-20 · Reshared · 458 reactions] [Cursor published a post this week on Continuity, the Git storage...](https://www.linkedin.com/posts/greptime_activity-7496239617680027648-Nk2i): Cursor published a post this week on Continuity, the Git storage system behind Origin. They keep a write-ahead log on S3 and don't acknowledge a push until it's durable there. The Git repositories...\n\n- [2026-08-14 · Posted · 3 reactions] [Several users have asked how GreptimeDB Open Source differs from...](https://www.linkedin.com/posts/greptime_enterprise-greptimedb-documentation-activity-7494091595466850305-c_ye)\n  > Several users have asked how GreptimeDB Open Source differs from GreptimeDB Enterprise. We've updated our website to make the boundary clearer.\n  >\n  > GreptimeDB Open Source includes the core engine and APIs, cluster deployment, object storage, Flow, and Region failover under Apache-2.0. Region migration, repartitioning, and indexing are also available as manual operations.\n  >\n  > GreptimeDB Enterprise uses the same core engine. It adds read replicas, workload isolation, automated repartitioning and Region load balancing, LDAP/RBAC, fine-grained ACLs, audit logging, management tools, and SLA-backed support.\n  >\n  > Performance follows the same boundary. The core storage and query paths are shared by both editions. Enterprise adds optimizations for specific workloads, including accelerated bulk ingestion and tiered caching.\n  >\n  > If your deployment does not require these enterprise capabilities, GreptimeDB Open Source is suitable for production use.\n  >\n  > Full comparison:\n  > https://lnkd.in/gWu7UgAQ\n  >\n  > Enterprise documentation:\n  > https://lnkd.in/gdAgQyCm\n  >\n  > #GreptimeDB #OpenSource #Observability\n\n- [2026-08-14 · 3 reactions] Several users have asked how GreptimeDB Open Source differs from GreptimeDB Enterprise. We've updated our website to make the boundary clearer. GreptimeDB Open Source includes the core engine and A...\n\n- [2026-08-11 · Reshared · 8 reactions] [Within a few months this year, SigNoz, ClickHouse, Grafana and...](https://www.linkedin.com/posts/greptime_activity-7493000370764537856-W77e): Within a few months this year, SigNoz, ClickHouse, Grafana and Honeycomb all wired agents into their observability products. SigNoz announced agent-native observability with hosted and open-source...\n\n- [2026-08-04 · Posted · 1 reaction] [~24% end-to-end query improvement across a 200+ query test set...](https://www.linkedin.com/posts/greptime_greptimedb-v120-beta1-json2-prom-rw-activity-7490411123620368385-3w_B)\n  > ~24% end-to-end query improvement across a 200+ query test set, from a single change: in-memory primary key columns now use a dictionary array, which cuts the cost of expanding series keys.\n  >\n  > GreptimeDB v1.2.0-beta.1 is out. What else is in it:\n  >\n  > - JSON2, a new data type that stores JSON structurally instead of serializing each document. A nested field then queries like a regular column, reached with a dot rather than a UDF. Beta now, GA with v1.2.0 stable.\n  > - Prometheus Remote Write v2 and native histograms. One thing to know before you test it: Prometheus defaults protobuf_message to v1, so repointing the URL alone still sends v1.\n  > - The parquet metadata cache, where a 1 GB limit used to be necessary, now runs on 64 MB with no cache churn.\n  > - Splunk HEC ingestion, built by first-time contributor agrawalx. An existing Vector, OTel Collector or Fluent Bit splunk_hec pipeline needs a new URL and a token, nothing else.\n  >\n  > The part worth reading before you upgrade is the unglamorous part: 4 breaking changes. SQL access to local files is now sandboxed. holt_winters is gone with the promql-parser v0.10.0 upgrade, and fill modifiers are rejected instead of silently producing a wrong plan. Pipeline integer narrowing range-checks now rather than wrapping — feeding -1 into a uint8 used to give you 255.\n  >\n  > 22 contributors landed 259 commits since v1.1.0. Six of them contributed for the first time.\n  >\n  > This is a beta. Test environment first. Performance numbers come from the test scenarios in the corresponding PRs, not from every workload.\n  >\n  > https://lnkd.in/g5frsEGS\n  >\n  > #Observability #GreptimeDB #TimeSeries #OpenSource\n\n- [2026-08-04 · 1 reaction] ~24% end-to-end query improvement across a 200+ query test set, from a single change: in-memory primary key columns now use a dictionary array, which cuts the cost of expanding series keys. Greptim...\n\n- [2026-07-29 · Posted · 2 reactions] [A billion data points spread across 1,000 timelines is cheap. The...](https://www.linkedin.com/posts/greptime_why-high-cardinality-breaks-time-series-databases-activity-7488226467831742464-qDAc)\n  > A billion data points spread across 1,000 timelines is cheap.\n  > The exact same billion points spread across 10 million timelines will OOM-kill your database.\n  >\n  > Same data. Same volume. Completely different cost.\n  >\n  > THE MULTIPLICATION TRAP\n  > Cardinality is the number of unique label combinations that actually appear in your data — not the number of labels you have. Add three mor",
+        "summary": "{\"description\":\"Greptime is a Technology, Information and Internet company. GreptimeDB is an open-source observability database that provides metrics, logs, and traces for automotive companies. It offers edge-cloud integrated solutions that align closely with the specific business scenarios of automotive companies. The database also provides emqx real-time data solutions built for emqx and mqtt workloads with scalable ingestion, efficient storage, and real-time analytics.\",\"employee_estimate\":16,\"employee_estimate_source\":\"Employees: 16\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Sunnyvale, United States\",\"hq_quote\":\"Headquartered in Sunnyvale, California, United States.\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Greptime is a Technology, Information and Internet company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Series a (2024-08-07)\\n  Seed (2022-04-01)\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C560BAQGjsRpLov_Tnw/company-logo_200_200/company-logo_200_200/0/1661753076630?e=2147483647&v=beta&t=54ozMnxwb9kJnHtPCFtn-e4vOeUnIoJ_gaLoH3WPLHo",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/vpqr0h5c5vv",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Greptime",
+              "foundedYear": 2022,
+              "description": "GreptimeDB is the open-source Observability 2.0 database — treating metrics, logs, and traces as unified wide events instead of three separate pillars.\n\nThe three-pillar model (Prometheus + Loki + Jaeger) creates data silos, redundant infrastructure, and cross-system correlation pain. GreptimeDB replaces all three with one columnar engine on object storage, enabling cross-signal SQL JOINs, up to 50x cost reduction, and native support for emerging workloads like AI agent observability.\n\nWhy teams switch:\n▪️Logs: Full-text indexing where Loki only indexes labels. 10x faster queries, 30% lower TCO. (OB Cloud: billions of logs daily across 170+ availability zones.)\n▪️Metrics: Compute-storage separation — no more Thanos/Mimir complexity. SQL + PromQL replaces Prometheus + your data warehouse.\n▪️Traces: Columnar storage vs. ES inverted indexes — 45x less storage, Jaeger-compatible, one-week migration.\n▪️AI/LLM: Store high-volume conversation data, agent traces, and token metrics via OpenTelemetry GenAI conventions.\n\nWritten in Rust, OpenTelemetry-native, deploys on Kubernetes with compute-storage separation. Used in production by teams processing billions of data points daily.\n\n▪️Open-source: https://github.com/GreptimeTeam/greptimedb\n▪️Learn more in Why GreptimeDB: https://docs.greptime.com/user-guide/concepts/why-greptimedb/\n▪️Learn about Observability 2.0: https://docs.greptime.com/user-guide/concepts/observability-2/\n▪️Enterprise & Cloud: https://greptime.com",
+              "workforce": {
+                "total": 16
+              },
+              "headquarters": {
+                "address": "#30 440 N. Wolfe Road Sunnyvale, CA 94085, Sunnyvale, CA 94085, US",
+                "city": "Sunnyvale",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": null,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2024-08-07",
+                  "amount": null
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 9004,
+                "countryRank": 1981485,
+                "avgDurationSeconds": 36,
+                "history": [
+                  {
+                    "value": 6492,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 6059,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 6778,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 9064,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 10769,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 9004,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 10481,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

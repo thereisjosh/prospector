@@ -1,0 +1,226 @@
+{
+  "request": {
+    "query": "Balance Theory",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "65767bc8c43bb2d07c2ac1ba5842d7c0",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/9rpw4n1fs48",
+        "title": "Balance Theory",
+        "url": "https://balancetheory.io/",
+        "text": "# Balance Theory\n\nBalance Theory is a Software Development company. Balance Theory provides security ecosystem and investments under management. Balance Theory employs 28 people (+33.3% YoY, +7 people) and has an annual revenue of $1M. Headquartered in Columbia, Maryland, United States. Its workforce is distributed across United States and Australia.\n\n## About\n\nBalance Theory is the AI-native platform for running cybersecurity investments with the same rigor as incidents. We help CISOs, CIOs, and procurement leaders detect investment events, make fast, data-driven decisions, and continuously govern spend as the enterprise and market change.\n\nTHE PROBLEM WE SOLVE\nSecurity teams know how to run incidents — clear signals, structured response, documented outcomes. But cybersecurity investments are still managed through spreadsheets, biased recommendations, and opaque pricing.\n\nRenewals, tool sprawl, market shifts, and changing business priorities quietly erode budgets and slow execution.\n\nOUR APPROACH\nBalance Theory treats cybersecurity investments as events — with defined states and repeatable execution.\n\nDetect: Identify investment triggers across renewals, coverage gaps, spend anomalies, and vendor overlap.\nAnalyze: Compare alternatives using real market data — not sales decks or gut feel.\nDecide: Model cost, coverage, and risk tradeoffs aligned to your frameworks and priorities.\nExecute: Benchmark, negotiate, transact, consolidate, or reallocate spend through the most efficient path.\nGovern: Continuously rationalize the portfolio by monitoring market change, usage drift, and enterprise shifts over time.\n\nWHAT POWERS IT\nScout AI: Agents that monitor your environment, surface investment events, and execute workflows based on your instructions.\nCyber Market Intelligence: Insights from $500M+ in managed spend, 5,000+ vendors, and 20,000+ products.\nTransaction Network: Neutral execution paths designed to minimize friction and margin.\nEmbedded Expertise: On-demand security, vendor, and procurement specialists when needed.\n\nPROVEN OUTCOMES\n18%+ average savings per transaction\n300%+ average ROI per customer\n6 months → 6 weeks from signal to execution\nMore budget to increase cyber defense maturity\n\nBalance Theory brings incident-grade discipline to cybersecurity investments — so every dollar stays aligned as the business evolves.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: Columbia, United States\n- Homepage: balancetheory.io\n- Aliases: Balance Theory Inc., balance theory, balance theory, inc.\n- LinkedIn: linkedin.com/company/balance-theory\n- Linkedin Followers: 1,027\n- Emails: info@balancetheory.io\n\n## Financials\n- Annual Revenue: USD 1,000,000\n- Total Funding: USD 24,300,000\n  - Series a (2026-07-01): USD 19.0M\n  - Debt financing (2025-06-01): USD 2.3M\n  - Seed (2022-11-04): USD 3.0M\n\n## Workforce\n- Employees: 28\n- Company Size: 11-50 employees\n  - Yearly Growth: +33.3%\n- Key Executives:\n  - Christy La Guardia: Head of Engineering | Senior Full Stack Engineer\n  - Greg Baker: Co-Founder | CEO\n  - Kristi Fields: Chief Growth Officer\n  - Nathan Necaise: Co-Founder\n  - Nicky Bailey: Customer Strategy Partner\n  - Randy Lariar: Head of Artificial Intelligence\n- Breakdown:\n  - By Country: United States: 21 (75%), Australia: 1 (4%)\n  - By Department: Consulting: 6 (21%), Other Department: 6 (21%), General Management: 2 (7%), Technical: 2 (7%), Design: 1 (4%), Finance: 1 (4%), Marketing: 1 (4%), Operations: 1 (4%), Sales: 1 (4%), Trades: 1 (4%)\n  - By Seniority: Other Management: 7 (25%), Specialist: 5 (18%), Founder: 2 (7%), Head: 2 (7%), Senior: 2 (7%), Clevel: 1 (4%), Intern: 1 (4%), Manager: 1 (4%), Partner: 1 (4%)\n- Talent Sources: Optiv (5), TD (1), Spoke Technology (1), ReversingLabs (1), RegScale (1), EcoMap Technologies, Inc. (1), Defy Security (1), CrowdStrike (1), Code42 (acquired by Mimecast) (1), CAQH (1)\n- Alumni Go To: Reactive Canvas (1), Optimum Healthcare IT (1), Impruvon (1), Foot Locker (1), EcoMap Technologies, Inc. (1), Cyera (1), Cyderes (1), Consortium (1), Bristol ID Technologies (1), Beacon Cyber Solutions (1)\n\n## Web presence\n\n- Crunchbase: crunchbase.com/organization/balance-theory\n- Web traffic:\n  - Monthly visits: 3,163\n  - Global rank: 4,958,937\n  - Bounce rate: 35.0%\n  - Pages per visit: 1.9\n  - Average visit duration: 35s\n\n## Categories\n\nagentic ai, artificial intelligence (ai), cyber security, information technology, investments, management, reclaim time, savings, security, security ecosystem\n\n## Competitors\n\nsafeguard cyber, risklens, privacera\n\n## Recent News\n- [2026-08-24] [Balance Theory has raised $19 Million in new Series A funding - intelligence360](https://www.intelligence360.news/balance-theory-has-raised-19-million-in-new-series-a-funding/)\n- [2026-08-22] [Balance Theory Raises $19M for Cybersecurity Spending](https://oakhillgazette.com/balance-theory-series-a-cybersecurity-spending/)\n- [2026-08-19] [Balance Theory Raises $19M to Reinvent How Enterprises Manage Cybersecurity Investments – News Radio KOTA](https://lifestyle.kotaradio.com/story/365482/balance-theory-raises-19m-to-reinvent-how-enterprises-manage-cybersecurity-investments/)\n- [2026-08-12] [Podcast Segment: Domain Security Plus BlackHat USA 2026 Interviews from Balance Theory and WiCyS – Ihab Shraim, Greg Baker, Lynn Dohm – BSW #460 \\| SC Media](https://www.scworld.com/podcast-segment/14892-domain-security-plus-blackhat-usa-2026-interviews-from-balance-theory-and-wicys-ihab-shraim-greg-baker-lynn-dohm-bsw-460)\n- [2026-08-11] [This Week in Jobs: These 25 open tech roles are just within reach](https://technical.ly/workforce/this-week-in-jobs-these-25-open-tech-roles-are-just-within-reach/)\n- [2026-08-07] [Balance Theory lands $19M Series A to expand its software and hire in Maryland](https://technical.ly/entrepreneurship/balance-theory-raises-19m-series-a-maryland-money-moves/)\n- [2026-08-05] [Balance Theory Raises $19 Million Series A Led By SYN Ventures](https://pulse2.com/balance-theory-raises-19-million-series-a-led-by-syn-ventures/)\n- [2026-08-03] [Balance Theory bags $19m to end CISO budget guesswork](https://fintech.global/2026/08/03/balance-theory-bags-19m-to-end-ciso-budget-guesswork/)\n- [2026-07-31] [Balance Theory Raises $19M Series A to Expand Investment Platform for CISOs – citybiz](https://www.citybiz.co/article/882327/balance-theory-raises-19m-series-a-to-expand-investment-platform-for-cisos/)\n- [2023-09-21] PR Newswire: Optiv Co-Founder Dan Burns Joins Balance Theory Board of Directors\n- [2022-12-08] Technical.ly: With $3M raise, Columbia’s Balance Theory seeks to ‘democratize’ cyber’s future\n- [2022-12-05]\n  - FinSMES: Balance Theory Raises $3M in Seed Funding\n  - Security Week: Balance Theory Scores Seed Funding for Secure Workspace Collaboration\n  - VentureBeat: With collaboration app for security teams, Balance Theory raises $3 million\n\n## Social\n\n### Linkedin\n\n- [2026-07-29 · 44 reactions] Black Hat week is almost here — and Balance Theory has a lot to share. Tune in Wednesday, August 5 at 9:40 a.m. PT for a live CyberRisk TV conversation with our co-founder and CEO, Greg Baker, on h...\n\n- [2026-07-28 · 9 reactions] Every security dollar moves through a lifecycle\n\n- [2026-07-21 · 6 reactions] Adversaries don't wait for annual reviews.\n\n- [2026-07-14 · 5 reactions] Slow decisions compound. Fast adversarial actions compound also.\n\n- [2026-07-07 · 4 reactions] Can every investment line item answer what it is doing and why?\n\n- [2026-06-30 · 5 reactions] Mind the \"Coverage Gap\"\n\n- [2026-06-23 · 6 reactions] The right tool, bought at the wrong moment, becomes the wrong tool.\n\n- [2026-06-16 · 2 reactions] Can you catch and resolve \"Spend Anomalys?\"\n\n- [2026-06-09 · 5 reactions] Are your \"Decision Cycles\" getting longer or shorter?\n\n- [2026-06-02 · 5 reactions] Remember your \"Decision Context\" with every renewal.\n\n- [2026-05-26 · 7 reactions] How long is your \"Relationship Memory?\"\n\n- [2026-05-19 · 5 reactions] Real signals to take action on your Cyber investments come from coverage data, market movement, and portfolio drift\n\n- [2026-05-15 · 14 reactions] One of the best parts of Gartner Security & Risk Management Summit is usually what happens between the sessions and the dinners. That window where people are comparing notes, pressure testing what...\n\n- [2026-05-12 · 8 reactions] Every security investment should carry it's own case.\n\n- [2026-04-15 · 9 reactions] 58% of security teams run 25+ tools. Nearly half admit it's blocking their programs. The era of tool expansion is over. For a decade, the playbook was buy best-of-breed for every category. EDR. SIE...\n\n- [2026-04-14 · 8 reactions] Security programs have operational rigor everywhere except where it matters most: The budget layer. When an incident hits, you have command. Signals are clear. Decisions are made. Action follows. A...\n\n- [2026-04-10 · 10 reactions] You run incidents with command. Clear signals. Fast decisions. Coordinated action. Why don't security investments work the same way? Most teams treat renewals and purchases like admin tasks. Spread...\n\n- [2026-03-24 · 17 reactions] The conventional wisdom says CISOs want fewer vendors. The data says otherwise. For three years, the industry narrative has been clear: consolidate your vendor stack. Fewer tools, fewer integration...\n\n- [2026-03-19 · 12 reactions] There's a role emerging in security that nobody has a title for yet. They sit at the intersection of security operations, vendor relationships, and budget governance. They track what they bought, w...\n\n- [2026-03-17 · 15 reactions] Your vendor negotiates 50 deals a year. You negotiate 1. That asymmetry costs you 15-20% every time. Vendors have: ✅ Full-time negotiation teams ✅ Real-time market intelligence ✅ Perfect informatio...\n\n## Locations\n- Headquarters: columbia, maryland, united states (US)\n- Offices: columbia, maryland, united states (US)",
+        "summary": "{\"description\":\"Balance Theory is a Software Development company offering an AI-native platform for cybersecurity investment management, helping CISOs, CIOs, and procurement leaders detect investment events and govern spend.\",\"employee_estimate\":28,\"employee_estimate_source\":\"Employees: 28\",\"hiring_first_ops_or_revops\":false,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Columbia, United States\",\"hq_quote\":\"Headquarters: columbia, maryland, united states (US)\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Software Development\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 24,300,000\\n  - Series a (2026-07-01): USD 19.0M\\n  - Debt financing (2025-06-01): USD 2.3M\\n  - Seed (2022-11-04): USD 3.0M\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQFqWDByHOyQbg/company-logo_200_200/company-logo_200_200/0/1666213583886/balance_theory_logo?e=2147483647&v=beta&t=tVdzXEr0AB2Hy-2kMVLOYbK0zL-vifmyFOv-IxH1NPs",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/9rpw4n1fs48",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Balance Theory",
+              "foundedYear": null,
+              "description": "Balance Theory is the AI-native platform for running cybersecurity investments with the same rigor as incidents. We help CISOs, CIOs, and procurement leaders detect investment events, make fast, data-driven decisions, and continuously govern spend as the enterprise and market change.\n\nTHE PROBLEM WE SOLVE\nSecurity teams know how to run incidents — clear signals, structured response, documented outcomes. But cybersecurity investments are still managed through spreadsheets, biased recommendations, and opaque pricing.\n\nRenewals, tool sprawl, market shifts, and changing business priorities quietly erode budgets and slow execution.\n\nOUR APPROACH\nBalance Theory treats cybersecurity investments as events — with defined states and repeatable execution.\n\nDetect: Identify investment triggers across renewals, coverage gaps, spend anomalies, and vendor overlap.\nAnalyze: Compare alternatives using real market data — not sales decks or gut feel.\nDecide: Model cost, coverage, and risk tradeoffs aligned to your frameworks and priorities.\nExecute: Benchmark, negotiate, transact, consolidate, or reallocate spend through the most efficient path.\nGovern: Continuously rationalize the portfolio by monitoring market change, usage drift, and enterprise shifts over time.\n\nWHAT POWERS IT\nScout AI: Agents that monitor your environment, surface investment events, and execute workflows based on your instructions.\nCyber Market Intelligence: Insights from $500M+ in managed spend, 5,000+ vendors, and 20,000+ products.\nTransaction Network: Neutral execution paths designed to minimize friction and margin.\nEmbedded Expertise: On-demand security, vendor, and procurement specialists when needed.\n\nPROVEN OUTCOMES\n18%+ average savings per transaction\n300%+ average ROI per customer\n6 months → 6 weeks from signal to execution\nMore budget to increase cyber defense maturity\n\nBalance Theory brings incident-grade discipline to cybersecurity investments — so every dollar stays aligned as the business evolves.",
+              "workforce": {
+                "total": 28
+              },
+              "headquarters": {
+                "address": "Columbia, MD, US",
+                "city": "Columbia",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 1000000,
+                "fundingTotal": 24300000,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2026-07-01",
+                  "amount": 19000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 3163,
+                "countryRank": 1644280,
+                "avgDurationSeconds": 35,
+                "history": [
+                  {
+                    "value": 1181,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 587,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 1686,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 784,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 3024,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 3163,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/g890x83q92l",
+        "title": "BALANCE",
+        "url": "https://linkedin.com/company/b-a-l-a-n-c-e",
+        "text": "# BALANCE\n\nBALANCE is a Legal Services company. BALANCE employs 2 people (+100.0% YoY, +1 person). Headquartered in Hyderabad, Telangana, India.\n\n## About\n\nBalance is the international biannual flagship journal of Symbiosis Law School, Hyderabad, published by its Research and Publication Cell. It is student run, peer-reviewed and multidisciplinary in nature, dealing with issues at the intersection of law and other subjects such as Sociology, Political science, Economics, Anthropology and other social sciences and humanities.\nBalance was started with an objective of “fostering a spirit of multidisciplinary research and comprehensive understanding.”.\n\n## Company Details\n- Industry: Legal Services\n- Type: Privately held\n- Headquarters: Hyderabad, India\n- Aliases: balance\n- LinkedIn: linkedin.com/company/b-a-l-a-n-c-e\n- Linkedin Followers: 17\n\n## Workforce\n- Employees: 2\n- Company Size: 11-50 employees\n  - Yearly Growth: +100.0%\n- Talent Sources: Rab & Rab Associates LLP (1), Moot Court Association (1)\n- Alumni Go To: Global Sports Policy Review (1), CK JURIS (1)\n\n## Locations\n- Headquarters: hyderabad, telangana, india\n- Offices: hyderabad, telengana, india",
+        "summary": "{\"description\":\"BALANCE is a Legal Services company based in Hyderabad, India. The page lists 2 employees and a company size of 11-50, with 100% YoY growth. It is described as the international biannual flagship journal of Symbiosis Law School, Hyderabad, published by its Research and Publication Cell, and it operates in the legal services industry.\",\"employee_estimate\":2,\"employee_estimate_source\":\"Employees: 2\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Hyderabad, Telangana, India\",\"hq_quote\":\"Headquarters: Hyderabad, India\",\"industry\":\"Legal Services\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"- Industry: Legal Services\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":false,\"recently_funded_seed_or_series_a_quote\":\"\\\"Balance is the international biannual flagship journal of Symbiosis Law School, Hyderabad, published by its Research and Publication Cell.\\\"\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4E0BAQEucb4bJsGjOA/company-logo_200_200/company-logo_200_200/0/1630622174359?e=2147483647&v=beta&t=L8S0rkbPCajY8zRKNboPY61hjytBKwxeW-qdd7db1fM",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/g890x83q92l",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "BALANCE",
+              "foundedYear": null,
+              "description": "Balance is the international biannual flagship journal of Symbiosis Law School, Hyderabad, published by its Research and Publication Cell. It is student run, peer-reviewed and multidisciplinary in nature, dealing with issues at the intersection of law and other subjects such as Sociology, Political science, Economics, Anthropology and other social sciences and humanities.\nBalance was started with an objective of “fostering a spirit of multidisciplinary research and comprehensive understanding.”.",
+              "workforce": {
+                "total": 2
+              },
+              "headquarters": {
+                "address": "Hyderabad, Telengana 509217, IN",
+                "city": "Hyderabad",
+                "postalCode": null,
+                "country": "India"
+              },
+              "financials": null,
+              "webTraffic": null,
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 7274.1,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

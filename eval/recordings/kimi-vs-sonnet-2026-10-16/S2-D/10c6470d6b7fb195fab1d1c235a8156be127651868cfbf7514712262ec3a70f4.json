@@ -1,0 +1,214 @@
+{
+  "request": {
+    "query": "Underflow Inc.",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "629d1cc7b6bd38290df791b31ba89d41",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/mwbshkhhxs4",
+        "title": "Underflow",
+        "url": "https://underflow.eu/",
+        "text": "# Underflow\n\nUnderflow is a Software Development company. Underflow employs 1 person, founded in 2019.\n\n## About\n\nUnderflow is an AI-powered product studio that turns ideas into intelligent, production-grade applications.\n\nWe partner with companies as a senior product squad — handling strategy, design, engineering, and scale. From discovery to launch, we ship real products on a disciplined, de-risked cadence with weekly releases and transparent communication.\n\nWhat we do:\n\n- Product Strategy & MVP Scoping\n- Design Systems & UX\n- AI-Powered App Engineering (iOS, Android, Web & Cloud)\n- Scale, Support & Performance Optimization\n\nWe build AI features that work in the real world — private on-device models, smart workflows, adaptive personalization — all with security and privacy at the core.\n\nOur track record speaks for itself: 4.9-rated apps on the App Store and Google Play, built for startups and Fortune 500 companies alike.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Founded Year: 2019\n- Homepage: underflow.eu\n- Aliases: underflow\n- LinkedIn: linkedin.com/company/underflow\n- Linkedin Followers: 11\n\n## Workforce\n- Employees: 1\n- Company Size: 1-10 employees\n- Key Executives:\n  - Domagoj Stanković: CEO & Founder\n- Breakdown:\n  - By Country: Croatia: 1 (100%)\n  - By Department: General Management: 1 (100%)\n  - By Seniority: Founder: 1 (100%)\n- Talent Sources: Ray (1)\n\n## Web presence\n\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Recent News\n- [2026-09-10] GBHackers News: Apple Xcode Integer Underflow Flaw Lets Crafted Archives Leak Memory and Crash Builds\n- [2026-08-28] Engineering News: From reagent dosing to thickener underflow: Choosing the right pump and hoses for mining operations\n- [2026-08-25] SystemTek: NGINX HTTP Dav Module Alias Directive Integer Underflow Remote Code Execution Vulnerability \\(CVE-2026-27654\\)\n- [2025-11-10]\n  - Musicity: Nefeli Walking Undercover στο Underflow Record Store\n  - Αθήνα 9,84: Οι μουσικές ιστορίες της Nefeli Walking Undercover ζωντανεύουν στη σκηνή του Underflow\n- [2025-11-05] CultureNow.gr: Ιστορία της Μουσικής & Κινηματογράφος Vol. 2: Αναγέννηση & Μπαρόκ στο Underflow Record Store",
+        "summary": "{\"description\":\"Underflow is an AI-powered product studio that turns ideas into intelligent, production-grade applications.\",\"employee_estimate\":1,\"employee_estimate_source\":\"Employees: 1\",\"hiring_first_ops_or_revops\":false,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Croatia\",\"hq_quote\":\"By Country: Croatia: 1 (100%)\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Underflow is a Software Development company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":null,\"recently_funded_seed_or_series_a_quote\":\"\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQF6B3G4247p-w/company-logo_200_200/B4EZzCSvWAJcAI-/0/1772786219277/underflow_logo?e=2147483647&v=beta&t=5ETRnOwAfKhiPyiIgt_q0T0ahOY44leeDEjhdRemDvQ",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/mwbshkhhxs4",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Underflow",
+              "foundedYear": 2019,
+              "description": "Underflow is an AI-powered product studio that turns ideas into intelligent, production-grade applications.\n\nWe partner with companies as a senior product squad — handling strategy, design, engineering, and scale. From discovery to launch, we ship real products on a disciplined, de-risked cadence with weekly releases and transparent communication.\n\nWhat we do:\n\n- Product Strategy & MVP Scoping\n- Design Systems & UX\n- AI-Powered App Engineering (iOS, Android, Web & Cloud)\n- Scale, Support & Performance Optimization\n\nWe build AI features that work in the real world — private on-device models, smart workflows, adaptive personalization — all with security and privacy at the core.\n\nOur track record speaks for itself: 4.9-rated apps on the App Store and Google Play, built for startups and Fortune 500 companies alike.",
+              "workforce": {
+                "total": 1
+              },
+              "headquarters": null,
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 299,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/4d9lpn254nc",
+        "title": "Mr.AutomotiEV®",
+        "url": "https://mrautomotiev.com/",
+        "text": "# Mr.AutomotiEV®\n\nMr.AutomotiEV® is a Transportation, Logistics, Supply Chain and Storage company. Mr. automotiev is a company that redefining last-mile mobility with a 100% electric fleet. They provide eco-friendly, cost-efficient, and future-ready solutions across India. Their mission is to move goods and people responsibly, with speed and reliability. Mr.AutomotiEV® employs 9 people (-30.8% YoY, -4 people), founded in 2022. Headquartered in Ahmedabad, India, with presence in United States.\n\n## About\n\nMr.AutomotiEV is a Pan-India electric mobility solutions provider focused on delivering last-mile connectivity across multiple sectors. We specialize in deploying sustainable electric vehicle (EV) fleets tailored for public transport, logistics, e-commerce, retail, and municipal services.\n\nAs a trusted partner in India’s clean mobility revolution, Mr.AutomotiEV supports businesses and institutions in transitioning to zero-emission, cost-effective transportation. From vehicle sourcing and deployment to operational support, we offer end-to-end EV solutions designed to optimize performance and reduce environmental impact.\n\nOur nationwide operations are powered by strong collaborations with leading EV OEMs, charging infrastructure providers, fleet operators, and government agencies. Together, we’re building a future-ready ecosystem that meets the needs of modern mobility while advancing India’s sustainability goals.\n\nWhether it’s urban delivery or passenger movement, Mr.AutomotiEV is your strategic partner for electrifying the last mile.\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Privately held\n- Headquarters: Ahmedabad, India\n- Founded Year: 2022\n- Homepage: mrautomotiev.com\n- Aliases: Underflow Management Private Limited, mr.automotiev, mr.automotiev®\n- LinkedIn: linkedin.com/company/mr-automoti-ev\n- Linkedin Followers: 325\n- Emails: service@mrautomotiev.com, work@mrautomotiev.com\n- Phone: +917383742424, 7383742424\n\n## Workforce\n- Employees: 9\n- Company Size: 11-50 employees\n  - Yearly Growth: -30.8%\n- Key Executives:\n  - Bhavini Patel: Director\n  - Rahul Patel: Founder CEO Managing Director\n- Breakdown:\n  - By Country: India: 5 (56%)\n  - By Department: General Management: 3 (33%), Operations: 2 (22%)\n  - By Seniority: Manager: 2 (22%), Clevel: 1 (11%), Director: 1 (11%), Specialist: 1 (11%)\n- Talent Sources: ZEVO (1), Weisetech Developers (1), SAVAAR-E (1), Kira E-Motion Private Limited (1), 3eco Systems Pvt Ltd (1)\n- Alumni Go To: Euler Motors (2), Starline Solutions Pvt Ltd (1), Kira E-Motion Private Limited (1), Futmobi (1)\n\n## Products & Technology\n- Tech Stack: electric\n\n## Web presence\n\n- Crunchbase: crunchbase.com/organization/mr-automotiev\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Categories\n\ncost-efficient, eco-friendly, electric fleet, future-ready solutions, last-mile mobility, logistics, transportation\n\n## Social\n\n### Linkedin\n\n- [2025-10-02 · 7 reactions] Dussehra is a celebration of the triumph of good over evil, truth over falsehood, and values over chaos. Beyond its cultural and spiritual significance, it offers a timeless leadership lesson: with...\n\n- [2025-09-22 · 10 reactions] Navratri is a celebration of Shakti the divine energy that inspires strength, wisdom, and renewal. Each of the nine nights honours a unique virtue of Maa Durga: courage, discipline, compassion, and...\n\n- [2025-09-05 · 8 reactions] On this Teachers’ Day, we celebrate the educators, mentors, and visionaries who inspire us to learn, grow, and lead with purpose. At Mr. AutomotiEV, we believe that teaching goes beyond classrooms....\n\n- [2025-08-15 · 9 reactions] On this auspicious occasion of Janmashtami, we celebrate not only the birth of Lord Krishna but also the timeless virtues He embodied — wisdom, courage, righteousness, and the ability to inspire ch...\n\n- [2025-08-09 · 16 reactions] Rakshabandhan is a celebration of trust, care, and the promise to protect — values that extend beyond personal relationships into the way we build partnerships, communities, and a sustainable futur...\n\n- [2025-08-03 · 7 reactions] On this Friendship Day, we take a moment to acknowledge the invaluable relationships that form the backbone of innovation and progress — our colleagues, collaborators, partners, and stakeholders. I...\n\n- [2025-07-10 · 9 reactions] We take this moment to reflect on the invaluable contributions of mentors, educators, visionaries, and changemakers — the individuals and institutions who illuminate the path of progress with insig...\n\n- [2025-07-06 · 9 reactions] As we observe Muharram, we reflect on the enduring values exemplified by Imam Hussain (AS) — values of courage, justice, and moral conviction. At Mr.AutomotiEV, we believe that true progress is roo...\n\n- [2025-07-01 · 14 reactions] At Mr.AutomotiEV, we acknowledge the critical connection between healthcare and sustainable mobility. By enabling the timely delivery of essential medical supplies and strengthening healthcare infr...\n\n- [2025-06-28 · 9 reactions] At Mr. AutomotiEV, logistics is more than just the movement of goods — it is the driving force behind sustainable progress. Through our commitment to technology-driven and eco-conscious solutions,...\n\n## Locations\n- Headquarters: ahmedabad, india\n- Offices: ahmedabad, gujarāt, india, ahmedabad, india",
+        "summary": "{\"description\":\"Mr.AutomotiEV® is a Pan-India electric mobility solutions provider focused on last-mile connectivity, offering eco-friendly EV fleets for public transport, logistics, e-commerce, retail, and municipal services. It aims to transition businesses to zero-emission, cost-effective transportation with end-to-end EV solutions and nationwide operations supported by collaborations with EV OEMs, charging providers, fleet operators, and government agencies.\",\"employee_estimate\":9,\"employee_estimate_source\":\"Employees: 9\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Ahmedabad, India\",\"hq_quote\":\"Headquarters: ahmedabad, india\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":null,\"recently_funded_seed_or_series_a_quote\":\"\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4D0BAQE4y0BKHcr2EQ/company-logo_200_200/B4DZaY6yu6GgAM-/0/1746322271655/mr_automoti_ev_logo?e=2147483647&v=beta&t=zH-bwRtNXYRKbEd_Rc04Tnp0Ajah_rLHEkMreH_SIwQ",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/4d9lpn254nc",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Mr.AutomotiEV®",
+              "foundedYear": 2022,
+              "description": "\nMr.AutomotiEV is a Pan-India electric mobility solutions provider focused on delivering last-mile connectivity across multiple sectors. We specialize in deploying sustainable electric vehicle (EV) fleets tailored for public transport, logistics, e-commerce, retail, and municipal services.\n\nAs a trusted partner in India’s clean mobility revolution, Mr.AutomotiEV supports businesses and institutions in transitioning to zero-emission, cost-effective transportation. From vehicle sourcing and deployment to operational support, we offer end-to-end EV solutions designed to optimize performance and reduce environmental impact.\n\nOur nationwide operations are powered by strong collaborations with leading EV OEMs, charging infrastructure providers, fleet operators, and government agencies. Together, we’re building a future-ready ecosystem that meets the needs of modern mobility while advancing India’s sustainability goals.\n\nWhether it’s urban delivery or passenger movement, Mr.AutomotiEV is your strategic partner for electrifying the last mile.",
+              "workforce": {
+                "total": 9
+              },
+              "headquarters": {
+                "address": "Ahmedabad, IN",
+                "city": "Ahmedabad",
+                "postalCode": null,
+                "country": "India"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 1186,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 866,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 6050.8,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

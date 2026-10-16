@@ -1,0 +1,234 @@
+{
+  "request": {
+    "query": "Thira",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "cc0489e788671c00bc780df0811f396a",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/q6qqgdjn878",
+        "title": "Thira",
+        "url": "https://thira.com/",
+        "text": "# Thira\n\nThira is a Technology, Information and Internet company. Thira is a company that builds secure, self-governing AI agents that run the enterprise back-office. Thira employs 9 people. Headquartered in Seattle, Washington, United States, with an office in Bellevue.\n\n## About\n\nThira is a company that builds secure, self-governing AI agents that run the enterprise back-office.\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Headquarters: Seattle, United States\n- Homepage: thira.com\n- Aliases: Thira, Inc., thira\n- LinkedIn: linkedin.com/company/thiraai\n- Linkedin Followers: 773\n- Emails: careers@thira.com, info@thira.com\n\n## Workforce\n- Employees: 9\n- Company Size: 11-50 employees\n- Key Executives:\n  - Grant Neuman: Co-Founder\n  - Mudit Goel: Founder CTO\n  - Shashwat Srivastav: Interim CTO\n  - Sunny Gupta: Co-founder and Executive Chairman\n  - Tarek Madkour: Chief Product Officer\n- Breakdown:\n  - By Country: United States: 7 (78%)\n  - By Department: Technical: 3 (33%), General Management: 2 (22%), Consulting: 1 (11%), Product: 1 (11%)\n  - By Seniority: Founder: 3 (33%), Clevel: 2 (22%), Other Management: 1 (11%), Specialist: 1 (11%)\n- Talent Sources: Supio (1), Oracle (1), Modlee (1), Generative Capital (1), Databricks (1), Atlassian (1), AIVOT (1)\n\n## Products & Technology\n- Tech Stack: apptio\n\n## Web presence\n\n- Crunchbase: crunchbase.com/organization/thira-29bb\n- Web traffic:\n  - Monthly visits: 2,962\n  - Global rank: 6,259,800\n  - Bounce rate: 37.0%\n  - Pages per visit: 1.3\n  - Average visit duration: 0s\n\n## Categories\n\nai, back-office, secure, self-governing, systems, technology/software\n\n## Social\n\n### Linkedin\n\n- [2026-07-14 · 34 reactions, 1 comment] The back office that runs itself: that's the future we're building at Thira. For years, AI has helped organizations generate content. We believe the next frontier is helping organizations securely...\n\n## Locations\n- Headquarters: seattle, washington, united states (US)\n- Offices: seattle, washington, united states (US), bellevue, washington, united states (US)",
+        "summary": "{\"description\":\"Thira is a Technology, Information and Internet company that builds secure, self-governing AI agents for the enterprise back-office.\",\"employee_estimate\":9,\"employee_estimate_source\":\"Employees: 9\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Key Executives:\\n  - Grant Neuman: Co-Founder\\n  - Mudit Goel: Founder CTO\\n  - Shashwat Srivastav: Interim CTO\\n  - Sunny Gupta: Co-founder and Executive Chairman\\n  - Tarek Madkour: Chief Product Officer\",\"hq\":\"Seattle, United States\",\"hq_quote\":\"Headquarters: Seattle, United States\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Technology, Information and Internet\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":null,\"recently_funded_seed_or_series_a_quote\":\"\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQE1YVltLJpQWw/company-logo_200_200/B56Z9R0dXYGQAE-/0/1783784134335?e=2147483647&v=beta&t=69l9RGMX4uoA8mO8H5iwQ41xWqVdA6BkrzFK4WYOsQk",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/q6qqgdjn878",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Thira",
+              "foundedYear": null,
+              "description": "Thira is a company that builds secure, self-governing AI agents that run the enterprise back-office.",
+              "workforce": {
+                "total": 9
+              },
+              "headquarters": {
+                "address": "Seattle, WA, US",
+                "city": "Seattle",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 2962,
+                "countryRank": 2242463,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 767,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 2962,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/swq0xcpgs4y",
+        "title": "Thira",
+        "url": "https://thira.co/",
+        "text": "# Thira\n\nThira is a Artists and Writers company. Thira employs 13 people (+18.2% YoY, +2 people), founded in 2025. Headquartered in New York, New York, United States, with presence in United Kingdom. Its workforce is distributed across India, Uganda, United Kingdom, and United States.\n\n## About\n\nThira is a weekly account of where to be in New York, and a reference on art & culture, design, style, and travel. Named for a still island in Greece.\n\nThe reference takes four forms. The Week is a Monday account of what’s worth going to—gallery openings, dinners, the occasional fair. Stories are essays and interviews on the same four subjects: the work being made now, and the people making it. Objects extend the same eye into form—garments, scents, prints, and other pieces chosen each season for their craft and presence. Guides map a city in detail, hotels through galleries and the order in which to move through them, maintained rather than published once. New York now; London and Tokyo to follow.\n\nMembership is by invitation and opens all of it. Guides are also sold on their own.\n\nPrivate Client is a separate practice, taken on directly and quoted per project, for a limited number of clients each year. Travel, art, and interiors—routes built and booked, collections built and edited, rooms finished season by season. Independent of galleries, dealers, and hotels. No commissions and no referral fees, on either side of the practice.\n\nThira is edited by A. Sakae, based in New York.\n\n## Company Details\n- Industry: Artists and Writers\n- Type: Privately held\n- Headquarters: New York, United States\n- Founded Year: 2025\n- Homepage: thira.co\n- Aliases: thira, thira.co\n- LinkedIn: linkedin.com/company/thira\n- Linkedin Followers: 1,945\n- Emails: hello@thira.co\n\n## Workforce\n- Employees: 13\n- Company Size: 11-50 employees\n  - Yearly Growth: +18.2%\n- Key Executives:\n  - Abhijith Balakrishnan: Director of Sales and Operations\n  - Abhishek Singh: Founder\n- Breakdown:\n  - By Country: India: 1 (8%), Uganda: 1 (8%), United Kingdom: 1 (8%), United States: 1 (8%)\n  - By Department: General Management: 2 (15%), Marketing: 1 (8%), Other Department: 1 (8%)\n  - By Seniority: Director: 1 (8%), Founder: 1 (8%), Manager: 1 (8%), Other Management: 1 (8%)\n- Talent Sources: Yours Eventfully (1), Waitrose & Partners (1), Unacademy (1), UN Youth Association of Romania (UNYAR) (1), Sanitree (1), Ogilvy (1), Little Letters Linked (1), Clifford Chance (1), Amalg (1)\n- Alumni Go To: sakae (1), Vitasta Blackspine Publishing Group (1), Pennington Choices - Certified B Corp (1), Hanbury Hall Coworking (1), Fortu Wealth (1), Durham University (1), Camron (1), BLACKLYF (1), Aspire - The Placement Cell of College of Vocational Studies (1)\n\n## Web presence\n\n- Twitter: twitter.com/thiraofficial\n- Facebook: facebook.com/thira.newyork\n- Crunchbase: crunchbase.com/organization/thira\n- Web traffic:\n  - Monthly visits: 2,810\n  - Global rank: 6,770,762\n  - Bounce rate: 44.0%\n  - Pages per visit: 1.2\n  - Average visit duration: 0s\n\n## Categories\n\ndigital publishing, print publishing, publishing, retail\n\n## Recent News\n- [2026-09-22] The Business Journals: Apptio co-founder Sunny Gupta launches AI startup, joins Seahawks ownership group\n- [2026-09-21] [Sunny Gupta launches new tech venture, Seahawks ownership stake - Puget Sound Business Journal](https://www.bizjournals.com/seattle/news/2026/09/21/interview-sunny-gupta-apptio-thira-smartsheet.html)\n- [2026-09-07]\n  - GeekWire: New Seahawks co-owner with deep Seattle tech roots says, 'I'm the 12th man ... I want to represent that'\n  - Asian Image: Popular curry restaurant named best in north of England\n- [2026-09-03] [从Apptio到海鹰队股东，这位西雅图科技老兵的20年球迷梦\\|硅谷\\|铁杆球迷\\|职业生涯\\|apptio\\_网易订阅](https://www.163.com/dy/article/L5VF93OJ05561FZX.html?f=post2020_dy_recommends)\n- [2026-08-31] Lancashire Telegraph: Here’s where you can try this ‘amazing’ veggie meal served on a banana leaf\n- [2026-08-24] [Thira has raised $21 Million in new Seed funding - intelligence360](https://www.intelligence360.news/thira-has-raised-21-million-in-new-seed-funding/)\n- [2026-08-12] GuruFocus: Stock List: Research Stocks from Around the World\n- [2026-08-10] [Thira has filed a notice of an exempt offering of securities to raise $20,999,997.00 in New Funding. - intelligence360](https://www.intelligence360.news/thira-has-filed-a-notice-of-an-exempt-offering-of-securities-to-raise-20999997-00-in-new-funding/)\n- [2026-07-31] TradingView: Enterprise value to EBITDA forward of LS THiRA-UTECH CO.,LTD – KRX:322180\n- [2026-07-20] TradingView: Price to earnings forward of LS THiRA-UTECH CO.,LTD – KRX:322180\n- [2026-07-18]\n  - [Techmeme: Thira, an AI startup founded by Apptio co-founders to develop AI agents that handle back-office tasks such as IT support, raised a $21M seed led by Madrona \\(Todd Bishop/GeekWire\\)](https://www.techmeme.com/260718/p2)\n  - [Apptio Co-Founder Launches AI Startup Thira, Secures $21 Million Seed Round - ABAB News](https://www.ababnews.com/news/e88d23b7-0e6c-4aa3-a3f0-af014f68214a)\n- [2026-07-15] [Thira Raises $21M Seed](https://www.thesaasnews.com/news/thira-raises-21m-seed/)\n- [2026-07-14]\n  - [Apptio co-founders reunite to launch enterprise AI startup Thira](https://www.linkedin.com/pulse/apptio-co-founders-reunite-launch-enterprise-ai-startup-thira-j6u8c)\n  - [Apptio co-founders reunite to launch enterprise AI startup Thira with $21M in funding led by Madrona](https://www.geekwire.com/2026/apptio-co-founders-reunite-to-launch-enterprise-ai-startup-thira-with-21m-in-funding-led-by-madrona/)\n  - [Thira Raises $21 Million Seed Round Led by Madrona to Build the Back-Office That Runs Itself \\| Business \\| hastingstribune.com](https://www.hastingstribune.com/ap/business/thira-raises-21-million-seed-round-led-by-madrona-to-build-the-back-office-that/article_a3e511d2-8ee4-557b-850f-ddc33fc7804c.html)\n  - [What makes CIOs trust an AI agent? Thira bets it's not the model. - The New Stack](https://thenewstack.io/what-makes-cios-trust-an-ai-agent-thira-bets-its-not-the-model/)\n  - [Thira Raises $21 Million Seed To Build Self-Learning AI Back-Office Platform](https://pulse2.com/thira-raises-21-million-seed-to-build-self-learning-ai-back-office-platform/)\n- [2025-07-26] Barchart.com: VIZSLA COPPER ANNOUNCES NEW COPPER-MOLYBDENUM DISCOVERY AT THE THIRA TARGET; DRILLS 345.3 METERS OF 0.43% CUEQ IN FIRST DRILL HOLE AT THE POPLAR PROJECT, CENTRAL BC\n- [2025-06-16] Barchart.com: VIZSLA COPPER ANNOUNCES DRILLING PLANS AT THE THIRA PORPHYRY COPPER TARGET, POPLAR PROJECT, CENTRAL BRITISH COLUMBIA\n- [2023-10-05] Homegrown: Homegrown Artists Reyan & Melvin Are Spearheading A Malayali Hip-Hop Renaissance\n- [2021-07-06] Royal Museums Greenwich: The harbour of Thira, Santorini Island, Greece.\n- [2021-07-02] Royal Museums Greenwich: The north side of the harbour at Thira, Santorini Island, Greece.\n- [2019-05-22] IBTimes India: Partner with Tamil Rockers and sale your films to it: Actor Prasanna's shocking advise to film industry\n\n## Social\n\n### Linkedin\n\n- [2023-11-10 · 1 reaction] Leaves of rust and gold - The stories that they hold. The chill within the air, Winter soon is there.\n\n- [2023-11-10 · 1 reaction] Delivery I Available December 2023 Featuring a mix of 14 fine apparels, accessories, and home items designed in New York and available for purchase online in the United States.\n\n- [2023-10-18 · 2 reactions] Diversity and Inclusion. We are committed to inclusion and providing our employees with a work environment free from discrimination. Policy / Statement https://lnkd.in/e8jSJhmy\n\n- [2023-10-15 · 3 reactions] A close-knit, driven team building products at the intersections of travel, style, art, and design. Seeking individuals who can bring innovative and imaginative ideas to their work, whether it’s in...\n\n- [2023-10-13 · 2 reactions] We have turned a new leaf. Welcome to our reimagined space. ✨\n\n- [2023-10-13 · 1 reaction] Newsletter. Dispatched only for an update – a new story in our magazine, a fresh addition to our shop, or an exclusive invite to a private event. Subscribe thira.co/newsletter\n\n- [2023-10-13 · 1 reaction] Magazine. A digital publication that goes beyond the traditional. Unfolding as a curated journey through our interests in Travel, Style, Art, and Design, releasing stories intermittently. Explore /...\n\n- [2023-04-12 · 1 reaction] Updated Diversity and Inclusion Statement https://lnkd.in/e8jSJhmy #DiversityandInclusion #Thira\n\n- [2023-04-12 · 4 reactions] Hiring – Freelance Photographer Apply at thira.co/careers #Hiring #FreelancePhotographer #Thira\n\n- [2023-04-07] Hiring – Freelance Writer Apply at thira.co/careers #Hiring #FreelanceWriter #Thira\n\n- [2023-04-07 · 1 reaction] Hiring – E-Commerce Manager Apply at thira.co/careers #Hiring #ECommerceManager #Thira\n\n- [2023-04-06] Hiring – Advertiser Relations Manager Apply at thira.co/careers\n\n- [2023-04-05 · 1 reaction] Thira is a tight-knit community where talented individuals are united by a forward-thinking attitude and a desire to push boundaries. We are seeking skilled, passionate people with an entrepreneuri...\n\n## Locations\n- Headquarters: new york, new york, united states (US)\n- Offices: london, united kingdom (GB), new york, new york, united states (US), steamboat springs, colorado, united states (US)",
+        "summary": "{\"description\":\"Thira is an Artists and Writers company focused on digital publishing and back-office AI solutions.\",\"employee_estimate\":13,\"employee_estimate_source\":\"Employees: 13\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Key Executives: Abhijith Balakrishnan: Director of Sales and Operations; Abhishek Singh: Founder\",\"hq\":\"New York, United States\",\"hq_quote\":\"Headquartered in New York, New York, United States, with presence in United Kingdom.\",\"industry\":\"Artists and Writers\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Artists and Writers\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Thira has raised $21 Million in new Seed funding - intelligence360\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4D0BAQHy8yeCvom05g/company-logo_200_200/B4DZlYW.7ZIcAM-/0/1758124044546/thira_logo?e=2147483647&v=beta&t=-F8TSwA0YWFzL2419sINkXDi7EHCr7SVx-c0NMS9mnw",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/swq0xcpgs4y",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Thira",
+              "foundedYear": 2025,
+              "description": "Thira is a weekly account of where to be in New York, and a reference on art & culture, design, style, and travel. Named for a still island in Greece.\n\nThe reference takes four forms. The Week is a Monday account of what’s worth going to—gallery openings, dinners, the occasional fair. Stories are essays and interviews on the same four subjects: the work being made now, and the people making it. Objects extend the same eye into form—garments, scents, prints, and other pieces chosen each season for their craft and presence. Guides map a city in detail, hotels through galleries and the order in which to move through them, maintained rather than published once. New York now; London and Tokyo to follow.\n\nMembership is by invitation and opens all of it. Guides are also sold on their own.\n\nPrivate Client is a separate practice, taken on directly and quoted per project, for a limited number of clients each year. Travel, art, and interiors—routes built and booked, collections built and edited, rooms finished season by season. Independent of galleries, dealers, and hotels. No commissions and no referral fees, on either side of the practice.\n\nThira is edited by A. Sakae, based in New York.",
+              "workforce": {
+                "total": 13
+              },
+              "headquarters": {
+                "address": "New York, New York, US",
+                "city": "New York",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 2810,
+                "countryRank": 2828792,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 3757,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 4025,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 3029,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 3674,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 1873,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 2810,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 7715.6,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

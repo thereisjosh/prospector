@@ -1,0 +1,154 @@
+{
+  "request": {
+    "query": "logistics company opens new fulfillment center California Texas 2026",
+    "type": "neural",
+    "numResults": 10,
+    "startPublishedDate": "2026-07-16T14:00:48.532Z",
+    "contents": {
+      "summary": {
+        "query": "logistics company opens new fulfillment center California Texas 2026 Set signal_date to the date the EVENT itself happened or was announced (not the article's publish date), in ISO format YYYY-MM-DD. Set signal_type to exactly one of: new_facility, expansion, ops_hiring_wave, ops_hire, other. For signal_quote, copy the exact sentence from the page that states the event; use \"\" if no sentence states an event. For signal_date_quote, copy the exact date phrase from the page; use \"\" if no date phrase is stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "company_name": {
+              "type": "string"
+            },
+            "signal_type": {
+              "type": "string",
+              "enum": [
+                "new_facility",
+                "expansion",
+                "ops_hiring_wave",
+                "ops_hire",
+                "other"
+              ]
+            },
+            "signal_summary": {
+              "type": "string"
+            },
+            "signal_date": {
+              "type": "string"
+            },
+            "signal_quote": {
+              "type": "string"
+            },
+            "signal_date_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "company_name",
+            "signal_type",
+            "signal_summary",
+            "signal_date",
+            "signal_quote",
+            "signal_date_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 1200
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "e08a77860ca1ed7b100b17f87b58f2cf",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://kmph.com/news/local/amazon-opens-1-million-square-foot-visalia-distribution-center-creating-600-plus-jobs-central-california-north-plaza-drive-fulfillment-mayor-brett-taylor-natalie-banke",
+        "title": "Amazon opens 1 million-square-foot Visalia distribution center, creating 600-plus jobs",
+        "url": "https://kmph.com/news/local/amazon-opens-1-million-square-foot-visalia-distribution-center-creating-600-plus-jobs-central-california-north-plaza-drive-fulfillment-mayor-brett-taylor-natalie-banke",
+        "publishedDate": "2026-08-21T00:00:00.000Z",
+        "author": "Stephen Hawkins",
+        "score": 1,
+        "text": "Amazon opens 1 million-square-foot Visalia distribution center, creating 600-plus jobs\n\n# Amazon opens 1 million-square-foot Visalia distribution center, creating 600-plus jobs\n\nby Stephen Hawkins\n\nFri, August 21, 2026 at 9:35 AM\n\nUpdated Fri, August 21, 2026 at 1:19 PM\n\n4 VIEW ALL PHOTOS\n\nAmazon opens 1 million-square-foot Visalia distribution center, creating 600-plus jobs (Photo: FOX26 Photojournalist Bert Montelongo)\n\nVISALIA, Calif. (FOX26) — Amazon has opened a new distribution center in Visalia that the company says will speed up deliveries across Central California while creating more than 600 full-time jobs.\n\nThe more than 1 million-square-foot facility launched operations on Sunday and is Amazon’s third logistics site in the region. \n\nAmazon said the site is designed to optimize storage and inventory flow, allowing the company to deliver a wider selection of products to customers faster.\n\nThe new facility is located at 4001 North Plaza Drive in Visalia.\n\nThe Visalia distribution center will function as a regional hub, receiving products directly from vendors and other Amazon facilities and replenishing smaller fulfillment centers that handle final delivery to customers. \n",
+        "summary": "{\"company_name\":\"Amazon\",\"signal_date\":\"2026-08-21\",\"signal_date_quote\":\"Fri, August 21, 2026 at 9:35 AM\",\"signal_quote\":\"Amazon has opened a new distribution center in Visalia that the company says will speed up deliveries across Central California while creating more than 600 full-time jobs.\",\"signal_summary\":\"Amazon opens a new distribution center in Visalia (1 million+ square feet) creating 600+ full-time jobs, serving as a regional hub to speed deliveries in Central California.\",\"signal_type\":\"new_facility\"}",
+        "image": "https://kmph.com/resources/media2/16x9/3712/1320/0x70/90/33aa5ce7-75e7-4e19-93f4-acb6d5a8b81e-Image1.jfif"
+      },
+      {
+        "id": "https://bicycleretailer.com/announcements/2026/07/29/bikesonline-opens-new-us-hq-southern-california-including-fulfillment",
+        "title": "BikesOnline Opens New US HQ in Southern California, including a Fulfillment Center and Trail Riding Experiences | Bicycle Retailer and Industry News",
+        "url": "https://bicycleretailer.com/announcements/2026/07/29/bikesonline-opens-new-us-hq-southern-california-including-fulfillment",
+        "publishedDate": "2026-07-29T00:00:00.000Z",
+        "score": 0.8571428571428572,
+        "text": "BikesOnline Opens New US HQ in Southern California, including a Fulfillment Center and Trail Riding Experiences | Bicycle Retailer and Industry News\n\n# BikesOnline Opens New US HQ in Southern California, including a Fulfillment Center and Trail Riding Experiences\n\n Published July 29, 2026 \n\nBRAIN does not edit, endorse, or fact check these press releases. They are posted as a service to our readers and supporters. Contact us to submit a press release or if you find a posting objectionable.\n\nThe new San Clemente facility combines a retail showroom, regional distribution center, bike demos, and community riding events.\n\nSAN CLEMENTE, Calif. | July 27, 2026\n\nBikesOnline has officially opened the doors to its new Southern California headquarters in San Clemente, bringing its West Coast fulfillment operations, customer showroom and local riding experiences together under one roof.\n\nLocated in the former YT Industries building and surrounded by some of Southern California's best coastal roads and trails, the expanded facility gives riders the chance to see, test and collect their next bike while helping BikesOnline deliver faster shipping to customers across the western United States.\n\nT",
+        "summary": "{\"company_name\":\"BikesOnline\",\"signal_date\":\"2026-07-27\",\"signal_date_quote\":\"SAN CLEMENTE, Calif. | July 27, 2026\",\"signal_quote\":\"BikesOnline has officially opened the doors to its new Southern California headquarters in San Clemente, bringing its West Coast fulfillment operations, customer showroom and local riding experiences together under one roof.\",\"signal_summary\":\"BikesOnline opens new Southern California HQ in San Clemente combining fulfillment operations, showroom, and riding experiences.\",\"signal_type\":\"new_facility\"}",
+        "image": "https://bicycleretailer.com/sites/all/themes/custom/br/images/favicon/fb-default_v2.png"
+      },
+      {
+        "id": "https://www.linkedin.com/posts/total-transportation-and-distribution-inc-_ttd-santafesprings-transportation-activity-7496656616461619200-TZLh",
+        "title": "Yesterday marked an important milestone for Total Transportation & Distribution as we celebrated the ribbon cutting of our new Santa Fe Springs terminal!",
+        "url": "https://www.linkedin.com/posts/total-transportation-and-distribution-inc-_ttd-santafesprings-transportation-activity-7496656616461619200-TZLh",
+        "publishedDate": "2026-08-21T00:00:00.000Z",
+        "author": "Total Transportation and Distribution Inc.",
+        "score": 0.7142857142857143,
+        "text": "# Yesterday marked an important milestone for Total Transportation & Distribution as we celebrated the ribbon cutting of our new Santa Fe Springs terminal! · 2026-08-21T00:00:00+00:00\n\nYesterday marked an important milestone for Total Transportation & Distribution as we celebrated the ribbon cutting of our new Santa Fe Springs terminal!\n\nThis location represents the continued growth of TTD’s Southern California operations and our commitment to supporting customers with reliable, asset-based transportation services.\n\nThank you to everyone who joined us for the celebration and helped make the opening of our newest service center a memorable one.\n\nWe look forward to what this next chapter brings for TTD and the customers we serve!\n\n#TTD #SantaFeSprings #Transportation #Logistics #SouthernCalifornia #LosAngeles\n\nYesterday marked an important milestone for Total Transportation & Distribution as we celebrated the ribbon cutting of our new Santa Fe Springs terminal! image\n\n## Comments (10 shown of 22 reported)\n\n**William Bunton** · 2026-08-21T00:00:00+00:00 · 5 reactions\n> I am incredibly proud and grateful to our entire team and to all of our valued customers as we celebrate the opening ",
+        "summary": "{\"company_name\":\"Total Transportation & Distribution\",\"signal_date\":\"2026-08-21\",\"signal_date_quote\":\"Yesterday marked an important milestone for Total Transportation & Distribution as we celebrated the ribbon cutting of our new Santa Fe Springs terminal!\",\"signal_quote\":\"Yesterday marked an important milestone for Total Transportation & Distribution as we celebrated the ribbon cutting of our new Santa Fe Springs terminal!\",\"signal_summary\":\"Ribbon-cutting milestone for a new Santa Fe Springs terminal, highlighting TTD's Southern California growth and commitment to reliable asset-based transportation services.\",\"signal_type\":\"new_facility\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D5622AQHwDGGo4LuypA/feedshare-shrink_800/B56aAl5dd6GgAc-/0/1787342215728?e=2147483647&v=beta&t=p3WnG_fYqliFd473G7OhR-CIvnjEyZ0qdrXrYpeqw6Y"
+      },
+      {
+        "id": "https://www.bicycleretailer.com/announcements/2026/08/19/bikesonline-opens-new-us-hq-southern-california",
+        "title": "BikesOnline Opens New US HQ in Southern California | Bicycle Retailer and Industry News",
+        "url": "https://www.bicycleretailer.com/announcements/2026/08/19/bikesonline-opens-new-us-hq-southern-california",
+        "publishedDate": "2026-08-19T00:00:00.000Z",
+        "score": 0.5714285714285714,
+        "text": "BikesOnline Opens New US HQ in Southern California | Bicycle Retailer and Industry News\n\n# BikesOnline Opens New US HQ in Southern California\n\n Published August 19, 2026 \n\nBRAIN does not edit, endorse, or fact check these press releases. They are posted as a service to our readers and supporters. Contact us to submit a press release or if you find a posting objectionable.\n\nThe new San Clemente facility combines a retail showroom, regional distribution center, bike demos, and community riding events.\n\nSAN CLEMENTE, Calif. | BikesOnline has officially opened the doors to its new Southern California headquarters in San Clemente, bringing its West Coast fulfillment operations, customer showroom and local riding experiences together under one roof.\n\nLocated in the former YT Industries building and surrounded by some of Southern California's best coastal roads and trails, the expanded facility gives riders the chance to see, test and collect their next bike while helping BikesOnline deliver faster shipping to customers across the western United States.\n\nThe move takes BikesOnline a little further up the I-5 corridor following seven successful years in Carlsbad and marks the next stage of",
+        "summary": "{\"company_name\":\"BikesOnline\",\"signal_date\":\"2026-08-19\",\"signal_date_quote\":\"Published August 19, 2026\",\"signal_quote\":\"BikesOnline has officially opened the doors to its new Southern California headquarters in San Clemente, bringing its West Coast fulfillment operations, customer showroom and local riding experiences together under one roof.\",\"signal_summary\":\"BikesOnline opens new US headquarters in San Clemente, CA, combining retail showroom, regional distribution, bike demos, and community riding events.\",\"signal_type\":\"new_facility\"}",
+        "image": "https://www.bicycleretailer.com/sites/all/themes/custom/br/images/favicon/fb-default_v2.png"
+      },
+      {
+        "id": "https://infomarine.net/en/insight/54-container-news/77747-nfi-expands-ecommerce-network.html",
+        "title": "Infomarine On-Line Maritime News - NFI expands eCommerce network with new California fulfillment center",
+        "url": "https://infomarine.net/en/insight/54-container-news/77747-nfi-expands-ecommerce-network.html",
+        "publishedDate": "2026-09-13T00:00:00.000Z",
+        "score": 0.4285714285714286,
+        "text": "Infomarine On-Line Maritime News - NFI expands eCommerce network with new California fulfillment center\n\n# NFI expands eCommerce network with new California fulfillment center \n\n \n\n> NFI expands eCommerce network with new California fulfillment center \n\nNFI has expanded its eCommerce network with a new fulfillment operation in Eastvale, California.\n\nThe new facility strengthens NFI’s bi-coastal fulfillment strategy and supports the growth of an apparel customer on the US West Coast.\n\nNFI said the Eastvale location will improve replenishment cycles, delivery speeds and time-to-consumer across key markets.\n\nThe facility also complements the company’s broader West Coast distribution network and supports multichannel fulfillment and parcel shipping operations across North America.\n\n“In 2022, we launched NFI eCom to help brands scale through an end-to-end fulfillment solution built for growth,” said William Mahoney, Chief Commercial Officer at NFI.\n\n“As customer demand continues to evolve, we are expanding our vast network to provide greater speed, flexibility, and operational excellence.”\n\nNFI said the operation combines warehouse technology and logistics expertise to improve speed, in",
+        "summary": "{\"company_name\":\"NFI\",\"signal_date\":\"2026-\",\"signal_date_quote\":\"\",\"signal_quote\":\"NFI expands its eCommerce network with a new fulfillment operation in Eastvale, California.\",\"signal_summary\":\"NFI expands its eCommerce network with a new California fulfillment center to support its bi-coastal fulfillment strategy and growth of an apparel customer on the US West Coast.\",\"signal_type\":\"new_facility\"}",
+        "image": "https://infomarine.net/"
+      },
+      {
+        "id": "https://quincy.newsnetmedia.com/story/411254/agco-opens-advanced-parts-distribution-center-in-visalia-calif-expanding-parts-availability-for-western-u-s-farmers/",
+        "title": "AGCO Opens Advanced Parts Distribution Center in Visalia, Calif., Expanding Parts Availability for Western U.S. Farmers – NEWSnet Quincy",
+        "url": "https://quincy.newsnetmedia.com/story/411254/agco-opens-advanced-parts-distribution-center-in-visalia-calif-expanding-parts-availability-for-western-u-s-farmers/",
+        "publishedDate": "2026-08-31T00:00:00.000Z",
+        "author": "AGCO CORPORATION",
+        "score": 0.2857142857142857,
+        "text": "AGCO Opens Advanced Parts Distribution Center in Visalia, Calif., Expanding Parts Availability for Western U.S. Farmers – NEWSnet Quincy\n\n# AGCO Opens Advanced Parts Distribution Center in Visalia, Calif., Expanding Parts Availability for Western U.S. Farmers\n\nAugust 31, 2026\n\nAGCO CORPORATION\n\n# AGCO Opens Advanced Parts Distribution Center in Visalia, Calif., Expanding Parts Availability for Western U.S. Farmers\n\nDULUTH, Ga., Aug. 31, 2026\n\nThe 115,000-square-foot facility more than doubles AGCO’s West Coast parts capacity, putting more critical parts within fast reach of dealers and farmers.\n\nDULUTH, Ga., Aug. 31, 2026 /PRNewswire/ — AGCO (NYSE: AGCO) will open a new, expanded Parts Distribution Center in Visalia, Calif., on September 1, 2026, significantly increasing the range of parts stocked for farmers and dealers across the western United States. Located in the heart of West Coast agriculture, the modern facility replaces AGCO’s existing Visalia location and is designed to improve parts availability, accelerate delivery times and strengthen service for farmers and dealers across the western United States. A grand opening of the facility is planned for the first quarter of 2",
+        "summary": "{\"company_name\":\"AGCO CORPORATION\",\"signal_date\":\"2026-09-01\",\"signal_date_quote\":\"on September 1, 2026\",\"signal_quote\":\"AGCO will open a new, expanded Parts Distribution Center in Visalia, Calif., on September 1, 2026\",\"signal_summary\":\"AGCO opens an expanded Parts Distribution Center in Visalia, CA, increasing Western U.S. parts availability and capacity.\",\"signal_type\":\"new_facility\"}"
+      },
+      {
+        "id": "https://www.stocktitan.net/news/AGCO/agco-opens-advanced-parts-distribution-center-in-visalia-calif-z1q7z8khin51.html",
+        "title": "AGCO Opens 115,000-Square-Foot Distribution Center | AGCO Stock News",
+        "url": "https://www.stocktitan.net/news/AGCO/agco-opens-advanced-parts-distribution-center-in-visalia-calif-z1q7z8khin51.html",
+        "publishedDate": "2026-08-31T00:00:00.000Z",
+        "author": "AGCO Corporation",
+        "score": 0.1428571428571429,
+        "text": "AGCO Opens 115,000-Square-Foot Distribution Center | AGCO Stock News\n\n# AGCO Opens Advanced Parts Distribution Center in Visalia, Calif., Expanding Parts Availability for Western U.S. Farmers \n\nAGCO (NYSE: AGCO) will open a new 115,000-square-foot Parts Distribution Center in Visalia, California, on September 1, 2026, more than doubling its West Coast parts capacity.\n\nRhea-AI Sentiment reads the wording of the document, how positive or negative its language is on a 1 to 5 scale. The balance of points shown with the takes weighs what the document actually discloses, so the two can disagree, for example when a trial that missed its main goal is described in upbeat language.\n\nAGCO (NYSE: AGCO) will open a new 115,000-square-foot Parts Distribution Center in Visalia, California, on September 1, 2026, more than doubling its West Coast parts capacity. The modern facility replaces the prior Visalia site, adding advanced automation and expanded stocking to improve parts availability and delivery for western U.S. farmers and dealers.\n\n### Positive\n\n- 115,000-square-foot Visalia center more than doubles West Coast parts capacity\n- Opening September 1, 2026 to support dealers and farmers acro",
+        "summary": "{\"company_name\":\"AGCO\",\"signal_date\":\"2026-09-01\",\"signal_date_quote\":\"September 1, 2026\",\"signal_quote\":\"AGCO (NYSE: AGCO) will open a new 115,000-square-foot Parts Distribution Center in Visalia, California, on September 1, 2026, more than doubling its West Coast parts capacity.\",\"signal_summary\":\"AGCO opens a 115,000-square-foot Parts Distribution Center in Visalia, CA, with an opening date of September 1, 2026, expanding West Coast parts capacity.\",\"signal_type\":\"new_facility\"}",
+        "image": "https://static.stocktitan.net/company-logo/agco-lg.png?v=e7e258203b"
+      },
+      {
+        "id": "https://www.prnewswire.com/news-releases/agco-opens-advanced-parts-distribution-center-in-visalia-calif-expanding-parts-availability-for-western-us-farmers-302858621.html",
+        "title": "AGCO Opens Advanced Parts Distribution Center in Visalia, Calif., Expanding Parts Availability for Western U.S. Farmers",
+        "url": "https://www.prnewswire.com/news-releases/agco-opens-advanced-parts-distribution-center-in-visalia-calif-expanding-parts-availability-for-western-us-farmers-302858621.html",
+        "publishedDate": "2026-08-31T00:00:00.000Z",
+        "author": "AGCO Corporation",
+        "score": 0,
+        "text": "AGCO Opens Advanced Parts Distribution Center in Visalia, Calif., Expanding Parts Availability for Western U.S. Farmers\n\n# AGCO Opens Advanced Parts Distribution Center in Visalia, Calif., Expanding Parts Availability for Western U.S. Farmers\n\n AGCO Corporation \n\nAug 31, 2026, 08:15 ET\n\nThe 115,000-square-foot facility more than doubles AGCO's West Coast parts capacity, putting more critical parts within fast reach of dealers and farmers.\n\nDULUTH, Ga., Aug. 31, 2026 /PRNewswire/ -- AGCO (NYSE: AGCO) will open a new, expanded Parts Distribution Center in Visalia, Calif., on September 1, 2026, significantly increasing the range of parts stocked for farmers and dealers across the western United States. Located in the heart of West Coast agriculture, the modern facility replaces AGCO's existing Visalia location and is designed to improve parts availability, accelerate delivery times and strengthen service for farmers and dealers across the western United States. A grand opening of the facility is planned for the first quarter of 2027.\n\n \n\n AGCO’s new 115,000-square-foot Parts Distribution Center in Visalia, Calif., more than doubles the company’s West Coast parts capacity, stocking mor",
+        "summary": "{\"company_name\":\"AGCO Corporation\",\"signal_date\":\"2026-09-01\",\"signal_date_quote\":\"on September 1, 2026\",\"signal_quote\":\"AGCO will open a new, expanded Parts Distribution Center in Visalia, Calif., on September 1, 2026\",\"signal_summary\":\"AGCO opens an expanded Parts Distribution Center in Visalia, CA, expanding West Coast parts availability.\",\"signal_type\":\"new_facility\"}",
+        "image": "https://mmx.prnewswire.com/media/MS1077081/AGCO-Red-Black-Logo.jpg?id=OA2900776&p=facebook"
+      }
+    ],
+    "searchTime": 3082.4,
+    "costDollars": {
+      "total": 0.012,
+      "search": {
+        "neural": 0.004
+      },
+      "summary": 0.008
+    }
+  }
+}

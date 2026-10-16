@@ -1,0 +1,198 @@
+{
+  "request": {
+    "query": "Bios Life",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "febe2760348d101c44d15d1d79126612",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/3cm82m2rrk0",
+        "title": "Bios Life",
+        "url": "https://bioslife.ai/",
+        "text": "# Bios Life\n\nBios Life is a Hospitals and Health Care company. BIOS Life is a company that empowers individuals to proactively manage their cancer risk by redefining personalized cancer screening and survivorship. They provide genomic, clinical, and lifestyle data to support continuous care. Bios Life employs 20 people. Headquartered in Addison, Texas, United States. Its workforce is distributed across United States and United Kingdom.\n\n## About\n\nBios Life is a technology-enabled healthcare company built to empower individuals to proactively manage their cancer risk, redefining personalized cancer screening and survivorship. \n\nSurveillance for people at high risk of cancer and for cancer survivors is too often generic, fragmented, and reactive. Screening follows population averages rather than individual risk. Data, expertise, and care delivery sit apart from one another, and care tends to wait for a problem to appear before responding.\n\nBios Life is building the operating system for personalized cancer surveillance: a platform that reads genomic, clinical, laboratory, and lifestyle data together, models how an individual’s risk changes over time, and integrates that intelligence with a continuously curated evidence base – all delivered by a clinician-led care team specialized in cancer surveillance.\n\nWe offer two programs:\n\nPersonalized Screening — an integrated pan-cancer screening program built around an individual’s risk profile.\n\nSurvivorship — continuous surveillance and holistic care designed around the specific needs of cancer survivors.\n\nOur team pairs decades of experience at the forefront of innovative cancer care with deep expertise in genomics and machine learning, supported by internationally recognized advisors who have helped shape screening and survivorship guidelines.\n\nBios Life has teams in the United States and the United Kingdom.\n\nJoin the waitlist: https://bioslife.ai\nPartnership inquiries: partnerships@bioslife.ai\n\n## Company Details\n- Industry: Hospitals and Health Care\n- Type: Privately held\n- Headquarters: Addison, United States\n- Homepage: bioslife.ai\n- Aliases: Bios Life, Inc., bios life\n- LinkedIn: linkedin.com/company/bios-life-ai\n- Linkedin Followers: 1,780\n\n## Workforce\n- Employees: 20\n- Company Size: 11-50 employees\n- Key Executives:\n  - Christopher Terry, MD: Senior Medical Director\n  - Courtney Shearer: Founding AI Scientist\n  - Irina Haivas: Founding Investor & Board Member\n  - Karin Mombourquette Buxton: Vice President, Global Partnerships\n  - Logan Frank, MD: Co-founder / CMO\n  - Rudraksh Tuwani: Founding AI Engineer\n  - Ryan Richardson: Co-Founder & Chief Executive Officer\n  - Simon Senan: Founding AI Engineer\n  - Thomas Makkink: AI Engineer Lead\n  - Thomas Pierrot: Head of AI\n- Breakdown:\n  - By Country: United States: 15 (75%), United Kingdom: 4 (20%)\n  - By Department: Technical: 8 (40%), General Management: 5 (25%), Other Department: 3 (15%), Medical: 1 (5%), Research: 1 (5%), Sales: 1 (5%)\n  - By Seniority: Founder: 6 (30%), Other Management: 3 (15%), Senior: 3 (15%), Head: 2 (10%), Specialist: 2 (10%), Clevel: 1 (5%), Director: 1 (5%), Vp: 1 (5%)\n- Active job postings: 3\n- Talent Sources: ViviScape (1), Tagworks Pharmaceuticals (1), Optum (1), Nisaluce (1), Generate:Biomedicines (1), Galileo (1), Galatea Bio Inc. (1), AssemblyAI (1), Anjuna Security (1), Adolescent and Young Adult Cancer Coalition (1)\n- Alumni Go To: TRIOS2023 (1), American College of Lifestyle Medicine (1), Alpha Intelligence Capital (1)\n\n## Products & Technology\n- Tech Stack: django, docker, git, graphql, java, javascript, microsoft, microsoft excel, prototype, python, pytorch, quickbooks, react, react native, recognize, rippling, tensorflow, typescript\n\n## Web presence\n\n- Crunchbase: crunchbase.com/organization/bios-life\n- Web traffic:\n  - Monthly visits: 1,447\n  - Global rank: 11,609,006\n  - Bounce rate: 34.0%\n  - Pages per visit: 1.3\n  - Average visit duration: 0s\n\n## Categories\n\nai, artificial intelligence (ai), cancer surveillance, continuous care, health care, healthcare, human care, outpatient care, proactive screening\n\n## Social\n\n### Linkedin\n\n- [2026-08-11 · 50 reactions] 🩺 Boston-based healthtech Bios Life emerged stealth, announcing $25 million in seed funding and a multi-year partnership with Tempus AI. Redmile Group, Vsquared Ventures, and Kindred Capital VC led...\n\n- [2026-08-11 · 99 reactions] We’re excited to announce our investment in Bios Life, which today emerges from stealth with $25M in seed funding. 🩺 💻 Nearly 40% of people will be diagnosed with cancer in their lifetime, and more...\n\n- [2026-08-10 · 67 reactions, 5 comments] Today Bios Life emerges from stealth with $25M in seed funding from leading healthcare and technology investors. Nearly 40% of people will be diagnosed with cancer in their lifetime, and more than...\n\n## Locations\n- Headquarters: addison, texas, united states (US)\n- Offices: addison, texas, united states (US)",
+        "summary": "{\"description\":\"Bios Life is a technology-enabled healthcare company empowering individuals to proactively manage cancer risk, redefining personalized cancer screening and survivorship.\",\"employee_estimate\":20,\"employee_estimate_source\":\"Employees: 20\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Headquarters: Addison, United States\\n- Employees: 20\\n- Company Size: 11-50 employees\",\"hq\":\"Addison, United States\",\"hq_quote\":\"Headquarters: Addison, United States\",\"industry\":\"Hospitals and Health Care\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"- Industry: Hospitals and Health Care\\n- Type: Privately held\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"[2026-08-11 · 50 reactions] 🩺 Boston-based healthtech Bios Life emerged stealth, announcing $25 million in seed funding and a multi-year partnership with Tempus AI.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4D0BAQE09b4qlbohaA/company-logo_200_200/B4DZ_biO.7JwAI-/0/1786094612826/bios_life_ai_logo?e=2147483647&v=beta&t=GnNM_2rAUy-tM9l3DMx8cQfAr8zej58nAruOYk2MWDc",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/3cm82m2rrk0",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Bios Life",
+              "foundedYear": null,
+              "description": "Bios Life is a technology-enabled healthcare company built to empower individuals to proactively manage their cancer risk, redefining personalized cancer screening and survivorship. \n\nSurveillance for people at high risk of cancer and for cancer survivors is too often generic, fragmented, and reactive. Screening follows population averages rather than individual risk. Data, expertise, and care delivery sit apart from one another, and care tends to wait for a problem to appear before responding.\n\nBios Life is building the operating system for personalized cancer surveillance: a platform that reads genomic, clinical, laboratory, and lifestyle data together, models how an individual’s risk changes over time, and integrates that intelligence with a continuously curated evidence base – all delivered by a clinician-led care team specialized in cancer surveillance.\n\nWe offer two programs:\n\nPersonalized Screening — an integrated pan-cancer screening program built around an individual’s risk profile.\n\nSurvivorship — continuous surveillance and holistic care designed around the specific needs of cancer survivors.\n\nOur team pairs decades of experience at the forefront of innovative cancer care with deep expertise in genomics and machine learning, supported by internationally recognized advisors who have helped shape screening and survivorship guidelines.\n\nBios Life has teams in the United States and the United Kingdom.\n\nJoin the waitlist: https://bioslife.ai\nPartnership inquiries: partnerships@bioslife.ai",
+              "workforce": {
+                "total": 20
+              },
+              "headquarters": {
+                "address": "Addison, Texas, United States",
+                "city": "Addison",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 1447,
+                "countryRank": 4630309,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 1447,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/1m2mbms0h30",
+        "title": "Bios Life Franchise Global",
+        "url": "https://www.linkedin.com/company/bios-life-franchise-global",
+        "text": "# Bios Life Franchise Global\n\nBios Life Franchise Global is a Wellness and Fitness Services company. Bios Life Franchise Global employs 9 people (-10.0% YoY, -1 person), founded in 2002. Headquartered in Orem, Utah, United States, with an office in Zug. Its workforce is distributed across Cambodia, Canada, India, and South Korea.\n\n## About\n\nBIOS LIFE FRANCHISE FROM UNICITY INTERNATIONAL. We offer a perfect business timing for entrepreneurs. UNICITY is a global leading company in the network- and franchise industry with a history and experience of more than 100 years. Our goal is to MAKE LIFE BETTER with our worldclass BIOS LIFE natural nutrition and wellness products and our outstanding home business concept. Our business grows 100% from 2010 to 2012 and 10 % of our around 500.000 partners are medical or healthcare professionals, because we 11 of our natural nutrition products are listed in the Physican´s Desk Reference List (PDR-Red Book). Now we are in 30 markets and open up 25 new countries until 2015. Main markets are USA, Canada, Europe with Germany, Austria, Switzerland, Italy, UK, Netherlands, Sweden, Turkey, UAE Middle East, India, Russia and Ukraine. Most of the are brand new, so this can be a huge opportunity. Contact us for more informations.\n\n## Company Details\n- Industry: Wellness and Fitness Services\n- Type: Privately held\n- Headquarters: Orem, United States\n- Founded Year: 2002\n- Homepage: feelgreat.expert\n- Aliases: bios life franchise global\n- LinkedIn: linkedin.com/company/bios-life-franchise-global\n- Linkedin Followers: 237\n\n## Workforce\n- Employees: 9\n  - Monthly Growth: -10.0%\n  - Yearly Growth: -10.0%\n- Key Executives:\n  - Bee Melo: Franchise Owner\n  - 송원영: Franchise Owner\n- Breakdown:\n  - By Country: Cambodia: 1 (11%), Canada: 1 (11%), India: 1 (11%), South Korea: 1 (11%)\n  - By Department: General Management: 3 (33%), Other Department: 1 (11%)\n  - By Seniority: Owner: 2 (22%), Other Management: 1 (11%), Senior: 1 (11%)\n- Talent Sources: Manaseer Group (1), GTM & Co. (1)\n- Alumni Go To: Unicity International (1), NIH Research & Consulting (1), ConstructBuy (1)\n\n## Web presence\n\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Categories\n\n100 worldclass wellness products., abnehmen, anti-aging, energy, fitness, fitness products for professional athletes, freedom, health, health and wellness, increase immunsystem, lifestyle, optimaler gesundheit, passive income, prevent and treat diabetes and heart disease, produkt-fans, reducing overweight and high cholesterol, wealth, wissenschaftliche durchbruch\n\n## Recent News\n- [2026-09-22] The Guardian: ‘Still feel a jolt of joy’: why Dirty Dancing is my feelgood movie\n- [2026-09-06] Financial Times: LVMH sheds boom-time gains as luxury ‘feelgood factor’ fades\n- [2026-08-25] The Guardian: ‘A bit like meditation’: why Saw is my feelgood movie\n- [2026-08-17] The Guardian: ‘Fated to become a cult classic’: why Barcelona is my feelgood movie \\| Romance films\n- [2026-01-18] The Times: Get reset\\! 25 feelgood trips for the year ahead\n- [2025-12-26] inkl: King Charles \"Doesn't Feel Great About\" Rumors Prince…\n\n## Social\n\n### Linkedin\n\n- [2024-06-28] Was können wir für Sie tun? Wenn Sie immer über alle aktuellen Entwicklungen bei uns informiert bleiben wollen, folgen Sie doch einfach unserer Seite auf LinkedIn.\n\n## Locations\n- Headquarters: orem, utah, united states (US)\n- Offices: orem, utah, united states (US), zug, oo",
+        "summary": "{\"description\":\"Bios Life Franchise Global is a Wellness and Fitness Services company with a global network and home business concept under Unicity International.\",\"employee_estimate\":9,\"employee_estimate_source\":\"Employees: 9\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Orem, United States\",\"hq_quote\":\"Headquarters: Orem, United States\",\"industry\":\"Wellness and Fitness Services\",\"is_b2b_company\":null,\"is_b2b_company_quote\":\"\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":false,\"recently_funded_seed_or_series_a_quote\":\"Now we are in 30 markets and open up 25 new countries until 2015.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C560BAQE7UkMvf7m1Ew/company-logo_200_200/company-logo_200_200/0/1631306387527?e=2147483647&v=beta&t=ildNMSf4JFId6fqwhFGBryJl7lnWNd1s1MbO9LrjhDY",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/1m2mbms0h30",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Bios Life Franchise Global",
+              "foundedYear": 2002,
+              "description": "BIOS LIFE FRANCHISE FROM UNICITY INTERNATIONAL. We offer a perfect business timing for entrepreneurs. UNICITY is a global leading company in the network- and franchise industry with a history and experience of more than 100 years. Our goal is to MAKE LIFE BETTER with our worldclass BIOS LIFE natural nutrition and wellness products and our outstanding home business concept. Our business grows 100% from 2010 to 2012 and 10 % of our around 500.000 partners are medical or healthcare professionals, because we 11 of our natural nutrition products are listed in the Physican´s Desk Reference List (PDR-Red Book). Now we are in 30 markets and open up 25 new countries until 2015. Main markets are USA, Canada, Europe with Germany, Austria, Switzerland, Italy, UK, Netherlands, Sweden, Turkey, UAE Middle East, India, Russia and Ukraine. Most of the are brand new, so this can be a huge opportunity. Contact us for more informations.",
+              "workforce": {
+                "total": 9
+              },
+              "headquarters": {
+                "address": "1201 North 800 East, Orem, Utah 84097, US",
+                "city": "Orem",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": []
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 5872.8,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

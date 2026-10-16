@@ -1,0 +1,266 @@
+{
+  "request": {
+    "query": "Takt, Inc.",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "a2a915587e40be1f4a06352dd53a83c2",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/xd47j34dkc0",
+        "title": "Takt",
+        "url": "https://takt.io/",
+        "text": "# Takt\n\nTakt is a Software Development company. Takt is a warehouse labor management and intelligence platform that unifies labor, automation, and robotics data to power modern warehouse intelligence. Takt employs 25 people (+8.7% YoY, +2 people), founded in 2021. Headquartered in Reston, Virginia, United States.\n\n## About\n\nTakt is simplifying Labor Management Systems (LMS) with a next-generation Warehouse Intelligence Platform designed for the continuous improvement era. Unlike traditional LMS platforms, Takt delivers measurable results without lengthy implementations or hidden costs, allowing organizations to be fully operational in just four weeks.\nBuilt to drive efficiency, reduce labor costs, and empower workforces, Takt provides real-time insights and intelligent automation that streamline labor management. By integrating engineering standards, dynamic labor scheduling, and AI-driven coaching, Takt ensures teams operate at peak performance while maintaining workforce engagement.\nSeamlessly integrating with all WMS, robotics, automation, and time-tracking platforms, including Manhattan, HighJump, Deposco, Logiwa, JDA, BlueYonder, and more, Takt adapts to existing workflows while continuously improving operations through our AI-powered Takt Coach. The more data Takt processes, the smarter it becomes. It identifies ongoing opportunities for optimization and efficiency gains.\nDesigned for retailers, e-commerce, and third-party logistics (3PL/4PL) organizations, Takt turns complex warehouse data into clear, actionable strategies. By delivering real-time productivity insights, employee engagement, and engineering tools, Takt helps organizations take control of their operational performance and drive continuous improvement.\nTakt sets a new standard for warehouse intelligence and labor management with a fully configurable platform, a transparent pricing model, and an implementation process that delivers results in weeks, not months.\n\nStart Taking Action with Takt.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: Reston, United States\n- Founded Year: 2021\n- Homepage: takt.io\n- Aliases: Takt Inc, takt, takt, inc.\n- LinkedIn: linkedin.com/company/takt-io\n- Linkedin Followers: 3,838\n- Emails: sales@takt.io\n- Phone: +1 571-390-3113\n\n## Financials\n- Total Funding: USD 9,250,000\n  - Series a (2026-08-01): USD 9.2M\n  - Pre seed (2021-06-01)\n\n## Workforce\n- Employees: 25\n- Company Size: 11-50 employees\n  - Monthly Growth: -3.8%\n  - Yearly Growth: +8.7%\n- Key Executives:\n  - Alex Pankhurst: Chief Strategy Officer\n  - Alex Rhea: Co-Founder & CTO\n  - Glynn LoPresti: Co-Founder & CEO\n  - Jordan Knight: Head of Sales\n  - Noah MacMichael: Co-Founder & CPO\n  - Reg Goeke: Director of Customer Success\n- Breakdown:\n  - By Country: United States: 20 (80%)\n  - By Department: Technical: 8 (32%), Customer Service: 3 (12%), General Management: 2 (8%), Other Department: 2 (8%), Project Management: 2 (8%), Design: 1 (4%), Product: 1 (4%), Real Estate: 1 (4%)\n  - By Seniority: Manager: 5 (20%), Specialist: 4 (16%), Founder: 3 (12%), Senior: 3 (12%), Other Management: 2 (8%), Clevel: 1 (4%), Director: 1 (4%), Owner: 1 (4%)\n- Active job postings: 7\n- Talent Sources: Cloudreach, an Eviden business (2), Accenture (2), nGROUP (1), Stitch Fix (1), Olive (1), Epic (1), Cvent (1), CoreTrust (1), Booz Allen Hamilton (1), Amazon Web Services (AWS) (1)\n- Alumni Go To: iCode Edu (1), V Designs ATX (1), Source Logistics (1), Scandit (1), Plainsight (1), Phi Kappa Psi Fraternity (1), Booz Allen Hamilton (1), Ballast Point Partners (1), Amazon (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: docker, flexport, gainsight, github, github actions, google cloud, google cloud platform, google cloud spanner, google kubernetes engine, hubspot, iam, jira, kubernetes, mysql, paychex, paychex flex, php, ramp, salesforce, stitch, tenant cloud, terraform, typescript, vanta, zendesk, apache, intercom, java, microservices, python, shippable, sql, google bigquery, redis, c, impact, tailwind, visa, postgresql, sentry, facebook, linkedin, twitter, well\n\n## Web presence\n\n- Twitter: twitter.com/wearetakt\n- Facebook: facebook.com/taktinc\n- YouTube: youtube.com/channel/uc-phk4y2hm0ule1pu5jyybg\n- Crunchbase: crunchbase.com/organization/takt-a902\n- Web traffic:\n  - Monthly visits: 10,729\n  - Global rank: 2,087,456\n  - Bounce rate: 45.0%\n  - Pages per visit: 1.9\n  - Average visit duration: 54s\n\n## Reviews & Ratings\n- Employer Rating: 5.0/5.0 (1 reviews)\n  - Breakdown: Work-Life: 5.0, Compensation: 5.0, Culture: 5.0, Career: 5.0\n\n## Categories\n\nartificial intelligence (ai), automation, information technology, intelligence platform, logistics, robotics data, software, supply chain management, third party logistics providers, warehouse labor management, warehousing\n\n## Recent News\n- [2026-08-21] [takt-completes-soc-2-type-ii-audit-to-strengthen-data-security-credentials](https://www.tipranks.com/news/private-companies/takt-completes-soc-2-type-ii-audit-to-strengthen-data-security-credentials)\n- [2026-08-18] [Takt Raises $9.25M Series A](https://www.thesaasnews.com/news/takt-raises-9-25m-series-a/)\n- [2026-08-17]\n  - PR Newswire: [Takt Raises $9.25M Series A to Scale Its Warehouse Labor Management and Intelligence Platform](https://www.prnewswire.com/news-releases/takt-raises-9-25m-series-a-to-scale-its-warehouse-labor-management-and-intelligence-platform-302852075.html)\n  - [Takt Raises $9.25 Million Series A As Warehouse Platform Shows 15% Cost Reduction And 29% Workforce Performance Gain](https://pulse2.com/takt-raises-9-25-million-series-a-as-warehouse-platform-shows-15-cost-reduction-and-29-workforce-performance-gain/)\n- [2026-08-11] [🛒 Reston, VA Customer Service Jobs With Multiple Openings](https://www.newsbreak.com/reston-va-daily-brief-375436446/4822377049793-reston-va-customer-service-jobs-with-multiple-openings)\n- [2022-10-25] PR Newswire: Takt Announces New Chief Revenue Officer Appointee Marc Levin\n\n## Social\n\n### Linkedin\n\n- [2026-09-30 · Posted · 44 reactions] [We’re excited to welcome Karen Warren to Takt as our Chief of Staff...](https://www.linkedin.com/posts/takt-io_were-excited-to-welcome-karen-warren-to-activity-7511054862923644928-kqOF)\n  > We’re excited to welcome Karen Warren to Takt as our Chief of Staff and a member of our Leadership Team!\n  >\n  > Karen joins us from Accenture (via Joshua Tree Group) and has led labor management strategy and program design for some of the world’s largest and most complex organizations. She brings deep experience in executive engagement, organizational change, leadership development, and translating strategy into measurable operational results.\n  >\n  > At Takt, we believe great software creates the most value when it supports a strong program, engaged leaders, capable teams, and an organization prepared to sustain change.\n  >\n  > Karen has worked closely with Takt for many years as a trusted partner and has helped shape important elements of our product. Her addition represents an important step in our growth. Her experience will strengthen our ability to help customers build stronger labor management programs, deepen our customer partnerships, and turn initial success into sustainable results, from individual operations to complex global networks.\n  >\n  > We couldn’t be more excited to have Karen on the Takt team. Please join us in welcoming her!\n\n- [2026-09-17 · Posted · 95 reactions] [We’re honored to share that Kenco Group + Takt have won The Supply...](https://www.linkedin.com/posts/takt-io_supplychain-warehousing-warehousetechnology-activity-7506337310683308032-PQ6l)\n  > We’re honored to share that Kenco Group + Takt have won The Supply Chain Excellence Awards 2026 Warehouse Initiative Award!\n  >\n  > This recognition means even more because it reflects what we believe great technology partnerships should look like.\n  >\n  > A huge thank you to the entire Kenco Group team, and especially Karthik Ravindran, for being incredible partners. Your feedback, trust, and willingness to build alongside us have helped shape the Takt platform — and together, we’ve expanded Takt across 25+ Kenco warehouses with more on the way!\n  >\n  > And a special shoutout to Abby Richter on our team.\n  >\n  > One of Takt’s core values is to \"be a partner, not a provider\", and Abby lives that every day. Her dedication to Kenco, their teams, and their success is a huge part of what makes Takt successful.\n  >\n  > Awards are great, but the partnership and results behind them are what we’re most proud of.\n  >\n  > Thank you to Kenco, Abby, and everyone behind the scenes who helped make this possible.\n  >\n  > #SupplyChain #Warehousing #WarehouseTechnology #Logistics #3PL #Startups\n\n- [2026-09-17 · 93 reactions, 10 comments] We’re honored to share that Kenco Group + Takt have won The Supply Chain Excellence Awards 2026 Warehouse Initiative Award! This recognition means even more because it reflects what we believe grea...\n\n- [2026-09-10 · 67 reactions, 3 comments] Another week, another new country launching with Takt - indoctrinating Alejandro Barrera with the benefits of daily ice cream consumption during our time in the Netherlands\n\n- [2026-08-26 · Posted · 6 reactions] [A supervisor finds out Tuesday's pick rates slipped on Wednesday...](https://www.linkedin.com/posts/takt-io_a-supervisor-finds-out-tuesdays-pick-rates-activity-7498364712208760832-KWM-)\n  > A supervisor finds out Tuesday's pick rates slipped on Wednesday morning. By then Tuesday is gone, and so is the chance to have done anything about it.\n  >\n  > That's not a data problem. Warehouse activity sits in the WMS. Labor performance sits somewhere else — a spreadsheet, a clipboard, a report that shows up the next day. Nobody is looking at both while the shift is still running.\n  >\n  > Central Storage & Warehouse  runs multiple clients across multiple temperature zones and multiple shifts. Their Co-CEO, Hill Hamrick, is joining us and Datex on August 26th to walk through how CSW's leaders use hourly labor visibility to coach their teams — and how they got to standards their people accept as fair.\n  >\n  > He'll also cover what the rollout actually took.\n  >\n  > Then we'll show it running: Datex Footprint® WMS and Takt connected, live activity feeding labor plans, coaching opportunities surfacing during the shift, and workforce issues separated from process bottlenecks.\n  >\n  > Wednesday, August 26 · 1–1:45pm ET. Registration link in the comments — sign up and we'll send you the recording either way.\n\n- [2026-08-26 · 10 reactions, 1 comment] A supervisor finds out Tuesday's pick rates slipped on Wednesday morning. By then Tuesday is gone, and so is the chance to have done anything about it. That's not a data problem. Warehouse activity...\n\n- [2026-08-24 · Posted · 7 reactions] [Every European warehouse operator we talk to asks the same...](https://www.linkedin.com/posts/takt-io_every-european-warehouse-operator-we-talk-activity-7497639836552458240-Mdt2)\n  > Every European warehouse operator we talk to asks the same question, usually right after the demo goes well: where does the data live?\n  >\n  > Until today, that question added two months to the process. Sometimes it ended it.\n  >\n  > Takt now runs a dedicated EU region on Google Cloud in the Netherlands, generally available to new and existing customers.\n  >\n  > Your operational data stays in region — transactions, time records, processing, analytics, TaktAI inference, backups, and logs.\n  >\n  > Around it: a DPA with the EU SCCs and UK Addendum, an EU and UK Article 27 representative, and everything a security team needs in our Trust Center.\n  >\n  > Warehouse labor data isn't aggregate throughput. It's what people did, where, for how long. European operators treat that seriously, and so should we.\n\n- [2026-08-24 · 11 reactions] Every European warehouse operator we talk to asks the same question, usually right after the demo goes well: where does the data live? Until today, that question added two months to the process. So...\n\n- [2026-08-20 · Posted · 10 reactions] [Takt has completed its SOC 2 Type II audit, covering the Security...](https://www.linkedin.com/posts/takt-io_takt-has-completed-its-soc-2-type-ii-audit-activity-7496190324298592256-6vrd)\n  > Takt has completed its SOC 2 Type II audit, covering the Security Trust Services Criteria.\n  >\n  > As Takt becomes a more critical part of our customers’ warehouse operations, the responsibility that comes with handling their data grows with it.\n  >\n  > Security and data stewardship can’t be something you bolt on later. They have to be built into how you operate from the start.\n  >\n  > Completing our SOC 2 Type II audit is an important validation of the controls and processes we’ve put in place — and of the work our team does every day to protect our customers and their data.\n  >\n  > For customers and security teams doing diligence, we’ve made it easy to understand our security posture:\n  >\n  > → Control summary\n  > → Subprocessor list\n  > → Scope and limitations of our SOC 2 report\n  >\n  > Available at trust.takt.io.\n\n- [2026-08-20 · 11 reactions] Takt has completed its SOC 2 Type II audit, covering the Security Trust Services Criteria. As Takt becomes a more critical part of our customers’ warehouse operations, the responsibility that comes...\n\n- [2026-08-17 · Posted · 52 reactions] [We're excited to announce that Takt has raised a $9.25M Series A...](https://www.linkedin.com/posts/takt-io_warehouse-warehouseoperations-labormanagement-activity-7495109902303092738-uXgM)\n  > We're excited to announce that Takt has raised a $9.25M Series A led by Ballast Point Partners  — our first institutional round. We built the first version of this product inside a live distribution center, standing next to the supervisors who would use it, and what we saw there is still the problem we're building against: warehouses have absorbed a decade of automation and robotics, but labor, machines, and throughput are still measured in separate systems. That's not a reporting gap. It's a orchestration gap.\n  >\n  > More than 100 warehouses run on Takt today. This round will accelerate our investment in intraday orchestration, agentic decision making, and the industrial engineering tools these teams have gone without, alongside continued expansion across the UK, EU, and Asia-Pacific. To our customers and partners: thank you for your trust, your feedback, and your willingness to innovate with us — you shaped this platform and this company. And as we grow, the team you know isn't changing, it's growing. The responsiveness, product velocity, and close working relationships that brought Takt this far stay at the center of how we work with you.\n  >\n  > #warehouse #warehouseoperations #labormanagement #logistics #wms #3pl #distribution #operations #startups\n\n- [2026-08-17 · 79 reactions, 11 comments] We're excited to announce that Takt has raised a $9.25M Series A led by Ballast Point Partners — our first institutional round. We built the first version of this product inside a live distribution...\n\n- [2026-08-13 · Posted · 18 reactions] [Alex Pankhurst and Jack Rhea are on the ground in Singapore...](https://www.linkedin.com/posts/takt-io_supplychain-warehousing-warehouseoperations-activity-7493653819797467136-dMxw)\n  > Alex Pankhurst and Jack Rhea are on the ground in Singapore onboarding our first customer in APAC!\n  >\n  > This month, Takt is launching across 10+ sites in 5 countries as we continue expanding our Warehouse Intelligence Platform globally.\n  >\n  > Excited to bring Takt to a new region—and even more excited for what’s ahead.\n  >\n  > #SupplyChain #Warehousing #WarehouseOperations #Logistics #APAC\n\n- [2026-08-13 · 28 reactions, 1 comment] Alex Pankhurst and Jack Rhea are on the ground in Singapore onboarding our first customer in APAC! This month, Takt is launching across 10+ sites in 5 countries as we continue expanding our Warehou...\n\n- [2026-08-12 · Posted · 7 reactions] [Your WMS knows what work happened. Knowing how the team performed...](https://www.linkedin.com/posts/takt-io_your-wms-knows-what-work-happened-knowing-activity-7493350763067322368-S-6g)\n  > Your WMS knows what work happened. Knowing how the team performed against it usually takes until the next morning — or a spreadsheet someone rebuilds by hand every Monday.\n  >\n  > That gap is where productivity problems hide. It gets worse when one team runs three clients' contracts in a single shift, each with its own standards and billing model. A gap can sit open for days before it surfaces in a report, and by then it's come out of the margin on that account.\n  >\n  > Hill Hamrick, Co-CEO at Central Storage & Warehouse , has been working on this. On August 26th he's joining us and Datex to walk through how CSW's leaders use hourly labor visibility to coach their teams rather than score them — and what it actually took to get there.\n  >\n  > We'll also show Datex Footprint® WMS and Takt running connected:\n  >\n  > Labor plans built off live warehouse activity, not last week's volume\n  > Coaching opportunities visible while the work is still happening\n  > A clear line between a workforce issue and a process bottleneck\n  >\n  > Wednesday, August 26 · 1–1:45pm ET. Registration link in the comments — sign up and we'll send you the recording either way.\n\n- [2026-08-12 · 11 reactions, 1 comment] Your WMS knows what work happened. Knowing how the team performed against it usually takes until the next morning — or a spreadsheet someone rebuilds by hand every Monday. That gap is where product...\n\n- [2026-05-21 · 24 reactions] Excited to be highlighted by DC Velocity for our work alongside the ODW Logistics team. This is how we think about AI in the warehouse: helping operations, engineers, finance, planners, and leaders...\n\n- [2026-05-14 · Posted · 18 reactions] [The best warehouse decisions happen during the shift, not after it...](https://www.linkedin.com/posts/takt-io_ep-99-warehouse-labor-mgmt-tech-with-activity-7460676313935319040-3Zgp)\n  > The best warehouse decisions happen during the shift, not after it.\n  >\n  > In this conversation, Nathan Chaney sits down with Alex Rhea , Co-Founder & CTO at Takt, to discuss what it takes to give operations teams better insight into labor, execution, and performance in real time.\n  >\n  > They cover the challenges warehouse leaders face on the floor, why in-shift decision-making matters, how better visibility can help teams improve throughput and control labor more effectively, and the founding story behind Takt.\n  >\n  > Watch the full conversation here: https://lnkd.in/eyzi5aVs\n  >\n  > #warehouseoperations #supplychain #logistics #wms #lms #warehouse #distribution #startups\n\n- [2026-05-14 · 19 reactions, 1 comment] The best warehouse decisions happen during the shift, not after it. In this conversation, Nathan Chaney sits down with Alex Rhea , Co-Founder & CTO at Takt, to discuss what it takes to give operati...\n\n- [2026-04-15 · Reshared · 174 reactions] [337% ROI. In just 3 weeks. That’s the kind of impact our first...](https://www.linkedin.com/posts/takt-io_activity-7450168908377907200-33VU): 337% ROI. In just 3 weeks. That’s the kind of impact our first end-to-end Gamification Initiative delivered at a Kenco warehouse, and it came from improving the one thing that drives every supply c...\n\n## Locations\n- Headquarters: reston, virginia, united states (US)\n- Offices: reston, virginia, united states (US)",
+        "summary": "{\"description\":\"Takt is a warehouse labor management and intelligence platform that unifies labor, automation, and robotics data to power modern warehouse intelligence.\",\"employee_estimate\":25,\"employee_estimate_source\":\"Employees: 25\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Head of\\n...\",\"hq\":\"Reston, Virginia, United States\",\"hq_quote\":\"Headquartered in Reston, Virginia, United States.\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Designed for retailers, e-commerce, and third-party logistics (3PL/4PL) organizations, Takt turns complex warehouse data into clear, actionable strategies.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 9,250,000 - Series a (2026-08-01): USD 9.2M - Pre seed (2021-06-01)\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQGtcc-8FQq61Q/company-logo_200_200/B4EZZKR1LjHgAI-/0/1745002910723/takt_io_logo?e=2147483647&v=beta&t=gDr3myaNplWjXEZsEw2Jeewe5sE4o76DPHY4EHdGiKI",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/xd47j34dkc0",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Takt",
+              "foundedYear": 2021,
+              "description": "Takt is simplifying Labor Management Systems (LMS) with a next-generation Warehouse Intelligence Platform designed for the continuous improvement era. Unlike traditional LMS platforms, Takt delivers measurable results without lengthy implementations or hidden costs, allowing organizations to be fully operational in just four weeks.\nBuilt to drive efficiency, reduce labor costs, and empower workforces, Takt provides real-time insights and intelligent automation that streamline labor management. By integrating engineering standards, dynamic labor scheduling, and AI-driven coaching, Takt ensures teams operate at peak performance while maintaining workforce engagement.\nSeamlessly integrating with all WMS, robotics, automation, and time-tracking platforms, including Manhattan, HighJump, Deposco, Logiwa, JDA, BlueYonder, and more, Takt adapts to existing workflows while continuously improving operations through our AI-powered Takt Coach. The more data Takt processes, the smarter it becomes. It identifies ongoing opportunities for optimization and efficiency gains.\nDesigned for retailers, e-commerce, and third-party logistics (3PL/4PL) organizations, Takt turns complex warehouse data into clear, actionable strategies. By delivering real-time productivity insights, employee engagement, and engineering tools, Takt helps organizations take control of their operational performance and drive continuous improvement.\nTakt sets a new standard for warehouse intelligence and labor management with a fully configurable platform, a transparent pricing model, and an implementation process that delivers results in weeks, not months.\n\nStart Taking Action with Takt.",
+              "workforce": {
+                "total": 25
+              },
+              "headquarters": {
+                "address": "1902 Campus Commons Dr, Ste 200, Reston, Virginia 20191, US",
+                "city": "Reston",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 9250000,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2026-08-01",
+                  "amount": 9250000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 10729,
+                "countryRank": 563390,
+                "avgDurationSeconds": 54,
+                "history": [
+                  {
+                    "value": 6122,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 4564,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 4697,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 9681,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 10550,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 10729,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/2m2f6qh05hw",
+        "title": "Takt",
+        "url": "https://takt.com/",
+        "text": "# Takt\n\nTakt is a Marketing Services company. Takt is an award-winning Canadian brand and digital agency that builds category-defining brands and websites. Bold ideas, big moves. Takt employs 45 people (+21.6% YoY, +8 people) and has an annual revenue of $5.7M, founded in 2012. Headquartered in Vancouver, British Columbia, Canada, with presence in United States.\n\n## About\n\nEvery organization reaches moments when the decisions it makes will define what comes next. A merger or acquisition. A market shift. An external threat. A story it has outgrown.\n\nTakt® helps brands turn those defining moments of change into momentum.\n\nWe are a multi-award-winning, human-driven brand and creative consultancy based in Canada, with a global perspective. We’re systems thinkers who know that what looks like a brand problem is rarely only a brand problem.\n\nWe do the messy work with our partners, digging beneath assumptions to find what is actually holding them back, then building the strategy, messaging, creative and governance they need to move forward with confidence and conviction.\n\nWe connect the whole system around a clear idea, then carry it through every decision that follows. Doing that properly requires the people doing the thinking to stay close to the doing. Our team brings strategy, brand, digital and content together from the first hard question to the thing people ultimately experience.\n\nWe know firsthand that the work is stronger when those defining the direction remain responsible for making it real.\n\nThis way of working has brought us together with NYU, Queen’s University, CBC, Amazon, Alphabet and the NHL Players’ Association, alongside organizations around the world navigating moments of consequence.\n\nOur job is to help the right idea win, then carry it far enough to make a difference.\n\nTakt®. Architects of Impact.\n\n## Company Details\n- Industry: Marketing Services\n- Type: Privately held\n- Headquarters: Vancouver, Canada\n- Founded Year: 2012\n- Homepage: takt.com\n- Aliases: Takt Ventures Inc., massive, massive media inc., takt\n- LinkedIn: linkedin.com/company/takt-inc\n- Linkedin Followers: 4,253\n- Emails: hello@takt.inc\n- Phone: (604) 227-4343, +1 (604) 227-4343, 6042274343\n\n## Financials\n- Annual Revenue: USD 5,676,114\n\n## Workforce\n- Employees: 45\n- Company Size: 11-50 employees\n  - Monthly Growth: +2.3%\n  - Yearly Growth: +21.6%\n- Key Executives:\n  - Brett Fabian: Director, Growth Strategy\n  - James Voth: Consulting CTO\n  - Lindsay Smith: CEO Founder\n  - Lindsay Smith: CEO, Takt Ventures Inc.\n  - Lucy Gregory: Director of Operations\n  - Mateo Allen: Managing Partner, Takt Studios\n  - Nathan Kolke: Creative Director / Cadence + Studios\n  - René Thomas: Partner Chief Strategy Officer\n  - Robert Lee: Director of Web Development\n  - Ryan Aceman: Director, Brand Strategy\n- Breakdown:\n  - By Country: Canada: 34 (76%)\n  - By Department: Technical: 8 (18%), Design: 7 (16%), Project Management: 6 (13%), General Management: 5 (11%), Marketing: 3 (7%), Operations: 3 (7%), Finance: 1 (2%), Other Department: 1 (2%)\n  - By Seniority: Specialist: 11 (24%), Manager: 10 (22%), Director: 6 (13%), Clevel: 2 (4%), Other Management: 2 (4%), Partner: 2 (4%), Founder: 1 (2%), Senior: 1 (2%)\n- Active job postings: 4\n- Talent Sources: Wallop Inc. (3), Transcend Longevity Inc. (2), Speed Shift Media (2), Signals Digital & Design Innovations (2), DCM (2), Cinnamon Toast (2), DASH TWO (1), Company 3 (1), British Columbia Institute of Technology (1), BakerWest Real Estate Inc. (1)\n- Alumni Go To: PwC Canada (2), Ucora Corporation (1), Sony Pictures Imageworks (1), Sheraton Vancouver Wall Centre (1), Pastiche Magazine (1), MediaCom (1), LUNCHBOX (1), Coastal Jazz (1), Canadian Men's Health Foundation (1), Agents Only Technologies (1)\n\n## Products & Technology\n- Tech Stack: sql, user interviews, wordpress, zendesk, zendesk support, adobe, adobe creative cloud, contentful, drupal, figma, github, google ads, google analytics, google tag manager, graphql, harness, hubspot, javascript, klaviyo, linkedin, linkedin ads, mailchimp, php, react, reddit, shopify, tiktok, typescript, unbounce, webpack, wordpress themes, ams, lytics, asana, bugherd, amp, ease, impact, mix, slack, well, html, bing ads, facebook, google marketing platform, instagram, twitter, twitter ads, ups\n\n## Web presence\n\n- Twitter: twitter.com/engagemassive\n- Facebook: facebook.com/engagemassive\n- Instagram: instagram.com/engagemassive\n- YouTube: youtube.com/@taktagency\n- Crunchbase: crunchbase.com/organization/massivemedia\n- Web traffic:\n  - Monthly visits: 17,247\n  - Global rank: 1,587,973\n  - Bounce rate: 46.0%\n  - Pages per visit: 1.4\n  - Average visit duration: 26s\n\n## Categories\n\nadvertising, award-winning, brand, brand agency, brand marketing, brand strategy, branded content, branding, category-defining brands, content marketing, creative + advertising, design, digital advertising, digital agency, digital engagement, digital marketing, food_and_drink/restaurants_and_delivery, marketing, photography, product design, product research, technology, user experience, user interface, ux design, video, video-content, web, web design, web design & development, web development, website-design, websites\n\n## Competitors\n\nlig, indexel, icom, dijitalajans.com\n\n## Social\n\n### Linkedin\n\n- [2026-09-18 · Reshared · 2 reactions] [Who's coming to SocialPacific next week?](https://www.linkedin.com/posts/takt-inc_whos-coming-to-socialpacific-next-week-activity-7506799039103909888-J8Zy): Who's coming to SocialPacific next week?\n\n- [2026-05-28 · Reshared · 77 reactions] [Wrapping up two days presenting the Brand Matrix at #SocialWest in...](https://www.linkedin.com/posts/takt-inc_activity-7465911433990488064-hRtf): Wrapping up two days presenting the Brand Matrix at #SocialWest in #Calgary . You're the nerdiest room we've presented to, and I mean that as the highest possible compliment. Thanks for the thought...\n\n- [2026-05-12 · Posted · 65 reactions] [Takt Founder + CEO, Lindsay Smith just shared the stage at...](https://www.linkedin.com/posts/takt-inc_websummitvancouver2026-branding-marketing-activity-7460056384974401536-YQu1)\n  > Takt Founder + CEO, Lindsay Smith just shared the stage at #WebSummitVancouver2026 with David Placek of Lexicon Branding, Jason Carmel of WPP, and Juan Martinez of Harvard Business Review to discuss Selling the AI Dream.\n  >\n  > Tomorrow, she and Takt's Partner + Chief Creative Officer, René Thomas, take the Creative Summit stage with The Brand Matrix — a session on brand coherence in an era of AI, reinvention, and category disruption.\n  >\n  > #branding #marketing #strategy\n\n- [2026-03-12 · Posted · 33 reactions] [Most project management job posts describe the tools. Asana. Slack...](https://www.linkedin.com/posts/takt-inc_project-manager-brand-web-activity-7437906000646631425-4JJM)\n  > Most project management job posts describe the tools. Asana. Slack. Google Drive. That's not the job.\n  >\n  > The job is knowing when to push, when to absorb, and how to keep a team moving when everything is in flux. It's a craft. We're looking for someone who treats it like one.\n  >\n  > Takt is hiring a Project Manager. Vancouver. Full-time, in-office. Brand + digital agency work.\n  >\n  > If you've done this before in a creative agency and you're good at it, we'd like to talk.\n  >\n  > Apply here → https://lnkd.in/gxh6kVgQ\n\n- [2026-01-09 · Reshared · 17 reactions] [We don’t often share individual pieces of work—but this one...](https://www.linkedin.com/posts/takt-inc_we-dont-often-share-individual-pieces-of-activity-7415519659036454912-JvX1): We don’t often share individual pieces of work—but this one deserves daylight. We partnered with Empowered Startups to translate a complex, policy-driven mission into something human, credible, and...\n\n- [2025-11-05 · 27 reactions, 6 comments] We’ve always believed good partnership is an art form. Today, Inc. Magazine named Takt one of the Best International Power Partners of 2025, one of only four companies recognized worldwide. We were...\n\n- [2025-10-14 · 44 reactions, 1 comment] Movements endure when they adapt with purpose. Tools and technologies change. Standards rise. But the mission stays the same. We’re so excited to announce the launch of the National Hockey League P...\n\n- [2025-04-24 · Posted · 31 reactions] [We won! Our work with New York University's Casa Italiana...](https://www.linkedin.com/posts/takt-inc_webbyawards-winners-peoplesvoice-activity-7321283591584268290-5HJq)\n  > We won!\n  >\n  > Our work with New York University's Casa Italiana Zerilli-Marimò has been awarded the Webby People’s Voice in the Community category.\n  >\n  > Thank you to everyone who voted, shared, rallied, and believed in this project. And to our partners at Casa Italiana and NYU, thank you for your trust, vision, and clarity of purpose.\n  >\n  > Community was the category—and it was also the outcome. We’re proud to have built something that brings people together.\n  >\n  > Check out the website here: https://lnkd.in/dZnaKvqg\n  > Read our case study here: https://lnkd.in/dFikvmFN\n  >\n  > #WebbyAwards #Winners #PeoplesVoice #CasaItaliana #Takt #NYU #CommunityDesign #DigitalCulture #Agency #Website #DigitalStudio\n\n- [2025-04-24 · 31 reactions, 1 comment] We won! Our work with New York University's Casa Italiana Zerilli-Marimò has been awarded the Webby People’s Voice in the Community category. Thank you to everyone who voted, shared, rallied, and b...\n\n- [2025-04-17 · Posted · 4 reactions] [12 hours to go. One final kick at the can. Our New York University...](https://www.linkedin.com/posts/takt-inc_votewebbys-casaitaliana-communitydesign-activity-7318713469237620738-oLnM)\n  > 12 hours to go. One final kick at the can.\n  >\n  > Our New York University Casa Italiana project is up for a Webby in the Community category, and the response so far has meant a lot. So many of you have already voted, shared, and supported us—and we’re incredibly grateful.\n  > This is the final stretch before voting closes tonight at 11:59pm, and if you’ve been meaning to vote but haven’t gotten to it yet… now’s the moment.\n  >\n  > Vote here: https://lnkd.in/gP4uKZ8X\n  >\n  > Thank you again to everyone who’s helped us get this far. No matter the outcome, we’re proud of the work and the community behind it.\n  >\n  > #VoteWebbys #CasaItaliana #CommunityDesign #Takt #NYU #DigitalCulture #FinalPush #Grateful #Agency #WebsiteDesign\n\n- [2025-04-17 · 4 reactions] 12 hours to go. One final kick at the can. Our New York University Casa Italiana project is up for a Webby in the Community category, and the response so far has meant a lot. So many of you have al...\n\n- [2025-04-11 · Posted · 17 reactions] [🚨 6 days left to vote! 🚨 Our work with New York University's Casa...](https://www.linkedin.com/posts/takt-inc_webbyawards-votewebbys-casaitaliana-activity-7316548929758629888-K0ST)\n  > 🚨 6 days left to vote! 🚨\n  > Our work with New York University's Casa Italiana Zerilli-Marimò has been nominated for a The Webby Awards in the Community category.\n  >\n  > Public voting closes soon—and every vote counts.\n  > This project has been a true meeting of minds and missions: a platform built to celebrate and extend Italian culture globally, shaped by a remarkable partnership with the teams at NYU Casa Italiana and NYU.\n  >\n  > NYU Casa Italiana Zerilli-Marimò\n  > 👥  Giuseppe D., Kostja Kostic, Chiara Basso, Stefano Albertini\n  >\n  > Takt\n  > 🙌 Lucy Gregory, Jordan McCready, Ryan Aceman , Prem Sai Ramani, Tia Wishart, Leandro Amorim, Priyanka R., William Kunitake, René Thomas Lindsay Smith, Jarret McKee\n  >\n  > If you believe in design that builds community and celebrates culture, we’d love your vote.\n  >\n  > 🗳 Vote here: https://lnkd.in/gP4uKZ8X\n  >\n  > Let’s bring this one home.\n  >\n  > #WebbyAwards #VoteWebbys #CasaItaliana #NYU #DigitalCommunity #CulturalDesign #Takt #UX #WebDesign #DesignForCulture #CommunityBuilding #ItalianCulture #NYUCasaItaliana\n\n- [2025-04-11 · 17 reactions] 🚨 6 days left to vote! 🚨 Our work with New York University's Casa Italiana Zerilli-Marimò has been nominated for a The Webby Awards in the Community category. Public voting closes soon—and every vo...\n\n- [2025-04-10 · Posted · 15 reactions] [One-size-fits-all branding doesn’t work anymore. Trade tensions...](https://www.linkedin.com/posts/takt-inc_one-size-fits-all-branding-doesnt-work-anymore-activity-7316153680913747968-gHQP)\n  > One-size-fits-all branding doesn’t work anymore.\n  >\n  > Trade tensions, shifting markets, and fragmented supply chains have forced global brands to rethink how they build trust across borders.\n  > But here’s the catch: scaling your message isn’t the same as scaling your brand.\n  > Trust doesn’t scale automatically. It has to be earned, market by market. Culture by culture.\n  >\n  > In our latest piece, we unpack how global brands can navigate cultural complexity, avoid the trap of generic messaging, and build systems strong enough to flex without breaking.\n  >\n  > We’ve also included a fresh take on Erin Meyer’s Culture Map and insights from Hofstede’s cultural dimensions—so you can see exactly how trust, communication, and decision-making change across markets.\n  > If you’re expanding into new regions, this is essential reading.\n  >\n  > Read the article here: https://lnkd.in/gQeXqS63\n\n- [2025-04-10 · 15 reactions] One-size-fits-all branding doesn’t work anymore. Trade tensions, shifting markets, and fragmented supply chains have forced global brands to rethink how they build trust across borders. But here’s...\n\n- [2025-04-01 · Posted · 22 reactions] [Our work with New York University's Casa Italiana Zerilli-Marimò...](https://www.linkedin.com/posts/takt-inc_webbyawards-casaitaliana-nyu-activity-7312888824194285568-5WL2)\n  > Our work with New York University's Casa Italiana Zerilli-Marimò has been recognized in the Community category at the 2025 Webby Awards.\n  >\n  > Italian culture doesn’t live in galleries or archives alone. Casa Italiana’s new digital home brings it to life—boldly, beautifully, and without borders. It’s a platform built to connect a global community through shared language, heritage, and purpose.\n  >\n  > Cast your vote here:\n  > https://lnkd.in/gP4uKZ8X\n  >\n  > #WebbyAwards #CasaItaliana #NYU #CommunityDesign #DigitalStorytelling #Takt #VoteWebbys #Culture\n\n- [2025-04-01 · 22 reactions, 2 comments] Our work with New York University's Casa Italiana Zerilli-Marimò has been recognized in the Community category at the 2025 Webby Awards. Italian culture doesn’t live in galleries or archives alone....\n\n- [2025-03-26 · Posted · 12 reactions] [In volatile markets, the strongest brands aren’t the ones that...](https://www.linkedin.com/posts/takt-inc_valuecreation-brandstrategy-ip-activity-7310804143957241856-tkwn)\n  > In volatile markets, the strongest brands aren’t the ones that optimize best—they’re the ones that keep creating. We’ve been thinking a lot about what makes an advantage sustainable. What separates The Builders from The Depleters. And why so many fall into the value trap.\n  >\n  > Our latest article is a reflection on resilience, IP, and the strategic importance of making something new.\n  >\n  > Read the full piece here: https://lnkd.in/gg-KTWha\n  >\n  > #ValueCreation #BrandStrategy #IP #Innovation #CompetitiveAdvantage #BrandBuilding\n\n- [2025-03-26 · 12 reactions] In volatile markets, the strongest brands aren’t the ones that optimize best—they’re the ones that keep creating. We’ve been thinking a lot about what makes an advantage sustainable. What separates...\n\n- [2025-03-21 · Posted · 2 reactions] [In sectors like healthcare, government, and higher ed, websites...](https://www.linkedin.com/posts/takt-inc_uxstrategy-humancentereddesign-digitalexperience-activity-7308933484012544000-CaCL)\n  > In sectors like healthcare, government, and higher ed, websites often serve wildly diverse audiences. Patients and providers. Students and faculty. Citizens and bureaucrats.\n  >\n  > Designing a unified digital experience for all of them starts with understanding—especially understanding how different users seek information.\n  >\n  > Our latest article breaks down three core curiosity types—Hunters, Busybodies, and Dancers—and explores how UX strategy can meet each one with intention. Practical, behavioral insights for teams designing complex, high-stakes digital platforms.\n  >\n  > 🔗 Read it here: https://lnkd.in/gX22y5nn\n  >\n  > #UXStrategy #HumanCenteredDesign #DigitalExperience #HealthcareUX #GovTech #HigherEdDigital #ServiceDesign\n\n## Locations\n- Headquarters: vancouver, british columbia, canada\n- Offices: new york, new york, united states (US), vancouver, british columbia v6b 2k4, canada, toronto, ontario m5t 1x5, canada, vancouver, british columbia, canada, vancouver, british columbia v6b 2k8, canada",
+        "summary": "{\"description\":\"Takt is a Marketing Services company. An award-winning Canadian brand and digital agency that builds category-defining brands and websites.\",\"employee_estimate\":45,\"employee_estimate_source\":\"Employees: 45\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Active job postings: 4\",\"hq\":\"Vancouver, Canada\",\"hq_quote\":\"Headquartered in Vancouver, British Columbia, Canada\",\"industry\":\"Marketing Services\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Marketing Services\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":false,\"recently_funded_seed_or_series_a_quote\":\"- Active job postings: 4 (not a funding note) - \"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQF5Sz6X3QjZjw/company-logo_200_200/B56ZnpOLLSG4AI-/0/1760554431514/takt_inc_logo?e=2147483647&v=beta&t=qZZrh29BKwJ6GKD_WLez0IFUsbX1wWo-XUNNZHXMO1U",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/2m2f6qh05hw",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Takt",
+              "foundedYear": 2012,
+              "description": "Every organization reaches moments when the decisions it makes will define what comes next. A merger or acquisition. A market shift. An external threat. A story it has outgrown.\n\nTakt® helps brands turn those defining moments of change into momentum.\n\nWe are a multi-award-winning, human-driven brand and creative consultancy based in Canada, with a global perspective. We’re systems thinkers who know that what looks like a brand problem is rarely only a brand problem.\n\nWe do the messy work with our partners, digging beneath assumptions to find what is actually holding them back, then building the strategy, messaging, creative and governance they need to move forward with confidence and conviction.\n\nWe connect the whole system around a clear idea, then carry it through every decision that follows. Doing that properly requires the people doing the thinking to stay close to the doing. Our team brings strategy, brand, digital and content together from the first hard question to the thing people ultimately experience.\n\nWe know firsthand that the work is stronger when those defining the direction remain responsible for making it real.\n\nThis way of working has brought us together with NYU, Queen’s University, CBC, Amazon, Alphabet and the NHL Players’ Association, alongside organizations around the world navigating moments of consequence.\n\nOur job is to help the right idea win, then carry it far enough to make a difference.\n\nTakt®. Architects of Impact.",
+              "workforce": {
+                "total": 45
+              },
+              "headquarters": {
+                "address": "134 Abbott St, 503, Vancouver, British Columbia V6B 2K4, CA",
+                "city": "Vancouver",
+                "postalCode": null,
+                "country": "Canada"
+              },
+              "financials": {
+                "revenueAnnual": 5676114,
+                "fundingTotal": null,
+                "fundingLatestRound": null
+              },
+              "webTraffic": {
+                "visitsMonthly": 17247,
+                "countryRank": 104376,
+                "avgDurationSeconds": 26,
+                "history": [
+                  {
+                    "value": 24008,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 14903,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 16366,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 19186,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 7734,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 7734,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 8889.4,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

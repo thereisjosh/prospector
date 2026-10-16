@@ -1,0 +1,262 @@
+{
+  "request": {
+    "query": "Probook",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "13104050c8e58079063a91bb59b7612e",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/pxmjkhy58hl",
+        "title": "Probook",
+        "url": "https://probook.ai/",
+        "text": "# Probook\n\nProbook is a Software Development company. Probook is an AI operating system for home services that makes or breaks the customer experience. Probook employs 72 people (+414.3% YoY, +58 people), founded in 2024. Headquartered in New York, New York, United States.\n\n## About\n\nDispatch makes or breaks the customer experience. Probook is the only AI built around it.\n\nProbook unifies intake, data cleaning, chat, outbound, and dispatch. Operators add points to their EBITDA and run their customer experience as one connected system. Built by people from the trades and backed by a16z and Sequoia, hundreds of the largest home service brands in America are on Probook. Learn more at probook.ai.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: New York, United States\n- Founded Year: 2024\n- Homepage: probook.ai\n- Aliases: probook\n- LinkedIn: linkedin.com/company/probook-ai\n- Linkedin Followers: 6,365\n- Emails: info@probook.ai\n- Phone: +1 845-542-5751\n\n## Financials\n- Total Funding: USD 46,000,000\n  - Series a (2026-06-01): USD 40.0M\n  - Seed (2025-01-01): USD 6.0M\n  - Series a\n\n## Workforce\n- Employees: 72\n- Company Size: 51-200 employees\n  - Monthly Growth: +5.9%\n  - Yearly Growth: +414.3%\n- Key Executives:\n  - Aaron Churba: Director of Sales & Development\n  - Alex Kahn: Founding Solutions Consultant\n  - Andrew Carton: Business Operations Lead\n  - Ben Cervantez: Co-Founder\n  - Bradley Levine: Founding GTM\n  - Christian Yongwhan Lim: Chief Architect\n  - Conor Ryan: Founding Member, Customer Success Team\n  - George Eliadis: Co-Founder & CEO\n  - Jason Jimenez: Founding GTM\n  - Kate Blumberg: Director of Growth\n- Breakdown:\n  - By Country: United States: 64 (89%)\n  - By Department: Technical: 18 (25%), Customer Service: 10 (14%), Other Department: 10 (14%), Sales: 8 (11%), Consulting: 5 (7%), General Management: 4 (6%), Operations: 4 (6%), Hr: 3 (4%), Administrative: 1 (1%), Marketing: 1 (1%) (+1 more)\n  - By Seniority: Other Management: 22 (31%), Specialist: 20 (28%), Founder: 12 (17%), Manager: 5 (7%), Clevel: 2 (3%), Director: 2 (3%), Head: 2 (3%), Senior: 1 (1%)\n- Active job postings: 2\n- Talent Sources: BuildOps (3), VTS (2), Traba (2), Roblox (2), Meta (2), United States Army Reserve (1), Stealth Startup (1), Heron (1), Christie's International Real Estate (1), Autodesk (1)\n- Alumni Go To: Avoca (3), The National High School Journal of Science (NHSJS) (1), Scale AI (1), Noon AI (1), Endex (1), Cognition (1), Capital One (1), Bloomview Growth (1), Bite (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: calendly, servicetitan, boolean, chrome, doordash, github, google sheets, google workspace, linkedin, linkedin recruiter, palantir, persona, precise software, python, ramp, sql, stripe, unify, grunt, launchpad, core hr, prototype, rave\n\n## Web presence\n\n- Twitter: twitter.com/probookai\n- Facebook: facebook.com/p/probook-hvac-dispatch-61551190884466\n- YouTube: youtube.com/@probookai\n- Crunchbase: crunchbase.com/organization/probook\n- Web traffic:\n  - Monthly visits: 16,084\n  - Global rank: 1,466,292\n  - Bounce rate: 41.0%\n  - Pages per visit: 2.2\n  - Average visit duration: 55s\n\n## Categories\n\nai, application-software, artificial intelligence (ai), artificial-intelligence, automation, business_and_consumer_services/business_services, customer experience, customer outcomes, dispatch, enterprise-software, home services, machine learning, saas, software, technology\n\n## Competitors\n\npalnar transmedia, momenta, dabbel, bjit\n\n## Recent News\n- [2026-10-03]\n  - HP: HP Brings Premium PC Experiences to More Consumers\n  - TechPowerUp: HP Launches OmniBook 5 and ProBook 4 Laptops\n  - Notebookcheck: HP launches ultra-thin Wildcat Lake laptop with 3K OLED display and 70 Wh battery\n  - HotHardware: HP's OmniBook 5 Arrives With Tasty OLED, AI Powered By Intel, Starting At $699\n- [2026-10-01] Stock Titan: HP says its new laptop can play video for up to 42 hours\n- [2026-09-15] PCMag: This Refurbished HP ProBook x360 Is Built for Kids and Travel, and It’s 67% Off\n- [2026-08-29] [📣 Manhattan Sales & Marketing Jobs with Multiple Six-Figure Paths - NewsBreak](https://www.newsbreak.com/manhattan-ny-daily-brief-372333609/4856013704470-manhattan-sales-marketing-jobs-with-multiple-six-figure-paths)\n- [2026-08-27] PCMag: HP Tips Rugged ProBook x360 11 Education Edition\n- [2026-08-11] BusinessLine: HP ProBook 4 G2a 14-inch Notebook AI PC review: The Quintessential work laptop\n- [2026-07-30] Whalesbook: HP Launches ProBook 4 G2a Laptop Starting At ₹1,35,000\n- [2026-07-07] [Probook Raises $40M for Home-Service AI Software](https://oakhillgazette.com/probook-raises-40-million-home-service-ai/)\n- [2026-07-01] [Probook Raises $40M From a16z, Sequoia for AI Platform](https://www.startupresearcher.com/news/probook-raises-40m-from-andreessen-horowitz-and-sequoia-for-home-services-ai)\n- [2026-06-27]\n  - TipRanks: Probook Raises $40 Million to Scale AI Dispatch Platform for Home Services\n  - StartupHub.ai: Probook raises $40M for AI OS\n- [2026-06-24] [Probook Raises $40M to Automate Home-Service Dispatch - Korea IT Times](https://www.koreaittimes.com/news/articleView.html?idxno=154678)\n- [2026-06-23]\n  - [Partnering with Probook: AI for the Trades](https://sequoiacap.com/article/partnering-with-probook-ai-for-the-trades/)\n  - [Probook founder George Eliadis has boosted profits for small businesses with AI \\| Fox Business](https://www.foxbusiness.com/technology/warton-grad-who-used-pressure-wash-homes-raises-40m-help-plumbers-electricians-run-businesses-ai)\n  - [Probook Raises $40M in Seed and Series A Financing](https://www.finsmes.com/2026/06/probook-raises-40m-in-seed-and-series-a-financing.html)\n  - [Built by a tradesman backed by a16z and Sequoia, Probook raises $40M to reinvent dispatch for America’s home service businesses — TFN](https://techfundingnews.com/built-by-a-tradesman-backed-by-a16z-and-sequoia-probook-raises-40m-to-reinvent-dispatch-for-americas-home-service-businesses/)\n  - [Probook Raises $40 Million To Scale AI Operating System For Home Services](https://pulse2.com/probook-raises-40-million-to-scale-ai-operating-system-for-home-services/)\n  - [Probook Raises $34 Million Series A to Bring AI Into the Operational Core of Home Services](https://www.unite.ai/probook-raises-34-million-series-a-to-bring-ai-into-the-operational-core-of-home-services/)\n  - [Probook raises USD $40 million for home services dispatch](https://telconews.com/story/probook-raises-usd-40-million-for-home-services-dispatch)\n  - [Probook Secures $40 Million to Expand AI Operating System for Home Services Businesses \\| citybiz](https://www.citybiz.co/article/863661/probook-secures-40-million-to-expand-ai-operating-system-for-home-services-businesses/)\n  - [AI Home Services Platform Probook Raises $40 Million Led By Andreessen Horowitz And Sequoia - Sahyadri Startups](https://sahyadristartups.com/spotlight/ai-home-services-platform-probook-raises-usd-40-million-led-by-andreessen-horowitz-and-sequoia/)\n  - [FinancialContent - Probook Raises $40M from Andreessen Horowitz and Sequoia to Scale the AI Operating System for Home Services](https://markets.financialcontent.com/stocks/article/gnwcq-2026-6-23-probook-raises-40m-from-andreessen-horowitz-and-sequoia-to-scale-the-ai-operating-system-for-home-services)\n  - [Probook Raises $40M in VC Funding to Simplify Operations for Small Home Service Businesses - News and Statistics - IndexBox](https://www.indexbox.io/blog/wharton-grad-raises-40m-for-probook-an-ai-platform-for-home-service-businesses/)\n  - [Probook founder George Eliadis has boosted profits for small businesses with AI - United States](https://www.europesays.com/us/887865/)\n- [2026-04-14] Technobezz: HP ProBook 4 G1a 14-inch notebook drops to $899 on Amazon\n- [2026-03-26] hotelier.com.py: HP PROBOOK 6460B 6465B 6470B 6475B CASING HOUSING BODY FRAME PANEL\n- [2026-03-25] MSN: HP EliteBooks, HP ProBooks, and HP OmniBook AI PCs series launched in India - All details\n- [2026-02-16] MSN: Save now: Under $970 \\(58% off\\) on HP ProBook 14″ laptop with Core Ultra 5 and 16GB\n- [2026-01-30] umlconnector.com: Replacement Palmrest Keyboard Touchpad Assembly For HP ProBook 450 455 G8 Laptop - Silver M21740-001\n- [2026-01-23] MSN: Save 64% on 14″ HP ProBook notebook PC with Core Ultra 5, 16GB RAM\n- [2026-01-06] AD HOC NEWS: HP ProBook Review: The Business Laptop That Finally Gets Out of Your Way\n- [2025-11-28] Windows Central: I didn’t expect HP’s $4,000 ProBook to drop to $1,199 for Black Friday\n- [2025-07-12] Newser: AI for Aerospace Manufacturing Optimization - AI Blockchain Explosive Returns\n\n## Social\n\n### Linkedin\n\n- [2026-09-15 · 41 reactions, 1 comment] Probook is headed to Nexstar Super Meeting 🛬 Catch our CEO George Eliadis on Wednesday from 1:30–1:50 PM for \"How to Evaluate AI,\" a straight-talk session on cutting through the noise and actually...\n\n- [2026-08-25 · 83 reactions, 5 comments] A few of our dispatchers rocking their new Probook gear!\n\n- [2026-07-29 · 81 reactions, 2 comments] Six summers in the truck. Four years at Wharton. George brought both to the same problem, and it shows in what we've built. Fox Business covered what came next. Link in comments.\n\n- [2026-07-22 · 10 reactions] Every company we walk into, there's at least one person who needs to see it to believe it. They've been burned before, they're not interested in being sold, and they go looking for the cracks. At A...\n\n- [2026-07-16 · 47 reactions, 3 comments] Our founding team spent summers in the truck, taken calls, dispatched at shops across the country. And we haven't lost that dedication... getting into the details with operators, their teams, their...\n\n- [2026-07-15 · 18 reactions] Probook handled 16,000 inbound calls for Del-Air in May and resolved 74% without a human. Del-Air went from 22 dispatchers to 10 and automated about 90% of their dispatching. That took a team that...\n\n- [2026-07-13 · 9 reactions, 2 comments] We're building the most talent-dense team in vertical AI. And we're hiring across every function. GTM · Sales Development Representative · Enterprise Account Executive · Solutions Consultant Custom...\n\n- [2026-07-10 · 39 reactions, 1 comment] Crunchbase highlighted Probook's funding announcement in this month's list of 5 Interesting Startup Deals You May Have Missed Thanks to Marlize van Romburgh for the mention. https://lnkd.in/gxbdJxRU\n\n- [2026-06-30 · 26 reactions, 1 comment] George Eliadis sat down with Brady Jolly in the most recent installment of 'Reimagining Home Services' for a conversation on AI, the future of the trades, and what we're building at Probook. Brady...\n\n- [2026-06-25 · 154 reactions, 13 comments] Probook was born in the field. Hours of windshield time. Calls missed on the ladder. Dispatching at a $40M company. All that time added up to deep customer empathy and a product built around measur...\n\n- [2026-06-23 · 220 reactions, 57 comments] Today we're announcing $40M in funding from Sequoia Capital and Andreessen Horowitz. Probook is rooted in the trades. George Eliadis spent six summers in a pressure washing truck in upstate New Yor...\n\n- [2026-06-16 · 47 reactions, 3 comments] Ten years ago, our CRO, Mark Hoffman, hired Aaron Churba for his first job out of college. Now they're on the same team again. We’re excited to welcome Aaron to Probook as our Director of Sales & D...\n\n- [2026-06-12 · 36 reactions, 3 comments] Alex Kahn joined the Probook team as our Founding Solutions Consultant after spending years as a strategy consultant at Oliver Wyman and EY advising some of the world’s largest enterprises. What im...\n\n- [2026-06-10 · 78 reactions, 6 comments] People would approach George Eliadis, our founder and CEO, at conferences and ask where our sales team was. He’d answer with “you’re talking to him”. For most of Probook's history, our entire sales...\n\n- [2026-06-08 · 24 reactions] The best software for any traditional industry is built sitting next to the people who use it. George Eliadis spent hours whiteboarding warranty workflows with Caleb Seyer at Anthony Plumbing, Heat...\n\n- [2026-06-05 · 37 reactions, 1 comment] We are pumped to welcome Sean Weinhouse to Probook as our Chief Customer Officer. Customer obsession isn't a slogan here. It's the thing every Probook customer can name about working with us: someo...\n\n- [2026-03-27 · 92 reactions, 4 comments] I wasted 9 months building a startup in college before I realized it was dead on arrival. The painful lesson: asking your friends if your idea is cool doesn't count as market validation. The idea w...\n\n- [2026-03-23 · 89 reactions, 8 comments] Until December, our 'sales team' was just me. I took pride in being the single point of contact. But not hiring a CRO sooner was actually my biggest mistake as a founder. I never thought I'd hand o...\n\n- [2026-03-20 · 200 reactions, 12 comments] After 19 months of running literally every demo myself, I couldn't be more excited to welcome Mark Hoffman as Probook's CRO. Mark is an absolute killer. He spent 8 years at VTS— a commercial real e...\n\n- [2026-03-19 · 63 reactions, 8 comments] Every engineer who's been through our on-site at Probook - regardless of whether they joined - has said it's the best on-site they've ever had. That's not the pitch I usually lead with. But it's co...\n\n## Locations\n- Headquarters: new york, new york, united states (US)\n- Offices: new york, new york, united states (US)",
+        "summary": "{\"description\":\"Probook is an AI operating system for home services that optimizes the customer experience and dispatch workflows for trades businesses.\",\"employee_estimate\":72,\"employee_estimate_source\":\"Employees: 72\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Key Executives: ... Jason Jimenez: Founding GTM\",\"hq\":\"New York, New York, United States\",\"hq_quote\":\"Headquartered in New York, New York, United States.\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"- Industry: Software Development\\n- Type: Privately held\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 46,000,000\\n  - Series a (2026-06-01): USD 40.0M\\n  - Seed (2025-01-01): USD 6.0M\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQHR6vIRGmC8oA/company-logo_200_200/B4EZ718TnoJkAE-/0/1782242687683/probook_ai_logo?e=2147483647&v=beta&t=uXnbQ-6wUP3pOSlTWyli5kWYNovnStDdNTaOwK94uIQ",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/pxmjkhy58hl",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Probook",
+              "foundedYear": 2024,
+              "description": "Dispatch makes or breaks the customer experience. Probook is the only AI built around it.\n\nProbook unifies intake, data cleaning, chat, outbound, and dispatch. Operators add points to their EBITDA and run their customer experience as one connected system. Built by people from the trades and backed by a16z and Sequoia, hundreds of the largest home service brands in America are on Probook. Learn more at probook.ai. ",
+              "workforce": {
+                "total": 72
+              },
+              "headquarters": {
+                "address": "New York, NY 10022, US",
+                "city": "New York",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 46000000,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2026-06-01",
+                  "amount": 40000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 16084,
+                "countryRank": 398429,
+                "avgDurationSeconds": 55,
+                "history": [
+                  {
+                    "value": 10906,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 6208,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 17740,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 13072,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 15900,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 16084,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/zs7lsrqjfpr",
+        "title": "Probook",
+        "url": "https://probook.nl/",
+        "text": "# Probook\n\nProbook is a Printing Services company. Probook is a company that specializes in making, printing, and stationery books. They offer a wide range of books for both individuals and businesses, including gebonden books, Hardcover books, and softcover books. Probook employs 10 people, founded in 1892. Headquartered in Utrecht, Netherlands. Its workforce is distributed across Netherlands and Bangladesh.\n\n## About\n\nProbook is de specialist in genaaid gebonden boeken maken in kleine oplages. Wij staan klaar voor zowel de eindgebruiker als wederverkopers (het is ook mogelijk om eigen printwerk aan te leveren). \n\nWij kunnen 1 genaaid gebonden softcover produceren, maar ook 200 luxe gebonden hardcovers met gouden foliedruk en andere extra's. Je stelt jouw boek helemaal zelf samen; je bepaalt op de millimeter nauwkeurig jouw eigen formaat, je kiest indien gewenst jouw eigen kleuren leeslint, kapitaalband, linnen, schutblad etc.\n\nWe bieden vele handvatten en hulp om jouw boek te maken. Van handleidingen en templates in Word en InDesign tot hulp bij het op inslag zetten van het bestand. Wij staan voor je klaar om je te helpen, zowel telefonisch als per mail.\n\nWij produceren in eigen huis, waardoor we zicht hebben op de kwaliteit. Tevens zijn hierdoor de mogelijkheden zeer divers. Heb je een speciale aanvraag? Neem dan ook contact op zodat we met je mee kunnen kijken wat mogelijk is.\n\n## Company Details\n- Industry: Printing Services\n- Type: Privately held\n- Headquarters: Utrecht, Netherlands\n- Founded Year: 1892\n- Homepage: probook.nl\n- Aliases: probook\n- LinkedIn: linkedin.com/company/pro-book-nl\n- Linkedin Followers: 238\n- Emails: info@probook.nl\n- Phone: 30 303 95 98\n\n## Workforce\n- Employees: 10\n- Company Size: 1-10 employees\n  - Monthly Growth: +11.1%\n- Key Executives:\n  - Peter Lagerweij: Mede-eigenaar\n- Breakdown:\n  - By Country: Netherlands: 7 (70%), Bangladesh: 1 (10%)\n  - By Department: Operations: 2 (20%), Other Department: 2 (20%), Customer Service: 1 (10%), Design: 1 (10%), General Management: 1 (10%), Marketing: 1 (10%)\n  - By Seniority: Specialist: 5 (50%), Other Management: 2 (20%), Owner: 1 (10%)\n- Talent Sources: UMC Utrecht (2), Volksuniversiteit Utrecht (1), Romeyn Stansen en Foliedruk B.V. (1), Kruidvat (1), Kapitaal (1), JD Sports Fashion (1), Holland Kaascentrum (1), Forsch (1), Facility Service BV (1), Blokker (1)\n- Alumni Go To: Drukkerij Libertas Pascal (3), UMC Utrecht (2), Nederlands Film Festival (NFF) (1), NPO Kennis (1), JobOn (1), Forsch (1), De Twentsche Courant Tubantia (1), Dasselaar B.V. (1)\n\n## Web presence\n\n- Facebook: facebook.com/probook.nl\n- Instagram: instagram.com/probook_nl\n- Web traffic:\n  - Monthly visits: 7,233\n  - Global rank: 2,528,490\n  - Bounce rate: 39.0%\n  - Pages per visit: 2.1\n  - Average visit duration: 205s\n\n## Categories\n\nbindery books, book making, hobbies_and_leisure/ancestry_and_genealogy, printing, printing and publishing, softcover books, stationery\n\n## Social\n\n### Linkedin\n\n- [2025-05-09 · 5 reactions] Een kijkje in het maakproces van een kinderboek? Voor Kidsweek en Samsam lieten we zien hoe dat eruitziet. Onze collega Michelle gaf uitleg over het drukken, binden, snijden en afwerken. En hoe we...\n\n- [2025-04-22 · 6 reactions] 𝗦𝗻𝗲𝗹𝗹𝗲𝗿. 𝗦𝗹𝗶𝗺𝗺𝗲𝗿. 𝗦𝗰𝗵𝗲𝗿𝗽𝗲𝗿. Bij Probook investeren we niet alleen in machines, maar in betere boeken. Met de komst van de Horizon Variable Trimmer HT-1000V versnellen én verbeteren we onze boekprod...\n\n- [2025-04-17 · 18 reactions] 𝗘𝗲𝗻 𝗯𝗼𝗲𝗸 𝗮𝗹𝘀 𝗲𝗲𝗻 𝗸𝘂𝗻𝘀𝘁𝘄𝗲𝗿𝗸 – 𝗔𝗺𝘀𝘁𝗲𝗿𝗱𝗮𝗺 𝟯𝗵𝗼𝗼𝗴 𝗮𝗰𝗵𝘁𝗲𝗿 Ter gelegenheid van het 750-jarig jubileum van Amsterdam verscheen het boek 𝘈𝘮𝘴𝘵𝘦𝘳𝘥𝘢𝘮 3𝘩𝘰𝘰𝘨 𝘢𝘤𝘩𝘵𝘦𝘳, een ode aan de bomen van de stad. Tekenaar Je...\n\n- [2025-04-14 · 2 reactions] 𝗧𝗲𝗿𝘂𝗴𝗸𝗶𝗷𝗸𝗲𝗻 𝗼𝗽 𝗲𝗲𝗻 𝗴𝗲𝘀𝗹𝗮𝗮𝗴𝗱𝗲 𝗜𝗺𝗽𝗮𝗰𝘁𝗙𝗮𝗶𝗿 𝟮𝟬𝟮𝟱! Wat een fantastische ervaring om Drukkerij Libertas Pascal en Probook samen te presenteren op de Impact Fair NL in de Koninklijke Jaarbeurs 𝗨𝘁𝗿𝗲𝗰𝗵𝘁, in...\n\n- [2025-03-31 · 15 reactions] 𝗗𝘂𝘂𝗿𝘇𝗮𝗮𝗺 𝗽𝗮𝗽𝗶𝗲𝗿 𝘃𝗼𝗼𝗿 𝗷𝗼𝘂𝘄 𝗯𝗼𝗲𝗸: 𝗵𝗼𝗲 𝗺𝗮𝗮𝗸 𝗷𝗲 𝗱𝗲 𝗯𝗲𝘀𝘁𝗲 𝗸𝗲𝘂𝘇𝗲? Papier is de basis van elk boek, maar wist je dat je met de juiste papierkeuze de impact op het milieu flink kunt verkleinen? Bij Probook...\n\n- [2025-03-20 · 7 reactions] Kunstenaar Niels Broszat is dicht bij het realiseren van zijn kunstboek 'Iconen van de Waterroute'. Via platform voordekunst heeft Niels een crowdfundingcampagne opgezet. Op deze manier wil hij de...\n\n- [2025-03-14 · 10 reactions] Over vier weken is het zover: de 𝗜𝗺𝗽𝗮𝗰𝘁𝗙𝗮𝗶𝗿! Hét event waar impactmakers en innovatieve ondernemers samenkomen. Wij zijn erbij samen met Business Open 𝗨𝘁𝗿𝗲𝗰𝗵𝘁, het netwerk waar ondernemerschap en d...\n\n- [2024-09-30 · 19 reactions] Aanstaande donderdag 3 oktober, van 16:00 tot 19:00 uur, openen wij onze deuren voor een open huis! Iedereen die nieuwsgierig is naar hoe wij boeken maken, of geïnteresseerd is in werken in de graf...\n\n## Locations\n- Headquarters: utrecht, netherlands (NL)\n- Offices: utrecht, netherlands (NL), utrecht, utrecht, netherlands (NL)",
+        "summary": "{\"description\":\"Probook is a Printing Services company specializing in making, printing, and stationery books for individuals and businesses, including gebonden, Hardcover, and softcover books.\",\"employee_estimate\":10,\"employee_estimate_source\":\"Employees: 10\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Utrecht, Netherlands\",\"hq_quote\":\"Headquarters: Utrecht, Netherlands\",\"industry\":\"Printing Services\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Printing Services\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":null,\"recently_funded_seed_or_series_a_quote\":\"\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4D0BAQGUMC7laB25Lg/company-logo_200_200/company-logo_200_200/0/1631368550016?e=2147483647&v=beta&t=iNIB9qDsf8FfQSS9weryxkAIGLWlXE-FDTSGmEFYJgk",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/zs7lsrqjfpr",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Probook",
+              "foundedYear": 1892,
+              "description": "Probook is de specialist in genaaid gebonden boeken maken in kleine oplages. Wij staan klaar voor zowel de eindgebruiker als wederverkopers (het is ook mogelijk om eigen printwerk aan te leveren). \n\nWij kunnen 1 genaaid gebonden softcover produceren, maar ook 200 luxe gebonden hardcovers met gouden foliedruk en andere extra's. Je stelt jouw boek helemaal zelf samen; je bepaalt op de millimeter nauwkeurig jouw eigen formaat, je kiest indien gewenst jouw eigen kleuren leeslint, kapitaalband, linnen, schutblad etc.\n\nWe bieden vele handvatten en hulp om jouw boek te maken. Van handleidingen en templates in Word en InDesign tot hulp bij het op inslag zetten van het bestand. Wij staan voor je klaar om je te helpen, zowel telefonisch als per mail.\n\nWij produceren in eigen huis, waardoor we zicht hebben op de kwaliteit. Tevens zijn hierdoor de mogelijkheden zeer divers. Heb je een speciale aanvraag? Neem dan ook contact op zodat we met je mee kunnen kijken wat mogelijk is.",
+              "workforce": {
+                "total": 10
+              },
+              "headquarters": {
+                "address": "Amsterdamsestraatweg 656d, Utrecht, 3555 HX, NL",
+                "city": "Utrecht",
+                "postalCode": null,
+                "country": "Netherlands"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 7233,
+                "countryRank": 71207,
+                "avgDurationSeconds": 205,
+                "history": [
+                  {
+                    "value": 7431,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 10211,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 8748,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 10818,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 6106,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 7233,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 7803.7,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

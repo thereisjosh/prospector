@@ -1,0 +1,262 @@
+{
+  "request": {
+    "query": "Palette",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "40298e71c54c8df713d2472d3ae63bd8",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/44yby9wn2q0",
+        "title": "Palette Life Sciences",
+        "url": "https://palettelifesciences.com/",
+        "text": "# Palette Life Sciences\n\nPalette Life Sciences is a Medical Equipment Manufacturing company. Palette Life Sciences is a company that acquired Teleflex™ in October 2023. Palette Life Sciences employs 20 people (-33.3% YoY, -10 people) and has an annual revenue of $15M, founded in 2018. Headquartered in Stockholm, Sweden, with presence in United States, Australia, and Japan. Its workforce is distributed across United States and Australia.\n\n## About\n\nPalette Life Sciences is a fully integrated medical device company providing a wide range of products and services that improve quality of life of patients. Our portfolio of products focuses on treating conditions in urology/urogynecology disorders, colorectal conditions, radiotherapy, and interventional oncology procedures.\n\nFor physicians, researchers, and inventors alike, progress begins with a natural curiosity and the drive to do more. By discovering and applying new applications of proven medicine to uncommon, or difficult to treat conditions, we can address the needs of patients often overlooked by traditional medical companies.\n\nInspired by innovation and empathy, we see endless possibilities in expanding on proven technologies to elevate patient care. \n\nThe foundation for all of our breakthrough products is Non-Animal Stabilized Hyaluronic Acid (NASHA®). NASHA has been proven safe and effective for more than two decades in over 50 million medical procedures worldwide.\n\nBarrigel® - the first and only FDA-cleared hyaluronic acid rectal spacer, minimizing the side effects of radiation therapy for prostate cancer patients. Barrigel is available in the US, Australia and Europe. \n\nDeflux® - the only FDA-approved injectable treatment for vesicoureteral reflux (VUR), a urinary defect that affects 1% of children worldwide. Deflux for VUR is available in the US, Canada, Europe, Japan, Latin America, Australia and New Zealand. Also indicated for stress urinary incontinence (SUI) in women, Deflux for SUI is available in Canada and Europe.\n\nSolesta® - the only FDA-approved injectable treatment for fecal incontinence, a debilitating health problem afflicting about 2% of people worldwide. Solesta is available in the US and Europe.\n\nPalette Life Sciences is headquartered in Stockholm, Sweden, with offices in Santa Barbara, California, Dallas, Texas, Sydney, Australia and Tokyo, Japan. \n\nLearn more at palettelifesciences.com.\n\n## Company Details\n- Industry: Medical Equipment Manufacturing\n- Type: Privately held\n- Headquarters: Stockholm, Sweden\n- Founded Year: 2018\n- Homepage: palettelifesciences.com\n- Aliases: Palette Life Sciences, Inc., palette life sciences\n- LinkedIn: linkedin.com/company/palette-life-sciences\n- Linkedin Followers: 3,586\n- Emails: info@palettelifesciences.com\n- Phone: +1 844 350 9656, 46-702-120-787\n\n## Financials\n- Annual Revenue: USD 15,000,000\n- Total Funding: USD 145,000,000\n  - Debt financing (2023-03-01): USD 75.0M\n  - Debt financing (2021-10-28): USD 40.0M\n  - Venture (2021-10-20): USD 30.0M\n\n## Acquisitions\n- Acquired by: Teleflex (2023-07-26) for USD 650.0M\n\n## Workforce\n- Employees: 20\n- Company Size: 51-200 employees\n  - Yearly Growth: -33.3%\n- Key Executives:\n  - Cliff Kline: Director of Clinical Affairs\n- Breakdown:\n  - By Country: United States: 15 (75%), Australia: 2 (10%)\n  - By Department: Medical: 6 (30%), Sales: 5 (25%), Consulting: 1 (5%), General Management: 1 (5%), Legal: 1 (5%), Operations: 1 (5%), Other Department: 1 (5%), Trades: 1 (5%)\n  - By Seniority: Specialist: 9 (45%), Manager: 6 (30%), Director: 1 (5%), Other Management: 1 (5%)\n- Talent Sources: UroLift System (7), Sientra, a Tiger Aesthetics Brand (6), Medtronic (5), ConsignMed, Inc. (4), Boston Scientific (3), Axonics, Inc. (3), Teleflex (2), PROCEPT BioRobotics (2), Coloplast (2), Accuray (2)\n- Alumni Go To: Teleflex (30), Calyxo, Inc. (12), Boston Scientific (3), BioProtect (3), Axonics, Inc. (3), Moximed (2), Adaptiiv Medical Technologies Inc. (2), UC Santa Barbara (1), Physics World (1), CONNECT HOMES (1)\n\n## Products & Technology\n- Tech Stack: c, salesforce\n\n## Web presence\n\n- Twitter: twitter.com/news/news-details/2023/teleflex-completes-acquisition-of-palette-life-sciences/default.aspx\n- Crunchbase: crunchbase.com/organization/palette-life-sciences\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Categories\n\nacquisition, colorectal conditions, health care, interventional oncology procedures, life science, life sciences, medical device, oncology, palette life sciences, pediatric urology, prostate cancer, radiotherapy, teleflex, teleflex incorporated, teleflex logo, therapeutics, urogynecology disorders, urology\n\n## Competitors\n\nnovabay, tae life sciences, certis, sciquus oncology, kite pharma, neximmune, juno therapeutics, novartis, agenus, immunocore, sangamo, intellia therapeutics, intellia, jounce, crispr, bristol-myers squibb, bristol myers squibb, gilead sciences, gilead, inovio, aura, spark therapeutics, adaptimmune, perthera, aveo, medigene\n\n## Recent News\n- [2026-09-27] Cornell Chronicle: Palette versus palate: Wine drinkers embrace a spectrum of wine colors\n- [2026-09-11] [Concorrência autoriza compra da Lotus pela Intersurgical](https://executivedigest.sapo.pt/concorrencia-autoriza-compra-da-lotus-pela-intersurgical/)\n- [2026-09-02] IPWatchdog.com: Federal Circuit Upholds PTAB Obviousness Finding Against Memory Module Patent\n- [2026-07-31] Tracxn: List of 16 Acquisitions by Teleflex Medical \\(Aug 2026\\)\n- [2026-02-25] The Manila Times: Amber Therapeutics strengthens its Board and Leadership team, opens UK headquarters and expands EU feasibility study for mixed urinary incontinence, increasing momentum towards a pivotal trial in the US\n- [2025-02-27] Fierce Biotech: Teleflex plays musical chairs, plans company split amid €760M Biotronik cardiovascular deal\n- [2024-08-09] Google Patent: Tissue spacers with visual additive\n- [2024-06-05] Google Patent: Software imaging for composition placement\n- [2024-04-19] Wiley & Sons: Expanding the Palette of SWIR Emitting Nanoparticles Based on Au Nanoclusters for Single-Particle Tracking Microscopy\n- [2024-02-26] The Business Journals: Tempe's GT Medical Technologies names new CEO to replace outgoing leader\n- [2024-02-24] Earnings call: Teleflex reports steady growth, plans for 2024 expansion By Investing.com\n- [2024-02-20]\n  - Medical Product Outsourcing: GT MedTech Welcomes Per Langoe As CEO\n  - PR Newswire: GT Medical Technologies, Inc. Names Per Langoe As CEO\n- [2023-11-30] Medical Device and Diagnostic industry: Teleflex Uses M&A to Strengthen Urology Portfolio\n- [2023-11-22] ASCO Daily News: How Radiopharmaceutical Therapy Improves Quality of Life in Patients With Prostate Cancer\n- [2023-11-03] Morningstar: Teleflex Earnings: Surgical and Interventional Products Drive ...\n- [2023-10-13] Yahoo Finance: Teleflex \\(TFX\\) Advances Urology Portfolio With New Buyout\n- [2023-10-11] Teleflex completes Palette Life Sciences acquisition\n- [2023-08-23] WilmerHale: IPR petitioner must be given opportunity to respond to new claim construction arguments by patent owner\n- [2023-07-27]\n  - MassDevice: Fast Five: Teleflex makes a $600M acquisition, Abbott has a serious recall of its Amplatzer delivery sheath\n  - Medical Device Network: Teleflex to acquire Palette Life Sciences for $600m\n\n## Social\n\n### Linkedin\n\n- [2023-09-29 · 53 reactions] Siamo a Santa Barbara per un incontro con il team di Palette Life Sciences dove parleremo di Barrigel, l'innovativo spacer per la radioterapia. A base di acido ialuronico, facile da impiantare e co...\n\n- [2023-08-04 · 36 reactions] We're Hiring! Are you interested in joining the Palette team in Santa Barbara, CA? Do you have experience working across functional groups and multiple geographical locations? Visit our job posting...\n\n- [2023-07-26 · 160 reactions, 7 comments] Today, we have entered into a definitive agreement to be acquired. “The original founding vision for Palette Life Sciences was to disrupt the rectal spacing market with a new product innovation tha...\n\n- [2023-07-04 · 45 reactions, 1 comment] Happy #IndependenceDay from the team at Palette Life Sciences! We hope you have a great holiday weekend with your friends and family! #HappyFourth #FourthofJuly\n\n- [2023-05-30 · 61 reactions, 2 comments] Palette Life Sciences welcomes the newest Barrigel Center of Excellence program designations. The program recognizes doctors who have achieved exceptional clinical expertise in the Barrigel procedu...\n\n- [2022-09-22 · 105 reactions, 1 comment] For physicians, researchers, and inventors alike, progress begins with a natural curiosity and the drive to do more. Hear from our executive team to learn how we see endless possibilities in expand...\n\n## Locations\n- Headquarters: stockholm, sweden (SE)\n- Offices: santa barbara, california, united states (US), stockholm, sweden (SE), tokyo, japan (JP), southlake, texas, united states (US), sydney, australia, solna, stockholms län 171 65, sweden (SE)\n\n## Parent organization\n\n- Teleflex",
+        "summary": "{\"description\":\"Palette Life Sciences is a fully integrated medical device company offering products and services across urology/urogynecology, colorectal, radiotherapy, and interventional oncology, with headquarters in Stockholm and offices in Santa Barbara, Dallas, Sydney, and Tokyo.\",\"employee_estimate\":20,\"employee_estimate_source\":\"Employees: 20\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Stockholm, Sweden\",\"hq_quote\":\"Headquartered in Stockholm, Sweden, with offices in Santa Barbara, California, Dallas, Texas, Sydney, Australia and Tokyo, Japan.\",\"industry\":\"Medical Equipment Manufacturing\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Palette Life Sciences is a Medical Equipment Manufacturing company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":false,\"recently_funded_seed_or_series_a_quote\":\"\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C560BAQGZJ_uxdKnwyw/company-logo_200_200/company-logo_200_200/0/1630666899567/palette_life_sciences_logo?e=2147483647&v=beta&t=uEW9NKtZzrrzJeXQdjGb2MqeIWKKAYl-qXG9vcVMYQM",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/44yby9wn2q0",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Palette Life Sciences",
+              "foundedYear": 2018,
+              "description": "Palette Life Sciences is a fully integrated medical device company providing a wide range of products and services that improve quality of life of patients. Our portfolio of products focuses on treating conditions in urology/urogynecology disorders, colorectal conditions, radiotherapy, and interventional oncology procedures.\n\nFor physicians, researchers, and inventors alike, progress begins with a natural curiosity and the drive to do more. By discovering and applying new applications of proven medicine to uncommon, or difficult to treat conditions, we can address the needs of patients often overlooked by traditional medical companies.\n\nInspired by innovation and empathy, we see endless possibilities in expanding on proven technologies to elevate patient care. \n\nThe foundation for all of our breakthrough products is Non-Animal Stabilized Hyaluronic Acid (NASHA®). NASHA has been proven safe and effective for more than two decades in over 50 million medical procedures worldwide.\n\nBarrigel® - the first and only FDA-cleared hyaluronic acid rectal spacer, minimizing the side effects of radiation therapy for prostate cancer patients. Barrigel is available in the US, Australia and Europe. \n\nDeflux® - the only FDA-approved injectable treatment for vesicoureteral reflux (VUR), a urinary defect that affects 1% of children worldwide. Deflux for VUR is available in the US, Canada, Europe, Japan, Latin America, Australia and New Zealand. Also indicated for stress urinary incontinence (SUI) in women, Deflux for SUI is available in Canada and Europe.\n\nSolesta® - the only FDA-approved injectable treatment for fecal incontinence, a debilitating health problem afflicting about 2% of people worldwide. Solesta is available in the US and Europe.\n\nPalette Life Sciences is headquartered in Stockholm, Sweden, with offices in Santa Barbara, California, Dallas, Texas, Sydney, Australia and Tokyo, Japan. \n\nLearn more at palettelifesciences.com.",
+              "workforce": {
+                "total": 20
+              },
+              "headquarters": {
+                "address": "Fogdevreten 2A 17165, Stockholm, Sweden, SE",
+                "city": "Stockholm",
+                "postalCode": null,
+                "country": "Sweden"
+              },
+              "financials": {
+                "revenueAnnual": 15000000,
+                "fundingTotal": 145000000,
+                "fundingLatestRound": {
+                  "name": "Debt financing",
+                  "date": "2023-03-01",
+                  "amount": 75000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 893,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 637,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 581,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 529,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 529,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/fgrfjznk61b",
+        "title": "Palette",
+        "url": "https://palette.eco/",
+        "text": "# Palette\n\nPalette is a Manufacturing company. Palette is a company that offers sustainable, collorfull, and VOC free paints for a modern interior. Palette employs 4 people (-20.0% YoY, -1 person), founded in 2020. Headquartered in Amsterdam, Netherlands, with an office in Noord-Holland.\n\n## About\n\nAt Palette, we strive to offer you artist-selected colors, premium quality, free from harmful ingredients, at the best prices.\n\n## Company Details\n- Industry: Manufacturing\n- Type: Privately held\n- Headquarters: Amsterdam, Netherlands\n- Founded Year: 2020\n- Homepage: palette.eco\n- Aliases: palette\n- LinkedIn: linkedin.com/company/palette-paints\n- Linkedin Followers: 35\n- Emails: contact@palette.eco\n\n## Workforce\n- Employees: 4\n- Company Size: 1-10 employees\n  - Yearly Growth: -20.0%\n- Talent Sources: Clikclk (1)\n\n## Products & Technology\n- Tech Stack: ups\n\n## Web presence\n\n- Instagram: instagram.com/palette.eco\n- Crunchbase: crunchbase.com/organization/palette-3b6f\n- Web traffic:\n  - Monthly visits: 177\n  - Bounce rate: 47.0%\n  - Pages per visit: 1.0\n  - Average visit duration: 0s\n\n## Categories\n\ncollorfull, eco-friendly paints, home renovation, modern interior, paints, printing, sustainable, voc free\n\n## Recent News\n- [2026-09-16] https://safariindia.com/: Palette Hotel Amritsar Appoints New General Manager\n- [2026-08-28] Organic Authority: 4 Minimally Chic Eco Makeup Palettes \\(Plus How to Make Your Own\\)\n- [2026-08-25] Pocket-lint: Forgetting to change auto-brightness on a TV is worse than you think\n- [2026-08-21] The New Indian Express: Odisha plans eco-restoration policy to improve forest quality\n- [2026-08-14] Trend Hunter: Concept Seating Collections\n- [2026-08-10]\n  - Architecture & Design: Eco Outdoor introduces Stone Bricks collection for contemporary construction\n  - Dealer Support: Sustainability You Can See\n- [2026-07-29] Tribuna.com: Lyon unveils their third kit for new season – easily the best in France\n- [2025-05-25] fox5sandiego.com: Encomf Launches Eco-Friendly Cushion Collection, Supporting Sustainable Living in UK Homes\n- [2025-05-07] The Examiner: This Byron Hinterland escape redefines what luxury really looks like\n\n## Social\n\n### Linkedin\n\n- [2022-01-09 · 2 reactions] At Palette, we strive to offer you artist-selected colors, premium quality, free from harmful ingredients, at the best prices. Discover our e-commerce: http://palette.eco/ #ecommerce #painting\n\n## Locations\n- Headquarters: amsterdam, netherlands (NL)\n- Offices: amsterdam, netherlands (NL)",
+        "summary": "{\"description\":\"Palette is a Manufacturing company that offers sustainable, colorful, and VOC-free paints for a modern interior.\",\"employee_estimate\":4,\"employee_estimate_source\":\"Employees: 4\",\"hiring_first_ops_or_revops\":false,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Amsterdam, Netherlands\",\"hq_quote\":\"Headquarters: Amsterdam, Netherlands\",\"industry\":\"Manufacturing\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Manufacturing\\n- Type: Privately held\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":false,\"recently_funded_seed_or_series_a_quote\":\"-\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4E0BAQEvK5z0rryB7Q/company-logo_200_200/company-logo_200_200/0/1641631138251?e=2147483647&v=beta&t=q-yBvRnW83DtYtLQuU3ax-NI6pmq-S3-Xqg0e4XWM0E",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/fgrfjznk61b",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Palette",
+              "foundedYear": 2020,
+              "description": "At Palette, we strive to offer you artist-selected colors, premium quality, free from harmful ingredients, at the best prices.",
+              "workforce": {
+                "total": 4
+              },
+              "headquarters": {
+                "address": "Amsterdam, 1016CG, NL",
+                "city": "Amsterdam",
+                "postalCode": null,
+                "country": "Netherlands"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 177,
+                "countryRank": 0,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 3000,
+                    "dateFrom": "2025-04",
+                    "dateTo": "2025-04"
+                  },
+                  {
+                    "value": 755,
+                    "dateFrom": "2025-05",
+                    "dateTo": "2025-05"
+                  },
+                  {
+                    "value": 75,
+                    "dateFrom": "2025-06",
+                    "dateTo": "2025-06"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2025-07",
+                    "dateTo": "2025-07"
+                  },
+                  {
+                    "value": 62,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 108,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 5836.2,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

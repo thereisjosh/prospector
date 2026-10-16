@@ -1,0 +1,200 @@
+{
+  "request": {
+    "query": "Kenco",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "25c3813f5e8ca7c5854603fcbec634ca",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/x24gq2cxbbc",
+        "title": "Kenco Group",
+        "url": "https://kencogroup.com/",
+        "text": "# Kenco Group\n\nKenco Group is a Transportation, Logistics, Supply Chain and Storage company. Kenco Group is a company that provides integrated logistics solutions, including ecommerce fulfillment, parcel management and shipping solutions, transportation solutions, and contract carriage. Kenco Group employs 3,410 people (+10.7% YoY, +329 people) and has an annual revenue of $1B, founded in 1950. Headquartered in Chattanooga, Tennessee, United States. Its workforce is distributed across 9 countries (including United States, Canada, India, Georgia, and Colombia).\n\n## About\n\nKenco is a leading North American 3PL delivering custom, integrated logistics solutions that maximize supply chain efficiency. For more than 75 years, they have partnered with customers to provide distribution, transportation, material handling and automation solutions. Kenco’s people set the organization apart—experienced, committed associates who bring agility and expertise to even the most complex supply chain challenges. Guided by its mission and vision, Kenco innovates relentlessly to deliver solutions on a national scale with the care of a local provider, building trusted partnerships that keep goods moving and businesses growing.\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Privately held\n- Headquarters: Chattanooga, United States\n- Founded Year: 1950\n- Homepage: kencogroup.com\n- Aliases: Kenco Transportation Management, LLC, kenco, kenco group, kenco group, inc.\n- LinkedIn: linkedin.com/company/kenco-group\n- Linkedin Followers: 32,945\n- Emails: accountspayable@kencogroup.com, carriers@kencogroup.com, procurement@kencogroup.com, recruiting@kencogroup.com\n- Phone: (800) 758-3289, 18007583289, 800-758-3289\n\n## Financials\n- Annual Revenue: USD 1,000,000,000\n  - Private equity (2022-10-06)\n\n## Acquisitions\n- Acquired Drexel’s Third Party Logistics Business (2025-05-05)\n- Acquired Drexel Industries's 3PL Business (2025-05-01)\n- Acquired The Shippers Group (2024-01-04)\n- Acquired Shippers Group (2024-01-04)\n- Acquired Kenco Transportation Management, LLC\n\n## Workforce\n- Employees: 3,410\n  - Monthly Growth: +0.3%\n  - Yearly Growth: +10.7%\n- Key Executives:\n  - Abel Castaneda: Director of Operations\n  - Ainsley Williams: Vice President of Automation and Innovation\n  - Alfonso Yslas: Human Resources Business Partner\n  - Ali Flaherty, CDR, SHRM - CP: Senior Talent Acquisition Partner\n  - Ali Flaherty, CDR, SHRM - CP: Talent Acquisition Partner\n  - Alison O'Brien, CMA: Director of Financial Planning and Analysis\n  - Allan McCullough: Lead Service Technician\n  - Amanda Anderson: Sr. Director of Transportation and Logistics\n  - Amy E. Buckley: Human Resources Business Partner\n  - Andrew Johnson: Director, Account Solutions\n- Breakdown:\n  - By Country: United States: 1,356 (40%), Canada: 41 (1%), India: 4, Georgia: 2, Colombia: 1, Kenya: 1, Mexico: 1, Puerto Rico: 1, Venezuela: 1\n  - By Department: Operations: 573 (17%), Technical: 136 (4%), Trades: 108 (3%), Hr: 107 (3%), Other Department: 99 (3%), Finance: 86 (3%), General Management: 84 (2%), Sales: 71 (2%), Project Management: 50 (1%), Administrative: 38 (1%) (+10 more)\n  - By Seniority: Specialist: 555 (16%), Manager: 512 (15%), Other Management: 155 (5%), Senior: 94 (3%), Director: 55 (2%), Vp: 48 (1%), Intern: 17, Head: 11, Clevel: 5, Partner: 5\n- Active job postings: 675\n- Salary ranges (20 of 48 roles):\n  - Director: median $159,908.47 per year\n  - Engineering Manager: median $146,863.06 per year\n  - Director of Operations: median $141,772.06 per year\n  - Senior Manager: median $132,701.65 per year\n  - Senior Account Manager: median $129,388.66 per year\n  - IT Project Manager: median $110,768.57 per year\n  - General Manager: median $110,258.97 per year\n  - IT Manager: median $107,737.4 per year\n  - Continuous Improvement Manager: median $106,036.73 per year\n  - Real Estate Manager: median $104,548.28 per year\n  - Sr. Project Manager: median $100,842.31 per year\n  - Continuous Improvement Engineer: median $96,602.82 per year\n  - Manager: median $93,951.4 per year\n  - Project Manager: median $93,553.2 per year\n  - Business Systems Analyst: median $91,917.6 per year\n  - Senior Logistics Engineer: median $88,530.14 per year\n  - Human Resources Manager: median $87,215.54 per year\n  - Senior Accountant: median $87,173.82 per year\n  - Industrial Engineer II: median $87,083.9 per year\n  - Business Analyst: median $82,423.76 per year\n- Talent Sources: Amazon (41), DHL Supply Chain (39), GEODIS (24), Ryder Supply Chain Solutions (21), XPO (20), U.S. Xpress, Inc. (20), Penske Logistics (20), UPS (17), Unum (16), Fresenius Medical Care (16)\n- Alumni Go To: XPO (27), DHL Supply Chain (26), Amazon (20), ODW Logistics (14), GENCO, A FedEx Company (14), GXO Logistics, Inc. (12), Ryder Supply Chain Solutions (11), Stryker (10), Unum (9), U.S. Xpress, Inc. (9)\n\n## Products & Technology\n- Tech Stack (showing 50 of 168): anylogic, asp, autostore, blackline, cognos, continua, core hr, dash, db2, dds, deposco, docuware, driven data, edifact, foreman, fourkites, gauges, git, github, google workspace, group policy, harmonic, helpdesk, hibernate, honeywell, html, hubspot, ibm iseries, ibm maximo, ibm rational, ile, jaggaer, jasper, java, jda, jira, jira service management, json, linkedin, linux, logicmonitor, manageengine, manageengine adaudit plus, manageengine adselfservice plus, martech, mercurygate, microsoft, microsoft 365, microsoft azure, microsoft entra\n\n## Web presence\n\n- Twitter: twitter.com/kencogroup\n- Facebook: facebook.com/kencogroup\n- YouTube: youtube.com/@kencogroup1950\n- Crunchbase: crunchbase.com/organization/kenco-2\n\n## Reviews & Ratings\n- Employer Rating: 3.0/5.0 (425 reviews)\n  - Breakdown: Work-Life: 2.7, Compensation: 3.0, Culture: 2.5, Career: 2.7\n\n## Categories\n\n3pl, 3rd party logistics, automotive, automotive-transportation, contract carriage, durable consumer goods supply chain, e-commerce, ecommerce fulfillment, fast-moving consumer goods supply chain, healthcare supply chain, industrial supply chain, information technology, lifesciences supply chain, logistics, material handling solutions, parcel management, real estate, supply chain management, supply-chain-management, third party logistics, transporation, transportation solutions, warehousing\n\n## Competitors\n\nsaddle creek, bluegrace, kane logistics, freightquote, yrc freight , marken, magellan transport logistics, h.essers & zonen internationaal transport, delmar international\n\n## Recent News\n- [2026-09-22] [🚚 Jeffersonville, IN Supply Chain – Multiple Roles With Solid Pay - NewsBreak](https://www.newsbreak.com/jeffersonville-in-daily-brief-373192432/4900732256374-jeffersonville-in-supply-chain-multiple-roles-with-solid-pay)\n- [2026-09-20] [🔧 McDonough, GA Building & Grounds Jobs with Multiple Openings - NewsBreak](https://www.newsbreak.com/mcdonough-ga-daily-brief-373182406/4897923212009-mcdonough-ga-building-grounds-jobs-with-multiple-openings)\n- [2026-09-19] [🚚 Chattanooga Supply Chain Jobs – Multiple Supervisor & Analyst Roles - NewsBreak](https://www.newsbreak.com/chattanooga-tn-daily-brief-375413594/4896328209823-chattanooga-supply-chain-jobs-multiple-supervisor-analyst-roles)\n- [2026-09-17] [Kenco Innovation Lab Showcases GreyOrange’s AI-Powered Warehouse Orchestration](https://www.globenewswire.com/news-release/2026/09/17/3364058/0/en/kenco-innovation-lab-showcases-greyorange-s-ai-powered-warehouse-orchestration.html)\n- [2026-09-15] [🚌 Portage, MI Transportation Jobs – Multiple Local Driving Roles - NewsBreak](https://www.newsbreak.com/portage-mi-daily-brief-373349642/4886408560722-portage-mi-transportation-jobs-multiple-local-driving-roles)\n- [2026-09-14]\n  - [Northampton logistics facility closing - LVB](https://lvb.com/northampton-logistics-facility-closing/)\n  - [Kenco launches new Innovation Lab in Chattanooga - Modern Materials Handling](https://www.mmh.com/article/kenco_launches_new_innovation_lab_in_chattanooga)\n  - [Kenco opens new innovation lab for warehouse automation testing - FreightWaves](https://www.freightwaves.com/news/kenco-warehouse-automation-testing-lab)\n- [2026-09-11] [🚚 Zeeland, MI Logistics Jobs with Multiple Forklift Openings - NewsBreak](https://www.newsbreak.com/zeeland-mi-daily-brief-373350430/4879339991604-zeeland-mi-logistics-jobs-with-multiple-forklift-openings)\n- [2026-09-10]\n  - [Tennessee company to shut down operation in Pa.; 52 people to be laid off](https://www.pennlive.com/business/2026/09/tennessee-company-to-shut-down-operation-in-pa-52-people-to-be-laid-off.html)\n  - [🚚 Columbia, SC Supply Chain Hiring Now for Multiple Roles - NewsBreak](https://www.newsbreak.com/columbia-sc-daily-brief-375414383/4877734296289-columbia-sc-supply-chain-hiring-now-for-multiple-roles)\n- [2026-09-09] [Dozens of jobs impacted by Northampton County warehouse closure, WARN notice says \\| Business News \\| wfmz.com](https://www.wfmz.com/business/dozens-of-jobs-impacted-by-northampton-county-warehouse-closure-warn-notice-says/article_d933eeca-8699-49f1-9ef6-b36ed1e73a34.html)\n- [2026-09-05] [🚚 Kenosha Supply Chain Jobs with Multiple Openings & Solid Pay - NewsBreak](https://www.newsbreak.com/kenosha-wi-daily-brief-375421831/4867922277622-kenosha-supply-chain-jobs-with-multiple-openings-solid-pay)\n- [2026-09-04] [Kenco’s 20-agent target puts AI in 3PL workflows](https://www.marketscale.com/industries/transportation/kencos-20-agent-target-puts-ai-workflow-control-at-the-center-of-logistics-tech)\n- [2026-09-03] [30 Warehouse Robots in One Lab? Kenco Tests the Future](https://finance.yahoo.com/technology/articles/30-warehouse-robots-one-lab-181141973.html)\n- [2026-09-01] [🚚 Lithia Springs Supply Chain Jobs: Multiple Roles, Up to $90K - NewsBreak](https://www.newsbreak.com/lithia-springs-ga-daily-brief-373182320/4860395424434-lithia-springs-supply-chain-jobs-multiple-roles-up-to-90k)\n- [2026-08-30] [🚚 Chattanooga Supply Chain Roles With Multiple Openings - NewsBreak](https://www.newsbreak.com/chattanooga-tn-daily-brief-375413594/4857301798400-chattanooga-supply-chain-roles-with-multiple-openings)\n- [2026-08-29]\n  - [🚚 Broomfield Supply Chain Jobs with Multiple $55K–$100K+ Paths - NewsBreak](https://www.newsbreak.com/broomfield-co-daily-brief-373177241/4856858897194-broomfield-supply-chain-jobs-with-multiple-55k-100k-paths)\n  - [🚚 Perris, CA Supply Chain Jobs with Multiple Leadership Roles - NewsBreak](https://www.newsbreak.com/perris-ca-daily-brief-373155985/4856847540503-perris-ca-supply-chain-jobs-with-multiple-leadership-roles)\n- [2026-08-25] [Kenco Named Bissell’s 3PL Partner of the Year – KBEW – The Information Station](https://lifestyle.kbew98country.com/story/398729/kenco-named-bissells-3pl-partner-of-the-year/)\n- [2025-08-13] Sky News: Supermarket own-brand coffee beats big brands in our Americano taste test\n- [2025-08-12] EIN Presswire: Surging Online Retail Drives E-commerce Warehouse Market to $832.8 Bn by 2032\n- [2025-08-07] Business Wire: Kenco Celebrates 75 Years of Supply Chain Innovation\n- [2025-07-21] The Real Deal: Miracle-Gro plants roots with Phoenix’s biggest industrial lease of 2025\n- [2025-07-08] Business Wire: Kenco Strengthens End-To-End Supply Chain Offerings With Contract Packaging Capabilities\n- [2025-05-06] PE Hub: Pritzker-backed Kenco acquires Drexel Industries’ 3PL business\n- [2025-04-08] Seattle TechFlash: Demand remains strong for industrial space in the Southwest Valley\n- [2025-03-24] Phoenix Business Journal: Phoenix no longer nation's top industrial market, report says\n- [2025-03-12] The Real Deal: Kenco leases 642K sf distribution warehouse outside Phoenix\n- [2025-03-11] Phoenix Business Journal: Logistics firm scoops up West Valley industrial complex\n- [2025-03-06] EIN Presswire: E-Commerce Warehouse Market Poised for Explosive Growth, Expected to Reach $832.8 Billion Globally by 2032 at 18.4% CAGR\n- [2024-10-07] City A.M.: Turnover rise for Kenco maker despite coffee lovers buying less after price rises\n- [2024-04-23] PRLog: RAAH Group Inc Delivers Large-Scale Order of Kenco Pipe Lifters\n- [2024-03-19] Business Wire: Kenco Grows Its Next-Generation Material Handling Equipment Capabilities With New Offering, Automation Guidance\n- [2024-01-30] Inside INdiana Business: Logistics firm closing Indy facility, 110 jobs affected\n\n## Social\n\n### Linkedin\n\n- [2026-10-12 · Posted · 13 reactions] [Today is all about gathering with the people who matter most, and...](https://www.linkedin.com/posts/kenco-group_canada-thanksgiving-activity-7515430407350317056-G5T7)\n  > Today is all about gathering with the people who matter most, and enjoying the classics: turkey, stuffing, mashed potatoes, gravy, and of course, pumpkin pie. And if that weren't enough, there's a full day of family fun to look forward to too.\n  >\n  > Sounds like a pretty great day all around.\n  >\n  > Happy Thanksgiving to all our Canadian friends! We're grateful for you, and we hope you have a wonderful day with family, food, and fun.\n  >\n  > #Canada #Thanksgiving\n\n- [2026-10-09 · Posted · 5 reactions] [That’s a wrap on Food World Summit! A huge thank you to everyone...](https://www.linkedin.com/posts/kenco-group_foodworldsummit-supplychain-kenco-activity-7514389237237088256-lf3f)\n  > That’s a wrap on Food World Summit!\n  >\n  > A huge thank you to everyone who stopped by Kenco’s booth. Our team had a great time connecting, talking all things supply chain, and getting to know so many of you along the way.\n  >\n  > Missed us at the show? No worries. The conversation doesn’t have to end here. Visit kencogroup.com/contact to connect with our team. We’d love to hear from you!\n  >\n  > #FoodWorldSummit #SupplyChain #Kenco\n\n- [2026-10-08 · Posted · 10 reactions] [What if your transportation provider had more at stake in...](https://www.linkedin.com/posts/kenco-group_transportationmanagement-supplychain-logistics-activity-7513953869891166208-ksCg)\n  > What if your transportation provider had more at stake in delivering the savings it promised?\n  >\n  > Traditional managed transportation models can leave shippers paying management fees regardless of the value ultimately delivered. Kenco is approaching that relationship differently.\n  >\n  > Our outcome-based transportation management model is designed to create greater alignment between what customers pay and the measurable value they receive.\n  >\n  > In a new Q&A, Mike Pallo, Kenco’s Vice President of Transportation Product, digs into:\n  >\n  > * How Kenco determines whether a shipper qualifies for guaranteed linehaul savings\n  > * Why accountability starts with establishing a clear, data-backed baseline\n  > * How savings and strong service can work together without defaulting to the cheapest carrier\n  > * Why technology alone isn’t enough to drive transportation performance\n  > * What shippers should be asking before choosing a managed transportation provider\n  >\n  > The bigger idea? Your provider’s commercial model should reinforce the outcomes they’re promising.\n  >\n  > Think your transportation network may have untapped opportunity?\n  >\n  > Click the link https://lnkd.in/eUZkQS9V dig deeper into how outcome-based transportation management works.\n  >\n  > #TransportationManagement #SupplyChain #Logistics #FreightManagement #TransportationStrategy #SupplyChainSolutions #Kenco\n\n- [2026-10-07 · Posted · 17 reactions] [Installing automation is a project. Scaling automation is a...](https://www.linkedin.com/posts/kenco-group_warehouseautomation-supplychain-logistics-activity-7513657720198045696-Ehw1)\n  > Installing automation is a project. Scaling automation is a strategy.\n  >\n  > That's one of the most powerful themes from Kenco's President of MHE Solutions, Sean Wallingford's recent Fast Company article on warehouse automation.\n  >\n  > Organizations that realize the greatest value from automation think beyond individual facilities. They align people, processes, technology, and risk management across their entire network before expansion begins.\n  >\n  > Sean shares five practical lessons for supply chain leaders looking to scale automation with confidence and avoid common pitfalls along the way.\n  >\n  > Read the full article to see what's separating successful automation programs from costly implementations. https://lnkd.in/eG3pd7mu\n  >\n  > #WarehouseAutomation #SupplyChain #Logistics #Automation #DigitalTransformation #MaterialHandling #Kenco #SupplyChainTechnology\n\n- [2026-10-06 · Posted · 123 reactions] [Kenco's Transportation team showed up, showed out, and brought home...](https://www.linkedin.com/posts/kenco-group_tenesseetruckingassociation-transportationawards-activity-7513221652923539456-deRa)\n  > Kenco's Transportation team showed up, showed out, and brought home not one, but two incredible honors!\n  >\n  > Kenco was recognized with the Tennessee Trucking Association Clean Diesel Leadership Award, and Tim McCorkle earned the 2026 Hugh Galbreath Safety Professional of the Year Award.\n  >\n  > The Clean Diesel Leadership Award reflects the commitment of our Transportation, Safety, Maintenance, Information Technology, and Sustainability teams, along with the drivers and partners who help make continuous improvement possible every day. Through initiatives like EPA SmartWay participation, driver coaching and mentoring, advanced telematics, route optimization, preventative maintenance programs, and strategic technology investments, Kenco continues to drive cleaner, more efficient fleet operations. Recent partnerships with Samsara, Maven Technologies, Fleetio, and Penske have helped deliver measurable results, including a 20% reduction in maintenance spending while enhancing fleet visibility and performance.\n  >\n  > We're equally proud to celebrate Tim McCorkle, Senior Manager of Transportation Safety, for being named the 2026 Hugh Galbreath Safety Professional of the Year. This prestigious award recognizes an individual who has demonstrated excellence in fleet and commercial motor vehicle safety through the development, implementation, and leadership of a world-class safety program.\n  >\n  > These awards are a testament to the passion, innovation, and dedication of our Transportation team and everyone who supports their success.\n  >\n  > Congratulations to Tim and the entire team on these well-deserved achievements. Here's to continuing to raise the bar!\n  >\n  > #TenesseeTruckingAssociation #TransportationAwards #TransportationManagement #TransportationSafety\n\n- [2026-10-05 · Posted · 6 reactions] [Food World Summit is live, and we're ready to see you at Booth #9...](https://www.linkedin.com/posts/kenco-group_foodworldsummit-tradeshow-events-activity-7512873108274434049-U8c8)\n  > Food World Summit is live, and we're ready to see you at Booth #9!\n  >\n  > Between the sessions, networking, and innovation on display, there's no shortage of things to do, but Booth #9 should be at the top of your list. Our team is ready to talk strategy, automation, supply chain solutions, and ways to help your operation perform at its best.\n  >\n  > Plus, our limited-edition Halloween t-shirts are going fast, and trust us, they're almost too good to pass up.\n  >\n  > Stop by, say hello, and let's talk shop. See you soon!\n  >\n  > #FoodWorldSummit #Tradeshow #Events #SupplyChainSolutions #Kenco\n\n- [2026-10-04 · Posted · 19 reactions] [Every mile logged. Every long stretch of highway that looks the...](https://www.linkedin.com/posts/kenco-group_nationaltruckersappreciationday-activity-7512496826625900544-dHj4)\n  > Every mile logged. Every long stretch of highway that looks the same for days on end. Every package delivered safely and on time. Every night spent away from home instead of with the people who miss you.\n  >\n  > We see it, and we're grateful for it.\n  >\n  > The world doesn't move without truck drivers. Simple as that.\n  >\n  > Thank you for everything you do, today and every day. Happy National Truckers Appreciation Day!\n  >\n  > #NationalTruckersAppreciati",
+        "summary": "{\"description\":\"Kenco Group is a Transportation, Logistics, Supply Chain and Storage company offering integrated logistics solutions including ecommerce fulfillment, parcel management, and transportation services.\",\"employee_estimate\":4100,\"employee_estimate_source\":\"Employees: 3,410\",\"hq\":\"Chattanooga, Tennessee, United States\",\"hq_quote\":\"Headquartered in Chattanooga, Tennessee, United States.\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"Kenco Group is a leading North American 3PL delivering custom, integrated logistics solutions that maximize supply chain efficiency.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQH9X_l4h3Y6Rw/company-logo_200_200/company-logo_200_200/0/1703100260225/kenco_group_logo?e=2147483647&v=beta&t=Na0jqIrWyt3ZkxqXvWXNPScoqD7JvrplmWIM7kRhNtI",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/x24gq2cxbbc",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Kenco Group",
+              "foundedYear": 1950,
+              "description": "Kenco is a leading North American 3PL delivering custom, integrated logistics solutions that maximize supply chain efficiency. For more than 75 years, they have partnered with customers to provide distribution, transportation, material handling and automation solutions. Kenco’s people set the organization apart—experienced, committed associates who bring agility and expertise to even the most complex supply chain challenges. Guided by its mission and vision, Kenco innovates relentlessly to deliver solutions on a national scale with the care of a local provider, building trusted partnerships that keep goods moving and businesses growing.",
+              "workforce": {
+                "total": 3410
+              },
+              "headquarters": {
+                "address": "2001 Riverside Drive, Chattanooga, Tennessee 37406, US",
+                "city": "Chattanooga",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 1000000000,
+                "fundingTotal": null,
+                "fundingLatestRound": {
+                  "name": "Private equity",
+                  "date": "2022-10-06",
+                  "amount": null
+                }
+              },
+              "webTraffic": null,
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/38jk9sd6pbd",
+        "title": "Kenco Corporation",
+        "url": "https://kenco.com/",
+        "text": "# Kenco Corporation\n\nKenco Corporation is a Highway, Street, and Bridge Construction company. Kenco is a company that offers a wide selection of lifting attachments and excavator attachments. They provide a wide selection of below the hook lifting devices and excavator attachments on the market. Customers can select lifting attachments or request custom quotes. Kenco Corporation employs 35 people (+6.1% YoY, +2 people) and has an annual revenue of $17.5M, founded in 1984. Headquartered in Ligonier, Pennsylvania, United States. Its workforce is distributed across United States, Ghana, and Japan.\n\n## About\n\nProviding productive, profitable attachment solutions through advanced design and construction. \n\nKenco has been field-proven time and again by our customers through increased productivity, profitss and worker safety with our excavator attachments. We are the original founder of patented technologies including the Barrier Lift, Pipe Lift, Multilift, Graboid (Rock Lift) and more. \n\nOur products are based on a unique market of heavy lifting of precast structures such as block, retaining wall, concrete pipe, steel or metal pipe, jersey barrier wall among others. \n\nMany of our designs have been based on a need in the construction industry that was not being met. Other designs come from custom engineering requests where expertise in the field and certified design is required. \n\nAll products are certified and safely load tested by our engineering team before leaving our facility. \n\nSince 1984, Kenco has been the worldwide leader in heavy equipment lifting attachments and will continue to be at the forefront of new technologies to improve the safety, speed and productivity in the heavy roadway and construction industries.\n\n## Company Details\n- Industry: Highway, Street, and Bridge Construction\n- Type: Privately held\n- Headquarters: Ligonier, United States\n- Founded Year: 1984\n- Homepage: kenco.com\n- Aliases: kenco, kenco corporation, kenco lifting products\n- LinkedIn: linkedin.com/company/kenco-corporation\n- Linkedin Followers: 640\n- Emails: sales@kenco.com\n- Phone: 1-800-653-6069, 18006536069, 800-653-6069\n\n## Financials\n- Annual Revenue: USD 17,510,727\n\n## Workforce\n- Employees: 35\n- Company Size: 11-50 employees\n  - Monthly Growth: +2.9%\n  - Yearly Growth: +6.1%\n- Key Executives:\n  - Bill Douglas: President\n  - Jessica Wisneski: Director of Marketing And Development\n  - Sydni Luderer: Human Resources Director\n- Breakdown:\n  - By Country: United States: 9 (26%), Ghana: 1 (3%), Japan: 1 (3%)\n  - By Department: Operations: 3 (9%), Sales: 2 (6%), Technical: 2 (6%), General Management: 1 (3%), Hr: 1 (3%), Marketing: 1 (3%), Real Estate: 1 (3%)\n  - By Seniority: Manager: 4 (11%), Director: 2 (6%), Specialist: 2 (6%), Other Management: 1 (3%), Senior: 1 (3%), Vp: 1 (3%)\n- Talent Sources: Napotnik Welding Supplies (1), Kitron Inc. (1), CDI Engineering Solutions (1)\n- Alumni Go To: SNC-Lavalin (1), Red Dot Corporation (1), Praxair, Inc - a Linde Company (1), Middough Inc. (1), Five Star Fireworks LLC (1), Ei6 (1), DNP Imagingcomm America Corporation | Barcode Division (1)\n\n## Web presence\n\n- Twitter: twitter.com/liftingproducts\n- Facebook: facebook.com/kencoattachments\n- Instagram: instagram.com/kencoattachments\n- YouTube: youtube.com/c/kenco\n- Crunchbase: crunchbase.com/organization/liftingproducts-com-llc\n- Web traffic:\n  - Monthly visits: 6,953\n  - Global rank: 2,734,012\n  - Bounce rate: 35.0%\n  - Pages per visit: 1.8\n  - Average visit duration: 38s\n\n## Reviews & Ratings\n- Employer Rating: 5.0/5.0 (1 reviews)\n  - Breakdown: Work-Life: 2.0, Compensation: 5.0, Culture: 5.0, Career: 5.0\n\n## Categories\n\nbarrier lift, buckets, construction, construction/industrial, custom quote, excavator attachments, graboid, heavy_industry_and_engineering/construction_and_maintenance, hook lifting devices, kenco, lifting attachments, lifting products, multi lift, pipe hook, pipe lift, pipe tongs, real estate, rock lift, scissor clamp, slab crab, triple tine\n\n## Recent News\n- [2026-08-24] FreightWaves: DeepFabric lands Kenco as It scales supply chain agents\n- [2026-06-22] [Kla-tencor Corp recibe un cambio de recomendación a manos de estos analistas  Por Investing](https://mx.investing.com/news/pro/wells-fargo-mantiene-kla-corp-en-sobreponderar-con-un-precio-objetivo-de-30500-3659917)\n\n## Social\n\n### Linkedin\n\n- [2026-01-06 · 1 reaction] You’ve probably seen them on job sites. Those mechanical arms that grab concrete barriers like they weigh nothing. The engineering behind scissor-type block lifters is more sophisticated than most...\n\n- [2025-12-13] Kenco’s barrier lift uses precisely calculated contact angles that work with the barrier’s geometry rather than against it. The mechanical advantage from correct angles means you need less clamping...\n\n- [2025-09-02 · 2 reactions, 1 comment] 4 Industries That Use Pipe Lifting Attachments Pipe lifting attachments play a crucial role in heavy-duty industrial operations where the transportation and handling of pipes are integral tasks. De...\n\n- [2025-08-12] A Look at How Modular Blocks Are Used in Construction Construction methods have evolved dramatically over the years, and one trend that’s rapidly transforming the industry is the use of modular blo...\n\n- [2025-07-14 · 1 reaction] When it comes to the installation of concrete pipes, precision, safety, and efficiency are all non-negotiable. An important tool in ensuring a seamless installation process is the concrete pipe hoo...\n\n- [2025-06-16] Understanding Barrier Clamp Basics Before using a barrier clamp, it’s crucial to understand what it is and how it functions. Barrier clamps securely grip concrete barriers or similar materials for...\n\n- [2025-05-23 · 2 reactions] Construction Industry: Enhancing Efficiency and Safety Construction sites often deal with raw materials, including boulders, granite slabs, and concrete blocks, that are both heavy and cumbersome....\n\n- [2025-03-13 · 3 reactions] Kenco getting a little love in this promo! See you soon World of Asphalt\n\n- [2025-02-05 · 5 reactions] Kenco has taken tremendous care in designing the Slab Crab for the highest efficiency and cost savings. With sizes from 36\" to 641\" as standard options, we have a size that will work for you. Custo...\n\n## Locations\n- Headquarters: ligonier, pennsylvania, united states (US)\n- Offices: ligonier, pennsylvania, united states (US)",
+        "summary": "{\"description\":\"Kenco Corporation is a Highway, Street, and Bridge Construction company that offers a wide selection of lifting attachments and excavator attachments, including below the hook devices, to customers who can select lifting attachments or request custom quotes.\",\"employee_estimate\":35,\"employee_estimate_source\":\"Employees: 35\",\"hq\":\"Ligonier, Pennsylvania, United States\",\"hq_quote\":\"Headquartered in Ligonier, Pennsylvania, United States.\",\"industry\":\"Highway, Street, and Bridge Construction\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":false,\"is_third_party_logistics_quote\":\"Since 1984, Kenco has been the worldwide leader in heavy equipment lifting attachments and will continue to be at the forefront of new technologies to improve the safety, speed and productivity in the heavy roadway and construction industries.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4E0BAQFCtbKMWpBQ0g/company-logo_200_200/company-logo_200_200/0/1630596475033/kenco_corporation_logo?e=2147483647&v=beta&t=jX6NyTrvOyc-ZYuW8aq02dgoSV7foTkBqT2AUTiwGhk",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/38jk9sd6pbd",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Kenco Corporation",
+              "foundedYear": 1984,
+              "description": "Providing productive, profitable attachment solutions through advanced design and construction. \n\nKenco has been field-proven time and again by our customers through increased productivity, profitss and worker safety with our excavator attachments. We are the original founder of patented technologies including the Barrier Lift, Pipe Lift, Multilift, Graboid (Rock Lift) and more. \n\nOur products are based on a unique market of heavy lifting of precast structures such as block, retaining wall, concrete pipe, steel or metal pipe, jersey barrier wall among others. \n\nMany of our designs have been based on a need in the construction industry that was not being met. Other designs come from custom engineering requests where expertise in the field and certified design is required. \n\nAll products are certified and safely load tested by our engineering team before leaving our facility. \n\nSince 1984, Kenco has been the worldwide leader in heavy equipment lifting attachments and will continue to be at the forefront of new technologies to improve the safety, speed and productivity in the heavy roadway and construction industries. ",
+              "workforce": {
+                "total": 35
+              },
+              "headquarters": {
+                "address": "170 State Route 271, Ligonier, PA 15658, US",
+                "city": "Ligonier",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 17510727,
+                "fundingTotal": null,
+                "fundingLatestRound": null
+              },
+              "webTraffic": {
+                "visitsMonthly": 6953,
+                "countryRank": 1165794,
+                "avgDurationSeconds": 38,
+                "history": [
+                  {
+                    "value": 8266,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 9245,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 16162,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 14381,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 13903,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 6953,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 7957.9,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

@@ -1,0 +1,228 @@
+{
+  "request": {
+    "query": "Palmer Logistics",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "664de70060b5fea1039d260a2a7f6e92",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/dc550j3sf1h",
+        "title": "Palmer Logistics",
+        "url": "https://palmerlogistics.com/",
+        "text": "# Palmer Logistics\n\nPalmer Logistics is a Transportation, Logistics, Supply Chain and Storage company. Palmer Logistics is a warehousing company with facilities in Houston, Dallas, and Savannah that offers customer-focused warehouse solutions. Palmer Logistics employs 114 people (+2.7% YoY, +3 people) and has an annual revenue of $10M, founded in 1965. Headquartered in Houston, Texas, United States, with an office in Baytown.\n\n## About\n\nTRUSTED LOGISTICS SOLUTIONS SINCE 1965 \nVeteran-Owned • Family-Run • Purpose-Driven\n\nWe are a certified veteran-owned Third Party Logistics (3PL) provider serving manufacturers, distributors, and shippers across Texas, Georgia, and the U.S.\n\nFounded in 1965, we offer reliable, safe, and custom logistics solutions that help businesses stay efficient and compliant.\n\nWHAT WE DO:\n• Hazardous & Non-Hazardous Chemical Warehousing \n• Food-Grade Storage & General Commodities \n• Labeling, Repackaging, Kitting & Fulfillment \n• Solids Loading, Liquid Packaging & Decanting \n• Import Receiving, Inspection, Securement & Export Shipping \n• Shuttle, Drayage & Rail-Served Transportation\n\nLOCATIONS:\nHouston, La Porte, Baytown, Pasadena, Grand Prairie TX \nPooler GA\n\nWe don’t just move freight—we move businesses forward. \nLet’s connect.\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Privately held\n- Headquarters: Houston, United States\n- Founded Year: 1965\n- Homepage: palmerlogistics.com\n- Aliases: palmer distribution services, inc., palmer logistics\n- LinkedIn: linkedin.com/company/palmer-logistics\n- Linkedin Followers: 989\n- Phone: 713-860-03\n\n## Financials\n- Annual Revenue: USD 10,000,000\n\n## Workforce\n- Employees: 114\n- Company Size: 201-500 employees\n  - Yearly Growth: +2.7%\n- Key Executives:\n  - Brett Mears: Owner\n  - Michele Rivera: Human Resources Director\n  - Michelle Klarman: Chief Financial Officer\n  - Sterling McIntosh: Director of Operations\n- Breakdown:\n  - By Country: United States: 34 (30%)\n  - By Department: Operations: 13 (11%), Finance: 9 (8%), Customer Service: 4 (4%), Other Department: 3 (3%), Technical: 3 (3%), General Management: 1 (1%), Hr: 1 (1%), Sales: 1 (1%)\n  - By Seniority: Manager: 13 (11%), Specialist: 13 (11%), Other Management: 4 (4%), Director: 2 (2%), Clevel: 1 (1%), Owner: 1 (1%)\n- Salary ranges:\n  - Site Manager: median $80,301.57 per year\n  - Operations Supervisor: median $69,008.96 per year\n  - Warehouse Operation Supervisor: median $59,326.35 per year\n  - Account Specialist: median $44,992.78 per year\n  - Inventory Coordinator: median $42,631.79 per year\n  - Warehouse Lead: median $42,248.15 per year\n  - Forklift Operator: median $42,172.03 per year\n  - Customer Service: median $40,649.42 per year\n  - Shipping And Receiving Clerk: median $39,985.57 per year\n  - Customer Service Representative (CSR): median $39,395.51 per year\n  - Customer Service Representative: median $37,855.06 per year\n- Talent Sources: ZXP Technologies (2), Texas A&M University (2), ScribeAmerica (2), Ocean Wings Logistics, Inc. (2), Martin Resource Management Corporation (2), Katoen Natie (2), Harvey Cleary (2), BASF (2), KFC (1), CareCentrix (1)\n- Alumni Go To: C-COR (3), Shermco Industries (2), Katoen Natie (2), Arta (2), AkzoNobel (2), Seeking for a job (1), Prax (1), JSW Steel USA (1), DoorDash (1), Bureau Veritas (1)\n\n## Products & Technology\n- Tech Stack: adobe, isolved, microsoft, microsoft excel, microsoft office, synapse, html, avaya, windows 10, windows server, amp, ups, gauges, upkeep, well\n\n## Web presence\n\n- Facebook: facebook.com/palmer-logistics-128247487257751\n- Crunchbase: crunchbase.com/organization/palmer-logistics\n- Web traffic:\n  - Monthly visits: 2,085\n  - Global rank: 9,416,325\n  - Bounce rate: 50.0%\n  - Pages per visit: 1.3\n  - Average visit duration: 11s\n\n## Reviews & Ratings\n- Employer Rating: 2.7/5.0 (12 reviews)\n  - Breakdown: Work-Life: 1.9, Compensation: 2.5, Culture: 2.2, Career: 2.3\n\n## Categories\n\nbusiness_and_consumer_services/business_services, customer-focused, dallas, houston, logistics, packaging services, savannah, warehousing\n\n## Recent News\n- [2026-09-11] [Sansone Delivers Nearly 300K-SF Midlothian Logistics Facility - Connect CRE](https://www.connectcre.com/stories/sansone-delivers-nearly-300k-sf-midlothian-logistics-facility/)\n- [2026-08-16] Breakbulk Events & Media: Palmer Logistics Launches New Texas Warehouse\n\n## Social\n\n### Linkedin\n\n- [2026-07-04 · 105 reactions, 6 comments] A new chapter for Palmer Logistics. We are joining H.Essers, bringing together two family-driven logistics companies with a shared long-term vision. Our people, our service mindset, and our commitm...\n\n- [2026-05-07 · 24 reactions, 6 comments] We are proud to see our President, Brett Mears, recognized as a Gulf South finalist for the 2026 EY Entrepreneur of the Year. A well-deserved recognition of his leadership and the strong foundation...\n\n- [2026-04-03 · 200 reactions, 6 comments] Just came back from another great IWLA annual warehouse conference. So great to catch up with all of my industry friends and learn the latest trend for 3PLs. Energized and ready to better serve my...\n\n- [2026-03-20 · 41 reactions] Palmer Logistics is gearing up for two key industry events in the coming weeks. We’ll be present at the World Petrochemical Conference (WPC) in Houston from March 23–27, and at the AFPM Internation...\n\n- [2026-03-09 · 55 reactions] At Palmer Logistics, we believe strong leadership starts with the right foundation. Recently, our management team took part in dedicated Legal Training sessions focused on key aspects of employment...\n\n- [2026-02-24 · 120 reactions] Great to welcome in John Holdsworth - Emergency Manager with the American Logistics Aid Network - today to learn how we can better support the ALAN mission to prepare, respond, and minimize the imp...\n\n- [2025-12-22 · 63 reactions] As we wrap up an incredible year, we want to thank our amazing team, partners, and clients for your trust and collaboration. Here’s to a joyful holiday season and a successful year ahead! 🎄 Service...\n\n- [2025-12-18 · 24 reactions] Customer value and employee empowerment sit at the heart of our work. 𝐌𝐢𝐬𝐬𝐢𝐨𝐧: To provide the ideal level of value to each customer and earn the reputation of the premiere third‑party warehouse in...\n\n- [2025-12-11 · 22 reactions] 𝐖𝐡𝐚𝐭 𝐩𝐫𝐨𝐝𝐮𝐜𝐭𝐬 𝐚𝐧𝐝 𝐩𝐚𝐥𝐥𝐞𝐭 𝐬𝐩𝐞𝐜𝐬 𝐜𝐚𝐧 𝐏𝐚𝐥𝐦𝐞𝐫 𝐋𝐨𝐠𝐢𝐬𝐭𝐢𝐜𝐬 𝐡𝐚𝐧𝐝𝐥𝐞? At Palmer Logistics, we specialize in warehousing solutions for diverse industries, including chemical (hazardous and non-hazardous), foo...\n\n- [2025-12-03 · 37 reactions] 🧨 Big news from Palmer Logistics! We’ve launched a new website to make your experience seamless and your supply chain stronger. Ready to explore? Click here: https://lnkd.in/gWGJwsqT\n\n- [2025-11-26 · 43 reactions] We’re excited to share a major milestone at our new build-to-suit development in Midlothian, Texas. The full concrete slab on grade is officially poured, and our team is gearing up to move into ver...\n\n- [2025-11-20 · 18 reactions, 1 comment] 𝐏𝐚𝐥𝐦𝐞𝐫 𝐋𝐨𝐠𝐢𝐬𝐭𝐢𝐜𝐬 simplifies global supply chains with import and export warehousing solutions that reduce delays and improve efficiency. ▪️Import: Devanning, palletizing, repackaging, and secure st...\n\n## Locations\n- Headquarters: houston, texas, united states\n- Offices: baytown, texas, united states (US), houston, texas, united states",
+        "summary": "{\"description\":\"Palmer Logistics is a Transportation, Logistics, Supply Chain and Storage company offering customer-focused warehouse solutions with facilities in Houston, Dallas, and Savannah.\",\"employee_estimate\":114,\"employee_estimate_source\":\"Employees: 114\",\"hq\":\"Houston, United States\",\"hq_quote\":\"Headquartered in Houston, Texas, United States, with an office in Baytown.\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"We are a certified veteran-owned Third Party Logistics (3PL) provider serving manufacturers, distributors, and shippers across Texas, Georgia, and the U.S.\\n\\nFounded in 1965, we offer reliable, safe, and custom logistics solutions that help businesses stay efficient and compliant.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQFScmnbJd1NfQ/company-logo_200_200/B4EZgXl5HsGUBo-/0/1752742466476/palmer_logistics_logo?e=2147483647&v=beta&t=ez6OTMeCSgrJQxUdLDXk2zDi41SqKrB_A5A-ofeIyrc",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/dc550j3sf1h",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Palmer Logistics",
+              "foundedYear": 1965,
+              "description": "TRUSTED LOGISTICS SOLUTIONS SINCE 1965 \nVeteran-Owned • Family-Run • Purpose-Driven\n\nWe are a certified veteran-owned Third Party Logistics (3PL) provider serving manufacturers, distributors, and shippers across Texas, Georgia, and the U.S.\n\nFounded in 1965, we offer reliable, safe, and custom logistics solutions that help businesses stay efficient and compliant.\n\nWHAT WE DO:\n• Hazardous & Non-Hazardous Chemical Warehousing \n• Food-Grade Storage & General Commodities \n• Labeling, Repackaging, Kitting & Fulfillment \n• Solids Loading, Liquid Packaging & Decanting \n• Import Receiving, Inspection, Securement & Export Shipping \n• Shuttle, Drayage & Rail-Served Transportation\n\nLOCATIONS:\nHouston, La Porte, Baytown, Pasadena, Grand Prairie TX \nPooler GA\n\nWe don’t just move freight—we move businesses forward. \nLet’s connect.\n",
+              "workforce": {
+                "total": 114
+              },
+              "headquarters": {
+                "address": "P.O. Box 15212, Houston, Texas 77220-5212, US",
+                "city": "Houston",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 10000000,
+                "fundingTotal": null,
+                "fundingLatestRound": null
+              },
+              "webTraffic": {
+                "visitsMonthly": 2085,
+                "countryRank": 3575508,
+                "avgDurationSeconds": 11,
+                "history": [
+                  {
+                    "value": 1209,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 930,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 952,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 1850,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 5069,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 2085,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/b4hfk8yspqf",
+        "title": "RHP Logistics",
+        "url": "https://rhplogistics.com/",
+        "text": "# RHP Logistics\n\nRHP Logistics is a Transportation, Logistics, Supply Chain and Storage company. RHP Logistics is a WBENC Certified Company offering logistics, transportation & trucking services throughout Taylor & beyond. RHP Logistics employs 7 people, founded in 2007. Headquartered in Warren, Michigan, United States, with an office in Taylor.\n\n## About\n\nRHP Logistics provides world class global household relocation, truckload and LTL transportation including final mile delivery, global commercial relocation, sensitive equipment transportation and warehousing. RHP Logistics partners with industry leaders in each of our market segments.\n\nAffordance Office Furniture is a division of Palmer Logistics Services. Affordance provides space planning, design services and furniture installation for companies large and small throughout the state of Michigan and represents and installs over 200 high quality commercial furniture manufacturers. Visit palmerls.com/office-furniture/ to learn more.\n\nPalmer Logistics Services is proud to be a Women Owned Business and winner of the NEI Global Relocation Own It Award.\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Privately held\n- Headquarters: Warren, United States\n- Founded Year: 2007\n- Homepage: rhplogistics.com\n- Aliases: Palmer Logistics Services, Inc., palmer logistics services, palmer ls, rhp logistics\n- LinkedIn: linkedin.com/company/rhp-logistics\n- Linkedin Followers: 314\n- Emails: info@palmerls.com, info@rhplogistics.com\n- Phone: +1 888 520 5250, 2243119, 888-520-5250\n\n## Workforce\n- Employees: 7\n- Company Size: 1-10 employees\n- Key Executives:\n  - Terri Palmer: Chief Executive Officer\n- Breakdown:\n  - By Country: United States: 3 (43%)\n  - By Department: Customer Service: 1 (14%), General Management: 1 (14%), Trades: 1 (14%)\n  - By Seniority: Specialist: 2 (29%), Clevel: 1 (14%)\n- Talent Sources: BlueLinx Corporation (2), University of Houston Athletics (1), US Army (1), Sunland Construction, Inc. and Affiliates (1), Pentagon Freight Services (1), Palmer Moving Services (1), Intertek (1), Houston Central Industries (1), DHL Supply Chain (1), Aires (1)\n- Alumni Go To: Texas Children's Hospital (1), Sunland Construction, Inc. and Affiliates (1), Single Point Capital (1), Palmer Moving Services (1), Katoen Natie (1), Interstate Moving | Relocation | Logistics (1), Huron Valley Swim Club Inc (1), Holland Southwest International (1), Chartwells Higher Education Dining Services (1), C.H. Robinson (1)\n\n## Products & Technology\n- Tech Stack: helm\n\n## Web presence\n\n- Crunchbase: crunchbase.com/organization/palmer-logistics-services\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Categories\n\ndelivery, final mile delivery, global corporate household relocation, logistics, office furniture, office moving, office relocation, sensitive equipment transportation warehousing, transportation, trucking, truckload transportation\n\n## Social\n\n### Linkedin\n\n- [2026-09-21 · 2 reactions] LTL shipping is treated as an afterthought by a lot of movers. Not here. When you send freight with RHP Logistics, you're trusting us with something that matters to your business, even if it doesn'...\n\n- [2026-09-14] Some things you might not want to take to your new workspace: 🚫👇 📠 The fax machine 🪑 The chair that's been around since 1985 📼 The overhead projector that still somehow works 🗄️ The filing cabinet...\n\n- [2026-09-08 · 1 reaction] Hotel renovation happens, but your guests don’t need to know. This is the standard for a phased hotel renovation, and it's what RHP Logistics plans around. Our FF&E project management team builds d...\n\n- [2026-08-26 · 3 reactions] Storage should help your project move ahead. At RHP Logistics, we do more than just store your inventory. When your products arrive, we receive and inspect them, then wrap, palletize, or rack them...\n\n- [2026-08-17 · 3 reactions] Adding more vendors to a project makes things more complicated. You have to manage multiple contracts, timelines, and contacts, which increases the risk of miscommunication. Every new vendor means...\n\n- [2026-08-10 · 9 reactions] This company started with a grandfather's cartage business. RHP Logistics gets its name from real family history. The initials stand for Robert Hazen Palmer, Terri Palmer's grandfather, who founded...\n\n- [2026-08-03 · 3 reactions] Retailers prepared for the November holiday season typically begin planning in the summer. Most renovations and fixture updates start in June or July, allowing teams to forecast demand, secure supp...\n\n- [2026-07-27 · 1 reaction] RHP Logistics is based in Detroit, so we know that engineering test vehicles and pre-production prototypes are valuable cargo. They represent millions invested in research and development, are prot...\n\n- [2026-07-20 · 1 reaction] 🏦 What does it take to relocate one of the world's largest financial institutions without missing a beat? At RHP Logistics, we know the financial services industry needs precision, reliability, and...\n\n- [2026-07-13 · 1 reaction] Choose the wrong 3PL, and you could face a missed delivery, a damaged shipment, or a project delay because no one caught the problem in time. By that point, the cost has already been recorded. Here...\n\n- [2026-07-04] Our country was born 250 years ago, and today it is beautiful from sea to shining sea. Since then, businesses, workers, and families across the country have kept the spirit of America alive by conn...\n\n- [2026-06-29 · 3 reactions] In healthcare, handling with care is everything. Healthcare logistics often involves high-tech equipment, sensitive materials, tight deadlines, and settings where coordination affects patient care....\n\n- [2026-06-22 · 2 reactions] The right logistics partner upholds your values AND keeps your operations running smoothly. Founded in 2007, RHP Logistics is a WBENC-certified, woman-owned company. Our full-service logistics also...\n\n- [2026-06-15] Store teams should not have to chase fixtures, vendors, and delivery updates. Retail rollouts, remodels, seasonal displays, new locations, and fixture updates all require careful coordination. If a...\n\n- [2026-06-08 · 3 reactions] It isn’t a moving project. It’s a business transition. When business needs change, it needs a physical workplace change too: Changing layouts ▪️ Adding or removing equipment ▪️ Swapping furniture ▪...\n\n- [2026-06-02 · 2 reactions, 1 comment] Supply chains shift quickly. Businesses need logistics that can keep up. Changes in trade, tariffs, inventory, and distribution can all put pressure on operations. When demand shifts or deadlines g...\n\n- [2026-05-27] Hotel design trends are evolving, and they’re changing what FF&E logistics needs to deliver. Today’s hospitality spaces are no longer built around standard layouts or repeatable furniture packages....\n\n- [2026-05-18 · 7 reactions] When you’re moving sensitive equipment, you can’t afford mistakes. The real cost isn’t just the equipment itself, but the downtime, delays, and problems if the equipment isn’t where it needs to be,...\n\n- [2026-05-11 · 1 reaction] That logistics problem you’re struggling with might be solved by warehousing. ✅ Not enough space ✅ Congestion at job sites of facilities ✅ Too much inventory ✅ Timing deliveries ✅ Not enough flexib...\n\n- [2026-05-06 · 2 reactions] Whether materials arrive on-time, in the right condition, can make or break a construction project. RHP Logistics handles all kinds of deliveries for the construction industry. Smaller equipment an...\n\n## Locations\n- Headquarters: warren, michigan, united states (US)\n- Offices: taylor, michigan, united states (US), warren, michigan, united states (US)",
+        "summary": "{\"description\":\"RHP Logistics is a Transportation, Logistics, Supply Chain and Storage company offering logistics, transportation & trucking services with global and warehousing capabilities. WBENC certified, woman-owned, founded in 2007, headquartered in Warren, Michigan with an office in Taylor.\",\"employee_estimate\":7,\"employee_estimate_source\":\"Employees: 7\",\"hq\":\"Headquartered in Warren, Michigan, United States, with an office in Taylor.\",\"hq_quote\":\"Headquartered in Warren, Michigan, United States, with an office in Taylor.\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"RHP Logistics provides world class global household relocation, truckload and LTL transportation including final mile delivery, global commercial relocation, sensitive equipment transportation and warehousing.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQHK3SkSqdR-ow/company-logo_200_200/company-logo_200_200/0/1725454449868/palmer_logistics_services_logo?e=2147483647&v=beta&t=uN2okwWdyvyeNoojLnzaRkhJxamnndvS1A5OPRlXjxk",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/b4hfk8yspqf",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "RHP Logistics",
+              "foundedYear": 2007,
+              "description": "RHP Logistics provides world class global household relocation, truckload and LTL transportation including final mile delivery, global commercial relocation, sensitive equipment transportation and warehousing. RHP Logistics partners with industry leaders in each of our market segments.\n\nAffordance Office Furniture is a division of Palmer Logistics Services. Affordance provides space planning, design services and furniture installation for companies large and small throughout the state of Michigan and represents and installs over 200 high quality commercial furniture manufacturers. Visit palmerls.com/office-furniture/ to learn more.\n\nPalmer Logistics Services is proud to be a Women Owned Business and winner of the NEI Global Relocation Own It Award.\n\n",
+              "workforce": {
+                "total": 7
+              },
+              "headquarters": {
+                "address": "24660 Dequindre, Warren, MI 48091, US",
+                "city": "Warren",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 137,
+                    "dateFrom": "2026-01",
+                    "dateTo": "2026-01"
+                  },
+                  {
+                    "value": 137,
+                    "dateFrom": "2026-02",
+                    "dateTo": "2026-02"
+                  },
+                  {
+                    "value": 902,
+                    "dateFrom": "2026-03",
+                    "dateTo": "2026-03"
+                  },
+                  {
+                    "value": 19,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 668,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 8461.1,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

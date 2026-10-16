@@ -1,0 +1,270 @@
+{
+  "request": {
+    "query": "Intellectible",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "b2e0ef7b0062dd41e28d1ca0ba85feb0",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/z7vjbb2wwb8",
+        "title": "Intellectible",
+        "url": "https://intellectible.com/",
+        "text": "# Intellectible\n\nIntellectible is a Technology, Information and Internet company. Intellectible is a company that specializes in AI for enterprise service providers. They offer a platform for automating capture, RFP responses, proposal writing, and complex service workflows with Intellectible AI Engines. Intellectible employs 23 people (+187.5% YoY, +15 people), founded in 2023. Headquartered in Austin, Texas, United States. Its workforce is distributed across United States and United Kingdom.\n\n## About\n\nMost companies have high-value work that never becomes software. It lives in spreadsheets, inboxes, shared drives, disconnected tools, and the judgment of a few experienced people.\n\nUnlike rigid SaaS, which forces your business into someone else's workflow, Intellectible turns the way your company works into software and scales the outcomes of your winning processes. We take your real process, your SOPs, documents, data, rules, and approvals, and encode your exact playbooks and IP into production applications and AI engines on a reusable build-and-run platform.\n\nIntellectible is the AI platform for complex revenue operations at enterprise scale. Federal and state suppliers, RFP-driven businesses, facilities operations teams, and infrastructure build teams use it to codify and scale the processes that find, qualify, price, and move their work.\n\nWHAT YOU GET\n\nPlatform: a governed environment for workflows, documents, data, applications, integrations, code, runtime, and roles.\n\nEngines: proven starting systems for deal discovery, GovCon capture, proposals, pricing, knowledge, and revenue operations.\n\nSpecialists: implementation experts who map the process, launch the first systems, and train your team to build the next ones.\n\nWHERE COMPANIES START\n\n- Revenue discovery: win more of the right work without scaling the team behind it.\n- GovCon Capture: find the opportunities that fit, know why, move from capture to submission faster.\n- Proposals: turn source material into compliant, reusable proposal workflows.\n- Pricing: turn spreadsheet logic into a controlled pricing system.\n- Knowledge: make company knowledge usable inside real work.\n- Operations: turn repetitive handoffs and admin into a system that runs, tracks, and improves.\n\nHOW IT WORKS\n\nStart with one high-value process. Prove the outcome. Expand on the same foundation. Each system makes the next one easier to build.\n\nYour best people can't be everywhere. Their judgment can.\n\nBook a demo at intellectible.com\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Headquarters: Austin, United States\n- Founded Year: 2023\n- Homepage: intellectible.com\n- Aliases: Intellectible Inc., intellectible\n- LinkedIn: linkedin.com/company/intellectible\n- Linkedin Followers: 622\n\n## Financials\n- Total Funding: USD 4,697,775\n  - Seed (2026-06-01): USD 3.0M\n  - Seed (2024-10-03): USD 1.7M\n  - Seed (2024-07-01)\n  - Pre seed (2024-03-01)\n\n## Workforce\n- Employees: 23\n- Company Size: 11-50 employees\n  - Monthly Growth: -28.1%\n  - Yearly Growth: +187.5%\n- Key Executives:\n  - David Steen: Chief Revenue Officer\n  - Ivy Tan: VP of Partnerships\n  - Jesse Lozano: CEO Co-founder\n  - Nova Richardson: Head of Partnerships\n  - Reuben Carter: Co-Founder\n  - Rosie Higgins: Co-founder, Chief Engineer\n  - Yen Narito: Senior Vice President Business Development\n- Breakdown:\n  - By Country: United States: 15 (65%), United Kingdom: 4 (17%)\n  - By Department: Consulting: 5 (22%), Sales: 5 (22%), General Management: 3 (13%), Other Department: 2 (9%), Operations: 1 (4%), Project Management: 1 (4%), Research: 1 (4%), Technical: 1 (4%)\n  - By Seniority: Specialist: 8 (35%), Founder: 3 (13%), Other Management: 2 (9%), Vp: 2 (9%), Clevel: 1 (4%), Head: 1 (4%), Manager: 1 (4%), Senior: 1 (4%)\n- Talent Sources: General Motors (3), WiseTech Global (1), SFA Texas (1), Recite Me (1), Paper Birds (1), NeoSystems LLC (1), LeanDNA (1), Grapevine (1), Barts Cancer Institute (Queen Mary University of London) (1), Apptega (1)\n- Alumni Go To: Xube (1), Texas Space Alliance (1), Tenr (1), Jungli the Nomad Village (1), Dragonfly Operating Partners (1), Circadian Ventures (1), Affinity Global (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: hubspot, python, ramp, sql, unify, grunt\n\n## Web presence\n\n- Facebook: facebook.com/p/intellectible-100094378160269\n- Crunchbase: crunchbase.com/organization/intellectible\n- Web traffic:\n  - Monthly visits: 5,406\n  - Global rank: 3,537,406\n  - Bounce rate: 66.0%\n  - Pages per visit: 1.4\n  - Average visit duration: 20s\n\n## Categories\n\nagentic ai, agentic gtm platforms, agentic workflows, ai, analytics platforms, artificial intelligence (ai), bid & proposal automation, business process automation, capture, enterprise ai, enterprise service providers, generative ai, govcon, grant writing, information technology, intellectible, low-code builder, no-code builder, opportunity capture, proposal writing, revenue operations, rfp, rfp responses, sales automation, secure ai runtime, workflow automation\n\n## Recent News\n- [2026-06-19] [Intellectible Raises $3M to Automate Revenue Operations for Government Contractors, Service Firms \\| citybiz](https://www.citybiz.co/article/863012/intellectible-raises-3m-to-automate-revenue-operations-for-government-contractors-service-firms/)\n- [2026-06-18] [Intellectible Raises $3M in Seed Funding](https://www.finsmes.com/2026/06/intellectible-raises-3m-in-seed-funding.html)\n- [2026-06-17]\n  - [Intellectible Closes $3 Million Seed Round to Scale AI Revenue Operations for Enterprise Service Providers](https://mx.advfn.com/bolsa-de-valores/noticias/98765192/intellectible-closes-3-million-seed-round-to-scal)\n  - [Intellectible Raises $3 Million to Scale AI-Driven Revenue Operations for Enterprise Service Providers - TipRanks.com](https://www.tipranks.com/news/private-companies/intellectible-raises-3-million-to-scale-ai-driven-revenue-operations-for-enterprise-service-providers)\n- [2026-06-05] Yahoo: Austin startup Intellectible raises $3M\n\n## Social\n\n### Linkedin\n\n- [2026-06-04 · 570 reactions, 108 comments] 🚀 Big news from Intellectible 🚀 We've raised a $3m Seed round to scale AI revenue operations for enterprise service providers. This round was led by Bread and Butter Ventures with participation fro...\n\n- [2026-05-28 · 62 reactions, 3 comments] We're hiring an Account Executive at Intellectible. Maybe you've spent the last few years closing complex deals at a hypergrowth startup and you're ready for the next thing. We're growing fast and...\n\n- [2025-09-16 · 8 reactions] Great use of Intellectible -> our 'batteries included' operating system for AI + subject matter experts (Scot MacTaggart & Zak Wehman) = high value output!\n\n- [2025-09-15 · 19 reactions, 1 comment] Feature update for Intellectible! 🚀 1. We've added the ability to add and read attachments to both Gmail and Outlook mail. This enables users to create AI inbox managing agents which not only can a...\n\n- [2025-07-28 · 82 reactions, 15 comments] I built an $800M email app over the weekend... But here’s the part no one’s saying... you don’t need a clone of Superhuman or DocuSign. You need a clone of your business—your processes, your playbo...\n\n- [2025-07-24 · 40 reactions, 6 comments] Stop “playing with prompts.” In 60 seconds I show you how to actually automate your business—end‑to‑end—with multi‑agent orchestration. What’s inside the video: Data + Workflow + Trigger = Agent. C...\n\n- [2025-07-18 · 28 reactions, 3 comments] “AI margin crush” is coming for your consultancy’s balance sheet, and the momentum is unstoppable. After automating SOPs for 40+ firms, I know exactly where gross margin lives -or dies in the new A...\n\n- [2025-07-16 · 55 reactions, 5 comments] Conference follow‑up isn’t a lead‑gen issue - it’s an unstructured data issue... At ISTE, I walked away with a bag full of cards from folks who watched MakerBot launch Nebula, its new AI Learning M...\n\n- [2025-07-14 · 37 reactions, 3 comments] Turn SAM.gov into a custom data pipeline -> then turn that pipeline into revenue all with Intellectible automation templates. Intellectible can turn the daily SAM.gov grind into a fully automated,...\n\n- [2025-07-11 · 100 reactions, 18 comments] 🚀 Meet the new Intellectible—two years of AI breakthroughs in one blog post. Read it here! (link in the first comment) #AI #Automation #SaaS #Workflow Reuben Carter, Rosie Higgins, Diego D'Gyves, E...\n\n- [2024-12-10 · 5 reactions] Come by and check out the Intellectible platform! Spacepower Conference 🚀\n\n- [2024-11-26 · 29 reactions, 8 comments] We're excited to release our brand new explainer video! Win more work with powerful proposal writing automations 🚀🚀🚀 Sound on for this one 🔊🔊🔊 Craft high-quality Grants, RFPs, BAAs, BPAs, industry...\n\n## Locations\n- Headquarters: austin, texas, united states\n- Offices: austin, texas, united states",
+        "summary": "{\"description\":\"Intellectible is an AI platform for enterprise revenue operations, helping automate capture, RFP responses, proposal writing, and complex service workflows at enterprise scale.\",\"employee_estimate\":23,\"employee_estimate_source\":\"Employees: 23\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"We're hiring an Account Executive at Intellectible. Maybe you've spent the last few years closing complex deals at a hypergrowth startup and you're ready for the next thing. We're growing fast and...\",\"hq\":\"Austin, United States\",\"hq_quote\":\"Headquarters: austin, texas, united states\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Technology, Information and Internet\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Big news from Intellectible 🚀 We've raised a $3m Seed round to scale AI revenue operations for enterprise service providers.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQGbTaewCnJHpA/company-logo_200_200/B56ZrrX7PuLoAc-/0/1764885509411/intellectible_logo?e=2147483647&v=beta&t=j1I3xGVsUszEe-jgHXWJ_rtK1MAXeSt4G2gV9isUGm0",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/z7vjbb2wwb8",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Intellectible",
+              "foundedYear": 2023,
+              "description": "Most companies have high-value work that never becomes software. It lives in spreadsheets, inboxes, shared drives, disconnected tools, and the judgment of a few experienced people.\n\nUnlike rigid SaaS, which forces your business into someone else's workflow, Intellectible turns the way your company works into software and scales the outcomes of your winning processes. We take your real process, your SOPs, documents, data, rules, and approvals, and encode your exact playbooks and IP into production applications and AI engines on a reusable build-and-run platform.\n\nIntellectible is the AI platform for complex revenue operations at enterprise scale. Federal and state suppliers, RFP-driven businesses, facilities operations teams, and infrastructure build teams use it to codify and scale the processes that find, qualify, price, and move their work.\n\nWHAT YOU GET\n\nPlatform: a governed environment for workflows, documents, data, applications, integrations, code, runtime, and roles.\n\nEngines: proven starting systems for deal discovery, GovCon capture, proposals, pricing, knowledge, and revenue operations.\n\nSpecialists: implementation experts who map the process, launch the first systems, and train your team to build the next ones.\n\nWHERE COMPANIES START\n\n- Revenue discovery: win more of the right work without scaling the team behind it.\n- GovCon Capture: find the opportunities that fit, know why, move from capture to submission faster.\n- Proposals: turn source material into compliant, reusable proposal workflows.\n- Pricing: turn spreadsheet logic into a controlled pricing system.\n- Knowledge: make company knowledge usable inside real work.\n- Operations: turn repetitive handoffs and admin into a system that runs, tracks, and improves.\n\nHOW IT WORKS\n\nStart with one high-value process. Prove the outcome. Expand on the same foundation. Each system makes the next one easier to build.\n\nYour best people can't be everywhere. Their judgment can.\n\nBook a demo at intellectible.com",
+              "workforce": {
+                "total": 23
+              },
+              "headquarters": {
+                "address": "Austin, Texas 78701, US",
+                "city": "Austin",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 4697775,
+                "fundingLatestRound": {
+                  "name": "Seed",
+                  "date": "2026-06-01",
+                  "amount": 3000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 5406,
+                "countryRank": 1189751,
+                "avgDurationSeconds": 20,
+                "history": [
+                  {
+                    "value": 1542,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 1220,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 3481,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 5007,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 3963,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 5406,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/c5v58sdymn3",
+        "title": "Intelligible AI",
+        "url": "https://intelligible.ai/",
+        "text": "# Intelligible AI\n\nIntelligible AI is a Technology, Information and Internet company. Intelligible is a data system for automated data science that turns structured data into dataset-level so that AI systems reuse prior understanding, catch errors early, and behave reliably in production. Intelligible AI employs 12 people (+200.0% YoY, +8 people), founded in 2024. Headquartered in Madison, Wisconsin, United States.\n\n## About\n\nIntelligible creates a new infrastructure layer that turns structured data into re-usable reasoning components.\n\nThese components are persistent, auditable, and reusable. The result is that your AI compounds in capability over time instead of starting from scratch on every query. And because the AI reasons over trusted components, every answer comes with a transparent chain of reasoning. Reach out to see how this can work for you.\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Headquarters: Madison, United States\n- Founded Year: 2024\n- Homepage: intelligible.ai\n- Aliases: Intelligible, Inc., intelligible, intelligible ai\n- LinkedIn: linkedin.com/company/intelligibleai\n- Linkedin Followers: 4,435\n- Emails: solutions@intelligible.ai\n\n## Financials\n  - Angel (2025-08-25)\n\n## Workforce\n- Employees: 12\n- Company Size: 11-50 employees\n  - Yearly Growth: +200.0%\n- Key Executives:\n  - Ben Lengerich: Founder, CEO\n  - Joel Webb: Head of Commercial Programs\n  - Joshua Shunk: Chief Technology Officer\n  - Rich Caruana: Chief Science Officer (CSO)\n- Breakdown:\n  - By Country: United States: 11 (92%)\n  - By Department: Technical: 4 (33%), Research: 2 (17%), Consulting: 1 (8%), Finance: 1 (8%), General Management: 1 (8%), Operations: 1 (8%), Sales: 1 (8%)\n  - By Seniority: Specialist: 5 (42%), Clevel: 2 (17%), Founder: 1 (8%), Head: 1 (8%), Intern: 1 (8%), Other Management: 1 (8%)\n- Talent Sources: University of Wisconsin-Madison (2), invocate (1), PulseGuard AI (1), Play Anything (1), Netflix (1), Honeywell Technologies (1), Epic (1), Duke University (1), CargoLabs (1), A*STAR - Agency for Science, Technology and Research (1)\n- Alumni Go To: Netflix (2), UW–Madison College of Computing & Artificial Intelligence (1), Stanford University Department of Computer Science (1), Resona Semiconductor (1), HPA (1), Coinbase (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: numpy, python, pytorch, sql, tensorflow, typescript, github, hugging face, impact\n\n## Web presence\n\n- Twitter: twitter.com/intelligibleai\n- Crunchbase: crunchbase.com/organization/intelligible-7715\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Categories\n\nai systems, artificial intelligence (ai), automated data science, data science, dataset-level, generative ai, health care, production-ready ai, structured data\n\n## Recent News\n- [2026-10-08] Royal Television Society: AI, athletes and creators take centre stage at IBC 2026\n- [2026-10-04] FWDStart: UAE open finance, AI agents and the price of being chosen\n- [2026-09-11] Recorded Future: The Intelligible World of Agents\n- [2026-09-07] RedTech International: Telos Alliance to show audio intelligibility tools at IBC\n- [2026-09-04] Chris Skinner's blog: The true cost of AI \\(Part One\\)\n- [2026-08-28] Bloomberg.com: US-Canada Trade War Serves No Intelligible Purpose\n- [2026-08-22] TipRanks: ReFiBuy Highlights Volatility in Retailers’ Readiness for AI Shopping\n- [2026-07-09] [Intellectible has raised $3 Million in new Seed funding - intelligence360](https://www.intelligence360.news/intellectible-has-raised-3-million-in-new-seed-funding/)\n- [2026-06-28] [AI Workflow Platform Intellectible Raises $3M for GovCon-Focused RevOps Automation - TipRanks.com](https://www.tipranks.com/news/private-companies/ai-workflow-platform-intellectible-raises-3m-for-govcon-focused-revops-automation)\n- [2026-03-04] rAVe \\[PUBS\\]: Intelligibility and Acoustics: A Conflict Resolved?\n- [2026-02-22] Live Law: “Widen Law, Make It More Intelligible”: CJI Urges Young Graduates To Keep Law Accessible\n- [2026-02-01] Scuttlebutt Sailing News: Will AI win the Pacific Cup?\n- [2025-11-01] PtboCanada: Art & Artifice: Or, What AI Means for Aesthetics\n- [2025-09-09] The Wall Street Journal: Opinion \\| Make GPAs Intelligible Again\n- [2025-07-01] Nature: A new modified incomprehensible but intelligible-in-time logics algorithm for modeling solid oxide fuel cell\n- [2025-04-11] The Association for the Advancement of Artificial Intelligence: ProsodyFM: Unsupervised Phrasing and Intonation Control for Intelligible Speech Synthesis\n- [2024-06-12] Express Computer: GenAI provides our agents with intelligible insights that enhance productivity: Amit Vohra, CTO, Teleperformance in India\n- [2024-04-24] Philippine News Agency: NASA's Voyager 1 returns intelligible signal for 1st time in months\n- [2024-03-22] Benjamin Riley \\| Substack: Building Human Knowledge to Halt AI Hype\n- [2024-02-16] The Atlantic: Things Get Strange When AI Starts Training Itself\n- [2023-10-10] Cinema Express: Kumari Srimathi Series Review: A delightful Nithya Menen makes this intelligible tale extraordinary\n- [2023-09-14] Wifi Hifi Magazine: TOA Two-Way Network Horn Offers Intelligible Conversation\n\n## Social\n\n### Linkedin\n\n- [2026-10-05 · Posted · 10 reactions] [🚀 Next week, we're heading to TechCrunch #Disrupt2026 to...](https://www.linkedin.com/posts/intelligibleai_disrupt2026-startupbattlefield-activity-7512893146880540672-uKT9)\n  > 🚀 Next week, we're heading to TechCrunch #Disrupt2026 to participate in #StartupBattlefield!\n  >\n  > We'll be exhibiting on the show floor and can't wait to connect with the innovators and investors shaping what's next.\n  >\n  > Product: ✅\n  > Traction: ✅\n  > Booth (with swag 😉): ✅\n  >\n  > Everything's ready. See you there! 👋\n\n- [2026-09-29 · Posted · 17 reactions] [Is your LLM actually analyzing your data or just pattern-matching...](https://www.linkedin.com/posts/intelligibleai_is-your-llm-actually-looking-at-the-data-activity-7510733949510459393-3qnd)\n  > Is your LLM actually analyzing your data or just pattern-matching to what it's seen before?\n  >\n  > We built *SleuthBench* to test this. Instead of using public datasets (which models may have memorized), we inject a known statistical signal into real data, then ask the model to find it. Because we control the injection, we get ground truth with zero manual labeling and zero contamination risk. The results: with a raw table and a Python sandbox, 6 frontier models (Claude + GPT-5.6 variants) got only 42% of questions about feature-contributions right. Vague, business-style questions were hardest of all.\n  >\n  > Add Elbi (Empirical Layer By Intelligible), and accuracy jumps to 68%. The biggest gains are on exactly the questions models struggled with most.\n  >\n  > The takeaway: more compute isn't the same as giving your LLM an empirical understanding of your data.\n  >\n  > Full results and methodology: https://lnkd.in/g_KzVPJ2\n  >\n  > #AI #LLM #DataScience #Benchmarking\n\n- [2026-09-11 · Reshared · 3 reactions] [Let's build!](https://www.linkedin.com/posts/intelligibleai_lets-build-activity-7504301371198738435-shRD): Let's build!\n\n- [2026-08-31 · Posted · 13 reactions] [🏅 We’re excited to share that Intelligible has been chosen to...](https://www.linkedin.com/posts/intelligibleai_disrupt2026-activity-7500252886535184385-42FE)\n  > 🏅 We’re excited to share that Intelligible has been chosen to exhibit at TechCrunch Disrupt 2026 as part of the Startup Battlefield 200!\n  >\n  > 🌍 Each year TechCrunch reviews thousands of early-stage startups and picks 200 to watch. Alumni include Dropbox, Cloudflare, and Discord. Being selected as a one of the most promising startups in Enterprise Tech means a lot to us.\n  >\n  > 🚀 We'll be at TechCrunch #Disrupt2026 in San Francisco, October 13-15, and are thrilled for the opportunity to share our computed empirical memory layer with other innovators, investors, and engineers!\n  >\n  > https://lnkd.in/gXJ4SdF\n\n- [2026-08-31 · 13 reactions] 🏅 We’re excited to share that Intelligible has been chosen to exhibit at TechCrunch Disrupt 2026 as part of the Startup Battlefield 200! 🌍 Each year TechCrunch reviews thousands of early-stage star...\n\n- [2026-08-29 · 25 reactions, 1 comment] One of the best scenes in the Lord of the Rings is the lighting of the beacons. Gondor needs aid, so they light a beacon. A watchman on the neighboring mountain sees the fire and lights his beacon,...\n\n- [2026-08-25 · Posted · 3 reactions] [📊 Case Study: We trained on 21,613 King County home sales to find...](https://www.linkedin.com/posts/intelligibleai_ai-realestate-explainableai-activity-7498016340096606208-gLMZ)\n  > 📊 Case Study: We trained on 21,613 King County home sales to find out what drives price, not just what's correlated with it.\n  >\n  > A standard GROUP BY says more bedrooms means more money. The model exposed important nuance. Once you control for square footage, location, and construction grade, 3 bedrooms is the sweet spot. A 6-bedroom home actually loses value: same footprint, smaller rooms, and the market prices that in.\n  >\n  > A few more things a simple average hides:\n  > 📍 Location alone accounts for a $400K+ swing in predicted price, more than any structural feature.\n  > 📈 Construction grade doesn't add value evenly. Each grade above average is worth more than the last.\n  > 🎯 The interpretable model matched black-box methods like XGBoost on accuracy while providing glass-box transparency.\n  >\n  > Want to try it yourself? This dataset is pre-loaded into every new Summand account (www.summand.com). Sign up for free and explore it yourself today!\n  >\n  > Full case study: https://lnkd.in/guv8S4S4\n  >\n  > #AI #RealEstate #ExplainableAI #DataScience\n\n- [2026-08-25 · 3 reactions] 📊 Case Study: We trained on 21,613 King County home sales to find out what drives price, not just what's correlated with it. A standard GROUP BY says more bedrooms means more money. The model expos...\n\n- [2026-08-18 · Posted · 6 reactions] [📊 Case Study: How we turned an inventory export into a $219K...](https://www.linkedin.com/posts/intelligibleai_ai-automotive-interpretml-activity-7495479732961042432--gHJ)\n  > 📊 Case Study: How we turned an inventory export into a $219K actionable opportunity for a dealer group by using Intelligible to find out what was really driving days on the lot.\n  >\n  > A traditional dashboard would have said trucks and pricier units just take longer. Intelligible's grounded AI said something different:\n  >\n  > 🚗 New, not used, inventory is the real drag\n  > 📉 Aging jumps off a cliff at one model year back\n  > 💰 The $35K–$50K price band is a dead zone buyers skip\n  > 🏬 One store was underperforming independent of its inventory mix\n  >\n  > Grounded directly by the data, the result isn't a rough estimate, it's a defensible $219K in annual floorplan cost, traceable to the exact units driving it.\n  >\n  > Full case study: https://lnkd.in/gS_McQMu\n  >\n  > #AI #Automotive #InterpretML\n\n- [2026-08-18 · 7 reactions] 📊 Case Study: How we turned an inventory export into a $219K actionable opportunity for a dealer group by using Intelligible to find out what was really driving days on the lot. A traditional dashb...\n\n- [2026-08-12 · Reshared · 11 reactions] [Excited to be at Data-Driven Wisconsin today at MSOE with Sam...](https://www.linkedin.com/posts/intelligibleai_activity-7493305344434057217-Feo1): Excited to be at Data-Driven Wisconsin today at MSOE with Sam Bradin representing Intelligible AI Looking forward to new connections and conversations about solving the pain points of AI and data....\n\n- [2026-08-10 · Posted · 41 reactions] [🏆 Congrats to Rich Caruana, Yin Lou, Johannes Gehrke, Paul Koch...](https://www.linkedin.com/posts/intelligibleai_intelligibility-research-that-has-stood-the-activity-7492656041344544769-ijad)\n  > 🏆 Congrats to Rich Caruana, Yin Lou, Johannes Gehrke, Paul Koch, Marc Sturm, and Noémie Elhadad on winning the 2026 SIGKDD Test of Time Award for Applied Data Science!\n  >\n  > Their KDD 2015 paper, Intelligible Models for HealthCare, showed that accuracy and interpretability don't have to be a trade-off. Its most cited finding: a neural net learned that asthma seemed to lower pneumonia death risk, an artifact of aggressive treatment. That pattern was invisible in a black box, but obvious in an intelligible one.\n  >\n  > It's no coincidence our company shares its name with this paper's first word. We’re proud that Rich is continuing to build interpretable, trustworthy models as a core member of our team.\n  >\n  > Congrats to Rich, Yin, Johannes, Paul, Marc, and Noémie. Thank you for proving accuracy and intelligibility can coexist.\n  >\n  > Full write-up on our blog:🔗 https://lnkd.in/gn9uhxa8\n  >\n  > #MachineLearning #ExplainableAI #HealthcareAI #KDD2026\n\n- [2026-08-10 · 46 reactions, 7 comments] 🏆 Congrats to Rich Caruana, Yin Lou, Johannes Gehrke, Paul Koch, Marc Sturm, and Noémie Elhadad on winning the 2026 SIGKDD Test of Time Award for Applied Data Science! Their KDD 2015 paper, Intelli...\n\n- [2026-08-03 · Posted · 11 reactions] [JSM 2026 continues! Thanks to everyone who came out to Ben...](https://www.linkedin.com/posts/intelligibleai_jsm2026-statistics-datascience-activity-7490084719515279360-WZIj)\n  > JSM 2026 continues!\n  >\n  > Thanks to everyone who came out to Ben Lengerich's talk yesterday. It's always nice spending time with fellow statisticians and hearing what everyone's working on.\n  >\n  > Today, catch Jingyun Jia poster session at 2pm. Come say hi if you're around.\n  >\n  > #JSM2026 #Statistics #DataScience #AI #Intelligible\n\n- [2026-08-03 · 12 reactions, 1 comment] JSM 2026 continues! Thanks to everyone who came out to Ben Lengerich's talk yesterday. It's always nice spending time with fellow statisticians and hearing what everyone's working on. Today, catch...\n\n- [2026-07-29 · Posted · 8 reactions] [LLMs sound confident even when they're wrong. That's a minor...](https://www.linkedin.com/posts/intelligibleai_llms-sound-confident-even-when-theyre-wrong-activity-7488274808510717953-4l-d)\n  > LLMs sound confident even when they're wrong. That's a minor annoyance when you're asking about dinner plans. It's dangerous and unacceptable when you're using them with your data to drive business decisions.\n  >\n  > The missing piece is understanding. It's the meaning, quirks, and hidden signals buried in your data but absent from your schema. Intelligible surfaces that meaning automatically, so every AI answer is grounded and auditable. The confidence should be yours, not the AI's.\n  >\n  > Here's what that looks like in practice: https://lnkd.in/gefAmhK6\n\n- [2026-07-29 · 10 reactions, 1 comment] LLMs sound confident even when they're wrong. That's a minor annoyance when you're asking about dinner plans. It's dangerous and unacceptable when you're using them with your data to drive business...\n\n- [2026-07-27 · Posted · 6 reactions] [Two of our team members are at JSM 2026 in Boston next week...](https://www.linkedin.com/posts/intelligibleai_contextualized-transfer-learning-sharing-activity-7487581210009997314-mifa)\n  > Two of our team members are at JSM 2026 in Boston next week presenting new research on Contextualized Transfer Learning (CTL). https://lnkd.in/gSQpc-4D\n  >\n  > The coolest thing about CTL is that it enables transfer learning across model classes, not just models. This is the same principle we build on at Intelligible: an AI system shouldn't throw your context away to arrive at one generic answer. It should reason over your context directly.\n  >\n  > Ben Lengerich's talk is Sunday, Aug 2 and Jingyun Jia's is Monday, Aug 3.\n  >\n  > We wrote up what the work is about and why it matters on our blog: https://lnkd.in/gf5uhKcB\n  >\n  > Congrats to Ben and Jingyun on getting this in front of the JSM community!\n\n- [2026-07-27 · 11 reactions, 1 comment] Two of our team members are at JSM 2026 in Boston next week presenting new research on Contextualized Transfer Learning (CTL). https://lnkd.in/gSQpc-4D The coolest thing about CTL is that it enable...\n\n- [2026-05-15 · Reshared · 38 reactions] [Ben Lengerich of Intelligible AI presenting \"LLMs as Data...](https://www.linkedin.com/posts/intelligibleai_activity-7461141623045926912-T73V): Ben Lengerich of Intelligible AI presenting \"LLMs as Data Scientists: What Actually Works\" - this crowd loves a more technical session. #datatech2026\n\n## Locations\n- Headquarters: madison, wisconsin, united states (US)\n- Offices: madison, wisconsin, united states (US)",
+        "summary": "{\"description\":\"Intelligible AI is a Technology, Information and Internet company focused on automated data science and production-ready AI using structured data to enable dataset-level reuse and reliability.\",\"employee_estimate\":12,\"employee_estimate_source\":\"Employees: 12\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Employees: 12\",\"hq\":\"Madison, Wisconsin, United States\",\"hq_quote\":\"Headquartered in Madison, Wisconsin, United States.\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Technology, Information and Internet\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"founded in 2024. Headquartered in Madison, Wisconsin, United States.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQELqDFVE4Matw/company-logo_200_200/B56Z10BerhJ4AI-/0/1775768038489/intelligibleai_logo?e=2147483647&v=beta&t=9OwIrz8QkCkSZY-OnK4FmDiYep2wWvfj4EYUDIsJ4us",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/c5v58sdymn3",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Intelligible AI",
+              "foundedYear": 2024,
+              "description": "Intelligible creates a new infrastructure layer that turns structured data into re-usable reasoning components.\n\nThese components are persistent, auditable, and reusable. The result is that your AI compounds in capability over time instead of starting from scratch on every query. And because the AI reasons over trusted components, every answer comes with a transparent chain of reasoning. Reach out to see how this can work for you.",
+              "workforce": {
+                "total": 12
+              },
+              "headquarters": {
+                "address": "Madison, WI, US",
+                "city": "Madison",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": null,
+                "fundingLatestRound": {
+                  "name": "Angel",
+                  "date": "2025-08-25",
+                  "amount": null
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": 1855811,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 5891,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 2810,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 3376,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 976,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 241,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 5536.2,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

@@ -1,0 +1,229 @@
+{
+  "request": {
+    "query": "SciFin",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "3c4a4e2e238da1dd3a144e4b559e9298",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/h239kt6hnrz",
+        "title": "SciFin",
+        "url": "https://scifin.ai/",
+        "text": "# SciFin\n\nSciFin is a Software Development company. SciFin brings together revenue context spread across people and systems to keep it current. Your teams see risk sooner, act decisively, and win more and bigger deals faster, with fewer tools to manage. SciFin employs 57 people. Headquartered in San Jose, California, United States. Its workforce is distributed across United States and India.\n\n## About\n\nBetter customer outcomes start with GTM teams seeing the same picture. But the signals behind that picture are often scattered across people, systems, and AI agents, creating the Context Gap.\n\nSciFin’s Context Convergence brings those signals together into a shared understanding, and puts it to work, giving your GTM team the confidence to execute flawlessly.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: San Jose, United States\n- Homepage: scifin.ai\n- Aliases: scifin\n\n## Workforce\n- Employees: 57\n- Company Size: 51-200 employees\n  - Monthly Growth: +3.6%\n- Key Executives:\n  - Archith Mahadevan: Head of Finance\n  - Michael Alexander: Founding GTM\n  - Payton Miller: Founding Product Leader\n  - Pradyot Prakash: Founding AI Engineer\n  - Radhika Sawhney: Founding UX Designer\n  - Sabareesh Chinta: Founding Product Leader\n  - Travis McCulloch: Head of Systems Engineers\n- Breakdown:\n  - By Country: United States: 32 (56%), India: 11 (19%)\n  - By Department: Technical: 27 (47%), Other Department: 4 (7%), Product: 3 (5%), Consulting: 2 (4%), Finance: 2 (4%), Sales: 2 (4%), Design: 1 (2%), General Management: 1 (2%), Hr: 1 (2%)\n  - By Seniority: Specialist: 19 (33%), Other Management: 15 (26%), Founder: 5 (9%), Head: 2 (4%), Manager: 2 (4%)\n- Talent Sources: Clari (3), Stealth Startup (2), NanoCo (creators of NanoClaw) (2), Meta (2), Indian Institute of Technology, Delhi (2), Google (2), Dublin Robotics Club (2), Cohesity (2), Cleric (2), Amazon (2)\n- Alumni Go To: ArchiBoost AI (2), Random Math Inc. (1), Purdue University (1), Pulse Security AI, Inc. (1), Nutanix (1), Databricks (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: microservices\n\n## Web presence\n\n- Twitter: twitter.com/scifinai\n- Crunchbase: crunchbase.com/organization/scifin\n- Web traffic:\n  - Monthly visits: 8,195\n  - Global rank: 2,418,778\n  - Bounce rate: 42.0%\n  - Pages per visit: 1.8\n  - Average visit duration: 23s\n\n## Categories\n\naction, ai systems, artificial intelligence (ai), revenue context, risk, software, technology/software, tools, web development\n\n## Social\n\n### Linkedin\n\n- [2026-10-05 · 32 reactions] He first founded Nutanix to converge infrastructure, then he founded Cohesity to converge data. And now he doing the same for #context. Watch Mohit Aron share why, and how he's setting up sales tea...\n\n- [2026-09-17 · 48 reactions, 1 comment] Sabareesh Chinta and Ankur Agrawal (CEO, Inhabitr) had a great session at Dreamforce on a familiar RevOps challenge: the rebuild cycle. When deal context is scattered across tools and CRM fields, t...\n\n- [2026-09-16 · 45 reactions, 1 comment] When SciFin and @Salesforce play, revenue teams win! - Sales Leaders see risk sooner - RevOps turn revenue plans into action - Sales Reps spend Less time on admin, more time selling #dreamforce\n\n- [2026-09-16 · 30 reactions] Thanks to everyone who joined Travis McCulloch at #Dreamforce for \"How to Spot and Save the Deals Putting Your Quarter at Risk,\" and a special thank you to our customer, Jason Myers, CRO of ECS (Eq...\n\n- [2026-09-16 · 81 reactions, 4 comments] SciFin is open for business on Day 2 of #Dreamforce! Day 1 was packed with conversations about closing the context gap, and demo after demo showing how we keep data in sync with reality, bring cont...\n\n- [2026-09-10 · 49 reactions] RevOps leaders should be able to answer one question with confidence: Can we make the number, and what needs to change now? The answer should not require rebuilding pipeline, forecast, capacity, an...\n\n- [2026-09-10 · 91 reactions, 14 comments] Context Convergence for Revenue Teams is now available! Revenue teams do not need another system of record. They need a system of reality. Critical context is scattered across CRM records, customer...\n\n- [2026-09-10 · 30 reactions, 1 comment] Big news! Context Convergence for Revenue Teams is officially live! Revenue teams don't need another system of record. They need a system of reality. Critical context is usually scattered across CR...\n\n- [2026-09-05 · 136 reactions, 2 comments] Our founder, Mohit Aron, joined the TBPN to announce our $44 million funding round backed by Altimeter, Madrona, FoundationCapital, Zetta Ventures, S32 and others, and share how we are tackling the...\n\n- [2026-09-03 · 44 reactions, 1 comment] Watch Mohit Aron on MTS Live, where he explains how SciFin brings together context scattered across CRMs, emails, calls, messages, and countless tools, giving teams one complete, current view to ta...\n\n- [2026-09-01 · 147 reactions, 13 comments] Today, we're coming out of stealth. SciFin has raised $44 million in funding, including a seed round co-led by Altimeter and Madrona, with participation from Foundation Capital, S32, Zetta Ventures...\n\n## Locations\n- Headquarters: san jose, california, united states (US)\n- Offices: san jose, california, united states (US)",
+        "summary": "{\"description\":\"SciFin is a Software Development company that brings together revenue context across people and systems to keep it current, helping teams see risk sooner, act decisively, and win more deals faster with fewer tools.\",\"employee_estimate\":57,\"employee_estimate_source\":\"Employees: 57\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Key Executives: Archith Mahadevan: Head of Finance; Michael Alexander: Founding GTM; Payton Miller: Founding Product Leader; Pradyot Prakash: Founding AI Engineer; Radhika Sawhney: Founding UX Designer; Sabareesh Chinta: Founding Product Leader; Travis McCulloch: Head of Systems Engineers\",\"hq\":\"San Jose, California, United States\",\"hq_quote\":\"Headquartered in San Jose, California, United States.\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Software Development\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Today, we're coming out of stealth. SciFin has raised $44 million in funding, including a seed round co-led by Altimeter and Madrona, with participation from Foundation Capital, S32, Zetta Ventures...\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQGI9ovx595cRw/company-logo_200_200/B56aCSJzbKKwBM-/0/1789158438819/scifin_ai_logo?e=2147483647&v=beta&t=VPBxYq0nMIUekggSwg0S68Q3ybEa94LJwEK2UsPUWSg",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/h239kt6hnrz",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "SciFin",
+              "foundedYear": null,
+              "description": "Better customer outcomes start with GTM teams seeing the same picture. But the signals behind that picture are often scattered across people, systems, and AI agents, creating the Context Gap.\n\nSciFin’s Context Convergence brings those signals together into a shared understanding, and puts it to work, giving your GTM team the confidence to execute flawlessly.\n",
+              "workforce": {
+                "total": 57
+              },
+              "headquarters": {
+                "address": "1735 Technology Dr, San Jose, California 95110, US",
+                "city": "San Jose",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 8195,
+                "countryRank": 978088,
+                "avgDurationSeconds": 23,
+                "history": [
+                  {
+                    "value": 8195,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/9fntkj0dm9v",
+        "title": "Scifin Technologies",
+        "url": "https://scifin.io/",
+        "text": "# Scifin Technologies\n\nScifin Technologies is a Technology, Information and Internet company. Scifin Technologies employs 7 people, founded in 2020. Headquartered in Indonesia, with presence in United States.\n\n## About\n\nSCIFIN helps and consult traditional businesses with IT solutions\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Founded Year: 2020\n- Homepage: scifin.io\n- Aliases: SciFin Technologies\n- LinkedIn: linkedin.com/company/scifintech\n- Linkedin Followers: 603\n- Emails: info@scifin.tech\n\n## Workforce\n- Employees: 7\n- Company Size: 11-50 employees\n- Key Executives:\n  - Samuel Utomo: CTO\n  - Yehuda Dani Utomo: Co-Founder & CEO\n- Breakdown:\n  - By Country: Indonesia: 7 (100%)\n  - By Department: Technical: 2 (29%), Education: 1 (14%), Finance: 1 (14%), General Management: 1 (14%), Hr: 1 (14%), Legal: 1 (14%)\n  - By Seniority: Specialist: 5 (71%), Clevel: 1 (14%), Founder: 1 (14%)\n- Talent Sources: Strategi Integrasi Nusantara (SINUX) (2), NuxaTech (2), Signature Consulting (Singapore) (1), OtoDeals (1), Koleksi Amanah Nusantara (1), Kata.ai (1), ForU AI (1), Edufund (1), Atomy indonesia (1)\n- Alumni Go To: Nexmedis (5), Strategi Integrasi Nusantara (SINUX) (1), Revalta Inti Digital (1), PT Bussan Auto Finance (1), NuxaTech (1), LvlUp Ventures (1), Bitwyre (1), Amazon Web Services (AWS) (1)\n\n## Products & Technology\n- Tech Stack: blockchain, numpy, python, scipy, sql\n\n## Web presence\n\n- Twitter: twitter.com/sci_fin\n- Facebook: facebook.com/scifintech\n- Crunchbase: crunchbase.com/organization/scifin-technologies\n- Web traffic:\n  - Monthly visits: 2,956\n  - Global rank: 4,707,204\n  - Bounce rate: 35.0%\n  - Pages per visit: 2.5\n  - Average visit duration: 20s\n\n## Categories\n\ncryptocurrency, financial services, virtual currency\n\n## Recent News\n- [2026-09-13] [The Weekly Notable Startup Funding Report: 9/8/26 – AlleyWatch - Business Circle](https://businesscircle.co/2026/09/13/the-weekly-notable-startup-funding-report-9-8-26-alleywatch/)\n- [2026-09-11] Yahoo: Looking for a great sci-fi movie on Netflix you haven't seen? I recommend these 3 hidden gems\n- [2026-09-05] [SciFin Raises $44M for Revenue-Team AI Agents](https://sentinel.ht/scifin-44-million-revenue-ai-context-layer/)\n- [2026-09-02]\n  - [Techmeme: SciFin, which helps revenue teams converge fragmented information to understand business needs, raised a $44M seed co-led by Altimeter and Madrona \\(Kyt Dotson/SiliconANGLE\\)](https://www.techmeme.com/260901/p64)\n  - [Leading DLP Provider, Kitecyber, Extends Endpoint DLP to AI Agents with Real-Time Data Classification \\| ABNewswire](https://www.abnewswire.com/pressreleases/leading-dlp-provider-kitecyber-extends-endpoint-dlp-to-ai-agents-with-realtime-data-classification_833504.html)\n- [2026-09-01]\n  - [Revenue Teams Don't Need Another Tool, They Need the Truth - Our Investment in SciFin](https://www.madrona.com/our-investment-in-scifin/)\n  - [SciFin Emerges From Stealth With $44 Million Seed Round \\| citybiz](https://www.citybiz.co/article/897563/scifin-emerges-from-stealth-with-44-million-seed-round/)\n- [2026-08-26]\n  - Spiel Times: Exodus Locks April 2027 Release Date for Its Ambitious Sci-Fi Adventure\n  - eGamers.io: From 2001 to Gattaca: 9 Hard Sci-Fi Films That Out-Science Project Hail Mary\n- [2026-08-25] Polygon.com: Netflix's 5 Biggest Sci-Fi Flops, Ranked by Their Rotten Tomatoes Scores\n- [2026-08-13] eGamers.io: 27% on Rotten Tomatoes, No. 1 on Earth: Inside Netflix’s 112-Minute Sci-Fi Thriller\n- [2025-05-08] Tech in Asia: Hidden giant? Lending startup hits $150m revenue without fanfare\n\n## Social\n\n### Linkedin\n\n- [2025-09-27] We're #hiring a new Crypto Trader in Jakarta. Apply today or share this post with your network.\n\n- [2025-06-13 · 20 reactions, 5 comments] Good day everyone, Scifin Technologies currently #hiring for the talented Quantitative Researcher position to be based in Jakarta (#Hybrid). What You’ll Do: - Research, design, and implement statis...\n\n- [2025-03-31] Happy Eid Mubarak! May this Eid bring you endless moments of happiness and success.\n\n- [2025-01-29] Happy Lunar New Year 2025! Wishing you a magnificent Year of the Snake filled with wisdom, prosperity, and good fortune. May this new year bring you peace, success, and endless blessings for you an...\n\n- [2021-12-17 · 2 reactions] We're proud to have Welly Tambunan as our CTO.\n\n- [2021-12-11 · 4 reactions] We're #hiring. Know anyone who might be interested?\n\n## Locations\n- Headquarters: jakarta, indonesia (ID)\n- Offices: jakarta, jakarta raya, indonesia (ID), jakarta, indonesia (ID)",
+        "summary": "{\"description\":\"Scifin Technologies is a Technology, Information and Internet company that provides IT solutions for traditional businesses.\",\"employee_estimate\":7,\"employee_estimate_source\":\"Employees: 7\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"jakarta, indonesia (ID)\",\"hq_quote\":\"Headquarters: jakarta, indonesia (ID)\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"- Industry: Technology, Information and Internet\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"SciFin Emerges From Stealth With $44 Million Seed Round | citybiz\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQEQPBCh7ptt5g/company-logo_200_200/company-logo_200_200/0/1729487863345/scifintech_logo?e=2147483647&v=beta&t=PBjRDPe5TBrmYAspSWEBaQe2ga33YhX06UlC84mZuPs",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/9fntkj0dm9v",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Scifin Technologies",
+              "foundedYear": 2020,
+              "description": "SCIFIN helps and consult traditional businesses with IT solutions",
+              "workforce": {
+                "total": 7
+              },
+              "headquarters": {
+                "address": "Jakarta, ID",
+                "city": null,
+                "postalCode": null,
+                "country": "Indonesia"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 2956,
+                "countryRank": 1708856,
+                "avgDurationSeconds": 20,
+                "history": [
+                  {
+                    "value": 2124,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 1739,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 1307,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 2351,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 3731,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 2956,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 9009.3,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

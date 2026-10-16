@@ -1,0 +1,252 @@
+{
+  "request": {
+    "query": "Sapiom",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "cd5a28a5075bbb72e71e3c5add96a87b",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/n7l14x0jp1v",
+        "title": "Sapiom",
+        "url": "https://www.sapiom.ai/",
+        "text": "# Sapiom\n\nSapiom is a Technology, Information and Internet company. Sapiom is a platform that allows AI agents to ship, run, and scale. It offers a router, agent studio, and runtime solutions. The company raises $50m funding to power the next trillion agents. Sapiom employs 19 people, founded in 2025. Headquartered in San Francisco, California, United States. Its workforce is distributed across United States, France, United Kingdom, and Canada.\n\n## About\n\nAI agents are starting to buy software, APIs, services, and physical goods. Existing payment systems were built for humans.\n\nSapiom is building payment infrastructure for autonomous software. We are working on payment methods, spending permissions, budgets, transaction execution, and financial records for agents.\n\nOur goal is simple: let the next trillion agents transact safely across the systems people already use.\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Headquarters: San Francisco, United States\n- Founded Year: 2025\n- Homepage: sapiom.ai\n- Aliases: Sapiom, Inc, sapiom\n- LinkedIn: linkedin.com/company/sapiom\n- Linkedin Followers: 2,583\n- Emails: contact@sapiom.ai\n\n## Financials\n- Total Funding: USD 50,750,000\n  - Series a (2026-08-01): USD 35.0M\n  - Seed (2026-02-01): USD 15.8M\n\n## Acquisitions\n- Acquired Fewsats\n\n## Workforce\n- Employees: 19\n- Company Size: 11-50 employees\n- Key Executives:\n  - Corrie Keegan: Head of Strategy & Operations\n  - Dawa Riley: Founding Designer | AI\n  - Guy Bentley: Angel Investor\n  - Ilan Zerbib: Founder & CEO\n  - Tidjane Tall: Founding Design Engineer\n- Breakdown:\n  - By Country: United States: 11 (58%), France: 2 (11%), United Kingdom: 2 (11%), Canada: 1 (5%)\n  - By Department: Technical: 9 (47%), Operations: 2 (11%), Consulting: 1 (5%), Design: 1 (5%), Finance: 1 (5%), General Management: 1 (5%), Other Department: 1 (5%)\n  - By Seniority: Specialist: 6 (32%), Other Management: 5 (26%), Founder: 3 (16%), Clevel: 1 (5%), Head: 1 (5%)\n- Active job postings: 3\n- Talent Sources: Shopify (2), The Trade Desk (1), OXIANET (1), Modern Treasury (1), Google (1), Damisa (1), Cogny (1), Ascend (1), Archy (1), Alcatel-Lucent Enterprise (1)\n- Alumni Go To: Telamon (1), OLIX (1), Genera (1), DualEntry (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: adyen, dbt, discord, figma, fintech, github, google workspace, microsoft, microsoft office, openai, paypal, prototype, python, ramp, rippling, sandbox, shopify, snowflake, sql, stripe, teradata, typescript, unify, mdx, react, twitter, user interviews\n\n## Web presence\n\n- Twitter: twitter.com/sapiom\n- Facebook: facebook.com/sapiomai\n- Crunchbase: crunchbase.com/organization/sapiom\n- GitHub: github.com/sapiom\n- Web traffic:\n  - Monthly visits: 13,863\n  - Global rank: 1,570,941\n  - Bounce rate: 46.0%\n  - Pages per visit: 2.3\n  - Average visit duration: 143s\n\n## Categories\n\nagent commerce, agent studio, ai agents, ai payments, ai/technology, artificial intelligence (ai), autonomous agents, b2b payments, data science and machine learning platforms, developer tools, financial infrastructure, financial services, fintech, fraud detection, infrastructure, kya (know your agent), micropayments, payment apis, payments, programmable wallets, router, runtime, sapiom, stablecoin settlement, x402 protocol\n\n## Recent News\n- [2026-09-23] [AgentWallex: Content Day \\(Articles going live\\) - DEV Community](https://dev.to/agentwallex/agentwallex-content-day-articles-going-live-4dho)\n- [2026-09-09] [Sapiom Receives $35M Series A Round](https://vcnewsdaily.com/sapiom/venture-capital-funding/vtqbmfjfys)\n- [2026-08-20] [Sapiom has raised $35 Million in new Series A funding - intelligence360](https://www.intelligence360.news/sapiom-has-raised-35-million-in-new-series-a-funding/)\n- [2026-08-11] Newcomer \\| Substack: [Kirsten Green, Katie Haun & the CEO of Sapiom Join the Machine Earning AI Summit](https://www.newcomer.co/p/kirsten-green-katie-haun-and-the)\n- [2026-08-10]\n  - Tracxn: List of Investments by Anthropic \\(Aug, 2026\\)\n  - Memeburn: Sapiom Raises $35M to Route AI Agents to Cheaper Models. Anthropic Is a Backer\n  - Dealroom: Sapiom raises $35M Series A to cut the cost of running AI agents\n- [2026-08-09] [Sapiom Raises $35M to Route AI Agents to Cheaper Models. Anthropic Is a Backer - Memeburn](https://memeburn.com/sapiom-raises-35m-to-route-ai-agents-to-cheaper-models/)\n- [2026-08-07]\n  - [You.com \\| Real-Time Web Intelligence for Autonomous Agents: You.com × Sapiom](https://you.com/resources/real-time-web-intelligence-for-autonomous-agents-ydc-sapiom)\n  - ['Agents That Buy What They Need': Agent-Production Infrastructure Sapiom Raises $35M Series A - WOWTALE](https://en.wowtale.net/2026/08/08/234649/)\n  - [Sapiom Raises $35M to Run AI Agents in Production](https://sentinel.ht/sapiom-series-a-ai-agents-production/)\n- [2026-08-06]\n  - [Techmeme: Sapiom, which helps businesses build, ship, and scale AI agents and lower token costs, raised a $35M Series A led by Dragonfly, taking its total funding to $50M \\(Reed Albergotti/Semafor\\)](https://www.techmeme.com/260805/p50)\n  - [Avec 35 millions de dollars, SAPIOM veut devenir le contrôleur de gestion des agents IA](https://www.frenchweb.fr/avec-35-millions-de-dollars-sapiom-veut-devenir-le-controleur-de-gestion-des-agents-ia/462938)\n  - [Sapiom Raises $35M in Series A Funding](https://www.finsmes.com/2026/08/sapiom-raises-35m-in-series-a-funding.html)\n  - Pulse 2.0: [Sapiom Raises $35 Million Series A To Scale AI Agent Infrastructure](https://pulse2.com/sapiom-raises-35-million-series-a-to-scale-ai-agent-infrastructure/)\n  - [ИИ-агенты стали слишком дорогими: стартап привлёк $35 млн на снижение затрат. Одним из инвесторов стала Anthropic](https://prospect.com.ru/news/6923821/iiagenty-stali-slishkom-dorogimi-startap-privlek-35-mln-na-snigenie-zatrat-odnim-iz-investorov-stala.html)\n  - [Avec 35 millions de dollars, SAPIOM veut devenir le contrôleur de gestion des agents IA - Suisse](https://www.europesays.com/ch-fr/249058/)\n- [2026-08-05]\n  - [Iceye raises €1b; CVC and Veritas bid for Bodycote](https://www.axios.com/pro/all-deals/2026/08/05/pro-rata-premium-first-look-iceye-cvc-bodycote)\n  - [Startup Sapiom routes clients’ AI to lowest-cost tokens  \\| Semafor](https://www.semafor.com/article/08/05/2026/startup-sapiom-routes-clients-ai-to-lowest-cost-tokens)\n  - [PYMNTS \\| Sapiom Secures $35 Million to Control AI Agent Costs](https://www.pymnts.com/news/artificial-intelligence/2026/sapiom-secures-35-million-to-help-companies-control-ai-agent-costs/)\n  - [Sapiom, Inc. announced that it has received $35 million in funding from a group of investors \\| MarketScreener](https://www.marketscreener.com/news/sapiom-inc-announced-that-it-has-received-35-million-in-funding-from-a-group-of-investors-ce7f50dcdb81f62d)\n  - [Sapiom sammelt 35 Millionen US-Dollar, um KI-Agenten billiger laufen zu lassen](https://www.it-boltwise.de/sapiom-sammelt-35-millionen-us-dollar-um-ki-agenten-billiger-laufen-zu-lassen.html)\n  - [A startup that slashes AI agent bills just raised $35M. Anthropic is a backer.](https://www.newsbreak.com/news/4811435211913-a-startup-that-slashes-ai-agent-bills-just-raised-35m-anthropic-is-a-backer)\n- [2026-08-03] Business Wire: Sapiom Raises $35 Million Series A to Power the Next Trillion AI Agents\n\n## Social\n\n### Linkedin\n\n- [2026-09-15 · 22 reactions, 1 comment] Spotted: Sapiom in Times Square If you are building agents and you are tired of stitching the pieces together yourself this one is for you. Sapiom is where agentic products are built, a multi-agent...\n\n- [2026-09-09 · 17 reactions, 7 comments] I've been building and testing AI agents for different purposes, using n8n, OpenClaw, Claude, Sapiom's AI Agent, and a few prebuilt tools. Instinct has been one of the more interesting experiences...\n\n- [2026-09-02 · 19 reactions, 2 comments] We're one of four companies worth watching this week. And not fourth, third, or second. Fintech Brainfood put Sapiom at the top of this week's list. “Perhaps most usefully, this is all via a single...\n\n- [2026-09-01 · 8 reactions] Sapiom has been selected into the inaugural cohort of Mastercard’s Agentic Commerce & Services program! This cohort brings together 22 companies focused on payments, identity, risk, merchant infras...\n\n- [2026-08-26 · 75 reactions, 7 comments] Sapiom is powering the next trillion AI agents to work autonomously. Their best-in-class network of integrations is powering 100,000+ agent runs per day, covering sandboxes, memory, file systems, b...\n\n- [2026-08-10 · 752 reactions, 273 comments] Eleven months ago, I founded Sapiom. Six months ago, we announced our $15 million seed. Today, we are announcing our $35 million Series A, led by Dragonfly, with participation from Accel, Anthropic...\n\n- [2026-08-07 · 14 reactions] One of the core primitives for Sapiom is being able to access the real economy and it's with partners like youdotcom that we're truly able to do that. Check out their post on how we work together.\n\n- [2026-08-06 · 18 reactions, 5 comments] Curious about our big day yesterday? Trying to wrap your head around what we do? How we build? How you can build faster, with more control, at a cost that won't make you want to scream at the top o...\n\n- [2026-08-05 · 36 reactions, 6 comments] Sapiom has raised a $35 million Series A led by Dragonfly, with participation from Accel, Gradient, Coinbase Ventures, Operator Collective 🔆, Formus Capital, and VanEck Ventures, alongside continue...\n\n- [2026-08-04 · 11 reactions] The conversation has shifted from \"adopt AI at all costs\" to \"wait, cost does matter.\" Funny how that works. I've had the pleasure of working with Ilan Zerbib and the Sapiom team. Sapiom provides i...\n\n- [2026-08-04 · 20 reactions] Production AI has been a pick-two-of-three problem. Performance, cost, and control/security over your own data. Fast and cheap has meant routing your customers' data somewhere you cannot vouch for....\n\n- [2026-07-30 · 37 reactions, 3 comments] Got quoted in The Information yesterday, in a piece on Cursor's price hikes. Companies are realizing they're overspending on AI. The default reaction is to find a cheaper model, or, as we've seen c...\n\n- [2026-07-29 · 7 reactions] If you're going to spend money, at least know where it's going. Book a call with Ilan Zerbib. He's got 3 open slots left this week for builders looking to optimize their spend and speed. Sincerely,...\n\n- [2026-07-27 · 18 reactions] in 2months we managed to help Polsia take a $1M+/month bill down to $100K/month. imagine what that could mean for your margins? your customers? your business model? you shouldn't let the barrier of...\n\n- [2026-07-24 · 5 reactions] Don't let your agents become a line item on the P&L. No, seriously. If you're sick of the anxiety your LLM bills are costing 👇 Call us. Beep us. Smoke signal us. We're removing the barriers to ship...\n\n- [2026-07-23 · 6 reactions] Pitchbook put a number on the machine economy. With a big, fat capital T. ~$20,000,000,000,000. ~$20 trillion of the world's knowledge work is already \"AI-exposed.\" Agents handle about 1% of it tod...\n\n- [2026-07-10 · 108 reactions, 7 comments] Thursday night, we opened our hackathon to outside builders for the first time. Which, if I'm being honest, is invigorating and a bit anxiety-inducing at the same time, even when you know what you'...\n\n- [2026-07-09 · 36 reactions, 3 comments] The Sapiom team is hosting a small builder night in SF tonight. Keeping it intentionally tight. 👀 If you're building something real with agents, DM me what you're working on. I'll send details to a...\n\n- [2026-07-07 · 66 reactions, 6 comments] Our team spans between France and San Francisco, so when a community that spent it's first year building bridges between those two cities threw its one-year anniversary, it was an easy room to be i...\n\n- [2026-07-03 · 18 reactions] One of my favorite parts of building a company where complex agents actually run outside a sandbox is our hackathon nights. The team has the simple task to “build something,” all on Sapiom. This we...\n\n## Locations\n- Headquarters: san francisco, california, united states (US)\n- Offices: san francisco, california, united states (US)",
+        "summary": "{\"description\":\"Technology, Information and Internet company building AI agent infrastructure to ship, run, and scale AI agents.\",\"employee_estimate\":19,\"employee_estimate_source\":\"Employees: 19\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Key Executives:\\n  - Corrie Keegan: Head of Strategy & Operations\\n  - Dawa Riley: Founding Designer | AI\\n  - Guy Bentley: Angel Investor\\n  - Ilan Zerbib: Founder & CEO\\n  - Tidjane Tall: Founding Design Engineer\",\"hq\":\"San Francisco, United States\",\"hq_quote\":\"Headquartered in San Francisco, California, United States.\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Sapiom is a Technology, Information and Internet company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"The company raises $50m funding to power the next trillion agents.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQFeFRcBtVCOZA/company-logo_200_200/B56Z_KP6mOJoAE-/0/1785804597866/sapiom_logo?e=2147483647&v=beta&t=MZIWKgzHUbWW6YgiilxEibqPAOMy5kA8pgfqtN8xvYU",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/n7l14x0jp1v",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Sapiom",
+              "foundedYear": 2025,
+              "description": "AI agents are starting to buy software, APIs, services, and physical goods. Existing payment systems were built for humans.\n\nSapiom is building payment infrastructure for autonomous software. We are working on payment methods, spending permissions, budgets, transaction execution, and financial records for agents.\n\nOur goal is simple: let the next trillion agents transact safely across the systems people already use.",
+              "workforce": {
+                "total": 19
+              },
+              "headquarters": {
+                "address": "San Francisco, California 94114, US",
+                "city": "San Francisco",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 50750000,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2026-08-01",
+                  "amount": 35000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 13863,
+                "countryRank": 496771,
+                "avgDurationSeconds": 143,
+                "history": [
+                  {
+                    "value": 10123,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 5157,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 9551,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 8769,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 32750,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 13863,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/ppx22ynr5ff",
+        "title": "Sapiomatic",
+        "url": "https://sapiomatic.com/",
+        "text": "# Sapiomatic\n\nSapiomatic is a Technology, Information and Internet company. Sapiomatic is an AI training and consulting company that empowers intelligence and accelerates innovation. They offer comprehensive AI training and pre-incubation programs for businesses, students, professionals, and entrepreneurs. Sapiomatic employs 2 people, founded in 2025. Headquartered in Hong Kong, Hong Kong. Its workforce is distributed across China and Hong Kong.\n\n## About\n\nIn the constantly evolving digital world of AI, literacy is key to success. We offer innovative consulting, excellent training, and scientific research to help you develop your digital skills and become a leader in your field.\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Headquarters: Hong Kong, Hong Kong\n- Founded Year: 2025\n- Homepage: sapiomatic.com\n- Aliases: sapiomatic\n- LinkedIn: linkedin.com/company/sapiomatic\n- Linkedin Followers: 436\n- Emails: info@sapiomatic.com\n- Phone: +852 6029 5294\n\n## Workforce\n- Employees: 2\n- Company Size: 1-10 employees\n- Key Executives:\n  - Manuele Reani: Co-Founder\n- Breakdown:\n  - By Country: China: 1 (50%), Hong Kong: 1 (50%)\n  - By Department: Consulting: 1 (50%), Product: 1 (50%)\n  - By Seniority: Founder: 1 (50%), Specialist: 1 (50%)\n- Talent Sources: Youthinkgreen (1), The Chinese University of Hong Kong, Shenzhen 香港中文大学（深圳） (1)\n- Alumni Go To: The Global Youth Coalition (1)\n\n## Products & Technology\n- Tech Stack: javascript, python, dell, operative\n\n## Web presence\n\n- Facebook: facebook.com/sapiomatic\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Categories\n\nai training, ai training and consulting, artificial intelligence, consulting, e, english, innovation, intelligence, internet, italian, literacy, pre-incubation programs, training\n\n## Social\n\n### Linkedin\n\n- [2026-09-10 · 31 reactions, 4 comments] Kirsten Dunlop, this week: a business without economic resilience will run out of love. We spent the week AT ONE IMPACT WEEK talking about love as infrastructure. She named what sits underneath it....\n\n- [2026-07-28 · 7 reactions] Interesting opportunity #HongKong\n\n- [2026-03-18 · 5 reactions] Google Gemini’s arrival in #HongKong is not just a tech update. It is a signal that the city has moved from delayed access to real AI adoption, with major implications for work, careers, and who st...\n\n- [2026-03-14] Generative AI in 2026: What is going to happen? GenAI has become the most influential technology of the decade. By the end of 2026, it is expected to reshape many aspects of daily life, including w...\n\n- [2026-02-18 · 1 reaction] Our CEO Manuele Reani just published some research on AI interfaces: https://lnkd.in/gDybw_U9\n\n- [2026-02-04] AI in mental health: huge promise, but “cheap AI therapy” might be a risk AI is rapidly expanding in mental health support, psychology, and coaching. It’s already being used for journaling, mood tr...\n\n- [2026-01-14 · 5 reactions] Prof Manuele Reani was recently interviewed by Prof. Renia Lopez (PolyU), where they discussed work and perspectives on AI ethics and human-centered design. 🎧 The full podcast is now available on Y...\n\n- [2025-10-27 · 4 reactions] Book your seat before it’s too late! Next event: 27 November At The Hive CWB Hong Kong ! With Luca Minciullo Manuele Reani Antonio Cancian\n\n- [2025-10-23 · 1 reaction] Q&A with Sapiomatic: What is a prompt engineer?\n\n- [2025-10-23 · 2 reactions] Q&A with Sapiomatic: What is a prompt engineer? Our CEO Manuele Reani answers the question. #sapiomatic #artificialintelligence\n\n- [2025-10-20 · 2 reactions] How AI is transforming the job market.\n\n## Locations\n- Headquarters: hong kong, hong kong (HK)\n- Offices: hong kong., hong kong (HK)",
+        "summary": "{\"description\":\"Sapiomatic is an AI training and consulting company that empowers intelligence and accelerates innovation, offering comprehensive AI training and pre-incubation programs for businesses, students, professionals, and entrepreneurs.\",\"employee_estimate\":2,\"employee_estimate_source\":\"Employees: 2\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Hong Kong, Hong Kong\",\"hq_quote\":\"Headquarters: Hong Kong, Hong Kong (HK)\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Technology, Information and Internet\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":false,\"recently_funded_seed_or_series_a_quote\":\"Founded Year: 2025\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQF_bT7IN5XPog/company-logo_200_200/B56ZozQi2nJkAI-/0/1761796569702/sapiomatic_logo?e=2147483647&v=beta&t=coMhGAHybMLdxf0i_1kK5HtSe892EkuvrZci_zEFtfY",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/ppx22ynr5ff",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Sapiomatic",
+              "foundedYear": 2025,
+              "description": "In the constantly evolving digital world of AI, literacy is key to success. We offer innovative consulting, excellent training, and scientific research to help you develop your digital skills and become a leader in your field.",
+              "workforce": {
+                "total": 2
+              },
+              "headquarters": {
+                "address": "17 Nelson St, Mong Kok, Hong Kong., Hong Kong , HK",
+                "city": "Hong Kong",
+                "postalCode": null,
+                "country": "Hong Kong"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 244,
+                    "dateFrom": "2026-01",
+                    "dateTo": "2026-01"
+                  },
+                  {
+                    "value": 244,
+                    "dateFrom": "2026-02",
+                    "dateTo": "2026-02"
+                  },
+                  {
+                    "value": 17,
+                    "dateFrom": "2026-03",
+                    "dateTo": "2026-03"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 6332.2,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

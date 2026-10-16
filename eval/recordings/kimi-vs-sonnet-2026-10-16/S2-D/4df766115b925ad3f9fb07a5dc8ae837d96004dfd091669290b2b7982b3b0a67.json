@@ -1,0 +1,242 @@
+{
+  "request": {
+    "query": "SpartanX Technologies, Inc.",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "56aebe54b527997ad067c267b425b9a2",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/0jdx48z79zp",
+        "title": "SpartanX.ai",
+        "url": "https://www.spartanx.ai/",
+        "text": "# SpartanX.ai\n\nSpartanX.ai is a Computer and Network Security company. SpartanX is a continuous adversary that maps the whole attack surface, inside and out, and keeps finding the ways in that a point-in-time test never reaches at machine speed, and under your control. SpartanX.ai employs 23 people (+130.0% YoY, +13 people), founded in 2025. Headquartered in Boston, Massachusetts, United States. Its workforce is distributed across 5 countries (including United States, Argentina, Colombia, Uruguay, and Brazil).\n\n## About\n\nSpartanX is the first Autonomous Exposure Management (AEM) platform, The Ultimate Adversary™: a continuous adversary that never stops. It maps your whole attack surface, inside and out, proves the ways in with working evidence, drives the fix, and re-attacks to confirm it held. At machine speed, and under your control.\n\nBuilt for regulated financial institutions, fintechs, and enterprises, SpartanX runs continuous campaigns across seven surfaces: web, mobile, APIs, networks, cloud, identity, and AI systems, chaining across them the way a real attacker would. A red team proves a point, then the clock runs out. SpartanX keeps finding the ways in a point-in-time test never reaches, and proves each with a working exploit. Autonomy paired with control: scoped, approved, audit-logged, and non-destructive by default.\n\nThe adversary does not stop at the edge. NodeX, our Internal Attack Capability, runs the same adversary inside your perimeter, across Active Directory, Entra, machine identities, and east-west paths, the inside-the-perimeter, continuously retested testing that PCI DSS v4.0.1, NYDFS, and the GLBA Safeguards Rule now expect (and DORA, if you have EU exposure).\nDiscovery is only the beginning. SpartanX prioritizes findings by real business impact, generates code-level fixes, and produces audit-ready evidence, so you stay examination-ready, not just annually tested. Already running scanners? Targeted Attack Validation ingests 150+ tools and proves what is actually exploitable, turning scanner noise into a short list of real, evidence-backed risk. It supports your compliance program; it does not make you compliant on its own.\n\nSpartanX is not a better scanner or a faster pen test. It is a new category: an autonomous adversary that finds, proves, and helps fix real exploitable risk across your surface, continuously.\n\nLearn more at www.spartanx.ai\n\n## Company Details\n- Industry: Computer and Network Security\n- Type: Privately held\n- Headquarters: Boston, United States\n- Founded Year: 2025\n- Homepage: spartanx.ai\n- Aliases: SpartanX Technologies, Inc., spartanx, spartanx.ai\n- LinkedIn: linkedin.com/company/spartanxai\n- Linkedin Followers: 695\n- Emails: hello@spartanx.ai\n\n## Financials\n  - Seed (2026-04-01)\n\n## Workforce\n- Employees: 23\n- Company Size: 11-50 employees\n  - Yearly Growth: +130.0%\n- Key Executives:\n  - Alejandro Aguirre Soto: Director técnico\n  - Erik Hardy: Chief Executive Officer\n  - Erik Hardy: President & COO\n  - Martin Voelk: Co-Founder and Chief Research Officer\n  - Sion Retzkin: Field CTO\n- Breakdown:\n  - By Country: United States: 9 (39%), Argentina: 4 (17%), Colombia: 2 (9%), Uruguay: 2 (9%), Brazil: 1 (4%)\n  - By Department: Technical: 8 (35%), Sales: 4 (17%), Research: 2 (9%), Customer Service: 1 (4%), General Management: 1 (4%), Marketing: 1 (4%), Other Department: 1 (4%)\n  - By Seniority: Specialist: 9 (39%), Clevel: 2 (9%), Manager: 2 (9%), Senior: 2 (9%), Director: 1 (4%), Founder: 1 (4%), Other Management: 1 (4%)\n- Talent Sources: Haxor Ventures (3), SpartanX Academy (2), Pentera (2), Yard House Restaurants (1), Various Companies (1), Uber (1), Rein Security (1), ExWord (1), Check Point Exposure Management (1), Brazilian Army (Exército Brasileiro) (1)\n- Alumni Go To: Saddleback Communications (1), Renuity (1), Reddit, Inc. (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: django, docker, foundation software, git, google cloud, google cloud platform, grafana, hubspot, hugging face, kubernetes, linkedin, mlflow, mlops, neo4j, postgresql, prometheus, prototype, python, pytorch, rsa, tensorflow, auth0, bash, bugcrowd, github, hackerone, jest, react, stripe, typescript, vercel\n\n## Web presence\n\n- YouTube: youtube.com/@spartanxai\n- Crunchbase: crunchbase.com/organization/spartanx\n- Web traffic:\n  - Monthly visits: 6,004\n  - Global rank: 3,225,583\n  - Bounce rate: 39.0%\n  - Pages per visit: 1.5\n  - Average visit duration: 25s\n\n## Categories\n\nagentic ai, artificial intelligence, autonomous exposure management, continuous adversary, cybersecurity, financial institutions, fintechs, genai, point-in-time test, technology/security\n\n## Social\n\n### Linkedin\n\n- [2026-08-31 · 254 reactions, 106 comments] Welcome Sion Retzkin! We are very excited to have you on our SpartanX.ai team Diego Spahn, Martin Voelk, Alejandro Aguirre Soto\n\n- [2026-08-31 · 83 reactions, 23 comments] Welcome Simo Khouili. We are thrilled to have you join our SpartanX.ai team Diego Spahn, Martin Voelk, Alejandro Aguirre Soto\n\n- [2026-08-31 · 14 reactions, 1 comment] Let's be honest about why most pentests happen. Not because someone lay awake worried about an attacker. Because a framework requires one, a customer's security questionnaire asked for one, or an a...\n\n- [2026-08-29 · 40 reactions, 2 comments] Our SpartanX.ai platform has proven to be incredibly powerful, comprehensive, and feature rich. There are so many ways we are different from other red teaming, pentesting, and vulnerability managem...\n\n- [2026-08-25 · 14 reactions] Every security team I talk to has a backlog of thousands of findings. Almost none of them have a plan to work through it, because everyone knows most of it isn't real. Your scanner found 4,000 vuln...\n\n- [2026-08-21 · 84 reactions, 7 comments] One of the most important things you can ask for as a founder is partners who raise the standard so high that everyone around them wants to get to the office as early as possible and give everythin...\n\n- [2026-08-13 · 20 reactions, 1 comment] Most companies still treat security testing like a dental checkup. Once a year, book it in, get the report, file it away. Meanwhile, you’ve shipped code a few hundred times, moved services to a new...\n\n- [2026-08-08 · 37 reactions, 2 comments] Go SpartanX.ai 🚀 Alejandro Aguirre Soto Carlos Pankrac Gurin Jairo Holgado Exequiel Silvestre Luis Neighbur Olivera and Jose What a engineering team we have Erik Hardy Martin Voelk\n\n- [2026-08-07 · 40 reactions] What a night. We closed out Black Hat week with a team dinner, and getting part of our engineering team around the table with our sales team turned out to be the best combination of the week. Stori...\n\n- [2026-08-05 · 24 reactions] Off to another day at #BlackHat Learn how SpartanX.ai can help businesses identify complex vulnerabilities at machine speed at scale with our AI powered, full stack platform! If you are in town, le...\n\n- [2026-08-05 · 34 reactions, 1 comment] #BlackHat day 2! We've spent the day on the floor talking to security leaders about what autonomous, exploit validated red teaming actually looks like in practice. SpartanX.ai helps businesses iden...\n\n- [2026-08-04 · 61 reactions, 2 comments] Meet the SpartanX.ai team #Blackhat\n\n- [2026-08-04 · 18 reactions] First to market again. SpartanX.ai is the first enterprise-ready platform to ship AARM, runtime governance for AI agents, and it came straight from our world class engineering team. Please read the...\n\n- [2026-08-01 · 24 reactions] If you are in Las Vegas at either Black Hat or DefCon, let's meet up and let me show you some live AI powered full stack Red Teaming over a coffee!\n\n- [2026-07-31 · 68 reactions, 1 comment] Venture Guides portfolio companies are heading to Black Hat this weekend. Swing by to see what they're building! SpartanX.ai Ray Security Memcyco Assail Elastio\n\n- [2026-07-30 · 8 reactions] Vegas week is almost here! I'll be at Black Hat USA 2026 (Aug 1-6, Mandalay Bay) representing SpartanX.ai. If you're around and thinking about Autonomous Exposure Management, let's find time to con...\n\n- [2026-07-30 · 16 reactions] Heading out to Black Hat/DEF CON next week representing SpartanX.ai If you're in Vegas and thinking about Autonomous Exposure Management, it would be great to connect. Shoot me a message and let's...\n\n- [2026-07-30 · 31 reactions, 1 comment] Excited to be heading to Black Hat next week! SpartanX.ai is bringing autonomous, AI-powered red teaming and continuous pen testing to the show. I would love to meet you if you are attending as wel...\n\n- [2026-07-29 · 7 reactions] Great post Martin Voelk. This is the exact conversation we are having with prospects every week: agents are getting deployed everywhere, and almost nobody's testing them for prompt injection, jailb...\n\n- [2026-07-29 · 20 reactions, 1 comment] Everywhere you look right now, someone's talking about the proliferation of AI agents inside companies. Every team wants one. Most already have one running. Part of our thesis in building SpartanX...\n\n## Locations\n- Headquarters: boston, massachusetts, united states\n- Offices: boston, massachusetts, united states",
+        "summary": "{\"description\":\"SpartanX.ai is a Computer and Network Security company focused on continuous adversary surface mapping and automated security campaigns across web, mobile, APIs, networks, cloud, identity, and AI systems.\",\"employee_estimate\":23,\"employee_estimate_source\":\"Employees: 23\",\"hiring_first_ops_or_revops\":false,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Boston, Massachusetts, United States\",\"hq_quote\":\"Headquarters: Boston, Massachusetts, United States\",\"industry\":\"Computer and Network Security\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Computer and Network Security\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":null,\"recently_funded_seed_or_series_a_quote\":\"Seed (2026-04-01)\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4D0BAQEUhRpKeM2O8w/company-logo_200_200/B4DZUehiCWGkAM-/0/1739973862032/spartanxai_logo?e=2147483647&v=beta&t=XAJtHk9Fs5CkL6_aUBy6gwLZtsnTUKrrly5VkuGoP1I",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/0jdx48z79zp",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "SpartanX.ai",
+              "foundedYear": 2025,
+              "description": "SpartanX is the first Autonomous Exposure Management (AEM) platform, The Ultimate Adversary™: a continuous adversary that never stops. It maps your whole attack surface, inside and out, proves the ways in with working evidence, drives the fix, and re-attacks to confirm it held. At machine speed, and under your control.\n\nBuilt for regulated financial institutions, fintechs, and enterprises, SpartanX runs continuous campaigns across seven surfaces: web, mobile, APIs, networks, cloud, identity, and AI systems, chaining across them the way a real attacker would. A red team proves a point, then the clock runs out. SpartanX keeps finding the ways in a point-in-time test never reaches, and proves each with a working exploit. Autonomy paired with control: scoped, approved, audit-logged, and non-destructive by default.\n\nThe adversary does not stop at the edge. NodeX, our Internal Attack Capability, runs the same adversary inside your perimeter, across Active Directory, Entra, machine identities, and east-west paths, the inside-the-perimeter, continuously retested testing that PCI DSS v4.0.1, NYDFS, and the GLBA Safeguards Rule now expect (and DORA, if you have EU exposure).\nDiscovery is only the beginning. SpartanX prioritizes findings by real business impact, generates code-level fixes, and produces audit-ready evidence, so you stay examination-ready, not just annually tested. Already running scanners? Targeted Attack Validation ingests 150+ tools and proves what is actually exploitable, turning scanner noise into a short list of real, evidence-backed risk. It supports your compliance program; it does not make you compliant on its own.\n\nSpartanX is not a better scanner or a faster pen test. It is a new category: an autonomous adversary that finds, proves, and helps fix real exploitable risk across your surface, continuously.\n\nLearn more at www.spartanx.ai",
+              "workforce": {
+                "total": 23
+              },
+              "headquarters": {
+                "address": "100 Causeway St, Boston, Massachusetts 02114, US",
+                "city": "Boston",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": null,
+                "fundingLatestRound": {
+                  "name": "Seed",
+                  "date": "2026-04-01",
+                  "amount": null
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 6004,
+                "countryRank": 1635002,
+                "avgDurationSeconds": 25,
+                "history": [
+                  {
+                    "value": 423,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 2240,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 6415,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 5965,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 7311,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 6004,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/x4cvcyb6vq5",
+        "title": "Spartan X Corp",
+        "url": "https://www.linkedin.com/company/spartanxcorp",
+        "text": "# Spartan X Corp\n\nSpartan X Corp is a Technology, Information and Internet company. Spartan X Corp develops autonomous systems, edge intelligence platforms, and AI solutions for defense, space, and enterprise. Spartan X Corp employs 6 people, founded in 2012. Headquartered in Austin, Texas, United States, with offices in Castle Rock, Anchorage, and Largo.\n\n## About\n\nSpartan X Corp is a veteran-founded AI innovation company delivering autonomous systems, edge intelligence, and space cybersecurity solutions for defense and national security.\n\nWe build technology that operates where failure isn't an option:\n\n🔹 Wraith AUSV — Autonomous maritime ISR for contested waters\n🔹 BRIC — Resilient edge C2 for denied environments \n🔹 Colosseum — Space cybersecurity range and certification\n🔹 ChorusAI — Multi-model AI orchestration platform\n\nTrusted by SOUTHCOM, TRANSCOM, MDA, and state governments. Seaport NxG contract holder.\n\nBuilt by veterans. \nTrusted by warfighters.\n\nService-Disabled Veteran-Owned (SDVOSB) | Est. 2012 | Austin, TX\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Headquarters: Austin, United States\n- Founded Year: 2012\n- Homepage: spartanxcorp.com\n- Aliases: Spartan Corp., spartan, spartan corp, spartan x corp\n- LinkedIn: linkedin.com/company/spartanxcorp\n- Linkedin Followers: 343\n- Emails: info@spartancorp.us, info@spartanxcorp.com\n- Phone: +1 888 536 13489, 888-536-1348\n\n## Workforce\n- Employees: 6\n- Company Size: 51-200 employees\n- Breakdown:\n  - By Country: United States: 2 (33%)\n  - By Department: Operations: 1 (17%), Sales: 1 (17%)\n  - By Seniority: Manager: 1 (17%), Specialist: 1 (17%)\n- Talent Sources: Sharecare Provider Solutions (1), Oak Grove Technologies (1), Comcast Business (1), ALKU Government Solutions (1)\n- Alumni Go To: United States Department of War (1), Truist (1), Access Data Consulting Corporation (1)\n\n## Products & Technology\n- Tech Stack (showing 50 of 54): cortex, google ai, snowflake, angular, angular 2, angularjs, asp, bootstrap, css, git, html, javascript, jquery, linq, mvc, nodejs, react, sql, github, gps, java, jni, netbeans, xamarin, bash, google cloud, google cloud platform, iam, linux, python, terraform, emc vnx, nagios, red hat, vmware, c, impact, sprint, microsoft, prototype, mysql, arcgis, well, ease, adobe, jboss, spring, google workspace, jira software, drift\n\n## Web presence\n\n- Twitter: twitter.com/spartancorp_us\n- Facebook: facebook.com/spartancorp.us\n- Instagram: instagram.com/spartan_corp\n- Crunchbase: crunchbase.com/organization/spartan-4095\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Categories\n\nai innovation, ai/ml, artificial-intelligence, automation, autonomous systems, autonomus systems, c2/c3 systems, consulting, cyber security, cybersecurity, data visualization, defense, defense and national security, defense technology, drones, edge computing, edge intelligence platforms, edge-computing, government contracting, information technology, mapping, maritime isr, space, space systems, technology\n\n## Competitors\n\ntechguard security, t2 data, gryphon technologies, fiveby\n\n## Recent News\n- [2026-10-10] Yahoo\\! Finance Canada: Spartan Delta Corp. \\(DALXF\\) Stock Price, News, Quote & History\n- [2026-10-07] Yahoo\\! Finance Canada: Spartan Delta Corp. \\(SPDTY\\) Stock Price, News, Quote & History\n- [2026-10-06] Howl.link: Kim Bolan \\(@kbolan\\) on X\n- [2026-09-04]\n  - [Mt Malcolm taps iDrilling for Calypso campaign - Mining.com.au](https://mining.com.au/mt-malcolm-taps-idrilling-for-calypso-campaign/)\n  - [Tartana undertakes operational review under new management - Mining.com.au](https://mining.com.au/tartana-undertakes-operational-review-under-new-management/)\n  - [Outcrop identifies new ore shoot at Santa Ana - Mining.com.au](https://mining.com.au/outcrop-identifies-new-ore-shoot-at-santa-ana/)\n  - [Bravo gets final nod for Barcarena processing facility - Mining.com.au](https://mining.com.au/bravo-gets-final-nod-for-barcarena-processing-facility/)\n- [2026-08-11]\n  - BOE Report: Logan Energy Corp. announces second quarter 2026 results and provides an operations update\n  - kalkine.ca: Spartan Delta Corp Stock Surges 6.18% as Trading Activity Spikes and Market Attention Builds\n- [2026-08-09] Yahoo Finance Singapore: Spartan Acquisition Corp. III \\(SPAQU\\) Analyst insights, Price targets and Recommendations\n- [2026-08-08] Simply Wall Street: What Spartan Delta \\(TSX:SDE\\)'s Strong Q2 And Higher 2026 Output Guidance Mean For Shareholders\n- [2026-08-06] www.marketscreener.com: Ridgeline files Early Warning Report in Respect of Spartan Metals Corp.\n- [2026-08-05]\n  - Stock Titan: Nevada Gold Mines Buys Four Gold Projects for C$32.7M; Final Approval Pending\n  - TradingView: Spartan Metals Corp. Revenue Breakdown – TSXV:W\n  - The Globe and Mail: Strategic Gold Asset Sale Sends Junior Miner Sharply Higher\n- [2026-08-03] Moomoo: Spartan Delta Q2 Earnings Climb 18%, Boosts 2026 Guidance\n- [2026-07-29]\n  - www.marketscreener.com: Earnings Flash \\(SDE.TO\\) Spartan Delta Reports Q2 Oil & Gas Sales C$183.7M\n  - TradingView: SDE: Production, sales, and profitability soared in Q2 2026, driving higher full-year guidance\n- [2026-07-28] BOE Report: Spartan Delta Corp. Announces Second Quarter 2026 Results, Increased 2026 Guidance, and Operations Update\n- [2026-07-22] The Globe and Mail: CIBC Keeps Their Buy Rating on Tenaz Energy Corp \\(TNZ\\)\n- [2026-07-18] Stock Traders Daily: \\(SDE\\) Stock Trading Blueprint \\(SDE:CA\\)\n- [2026-07-17] Wealth Awesome: Why Spartan Metals Corp. stock is skyrocketing today\n- [2026-07-15] The Globe and Mail: Friday’s analyst upgrades and downgrades\n- [2026-07-09] Investing.com: Canada shares higher at close of trade; S&P/TSX Composite up 0.76%\n\n## Social\n\n### Linkedin\n\n- [2026-04-22] The End of the Static ATO: What DoD's New Cybersecurity Risk Management Construct Demands from Defense Programs\n\n- [2026-04-22] Test Before the Kill Chain: The NDAA's AI Sandbox Mandate and What Defense Verification Now Requires\n\n- [2026-04-22] Space Force Closes the Cyber Gap at the Launch Range\n\n- [2026-04-22] Directed Energy at Scale: Why the Constraint Is Fire Control, Not Power https://lnkd.in/eFPtWvqE\n\n- [2026-04-22] Directed Energy at Scale: Why the Constraint Is Fire Control, Not Power\n\n- [2026-04-18] The Drone Quarterback: How Collaborative Combat Aircraft Are Reshaping Air Power\n\n- [2026-04-18] Mach 20 and the Kill Chain: Why Hypersonic Defense Demands AI at the Edge\n\n- [2026-04-18] Cognitive Electronic Warfare: How AI Is Reshaping the Fight for Spectrum Superiority\n\n- [2026-04-18] Beyond Replicator: The DAWG Budget and the Coming Build-Out of America's Machine Force\n\n- [2026-04-18 · 2 reactions] Agentic AI in the Kill Chain: What the Lumberjack-Maven Integration Reveals\n\n## Locations\n- Headquarters: austin, texas, united states\n- Offices: castle rock, colorado, united states (US), austin, texas, united states, anchorage, alaska, united states (US), largo, florida, united states (US)",
+        "summary": "{\"description\":\"Spartan X Corp is a veteran-founded AI innovation company delivering autonomous systems, edge intelligence platforms, and space cybersecurity solutions for defense and national security.\",\"employee_estimate\":6,\"employee_estimate_source\":\"Employees: 6\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Operations: 1 (17%), Sales: 1 (17%)\",\"hq\":\"Austin, Texas, United States\",\"hq_quote\":\"Headquartered in Austin, Texas, United States, with offices in Castle Rock, Anchorage, and Largo.\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Technology, Information and Internet\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":false,\"recently_funded_seed_or_series_a_quote\":\"Service-Disabled Veteran-Owned (SDVOSB) | Est. 2012 | Austin, TX\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQF4iXdvKRLhBQ/company-logo_200_200/B4EZucvhXFIwAI-/0/1767861262625/spartanxcorp_logo?e=2147483647&v=beta&t=ekBB244VMzlevrxsajPkvl1i--XeTyJUXbKQrOklN-I",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/x4cvcyb6vq5",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Spartan X Corp",
+              "foundedYear": 2012,
+              "description": "Spartan X Corp is a veteran-founded AI innovation company delivering autonomous systems, edge intelligence, and space cybersecurity solutions for defense and national security.\n\nWe build technology that operates where failure isn't an option:\n\n🔹 Wraith AUSV — Autonomous maritime ISR for contested waters\n🔹 BRIC — Resilient edge C2 for denied environments \n🔹 Colosseum — Space cybersecurity range and certification\n🔹 ChorusAI — Multi-model AI orchestration platform\n\nTrusted by SOUTHCOM, TRANSCOM, MDA, and state governments. Seaport NxG contract holder.\n\nBuilt by veterans. \nTrusted by warfighters.\n\nService-Disabled Veteran-Owned (SDVOSB) | Est. 2012 | Austin, TX\n",
+              "workforce": {
+                "total": 6
+              },
+              "headquarters": {
+                "address": "7600 Chevy Chase Dr, STE 300, Austin, Texas 78752, US",
+                "city": "Austin",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 581,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 5226.4,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

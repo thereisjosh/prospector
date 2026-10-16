@@ -1,0 +1,124 @@
+{
+  "request": {
+    "query": "Staci Americas",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "b596569013855c473beac13bd64009fc",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/d68431wrq9f",
+        "title": "Amware Fulfillment (now part of Staci)",
+        "url": "https://www.staciamericas.com/",
+        "text": "# Amware Fulfillment (now part of Staci)\n\nAmware Fulfillment (now part of Staci) is a Transportation, Logistics, Supply Chain and Storage company. Staci Americas is a fulfillment and distribution company with 18 locations in the US and Europe. They offer services in fulfillment, ecommerce, retail compliance, marketing and POS fulfillment, promotional products, direct sales, transportation, reverse logistics, and more. They cater to various industries such as health and wellness, pharma, cpg, food and beverage, fashion and luxury, cosmetics and beauty. Amware Fulfillment (now part of Staci) employs 191 people (-5.9% YoY, -12 people) and has an annual revenue of $200M. Headquartered in Lawrenceville, Georgia, United States, with offices including Jersey City, Cranbury, Avondale, Dallas, and Bolingbrook. Its workforce is distributed across United States, Canada, and Puerto Rico.\n\n## About\n\nAmware Fulfillment has rebranded as Staci Americas -- the US arm of the Staci Group's global fulfillment network. Amware was purchased by Staci in March of 2023. Follow Staci Americas on LinkedIn. \n\nAs Staci Americas, the company will continue to help companies scale order fulfillment operations so these brands can grow without limitations. Staci Americas fulfillment network includes 18 US facilities across 8 campus locations (Phoenix, Dallas, Atlanta, Chicago, New Jersey, Los Angeles, Reno, Memphis) covering more than 2 million square feet of space. In total, Staci operates a network of 80+ multichannel fulfillment centers across the US , Europe and Asia.\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Privately held\n- Headquarters: Lawrenceville, United States\n- Homepage: staciamericas.com\n- Aliases: amware fulfillment, amware fulfillment (now part of staci), amware fulfillment, llc\n- LinkedIn: linkedin.com/company/amware-fulfillment\n- Linkedin Followers: 6,648\n- Phone: 678-377-8585\n\n## Financials\n- Annual Revenue: USD 200,000,000\n\n## Acquisitions\n- Acquired Moulton Logistics Management, LLC (2020-12-01)\n- Acquired Fulfillment Services Unit, Iron Mountain Incorporated (2018-10-01)\n\n## Workforce\n- Employees: 191\n- Company Size: 501-1000 employees\n  - Yearly Growth: -5.9%\n- Key Executives:\n  - Daniel Newton: Director of Customer Integration\n  - Mark Wilhelm: CEO\n- Breakdown:\n  - By Country: United States: 42 (22%), Canada: 2 (1%), Puerto Rico: 1 (1%)\n  - By Department: Operations: 14 (7%), Customer Service: 11 (6%), Trades: 5 (3%), General Management: 4 (2%), Other Department: 3 (2%), Administrative: 2 (1%), Hr: 2 (1%), Technical: 2 (1%), Finance: 1 (1%), Project Management: 1 (1%) (+1 more)\n  - By Seniority: Specialist: 21 (11%), Manager: 17 (9%), Other Management: 3 (2%), Senior: 2 (1%), Clevel: 1 (1%), Director: 1 (1%)\n- Talent Sources: Iron Mountain (12), Moulton Logistics Management (5), Saddle Creek Logistics Services (4), XPO (3), Walmart (3), Staci Americas (3), UPS Freight (2), Kuehne+Nagel (2), JCPenney (2), Cal Micro Recycling (2)\n- Alumni Go To: Staci Americas (26), Walmart (3), Procurri (3), IFCO SYSTEMS (3), Woodtech Ltd. (2), WEG (2), Source Support Services (2), Shorr Packaging Corp. (2), Pacific Southwest Container, LLC (2), Belk (2)\n\n## Products & Technology\n- Tech Stack: angular, microsoft, microsoft access, postman, tie kinetix, power bi, redgate, sql, netsuite, shopify, amp, c, well, ups, adp, ceridian, html, skype\n\n## Web presence\n\n- Twitter: twitter.com/amwarelogistics\n- Facebook: facebook.com/amwarelogistics\n\n## Categories\n\necommerce, ecommerce fulfillment, fulfillment, fulfillment and distribution, high volume order fulfillment, marketing, parcel freight, promotional products, public & contract warehousing, retail compliance, scalable logistics, warehousing\n\n## Competitors\n\nsg, palisades logistics, floship, shiphawk, dcl inc.\n\n## Social\n\n### Linkedin\n\n- [2023-12-29 · 31 reactions, 1 comment] Final reminder, this page will no longer be active as of January 1st, 2024. Let's grow together in 2024! You can stay in touch by following Staci US as we move forward under the Staci Group as one...\n\n- [2023-12-27 · 8 reactions] 📣Reminder📣 As of January 1, 2024 we’re shutting down this LinkedIn page. Be sure to follow us Staci US to stay in the know!\n\n- [2023-12-20 · 22 reactions] We’ve got some changes in the works as this year wraps up. As of January 1, 2024, Amware Fulfillment is winding down this LinkedIn page as we complete our rebranding journey and become part of the...\n\n- [2023-12-20 · 91 reactions, 2 comments] Starting January 2024, Amware Fulfillment and Staci U.S. will combine as Staci Americas – the U.S. arm of Staci Group’s global #fulfillment network. Staci Americas is part of Staci’s 80+ facility g...\n\n- [2023-12-07 · 5 reactions] Navigating the complexities of go-live events for new technology of automation requires a meticulous approach to ensure systems function flawlessly. Zachary Hess of Argon & Co delves into the criti...\n\n- [2023-12-05 · 10 reactions] In terms of consumer satisfaction, what’s the upside for your B2C brand of delivering in 1–2 days vs. three-, four- or five-day delivery? Fast is good, but fast results in higher parcel shipping co...\n\n- [2023-12-01 · 82 reactions] As the year comes to a close we’ve got some changes in the works. Come January, the Amware Fulfillment LinkedIn page will being going away as we fully integrate as part of the Staci global fulfillm...\n\n- [2023-11-30 · 6 reactions] When you outsource fulfillment, a great deal of work moves from your plate to theirs. But you’re footing the bill for these services, so you need to understand how pick and pack fulfillment costs a...\n\n- [2023-11-30 · 6 reactions] When expectations clash in fulfillment outsourcing partnerships, navigating the waters can be complex. Joe McIntyre of Twelve48 sheds light on the importance of alignment and understanding in outso...\n\n- [2023-11-30 · 60 reactions] Pets are more than just animals that live with us. They can be our closest friends, mischievous roommates or even our loving family 🐕 At Staci, we are proud to work with clients in the #petindustry...\n\n## Locations\n- Headquarters: lawrenceville, georgia, united states (US)\n- Offices: los angeles, california, united states (US), bolingbrook, illinois, united states (US), avondale, arizona, united states (US), dallas, texas, united states (US), san bernardino, california, united states (US), cranbury, new jersey, united states (US), lawrenceville, united states (US), jersey city, new jersey, united states (US), reno, nevada, united states (US)\n\n## Parent organization\n\n- Staci",
+        "summary": "{\"description\":\"Amware Fulfillment (now part of Staci) is a Transportation, Logistics, Supply Chain and Storage company. Staci Americas is a fulfillment and distribution company with 18 locations in the US and Europe.\",\"employee_estimate\":191,\"employee_estimate_source\":\"Employees: 191\",\"hq\":\"Headquartered in Lawrenceville, Georgia, United States\",\"hq_quote\":\"Headquartered in Lawrenceville, Georgia, United States\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"Amware Fulfillment has rebranded as Staci Americas -- the US arm of the Staci Group's global fulfillment network.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQGXzxqju-JODA/company-logo_200_200/company-logo_200_200/0/1685627748287/amware_fulfillment_logo?e=2147483647&v=beta&t=e8ZI2ULv-bR3P54AGoczH-8ih7dbmOqqOCtpmksF-LI",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/d68431wrq9f",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Amware Fulfillment (now part of Staci)",
+              "foundedYear": null,
+              "description": "Amware Fulfillment has rebranded as Staci Americas -- the US arm of the Staci Group's global fulfillment network. Amware was purchased by Staci in March of 2023. Follow Staci Americas on LinkedIn. \n\nAs Staci Americas, the company will continue to help companies scale order fulfillment operations so these brands can grow without limitations. Staci Americas fulfillment network includes 18 US facilities across 8 campus locations (Phoenix, Dallas, Atlanta, Chicago, New Jersey, Los Angeles, Reno, Memphis) covering more than 2 million square feet of space. In total, Staci operates a network of 80+ multichannel fulfillment centers across the US , Europe and Asia. ",
+              "workforce": {
+                "total": 191
+              },
+              "headquarters": {
+                "address": "Corporate Headquarters, 4505 Newpoint Place, Lawrenceville, Georgia 30043, US",
+                "city": "Lawrenceville",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 200000000,
+                "fundingTotal": null,
+                "fundingLatestRound": null
+              },
+              "webTraffic": null,
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 7701.2,
+    "costDollars": {
+      "total": 0.008,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.001
+    }
+  }
+}

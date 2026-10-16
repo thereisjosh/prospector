@@ -1,0 +1,270 @@
+{
+  "request": {
+    "query": "Scotch",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "6a3e13ad5a4ec44b86193d6c211edffa",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/c31wvvdzjw6",
+        "title": "Scotch",
+        "url": "https://scotchpos.com/",
+        "text": "# Scotch\n\nScotch is a Software Development company. Scotch is an all-in-one operating system designed exclusively for liquor retailers, offering fast POS, real-time inventory, and built-in eCommerce solutions. Scotch employs 58 people and has an annual revenue of $10M, founded in 2024. Headquartered in Denver, Colorado, United States, with an office in San Francisco.\n\n## About\n\nFrom neighborhood stores to destination warehouses, liquor retailers of all sizes have been held back by manual tasks, slow systems and limited business intelligence. So we decided to build something better — smarter software that saves time and improves margins so independent retailers could focus on their customers, not manually managing inventory.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: Denver, United States\n- Founded Year: 2024\n- Homepage: scotchpos.com\n- Aliases: Scotch Inc., scotch\n- LinkedIn: linkedin.com/company/scotch-inc\n- Linkedin Followers: 1,107\n\n## Financials\n- Annual Revenue: USD 10,000,000\n- Total Funding: USD 30,000,000\n  - Series a (2026-06-01): USD 20.0M\n  - Seed (2025-11-13): USD 10.0M\n  - Pre seed (2024-09-01)\n\n## Workforce\n- Employees: 58\n- Company Size: 11-50 employees\n  - Monthly Growth: +7.4%\n- Key Executives:\n  - Abigail Bousho: Onboarding Director\n  - Alexandra Naifeh: Sales Director\n  - Amanda Walker: Sales Director\n  - Blaise Sclafani: Sales Director\n  - Brett Medina, SHRM-CP: Head of People\n  - Cali Huffstickler: Vice President Operations\n  - Cameron Horstman: Head of Finance\n  - Cameron Overholt: Sales Director\n  - Dan Chen: Chief Technology Officer\n  - Gina Thompson: Sales Director\n- Breakdown:\n  - By Country: United States: 53 (91%)\n  - By Department: Technical: 22 (38%), Sales: 9 (16%), Hr: 7 (12%), Customer Service: 5 (9%), General Management: 3 (5%), Product: 2 (3%), Design: 1 (2%), Finance: 1 (2%), Marketing: 1 (2%), Operations: 1 (2%) (+1 more)\n  - By Seniority: Specialist: 18 (31%), Senior: 11 (19%), Director: 7 (12%), Other Management: 7 (12%), Head: 4 (7%), Manager: 3 (5%), Clevel: 2 (3%), Founder: 1 (2%), Vp: 1 (2%)\n- Active job postings: 3\n- Talent Sources: SpotOn (4), Drizly, an Uber Company (3), Cloverly (3), Toast (2), Skupos Inc., a PDI Technologies Company (2), Sigma Squared (2), Sazerac Company (2), Dutchie (2), Calendly (2), Managing a Starship (1)\n- Alumni Go To: Woflow (1), Vori (1), Tab Commerce (1), Michigan Sport Venture Group (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: ada, android devices, android studio, figma, fintech, git, greenhouse, heroku, hubspot, intercom, jetpack, json, kotlin, looker, postgresql, prototype, rippling, ruby, sidekiq, sql, sqlite, tableau, teamviewer, user interviews\n\n## Web presence\n\n- Twitter: twitter.com/scotchpos\n- Facebook: facebook.com/scotch\n- Crunchbase: crunchbase.com/organization/scotch-inc\n- Web traffic:\n  - Monthly visits: 86,654\n  - Global rank: 233,156\n  - Bounce rate: 14.0%\n  - Pages per visit: 22.9\n  - Average visit duration: 1957s\n\n## Categories\n\nback office, business process automation (bpa), ecomm, enterprise software, health care software, inventory, liquor retail, liquor retailers, other specialty practice management, other specialty practice management software, point of sale, pos, scotch, software\n\n## Competitors\n\ntundracompanies, scotchblue™, scotch painter's tape, baillie sales & engineering, mntape, classical seat, permatite, all media supplies\n\n## Social\n\n### Linkedin\n\n- [2026-09-24 · 14 reactions, 1 comment] Recently, the Scotch team hit the road in Tennessee with Advintintage Distributing, pouring through tastings in Memphis, Nashville, and Knoxville to showcase their California wine portfolio. Indepe...\n\n- [2026-08-07 · 34 reactions, 3 comments] When we launched Demolition Day, the ask was simple: switch to Scotch, destroy your old POS on camera. 💥 This Memphis, TN liquor store owner delivered. He switched because he said his old system wa...\n\n- [2026-07-27 · 66 reactions, 2 comments] The team showed up at the Texas Package Stores Association show in San Antonio last week, and everything about it was a success. We can't help but drink up the conversations with store owners, bran...\n\n- [2026-06-26 · 46 reactions] Top Shelf: Liquor Retail Insights with Scotch 🎆 July 4th is the #1 sales week of the year for independent liquor stores, outpacing Christmas, New Year's, and every other holiday we track. And the p...\n\n- [2026-06-17 · 145 reactions, 1 comment] Last week, the full Scotch team came together in Denver for three days of workshops, a hackathon, product sessions, and incredibly valuable team time. We poured everything we had into it. We left m...\n\n- [2026-06-08 · 114 reactions, 5 comments] In case you missed last week’s announcement, we’re thrilled to share that Scotch has raised a $20M Series A. This round of funding was led by VMG Partners, with participation from First Round Capit...\n\n- [2026-06-04 · 606 reactions, 114 comments] Today I’m thrilled to announce Scotch has raised a $20M Series A, led by VMG Partners, with participation from First Round Capital, Lerer Hippeau, Watchfire Ventures, and Toba Capital. In 2024, we...\n\n- [2026-06-04 · 57 reactions, 3 comments] Introducing Demolition Day 💥 For far too long, store owners have been stuck running their businesses on outdated point of sale systems or systems built for generic retail. We're changing that. Now,...\n\n- [2026-05-21 · 46 reactions] Top Shelf: Liquor Retail Insights with Scotch As we head into the holiday weekend, here's what last year's Memorial Day liquor sales data says to do differently this year: 🛒 Merchandise for whiskey...\n\n- [2026-03-31 · 113 reactions, 2 comments] 🥃 We just went live with Sinkers Beverages in East Nashville and we're fired up about it. Sinkers is exactly the kind of store we built Scotch for. Great selection, team that knows their stuff, and...\n\n- [2025-10-13 · 48 reactions, 3 comments] Thanks to Forbes and Dasha Shunina for the coverage on our launch. 🥃 🚀 https://lnkd.in/gasmxSKM\n\n## Locations\n- Headquarters: denver, colorado, united states (US)\n- Offices: denver, united states (US), denver, colorado, united states (US), san francisco, united states (US)",
+        "summary": "{\"description\":\"Scotch is an all-in-one operating system for liquor retailers, offering fast POS, real-time inventory, and built-in eCommerce solutions. Headquartered in Denver, Colorado with an office in San Francisco; privately held software company with multiple funding rounds including a Series A in 2026.\",\"employee_estimate\":58,\"employee_estimate_source\":\"Employees: 58\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Active job postings: 3\",\"hq\":\"Denver, United States\",\"hq_quote\":\"Headquarters: denver, colorado, united states (US)\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Software Development\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"- Series a (2026-06-01): USD 20.0M\\n  - Seed (2025-11-13): USD 10.0M\\n  - Pre seed (2024-09-01)\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQE1qhURNJNPqA/company-logo_200_200/B56ZnALsqFIsAI-/0/1759865916361/scotch_inc_logo?e=2147483647&v=beta&t=G1B_orSwI8yPQp1Ow_XeyJPv_KAeNMj1oZRBBlTxgfs",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/c31wvvdzjw6",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Scotch",
+              "foundedYear": 2024,
+              "description": "From neighborhood stores to destination warehouses, liquor retailers of all sizes have been held back by manual tasks, slow systems and limited business intelligence. So we decided to build something better — smarter software that saves time and improves margins so independent retailers could focus on their customers, not manually managing inventory.",
+              "workforce": {
+                "total": 58
+              },
+              "headquarters": {
+                "address": "Denver, US",
+                "city": "Denver",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 10000000,
+                "fundingTotal": 30000000,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2026-06-01",
+                  "amount": 20000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 86654,
+                "countryRank": 47929,
+                "avgDurationSeconds": 1957,
+                "history": [
+                  {
+                    "value": 3435,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 3594,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 21963,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 18394,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 27813,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 86654,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/2yxzb2xztzq",
+        "title": "Scotch & Soda",
+        "url": "https://scotchandsoda.com/",
+        "text": "# Scotch & Soda\n\nScotch & Soda is a Retail Apparel and Fashion company. Scotch & Soda is a company that offers thoughtfully designed apparel, accessories, and denim with premium fabrics and modern style inspired by Amsterdam. Scotch & Soda employs 698 people (-7.3% YoY, -55 people) and has an annual revenue of $365.6M, founded in 1985. Headquartered in Amsterdam, Netherlands, with presence in United States and France. Its workforce is distributed across 31 countries (including Netherlands, United States, France, Germany, and South Africa).\n\n## About\n\nScotch & Soda celebrates the free spirit of Amsterdam. Endlessly optimistic, we’re inspired by the liberal outlook of our home city, and we champion individuality, authenticity and the power of self-expression – an attitude reflected in our designs.\n\nEffortlessly connecting the expected with the unexpected, our men, women and kids’ collections redefine everyday dressing. We mix classic with contemporary, colour with print, and clashing textures to deliver pieces that remain true to the Scotch & Soda aesthetic. Grounded in practicality and finished with surprising details, our feel-good designs are uniquely ours – for you to make your own.\n\nDesigning beautiful, feel-good pieces is one thing, but we also imagine a world where we do good, too. One of our top priorities is to run our business with greater sensitivity to our planet by making more responsible, sustainable choices every day in order to reduce our environmental impact.\n\n## Company Details\n- Industry: Retail Apparel and Fashion\n- Type: Privately held\n- Headquarters: Amsterdam, Netherlands\n- Founded Year: 1985\n- Homepage: scotchandsoda.com\n- Aliases: s&s usa retail llc/duplicate, scotch & soda, scotch & soda e-commerce b.v.\n- LinkedIn: linkedin.com/company/scotch-&-soda\n- Linkedin Followers: 91,413\n- Phone: 49-30-22-40-9057\n\n## Financials\n- Annual Revenue: USD 365,615,325\n  - Private equity (2023-05-01)\n  - Private equity (2023-03-01)\n\n## Workforce\n- Employees: 698\n- Company Size: 1001-5000 employees\n  - Monthly Growth: -0.3%\n  - Yearly Growth: -7.3%\n- Key Executives:\n  - ALESSANDRA SALVELLI: Sales Director Kids\n  - Alain Broekaert: Owner\n  - Alan PIVOVAR: Head Designer in Men's Outerwear\n  - Andre Mende: Head Of Sales\n  - Bertino Watara: Founder of Watara Cleaning Services\n  - Chloe Struyk: Design Director\n  - David Gregorio: Directeur de magasin\n  - Emese Bakó: Marketing Director\n  - Galit Weiner: Sales Director\n  - Grace Yuan: Managing Director - Greater China\n- Breakdown:\n  - By Country: Netherlands: 114 (16%), United States: 43 (6%), France: 35 (5%), Germany: 28 (4%), South Africa: 19 (3%), Belgium: 18 (3%), Australia: 17 (2%), India: 15 (2%), Italy: 12 (2%), Canada: 10 (1%) (+21 more)\n  - By Department: Sales: 115 (16%), Design: 61 (9%), Operations: 42 (6%), Other Department: 38 (5%), Marketing: 34 (5%), General Management: 28 (4%), Customer Service: 14 (2%), Product: 12 (2%), Administrative: 11 (2%), Finance: 7 (1%) (+7 more)\n  - By Seniority: Specialist: 173 (25%), Manager: 89 (13%), Other Management: 63 (9%), Senior: 20 (3%), Director: 18 (3%), Intern: 7 (1%), Head: 6 (1%), Clevel: 2, Founder: 2, Owner: 2 (+1 more)\n- Salary ranges (20 of 31 roles):\n  - Financial Controller: median 62,034.94 EUR per year\n  - PR Manager: median 47,793.56 EUR per year\n  - Marketing: median 34,654.86 EUR per year\n  - Sustainability Coordinator: median 33,397.79 EUR per year\n  - Business Controller: median 68,315.05 EUR per month\n  - Fashion Designer: median 43,200 EUR per month\n  - Filialleiter: median 43,036.44 EUR per month\n  - Designer: median 40,688.89 EUR per month\n  - Office Manager: median 40,449.13 EUR per month\n  - Digital Designer: median 39,525.87 EUR per month\n  - Assistent bedrijfsleider: median 32,742.16 EUR per month\n  - Copywriter: median 31,868.03 EUR per month\n  - Verkoper: median 26,964.13 EUR per month\n  - Responsable adjoint: median 21,638.6 EUR per month\n  - Vendeur: median 21,179.08 EUR per month\n  - Design Intern: median 5,115.71 EUR per month\n  - ECommerce Manager: median $90,285.54 per year\n  - General Manager: median $86,717.65 per year\n  - Logistics Manager: median $82,061.34 per year\n  - Store Manager: median $74,748.5 per year\n- Talent Sources: G-STAR (60), Tommy Hilfiger (52), PVH Corp. (46), Inditex (46), Diesel (42), H&M (35), BESTSELLER (24), AllSaints (23), Albert Heijn (23), de Bijenkorf (21)\n- Alumni Go To: Tommy Hilfiger (47), Nike (31), G-STAR (28), United Legwear & Apparel Co. (27), Rituals (B Corp™) (27), PVH Corp. (27), Diesel (27), HUGO BOSS (21), Sissy-Boy (19), G-Star RAW (16)\n\n## Products & Technology\n- Tech Stack (showing 50 of 52): adobe, adobe illustrator, css, dell, html, javascript, microsoft, microsoft excel, sd wan, typescript, zalando, nuorder, qlik, microsoft dynamics, dash, adobe photoshop, microsoft office, adyen, docusign, jazzhr, microsoft dynamics ax, edifact, json, microsoft outlook, sql, amp, impact, mix, sketch, spring, storybook, ups, visa, well, blender, ease, unity, vue.js, chrome, segment, keynote, elk, google analytics, alteryx, google docs, namely, c, ecc, entrata, medium\n\n## Web presence\n\n- Twitter: twitter.com/scotch_soda\n- Facebook: facebook.com/scotchsoda\n- Crunchbase: crunchbase.com/organization/s-s-usa-retail-llc-duplicate\n- Web traffic:\n  - Monthly visits: 286,661\n  - Bounce rate: 35.0%\n  - Pages per visit: 4.9\n  - Average visit duration: 118s\n\n## Reviews & Ratings\n- Employer Rating: 3.4/5.0 (363 reviews)\n  - Breakdown: Work-Life: 3.3, Compensation: 2.9, Culture: 3.4, Career: 2.9\n\n## Categories\n\naccessories, amsterdam couture, amsterdams blauw, apparel, barfly, children, clothing, consumer goods, denim, e-commerce, fashion, franchise, modern style, online shopping, personal care and hygiene, premium fabrics, retail, scotch & soda, shoes, sunglasses, wholesale\n\n## Competitors\n\nben sherman, browns, matches, h&m, stella mccartney, zara, armani, gap, uniqlo, urbn, scabal, j.crew, american eagle outfitters inc, the limited, ied, luisaviaroma, mytheresa\n\n## Recent News\n- [2026-09-09]\n  - [Ari Hoffman Named Chairman of TômTex Biomaterials to Lead Sustainable Growth Across Industries](https://wwd.com/fashion-news/fashion-scoops/ari-hoffman-chairman-tomtex-biomaterials-1239204309/)\n  - [Marc Jacobs, Michael Kors, Maserati y otras marcas que todavía no están en la Argentina llegan a un nuevo shopping](https://www.clarin.com/economia/marc-jacobs-michael-kors-maserati-marcas-todavia-argentina-llegan-nuevo-shopping_0_POGmSPDnpI.html)\n- [2026-09-08] [Allemagne. De nouvelles boutiques : le village de marques frontalier « Zweibrücken Fashion Outlet » s'agrandit](https://www.dna.fr/economie/2026/09/08/de-nouvelles-boutiques-le-village-de-marques-frontalier-zweibrucken-fashion-outlet-s-agrandit)\n- [2026-08-31] [Ib Kamara's departure marks a turning point for Off-White](https://fashionunited.uk/news/people/ib-kamaras-departure-marks-a-turning-point-for-off-white/2026083190055)\n\n## Social\n\n### Linkedin\n\n- [2024-10-21 · 126 reactions, 3 comments] Read all about our creative team and the future of design 👏 FashionUnited - Bluestar Alliance - #ScotchAndSoda\n\n- [2024-09-17 · 326 reactions, 7 comments] Our new chapter starts now - read all about it in The Business of Fashion @Bluestar Alliance #ScotchAndSoda\n\n- [2024-09-10 · 303 reactions, 4 comments] Today marks the start of a bold new era! Introducing Joe Jonas - our first brand ambassador for Scotch & Soda. Together with Joe, we’re thrilled to launch our Fall 2024 campaign. In celebration, Jo...\n\n- [2024-07-19 · 257 reactions, 4 comments] Excited to announce that Bluestar Alliance, owner of the Scotch & Soda brand, announces that its licensee GAB | Groep Alain Broekaert Fashion Agency has Acquired Nine Belgian Scotch & Soda Stores t...\n\n- [2024-03-25 · 204 reactions, 2 comments] Excited to share a glance into the world of Scotch & Soda inspiration and a new global perspective! https://bit.ly/3vqpvmS\n\n- [2024-02-03 · 91 reactions] Simply Classic - Our shearling jacket featured in the FW'24 Trend Preview for Chicago Collective #ScotchAndSoda #ChicagoCollective #TrendPreview #FW24\n\n- [2024-02-02 · 246 reactions, 4 comments] We are thrilled to tell our story in today's issue of WWD! Read all about our journey and exciting plans for growth with Bluestar Alliance. https://lnkd.in/eKBMNRXX #ScotchAndSoda #BluestarAlliance\n\n- [2024-01-16 · 133 reactions, 2 comments] Scotch & Soda featured on WWD as Best Trends From Pitti Uomo 105 - Pitti Immagine https://lnkd.in/erK-kx9Y\n\n- [2023-11-15 · 554 reactions, 3 comments] Scotch & Soda announces Joe Jonas, international pop icon, songwriter and actor, as its first official brand ambassador. Joe Jonas has long been recognized for his globally inspired and confident a...\n\n## Locations\n- Headquarters: amsterdam, netherlands (NL)\n- Offices: amsterdam, netherlands (NL), düsseldorf, nordrhein-westfalen, germany (DE), hoofddorp, noord-holland, netherlands (NL), hoofddorp, netherlands (NL), new york, new york, united states (US), amsterdam, north holland, netherlands (NL), paris, île-de-france, france\n\n## Parent organization\n\n- Bluestar Alliance",
+        "summary": "{\"description\":\"Scotch & Soda is a Retail Apparel and Fashion company offering thoughtfully designed apparel, accessories, and denim with premium fabrics and modern Amsterdam-inspired style.\",\"employee_estimate\":698,\"employee_estimate_source\":\"Employees: 698 (YoY -7.3%, -55 people)\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Senior: 20 (3%), Director: 18 (3%), Intern: 7 (1%)\",\"hq\":\"Amsterdam, Netherlands\",\"hq_quote\":\"Headquartered in Amsterdam, Netherlands, with presence in United States and France.\",\"industry\":\"Retail Apparel and Fashion\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"- Industry: Retail Apparel and Fashion\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":false,\"recently_funded_seed_or_series_a_quote\":\"- Private equity (2023-05-01) - Private equity (2023-03-01)\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C560BAQFyyMWXaRKD3A/company-logo_200_200/company-logo_200_200/0/1630669965936/scotch__soda_logo?e=2147483647&v=beta&t=dlT6-oe35kL2ag1jFZrdg8IqI0rOHpcXbDn5FJVAXsY",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/2yxzb2xztzq",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Scotch & Soda",
+              "foundedYear": 1985,
+              "description": "Scotch & Soda celebrates the free spirit of Amsterdam. Endlessly optimistic, we’re inspired by the liberal outlook of our home city, and we champion individuality, authenticity and the power of self-expression – an attitude reflected in our designs.\n\nEffortlessly connecting the expected with the unexpected, our men, women and kids’ collections redefine everyday dressing. We mix classic with contemporary, colour with print, and clashing textures to deliver pieces that remain true to the Scotch & Soda aesthetic. Grounded in practicality and finished with surprising details, our feel-good designs are uniquely ours – for you to make your own.\n\nDesigning beautiful, feel-good pieces is one thing, but we also imagine a world where we do good, too. One of our top priorities is to run our business with greater sensitivity to our planet by making more responsible, sustainable choices every day in order to reduce our environmental impact.",
+              "workforce": {
+                "total": 698
+              },
+              "headquarters": {
+                "address": "Keizersgracht 105, Amsterdam, 1015 CN, NL",
+                "city": "Amsterdam",
+                "postalCode": null,
+                "country": "Netherlands"
+              },
+              "financials": {
+                "revenueAnnual": 365615325,
+                "fundingTotal": null,
+                "fundingLatestRound": {
+                  "name": "Private equity",
+                  "date": "2023-05-01",
+                  "amount": null
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 286661,
+                "countryRank": null,
+                "avgDurationSeconds": 118,
+                "history": [
+                  {
+                    "value": 197080,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 200259,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 224617,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 221555,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 233226,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 286661,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 5851.2,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

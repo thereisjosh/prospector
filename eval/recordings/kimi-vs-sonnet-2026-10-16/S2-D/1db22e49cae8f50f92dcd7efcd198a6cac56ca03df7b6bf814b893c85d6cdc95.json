@@ -1,0 +1,262 @@
+{
+  "request": {
+    "query": "Ours Privacy",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "824df912a7edc75e6aa0e29e9cea88a3",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/kf2gn91zmmx",
+        "title": "Ours Privacy",
+        "url": "https://oursprivacy.com/",
+        "text": "# Ours Privacy\n\nOurs Privacy is a Data Infrastructure and Analytics company. Ours Privacy is a HIPAA-compliant CDP + privacy platform that unlocks optimized ads and analytics while making sure sensitive data never reaches non-compliant tools. Ours Privacy employs 32 people (+166.7% YoY, +20 people). Headquartered in Houston, Texas, United States.\n\n## About\n\nWe believe that you shouldn’t have to choose between growth and patient privacy. Our HIPAA-compliant customer data platform enables marketers to use best in class tools - GTM, GA4, Google Ads, Meta, and more - without sacrificing patient privacy. Our CDP removes PHI so you can optimize every step of your funnel with confidence.\n\nOurs Privacy is built by experts in healthcare, martech, and security, helping you scale responsibly, with confidence. We're lucky to be backed by an experienced group of investors, including Serena Ventures, Adam Grant, Lakehouse, Andy Dunn, TMV, Bullish, Collab Fund, GreyMatter, Switch Ventures and more.\n\n## Company Details\n- Industry: Data Infrastructure and Analytics\n- Type: Privately held\n- Headquarters: Houston, United States\n- Homepage: oursprivacy.com\n- Aliases: Ours Wellness, Inc., ours privacy\n- LinkedIn: linkedin.com/company/ours-privacy\n- Linkedin Followers: 1,435\n- Emails: support@oursprivacy.com\n\n## Financials\n- Total Funding: USD 15,000,000\n  - Series a (2026-08-01): USD 15.0M\n  - Seed (2025-08-28)\n\n## Workforce\n- Employees: 32\n- Company Size: 11-50 employees\n  - Monthly Growth: +3.2%\n  - Yearly Growth: +166.7%\n- Key Executives:\n  - Adam Putterman: Co-Founder\n  - Katherine Mechling: Director of Communications\n  - Rob Gerdon: VP of Sales, Health Systems\n  - Robert LaPrise: Head of Analytics and Reporting Engineering\n  - Sophia Zey: Head of Marketing\n  - Tu Nguyen: Head of Customer Success\n- Breakdown:\n  - By Country: United States: 23 (72%)\n  - By Department: Technical: 8 (25%), Consulting: 4 (12%), Customer Service: 3 (9%), Marketing: 3 (9%), Other Department: 3 (9%), Sales: 2 (6%)\n  - By Seniority: Specialist: 9 (28%), Head: 3 (9%), Manager: 3 (9%), Other Management: 3 (9%), Senior: 2 (6%), Director: 1 (3%), Founder: 1 (3%), Vp: 1 (3%)\n- Talent Sources: Unlock Health (2), Smart Panda Labs (2), Ours Therapy (2), Tundra Angels (1), Symetris (1), Sedric (1), Seattle Rep (1), Monte Carlo (1), Lighthouse (1), Bicycle Health (1)\n- Alumni Go To: Speero (1), Single Aim (1), Redo (1), JOYMODE (1), Atlas Health Group Inc. (1)\n\n## Products & Technology\n- Tech Stack: adtech, cookie consent, css3, facebook, facebook pixel, firebase, google tag manager, html5, hubspot, javascript, linkedin, linkedin insight tag, martech, mixpanel, salesforce, shopify, google ads, intercom, stackadapt, zendesk, amp, impact, segment, slack\n\n## Web presence\n\n- Twitter: twitter.com/oursprivacyco\n- Crunchbase: crunchbase.com/organization/ours-privacy\n- Web traffic:\n  - Monthly visits: 26,729\n  - Global rank: 877,214\n  - Bounce rate: 25.0%\n  - Pages per visit: 3.2\n  - Average visit duration: 55s\n\n## Categories\n\nads, analytics, data, hipaa-compliant, information technology, privacy platform, security, software, technology/advertising\n\n## Recent News\n- [2026-09-16] TipRanks: Ours Privacy Highlights HIPAA-Eligible Partnership in Healthcare Marketing Technology\n- [2026-09-12]\n  - TipRanks: [Ours Privacy – Weekly Recap](https://www.tipranks.com/news/private-companies/ours-privacy-weekly-recap)\n  - [Branch – Weekly Recap - TipRanks.com](https://www.tipranks.com/news/private-companies/branch-weekly-recap)\n- [2026-09-11]\n  - TipRanks: [Ours Privacy Deploys Series A Capital Into Advanced Analytics For Healthcare Marketers](https://www.tipranks.com/news/private-companies/ours-privacy-deploys-series-a-capital-into-advanced-analytics-for-healthcare-marketers)\n  - Fierce Healthcare: Fierce Healthcare Fundraising Tracker '26: Epsilon Health nabs $27.6M; Implicity secures $40M\n- [2026-08-27] Fierce Healthcare: Funding Tracker '26: Ours Privacy, Arintra and Happy Health\n- [2026-08-26] TipRanks: Ours Privacy Positions Its Healthcare Data Platform Amid Rising FTC Scrutiny\n- [2026-08-21]\n  - [Daily Research News Online no. 40224 - Funds for Healthcare Data Firm Ours Privacy](https://www.mrweb.com/drno/news40224.htm)\n  - [Ours Privacy Scores $15M Series A Round](https://vcnewsdaily.com/ours-privacy/venture-capital-funding/qgcplwxqbn)\n  - [Every VC CX deal you need to know: August 21](https://www.cxnetwork.com/cx-experience/news/every-vc-cx-deal-you-need-to-know-august-21/amp)\n- [2026-08-20] Pulse 2.0: [Ours Privacy Raises $15 Million Series A To Scale HIPAA-Compliant Healthcare Marketing Platform Across 200+ Organizations](https://pulse2.com/ours-privacy-raises-15-million-series-a-to-scale-hipaa-compliant-healthcare-marketing-platform-across-200-organizations/)\n- [2026-08-19]\n  - [Fractile eyes $6.5b, Rivian's spinout raises $150m, and PE blazes into fire safety](https://www.axios.com/pro/all-deals/2026/08/19/pro-rata-premium-first-look)\n  - [ours-privacy-secures-15-million-series-a-to-scale-hipaa-compliant-marketing-data-platform](https://www.tipranks.com/news/private-companies/ours-privacy-secures-15-million-series-a-to-scale-hipaa-compliant-marketing-data-platform)\n  - [Ours Privacy Raises $15M Series A](https://www.thesaasnews.com/news/ours-privacy-raises-15m-series-a/)\n  - [Ours Privacy Raises $15M Series A to Accelerate Its Privacy-First Growth Marketing and Data Infrastructure Platform for Healthcare ...Middle East](https://eng.pressbee.net/show4837432.html?title=ours-privacy-raises-15m-series-a-to-accelerate-its-privacy-first-)\n  - PR Newswire: Ours Privacy Raises $15M Series A to Accelerate Its Privacy-First Growth Marketing and Data Infrastructure Platform for Healthcare\n- [2026-08-18] [HIPAA-compliant marketing platform Ours Privacy lands $15M](https://www.fiercehealthcare.com/health-tech/hipaa-compliant-marketing-platform-ours-privacy-lands-15m)\n- [2026-08-17]\n  - Fierce Healthcare: HIPAA-compliant marketing platform Ours Privacy lands $15M amid growing pixel concerns\n  - citybiz: Ours Privacy Raises $15M Series A to Expand Healthcare Marketing Platform\n- [2025-11-05] PRWeb: Ours Privacy Expands Privacy Platform With Session Replay\n- [2025-07-28] PRWeb: Ours Privacy Becomes First to Offer End-to-End Privacy Solution for Healthcare Marketing\n\n## Social\n\n### Linkedin\n\n- [2026-09-30 · Reshared · 20 reactions] [Trust is everything in healthcare. Consumers need to be able to...](https://www.linkedin.com/posts/ours-privacy_shsmd26-activity-7511121009370943488-QDwn): Trust is everything in healthcare. Consumers need to be able to trust that healthcare organizations will respect their privacy, and that trust gets built well before they actually book an appointme...\n\n- [2026-09-25 · Posted · 11 reactions] [We're proud to not only attend and present at the 2026 WHPRMS +...](https://www.linkedin.com/posts/ours-privacy_were-proud-to-not-only-attend-and-present-activity-7509292175969501185-b4uI)\n  > We're proud to not only attend and present at the 2026 WHPRMS + ISHMPR Bi-State Conference, but to sponsor the Awards Dinner on Wednesday, October 7.\n  >\n  > If you'll be there, keep an eye out for Ours Privacy's Rob Gerdon and Sophia Zey, who also serves as membership chair on the WHPRMS board. And definitely don’t miss Sophia presenting “New Rules of Privacy-First Marketing” for insights on how healthcare marketers can deliver meaningful, modern campaigns as privacy regulations and patient expectations continue to evolve.\n  >\n  > See you soon in Rockford, IL!\n  >\n  > WHPRMS (Wisconsin Healthcare Public Relations and Marketing Society) ILLINOIS SOCIETY FOR HEALTHCARE MARKETING AND PUBLIC RELATIONS\n\n- [2026-09-24 · Reshared · 2 reactions] [If you're heading to Orlando for HCIC next month, we'd love to see...](https://www.linkedin.com/posts/ours-privacy_if-youre-heading-to-orlando-for-hcic-next-activity-7508932900906782720-50WT): If you're heading to Orlando for HCIC next month, we'd love to see you there.\n\n- [2026-09-24 · Posted · 16 reactions] [We shipped two updates this week that make it easier to see what’s...](https://www.linkedin.com/posts/ours-privacy_platform-updates-visitor-maps-and-behavior-based-activity-7508908382259408896-51gR)\n  > We shipped two updates this week that make it easier to see what’s happening on your site and act on it.\n  >\n  > 🗺️ Visitor maps are now part of Web Analytics\n  > You can now see U.S. traffic broken down state by state and click into any state for city-level detail.\n  >\n  > 🔁 Personalization can now use a visitor’s past behavior\n  > You can now use what a visitor has already done on your site to shape what they see on their next visit.\n  >\n  > Details here: https://lnkd.in/gFiZx3Ye\n\n- [2026-09-23 · Reshared · 2 reactions] [Privacy regulations have made it harder to track the patient...](https://www.linkedin.com/posts/ours-privacy_activity-7508527460305539072-W38e): Privacy regulations have made it harder to track the patient journey, but compliant measurement is still possible. Learn how healthcare marketers can connect marketing activity to patient actions w...\n\n- [2026-09-21 · Posted · 21 reactions] [SHSMD Connections 2026 is headed to Baltimore September 27-29...](https://www.linkedin.com/posts/ours-privacy_shsmd26-activity-7507841701768646656-ol5q)\n  > SHSMD Connections 2026 is headed to Baltimore September 27-29, bringing hundreds of health care strategists and marketers together for three days of collaboration.\n  >\n  > If you'll be there, helping to shape the future of healthcare marketing, we encourage you to think about how privacy fits into the equation. It's our belief that privacy-first marketing doesn't just make marketing safer, it makes it better.\n  >\n  > We'd love to tell you more. Adam Putterman, Rob Gerdon, Sophia Zey, and Phil Knight from the Ours Privacy team will be on the ground in Baltimore. Come say hi! #SHSMD26\n\n- [2026-09-18 · Reshared · 9 reactions] [New #TouchPoint #podcast : ChatGPT Atlas clicks reject all on your...](https://www.linkedin.com/posts/ours-privacy_activity-7506811368482820096-iRYf): New #TouchPoint #podcast : ChatGPT Atlas clicks reject all on your cookie banner by default. Other agents never render the banner at all, and your server processes the request anyway. Chris Boyer a...\n\n- [2026-09-18 · Reshared · 5 reactions] [🎸 Meet the Road Crew: Ours Privacy 🎸 Every great show needs a crew...](https://www.linkedin.com/posts/ours-privacy_activity-7506811165180645376-7m0_): 🎸 Meet the Road Crew: Ours Privacy 🎸 Every great show needs a crew behind the scenes making sure everything runs without a hitch. A big thank-you to Ours Privacy , the official Awards Dinner Sponso...\n\n- [2026-09-18 · Reshared · 5 reactions] [🚨 Happening today (9/18) during ROI & Performance Marketing Week...](https://www.linkedin.com/posts/ours-privacy_activity-7506755331939602432-FsjW): 🚨 Happening today (9/18) during ROI & Performance Marketing Week: 1:00 p.m. ET — Proving Marketing ROI Without Compromising Patient Privacy 2:30 p.m. ET — The Next Three Years of Marketing Measurem...\n\n- [2026-09-17 · Reshared · 7 reactions] [𝐒𝐩𝐨𝐧𝐬𝐨𝐫 𝐒𝐩𝐨𝐭𝐥𝐢𝐠𝐡𝐭 💡 𝐓𝐡𝐚𝐧𝐤 𝐲𝐨𝐮 𝐭𝐨 𝐎𝐮𝐫𝐬 𝐏𝐫𝐢𝐯𝐚𝐜𝐲, 𝐚 𝐏𝐥𝐚𝐭𝐢𝐧𝐮𝐦 𝐒𝐩𝐨𝐧𝐬𝐨𝐫...](https://www.linkedin.com/posts/ours-privacy_activity-7506424892892983297-GuwA): 𝐒𝐩𝐨𝐧𝐬𝐨𝐫 𝐒𝐩𝐨𝐭𝐥𝐢𝐠𝐡𝐭 💡 𝐓𝐡𝐚𝐧𝐤 𝐲𝐨𝐮 𝐭𝐨 𝐎𝐮𝐫𝐬 𝐏𝐫𝐢𝐯𝐚𝐜𝐲, 𝐚 𝐏𝐥𝐚𝐭𝐢𝐧𝐮𝐦 𝐒𝐩𝐨𝐧𝐬𝐨𝐫 𝐨𝐟 𝐭𝐡𝐞 𝟐𝟎𝟐𝟔 𝐂𝐇𝐏𝐑𝐌𝐒 𝐂𝐨𝐧𝐟𝐞𝐫𝐞𝐧𝐜𝐞! Built by healthcare marketers, for healthcare marketers, Ours Privacy is a HIPAA-compliant customer...\n\n- [2026-09-16 · Posted · 19 reactions] [This Friday, Jessica Holton, CEO at Ours Privacy, and Amanda...](https://www.linkedin.com/posts/ours-privacy_this-friday-jessica-holton-ceo-at-ours-activity-7506030524834955264-i0l7)\n  > This Friday, Jessica Holton, CEO at Ours Privacy, and Amanda Doucette, TEP, Executive Director of Digital Marketing at Cleveland Clinic, will be speaking on an eHealthcare webinar all about proving marketing ROI without compromising patient privacy.\n  >\n  > Register here: https://lnkd.in/e5G9vbfJ\n  >\n  > Can’t make it live? Sign up and get the full recording to watch on demand.\n\n- [2026-09-11 · Reshared · 12 reactions] [Patients expect their healthcare experience to feel like their...](https://www.linkedin.com/posts/ours-privacy_patients-expect-their-healthcare-experience-activity-7504229252482052096-h8N8): Patients expect their healthcare experience to feel like their consumer experience: smooth, convenient, and available wherever they already are. For a lot of patients, that means managing their car...\n\n- [2026-09-10 · Posted · 25 reactions] [A few weeks ago, we announced a $15M Series A to build the best...](https://www.linkedin.com/posts/ours-privacy_platform-updates-experiment-methodology-activity-7503813426163597312-roOv)\n  > A few weeks ago, we announced a $15M Series A to build the best platform for healthcare marketers. Here's what we've shipped since then.\n  >\n  > - Pick the statistics behind an experiment result. Choose Bayesian, frequentist, or sequential before publishing an experiment.\n  >\n  > - Track video engagement. Every video now shows an engagement curve: opening retention, average watch time, forward skips, rewinds.\n  >\n  > - Review in-app AI summaries of your existing reports. Surface insights quickly with summaries for session replays, heatmaps, funnels, and more.\n  >\n  > Full details in the blog: https://lnkd.in/gmdx3WbX\n\n- [2026-09-01 · Reshared · 11 reactions] [One of the best tools we’ve added to our healthcare marketing stack...](https://www.linkedin.com/posts/ours-privacy_activity-7500611816620818433-51n-): One of the best tools we’ve added to our healthcare marketing stack came from a Reddit comment with one upvote. In early 2025, I was trying to find a HIPAA-compliant CDP for one of our dental clien...\n\n- [2026-08-31 · Reshared · 2 reactions] [Thank you Art Zabalov for the thoughtful review!](https://www.linkedin.com/posts/ours-privacy_thank-you-art-zabalov-for-the-thoughtful-activity-7500218291685216256-EsUZ): Thank you Art Zabalov for the thoughtful review!\n\n- [2026-08-26 · Posted · 25 reactions] [📅 Inside the Unredacted Hims & Hers Complaint On July 29th, the FTC...](https://www.linkedin.com/posts/ours-privacy_inside-the-unredacted-hims-hers-complaint-activity-7498460549005852673-8K8p)\n  > 📅 Inside the Unredacted Hims & Hers Complaint\n  >\n  > On July 29th, the FTC sued Hims & Hers over its advertising data practices. The recently unredacted filing reveals what regulators are focused on, and what it could mean for the next few years of privacy litigation.\n  >\n  > Join our co-founder Adam Putterman, Chris Turitzin of Single Aim, and Aaron Maguregui of Foley & Lardner LLP for a conversation on what healthcare marketing teams should be doing differently as a result.\n  >\n  > And a reminder, this is exactly the category of technical problem Ours Privacy is built to address: keeping sensitive healthcare data out of downstream advertising and analytics platforms while still allowing healthcare marketers to measure and reach patients.\n  >\n  > Unable to attend? Register and we’ll send you the link to the unredacted files in addition to the recording.\n  >\n  > Register: https://lnkd.in/gUargVM3\n\n- [2026-08-26 · 29 reactions, 1 comment] 📅 Inside the Unredacted Hims & Hers Complaint On July 29th, the FTC sued Hims & Hers over its advertising data practices. The recently unredacted filing reveals what regulators are focused on, and...\n\n- [2026-08-19 · Reshared · 134 reactions] [We're announcing our $15M Series A today at Ours Privacy . I'm...](https://www.linkedin.com/posts/ours-privacy_activity-7495915113661530113-zoGA): We're announcing our $15M Series A today at Ours Privacy . I'm proud to be designing, building, and shipping product with a great team and a set of customers who tell us the truth. Part of our stor...\n\n- [2026-08-19 · Reshared · 672 reactions] [Excited to announce our oversubscribed $15m Series A. Few things to...](https://www.linkedin.com/posts/ours-privacy_activity-7495883410561802240-l2xU): Excited to announce our oversubscribed $15m Series A. Few things to highlight: 1/ I feel stupidly grateful for my cofounders, our team, and all of the partners that helped us get here. 2/ I’m proud...\n\n- [2026-08-19 · Posted · 96 reactions] [We’re honored to announce that we have closed an oversubscribed...](https://www.linkedin.com/posts/ours-privacy_were-honored-to-announce-that-we-have-closed-activity-7495837580190691328-N0Qx)\n  > We’re honored to announce that we have closed an oversubscribed $15M Series A, led by Lightbank and Health Velocity Capital.\n  >\n  > Healthcare marketers face increasingly strict data privacy regulations. To stay compliant, many have severely limited their ability to see how their marketing is performing, including removing tracking pixels altogether.\n  >\n  > We built Ours Privacy so that healthcare marketers would never have to choose between growth and compliance. Marketers get all the growth tools they need built upon privacy-first infrastructure, all accessible from one system instead of a fragmented set of tools.\n  >\n  > Over 200 healthcare organizations, from multi-billion-dollar enterprises to fast-growing startups, already power their marketing with Ours Privacy. This raise allows us to accelerate development and bring our privacy-first growth marketing platform to more healthcare organizations, faster.\n  >\n  > We could not be more excited about what’s to come.\n  >\n  > Thank you to Anastassia Gliadkovskaya for covering this news in an exclusive advanced interview at Fierce Healthcare. Check out the piece and our announcement in the comments.\n\n## Locations\n- Headquarters: houston, texas, united states\n- Offices: houston, texas, united states",
+        "summary": "{\"description\":\"Ours Privacy is a HIPAA-compliant CDP + privacy platform that unlocks optimized ads and analytics while making sure sensitive data never reaches non-compliant tools.\",\"employee_estimate\":32,\"employee_estimate_source\":\"Employees: 32\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Head of Operations / RevOps? Not explicitly listed. However, the page lists various executives including Head of Marketing, VP of Sales, etc. No explicit 'Operations/RevOps' hire mentioned.\",\"hq\":\"Houston, Texas, United States\",\"hq_quote\":\"Headquarters: Houston, United States\",\"industry\":\"Data Infrastructure and Analytics\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Data Infrastructure and Analytics\\n- Type: Privately held\\n- Headquarters: Houston, United States\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 15,000,000\\n  - Series a (2026-08-01): USD 15.0M\\n  - Seed (2025-08-28)\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQHy20C4p35KUg/company-logo_200_200/B56ZkKt.ECHAAM-/0/1756821447231/ours_privacy_logo?e=2147483647&v=beta&t=ZbE86ZM8M-MTykSwKkUGV4rJ5eip6xBmigsR_A5Vji4",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/kf2gn91zmmx",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Ours Privacy",
+              "foundedYear": null,
+              "description": "We believe that you shouldn’t have to choose between growth and patient privacy. Our HIPAA-compliant customer data platform enables marketers to use best in class tools - GTM, GA4, Google Ads, Meta, and more - without sacrificing patient privacy. Our CDP removes PHI so you can optimize every step of your funnel with confidence.\n\nOurs Privacy is built by experts in healthcare, martech, and security, helping you scale responsibly, with confidence. We're lucky to be backed by an experienced group of investors, including Serena Ventures, Adam Grant, Lakehouse, Andy Dunn, TMV, Bullish, Collab Fund, GreyMatter, Switch Ventures and more.",
+              "workforce": {
+                "total": 32
+              },
+              "headquarters": {
+                "address": "1220 Blalock Rd, Houston, Texas 77055, US",
+                "city": "Houston",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 15000000,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2026-08-01",
+                  "amount": 15000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 26729,
+                "countryRank": 204123,
+                "avgDurationSeconds": 55,
+                "history": [
+                  {
+                    "value": 8544,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 23786,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 40752,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 37710,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 47919,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 26729,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/qf40jsxf1tj",
+        "title": "Privacy Company",
+        "url": "https://privacycompany.eu/",
+        "text": "# Privacy Company\n\nPrivacy Company is a Legal Services company. Privacy Company offers user-friendly software, in-depth training, and specialized consulting services. Privacy Company employs 52 people (+15.6% YoY, +7 people). Headquartered in The Hague, South Holland, Netherlands, with presence in United States. Its workforce is distributed across Netherlands, Malaysia, Germany, and Italy.\n\n## About\n\nAt Privacy Company we believe in a world in which every organization works actively on data protection. Under the motto Making Data Protection Easy, Privacy Company offers advice, training and software to build a privacy friendly and safe organisational culture. Our team of experienced consultants help organisations quickly and with industry-leading quality to become and remain compliant with the General Data Protection Regulation (GDPR).\n\n## Company Details\n- Industry: Legal Services\n- Type: Privately held\n- Headquarters: The Hague, Netherlands\n- Homepage: privacycompany.eu\n- Aliases: Privacy Company B.V., privacy, privacy company\n- LinkedIn: linkedin.com/company/privacycompany\n- Linkedin Followers: 4,878\n- Emails: info@privacycompany.nl\n- Phone: +31 0 70 820 96 90, +31 70820969, +49 16098404354\n\n## Workforce\n- Employees: 52\n- Company Size: 11-50 employees\n  - Yearly Growth: +15.6%\n- Key Executives:\n  - Arnold Roosendaal: Director\n  - Charl Tuwanakotta: Owner\n  - Frank Koppejan: Managing Director\n- Breakdown:\n  - By Country: Netherlands: 29 (56%), Malaysia: 2 (4%), Germany: 1 (2%), Italy: 1 (2%)\n  - By Department: Consulting: 11 (21%), Legal: 4 (8%), General Management: 3 (6%), Hr: 3 (6%), Other Department: 3 (6%), Design: 2 (4%), Operations: 2 (4%), Technical: 2 (4%), Administrative: 1 (2%), Customer Service: 1 (2%) (+2 more)\n  - By Seniority: Specialist: 15 (29%), Senior: 7 (13%), Other Management: 5 (10%), Manager: 3 (6%), Director: 2 (4%), Intern: 1 (2%), Owner: 1 (2%)\n- Salary ranges:\n  - Account Manager: median 74,647.88 EUR per year\n  - Senior Software Developer: median 46,000.46 EUR per year\n  - Junior privacy advisor: median 39,982.6 EUR per year\n  - Office Manager: median 41,001.55 EUR per month\n  - UX Designer: median 34,495.33 EUR per month\n  - Community Manager: median 25,587.26 EUR per month\n  - Accountant: median 140,072.1 MYR per year\n  - Change Management: median 120,020.4 AUD per year\n  - Privacy Specialist: median 89,613 GBP per year\n  - Data Privacy Consultant: median 44,735.13 GBP per year\n  - Scrum Master: median 43,075.56 GBP per year\n  - Graphic Designer: median 53,676,810 IDR per month\n  - Operations: median 748,712.97 INR per month\n  - Officer: median 181,094.4 HKD per month\n  - Analista Atendimento ao Cliente: median 99,057.8 BRL per month\n  - Admin Executive: median 47,891.04 MYR per month\n- Talent Sources: PuraSec B.V. (2), Leiden Learning & Innovation Centre (2), Delft University of Technology (2), Cleverbase (2), Maastricht University Faculty of Law (1), IDnext association (1), Greenchoice (1), Famed B.V. (1), European Commission (1), Calco (1)\n- Alumni Go To: Quandoo | Online Restaurant Booking (3), Energie Data Services Nederland (EDSN) B.V. (2), Deloitte (2), Cleverbase (2), Centre for IT & IP Law (CiTiP) @KU Leuven (2), Twents Carmel College (1), TWC / The Widget Company (1), Qii (1), Leiden Law School (1), Amsterdam University of Applied Sciences (1)\n\n## Products & Technology\n- Tech Stack: culture amp, deel, scala, amp, impact, well\n\n## Web presence\n\n- Twitter: twitter.com/privacy_company\n- YouTube: youtube.com/@privacycompany5475\n- Crunchbase: crunchbase.com/organization/privacy-company-dff6\n- Web traffic:\n  - Monthly visits: 4,867\n  - Global rank: 3,496,634\n  - Bounce rate: 37.0%\n  - Pages per visit: 2.1\n  - Average visit duration: 38s\n\n## Reviews & Ratings\n- Employer Rating: 4.6/5.0 (6 reviews)\n  - Breakdown: Work-Life: 4.0, Compensation: 4.0, Culture: 4.0, Career: 4.0\n\n## Categories\n\nadvice, advies, avg, business-services, compliance, computers_electronics_and_technology/computer_security, consulting, data privacy services, data privacy services providers, data protection, datalekken, dpia, e-learning, enterprise-software, fg as a service, gdpr, gegevensbescherming, implementatie, privacy, privacy by default, privacy by design, privacy company, privacy management, privacy software, software, technology/software, training, user-friendly\n\n## Competitors\n\nthe privacy factory, steele compliance wave, legal island, allencomm\n\n## Social\n\n### Linkedin\n\n- [2026-09-25 · Posted · 35 reactions] [Afgelopen week was het Vitaliteitsweek op kantoor! 🌱 Om onze...](https://www.linkedin.com/posts/privacycompany_afgelopen-week-was-het-vitaliteitsweek-op-activity-7509212451092062208-1N-u)\n  > Afgelopen week was het Vitaliteitsweek op kantoor! 🌱\n  >\n  > Om onze collega’s de hele week in beweging te houden, zich goed te laten voelen en vitaal te houden, stond er van alles op het programma. Van een work-out met Charl Tuwanakotta en een 5 km-wandeling tot heerlijke zelfgemaakte smoothies en een saladebar. We sloten de week ontspannen af met een stoelmassage.\n  >\n  > Een week vol gezonde energie en vooral veel gezelligheid.\n\n- [2026-09-18 · Posted · 23 reactions] [In de nieuwste podcast aflevering van qeep IT safe gaat Renco...](https://www.linkedin.com/posts/privacycompany_in-de-nieuwste-podcast-aflevering-van-qeep-activity-7506699308625301504-UeH9)\n  > In de nieuwste podcast aflevering van qeep IT safe gaat Renco Schoemaker in gesprek met Frank Koppejan, één van de oprichters van Privacy Company.\n  >\n  > In de aflevering hoor je waarom privacy meer is dan alleen “mag het?”, waarom privacy en security steeds meer samenkomen en waarom Privacy Company en PuraSec B.V. ruim een jaar geleden de krachten bundelden.\n  >\n  > Ook de snelle ontwikkelingen in AI en het bewust openbaar maken van DPIA’s komen aan bod.\n  >\n  > 🎙️ Luister de gehele podcast aflevering hier: https://lnkd.in/e3Rxc6Jd\n\n- [2026-09-18 · 23 reactions] In de nieuwste podcast aflevering van qeep IT safe gaat Renco Schoemaker in gesprek met Frank Koppejan, één van de oprichters van Privacy Company. In de aflevering hoor je waarom privacy meer is da...\n\n- [2026-09-11 · Posted · 49 reactions] [𝗪𝗮𝘁 𝗵𝗲𝗯 𝗷𝗲 𝗻𝗼𝗱𝗶𝗴 𝘃𝗼𝗼𝗿 𝗲𝗲𝗻 𝘄𝗲𝘁𝗴𝗲𝘃𝗶𝗻𝗴𝘀-𝗗𝗣𝗜𝗔 𝗲𝗻 𝘄𝗮𝗮𝗿 𝗹𝗲𝘁 𝗷𝗲 𝗼𝗽? Werk...](https://www.linkedin.com/posts/privacycompany_%F0%9D%97%AA%F0%9D%97%AE%F0%9D%98%81-%F0%9D%97%B5%F0%9D%97%B2%F0%9D%97%AF-%F0%9D%97%B7%F0%9D%97%B2-%F0%9D%97%BB%F0%9D%97%BC%F0%9D%97%B1%F0%9D%97%B6%F0%9D%97%B4-%F0%9D%98%83%F0%9D%97%BC%F0%9D%97%BC%F0%9D%97%BF-%F0%9D%97%B2-activity-7504079821539426304-3Yl4)\n  > 𝗪𝗮𝘁 𝗵𝗲𝗯 𝗷𝗲 𝗻𝗼𝗱𝗶𝗴 𝘃𝗼𝗼𝗿 𝗲𝗲𝗻 𝘄𝗲𝘁𝗴𝗲𝘃𝗶𝗻𝗴𝘀-𝗗𝗣𝗜𝗔 𝗲𝗻 𝘄𝗮𝗮𝗿 𝗹𝗲𝘁 𝗷𝗲 𝗼𝗽?\n  >\n  > Werk je bij de Rijksoverheid aan beleid of regelgeving waardoor persoonsgegevens worden verwerkt? Dan hoort daar een DPIA bij.\n  >\n  > Deze zogenoemde wetgevings-DPIA kent een aantal belangrijke verschillen met een gewone DPIA. Bovendien raakt de wetgevings-DPIA aan de wetgevingstoets van de Autoriteit Persoonsgegevens (AP). Maar wat betekent dat in de praktijk?\n  >\n  > Onze privacyadviseur Machiel van der Wal legt in zijn nieuwe blog 𝗪𝗲𝘁𝗴𝗲𝘃𝗶𝗻𝗴𝘀-𝗗𝗣𝗜𝗔: 𝘄𝗮𝗻𝗻𝗲𝗲𝗿, 𝗵𝗼𝗲 𝗲𝗻 𝗱𝗲 𝘄𝗲𝘁𝗴𝗲𝘃𝗶𝗻𝗴𝘀𝘁𝗼𝗲𝘁𝘀 uit:\n  >\n  > • waarin een wetgevings-DPIA verschilt van een gewone DPIA;\n  > • welke eisen het Model DPIA Rijksdienst (het Rijksmodel) stelt;\n  > • hoe de wetgevings-DPIA zich verhoudt tot de wetgevingstoets van de AP.\n  >\n  > 👉 𝗟𝗲𝗲𝘀 𝗵𝗲𝘁 𝗯𝗹𝗼𝗴 𝘃𝗮𝗻 𝗠𝗮𝗰𝗵𝗶𝗲𝗹: https://lnkd.in/eJAQvq9H\n  >\n  > Wanneer een DPIA precies verplicht is, legde onze privacyadviseur Suzette Verbeek eerder uit. Haar blog geeft daarmee de basis voor de vraag wanneer je een DPIA moet uitvoeren.\n  >\n  > Voor de Rijksoverheid geldt daarbij een specifieke situatie: ook bij het ontwikkelen van wet- en regelgeving met impact op de verwerking van persoonsgegevens is een DPIA verplicht. Daar komt de wetgevings-DPIA om de hoek kijken.\n  >\n  > 👉 𝗟𝗲𝗲𝘀 𝗵𝗲𝘁 𝗯𝗹𝗼𝗴 𝘃𝗮𝗻 𝗦𝘂𝘇𝗲𝘁𝘁𝗲: https://lnkd.in/gVqWzUZw\n\n- [2026-09-11 · 49 reactions] 𝗪𝗮𝘁 𝗵𝗲𝗯 𝗷𝗲 𝗻𝗼𝗱𝗶𝗴 𝘃𝗼𝗼𝗿 𝗲𝗲𝗻 𝘄𝗲𝘁𝗴𝗲𝘃𝗶𝗻𝗴𝘀-𝗗𝗣𝗜𝗔 𝗲𝗻 𝘄𝗮𝗮𝗿 𝗹𝗲𝘁 𝗷𝗲 𝗼𝗽? Werk je bij de Rijksoverheid aan beleid of regelgeving waardoor persoonsgegevens worden verwerkt? Dan hoort daar een DPIA bij. Deze zoge...\n\n- [2026-09-10 · Posted · 43 reactions] [De privacyrisico’s van doorgifte van persoonsgegevens naar de VS...](https://www.linkedin.com/posts/privacycompany_de-privacyrisicos-van-doorgifte-van-persoonsgegevens-activity-7503722248751665152-FnIT)\n  > De privacyrisico’s van doorgifte van persoonsgegevens naar de VS, geen makkelijk onderwerp. Toch maken organisaties in Nederland massaal gebruik van Amerikaanse clouddiensten en kan iedereen te maken krijgen met de risico’s, als klant of als werknemer.\n  >\n  > Vorige week publiceerden we een blog over de kans dat het adequaatheidsbesluit voor de VS wordt opgeheven. Deze week een blog over een alternatieve constructie om de persoonsgegevens te beschermen in landen buiten de EU: de Standard Contractual Clauses, oftewel SCC’s. Ook daar zijn problemen mee. Daarom adviseren we om in de contracten met de huidige cloudleveranciers op te nemen dat ze overschakelen op ècht Europese alternatieven na beëindiging van het adequaatheidsbesluit. We schetsen vier strategieën om de risico’s van doorgifte te verlagen.\n  >\n  > Blog 1: Mag je nog persoonsgegevens doorgeven naar de VS? 👉 https://lnkd.in/erTmvt2h\n  > Blog 2: Mag je nog persoonsgegevens doorgeven op basis van SCC’s als de VS niet meer adequaat zijn? 👉 https://lnkd.in/eXupvTpR\n\n- [2026-09-10 · 43 reactions, 2 comments] De privacyrisico’s van doorgifte van persoonsgegevens naar de VS, geen makkelijk onderwerp. Toch maken organisaties in Nederland massaal gebruik van Amerikaanse clouddiensten en kan iedereen te mak...\n\n- [2026-09-04 · Posted · 17 reactions] [Privacyadministratie hoeft niet ingewikkeld te zijn. Maar het kan...](https://www.linkedin.com/posts/privacycompany_privacyadministratie-hoeft-niet-ingewikkeld-activity-7501534556387454976-v-uv)\n  > Privacyadministratie hoeft niet ingewikkeld te zijn. Maar het kan wel onnodig veel tijd kosten. Dat was een van de redenen waarom we bij Privacy Company begonnen met de ontwikkeling van Privacy Nexus.\n  >\n  > Onze consultants zagen in de praktijk hoe persoonsgegevens vaak werden verzameld via Excel-bestanden en Word-documenten. Vervolgens moest alles handmatig worden bijgewerkt en ergens worden opgeslagen. Het resultaat? Veel werk, weinig overzicht en informatie die lastig te beheren is. We dachten: dat moet handiger kunnen.\n  >\n  > Inmiddels helpt onze software Privacy Nexus organisaties om hun privacyadministratie centraal en praktisch te beheren.\n  >\n  > Benieuwd naar het verhaal achter Privacy Nexus? Lees dan onze blog: https://lnkd.in/gDETejAT\n\n- [2026-09-04 · 19 reactions] Privacyadministratie hoeft niet ingewikkeld te zijn. Maar het kan wel onnodig veel tijd kosten. Dat was een van de redenen waarom we bij Privacy Company begonnen met de ontwikkeling van Privacy Nex...\n\n- [2026-09-03 · Posted · 13 reactions] [Een Functionaris Gegevensbescherming (FG) is voor bepaalde...](https://www.linkedin.com/posts/privacycompany_een-functionaris-gegevensbescherming-fg-activity-7501164668162347008-n4gz)\n  > Een Functionaris Gegevensbescherming (FG) is voor bepaalde organisaties verplicht volgens de AVG. Maar de rol van een FG gaat verder dan het afvinken van een wettelijke verplichting. Een goede FG helpt je organisatie om privacy structureel te verbeteren. Dat doet de FG vanuit drie belangrijke rollen: adviseur, toezichthouder en sparringpartner.\n  >\n  > Je leest het in onze blog. 👇\n  >\n  > https://lnkd.in/gvWFttAY\n\n- [2026-09-03 · Posted · 39 reactions] [Wat is nou de status van doorgifte van persoonsgegevens naar de...](https://www.linkedin.com/posts/privacycompany_wat-is-nou-de-status-van-doorgifte-van-persoonsgegevens-activity-7501222311652528128-vL6T)\n  > Wat is nou de status van doorgifte van persoonsgegevens naar de Verenigde Staten? Mag dat nog of moet iedereen onmiddellijk stoppen met het gebruik van clouddiensten van Amerikaanse partijen?\n  >\n  > De staatssecretaris van Justitie en Veiligheid heeft vorige week de Tweede Kamer nog verzekerd dat er niets aan de hand is zolang het Europese besluit geldig blijft dat de Verenigde Staten een adequaat beschermingsniveau hebben voor de doorgegeven persoonsgegevens. Maar tegelijkertijd heeft de overheid haar cloudbeleid aangescherpt, en waarschuwt ze dat organisaties geen kritieke persoonsgegevens meer mogen opslaan in de publieke cloud.\n  >\n  > In een nieuwe blog leggen we de juridische spelregels uit. We kijken niet alleen naar het adequaatheidsbesluit, maar we beschrijven ook een aantal problemen met de naleving van de afspraken tussen de EU en de VS, en toetsen aan de beginselen van de bescherming van grondrechten.\n  >\n  > Lees de blog hier: https://lnkd.in/erTmvt2h\n\n- [2026-09-03 · 43 reactions, 2 comments] Wat is nou de status van doorgifte van persoonsgegevens naar de Verenigde Staten? Mag dat nog of moet iedereen onmiddellijk stoppen met het gebruik van clouddiensten van Amerikaanse partijen? De st...\n\n- [2026-09-03 · 15 reactions] Een Functionaris Gegevensbescherming (FG) is voor bepaalde organisaties verplicht volgens de AVG. Maar de rol van een FG gaat verder dan het afvinken van een wettelijke verplichting. Een goede FG h...\n\n- [2026-08-31 · Posted · 17 reactions] [Ben jij klaar voor de Cbw? | De Europese NIS2-richtlijn is in...](https://www.linkedin.com/posts/privacycompany_ben-jij-klaar-voor-de-cbw-de-europese-activity-7500073643016728576-f2nJ)\n  > Ben jij klaar voor de Cbw? | De Europese NIS2-richtlijn is in Nederland omgezet in de Cyberbeveiligingswet (Cbw). Deze wet is 15 augustus ingegaan en introduceert nieuwe verplichtingen voor organisaties en bestuurders op het gebied van cybersecurity, risicobeheersing en bestuurlijke verantwoordelijkheid.\n  >\n  > Door het volgen van onze Cbw training, die wij samen met PuraSec B.V. hebben opgezet, voldoe je direct aan één van de verplichtingen 👉 https://lnkd.in/gcQNiCYS\n\n- [2026-08-31 · 17 reactions] Ben jij klaar voor de Cbw? | De Europese NIS2-richtlijn is in Nederland omgezet in de Cyberbeveiligingswet (Cbw). Deze wet is 15 augustus ingegaan en introduceert nieuwe verplichtingen voor organis...\n\n- [2026-08-20 · Posted · 66 reactions] [Wij hebben voor de Rijksoverheid een DPIA uitgevoerd op het gebruik...](https://www.linkedin.com/posts/privacycompany_wij-hebben-voor-de-rijksoverheid-een-dpia-activity-7496173693639782400-nLdA)\n  > Wij hebben voor de Rijksoverheid een DPIA uitgevoerd op het gebruik van Salesforce clouddiensten voor het beheer van contactgegevens en serviceverzoeken van burgers of klanten (Sales Cloud en Service Cloud).\n  >\n  > Salesforce Inc. heeft technische en contractuele maatregelen getroffen om de aangetroffen 11 privacyrisico’s te verlagen. Mits de overheidsinstellingen ook alle aanbevolen maatregelen treffen, zijn er geen bekende hoge dataprotectierisico’s meer.\n  >\n  > Omdat Salesforce Inc. een Amerikaans bedrijf is, heeft Privacy Company onderzocht of het mogelijk is om de risico’s van doorgifte te beperken door de inhoudelijke gegevens exclusief in de EU te laten verwerken, en door de inhoudelijke gegevens te versleutelen. Salesforce biedt voor de versleuteling de dienst Shield Platform Encryption aan, maar die dienst biedt geen absolute bescherming tegen ontsleuteling door Salesforce, en is niet van toepassing op de Account, Diagnostische, Support en Website gegevens.\n  >\n  > Zo lang het besluit van de Europese Commissie geldig blijft dat de Verenigde Staten een adequaat beschermingsniveau hebben voor de doorgegeven persoonsgegevens, zijn er geen formeel-juridische bezwaren tegen het gebruik van de geteste diensten in de geteste opzet. Overheidsorganisaties moeten wel rekening houden met de risico’s van mogelijke onbeschikbaarheid van de diensten door politieke ontwikkelingen. Daarom adviseert de DPIA om back-ups te regelen buiten de geteste diensten voor kritieke processen.\n  >\n  > Lees de samenvatting in onze blog: https://lnkd.in/eWRNRQ3p\n  >\n  > Lees de volledige Engelstalige DPIA: https://lnkd.in/eSYucD_s\n\n- [2026-08-20 · 81 reactions, 2 comments] Wij hebben voor de Rijksoverheid een DPIA uitgevoerd op het gebruik van Salesforce clouddiensten voor het beheer van contactgegevens en serviceverzoeken van burgers of klanten (Sales Cloud en Servi...\n\n- [2026-08-17 · Posted · 21 reactions] [Nieuwe AI-transparantieverplichtingen: weet jij wanneer je met AI...](https://www.linkedin.com/posts/privacycompany_nieuwe-ai-transparantieverplichtingen-weet-activity-7495000216488783872-bFZY)\n  > Nieuwe AI-transparantieverplichtingen: weet jij wanneer je met AI te maken hebt? 🤖\n  >\n  > Sinds 2 augustus gelden de nieuwe transparantieverplichtingen uit de AI-verordening. Mensen moeten hierdoor beter kunnen herkennen wanneer ze met AI te maken hebben. In deze blog zetten we de belangrijkste informatie over de nieuwe verplichtingen voor je op een rij: https://lnkd.in/erS6pyb8.\n\n- [2026-08-17 · 22 reactions] Nieuwe AI-transparantieverplichtingen: weet jij wanneer je met AI te maken hebt? 🤖 Sinds 2 augustus gelden de nieuwe transparantieverplichtingen uit de AI-verordening. Mensen moeten hierdoor beter...\n\n- [2026-08-04 · Posted · 32 reactions] [De Europese AI-verordening komt stap voor stap steeds meer tot...](https://www.linkedin.com/posts/privacycompany_de-europese-ai-verordening-komt-stap-voor-activity-7490341550946848768-Skig)\n  > De Europese AI-verordening komt stap voor stap steeds meer tot leven!\n  >\n  > Een recente wijziging met betrekking tot de implementatietijdlijn is de uitgestelde deadline voor hoog-risico AI. Dit volgt uit de Digitale omnibus inzake AI. Organisaties krijgen hierdoor meer tijd om de benodigde maatregelen te treffen, terwijl de inhoudelijke verplichtingen ongewijzigd blijven.\n  >\n  > Wat betekent dit voor jouw organisatie? In onze nieuwste blog licht Ine Nieuwenhuijzen, onze privacy adviseur, deze recente wetswijziging toe. 👉 https://lnkd.in/ekijzbGV\n\n## Locations\n- Headquarters: the hague, south holland, netherlands (NL)\n- Offices: the hague, south holland, netherlands (NL), the hague, netherlands (NL), den haag, netherlands (NL), berlin, berlin, germany (DE)",
+        "summary": "{\"description\":\"Privacy Company is a Legal Services company offering user-friendly software, in-depth training, and specialized consulting services to help organisations achieve GDPR compliance.\",\"employee_estimate\":52,\"employee_estimate_source\":\"Employees: 52\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"By country breakdown and department data, there are roles across Consulting, Legal, General Management, Hr, etc., indicating hires across multiple functions; no explicit first/founding ops role is stated.\",\"hq\":\"The Hague, Netherlands\",\"hq_quote\":\"Headquartered in The Hague, South Holland, Netherlands, with presence in United States.\",\"industry\":\"Legal Services\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Legal Services\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":false,\"recently_funded_seed_or_series_a_quote\":\"No information indicating seed or Series A funding on the page.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQGWRTFYT4Shcw/company-logo_200_200/company-logo_200_200/0/1692709836974/privacycompany_logo?e=2147483647&v=beta&t=rehQJMbjDKY6IMsnhMnJ-ru8Tiq1MvJLwSfapbRG6wc",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/qf40jsxf1tj",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Privacy Company",
+              "foundedYear": null,
+              "description": "At Privacy Company we believe in a world in which every organization works actively on data protection. Under the motto Making Data Protection Easy, Privacy Company offers advice, training and software to build a privacy friendly and safe organisational culture. Our team of experienced consultants help organisations quickly and with industry-leading quality to become and remain compliant with the General Data Protection Regulation (GDPR).",
+              "workforce": {
+                "total": 52
+              },
+              "headquarters": {
+                "address": "Maanweg 174, The Hague, South Holland 2516, NL",
+                "city": "The Hague",
+                "postalCode": null,
+                "country": "Netherlands"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 4867,
+                "countryRank": 732268,
+                "avgDurationSeconds": 38,
+                "history": [
+                  {
+                    "value": 3472,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 3922,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 6492,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 5882,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 6995,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 4867,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 8938.6,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

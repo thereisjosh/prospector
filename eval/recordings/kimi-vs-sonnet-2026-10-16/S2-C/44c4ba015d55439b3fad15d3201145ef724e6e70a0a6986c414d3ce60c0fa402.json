@@ -1,0 +1,262 @@
+{
+  "request": {
+    "query": "SubBase",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "900b07d3c26b280efe4bb059be5b3304",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/0sv5dv6kzsn",
+        "title": "SubBase",
+        "url": "https://www.subbase.io/",
+        "text": "# SubBase\n\nSubBase is a Software Development company. SubBase is a construction procurement software that runs the whole material workflow, including field request, vendor pricing, coded PO, delivery, and reconciles invoices. SubBase employs 43 people (+19.4% YoY, +7 people), founded in 2022. Headquartered in Fort Lauderdale, Florida, United States. Its workforce is distributed across United States, Brazil, and Canada.\n\n## About\n\nSubBase is a centralized technology platform simplifying outdated workflows in construction materials management. Say goodbye to the days of fumbling through manual, paper-based workflows and say hello to a streamlined procurement experience that gets you back in control without changing how it's always done. Crafted by the hands of construction veterans and sharpened by cutting-edge tech, SubBase is your go-to for a user-friendly interface that makes efficiency with the field, office, and vendors second nature.\n\nEffortlessly request quotes, chat with vendors, and send out POs while syncing with your accounting system. Keep an eye on your deliveries without breaking a sweat, and let the automation do the number crunching, reconciling invoices like clockwork. With SubBase, everything happens in real-time, in one place—so you can focus on what you do best.... building.\n\nWith SubBase you're not just upgrading your tools; you're streamlining your entire workday. Keep it simple, enhance relationships, and take command of your bottom line. Start managing your materials across all projects and vendors with ease. SubBase is not just a platform; it's your partner in building a more efficient future.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: Fort Lauderdale, United States\n- Founded Year: 2022\n- Homepage: subbase.io\n- Aliases: SubBase Technologies, subbase\n- LinkedIn: linkedin.com/company/subbase\n- Linkedin Followers: 3,903\n- Emails: eric@subbase.io\n\n## Financials\n- Total Funding: USD 12,149,998\n  - Series a (2026-06-01): USD 7.0M\n  - Seed (2024-03-29): USD 4.0M\n  - Pre seed (2022-01-01): USD 1.2M\n\n## Workforce\n- Employees: 43\n- Company Size: 11-50 employees\n  - Yearly Growth: +19.4%\n- Key Executives:\n  - Charlie Lin: VP of Product and Engineering\n  - Eric Helitzer, LEED AP: Founder & CEO\n  - Erik Nilsson: Head of Finance and Business Operations\n  - Stephen Marfione: VP of Customer Success and Implementation\n  - Thiago Bonfante: Director of Engineering and Software Development\n- Breakdown:\n  - By Country: United States: 24 (56%), Brazil: 10 (23%), Canada: 1 (2%)\n  - By Department: Technical: 15 (35%), Sales: 6 (14%), Customer Service: 4 (9%), Consulting: 3 (7%), Other Department: 3 (7%), Product: 2 (5%), Administrative: 1 (2%), Finance: 1 (2%), General Management: 1 (2%), Project Management: 1 (2%)\n  - By Seniority: Specialist: 15 (35%), Other Management: 6 (14%), Senior: 6 (14%), Manager: 5 (12%), Vp: 2 (5%), Clevel: 1 (2%), Director: 1 (2%), Head: 1 (2%)\n- Talent Sources: Kojo (4), Codengage IT Consulting (4), ServiceTitan (2), Procore Technologies (2), Flock Freight (2), DSD Business Systems (2), BuildOps (2), The USA Bouquet Company (1), Stevenson's Electric Services (1), Baseline (1)\n- Alumni Go To: Codengage IT Consulting (3), TheDigitalEdit (1), Stripe (1), StoneX Group Inc. (1), SiteMinder (1), Ramp (1), Oculo (1), Movê (1), El Cap (1), CrewAI (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: cmic, gainsight, github, github actions, hubspot, java, mlops, postgresql, postman, procore, prototype, quickbooks, quickbooks desktop, quickbooks online, react, ruby, salesforce, selenium, sidekiq, user interviews, vercel, viewpoint spectrum, openai, docker, harness, javascript, kubernetes, python, pytorch, tensorflow, typescript, impact, viewpoint, well, jenkins, ruby on rails\n\n## Web presence\n\n- Facebook: facebook.com/subbasesoftware\n- Instagram: instagram.com/subbase.io\n- Crunchbase: crunchbase.com/organization/subbase\n- Web traffic:\n  - Monthly visits: 15,155\n  - Global rank: 1,072,356\n  - Bounce rate: 35.0%\n  - Pages per visit: 5.9\n  - Average visit duration: 65s\n\n## Categories\n\ncoded po, construction, construction procurement software, field request, material management software, procure to pay, procure to pay software, procurement software, software, subbase, vendor pricing\n\n## Recent News\n- [2026-06-22] [SubBase Raises $7M in Series A Funding](https://www.finsmes.com/2026/06/subbase-raises-7m-in-series-a-funding.html)\n- [2026-06-18] [SubBase Raises $7 Million Series A to Scale AI-Driven Construction Materials Platform - TipRanks.com](https://www.tipranks.com/news/private-companies/subbase-raises-7-million-series-a-to-scale-ai-driven-construction-materials-platform)\n- [2026-06-17] [Construction-tech startup SubBase raises $7M Series A - Refresh Miami](https://refreshmiami.com/news/construction-tech-startup-subbase-raises-7m-series-a/)\n- [2023-02-21] PYMNTS.com: SubBase Debuts Invoicing Tool as Construction Firms Invest in Tech\n\n## Social\n\n### Linkedin\n\n- [2026-09-11 · 5 reactions, 1 comment] Congrats to AG Contractors FL on topping out another South Florida project. We are proud to have done our part together!\n\n- [2026-09-09 · 38 reactions, 2 comments] Most construction tech is built the same way. Someone outside the industry sees material management, thinks they understand the problem, and ships a tool. Then they wonder why things stall. I spent...\n\n- [2026-08-24 · 15 reactions] How do you market your construction tech? Here are 17 lessons learned from founders, CEOs, and marketing leaders over the past 4 years. https://lnkd.in/dr_G3UEe Special thank you to: Marc Minor, Hi...\n\n- [2026-08-24 · 13 reactions] How do market your construction tech? Here are 17 lessons learned from founders, CEOs, and marketing leaders over the past 4 years. https://lnkd.in/dr_G3UEe Special thank you to: Marc Minor, Highar...\n\n- [2026-08-21 · 13 reactions, 1 comment] Construction tech is evolving fast, but not every platform actually improves the way projects get built. In our newest blog, we break down the tools that have genuinely made an impact on the way we...\n\n- [2026-08-07 · 14 reactions, 1 comment] How SubBase Found a Customer Segment It Never Set Out To Sell Eric Helitzer, founded SubBase to solve one problem: subcontractors buying materials by email, text, and phone calls, with no system ty...\n\n- [2026-08-06 · 5 reactions, 1 comment] This video was donde last year, but I found it on you tube today. This is an example how AKO Plumbing Corp implements new technology to improve their process, saving time and get more visibility to...\n\n- [2026-07-24 · 12 reactions] The cheapest quote isn't winning the order anymore. Eric Helitzer, is watching the buying data and says suppliers are now winning on how fast they respond, not on price. Because a material that doe...\n\n- [2026-07-22 · 28 reactions, 1 comment] SubBase, the Fort Lauderdale startup led by Eric Helitzer, LEED AP, wants to be the system of record for how contractors order, track and reconcile materials — and is now layering AI on the pricing...\n\n- [2026-07-17 · 4 reactions] We're #hiring a new Senior Customer Success Manager in Fort Lauderdale, Florida. Apply today or share this post with your network.\n\n- [2026-07-16 · 6 reactions] We're #hiring a new Customer Success Director in Fort Lauderdale, Florida. Apply today or share this post with your network.\n\n- [2026-06-29 · 11 reactions] Your WIP report is the scoreboard the surety, the bank, and the owner all read to judge how your business is run. And it's only as accurate as the material cost data behind it. For sheet metal and...\n\n- [2026-06-29 · 84 reactions, 8 comments] Just got back from San Diego with the SubBase leadership team. Three full days. Seven people. One mission: get aligned on what this Series A really means and what we're going to do with it. One thi...\n\n- [2026-06-18 · 10 reactions] SubBase Raises $7M Series A SubBase, a Fort Lauderdale, Florida–based provider of a construction materials procurement platform, has raised $7 million in Series A funding. #Construction #Procuremen...\n\n- [2026-06-18 · 13 reactions, 4 comments] Construction is one of the largest industries in the world, and it still runs on a surprising amount of manual financial workflow. Miami-based SubBase just raised a $7M Series A. The company is bui...\n\n- [2026-06-17 · 274 reactions, 43 comments] Today, SubBase officially closed a $7M Series A led by FINTOP, with participation from our first ever institutional investor, Fika Ventures — bringing our total funding to over $15 million. I canno...\n\n- [2026-06-04 · 10 reactions] We're #hiring a new Senior - Staff Product Manager in Greater Seattle Area. Apply today or share this post with your network.\n\n- [2026-05-25 · 1 reaction] Today, we pause to honor those who gave everything — so the rest of us could keep building. To every veteran and fallen hero: your sacrifice is the foundation everything else stands on. From all of...\n\n- [2026-05-18 · 3 reactions, 1 comment] 6.2% in four months. More than the prior three years combined. That's what April's PPI data confirmed — and some of the data trends we see and customers we speak with backs it up. We're seeing supp...\n\n- [2026-04-20 · 8 reactions, 1 comment] We're #hiring a new Senior Product Manager in San Diego Metropolitan Area. Apply today or share this post with your network.\n\n## Locations\n- Headquarters: fort lauderdale, florida, united states (US)\n- Offices: fort lauderdale, florida, united states (US)",
+        "summary": "{\"description\":\"SubBase is a construction procurement software company providing a platform that runs the full material workflow, including field requests, vendor pricing, coded POs, delivery, and invoice reconciliation.\",\"employee_estimate\":43,\"employee_estimate_source\":\"Employees: 43\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"- Yearly Growth: +19.4%\",\"hq\":\"Fort Lauderdale, United States\",\"hq_quote\":\"Headquartered in Fort Lauderdale, Florida, United States.\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"- Industry: Software Development\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 12,149,998 - Series a (2026-06-01): USD 7.0M - Seed (2024-03-29): USD 4.0M - Pre seed (2022-01-01): USD 1.2M\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQFrraUoTLpJjQ/company-logo_200_200/company-logo_200_200/0/1709522257163/subbase_logo?e=2147483647&v=beta&t=-8igXjaLvsYIvlkN36HJP7Rf9z1rXJZ3SiC2HHwoTmI",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/0sv5dv6kzsn",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "SubBase",
+              "foundedYear": 2022,
+              "description": "SubBase is a centralized technology platform simplifying outdated workflows in construction materials management. Say goodbye to the days of fumbling through manual, paper-based workflows and say hello to a streamlined procurement experience that gets you back in control without changing how it's always done. Crafted by the hands of construction veterans and sharpened by cutting-edge tech, SubBase is your go-to for a user-friendly interface that makes efficiency with the field, office, and vendors second nature.\n\nEffortlessly request quotes, chat with vendors, and send out POs while syncing with your accounting system. Keep an eye on your deliveries without breaking a sweat, and let the automation do the number crunching, reconciling invoices like clockwork. With SubBase, everything happens in real-time, in one place—so you can focus on what you do best.... building.\n\nWith SubBase you're not just upgrading your tools; you're streamlining your entire workday. Keep it simple, enhance relationships, and take command of your bottom line. Start managing your materials across all projects and vendors with ease. SubBase is not just a platform; it's your partner in building a more efficient future.",
+              "workforce": {
+                "total": 43
+              },
+              "headquarters": {
+                "address": "Fort Lauderdale , FL, US",
+                "city": "Fort Lauderdale",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 12149998,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2026-06-01",
+                  "amount": 7000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 15155,
+                "countryRank": 346578,
+                "avgDurationSeconds": 65,
+                "history": [
+                  {
+                    "value": 17950,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 22974,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 18484,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 14543,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 14017,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 15155,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/nxkx2dwz2sb",
+        "title": "SUBBASE DRYDOCK INC",
+        "url": "https://subbasedrydock.com/",
+        "text": "# SUBBASE DRYDOCK INC\n\nSUBBASE DRYDOCK INC is a Mining company. Subbase Drydock, Inc. is a family-owned and operated company that has been servicing marine repairs and maintenance since 1981. They have fabricated custom and specialty parts for over 35 years and offer standard services. SUBBASE DRYDOCK INC employs 4 people (+33.3% YoY, +1 person), founded in 2004. Headquartered in Virgin Islands (U.S.), with offices in St Thomas, Saint Thomas, and Vi 00803.\n\n## About\n\nSubbase DryDock, Inc., a family owned and operated business, has been serving our customers since 1981. We can handle all of your marine repair needs.\n\n## Company Details\n- Industry: Mining\n- Founded Year: 2004\n- Homepage: subbasedrydock.com\n- Aliases: Subbase Drydock, Inc., subbase drydock, subbase drydock inc, subbase drydock, inc\n- LinkedIn: linkedin.com/company/subbase-drydock-inc\n- Linkedin Followers: 1\n- Emails: info@subbasedrydock.com\n- Phone: (340) 776-2078, +1 340 776 2078, 340-776-2078\n\n## Workforce\n- Employees: 4\n- Company Size: 11-50 employees\n  - Yearly Growth: +33.3%\n\n## Web presence\n\n- Facebook: facebook.com/subbase.drydock\n- Instagram: instagram.com/subbasedrydockvi\n- Crunchbase: crunchbase.com/organization/subbase-drydock\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Categories\n\ncustom parts, industrial, maintenance, marine repairs, marine repairs and maintenance, marine technology, mechanical engineering, specialty parts\n\n## Locations\n- Headquarters: saint thomas, virgin islands, virgin islands (u.s.) (US)\n- Offices: saint thomas, virgin islands, united states (US), st thomas, virgin island, united states (US)",
+        "summary": "{\"description\":\"SUBBASE DRYDOCK INC is a family-owned mining/marine repair business founded in 2004, with 4 employees, headquartered in the U.S. Virgin Islands, Saint Thomas area, and offices in St Thomas and Vi 00803.\",\"employee_estimate\":4,\"employee_estimate_source\":\"Employees: 4\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"saint thomas, virgin islands, united states (US)\",\"hq_quote\":\"Headquartered in Virgin Islands (U.S.), with offices in St Thomas, Saint Thomas, and Vi 00803.\",\"industry\":\"Mining\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"SUBBASE DRYDOCK INC is a Mining company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":false,\"recently_funded_seed_or_series_a_quote\":\"- Products and funding not listed; no seed/Series A mentioned on page.\"}",
+        "image": "https://static.licdn.com/aero-v1/sc/h/cs8pjfgyw96g44ln9r7tct85f",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/nxkx2dwz2sb",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "SUBBASE DRYDOCK INC",
+              "foundedYear": 2004,
+              "description": "Subbase DryDock, Inc., a family owned and operated business, has been serving our customers since 1981. We can handle all of your marine repair needs.",
+              "workforce": {
+                "total": 4
+              },
+              "headquarters": {
+                "address": "PO BOX 304429, Saint Thomas, Virgin Islands 00803, us",
+                "city": null,
+                "postalCode": null,
+                "country": "Virgin Islands (U.S.)"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 835,
+                    "dateFrom": "2025-06",
+                    "dateTo": "2025-06"
+                  },
+                  {
+                    "value": 590,
+                    "dateFrom": "2026-01",
+                    "dateTo": "2026-01"
+                  },
+                  {
+                    "value": 590,
+                    "dateFrom": "2026-02",
+                    "dateTo": "2026-02"
+                  },
+                  {
+                    "value": 238,
+                    "dateFrom": "2026-03",
+                    "dateTo": "2026-03"
+                  },
+                  {
+                    "value": 658,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 6800.3,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

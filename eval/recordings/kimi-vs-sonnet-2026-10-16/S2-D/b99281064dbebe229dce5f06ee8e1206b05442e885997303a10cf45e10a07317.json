@@ -1,0 +1,270 @@
+{
+  "request": {
+    "query": "Assured",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "db661a6564514bee26f62d3321c6a4c6",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/97mlcq5q8wk",
+        "title": "Assured",
+        "url": "https://assured.com/",
+        "text": "# Assured\n\nAssured is a Insurance company. Assured is a company that provides straight-through claims processing solutions powered by quality data and AI lines of business. They offer modular solutions that power the entire claims lifecycle. Assured employs 229 people (+179.3% YoY, +147 people), founded in 2019. Headquartered in Palo Alto, California, United States. Its workforce is distributed across United States, Canada, and Ireland.\n\n## About\n\n**We have been made aware of individuals falsely posing as recruiters from Assured Insurance Technologies Inc. Please note that we only contact candidates from official @assured.claims email addresses and all interviews are conducted through verified company channels. If you are unsure whether a message is legitimate, please contact us directly at recruiting-ops@assured.claims before sharing any personal information**\n\nAssured is the the AI engine powering the next era of claims, transforming how carriers ingest, service, and process claims.\n\n## Company Details\n- Industry: Insurance\n- Type: Privately held\n- Headquarters: Palo Alto, United States\n- Founded Year: 2019\n- Homepage: assured.com\n- Aliases: ASSURED INSURANCE TECHNOLOGIES INC., assured, assured (ca), assured insurance technologies\n- LinkedIn: linkedin.com/company/assured\n- Linkedin Followers: 6,629\n\n## Financials\n  - Venture (2025-04-04)\n  - Seed (2021-01-01)\n\n## Workforce\n- Employees: 229\n- Company Size: 201-500 employees\n  - Monthly Growth: +3.2%\n  - Yearly Growth: +179.3%\n- Key Executives:\n  - Adi Dehejia: Head of Finance\n  - Jacob Zukerman: Head of Product Design\n  - Jassis C.: Director of Special Projects\n  - Jeff Jarvis: Product Analyics Lead\n  - Jesse Cravens: Head of Engineering\n  - John Geary: Head of Strategy and Ops\n  - Johnny Cochran: Director of Program Management\n  - Joyce W. Phan: Director of Product Management\n  - Justin Lewis-Weber: Founder/CEO\n  - Matt Barnard: Member Board of Directors\n- Breakdown:\n  - By Country: United States: 157 (69%), Canada: 2 (1%), Ireland: 1\n  - By Department: Technical: 99 (43%), Product: 18 (8%), Design: 9 (4%), Consulting: 6 (3%), Hr: 6 (3%), Other Department: 6 (3%), General Management: 5 (2%), Sales: 4 (2%), Project Management: 3 (1%), Administrative: 2 (1%) (+4 more)\n  - By Seniority: Senior: 53 (23%), Specialist: 51 (22%), Manager: 27 (12%), Other Management: 18 (8%), Head: 6 (3%), Director: 5 (2%), Founder: 3 (1%), Vp: 2 (1%)\n- Active job postings: 39\n- Talent Sources: Amperity (4), Vanilla (3), Square (3), Slalom (3), Engine (3), DISCO (3), Veza (2), StockX (2), Maven AGI (2), Fanatics (2)\n- Alumni Go To: Socket (2), Gray Scalable (2), WorkOS (1), Guidewire Software (1), Flanco Romania (1), Fanatics (1), Distyl (1), Daikin Comfort (1), Avis Budget Group (1), Astraeus (1)\n\n## Products & Technology\n- Tech Stack (showing 50 of 97): 4d, cinema 4d, docker, graphql, iam, linkedin, playwright, postgresql, python, pytorch, react, tensorflow, typescript, 1password, amazon aurora, boolean, circleci, databricks, fintech, github, gitlab, google workspace, houdini, javascript, jest, json, kubernetes, linkedin recruiter, linux, looker, macos, mixpanel, oauth, okta, persona, power bi, prototype, ramp, recognize, rippling, saml, snowflake, sql, tableau, terraform, bash, adobe, adobe creative suite, argocd, css\n\n## Web presence\n\n- Crunchbase: crunchbase.com/organization/assured-insurance-technologies\n- Web traffic:\n  - Monthly visits: 18,133\n  - Global rank: 1,312,125\n  - Bounce rate: 63.0%\n  - Pages per visit: 2.4\n  - Average visit duration: 182s\n\n## Reviews & Ratings\n- Employer Rating: 5.0/5.0 (1 reviews)\n  - Breakdown: Work-Life: 5.0, Compensation: 4.0, Culture: 5.0, Career: 5.0\n\n## Categories\n\nai-powered capabilities, assured, claims processing, development services providers, financial services, frontier ai agents, insurance, insurtech, jobs_and_career/human_resources, modular solutions, straight-through, testing and qa, testing and qa providers\n\n## Recent News\n- [2026-10-08]\n  - Euronews.com: 2027 state budget reaches parliament with Socialist Party backing assured\n  - The Star: Badminton: Malaysia assured of medal after reaching World Juniors semis\n  - Hamilton Hammers: HAMILTON HAMMERS WELCOME ASSURED AUTOMOTIVE & LiUNA AS FOUNDING PARTNERS\n  - Unmanned Systems Technology: Huntsville Manufacturing Expansion Targets Defense Assured PNT Gap\n  - Fibre2Fashion: India's cotton sector calls for price stability and assured supply\n- [2026-10-06]\n  - Financial Times: Sanae Takaichi tells markets to ‘rest assured’ over Japan’s spending plans\n  - Yahoo Finance: Takaichi tells Japanese investors to 'rest assured' amid fiscal worries\n- [2026-10-05] Daily Mail: Why Sale's 'Cement' hooker Jibulu can force his way into England team\n- [2026-10-02]\n  - Rediff: Asian Games: Indian Squash Teams Advance To Semis, Assured Of Medals\n  - Investing.com South Africa: Assured Guaranty stock hits 52-week low at $67.99 By Investing.com\n  - Seeking Alpha: Assured Guaranty: Priced For A 6% ROE, With A Clear Path To 10% \\(NYSE:AGO\\)\n  - BusinessLine: Bank strike deferred after IBA assurance on five-day work week\n  - The Business Journals: Brightline creditors take control as Fortress loses ownership in bankruptcy restructuring\n- [2026-09-25]\n  - Rediff: Asian Games: Anahat, Abhay Assured Of Squash Singles Medals\n  - Yahoo Finance: Assured Guaranty Statement Regarding Brightline Florida Financial Restructuring\n  - The Daily Gazette: High-spending Mets assured of first last-place finish since 2003 with 7-6 loss to Nationals\n  - Seeking Alpha: Huge Upside For Assured Guaranty's Shareholders If The Monoline Moves Away From Insurance\n  - Lubbock Avalanche-Journal: It's Debatable explores merits of Mutual Assured Destruction policy\n- [2026-09-19]\n  - THISDAYLIVE: Dangote Refinery IPO: Shareholders Assured of Huge Dividends, Minimal Risks\n  - Daily Independent: Further Nursing Education Opportunities Assured for Gwadar Schoolgirls\n- [2026-08-03] [AI-Powered Provider Operations](https://www.trendhunter.com/trends/healthcare-provider-operations)\n- [2026-07-31] [Henry AI raises $16.5M to automate commercial real estate work — plus 7 more NYC VC deals to know - New York Business Journal](https://www.bizjournals.com/newyork/news/2026/07/31/henry-ai-raises-165m-plus-other-fundraising-news.html)\n- [2026-07-19] [Lead Vice President OF Product Marketing Job in Palo Alto, CA at ASSURED](https://www.mediabistro.com/jobs/3542153850-lead-vice-president-of-product-marketing)\n\n## Social\n\n### Linkedin\n\n- [2020-07-27 · Posted · 3 reactions] [Assured has appointed industry-veteran Richard Palmer as Head of...](https://www.linkedin.com/posts/assured_press-release-assured-appoints-head-of-sales-activity-6693556863801413632-RzXc)\n  > Assured has appointed industry-veteran Richard Palmer as Head of Sales. Palmer will lead go-to-market activities for Assured’s digital FNOL and claims automation solutions.\n  >\n  > “The opportunity to work at an insurtech focused on helping P&C insurance carriers automate the claims process is extremely meaningful to me,” Palmer said.\n  >\n  > “Automation has long been the holy grail of increasing accuracy and decreasing costs in claims, yet no company has yet offered a functional solution because the majority of data at the onset of the claims process (FNOL ingestion) is imprecise and unstructured. Assured's realization that “it’s all about the data”—and that better data is all about superior ingestion, represents an extraordinarily compelling vision for how to realize my long-held dream of fully automating claims processing.\n  >\n  > I’m drawn to how challenging, yet solvable, this problem is—and the boldness of Assured’s vision.\"\n  >\n  > Mr. Palmer comes to Assured with prominent credentials and a proven record of success as a sales leader of technology-driven insurance businesses. Prior to joining Assured, he served as Senior Director at Duck Creek Technologies, a leading SaaS provider of core system solutions to the P&C and General Insurance industry.\n\n## Locations\n- Headquarters: palo alto, california, united states (US)\n- Offices: palo alto, california, united states (US)",
+        "summary": "{\"description\":\"Assured is an insurtech company providing modular, AI-powered straight-through claims processing solutions across the claims lifecycle.\",\"employee_estimate\":229,\"employee_estimate_source\":\"Employees: 229\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Palo Alto, California, United States\",\"hq_quote\":\"Headquartered in Palo Alto, California, United States.\",\"industry\":\"Insurance\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Assured is a Insurance company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Venture (2025-04-04)\\n- Seed (2021-01-01)\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQE8jJ61Qso23g/company-logo_200_200/B56aCGUiWDIkAI-/0/1788959925875/assured_logo?e=2147483647&v=beta&t=EWcyEbOW3iuK4PNDuV0BW_AUr2ghuJ4cf5SupZjzwoQ",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/97mlcq5q8wk",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Assured",
+              "foundedYear": 2019,
+              "description": "**We have been made aware of individuals falsely posing as recruiters from Assured Insurance Technologies Inc. Please note that we only contact candidates from official @assured.claims email addresses and all interviews are conducted through verified company channels. If you are unsure whether a message is legitimate, please contact us directly at recruiting-ops@assured.claims before sharing any personal information**\n\nAssured is the the AI engine powering the next era of claims, transforming how carriers ingest, service, and process claims.",
+              "workforce": {
+                "total": 229
+              },
+              "headquarters": {
+                "address": "Palo Alto, CA 94301, US",
+                "city": "Palo Alto",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": null,
+                "fundingLatestRound": {
+                  "name": "Venture",
+                  "date": "2025-04-04",
+                  "amount": null
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 18133,
+                "countryRank": 340943,
+                "avgDurationSeconds": 182,
+                "history": [
+                  {
+                    "value": 15408,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 14579,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 14452,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 14665,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 12431,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 18133,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/x0kgq6y09l0",
+        "title": "Assured",
+        "url": "https://withassured.com/",
+        "text": "# Assured\n\nAssured is a Software Development company. Assured provides end-to-end credentialing, payer enrollment, network management, compliance, licensing, and renewal services. They also offer digital health solutions and streamline provider operations. Assured employs 162 people (+244.7% YoY, +115 people), founded in 2024. Headquartered in New York, New York, United States, with offices in San Jose, Farmington, and Irving. Its workforce is distributed across India and United States.\n\n## About\n\nIn 2022, the U.S. spent $4.5 trillion on healthcare, about 17.3% of GDP. Administrative costs account for 25% to 30% of that total, fueled by credentialing, insurance enrollments, and essential but manual workflows.\n\nWe're on a mission to rebuild the operational backbone of healthcare. As AI doubles in capability at the half the price every year, we see a future where provider operations are run by lean teams supported by autonomous, reasoning-capable AI agents. \n\nPrior to founding Assured, Varun Krishnamurthy and Rahul Shivkumar built and sold a VC-backed digital health startup. We've lived the operational chaos that comes with scaling a healthcare practice and set out to build the platform we wish we had.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: New York, United States\n- Founded Year: 2024\n- Homepage: withassured.com\n- Aliases: Assured Health Inc., assured, assured health\n- LinkedIn: linkedin.com/company/assured-health\n- Linkedin Followers: 3,156\n- Emails: withassured@inboxpad.com\n\n## Financials\n- Total Funding: USD 25,000,000\n  - Series a (2026-07-01): USD 19.0M\n  - Seed (2025-10-15): USD 6.0M\n\n## Workforce\n- Employees: 162\n- Company Size: 51-200 employees\n  - Monthly Growth: +2.5%\n  - Yearly Growth: +244.7%\n- Key Executives:\n  - Ajith Simha: Director of Software Engineering\n  - Alan Jenson: Head of Engineering\n  - Aryana Aziz: Deployments Lead\n  - Casey McNamara: Founding Head of GTM\n  - Hemant S.: Technical Lead\n  - Karl Kwon: Engineering Lead\n  - Liz Rodan: Lead Engineer\n  - Rahul Shivkumar: Co-Founder\n  - Rohan Shivkumar: Product Design Lead\n  - Sajan Bar: Director of Deployments\n- Breakdown:\n  - By Country: India: 78 (48%), United States: 45 (28%)\n  - By Department: Technical: 21 (13%), Sales: 18 (11%), Operations: 17 (10%), Other Department: 16 (10%), Product: 9 (6%), General Management: 8 (5%), Hr: 8 (5%), Customer Service: 5 (3%), Medical: 5 (3%), Finance: 4 (2%) (+8 more)\n  - By Seniority: Specialist: 43 (27%), Other Management: 25 (15%), Manager: 22 (14%), Senior: 19 (12%), Head: 7 (4%), Intern: 6 (4%), Director: 2 (1%), Founder: 2 (1%), Partner: 1 (1%)\n- Active job postings: 7\n- Talent Sources: iOPEX Technologies (8), CertifyOS (6), Global Healthcare Billing Partners (4), Ventra Health (2), Rilla (2), Navan (2), Dawn Health - Acquired by Health Care Originals (2), Cognizant (2), Starmark Software (1), Multibagg AI (1)\n- Alumni Go To: Medallion (2), XpertDox (1), VerticalScale (1), MaxHome.AI (1), Hayward Area Recreation and Park District (1), Dart (1), Calpion Inc. (1), Birdeye (1), Amoga (1), AInterviews (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: airtable, css3, figma, git, gmail, google sheets, graphql, html5, java, javascript, jenkins, jest, jira, postman, power bi, python, react, redux, salesforce, sql, testng, typescript, webpack, hubspot, linkedin, looker, aws lambda, chrome, sqs, intercom, zendesk, microsoft, microsoft office, kubernetes, microservices, terraform, hugging face, pytorch, tensorflow, user interviews, impact, sprint, ups\n\n## Web presence\n\n- Crunchbase: crunchbase.com/organization/assured-health\n- Web traffic:\n  - Monthly visits: 27,393\n  - Global rank: 910,853\n  - Bounce rate: 44.0%\n  - Pages per visit: 3.1\n  - Average visit duration: 139s\n\n## Reviews & Ratings\n- Product Reviews: 5.0/5.0 (1 reviews)\n\n## Categories\n\nai, artificial intelligence (ai), assured health, automation, compliance, credentialing, digital health, health care, health care credentialing, health care credentialing software, health care software, healthcare payers' core administrative processing solutions, licensing, medical licensing, network management, payer enrollment, platform, provider credentialing, provider data management, provider data management (pdm), provider data monitoring, provider enrollment, provider network management, provider network monitoring, software, technology, technology/consulting\n\n## Competitors\n\nopen dealer exchange, netbrain technologies, maverick technologies, almg\n\n## Recent News\n- [2026-08-18] [Assured Raises $19M Series A Led by Insight Partners to Automate Healthcare Provider Operations with AI Agents – News Radio KOTA](https://lifestyle.kotaradio.com/story/363268/assured-raises-19m-series-a-led-by-insight-partners-to-automate-healthcare-provider-operations-with-ai-agents/)\n- [2026-08-01] [Assured Health targets payer enrollment and credentialing delays with $19m](https://business-news-today.com/assured-health-targets-payer-enrollment-and-credentialing-delays-with-19m-funding/)\n- [2026-07-30] [assured-raises-19-million-to-scale-ai-driven-provider-operations-platform](https://www.tipranks.com/news/private-companies/assured-raises-19-million-to-scale-ai-driven-provider-operations-platform)\n\n## Social\n\n### Linkedin\n\n- [2026-09-21 · 37 reactions, 2 comments] Tono Health went from operating in 2 states to 31. When we started working with Bryson and the team, they were already moving quickly. Licensing, credentialing, and payer enrollment needed to keep...\n\n- [2026-09-16 · 146 reactions, 14 comments] Every week, our team votes for the person who made the biggest impact at Assured that week. We call them our GOAT. This week’s GOAT: Sajan Bar. Sajan joined Assured nine months ago and has since pl...\n\n- [2026-09-15 · 32 reactions, 1 comment] Our team is live at Nashville Healthcare Sessions! Come say hi to Mariano Terrazas and Niko Kouvaris and chat with us about how healthcare teams are rethinking provider onboarding, and where AI can...\n\n- [2026-09-09 · 39 reactions, 2 comments] Heading to the Becker's Healthcare conference with Griffin Segalla Fernando Pena and Ryan Gomez next week. Looking forward to seeing familiar faces and hearing what’s top of mind for healthcare IT...\n\n- [2026-09-02 · 42 reactions] Our team at Assured is returning to the Behavioral Health Tech Conference in Nashville! Last year, we loved how many genuinely curious people we got to meet at the conference. From health systems t...\n\n- [2026-08-26 · 73 reactions] We’re live at @Florida BHCon! If you’re here, come by the Assured Health booth (167!) and say hi to Micah Derringer, Niksha Federico, and Marley Garfield. We’ll be sharing how leading behavioral he...\n\n- [2026-08-25 · 23 reactions] Our team here at Assured is heading down the East Coast to Orlando for #BHCon2026 this week! It will be our first time joining this conference, and our team is excited to hear about top-of-mind cha...\n\n- [2026-08-24 · 96 reactions, 1 comment] Two years ago, Varun and I started Assured because of a problem we knew firsthand. While building Dawn Health, a 100+ provider telehealth sleep clinic, we saw just how much time healthcare teams lo...\n\n- [2026-08-19 · 114 reactions] Our newest hire recently polled the team on their favorite part of being at Assured. The answer? The people and the speed of innovation. Two Fridays ago, we celebrated the launch of our latest fami...\n\n- [2026-08-18 · 47 reactions, 3 comments] Our team is attending the Nashville Healthcare Sessions in September….but what would a trip to Nashville be without some live music? Join Assured and Amigo AI at Ole Red on September 14 for drinks,...\n\n- [2026-08-14 · 49 reactions, 4 comments] Our team at Assured co-hosted a dinner with Amigo at Sens in SF this past Wednesday. Appreciate everyone who showed up (Floreo, Kovo Health, Easterseals Northern California, Grata Health, Momentum...\n\n- [2026-08-12 · 70 reactions, 2 comments] How many of you actually hate filling out PDFs manually? We definitely do. So we’ve been working on AI agents that can do it for you. We just deployed four AI agents to help a customer submit ~120+...\n\n- [2026-07-27 · 143 reactions, 2 comments] Congrats to Assured cofounders Varun Krishnamurthy and Rahul Shivkumar on raising $19M, a round we were proud to lead. Krishnamurthy and Shivkumar started with credentialing because it is one of th...\n\n- [2026-07-22 · 34 reactions] Big news today: Our team has raised $19M, led by Insight Partners. We started with credentialing because it is one of the hardest problems in provider operations. Doing it well means we build one o...\n\n- [2026-06-18 · 5 reactions] Come meet our team in Chicago next week if you'll be around for the Behavioral Health Management Forum!\n\n- [2026-02-12 · 58 reactions] Our team is at the BHASE Summit this week, and we were honored to present at the Catalyst program yesterday. Appreciate the Catalyst team for the opportunity and everyone who joined the conversatio...\n\n- [2026-02-04 · 7 reactions] See you at #ViVE2026!\n\n- [2025-10-16 · 4 reactions] We’re thrilled to be part of HLTH Inc. 2025 and to bring healthcare leaders together for meaningful conversations beyond the conference floor. Join our co-founder and other industry executives for...\n\n- [2025-10-02 · 75 reactions, 1 comment] NAMSS 2025: The conversations that matter This week at NAMSS - National Association Medical Staff Services, we spent three days listening to credentialing leaders talk about what's actually broken...\n\n- [2025-09-24 · 2 reactions] Our co-founder, Rahul Shivkumar, is hosting an intimate dinner for healthcare executives following his MGMA roundtable on Monday. Limited seats remain for this candid discussion on operational chal...\n\n## Locations\n- Headquarters: new york, new york, united states (US)\n- Offices: san jose, california, united states (US), irving, texas, united states (US), farmington, michigan, united states (US), new york, new york, united states (US)",
+        "summary": "{\"description\":\"Assured is a Software Development company providing end-to-end credentialing, payer enrollment, network management, compliance, licensing, and renewal services with digital health solutions to streamline provider operations.\",\"employee_estimate\":162,\"employee_estimate_source\":\"Employees: 162\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Founding Head of GTM\",\"hq\":\"New York, New York, United States\",\"hq_quote\":\"Headquartered in New York, New York, United States\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Software Development\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 25,000,000 - Series a (2026-07-01): USD 19.0M\\n  - Seed (2025-10-15): USD 6.0M\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQFBaNsu1uuifw/company-logo_200_200/B56ZahfwiZHsAM-/0/1746466179991/assured_health_logo?e=2147483647&v=beta&t=67jOhs6pnaRFXn7YcxkNhc3ZtjtPBu87ZFvOkCI-z2s",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/x0kgq6y09l0",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Assured",
+              "foundedYear": 2024,
+              "description": "In 2022, the U.S. spent $4.5 trillion on healthcare, about 17.3% of GDP. Administrative costs account for 25% to 30% of that total, fueled by credentialing, insurance enrollments, and essential but manual workflows.\n\nWe're on a mission to rebuild the operational backbone of healthcare. As AI doubles in capability at the half the price every year, we see a future where provider operations are run by lean teams supported by autonomous, reasoning-capable AI agents. \n\nPrior to founding Assured, Varun Krishnamurthy and Rahul Shivkumar built and sold a VC-backed digital health startup. We've lived the operational chaos that comes with scaling a healthcare practice and set out to build the platform we wish we had.",
+              "workforce": {
+                "total": 162
+              },
+              "headquarters": {
+                "address": "333 7th Ave, Floor 17, New York, NY 10001, US",
+                "city": "New York",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 25000000,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2026-07-01",
+                  "amount": 19000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 27393,
+                "countryRank": 351223,
+                "avgDurationSeconds": 139,
+                "history": [
+                  {
+                    "value": 10376,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 11027,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 9369,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 11374,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 18582,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 27393,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 5638.8,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

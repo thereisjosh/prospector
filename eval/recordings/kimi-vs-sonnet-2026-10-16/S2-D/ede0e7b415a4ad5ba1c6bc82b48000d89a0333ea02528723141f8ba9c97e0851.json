@@ -1,0 +1,226 @@
+{
+  "request": {
+    "query": "Flamingo",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "5699f853d5a3a0c7ed8350dd63a642b7",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/zfbz52w6qy2",
+        "title": "Flamingo",
+        "url": "https://flamingo.io/",
+        "text": "# Flamingo\n\nFlamingo (FGO) is a Advertising Services company. Flamingo employs 783 people (+0.5% YoY, +4 people). Headquartered in London, United Kingdom, with presence in Australia. Its workforce is distributed across 26 countries (including Colombia, India, United Kingdom, United States, and China).\n\n## About\n\nFlamingo is a cultural strategy agency; we craft cultural fluency for our clients. \n\nWe believe the world’s best brands are those that manage to be both highly relatable and truly distinctive, and that they do this by being culturally fluent. When brands have cultural fluency, they can play with the boundaries of culture and find new expressions for it. We help our clients achieve this by harnessing the emergent and unseen patterns of culture to shape and build powerful strategy. \n\nSince we began, we’ve worked on an incredibly diverse range of brand and innovation challenges, for many of the most visionary brands and organisations on the planet.\n\nBased in London, Flamingo is a team of over 70 polymaths, with backgrounds include architecture, photography, sculpture, journalism, music and anthropology.\n\n## Company Details\n- Industry: Advertising Services\n- Type: Privately held\n- Headquarters: London, United Kingdom\n- Homepage: flamingo.io\n- Aliases: flamingo, flamingo research, flamingo ventures pty ltd\n- LinkedIn: linkedin.com/company/flamingo\n- Linkedin Followers: 24,401\n- Emails: enquiries@flamingogroup.com\n- Phone: 1300-556-368, 44.0.203.790.0400\n- Stock Symbols: FGO (Australian Securities Exchange)\n\n## Workforce\n- Employees: 783\n- Company Size: 51-200 employees\n  - Monthly Growth: -2.9%\n  - Yearly Growth: +0.5%\n- Key Executives:\n  - Aman Barman: Chief Marketing Officer\n  - Amy Rait: Director Cultural Intelligence\n  - Cindy Wu: Head of recruitment services\n  - Jaime Alejandro Rios Sanchez: autonomo\n  - Meaghan Matthews: People Business Partner\n  - Mohammed Bourgeois: derector\n  - yeehan Zoe: Group Head\n- Breakdown:\n  - By Country: Colombia: 15 (2%), India: 9 (1%), United Kingdom: 7 (1%), United States: 6 (1%), China: 3, Kenya: 3, Brazil: 2, Italy: 2, Malta: 2, Namibia: 2 (+16 more)\n  - By Department: Other Department: 12 (2%), Operations: 11 (1%), Sales: 10 (1%), Hr: 6 (1%), Marketing: 6 (1%), Administrative: 4 (1%), Finance: 4 (1%), General Management: 4 (1%), Technical: 4 (1%), Consulting: 3 (+5 more)\n  - By Seniority: Specialist: 33 (4%), Other Management: 18 (2%), Manager: 10 (1%), Intern: 3, Director: 2, Head: 2, Clevel: 1, Founder: 1, Partner: 1\n- Talent Sources: Insights (9), Omnicom (8), Kantar Consulting (7), The London School of Economics and Political Science (LSE) (6), Hall & Partners (5), FIREFISH (5), VCCP (4), Flamingo Computers (4), Canvas8 (4), ?What If! Innovation | Part of Accenture (4)\n- Alumni Go To: Hall & Partners (13), Kantar Consulting (8), C Space (8), Kiosk HQ (7), Quantum (6), Nation (6), 8TH DAY (6), Inner Chapter (5), Gemic (5), FIREFISH (5)\n\n## Products & Technology\n- Tech Stack: comit, hive, well, amp, ups, c, deputy, ethereum\n\n## Web presence\n\n- Twitter: twitter.com/flamingocx\n- Facebook: facebook.com/pages/flamingo-customer-experience/374007152711628\n- Crunchbase: crunchbase.com/organization/flamingo\n\n## Reviews & Ratings\n- Product Reviews: 5.0/5.0 (1 reviews)\n\n## Categories\n\nabsence management, absence management software, advertising, brand architecture / stretch, brand strategy & positioning, business-services, communications & creative strategy, consulting, consumer & category exploration & understanding, creative development & evaluation, data-collection, flamingo, management-consulting, market-research, marketing, new brand & product development & innovation, qualitative research, segmentation\n\n## Competitors\n\njargon, apartment ocean, dialogflow, ibm, nuance, creative virtual, kore.ai, interactions, kasisto, cogito, inbenta, logo market research & consulting, ipsos, ccs insight, axesor\n\n## Recent News\n- [2022-03-23] Globe Newswire: How NFTs are changing the gambling industry: Flamingo Casino Club case\n- [2022-03-22] Hindu Business Line: Flamingo enters adult diaper category\n- [2022-02-10] coindesk.com: FlamingoDAO’s NFT Portfolio Is Now Worth $1B\n- [2022-01-05] Finextra Research: Financial wellness app Flamingo launches in Australia\n- [2021-11-28] Telegraph UK: Tesco flower supplier Flamingo hires bankers for £750m sale\n- [2021-10-25] The North Bay Business Journal: Santa Rosa’s Flamingo Resort gets new top executive after renovation\n- [2021-09-30] Yahoo Finance: Sun Capital Weighs Sale of Tesco Flower Supplier Flamingo\n- [2020-06-23] Business Insider: Some Las Vegas casinos gave away $20 to gamblers wearing a mask\n- [2020-06-19] Las Vegas Review Jurnal: 2 Flamingo employees test positive for COVID-19\n- [2020-05-26] Voicebot.ai: Australian Enterprise Virtual Assistant Developer Flamingo AI Selling for $100\n\n## Social\n\n### Linkedin\n\n- [2019-10-03 · Posted · 11 reactions] [We’re delighted to have been shortlisted for three MRS Awards: New...](https://www.linkedin.com/posts/flamingo_mrs-awards-market-research-society-market-activity-6585441905100845056-emMQ)\n  > We’re delighted to have been shortlisted for three MRS Awards: New Consumer Insights (with GSK); Public Policy/ Social Research (with PHE) and Innovation in Data Analytics (with F1). We’re so proud to have been recognised across such a broad range of work!\n  >\n  > https://lnkd.in/fT9K3F4\n\n- [2019-07-22 · Posted · 17 reactions] [Last week, Campaign chose Nigel Farage for its cover story, causing...](https://www.linkedin.com/posts/flamingo_nigel-farage-cover-felt-like-an-insult-activity-6558984982755364864--O6v)\n  > Last week, Campaign chose Nigel Farage for its cover story, causing huge controversy across the industry. Flamingo's CEO, Desiree Lopez, is on the board of Media For All, which has sent a response to Campaign.\n  >\n  > \"Campaign's cover story offering lessons from Nigel Farage felt like an insult to the advertising community and what it tries to do every day. The decision to publish a lengthy profile interview without a contribution from the many groups that Farage's politics demonise is also hard to understand, given Campaign's long support for equality and diversity in our industry.\"\n\n- [2019-07-08 · Posted · 42 reactions] [Flamingo is expanding! Welcome Thiago Bersou (Senior Partner, North...](https://www.linkedin.com/posts/flamingo_flamingo-is-expanding-welcome-thiago-bersou-activity-6553940986077282304-zEGp)\n  > Flamingo is expanding! Welcome Thiago Bersou (Senior Partner, North America, based in Los Angeles). Welcome also to Paul Cowper (Managing Partner, EMEA region) and John Matthews (Partner).\n\n- [2019-02-18 · Posted · 30 reactions] [We are super excited to announce that we are launching our new...](https://www.linkedin.com/posts/flamingo_launching-the-frame-flamingos-quarterly-activity-6503252708160466944-8DF2)\n  > We are super excited to announce that we are launching our new quarterly trends report 'The Frame' at a breakfast event in the Barbican’s Conservatory on 7th March\n  >\n  > Attending the launch event is a unique opportunity to hear the trends presented, enjoy a hearty breakfast at the Barbican and receive the report (plus collateral you can take away with you) before it goes on widespread sale. All for less than the cost of the full report alone\n  >\n  > More info and tickets here: https://lnkd.in/dDqdEde\n\n- [2019-01-11 · Posted · 26 reactions] [When oat-based milk startup Oatly AB was too overwhelmed to keep up...](https://www.linkedin.com/posts/flamingo_perfect-imperfections-lessons-from-small-activity-6489479324436094976-KAot)\n  > When oat-based milk startup Oatly AB was too overwhelmed to keep up with customer demand, rather than prompting customer frustration, its popularity seemed to grow stronger. Flamingo's Anna Wilmot explores why, and what this means for bigger brands #branding #demand #milk\n\n- [2018-06-18 · Posted · 26 reactions] [Thanks to Instagram, the world is now square. Flamingo's Emily...](https://www.linkedin.com/posts/flamingo_the-world-is-square-how-instagram-is-shaping-activity-6414469345392541697-CNJL)\n  > Thanks to Instagram, the world is now square. Flamingo's Emily Sheen shares her thoughts on how the social media platform is changing everything, from the way we eat to the way we build our cities: https://bit.ly/2t4lSyY\n\n- [2018-05-21 · Posted · 42 reactions] [Our CEO Desiree Lopez speaks on ditching intern CVs at Flamingo and...](https://www.linkedin.com/posts/flamingo_brands-are-ditching-cvs-to-find-new-ways-activity-6404341076244652032-zxEO)\n  > Our CEO Desiree Lopez speaks on ditching intern CVs at Flamingo and recruiting people who are curious about the world. \"The process has absolutely given us access to individuals we don’t think we would have normally seen\" Read more in Marketing Week here: https://lnkd.in/egvJSeE\n\n- [2018-05-02 · Posted · 15 reactions] [Last Thursday Lucas (Head of Digital Forensics) and George...](https://www.linkedin.com/posts/flamingo_what-we-talk-about-when-we-talk-about-planning-activity-6397361799661969408-vino)\n  > Last Thursday Lucas (Head of Digital Forensics) and George (Futures) from Flamingo spoke at APG alongside other strategists from sister professions - sharing their tools for 'how to best make sense of the world now.' Sam Peña-Taylor from WARC has written a fantastic write up of the event  - well worth a read: https://lnkd.in/euiz7xg\n\n- [2018-03-13 · Posted · 20 reactions] [WE ARE HIRING: Head of Insight We are looking for a Head of Insight...](https://www.linkedin.com/posts/flamingo_we-are-hiring-head-of-insight-we-are-looking-activity-6379304902354620416-hACX)\n  > WE ARE HIRING: Head of Insight\n  >\n  > We are looking for a Head of Insight to join our growing team. Our insight work involves answering the most interesting questions for the most diverse brands – from laundry to lux, tech to banking. In addition to your never-dulling curiosity, you will be a skilled client leader, a magnet for the best talent and an inspiring force for good.\n  >\n  > To find out more and apply, please visit our careers page:  https://lnkd.in/etVEhFa\n\n- [2018-01-16 · Posted · 15 reactions] [WE ARE HIRING an Account Manager to join our Account Direction...](https://www.linkedin.com/posts/flamingo_we-are-hiring-an-account-managerto-join-activity-6359082547649093632-7M11)\n  > WE ARE HIRING an Account Manager to join our Account Direction Collective\n  >\n  > Are you passionate about providing excellence in project management and looking to grow?\n  >\n  > We have some of the best brains, hearts and souls in the business and we need someone who is currently a qualitative project manager with 1-2 years experience with a passion for managing international & domestic projects and providing excellence in this field.\n  >\n  > To find out more and apply, please visit our careers page: https://lnkd.in/gcCRk7i\n\n## Locations\n- Headquarters: london, se1 0sw, united kingdom (GB)\n- Offices: london, se1 0sw, united kingdom (GB), sydney, new south wales, australia, london, england, united kingdom (GB)",
+        "summary": "{\"description\":\"Flamingo is a cultural strategy agency; we craft cultural fluency for our clients.\",\"employee_estimate\":783,\"employee_estimate_source\":\"Employees: 783\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"London, United Kingdom\",\"hq_quote\":\"Headquartered in London, United Kingdom, with presence in Australia.\",\"industry\":\"Advertising Services\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"\\\"Industry: Advertising Services\\\" and general B2B context imply business-to-business; explicit 'B2B' not stated on page\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":null,\"recently_funded_seed_or_series_a_quote\":\"\\\"Yearly Growth: +0.5%\\\"\\\"Monthly Growth: -2.9%\\\"\\\"-\\\" not mentioning funding\\\", \"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4D0BAQG-lQ-EEQloZA/company-logo_200_200/company-logo_200_200/0/1630523272848/flamingo_logo?e=2147483647&v=beta&t=l99dwuTorqiiS_mnXPjioVYc3LxoE4SenFBhGAieUrE",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/zfbz52w6qy2",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Flamingo",
+              "foundedYear": null,
+              "description": "Flamingo is a cultural strategy agency; we craft cultural fluency for our clients. \n\nWe believe the world’s best brands are those that manage to be both highly relatable and truly distinctive, and that they do this by being culturally fluent. When brands have cultural fluency, they can play with the boundaries of culture and find new expressions for it. We help our clients achieve this by harnessing the emergent and unseen patterns of culture to shape and build powerful strategy. \n\nSince we began, we’ve worked on an incredibly diverse range of brand and innovation challenges, for many of the most visionary brands and organisations on the planet.\n\nBased in London, Flamingo is a team of over 70 polymaths, with backgrounds include architecture, photography, sculpture, journalism, music and anthropology. ",
+              "workforce": {
+                "total": 783
+              },
+              "headquarters": {
+                "address": "Bankside 2, 100 Southwark Street, London, SE1 0SW, GB",
+                "city": "London",
+                "postalCode": null,
+                "country": "United Kingdom"
+              },
+              "financials": null,
+              "webTraffic": null,
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/k8lvsb70kdx",
+        "title": "Flamingo",
+        "url": "https://flamingo.run/",
+        "text": "# Flamingo\n\nFlamingo is a IT System Custom Software Development company. Flamingo is a MSP software with AI agents that handles tier-1 tickets and helps vendor costs cut 40% and hit 20%+ margins. Flamingo employs 42 people (+200.0% YoY, +28 people), founded in 2025. Headquartered in Miami, Florida, United States. Its workforce is distributed across 12 countries (including Ukraine, Spain, United States, Austria, and Germany).\n\n## About\n\nFlamingo is an AI + open-source company building the vertical OS for Managed Service Providers (MSPs). We unify essential IT and security workflows into one data model and API, then layer agentic automation to eliminate repetitive tasks. The result: fewer tools, lower costs, and happier customers. We’re in beta with real MSPs, iterating fast with our community and waitlist. If you run an MSP and want higher margins with fewer headaches - join us.\n\n## Company Details\n- Industry: IT System Custom Software Development\n- Type: Privately held\n- Headquarters: Miami, United States\n- Founded Year: 2025\n- Homepage: flamingo.run\n- Aliases: Flamingo AI, Inc,, flamingo\n- LinkedIn: linkedin.com/company/flamingo-run\n- Linkedin Followers: 961\n- Emails: hello@flamingo.run\n\n## Financials\n- Total Funding: USD 6,700,000\n  - Seed (2026-09-01): USD 4.5M\n  - Pre seed (2025-11-28): USD 2.2M\n\n## Workforce\n- Employees: 42\n- Company Size: 11-50 employees\n  - Monthly Growth: +7.7%\n  - Yearly Growth: +200.0%\n- Key Executives:\n  - Michael Assraf: Chief Executive Officer and Founder\n  - Roman Khutornyi: Founding Product Designer\n  - Vlad Marchenko: Head of Marketing\n- Breakdown:\n  - By Country: Ukraine: 19 (45%), Spain: 2 (5%), United States: 2 (5%), Austria: 1 (2%), Germany: 1 (2%), India: 1 (2%), Israel: 1 (2%), Italy: 1 (2%), Montenegro: 1 (2%), Poland: 1 (2%) (+2 more)\n  - By Department: Technical: 19 (45%), Other Department: 8 (19%), Marketing: 2 (5%), Design: 1 (2%), General Management: 1 (2%), Hr: 1 (2%), Product: 1 (2%)\n  - By Seniority: Other Management: 11 (26%), Specialist: 11 (26%), Senior: 5 (12%), Manager: 3 (7%), Founder: 2 (5%), Head: 1 (2%)\n- Talent Sources: GlobalLogic (2), ValueTek (1), Skylum (1), SevenPro (1), Prado (1), NDA (1), N-iX (1), EPAM Systems (1), Distributed Lab🇺🇦 (1), Apono (1)\n- Alumni Go To: Mavka Creative Agency (1), Digitide (1), Charm Security (1)\n\n## Products & Technology\n- Features: Free Trial\n- Tech Stack: macos, apache, grafana, graphql, impact, java, javascript, kubernetes, linkedin, mongodb, prometheus, python, spring, spring boot, vue.js\n\n## Web presence\n\n- Facebook: facebook.com/flamingoai.msp\n- Crunchbase: crunchbase.com/organization/something-new-4a20\n- GitHub: github.com/flamingo-stack\n- Web traffic:\n  - Monthly visits: 16,776\n  - Global rank: 1,514,704\n  - Bounce rate: 39.0%\n  - Pages per visit: 1.8\n  - Average visit duration: 31s\n\n## Categories\n\nai agents, artificial intelligence (ai), generative ai, infrastructure, it infrastructure, it management, margins, msp software, open source, technology/software, tier-1 tickets, vendor costs\n\n## Recent News\n- [2026-10-06] 102.7 Coyote Country: Overnight Closures, Lane Reductions Hit Las Vegas Strip as Grand Prix Prep Ramps Up\n- [2026-10-02] Pine Barrens Tribune: Evesham Twp. Moves to Acquire Black Run Headwaters Property That Many Advocates Fought to be Saved from Development\n- [2026-09-29] The Revelator: The Flamingo Revolution and the Rhythm of Resistance: The Race to Save Europe’s Last Wild River\n- [2026-09-24] Florida Sportsman: Fishing Forecast In South FL - Key Largo, Miami, & More\n- [2026-09-23] Jezebel: Our Planet's Sad Baby Flamingo Is the Heartbreak We Deserve\n- [2026-09-22]\n  - Yahoo: How a Lonely Teen Used Yard Flamingos to Raise $25K for Rescue Pets\n  - The Times of India: Meet Sawyer Tinsley, a 16-year-old Florida teen who used yard flamingos to raise $25K for rescue pets aft\n- [2026-09-15] Chronicle Live: Local heroes galore\\! Great North Run 2026 in 95 joyous photos as North East shines on historic day\n- [2026-09-08]\n  - https://streamlinefeed.co.ke/: Flamingo Revolution Protests Grip Albania at Hundredth Day\n  - ChannelLife Australia: Flamingo raises USD $4.5 million for AI IT platform\n  - PressReader: Teen hero: Fostering kittens inspires hope and community\n- [2026-09-07] The East Hampton Star: Bicyclist in Hit-and-Run\n- [2026-09-02] Reuters: Flamingo Raises $4.5 Million in Seed Round Led by Vertex Ventures\n- [2026-08-23] Yahoo: “I managed to survive”: Albert Lee on his time as Eric Clapton’s sideman\n- [2026-08-18]\n  - The News-Press: Best SW Florida reader photos include Cape Coral, Fort Myers, Pine Island\n  - The Sun: Big Brother fans shocked over real size of ‘run-down’ house’s backyard in rare behind-the-scenes video\n- [2026-08-11]\n  - ThePrint: 600 flamingo chicks ringed in Spain, ready for a migration that could end in India\n  - CNBC: Inside the startup drone maker powering Ukraine's deep-strike campaign\n  - Palm Beach Illustrated: Sawyer Tinsley on Cats and Compassion\n- [2026-08-09] TVP World: ‘Flamingo Revolution’ grows as Albanian prosecutors probe Kushner-linked resort land deal\n\n## Social\n\n### Linkedin\n\n- [2026-10-08 · 5 reactions] Who's in charge of IT? Depends who you ask 😁\n\n- [2026-10-06 · 7 reactions, 1 comment] Client onboarding usually gets done twice. One tech runs the assessment, then someone senior checks it all again. Conrad ran the whole thing live in one Mingo session. Health check, security scan,...\n\n- [2026-10-01 · 6 reactions, 1 comment] For MSPs running mixed Microsoft 365 and Google Workspace tenants across separate admin consoles, plus a separate RMM, PSA, and patch tool on top: OpenFrame v1.5.0 just collapsed that stack into on...\n\n- [2026-09-30 · 8 reactions, 5 comments] Built for MSP owners, service delivery managers, NOC leads, IT directors, and automation engineers running multi-client fleets: your Monday morning ticket queue is about to look different. Join us...\n\n- [2026-09-29 · 9 reactions] One #MSP ran OpenFrame on his biggest client, and now he's rolling it out to every other client he supports.\n\n- [2026-09-25 · 10 reactions] How Fae and Mingo be when nobody's asked how to reset a password all day:\n\n- [2026-09-23 · 12 reactions, 1 comment] OpenFrame just went mobile. Manage tickets, devices, and notifications from your iPhone, no laptop required. Full release notes and upgrade guidance are ready now. What would mobile ticket manageme...\n\n- [2026-09-22 · 8 reactions] A copilot would have written a lovely summary of that log file. Mingo read it, found the cause, and changed the pagefile itself.\n\n- [2026-09-17 · 12 reactions, 1 comment] A 14-year Datto veteran just told us he's ready to switch. That's not a sentence you hear often in MSP land. Stephen Mears has run Mear Technology in Edinburgh since 2011. His team manages 1,000 en...\n\n- [2026-09-09 · 11 reactions] Do you know what \"agent washing\" is? Gartner went looking in 2025, counted thousands of vendors selling \"agentic\" products, and found around 130 building anything that deserved the name. Directed b...\n\n- [2026-09-03 · 60 reactions, 5 comments] Some investments just feel right for the moment we’re in, and for me Flamingo 🦩 is exactly that kind of investment. We see it everywhere. 𝐈𝐓 𝐢𝐬 𝐛𝐞𝐜𝐨𝐦𝐢𝐧𝐠 𝐚 𝐤𝐞𝐲 𝐞𝐧𝐚𝐛𝐥𝐞𝐫 𝐨𝐟 𝐀𝐈 𝐚𝐝𝐨𝐩𝐭𝐢𝐨𝐧, and we’re movi...\n\n- [2026-09-02 · 20 reactions, 2 comments] There's a version of running IT and security where the whole tool stack costs $1 per device per month and the routine work gets done without a technician touching it. 400 MSPs are running it in bet...\n\n- [2026-09-02 · 4 reactions, 1 comment] Joseph Kovar thanks!\n\n- [2026-09-01 · 11 reactions, 2 comments] OpenFrame 1.3.0 is out, and the dashboard now lives on your desktop 🦩 A native app for Windows and macOS. One click from the tray, no hunting for the right browser tab. You sign in once and stay si...\n\n- [2026-08-26 · 9 reactions, 1 comment] Your ticketing queue just got a lot smarter. OpenFrame v1.2.27 is here, and it hands control back to MSPs who are tired of paying premium prices for basic workflow logic. What's new: - Fae now clos...\n\n- [2026-08-20 · 25 reactions, 1 comment] Confirmed: nobody on this team is AI-generated. Also confirmed: OpenFrame v1.2.1, shipped between Tuscany dinners. And one thing that never needed confirming: how hard this team works. Thank you, f...\n\n- [2026-08-18 · 33 reactions, 2 comments] Every startup that came into the MSP space got bought early. Gabe Lullo and Lexi Graham asked me about that on the Do Hard Things podcast. Good exits, every time, which told me the demand here was...\n\n- [2026-08-17 · 8 reactions, 1 comment] OpenFrame v1.2.1 is here, and it ships the full RMM Scheduled Script engine. Here is what that means for your day-to-day: - Cron-based and interval-based scheduling with device/group targeting - Au...\n\n- [2026-08-14 · 29 reactions, 3 comments] On this week's episode, Enzo Zenuni told me about his eight-year-old son. The kid set up a tiny office next to his dad's. Little laptop, keyboard, mouse, a desk phone. Enzo asked him if he wanted t...\n\n- [2026-07-21 · 7 reactions, 1 comment] MSP pricing is broken. Sales call, sales gimmicks, a page of contingencies you have to decode - and locked into the vendor no matter what. Then the AI shows up as its own line item, gated behind a...\n\n## Locations\n- Headquarters: miami, florida, united states (US)\n- Offices: miami, florida, united states (US)",
+        "summary": "{\"description\":\"Flamingo is an MSP software company building an AI-assisted, open-source vertical OS for Managed Service Providers (MSPs). It unifies IT and security workflows into one data model and API, with agentic automation to reduce tools, cost, and effort for MSPs. Founded 2025, headquartered in Miami, FL, USA, with distributed workforce across multiple countries.\",\"employee_estimate\":42,\"employee_estimate_source\":\"Employees: 42\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Head of Marketing\",\"hq\":\"Miami, United States\",\"hq_quote\":\"Headquartered in Miami, Florida, United States.\",\"industry\":\"IT System Custom Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"IT System Custom Software Development\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 6,700,000 - Seed (2026-09-01): USD 4.5M - Pre seed (2025-11-28): USD 2.2M\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4D0BAQGlGhXEDDijjA/company-logo_200_200/B4DaCfx_T2IMAE-/0/1789387077073/flamingo_run_logo?e=2147483647&v=beta&t=sb0gN8B0YXnSxNCVXOA7mHM9ijTjbukuGRXtAegaAE0",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/k8lvsb70kdx",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Flamingo",
+              "foundedYear": 2025,
+              "description": "Flamingo is an AI + open-source company building the vertical OS for Managed Service Providers (MSPs). We unify essential IT and security workflows into one data model and API, then layer agentic automation to eliminate repetitive tasks. The result: fewer tools, lower costs, and happier customers. We’re in beta with real MSPs, iterating fast with our community and waitlist. If you run an MSP and want higher margins with fewer headaches - join us.",
+              "workforce": {
+                "total": 42
+              },
+              "headquarters": {
+                "address": "400 NW 26th St, Flamingo, Miami, Florida 33127, US",
+                "city": "Miami",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 6700000,
+                "fundingLatestRound": {
+                  "name": "Seed",
+                  "date": "2026-09-01",
+                  "amount": 4500000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 16776,
+                "countryRank": 783812,
+                "avgDurationSeconds": 31,
+                "history": [
+                  {
+                    "value": 6450,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 7662,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 7522,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 17342,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 19380,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 16776,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 9130.6,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

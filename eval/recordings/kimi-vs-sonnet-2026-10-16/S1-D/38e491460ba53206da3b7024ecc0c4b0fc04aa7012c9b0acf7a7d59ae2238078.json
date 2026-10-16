@@ -1,0 +1,228 @@
+{
+  "request": {
+    "query": "White Cap",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "abfb90b63cc1f619ded3b69351582f66",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/nbt6ctq6vsd",
+        "title": "White Cap",
+        "url": "https://whitecap.com/",
+        "text": "# White Cap\n\nWhite Cap is a Wholesale Building Materials company. White Cap is a one-stop-shop providing concrete accessories and chemicals, tools and equipment, building materials and fasteners, erosion and what. White Cap employs 6,050 people (+8.5% YoY, +473 people) and has an annual revenue of $4B. Headquartered in Atlanta, Georgia, United States, with offices in Doraville, Norcross, and Costa Mesa. Its workforce is distributed across 9 countries (including United States, Canada, France, India, and Australia).\n\n## About\n\nWhite Cap and its affiliates serve as a one-stop shop, providing concrete accessories and chemicals, tools and equipment, building materials and fasteners, erosion and waterproofing products, and safety products to professional contractors by meeting their distinct and customized supply needs in non-residential, infrastructure, and residential end markets. White Cap operates approximately 500 branches across North America with more than 11,000 employees supporting approximately 200,000 customers. \n\nFor more information about White Cap, visit about.whitecap.com.\n\n## Company Details\n- Industry: Wholesale Building Materials\n- Type: Privately held\n- Headquarters: Atlanta, United States\n- Homepage: whitecap.com\n- Aliases: White Cap Supply Holdings, LLC, hd supply white cap, white cap, White Cap Supply Holdings\n- LinkedIn: linkedin.com/company/wearewhitecap\n- Linkedin Followers: 71,036\n- Emails: wcazureprivacy@whitecap.com\n- Phone: 1-800-944-8322, 1-800-944-8322., 1-888-309-2003, 800-944-8322\n\n## Financials\n- Annual Revenue: USD 4,000,000,000\n\n## Acquisitions\n- Acquired by: CD&R LLP (2020-08-01)\n- Acquired Gierke Robinson Company, Inc (2026-07-01)\n- Acquired Concrete Systems, Inc. (2026-05-01)\n- Acquired VoidForm Products, Inc. (2026-01-01)\n- Acquired Colony Hardware Corp. (2026-01-01)\n- Acquired Anchor Products (2025-10-01)\n\n## Workforce\n- Employees: 6,050\n  - Monthly Growth: +1.0%\n  - Yearly Growth: +8.5%\n- Key Executives:\n  - Aaron Zeide, CFA: Vice President, Strategy\n  - Alfia Vernik, CPA, MAFM: Head of Accounting Operations\n  - Alyssa Miller: Director, Marketing Strategy and Integrated Marketing Communications\n  - Andrew Goetzman: Director of Finance\n  - Angie Graef: Director, Integration (M&A)\n  - Anna Lazzarini: Director, Customer Experience and Analytics\n  - Anthony Charles Scott MSM, ARM, CRIS, CPCU: Director of Risk Management\n  - Arthur Skachkov: Director of Commodities\n  - Ashley Adams: Deputy General Counsel and Deputy Compliance Officer\n  - Balaji Viswanathan: Director of Financial Planning and Analysis\n- Breakdown:\n  - By Country: United States: 2,848 (47%), Canada: 185 (3%), France: 4, India: 4, Australia: 1, Gabon: 1, Guatemala: 1, Morocco: 1, Puerto Rico: 1\n  - By Department: Sales: 1,343 (22%), Operations: 449 (7%), Finance: 314 (5%), General Management: 308 (5%), Other Department: 131 (2%), Technical: 127 (2%), Project Management: 72 (1%), Trades: 70 (1%), Hr: 69 (1%), Marketing: 65 (1%) (+10 more)\n  - By Seniority: Specialist: 1,503 (25%), Manager: 959 (16%), Other Management: 268 (4%), Senior: 267 (4%), Director: 84 (1%), Vp: 26, Head: 20, Intern: 11, Clevel: 5\n- Active job postings: 695\n- Talent Sources: Ram Tool Construction Supply Co. (244), HD Supply (222), The Home Depot (98), Lowe's Companies, Inc. (49), A.H. Harris & Sons, Inc. - Construction Supplies (46), Colony Hardware (40), Fastenal (28), Brock White Construction Materials (26), ORCO Construction Supply (24), United Rentals (21)\n- Alumni Go To: HD Supply (52), The Home Depot (21), SouthernCarlson (20), A.H. Harris & Sons, Inc. - Construction Supplies (14), Ram Tool Construction Supply Co. (13), Sunbelt Rentals, Inc. (12), Lowe's Companies, Inc. (12), CMC (11), Ferguson (9), Ganahl Lumber (8)\n\n## Products & Technology\n- Tech Stack (showing 50 of 291): ada, adobe, adobe acrobat, adobe analytics, adobe creative cloud, agility cms, agility multichannel, aimms, alteryx, amplitude, anylogic, armor, articulate storyline, autocad, avalara, azure data factory, beyondtrust, billtrust, bluebeam, bluebeam revu, boardvantage, bomgar, bomgar remote support, bynder, camtasia, citrix xenapp, core hr, coupa, coupa p2p, crowdstrike, css, databricks, docusign, emailage, enterworks, episerver cms, equifax, figma, foreman, freshdesk, gaggle, gauges, geotab, github, google analytics, google sheets, gps, group policy, hcm, helpdesk\n\n## Web presence\n\n- Twitter: twitter.com/hdswhitecap\n- Facebook: facebook.com/wearewhitecap\n- Instagram: instagram.com/hdswhitecap\n- YouTube: youtube.com/channel/ucdgh7phaldyvhmcu65jfwug\n- Crunchbase: crunchbase.com/organization/white-cap-construction-supply\n- Web traffic:\n  - Monthly visits: 305,531\n  - Global rank: 138,116\n  - Bounce rate: 48.0%\n  - Pages per visit: 3.0\n  - Average visit duration: 78s\n\n## Categories\n\nbuilding maintenance, building materials, building-materials, chemicals, commercial construction materials, concrete accessories, construction, fasteners, geosynthetic/erosion control supplies, heavy_industry_and_engineering/construction_and_maintenance, industrial construction materials, manufacturing, manufacturing-industrial, power tools, residential construction materials, safety equipment, service industry, tools, waterproofing materials\n\n## Competitors\n\n84 lumber, l&w supply, bmc stock holdings inc, abc supply, bmd, colony hardware, acme, ram tool, rjsupply, carrollsupply, mccann, mccann concrete products, r1 supply, stetson, home depot, ogilvy, demandzen, amazon, wienerberger, vitral, tecnoglass, kibing group, anhui conch cement\n\n## Recent News\n- [2026-09-24] [Senior Manager, Supply Chain Optimization at White Cap — Atlanta, GA \\| LinkedIn Jobs](https://www.linkedin.com/jobs/view/senior-manager-supply-chain-optimization-at-white-cap-4471810149)\n- [2026-09-22] [White Cap Supply Holdings LLC's Proposed Extended \\| S&P Global Ratings](https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3631318)\n- [2026-09-19] [🏭 Memphis manufacturing: multiple roles from $21/hr to $160K+ - NewsBreak](https://www.newsbreak.com/memphis-tn-daily-brief-375428074/4895062982897-memphis-manufacturing-multiple-roles-from-21-hr-to-160k)\n- [2026-09-18] [🚌 Madison, AL Transportation Jobs With Multiple Local Driving Roles - NewsBreak](https://www.newsbreak.com/madison-al-daily-brief-373173636/4894816077079-madison-al-transportation-jobs-with-multiple-local-driving-roles)\n- [2026-09-16] www.marketscreener.com: WHITECAP RESOURCES INC. CONFIRMS MONTHLY DIVIDEND FOR SEPTEMBER 2026 OF $0.0608 PER SHARE\n- [2026-09-10] [🏭 Nashville manufacturing jobs with multiple solid openings - NewsBreak](https://www.newsbreak.com/nashville-tn-daily-brief-375429787/4879102399684-nashville-manufacturing-jobs-with-multiple-solid-openings)\n- [2026-09-09]\n  - [🚌 Clarksville, TN Transportation Jobs With Multiple Openings - NewsBreak](https://www.newsbreak.com/clarksville-tn-daily-brief-375413962/4874637015016-clarksville-tn-transportation-jobs-with-multiple-openings)\n  - [🚌 Chattanooga, TN driving jobs with multiple routes & schedules - NewsBreak](https://www.newsbreak.com/chattanooga-tn-daily-brief-375413594/4874491311014-chattanooga-tn-driving-jobs-with-multiple-routes-schedules)\n- [2026-09-05] [🏭 Pompano Beach Manufacturing: Multiple Hands-On Roles Open Now - NewsBreak](https://www.newsbreak.com/pompano-beach-fl-daily-brief-373180533/4867912300433-pompano-beach-manufacturing-multiple-hands-on-roles-open-now)\n- [2026-09-04] [👔 Queens Executive & Management Roles With Multiple Openings - NewsBreak](https://www.newsbreak.com/queens-ny-daily-brief-372336435/4866241774177-queens-executive-management-roles-with-multiple-openings)\n- [2026-09-02]\n  - [📣 Parsippany-Troy Hills sales & marketing roles with multiple openings - NewsBreak](https://www.newsbreak.com/new-jersey-daily-brief-375409926/4862161516764-parsippany-troy-hills-sales-marketing-roles-with-multiple-openings)\n  - Simply Wall Street: Whitecap Resources \\(TSX:WCP\\) - Stock Analysis\n- [2026-09-01] PR Newswire: [White Cap Completes Acquisition of the Business of Ace Contractors Supply](https://www.prnewswire.com/news-releases/white-cap-completes-acquisition-of-the-business-of-ace-contractors-supply-302865823.html)\n- [2026-08-28] [🚚 Omaha supply chain jobs with multiple hands-on roles - NewsBreak](https://www.newsbreak.com/omaha-ne-daily-brief-375431453/4854831179444-omaha-supply-chain-jobs-with-multiple-hands-on-roles)\n- [2026-08-23] [🚌 Pompano Beach transportation jobs with multiple openings - NewsBreak](https://www.newsbreak.com/pompano-beach-fl-daily-brief-373180533/4844682289224-pompano-beach-transportation-jobs-with-multiple-openings)\n- [2026-08-22] www.torque-expo.com: White Cap acquires Ace Contractors Supply\n- [2026-08-20] [White Cap Signs Definitive Agreement to Acquire the Business of Ace Contractors Supply, Expanding Presence in Central Texas – News Radio KOTA](https://lifestyle.kotaradio.com/story/379401/white-cap-signs-definitive-agreement-to-acquire-the-business-of-ace-contractors-supply-expanding-presence-in-central-texas/)\n- [2026-08-19] [White Cap Completes Acquisition of the Business of Gierke Robinson Company, Inc. – News Radio KOTA](https://lifestyle.kotaradio.com/story/368004/white-cap-completes-acquisition-of-the-business-of-gierke-robinson-company-inc/)\n- [2026-08-15] PR Newswire: White Cap Signs Definitive Agreement to Acquire the Business of Ace Contractors Supply, Expanding Presence in Central Texas\n- [2026-08-14]\n  - The Globe and Mail: Whitecap Confirms August Monthly Dividend, Underscoring Stable Payout Strategy\n  - BOE Report: Whitecap Resources Inc. confirms monthly dividend for August 2026 of $0.0608 per share\n- [2026-08-11] [White Cap expands in Texas](https://hbsdealer.com/white-cap-expands-texas)\n- [2026-08-08] Yahoo Finance: White Cap Celebrates Grand Opening of Enterprise Distribution Center in Bethlehem, Pennsylvania\n- [2026-08-06]\n  - [White Cap Adds Pennsylvania Distribution Hub](https://www.inddist.com/company-expansion-consolidation/news/22971979/white-cap-adds-pennsylvania-distribution-hub)\n  - [White Cap opens 480,940-square-foot distribution center in Bethlehem](https://lvb.com/white-cap-opens-480940-square-foot-distribution-center-in-bethlehem/)\n  - [White Cap Opens 2nd Enterprise Distribution Center in PA](https://www.mdm.com/news/top-distributor-sectors/construction/white-cap-opens-2nd-enterprise-distribution-center-in-pa/)\n- [2026-08-03] PR Newswire: [White Cap Completes Acquisition of the Business of Gierke Robinson Company, Inc.](https://uk.advfn.com/stock-market/share-news/White-Cap-Completes-Acquisition-of-the-Business-of/99036311)\n- [2026-07-27] Revelio Labs: Whitecap Resources Number of Employees 2026 \\| Employee Count & Headcount Data\n- [2026-07-21] MarketBeat: Whitecap Resources \\(TSE:WCP\\) Given a C$22.00 Price Target at Desjardins\n- [2026-05-20] BOE Report: Whitecap Resources Inc. receives TSX approval for renewed normal course issuer bid\n- [2026-05-11] www.marketscreener.com: WHITECAP RESOURCES INC. CONFIRMS MONTHLY DIVIDEND FOR MAY 2026 OF $0.0608 PER SHARE\n- [2026-04-30] www.marketscreener.com: Whitecap Resources Inc. Reports Unaudited Consolidated Production Results for the First Quarter Ended March 31, 2026\n- [2026-04-29] www.marketscreener.com: Whitecap Resources Inc.:\n- [2026-03-18] www.marketscreener.com: WHITECAP RESOURCES INC. CONFIRMS MONTHLY DIVIDEND FOR MARCH 2026 OF $0.0608 PER SHARE\n- [2026-03-17] The Globe and Mail: Today’s Perfect TFSA Stock: 5% Monthly Income\n- [2026-02-25] marketscreener.com: Whitecap Resources Maintained at Outperform at BMO Following Q4 Results; Price Target Raised to C$15.00\n- [2026-02-24]\n  - marketscreener.com: Whitecap Resources Reports Higher Profit, Revenue for Q4; Keeps 2026 Outlook\n  - www.marketscreener.com: Whitecap Resources reports $307.2M Q4 profit, up from $233.8M last year\n\n## Social\n\n### Linkedin\n\n- [2026-10-05 · Posted · 39 reactions] [Got a jobsite question? We've got answers. 🔧 Our experts are...](https://www.linkedin.com/posts/wearewhitecap_ask-an-expert-series-episode-1-out-now-activity-7512863244051562496-GASn)\n  > Got a jobsite question? We've got answers. 🔧\n  >\n  > Our experts are tackling real questions from contractors and construction professionals. Get practical insights, proven solutions, and watch the full conversation on our latest Ask an Expert blog.\n  >\n  > 👉 Read the blog and watch the full video: https://bit.ly/4xW11fi\n  >\n  > #WhiteCap #AskAnExpert #Construction #ContractorLife #JobsiteSolutions\n\n- [2026-10-03 · Posted · 101 reactions] [850,000 square feet. 52,000 cubic yards of concrete. One impressive...](https://www.linkedin.com/posts/wearewhitecap_turner-brothers-llc-850000-sf-project-activity-7512270584525877249-QWvZ)\n  > 850,000 square feet. 52,000 cubic yards of concrete. One impressive result.\n  >\n  > We're proud to have partnered with Turner Brothers LLC by supplying reinforcement products, concrete finishing tools, PPE, and jobsite supplies that helped keep this project moving forward.\n  >\n  > Congratulations to the entire team on an outstanding accomplishment! 🎉\n  >\n  > #concreteplacement #construction #constructionsupply #whitecap\n\n- [2026-09-29 · Posted · 69 reactions] [White Cap is proud to be a Presenting Sponsor of the 2026 Tilt-Up...](https://www.linkedin.com/posts/wearewhitecap_tca-convention-2026-activity-7510785055858888704-oCOV)\n  > White Cap is proud to be a Presenting Sponsor of the 2026 Tilt-Up Concrete Association Convention!\n  >\n  > Take a look back at the energy, connections, and industry expertise that made last year's event such a success. From educational sessions to networking opportunities, the TCA Convention brings together the best in the business.\n  >\n  > Ready to be part of it this year? Register today and see what everyone is talking about.: https://bit.ly/4r42QVQ\n  >\n  > #TCAConvention #TiltUpConstruction #WhiteCap\n\n- [2026-09-24 · Posted · 64 reactions] [Heavy crane loads demand more from the ground beneath them. When...](https://www.linkedin.com/posts/wearewhitecap_tensar-geogrid-constructionsolutions-activity-7509031694465765376-gTro)\n  > Heavy crane loads demand more from the ground beneath them.\n  >\n  > When intermodal facilities face repeated 1.5M+ pound crane loads, pavement performance becomes critical. Tensar, a division of CMC InterAx® geogrid helps contractors stabilize aggregate layers, improve load distribution, and extend pavement life under challenging conditions.\n  >\n  > Learn how geogrid technology helps support long-term performance while reducing maintenance demands.\n  >\n  > Contact a Specialist to learn more today: https://bit.ly/4oPVq5V\n  >\n  > #Tensar #Geogrid #ConstructionSolutions #RoadConstruction\n\n- [2026-09-21 · Posted · 95 reactions] [Construction is hard enough. Finding what you need shouldn't be...](https://www.linkedin.com/posts/wearewhitecap_white-cap-your-one-stop-shop-activity-7507794850969206784-w_4n)\n  > Construction is hard enough. Finding what you need shouldn't be.\n  >\n  > White Cap brings products, expertise, rentals, fabrication, safety solutions, and delivery together under one roof so you can stay focused on the job.\n  >\n  > #OneStopShop #ConstructionSolutions #WhiteCap #ConstructionSupply\n\n- [2026-09-21 · 70 reactions, 1 comment] Construction is hard enough. Finding what you need shouldn't be. White Cap brings products, expertise, rentals, fabrication, safety solutions, and delivery together under one roof so you can stay f...\n\n- [2026-09-19 · Posted · 47 reactions] [Every step helps support the lifesaving mission of St. Jude...](https://www.linkedin.com/posts/wearewhitecap_whitecap-stjudewalk-giveback-activity-7507198622002794496-yADi)\n  > Every step helps support the lifesaving mission of St. Jude Children's Research Hospital.\n  >\n  > White Cap teams across the country are gearing up for the St. Jude Walk. Find a team near you and join us in making a difference.\n  >\n  > 💛 Find your local walk and register today: https://bit.ly/4yLc8bX\n  >\n  > #WhiteCap #StJudeWalk #GiveBack #ChildhoodCancerAwarenessMonth\n\n- [2026-09-19 · 39 reactions, 1 comment] Every step helps support the lifesaving mission of St. Jude Children's Research Hospital. White Cap teams across the country are gearing up for the St. Jude Walk. Find a team near you and join us i...\n\n- [2026-09-18 · Posted · 37 reactions] [Every delivery tells a story. Behind every shipment is a...](https://www.linkedin.com/posts/wearewhitecap_nationaltruckdriverappreciationweek-thankatruckdriver-activity-7506702361407459328-2lGe)\n  > Every delivery tells a story.\n  >\n  > Behind every shipment is a professional driver helping ensure customers have the products they need to stay productive and keep projects moving.\n  >\n  > During National Truck Driver Appreciation Week, we thank all of our White Cap drivers for the important role they play in supporting our customers and communities.\n  >\n  > #NationalTruckDriverAppreciationWeek #ThankATruckDriver #WhiteCap\n\n- [2026-09-18 · 34 reactions] Every delivery tells a story. Behind every shipment is a professional driver helping ensure customers have the products they need to stay productive and keep projects moving. During National Truck...\n\n- [2026-09-17 · Posted · 63 reactions] [Build with confidence using Symons® Forming Systems from Dayton...](https://www.linkedin.com/posts/wearewhitecap_whitecap-daytonsuperior-symonsforms-activity-7506480387234308096--tHo)\n  > Build with confidence using Symons® Forming Systems from Dayton Superior.\n  >\n  > Through White Cap's Forming & Shoring Rental program, you'll have access to dependable forming solutions, extensive rental inventory, and experienced teams that can provide technical guidance and pre-bid support before the work even begins.\n  >\n  > Learn more: https://bit.ly/4qDVEzq\n  >\n  > #WhiteCap #DaytonSuperior #SymonsForms #ConcreteConstruction\n\n- [2026-09-17 · 65 reactions, 1 comment] Build with confidence using Symons® Forming Systems from Dayton Superior. Through White Cap's Forming & Shoring Rental program, you'll have access to dependable forming solutions, extensive rental...\n\n- [2026-09-16 · Posted · 21 reactions] [Jobsites are dangerously noisy environments. Learn more about...](https://www.linkedin.com/posts/wearewhitecap_blog-whitecap-hearingprotection-activity-7505999974430593024-AJn5)\n  > Jobsites are dangerously noisy environments.\n  >\n  > Learn more about hearing loss on the jobsite, the various types of hearing protection available, and how to protect yourself: https://bit.ly/4xkN36F\n  >\n  > #blog #whitecap #hearingprotection #jobsitesafety\n\n- [2026-09-16 · 21 reactions] Jobsites are dangerously noisy environments. Learn more about hearing loss on the jobsite, the various types of hearing protection available, and how to protect yourself: https://bit.ly/4xkN36F #bl...\n\n- [2026-09-15 · Posted · 107 reactions] [White Cap is proud to be a Presenting Sponsor of the 2026 Tilt-Up...](https://www.linkedin.com/posts/wearewhitecap_tcaconvention-tiltupconstruction-whitecap-activity-7505712332904497153-q0jn)\n  > White Cap is proud to be a Presenting Sponsor of the 2026 Tilt-Up Concrete Association Convention!\n  >\n  > Join industry leaders, contractors, suppliers, and innovators for one of the premier events in the tilt-up construction industry. Whether you're looking to expand your network, discover new solutions, or gain valuable insights, this is an event you won't want to miss.\n  >\n  > Register and learn more: https://bit.ly/4r42QVQ\n  >\n  > #TCAConvention #TiltUpConstruction #WhiteCap\n\n- [2026-09-15 · 124 reactions] White Cap is proud to be a Presenting Sponsor of the 2026 Tilt-Up Concrete Association Convention! Join industry leaders, contractors, suppliers, and innovators for one of the premier events in the...\n\n- [2026-09-14 · Posted · 30 reactions] [This National Truck Driver Appreciation Week, we're recognizing the...](https://www.linkedin.com/posts/wearewhitecap_nationaltruckdriverappreciationweek",
+        "summary": "{\"description\":\"White Cap is a Wholesale Building Materials company and one-stop shop providing concrete accessories and chemicals, tools and equipment, building materials and fasteners, erosion and waterproofing products, and safety products to professional contractors across non-residential, infrastructure, and residential end markets.\",\"employee_estimate\":5000,\"employee_estimate_source\":\"Employees: 6,050\",\"hq\":\"Atlanta, Georgia, United States\",\"hq_quote\":\"Headquartered in Atlanta, Georgia, United States, with offices in Doraville, Norcross, and Costa Mesa.\",\"industry\":\"Wholesale Building Materials\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"White Cap and its affiliates serve as a one-stop shop, providing concrete accessories and chemicals, tools and equipment, building materials and fasteners, erosion and waterproofing products, and safety products to professional contractors by meeting their distinct and customized supply needs in non-residential, infrastructure, and residential end markets. White Cap operates approximately 500 branches across North America with more than 11,000 employees supporting approximately 200,000 customers.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C560BAQErbe4jz1Yx-w/company-logo_200_200/company-logo_200_200/0/1632245903994/wearewhitecap_logo?e=2147483647&v=beta&t=SgrLLzXD_s8ctRJdDLqAnr292EF460jRFGYfMFnQMLo",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/nbt6ctq6vsd",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "White Cap",
+              "foundedYear": null,
+              "description": "White Cap and its affiliates serve as a one-stop shop, providing concrete accessories and chemicals, tools and equipment, building materials and fasteners, erosion and waterproofing products, and safety products to professional contractors by meeting their distinct and customized supply needs in non-residential, infrastructure, and residential end markets. White Cap operates approximately 500 branches across North America with more than 11,000 employees supporting approximately 200,000 customers. \n\nFor more information about White Cap, visit about.whitecap.com. ",
+              "workforce": {
+                "total": 6050
+              },
+              "headquarters": {
+                "address": "2451 Industry Ave, Atlanta, Georgia 30360, US",
+                "city": "Atlanta",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 4000000000,
+                "fundingTotal": null,
+                "fundingLatestRound": null
+              },
+              "webTraffic": {
+                "visitsMonthly": 305531,
+                "countryRank": 30366,
+                "avgDurationSeconds": 78,
+                "history": [
+                  {
+                    "value": 278269,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 256695,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 265625,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 263689,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 260263,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 305531,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/7d635z19f3j",
+        "title": "White Cap Canada",
+        "url": "https://whitecapsupply.com/",
+        "text": "# White Cap Canada\n\nWhite Cap Canada is a Construction company. White Cap Canada employs 224 people (+12.0% YoY, +24 people). Headquartered in Vaughan, Ontario, Canada, with offices including Ottawa, Saint John, Sudbury, Brampton, and Lindsay. Its workforce is distributed across Canada and United States.\n\n## About\n\nOfficial White Cap Canada Account. Previously operating as Brafasco, Brock White Canada, and National Concrete Accessories, we now operate coast-to-coast in Canada as White Cap! \n\nWhite Cap is a leading construction, industrial, and safety product distributor for professional contractors and businesses. Follow us and stay up to date for expert advice and solutions for all your construction, industrial and safety needs! #whitecap #canada #buildingtrust\n\n## Company Details\n- Industry: Construction\n- Type: Privately held\n- Headquarters: Vaughan, Canada\n- Homepage: whitecapsupply.com\n- Aliases: white cap canada\n- LinkedIn: linkedin.com/company/whitecapsupply\n- Linkedin Followers: 6,669\n\n## Workforce\n- Employees: 224\n- Company Size: 1001-5000 employees\n  - Monthly Growth: +2.8%\n  - Yearly Growth: +12.0%\n- Key Executives:\n  - Chris Beiers: Vice President Operations - Canada\n  - Rob Hughes: Director - National Accounts & Business Development\n  - Todd W.: Director Strategic Business Development & Services\n- Breakdown:\n  - By Country: Canada: 185 (83%), United States: 2 (1%)\n  - By Department: Sales: 97 (43%), General Management: 30 (13%), Operations: 27 (12%), Finance: 9 (4%), Other Department: 7 (3%), Project Management: 5 (2%), Hr: 3 (1%), Marketing: 3 (1%), Consulting: 1, Customer Service: 1 (+5 more)\n  - By Seniority: Specialist: 89 (40%), Manager: 72 (32%), Other Management: 17 (8%), Senior: 9 (4%), Director: 2 (1%), Vp: 1\n- Active job postings: 33\n- Talent Sources: Brafasco (27), Brock White Construction Materials (17), National Concrete Accessories (8), White Cap (6), Raider Hansen (5), Grainger Canada (5), HD Supply (3), Williams Machinery (2), RONA (2), Concept Controls Inc. (2)\n- Alumni Go To: Brafasco (3), Toursec Entertainment Life Safety (1), SDI  Supplies ltd (1), Manney Group (1), International Brotherhood of Electrical Workers (IBEW) (1), Great Lakes Supply (1), Gescan (1), Form Tech Concrete Forms, Inc. (1), Endress+Hauser Group (1), Bruce Power (1)\n\n## Products & Technology\n- Tech Stack: css, microsoft, microsoft dynamics, microsoft excel, microsoft office, mobileframe, oracle, power bi, sql, workday, adobe, adobe creative cloud, gauges, postgresql, perma, adobe acrobat, amp, box, electric, impact, square, segment, well, linux, microsoft sql server, reply, salesforce\n\n## Web presence\n\n- Web traffic:\n  - Monthly visits: 20,421\n  - Global rank: 1,046,342\n  - Bounce rate: 33.0%\n  - Pages per visit: 3.3\n  - Average visit duration: 92s\n\n## Categories\n\nbuilding materials, construction supplies, fasteners, geotechnical services, heavy_industry_and_engineering/construction_and_maintenance, power tools, safety supplies, safety training\n\n## Social\n\n### Linkedin\n\n- [2026-10-08 · 54 reactions] 🎉 We’re celebrating in Oshawa, and you’re invited! Join the White Cap team on Wednesday, October 28th for the Grand Opening of our Oshawa branch, located at 575 Thornton Road S. Drop in for giveawa...\n\n- [2026-09-14 · 25 reactions] 🚨 Milwaukee is hitting the road! 🚨 Join us at a White Cap branch near you for exclusive event-only pricing, live tool demos, expert advice, prizes, and giveaways. ✅ Special Event Pricing ✅ MEP & MX...\n\n- [2026-09-02 · 21 reactions] We're excited to be attending the 2026 BCTRCR Annual Mine Reclamation Symposium from September 21-24 in Fort St. John, BC! If you'll be there, be sure to stop by Booth 16 to meet the White Cap team...\n\n- [2026-08-14 · 14 reactions] We are pleased to announce White Cap Canada as an amazing sponsor of our upcoming event: Celebrating the stal̕əw̓asəm / Riverview Bridge Replacement Project | October 16, 2026 | Vancouver, BC White...\n\n- [2026-08-14 · 17 reactions] We are pleased to announce White Cap Canada as an amazing sponsor of our upcoming event: Celebrating the stal̕əw̓asəm / Riverview Bridge Replacement Project | October 16, 2026 | Vancouver, BC White...\n\n- [2026-08-14 · 16 reactions] We are pleased to announce White Cap Canada as an amazing sponsor of our upcoming event: Celebrating the stal̕əw̓asəm / Riverview Bridge Replacement Project | October 16, 2026 | Vancouver, BC White...\n\n- [2026-08-14 · 18 reactions, 1 comment] EVENT POSTPONED TO APRIL 2027! We are pleased to announce White Cap Canada as an amazing sponsor of our upcoming event: Celebrating the stal̕əw̓asəm / Riverview Bridge Replacement Project | April 2...\n\n- [2026-08-06 · 46 reactions, 1 comment] 🎉 Niagara Falls Customer Appreciation Event! 🎉 Join us on September 17 at White Cap Niagara Falls (5232 Montrose Road) from 9:00 AM to 12:00 PM as we celebrate and thank our valued customers! Stop...\n\n- [2026-07-09 · 20 reactions] 🚧 Concrete & Restoration Demo Day is Coming to White Cap Toronto! 🚧 Join us next Wednesday at our White Cap Toronto Branch (172 Bethridge Road) for a morning dedicated to the latest in concrete rep...\n\n- [2026-07-09 · 30 reactions] Don't miss our Masonry Clearance Event on July 15 from 11-2 in Calgary! Join us for exclusive clearance pricing on select masonry products, a FREE BBQ lunch, giveaways and prizes. Whether you're pr...\n\n- [2026-07-01 · 62 reactions] Happy Canada Day from all of us at White Cap Canada—wishing you a day spent celebrating with family, friends, and the communities that make this country great. 🇨🇦\n\n- [2026-06-30 · 35 reactions] Bringing the Stampede spirit to Calgary 🤠 On July 7th, White Cap Calgary (3201 Ogden Road) will be hosting a Stampede event featuring a free BBQ lunch, door prizes, and more. It’s a great opportuni...\n\n- [2026-06-22 · 195 reactions, 1 comment] This Father’s Day, we celebrate the fathers, father figures, and mentors who help build strong foundations both at home and at work. Thank you for the leadership, dedication, and support you provid...\n\n- [2026-06-10 · 38 reactions] Celebrate Canada Day with Us! 🍁 Join us at our Lethbridge Branch on June 25th for a special Canada Day event you won’t want to miss. We’re bringing together many of our top suppliers for live produ...\n\n- [2026-06-03 · 24 reactions, 3 comments] Join us at our Career Fair in Ottawa on Thursday, June 18 from 12:30 PM – 4:30 PM at the YMCA Employment Access Centre (1642 Merivale Road). Come meet the team, explore exciting opportunities, and...\n\n- [2026-05-28 · 34 reactions] We are pleased to inform you that, effective June 1st our rebar accessories will be moving from our Burnaby Venture location to our Coquitlam branch at 35 Leeder St A. This change is designed to be...\n\n- [2026-05-27 · 2 reactions] Join us NEXT WEEK for this awesome event in Edmonton! Please RSVP if you haven’t yet. Secure your spot here: https://lnkd.in/eHMibpeM\n\n- [2026-05-14 · 53 reactions] A cherry on the top of NAOSH WEEK (safety week) in BC! Big thank you to the EllisDon team at the New Surrey Hospital for having us at a very well executed and meaningful safety event. So many great...\n\n- [2026-05-13 · 1 reaction] Reminder – Happening Tomorrow in Toronto Join us tomorrow for our Concrete Sealer Open House at White Cap Toronto (172 Bethridge Road) from 10 AM – 2 PM. Stop by for a hands-on look at W. R. MEADOW...\n\n- [2026-05-08 · 144 reactions] Safety Stand Down Week Recap ✅ This week, we had the opportunity to partner with our incredible customers to deliver impactful, hands-on safety training focused on what matters most; keeping everyo...\n\n## Locations\n- Headquarters: vaughan, ontario, canada\n- Offices: hamilton, ontario l8e 2x2, canada, saint john, new brunswick e2j 1a2, canada, red deer, alberta t4p 1m3, canada, burnaby, british columbia v5a 1v5, canada, kingston, ontario k7k 6a9, canada, sarnia, ontario n7t 2e3, canada, brantford, ontario n3r 7j7, canada, vancouver, british columbia v6a 2l7, canada, brampton, ontario l6w 3k1, canada, st catharines, ontario l2m 3y2, canada, calgary, alberta t2g 4n4, canada, dartmouth, nova scotia b3b 2e3, canada, tiverton, on n0g 2t0, canada, oakville, ontario l6h 5v9, canada, kitchener, ontario n2r 1h2, canada, lloydminster, alberta t9v 2e9, canada, windsor, on n0r 1l0, canada, bolton, ontario l7e 1e6, canada, burlington, ontario l7l 5h9, canada, sudbury, ontario p3c 4r9, canada, niagara falls, ontario l2h 1k5, canada, winnipeg, manitoba r2x 2s7, canada, victoria, british columbia v8t 1t9, canada, edmonton, alberta t5v 1t4, canada, burnaby, british columbia v5a 1v1, canada, prince george, british columbia v2n 1w9, canada, moncton, new brunswick e1e 2n2, canada, saskatoon, saskatchewan s7k 0x5, canada, guelph, ontario n1k 1t3, canada, toronto, ontario m6m 2p5, canada, scarborough, ontario m1s 3p8, canada, charlottetown, prince edward island c1e 3v3, canada, concord, ontario l4k 2m9, canada, newmarket, ontario l3y 7v1, canada, toronto, ontario m9w 1n3, canada, london, ontario n6e 3n8, canada, victoria, british columbia v9b 5z3, canada, mississauga, ontario l4w 3e6, canada, saskatoon, saskatchewan s7p 0c9, canada, lethbridge, alberta t1h 5s7, canada, kelowna, british columbia v1x 8c8, canada, toronto, ontario m4m 2r7, canada, surrey, british columbia v4n 4c4, canada, coquitlam, british columbia v3k 3v5, canada, fort mcmurray, alberta t9h 4a6, canada, fredericton, new brunswick e3b 5y5, canada, pickering, ontario l1w 1l9, canada, orillia, on l3v 0r4, canada, belleville, ontario k8n 5s4, canada, cambridge, ontario n3h 4w3, canada, cambridge, ontario n1r 6r7, canada, barrie, ontario l4n 3v9, canada, regina, saskatchewan s4n 5w1, canada, orangeville, ontario l9w 3r1, canada, ottawa, ontario k2g 5x8, canada, thunder bay, ontario p7c 5h9, canada, ottawa, ontario k1b 3v9, canada, langley, british columbia v1m 3x6, canada, calgary, alberta t2c 4x3, canada, markham, ontario l3r 2y7, canada, whitby, ontario l1n 0a3, canada, edmonton, alberta t5s 0k5, canada, vaughan, ontario l4l 0b9, canada, peterborough, ontario k9j 6w7, canada, etobicoke, ontario m8z 1m5, canada, kamloops, british columbia v2c 5p2, canada, lindsay, ontario k9v 6c6, canada",
+        "summary": "{\"description\":\"White Cap Canada is a leading construction, industrial, and safety product distributor for professional contractors and businesses.\",\"employee_estimate\":224,\"employee_estimate_source\":\"Employees: 224\",\"hq\":\"Headquartered in Vaughan, Ontario, Canada\",\"hq_quote\":\"Headquartered in Vaughan, Ontario, Canada\",\"industry\":\"Construction\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":false,\"is_third_party_logistics_quote\":\"\\\"White Cap Canada is a leading construction, industrial, and safety product distributor for professional contractors and businesses.\\\"\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQGQe651RF_mcQ/company-logo_200_200/company-logo_200_200/0/1696444045025/whitecapsupply_logo?e=2147483647&v=beta&t=ieUzGa-cObQiqjKpnB-nEj_8jGrljjIya868GRmnLtQ",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/7d635z19f3j",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "White Cap Canada",
+              "foundedYear": null,
+              "description": "Official White Cap Canada Account. Previously operating as Brafasco, Brock White Canada, and National Concrete Accessories, we now operate coast-to-coast in Canada as White Cap! \n\nWhite Cap is a leading construction, industrial, and safety product distributor for professional contractors and businesses. Follow us and stay up to date for expert advice and solutions for all your construction, industrial and safety needs! #whitecap #canada #buildingtrust",
+              "workforce": {
+                "total": 224
+              },
+              "headquarters": {
+                "address": "100 Galcat Drive, Vaughan, Ontario L4L 0B9, CA",
+                "city": "Vaughan",
+                "postalCode": null,
+                "country": "Canada"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 20421,
+                "countryRank": 48429,
+                "avgDurationSeconds": 92,
+                "history": [
+                  {
+                    "value": 24924,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 29252,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 26568,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 28628,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 25407,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 20421,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 8140.6,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

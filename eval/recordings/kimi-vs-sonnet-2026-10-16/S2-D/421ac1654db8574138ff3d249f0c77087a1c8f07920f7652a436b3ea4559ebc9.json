@@ -1,0 +1,262 @@
+{
+  "request": {
+    "query": "Zenskar",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "40820b5ba642b7ec13ef09eaa9c78c38",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/vg078lc6624",
+        "title": "Zenskar",
+        "url": "https://www.zenskar.com/",
+        "text": "# Zenskar\n\nZenskar is a Software Development company. Zenskar is an AI-native revenue automation platform that provides billing, RevRec automation, and analytics services for real-world complexity. The platform allows agents to execute, humans to supervise, and is designed to be a zero-touch finance. Zenskar employs 116 people (+50.6% YoY, +39 people) and has an annual revenue of $1M, founded in 2022. Headquartered in New York, New York, United States. Its workforce is distributed across 5 countries (including India, United States, Canada, Sweden, and United Arab Emirates).\n\n## About\n\nZenskar is an AI-native revenue automation that solves real-world complexity. Our vision – Zero-touch finance - where agents execute and humans supervise. Result, finance teams to scale business without scaling headcount.\n\nTalk to Zenskar AI like a colleague. Ask questions, give instructions, get insights, and approve decisions through natural conversation without any technical complexity. \n\nThe platform offers unlimited pricing flexibility to set up subscriptions, usage-based billing, or custom contracts without requiring developers. \n\nWith 200+ plug-and-play integrations and comprehensive migration support, companies can implement Zenskar in weeks rather than months. \n\nLet your finance teams collaborate with AI instead of drowning in spreadsheets or waiting for developers, increasing efficiency without expanding headcount.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: New York, United States\n- Founded Year: 2022\n- Homepage: zenskar.com\n- Aliases: Evolve Bits Inc., evolve bits, inc., zenskar\n- LinkedIn: linkedin.com/company/zenskar\n- Linkedin Followers: 20,693\n- Emails: contact@zenskar.com\n\n## Financials\n- Annual Revenue: USD 1,000,000\n- Total Funding: USD 24,840,000\n  - Series a (2026-04-01): USD 15.0M\n  - Seed (2022-10-03): USD 6.5M\n  - Seed (2021-05-01): USD 3.2M\n  - Seed (2020-06-01): USD 70,000\n  - Seed (2019-09-01): USD 70,000\n\n## Workforce\n- Employees: 116\n- Company Size: 51-200 employees\n  - Monthly Growth: +1.8%\n  - Yearly Growth: +50.6%\n- Key Executives:\n  - Anirban Datta Gupta: Angel Investor\n  - Anusha Rajasekaran: Founding Visual Designer\n  - Apurv Bansal: Co-founder & CEO\n  - Dipam Shah: Founder's Office - Growth\n  - Emma Simon: Investment Partner\n  - Govinda Murali: Senior Founding Engineer\n  - Ishita Choudhuri: Founding SDR\n  - Nagraj Gajengi: Head of Product\n  - Paul Emil Johnson: Founding Product Designer\n  - Priyam Sodhiya: Head of Finance & Partnerships\n- Breakdown:\n  - By Country: India: 79 (68%), United States: 18 (16%), Canada: 1 (1%), Sweden: 1 (1%), United Arab Emirates: 1 (1%)\n  - By Department: Technical: 31 (27%), Consulting: 11 (9%), Sales: 11 (9%), General Management: 9 (8%), Product: 8 (7%), Other Department: 7 (6%), Marketing: 6 (5%), Design: 5 (4%), Hr: 5 (4%), Finance: 4 (3%) (+2 more)\n  - By Seniority: Specialist: 43 (37%), Other Management: 13 (11%), Intern: 11 (9%), Manager: 11 (9%), Senior: 11 (9%), Founder: 9 (8%), Director: 2 (2%), Head: 2 (2%), Partner: 1 (1%)\n- Active job postings: 3\n- Talent Sources: Google Summer of Code (4), Amazon (3), vHub.ai (2), Townhall (2), Selling.com (2), RevGenius (2), InterviewBit (2), HighRadius (2), Chargebee (2), Anicut Healthcare Solutions (2)\n- Alumni Go To: Peakflo (YC W22) (2), Loop AI (2), Digitalapi.ai (2), Amazon (2), Sprinklr (1), Speechify (1), MDC - Media Design Creative Committee (1), Computer Society of India (1), Athina AI (YC W23) (1), Amazon Web Services (AWS) (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack (showing 50 of 98): adobe, adobe creative suite, apache, apache airflow, auth0, chargebee, css, css3, datadog, deepgram, django, docker, docusaurus, figma, fintech, git, github, github actions, gitlab, grafana, grunt, html, html5, hubspot, iam, java, javascript, json, keycloak, kubernetes, linkedin, markdown, mdx, netsuite, okta, openai, outgrow, persona, playwright, postgresql, prometheus, python, rabbitmq, react, recurly, salesforce, sandbox, snowflake, sql, stripe\n\n## Web presence\n\n- Twitter: twitter.com/zenskarhq\n- Crunchbase: crunchbase.com/organization/zenskar\n- Web traffic:\n  - Monthly visits: 42,110\n  - Global rank: 609,302\n  - Bounce rate: 41.0%\n  - Pages per visit: 3.9\n  - Average visit duration: 132s\n\n## Reviews & Ratings\n- Employer Rating: 4.2/5.0 (78 reviews)\n  - Breakdown: Work-Life: 3.7, Compensation: 4.0, Culture: 4.2, Career: 4.2\n\n## Categories\n\naccounting, accounting & finance software, ai-native revenue automation, ai-powered finance automation, artificial intelligence (ai), billing, billing software, collection, finance, financial services, jobs_and_career/jobs_and_career, real-world complexity, revenue automation, revenue management, revenue recognition, revrec automation, saas, software, subscription billing, subscription management, subscription revenue management, usage metering, usage-based billing software, zenskar, zero-touch finance\n\n## Competitors\n\nchargebee, recurly, chargify\n\n## Recent News\n- [2026-09-17] GetLatka: Zenskar Revenue 2023: $1.8M Est. ARR\n- [2023-01-10] Google Patent: System and method for encoding pricing plans to generate a directed acyclic …\n- [2022-10-04]\n  - Entrackr: Bessemer leads $3.5 Mn seed round in Zenskar\n  - The Economic Times: Billing startup Zenskar raises $3.5 million in funding led by Bessemer\n  - bvp.com: Building the operating system for cloud quote-to-cash: Why we invested in Zenskar\n  - Inc42 Media: SaaS Billing Startup Zenskar Bags Funding To Help Companies Address Pricing Issues\n\n## Social\n\n### Linkedin\n\n- [2026-09-25 · 59 reactions, 3 comments] We’re hiring an Engineering Manager at Zenskar. 🚀 Billing gets complicated fast. Pricing changes, credits, refunds, usage, true-ups, revenue recognition: every edge case creates another. One small...\n\n- [2026-09-25 · 13 reactions, 1 comment] Last week I joined Apurv Bansal from Zenskar for a CFO Connect webinar to talk about AI, finance automation, and some of what we've learned building the finance function at iink. A few brief takeaw...\n\n- [2026-09-25 · 19 reactions, 1 comment] Headed to San Francisco next month for Zenskar's Finance Exchange — an afternoon with finance leaders on where AI is actually landing in the function, not where the vendor decks say it should. The...\n\n- [2026-09-25 · 39 reactions, 5 comments] Current hobby: sitting in meetings with engineers debating what counts as \"one unit.\" Is it an API call? A token? A vibe? We spend meetings and slacks on this and nobody has blinked. Here's what I...\n\n- [2026-09-22 · 15 reactions] Finance is past the “should we use AI?” phase. Now the questions are more practical: what should you build vs. buy? Which workflows are ready for agents? And how do you move AI from pilot to produc...\n\n- [2026-09-21 · 29 reactions, 3 comments] Zenskar is hosting Finance Exchange in SF on On Oct 15, our Silver Partners at Zenskar are hosting their Finance Exchange in SF! And… FIF Collective is Partnering on it with Gabi Steele & Gemma All...\n\n- [2026-09-21 · 42 reactions, 5 comments] We hosted a steakhouse night in LA and thoroughly enjoyed the finance conversations at the table. Good discussions in the middle of planning season tell you a lot about how everyone else is approac...\n\n- [2026-09-17 · 3 reactions] Your finance team is spending too much time checking routine transactions that don’t need their attention. That is one of the most practical opportunities I see with AI and automation in finance op...\n\n- [2026-09-17 · 28 reactions, 6 comments] I run a boutique investment bank. It's me, few analysts and interns, trying to carry 4-5 live mandates at once. The math only works if AI takes over real work. Buyer lists, first-draft teasers, dat...\n\n- [2026-09-12 · 16 reactions, 3 comments] I’ve had the pleasure of working with the Zenskar team for a while now, and Apurv Bansal and Priyam Sodhiya are two people I always enjoy learning from. So when they told me about Finance Exchange...\n\n- [2026-09-09 · 13 reactions] One of the hardest conversations a CFO has right now is with their own investors. AI is either in your valuation story or it isn't. And most finance leaders are building that story without really k...\n\n- [2026-09-08 · 20 reactions] The close is still one of the most manual things finance teams do. Not because nobody has tried to automate it, but because most automation stops at the edges. One tool handles reconciliation. Anot...\n\n- [2026-09-07 · 15 reactions, 1 comment] 🎤 Speaker spotlight: Sandeep Chopra Co-Founder at Lensing.ai (formerly Everest Systems). Builds AI that extends your ERP. Most people ask what AI can do. He asks what it shouldn't 🔑 Catch him on Oc...\n\n- [2026-09-07 · 7 reactions] 🎤 Speaker spotlight: Sam Yen GM of AI at Lensing.ai (formerly Everest Systems) Not many people can talk AI, design, and finance in the same breath. Sam can 🧠💸 Catch him on Oct 15 in SF, breaking do...\n\n- [2026-09-04 · 5 reactions, 1 comment] Melody Bell (Chen), MAcc, CPA is joining us as one of the speakers at Finance Exchange, where finance leaders will explore AI, automation, and the future of finance operations. 📅 October 15, 2026 📍...\n\n- [2026-09-04 · 10 reactions] From automation to orchestration, the future of O2C is here. 🚀 We’re excited to see Zenskar featured in Everest Group’s 2026 O2C Peak Matrix® Assessment alongside the innovators redefining finance...\n\n- [2026-09-04 · 10 reactions, 2 comments] Every finance team we talk to has automated something in the close. Very few have automated the close. The difference is bigger than it sounds. Isolated workflows are easy. What's hard is building...\n\n- [2026-09-01 · 29 reactions, 1 comment] We're coming to LA 🎉 On September 15, we're hosting a group of CFOs with Lensing.ai (formerly Everest Systems) and Zenskar at BOA Steakhouse, West Hollywood! Join us for a night of great food and c...\n\n- [2026-09-01 · 10 reactions] It is shaping up to be an exciting evening! Register and mark your calendars. 🚀\n\n- [2026-08-20 · 21 reactions, 2 comments] Finance Exchange 2026 keeps adding the right voices to the room. We're excited to welcome Numeric as a partner this year. Numeric has built one of the sharpest AI-native tools for the accounting cl...\n\n## Locations\n- Headquarters: new york, new york, united states (US)\n- Offices: new york, united states (US), new york, new york, united states (US)",
+        "summary": "{\"description\":\"Zenskar is an AI-native revenue automation platform that provides billing, RevRec automation, and analytics services for real-world complexity. The platform enables agents to execute, humans to supervise, and aims for zero-touch finance.\",\"employee_estimate\":116,\"employee_estimate_source\":\"Employees: 116\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Head of Finance & Partnerships...\",\"hq\":\"New York, New York, United States\",\"hq_quote\":\"Headquartered in New York, New York, United States.\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Software Development\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 24,840,000 - Series a (2026-04-01): USD 15.0M; Seed (2022-10-03): USD 6.5M; Seed (2021-05-01): USD 3.2M; Seed (2020-06-01): USD 70,000; Seed (2019-09-01): USD 70,000\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4D0BAQFpW0_omGAvRQ/company-logo_200_200/B4DZ2a.ET1IkAI-/0/1776421455553/zenskar_logo?e=2147483647&v=beta&t=ZMwapbWoQetzBG2iKbqah270Ij03vkAmWbhXq9UEFgo",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/vg078lc6624",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Zenskar",
+              "foundedYear": 2022,
+              "description": "Zenskar is an AI-native revenue automation that solves real-world complexity. Our vision – Zero-touch finance - where agents execute and humans supervise. Result, finance teams to scale business without scaling headcount.\n\nTalk to Zenskar AI like a colleague. Ask questions, give instructions, get insights, and approve decisions through natural conversation without any technical complexity. \n\nThe platform offers unlimited pricing flexibility to set up subscriptions, usage-based billing, or custom contracts without requiring developers. \n\nWith 200+ plug-and-play integrations and comprehensive migration support, companies can implement Zenskar in weeks rather than months. \n\nLet your finance teams collaborate with AI instead of drowning in spreadsheets or waiting for developers, increasing efficiency without expanding headcount.",
+              "workforce": {
+                "total": 116
+              },
+              "headquarters": {
+                "address": "169 Madison Ave, New York, New York 10016, US",
+                "city": "New York",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 1000000,
+                "fundingTotal": 24840000,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2026-04-01",
+                  "amount": 15000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 42110,
+                "countryRank": 74383,
+                "avgDurationSeconds": 132,
+                "history": [
+                  {
+                    "value": 40148,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 44575,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 39843,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 35752,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 51051,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 42110,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/xtvq1m10klk",
+        "title": "Zenskar Software Solution",
+        "url": "https://zenskarsoftwaresolution.com/",
+        "text": "# Zenskar Software Solution\n\nZenskar Software Solution is a Technology, Information and Media company. Zenskar Software Solutions provides reliable systems, smart automation, and seamless digital innovation to help businesses operate efficiently and grow faster. Zenskar Software Solution employs 14 people. Headquartered in Madurai, Tamil Nadu, India.\n\n## About\n\nOur Services:\n * App Development\n * Moblie App Creation\n * Digital Marketing\n * SEO Services\n * Other E-Commerce Services\n\n## Company Details\n- Industry: Technology, Information and Media\n- Type: Partnership\n- Headquarters: Madurai, India\n- Homepage: zenskarsoftwaresolution.com\n- Aliases: zenskar software solution\n- LinkedIn: linkedin.com/company/zenskarsoft\n- Linkedin Followers: 268\n- Emails: zenskarsoftware@gmail.com\n- Phone: +91 45240 67667, +914524067667\n\n## Workforce\n- Employees: 14\n- Company Size: 1-10 employees\n- Breakdown:\n  - By Country: India: 10 (71%)\n  - By Department: Technical: 9 (64%), Design: 1 (7%)\n  - By Seniority: Specialist: 10 (71%)\n- Talent Sources: Thangamayil Jewellery Limited (2), Stealth Startup (1), Microsoft (1), Mak Infotech (1), HebeSec Technologies (1), Fourchain (1)\n- Alumni Go To: Steinn Labs (2), The Silicon Harvest (1), The Knowledge Academy (1), Sea Game (1), Prudent AI (1), Pixel Web Solutions (1), Oiidigital (1), JellySoft (1), Insightz Technology (1), Born Babies® (1)\n\n## Products & Technology\n- Tech Stack: css, django, html, laravel\n\n## Web presence\n\n- Twitter: twitter.com/zenskarsoftware\n- Facebook: facebook.com/zenskarsoftwaresolution\n- Instagram: instagram.com/zenskar_software_solution\n- Crunchbase: crunchbase.com/organization/zenskar-software-solution\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Categories\n\nbilling, business operations, crm, digital marketing, marketing, mobile apps, reliable systems, seamless digital innovation, seo, smart automation, software, software solutions, technology/software, ux design, web design, web development\n\n## Social\n\n### Linkedin\n\n- [2025-05-05 · 28 reactions, 3 comments] 👩💻 Join Our Creative Tech Team at Zenskar Software! Looking to take your career to the next level? We're hiring for key roles across development, marketing, and operations. Open Roles: Web Develope...\n\n- [2025-04-28 · 6 reactions, 2 comments] We’re Hiring! Join our dynamic team at Zenskar Software! Open Positions: Web Developer App Developer UX/UI Designer Office Admin 📍 Location: Madurai 📧 Send your resume to: zenskarsoftware@gmail.com...\n\n- [2025-04-15 · 8 reactions] 🚀 We’re Hiring! Join Our Creative Team at Zenskar Software 💼 We are looking for passionate and talented individuals to fill the following positions: ✨ UX/UI Designer 💻 Web & App Developer 🗂️ Office...\n\n- [2025-04-07 · 5 reactions] We are hiring! 1. Mobile App Developer 2. Web Developer 3. UX/UI Designer 4. Management Executive Contact: 9597766652 or zenskarsoftware@gmail.com\n\n- [2025-01-13 · 2 reactions] Happy Pongal..... Zenskar Software Solution 0452-406 7667 393, Anna Nagar Main Rd, Madurai-20. Our Website: https://lnkd.in/gj3Y7qJn Our Services:- * Website Creation * App Development * SEO * All...\n\n- [2025-01-09 · 1 reaction] From startups to enterprises, we craft cutting-edge software that turns innovative ideas into impactful solutions, empowering your business to stay competitive, enhance efficiency, and achieve long...\n\n- [2024-12-24 · 4 reactions] Are you ready to kickstart your career in mobile app development? Join our vibrant team in Madurai and bring your skills to life! 🔹 Position: Mobile App Developer 🔹 Experience: 6 months to 1 year 🔹...\n\n- [2024-12-04] Are you a passionate mobile app developer with at least 6 months of experience? Join our dynamic team in Madurai and work on cutting-edge projects. We're looking for a talented individual to join u...\n\n- [2024-10-29 · 1 reaction] Happy Deepavali to my family... Zenskar Software Solution 0452-406 7667 393, Anna Nagar Main Rd, Madurai-20. Our Website: https://lnkd.in/gj3Y7qJn Our Services:- * Website Creation * App Developmen...\n\n## Locations\n- Headquarters: madurai, tamil nadu, india\n- Offices: madurai, tamil nādu, india",
+        "summary": "{\"description\":\"Zenskar Software Solution is a Technology, Information and Media company providing reliable systems, smart automation, and seamless digital innovation to help businesses operate efficiently and grow faster.\",\"employee_estimate\":14,\"employee_estimate_source\":\"Employees: 14\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"We’re hiring for key roles across development, marketing, and operations.\",\"hq\":\"Madurai, Tamil Nadu, India\",\"hq_quote\":\"Headquartered in Madurai, Tamil Nadu, India.\",\"industry\":\"Technology, Information and Media\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Technology, Information and Media\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":false,\"recently_funded_seed_or_series_a_quote\":\"\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQFMNEoxZbYF1g/company-logo_200_200/company-logo_200_200/0/1690178754861/zenskarsoft_logo?e=2147483647&v=beta&t=6ZUsBHFD5tiq6twS0akrYiccMbD3Fj4fM40qBQYzWMI",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/xtvq1m10klk",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Zenskar Software Solution",
+              "foundedYear": null,
+              "description": "Our Services:\n * App Development\n * Moblie App Creation\n * Digital Marketing\n * SEO Services\n * Other E-Commerce Services",
+              "workforce": {
+                "total": 14
+              },
+              "headquarters": {
+                "address": "Madurai, Tamilnadu 625020, IN",
+                "city": "Madurai",
+                "postalCode": null,
+                "country": "India"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 630,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 747,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 795,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 483,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 61,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 6241.8,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

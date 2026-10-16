@@ -1,0 +1,257 @@
+{
+  "request": {
+    "query": "Notabene",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "fdfd02bc31d5bf89349b33f133f4ec6d",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/ksj28zpvhcy",
+        "title": "Nota Bene",
+        "url": "https://www.notabenemovies.com/",
+        "text": "# Nota Bene\n\nNota Bene is a Media Production company. Nota Bene is a company that covers the history of Europe and the world.\n\n## About\n\nNota Bene - Production audiovisuelle\n\n## Company Details\n- Industry: Media Production\n- Homepage: notabenemovies.com\n- Aliases: nota bene\n- LinkedIn: linkedin.com/showcase/notabenemovies\n- Linkedin Followers: 3,366\n- Emails: example.mail@hum.com, info@example.com\n- Phone: +(090) 8765 86543 85, +0989 7876 9865 9\n\n## Workforce\n- Company Size: 1-10 employees\n\n## Web presence\n\n- Twitter: twitter.com/notabenemovies\n- Facebook: facebook.com/notabenemovies\n- Instagram: instagram.com/notabenemovies\n- YouTube: youtube.com/channel/ucp46_mxp_wg_auh88fnfs1a\n- Web traffic:\n  - Monthly visits: 3,302\n  - Global rank: 5,170,324\n  - Bounce rate: 72.0%\n  - Pages per visit: 1.5\n  - Average visit duration: 43s\n\n## Categories\n\ncivilizations, history, media, political, science_and_education/history, sciences, society\n\n## Social\n\n### Linkedin\n\n- [2026-10-05 · Posted · 77 reactions] [Le TDAH, c'est pas une invention du XXIᵉ siècle ! 😑 On entend...](https://www.linkedin.com/posts/notabenemovies_le-tdah-nest-pas-une-invention-moderne-activity-7512768918579572737-kxc6)\n  > Le TDAH, c'est pas une invention du XXIᵉ siècle ! 😑\n  >\n  > On entend souvent que « tout le monde devient TDAH » aujourd'hui. Mais en vrai, dès 1798, bien avant l’arrivée des smartphones et des notifications, des médecins décrivaient déjà exactement ces mêmes difficultés d'attention !\n  >\n  > Ce qui change aujourd'hui, c'est pas les symptômes, mais simplement qu'on arrive enfin à mieux les diagnostiquer, les comprendre et accompagner les personnes concernées.\n  >\n  > Si le sujet vous intéresse, je vous invite à écouter le podcast \"En tête à tête\", incarné par Marie-Aurélie DRUMINY, alias La Psy du Sud, que Nota Bene a la fierté de produire.\n  >\n  > Dans une série passionnante de 5 épisodes courts, Marie-Aurélie y décortique avec rigueur et pédagogie l'histoire, la définition, le diagnostic et les symptômes du TDAH.\n  >\n  > 🎧  Le podcast est dispo sur toutes les plateformes d'écoute !\n\n- [2026-10-04 · Posted · 12 reactions] [Alors, vous avez trouvé ? 👀 J'en profite pour vous présenter De...](https://www.linkedin.com/posts/notabenemovies_d%C3%A9couvrez-de-facto-activity-7512421447705726977-gGC0)\n  > Alors, vous avez trouvé ? 👀\n  >\n  > J'en profite pour vous présenter De Facto, mon tout nouveau jeu d'association d'idées sur l'histoire ! Le principe ? Faire deviner des faits historiques grâce aux cartes que vous avez en main. C'est un jeu pour toute la famille, accessible aux enfants comme aux parents (même si vous avez très peu de souvenirs de vos cours de 4ᵉ...)\n  >\n  > De Facto sera disponible le 6 novembre en boutique, mais les précommandes sont déjà ouvertes 👉 Je vous mets le lien en commentaire !\n  >\n  > Un grand merci à François Leognany, Maud Chalmel et l'équipe d'Arkham Society et asmodee, avec qui c'est un plaisir de collaborer sur ce jeu !\n\n- [2026-10-03 · Posted · 25 reactions] [Le monde des samouraïs vous passionne ? Alors ça tombe bien : mon...](https://www.linkedin.com/posts/notabenemovies_on-les-appelle-samourais-activity-7512060223021568000--KNG)\n  > Le monde des samouraïs vous passionne ? Alors ça tombe bien : mon documentaire « On les appelle Samouraïs » est dispo sur France.tv et sur YouTube !\n  >\n  > Et comme c'était pas possible de tout caser dans le format d'une heure, on vous offre l'intégralité de nos échanges avec les experts rencontrés sur le tournage. Ça se passe sur ma chaîne Nota Bonus, à travers 9 épisodes dédiés.\n  >\n  > Pour ce premier épisode, on vous emmène sur l'île d'Omishima, au sanctuaire d'Ōyamazumi-jinja, qui abrite 80 % des trésors nationaux d'armement ancien. J'y ai rencontré Akira Tomozawa, spécialiste des armes et armures, qui nous détaille tout l'équipement des guerriers japonais du 12ᵉ au 15ᵉ siècle.\n  >\n  > 🔗 Je vous mets tous les liens en commentaire.\n  >\n  > Un grand merci à TOURNEZ S'IL VOUS PLAÎT et France Télévisions pour leur confiance !\n\n- [2026-09-30 · Posted · 12 reactions] [C'est la journée internationale du podcast, et honnêtement, le...](https://www.linkedin.com/posts/notabenemovies_nouveau-podcast-en-t%C3%AAte-%C3%A0-t%C3%AAte-activity-7511077644856303617-Pnb3)\n  > C'est la journée internationale du podcast, et honnêtement, le timing est juste parfait ! Avec Calie ça fait des mois qu'on bosse sur un projet qui nous tient vraiment à cœur, et on est super fiers de vous présenter \"En tête à Tête\", le nouveau podcast produit par Nota Bene et porté par la formidable Marie-Aurélie DRUMINY, alias La Psy du Sud !\n  >\n  > Dans chaque épisode, Marie-Aurélie vous embarque directement au cœur de son cabinet psy pour parler de santé mentale simplement, sans jargon ni tabou. Seule ou entourée de professionnels et de patients, elle y décrypte nos mécanismes, nos troubles et tous ces outils qui aident à aller mieux. Des épisodes ultra déculpabilisants pour mieux se comprendre et comprendre les autres… avec beaucoup de curiosité et de bienveillance.\n  >\n  > 🎧 \"En tête à Tête\" est dispo sur toutes les plateformes d'écoute. Foncez y jeter une oreille et dites-nous ce que vous en pensez en commentaire !\n\n- [2026-09-29 · Posted · 50 reactions] [Avec Calie, on a hâte de vous retrouver aux Rendez-Vous de...](https://www.linkedin.com/posts/notabenemovies_nota-bene-aux-rdv-de-lhistoire-de-blois-activity-7510602882224680962-GFke)\n  > Avec Calie, on a hâte de vous retrouver aux Rendez-Vous de l'Histoire, du 9 au 11 octobre à Blois !\n  >\n  > On vous prépare plein de belles surprises sur le stand Nota Bene : livres, BD et puzzles Callisto à découvrir, mais aussi des rencontres, des dédicaces et des discussions passionnantes avec une belle brochette d'invités de marque.\n  >\n  > À très vite ! 😃\n  >\n  > Les Rendez-vous de l'histoire Dr. Jonathan Fruoco, FRHistS Benjamin Deruelle Julien PELTIER Sébastien Pautet\n\n- [2026-09-25 · Posted · 52 reactions] [Il y a quelques mois, j'ai eu la chance de réaliser un reportage...](https://www.linkedin.com/posts/notabenemovies_il-y-a-quelques-mois-jai-eu-la-chance-de-activity-7509148615530094594-jwsh)\n  > Il y a quelques mois, j'ai eu la chance de réaliser un reportage dans la cathédrale de Tours, la ville où j'habite, pour s'intéresser à un objet assez unique dans le paysage du patrimoine, à savoir l'orgue.\n  >\n  > J'ai pu observer de près cet incroyable instrument, et ça m'a donné l'occasion de revenir sur un métier qui n'est pas très connu, celui de facteur d'orgue, que nous fait découvrir Benoît Langlois.\n  >\n  > 🙏 Un grand merci à Benoît Langlois, à Gérard Proust et à Alix Devienne pour leur accueil et pour leur participation à la réalisation de ce reportage !\n  >\n  > Le reportage est à découvrir sur ma chaîne YouTube.\n\n- [2026-09-24 · Posted · 57 reactions] [700 ans, 160 fractures et 30 ans de mystère... qu'est-ce qu'il est...](https://www.linkedin.com/posts/notabenemovies_700-ans-160-fractures-et-30-ans-de-myst%C3%A8re-activity-7508786188506263552-MB2j)\n  > 700 ans, 160 fractures et 30 ans de mystère... qu'est-ce qu'il est arrivé à ce pauvre squelette écossais ? 💀 L'archéologue Jo Buckberry a peut-être trouvé la clé de l'énigme !\n\n- [2026-09-21 · Posted · 18 reactions] [Il n'y a pas que les grands hommes qui font l'histoire : la vie des...](https://www.linkedin.com/posts/notabenemovies_il-ny-a-pas-que-les-grands-hommes-qui-font-activity-7507832674468851712-ehj7)\n  > Il n'y a pas que les grands hommes qui font l'histoire : la vie des anonymes peut nous en apprendre tout autant sur notre passé ! Dans le podcast Nota Bene, on parle de « l'histoire par le bas » avec l'historienne médiéviste, Catherine Rideau-Kikuchi, maîtresse de conférence à l'Université de Versailles Saint-Quentin-en-Yvelines.\n  >\n  > 🎧 L'épisode entier est dispo sur toutes les plateformes !\n\n- [2026-09-21 · 16 reactions, 1 comment] Il n'y a pas que les grands hommes qui font l'histoire : la vie des anonymes peut nous en apprendre tout autant sur notre passé ! Dans le podcast Nota Bene, on parle de « l'histoire par le bas » av...\n\n- [2026-09-17 · Reshared · 18 reactions] [À vos agendas ! Le 10 octobre à 18h15, en direct de Les Rendez-vous...](https://www.linkedin.com/posts/notabenemovies_%C3%A0-vos-agendas-le-10-octobre-%C3%A0-18h15-en-activity-7506394036426027010-BgKZ): À vos agendas ! Le 10 octobre à 18h15, en direct de Les Rendez-vous de l'histoire de Blois et sur Twitch aura lieu un entretien historique avec Sébastien Pautet ! Retrouvez toutes les infos ci-dess...\n\n- [2026-09-17 · Posted · 5 reactions] [Le « colonialisme vert », ça vous dit quelque chose ? 🌳 Derrière la...](https://www.linkedin.com/posts/notabenemovies_le-colonialisme-vert-%C3%A7a-vous-dit-quelque-activity-7506241880754388992-wVdg)\n  > Le « colonialisme vert », ça vous dit quelque chose ? 🌳\n  >\n  > Derrière la protection des grands parcs naturels africains se cache parfois une réalité bien moins idyllique : des populations expulsées de leurs terres et victimes de violences commises par des éco-gardes, au nom d’une certaine vision de la conservation de la nature.\n  >\n  > Dans un récent épisode du podcast Nota Bene, l’historien Guillaume Blanc, spécialiste de l’Afrique contemporaine, met au jour les contradictions des pays développés qui détruisent la nature africaine qu’ils croient protéger.\n  >\n  > 🎧 L’épisode « Le colonialisme vert, ou les excès de la préservation de la nature » est dispo sur toutes les plateformes de streaming !\n\n- [2026-09-17 · 5 reactions] Le « colonialisme vert », ça vous dit quelque chose ? 🌳 Derrière la protection des grands parcs naturels africains se cache parfois une réalité bien moins idyllique : des populations expulsées de l...\n\n- [2026-09-14 · Posted · 44 reactions] [On ne s'attend pas forcément à trouver 153 fusils et un canon au...](https://www.linkedin.com/posts/notabenemovies_on-ne-sattend-pas-forc%C3%A9ment-%C3%A0-trouver-153-activity-7505166076817657856-RM5u)\n  > On ne s'attend pas forcément à trouver 153 fusils et un canon au fond d'un puits sacré... 🤯\n  >\n  > C'est pourtant la découverte inédite faite récemment au Mexique par les archéologues de l'INAH dans le cénote Síis Já, au cœur du Yucatán.\n  >\n  > Du matériel militaire du XIXᵉ siècle côtoyant de la porcelaine chinoise et des céramiques précolombiennes... le site s'est transformé au fil des siècles en une incroyable capsule temporelle !\n\n- [2026-09-14 · 45 reactions, 1 comment] On ne s'attend pas forcément à trouver 153 fusils et un canon au fond d'un puits sacré... 🤯 C'est pourtant la découverte inédite faite récemment au Mexique par les archéologues de l'INAH dans le cé...\n\n- [2026-09-10 · Posted · 68 reactions] [Dans l'imaginaire collectif, la démocratie, c'est la Grèce antique...](https://www.linkedin.com/posts/notabenemovies_dans-limaginaire-collectif-la-d%C3%A9mocratie-activity-7503829722426961920-wjSX)\n  > Dans l'imaginaire collectif, la démocratie, c'est la Grèce antique. Pourtant, chez les Athéniens, ni les femmes, ni les esclaves, ni les métèques ne votaient. On était sur une très petite minorité d'hommes qui décidaient pour l'ensemble de la cité.\n  >\n  > Alors, est-ce qu'on peut vraiment dire que la Grèce a inventé la démocratie ?\n\n- [2026-09-10 · 71 reactions, 4 comments] Dans l'imaginaire collectif, la démocratie, c'est la Grèce antique. Pourtant, chez les Athéniens, ni les femmes, ni les esclaves, ni les métèques ne votaient. On était sur une très petite minorité...\n\n- [2026-09-08 · Posted · 19 reactions] [Des théories bidons autour de l'Égypte il y en a plein, et l'une...](https://www.linkedin.com/posts/notabenemovies_des-th%C3%A9ories-bidons-autour-de-l%C3%A9gypte-il-activity-7503112498217213953-Tkg6)\n  > Des théories bidons autour de l'Égypte il y en a plein, et l'une d'entre elles qui est bien résistante, elle consiste à dire que la pyramide de Khéops était en fait... une centrale électrique 😵💫\n  >\n  > Dans cet extrait d'épisode du podcast Nota Bene, Franck Monnier, qui est égyptologue spécialiste de l'architecture égyptienne nous explique son origine assez bancale, et je vous conseille d'aller l'écouter dans son intégralité parce que le sujet est super intéressant !\n  >\n  > 🎧 L'épisode est dispo sur toutes les plateformes de streaming.\n\n- [2026-09-08 · 23 reactions, 2 comments] Des théories bidons autour de l'Égypte il y en a plein, et l'une d'entre elles qui est bien résistante, elle consiste à dire que la pyramide de Khéops était en fait... une centrale électrique 😵💫 Da...\n\n- [2026-09-04 · Posted · 15 reactions] [Cet été, on a pas chômé ! 👀 Pour vous faire voyager au pays de...](https://www.linkedin.com/posts/notabenemovies_sur-les-traces-des-cowboys-activity-7501535184043819008-EOok)\n  > Cet été, on a pas chômé ! 👀\n  >\n  > Pour vous faire voyager au pays de l'Oncle Sam sans quitter votre canapé, on vous a proposé une série spéciale consacrée aux cowboys sur notre chaîne Nota Bonus : 7 épisodes qui vous plongent dans l'histoire du Far West.\n  >\n  > Ces épisodes sont nés lors du tournage de « On les appelle : Cowboys », un documentaire réalisé pour France Télévisions. Pendant plusieurs semaines, j’ai traversé les États-Unis, rencontré plein de personnes passionnantes… et enregistré de nombreuses interviews.\n  >\n  > Plutôt que de laisser tout ça dormir dans nos ordinateurs, on a choisi de vous mettre à disposition gratuitement l’intégralité de ces interviews sur YouTube. De quoi aller plus loin que le documentaire et découvrir des témoignages que vous n’avez peut-être pas vus ailleurs !\n  >\n  > Et si le sujet vous intéresse, mon documentaire « On les appelle : Cowboys » est toujours disponible sur France.tv.\n  >\n  > 🔗 Je vous mets les liens en commentaire !\n  >\n  > Un grand merci à TSVP Tournez S'il Vous Plaît et France.tv pour leur confiance 🙏\n\n- [2026-09-04 · 19 reactions, 1 comment] Cet été, on a pas chômé ! 👀 Pour vous faire voyager au pays de l'Oncle Sam sans quitter votre canapé, on vous a proposé une série spéciale consacrée aux cowboys sur notre chaîne Nota Bonus : 7 épis...",
+        "summary": "{\"description\":\"Nota Bene is a Media Production company that covers the history of Europe and the world.\",\"employee_estimate\":\"\",\"employee_estimate_source\":\"\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"notabenemovies.com\",\"hq_quote\":\"Homepage: notabenemovies.com\",\"industry\":\"Media Production\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Media Production\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":null,\"recently_funded_seed_or_series_a_quote\":\"\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQHs49hsdqJX2A/company-logo_200_200/company-logo_200_200/0/1724744446224/notabenemovies_logo?e=2147483647&v=beta&t=7SlEDg_beRthZe1pTdK-KRcgS1pE_gLJc7GjSOQ0fVE",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/ksj28zpvhcy",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Nota Bene",
+              "foundedYear": null,
+              "description": "Nota Bene - Production audiovisuelle ",
+              "workforce": {
+                "total": 0
+              },
+              "headquarters": null,
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 3302,
+                "countryRank": 199219,
+                "avgDurationSeconds": 43,
+                "history": [
+                  {
+                    "value": 1838,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 1499,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 1707,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 2889,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 2723,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 3302,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/b33wjthxmhj",
+        "title": "Notabene",
+        "url": "https://notabene.id/",
+        "text": "# Notabene\n\nNotabene is a Blockchain Services company. Notabene is a trust layer for digital assets, stablecoin payments and travel rule compliance for regulated institutions. They provide end-to-end counterparty verification solutions and have a global reach. Notabene employs 114 people and has an annual revenue of $600K, founded in 2020. Headquartered in New York, New York, United States, with presence in United Kingdom. Its workforce is distributed across 15 countries (including United States, United Kingdom, Germany, Netherlands, and Singapore).\n\n## About\n\nNotabene is the trust layer for global crypto money movement, featuring Notabene Flow—the first open stablecoin payments platform for businesses—and Notabene Transact, the world's largest Travel Rule-compliant transaction authorization platform for regulated institutions. Built on the Transaction Authorization Protocol (TAP), an open messaging standard that enables verified entities to transact securely, the Notabene Network connects thousands of trusted counterparties, facilitating over $1T in transaction volume annually across over 100 jurisdictions. Notabene provides industry-leading tools for stablecoin payment coordination, real-time transaction authorization, counterparty verification, and self-hosted wallet identification—helping institutions build trust into every transaction.\n\n## Company Details\n- Industry: Blockchain Services\n- Type: Privately held\n- Headquarters: New York, United States\n- Founded Year: 2020\n- Homepage: notabene.id\n- Aliases: Notabene, Inc., notabene\n- LinkedIn: linkedin.com/company/notabene-id\n- Linkedin Followers: 9,693\n- Emails: hello@notabene.id\n\n## Financials\n- Annual Revenue: USD 600,000\n- Total Funding: USD 38,115,000\n  - Corporate round (2026-07-01): USD 11.5M\n  - Series b (2024-11-12): USD 14.5M\n  - Series a (2021-11-08): USD 10.2M\n  - Seed (2020-11-24): USD 1.8M\n  - Pre seed (2020-09-07)\n\n## Workforce\n- Employees: 114\n- Company Size: 11-50 employees\n  - Monthly Growth: -0.9%\n- Key Executives:\n  - Akshi Federici: Head of Business Operations\n  - Alexander Furer: VP of Finance\n  - Ali Shaikha: VP Strategy & Operations\n  - Anastasiia K.: Strategic Programs Lead\n  - Barrett L.: Director of Platform Engineering\n  - Caitlin Pino: Director, People Operations\n  - Catarina Veloso: Director Regulatory Compliance\n  - Chayanee Ubol: Fractional Head of People\n  - Cristian Rus: Head of Product Design\n  - Dennis Boyle III: Business Development Director, Americas\n- Breakdown:\n  - By Country: United States: 16 (14%), United Kingdom: 12 (11%), Germany: 4 (4%), Netherlands: 3 (3%), Singapore: 3 (3%), Canada: 2 (2%), United Arab Emirates: 2 (2%), France: 1 (1%), Latvia: 1 (1%), Nigeria: 1 (1%) (+5 more)\n  - By Department: Technical: 19 (17%), Sales: 8 (7%), Customer Service: 4 (4%), Operations: 4 (4%), Other Department: 4 (4%), Legal: 3 (3%), Marketing: 3 (3%), Finance: 2 (2%), Hr: 2 (2%), Consulting: 1 (1%) (+5 more)\n  - By Seniority: Senior: 11 (10%), Director: 9 (8%), Specialist: 9 (8%), Manager: 8 (7%), Other Management: 8 (7%), Head: 7 (6%), Vp: 3 (3%)\n- Active job postings: 7\n- Talent Sources: Elliptic (4), Consensys (4), Chainalysis (3), Creospan Inc. (2), Binance (2), Banco do Brasil (2), Taraxa.io (1), Kimomi I PR & Communications Consultant Agency (1), JUMO (1), Bitwala (1)\n- Alumni Go To: Game of Silks, Inc. (2), Chainalysis (2), UBS (1), Supabase (1), SABC (1), Rithum (1), Etonec (1), Dune (1), Circle (1), Alto (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: 15five, blockchain, canva, charthop, churnzero, datadog, deel, figma, fintech, google sheets, hubspot, justworks, linkedin, nuance, ramp, react, typescript, discourse, hubspot crm, postman, sql, docker, driven data, kubernetes, microservices, nosql, postgresql, react native, sqs, dbt, python, microsoft, microsoft excel, impact, well, c, javascript, terraform, juris, nodejs, namely, salesforce, google analytics, ansible, chef, ease, linux, mix\n\n## Web presence\n\n- Twitter: twitter.com/notabene_id\n- YouTube: youtube.com/channel/ucdsg9plbt0h4l4wdaunsola\n- Crunchbase: crunchbase.com/organization/notabene-86d2\n- Web traffic:\n  - Monthly visits: 53,715\n  - Global rank: 641,702\n  - Bounce rate: 39.0%\n  - Pages per visit: 1.9\n  - Average visit duration: 26s\n\n## Categories\n\nblockchain, compliance, crypto, cryptocurrency, cyber security, digital assets, end-to-end counterparty verification, enterprise-software, finance/investing, financial services, fintech, network, payments, regulations, risk management, saas, stablecoin payments, stablecoins, technology, travel rule, travel rule compliance, trust layer, virtual asset service providers, virtual assets\n\n## Competitors\n\ncoinfirm, ciphertrace, elliptic, chainalysis, elementus, identitymind global, inc., blockseer, xapo, covalent, amberdata, bitgo, dfuse, beam solutions, inc., bitpay, coinify, tierion, starkware industries, ors group, margin\n\n## Recent News\n- [2026-09-12] [Notabene – Weekly Recap](https://www.tipranks.com/news/private-companies/notabene-weekly-recap-20)\n- [2026-09-01] [2,300 Institutions Connected: Blockchain Association](https://coinfomania.com/2300-institutions-connected-blockchain-association/)\n- [2026-08-29] TipRanks: Notabene Positions Travel Rule Capabilities as Core Payments Infrastructure\n- [2026-08-24] Yellow.com: Notabene launches Revert to solve crypto's biggest gap: what happens after a transaction settles\n- [2026-07-28] FinSMEs: Notabene Receives Investment From Ripple\n- [2026-06-20] [Notabene Highlights Pull-Based Model for B2B Crypto and Stablecoin Payments - TipRanks.com](https://www.tipranks.com/news/private-companies/notabene-highlights-pull-based-model-for-b2b-crypto-and-stablecoin-payments)\n- [2026-06-18] [Notabene Integrates Stablecoin Clearing Into B2B Payments Workflow - TipRanks.com](https://www.tipranks.com/news/private-companies/notabene-integrates-stablecoin-clearing-into-b2b-payments-workflow)\n- [2026-06-04] [Notabene Highlights Growing Adoption of Open B2B Stablecoin Payment Network - TipRanks.com](https://www.tipranks.com/news/private-companies/notabene-highlights-growing-adoption-of-open-b2b-stablecoin-payment-network)\n- [2025-08-20]\n  - EIN Presswire: BurjX Fortifies Digital Asset Security with Fireblocks and Institutional-Grade Insurance\n  - Fintechnews Middle East: BurjX Secures UAE Digital Asset Platform with Fireblocks Infrastructure\n- [2025-05-01] Paypers: Notabene report reveals crypto companies now compliant with Travel Rule\n- [2025-04-29]\n  - Fintech News America: Mastercard Advances Stablecoin Use for Consumer Payments, Merchant Settlements\n  - GlobalFinTechSeries: Mastercard Unveils End-to-End Capabilities to Power Stablecoin Transactions – From Wallets to Checkouts\n  - Financial Sector Technology: Mastercard to power stablecoin acceptance and payments\n- [2025-04-28] FX News Group: Mastercard introduces end-to-end capabilities to power stablecoin transactions\n- [2025-04-23] CoinDesk: Bitcoin, Ethereum, Crypto News and Price Data: Travel Rule Compliance Surges on New Regs, Stablecoin Payments, Notabene Says\n- [2024-11-14] Financial IT: Notabene Raises $14.5M in Series B Funding\n- [2024-08-06] Paypers: AMLYZE reveals strategic partnership with Notabene\n- [2023-08-29] Paypers: FOMO Pay partners with Notabene\n- [2023-05-24] Paypers: Notabene launches SAFE implementation phases for Travel Rule\n- [2023-05-09] Paypers: Fireblocks, Notabene to simplify compliance\n- [2023-04-25] PRNewswire: Notabene report findings reveals growth in Travel Rule adoption globally\n- [2023-02-15] Arab Business: Liminal and Notabene team up to offer secure and compliant crypto transactions\n- [2022-04-13] Ilonggo Tech Blog: PDAX taps Notabene for Travel Rule compliance\n\n## Social\n\n### Linkedin\n\n- [2026-10-05 · Posted · 12 reactions] [Did you know? Firms already operating in Brazil have until October...](https://www.linkedin.com/posts/notabene-id_did-you-know-firms-already-operating-in-activity-7512906291875463170-wIKY)\n  > Did you know? Firms already operating in Brazil have until October 30, 2026, to apply for authorization, and the application requires that they are compliant with several obligations on the day they file.\n  >\n  > That covers more than the three new Brazilian Central Bank (BCB) resolutions. Anti-money laundering (AML) controls, corporate governance, accounting, and reporting to the BCB all apply at the point of filing.\n  >\n  > So the work left before October 30 is operational. The controls need to be running before the application goes in. Once the application is filed, the BCB starts looking at how a firm actually operates.\n  >\n  > In our Brazil webinar, Nicole Dyskant, CEO RegDoor, explained what the grandfathering period asks of firms already in market, and what applying under one of the three authorization categories involves.\n  >\n  > 📍 Jurisdiction spotlight: Brazil\n  > 👇 Full webinar in the comments\n\n- [2026-09-22 · Posted · 12 reactions] [The CLARITY Act failed its cloture vote 49-50 on September 15...](https://www.linkedin.com/posts/notabene-id_the-clarity-act-failed-its-cloture-vote-49-activity-7508201462653493249-kFYI)\n  > The CLARITY Act failed its cloture vote 49-50 on September 15, eleven short of the sixty it needed.\n  >\n  > Title II would have pulled digital commodity brokers and dealers into the Bank Secrecy Act definition of a financial institution. The obligation would not have changed. The population standing inside it would have. Cloture failed, so the perimeter sits exactly where it sat on the 14th.\n  >\n  > The agencies are not waiting. The SEC and CFTC are moving fast with crypto regulation. Tomorrow Summer and Lana work through what all of this leaves leaves on a Q4 compliance plan.\n  >\n  > What they will cover:\n  >\n  > • Where the SEC and CFTC are heading now, and how fast\n  > • Litigation risk and injunctions, and how they constrain what the agencies can implement\n  > • The Congressional Review Act, which rules are exposed, and why you will hear a lot more about it\n  > • Why AML and Travel Rule obligations did not change on the 15th, and why Q4 planning should not wait for a second cloture vote\n  >\n  > 🎙️ Summer Mersinger, CEO, Blockchain Association\n  > 🎙️ Lana Schwartzman, VP Global Regulatory & Compliance Strategy, Notabene\n  > 📆 Tomorrow, September 23\n  > 🕑 2:30pm ET / 8:30pm CET\n  >\n  > 👇 Registration in the comments\n\n- [2026-09-17 · Posted · 30 reactions] [Travel Rule compliance and transaction authorization are now...](https://www.linkedin.com/posts/notabene-id_notabene-x-sardine-activity-7506336537291206657-3FLl)\n  > Travel Rule compliance and transaction authorization are now integrated inside Sardine's risk platform.\n  >\n  > Sardine builds the data picture around the customer (onboarding, KYC/KYB, fraud, AML monitoring), while Notabene builds it around the transaction (counterparty verification, sanctions screening, Travel Rule compliance) to give joint customers a clear view of whether a transfer should be authorized before it settles.\n  >\n  > When these two pieces talk to each other (transaction-level and customer-level decision making), the overall trust picture gets sharper. What's more, what happens at settlement feeds back into the customer risk profile over time.\n  >\n  > Powering this partnership is the network. Notabene connects thousands of counterparties across 100+ jurisdictions on an open, ISO 20022-compatible protocol, so Sardine customers can verify counterparties in real time, reach more of them safely, and push more transfers straight through instead of into manual review.\n  >\n  > More information in the comments. If you want to see a demo of how this works in practice, reach out to either team.\n  >\n  > #TravelRule #StablecoinPayments #RiskManagement\n\n- [2026-09-17 · 30 reactions, 8 comments] Travel Rule compliance and transaction authorization are now integrated inside Sardine's risk platform. Sardine builds the data picture around the customer (onboarding, KYC/KYB, fraud, AML monitori...\n\n- [2026-09-15 · Reshared · 11 reactions] [Everyone is reading CLARITY as an SEC vs CFTC fight. Title II is...](https://www.linkedin.com/posts/notabene-id_everyone-is-reading-clarity-as-an-sec-vs-activity-7505651989784035328-YpUb): Everyone is reading CLARITY as an SEC vs CFTC fight. Title II is the part that lands on compliance teams. Section 10201 names digital commodity brokers and dealers as financial institutions under t...\n\n- [2026-09-09 · Posted · 48 reactions] [Transaction authorization is what decides whether a stablecoin...](https://www.linkedin.com/posts/notabene-id_stablecoinpayments-transactionauthorization-activity-7503444271119777792-bkgm)\n  > Transaction authorization is what decides whether a stablecoin payment should settle at all, and that decision has to land before the transfer gets signed.\n  >\n  > Utila and Notabene have partnered to build that sequence into one seamless process.\n  >\n  > An institution sends the transfer through Notabene, we identify and verify the receiving institution and coordinate the authorization with them, and Utila initiates the onchain transaction only once the counterparty has approved it.\n  >\n  > Now authorization and execution operate as one flow instead of two teams checking each other's work after the fact.\n  >\n  > For the banks, PSPs, exchanges and fintechs already using Utila for wallet security and approvals, this connects that environment to an authorization network of 2,000+ verified entities across 100+ jurisdictions.\n  >\n  > Travel Rule data exchange rides along with the authorization, so compliance teams get what they need without a separate process wrapped around every payment.\n  >\n  > Read the full write-up from the Utila team in the comments, and drop us a note if you'd like to learn more directly from a team member.\n  >\n  > #StablecoinPayments #TransactionAuthorization #TravelRule #DigitalAssetInfrastructure\n\n- [2026-09-09 · 51 reactions, 6 comments] Transaction authorization is what decides whether a stablecoin payment should settle at all, and that decision has to land before the transfer gets signed. Utila and Notabene have partnered to buil...\n\n- [2026-09-04 · Posted · 22 reactions] [🇹🇼 Taiwan's crypto #TravelRule just got a live date, five years...](https://www.linkedin.com/posts/notabene-id_taiwantravelrulesquare-activity-7501447721430646784-xZw_)\n  > 🇹🇼 Taiwan's crypto #TravelRule just got a live date, five years after it became law.\n  >\n  > Article 7 of the FSC's VASP AML/CFT Regulations set out Travel Rule obligations for Taiwanese virtual asset service providers back in 2021, but its effective date was deliberately left open for the Financial Supervisory Commission to set later. On August 4, the FSC announced it's finally switching it on, in two phases:\n  >\n  > 1️⃣ Domestic VASP-to-VASP transfers first, planned for October 2026\n  > 2️⃣ Transfers between domestic and offshore VASPs, planned for the end of 2027\n  >\n  > The information requirements are fairly simple on paper. Originator and beneficiary name and wallet information travel with every transfer, regardless of amount. Above NT$30,000, originating VASPs add enhanced identity data, and the beneficiary side has to check the incoming name against its own customer records.\n  >\n  > The timeline is the part worth watching. Eight VASPs have already completed AML registration in Taiwan, and the amendment still has to clear a 30-day public consultation before October is locked in.\n  >\n  > We've mapped the full timeline, data requirements, and what October means for VASPs and their counterparties in our updated Taiwan jurisdiction guide, linked below.\n  >\n  > #TravelRule #Taiwan #FSC #VASP #CryptoCompliance\n\n- [2026-09-04 · 22 reactions, 2 comments] 🇹🇼 Taiwan's crypto #TravelRule just got a live date, five years after it became law. Article 7 of the FSC's VASP AML/CFT Regulations set out Travel Rule obligations for Taiwanese virtual asset serv...\n\n- [2026-09-03 · Posted · 30 reactions] [Stablecoins fix the speed and the cost of a cross-border trade...](https://www.linkedin.com/posts/notabene-id_notabeneflow-stablecoinpayments-crossborderpayments-activity-7501293824565022720-CYYf)\n  > Stablecoins fix the speed and the cost of a cross-border trade payment. What they don't fix on their own is money landing with no invoice reference and nothing for a finance team to reconcile against.\n  >\n  > That's the gap Anyenk built around. The Chilean company's digital-asset payment infrastructure for Latin American businesses is now natively integrated with Notabene Flow, so its customers can invoice buyers and pay suppliers in stablecoins with the compliance and reconciliation work handled inside the payment instead of after it.\n  >\n  > Think of a Peruvian manufacturer invoicing a buyer in Europe. Today that's days of waiting on correspondent banking and a fee at every hop.\n  >\n  > On #NotabeneFlow, the counterparty, the chain, and the asset are all verified before anything settles, Travel Rule data moves automatically, and the invoice reference travels with the payment so the funds arrive ready to book.\n  >\n  > One integration reaches counterparties held at thousands of regulated institutions across more than 100 jurisdictions, with no bilateral relationship to negotiate corridor by corridor.\n  >\n  > We'll be rolling out more on exactly how it works over the next couple of weeks, with a series of videos from Pelle Brændgaard and Andres Junge.\n  >\n  > Full announcement linked in the comments 👇\n  >\n  > #StablecoinPayments #CrossBorderPayments #TravelRule #LatAm\n\n- [2026-09-03 · 30 reactions, 4 comments] Stablecoins fix the speed and the cost of a cross-border trade payment. What they don't fix on their own is money landing with no invoice reference and nothing for a finance team to reconcile again...\n\n- [2026-09-02 · Posted · 19 reactions] [Who's going to Stablecon DC next week? If you're in the mix, hit up...](https://www.linkedin.com/posts/notabene-id_whos-going-to-stablecon-dc-next-week-if-activity-7500997639052697600-lRC5)\n  > Who's going to Stablecon DC next week?\n  > If you're in the mix, hit up Luther M. to set up a chat!\n  >\n  > The Stablecon team always delivers. We're looking forward to seeing the whole digital assets ecosystem next Wednesday 🇺🇸\n\n- [2026-09-02 · 19 reactions] Who's going to Stablecon DC next week? If you're in the mix, hit up Luther M. to set up a chat! The Stablecon team always delivers. We're looking forward to seeing the whole digital assets ecosyste...\n\n- [2026-08-27 · Reshared · 16 reactions] [Self-hosted wallets are where most Travel Rule programs get stuck...](https://www.linkedin.com/posts/notabene-id_the-travel-rule-is-more-than-a-data-transmission-activity-7498789438152507412-WDbr): Self-hosted wallets are where most Travel Rule programs get stuck. Screening and identifying an institutional counterparty is relatively simple compared to proving who actually controls a self-host...\n\n- [2026-08-26 · Posted · 11 reactions] [There's a great line in Dee Hock's book about founding Visa. During...](https://www.linkedin.com/posts/notabene-id_notabeneflow-activity-7498356170990972929-5EEW)\n  > There's a great line in Dee Hock's book about founding Visa. During the two-week design session where they built the initial framework for the Visa network, the first thing they realized was that the primary function of the card was to 𝗶𝗱𝗲𝗻𝘁𝗶𝗳𝘆 𝘁𝗵𝗲 𝗯𝘂𝘆𝗲𝗿 𝘁𝗼 𝘁𝗵𝗲 𝘀𝗲𝗹𝗹𝗲𝗿 𝗮𝗻𝗱 𝘁𝗵𝗲 𝘀𝗲𝗹𝗹𝗲𝗿 𝘁𝗼 𝘁𝗵𝗲 𝗯𝘂𝘆𝗲𝗿.\n  >\n  > Pelle Brændgaard connects a straight line from that now-famous insight to what we've been building at Notabene for the last five years:\n  >\n  > \"𝘛𝘩𝘦 𝘱𝘳𝘪𝘮𝘢𝘳𝘺 𝘧𝘶𝘯𝘤𝘵𝘪𝘰𝘯 𝘰𝘧 𝘵𝘩𝘦 𝘤𝘢𝘳𝘥 𝘸𝘢𝘴 𝘵𝘰 𝘪𝘥𝘦𝘯𝘵𝘪𝘧𝘺 𝘵𝘩𝘦 𝘣𝘶𝘺𝘦𝘳 𝘵𝘰 𝘴𝘦𝘭𝘭𝘦𝘳 𝘢𝘯𝘥 𝘴𝘦𝘭𝘭𝘦𝘳 𝘵𝘰 𝘣𝘶𝘺𝘦𝘳. 𝘈𝘯𝘥 𝘵𝘩𝘢𝘵'𝘴 𝘳𝘦𝘢𝘭𝘭𝘺 𝘵𝘩𝘦 𝘧𝘶𝘯𝘤𝘵𝘪𝘰𝘯 𝘰𝘧 𝘵𝘩𝘦 𝘛𝘳𝘢𝘷𝘦𝘭 𝘙𝘶𝘭𝘦. 𝘛𝘩𝘢𝘵'𝘴 𝘸𝘩𝘢𝘵 𝘸𝘦'𝘷𝘦 𝘣𝘦𝘦𝘯 𝘥𝘰𝘪𝘯𝘨 𝘰𝘷",
+        "summary": "{\"description\":\"Notabene is a Blockchain Services company. Notabene is a trust layer for digital assets, stablecoin payments and travel rule compliance for regulated institutions. They provide end-to-end counterparty verification solutions and have a global reach.\",\"employee_estimate\":114,\"employee_estimate_source\":\"Employees: 114\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Director Regulatory Compliance\",\"hq\":\"New York, United States\",\"hq_quote\":\"Headquarters: New York, United States\",\"industry\":\"Blockchain Services\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Notabene is a Blockchain Services company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 38,115,000; Seed (2020-11-24) USD 1.8M; Series A (2021-11-08) USD 10.2M; Series B (2024-11-12) USD 14.5M; Corporate round (2026-07-01): USD 11.5M\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQHWV9hJLEj8bw/company-logo_200_200/B56ZdquITGG0AI-/0/1749842167317/notabene_id_logo?e=2147483647&v=beta&t=kSz9k8ZE_9dB2mvRS-rbXpH7Zhf98WD8a_CdBWkTJg4",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/b33wjthxmhj",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Notabene",
+              "foundedYear": 2020,
+              "description": "Notabene is the trust layer for global crypto money movement, featuring Notabene Flow—the first open stablecoin payments platform for businesses—and Notabene Transact, the world's largest Travel Rule-compliant transaction authorization platform for regulated institutions. Built on the Transaction Authorization Protocol (TAP), an open messaging standard that enables verified entities to transact securely, the Notabene Network connects thousands of trusted counterparties, facilitating over $1T in transaction volume annually across over 100 jurisdictions. Notabene provides industry-leading tools for stablecoin payment coordination, real-time transaction authorization, counterparty verification, and self-hosted wallet identification—helping institutions build trust into every transaction.",
+              "workforce": {
+                "total": 114
+              },
+              "headquarters": {
+                "address": "New York, US",
+                "city": "New York",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 600000,
+                "fundingTotal": 38115000,
+                "fundingLatestRound": {
+                  "name": "Corporate round",
+                  "date": "2026-07-01",
+                  "amount": 11500000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 53715,
+                "countryRank": 522757,
+                "avgDurationSeconds": 26,
+                "history": [
+                  {
+                    "value": 57278,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 72153,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 57147,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 65893,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 46125,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 53715,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 6919.2,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

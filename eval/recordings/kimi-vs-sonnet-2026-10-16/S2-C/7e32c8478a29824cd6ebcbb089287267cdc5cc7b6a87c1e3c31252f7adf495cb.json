@@ -1,0 +1,262 @@
+{
+  "request": {
+    "query": "Dapta",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "a60957b9794dc8e916289192b466bbb6",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/zm78c3gkvtz",
+        "title": "Dapta",
+        "url": "https://dapta.ai/",
+        "text": "# Dapta\n\nDapta is a Software Development company. Dapta AI is a company that provides conversational AI voice and text agents for SMB sales automation. Dapta employs 59 people (+59.5% YoY, +22 people) and has an annual revenue of $1M, founded in 2023. Headquartered in Scottsdale, Arizona, United States, with an office in Miami. Its workforce is distributed across 6 countries (including Colombia, United States, Mexico, Chile, and India).\n\n## About\n\nAI Automation for sales teams\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: Scottsdale, United States\n- Founded Year: 2023\n- Homepage: dapta.ai\n- Aliases: Dapta LLC, dapta, dapta, llc\n- LinkedIn: linkedin.com/company/dapta-ai\n- Linkedin Followers: 17,218\n- Emails: nico@daptatech.com\n- Phone: 7865318438\n\n## Financials\n- Annual Revenue: USD 1,000,000\n- Total Funding: USD 1,500,000\n  - Seed (2025-05-01)\n  - Pre seed (2024-09-01): USD 200,000\n  - Seed (2024-04-01): USD 1.2M\n  - Pre seed (2023-05-24)\n  - Angel (2023-01-01): USD 100,000\n\n## Workforce\n- Employees: 59\n- Company Size: 11-50 employees\n  - Yearly Growth: +59.5%\n- Key Executives:\n  - Alejandro Sarmiento: Head of Growth\n  - Aron D'mello: Head of Expansion\n  - Felipe G.: Chief Technical and Product Officer\n  - Julián Melo: Angel Investor\n  - Nicolas Rojas Nino: CEO - Founder\n  - Sebastián Gasca López: Head of Sales LATAM & US\n- Breakdown:\n  - By Country: Colombia: 38 (64%), United States: 8 (14%), Mexico: 2 (3%), Chile: 1 (2%), India: 1 (2%), Spain: 1 (2%)\n  - By Department: Sales: 14 (24%), Technical: 14 (24%), Other Department: 6 (10%), General Management: 5 (8%), Consulting: 4 (7%), Marketing: 3 (5%), Design: 2 (3%), Customer Service: 1 (2%), Finance: 1 (2%), Product: 1 (2%) (+1 more)\n  - By Seniority: Specialist: 27 (46%), Other Management: 9 (15%), Manager: 8 (14%), Head: 3 (5%), Founder: 2 (3%), Clevel: 1 (2%), Intern: 1 (2%), Senior: 1 (2%)\n- Talent Sources: Imagine Apps (8), Leal (2), Beezion (2), United Nations (1), Tally.com.ar (1), Revive (1), Platzi (1), Komanda F5 (1), Habi (1), DIGISOC® (1)\n- Alumni Go To: bvc-Bolsa de Valores de Colombia S.A. (1), XalDigital (1), Virtual Intelligence (1), Stealth Startup (1), Stealth AI Startup (1), Scale Your Marketing (1), HubSpot (1), Beagle Labs (1), Banco de Bogotá (1), ASU Enterprise Partners (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: adobe, adobe photoshop, aircall, airtable, asana, clickup, comit, freshdesk, google ads, google analytics, google sheets, google tag manager, google workspace, hubspot, intercom, javascript, linkedin, looker, microservices, mongodb, nodejs, persona, pipedrive, postgresql, propio, prototype, python, salesforce, seg, sql, tiktok, typescript, whatsapp, zapier, zendesk, impact, microsoft, microsoft office, ups, c\n\n## Web presence\n\n- Instagram: instagram.com/dapta.ai\n- YouTube: youtube.com/@dapta-ai\n- Crunchbase: crunchbase.com/organization/dapta\n- Web traffic:\n  - Monthly visits: 206,617\n  - Global rank: 159,337\n  - Bounce rate: 38.0%\n  - Pages per visit: 5.4\n  - Average visit duration: 256s\n\n## Categories\n\nagentes de ai, ai, ai voice agents, artificial intelligence (ai), automatización, computers_electronics_and_technology/computers_electronics_and_technology, conversational ai, developer apis, developer tools, enterprise resource planning (erp), ia, integrations, sales ai, sales automation, smbs, software, startup, tecnología, text agents, ventas\n\n## Competitors\n\ncanonic, prestoapi, nocodeapi, dronahq, vuram, ishir, kissflow\n\n## Recent News\n- [2026-09-21] [Nicolás Rojas, el bogotano que rompe techos en la industria tecnológica \\| Nuevos líderes de Colombia \\| EL PAÍS América Colombia](https://elpais.com/america-colombia/branded/los-lideres-de-colombia/2026-09-21/nicolas-rojas-el-bogotano-que-rompe-techos-en-la-industria-tecnologica.html)\n- [2026-09-14] [Filtrar clientes mediante agentes de IA será algo habitual en cualquier pyme](https://republica.com/tecnologia/filtrar-clientes-mediante-agentes-de-ia-sera-algo-habitual-en-cualquier-pyme-200091411270)\n- [2026-07-07] [¿Cómo cobrar los subsidios por Nequi o Daviplata en julio de 2026? Estos son los pasos tras el nuevo cambio de Prosperidad Social](https://www.eltiempo.com/economia/finanzas-personales/como-cobrar-los-subsidios-por-nequi-o-daviplata-en-julio-de-2026-estos-son-los-pasos-tras-el-nuevo-cambio-de-prosperidad-social-3569642)\n- [2025-10-25] El Espectador: La historia del joven programador que ha logrado poner sus productos en 40 países\n- [2024-04-11] Contxto: Dapta secures $1.2M to provide no-code AI and API integration solutions for SMBs\n- [2023-12-22] LatamList: Dapta secures $1M for US expansion\n\n## Social\n\n### Linkedin\n\n- [2026-10-09 · 1 reaction] ¿Cuántas oportunidades está perdiendo tu empresa por no responder a tiempo? 👀 En ventas, la velocidad puede marcar la diferencia entre cerrar un negocio o perder un lead. 📈 Este 14 de octubre estar...\n\n- [2026-10-09 · 1 reaction] No todos los vendedores están aprovechando la IA de la misma manera. 🤖 Algunos la usan para escribir correos, preparar propuestas o responder objeciones. Otros ya están construyendo procesos comerc...\n\n- [2026-10-08 · 15 reactions] Hay problemas que cualquier equipo de ventas quisiera tener: demasiados leads. 📈 El problema empieza cuando todos quieren el mismo. 😂 Uno ya lo llamó, otro le escribió por WhatsApp y alguien más ya...\n\n- [2026-10-08 · 14 reactions] Aquí todos trabajamos duro y damos el 100%... Pero siempre hay un equipo que parece necesitar vacaciones más que los demás. 😂✈️ ¿Qué departamento se las merece más? 👀 #AI #AgentesIA #Datos #Tecnolo...\n\n- [2026-10-07 · 21 reactions, 1 comment] ¿Te imaginas crear un agente de voz con IA en menos de 3 minutos? 🤖 Hoy no necesitas saber programar para tener un agente que responda llamadas, califique prospectos y agende reuniones automáticame...\n\n- [2026-10-06 · 74 reactions, 1 comment] ¿La diferencia más grande después de vender mi empresa? Encontrar un talento World Class... Ella es Valentina y organizó algo que Nicolas Rojas Nino yo siempre quisimos hacer en Dapta... Hace un añ...\n\n- [2026-10-06 · 19 reactions, 2 comments] October is here, and we have a packed month ahead at Mana Tech. 🚀 From AI and fundraising to fintech, creative tech, international programs and founder connections, there are plenty of opportunitie...\n\n- [2026-10-06 · 8 reactions] La IA ya no es solo una conversación de tecnología. Es una conversación de competitividad empresarial. 🤖 Junto a Imagine Apps y AI Salon, reunimos a líderes del ecosistema corporativo y de IA en LA...\n\n- [2026-10-06 · 6 reactions] Crear un agente de voz solía significar configurar cada detalle manualmente. Ahora puedes hacerlo conversando con IA. 🤖 Con Dapti describes qué quieres que haga el agente, le das el contexto de tu...\n\n- [2026-10-05 · 2 reactions] 🤖 OpenAI “Dots”: un agente personal pensado para ejecutar tareas como agendar, organizar viajes y actuar por el usuario. 🔐 Gemini 4 Argon: Google presentó su modelo más potente, inicialmente con ac...\n\n- [2026-09-19 · 5 reactions, 2 comments] Últimamente me di cuenta de que estaba usando IA para algo que probablemente no debería delegar: pensar por mí. 🧠 Ante una estrategia, una proyección o un problema complejo, mi primera reacción era...\n\n- [2026-09-18 · 46 reactions, 7 comments] Hay conversaciones que difícilmente pasan en una llamada de Zoom. 👀 Por eso en Dapta nos gusta crear espacios donde reunimos clientes, partners, prospectos y personas de diferentes industrias que y...\n\n- [2026-09-17 · 10 reactions] En el mundo de los negocios hay ideas que escuchamos tantas veces que terminamos aceptándolas como verdades. 👀 Que quien más trabaja gana más. Que un buen producto se vende solo. Que más clientes s...\n\n- [2026-09-17 · 58 reactions, 4 comments] Dicen que de los errores se aprende… 😅 Esperemos que nuestros clientes también piensen lo mismo. 🥹😂 ¿Quién más ha tenido uno de esos momentos en el trabajo? 👀 #AI #AgentesIA #Datos #Tecnología #tec...\n\n- [2026-09-15 · 1 reaction] ⚠️ Anthropic: un investigador dejó la compañía advirtiendo sobre los riesgos de desarrollar sistemas que puedan escapar del control humano. 📱 Apple: iOS 27 llega con una nueva generación de Siri im...\n\n- [2026-09-15 · 6 reactions] Crear un agente de voz ya no tiene que ser un proceso de semanas. 🤖 Con Dapti puedes empezar describiendo qué quieres que haga: responder leads, hacer preguntas, calificarlos o agendar llamadas. De...\n\n- [2026-09-12 · 9 reactions] Con mi primera empresa intentamos entrar a México, Canadá y Estados Unidos. Fallamos las tres veces. Durante un tiempo pensamos que el problema podía ser el mercado. Pero el error estaba en nuestra...\n\n- [2026-09-11 · 21 reactions, 1 comment] Antes, crear un agente de voz podía significar semanas de implementación y miles de dólares en servicios. Ahora el proceso puede empezar simplemente hablando con IA. 🤖 Con Dapti describes qué neces...\n\n- [2026-09-10 · 24 reactions, 2 comments] ¿Cuántos leads empiezan a llenar tus formularios y desaparecen antes de hacer clic en Enviar? 👀 El problema es que la mayoría de formularios solo guarda la información cuando el usuario completa to...\n\n- [2026-09-10 · 43 reactions, 7 comments] Dicen que el trabajo en equipo une… pero compartir el mismo enemigo une más. 😂🤝 Y ahora somos mejores amigos. ¿También tienes ese coworker con el que una mirada lo dice todo? 👀 #AI #AgentesIA #Dato...\n\n## Locations\n- Headquarters: scottsdale, arizona, united states (US)\n- Offices: miami, florida, united states (US), scottsdale, arizona, united states (US)",
+        "summary": "{\"description\":\"Dapta is a Software Development company. Dapta AI provides conversational AI voice and text agents for SMB sales automation.\",\"employee_estimate\":59,\"employee_estimate_source\":\"Employees: 59\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Head of Growth\",\"hq\":\"Scottsdale, Arizona, United States\",\"hq_quote\":\"Headquarters: scottsdale, arizona, united states (US)\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"- Industry: Software Development\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 1,500,000  - Seed (2025-05-01)  - Pre seed (2024-09-01): USD 200,000  - Seed (2024-04-01): USD 1.2M  - Pre seed (2023-05-24)  - Angel (2023-01-01): USD 100,000\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4E0BAQEwAWVz1sWUCw/company-logo_200_200/company-logo_200_200/0/1674444797199/daptatech_logo?e=2147483647&v=beta&t=fjyAjY5ztcM5bhvqlOmq83KLQTP8yRDaDHR0WO2Fax0",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/zm78c3gkvtz",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Dapta",
+              "foundedYear": 2023,
+              "description": "AI Automation for sales teams",
+              "workforce": {
+                "total": 59
+              },
+              "headquarters": {
+                "address": "Scottsdale, Arizona 85255, US",
+                "city": "Scottsdale",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 1000000,
+                "fundingTotal": 1500000,
+                "fundingLatestRound": {
+                  "name": "Seed",
+                  "date": "2025-05-01",
+                  "amount": null
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 206617,
+                "countryRank": 3111,
+                "avgDurationSeconds": 256,
+                "history": [
+                  {
+                    "value": 81739,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 104737,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 129477,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 160321,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 255594,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 206617,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/1hrvkbz80j7",
+        "title": "Dapta",
+        "url": "https://dapta.cl/",
+        "text": "# Dapta\n\nDapta is a Program Development company. Dapta is a company that provides access control solutions for various verticals including corporate, residential, and industrial projects. Dapta employs 34 people (-8.1% YoY, -3 people), founded in 2010. Headquartered in Las Condes, Santiago Metropolitan Region, Chile, with an office in Santiago. Its workforce is distributed across Chile and Bangladesh.\n\n## About\n\nDesde sus inicios en 2010, en Dapta nos hemos especializado en soluciones de control de acceso y gestión centralizada. \n\nNuestro enfoque es ofrecerte tecnologías que mejoren la seguridad, eficiencia y velocidad de quienes usan tus instalaciones, sin importar su tamaño o complejidad.\n\nCon más de 300 clientes en Latinoamérica, hemos crecido apoyando edificios corporativos, industrias, residencias, jardines, entre otros: ¡Seguimos creciendo!\n\nLo que nos diferencia es nuestra capacidad de personalización. Nos adaptamos a tu operación y trabajamos contigo para crear soluciones a la medida. \nCreemos en la importancia de un enfoque consultivo: entendemos tus retos, diseñamos la mejor solución para ti, y la escalamos de manera sostenible.\n\nNuestros pilares son:\n•\tConsultoría personalizada: Nos tomamos el tiempo necesario para conocer tu problema y darte la estrategia más adecuada. ¡Si ya tienes hardware en tu espacio, nos integramos a ellos!\n•\tTecnología flexible: Nuestros sistemas son fáciles de integrar, gestionar y escalar.\n•\tSoluciones completas: Control de acceso, gestión de espacios y de visitas, flujos vehiculares, entre muchas funcionalidades que encontrarás en una sola aplicación.\n•\tDesarrollo propio: Somos propietarios de nuestros softwares, lo que nos permite ofrecer soluciones robustas, simples y con soporte técnico integrado.\n\nDapta no es solo un proveedor de tecnología, es tu aliado estratégico para crear espacios más seguros y eficientes.\n\nTransforma tu empresa, con Dapta: Acceso inteligente y seguro.\n\n#TakeControl\n\n## Company Details\n- Industry: Program Development\n- Type: Self-owned\n- Headquarters: Las Condes, Chile\n- Founded Year: 2010\n- Homepage: dapta.cl\n- Aliases: dapta, dreamit\n- LinkedIn: linkedin.com/company/daptalatam\n- Linkedin Followers: 1,102\n- Emails: contacto@dreamit.cl\n- Phone: 224-978-9\n\n## Workforce\n- Employees: 34\n- Company Size: 11-50 employees\n  - Yearly Growth: -8.1%\n- Key Executives:\n  - Alan Weschler: Director - Socio\n  - Drago Eterovic Martic: Director\n  - Fernando Velazco: Ingeniero jefe de proyectos\n  - Jose Alexandrowicz: CEO\n  - Jose Angel Rangel Leal: Director del departamento técnico\n  - Nico Godoy: Head of Growth & Revenue Operations\n- Breakdown:\n  - By Country: Chile: 12 (35%), Bangladesh: 1 (3%)\n  - By Department: Technical: 8 (24%), General Management: 3 (9%), Sales: 3 (9%), Trades: 2 (6%), Customer Service: 1 (3%), Operations: 1 (3%), Other Department: 1 (3%)\n  - By Seniority: Specialist: 8 (24%), Manager: 4 (12%), Director: 2 (6%), Head: 2 (6%), Clevel: 1 (3%), Other Management: 1 (3%), Partner: 1 (3%)\n- Talent Sources: Efecto Educativo (2), CMetrix Business Solutions (2), AMC Ingeniería y Construcción Ltda. (2), Welivery (1), Universidad de Chile (1), SUBUS Chile (1), LIFULL Connect (1), Intuitive S.A (1), Enfocus Consulting (1), Defontana Chile (1)\n- Alumni Go To: WETFOREST (2), Regcheq (2), Cuponatic Latam (2), Alder Comunicaciones (2), Vigatec (1), Start-Up Chile (1), Sociedad Punta de Lobos S.A. (1), Open Green Road (1), La Casa de Juana (1), Ayres Security (1)\n\n## Products & Technology\n- Tech Stack: amplitude, bootstrap, css3, google ads, html, html5, hubspot, javascript, laravel, php, python, sqs, typescript, wordpress, persona, seg, api gateway, aws lambda, java, sns, c, visa\n\n## Web presence\n\n- Facebook: facebook.com/daptalatam\n- Instagram: instagram.com/daptalatam\n- Crunchbase: crunchbase.com/organization/dreamit-5736\n- Web traffic:\n  - Monthly visits: 735\n  - Global rank: 11,718,540\n  - Bounce rate: 37.0%\n  - Pages per visit: 3.5\n  - Average visit duration: 303s\n\n## Categories\n\naccess control, asesorías leed, automatización, biometría, bms, building automation, climatización y control, consultorías, control centralizado, control de acceso, corporate, gestión de accesos, monitoreo, property management, residential, rfid, seguridad control acceso inmuebles, software, solutions, technology/software, telemetría, verticals, web development\n\n## Social\n\n### Linkedin\n\n- [2026-07-17 · 28 reactions, 12 comments] Voy a decir algo impopular: la capacidad de fiscalización real de la Ley 21.719 tiene para rato. No lo digo como consuelo. Lo digo porque llevo semanas leyendo el mismo post reciclado y el argument...\n\n- [2026-04-17 · 2 reactions] Optimice el registro de visitas ¿Cómo escanear correctamente un documento de identidad? En la gestión de accesos, cada segundo cuenta. Para los usuarios del Software Dapta, la precisión en la captu...\n\n- [2026-04-13 · 4 reactions] ¿Se puede combinar una estética premium con una seguridad infalible en la entrada de tu edificio? Absolutamente. 🤝 🚶🏻♂️Una experiencia fluida y sin contacto. El usuario simplemente camina hacia el...\n\n- [2026-04-09 · 4 reactions] Seguridad y Privacidad: Dos caras de la misma moneda corporativa. 🪙🔒 En 2026, el cumplimiento legal en Chile ha subido de nivel. Con la plena vigencia de la Ley 21.659 de Seguridad Privada y la pro...\n\n- [2026-03-30 · 2 reactions] Tu rostro, la credencial más segura y eficiente. La biometría facial no es solo tendencia; es la respuesta a la necesidad de un control de acceso sin contacto, rápido y extremadamente difícil de vu...\n\n- [2026-03-27 · 5 reactions] ¿Es su control de acceso tan seguro como cree? En entornos corporativos e industriales, el préstamo de credenciales o el acceso por \"proximidad\" (tailgating) son brechas de seguridad comunes que su...\n\n- [2026-03-27 · 12 reactions, 1 comment] Reemplazamos nuestro software que facturaba bien para no morir en la comodidad. Muchos me dijeron: \"José, si tu software funciona y los clientes pagan, ¿para qué te vas a complicar?\". La respuesta...\n\n- [2026-03-25 · 4 reactions] ¿Puede la seguridad mejorar la productividad de una oficina? 🏢✨ En nuestro reciente proyecto, el desafío era claro: gestionar un flujo de personas diarias entre colaboradores y visitas, sin convert...\n\n- [2026-03-25 · 22 reactions, 2 comments] La negligencia detrás del libro de visitas Muchas plantas en Chile siguen gestionando la seguridad como un taller de barrio, aunque facturen millones. La confianza no es un sistema de gestión. Si p...\n\n- [2026-03-20 · 3 reactions] ¿Alguna vez has comprado una solución tecnológica que terminó siendo \"demasiado grande\" o \"demasiado limitada\" para tu proyecto? ⚠️ Sabemos que en el mundo del Control de Acceso, no existen las sol...\n\n- [2026-03-19 · 23 reactions] ¿Instalarías en tu empresa algo que el proveedor no usa en la suya? Nosotros tampoco. En Dapta probamos todo en nuestra propia operación antes de recomendarlo. Menos teoría, más realidad. Si estás...\n\n## Locations\n- Headquarters: las condes, santiago metropolitan region, chile (CL)\n- Offices: las condes, region metropolitana, chile (CL), santiago, santiago metropolitan, chile (CL), las condes, santiago metropolitan region, chile (CL)",
+        "summary": "{\"description\":\"Dapta is a Program Development company that provides access control solutions for corporate, residential, and industrial projects, with centralized management and a growing client base across Latin America.\",\"employee_estimate\":34,\"employee_estimate_source\":\"Employees: 34\",\"hiring_first_ops_or_revops\":false,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Las Condes, Chile\",\"hq_quote\":\"Headquarters: las condes, santiago metropolitan region, chile (CL)\",\"industry\":\"Program Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Program Development\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":null,\"recently_funded_seed_or_series_a_quote\":\"\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4D0BAQGIqQBKwjW58w/company-logo_200_200/company-logo_200_200/0/1721926465583/dreamit_sa_logo?e=2147483647&v=beta&t=4l8139DZhY5X7fdR82EVCoGIypdqcpDNbxTOBV8PxXY",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/1hrvkbz80j7",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Dapta",
+              "foundedYear": 2010,
+              "description": "Desde sus inicios en 2010, en Dapta nos hemos especializado en soluciones de control de acceso y gestión centralizada. \n\nNuestro enfoque es ofrecerte tecnologías que mejoren la seguridad, eficiencia y velocidad de quienes usan tus instalaciones, sin importar su tamaño o complejidad.\n\nCon más de 300 clientes en Latinoamérica, hemos crecido apoyando edificios corporativos, industrias, residencias, jardines, entre otros: ¡Seguimos creciendo!\n\nLo que nos diferencia es nuestra capacidad de personalización. Nos adaptamos a tu operación y trabajamos contigo para crear soluciones a la medida. \nCreemos en la importancia de un enfoque consultivo: entendemos tus retos, diseñamos la mejor solución para ti, y la escalamos de manera sostenible.\n\nNuestros pilares son:\n•\tConsultoría personalizada: Nos tomamos el tiempo necesario para conocer tu problema y darte la estrategia más adecuada. ¡Si ya tienes hardware en tu espacio, nos integramos a ellos!\n•\tTecnología flexible: Nuestros sistemas son fáciles de integrar, gestionar y escalar.\n•\tSoluciones completas: Control de acceso, gestión de espacios y de visitas, flujos vehiculares, entre muchas funcionalidades que encontrarás en una sola aplicación.\n•\tDesarrollo propio: Somos propietarios de nuestros softwares, lo que nos permite ofrecer soluciones robustas, simples y con soporte técnico integrado.\n\nDapta no es solo un proveedor de tecnología, es tu aliado estratégico para crear espacios más seguros y eficientes.\n\nTransforma tu empresa, con Dapta: Acceso inteligente y seguro.\n\n#TakeControl",
+              "workforce": {
+                "total": 34
+              },
+              "headquarters": {
+                "address": "Avenida Chesterton 8547, Las Condes, Santiago Metropolitan Region, CL",
+                "city": "Las Condes",
+                "postalCode": null,
+                "country": "Chile"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 735,
+                "countryRank": 50414,
+                "avgDurationSeconds": 303,
+                "history": [
+                  {
+                    "value": 220,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 502,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 2223,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 2134,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 1092,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 735,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 3193.6,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

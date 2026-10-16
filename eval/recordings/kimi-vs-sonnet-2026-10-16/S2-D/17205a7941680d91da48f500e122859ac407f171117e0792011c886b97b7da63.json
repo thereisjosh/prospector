@@ -1,0 +1,270 @@
+{
+  "request": {
+    "query": "August Health",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "24276a746900fbb4ba84f1ef9c51f69f",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/6x7np8qbx10",
+        "title": "August Health",
+        "url": "https://www.augusthealth.com/",
+        "text": "# August Health\n\nAugust Health is a Software Development company. August Health EHR provides modern, fully-digital move-in experiences for seniors and communities, including reactive tactics, proactive care strategies, medication management, analytics, billing & payments, and care track. August Health employs 116 people (+48.7% YoY, +38 people), founded in 2020. Headquartered in San Francisco, California, United States.\n\n## About\n\nOur mission is to empower the essential work of caring for all our elders. \n\nAugust Health is the easy-to-use EHR platform that caregivers love, known for improving care quality, simplifying compliance, and enabling better care tracking and analytics. Designed with senior living experts and built by world-class engineers, the software platform makes it easier for communities to provide the best care. With the addition of August Intelligence, the platform will offer AI-powered insights that help communities act faster and more confidently. Since launching in 2020, August Health has been adopted by leading operators across the country, including Sonida Senior Living, 12 Oaks Senior Living, Bickford Senior Living, Koelsch Communities, and Westmont Living. Learn more at augusthealth.com\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: San Francisco, United States\n- Founded Year: 2020\n- Homepage: augusthealth.com\n- Aliases: August Health Co., august health, august health .\n- LinkedIn: linkedin.com/company/august-health\n- Linkedin Followers: 7,186\n- Emails: hello@augusthealth.com, support@augusthealth.com\n\n## Financials\n- Total Funding: USD 44,000,000\n  - Series b (2025-09-07): USD 29.0M\n  - Series a (2022-06-23): USD 15.0M\n  - Seed\n\n## Workforce\n- Employees: 116\n- Company Size: 51-200 employees\n  - Monthly Growth: +4.5%\n  - Yearly Growth: +48.7%\n- Key Executives:\n  - Barri Bruno: Data Lead\n  - Caitlin Shrum: Head of People\n  - Erez Cohen: Co-Founder\n  - Eric Welden: Lead Designer\n  - Ilya S.: Board Director\n  - Jacob Melvin: Head of Customer Experience\n  - Josh Klaristenfeld: Head of Engineering\n  - Juliana S.: Head of Brand & Marketing\n  - Justin Schram, MD: Co-Founder\n  - Kerry T.: Head of Strategy and Partnerships\n- Breakdown:\n  - By Country: United States: 86 (74%)\n  - By Department: Technical: 25 (22%), Customer Service: 10 (9%), Operations: 8 (7%), Project Management: 8 (7%), Sales: 6 (5%), Marketing: 5 (4%), Product: 5 (4%), Consulting: 4 (3%), Medical: 4 (3%), Other Department: 4 (3%) (+5 more)\n  - By Seniority: Manager: 23 (20%), Specialist: 19 (16%), Senior: 15 (13%), Other Management: 13 (11%), Director: 7 (6%), Head: 7 (6%), Founder: 2 (2%), Clevel: 1 (1%)\n- Talent Sources: Epic (5), PointClickCare (3), Yardi (2), Thrive TRM (2), SafelyYou (2), PharMerica (2), Novacoast (2), Kenzie Academy (2), Buoy Software (2), Thomson Reuters (1)\n- Alumni Go To: o1Labs (1), Yardi (1), Outbuild (1), Laurel (1), Fivetran (1), Emerson Collective (1), Bureau of Ocean Energy Management (1), Bloomberg (1), Bayesian Health (1), Amalga Group (1)\n\n## Products & Technology\n- Tech Stack: java, json, rabbitmq, react, redux, sage intacct, scala, typescript, impact, amp\n\n## Web presence\n\n- Twitter: twitter.com/augusthealth\n- YouTube: youtube.com/channel/uc3vfjylfhdajnrkngzjougq\n- Crunchbase: crunchbase.com/organization/august-health\n- Web traffic:\n  - Monthly visits: 90,020\n  - Global rank: 268,126\n  - Bounce rate: 23.0%\n  - Pages per visit: 10.9\n  - Average visit duration: 341s\n\n## Categories\n\nanalytics, assisted living, assisted living software, august health, billing & payments, business intelligence, caregivers, clinical documentation, data-management, ehr, emar, health care, health care software, health/geriatric_and_aging_care, healthcare, healthcare analytics, healthtech, medical billing, medication management, platform, senior living, technology\n\n## Competitors\n\nwelltok, story health, odysseus data services, datma\n\n## Recent News\n- [2026-09-25] Business Wire: August Health Partners with Lifespark Senior Living\n- [2026-09-24] [August Health Partners with Lifespark Senior Living \\| MarketMinute](https://www.marketminute.com/article/bizwire-2026-9-24-august-health-partners-with-lifespark-senior-living)\n- [2025-08-13]\n  - Tech Startups - Startups and Technology news: CoreWeave shares tumble 18% on bigger-than-expected loss as red-hot IPO lock-up nears end\n  - Tech Startups - Startups and Technology news: Top Startup and Tech Funding News – August 13, 2025\n- [2025-08-12] Sourcery: OpenAI $500B Valuation + GPT-5\n- [2025-08-11]\n  - The SaaS News: August Health Raises $29 Million in Series B\n  - alleywatch.com: The Weekly Notable Startup Funding Report: 8/11/25\n- [2025-08-08]\n  - FinSMEs: August Health Raises $29M in Series B Funding\n  - Built In: August Health Raises $29M to Modernize Care for Older Adults\n  - vcnewsdaily.com: August Health Receives $29M Series B Round\n  - Venture Capital: August Health Secures Funding Round with Backing from Existing and New Investors\n  - Pulse 2.0: August Health: $29 Million Series B Funding Raised To Advance HER Platform\n- [2025-08-07] Venture Capital Firms: August Health Secures $29M to Advance Its Vision for AI-Enabled Caregiving\n- [2025-03-11] Business Wire: August Health and Kevala Partner to Bring Real-Time Resident Care Insights to Senior Living Workforce Management\n- [2025-02-25] Business Wire: August Health eMAR Now Available in Broad Release, Following Strong Early Adoption\n- [2025-02-06] Morningstar, Inc.: Sonida Senior Living Advances Clinical Excellence with August Health\n- [2024-07-09] PRNewswire: Accushield Integrates with August Health EHR to Streamline Data Management\n- [2024-05-05] Business Wire: August Health Unveils Inaugural Members of New Advisory Board\n- [2024-01-10] Business Wire: August Health Announces Record Growth Following Enterprise Market Expansion\n- [2023-05-02] Business Wire: Westmont Living Launches Multi-Year Partnership With August Health, Advancing Its Innovative Care Model\n\n## Social\n\n### Linkedin\n\n- [2026-10-08 · 46 reactions, 4 comments] That’s a wrap on an action-packed SMASH ✨ ⛳️ We kicked things off with Ladies Golf—building confidence, connection, and belonging on the course 🧳 We brought Sales & Marketing leaders together for l...\n\n- [2026-10-08 · 50 reactions, 4 comments] A traumatic fall is a critical event for an older adult. It’s a major turning point and the moment everyone remembers, yet the fall is often the result of a change long underway. What's essential i...\n\n- [2026-10-07 · 12 reactions] If you’re coming to NIC Fall, you might as well do Chicago right. Join August Health, PalCare, and SafelyYou for An Evening of Jazz—a night built around a few of the things Chicago does best: 🎷Live...\n\n- [2026-10-06 · 23 reactions] Heading to AHCA/NCAL? The August Health team will be: ✨ Attending NCAL Day on Sunday, October 11 📍 Exhibiting at AHCA on Monday, October 12 and Tuesday, October 13 - find us in Booth 1411 Come meet...\n\n- [2026-10-05 · 39 reactions, 6 comments] The people moving senior living forward deserve their moment in the spotlight, and today, we got to share that moment in person. 💖 Our Going Places Luncheon at SMASH had a little extra sparkle as w...\n\n- [2026-09-30 · 19 reactions, 1 comment] We’re ready to twinkle. ✨ If you’ll be at SMASH next week, make sure you visit the August Health kiosk and say hi to Rachel Keller and Adam M.! We’ll have: ✨ Sparkly swag to get you Twinkle Tuesday...\n\n- [2026-09-29 · 7 reactions] Voting closes soon! Did you cast yours? We're honored that August Health Care Track has been nominated for the SHN Product of the Year Awards in the Clinical Care, Safety & Risk Management Technolo...\n\n- [2026-09-28 · 22 reactions, 46 comments] The people moving senior living forward deserve their moment in the spotlight. Introducing Bright Spot, an August Health campaign celebrating the sales, marketing, and move-in leaders who bring emp...\n\n- [2026-09-28 · 30 reactions] Lifespark has partnered with August Health to help support resident-centered care, improve operational efficiency, and provide teams with actionable, real-time resident insights. \"We needed an EHR...\n\n- [2026-09-25 · 43 reactions] We’ve been working on something special at August Health. This November, we’re bringing a group of senior living clinical leaders together in Denver for Care Forward—an intimate, two-day retreat cr...\n\n- [2026-09-18 · 20 reactions] As National Assisted Living Week draws to a close, we’ve been reflecting on why this industry matters so much to us. For many here at August Health, the connection to assisted living is deeply pers...\n\n- [2026-09-17 · 54 reactions] Care teams in assisted living communities carry a great deal of responsibility. Alongside the demanding physical work of providing daily care, caregivers build personal connections and take the tim...\n\n- [2026-09-16 · 7 reactions] Getting to know someone starts with knowing the right questions to ask. Conversation Starters, powered by August Intelligence, puts those questions in front of caregivers—grounded in what the commu...\n\n- [2026-09-15 · 7 reactions] Clinical leaders see senior living from a perspective few others do. They see how resident needs are changing, where care teams are stretched, and what it takes to deliver quality care every day. B...\n\n- [2026-09-14 · 9 reactions] Ask a nurse how they know they've had a good shift, and the answer often starts with what got done: medications passed, vitals taken, ADLs completed and charted. But it might also sound like, \"My t...\n\n- [2026-09-09 · 84 reactions, 2 comments] One of the best parts of senior living transitions is getting to bring great people together! So enjoyed the opportunity to spend time at one of our newly acquired communities at #Lifespark, Gable...\n\n- [2026-09-09 · 39 reactions, 1 comment] In senior living, clinical care is directly tied to operational performance. Yet care and financial data often exist in silos, meaning leadership is left reacting to last month's numbers instead of...\n\n- [2026-09-08 · 14 reactions] For Atlas Senior Living, missed meds used to be just a data point. With August Health, it's something they can act on. \"Missed meds was a big issue for us for a long, long time. We were able to pul...\n\n- [2026-09-03 · 8 reactions] Most operators track medication exceptions as just a compliance metric: something to drive toward zero. But a refusal, a missed sleep-time dose, an order change—each one is also a signal about how...\n\n- [2026-09-02 · 15 reactions] Senior living communities are built around a promise that dignity and well-being come from connection, not just care. Introducing Conversation Starters, now available in August Health Care Track. P...\n\n## Locations\n- Headquarters: san francisco, california, united states (US)\n- Offices: san francisco, california, united states (US)",
+        "summary": "{\"description\":\"August Health is a Software Development company offering an EHR platform for senior living, with AI-powered insights via August Intelligence to improve care tracking, analytics, and compliance.\",\"employee_estimate\":116,\"employee_estimate_source\":\"Employees: 116\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Head of People, Head of Engineering, Co-Founder (Leadership roles mentioned)\",\"hq\":\"San Francisco, United States\",\"hq_quote\":\"Headquartered in San Francisco, California, United States.\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Software Development\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 44,000,000 - Series b (2025-09-07): USD 29.0M - Series a (2022-06-23): USD 15.0M - Seed\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQGrf8shPtdZvA/company-logo_200_200/company-logo_200_200/0/1728713031941/august_health_logo?e=2147483647&v=beta&t=At6NDtJ3dPS9OBUZahrFm8Sqxry93mf7-vbtkpQf9VY",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/6x7np8qbx10",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "August Health",
+              "foundedYear": 2020,
+              "description": "Our mission is to empower the essential work of caring for all our elders. \n\nAugust Health is the easy-to-use EHR platform that caregivers love, known for improving care quality, simplifying compliance, and enabling better care tracking and analytics. Designed with senior living experts and built by world-class engineers, the software platform makes it easier for communities to provide the best care. With the addition of August Intelligence, the platform will offer AI-powered insights that help communities act faster and more confidently. Since launching in 2020, August Health has been adopted by leading operators across the country, including Sonida Senior Living, 12 Oaks Senior Living, Bickford Senior Living, Koelsch Communities, and Westmont Living. Learn more at augusthealth.com",
+              "workforce": {
+                "total": 116
+              },
+              "headquarters": {
+                "address": "-; San Francisco, California 94016, United States",
+                "city": "San Francisco",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 44000000,
+                "fundingLatestRound": {
+                  "name": "Series b",
+                  "date": "2025-09-07",
+                  "amount": 29000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 90020,
+                "countryRank": 55126,
+                "avgDurationSeconds": 341,
+                "history": [
+                  {
+                    "value": 77153,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 80588,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 101199,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 104640,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 60023,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 90020,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/46l5jd6rq95",
+        "title": "August AI",
+        "url": "https://www.meetaugust.ai/",
+        "text": "# August AI\n\nAugust AI is a Wellness and Fitness Services company. August is a health AI that provides free, private, and reliable medical licensing exams to understand lab reports, symptoms, medications, and insurance without the confusion. August AI employs 40 people (+110.5% YoY, +21 people), founded in 2022. Headquartered in San Francisco, California, United States, with presence in India. Its workforce is distributed across India, United States, and Canada.\n\n## About\n\nBuilding August, your personal AI health assistant. \n\nStop spending hours researching things online. Get direct answers to your complicated health questions directly from August.\n\nAvailable for FREE, 24x7 on Whatsapp.\n\n## Company Details\n- Industry: Wellness and Fitness Services\n- Type: Privately held\n- Headquarters: San Francisco, United States\n- Founded Year: 2022\n- Homepage: meetaugust.ai\n- Aliases: Goodness Factory Living Essentials Pvt Ltd, august ai\n- LinkedIn: linkedin.com/company/meetaugust\n- Linkedin Followers: 5,970\n- Emails: contact@meetaugust.ai\n- Phone: +(91) 74831 2704\n\n## Financials\n- Total Funding: USD 3,000,000\n  - Seed (2025-11-07): USD 3.0M\n\n## Workforce\n- Employees: 40\n- Company Size: 11-50 employees\n  - Monthly Growth: +8.1%\n  - Yearly Growth: +110.5%\n- Key Executives:\n  - Animesh Mishra 👽: Head of Growth\n  - Anuruddh Mishra: Chief Executive Officer\n  - Leo S: Founding Designer\n  - Sukreet Madhok: Founding Growth Marketer\n- Breakdown:\n  - By Country: India: 33 (82%), United States: 4 (10%), Canada: 1 (2%)\n  - By Department: Marketing: 13 (32%), Technical: 8 (20%), Product: 6 (15%), Other Department: 5 (12%), Design: 3 (8%), General Management: 3 (8%), Education: 1 (2%)\n  - By Seniority: Specialist: 16 (40%), Other Management: 10 (25%), Intern: 8 (20%), Founder: 2 (5%), Clevel: 1 (2%), Head: 1 (2%), Manager: 1 (2%)\n- Talent Sources: superU AI (2), iQuanti (1), bijnis (1), TEACHNOOK (TEACHSCAPE ONLINE LEARNING SERVICES PRIVATE LIMITED) (1), SlidesAI.io (1), Salesforce (1), Nakshatra - IIT Bhubaneswar (1), Exponent Energy (1), Art of Living, PrimaMedia,Inc (1), 2070 Health (1)\n- Alumni Go To: Drizz (3), Wigwam - Ply As It Should Be (1), Student Counselling Services, IIT(BHU) (1), Samsung R&D Institute India-Noida (1), Roche (1), Proofpoint (1), Plaksha University (1), Magi (1), Lossfunk (1), British Council (1)\n\n## Products & Technology\n- Tech Stack: whatsapp, tiktok, salesforce, clickhouse, hugging face, numpy, python, pytorch, sql, tensorflow, google analytics, google sheets, google tag manager, mixpanel, c, impact, slack, well, javascript, react, django, mysql, postgresql, prototype\n\n## Web presence\n\n- Twitter: twitter.com/meetaugustai\n- Instagram: instagram.com/meetaugustai\n- Crunchbase: crunchbase.com/organization/august-ai\n- Web traffic:\n  - Monthly visits: 562,296\n  - Global rank: 101,046\n  - Bounce rate: 51.0%\n  - Pages per visit: 1.9\n  - Average visit duration: 60s\n\n## Categories\n\nartificial intelligence (ai), finance/finance, health ai, health care, healthcare, lab reports, medical licensing exam, medications, symptoms, wellness\n\n## Recent News\n- [2026-10-06] Business Wire: August AI Approved to Pilot AI-Assisted Prescription Renewals for Patients with Chronic Conditions in Utah\n- [2026-09-24] Business Wire: August AI Launches August Care, a $39-a-Month Membership That Brings Doctors, Labs, Prescriptions, and Insurance Assistance Together, Creating One Continuous Health Experience\n- [2026-09-04] GetLatka: August AI Revenue 2025: $3.7M ARR, $986K Raised\n- [2026-08-22] Bergen Record: Meet August's 'Nicholas Markets Fresh Grocer Amazing Teacher' winner\n- [2026-08-05] Reuters: Siemens Energy board to meet August 25 to discuss possible division spinoff, source says\n- [2025-08-13] New Age BD: FILPS to host Bankers’ Meet August 14\n\n## Social\n\n### Linkedin\n\n- [2026-04-29 · 8 reactions, 1 comment] #hiring interns\n\n- [2026-04-24 · 68 reactions, 9 comments] August AI is hiring consultant and interns. We started Meet August with a simple belief that healthcare should be simple, accessible, and actually helpful. Today, 7M+ people rely on August with no...\n\n- [2026-04-17 · 91 reactions, 12 comments] We’re hiring couple of growth interns at August AI. This is not a normal internship. Looking for someone obsessed with why content blows up, who’s built or grown something of their own, understands...\n\n- [2026-03-15 · 82 reactions, 8 comments] In every Indian family, there's one person who handles health. They're the one everyone texts when something feels off. They remember the medications, interpret the lab results, book the follow-ups...\n\n- [2026-01-24 · 10 reactions] Always special to see the journey behind the product come to life. Our Founder & CEO, Anuruddh Mishra, joined #DecodingAI to talk about what it has been like building August and rethinking how peop...\n\n- [2025-10-22 · 13 reactions] When we get this kind of trust from our long-time users, it gives us confidence that we are doing something right. Made in India for gobal users.\n\n- [2025-10-07 · 36 reactions] India’s healthcare system is evolving fast. With growing awareness, digital adoption, and an openness to new models of care, the next leap lies in how people experience it, starting from the very f...\n\n- [2025-09-17 · 11 reactions, 2 comments] If you’re a junior engineer and the idea of learning faster with AI excites you, we’re hiring.\n\n- [2025-09-03 · 50 reactions, 4 comments] When August AI founder Anuruddh Mishra went through months of misdiagnosis, he realized patients needed a clearer path to answers. 🏥 Today, August AI is delivering that clarity by translating medic...\n\n- [2025-08-12 · 170 reactions, 15 comments] August AI is unlocking the future of healthcare- secure, scalable, and deeply human. This #IndependenceDay, see how Microsoft is enabling the #ArchitectsOfTomorrow creating impact with #AI: http://...\n\n- [2025-07-15 · 2 reactions, 1 comment] \"How is your AI different from the others?\" We hear this from healthcare executives weekly. And honestly? It's the right question to ask when everyone's rushing to slap \"AI-powered\" on their patien...\n\n## Locations\n- Headquarters: san francisco, california, united states (US)\n- Offices: san francisco, california, united states (US), bengaluru, karnātaka, india",
+        "summary": "{\"description\":\"August AI is a Wellness and Fitness Services company offering health AI to help understand lab reports, symptoms, medications, and insurance with a focus on private, reliable medical licensing exam understanding.\",\"employee_estimate\":40,\"employee_estimate_source\":\"Employees: 40\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"We’re hiring couple of growth interns at August AI.\",\"hq\":\"San Francisco, United States\",\"hq_quote\":\"Headquartered in San Francisco, California, United States\",\"industry\":\"Wellness and Fitness Services\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Wellness and Fitness Services\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 3,000,000\\n  - Seed (2025-11-07): USD 3.0M\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQFP4wFRXLGM2g/company-logo_200_200/B56ZwjPsCWGYAM-/0/1770117842321/meetaugust_logo?e=2147483647&v=beta&t=XIkGEvKi54NC0usPkNmebbk4uuxLC8_lHXfLmL1IOw4",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/46l5jd6rq95",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "August AI",
+              "foundedYear": 2022,
+              "description": "Building August, your personal AI health assistant. \n\nStop spending hours researching things online. Get direct answers to your complicated health questions directly from August.\n\nAvailable for FREE, 24x7 on Whatsapp.",
+              "workforce": {
+                "total": 40
+              },
+              "headquarters": {
+                "address": "San Francisco , California, US",
+                "city": "San Francisco",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 3000000,
+                "fundingLatestRound": {
+                  "name": "Seed",
+                  "date": "2025-11-07",
+                  "amount": 3000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 562296,
+                "countryRank": 24929,
+                "avgDurationSeconds": 60,
+                "history": [
+                  {
+                    "value": 269331,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 430767,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 478954,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 641142,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 656614,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 562296,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 5781.2,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

@@ -1,0 +1,228 @@
+{
+  "request": {
+    "query": "Distribution 2000",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "d60bf68eacc839aa45b9347ec659845e",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/n4tyqky9ddj",
+        "title": "Distribution 2000 Inc.",
+        "url": "https://dist2000.com/",
+        "text": "# Distribution 2000 Inc.\n\nDistribution 2000 Inc. is a Warehousing and Storage company. Distribution 2000, together with our freight affiliate Starlite Services, provides end-to-end warehousing and transportation solutions for consumer packaged goods (cpg) customers, operating from our central location in the Chicagoland area. Distribution 2000 Inc. employs 28 people (+7.7% YoY, +2 people) and has an annual revenue of $23.2M, founded in 1995. Headquartered in Romeoville, Illinois, United States.\n\n## About\n\nAt Distribution 2000, we excel in handling specialty foods and fast moving consumer packaged goods. \r\n\r\nOur sophisticated warehouse facilities serve a group of high profile brands in the specialty food market, including a number of well known organic, gourmet and artisan foods and consumer products. These high value brands use Distribution 2000 because our capabilities and services exactly fit their warehousing and distribution needs.\r\n\r\nBecause of our sharp focus on this niche market, we are able to offer our specialty food customers significant benefits. Our expertise in handling their products and our thorough understanding of their market, their distribution chain, their retailers and their end consumers means they enjoy considerable operational efficiencies working with Distribution 2000. We offer our customers multi channel distribution arrangements, including specialty food retailers, main stream retailers and alternative channel retailers, and we work with a wide network of specialty distributors throughout the country. \r\n\r\n\r\nDistribution 2000 make it our mission to ensure that fine foods are handled, stored and shipped with the care and attention they deserve. We specialize in organic food and product handling. We run an FDA registered food grade warehouse that is USDA National Organic Program (NOP) compliance audited by Oregon Tilth Certified Organic (OTCO). We are also a member of the Organic Trade Association.\n\n## Company Details\n- Industry: Warehousing and Storage\n- Type: Privately held\n- Headquarters: Romeoville, United States\n- Founded Year: 1995\n- Homepage: dist2000.com\n- Aliases: Distribution 2000, Inc., distribution 2000, distribution 2000 inc.\n- LinkedIn: linkedin.com/company/distribution-2000-inc-\n- Linkedin Followers: 691\n- Emails: mktg@dist2000.com\n- Phone: (630) 633 6100, (630) 633-61, +1 630 633 6100, 200-1208\n\n## Financials\n- Annual Revenue: USD 23,213,557\n\n## Workforce\n- Employees: 28\n- Company Size: 51-200 employees\n  - Monthly Growth: +3.7%\n  - Yearly Growth: +7.7%\n- Key Executives:\n  - Cheryl LaCorte: Vice President\n- Breakdown:\n  - By Country: United States: 7 (25%)\n  - By Department: Customer Service: 2 (7%), Finance: 2 (7%), Operations: 2 (7%), General Management: 1 (4%), Hr: 1 (4%)\n  - By Seniority: Manager: 3 (11%), Specialist: 3 (11%), Senior: 2 (7%), Vp: 1 (4%)\n- Talent Sources: pladis Global (1), The Walt Disney Company (1), The Leaf-Chronicle (1), Self Employed (1), RHM Staffing Solutions (1), Mobilelink (1), JM BLANCO INC. AMERISOURCE BERGEN (1), Harvest Time International (1), Graham Packaging (1), Barron Collier Companies (1)\n- Alumni Go To: Amazon (2), Sbarro (1), Monolith (1), Maranatha Baptist University (1), MSC Mediterranean Shipping Company (1), Kindred Hospital Rehabilitation Services (1), Diageo (1), Barron Collier Companies (1)\n\n## Web presence\n\n- Twitter: twitter.com/d2000_warehouse\n- Facebook: facebook.com/distribution2000inc\n- Instagram: instagram.com/distribution2000inc.romeoville\n- Crunchbase: crunchbase.com/organization/distribution-2000\n- Web traffic:\n  - Monthly visits: 427\n  - Global rank: 13,703,984\n  - Bounce rate: 35.0%\n  - Pages per visit: 2.4\n  - Average visit duration: 61s\n\n## Categories\n\nautomotive-transportation, chicagoland area, consumer packaged goods, food and beverage, logistics, logistics and transportation, starlite services, supply-chain, transportation, warehousing\n\n## Competitors\n\nom logistics, mro logistics, fm logistic, dsv\n\n## Social\n\n### Linkedin\n\n- [2026-09-25 · Posted · 40 reactions] [We’re getting close. The Remington project is nearing the finish...](https://www.linkedin.com/posts/distribution-2000-inc-_distribution2000-d2-3pl-activity-7509256031638601731-pJYQ)\n  > We’re getting close.\n  >\n  > The Remington project is nearing the finish line on pre-move-in work, and it’s exciting to see the facility coming together. The racking is now complete, and our team is continuing the planning, walkthroughs and final details needed to get the building ready for operations.\n  >\n  > There’s still work to do before we get rolling, but we’re looking forward to bringing this facility live in Q4.\n  >\n  > A project of this size takes a lot of planning, coordination and teamwork. We’re proud of the D2 team that has been working behind the scenes to bring it all together.\n  >\n  > Built to Grow With You.\n  >\n  > #Distribution2000 #D2 #3PL #Warehousing #Logistics #BuiltToGrowWithYou #d2krew\n\n- [2026-09-15 · Posted · 1 reaction] [Back in 2021, we put together a careers video to show what makes...](https://www.linkedin.com/posts/distribution-2000-inc-_careers-activity-7505658086523682817-nzIW)\n  > Back in 2021, we put together a careers video to show what makes Distribution 2000 stand out — competitive benefits, a safety-first culture, and a true family-owned feel that's been going strong for 25+ years.\n  >\n  > Five years later, that message still holds true. We're still hiring motivated team players who want room to grow in a team-first environment.\n  >\n  > To learn more, check out our video on the careers page today!\n  >\n  > #D2000Family #Familyownedandoperated #WarehouseCareers #Distribution2000 #JoinOurTeam\n\n- [2026-09-15 · 1 reaction] Back in 2021, we put together a careers video to show what makes Distribution 2000 stand out — competitive benefits, a safety-first culture, and a true family-owned feel that's been going strong fo...\n\n- [2026-09-11 · Posted · 1 reaction] [On this day, 25 years ago, ordinary people showed extraordinary...](https://www.linkedin.com/posts/distribution-2000-inc-_september11-neverforget-remembranceday2026-activity-7504180458407129088-pBN-)\n  > On this day, 25 years ago, ordinary people showed extraordinary courage.\n  >\n  > As a small, family-run business, our roots are in community — and today we stand with our neighbors in remembrance of those we lost on 9/11, and in gratitude for the first responders and everyday heroes who continue to serve.\n  >\n  > Take a moment today to remember. 🕊️🇺🇸\n  >\n  > #September11 #NeverForget #RemembranceDay2026\n\n- [2026-09-11 · 1 reaction] On this day, 25 years ago, ordinary people showed extraordinary courage. As a small, family-run business, our roots are in community — and today we stand with our neighbors in remembrance of those...\n\n- [2026-09-09 · Posted] [This week, we're looking back at a special project we shared with...](https://www.linkedin.com/posts/distribution-2000-inc-_distribution-2000-virtual-tour-activity-7503455982048649217-p_VT)\n  > This week, we're looking back at a special project we shared with you 5 years ago — a video that captures the exterior and interior of our operations facilities at 1165 W. Crossroads Parkway and 1200-1208 N. Schmidt, both in Romeoville, IL.\n  >\n  > Offering more than 500,000 square feet of food grade 3PL warehousing, we look forward to continuing to help customers navigate the complex food logistics space as we expand our facilities this year!\n  >\n  > #3pl #familyownedandoperated #facilityexpansion #virtualtour\n\n- [2026-09-09 · 2 reactions] This week, we're looking back at a special project we shared with you 5 years ago — a video that captures the exterior and interior of our operations facilities at 1165 W. Crossroads Parkway and 12...\n\n- [2026-09-07 · Posted · 3 reactions] [Today we're taking a moment to celebrate hard work — the kind that...](https://www.linkedin.com/posts/distribution-2000-inc-_familyownedandoperated-laborday-laborday26-activity-7502738610782281728-yoHO)\n  > Today we're taking a moment to celebrate hard work — the kind that built this business from the ground up.\n  >\n  > As a #familyownedandoperated business, we know firsthand what it means to roll up our sleeves and put in the work, day after day. And so does our team.  Labor Day is a reminder of everything that goes into building something meaningful — the early mornings, the late nights, and the people who show up because they believe in what they're building.\n  >\n  > To our team, our customers, and every family owned business out there doing the same — thank you for your hard work!\n  >\n  > #LaborDay #LaborDay26 #d2krew\n\n- [2026-09-07 · 4 reactions] Today we're taking a moment to celebrate hard work — the kind that built this business from the ground up. As a #familyownedandoperated business, we know firsthand what it means to roll up our slee...\n\n- [2026-09-02 · Posted · 12 reactions] [Newtopia Now 2026 - what a great show. A couple of weeks ago, our...](https://www.linkedin.com/posts/distribution-2000-inc-_newtopianow-cpg-foodandbeverage-activity-7500968205235068928-Sdzs)\n  > Newtopia Now 2026 - what a great show.\n  >\n  > A couple of weeks ago, our team spent the day at Newtopia NOW in Denver, and we came away with exactly what you hope for from a trade show: great conversations, new relationships and a lot of energy around what’s happening in the CPG space.\n  >\n  > We connected with founders, brand owners, operators and industry veterans, and had some really good conversations about what it takes to grow a food and beverage business, from warehousing and fulfillment to transportation and getting into new retail channels.\n  >\n  > The innovation on the show floor was impressive, too. Functional foods and beverages, protein, fiber, hydration, wellness and cleaner-label products continue to push the industry forward.\n  >\n  > For Distribution 2000 Inc. + Starlite Services Inc., the best part was being able to talk about the full logistics picture. Warehousing and transportation really do go hand in hand, especially as brands scale.\n  >\n  > We came home with a strong follow-up list, and those conversations are already underway. Now we get to see where they lead.\n  >\n  > And we’re already looking forward to Newtopia NOW 2027 in Rosemont, Illinois, September 14–16. Having the show close to our Romeoville operation is a pretty exciting opportunity for our team.\n  >\n  > Denver was great. Rosemont should be even better.\n  >\n  > #NewtopiaNOW #CPG #FoodAndBeverage #3PL #Logistics #SupplyChain #Warehousing #Transportation\n\n- [2026-09-02 · 12 reactions] Newtopia Now 2026 - what a great show. A couple of weeks ago, our team spent the day at Newtopia NOW in Denver, and we came away with exactly what you hope for from a trade show: great conversation...\n\n- [2026-08-31 · Posted · 35 reactions] [More than three decades of being #familyownedandoperated — D2000 is...](https://www.linkedin.com/posts/distribution-2000-inc-_familyownedandoperated-anniversary-gratitude-activity-7500201825560743938-E_o1)\n  > More than three decades of being #familyownedandoperated — D2000 is proud to celebrate 31 years, today!\n  >\n  > From day one, this business has been built on more than just warehousing and logistics — it's been built on relationships, hard work, and family values that never wavered.\n  >\n  > To every customer who's supported us, every employee who's poured their heart into our operations, and every family member who's helped carry it forward — thank you. Here's to 31 years!\n  >\n  > #anniversary #gratitude\n\n- [2026-08-31 · 38 reactions, 5 comments] More than three decades of being #familyownedandoperated — D2000 is proud to celebrate 31 years, today! From day one, this business has been built on more than just warehousing and logistics — it's...\n\n- [2026-08-28 · Posted · 41 reactions] [This weekend, we're celebrating something truly special — Judy...](https://www.linkedin.com/posts/distribution-2000-inc-_workiversary-familyowned-42years-activity-7499111947376840705-P0RU)\n  > This weekend, we're celebrating something truly special — Judy Zerial, president of Starlite Services Inc., has been part of our team for 42 years.\n  >\n  > Forty-two years of showing up. Forty-two years of hard work, loyalty, and heart. Judy has seen this business grow and change in more ways than we can count, and through it all, has been one of the steady hands that made it all possible.\n  >\n  > That kind of dedication doesn't happen by accident — it happens because Judy Zerial\n  > genuinely cares about this place and the people in it. We are beyond grateful.\n  >\n  > From all of us at D2000 and Starlite Services Inc.: thank you, Judy. Here's to you, and to many more years to come. 🙌\n  >\n  > #Workiversary #FamilyOwned #42Years #ThankYou\n\n- [2026-08-28 · 43 reactions, 10 comments] This weekend, we're celebrating something truly special — Judy Zerial, president of Starlite Services Inc., has been part of our team for 42 years. Forty-two years of showing up. Forty-two years of...\n\n- [2026-08-27 · Posted · 5 reactions] [WE PUT OUR MONEY WHERE OUR SAFETY CULTURE IS. 💵🦺 Safe + Sound Week...](https://www.linkedin.com/posts/distribution-2000-inc-_safeandsoundweek-workplacesafety-warehousesafety-activity-7498782570558521344-eu4U)\n  > WE PUT OUR MONEY WHERE OUR SAFETY CULTURE IS. 💵🦺\n  >\n  > Safe + Sound Week may be over, but we’re still smiling about what happened across D2.\n  >\n  > Over the course of the week, our team earned and received $1,535 in D2 Safety Bucks — and 67+ employees across all three of our facilities actively participated in the program.\n  >\n  > Safety Bucks were earned for all kinds of things that matter:\n  >\n  > 🦺 Taking our Safe at Work pledge\n  > 👀 Completing our safety questionnaire\n  > 🚨 Reporting safety hazards, non-conformances and concerns through our internal reporting systems\n  > 💡 Speaking up with safety suggestions\n  > 👏 Being recognized for practicing safe work habits and following established safety procedures\n  > 🤝 Looking out for the people working alongside them\n  >\n  > And that's really what this initiative is about.\n  >\n  > We want our people to feel empowered to speak up. To identify a hazard. To report a concern. To suggest a better way. To recognize a coworker doing things the right way.\n  >\n  > Because identifying a problem isn't the finish line — it's the first step toward fixing it.\n  >\n  > Our people are our biggest asset. When they are engaged in safety, when they look out for one another, and when they feel comfortable speaking up, we build a stronger safety culture — and ultimately, a stronger operation.\n  >\n  > And there's a business connection, too.\n  >\n  > Safe practices help us protect our people AND help us deliver the safe, accurate and on-time service our customers count on us for every day.\n  >\n  > So, to the 67+ team members who participated, and to our Leads, Safety Committee members and Management who helped recognize and reinforce safe behaviors:\n  >\n  > THANK YOU. 👏\n  >\n  > You helped make Safe + Sound Week about more than safety awareness. You helped make it about safety action.\n  >\n  > IDENTIFY IT. REPORT IT. FIX IT.\n  >\n  > And, as always…\n  >\n  > WE LOOK OUT FOR OUR OWN. 🦺\n  >\n  > #SafeAndSoundWeek #WorkplaceSafety #WarehouseSafety #SafetyCulture #EmployeeEngagement #3PL #Logistics #WeLookOutForOurOwn #d2krew #d2kulture\n\n- [2026-08-27 · 5 reactions] WE PUT OUR MONEY WHERE OUR SAFETY CULTURE IS. 💵🦺 Safe + Sound Week may be over, but we’re still smiling about what happened across D2. Over the course of the week, our team earned and received $1,5...\n\n- [2026-08-18 · Posted · 2 reactions] [D2 and Starlite Services Inc. is in Denver, CO to soak up...](https://www.linkedin.com/posts/distribution-2000-inc-_why-attend-newtopia-now-activity-7495535112718036993-V30W)\n  > D2 and Starlite Services Inc. is in Denver, CO to soak up everything #newtopianow has to offer this year!\n  >\n  > As a #FamilyOwnedandOperated business, we love these shows — it's our chance to see what's new, learn from the best and connect with the people and partners that inspire us.\n  >\n  > 📩 Drop a comment or send us a message if you'll be there!\n  >\n  > #FamilyOwnedandOperated #newtopianow New Hope Network\n\n- [2026-08-18 · 3 reactions] D2 and Starlite Services Inc. is in Denver, CO to soak up everything #newtopianow has to offer this year! As a #FamilyOwnedandOperated business, we love these shows — it's our chance to see what's...\n\n- [2026-08-10 · Posted · 1 reaction] [WHAT IF EVERYONE LOOKED OUT FOR SAFETY? 👀🦺 That’s the idea behind...](https://www.linkedin.com/posts/distribution-2000-inc-_safeandsoundweek-workplacesafety-warehousesafety-activity-7492591806958903296-8Xhv)\n  > WHAT IF EVERYONE LOOKED OUT FOR SAFETY? 👀🦺\n  >\n  > That’s the idea behind Occupational Safety and Health Administration's Safe + Sound Week at D2, August 10–16.\n  >\n  > We’re challenging our team to do more than simply follow safety rules.\n  >\n  > Look around. Identify the hazard. Speak up. Help us fix it.\n  >\n  > Our employees are closest to the work, which means they’re often the first to see a potential hazard, a better way to do something, or a concern that needs attention.\n  >\n  > And we want our team to feel empowered to speak up.\n  >\n  > If you see something that doesn’t look right, say something.\n  > If you see a hazard, report it.\n  > If you have an idea that could make the job safer, share it.\n  >\n  > Speaking up about safety isn’t a problem - it’s part of the solution.\n  >\n  > We want our employees to know that their voice matters, their observations matter, and their ideas can make a real difference. Our goal isn’t simply to collect reports — it’s to identify hazards, address concerns, and work together to make our workplaces safer.\n  >\n  > And because we like to have a little fun while doing important work, D2 Safety Bucks are back! 💵\n  >\n  > Throughout the week, employees can earn Safety Bucks for safe behaviors, identifying hazards and near misses, submitting safety suggestions, participating in safety activities, and recognizing others for doing the right thing.\n  >\n  > Because safety isn't just about preventing accidents.\n  >\n  > It’s about creating a workplace where people feel responsible for one another — and empowered to speak up when something can be better.\n  >\n  > IDENTIFY IT. REPORT IT. FIX IT.\n  >\n  > That’s how we look out for our own.\n  >\n  > 🦺 Safe + Sound Week | August 10–16\n  >\n  > #SafeAndSoundWeek #WorkplaceSafety #WarehouseSafety #SafeAndSoundAtWork #SafetyCulture #EmployeeEngagement #WeLookOutForOurOwn #d2krew\n\n## Locations\n- Headquarters: romeoville, illinois, united states (US)\n- Offices: romeoville, illinois, united states (US), châtelet, belgium",
+        "summary": "{\"description\":\"Distribution 2000 Inc. is a privately held warehousing and storage company specializing in organic, specialty foods and consumer packaged goods (CPG) with end-to-end warehousing and transportation services in the Chicagoland area.\",\"employee_estimate\":28,\"employee_estimate_source\":\"Employees: 28\",\"hq\":\"Headquartered in Romeoville, Illinois, United States\",\"hq_quote\":\"Headquartered in Romeoville, Illinois, United States.\",\"industry\":\"Warehousing and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"Distribution 2000 Inc. employs 28 people (+7.7% YoY, +2 people) and has an annual revenue of $23.2M, founded in 1995. Headquartered in Romeoville, Illinois, United States.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4D0BAQEIEulI_jauUg/company-logo_200_200/company-logo_200_200/0/1631324017975?e=2147483647&v=beta&t=oRclqUGYdwoJ0_4_OjeGJH1teSiEHpbVy3ycdmL2xL8",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/n4tyqky9ddj",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Distribution 2000 Inc.",
+              "foundedYear": 1995,
+              "description": "At Distribution 2000, we excel in handling specialty foods and fast moving consumer packaged goods. \r\n\r\nOur sophisticated warehouse facilities serve a group of high profile brands in the specialty food market, including a number of well known organic, gourmet and artisan foods and consumer products. These high value brands use Distribution 2000 because our capabilities and services exactly fit their warehousing and distribution needs.\r\n\r\nBecause of our sharp focus on this niche market, we are able to offer our specialty food customers significant benefits. Our expertise in handling their products and our thorough understanding of their market, their distribution chain, their retailers and their end consumers means they enjoy considerable operational efficiencies working with Distribution 2000. We offer our customers multi channel distribution arrangements, including specialty food retailers, main stream retailers and alternative channel retailers, and we work with a wide network of specialty distributors throughout the country. \r\n\r\n\r\nDistribution 2000 make it our mission to ensure that fine foods are handled, stored and shipped with the care and attention they deserve. We specialize in organic food and product handling. We run an FDA registered food grade warehouse that is USDA National Organic Program (NOP) compliance audited by Oregon Tilth Certified Organic (OTCO). We are also a member of the Organic Trade Association.",
+              "workforce": {
+                "total": 28
+              },
+              "headquarters": {
+                "address": "1165 West Crossroads Parkway, Romeoville, Illinois 60446, US",
+                "city": "Romeoville",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 23213557,
+                "fundingTotal": null,
+                "fundingLatestRound": null
+              },
+              "webTraffic": {
+                "visitsMonthly": 427,
+                "countryRank": null,
+                "avgDurationSeconds": 61,
+                "history": [
+                  {
+                    "value": 1161,
+                    "dateFrom": "2026-03",
+                    "dateTo": "2026-03"
+                  },
+                  {
+                    "value": 941,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 959,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 1228,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 1358,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 427,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/w3t8v1v7zm0",
+        "title": "Warehousing 2000",
+        "url": "https://warehousing2000.com/",
+        "text": "# Warehousing 2000\n\nWarehousing 2000 is a Warehousing company. Warehousing 200 is a supply chain specialist company based in Laois, Ireland. They offer competitive storage solutions and exclusive transport services. They have a central distribution center and GPS tracking installed in their fleet. They cover 32 counties in Ireland and provide reliable and cost-effective transport services. Warehousing 2000 employs 3 people, founded in 1996. Headquartered in Portlaoise, Leinster, Ireland.\n\n## About\n\nWarehousing 2000 is a family run business that was established in 1996 by Michael Kerry. \r\n\r\nOur storage capacity has grown from 20,000 sq. ft. to 200,000 sq. ft. of high quality fully insulated warehousing that it is today. Situated on a 13 acre site nestled in a rural landscape just outside Portlaoise, Co. Laois and just 5 minutes from exit 16 on the M7 motorway, it is centrally located to all parts of Ireland. \r\n\r\nWarehousing 2000 offers all its customers a professional, reliable and personal service, that installs trust and strengthens working business relationships.\r\n\r\nThe level of service provided to our customers can be tailored to suit any requirement, whether it is pick and pack, product re-work or stand-alone turn-key solutions, we take emphasis on keeping our cost base low thus ensuring our customers see true value for money. \r\n\r\nSince our incorporation in 1996 many of our current customers have stayed the course with us which is a testament to our professionalism and level of experience in the supply chain industry.\r\n\r\nWarehousing 2000 is regarded highly in Ireland as one of the country’s foremost and trust worthy logistics providers.\n\n## Company Details\n- Industry: Warehousing\n- Type: Public company\n- Headquarters: Portlaoise, Ireland\n- Founded Year: 1996\n- Homepage: warehousing2000.com\n- Aliases: warehousing 2000, warehousing 2000 ltd\n- LinkedIn: linkedin.com/company/warehousing-2000\n- Linkedin Followers: 119\n- Emails: info@warehousing2000.com\n- Phone: +353 (0)57 866 2280, +353 (0)57 868 1067, +353 (0)86 255 3694\n\n## Workforce\n- Employees: 3\n- Company Size: 1-10 employees\n- Alumni Go To: The Goodyear Tire & Rubber Company (1), Musgrave (1), Kyle Cleaning Services Ltd (1), FoodCloud (1)\n\n## Web presence\n\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Categories\n\ncompetitive storage solutions, gps tracking, logistics, pick wrap services, supply chain, supply chain specialists, transport service, turn key services, warehousing, warehousing & distribution\n\n## Social\n\n### Linkedin\n\n- [2024-08-19 · 3 reactions] Upcoming Storage Space Available. Get in touch with Warehousing 2000 #storage #warehousing #3PL\n\n## Locations\n- Headquarters: portlaoise, leinster, ireland (IE)\n- Offices: portlaoise, ireland (IE), portlaoise, leinster, ireland (IE)",
+        "summary": "{\"description\":\"Warehousing 2000 is a family run warehousing and logistics provider based in Portlaoise, Ireland, offering storage solutions, transport services and turnkey logistics solutions. The company operates a central distribution center and provides GPS-tracked fleet services across Ireland.\",\"employee_estimate\":3,\"employee_estimate_source\":\"Employees: 3\",\"hq\":\"Portlaoise, Leinster, Ireland\",\"hq_quote\":\"Headquarters: Portlaoise, Leinster, Ireland\",\"industry\":\"Warehousing\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"Warehousing 2000 is a family run business that was established in 1996 by Michael Kerry. \\n\\nOur storage capacity has grown from 20,000 sq. ft. to 200,000 sq. ft. of high quality fully insulated warehousing that it is today. Situated on a 13 acre site nestled in a rural landscape just outside Portlaoise, Co. Laois and just 5 minutes from exit 16 on the M7 motorway, it is centrally located to all parts of Ireland.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C560BAQER_9d9jNmEbg/company-logo_200_200/company-logo_200_200/0/1631368414156?e=2147483647&v=beta&t=8SW32IWp_b_G8nqU5nuZcgronHClQf4D_uhDxhh_IN8",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/w3t8v1v7zm0",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Warehousing 2000",
+              "foundedYear": 1996,
+              "description": "Warehousing 2000 is a family run business that was established in 1996 by Michael Kerry. \r\n\r\nOur storage capacity has grown from 20,000 sq. ft. to 200,000 sq. ft. of high quality fully insulated warehousing that it is today. Situated on a 13 acre site nestled in a rural landscape just outside Portlaoise, Co. Laois and just 5 minutes from exit 16 on the M7 motorway, it is centrally located to all parts of Ireland. \r\n\r\nWarehousing 2000 offers all its customers a professional, reliable and personal service, that installs trust and strengthens working business relationships.\r\n\r\nThe level of service provided to our customers can be tailored to suit any requirement, whether it is pick and pack, product re-work or stand-alone turn-key solutions, we take emphasis on keeping our cost base low thus ensuring our customers see true value for money. \r\n\r\nSince our incorporation in 1996 many of our current customers have stayed the course with us which is a testament to our professionalism and level of experience in the supply chain industry.\r\n\r\nWarehousing 2000 is regarded highly in Ireland as one of the country’s foremost and trust worthy logistics providers.",
+              "workforce": {
+                "total": 3
+              },
+              "headquarters": {
+                "address": "Ballymacken Industrial Estate; Portlaoise, Leinster, Ireland",
+                "city": "Portlaoise",
+                "postalCode": null,
+                "country": "Ireland"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": 0,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 0,
+                    "dateFrom": "2024-05",
+                    "dateTo": "2024-05"
+                  },
+                  {
+                    "value": 267,
+                    "dateFrom": "2024-09",
+                    "dateTo": "2024-09"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2024-10",
+                    "dateTo": "2024-10"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2024-11",
+                    "dateTo": "2024-11"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2025-06",
+                    "dateTo": "2025-06"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 9766,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

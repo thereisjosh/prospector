@@ -1,0 +1,218 @@
+{
+  "request": {
+    "query": "Marklo",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "e41c381bd214fe4eff752192cb0143cc",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/wkgkfy2nkxt",
+        "title": "Marklo AI",
+        "url": "https://marklo.ai/",
+        "text": "# Marklo AI\n\nMarklo AI is a Technology, Information and Internet company. Marklo is a marketing calendar and planning platform for Shopify DTC brands. It automates cross-channel reporting, surfaces campaign insights, and makes planning and briefing 10x faster. Marklo AI employs 9 people (+500.0% YoY, +5 people), founded in 2025. Headquartered in San Mateo, California, United States.\n\n## About\n\nAbout Marklo:\nMarklo exists so lean businesses can market like bigger brands, moving fast and in the right direction. We're building the AI revenue planner for brand-led commerce teams: one platform that turns your marketing history into a day-by-day, year-over-year source of truth, then plans what to run next.\n\nIn a world where marketing is chaotic and tools are fragmented, Marklo unifies your commerce and marketing stack (product, customer, inventory, and campaign history) into one clear commercial picture. Our Hindsight Calendar is the marketer's control tower, surfacing what to run, when, and why, with a brief ready for your review, not a decision made without you.\n\nBacked by Forerunner Ventures and led by serial entrepreneur Jessica Herrin (Stella & Dot, Ever Skincare, WeddingChannel.com), Marklo is building the platform that helps lean teams execute like bigger brands and win.\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Headquarters: San Mateo, United States\n- Founded Year: 2025\n- Homepage: marklo.ai\n- Aliases: marklo ai\n- LinkedIn: linkedin.com/company/marklo\n- Linkedin Followers: 2,192\n\n## Workforce\n- Employees: 9\n- Company Size: 1-10 employees\n  - Monthly Growth: -14.3%\n  - Yearly Growth: +500.0%\n- Key Executives:\n  - Cheryl Tan: Chief Marketing Officer\n  - Jaquory Lunsford: Head of Growth\n  - Jessica DiLullo Herrin: CEO, Founder\n  - Ryan Arp: Head of Design\n  - Scott Royston: Chief Technology Officer\n- Breakdown:\n  - By Country: United States: 9 (150%)\n  - By Department: Marketing: 3 (50%), Technical: 2 (33%), Consulting: 1 (17%), Design: 1 (17%), General Management: 1 (17%), Other Department: 1 (17%)\n  - By Seniority: Specialist: 3 (50%), Clevel: 2 (33%), Head: 2 (33%), Founder: 1 (17%), Other Management: 1 (17%)\n- Talent Sources: Overlap (2), Klaviyo (2), UNICC (1), Stylitics (1), Stella & Dot (1), Shopify (1), GameTime (1), Cheryl Tan Consulting (1), Bank of Hawaii (1)\n- Alumni Go To: Randomstring (1), NDA (1), Altos Ventures (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: martech, shopify, angular, css, html, java, javascript, python, react, typescript, klaviyo, postscript, figma, prototype, impact, sprint\n\n## Web presence\n\n- Instagram: instagram.com/markloai\n- Web traffic:\n  - Monthly visits: 3,575\n  - Global rank: 4,355,099\n  - Bounce rate: 34.0%\n  - Pages per visit: 2.1\n  - Average visit duration: 35s\n\n## Categories\n\ncalendar, campaign insights, cross-channel reporting, marketing, planning\n\n## Recent News\n- [2026-08-21] GetLatka: Marklo.AI Revenue 2025: $330K Est. ARR\n- [2026-06-13] openPR.com: From Abandoned Cat to Beloved Companion, Little Olive Finds Friendship Wherever She Goes\n\n## Social\n\n### Linkedin\n\n- [2026-09-17 · 21 reactions, 1 comment] Just got back from K:BOS. No surprise here: marketers are tired of stitching together data from five different tools just to figure out what actually worked last month. And, AI is not all that inte...\n\n- [2026-09-16 · 2 reactions, 1 comment] We met hundreds of talented brand marketers at Klaviyo's K:BOS conference and learnt about their current marketing planning processes. Then we showed them Marklo. Their reaction: 🤩 If you want to s...\n\n- [2026-08-17 · 16 reactions, 3 comments] Every startup needs a single north star — one customer action that defines what early success really means. For Marklo AI, its the magical moment when a brand running on Shopify retains because the...\n\n- [2026-08-07 · 32 reactions, 10 comments] Marketers have become spread-thin executors, constantly tab switching and being asked to put more content in more places for the same or less results. That is fundamentally broken. Meet Jessica DiL...\n\n- [2026-07-27 · 35 reactions, 2 comments] We didn't start Marklo because we wanted AI to replace marketing teams. We started it because we wanted to create the powerful alternative- same team, super powered, grander ambitions and growth. T...\n\n- [2026-06-13 · 255 reactions, 84 comments] Twenty years after starting Stella & Dot from my kitchen table, we're opening our first retail store. TBH, even I'm surprised. When I launched Stella & Dot, pregnant with my first child, the missio...\n\n- [2026-06-11 · 7 reactions, 5 comments] My thoughts for those running a DTC Brand on Shopify who are wondering if they can just have each member of their team use Claude + Meta or Shopify or Klaviyo MCP to be more productive... Or that y...\n\n- [2026-06-10 · 10 reactions, 2 comments] Have you ever met a successful entrepreneur or brand builder who isn't productivity-obsessed? They are generally not very chill people. I am guilty of being naturally productivity-obsessed. I'm not...\n\n- [2026-06-10 · 16 reactions, 7 comments] Do you ever open Meta Business Manager and immediately feel your soul leave your body? Twenty minutes to find something that should take 30 seconds. How about Amazon Seller Central? No words. Or Sh...\n\n- [2026-05-28 · 2 reactions] Shopify sees your store. Klaviyo sees your email. Meta sees your ads. None of them see each other — and none of them can tell you what to run next. So every planning cycle starts the same way: open...\n\n- [2026-05-01 · 3 reactions] We're #hiring a new GTM Lead in Burlingame, California. Apply today or share this post with your network.\n\n- [2026-05-01 · 10 reactions, 2 comments] It's go-time and we're now hiring for our GTM lead! Come be our first sales & marketing hire, building our go-to-market engine from the ground up, turning early pilot wins into proof points, ensuri...\n\n- [2026-04-28 · 6 reactions] Most marketing tools assume you already know what to run. That’s the problem. The hardest part isn’t execution — it’s deciding what to launch, to who, and when. That’s still happening in disjointed...\n\n- [2026-03-17 · 4 reactions] We've been heads-down building something we believe in. Today we get to share a little of what that looks like — because behind every product worth using are people worth knowing. Meet two of ours.\n\n- [2025-10-29] We're #hiring a new Frontend Developer in San Mateo, California. Apply today or share this post with your network.\n\n- [2025-10-28] We're #hiring a new Full Stack Engineer in Austin, Texas. Apply today or share this post with your network.\n\n- [2025-09-08] We're #hiring a new Founding Head of Engineering in San Francisco Bay Area. Apply today or share this post with your network.\n\n- [2025-09-07 · 1 reaction] We're #hiring a new Founding Product Designer in San Francisco Bay Area. Apply today or share this post with your network.\n\n- [2025-07-31] We're #hiring a new Lead Product Designer in San Francisco Bay Area. Apply today or share this post with your network.\n\n- [2025-06-10 · 1 reaction, 1 comment] We're #hiring a new Founding CTO in San Francisco Bay Area. Apply today or share this post with your network.\n\n## Locations\n- Headquarters: san mateo, california, united states (US)\n- Offices: san mateo, california, united states (US)",
+        "summary": "{\"description\":\"Marklo AI is a technology, information, and internet company that provides a marketing calendar and planning platform for Shopify DTC brands. It automates cross-channel reporting, surfaces campaign insights, and accelerates planning and briefing for lean teams.\",\"employee_estimate\":9,\"employee_estimate_source\":\"Employees: 9\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"We're #hiring a new GTM Lead in Burlingame, California. Apply today or share this post with your network.\",\"hq\":\"San Mateo, United States\",\"hq_quote\":\"Headquartered in San Mateo, California, United States.\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"- Industry: Technology, Information and Internet\\n- Type: Privately held\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Backed by Forerunner Ventures and led by serial entrepreneur Jessica Herrin (Stella & Dot, Ever Skincare, WeddingChannel.com)\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQFyluM5NHIuSw/company-logo_200_200/B56Zru9Up_H8AI-/0/1764945644625/marklo_logo?e=2147483647&v=beta&t=qtScQEdiWGFWNW7x1sw_KqmkBKB3YCtsW6po_6rZt5A",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/wkgkfy2nkxt",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Marklo AI",
+              "foundedYear": 2025,
+              "description": "About Marklo:\nMarklo exists so lean businesses can market like bigger brands, moving fast and in the right direction. We're building the AI revenue planner for brand-led commerce teams: one platform that turns your marketing history into a day-by-day, year-over-year source of truth, then plans what to run next.\n\nIn a world where marketing is chaotic and tools are fragmented, Marklo unifies your commerce and marketing stack (product, customer, inventory, and campaign history) into one clear commercial picture. Our Hindsight Calendar is the marketer's control tower, surfacing what to run, when, and why, with a brief ready for your review, not a decision made without you.\n\nBacked by Forerunner Ventures and led by serial entrepreneur Jessica Herrin (Stella & Dot, Ever Skincare, WeddingChannel.com), Marklo is building the platform that helps lean teams execute like bigger brands and win.",
+              "workforce": {
+                "total": 9
+              },
+              "headquarters": {
+                "address": "San Mateo, California 94010, US",
+                "city": "San Mateo",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 3575,
+                "countryRank": 1409368,
+                "avgDurationSeconds": 35,
+                "history": [
+                  {
+                    "value": 511,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 45,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 1540,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 556,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 3567,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 3575,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/7qt17wpjz39",
+        "title": "MarloAI",
+        "url": "https://marloai.com/",
+        "text": "# MarloAI\n\nMarloAI is a Technology, Information and Internet company. MarloAI employs 2 people.\n\n## About\n\nMarlo is the platform and the team that run your marketing.\n\nWe are a marketing operating system for consumer brands. Marlo works inside the stack you already own, runs the work across every channel, and drives sales you can see.\n\nBoth nouns matter. The platform reads signals, drafts in your locked brand voice, and ships through the tools you already pay for. Senior operators own the work and sign it.\n\nThree layers do that job:\n- Intelligence reads every signal across your category and your competitors, continuously.\n- Execution ships the work end to end, senior operators and a vetted creative network alongside the platform.\n- Memory keeps the briefs, the results, and the reasons no channel tool keeps. Every cycle makes the next one sharper.\n\nSix channels run today: Social, CRM and lifecycle, Local, Paid media, Search including AI answer engines, and Reviews. Each is one surface of the same operating system. Underneath sits the Library, our research corpus: 29.8M signals, including 18M+ posts, 890K+ reviews, 1.2M+ competitor ads, and $3.2B in tracked ad spend across 60+ platforms.\n\nWe co-build every engagement with your team. Four depths, each inheriting the last: Inform, Draft, Run, and Enterprise. Your data, your results, your control.\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Homepage: marloai.com\n- Aliases: marloai\n- LinkedIn: linkedin.com/company/marloai\n- Linkedin Followers: 121\n\n## Workforce\n- Employees: 2\n- Company Size: 1-10 employees\n- Key Executives:\n  - Gabriel Cebrian 👨🏻‍💻: Co-Founder | CTO\n  - Preston Nix: Co-Founder & CEO\n- Breakdown:\n  - By Country: United States: 2 (100%)\n  - By Department: General Management: 1 (50%), Technical: 1 (50%)\n  - By Seniority: Founder: 2 (100%)\n- Talent Sources: Burger King® (1), Burger King (1)\n\n## Web presence\n\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Categories\n\nagentic ai software, ai marketing agents, ai marketing agents software, consumer brands, marketing, marketing operating system, marloai, sales\n\n## Social\n\n### Linkedin\n\n- [2026-09-07 · 13 reactions, 7 comments] If AI is stuck inside your company right now, the model is not what is stopping you. Jensen Huang, the CEO of NVIDIA, says AGI arrived on Sunday. The average enterprise is still waiting on legal to...\n\n- [2026-09-04 · 41 reactions, 11 comments] Every brand has a marketing calendar. Almost all of them exist in a spreadsheet or PowerPoint that someone manually updates each week. I ran a few of them for years (CRM, media, offers). Every wind...\n\n- [2026-07-31] Not another framework. Not a template you have to fill in yourself. Not a strategy deck that sits in a folder while your team figures out the actual work. What enterprise teams actually need is a m...\n\n- [2026-07-29 · 1 reaction] Most marketing engagements start the same way: you hand off the work, you get a monthly deck, and you hope the retainer is worth it. We don't think that model holds up anymore. Not because the peop...\n\n- [2026-07-24 · 3 reactions] Most reporting tools can tell you a post got engagement. They can't tell you if it sounded like you. Here's how Marlo actually reads a signal: every piece of content, across 65+ platforms, gets sco...\n\n- [2026-07-22] Your team has more charts than ever. Attribution dashboards, campaign reports, funnel breakdowns, all live and all real time. And yet someone still has to stare at all of it, connect the dots, and...\n\n- [2026-07-20 · 2 reactions] Our founders ran $400M+ in US marketing at RBI. Here's the uncomfortable thing that scale taught us: most marketing organizations don't have a memory problem, they have zero memory at all. Every ca...\n\n- [2026-07-17 · 4 reactions] A client once asked us: \"If your team already knows what worked last quarter, why does every campaign start from a blank page?\" Fair question. Most marketing tools show you what happened, but they...\n\n- [2026-07-15 · 3 reactions] 18M posts. 500K reviews. $3.2B in ad spend. That's the Library sitting underneath every recommendation Marlo makes for you. Not a dashboard that summarizes last month. Not a chatbot guessing at you...\n\n- [2026-07-07 · 6 reactions, 1 comment] Most people hear \"agentic social\" and picture a black box. Here's what it actually looks like: agents draft content against your brand voice, queue it for review, publish on schedule, watch engagem...",
+        "summary": "{\"description\":\"Marlo is the platform and the team that run your marketing. We are a marketing operating system for consumer brands. Marlo reads signals, drafts in your locked brand voice, and ships through the tools you already pay for.\",\"employee_estimate\":2,\"employee_estimate_source\":\"Company Details: Employees: 2\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"United States\",\"hq_quote\":\"By Country: United States: 2 (100%)\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Company Details section lists Industry and other business-facing attributes indicating a B2B profile\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":null,\"recently_funded_seed_or_series_a_quote\":\"\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQHdpZh2UqzFOw/company-logo_200_200/B4EZ50W.8oIAAE-/0/1780068642958/marloai_logo?e=2147483647&v=beta&t=IHjiaP8VANv9yIK-mrx4zer7TrsNUbtX0aITdF0zJxU",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/7qt17wpjz39",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "MarloAI",
+              "foundedYear": null,
+              "description": "Marlo is the platform and the team that run your marketing.\n\nWe are a marketing operating system for consumer brands. Marlo works inside the stack you already own, runs the work across every channel, and drives sales you can see.\n\nBoth nouns matter. The platform reads signals, drafts in your locked brand voice, and ships through the tools you already pay for. Senior operators own the work and sign it.\n\nThree layers do that job:\n- Intelligence reads every signal across your category and your competitors, continuously.\n- Execution ships the work end to end, senior operators and a vetted creative network alongside the platform.\n- Memory keeps the briefs, the results, and the reasons no channel tool keeps. Every cycle makes the next one sharper.\n\nSix channels run today: Social, CRM and lifecycle, Local, Paid media, Search including AI answer engines, and Reviews. Each is one surface of the same operating system. Underneath sits the Library, our research corpus: 29.8M signals, including 18M+ posts, 890K+ reviews, 1.2M+ competitor ads, and $3.2B in tracked ad spend across 60+ platforms.\n\nWe co-build every engagement with your team. Four depths, each inheriting the last: Inform, Draft, Run, and Enterprise. Your data, your results, your control.",
+              "workforce": {
+                "total": 2
+              },
+              "headquarters": null,
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": []
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 9192,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

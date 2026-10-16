@@ -1,0 +1,232 @@
+{
+  "request": {
+    "query": "WareSpace",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "a854702c069510f47e87bda00f983cef",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/5s04x8qx6b4",
+        "title": "WareSpace",
+        "url": "https://warespace.com/",
+        "text": "# WareSpace\n\nWareSpace is a Warehousing and Storage company. WareSpace is a company that offers small warehouse space for rent. They provide shared loading docks, equipment, shipping areas, conference rooms, and common spaces. They offer all-inclusive options starting at $1,000/mo on short-term 6-12 months leases. WareSpace employs 71 people (+77.5% YoY, +31 people), founded in 2018. Headquartered in Columbia, Maryland, United States, with offices including Houston, Atlanta, Libertyville, Wheeling, and Fort Worth. Its workforce is distributed across United States and United Kingdom.\n\n## About\n\nThe warehousing industry isn't designed for small businesses. We are. \n\n3-year contracts, personal guarantees, and paying for more space than you need; warehouses are usually made for huge operations. \n\nBut WareSpace is different. We created a world where every entrepreneur can find the perfect small warehouse: spaces you can size up and down, one simple monthly price, short-term leases, and a community of like-minded business owners.\n\n## Company Details\n- Industry: Warehousing and Storage\n- Type: Privately held\n- Headquarters: Columbia, United States\n- Founded Year: 2018\n- Homepage: warespace.com\n- Aliases: Warespace\n- LinkedIn: linkedin.com/company/warespaceco\n- Linkedin Followers: 2,775\n- Emails: levi@warespace.com\n- Phone: +13018042182, 301-804-2182\n\n## Financials\n  - Private equity (2019-09-05)\n\n## Workforce\n- Employees: 71\n- Company Size: 11-50 employees\n  - Monthly Growth: +2.9%\n  - Yearly Growth: +77.5%\n- Key Executives:\n  - Eric Golman: Chief Marketing Officer\n  - Hagen F.: Head of Revenue Operations\n  - J.R. Gleason: Director of Construction\n  - Jack DiNardo: Vice President of Acquisitions\n  - Jason Thorburg: Vice President of Construction\n  - Jeffrey Giese, CFA, CPA: Chief Financial Officer\n  - Joseph F Ely: Co-Founder & COO\n  - Lauren Valles: Regional Director of Operations\n  - Levi Cohen: Co-Founder\n  - Michele McWilliams-Tate: Vice President of Leasing\n- Breakdown:\n  - By Country: United States: 52 (73%), United Kingdom: 1 (1%)\n  - By Department: General Management: 12 (17%), Operations: 9 (13%), Real Estate: 6 (8%), Sales: 6 (8%), Finance: 5 (7%), Consulting: 3 (4%), Other Department: 3 (4%), Hr: 2 (3%), Marketing: 2 (3%), Project Management: 2 (3%) (+3 more)\n  - By Seniority: Manager: 20 (28%), Specialist: 10 (14%), Director: 5 (7%), Other Management: 5 (7%), Senior: 4 (6%), Vp: 4 (6%), Clevel: 3 (4%), Founder: 1 (1%), Head: 1 (1%)\n- Active job postings: 3\n- Talent Sources: ReadySpaces (3), MacKenzie Companies (3), RealManage (2), Prologis (2), Obelisk Ventures (2), HITT Contracting Inc. (2), BECO (2), The Whiting-Turner Contracting Company (1), JupiterOne (1), ABCEO Books (1)\n- Alumni Go To: TEEL Construction, Inc. (1), SpotFusion (1), River Fox Realty (1), Prologis (1), Overlead (1), HapTech Holdings, Inc. (1), Cushman & Wakefield (1), Cozy Earth (1), Armada Hoffler (1), Apple (1)\n\n## Products & Technology\n- Tech Stack: loopnet, wordpress, youtube, aircall, appfolio, asana, avidxchange, brex, clickup, hubspot, hubspot forms, jira, microsoft, microsoft office, microsoft outlook, rent manager, stripe, vercel, yardi, zapier, canva, css, figma, fintech, google workspace, html, salesforce, trello, amp, electric, impact, notion, sprint, well\n\n## Web presence\n\n- Crunchbase: crunchbase.com/organization/rollup\n- Web traffic:\n  - Monthly visits: 79,575\n  - Bounce rate: 48.0%\n  - Pages per visit: 1.7\n  - Average visit duration: 45s\n\n## Categories\n\ncoworking, e-commerce platforms, ecommerce, equipment, loading docks, logistics, professional services, property management, real estate, rent, self-storage, shipping areas, small and medium businesses, small business, small warehouse space, supply chain, warehouse, warehouse space rental, warehousing\n\n## Recent News\n- [2026-09-23] [WareSpace Brings Small-Bay Industrial to South San Francisco](https://finance.yahoo.com/real-estate/articles/warespace-brings-small-bay-industrial-052024832.html)\n- [2026-09-22]\n  - [Inside the micro-bay opportunity: Jadian shares why operating platforms matter \\| News \\| Institutional Real Estate, Inc.](https://irei.com/news/inside-the-micro-bay-opportunity-jadian-shares-why-operating-platforms-matter/)\n  - [WareSpace Buys South San Francisco Warehouse for $16M](https://hoodline.com/2026/09/south-san-francisco-warehouse-sells-for-16m-set-to-split-into-86-tiny-flex-suites/)\n- [2026-09-21]\n  - [WareSpace Expands Microbay Flex Industrial Concept With South San Francisco Acquisition](https://www.bisnow.com/news/san-francisco/industrial/warespace-expands-western-region-footprint-south-san-francisco-industrial-acquisition)\n  - [Trinity CEO Sean Hehir on Buying Irreplaceable Hotels](https://finance.yahoo.com/real-estate/articles/trinity-ceo-sean-hehir-buying-170052697.html)\n- [2026-09-18] [WareSpace Opens 174,500 SF Industrial Facility in Plano - REBusinessOnline](https://rebusinessonline.com/warespace-opens-174500-sf-industrial-facility-in-plano/)\n- [2026-09-17]\n  - PR Newswire: [WareSpace Expands in South Florida and Enters Bay Area with $36.5 Million in Industrial Acquisitions](https://www.prnewswire.com/news-releases/warespace-expands-in-south-florida-and-enters-bay-area-with-36-5-million-in-industrial-acquisitions-302881440.html)\n  - [WareSpace Expands Operations in South Florida and Bay Area with Major Industrial Acquisitions - Third News](https://third-news.com/article/3e72486a-b297-11f1-afaf-9ca3ba08e13f)\n- [2026-09-15] [WareSpace brings flexible warehouse spaces to Austin - Austin Business Journal](https://www.bizjournals.com/austin/news/2026/09/15/warespace-domain-st-elmo-warehouse-flex-space.html)\n- [2026-09-13] [Anthony Scavo: Why Small Bay Beats Multifamily Now - CRE Daily](https://www.credaily.com/briefs/anthony-scavo-why-small-bay-beats-multifamily-now/)\n- [2026-09-04] [🔧 Fort Lauderdale Building & Grounds Jobs – Multiple Openings - NewsBreak](https://www.newsbreak.com/fort-lauderdale-fl-daily-brief-373179622/4866081038523-fort-lauderdale-building-grounds-jobs-multiple-openings)\n- [2026-08-31] [Maryland company expands metro Denver footprint to 200,000 square feet with Park Hill opening - Denver Business Journal](https://www.bizjournals.com/denver/news/2026/08/31/warespace-denver-park-hill-small-bay-storage.html)\n- [2026-08-24]\n  - [WareSpace Opening Park Hill Location - Mile High CRE](https://milehighcre.com/warespace-opening-park-hill-location/)\n  - [WareSpace to open second Denver-area warehouse facility in Park Hill](https://coloradobiz.com/warespace-opens-second-denver-area-warehouse-park-hill/)\n  - [WareSpace Opens Second Denver Warehouse Hub, Bets Big on Park Hill](https://hoodline.com/2026/08/warespace-opens-second-denver-warehouse-hub-bets-big-on-park-hill/)\n- [2026-08-20] PR Newswire: [WareSpace Opens Second Denver Location with a Celebration Built Around Denver's Small Businesses](https://uk.advfn.com/stock-market/share-news/WareSpace-Opens-Second-Denver-Location-with-a-Cele/99163568)\n- [2026-08-10] [WareSpace Converts Vacant 73,000 SQFT Carlsbad Building into 70-Plus Small-Business Warehouse Units - NewsBreak](https://www.newsbreak.com/news/4821320010230-warespace-converts-vacant-73-000-sqft-carlsbad-building-into-70-plus-small-business-warehouse-units)\n- [2026-08-03]\n  - [WareSpace to open in former Fry's Electronics building in Plano \\| Plano \\| Community Impact](https://communityimpact.com/plano/business/warespace-to-open-in-former-frys-electronics-building-in-plano/)\n  - [From Gadgets to Grit: Plano Fry’s Reborn as Small-Biz Warehouse Hub](https://hoodline.com/2026/08/from-gadgets-to-grit-plano-fry-s-reborn-as-small-biz-warehouse-hub/)\n- [2026-07-29] [Jadian Increases WareSpace Commitment to Over $500 Million as Platform Expands Nationally \\| Business \\| theparisnews.com](https://theparisnews.com/ap/business/jadian-increases-warespace-commitment-to-over-500-million-as-platform-expands-nationally/article_b22b5e6f-d1e6-5034-805a-a95c828294ef.html)\n- [2025-04-16] Seattle TechFlash: Co-warehousing firm WareSpace buys second building in D.C. region, eyes more\n- [2024-12-11] Dallas Business Journal: M2G Ventures sells portion of 1.1M-square-foot redevelopment\n- [2021-07-23] Cointelegraph: Reddit deploys layer-2 solution aimed at scaling Ethereum-based community points\n- [2021-07-19] Yahoo Finance: Analyst Report: AutoNation, Inc.\n- [2021-07-01] hackernoon.com: How to Write a Simple NPM Package\n\n## Social\n\n### Linkedin\n\n- [2026-09-15 · 36 reactions] Hello, San Francisco! WareSpace is officially entering the Bay Area with the acquisition of our first South San Francisco location, a 60,000 SF industrial building that marks our 34th facility nati...\n\n- [2026-09-14 · 83 reactions, 3 comments] Another big milestone for WareSpace: we’re expanding in South Florida! WareSpace has officially acquired a 100,000 SF industrial building in Miami Lakes, FL, marking our third location in South Flo...\n\n- [2026-09-11 · 15 reactions, 1 comment] Ever tried getting a pallet delivered to your house? Sunny ran his ecommerce business from the basement. Big trucks couldn't fit through the alley. Drivers dropped packages in the street. His dad w...\n\n- [2026-08-21 · 16 reactions, 1 comment] Paul lost a $250,000 client. His studio rent was $15,000 monthly. After 20 years in the same space, the math stopped working overnight. He needed warehouse space for production equipment plus offic...\n\n- [2026-08-21 · 18 reactions, 1 comment] Paul Tushaus lost a $250,000 client. His studio rent was $15,000 monthly. After 20 years in the same space, the math stopped working overnight. He needed warehouse space for production equipment pl...\n\n- [2026-08-18 · 24 reactions] 📍 Denver entrepreneurs, assemble. WareSpace Park Hill opens August 27 - and you should be there. Free headshots, BBQ from Big Belly Brothers, building tours, chair massages, and four prizes drawn a...\n\n- [2026-08-14 · 24 reactions] Thank you to everyone who came out and made our grand opening so special: our incredible tenants, our featured tenant vendors, and the guests who filled the space with energy all afternoon. And to...\n\n- [2026-08-07 · 17 reactions, 2 comments] At 60, Tom made a career pivot most people wouldn't. He bought a franchise. Had products with nowhere to put them. Other places he looked at? Generic. Just an open door. WareSpace was different. ✅...\n\n- [2026-08-05 · 12 reactions] THE place to be in DFW this Thursday from 4-7pm! https://lnkd.in/ehpyPfvU\n\n- [2026-08-05 · 19 reactions] Our construction team turned an empty big box into the HQ for 150+ small businesses in Plano. That’s the part you don’t see on a tour: the creativity it takes to turn undesirable real estate into e...\n\n- [2026-08-03 · 123 reactions, 8 comments] Another WareSpace location is now open in #Plano, TX! We converted this building from a former Fry's Electronics store that had been sitting vacant since 2021 and it will now be home to 150+ small...\n\n- [2026-07-24 · 19 reactions, 1 comment] One-third of their inventory was getting destroyed. Sid manages operations for a coffee services business. His team's always in the field — no one at the warehouse to receive deliveries. Drivers le...\n\n- [2026-07-23 · 26 reactions, 1 comment] We're opening our doors in Plano. 🎉 WareSpace Plano is officially here! Built for the makers, shippers, sellers, and fixers powering small business in DFW. Join us Thursday, August 6, 4-7 PM to cel...\n\n- [2026-07-21 · 11 reactions] Starting and running a business comes with enough challenges and problems. We are honored to take the warehouse problems off Hunter Hebestreet's plate so he can focus on building his business, not...\n\n- [2026-07-20 · 19 reactions, 1 comment] WareSpace Fort Lauderdale is open for business, and we thought that deserved a celebration! Swing by July 28, 4–7 PM for a food truck, live music, raffle prizes, and a first-hand look at what makes...\n\n- [2026-07-16 · 31 reactions] We're grateful for Jadian Capital's continued confidence in WareSpace and their increased investment as we enter our next phase of growth. This partnership provides the equity capital to support ou...\n\n- [2026-07-15 · 57 reactions] Big news! WareSpace just took another major step toward our mission of serving small businesses across America. We're excited to announce our expansion into four new markets with the acquisition of...\n\n- [2026-07-13 · 77 reactions, 2 comments] We're thrilled to announce the acquisition of 860 Sandhill Ave in Carson, CA. This 89,000 SF industrial building marks our 27th facility nationwide. Ideally positioned near Manhattan Beach, Redondo...\n\n- [2026-07-10 · 15 reactions, 1 comment] When something goes viral, you don't get a warning. Sarah ran her skincare brand from the garage. On viral days, the minivan overflowed. Two trips to the post office. Sometimes three. As a mom of t...\n\n- [2026-07-08 · 70 reactions, 1 comment] The momentum continues! WareSpace has officially acquired its 26th facility with the addition of 1400 Centre Circle in Downers Grove, IL. Located just minutes from our existing Downers Grove locati...\n\n## Locations\n- Headquarters: columbia, maryland, united states (US)\n- Offices: lanham, maryland, united states (US), eden prairie, minnesota, united states (US), libertyville, illinois, united states (US), columbia, maryland, united states (US), wheeling, illinois, united states (US), atlanta, united states (US), houston, texas, united states, mount laurel, new jersey, united states (US), downers grove, illinois, united states (US), philadelphia, pennsylvania, united states (US), fort worth, texas, united states (US), north richland hills, texas, united states (US)",
+        "summary": "{\"description\":\"WareSpace is a Warehousing and Storage company. WareSpace is a company that offers small warehouse space for rent. They provide shared loading docks, equipment, shipping areas, conference rooms, and common spaces. They offer all-inclusive options starting at $1,000/mo on short-term 6-12 months leases.\",\"employee_estimate\":71,\"employee_estimate_source\":\"Employees: 71\",\"hq\":\"Columbia, United States\",\"hq_quote\":\"Headquartered in Columbia, Maryland, United States, with offices including Houston, Atlanta, Libertyville, Wheeling, and Fort Worth.\",\"industry\":\"Warehousing and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"WareSpace is a Warehousing and Storage company. WareSpace... offers small warehouse space for rent. They provide shared loading docks, equipment, shipping areas, conference rooms, and common spaces. They offer all-inclusive options starting at $1,000/mo on short-term 6-12 months leases.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQE65wblJlApMA/company-logo_200_200/company-logo_200_200/0/1684878183278/warespaceco_logo?e=2147483647&v=beta&t=Mv9sSLBelDvxAnfmin7sx9dAD3PhWFYh0986tfrvCbg",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/5s04x8qx6b4",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "WareSpace",
+              "foundedYear": 2018,
+              "description": "The warehousing industry isn't designed for small businesses. We are. \n\n3-year contracts, personal guarantees, and paying for more space than you need; warehouses are usually made for huge operations. \n\nBut WareSpace is different. We created a world where every entrepreneur can find the perfect small warehouse: spaces you can size up and down, one simple monthly price, short-term leases, and a community of like-minded business owners.",
+              "workforce": {
+                "total": 71
+              },
+              "headquarters": {
+                "address": "5950 Symphony Woods Rd, Suite 600, Columbia, Maryland 21044, US",
+                "city": "Columbia",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": null,
+                "fundingLatestRound": {
+                  "name": "Private equity",
+                  "date": "2019-09-05",
+                  "amount": null
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 79575,
+                "countryRank": null,
+                "avgDurationSeconds": 45,
+                "history": [
+                  {
+                    "value": 226980,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 183050,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 129821,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 118245,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 115096,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 79575,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/z2h9m6kjzgb",
+        "title": "Warehouse-Space.co.uk (formerly LES LOGISTICS SERVICES LTD",
+        "url": "https://warehouse-space.co.uk/",
+        "text": "# Warehouse-Space.co.uk (formerly LES LOGISTICS SERVICES LTD\n\nWarehouse-Space.co.uk (formerly LES LOGISTICS SERVICES LTD is a Transportation, Logistics, Supply Chain and Storage company. Warehouse Space is a company that provides warehouse space rental and hire services in the UK. They offer exceptionally low rates and provide spare capacity in warehouses. They also offer pallet storage facilities. Warehouse-Space.co.uk (formerly LES LOGISTICS SERVICES LTD employs 6 people, founded in 2011. Headquartered in Park Farm Industrial Estate, England, United Kingdom, with an office in Guilsborough.\n\n## About\n\nWarehouse-Space.co.uk is a logistics and supply chain company specialising in warehouse brokerage services\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Privately held\n- Headquarters: Park Farm Industrial Estate, United Kingdom\n- Founded Year: 2011\n- Homepage: warehouse-space.co.uk\n- Aliases: warehouse space.co.uk, warehouse-space.co.uk (formerly les logistics services ltd\n- LinkedIn: linkedin.com/company/les-flanagan-logistics-services-ltd\n- Linkedin Followers: 149\n- Emails: info@warehouse-space.co.uk\n- Phone: 7585 141247\n\n## Workforce\n- Employees: 6\n- Company Size: 1-10 employees\n- Key Executives:\n  - Clare Newton (Snaith) CMILT: Commercial Director\n  - Mike Daly: Non Executive Director\n  - Provan Flanagan: Company Director\n  - Simon Varlow: Director\n  - Warehouse Space: Managing Director\n- Breakdown:\n  - By Country: United Kingdom: 6 (100%)\n  - By Department: General Management: 5 (83%), Administrative: 1 (17%)\n  - By Seniority: Director: 5 (83%), Specialist: 1 (17%)\n- Talent Sources: Wincanton (3), Visku (2), RACKBUY (1)\n- Alumni Go To: GSB Warehouse Services (1)\n\n## Web presence\n\n- Web traffic:\n  - Monthly visits: 1,819\n  - Global rank: 7,280,496\n  - Bounce rate: 38.0%\n  - Pages per visit: 2.5\n  - Average visit duration: 45s\n\n## Categories\n\nhire, logistics, pallet storage, pallets, rental, supply chain, uk, warehouse space\n\n## Recent News\n- [2026-10-12] Estates Gazette: The impact of stockpiling critical minerals on UK supply chains\n- [2026-10-11] The Telegraph: Healey rules out warehouse tax raid\n- [2026-10-10]\n  - The Telegraph: John Lewis lashes out over threat of Budget tax raid\n  - Materials Handling World: Packaging firm boosts warehouse capacity by 45% with new distribution hub\n  - Lancaster Guardian: Spirits firm expanding into part of former antiques centre in Lancaster\n  - Grocery Gazette: Tesco boss urges Chancellor to spare retailers from ‘unfair’ warehouse tax\n- [2026-10-09] https://www.facilitiesmanagement-now.com/: Nearly 16 million ft2 of warehouse space is under offer\n- [2026-10-08]\n  - Marketing Nottingham: 85,000 ft² of Warehouse Space at J26 M1 comes to Market\n  - Bedford Today: Bedford-based company quadruples warehouse space with new purpose-built HQ\n  - Retail Gazette: DPD expands Midlands logistics footprint with new Derby hub\n  - The Northern Echo: North East fulfilment firm appoints agency to drive UK growth ambitions\n  - Daily Business: Peel Ports creates warehousing as demand rises\n- [2026-10-05]\n  - The Telegraph: Chinese retailers launch UK land grab\n  - Salisbury Journal: Factory and warehouse unit put on market for £485,000 or £35,000 rent\n- [2026-10-01] Wirral Globe: Warehouse with connecting bridge plans submitted by Ellesmere Port's Encirc\n- [2026-09-30]\n  - The Stage: Alice in Wonderland immersive experience to open in London warehouse\n  - Yorkshire Evening Post: Crowds pack out new superclub Mint XL as doors open for launch night\n  - Renfrewshire Gazette: Firm marks 'important step forward' with new space near Glasgow Airport\n  - Deadline News: Macfarlane partnership targets packaging waste\n  - Lancashire Evening Post: Preston-based DJL starts work on major Huyton warehouse scheme\n\n## Social\n\n### Linkedin\n\n- [2024-10-29 · 87 reactions, 10 comments] Ready for the first UK Warehousing Association Young Person Advisory Board meeting this morning with other members of UKWA. We will be discussing Skills England, ideas for Future work and projects,...\n\n- [2024-07-11 · 71 reactions, 9 comments] We had a brilliant day at the UKWA Awards lunch yesterday. Obligatory annual pic with Adam Jones! Great to see everyone and thanks to the UK Warehousing Association for putting on a fabulous event...\n\n- [2024-06-11 · 66 reactions, 8 comments] Multimodal Exhibition Day 1 done! 🚚✈️🚇🚢🦺👷♀️ Brilliant first day, meeting lots of industry friends and visiting various stands to see what everyone is focused on currently. Looking forward to the aw...\n\n- [2024-03-16 · 9 reactions] Looking forward to attending the IntraLogisteX Exhibition next week. Hopefully seeing and catching. up with plenty of logistics contacts and finding out what is new in the sector, particularly arou...\n\n- [2024-01-11 · 125 reactions, 5 comments] Great site visit today with my colleague Simon Varlow. To see our brand new contract, stored by Metro Supply Chain in Bedford. Brilliant service, implemented over the busy Christmas period. Thank y...\n\n- [2024-01-06 · 17 reactions, 4 comments] Looking forward to attending Multimodal again this year and meeting colleagues and friends from the logistics sector! See you there!\n\n## Locations\n- Headquarters: park farm industrial estate, england, united kingdom (GB)\n- Offices: park farm industrial estate, england nn8 6bs, united kingdom (GB), guilsborough, northamptonshire nn6 8py, united kingdom (GB)",
+        "summary": "{\"description\":\"Warehouse-Space.co.uk (formerly LES LOGISTICS SERVICES LTD) is a Transportation, Logistics, Supply Chain and Storage company that provides warehouse space rental, pallet storage facilities and spare capacity in UK warehouses.\",\"employee_estimate\":\"6\",\"employee_estimate_source\":\"Employees: 6\",\"hq\":\"Park Farm Industrial Estate, United Kingdom\",\"hq_quote\":\"Headquartered in Park Farm Industrial Estate, England, United Kingdom\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"Warehouse-Space.co.uk is a logistics and supply chain company specialising in warehouse brokerage services\\n... - Industry: Transportation, Logistics, Supply Chain and Storage\\n- Type: Privately held\\n- Headquarters: Park Farm Industrial Estate, United Kingdom...\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQFCo6ZYISleSw/company-logo_200_200/company-logo_200_200/0/1690135882254?e=2147483647&v=beta&t=L6Mc6THB3A9PwVienGHKwd3_2d4WccpW5ilU82-ShwQ",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/z2h9m6kjzgb",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Warehouse-Space.co.uk (formerly LES LOGISTICS SERVICES LTD",
+              "foundedYear": 2011,
+              "description": "Warehouse-Space.co.uk is a logistics and supply chain company specialising in warehouse brokerage services",
+              "workforce": {
+                "total": 6
+              },
+              "headquarters": {
+                "address": "Sywell Road, Park Farm Industrial Estate, England NN8 6BS, GB",
+                "city": "Park Farm Industrial Estate",
+                "postalCode": null,
+                "country": "United Kingdom"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 1819,
+                "countryRank": 587126,
+                "avgDurationSeconds": 45,
+                "history": [
+                  {
+                    "value": 1227,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 1367,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 2437,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 1616,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 1707,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 1819,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 8347.6,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

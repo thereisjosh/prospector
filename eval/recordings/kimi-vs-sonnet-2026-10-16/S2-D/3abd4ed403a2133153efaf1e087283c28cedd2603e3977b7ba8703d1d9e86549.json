@@ -1,0 +1,270 @@
+{
+  "request": {
+    "query": "Cloverleaf AI",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "3ca172a7a945009403a5952c72a587b0",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/g8qvyddg1mv",
+        "title": "Cloverleaf AI",
+        "url": "https://www.cloverleaf.ai/",
+        "text": "# Cloverleaf AI\n\nCloverleaf AI is a Software Development company. Cloverleaf AI provides government sales intelligence for B2G sellers, turning 1.5 million government meetings into early buying signals to reach buyers before the RFP. Cloverleaf AI employs 29 people (+61.1% YoY, +11 people), founded in 2021. Headquartered in Denver, Colorado, United States. Its workforce is distributed across United States and Canada.\n\n## About\n\nIf you're waiting for the RFP, you've already lost.\n\nCloverleaf AI is the full-funnel B2G sales intelligence layer built for front-line sellers. Not a procurement database. Not a firehose of alerts. Signal, tied to your territory, your stakeholders, and the moment they matter.\n\nWhat we believe.\n\nDeals are won before the RFP drops. The sellers who shape procurement win. The ones who react to it compete on price.\n\nIntelligence without context is just noise. A flood of alerts doesn't help a rep. Territory-specific, stakeholder-level signal does.\n\nRelationships beat databases. B2G selling is relationship-driven by nature. The right tool builds on that. It doesn't replace it.\n\nCloverleaf AI monitors public meetings, committees, and budget activity across 70K+ government agencies and 200K+ identified speakers, surfacing buying signals years before the RFP drops. Configured to each seller's territory and stakeholders, it turns fragmented public-sector activity into signal you can act on.\n\nThe result: Uber Transit reps hit $1M+ in pipeline per rep, per quarter.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: Denver, United States\n- Founded Year: 2021\n- Homepage: cloverleaf.ai\n- Aliases: Engaged Citizen Inc, cloverleaf ai\n- LinkedIn: linkedin.com/company/cloverleaf-ai\n- Linkedin Followers: 2,244\n- Emails: adam@cloverleaf.ai, support@cloverleaf.ai\n- Phone: 847.414.574\n\n## Financials\n- Total Funding: USD 10,920,000\n  - Series a (2026-01-01): USD 8.0M\n  - Seed (2024-11-07): USD 2.8M\n  - Pre seed (2023-06-26)\n  - Pre seed (2021-09-13): USD 120,000\n  - Series a\n\n## Workforce\n- Employees: 29\n- Company Size: 11-50 employees\n  - Monthly Growth: -3.3%\n  - Yearly Growth: +61.1%\n- Key Executives:\n  - Adam Zucker: CEO/Co-Founder\n  - Christian Guy, CPA: Head of Finance & Operations\n  - Jenifer Weber: Head of Marketing\n  - Jenn Chow: Director of Customer Success\n  - Jeremy Becker: Co-Founder and Chief Revenue Officer\n  - Kieran Lynn: Head of Engineering\n  - Megan Savage: Founder Advisor\n  - Ryan Orner: Head of Customer Success\n  - Suki DeWitt: Director of Customer Advocacy\n  - Taylor McLemore: Co-Founder\n- Breakdown:\n  - By Country: United States: 22 (76%), Canada: 2 (7%)\n  - By Department: Technical: 8 (28%), Sales: 5 (17%), Customer Service: 4 (14%), General Management: 3 (10%), Consulting: 2 (7%), Finance: 1 (3%), Marketing: 1 (3%)\n  - By Seniority: Specialist: 8 (28%), Founder: 4 (14%), Head: 4 (14%), Senior: 4 (14%), Director: 2 (7%), Manager: 1 (3%), Other Management: 1 (3%)\n- Talent Sources: HubSpot (2), FiscalNote (2), Engaged Citizens (2), Stifel Financial Corp. (1), SAP Concur (1), Project Canary (1), Nielsen (1), Kilter Brewing Co. (1), Fortinet (1), CONSENTparenting™ (1)\n- Alumni Go To: eComEngine, LLC (1), The Heritage Group (1), Techstars (1), TLTF Summit (1), Silo (1), SOVRA (1), Ontopical by SOVRA (1), Hyland Hills Golf Course (1), Glimpse (1), 1 TO 100 ADVISORS Inc. (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: datatables, elasticsearch, google cloud, google cloud platform, java, postgresql, react, ruby, jira, flask, github, github actions, python, sendgrid, typescript, cloverleaf, ease, sprint, visa, ruby on rails\n\n## Web presence\n\n- Crunchbase: crunchbase.com/organization/engaged-citizens\n- Web traffic:\n  - Monthly visits: 25,642\n  - Global rank: 590,053\n  - Bounce rate: 9.0%\n  - Pages per visit: 26.0\n  - Average visit duration: 1688s\n\n## Reviews & Ratings\n- Employer Rating: 3.1/5.0 (10 reviews)\n  - Breakdown: Work-Life: 3.3, Compensation: 3.6, Culture: 3.2, Career: 3.3\n\n## Categories\n\nartificial intelligence (ai), b2g sellers, buyers, cloverleaf ai, early buying signals, government sales intelligence, other government, other government software, public sector software, rfp, saas, software\n\n## Recent News\n- [2026-09-24]\n  - [Is AI Telling Your Employees to Quit Their Jobs?](https://www.inc.com/ray-fernandez/ai-employees-workers-quit-jobs-hr-cloverleaf-labs-shrm-workplace-well-being/91410050)\n  - Techli: When AI becomes the first adviser in a workplace conflict\n- [2026-09-20] [Cuando la IA empeora los conflictos laborales en lugar de resolverlos](https://www.elnacional.com/2026/09/cuando-la-ia-empeora-los-conflictos-laborales-en-lugar-de-resolverlos-segun-estudio/)\n- [2026-09-19] KOKH: Piedmont delays vote on revised Cloverleaf data center plans\n- [2026-09-16]\n  - [Inteligencia artificial en conflictos laborales: riesgos y tendencias según estudio de Cloverleaf](https://www.pulzo.com/tecnologia/inteligencia-artificial-en-conflictos-laborales-riesgos-y-tendencias-segun-estudio-de-cloverleaf-PP5304211A)\n  - [Orgs Need Trusting Relations, but 'AI Is Coaching People Away from Each Other'](https://sociable.co/business/organizations-relationships-ai-coaching-people-away/)\n- [2026-09-12]\n  - ANI News: AI gives worse workplace advice to employees with less power: Report\n  - Data Center Frontier: NVIDIA Pushes DSX Deeper Into Data Center Infrastructure\n- [2026-09-11] Contxto: AI gives worse workplace advice to employees with less power, study finds \\|\n- [2026-09-09] 150sec: AI may be pushing frustrated employees toward the exit, Cloverleaf study finds\n- [2026-09-08]\n  - [AI gives worse workplace advice to employees with less power: Report \\| Agency-feeds News - News18](https://www.news18.com/agency-feeds/ai-gives-worse-workplace-advice-to-employees-with-less-power-report-10317110.html)\n  - [150sec](https://150sec.com/ai-may-be-pushing-frustrated-employees-toward-the-exit-cloverleaf-study-finds/)\n  - [AI is becoming a workplace coach, but Cloverleaf says it may be pushing employees out](https://www.startupbeat.com/ai-is-becoming-a-workplace-coach-but-cloverleaf-says-it-may-be-pushing-employees-out/39583/)\n- [2026-09-06] BIC Magazine: Cloverleaf partners with NVIDIA to accelerate data center infrastructure development\n- [2026-09-03] Pulse 2.0: [Cloverleaf AI Raises $8 Million Series A Led By S3 Ventures](https://pulse2.com/cloverleaf-ai-raises-8-million-series-a-led-by-s3-ventures/)\n- [2026-09-02] Channel Dive: Nvidia partners with Cloverleaf to accelerate data center development\n- [2026-08-30]\n  - The National Law Review: Cloverleaf AI Raises $8 Million Series A to Bring Pre-RFP Intelligence to B2G Sales Teams Nationwide.\n  - Dealroom: Cloverleaf AI raises $8M Series A for B2G sales intelligence\n- [2026-08-28] GovTech: [Procurement Firm Cloverleaf AI Reveals $8M Funding Round](https://www.govtech.com/biz/procurement-firm-cloverleaf-ai-reveals-8m-funding-round)\n- [2026-08-27] FinSMEs: Cloverleaf AI Raises $8M in Series A Funding\n- [2026-08-26]\n  - vinanet.vn: Louis Navellier Delivers Blunt Take on Nvidia's AI Dominance Ahead of Earnings - Long-Term Guidance\n  - POWER Magazine: NVIDIA, Cloverleaf Partnering to Advance Data Center Development\n  - GuruFocus: Nvidia Slips Despite New Bet on AI's Power Bottleneck\n  - scanx.trade: Nvidia notifies customers of over 15% price hike on AI products\n- [2026-08-25] Channel Insider: Meta Hatch AI Agent May Cost $200 a Month\n- [2026-08-24]\n  - [NationGraph vs Cloverleaf AI: SLED Sales Intelligence \\(2026\\)](https://www.nationgraph.com/post/nationgraph-vs-cloverleaf-ai-sled-sales-intelligence-2026)\n  - Channel Insider: Nvidia Backs Cloverleaf as AI Data Center Power Demand Surges\n  - ET Datacenters: Nvidia Invests in Cloverleaf to Address AI Data Center Power, Land Needs\n\n## Social\n\n### Linkedin\n\n- [2026-10-06 · Posted · 10 reactions] [Join Adam Zucker, CEO & Co-Founder of Cloverleaf AI, and Jenifer...](https://www.linkedin.com/posts/cloverleaf-ai_join-adam-zucker-ceo-co-founder-of-cloverleaf-activity-7513046150833188864-3VCh)\n  > Join Adam Zucker, CEO & Co-Founder of Cloverleaf AI, and Jenifer Weber, Head of Marketing, for a live session on what public sector buyers are prioritizing in 2026, and how to find that demand before your competitors do.\n  >\n  > 📅 October 27 | 11:00 AM EDT | 45 minutes\n  >\n  > We'll cover the top 2026 trends emerging from buying committees across:\n  > 🚔 Public Safety\n  > 🔐 Cybersecurity\n  > 💰 Public Finance\n  > 💻 Digital Government and IT Modernization\n  > 🏗️ Built World\n  >\n  > Then we'll show you how to research pre-RFP demand signals yourself and turn them into a sharper GTM motion.\n  >\n  > Save your spot below. 👇\n\n- [2026-09-18 · Reshared · 15 reactions] [A common theme in government is that it takes a long time for...](https://www.linkedin.com/posts/cloverleaf-ai_activity-7506772661511823360-c7P4): A common theme in government is that it takes a long time for things to filter from the state down to the cities and counties under its jurisdiction. That trend is quite evident with Texas and HB15...\n\n- [2026-09-17 · Reshared · 26 reactions] [Excited and honored to be featured on a panel about building...](https://www.linkedin.com/posts/cloverleaf-ai_activity-7506350501580566528-_d4a): Excited and honored to be featured on a panel about building companies here in Colorado at Colorado Startup Week on Thursday with Moritz Plassnig and Kara Brenholt, moderated by Ben Deda. I'm not a...\n\n- [2026-09-15 · Posted · 19 reactions] [11 months of data show that fleet management is the the uncontested...](https://www.linkedin.com/posts/cloverleaf-ai_11-months-of-data-show-that-fleet-management-activity-7505716126199209984-a8Ln)\n  > 11 months of data show that fleet management is the the uncontested priority in local government. Catch pain points discussed on public record before the RFP is ever drafted.\n  >\n  > Download the 2026 State of Built World Tech Report for more insights: https://lnkd.in/dnqVkCJY\n\n- [2026-09-15 · 19 reactions] 11 months of data show that fleet management is the the uncontested priority in local government. Catch pain points discussed on public record before the RFP is ever drafted. Download the 2026 Stat...\n\n- [2026-09-11 · Reshared · 28 reactions] [\"Use more AI\". All of us have heard that from our board or our...](https://www.linkedin.com/posts/cloverleaf-ai_activity-7504199687999127552-ahuT): \"Use more AI\". All of us have heard that from our board or our boss. And I'm sure everyone here has heard that and thought \"yeah, but in what context?\" or \"sure, but for what end?\". Not surprisingl...\n\n- [2026-09-04 · Reshared · 37 reactions] [Here at Cloverleaf AI , we're sitting on a gold mine of data. What...](https://www.linkedin.com/posts/cloverleaf-ai_activity-7501674076650950657-CawX): Here at Cloverleaf AI , we're sitting on a gold mine of data. What started as a product that ingested video and audio recordings of city council meetings has grown to a 360 view of everything happe...\n\n- [2026-09-04 · 37 reactions, 2 comments] Here at Cloverleaf AI, we're sitting on a gold mine of data. What started as a product that ingested video and audio recordings of city council meetings has grown to a 360 view of everything happen...\n\n- [2026-09-03 · Posted · 18 reactions] [We teach B2G sellers what to listen for. Getting ahead of the RFP...](https://www.linkedin.com/posts/cloverleaf-ai_aiingtm-b2gsales-activity-7501361914870976513-0icf)\n  > We teach B2G sellers what to listen for.\n  >\n  > Getting ahead of the RFP means understanding what pain sounds like before anyone calls it a requirement. Complaints. Committee discussions. Budget questions raised months before a formal solicitation ever exists.\n  > That's not noise. That's gold.\n  >\n  > Wondering what state and local governments have been discussing when it comes to cybersecurity? Read the full 2026 report here: https://bit.ly/4iusb9p\n  >\n  > #AIinGTM #B2GSales\n\n- [2026-09-03 · 21 reactions] We teach B2G sellers what to listen for. Getting ahead of the RFP means understanding what pain sounds like before anyone calls it a requirement. Complaints. Committee discussions. Budget questions...\n\n- [2026-09-02 · 52 reactions, 3 comments] Big thank you to Government Technology for putting on an amazing State of Technology conference in Austin yesterday. Every time I leave one of these I am struck by how much the presentations align...\n\n- [2026-09-01 · Posted · 18 reactions] [Read with your morning ☕ : \"This is my first meeting as official...](https://www.linkedin.com/posts/cloverleaf-ai_read-with-your-morning-this-is-my-first-activity-7500557484567298048-UrCF)\n  > Read with your morning ☕ :\n  >\n  > \"This is my first meeting as official executive director of DIR.\"\n  >\n  > Then Tony Sauerhoff spent the next hour telling his board everything he'd already changed.\n  >\n  > We pulled it straight from the transcripts: Texas DIR's leadership since March 2026, the deputy role split in two, the Cyber Command boundary still being negotiated, and AI governance rules that already have teeth.\n  >\n  > If you sell into Texas state or local government, here's what you need to know before your next call: https://bit.ly/4ip2Ai7\n\n- [2026-09-01 · 18 reactions, 1 comment] Read with your morning ☕ : \"This is my first meeting as official executive director of DIR.\" Then Tony Sauerhoff spent the next hour telling his board everything he'd already changed. We pulled it...\n\n- [2026-08-27 · Posted · 47 reactions] [We raised $8M in January. Here's where it went. We hired fast...](https://www.linkedin.com/posts/cloverleaf-ai_cloverleaf-ai-raises-8-million-series-a-activity-7498741251173675008-Re__)\n  > We raised $8M in January. Here's where it went.\n  > We hired fast across sales, marketing, business development, and customer success. And we invested hard in the product.\n  >\n  > The dataset grew past video: agendas, minutes, notices, legislation, budgets, purchase data, and municipal code, all tracked alongside committee footage.\n  >\n  > We refresh that data every 4 hours. Most tools in this space check once a week. 42x the frequency.\n  >\n  > The contact library crossed 1M+ verified contacts and over 200K speakers. And with MCP and native CRM integrations, it all lives where sellers already work, not in another tab they have to remember to check.\n  >\n  > Broadest depth of high-fidelity data. The strongest personalization engine in the category. That's what leading data quality in B2G sales intelligence looks like.\n  >\n  > Read the announcement: https://lnkd.in/gXU97rFz\n  >\n  > #B2GSales #SalesIntelligence #AIinGTM #SeriesA\n\n- [2026-08-27 · 52 reactions, 6 comments] We raised $8M in January. Here's where it went. We hired fast across sales, marketing, business development, and customer success. And we invested hard in the product. The dataset grew past video:...\n\n- [2026-08-25 · Posted · 34 reactions] [If you're waiting for the RFP, you've already lost. New site, even...](https://www.linkedin.com/posts/cloverleaf-ai_if-youre-waiting-for-the-rfp-youve-already-activity-7498061195661344768-DSXE)\n  > If you're waiting for the RFP, you've already lost. New site, even better signal: pre-RFP intelligence, built for how sellers work. Cloverleaf.ai\n\n- [2026-08-18 · Reshared · 24 reactions] [If you ain't first, you're last. Ricky Bobby understood government...](https://www.linkedin.com/posts/cloverleaf-ai_activity-7495586410154983425-DBZx): If you ain't first, you're last. Ricky Bobby understood government sales before any of us did. Relationship-based pursuits win 60-90% of the time. Cold RFP responses? 15%. By the time the solicitat...\n\n- [2026-08-03 · Reshared · 41 reactions] [What a week. Grateful to have spent it at the State of Technology...](https://www.linkedin.com/posts/cloverleaf-ai_activity-7490063733528875008-ADqX): What a week. Grateful to have spent it at the State of Technology Briefing, and to have had the chance to talk about what's coming next for government IT opportunities in California. A few thank-yo...\n\n- [2026-07-01 · Reshared · 34 reactions] [Not every work trip ends with a full tank. This one did. Last week...](https://www.linkedin.com/posts/cloverleaf-ai_activity-7478181783528996865-gclD): Not every work trip ends with a full tank. This one did. Last week at GFOA in Chicago, our newest AE Coleman Schleifer started his first day with the company... at the conference. No onboarding doc...\n\n- [2026-06-29 · Posted · 10 reactions] [Cloverleaf AI is excited to welcome Ryan Orner as Head of Customer...](https://www.linkedin.com/posts/cloverleaf-ai_cloverleaf-ai-is-excited-to-welcome-ryan-activity-7477480516255154176-AArE)\n  > Cloverleaf AI is excited to welcome Ryan Orner as Head of Customer Success.\n  >\n  > Ryan brings a non-traditional path that’s shaped him into a builder at every stop. From leading a multi-agency task force as a Maryland State Police detective, to serving as a Division I Head Coach at Xavier University, where he built a program from the ground up to its first-ever NCAA qualifiers.\n  >\n  > Most recently at HubSpot, Ryan wore multiple hats: leading a customer success team to become a top performer globally, while also driving company-wide AI and enablement initiatives that reached over 1,000 customer success professionals.  He also helped build the executive relationship between HubSpot and Anthropic, which grew into a deep partnership across product integrations and joint initiatives now impacting hundreds of thousands of customers globally.\n  >\n  > At Cloverleaf, Ryan will bring that same builder’s mindset to standing up our customer success function from the ground up, helping our customers win earlier, more often, and with confidence.\n\n## Locations\n- Headquarters: denver, colorado, united states (US)\n- Offices: denver, colorado, united states (US)",
+        "summary": "{\"description\":\"Cloverleaf AI provides government sales intelligence for B2G sellers, turning 1.5 million government meetings into early buying signals to reach buyers before the RFP.\",\"employee_estimate\":29,\"employee_estimate_source\":\"Employees: 29\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"The dataset grew past video: agendas, minutes, notices, legislation, budgets, purchase data, and municipal code, all tracked alongside committee footage.\",\"hq\":\"Denver, Colorado, United States\",\"hq_quote\":\"Headquartered in Denver, Colorado, United States.\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Cloverleaf AI provides government sales intelligence for B2G sellers\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 10,920,000 - Series a (2026-01-01): USD 8.0M - Seed (2024-11-07): USD 2.8M - Pre seed (2023-06-26) - Pre seed (2021-09-13): USD 120,000 - Series a\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4E0BAQGv9CXdK2j-DQ/company-logo_200_200/company-logo_200_200/0/1663185147862/cloverleaf_ai_logo?e=2147483647&v=beta&t=Vy-3EUBzEDHUtNb50kNewgY1LjZuMlpAdTllK4iy2VM",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/g8qvyddg1mv",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Cloverleaf AI",
+              "foundedYear": 2021,
+              "description": "If you're waiting for the RFP, you've already lost.\n\nCloverleaf AI is the full-funnel B2G sales intelligence layer built for front-line sellers. Not a procurement database. Not a firehose of alerts. Signal, tied to your territory, your stakeholders, and the moment they matter.\n\nWhat we believe.\n\nDeals are won before the RFP drops. The sellers who shape procurement win. The ones who react to it compete on price.\n\nIntelligence without context is just noise. A flood of alerts doesn't help a rep. Territory-specific, stakeholder-level signal does.\n\nRelationships beat databases. B2G selling is relationship-driven by nature. The right tool builds on that. It doesn't replace it.\n\nCloverleaf AI monitors public meetings, committees, and budget activity across 70K+ government agencies and 200K+ identified speakers, surfacing buying signals years before the RFP drops. Configured to each seller's territory and stakeholders, it turns fragmented public-sector activity into signal you can act on.\n\nThe result: Uber Transit reps hit $1M+ in pipeline per rep, per quarter.",
+              "workforce": {
+                "total": 29
+              },
+              "headquarters": {
+                "address": "600 Grant St, #650, Denver, Colorado 80203, US",
+                "city": "Denver",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 10920000,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2026-01-01",
+                  "amount": 8000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 25642,
+                "countryRank": 129417,
+                "avgDurationSeconds": 1688,
+                "history": [
+                  {
+                    "value": 5036,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 17629,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 24487,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 27088,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 30941,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 25642,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/mv4hvdwbzvy",
+        "title": "Cloverleaf",
+        "url": "https://cloverleaf.me/",
+        "text": "# Cloverleaf\n\nCloverleaf is a Human Resources Services company. Cloverleaf is an AI coaching platform for managers and teams, built on 13+ market-leading assessments. Proven across 45,000 teams. Cloverleaf employs 109 people (+4.8% YoY, +5 people) and has an annual revenue of $7.6M, founded in 2017. Headquartered in Cincinnati, Ohio, United States, with an office in Covington. Its workforce is distributed across United States, Pakistan, and Spain.\n\n## About\n\nCloverleaf is on a mission to ensure every team thrives with people doing work that energizes them.\n\nCloverleaf enhances team performance by transforming disconnected HR data into personalized, actionable development experiences at scale. As the only AI coaching platform powered by widely trusted behavioral assessments, such as DISC, Enneagram, 16 Types, and more, Cloverleaf delivers tailored coaching that drives clearer communication, stronger alignment, and lasting growth across the entire employee lifecycle.\n\nEnriched by real-time performance insights, Cloverleaf empowers managers and teams to collaborate more effectively, address challenges proactively, and unlock untapped human potential.\n\nTrusted by more than 30,000 teams, Cloverleaf helps organizations build cohesive, aligned workplaces that boost engagement, productivity, and overall performance.\n\n## Company Details\n- Industry: Human Resources Services\n- Type: Privately held\n- Headquarters: Cincinnati, United States\n- Founded Year: 2017\n- Homepage: cloverleaf.me\n- Aliases: Cloverleaf.me, Inc., cloverleaf, cloverleaf.me\n- LinkedIn: linkedin.com/company/cloverleafme\n- Linkedin Followers: 7,483\n- Phone: 859-240-9861\n\n## Financials\n- Annual Revenue: USD 7,600,000\n- Total Funding: USD 18,150,000\n  - Series a (2024-03-27): USD 7.3M\n  - Venture (2023-01-01)\n  - Series a (2022-06-09): USD 9.0M\n  - Series a (2021-01-21)\n  - Seed (2020-01-15): USD 1.3M\n\n## Workforce\n- Employees: 109\n- Company Size: 11-50 employees\n  - Monthly Growth: -0.9%\n  - Yearly Growth: +4.8%\n- Key Executives:\n  - Alex Wilson: SVP Product\n  - Dan Chaney: VP of Finance & Operations\n  - Darrin Murriner: Co-Founder & CEO\n  - Greg Smith: DevOps Lead\n  - John Boyd: Data Lead\n  - Kendra Sanchez: Design Lead\n  - Kirsten Moorefield: Co-Founder - Chief Strategy Officer\n  - Levi Bethune: Co-Founder & Growth Consultant\n  - Matt Lievertz: Vice President of Engineering\n  - Scott Dust: Chief Research Officer\n- Breakdown:\n  - By Country: United States: 47 (43%), Pakistan: 1 (1%), Spain: 1 (1%)\n  - By Department: Technical: 7 (6%), Customer Service: 6 (6%), Other Department: 6 (6%), Sales: 6 (6%), General Management: 4 (4%), Marketing: 4 (4%), Consulting: 3 (3%), Finance: 3 (3%), Product: 3 (3%), Education: 2 (2%) (+6 more)\n  - By Seniority: Specialist: 16 (15%), Manager: 8 (7%), Other Management: 7 (6%), Senior: 7 (6%), Vp: 4 (4%), Founder: 3 (3%), Head: 3 (3%), Intern: 2 (2%), Clevel: 1 (1%), Director: 1 (1%)\n- Talent Sources: Miami University (3), Neo Initiative (2), Kroger (2), Built In (2), UMECC (1), The TJX Companies, Inc. (1), Openfield (1), Limelight Networks (1), InteractOne | eCommerce Agency (1), Crothers Consulting (1)\n- Alumni Go To: University of Cincinnati (4), Kaivac, Inc. (2), AMEND Consulting (2), Vurvey Labs (1), The L&D Collective (1), Rent The Runway (1), NFTGo (1), Envestnet (1), Digital Marketing Institute (1), Beam, formerly Edquity (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: churnzero, clientsuccess, docker, elasticsearch, gainsight, git, github, graphql, hubspot, linux, linux shell, looker, playwright, salesforce, tableau, wordpress, bash, datadog, drata, iam, kms, python, rds, typescript, chargebee, influential, microsoft, mysql, openai, react, workday, smart tech, zapier, doordash, grubhub, weirdly, rippling, adobe, adobe creative suite, figma, adobe captivate, articulate storyline, lectora, cloverleaf, impact, slack, spring, linkedin, well, mix\n\n## Web presence\n\n- Twitter: twitter.com/cloverleafme\n- Facebook: facebook.com/cloverleafme\n- Instagram: instagram.com/cloverleafme\n- YouTube: youtube.com/@cloverleafme\n- Crunchbase: crunchbase.com/organization/cloverleaf-me\n- Web traffic:\n  - Monthly visits: 84,652\n  - Global rank: 369,508\n  - Bounce rate: 38.0%\n  - Pages per visit: 3.4\n  - Average visit duration: 81s\n\n## Categories\n\nai coaching, ai coaching platform, assessments, automated coaching, business_and_consumer_services/business_services, coaching, coaching culture, data visualization, digital coaching, employee experience, hr tech, hrtech, human resources, human skills, individualized learning, information technology, integrations, leadership development, learning and development, learning in the flow of work, micro coaching, microlearning, people development, people strategy, personalized coaching, platform, scalable coaching, self awareness training, soft skill coaching, talent development, team effectiveness, teams, technology, training and development\n\n## Competitors\n\nprofi, bonsai , coachvantage, glint, lattice, quantum workplace, ciphr, hogan, plum, raet, people hr, caliper corp., bamboohr, thalento, octopus hr, tabic, clearfit, p&i, emergenetics, hiq labs, thomas international ltd., selima, roundpegg, culture amp, visier, pi, peopleinsight, officevibe, worksmile, karat, easop, compete\n\n## Recent News\n- [2026-09-16] [Inteligencia artificial en conflictos laborales: riesgos y tendencias según estudio de Cloverleaf](https://www.pulzo.com/tecnologia/inteligencia-artificial-en-conflictos-laborales-riesgos-y-tendencias-segun-estudio-de-cloverleaf-PP5304211A)\n- [2026-09-09] GetLatka: Cloverleaf Revenue 2023: $4.7M Est. ARR\n- [2025-01-07] PR Newswire: New Cloverleaf Research Highlights 25% Boost in Daily Self-Reflection Through Automated Coaching Technology\n- [2024-11-13] Google Patent: Systems and methods for processing behavioral assessments\n- [2024-07-10] PRWeb: Cloverleaf Strengthens Company Growth with Strategic Infusion of Talent\n- [2024-06-27] PRWeb: Cloverleaf Ranks Among Top-Performing Businesses on Inc.'s Annual List of Best Workplaces for 2024\n- [2024-05-26] Medium: Darrin Murriner Of Cloverleaf On The Top 5 Trends Shaping the Future of Coaching\n- [2024-04-17] PRWeb: Cloverleaf Secures $7.3 Million Series A Extension Led by Advantage Capital\n- [2024-04-05] LinkedIn: Darrin Murriner on LinkedIn: Head of Marketing - Cloverleaf\n\n## Social\n\n### Linkedin\n\n- [2026-10-09 · 6 reactions] When an employee is frustrated with their boss, every leading LLM we tested suggested quitting. Cloverleaf Labs put five leading LLMs through five common workplace conflicts. In conflicts involving...\n\n- [2026-10-08 · 6 reactions, 3 comments] Next week is Workday Rising in Las Vegas! Cloverleaf connects to Workday to deliver AI coaching when it matters most: during promotions, manager transitions, and performance milestones. Come see Cl...\n\n- [2026-10-07 · 11 reactions, 1 comment] \"You're right. Get out.\" This where people end up when they take their conflicts at work to LLMs instead of to each other. More certain they have been wronged. Less curious about the other person o...\n\n- [2026-10-06 · 3 reactions] What happens when employees ask AI for advice about a frustrating manager? Every LLM Kirsten Moorefield and team tested suggested some form of an exit: consider quitting, find a new team, or questi...\n\n- [2026-10-05 · 2 reactions, 1 comment] Ray Fernandez recently covered our research in Forbes, highlighting a question every HR leader should be asking: What is the AI we put in employees’ hands teaching them about working with each othe...\n\n- [2026-10-02 · 19 reactions, 2 comments] I am so proud of the press our research continues to get, like Inc. Magazine and Forbes this week. Relationships win. They bring the most happiness, productivity, fulfillment, success, innovation,...\n\n- [2026-09-30 · 4 reactions] life in L&D (lol)\n\n- [2026-09-30 · 30 reactions, 7 comments] What in the AI is going on?! Great question by 🤓 Heather Rose Walker, PhD 🤓 in #SayItLouder live from the Future of Work Global Event Series. One thing I wish more people could see: 𝘞𝘦 𝘧𝘪𝘯𝘢𝘭𝘭𝘺 𝘩𝘢𝘷𝘦...\n\n- [2026-09-29 · 4 reactions, 1 comment] The people in your company with the least access to coaching are getting the worst advice from AI. We built common moments where two colleagues get frustrated with each other and ran them through f...\n\n- [2026-09-28 · 8 reactions, 1 comment] Have you heard of cognitive surrender? Researchers at The Wharton School coined the term to describe accepting AI output without scrutiny. Our co-founder Kirsten Moorefield describes how cognitive...\n\n- [2026-09-22] ⏰ Can't make it live? Register anyway and we'll send you the recording. Nick Stauffer, Director of Organizational Development at MacLean-Fogg, on the AI Coach rollout his team built across their ta...\n\n- [2026-09-22 · 3 reactions] Which AI coaching platforms use DISC data? It's one of the most common questions we get, and there's usually a second one that follows it: Our people took DISC three years ago, some took CliftonStr...\n\n- [2026-09-21 · 6 reactions, 1 comment] Most AI rollouts this year were judged on two numbers: how many people used it, and how satisfied they were. In a study published in Science Magazine, Stanford University found people rated AI advi...\n\n- [2026-09-18 · 5 reactions] life as a manager (lol)\n\n- [2026-09-17 · 4 reactions, 1 comment] We ran common workplace conflicts through five leading LLMs and their coaching is concerning. Get the report to see what your people are being told, and what it is costing the relationships your bu...\n\n- [2026-09-16 · 11 reactions, 4 comments] You didn't ask to own AI. Now you do, and nobody handed you the rollout plan. Nick Stauffer built one at MacLean-Fogg. On September 24 he's showing the whole thing: the actual campaigns, the emails...\n\n- [2026-09-16 · 9 reactions] We'll see you at Workday Rising, October 12 to 15 in Las Vegas. Come find us on the floor. Booth G23. Cloverleaf connects to Workday to deliver AI coaching during promotions, manager transitions, a...\n\n- [2026-09-15 · 22 reactions, 3 comments] I’m joining Kirsten Moorefield for a Cloverleaf webinar to share how we’re using AI coaching at MacLean-FoggMacLean-Fogg. This will be very practical. I’ll show you what we actually do, how we’ve w...\n\n- [2026-09-15 · 5 reactions, 1 comment] HR is measured on things like retention, turnover, and engagement. But right now, every employee with LLM access is carrying a tool that aggressively works against numbers. Five leading LLMs were p...\n\n- [2026-09-15 · 4 reactions] Comment LLM to see what five leading LLMs tell employees who bring them a real workplace conflict, and why it should concern HR.\n\n## Locations\n- Headquarters: cincinnati, ohio, united states (US)\n- Offices: cincinnati, ohio, united states (US), covington, kentucky, united states (US)",
+        "summary": "{\"description\":\"Cloverleaf is an AI coaching platform for managers and teams, built on 13+ market-leading assessments. Proven across 45,000 teams.\",\"employee_estimate\":109,\"employee_estimate_source\":\"Employees: 109\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Key Executives:  - Dan Chaney: VP of Finance & Operations  - Darrin Murriner: Co-Founder & CEO  - Greg Smith: DevOps Lead  - John Boyd: Data Lead  - Kendra Sanchez: Design Lead  - Kirsten Moorefield: Co-Founder - Chief Strategy Officer  - Levi Bethune: Co-Founder & Growth Consultant  - Matt Lievertz: Vice President of Engineering  - Scott Dust: Chief Research Officer\",\"hq\":\"Cincinnati, Ohio, United States\",\"hq_quote\":\"Headquartered in Cincinnati, Ohio, United States, with an office in Covington.\",\"industry\":\"Human Resources Services\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Human Resources Services\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 18,150,000  - Series a (2024-03-27): USD 7.3M  - Venture (2023-01-01)  - Series a (2022-06-09): USD 9.0M  - Series a (2021-01-21)  - Seed (2020-01-15): USD 1.3M\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQEN3rEioXALFA/company-logo_200_200/B56Zl3uryDKEAI-/0/1758650351327/cloverleafme_logo?e=2147483647&v=beta&t=AP-r-Xx_TUMcTvEh6BmGY1NNK3AllbwCdRaw1zsLaeE",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/mv4hvdwbzvy",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Cloverleaf",
+              "foundedYear": 2017,
+              "description": "Cloverleaf is on a mission to ensure every team thrives with people doing work that energizes them.\n\nCloverleaf enhances team performance by transforming disconnected HR data into personalized, actionable development experiences at scale. As the only AI coaching platform powered by widely trusted behavioral assessments, such as DISC, Enneagram, 16 Types, and more, Cloverleaf delivers tailored coaching that drives clearer communication, stronger alignment, and lasting growth across the entire employee lifecycle.\n\nEnriched by real-time performance insights, Cloverleaf empowers managers and teams to collaborate more effectively, address challenges proactively, and unlock untapped human potential.\n\nTrusted by more than 30,000 teams, Cloverleaf helps organizations build cohesive, aligned workplaces that boost engagement, productivity, and overall performance.",
+              "workforce": {
+                "total": 109
+              },
+              "headquarters": {
+                "address": "310 Culvert St, Suite 301, Cincinnati, Ohio 45202, US",
+                "city": "Cincinnati",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 7600000,
+                "fundingTotal": 18150000,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2024-03-27",
+                  "amount": 7300000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 84652,
+                "countryRank": 150859,
+                "avgDurationSeconds": 81,
+                "history": [
+                  {
+                    "value": 119394,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 131903,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 114370,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 79534,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 88804,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 84652,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 9144.6,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

@@ -1,0 +1,262 @@
+{
+  "request": {
+    "query": "InsideDesk",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "e60e16dc56785469192d41daa4b3cb4e",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/75mv7nk8gcc",
+        "title": "InsideDesk",
+        "url": "https://www.insidedesk.com/",
+        "text": "# InsideDesk\n\nInsideDesk is a Hospitals and Health Care company. InsideDesk is a centralized revenue cycle management platform that helps businesses manage claims digitally, automate payer ar follow-up, streamline payment posting and reporting, and collect revenue faster. InsideDesk employs 38 people (+5.6% YoY, +2 people), founded in 2018. Headquartered in Toronto, Ontario, Canada, with presence in United States. Its workforce is distributed across Canada, United States, and Panama.\n\n## About\n\nDid you know that approximately 55% of the total dental billing processing cost for a dental support organization (DSO) or dental practice is tied to the time that is wasted waiting in the call queues of monolithic insurance companies, rectifying claim submission errors and handling claim appeals?\n\nInsideDesk has developed solutions to help professionals handling the Revenue Cycle Management (RCM) function of a dental practice or DSO to easily automate the claim follow up process so they can spend their time doing what they enjoy more.\n\nArmed with InsideDesk's EOB data intelligence reports, dental billing professionals can maximize payer collections and make their providers happier by boosting their monthly income.\n\nThe RCM team of a DSO servicing 450 dental practices across 18 U.S. states currently saves over 80,000 minutes per month by using InsideDesk.\n\nThe InsideDesk leadership team comprises of a practicing dentist with over 20 years of clinical experience, a former DSO industry executive who understands the challenges of scaling operations in an M&A intensive organization and enterprise software industry veterans including one who built a product that is currently used by over 14,000 dental practices.\n\n## Company Details\n- Industry: Hospitals and Health Care\n- Type: Privately held\n- Headquarters: Toronto, Canada\n- Founded Year: 2018\n- Homepage: insidedesk.com\n- Aliases: insidedesk, insidedesk, inc.\n- LinkedIn: linkedin.com/company/goinsidedesk\n- Linkedin Followers: 4,515\n- Emails: info@insidedesk.com\n- Phone: +1 855.777.080, +18557770801, 1-855-777-0801, 18557770801, 855-777-0801, 855.777.0801\n\n## Financials\n- Total Funding: USD 12,600,000\n  - Venture (2026-07-01): USD 12.6M\n  - Venture (2023-05-01)\n  - Venture (2022-07-01)\n  - Venture (2020-09-01)\n\n## Workforce\n- Employees: 38\n- Company Size: 11-50 employees\n  - Yearly Growth: +5.6%\n- Key Executives:\n  - Ali Siddiqui, CPA: Director of Strategic Finance\n  - Allen Jorgensen: Founder\n  - Candace Luther: Director of Business Operations\n  - David Belbeck: Board Member, Inside Desk\n  - Eric Gallegos: Vice President of Growth\n  - Jenn Bacon: Executive Vice President of Operations\n  - Michael Erwin: Director of Customer Success\n  - Paul Chen: Head Insider\n  - William Henschel: Vice President of Revenue\n- Breakdown:\n  - By Country: Canada: 19 (50%), United States: 13 (34%), Panama: 1 (3%)\n  - By Department: Technical: 14 (37%), General Management: 3 (8%), Sales: 3 (8%), Customer Service: 2 (5%), Operations: 2 (5%), Other Department: 2 (5%), Product: 2 (5%), Consulting: 1 (3%), Finance: 1 (3%), Hr: 1 (3%) (+3 more)\n  - By Seniority: Specialist: 11 (29%), Manager: 8 (21%), Director: 3 (8%), Other Management: 3 (8%), Senior: 3 (8%), Vp: 3 (8%), Founder: 1 (3%), Head: 1 (3%), Intern: 1 (3%), Partner: 1 (3%)\n- Talent Sources: Henry Schein One (5), Lighthouse Labs (2), DentalXChange (2), University of Toronto Mississauga (1), Una AI (1), Staircase Ventures (1), Space Exploration Alberta Robotics (1), Husky Technologies (1), Hero Practice Services (1), Health Canada | Santé Canada (1)\n- Alumni Go To: Vyne (1), VaxCare (1), Tally (1), SUSE (1), Oggvo (1), NEURAL Corporation (1), MCA Dental Group (1), Intuit (1), Haüskey (1), Astera Labs (1)\n\n## Products & Technology\n- Tech Stack: docker, flask, javascript, postgresql, python, react, rpa, shippable, sqlalchemy, typescript, bash, datadog, grafana, iam, jazzhr, kubernetes, nosql, pci, prometheus, rds, redis, terraform, git, linux, impact, microsoft, ups, mobilize, well, sqs\n\n## Web presence\n\n- Facebook: facebook.com/goinsidedesk\n- Instagram: instagram.com/inside.desk\n- Crunchbase: crunchbase.com/organization/insidedesk\n- Web traffic:\n  - Monthly visits: 3,157\n  - Global rank: 5,868,160\n  - Bounce rate: 37.0%\n  - Pages per visit: 1.3\n  - Average visit duration: 2s\n\n## Categories\n\nanalytics, artificial intelligence, artificial intelligence (ai), business intelligence, claims digitally, collections, dashboards, data intelligence, dental, dental billing, dental insurance claims, dental support organization, dentistry, dsos, eob, financial services, health care, healthcare payers, kpis, machine learning, managed service organization, payer ar follow-up, payment posting, practice management, process automation, rcm, reporting, revenue cycle management, software\n\n## Recent News\n- [2026-07-29] [InsideDesk Raises $12.6M for AI Dental Revenue Cycle](https://www.startupresearcher.com/news/insidedesk-raises-12-6-million-to-scale-ai-powered-dental-revenue-cycle-management)\n- [2026-07-20] [InsideDesk secures $12.6M Series A financing](https://privatecapitaljournal.com/insidedesk-secures-12-6m-series-a-financing/)\n- [2026-07-17] [Toronto dental AI startup InsideDesk secures C$17.7M in financing - Oral Health Group](https://www.oralhealthgroup.com/dental-industry/toronto-dental-ai-startup-insidedesk-secures-c17-7m-in-financing-1003997403/)\n- [2026-07-16]\n  - [InsideDesk Raises $12.6M Growth Capital](https://www.thesaasnews.com/news/insidedesk-raises-12-6m-growth-capital/)\n  - [InsideDesk Raises $12.6 Million to Scale AI-Powered Revenue Cycle Management for Dental Organizations](https://pulse2.com/insidedesk-raises-12-6-million-to-scale-ai-powered-revenue-cycle-management-for-dental-organizations/)\n- [2026-07-15]\n  - [InsideDesk closes $12.6 million USD to grow its dental payments platform \\| BetaKit](https://betakit.com/insidedesk-closes-12-6-million-usd-to-grow-its-dental-payments-platform/)\n  - [InsideDesk Advances Dental Revenue Cycle Automation - Dentistry Today](https://www.dentistrytoday.com/insidedesk-advances-dental-revenue-cycle-automation/)\n  - [InsideDesk Raises $12.6M in Funding](https://www.finsmes.com/2026/07/insidedesk-raises-12-6m-in-funding.html)\n  - [InsideDesk Secures $12.6 Million Growth Financing Led by Pender Ventures to Accelerate AI-Powered Dental Revenue Cycle Management](https://www.prnewswire.com/news-releases/insidedesk-secures-12-6-million-growth-financing-led-by-pender-ventures-to-accelerate-ai-powered-dental-revenue-cycle-management-302825258.html)\n- [2023-06-27] EIN News: InsideDesk Appoints Brian McBride as VP of Technology, Reinforcing Leadership in Dental RCM\n\n## Social\n\n### Linkedin\n\n- [2026-10-06 · Posted · 19 reactions] [𝗢𝗻𝗲 𝘄𝗲𝗲𝗸, 𝘁𝘄𝗼 𝘀𝗵𝗼𝘄𝘀, 𝗮𝗻𝗱 𝗮 𝗹𝗼𝘁 𝗼𝗳 𝗴𝗿𝗲𝗮𝘁 𝗰𝗼𝗻𝘃𝗲𝗿𝘀𝗮𝘁𝗶𝗼𝗻𝘀. 📍 𝗙𝗶𝗿𝘀𝘁...](https://www.linkedin.com/posts/goinsidedesk_nadp-smiletogether-dso-activity-7513333560628654080-Kjqy)\n  > 𝗢𝗻𝗲 𝘄𝗲𝗲𝗸, 𝘁𝘄𝗼 𝘀𝗵𝗼𝘄𝘀, 𝗮𝗻𝗱 𝗮 𝗹𝗼𝘁 𝗼𝗳 𝗴𝗿𝗲𝗮𝘁 𝗰𝗼𝗻𝘃𝗲𝗿𝘀𝗮𝘁𝗶𝗼𝗻𝘀.\n  >\n  > 📍 𝗙𝗶𝗿𝘀𝘁 𝘀𝘁𝗼𝗽: 𝗡𝗔𝗗𝗣 𝗖𝗢𝗡𝗩𝗘𝗥𝗚𝗘 𝗶𝗻 𝗜𝗻𝗱𝗶𝗮𝗻𝗮𝗽𝗼𝗹𝗶𝘀. We're proud to be members of the NADP. Our work sits between dental groups and the plans they bill, so a room full of both is the right room for us. Thank you to everyone who stopped by our booth!\n  >\n  > 📍 𝗦𝗲𝗰𝗼𝗻𝗱 𝘀𝘁𝗼𝗽: 𝗦𝗺𝗶𝗹𝗲 𝗧𝗼𝗴𝗲𝘁𝗵𝗲𝗿 𝗶𝗻 𝗟𝗮𝘀 𝗩𝗲𝗴𝗮𝘀, where the whole event runs on scheduled 1:1 meetings. Andrew McMath, William Henschel and Amy Zluchowski, RDH met with 20+ practice owners and DSO leaders in two and a half days. One thing stood out: most of the owners we met don't have an easy way to see how their billing is really going.\n  >\n  > To everyone who we met at both shows, thank you. Follow-ups are on the way, and if we missed you, our inbox is open.\n  >\n  > P.S. Yes, we met Elvis. And Michael.\n  >\n  > #NADP #SmileTogether #DSO #DentalRCM\n\n- [2026-10-05 · Posted · 2 reactions] [Nearly 1 in 5 DSOs cannot clearly see their own claim denials, and...](https://www.linkedin.com/posts/goinsidedesk_dentalrcm-dso-activity-7512967049426436096-N7-r)\n  > Nearly 1 in 5 DSOs cannot clearly see their own claim denials, and that gap costs money every single month. 📊\n  >\n  > See how your group compares by downloading the 2026 DSO RCM Benchmark Report → https://lnkd.in/giQGjNPq\n  >\n  > When we surveyed RCM leaders across DSOs of every size, the most striking pattern was not in the numbers themselves but in how many groups could not see them: beyond the one in five without clear denial visibility, another 27% were unsure of their own claim yield, and while 42% collect within 30 days, a meaningful share are still managing AR that has aged well past 90. You cannot fix a denial pattern you cannot see, and you cannot lower an AR number you only review once a quarter.\n  >\n  > The encouraging part is that the industry is already moving. Automation, analytics, and workforce training are the three pillars DSOs told us they are building on for the rest of 2026, and the groups with payer-level visibility are the ones making the fastest progress on denials, simply because they know exactly where to aim.\n  >\n  > So, a quick gut check for RCM leaders: could your team pull denial rate by payer today, without building a spreadsheet first? 👇\n  >\n  > #DentalRCM #DSO\n\n- [2026-10-02 · Posted · 3 reactions] [If your denial queue never seems to get shorter, the cause is...](https://www.linkedin.com/posts/goinsidedesk_denial-management-summary-activity-7511881473281490944-dZVz)\n  > If your denial queue never seems to get shorter, the cause is rarely that your team works it too slowly. 🔍\n  >\n  > It is usually that nobody is assigned to stop the same denials from coming back, and our new guide explains how to change that → https://lnkd.in/geJGtqCj\n  >\n  > Most DSO billing teams are genuinely good at working denied claims, which is exactly why the problem hides so well: the queue empties at the same rate it refills, so the effort looks productive even as the underlying pattern never changes. To make the cost visible, the guide walks through an illustrative 25-office group where a 10% initial denial rate translates into roughly 9,000 denied claims and $2.7 million in contested revenue a year before a single appeal has been written.\n  >\n  > The encouraging part is that industry consensus puts around 90% of dental denials in the preventable category, which means the solution is less about adding people to the queue and more about treating your denial data as a map rather than a to-do list. When you rank denial reasons by dollars, segment them by payer, location, and procedure code, and then commit to fixing one upstream category each month with a named owner behind it, the queue starts shrinking from the front instead of the back.\n  >\n  > One quick check worth running today is whether your team tracks both its initial and its final denial rate, because most groups watch only one of the two, and the gap between them is precisely where the prevention work lives.\n  >\n  > So, billing leaders: on your team, does prevention have an owner, or does everyone simply own the queue? 👇\n  >\n  > #DentalRCM #ClaimsManagement #DSO\n\n- [2026-10-02 · 2 reactions] If your denial queue never seems to get shorter, the cause is rarely that your team works it too slowly. 🔍 It is usually that nobody is assigned to stop the same denials from coming back, and our n...\n\n- [2026-10-01 · Posted · 1 reaction] [Q4 starts today. The busiest billing season of the year is about...](https://www.linkedin.com/posts/goinsidedesk_dentalrcm-dso-activity-7511505153095733248-3vaq)\n  > Q4 starts today. The busiest billing season of the year is about four weeks out. 🗓️\n  >\n  > The teams that finish the year calm get posting tight before volume climbs. Our guide covers five ways to do it → https://lnkd.in/gBPDhzzC\n  >\n  > Here is what the next ninety days look like. Patients with remaining benefits book before December 31, volume climbs steadily through November, and every part of the cycle feels it at once: more verifications up front, a spike in claims, and a posting queue that grows faster than usual.\n  >\n  > Three things prepared teams do in October: confirm remaining-benefit checks run electronically, so verification scales without added phone time. Clear the current backlog, so the queue enters the surge empty. And tighten the posting rhythm now, while volume is still forgiving, which is exactly what the guide walks through.\n  >\n  > The payoff is a December that closes on time and a January AR report that reads clean.\n  >\n  > Billing leaders: what is the one thing your team is finishing before the rush arrives? 👇\n  >\n  > #DentalRCM #DSO\n\n- [2026-10-01 · 1 reaction] Q4 starts today. The busiest billing season of the year is about four weeks out. 🗓️ The teams that finish the year calm get posting tight before volume climbs. Our guide covers five ways to do it →...\n\n- [2026-09-29 · Posted · 4 reactions] [\"Work you've done, money you haven't collected.\" That is how one...](https://www.linkedin.com/posts/goinsidedesk_dentalrcm-dso-activity-7510780410734329857-NJra)\n  > \"Work you've done, money you haven't collected.\" That is how one DSO COO describes the biggest profit leak in dentistry right now. 💬\n  >\n  > We put a number on that gap. See what uncollected work actually costs a DSO → https://lnkd.in/g-MBXZxJ\n  >\n  > The quote comes from a new Becker's Dental Review piece in which DSO leaders make the case that the margin squeeze is structural, not temporary. Wage increases stay put, reimbursements do not rise to meet them, and the groups holding margin run operations with what Today's Dental Network COO Jaleh Pourhamidi calls \"micro-surgical precision.\"\n  >\n  > The encouraging part: the revenue cycle is the one lever leaders control completely. Payers set the rates. Your group decides how much of the work it completes turns into cash, and how fast. Our breakdown covers where that money goes missing and the practical ways to bring it home.\n  >\n  > Operators: where does collected revenue fall short of completed work at your group? 👇\n  >\n  > #DentalRCM #DSO\n\n- [2026-09-29 · 4 reactions, 1 comment] \"Work you've done, money you haven't collected.\" That is how one DSO COO describes the biggest profit leak in dentistry right now. 💬 We put a number on that gap. See what uncollected work actually...\n\n- [2026-09-28 · Posted · 3 reactions] [\"DSO leaders are no longer asking whether to invest in RCM...](https://www.linkedin.com/posts/goinsidedesk_dentalrcm-dso-activity-7510394892632723457-dkPu)\n  > \"DSO leaders are no longer asking whether to invest in RCM technology. They are asking where to invest first.\" 💡\n  >\n  > That shift, in the words of our CEO Paul Chen, is the story behind the 2026 DSO RCM Benchmark Report. Download your free copy → https://lnkd.in/giQGjNPq\n  >\n  > The report captures the turning point with real data from RCM professionals across DSOs of every size: their biggest challenges, the KPIs they trust most, and where their budgets are headed over the next 12 months. Denial management, AR over 90 days, and automation lead the list, and the groups making the fastest progress share a clear order of operations.\n  >\n  > If you lead RCM, finance, or operations at a DSO, this one was written for you.\n  > Where is your group investing first this year? 👇\n  >\n  > #DentalRCM #DSO\n\n- [2026-09-28 · 3 reactions] \"DSO leaders are no longer asking whether to invest in RCM technology. They are asking where to invest first.\" 💡 That shift, in the words of our CEO Paul Chen, is the story behind the 2026 DSO RCM...\n\n- [2026-09-25 · Posted · 4 reactions] [Every claim that reaches 90 days took a predictable path to get...](https://www.linkedin.com/posts/goinsidedesk_dentalrcm-claimsmanagement-dso-activity-7509323441179795456-PCmg)\n  > Every claim that reaches 90 days took a predictable path to get there. The playbook is about interrupting that path early. 📘\n  >\n  > Our most comprehensive guide yet walks the full timeline: what to check at 30 days, what to escalate at 45, what to fight for at 60, and how to keep the 90+ bucket from growing at all. Each stage has specific actions, owners, and the signal that says a claim needs attention now.\n  >\n  > Read the playbook → https://lnkd.in/gtSNy5kb\n  >\n  > Which stage does your team handle best today? 👇\n  >\n  > #DentalRCM #ClaimsManagement #DSO\n\n- [2026-09-25 · 2 reactions] Every claim that reaches 90 days took a predictable path to get there. The playbook is about interrupting that path early. 📘 Our most comprehensive guide yet walks the full timeline: what to check...\n\n- [2026-09-24 · Posted · 5 reactions] [Q3 closes next Wednesday. Three questions worth asking before it...](https://www.linkedin.com/posts/goinsidedesk_dentalrcm-dso-activity-7508971083530674176-fEr_)\n  > Q3 closes next Wednesday. Three questions worth asking before it does. 📋\n  > Billing leaders: which of these could your team answer today without pulling a report? 👇\n  >\n  > One: which claims will cross 90 days before the new quarter starts, and who owns each one? Two: which payer moved the wrong direction this quarter, and what changed? Three: which location's numbers would you least want to explain to the CFO on Friday, and why?\n  >\n  > The point of asking now is time. A week before quarter-end, every answer still comes with options: a call to make, a claim to escalate, a process to adjust. A week after, the same answers turn into explanations.\n  >\n  > Answering all three by Monday is a strong finish to Q3 and a clean start to Q4.\n  > Which of the three would take your team the longest to answer? 👇\n  >\n  > #DentalRCM #DSO\n\n- [2026-09-24 · 5 reactions] Q3 closes next Wednesday. Three questions worth asking before it does. 📋 Billing leaders: which of these could your team answer today without pulling a report? 👇 One: which claims will cross 90 day...\n\n- [2026-09-22 · Posted · 3 reactions] [One of the liveliest debates in DSO operations: centralize billing...](https://www.linkedin.com/posts/goinsidedesk_dentalrcm-dso-activity-7508251689255288832-nfAO)\n  > One of the liveliest debates in DSO operations: centralize billing, or keep it at the location? ⚖️\n  >\n  > The case for central: consistency, visibility, and efficiency at scale. The case for local: payer knowledge and patient relationships stay close to the chair. Strong groups have built it both ways, and the deciding factors are more practical than ideological.\n  >\n  > We wrote up how groups make the call → https://lnkd.in/gn8up4gS\n  >\n  > Which way did your group go, and would you choose it again? 👇\n  >\n  > #DentalRCM #DSO\n\n- [2026-09-22 · 3 reactions] One of the liveliest debates in DSO operations: centralize billing, or keep it at the location? ⚖️ The case for central: consistency, visibility, and efficiency at scale. The case for local: payer...\n\n- [2026-09-21 · Posted · 3 reactions] [How does your DSO's revenue cycle stack up against the industry? 📊...](https://www.linkedin.com/posts/goinsidedesk_dentalrcm-dso-activity-7507876306844471297-m3Fj)\n  > How does your DSO's revenue cycle stack up against the industry? 📊\n  >\n  > Find out in the 2026 DSO RCM Benchmark Report. Download your free copy → https://lnkd.in/giQGjNPq\n  >\n  > We asked RCM executives, directors, and billing leaders across DSOs of every size to share their KPIs, their biggest challenges, and their investment plans for 2026. A preview of what they told us:\n  >\n  > ✓ The top KPIs are all tied to cash: AR over 90 days, collection days, and denial rates.\n  > ✓ 52% are investing in automation upgrades this year.\n  > ✓ Payer phone calls remain the least automated area, at just 16%.\n  >\n  > The encouraging read: the industry knows exactly which numbers matter, and more than half are putting budget behind moving them. The gap is in where the automation has reached so far.\n  >\n  > Which of those three findings match",
+        "summary": "{\"description\":\"InsideDesk is a centralized revenue cycle management platform for the healthcare/dental sector.\",\"employee_estimate\":38,\"employee_estimate_source\":\"Employees: 38\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Employees: 38\",\"hq\":\"Toronto, Ontario, Canada\",\"hq_quote\":\"Headquartered in Toronto, Ontario, Canada, with presence in United States.\",\"industry\":\"Hospitals and Health Care\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"InsideDesk is a centralized revenue cycle management platform that helps businesses manage claims digitally, automate payer ar follow-up, streamline payment posting and reporting, and collect revenue faster.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 12,600,000\\n  - Venture (2026-07-01): USD 12.6M\\n  - Venture (2023-05-01)\\n  - Venture (2022-07-01)\\n  - Venture (2020-09-01)\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQEZ42W1aLx9Yg/company-logo_200_200/B56Z_XCICyG8AE-/0/1786019086752/goinsidedesk_logo?e=2147483647&v=beta&t=uie0u0xz6sJaLoAwcww_ItKkBjuujm6MZiHSwd3ez0U",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/75mv7nk8gcc",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "InsideDesk",
+              "foundedYear": 2018,
+              "description": "Did you know that approximately 55% of the total dental billing processing cost for a dental support organization (DSO) or dental practice is tied to the time that is wasted waiting in the call queues of monolithic insurance companies, rectifying claim submission errors and handling claim appeals?\n\nInsideDesk has developed solutions to help professionals handling the Revenue Cycle Management (RCM) function of a dental practice or DSO to easily automate the claim follow up process so they can spend their time doing what they enjoy more.\n\nArmed with InsideDesk's EOB data intelligence reports, dental billing professionals can maximize payer collections and make their providers happier by boosting their monthly income.\n\nThe RCM team of a DSO servicing 450 dental practices across 18 U.S. states currently saves over 80,000 minutes per month by using InsideDesk.\n\nThe InsideDesk leadership team comprises of a practicing dentist with over 20 years of clinical experience, a former DSO industry executive who understands the challenges of scaling operations in an M&A intensive organization and enterprise software industry veterans including one who built a product that is currently used by over 14,000 dental practices.",
+              "workforce": {
+                "total": 38
+              },
+              "headquarters": {
+                "address": "100 Broadview Ave, Toronto, Ontario M4M 3H3, CA",
+                "city": "Toronto",
+                "postalCode": null,
+                "country": "Canada"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 12600000,
+                "fundingLatestRound": {
+                  "name": "Venture",
+                  "date": "2026-07-01",
+                  "amount": 12600000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 3157,
+                "countryRank": 3481072,
+                "avgDurationSeconds": 2,
+                "history": [
+                  {
+                    "value": 1159,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 1795,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 1950,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 2906,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 3203,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 3157,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/fy98rwgvbtq",
+        "title": "Instadesk",
+        "url": "https://instadesk.com/",
+        "text": "# Instadesk\n\nInstadesk is a Software Development company. Instadesk is a leading AI-powered customer engagement platform that provides ChatBot, AI ChatBot, Voicebot, Live Chat, Call Center, and Intelligent Ticket System to assist enterprises in building efficient customer service systems, enhancing response efficiency and service quality, reducing labor costs, and meeting the communication and problem-solving needs of customers across various industries. Instadesk employs 10 people (+400.0% YoY, +8 people), founded in 2014. Headquartered in Singapore, Singapore. Its workforce is distributed across China and Singapore.\n\n## About\n\n✨Instadesk is a leading AI-powered customer engagement platform. we offer a one-stop solution integrating omnichannel customer service centers💬📞, intelligent voice-based outbound bots🗣️🤖, and AI-powered chatbot.🌟🤖\n📧sales@instadesk.com\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: Singapore, Singapore\n- Founded Year: 2014\n- Aliases: instadesk\n- LinkedIn: linkedin.com/company/zkj-private-technology-co-ltd\n- Linkedin Followers: 84\n- Emails: sales@instadesk.com\n\n## Workforce\n- Employees: 10\n- Company Size: 501-1000 employees\n  - Yearly Growth: +400.0%\n- Breakdown:\n  - By Country: China: 3 (30%), Singapore: 1 (10%)\n  - By Department: Marketing: 2 (20%), Sales: 2 (20%)\n  - By Seniority: Manager: 2 (20%), Other Management: 1 (10%), Senior: 1 (10%)\n- Talent Sources: Udesk_Global (1), Udesk (1), Sobot (1), Juniper Networks (1), Inspur Group (1), Explorer Hop (1), DPVR (1)\n- Alumni Go To: DMALL (1), Beijing Teamsun technology Co,ltd (1)\n\n## Products & Technology\n- Features: Free Trial\n- Tech Stack: ccaas\n\n## Web presence\n\n- Web traffic:\n  - Monthly visits: 4,396\n  - Global rank: 4,379,865\n  - Bounce rate: 39.0%\n  - Pages per visit: 1.2\n  - Average visit duration: 3s\n\n## Categories\n\nai chatbot, ai-powered customer engagement platform, call center, chatbot, computers_electronics_and_technology/social_networks_and_online_communities, customer community, customer engagement platform, customer service, customer support, live chat, online chatbot, private cloud deployment, quality inspection, saas, ticket system, voicebot\n\n## Social\n\n### Linkedin\n\n- [2026-05-07 · 1 reaction] Anthropic just changed the math of AI competition. 🚀 Q1 annualized growth: 80x Current valuation: $900B What's happened in 72 hours: ⚡ SpaceX partnership — 300MW of GPU power 🤝 xAI computing collab...\n\n- [2026-04-21 · 7 reactions] Instadesk, an AI-powered customer engagement platform, has launched its Malaysia node to reinforce its commitment to Southeast Asia. This expansion provides in-country data residency, meeting compl...\n\n- [2026-04-09 · 2 reactions] Training government employees isn't like corporate training. You're not teaching sales or product features. You're teaching complex regulations, compliance, and how to serve citizens with empathy....\n\n- [2026-04-09 · 2 reactions] I’ve watched too many new car salespeople sit through days of classroom training, then freeze when a real customer asks about financing. 🚗😬 It’s not their fault. 🤷 The old way uses slides, shadowin...\n\n- [2026-04-01 · 1 reaction] Apple’s 50th anniversary is more than a milestone—it represents a turning point redefined by artificial intelligence. Looking ahead, AI is becoming central to its product design, user experience, a...\n\n- [2026-03-26] 🌍In Southeast Asia’s fast-moving service environment, customers move across platforms and expect every conversation to pick up where the last one ended🔚. A global eyewear brand once struggled with...\n\n- [2026-03-26] During cross-border outbound campaigns, one team noticed that the same script could succeed in one market but fail quickly in another🆕. Some customers stayed engaged, others hung up within seconds....\n\n- [2026-03-24 · 6 reactions] 🌍Global expansion doesn’t fail at product. It fails at customer experience. As companies scale across markets, service becomes the real bottleneck—fragmented channels, inconsistent responses, and r...\n\n- [2026-03-20 · 1 reaction] 🌍In global digital markets, customer relationships increasingly rely on consistent follow-up communication after purchases or service interactions. 🤖Instadesk voice bots enable companies to manage...\n\n- [2026-03-20] 🌍As digital healthcare services continue to grow across Southeast Asia, medical organizations are increasingly turning to online communication to engage with patients and service users🤵. Many insti...\n\n- [2026-03-17 · 1 reaction] As companies expand into international markets, ☎️telephone communication remains an important channel for reaching customers who speak different languages and live in different time zones🌍. With t...\n\n- [2026-03-16] As digital commerce expands across Southeast Asia🌍, companies are receiving growing volumes of customer inquiries from websites, e-commerce platforms, and 📱social media channels. Maintaining consis...\n\n- [2026-03-13] 🌍As companies expand into international markets, sales teams often find that the number of potential customers grows faster than human outreach capacity. Differences in language, communication habi...\n\n- [2026-03-13] In Southeast Asia’s fast-moving markets, 🤵salespeople are expected to understand increasingly complex products while responding to customers more quickly than before. Instadesk approaches this chal...\n\n- [2026-03-12] 😶🌫️Imagine you are running a large outbound call operation where thousands of customer conversations happen every day. Your team cannot possibly listen to every recording, and important compliance...\n\n- [2026-03-12] I once worked with a global digital platform that was expanding into several international markets🌍. Before the cooperation, their team struggled to reach customers at scale. Manual outbound 🤖calls...\n\n- [2026-03-11] 🌍When a global company expanded its business across multiple international markets, customer service quickly became more complicated. Inquiries arrived through social media, emails, apps, and phone...\n\n- [2026-03-11 · 1 reaction] As digital businesses expanded across Southeast Asia🌍, one company began receiving customer questions from websites, mobile apps, and 📱social media at the same time. Support teams had to track conv...\n\n- [2026-03-10] 🌍Many companies entering the Southeast Asian market discover that customer inquiries come from more than twenty channels, including social media📱, e-commerce platforms, phone calls, and emails. Cus...\n\n- [2026-03-10] As customer communication continues to grow📈, the large volume of conversations across phone calls, chats, and emails has become difficult to monitor manually. It is also hard for organizations to...\n\n## Locations\n- Headquarters: singapore, singapore (SG)\n- Offices: #15-01, singapore (SG), singapore 369977, singapore (SG), alcaldía benito juárez ciudad de méxico, cdmx, mexico",
+        "summary": "{\"description\":\"Instadesk is a leading AI-powered customer engagement platform offering omnichannel customer service, intelligent voice-based outbound bots, and AI-powered chatbot to help enterprises improve response efficiency and service quality while reducing labor costs.\",\"employee_estimate\":10,\"employee_estimate_source\":\"Employees: 10\",\"hiring_first_ops_or_revops\":false,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Singapore, Singapore\",\"hq_quote\":\"Headquartered in Singapore, Singapore.\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Software Development\\n- Type: Privately held\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":false,\"recently_funded_seed_or_series_a_quote\":\"trial not explicitly stated; page does not mention seed or Series A funding\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQHSIuJTt7HGrA/company-logo_200_200/B56Z25kJiwHQAI-/0/1776934755796?e=2147483647&v=beta&t=cDzqztzk1HwjnG7xZdj5sB0yl9hl0eR4TWIOw1VW4_g",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/fy98rwgvbtq",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Instadesk",
+              "foundedYear": 2014,
+              "description": "✨Instadesk is a leading AI-powered customer engagement platform. we offer a one-stop solution integrating omnichannel customer service centers💬📞, intelligent voice-based outbound bots🗣️🤖, and AI-powered chatbot.🌟🤖\n📧sales@instadesk.com\n",
+              "workforce": {
+                "total": 10
+              },
+              "headquarters": {
+                "address": "120 Robinson Road,#15-01, singapore, SG",
+                "city": "Singapore",
+                "postalCode": null,
+                "country": "Singapore"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 4396,
+                "countryRank": 2394550,
+                "avgDurationSeconds": 3,
+                "history": [
+                  {
+                    "value": 8959,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 4641,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 7062,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 3446,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 3514,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 4396,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 9207.8,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

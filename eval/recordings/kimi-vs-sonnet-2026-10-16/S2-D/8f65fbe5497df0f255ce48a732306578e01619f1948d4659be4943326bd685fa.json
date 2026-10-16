@@ -1,0 +1,262 @@
+{
+  "request": {
+    "query": "Auctor",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "c2d8aec46a6922ab6a641b8545f17633",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/g3r51xp27g5",
+        "title": "Auctor",
+        "url": "https://getauctor.com/",
+        "text": "# Auctor\n\nAuctor is a Software Development company. Auctor is an AI-native system of action for software implementations that unifies pre-sales and delivery to deliver projects faster, with less rework. Auctor employs 45 people (+309.1% YoY, +34 people), founded in 2025. Headquartered in New York, New York, United States, with an office in San Francisco. Its workforce is distributed across United States and United Kingdom.\n\n## About\n\nAuctor brings alignment and intelligence to software implementation, enabling every project to deliver its intended value with clarity and precision.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: New York, United States\n- Founded Year: 2025\n- Homepage: getauctor.com\n- Aliases: AUCTOR AI INC., auctor\n- LinkedIn: linkedin.com/company/getauctor\n- Linkedin Followers: 8,838\n- Emails: will@getauctor.com\n\n## Financials\n- Total Funding: USD 20,625,000\n  - Series a (2026-04-01): USD 20.0M\n  - Seed (2025-05-01): USD 125,000\n  - Pre seed (2025-03-21): USD 500,000\n\n## Workforce\n- Employees: 45\n- Company Size: 11-50 employees\n  - Yearly Growth: +309.1%\n- Key Executives:\n  - Aiden Guo: Founding BDR\n  - Atticus Colwell: Founding Product\n  - Griffin Styne: Founding GTM\n  - Liem T.: Founding Finance Lead\n  - Matthew Blackburn: Co-Founder\n  - Miguel Valle: Founding Talent\n  - Nyil Khan: Founding GTM Engineer\n  - Peter Lin: Founding Product Designer\n  - Richard Kim: Founding Deployment Strategist\n  - Shivansh Patel: Founding Deployment Strategist\n- Breakdown:\n  - By Country: United States: 31 (69%), United Kingdom: 1 (2%)\n  - By Department: Technical: 12 (27%), Consulting: 5 (11%), General Management: 4 (9%), Project Management: 3 (7%), Other Department: 2 (4%), Customer Service: 1 (2%), Design: 1 (2%), Finance: 1 (2%), Hr: 1 (2%), Product: 1 (2%) (+1 more)\n  - By Seniority: Founder: 11 (24%), Specialist: 10 (22%), Other Management: 9 (20%), Manager: 2 (4%)\n- Active job postings: 12\n- Talent Sources: Palantir Technologies (3), Meta (2), VectorShift (1), Traba (1), The Johns Hopkins University (1), Stanford University (1), Snowflake (1), Rillet (1), Orium (1), Capital One (1)\n- Alumni Go To: The New York Times (1), Stealth (1), Sequoia Capital (1), Moon Advisory (1), Harbor (1), Carnegie Mellon University Robotics Institute (1), American Enterprise Institute (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: 4d, adobe, adobe creative suite, cinema 4d, confluence, figma, hubspot, jira, linkedin, python, salesforce, salesloft, typescript, harness, netsuite, onestream, oracle, servicenow, workday, hubspot crm, prototype, impact\n\n## Web presence\n\n- Twitter: twitter.com/auctor\n- Crunchbase: crunchbase.com/organization/auctor\n- Web traffic:\n  - Monthly visits: 22,370\n  - Global rank: 1,323,368\n  - Bounce rate: 42.0%\n  - Pages per visit: 2.8\n  - Average visit duration: 367s\n\n## Categories\n\nai system, collaboration, delivery, generative ai, jobs_and_career/human_resources, pre-sales, productivity tools, projects, saas, software, software implementations, technology/software\n\n## Recent News\n- [2026-09-07] [Claret Capital raises €575M to back European tech and life sciences beyond equity dilution](https://techfundingnews.com/claret-capital-raises-e575m-to-back-european-tech-and-life-sciences-beyond-equity-dilution/)\n- [2026-08-23]\n  - GetLatka: Auctor Revenue 2025: $1.2M Est. ARR\n  - GetLatka: Auctor Revenue 2025: $1.2M Est. ARR \\(Bootstrapped\\)\n- [2025-12-13] Crunchbase: Auctor - Growth Outlook\n\n## Social\n\n### Linkedin\n\n- [2026-09-28 · Posted · 39 reactions] [We're heading to Workday Rising #WDAYRising. Las Vegas, October...](https://www.linkedin.com/posts/getauctor_wdayrising-activity-7510452295843880960-AzvO)\n  > We're heading to Workday Rising #WDAYRising.\n  >\n  > Las Vegas, October 12-15. If you're a Workday implementation partner figuring out how AI actually fits in from scoping through post go-live, we’d love to chat.\n\n- [2026-09-21 · Reshared · 49 reactions] [Love to see two great firms partnering to innovate and deliver...](https://www.linkedin.com/posts/getauctor_activity-7507628563370708992-efXi): Love to see two great firms partnering to innovate and deliver accelerated outcomes for regulated industries customers!\n\n- [2026-09-16 · Posted · 42 reactions] [Day 2 at Dreamforce and more conversations ahead. Excited to meet...](https://www.linkedin.com/posts/getauctor_day-2-at-dreamforce-and-more-conversations-activity-7506063376205139968-9jWK)\n  > Day 2 at Dreamforce and more conversations ahead.\n  >\n  > Excited to meet more services leaders and talk about what AI-native services actually look like in practice, from how you staff teams and price projects to how you compound learnings across engagements.\n  >\n  > If you're here, come find us in the orange jackets.\n  >\n  > See you around!\n\n- [2026-09-16 · 48 reactions, 5 comments] Day 2 at Dreamforce and more conversations ahead. Excited to meet more services leaders and talk about what AI-native services actually look like in practice, from how you staff teams and price pro...\n\n- [2026-09-14 · Posted · 37 reactions] [Zennify, a Salesforce Summit partner, is partnering with Auctor to...](https://www.linkedin.com/posts/getauctor_zennify-a-salesforce-summit-partner-is-activity-7505393310983933952-DLZG)\n  > Zennify, a Salesforce Summit partner, is partnering with Auctor to become an AI-native firm and deliver more value to its clients.\n  >\n  > Zennify is using Auctor across the full project lifecycle. Every client conversation, design decision and delivery artifact lands in one place and becomes reusable context for the next proposal, build, and client engagement.\n  >\n  > The partnership is already showing results: teams are moving faster from discovery to proposal and generating new pipeline by surfacing previously undiscovered client needs.\n  >\n  > Thank you to the Zennify team for your trust and partnership. We’re excited for what’s to come.\n\n- [2026-09-14 · 38 reactions, 1 comment] Zennify, a Salesforce Summit partner, is partnering with Auctor to become an AI-native firm and deliver more value to its clients. Zennify is using Auctor across the full project lifecycle. Every c...\n\n- [2026-09-11 · Posted · 27 reactions] [Run first. Then Dreamforce. Join Auctor September 15 at 7am in SF...](https://www.linkedin.com/posts/getauctor_run-first-then-dreamforce-join-auctor-activity-7504190826273640448-1Ji8)\n  > Run first. Then Dreamforce.\n  >\n  > Join Auctor September 15 at 7am in SF for a 5K to kick off the week.\n  > All paces welcome, coffee after.\n\n- [2026-09-09 · Posted · 32 reactions] [Dreamforce is one week out, and we’re bringing the speed. Pack your...](https://www.linkedin.com/posts/getauctor_dreamforce-is-one-week-out-and-were-bringing-activity-7503470028235808768-tZEz)\n  > Dreamforce is one week out, and we’re bringing the speed.\n  >\n  > Pack your running shoes and join our Tuesday Run Club on Sept 15.\n  > 5K or 10K, your pick, coffee at the finish: https://lnkd.in/gi7jx9cc\n  >\n  > After that, keep an eye out for the orange racing jackets on the floor. Come find us and we'll show you how implementation teams run every project on one system: https://lnkd.in/etgez_Qu\n\n- [2026-09-09 · 34 reactions, 3 comments] Dreamforce is one week out, and we’re bringing the speed. Pack your running shoes and join our Tuesday Run Club on Sept 15. 5K or 10K, your pick, coffee at the finish: https://lnkd.in/gi7jx9cc Afte...\n\n- [2026-09-08 · Reshared · 76 reactions] [We’re excited to announce our partnership with Auctor . The best...](https://www.linkedin.com/posts/getauctor_activity-7503104675240554498-TQae): We’re excited to announce our partnership with Auctor . The best implementations begin long before delivery starts. At CoreX, we are proud to invest in the tools and thinking that help us build ali...\n\n- [2026-09-08 · Reshared · 68 reactions] [CoreX Corp is partnering with Auctor to accelerate every stage of...](https://www.linkedin.com/posts/getauctor_activity-7503097170707845120-R_uR): CoreX Corp is partnering with Auctor to accelerate every stage of ServiceNow transformation. Together, we’re helping customers realize value sooner while keeping every requirement and decision trac...\n\n- [2026-09-08 · Posted · 74 reactions] [CoreX Corp is partnering with Auctor to become AI native across the...](https://www.linkedin.com/posts/getauctor_corex-corp-is-partnering-with-auctor-to-become-activity-7503090129616392192-smKn)\n  > CoreX Corp is partnering with Auctor to become AI native across the full customer journey, from presales through delivery, and get clients to value faster.\n  >\n  > CoreX is an Elite ServiceNow Partner, formed from three established firms in the ecosystem: ITS Partners, Volteo Digital, and InSource. Today, the global CoreX team helps enterprises across the U.S., Canada, LATAM, and Europe maximize value from the ServiceNow AI Platform to deliver measurable business impact.\n  >\n  > As CoreX grows across acquisitions and regions, Auctor helps compound its delivery expertise while enforcing shared standards and clear governance. From discovery through configuration, Auctor keeps requirements, plans, and delivery outputs connected through a single source of truth.\n  >\n  > We are proud to support CoreX as it scales and raises the bar for what clients can expect from every engagement.\n\n- [2026-09-08 · 73 reactions, 4 comments] We’re excited to announce our partnership with Auctor. The best implementations begin long before delivery starts. At CoreX, we are proud to invest in the tools and thinking that help us build alig...\n\n- [2026-09-08 · 79 reactions, 6 comments] CoreX Corp is partnering with Auctor to become AI native across the full customer journey, from presales through delivery, and get clients to value faster. CoreX is an Elite ServiceNow Partner, for...\n\n- [2026-09-03 · Posted · 24 reactions] [Auctor is now live on the Slack Marketplace. We know most of what...](https://www.linkedin.com/posts/getauctor_auctor-is-now-live-on-the-slack-marketplace-activity-7501292172655243267-dRUl)\n  > Auctor is now live on the Slack Marketplace.\n  >\n  > We know most of what actually happens on a project happens in Slack.\n  >\n  > A scope change agreed in a thread, a blocker raised at 11pm, a client ask that came in as a DM. It's all sitting in a channel nobody scrolls back through, and when it matters six weeks later someone goes digging.\n  >\n  > Connect Slack and those conversations become part of your project context. Ask Auctor a question and it searches the channels and DMs you already have access to, so answers, recaps and documents reflect the decisions your team actually made — with message permalinks, so you can check any claim against the original thread.\n  >\n  > Auctor can post a recap, an answer or a generated doc back to a channel or DM, and shows you every message before it sends. It only sees what you can see, and it never adds itself to a channel.\n\n- [2026-09-03 · 27 reactions, 3 comments] Auctor is now live on the Slack Marketplace. We know most of what actually happens on a project happens in Slack. A scope change agreed in a thread, a blocker raised at 11pm, a client ask that came...\n\n- [2026-09-02 · Posted · 11 reactions] [Two weeks out from Dreamforce. The whole team will be there...](https://www.linkedin.com/posts/getauctor_two-weeks-out-from-dreamforce-the-whole-activity-7501048223302860800-DzKa)\n  > Two weeks out from Dreamforce. The whole team will be there, showing how SI teams deliver on Auctor. Come see it in person.\n  >\n  > We're hosting a run club Tuesday the 15th, 7am at the Ferry Building plaza. A 5K on the Embarcadero before the expo floor opens, hot coffee at the finish, zero pitch.\n  >\n  > Sessions, run club signup, and meeting slots: https://lnkd.in/gZrSaYX9\n  >\n  > See you in SF.\n\n- [2026-09-02 · 17 reactions] Two weeks out from Dreamforce. The whole team will be there, showing how SI teams deliver on Auctor. Come see it in person. We're hosting a run club Tuesday the 15th, 7am at the Ferry Building plaz...\n\n- [2026-09-01 · Posted · 40 reactions] [NTT DATA Business Solutions is partnering with Auctor to help its...](https://www.linkedin.com/posts/getauctor_ntt-data-business-solutions-is-partnering-activity-7500583365922697216-swre)\n  > NTT DATA Business Solutions is partnering with Auctor to help its consultants carry the right project context and delivery standards through every stage of complex SAP transformations.\n  >\n  > For decades, NTT DATA Business Solutions has built the industry expertise required to deliver complex work in challenging environments. In regulated industries like life sciences, requirements, decisions, and project execution must remain traceable and withstand regulatory scrutiny. As the practice grows, teams need ready access to the knowledge behind that work.\n  >\n  > Auctor helps NTT DATA Business Solutions put its delivery expertise to work across the project lifecycle. It captures the context and reasoning that emerge through discovery, carries them into requirements, design, and build, preserving the standards behind the work. This helps teams preserve the company’s standards and apply what they learn across future engagements.\n  >\n  > “In highly regulated industries like life sciences, our consultants have to navigate complex requirements from initial scoping through delivery while adhering to regulatory requirements,” said Danny Groothuis, Global Head of Innovation, Life Sciences at NTT DATA Business Solutions. “Auctor helps our teams bring the right knowledge, context, and expertise to each engagement, enabling them to collaborate more effectively with customers at every stage whilst complying with validation procedures.”\n  >\n  > We are proud to support NTT DATA Business Solutions as it scales the expertise behind its work and raises the bar for what clients can expect from every engagement.\n\n- [2026-09-01 · 43 reactions, 5 comments] NTT DATA Business Solutions is partnering with Auctor to help its consultants carry the right project context and delivery standards through every stage of complex SAP transformations. For decades,...\n\n## Locations\n- Headquarters: new york, new york, united states (US)\n- Offices: new york, new york, united states (US), san francisco, california, united states (US)",
+        "summary": "{\"description\":\"Auctor is an AI-native system of action for software implementations that unifies pre-sales and delivery to deliver projects faster, with less rework.\",\"employee_estimate\":45,\"employee_estimate_source\":\"Employees: 45\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Active job postings: 12\",\"hq\":\"New York, United States\",\"hq_quote\":\"Headquartered in New York, New York, United States, with an office in San Francisco.\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"- Industry: Software Development\\n- Type: Privately held\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 20,625,000 - Series a (2026-04-01): USD 20.0M - Seed (2025-05-01): USD 125,000 - Pre seed (2025-03-21): USD 500,000\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQHOv-T8RCknvQ/company-logo_200_200/B4EZ2PoBrwHQAI-/0/1776231128075/getauctor_logo?e=2147483647&v=beta&t=l18yjJrMKV8J6qGQPdCxsDz_IKstNadzVHEYp5TL2DI",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/g3r51xp27g5",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Auctor",
+              "foundedYear": 2025,
+              "description": "Auctor brings alignment and intelligence to software implementation, enabling every project to deliver its intended value with clarity and precision.",
+              "workforce": {
+                "total": 45
+              },
+              "headquarters": {
+                "address": "New York, NY 10001, US",
+                "city": "New York",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 20625000,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2026-04-01",
+                  "amount": 20000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 22370,
+                "countryRank": 355966,
+                "avgDurationSeconds": 367,
+                "history": [
+                  {
+                    "value": 44209,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 39444,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 35719,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 17844,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 17803,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 22370,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/pk6pmhf0v3k",
+        "title": "Auctor Corporation",
+        "url": "https://auctor.com/",
+        "text": "# Auctor Corporation\n\nAuctor Corporation is a IT Services and IT Consulting company. Auctor is a company that specializes in legacy modernization, data management, business rules extraction, maintenance & operations, quality assurance, business analysis, and interface analysis, design & development. They offer cost-effective technical solutions and expertise to advance systems and agencies, even during system maintenance. Auctor Corporation employs 52 people, founded in 1991. Headquartered in Indianapolis, Indiana, United States.\n\n## About\n\nWith more than 30 years in business and a track record of successes, Auctor develops strategic, cost-effective solutions for state government agencies. \n\nWe bring technical, government, and project management expertise and provide services in software development, legacy system modernization, current technology, and quality assurance. \n\nProud to be one of Indiana's Best Places to Work 2021.\n\n## Company Details\n- Industry: IT Services and IT Consulting\n- Type: Privately held\n- Headquarters: Indianapolis, United States\n- Founded Year: 1991\n- Homepage: auctor.com\n- Aliases: auctor, auctor corporation\n- LinkedIn: linkedin.com/company/auctor-corporation\n- Linkedin Followers: 806\n- Phone: 317-663-505\n\n## Workforce\n- Employees: 52\n- Company Size: 11-50 employees\n  - Monthly Growth: +2.0%\n- Key Executives:\n  - David Yaraschefski, PMP, CSM: Director of Operations And Business Development\n  - Deanna Gabriel, MHRM: Director of Human Resources\n  - Howard Box: Director of Technology\n  - Jeff Rosenthal: Technical Lead\n  - Joe Jean: Executive\n  - Kim Pohlman: Chief Human Resources Officer\n  - Michael Whitlock: CFO\n  - Michael Whitlock: Chief Financial Officer\n  - Michael Whitlock: Director of Operation and Finance\n  - Thomas Horan: Director Of Client Services\n- Breakdown:\n  - By Country: United States: 27 (52%)\n  - By Department: Technical: 11 (21%), Customer Service: 3 (6%), Project Management: 3 (6%), Consulting: 2 (4%), Finance: 2 (4%), General Management: 2 (4%), Hr: 2 (4%), Operations: 2 (4%), Administrative: 1 (2%), Product: 1 (2%)\n  - By Seniority: Specialist: 8 (15%), Manager: 7 (13%), Director: 5 (10%), Clevel: 4 (8%), Other Management: 2 (4%), Senior: 2 (4%), Head: 1 (2%)\n- Talent Sources: Bastian Solutions (2), U.S. Department of Commerce (1), Rose International (1), Kaplan Professional (1), InterPop Inc. (1), Globe Industrial Supplies (1), Computer Associates (CA) - XECA (1), Analog Devices (1), Advance Auto Parts (1), AT&T (1)\n- Alumni Go To: USA TODAY Co., Inc. (1), Saberin Software (1), Rose International (1), Monster (1), Maximus (1), Indiana Institute of Technology (1), Genesys | Interactive Intelligence (1), GE Vernova (1), Fidelity Investments (1), CGI (1)\n\n## Products & Technology\n- Tech Stack: ajax, angular, appium, css3, django, docker, git, github, html5, jenkins, jquery, json, kubernetes, microsoft, microsoft active directory, microsoft azure, mvc, postgresql, python, robot framework, sql, unidata, well, chrome, javascript, surveymonkey, quickbooks\n\n## Web presence\n\n- Crunchbase: crunchbase.com/organization/auctor-corporation\n- Web traffic:\n  - Monthly visits: 3,540\n  - Global rank: 4,486,625\n  - Bounce rate: 34.0%\n  - Pages per visit: 1.9\n  - Average visit duration: 28s\n\n## Categories\n\nbusiness rules extraction, data management, data-management, education, legacy modernization, maintenance & operations, project-management, quality assurance, technology, technology/software\n\n## Competitors\n\nhayagreeva consulting, e&m solutions, craftzing group, caterpillar trimble control technologies\n\n## Social\n\n### Linkedin\n\n- [2026-04-17 · 11 reactions] Auctor is pleased to be this year’s sponsor of the Interjurisdictional (IJ) fair at the 2026 ERICSA Training Conference. The relationships formed between jurisdictions are invaluable to the success...\n\n- [2025-11-19 · 15 reactions] In the spirit of giving thanks, ERICSA is thankful for 50 years of following OCSS and their mission to ensure children receive the support they deserve. 👨👩👧👦 For half a century, OCSS has continued...\n\n- [2025-07-01 · 11 reactions] 🟣 🔵 🟢 GROWING TOGETHER THROUGH TEAMWORK 🟢 🔵 🟣 Join ERICSA, WICSEC, and NTCSA for the next virtual IJ Fair! “Ambassadors” from various county, state, tribal, and federal levels will be on the call t...\n\n- [2025-06-11 · 7 reactions] 🌟 Why Modernizing Government Systems Is More Urgent Than Ever 🌟 Across the country, government agencies are facing a critical challenge: aging legacy systems that can no longer keep up with the dem...\n\n- [2025-05-14 · 6 reactions] Exciting News! Auctor is thrilled to announce that Tom Horan, Rieda Abrams-Miller, and Kim Wong will be attending the 62nd Annual ERICSA Training Conference & Exposition in Norfolk, Virginia from M...\n\n- [2025-05-14 · 7 reactions] Embracing IT Modernization in State & Local Government Agencies I came across this insightful article that highlights the importance of IT modernization for state and local government agencies. It...\n\n- [2025-05-02 · 8 reactions] Exciting News! We're thrilled to launch our very first Pocket Learning podcast episode: Leading Change: Lessons From a Tribal Child Support Program! https://lnkd.in/gBsqz3d2 Join us as we dive into...\n\n- [2025-05-01 · 19 reactions, 2 comments] 🌟 Employee Spotlight: Brad Weber, CEO of Auctor Corporation 🌟 Brad’s leadership has been pivotal to the success of both clients and team members. As a founding member of Auctor, he brings over 30 y...\n\n- [2025-04-30 · 14 reactions] 🌟 Showcasing Auctor Corporation! 🌟 At Auctor Corporation, we specialize in developing strategic, cost-effective solutions for state government agencies. With over 30 years of experience, we are ded...\n\n## Locations\n- Headquarters: indianapolis, indiana, united states (US)\n- Offices: indianapolis, indiana, united states (US)",
+        "summary": "{\"description\":\"Auctor Corporation is an IT Services and IT Consulting company specializing in legacy modernization, data management, business rules extraction, maintenance & operations, quality assurance, business analysis, and interface analysis, design & development. They offer cost-effective technical solutions and expertise to advance systems and agencies, even during system maintenance.\",\"employee_estimate\":52,\"employee_estimate_source\":\"Employees: 52\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Executive and department leadership including Director roles; explicit mention of multiple directors and executives indicates leadership hiring but no explicit 'first' RevOps hire mentioned.\",\"hq\":\"Indianapolis, Indiana, United States\",\"hq_quote\":\"Headquartered in Indianapolis, Indiana, United States.\",\"industry\":\"IT Services and IT Consulting\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Auctor Corporation is a IT Services and IT Consulting company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":false,\"recently_funded_seed_or_series_a_quote\":\"no mention of seed or Series A funding; page highlights long-standing operations and awards; no fundraising language present.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4E0BAQEXmTFd1kPyKg/company-logo_200_200/company-logo_200_200/0/1630628977681/auctor_corporation_logo?e=2147483647&v=beta&t=9HXuIXc4yCjfyUFrYc8qAfSr9z0cTYlKWgvdWypYQvk",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/pk6pmhf0v3k",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Auctor Corporation",
+              "foundedYear": 1991,
+              "description": "With more than 30 years in business and a track record of successes, Auctor develops strategic, cost-effective solutions for state government agencies. \n\nWe bring technical, government, and project management expertise and provide services in software development, legacy system modernization, current technology, and quality assurance. \n\nProud to be one of Indiana's Best Places to Work 2021.",
+              "workforce": {
+                "total": 52
+              },
+              "headquarters": {
+                "address": "9449 Priority Way West Dr, Indianapolis, Indiana 46240, US",
+                "city": "Indianapolis",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 3540,
+                "countryRank": 1442568,
+                "avgDurationSeconds": 28,
+                "history": [
+                  {
+                    "value": 3217,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 4007,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 3707,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 3808,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 4649,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 3540,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 8814.3,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

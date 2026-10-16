@@ -1,0 +1,195 @@
+{
+  "request": {
+    "query": "Arkenstone Defense",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "be6c0d2392223d8e8bacdb4f064b663f",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/t8vvmccnmgx",
+        "title": "Arkenstone Defense",
+        "url": "https://arkenstonedefense.com/",
+        "text": "# Arkenstone Defense\n\nArkenstone Defense is a Software Development company. Arkenstone provides federal business back office infrastructure to access and run federal contracts for modern technology companies supporting national security. Arkenstone Defense employs 80 people. Headquartered in Menlo Park, California, United States.\n\n## About\n\nArkenstone exists to remove execution friction between modern technology companies and the U.S. national security ecosystem.\n\nArkenstone is a dual-layered federal business back office infrastructure for compliance, HR, and contracting.\n\nFoundation is the federal contracting eligibility layer - closing compliance gaps, getting you audit-ready, and keeping you qualified to win and maintain contracts.\n\nCohort is the operating and scaling layer - handling workforce, payroll, and labor compliance so you can execute without risking performance or margin.\n\nLearn how Arkenstone can accelerate your mission with our back office infrastructure.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: Menlo Park, United States\n- Homepage: arkenstonedefense.com\n- Aliases: Arkenstone Defense, Inc., arkenstone defense\n- LinkedIn: linkedin.com/company/arkenstonedefense\n- Linkedin Followers: 2,562\n- Emails: info@arkenstonedefense.com\n\n## Financials\n- Total Funding: USD 35,000,000\n  - Seed (2026-07-01): USD 35.0M\n\n## Acquisitions\n- Acquired GovPort\n- Acquired Ensis\n\n## Workforce\n- Employees: 80\n- Company Size: 51-200 employees\n- Key Executives:\n  - Cody Smith: Director of Product\n  - Jon Sockell: Head of Special Projects\n  - Megan Avena: Chief of Staff, Customer Experience\n  - Megan Hennessy: Director, Compliance Advisory\n  - Michelle Klenotich: Director of Payroll and Implementation, PEO\n  - Natasha Montoya, MHRM, PHR: Director of HR & Benefits\n  - Peter R Dixon: Co-Founder and CEO\n  - William Treseder: Co-Founder\n- Breakdown:\n  - By Country: United States: 44 (55%)\n  - By Department: Technical: 12 (15%), Other Department: 8 (10%), Finance: 4 (5%), Hr: 3 (4%), Project Management: 3 (4%), Sales: 3 (4%), Consulting: 2 (2%), General Management: 2 (2%), Legal: 2 (2%), Product: 2 (2%) (+3 more)\n  - By Seniority: Senior: 13 (16%), Specialist: 11 (14%), Other Management: 7 (9%), Manager: 5 (6%), Director: 4 (5%), Founder: 2 (2%), Head: 2 (2%)\n- Talent Sources: Anitian (17), Paychex (2), GovPort (2), Ensis AI (2), Swarmbotics AI (1), Second Front (1), HRO Resources - Partners in Growth (1), Franklin Templeton (1), BreakLine (1), Beyond Capital Ventures (1)\n- Alumni Go To: iCOUNTER (1), Variant (1), Tech Policy Institute (1), Spokeo (1), Prescryptive Health, Inc. (1), Orchestra (1), Ecosphere Ventures (1), Basecamp Consulting and Solutions LLC (1), Anitian (1)\n\n## Products & Technology\n- Tech Stack: bash, elastic, elastic stack, elk, iam, linkedin, linux, qualys, servicenow, datadog, grafana, hubspot, javascript, kubernetes, prometheus, python, recognize, salesforce, sql, terraform, typescript, yara\n\n## Web presence\n\n- Crunchbase: crunchbase.com/organization/arkenstone-defense\n\n## Categories\n\ncompliance, contracting, federal business back office, govtech, hr, national security\n\n## Recent News\n- [2026-09-19] [National Security-Focused Platform Highlights Leadership and Mission Support Strategy - TipRanks.com](https://www.tipranks.com/news/private-companies/national-security-focused-platform-highlights-leadership-and-mission-support-strategy)\n- [2026-09-05] [Leadership Spotlight Highlights Growth of Arkenstone Cohort Defense Services](https://www.tipranks.com/news/private-companies/leadership-spotlight-highlights-growth-of-arkenstone-cohort-defense-services)\n- [2026-08-20] [Arkenstone Defense has raised $35 Million in new Seed funding](https://www.intelligence360.news/arkenstone-defense-has-raised-35-million-in-new-seed-funding/)\n- [2026-07-30] [Tech M&A Deals: Arkenstone Defense, Upliift and Cover Genius - InfotechLead](https://infotechlead.com/analytics/tech-ma-deals-arkenstone-defense-upliift-and-cover-genius-97387)\n- [2026-07-28]\n  - [Arkenstone Defense: The GovPort Acquisition Claim Is Unverified - And That's The Risk With This Private Play](https://www.ainvest.com/news/arkenstone-defense-govport-acquisition-claim-unverified-risk-private-play-2607/)\n  - [Arkenstone Defense Acquires GovPort, the GovCon System of Record, to Bring Subcontractor and Compliance Management Into Its Government Operating Platform](http://business.thepilotnews.com/thepilotnews/article/bizwire-2026-7-28-arkenstone-defense-acquires-govport-the-govcon-system-of-record-to-bring-subcontractor-and-compliance-management-into-its-government-operating-platform)\n- [2026-07-24] [Dual Tech Summit 2026 Unites AI, Defense Tech, Robotics, and Venture Leaders to Advance Dual-Use Innovation – Texas News Headlines](https://news.texasnewsheadlines.com/story/624645/dual-tech-summit-2026-unites-ai-defense-tech-robotics-and-venture-leaders-to-advance-dualuse-innovation.html)\n- [2026-07-22] [Arkenstone Defense 延攬 OpenAI 高管 Joseph Larson 掌獨立董事](https://life.tw/article/arkenstone-defense-%E5%BB%B6%E6%94%AC-openai-%E9%AB%98-3097692)\n- [2026-07-21]\n  - [Arkenstone Defense Names OpenAI's Joseph Larson as Lead Independent Board Director - Las Vegas Sun News](https://lasvegassun.com/news/2026/jul/21/arkenstone-defense-names-openais-joseph-larson-as-/)\n  - [Defense Startup Arkenstone Names OpenAI Executive as Lead Independent Director](https://hk.marketscreener.com/news/defense-startup-arkenstone-names-openai-executive-as-lead-independent-director-ce7f51d8db8cf627)\n- [2026-07-09] [Arkenstone Defense raises $35M, plans New Mexico expansion - Albuquerque Business First](https://www.bizjournals.com/albuquerque/news/2026/07/09/arksenstone-defense-35million-stealth-nm-expansion.html)\n- [2026-07-08]\n  - [Arkenstone Defense launches with $35M to help startups sell to the Pentagon - SiliconANGLE](https://siliconangle.com/2026/07/08/arkenstone-defense-launches-35m-help-startups-sell-pentagon/)\n  - [Arkenstone Defense Raises $35 Million Seed To Help Commercial Companies Enter Federal Market](https://pulse2.com/arkenstone-defense-raises-35-million-seed-to-help-commercial-companies-enter-federal-market/)\n  - [Arkenstone Defense Raises $35M Seed](https://www.thesaasnews.com/news/arkenstone-defense-raises-35m-seed/)\n  - [Arkenstone Defense Raises $35M for GovCon Platform](https://ventureburn.com/arkenstone-defense-raises-35m-to-simplify-government-contracting/?amp=1)\n- [2026-07-07]\n  - [Arkenstone Defense Launches With $35M](https://vcnewsdaily.com/arkenstone-defense/venture-capital-funding/mmxxhtfcwl)\n  - [Arkenstone Defense Launches with $35M to Help Commercial Companies Enter the Federal Market \\| VentureBeat](https://venturebeat.com/business/arkenstone-defense-launches-with-35m-to-help-commercial-companies-enter-the-federal-market)\n  - [Arkenstone Defense Says Co Emerged From Stealth With $35 Million In Seed Funding — TradingView News](https://www.tradingview.com/news/reuters.com,2026:newsml_FWN4390XZ:0-arkenstone-defense-says-co-emerged-from-stealth-with-35-million-in-seed-funding/)\n  - [FinancialContent - Articles published by Arkenstone Defense](https://markets.financialcontent.com/stocks/news/publisher/arkenstone%20defense)\n\n## Social\n\n### Linkedin\n\n- [2026-10-07 · Posted · 75 reactions] [“You are the cavalry. There is no one else coming to save us.” At...](https://www.linkedin.com/posts/arkenstonedefense_prodacity2026-activity-7513612646819102721-HKms)\n  > “You are the cavalry. There is no one else coming to save us.”\n  >\n  > At #Prodacity2026, Arkenstone CEO Peter R Dixon challenged a room of defense tech leaders to turn America’s extraordinary capability into production-level scale.\n  >\n  > \"The talent is here,\" he said. \"The technology is here. Now we have to deliver.\"\n  >\n  > America needs its best technology in the hands of the people defending it, but every month that founders spend building contract-ready payroll, workforce compliance, and security infrastructure is a month of mission focus lost.\n  >\n  > Arkenstone serves as your back-office partner for the federal market, helping you get your tech in the hands of warfighters faster by providing the payroll, workforce compliance, contract and security infrastructure you need.\n\n- [2026-10-02 · Posted · 26 reactions] [The biggest defense companies don’t get to automatically own top...](https://www.linkedin.com/posts/arkenstonedefense_uncover-your-cleared-workforce-recruiting-activity-7511855460640051201-1PKN)\n  > The biggest defense companies don’t get to automatically own top talent. Make them work for it.\n  >\n  > Arkenstone Cohort gives defense tech startups access to enterprise-grade benefits built for a cleared, government-facing workforce, so you can walk into the recruiting fight with more than just a compelling vision.\n  >\n  > 👉 Learn more: https://lnkd.in/gcek_vwk\n\n- [2026-10-01 · Posted · 61 reactions] [Are you feeling overwhelmed by contracting requirements as you...](https://www.linkedin.com/posts/arkenstonedefense_are-you-feeling-overwhelmed-by-contracting-activity-7511496107554897920-zrDX)\n  > Are you feeling overwhelmed by contracting requirements as you enter the federal market? See how Arkenstone Cohort can help by providing the audit-ready foundation you need to sell to the U.S. government.\n  >\n  > Learn more: https://lnkd.in/gQugRaxQ\n\n- [2026-09-29 · Reshared · 12 reactions] [One of my favorite ways to fill an open role? From within ❤️ A...](https://www.linkedin.com/posts/arkenstonedefense_activity-7510816670332952579-SBdY): One of my favorite ways to fill an open role? From within ❤️ A recent internal move at Arkenstone Defense means I get to recruit the next person to join the team! We just opened a Sr Software Engin...\n\n- [2026-09-29 · Posted · 17 reactions] [How our customers feel when we deliver audit-ready HR, payroll...](https://www.linkedin.com/posts/arkenstonedefense_how-our-customers-feel-when-we-deliver-audit-ready-activity-7510811500651962368-Xxam)\n  > How our customers feel when we deliver audit-ready HR, payroll, compliance, security, and workforce operations.\n  >\n  > Arkenstone Defense is the back office for defense tech. You bring the breakthrough, and we'll bring the federal contract-ready infrastructure that gets it into the Pentagon's hands.\n  >\n  > What that looks like:\n  > 💼 Back-office infrastructure: payroll, HR, and benefits, handled.\n  > 🛡️ Federal compliance: FedRAMP, CMMC, and DCAA, managed.\n  > 🔐 Security clearances: personnel and facility accreditations, overseen.\n  > 🎯 Market access: a real bridge between commercial innovation and Pentagon procurement.\n  >\n  > Zero gravity. Zero paperwork drag. Full send. 🇺🇸\n\n- [2026-09-29 · Reshared · 14 reactions] [Meet us there!](https://www.linkedin.com/posts/arkenstonedefense_meet-us-there-activity-7510764943420383232-zYcS): Meet us there!\n\n- [2026-09-29 · Posted · 14 reactions] [We're looking forward to connecting with you at the Cloud Service...](https://www.linkedin.com/posts/arkenstonedefense_were-looking-forward-to-connecting-with-activity-7510743434505252864-s2Hi)\n  > We're looking forward to connecting with you at the Cloud Service Providers Advisory Board (CSP-AB) Summit! Come say hi to the Arkenstone team!\n\n- [2026-09-28 · Posted · 17 reactions] [Ask your payroll provider about allowable and unallowable costs. If...](https://www.linkedin.com/posts/arkenstonedefense_the-only-govcon-native-professional-employer-activity-7510394924899409920-xAG3)\n  > Ask your payroll provider about allowable and unallowable costs.\n  >\n  > If you get a blank stare, congratulations. You’ve just identified your next compliance problem.\n  >\n  > Stop teaching your provider how government contracting works, and explore Cohort, a PEO built for the realities of doing business with the federal government.\n  >\n  > Chat with the team that knows how to prep yours for the HR, benefits, payroll, timekeeping, security, and compliance requirements of a federal contract: https://lnkd.in/gbt_8i2d\n\n- [2026-09-18 · Posted · 136 reactions] [Arkenstone wasn’t founded by outsiders trying to understand...](https://www.linkedin.com/posts/arkenstonedefense_arkenstone-wasnt-founded-by-outsiders-trying-activity-7506747751146164244-17hq)\n  > Arkenstone wasn’t founded by outsiders trying to understand national security.\n  >\n  > It was built by an extraordinary team of operators, engineers, and national security leaders. They, more than most, understand that trust is earned, accountability is absolute, and failure has consequences.\n  >\n  > That standard is the foundation of everything we build. Our job is simple: take the administrative burden off companies equipping the mission, so they can spend their energy on customers, product, and delivery instead of paperwork.\n  >\n  > Proud to be led by Peter R Dixon, William Treseder, and Rachel Olney.\n\n- [2026-09-18 · 136 reactions, 2 comments] Arkenstone wasn’t founded by outsiders trying to understand national security. It was built by an extraordinary team of operators, engineers, and national security leaders. They, more than most, un...\n\n- [2026-09-17 · Posted · 14 reactions] [The Pentagon doesn’t need to be dazzled, but it does need to...](https://www.linkedin.com/posts/arkenstonedefense_how-to-market-your-defense-tech-company-to-activity-7506400408932597760-WC0X)\n  > The Pentagon doesn’t need to be dazzled, but it does need to believe choosing you won’t become a problem. So we wrote a practical guide to building credibility with federal buyers without an enterprise-sized marketing budget.\n  >\n  > Read it before you spend another dollar trying to “build awareness” to enter the federal market: https://lnkd.in/gXs8V5KU\n\n- [2026-09-17 · 14 reactions] The Pentagon doesn’t need to be dazzled, but it does need to believe choosing you won’t become a problem. So we wrote a practical guide to building credibility with federal buyers without an enterp...\n\n- [2026-09-16 · Posted · 42 reactions] [Thank you to everyone who joined us for a happy hour during the...](https://www.linkedin.com/posts/arkenstonedefense_thank-you-to-everyone-who-joined-us-for-a-activity-7506111787444912128-uAJD)\n  > Thank you to everyone who joined us for a happy hour during the SoCal Deep Tech Week!\n  >\n  > The conversations were energizing, and the products you all are building left us inspired. This is exactly why we do what we do. There's an incredible amount of talent and momentum building in defense tech right now, and we're grateful to be part of it.\n  >\n  > Here's to building the future of American defense tech together!\n\n- [2026-09-16 · Posted · 12 reactions] [Can your payroll provider calculate a wrap rate? If they're asking...](https://www.linkedin.com/posts/arkenstonedefense_can-your-payroll-provider-calculate-a-wrap-activity-7506023071539990528-YmaI)\n  > Can your payroll provider calculate a wrap rate?\n  >\n  > If they're asking what one is and you’re pursuing a federal contract, you already have a liability on your hands.\n  >\n  > Arkenstone Cohort was built for government contractors to provide payroll, HR, benefits, timekeeping, and compliance designed around federal requirements from day one, not retrofitted to handle them.\n  >\n  > Meet Cohort: https://lnkd.in/gbt_8i2d\n\n- [2026-09-16 · 41 reactions, 1 comment] Thank you to everyone who joined us for a happy hour during the SoCal Deep Tech Week! The conversations were energizing, and the products you all are building left us inspired. This is exactly why...\n\n- [2026-09-16 · 12 reactions] Can your payroll provider calculate a wrap rate? If they're asking what one is and you’re pursuing a federal contract, you already have a liability on your hands. Arkenstone Cohort was built for go...\n\n- [2026-09-15 · Posted · 24 reactions] [Me when I finish reading another 800-page DoD compliance and...](https://www.linkedin.com/posts/arkenstonedefense_me-when-i-finish-reading-another-800-page-activity-7505660611486380032-FnM2)\n  > Me when I finish reading another 800-page DoD compliance and cybersecurity standard.\n\n- [2026-09-14 · Posted · 16 reactions] [A workforce frankenstack happens when every compliance and...](https://www.linkedin.com/posts/arkenstonedefense_a-workforce-frankenstack-happens-when-every-activity-7505313325379981313-Yads)\n  > A workforce frankenstack happens when every compliance and workforce problem gets its own tool, added one at a time. It's usually a sign of a startup that moved fast and solved each compliance problem as it appeared. Understandable. But as your headcount grows and your federal contracts get bigger, the cracks in that patchwork stop being an inconvenience and start being real risk.\n  >\n  > That’s why we built Arkenstone Cohort: the single source of truth for payroll, benefits, human resources, compliance, security clearances, and workforce operations.\n  >\n  > One platform. One partner. No more frankenstack. We offer the only PEO in the world that's built specifically for government contractors.\n  >\n  > Read more: https://lnkd.in/g6yYaHFu\n\n- [2026-09-14 · Posted · 32 reactions] [When a defense tech startup wins its first federal contract… then...](https://www.linkedin.com/posts/arkenstonedefense_when-a-defense-tech-startup-wins-its-first-activity-7505298077021450240-ph2k)\n  > When a defense tech startup wins its first federal contract… then realizes its payroll provider doesn’t know what a CLIN is.\n  >\n  > You need more than a generalist PEO. You need infrastructure built for the federal market. Imagine one partner for payroll, benefits, HR, compliance and security, so you can focus on the mission.\n  >\n  > Meet Arkenstone Cohort: https://lnkd.in/gbt_8i2d\n\n- [2026-09-14 · 31 reactions] When a defense tech startup wins its first federal contract… then realizes its payroll provider doesn’t know what a CLIN is. You need more than a generalist PEO. You need infrastructure built for t...\n\n## Locations\n- Headquarters: menlo park, california, united states (US)\n- Offices: menlo park, california, united states (US)",
+        "summary": "{\"description\":\"Arkenstone Defense is a Software Development company providing federal back-office infrastructure to access and run federal contracts for modern technology companies supporting national security.\",\"employee_estimate\":80,\"employee_estimate_source\":\"Employees: 80\",\"hiring_first_ops_or_revops\":false,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Menlo Park, California, United States\",\"hq_quote\":\"Headquartered in Menlo Park, California, United States.\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Arkenstone Defense is a Software Development company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 35,000,000\\n  - Seed (2026-07-01): USD 35.0M\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQEFlS43HaJw8Q/company-logo_200_200/B56Z1KXB.4JgAI-/0/1775069045183?e=2147483647&v=beta&t=bXjmSRR3hm2ZdD60tYqgqMGY291hDJQ298zgIKwFd7I",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/t8vvmccnmgx",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Arkenstone Defense",
+              "foundedYear": null,
+              "description": "Arkenstone exists to remove execution friction between modern technology companies and the U.S. national security ecosystem.\n\nArkenstone is a dual-layered federal business back office infrastructure for compliance, HR, and contracting.\n\nFoundation is the federal contracting eligibility layer - closing compliance gaps, getting you audit-ready, and keeping you qualified to win and maintain contracts.\n\nCohort is the operating and scaling layer - handling workforce, payroll, and labor compliance so you can execute without risking performance or margin.\n\nLearn how Arkenstone can accelerate your mission with our back office infrastructure.",
+              "workforce": {
+                "total": 80
+              },
+              "headquarters": {
+                "address": "Menlo Park, California 94025, US",
+                "city": "Menlo Park",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 35000000,
+                "fundingLatestRound": {
+                  "name": "Seed",
+                  "date": "2026-07-01",
+                  "amount": 35000000
+                }
+              },
+              "webTraffic": null,
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/s7jkt7xqv0t",
+        "title": "Arkenstone Group LLC",
+        "url": "https://arkenstone.uz/",
+        "text": "# Arkenstone Group LLC\n\nArkenstone Group LLC is a IT Services and IT Consulting company. Arkenstone Group LLC employs 2 people, founded in 2019. Headquartered in Tashkent, Uzbekistan.\n\n## About\n\nРазработка программных обеспечений\n\n## Company Details\n- Industry: IT Services and IT Consulting\n- Type: Public company\n- Headquarters: Tashkent, Uzbekistan\n- Founded Year: 2019\n- Homepage: arkenstone.uz\n- Aliases: arkenstone group llc\n- LinkedIn: linkedin.com/company/arkenstone-group-llc\n- Linkedin Followers: 5\n\n## Workforce\n- Employees: 2\n- Company Size: 11-50 employees\n  - Monthly Growth: +100.0%\n- Key Executives:\n  - Shukhrat Khodjayev: Chief Executive Officer\n- Breakdown:\n  - By Country: Uzbekistan: 2 (100%)\n  - By Department: General Management: 1 (50%), Other Department: 1 (50%)\n  - By Seniority: Clevel: 1 (50%), Other Management: 1 (50%)\n- Talent Sources: ONESEC (1), Najot Ta'lim (1), Green White Solutions (1)\n- Alumni Go To: FIDO-BIZNES (1)\n\n## Web presence\n\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Recent News\n- [2026-07-31] Business Wire: Arkenstone Defense Acquires GovPort, the GovCon System of Record, to Bring Subcontractor and Compliance Management Into Its Government Operating Platform\n\n## Locations\n- Headquarters: tashkent, uzbekistan\n- Offices: ташкент, uzbekistan",
+        "summary": "{\"description\":\"Arkenstone Group LLC is an IT Services and IT Consulting company based in Tashkent, Uzbekistan, founded in 2019. It has a small team and a public company type.\",\"employee_estimate\":2,\"employee_estimate_source\":\"Employees: 2\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Tashkent, Uzbekistan\",\"hq_quote\":\"Headquartered in Tashkent, Uzbekistan\",\"industry\":\"IT Services and IT Consulting\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Arkenstone Group LLC is a IT Services and IT Consulting company.\",\"is_public_or_enterprise\":true,\"recently_funded_seed_or_series_a\":false,\"recently_funded_seed_or_series_a_quote\":\"- There is no mention of seed or Series A funding on the page content; a recent raise is not stated, thus assume not recently funded by seed/Series A: \\\"Recent News\\\" mentions a Business Wire acquisition, not funding.  \\\"\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQESjnyrDkJu4Q/company-logo_200_200/B56ZgOkfkBGUAI-/0/1752591105092?e=2147483647&v=beta&t=0vwJm1Y6GMMvAmgPLS-5DREroSi-lK0e_M3JO0frHwY",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/s7jkt7xqv0t",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Arkenstone Group LLC",
+              "foundedYear": 2019,
+              "description": "Разработка программных обеспечений",
+              "workforce": {
+                "total": 2
+              },
+              "headquarters": {
+                "address": "Ташкент, UZ",
+                "city": "Tashkent",
+                "postalCode": null,
+                "country": "Uzbekistan"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": []
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 7857.6,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

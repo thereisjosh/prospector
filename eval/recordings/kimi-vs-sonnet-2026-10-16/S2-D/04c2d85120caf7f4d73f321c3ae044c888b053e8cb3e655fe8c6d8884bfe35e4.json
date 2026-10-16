@@ -1,0 +1,262 @@
+{
+  "request": {
+    "query": "Aranya",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "f367ae6f9e85bb93a00d259b6b3918ab",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/dzh6j958k27",
+        "title": "Aranya Crafts",
+        "url": "https://www.aranya.com.bd/",
+        "text": "# Aranya Crafts\n\nAranya Crafts is a Retail Apparel and Fashion company. Aranya is a company that specializes in handcrafting natural dyes in Bengal. They have been reviving the lost natural dye recipes for three decades and are known for their archaeological restoration of their cultural identity. Aranya Crafts employs 22 people (+4.8% YoY, +1 person), founded in 1990. Headquartered in Dhaka, Bangladesh, with an office in Uttara Dhaka. Its workforce is distributed across Bangladesh and United Kingdom.\n\n## About\n\nAranya is a philosophy, rooted in natural aesthetics and responsible living. Our mission is to manufacture designer craft products using natural dyes, natural fibres, textiles and biodegradable materials. We are dedicated to establishing the commercial viability of eco-friendly products as well as creating new opportunities for artisans and economically disadvantaged women.Aranya’s vision is to establish a sustainable fashion value chain where people, planet and profit is measured equally.\nAranya is a Fair Trade Brand, Established in 1990\n\n## Company Details\n- Industry: Retail Apparel and Fashion\n- Type: Privately held\n- Headquarters: Dhaka, Bangladesh\n- Founded Year: 1990\n- Homepage: aranya.com.bd\n- Aliases: Aranya, aranya crafts\n- LinkedIn: linkedin.com/company/aranyacrafts\n- Linkedin Followers: 894\n- Emails: info@aranya.com.bd\n- Phone: +880 2 9894303\n\n## Workforce\n- Employees: 22\n- Company Size: 11-50 employees\n  - Yearly Growth: +4.8%\n- Key Executives:\n  - Makanur Rahman: Head of Operations & Business Development\n  - Nawshin Khair: Creative and Managing Director\n  - Nawshin Khair: Managing and Creative Director\n  - hasina sultana: Head of Operations\n- Breakdown:\n  - By Country: Bangladesh: 9 (41%), United Kingdom: 1 (5%)\n  - By Department: Design: 5 (23%), General Management: 2 (9%), Marketing: 1 (5%), Operations: 1 (5%), Technical: 1 (5%)\n  - By Seniority: Specialist: 4 (18%), Head: 2 (9%), Director: 1 (5%), Intern: 1 (5%), Other Management: 1 (5%), Senior: 1 (5%)\n- Talent Sources: Bengal Group Limited (2), TransEnd (1), Lock Stock & Barrel (1), KAYKRAFT LTD (1), Hi-Tech Bangla (Bangladesh) (1), Grameenphone Ltd (1), Giant Group, Bangladesh (1), GMS Composite Knitting Ind. Ltd. (1), BRAC-Aarong (1), BASF (1)\n- Alumni Go To: Qrius Lifestyle (2), ISC Exim (2), Brand Vibe Ltd. (2), Shakti Foundation for Disadvantaged Women (1), Kaaruj (1), International Trade Centre (1), HEALTHx BD (1), Dekko Legacy Group (1), Chorka Apparels LImited (1), Bestinbrands (1)\n\n## Products & Technology\n- Tech Stack: well, google analytics\n\n## Web presence\n\n- Facebook: facebook.com/aranyacrafts\n- Crunchbase: crunchbase.com/organization/aranya\n- Web traffic:\n  - Monthly visits: 1,006\n  - Global rank: 12,385,113\n  - Bounce rate: 39.0%\n  - Pages per visit: 2.3\n  - Average visit duration: 53s\n\n## Categories\n\napparel, archaeological restoration, bengal, cultural identity, e-commerce, fashion, handcrafted, manufacturing, natural dyes, news_and_media, textiles, wholesale\n\n## Recent News\n- [2025-09-03] Zawya.com: Six International Bands Debut at Chinese Mainland Music Festival, Top Chinese Acts Take the Spotlight — Aranya·Xiami Music & Arts Festival Delivers a World-Class Music Experience\n\n## Social\n\n### Linkedin\n\n- [2025-03-04 · 59 reactions, 1 comment] 🇧🇩💡 Empowering Women Entrepreneurs! 💡🇸🇪 Through the SheTrades program, supported by Sweden, Bangladesh’s SME Foundation is equipping women entrepreneurs with skills to expand into national and inte...\n\n- [2024-04-02 · 11 reactions, 1 comment] Aranya's Managing Director Nawshin Khair on a panel discusdion at the Dhaka Flow event sharing her experience about Community Building. https://lnkd.in/gw5EHuvh\n\n- [2024-02-15 · 6 reactions, 1 comment] Congratulations are in order as Ms. Mamtaz Begum wins the Crafts Master Award 2023 for her exceptional contribution to Nakshikantha. Mamtaz Apa's journey with empowering women started while working...\n\n- [2024-02-11 · 37 reactions, 1 comment] We* are supporting 12 women-led businesses in the handicrafts sector from ITC SheTrades Hubs in Bangladesh, Barbados, The Gambia, Indonesia, Kenya, Mauritius, the Philippines and Saint Lucia to exh...\n\n- [2024-01-26 · 1 reaction] Find us at 10.1 Boot C86 at Ambiante from 26th till 30th of January. A full list of fellow WFTO members can be found below. https://lnkd.in/gNirFrMf?\n\n- [2024-01-25 · 1 reaction] Sign up and drop by! Aranya will be present at Hall No. 10.1 C86 during the prestigious Ambiente Messe Frankfurt, the leading international consumer goods trade fair, from January 26 to 30, 2024. E...\n\n- [2023-12-21 · 4 reactions] Celebrating the life of a Visionary! https://lnkd.in/gjmc_vSV\n\n- [2023-12-13 · 1 reaction] Hot off the ramps at the Arka Fashion Week- Aranya's latest \"Tear Drop\" bespoke Spring Collection 2024 is available for preorder, only at our Banani flagship store. Visit us now! ------------------...\n\n- [2023-11-05 · 1 reaction] https://lnkd.in/g-crvvAW\n\n- [2023-11-05 · 2 reactions] Join us at the Illuminated Fitness - Festival of Yoga & Wellness, organized by Dhaka Flow Save the dates for November 10th and 11th, from 9 am to 6 pm at Gulshan Society Lake Park Dive into a hands...\n\n- [2023-09-10 · 5 reactions] Find Aranya Crafts at the Mason & Object exhibition in Paris between 7-11 September at Hall 8, Stand A90 'Unique and Eclectic'. Immerse yourself in the world of pure, natural colors, handloom texti...\n\n## Locations\n- Headquarters: dhaka, bangladesh (BD)\n- Offices: dhaka, bangladesh (BD), dhaka, dhaka, bangladesh (BD), uttara dhaka, dhaka division, bangladesh (BD)",
+        "summary": "{\"description\":\"Aranya Crafts is a privately held retailer specializing in handcrafted natural dyes and sustainable fashion with a focus on eco-friendly products and artisan empowerment across Bangladesh and the UK.\",\"employee_estimate\":22,\"employee_estimate_source\":\"Employees: 22\",\"hiring_first_ops_or_revops\":false,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Dhaka, Bangladesh\",\"hq_quote\":\"Headquarters: Dhaka, Bangladesh (BD)\",\"industry\":\"Retail Apparel and Fashion\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Retail Apparel and Fashion\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":false,\"recently_funded_seed_or_series_a_quote\":\"- Yearly Growth: +4.8%\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C560BAQHbEwqLgei5TQ/company-logo_200_200/company-logo_200_200/0/1630665924371?e=2147483647&v=beta&t=CDhiFnluqsNRfDOuAekRtsD76SyzOqtfY__xH66B5Is",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/dzh6j958k27",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Aranya Crafts",
+              "foundedYear": 1990,
+              "description": "Aranya is a philosophy, rooted in natural aesthetics and responsible living. Our mission is to manufacture designer craft products using natural dyes, natural fibres, textiles and biodegradable materials. We are dedicated to establishing the commercial viability of eco-friendly products as well as creating new opportunities for artisans and economically disadvantaged women.Aranya’s vision is to establish a sustainable fashion value chain where people, planet and profit is measured equally.\nAranya is a Fair Trade Brand, Established in 1990",
+              "workforce": {
+                "total": 22
+              },
+              "headquarters": {
+                "address": "House 1/A, Road 21, Nikunja 2, Khilkhet, Dhaka, 1229, BD",
+                "city": "Dhaka",
+                "postalCode": null,
+                "country": "Bangladesh"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 1006,
+                "countryRank": 58362,
+                "avgDurationSeconds": 53,
+                "history": [
+                  {
+                    "value": 16054,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 4146,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 15723,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 15033,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 3848,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 1006,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/n8qzqdtybhw",
+        "title": "Aranya",
+        "url": "https://aranya.tech/",
+        "text": "# Aranya\n\nAranya is a Software Development company. Aranya is a multicluster operating system that turns any bare metal into custom production-ready clusters in 48 hours. Powered by clusterdOS. Aranya employs 12 people, founded in 2025. Headquartered in San Francisco, California, United States. Its workforce is distributed across United States and India.\n\n## About\n\nAranya converts bare metal GPU infrastructure into highly custom production clusters in under 48 hours, bridging the gap between what data centers offer and what AI workloads really need.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: San Francisco, United States\n- Founded Year: 2025\n- Homepage: aranya.tech\n- Aliases: Aranya Inc, aranya, Aranya gpu, Aranya infrastructure, Aranya kubernetes, Aranya tech\n- LinkedIn: linkedin.com/company/aranya-inc\n- Linkedin Followers: 703\n- Emails: founders@aranya.tech, hi@aranya.tech\n- Phone: (617) 256-1158, (617)256-1158, +1 (617) 256-1158\n\n## Financials\n- Total Funding: USD 2,000,000\n  - Pre seed (2025-08-01): USD 2.0M\n  - Seed\n\n## Workforce\n- Employees: 12\n- Company Size: 1-10 employees\n- Key Executives:\n  - Aryamika Bhatia Ondaatje: Cofounder & Chief Operating Officer\n  - Christian Bhatia Ondaatje: Co-Founder & CEO\n  - Lily Adlin: GTM Lead\n  - Sasivarnan Kanaghasalam Sathyapriya: Chief Product Officer\n  - Virginia C.: Founding Frontend Engineer\n  - Yoofi Quansah: Founding Platform Engineer\n- Breakdown:\n  - By Country: United States: 9 (75%), India: 1 (8%)\n  - By Department: Technical: 4 (33%), General Management: 2 (17%), Product: 2 (17%), Consulting: 1 (8%), Research: 1 (8%)\n  - By Seniority: Founder: 3 (25%), Specialist: 3 (25%), Clevel: 2 (17%), Head: 1 (8%), Other Management: 1 (8%)\n- Talent Sources: Hyperbolic (2), Starcloud (1), Ripple (1), Nissan Motor Corporation (1), Mainframe (1), Evolve Robotics (1), Blue Canvas (1), Armada Funds (1), Alt.Tribe (1), 2K (1)\n- Alumni Go To: Hyperbolic (1), Cosmic Robotics (1)\n\n## Products & Technology\n- Tech Stack: kubernetes, python, sql, ansible, argocd, ceph, grafana, helm, istio, linkerd, prometheus, terraform, weka\n\n## Web presence\n\n- Twitter: twitter.com/aranyainc\n- Crunchbase: crunchbase.com/organization/aranya-0cfb\n- Web traffic:\n  - Monthly visits: 4,885\n  - Global rank: 3,392,291\n  - Bounce rate: 34.0%\n  - Pages per visit: 2.1\n  - Average visit duration: 69s\n\n## Categories\n\nai infrastructure, bare metal, cloud computing, cloud management, custom production-ready clusters, datacenters, gpu infrastructure, multicluster operating system, software, technology/software\n\n## Recent News\n- [2026-09-29]\n  - Deccan Herald: Bombay Natural History Society launches new nature magazine, 'Aranya' for young readers\n  - ArchDaily: Gallery of Aranya Youyi Bay Community Regeneration / genarchitects - 16\n- [2026-09-15]\n  - [Aranya Raises US$11m to Convert Bare Metal Into Clusters \\| Data Centre Magazine](https://datacentremagazine.com/news/aranya-raises-us-11m-to-convert-bare-metal-into-clusters)\n  - Data Centre Magazine: Aranya Raises US$11m to Convert Bare Metal Into Clusters\n  - Moneycontrol.com: Usha launches AeroEdge Vedika and Aranya ceiling fans with 5-star BLDC motors and LED underlights\n- [2026-09-09]\n  - ArchDaily: Gallery of Aranya Wuling Mountain - Sean Canteen / llLab. - 3\n  - Adda247: Karnataka Forest Department Recruitment 2026 Out For 675 KFD Posts, Last Date Extended at aranya.gov.in\n- [2026-09-05] [Simple Linux Utility for Resource Management - SiliconANGLE](https://siliconangle.com/tag/simple-linux-utility-for-resource-management/)\n- [2026-09-02] InfotechLead: VC funding deals: Aranya, Scopia Surgical, Norbert Health\n- [2026-09-01]\n  - citybiz: [Aranya Raises $11 Million to Scale AI Infrastructure Platform](https://ground.news/article/aranya-raises-11-million-to-scale-ai-infrastructure-platform_14860d)\n  - [Aranya Raises $11M in Funding](https://www.finsmes.com/2026/09/aranya-raises-11m-in-funding.html)\n- [2026-08-28]\n  - Star of Mysore: Dasara jumbos relax at Aranya Bhavan\n  - Deccan Herald: Mysuru: Dasara elephants relax at Aranya Bhavan campus\n- [2026-08-27]\n  - Free Press Journal: Aranya Core House Scheme Allottees Get Lease Renewal Relief In Indore\n  - Deccan Herald: Mysuru Dasara 2026 \\| First batch of nine elephants arrive at Aranya Bhavan\n- [2026-08-25] [Aranya has filed a notice of an exempt offering of securities to raise $12,010,973.00 in New Funding. - intelligence360](https://www.intelligence360.news/aranya-has-filed-a-notice-of-an-exempt-offering-of-securities-to-raise-12010973-00-in-new-funding/)\n- [2026-06-29] The Economic Times: Fire breaks out at Noida’s Aranya Society in sector-119, no casualties reported so far\n- [2024-12-20] Deccan Herald: Aranya Sahay’s ode to the women of Jharkhand’s data centres\n- [2024-05-11] BBC: Alok Shukla wins prize for Hasdeo Aranya forest campaign\n- [2023-08-03] Indulge Express: Aranya gets a new address in Jodhpur Park\n- [2023-07-02] NBC News: Online romance scams are netting millions of dollars — and pushing some to self-harm\n- [2022-09-16] Hypebeast: Louis Vuitton Men’s SS23 Spin-off Show Takes to the Beaches of Aranya\n- [2022-09-13] Dao Insights: Will Aranya be the next hotbed for luxury brands in China?\n- [2022-02-15] Construction Week India: Piramal Realty creates welltech homes at Piramal Aranya\n\n## Social\n\n### Linkedin\n\n- [2026-09-30 · 26 reactions, 1 comment] Aranya is a finalist for Best AI Infrastructure Solution at the 2026 A.I. Awards! We're in the running with WEKA, Cloudera, and Experian. So give us a call if you need custom clusters within 48 hou...\n\n- [2026-09-29 · 2 reactions] Tomorrow morning - we're almost at capacity so register asap if you'd like to join. Coffee, hot takes, AI infra for breakfast.\n\n- [2026-09-28 · 18 reactions, 2 comments] This week we're in Las Vegas and San Francisco at the same time. Yotta 2026 in Las Vegas, Sept 28-30, with the people who build and power the datacenters. The AI Conference at Pier 48 in SF, Sept 3...\n\n- [2026-09-25 · 55 reactions, 5 comments] We opened up the office Wednesday night for our launch party. From founders to neighbors. Not everyone runs clusters, but every one of them has a compute problem somewhere behind what they're build...\n\n- [2026-09-18 · 72 reactions, 5 comments] Come meet the team behind the clusters. Launch party is Wednesday the 23rd, 6pm, at our office in the Mission. Everyone will be there: the people who build Aranya OS, the ones running clusters on t...\n\n- [2026-09-18 · 22 reactions, 4 comments] Cannot wait for this AI Infra hang BREAKFAST EDITION the day after OpenAI Dev Day with our friends at Entrepreneurs First. Do you like hot coffee with even hotter takes? I'm pretty sure you do. Joi...\n\n- [2026-09-17 · 24 reactions, 1 comment] There is no chip shortage. The compute for AGI already exists. It just needs to be unlocked and connected. AI companies shouldn't have to be stuck between two bad options: absorb the complexity of...\n\n- [2026-09-16 · 26 reactions, 4 comments] It's been a busy few weeks at Aranya. In between conferences, scaling up clients and fundraising announcements, we've been gearing up to bring together folks from all across the infrastructure stac...\n\n- [2026-09-10 · 12 reactions, 1 comment] From VR to eGPUs, Christian breaks down everything that led him to build the multicluster operating system. Thanks for listening to our story, Noah Labhart! Full episode below.\n\n- [2026-09-08 · 14 reactions] This week's Chips & Data Center news from Silicon Brief 👇 🔷 SpaceX Builds Texas Turbine Foundry for AI Power Demand 🔷 NVIDIA Expands AI Hardware With Vera Rubin Architecture 🔷 Corvex, Inc. Expands...\n\n- [2026-09-03 · 57 reactions, 7 comments] Yesterday, we announced our raise. Now it's time to celebrate. We're throwing a launch party in San Francisco. In one year, we raised $11M and now operate over $500M of compute. This is the part wh...\n\n- [2026-09-02 · 28 reactions, 4 comments] This is a phenomenal team Before taking our capital (at the getgo), Christian Bhatia Ondaatje insisted on flying to Boston so we could take a walk together and get to know each other a bit. That is...\n\n- [2026-09-02 · 17 reactions, 4 comments] Huge congrats to Christian Bhatia Ondaatje, Aryamika Bhatia Ondaatje, and Sasivarnan Kanaghasalam Sathyapriya from the Aranya team on raising $11M led by our friends at First Round Capital. Excited...\n\n- [2026-09-02 · 33 reactions, 2 comments] Aranya..A star is born 💫 In October 2018, I was introduced to Christian Bhatia Ondaatje, by his friend and Harvard classmate Varun Sriram. Christian, then living in Bozeman, Montana was deep in the...\n\n- [2026-08-21 · 119 reactions, 18 comments] From a call with Christian a year ago to now having deployed over 5000 GPUs. Before Aranya Inc., I was deep in running distributed inference over automotive GPUs across EV fleet. Working to mitigat...\n\n- [2026-08-19 · 20 reactions, 5 comments] Here's what we've been up to between hardware procurement and product milestones. Most people running infrastructure have never seen clusters customized down to the kernel driver level, let alone f...\n\n- [2026-08-12 · 38 reactions, 2 comments] Live in SF. All your custom cluster needs, for inference and training. Kubernetes, Slurm, VMs: whatever the workload actually runs on. Now in less than 48 hours.\n\n- [2026-08-07 · 21 reactions, 1 comment] Swapped the playing cards for expo floors in Vegas this week. Ai4 - Artificial Intelligence Conferences brought the full scope of what's being built throughout the space, and we're glad to be a par...\n\n- [2026-08-04 · 5 reactions, 2 comments] Most teams scaling past their first cluster do the responsible thing. A backup ISP, a secondary region, a documented failover path. None of it is federated, automated, or tested. Redundancy you hav...\n\n- [2026-07-31 · 13 reactions, 1 comment] Kubernetes is the right orchestration primitive for inference, but generic managed Kubernetes is not the answer. Because it was built for general compute, your networking ends up being whatever the...\n\n## Locations\n- Headquarters: san francisco, california, united states (US)\n- Offices: san francisco, california, united states (US)",
+        "summary": "{\"description\":\"Aranya is a Software Development company and multicluster operating system that turns bare metal into custom production-ready clusters in 48 hours, powered by clusterdOS.\",\"employee_estimate\":12,\"employee_estimate_source\":\"Employees: 12\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Key Executives: ... Lily Adlin: GTM Lead\",\"hq\":\"San Francisco, United States\",\"hq_quote\":\"Headquartered in San Francisco, California, United States\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Software Development\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 2,000,000\\n  - Pre seed (2025-08-01): USD 2.0M\\n  - Seed\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQGdOFojT1YZHw/company-logo_200_200/B56Zz3iCd7GgAM-/0/1773679421601/aranya_inc_logo?e=2147483647&v=beta&t=35Mk9P23XrZ9Epw13DRcIGvsSBewXEMVJe4FL61NPLs",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/n8qzqdtybhw",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Aranya",
+              "foundedYear": 2025,
+              "description": "Aranya converts bare metal GPU infrastructure into highly custom production clusters in under 48 hours, bridging the gap between what data centers offer and what AI workloads really need.",
+              "workforce": {
+                "total": 12
+              },
+              "headquarters": {
+                "address": "San Francisco, California, US",
+                "city": "San Francisco",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 2000000,
+                "fundingLatestRound": {
+                  "name": "Pre seed",
+                  "date": "2025-08-01",
+                  "amount": 2000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 4885,
+                "countryRank": 1000666,
+                "avgDurationSeconds": 69,
+                "history": [
+                  {
+                    "value": 1593,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 1300,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 2833,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 3544,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 2698,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 2547,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 5716,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

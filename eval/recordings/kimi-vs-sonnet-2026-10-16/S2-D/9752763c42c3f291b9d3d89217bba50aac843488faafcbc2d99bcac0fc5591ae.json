@@ -1,0 +1,262 @@
+{
+  "request": {
+    "query": "Sandstone",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "a3b83d5df51dafe8a9c7e1fe56f7be14",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/1lq496cf5x4",
+        "title": "Sandstone",
+        "url": "https://sandstone.com/",
+        "text": "# Sandstone\n\nSandstone is a Software Development company. Sandstone is an ai-native operating system for in-house legal departments, providing a single platform to manage and resolve legal requests with agents. It unifies legal data, drives end-to-end workflows, and or. Sandstone employs 48 people, founded in 2025. Headquartered in New York, New York, United States, with presence in South Africa.\n\n## About\n\nSandstone is a comprehensive solution for intake, triage, execution, cataloging, and measurement of legal work, directly in the business tools teams already use. \n\nSandstone connects every company, person, and document related to legal work into a single connected system of record to route, draft, and execute work. \n\nThis is Legal Relationship Management: legal work on a foundation of shared institutional knowledge.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: New York, United States\n- Founded Year: 2025\n- Homepage: sandstone.com\n- Aliases: Glaze AI, Inc., sandstone\n- LinkedIn: linkedin.com/company/sandstone-ai\n- Linkedin Followers: 5,612\n- Emails: team@sandstone.com\n- Phone: (914)-677-1820, 12345\n\n## Financials\n- Total Funding: USD 69,551,600\n  - Series a (2026-06-01): USD 30.0M\n  - Seed (2026-01-01): USD 39.6M\n\n## Workforce\n- Employees: 48\n- Company Size: 11-50 employees\n  - Monthly Growth: +11.6%\n- Key Executives:\n  - Edward Atkins: Head of Machine Learning\n  - Jessica Nguyen: President, Chief Strategy & Legal Officer\n  - Liam Germain: Co-Founder @ Sandstone\n  - Maggie Pote: Head of Marketing and Community\n  - Marc Miller: Distinguished Founding Engineer\n  - Nick Fleisher: Co-Founder\n  - Oliver Pour: Vice President\n  - Ryan Reid: Founding Product Designer\n- Breakdown:\n  - By Country: United States: 38 (79%)\n  - By Department: Technical: 11 (23%), Consulting: 6 (12%), General Management: 4 (8%), Sales: 4 (8%), Marketing: 3 (6%), Operations: 3 (6%), Legal: 2 (4%), Other Department: 2 (4%), Design: 1 (2%), Finance: 1 (2%) (+2 more)\n  - By Seniority: Specialist: 20 (42%), Other Management: 6 (12%), Founder: 4 (8%), Manager: 3 (6%), Head: 2 (4%), Senior: 2 (4%), Clevel: 1 (2%), Vp: 1 (2%)\n- Talent Sources: Robin AI (2), Microsoft (2), McKinsey & Company (2), Ironclad (2), attention labs (1), Tennr (1), Luminance (1), Halfdays (1), Contract Nerds 📝 🤓 (1), 360 World, Inc (1)\n- Alumni Go To: Whop (1), Sourcegraph (1), SignalFire (1), Reducto (1), Neurophos (1), JPMorganChase (1), Gong (1)\n\n## Products & Technology\n- Features: Demo Available\n\n## Web presence\n\n- Twitter: twitter.com/sandstonehq\n- Crunchbase: crunchbase.com/organization/sandstone-0a07\n- Web traffic:\n  - Monthly visits: 9,679\n  - Global rank: 2,449,286\n  - Bounce rate: 53.0%\n  - Pages per visit: 1.5\n  - Average visit duration: 9s\n\n## Categories\n\nartificial intelligence (ai), in-house legal departments, information technology, legal, legal data, legal experts, legal relationship management, legal tech, legal technology, software, workflows\n\n## Recent News\n- [2026-10-06] Real Estate: 1 Sandstone Grove, Blackmans Bay, Tas 7052\n- [2026-10-05]\n  - Real Estate: 2 Bed/16 Sandstone Crescent, Macquarie Park, NSW 2113\n  - Kalkine: Brightstar Resources \\(ASX:BTR\\) Reports 167m Gold Intercept at Bull Oak as Sandstone Study Advances\n- [2026-10-04] Kalkine: Brightstar Resources Returns 167m @ 2.07g/t Au at Bull Oak Deposit in Sandstone\n- [2026-10-02] WorldAtlas: The 9 Most Scenic Illinois Towns\n- [2026-10-01]\n  - Real Estate: 3-5 Keith Court, Sandstone Point, Qld 4511\n  - Real Estate: 58 Marlborough Street, Malvern, SA 5061\n  - Centre Daily Times: Kimble, Independence invest in Tuscarawas Co. project creating new jobs\n- [2026-09-30]\n  - Real Estate: 43 Mackerel Street, Sandstone Point, Qld 4511\n  - Fast Food Club: Wander The Sandstone Cliffs And Waterfall Views At McConnells Mill In Portersville\n- [2026-09-29]\n  - GM Authority: 2027 Cadillac Escalade Gets New Sandstone Color: First Look\n  - Reuters Connect: Licensable picture: Waves slam into a closed beach access stairway that leads beachgoers down a sandstone bluff to the beach, in Encinitas\n  - WKTV: Restoration at Silas D. Childs Chapel is Officially Underway\n  - Reuters: Rising sea destroys homes, erases beaches in California. Is worse to come?\n  - Chronicle Telegram: Sandstone Village Fall Festival highlights handmade traditions\n- [2026-09-28]\n  - TipRanks: Brightstar Doubles Two Mile Hill Resource, Boosts Sandstone Gold Inventory\n  - Mining Weekly: Brightstar grows Sandstone mineral resource to 3.6-million ounces\n- [2026-09-25] Reuters Connect: Licensable picture: Waves slam into a closed beach access stairway that leads beachgoers down a sandstone bluff to the beach in Encinitas\n- [2026-09-24]\n  - Moomoo: Brightstar Resources Reports 94% Average Gold Recoveries in Sandstone PFS Metallurgical Testing\n  - Kalkine: Brightstar Resources Reports Average Gold Recoveries of 94% from Sandstone Metallurgical Testwork\n- [2026-09-11] [Wilson Sonsini Advises GCVC Fund on Launch \\| Wilson Sonsini](https://www.wsgr.com/en/insights/wilson-sonsini-advises-gcvc-fund-on-launch.html)\n- [2026-09-08] [New Legal Tech VC Fund Launches – Wilson Sonsini Invests – Artificial Lawyer](https://www.artificiallawyer.com/2026/09/08/new-legal-tech-vc-fund-launches-wilson-sonsini-invests/)\n- [2026-07-08] [Brightstar Resources confirms district-scale opportunity at Sandstone \\| The Market Online](https://themarketonline.com.au/brightstar-resources-confirms-district-scale-opportunity-at-sandstone-2026-07-08/)\n\n## Social\n\n### Linkedin\n\n- [2026-09-25] We're proud to partner with OpenAI on Astra for Law. The Sandstone MCP brings your legal team's full picture of contracts, requests and decisions into ChatGPT.\n\n- [2026-09-24 · 86 reactions, 13 comments] Sandstone welcomed more new colleagues over the last two weeks than ever before. A year ago, the team was just five people. Today, we welcome five more. We couldn't be more excited to be building t...\n\n- [2026-09-23 · 17 reactions, 1 comment] We’re excited to share that Sandstone is sponsoring #SOLIDNYC2026, a gathering of some of the sharpest minds in legal innovation, operations, and technology. This isn’t just another event. It’s a s...\n\n- [2026-09-22 · 5 reactions] Our brilliant CLO Jessica Nguyen is hosting a CLE Webinar today at 3:00pm! She’s back with In-House Connect alongside Robert Graham (GC at fal) to break down the current state of Gen AI contract te...\n\n- [2026-09-22 · 8 reactions, 1 comment] Earlier this month, GCVC launched. A venture fund backed by 50+ general counsels with direct operating experience from some of the largest and fastest-growing companies in the world. Sandstone is p...\n\n- [2026-09-21 · 40 reactions, 2 comments] Last weekend, Sandstone partnered with The IRONMAN Group 70.3 Santa Cruz for an exhilarating race — proud to support incredible athletes who continually push themselves past their limits to discove...\n\n- [2026-09-16 · 40 reactions, 3 comments] Dina Segal has spent her career building legal functions that keep pace with fast-growing companies, and as CLO at Gusto, she's doing it at scale for a business serving hundreds of thousands of sma...\n\n- [2026-09-14 · 51 reactions, 2 comments] Mary O'Carroll spent 13 years building one of the world's most advanced legal ops functions at Google, co-founded CLOC, and most recently served as COO of Goodwin. Now she's advising Sandstone. We...\n\n- [2026-09-11 · 36 reactions, 2 comments] The IRONMAN Group 70.3 Santa Cruz is this weekend, and we couldn't be more excited. As the Official Legal AI Partner of IRONMAN 70.3 Santa Cruz, we've seen firsthand what it takes to compete at thi...\n\n- [2026-09-08 · 9 reactions] The Sandstone team is at RLLB 2026 this week in Las Vegas, joining 900+ legal ops leaders and GCs at the Fontainebleau. Come find Brendan Bettencourt, Celeste de Rubertis, and Nick Fleisher at Boot...\n\n- [2026-08-28 · 71 reactions, 15 comments] Alexandra Sepulveda builds legal functions that move as fast as the businesses they support, partnering with Sales, GTM, Product, and People to make legal a driver of execution, not a bottleneck. N...\n\n- [2026-08-26 · 12 reactions] Legal's credibility rests on one thing: the accuracy of its answers. When data is scattered across systems, that accuracy is always at risk. Not because the information doesn't exist, but because t...\n\n- [2026-08-19 · 14 reactions, 1 comment] Episode 4 of Evolving with Jessica Nguyen is live. Jessica sat down with Deborah Solmor, Chief Legal and People Officer at Wisconsin Alumni Research Foundation (WARF) and Founder of Ready Set GC. D...\n\n- [2026-08-18 · 30 reactions, 1 comment] \"Getting a Sandstone demo was the first time that I saw a model that spit out a redline review that looked like something a lawyer would do.\" That's how Sam Matthew, Head of Legal at Middesk, descr...\n\n- [2026-08-13 · 76 reactions, 7 comments] Sandstone is proud to be the Official Legal AI Partner of IRONMAN 70.3 Santa Cruz. At the core of both is the same belief: preparation is what separates good performance from great performance. The...\n\n- [2026-08-11 · 61 reactions, 1 comment] Sandstone is proud to introduce the Sandstone Advisory Board. A group bringing decades of experience at the intersection of law and technology. Their perspective directly shapes Sandstone. Legal is...\n\n- [2026-08-05 · 22 reactions, 3 comments] Catherine Romero, Director of Compliance and Responsible AI at Microsoft, joined Jessica Nguyen on Evolving to talk about what AI's rise actually means for entry-level legal professionals. Her pers...\n\n- [2026-08-04 · 59 reactions, 6 comments] \"It is the one tool that I'm certain is going to change the entire company, not just legal.\" Turns out, many teams feel the same way. Sandstone sat down with Affiniti, Cox Media Group, MasterClass,...\n\n- [2026-07-22 · 33 reactions, 5 comments] When AI started reading medical images, the prediction was fewer radiologists. The opposite happened. Faster reads meant more imaging, more demand, and more radiologists doing higher-level work tha...\n\n- [2026-07-20 · 21 reactions] Sandstone is honored to be named one of Business Insider's 13 legal startups to watch in 2026. Thank you to Melia Russell for the feature, and to Abby Meyers of Bain Capital Ventures and Jimena Now...\n\n## Locations\n- Headquarters: new york, new york, united states (US)\n- Offices: cape town, south africa (ZA), new york, united states (US), brooklyn, new york, united states (US)",
+        "summary": "{\"description\":\"Sandstone is an ai-native operating system for in-house legal departments, providing a single platform to manage and resolve legal requests with agents. It unifies legal data, drives end-to-end workflows, and or.\",\"employee_estimate\":48,\"employee_estimate_source\":\"Employees: 48\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Head of Marketing and Community\",\"hq\":\"New York, New York, United States\",\"hq_quote\":\"Headquartered in New York, New York, United States, with presence in South Africa.\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Software Development\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 69,551,600 - Series a (2026-06-01): USD 30.0M - Seed (2026-01-01): USD 39.6M\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQHMzA0fqjAj5g/company-logo_200_200/B4EZqcoA.UGcAI-/0/1763564327343/sandstone_ai_logo?e=2147483647&v=beta&t=FoGAFW1G0TDnkviNznmsu5jg9m18aWM35YK9xMt29Kg",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/1lq496cf5x4",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Sandstone",
+              "foundedYear": 2025,
+              "description": "Sandstone is a comprehensive solution for intake, triage, execution, cataloging, and measurement of legal work, directly in the business tools teams already use. \n\nSandstone connects every company, person, and document related to legal work into a single connected system of record to route, draft, and execute work. \n\nThis is Legal Relationship Management: legal work on a foundation of shared institutional knowledge.\n\n",
+              "workforce": {
+                "total": 48
+              },
+              "headquarters": {
+                "address": "New York, US",
+                "city": "New York",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 69551600,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2026-06-01",
+                  "amount": 30000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 9679,
+                "countryRank": 879383,
+                "avgDurationSeconds": 9,
+                "history": [
+                  {
+                    "value": 11317,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 11457,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 8527,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 14053,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 12251,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 9679,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/5vxgxcb8skr",
+        "title": "Sandstone",
+        "url": "https://sandstone.la/",
+        "text": "# Sandstone\n\nSandstone is a Technology, Information and Internet company. Sandstone is a Los Angeles-based digital agency that builds great products. They operate at the intersection of entrepreneurship, design, and engineering, and their mission is to bring innovative product concepts to life. They focus on making products successful and wear hats - product ma. Sandstone employs 6 people, founded in 2017. Headquartered in Manhattan Beach, California, United States, with an office in Los Angeles.\n\n## About\n\nSandstone is a Los Angeles-based venture studio and boutique design / development firm. We work with a diverse portfolio of clients ranging from small startups ready to execute on an idea to established companies looking to modernize their brand and technology. Our team has years of expertise earned at some of the world's leading companies and a commitment to building deep relationships with our partners.\n\nSandstone provides services and consulting in web development, UI / UX / branding design, product management, and startup growth. We often serve as co-founders for new ventures and focus our portfolio on a blend of innovative technology and projects our team is passionate about.\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Headquarters: Manhattan Beach, United States\n- Founded Year: 2017\n- Homepage: sandstone.la\n- Aliases: Sandstone Labs LLC, sandstone\n- LinkedIn: linkedin.com/company/sandstonela\n- Linkedin Followers: 372\n- Emails: hello@sandstone.la\n\n## Workforce\n- Employees: 6\n- Company Size: 1-10 employees\n- Key Executives:\n  - Andrew Violino: Head of Engineering\n  - Eric Gandhi: Co-Founder & Head of Design\n- Breakdown:\n  - By Country: United States: 3 (50%)\n  - By Department: Technical: 2 (33%), Design: 1 (17%)\n  - By Seniority: Founder: 1 (17%), Head: 1 (17%), Other Management: 1 (17%)\n- Talent Sources: Shenzhen Inveno Technology Co., Ltd (1), Sagebrush Homes (1), Mount Saint Mary's University (1), Iris Software Inc. (1), Google (1), Galvanize (1), Foremost Insurance (1), DoltHub (1), Cameo (1)\n- Alumni Go To: Pie (pie.org) (2), Sungrow (1), Sia (1), Rush University Medical Center (1), LinkedIn (1), CodePath (1), ART BRAND STUDIOS (1)\n\n## Products & Technology\n- Tech Stack: angular, css, git, html, hulu, javascript, jquery, microsoft, mongodb, react, redux, shopify, buzzfeed\n\n## Web presence\n\n- Twitter: twitter.com/sandstone_la\n- Instagram: instagram.com/sandstone_la\n- Crunchbase: crunchbase.com/organization/sandstone\n- Web traffic:\n  - Monthly visits: 474\n  - Global rank: 7,945,923\n  - Bounce rate: 44.0%\n  - Pages per visit: 1.1\n  - Average visit duration: 0s\n\n## Categories\n\nbranding, co-founders, contract engineering, design, digital agency, digital design and development, digital marketing, engineering, entrepreneurship, internet, product concepts, startup consulting, technology, ui / ux design, ux design, web design, web development\n\n## Recent News\n- [2026-09-26] Reuters: Rising sea destroys homes, erases beaches in California. Is worse to come?\n- [2026-09-23] AD HOC NEWS: Parque Nacional Talampaya and its Triassic sandstone walls\n- [2026-09-22] AD HOC NEWS: Parque Nacional Talampaya and the sandstone canyons of La Rioja\n- [2026-09-15]\n  - WorldAtlas: 2026's 10 Most Scenic Southern California Towns\n  - NASA Science \\(.gov\\): Inclined Martian Sandstone Beds Near ‘Kimberley’\n- [2026-09-09] [Group of GCs, Wilson Sonsini launch new legal tech venture capital fund](https://www.abajournal.com/news/article/new-legal-tech-vc-fund-consisting-of-general-counsels-and-wilson-sonsini-launches)\n- [2026-09-03] AD HOC NEWS: Arches National Park’s sandstone arches and desert light\n- [2026-09-01]\n  - Real Estate: 90 La Cote Road, Greendale, Vic 3341\n  - Los Angeles Times: The 6-mile peninsula of trails, tidepools and history that too many San Diego visitors miss\n- [2026-08-28] Times of San Diego: Should La Jolla Cove close to protect sea lions? San Diego faces mounting pressure\n- [2026-08-16] La Brújula Verde: The Lost City of Mesn and the Original Route of the Way of Horus Discovered, the Military Road That in Antiquity Connected Egypt with the Mediterranean Levant\n- [2026-07-15]\n  - NWONewsWatch.com: 31 new forest fires discovered, communities evacuated\n  - Dezeen: Six tactile homes characterised by stone\n- [2026-06-30] La Voz Canaria: San Benito Festivals 2026 in La Laguna: Program and News\n- [2026-02-11]\n  - Sneaker Bar Detroit: Hellstar x adidas Superstar “Warm Sandstone” Releasing During NBA All-Star Weekend 2026\n  - The Real Deal: Sandstone sells Warner Center site planned for 100% affordable housing\n- [2025-10-23] Hindustan Times: These are the world’s 10 most-complained about beaches: Check list of dirtiest, nosiest, most overcrowded beaches \\| Travel\n- [2025-10-05] The Irish Sun: Trending European destination is home to the country's most beautiful villages\n\n## Social\n\n### Linkedin\n\n- [2024-11-22 · 9 reactions] Getting your online store ready for Black Friday and Cyber Week? Check out our guide to making sure your shop is optimized for speed and protected against downtime during the biggest days of your y...\n\n- [2022-03-01 · 1 reaction] We’re#hiring! Come work on world-class tech with our tight-knit team of engineers and designers.\n\n- [2022-03-01 · 1 reaction] We’re #hiring! Come work on world-class tech with our tight-knit team of engineers and designers.\n\n## Locations\n- Headquarters: manhattan beach, california, united states (US)\n- Offices: manhattan beach, california, united states (US), los angeles, california, united states (US)",
+        "summary": "{\"description\":\"Sandstone is a Los Angeles-based venture studio and boutique design / development firm focused on building products at the intersection of entrepreneurship, design, and engineering.\",\"employee_estimate\":6,\"employee_estimate_source\":\"Employees: 6\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"We often serve as co-founders for new ventures and focus our portfolio on a blend of innovative technology and projects our team is passionate about.\",\"hq\":\"Manhattan Beach, United States\",\"hq_quote\":\"Headquartered in Manhattan Beach, California, United States, with an office in Los Angeles.\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Sandstone is a Los Angeles-based venture studio and boutique design / development firm.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":false,\"recently_funded_seed_or_series_a_quote\":\"There is no explicit mention of seed or Series A funding on the page.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQGrfj3dI7vlIg/company-logo_200_200/company-logo_200_200/0/1732228286392/sandstonela_logo?e=2147483647&v=beta&t=MUsFhcGBiB3QpHj1vQTfc6V5loPo_rwKtn5Syz2OrU4",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/5vxgxcb8skr",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Sandstone",
+              "foundedYear": 2017,
+              "description": "Sandstone is a Los Angeles-based venture studio and boutique design / development firm. We work with a diverse portfolio of clients ranging from small startups ready to execute on an idea to established companies looking to modernize their brand and technology. Our team has years of expertise earned at some of the world's leading companies and a commitment to building deep relationships with our partners.\n\nSandstone provides services and consulting in web development, UI / UX / branding design, product management, and startup growth. We often serve as co-founders for new ventures and focus our portfolio on a blend of innovative technology and projects our team is passionate about. \n\n",
+              "workforce": {
+                "total": 6
+              },
+              "headquarters": {
+                "address": "600 Highland Ave, Manhattan Beach, California 90266, US",
+                "city": "Manhattan Beach",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 474,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 967,
+                    "dateFrom": "2025-05",
+                    "dateTo": "2025-05"
+                  },
+                  {
+                    "value": 80,
+                    "dateFrom": "2025-06",
+                    "dateTo": "2025-06"
+                  },
+                  {
+                    "value": 674,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 1885,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 2679,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 474,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 5562.8,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

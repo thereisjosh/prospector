@@ -1,0 +1,262 @@
+{
+  "request": {
+    "query": "DualEntry",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "8e3be4f898546992bc1b8b5481017b4a",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/ncdmtwx21sl",
+        "title": "DualEntry",
+        "url": "https://dualentry.com/",
+        "text": "# DualEntry\n\nDualEntry is a Software Development company. DualEntry is an AI-native ERP software that offers core financials, general ledger, accounts receivable, cash management, tax management, and more. DualEntry employs 92 people (+196.8% YoY, +61 people), founded in 2024. Headquartered in New York, New York, United States. Its workforce is distributed across 17 countries (including United States, Poland, Ukraine, United Kingdom, and Georgia).\n\n## About\n\nDualEntry is the first ERP built AI-native from the ground up. \n\nYou can close the books faster by automating most of your manual tasks with DualEntry AI, freeing up time to focus on strategy and helping your business scale without adding to headcount. A one-person finance team? It's possible with DualEntry.\n\nMid-market enterprises that have outgrown starter cloud and on-premise finance systems choose DualEntry to scale to IPO. You can handle multiple entities, multiple currencies, real-time reporting, and high transaction volumes on one customizable platform. Our customers range from enterprises with $5M in annual revenue to NYSE-listed businesses. \n\nDualEntry is based in New York City and was founded by two experienced entrepreneurs who previously built a $100M-revenue business. In October 2025 we announced a $90M Series A from Lightspeed Venture Partners, Khosla Ventures, and GV (Google Ventures).\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: New York, United States\n- Founded Year: 2024\n- Homepage: dualentry.com\n- Aliases: Entry Inc., dualentry\n- LinkedIn: linkedin.com/company/dualentry\n- Linkedin Followers: 32,692\n- Emails: support@dualentry.com\n\n## Financials\n- Total Funding: USD 100,000,000\n  - Series a (2025-11-02): USD 90.0M\n  - Seed (2024-05-01): USD 10.0M\n\n## Workforce\n- Employees: 92\n- Company Size: 51-200 employees\n  - Monthly Growth: +8.2%\n  - Yearly Growth: +196.8%\n- Key Executives:\n  - Andrew Wagner: Lead Technical Writer\n  - Andy Woods: Head of Product\n  - Benedict Dohmen: Co-Founder\n  - Bramanto Setyaki: Founding Product Designer\n  - David Ciacchini: Head of Sales\n  - George Mastorakis: Founding SEO Lead\n  - Hugh Mitton: Founding Video Producer\n  - Manuel Morandi: Founding GTM\n  - Max Barzel: Director of Business Operations\n  - SHWETA SHARMA: Head of Talent\n- Breakdown:\n  - By Country: United States: 43 (47%), Poland: 7 (8%), Ukraine: 5 (5%), United Kingdom: 3 (3%), Georgia: 2 (2%), Indonesia: 2 (2%), Spain: 2 (2%), Brazil: 1 (1%), Canada: 1 (1%), Croatia: 1 (1%) (+7 more)\n  - By Department: Technical: 22 (24%), Sales: 13 (14%), Hr: 8 (9%), Product: 6 (7%), Consulting: 5 (5%), Finance: 4 (4%), Marketing: 4 (4%), Other Department: 4 (4%), Customer Service: 3 (3%), Design: 3 (3%) (+4 more)\n  - By Seniority: Senior: 20 (22%), Specialist: 18 (20%), Manager: 13 (14%), Other Management: 12 (13%), Founder: 5 (5%), Head: 5 (5%), Clevel: 1 (1%), Director: 1 (1%), Owner: 1 (1%)\n- Active job postings: 102\n- Talent Sources: Benitago (4), Understory (2), PwC (2), NetSuite (2), Droppe (2), Deel (2), Connect Earth: Sustainable Investments (2), Brightpearl by Sage (2), Wicked Pixels (1), Maintouch (1)\n- Alumni Go To: CFO Leadership Council (3), tonik (1), Smiths Group plc (1), Salesforce (1), MyConsumables (1), MSP365 (1), Insify (1), Hyphenate (formerly Maximor) (1), FIF Collective (1), Aboitiz Economic Estates (1)\n\n## Products & Technology\n- Tech Stack (showing 50 of 114): acumatica, adobe, adobe creative suite, boolean, brex, celery, chargebee, css, datadog, dbt, deel, demandbase, django, docker, figma, fintech, fivetran, flask, git, github, github actions, google ads, google sheets, gps, grafana, greenhouse, html, hubspot, iam, javascript, jenkins, jira, kubernetes, launchpad, lemlist, linkedin, linkedin recruiter, linkedin sales navigator, looker, lottie, markdown, martech, microsoft, microsoft dynamics, microsoft excel, netsuite, numpy, oracle, persona, playwright\n\n## Web presence\n\n- Twitter: twitter.com/dualentry\n- Crunchbase: crunchbase.com/organization/dualentry\n- Web traffic:\n  - Monthly visits: 90,937\n  - Global rank: 371,150\n  - Bounce rate: 37.0%\n  - Pages per visit: 3.2\n  - Average visit duration: 140s\n\n## Categories\n\naccounting, accounting & finance software, accounting software, accounts receivable, ai erp software, ap automation, api marketplace, artificial intelligence (ai), cash flow management, cash management, contract analytics, core financials, discrete erp, distribution erp, dualentry, e-commerce analytics, education finance software, enterprise resource planning (erp), erp, erp systems, expense management, financial analysis, financial close, financial reconciliation, general ledger, invoice management, jobs_and_career/jobs_and_employment, lease accounting, merchant of record, multi-currency, multi-entity, payment analytics, payment processing, procure to pay, procurement orchestration, procurement spend analysis, professional tax, project-based erp, revenue management, revenue recognition, rfp, sales tax and vat compliance, subscription analytics, subscription billing, subscription management, subscription revenue management, technology/software, usage-based billing software\n\n## Recent News\n- [2026-09-30] Business Travel Executive: Expensify and DualEntry Join for Direct Integration\n- [2026-09-29] Business Wire: Expensify Launches Native Integration with DualEntry, the AI-Native ERP Built for Mid-Market Companies\n- [2025-10-03] PYMNTS.com: DualEntry Raises $100 Million for AI-Native ERP Software\n- [2025-08-05] The Next Web: In recruitment, an AI-on-AI war is rewriting the hiring playbook\n- [2025-07-28] tryfinch.com: How DualEntry Gets to Revenue Faster with Finch\n- [2025-06-06] PYMNTS.com: This Week in AI: Intuit Rolls out AI Agents to SMBs\n- [2025-06-02] PYMNTS.com: AI Coding Assistants Give Tech Powers to Small Businesses\n\n## Social\n\n### Linkedin\n\n- [2026-10-02 · Posted · 46 reactions] [We spent three great days at Ramp's OnRamp meeting CFOs...](https://www.linkedin.com/posts/dualentry_we-spent-three-great-days-at-ramps-onramp-activity-7511826493430456320-jKTG)\n  > We spent three great days at Ramp's OnRamp meeting CFOs, controllers and finance teams from all over.\n  >\n  > So many conversations, so many demos, and a lot of excitement around what we’re building. Safe to say the team came away even more fired up than we went in.\n  >\n  > Thanks to everyone who stopped by, and to Ramp for being such a great host 🙌\n\n- [2026-09-29 · Posted · 31 reactions] [One of Iron Self Storage's favorite features: MCP. Their team...](https://www.linkedin.com/posts/dualentry_how-iron-storage-cut-their-close-from-15-activity-7510712157773357056-dLeK)\n  > One of Iron Self Storage's favorite features: MCP.\n  >\n  > Their team connects DualEntry to Claude, then asks questions about their 30-property portfolio, like:\n  >\n  > Where are expenses creeping up?\n  > Which facilities are seeing worrying revenue trends?\n  > Where should the team be paying attention?\n  >\n  > Faraz Hemani explains how DualEntry has sped up their close:\n\n- [2026-09-28 · Posted · 21 reactions] [AI can tell you what happened, but the real value is knowing what...](https://www.linkedin.com/posts/dualentry_ai-can-tell-you-what-happened-but-the-real-activity-7510353776176812035-RTQx)\n  > AI can tell you what happened, but the real value is knowing what to do next.\n  >\n  > Join us for the next CTRL+AI, where Andy Woods, Head of Product at DualEntry and Fredrik Holmgren, Senior Director of Strategic Finance at Perk, will explore how finance teams can use AI to understand GMV performance and turn complex data into actionable insights.\n  >\n  > They’ll cover how AI can help teams:\n  >\n  > - Analyze GMV performance across markets and geographies\n  > - Surface trends and anomalies faster\n  > - Translate financial insights into clear actions for the business\n  > - Get the context they need to investigate and act\n  >\n  > 📅 Wednesday, September 30, 2026.\n  >\n  > 🕛 12:00 PM ET\n  >\n  > Save your spot 👇\n\n- [2026-09-24 · Posted · 88 reactions] [We’re 100+ people now (!!) Not that long ago, DualEntry was a...](https://www.linkedin.com/posts/dualentry_were-100-people-now-not-that-long-activity-7508909709400334336-8hcH)\n  > We’re 100+ people now (!!)\n  >\n  > Not that long ago, DualEntry was a handful of people building the ERP we wished existed.\n  >\n  > Today, there are more than 100 of us building, implementing, and supporting, all while trying to make finance software a LOT better than what came before.\n  >\n  > It’s a pretty surreal milestone, and mostly just a good excuse to say thank you to everyone who has chosen to build DualEntry with us. There’s still an enormous amount left to do, and we’re very lucky to have this group doing it.\n  >\n  > And yes, we’re still growing. If what we’re building sounds like something you’d want to be part of, come join us! 👉️ https://lnkd.in/gCJhPuYR\n\n- [2026-09-24 · 76 reactions, 7 comments] We’re 100+ people now (!!) Not that long ago, DualEntry was a handful of people building the ERP we wished existed. Today, there are more than 100 of us building, implementing, and supporting, all...\n\n- [2026-09-22 · 34 reactions, 3 comments] Last chance to register 🚨 Tomorrow at 12 PM EST, we’re going live with Andy Woods, Head of Product at DualEntry and Fredrik Holmgren, Sr. Director of Strategic Finance at Perk, for the next Ctrl+AI...\n\n- [2026-09-21 · Posted · 47 reactions] [10-day close → 2-day close. 55,000 records migrated in a week. Two...](https://www.linkedin.com/posts/dualentry_10-day-close-2-day-close-55000-records-activity-7507822310381416448-UjIl)\n  > 10-day close → 2-day close.\n  >\n  > 55,000 records migrated in a week.\n  >\n  > Two months of parallel close planned. They only needed one.\n  >\n  > Well is a healthcare navigation company with contracts complex enough that every amortization schedule used to be built by hand in a spreadsheet. They evaluated NetSuite and Sage, then chose DualEntry.\n  >\n  > The best part isn't the speed. It's what their team does with the time they got back: actually interpreting the numbers instead of hunting for errors in them.\n  >\n  > Hear the full story from David Outterson and the Well team 👇️\n\n- [2026-09-21 · 45 reactions, 1 comment] 10-day close → 2-day close. 55,000 records migrated in a week. Two months of parallel close planned. They only needed one. Well is a healthcare navigation company with contracts complex enough that...\n\n- [2026-09-17 · Posted · 27 reactions] [Honored to be featured in Harmonic Hot 25 for Q4 2026 🙌 This marks...](https://www.linkedin.com/posts/dualentry_honored-to-be-featured-in-harmonic-hot-25-activity-7506398373390745600-JVpt)\n  > Honored to be featured in Harmonic Hot 25 for Q4 2026 🙌\n  >\n  > This marks our fourth consecutive quarter on the list, with DualEntry ranking among Harmonic’s top 15 startups throughout 2026.\n  >\n  > A lot has changed over that time. We’ve grown the team, shipped a lot of product, and continued helping more finance teams move off legacy systems and onto a frictionless AI-native ERP.\n  >\n  > Proud of how much we’ve built, and excited about what comes next!\n\n- [2026-09-17 · 29 reactions] Honored to be featured in Harmonic Hot 25 for Q4 2026 🙌 This marks our fourth consecutive quarter on the list, with DualEntry ranking among Harmonic’s top 15 startups throughout 2026. A lot has cha...\n\n- [2026-09-16 · Posted · 28 reactions] [SF, we’re coming back for Poker Night. We’re bringing it back for...](https://www.linkedin.com/posts/dualentry_sftechweek-activity-7505988888008540160-Fx_o)\n  > SF, we’re coming back for Poker Night.\n  >\n  > We’re bringing it back for #SFTechWeek, this time with our friends @ Slash.\n  >\n  > Join us for an invite-only Poker Night for finance leaders and founders.\n  >\n  > 📍 Slash HQ, San Francisco\n  > 📅 Thursday, October 8\n  > ⏰ 6-11 PM\n  >\n  > Seats are limited - Register to join us at the table.\n  > Link in comments.\n\n- [2026-09-16 · 25 reactions, 1 comment] SF, we’re coming back for Poker Night. We’re bringing it back for #SFTechWeek, this time with our friends @ Slash. Join us for an invite-only Poker Night for finance leaders and founders. 📍 Slash H...\n\n- [2026-09-16 · 28 reactions, 1 comment] AI can tell you what happened, the real value is knowing what to do next. Join us for the next CTRL+AI, where Andy Woods, Head of Product at DualEntry and Fredrik Holmgren, Senior Director of Strat...\n\n- [2026-09-15 · Reshared · 14 reactions] [Santiago Nestares appeared on Lightwork to discuss DualEntry’s...](https://www.linkedin.com/posts/dualentry_santiago-nestares-appeared-on-lightwork-to-activity-7505638188963549184-boWp): Santiago Nestares appeared on Lightwork to discuss DualEntry’s approach to ERP, why we chose to go after the general ledger first, and how AI changes the way finance teams work inside the system. T...\n\n- [2026-09-14 · Posted · 55 reactions] [We just launched DualEntry Tasks, one place for finance teams to...](https://www.linkedin.com/posts/dualentry_we-just-launched-dualentry-tasks-one-place-activity-7505332112879804416-APyF)\n  > We just launched DualEntry Tasks, one place for finance teams to manage accounting work from onboarding through close.\n  >\n  > Tasks brings together work that usually gets scattered across finance workflows, from approvals and bank matches to overdue invoices and exceptions.\n  >\n  > The board stays connected to what’s happening inside DualEntry, so tasks can update with the accounting. Agents can also handle recurring work in the background and hand results back for review or approval.\n  >\n  > The goal is simple: less admin, fewer loose ends, and more of the close moving throughout the month 👏\n  >\n  > Read more 👉 dualentry.com/tasks\n\n- [2026-09-14 · 67 reactions, 7 comments] We just launched DualEntry Tasks, one place for finance teams to manage accounting work from onboarding through close. Tasks brings together work that usually gets scattered across finance workflow...\n\n- [2026-09-10 · Posted · 18 reactions] [When you're accounting for digital assets, there isn't just one...](https://www.linkedin.com/posts/dualentry_when-youre-accounting-for-digital-assets-activity-7503836088730476545-Btsp)\n  > When you're accounting for digital assets, there isn't just one source of truth. There are three.\n  >\n  > In this Ctrl+AI clip, Richard Pasquin, Co-founder at Cryptoworth, breaks down 3-way reconciliation: blockchain data, the subledger, and the ERP, and how they all need to tie together.\n  >\n  > Watch the full episode. Link in the comments!\n\n- [2026-09-10 · Posted · 74 reactions] [Big news: DualEntry 🤝 Payhawk We’re excited to announce our...](https://www.linkedin.com/posts/dualentry_big-news-dualentry-payhawk-were-excited-activity-7503814568423534593-Iy_j)\n  > Big news: DualEntry 🤝 Payhawk\n  >\n  > We’re excited to announce our partnership with Payhawk, bringing together the AI ERP and AI-native spend management to give finance teams a faster, more connected way to operate.\n  >\n  > With DualEntry + Payhawk, finance teams can connect spend with their ERP workflows using AI agents that route, code and chase spend automatically, so data is always where it needs to be.\n  >\n  > Less time moving data between systems. More time actually running the business.\n  >\n  > Excited for what’s ahead 🚀\n\n- [2026-09-10 · Posted · 71 reactions] [Last night, we hosted CFOs, finance leaders, and former world No. 2...](https://www.linkedin.com/posts/dualentry_last-night-we-hosted-cfos-finance-leaders-activity-7503879444076404737-ue7b)\n  > Last night, we hosted CFOs, finance leaders, and former world No. 2 Tommy Haas at the US Open for the men’s quarterfinals 🎾\n  >\n  > We asked Tommy if he tracked his points during a game. He told us he doesn’t really look at the stats. You have to follow your gut and let the score take care of itself.\n  >\n  > That's the same freedom accountants that use us feel. Controllers focus on strategy and the rest is taken care of by DualEntry.\n  >\n  > Santiago Nestares, Benedict Dohmen, Sam Bush, Patrick McBride, Jan Abaza, Woosung Chun, Max Barzel\n\n- [2026-09-10 · 22 reactions, 2 comments] When you're accounting for digital assets, there isn't just one source of truth. There are three. In this Ctrl+AI clip, Richard Pasquin, Co-founder at Cryptoworth, breaks down 3-way reconciliation:...\n\n## Locations\n- Headquarters: new york, new york, united states (US)\n- Offices: new york, new york, united states (US)",
+        "summary": "{\"description\":\"DualEntry is an AI-native ERP software company offering core financials, general ledger, accounts receivable, cash management, tax management, and more. Mid-market enterprises use it to scale finance operations on a single customizable platform.\",\"employee_estimate\":92,\"employee_estimate_source\":\"Employees: 92\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Active job postings: 102\",\"hq\":\"New York, United States\",\"hq_quote\":\"Headquarters: new york, new york, united states (US)\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Software Development\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"In October 2025 we announced a $90M Series A from Lightspeed Venture Partners, Khosla Ventures, and GV (Google Ventures).\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQH1pkmZA3JPcA/company-logo_200_200/B56aBpCp2wKwAE-/0/1788468698794/dualentry_logo?e=2147483647&v=beta&t=mmK510TzIuy0enssKajal8CiD8ltaog_Ct2o9iZRGuc",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/ncdmtwx21sl",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "DualEntry",
+              "foundedYear": 2024,
+              "description": "DualEntry is the first ERP built AI-native from the ground up. \n\nYou can close the books faster by automating most of your manual tasks with DualEntry AI, freeing up time to focus on strategy and helping your business scale without adding to headcount. A one-person finance team? It's possible with DualEntry.\n\nMid-market enterprises that have outgrown starter cloud and on-premise finance systems choose DualEntry to scale to IPO. You can handle multiple entities, multiple currencies, real-time reporting, and high transaction volumes on one customizable platform. Our customers range from enterprises with $5M in annual revenue to NYSE-listed businesses. \n\nDualEntry is based in New York City and was founded by two experienced entrepreneurs who previously built a $100M-revenue business. In October 2025 we announced a $90M Series A from Lightspeed Venture Partners, Khosla Ventures, and GV (Google Ventures).",
+              "workforce": {
+                "total": 92
+              },
+              "headquarters": {
+                "address": "7 World Trade Center, 39th Floor, New York, NY 10007, US",
+                "city": "New York",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 100000000,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2025-11-02",
+                  "amount": 90000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 90937,
+                "countryRank": 333745,
+                "avgDurationSeconds": 140,
+                "history": [
+                  {
+                    "value": 81622,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 66211,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 73517,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 100922,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 106745,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 90937,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/f9q12z0f6tt",
+        "title": "DoubleEntry",
+        "url": "https://doubleentry.co.in/",
+        "text": "# DoubleEntry\n\nDoubleEntry is a Accounting company. DoubleEntry provides expert accounting advisory, finance transformation, CFO support, and outsourced finance solutions to help businesses. DoubleEntry employs 26 people (+30.0% YoY, +6 people), founded in 2021. Headquartered in Hyderabad, Telangana, India.\n\n## About\n\nAt DoubleEntry we offer a wide range of consulting services with a strategic focus on finance and accounts outsourcing, risk and compliance, CFO advisory services, digital transformation, Tax support services, Transaction advisory, Talent acquisition and Learning & Education. \n\nOur team comprises of senior finance professionals passionate about creating excellence in the Finance domain. They have extensive work experience both in Industry and Big 4 consulting firms and are experts in their respective areas of specialisation.\n\nWe have the necessary tools and expertise to help grow your business. We partner with our clients from start to finish, focusing on their needs while producing new ideas, developing effective strategies and designing high quality and scalable solutions. DoubleEntry offers flexibility and a practical approach keeping in mind the latest trends. \n\nWe are committed to deliver exceptional client service with uncompromising quality.\n\n## Company Details\n- Industry: Accounting\n- Type: Privately held\n- Headquarters: Hyderabad, India\n- Founded Year: 2021\n- Homepage: doubleentry.co.in\n- Aliases: doubleentry\n- LinkedIn: linkedin.com/company/doubleentry-com\n- Linkedin Followers: 1,720\n\n## Workforce\n- Employees: 26\n- Company Size: 11-50 employees\n  - Yearly Growth: +30.0%\n- Key Executives:\n  - K V Ramchandra Rao: Co-Founder\n- Breakdown:\n  - By Country: India: 20 (77%)\n  - By Department: Finance: 5 (19%), General Management: 4 (15%), Other Department: 4 (15%), Consulting: 3 (12%), Administrative: 2 (8%), Sales: 2 (8%), Hr: 1 (4%)\n  - By Seniority: Manager: 7 (27%), Other Management: 5 (19%), Senior: 4 (15%), Specialist: 4 (15%), Founder: 1 (4%)\n- Talent Sources: KPMG India (3), A B R & Co LLP Chartered Accountants (3), Tata Consultancy Services (1), Sub-K IMPACT Solutions Ltd (1), PwC (1), Mountain Valley Corporation T A Burger King (1), Monarch Info Tech Services Pvt Ltd (1), Institute of Chartered Accountants of India (1), Heartfulness Institute (1), Godrej Interio Hyderabad (1)\n- Alumni Go To: Kheyti (3), Orica (2), CBRE India (2), SHAHGARON (1), Mukesh Manish & Kalpesh (1), HCA Healthcare (1), Deloitte (1), B S R & Co. LLP (1), Arcesium (1), Alien Technology Transfer (1)\n\n## Products & Technology\n- Tech Stack: tds, zoho\n\n## Web presence\n\n- Web traffic:\n  - Monthly visits: 1,563\n  - Global rank: 11,796,492\n  - Bounce rate: 38.0%\n  - Pages per visit: 1.0\n  - Average visit duration: 0s\n\n## Categories\n\naccounting, accounting advisory, business solutions, cfo support, finance, finance transformation, ifrs, ind as, internal controls, outsourced finance solutions, outsourcing services, reconciliations, recruitment, risk and compliance, talent acquisition, tax support services, virtual cfo\n\n## Recent News\n- [2025-09-07] Travel Gossip: US to almost double entry fee for Brits from end of September\n- [2017-09-25] The Telegraph: Exam boards launch GCSE 'double entry' investigation amid claims that schools are breaking rules\n\n## Social\n\n### Linkedin\n\n- [2026-09-30 · 13 reactions] 🌟 Growing our Managed Services team! 🌟 We’re delighted to welcome three new members to the DoubleEntry family, joining our Managed Services vertical. CA Nisha Agrawal joins us as an Assistant Manag...\n\n- [2026-09-30 · 8 reactions] A two-day cut to a ten-day close doesn't save two days. It saves two days every month, every quarter and every year. That's why financial reporting is one of the most consistently high-return autom...\n\n- [2026-09-25 · 1 reaction] 🚨 Hiring Alert | Semi-Qualified CA (CA Inter) with completed Articleship | 0-1 year Experience We are looking for a Semi-Qualified Chartered Accountant (CA Inter) with completed Articleship and exp...\n\n- [2026-09-16 · 11 reactions, 3 comments] 🚀 Multiple Finance Openings | Hyderabad | Immediate to 30 Days Joiners Preferred Are you looking for your next opportunity in Finance & Accounting? We are expanding our team and hiring professional...\n\n- [2026-09-09 · 7 reactions] A few months ago, we took on one of the more complex managed services engagements our team has handled. The client: a large, private-equity-owned infrastructure group, a conglomerate spanning 45+ l...\n\n- [2026-09-08 · 12 reactions, 6 comments] 🚀 Hiring: Oracle Fusion Functional Consultant (Finance) 📍 Location: Hyderabad 💼 Experience: 4-5 Years ⏰ Availability: Immediate to 30 Days Job Description: We are looking for an Oracle Fusion Funct...\n\n- [2026-09-03 · 7 reactions] 🚨 Hiring | Senior Virtual CFO | Yapral, Secunderabad 🚨 We are looking for a Senior Virtual CFO with 15+ years of experience in Finance, Controllership, and Business Advisory to partner with leaders...\n\n- [2026-09-03 · 3 reactions] 🚨 Hiring Alert | Semi-Qualified CA (CA Inter) with completed Articleship We are looking for a Semi-Qualified Chartered Accountant (CA Inter) with completed Articleship and experience in Audit, Acco...\n\n- [2026-09-02 · 6 reactions] CA / Semi-Qualified CA – US Client Finance & Accounting Assignment We are looking for an experienced Chartered Accountant (CA) or Semi-Qualified CA to join a finance and accounting assignment for o...\n\n- [2026-08-29 · 7 reactions, 2 comments] IFRS 18 / Ind AS 118 is getting closer, and some of the most important implementation questions are also the most practical ones. 1. Where should different costs be classified under the new Operati...\n\n- [2026-08-21 · 5 reactions] 🚨 We're Hiring | Senior Executive - Finance (Accounts Receivable & Operations) 🚨 We are looking for a detail-oriented and proactive finance professional with 3-5 years of experience in Accounts Rec...\n\n- [2026-08-21 · 1 reaction] 📢 We're Hiring | Manager - Taxation 📍 Location: Hyderabad 🏢 Work Mode: Work from Office 🎓 Qualification: CA (Mandatory) 💼 Experience: 3-5 Years Post Qualification in Taxation Notice Period: Immedia...\n\n- [2026-08-21] 📢 We're Hiring | Assistant Manager - Taxation 📍 Location: Hyderabad 🏢 Work Mode: Work from Office 🎓 Qualification: CA (Mandatory) 💼 Experience: 1.5 - 2.5 Years Post Qualification Notice Period: Imm...\n\n- [2026-08-21 · 59 reactions, 1 comment] A day to reflect, recognise and celebrate! This Independence Day, the DoubleEntry team stepped away from our usual work environment and spent the day together at our annual offsite. We started the...\n\n- [2026-08-14 · 7 reactions, 1 comment] Finance automation doesn’t have to start with a large technology transformation. For many growing businesses, the Procure-to-Pay (P2P) process is one of the best places to begin. High transaction v...\n\n- [2026-08-13 · 1 reaction, 1 comment] 🚀 We're Hiring: Accounts Executive 📍 Location: Hyderabad/Secunderabad 🎓 Qualification: B.Com 💼 Experience: 2-3 Years Key Skills: ✅ Tally ERP/Prime ✅ GST & TDS Compliance ✅ MS Excel Responsibilities...\n\n- [2026-08-05 · 4 reactions] 🚨 We're Hiring: Semi Qualified CA | Hyderabad 🚨 📍 Location: Hyderabad 💼 Experience: 4-5 Years 🎓 Qualification: Semi Qualified CA (CA Inter) ⏳ Notice Period: Immediate to 30 Days Key Responsibilitie...\n\n- [2026-08-05 · 4 reactions] 🚨 We're Hiring: Semi Qualified CA (Taxation) | Hyderabad 🚨 📍 Location: Hyderabad 💼 Experience: 4-5 Years 🎓 Qualification: Semi Qualified CA (CA Inter) ⏳ Notice Period: Immediate to 30 Days Key Resp...\n\n- [2026-08-05 · 1 reaction] We're Hiring: Chartered Accountant (CA) | Accounting and Financial Reporting 📍 Location: Hyderabad 🎓 Qualification: CA 💼 Experience: 6-7 Years (Post Qualification) ⏳ Notice Period: Immediate to 30...\n\n- [2026-08-01 · 8 reactions] We're excited to announce a strategic technology alliance between DoubleEntry Solutions and Ananta Technology Services, the team behind FinaHQ, a consolidation and disclosure management platform wi...\n\n## Locations\n- Headquarters: hyderabad, telangana, india\n- Offices: hyderabad, telangāna, india",
+        "summary": "{\"description\":\"Accounting and finance advisory and outsourcing services provider offering expert accounting advisory, finance transformation, CFO support, and outsourced finance solutions.\",\"employee_estimate\":26,\"employee_estimate_source\":\"Employees: 26\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"We are expanding our team and hiring professional\",\"hq\":\"Hyderabad, Telangana, India\",\"hq_quote\":\"Headquartered in Hyderabad, Telangana, India\",\"industry\":\"Accounting\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"DoubleEntry is a Accounting company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":null,\"recently_funded_seed_or_series_a_quote\":\"\\\"Company Size: 11-50 employees\\\"; \\\"Yearly Growth: +30.0%\\\"; no explicit seed/Series A funding statement present in excerpt.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C560BAQGew532D9Us4A/company-logo_200_200/company-logo_200_200/0/1643136932405?e=2147483647&v=beta&t=SvX1AXeE5Q9nQr6gEs8Czch08efDduV3UETndWQ4eCQ",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/f9q12z0f6tt",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "DoubleEntry",
+              "foundedYear": 2021,
+              "description": "At DoubleEntry we offer a wide range of consulting services with a strategic focus on finance and accounts outsourcing, risk and compliance, CFO advisory services, digital transformation, Tax support services, Transaction advisory, Talent acquisition and Learning & Education. \n\nOur team comprises of senior finance professionals passionate about creating excellence in the Finance domain. They have extensive work experience both in Industry and Big 4 consulting firms and are experts in their respective areas of specialisation.\n\nWe have the necessary tools and expertise to help grow your business. We partner with our clients from start to finish, focusing on their needs while producing new ideas, developing effective strategies and designing high quality and scalable solutions. DoubleEntry offers flexibility and a practical approach keeping in mind the latest trends. \n\nWe are committed to deliver exceptional client service with uncompromising quality.",
+              "workforce": {
+                "total": 26
+              },
+              "headquarters": {
+                "address": "6-3-1218/2, 405, Janapriya Enclave, Uma nagar colony Begumpet, Hyderabad, Telangana 500016, IN",
+                "city": "Hyderabad",
+                "postalCode": null,
+                "country": "India"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 1563,
+                "countryRank": 1111437,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 1089,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 804,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 835,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 861,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 1126,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 533,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 9012.9,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

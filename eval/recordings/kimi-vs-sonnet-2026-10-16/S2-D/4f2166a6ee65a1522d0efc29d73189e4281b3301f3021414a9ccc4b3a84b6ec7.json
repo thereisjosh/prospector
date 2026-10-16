@@ -1,0 +1,230 @@
+{
+  "request": {
+    "query": "Clera",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "3b9b50469cc070544dfdbbd5d79fe80d",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/4lkhpvzm596",
+        "title": "Clera",
+        "url": "https://www.getclera.com/",
+        "text": "# Clera\n\nClera is a Technology, Information and Internet company. Clera is an AI talent agent that connects hiring managers with companies they want to work for. Clera employs 24 people (+242.9% YoY, +17 people), founded in 2025. Headquartered in San Francisco, United States, with offices in Berlin and New York. Its workforce is distributed across United States, Germany, Canada, and United Kingdom.\n\n## About\n\nYour AI career agent. Warm intros to startups backed by a16z, Index, YC & more.\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Headquarters: San Francisco, United States\n- Founded Year: 2025\n- Homepage: getclera.com\n- Aliases: Clera Labs, Inc, clera, clera labs, Clera AI\n- LinkedIn: linkedin.com/company/getclera\n- Linkedin Followers: 14,118\n- Emails: hello@getclera.com\n- Phone: +14156916518\n\n## Financials\n- Total Funding: USD 6,000,000\n  - Seed (2026-04-01): USD 3.0M\n  - Pre seed (2026-02-01): USD 3.0M\n  - Corporate round (2025-01-01)\n\n## Workforce\n- Employees: 24\n- Company Size: 11-50 employees\n  - Monthly Growth: +14.3%\n  - Yearly Growth: +242.9%\n- Key Executives:\n  - Alexander Farr: Co-Founder\n  - Dale Oxciano: Growth Talent Partner\n  - Daniel Wintermeyer: CTO & Co-Founder\n  - Elaine H: Founding Growth\n  - Kieran O'Connor: Founding Talent Partner - Early Stage Specialist\n  - Sebastian Scott: Co-Founder\n  - Shlok Mundhra: Founding AI engineer\n  - Vara L.: Founding Recruiter\n- Breakdown:\n  - By Country: United States: 14 (58%), Germany: 2 (8%), Canada: 1 (4%), United Kingdom: 1 (4%)\n  - By Department: Technical: 5 (21%), Hr: 4 (17%), Consulting: 3 (12%), General Management: 3 (12%), Other Department: 3 (12%)\n  - By Seniority: Specialist: 6 (25%), Founder: 5 (21%), Other Management: 4 (17%), Partner: 2 (8%), Clevel: 1 (4%)\n- Active job postings: 225\n- Talent Sources: Superchat (2), naklar.io (1), YMCA of Greater Halifax/Dartmouth (1), Various Companies (1), Talent Stream (1), Scalable Capital (1), Lore (1), LOFINO (1), Janus Labs (1), Google (1)\n- Alumni Go To: Stealth Startup (2), i10X AI (1), Volkswagen Group Consulting (1), Stealth AI Startup (1), Purpose Advisory (1), Evenn Co. (1), Entourage Ventures (1), Calculated Risks Podcast (1), Boston Consulting Group (BCG) (1)\n\n## Products & Technology\n- Tech Stack (showing 50 of 282): accenture, access legal, ada, adobe, adobe creative cloud, adobe creative suite, adobe experience manager, adobe illustrator, adobe xd, adtech, airtable, akka, altium, amazon neptune, ams, android devices, android os, angular, ansible, ansys, apache, apache spark, api gateway, apple watch, appsumo, argocd, asana, asic, autodesk, autodesk inventor, aws lambda, bash, blender, bootstrap, canva, carta, catia, celigo, celonis, ceph, chrome, clever, clickhouse, cloudflare, contech, coq, cortex, css, cuda, dart\n\n## Web presence\n\n- Twitter: twitter.com/getclera\n- Crunchbase: crunchbase.com/organization/clera\n- Web traffic:\n  - Monthly visits: 118,576\n  - Global rank: 298,274\n  - Bounce rate: 47.0%\n  - Pages per visit: 3.5\n  - Average visit duration: 209s\n\n## Categories\n\nai, ai talent agent, artificial intelligence (ai), career, career planning, coaching, companies, headhunting, hiring managers, human resources, information technology, jobs, jobs_and_career/jobs_and_employment, recruiting, startups\n\n## Recent News\n- [2026-07-01] [Crossed ~13 months building Clera. If I had to start over, I'd do one thing differently: Post on LinkedIn from day 1. I started posting consistently ~4 months ago. But I wish I would've started the… \\| Sebastian Scott](https://www.linkedin.com/posts/jsebastianscott_crossed-13-months-building-clera-if-i-had-activity-7478000458398154752-fBQ7)\n\n## Social\n\n### Linkedin\n\n- [2026-09-24 · 120 reactions, 5 comments] SF Tech Week is about to get very Clera. We have 200+ founders, investors and operators coming for events we're hosting during SF tech week: Some RSVPS: → Mon 09/28: rooftop mixer with SF Startup L...\n\n- [2026-09-15 · 81 reactions, 3 comments] Close the laptop. Founders poker night is back on Friday🃏 This time we're running it back with Concord Visa, Uplane, Reintersect, and Shor (YC S25) - the people behind your visas, marketing, comms,...\n\n- [2026-09-10 · 57 reactions] 200,000 people are now using Clera to find their next job 🎉 So naturally, we pranked Sebastian Scott and told him we were going to In-N-Out. It was skydiving 🪂\n\n- [2026-09-10 · 122 reactions, 8 comments] 200,000 people are now represented by Clera. To get intros to the best job opportunities in tech 🎉 Pretty surreal. To celebrate, the team told me we were going to In-N-Out. They left out one small...\n\n- [2026-09-08 · 62 reactions, 1 comment] SF, put us on your calendar for TECH WEEK by a16z. We’re hosting various events, including founder drinks, a dumpling rave, SoulCycle, a rooftop party, and a panel on what your startup offer is act...\n\n- [2026-09-04 · 66 reactions, 1 comment] Great hiring starts before you have an open role. Sebastian Scott on why the best founders treat hiring like sales, build relationships early, and create a company great people want to be around.\n\n- [2026-09-01 · 65 reactions, 1 comment] We're back again with another episode of side quests and we’re visiting Christian Bhatia Ondaatje, a three-time founder and the CEO of Aranya. His take: Top talent can crank out 996-level work in 3...\n\n- [2026-08-27 · 112 reactions, 5 comments] At our launch party at Casa Clera, Shlok Mundhra was DJing while fixing bugs in Microsoft's C++ library. Daniel Wintermeyer walked over, saw what he was coding, and told him, “Whenever you need a j...\n\n- [2026-08-26 · 70 reactions, 1 comment] On paper, both of our best engineers are junior. Daniel on why that doesn't tell you much: the grit, motivation, and analytical ability that matter aren't measured in years of experience. Both are...\n\n- [2026-08-26 · 73 reactions] Most founders have one person in mind for the job. Then they spend months looking for them. Alex's approach: write three profiles instead. For a founding engineer, that could be a former founder wh...\n\n- [2026-08-26 · 147 reactions, 24 comments] Full house in the Silicon Valley Bank suite for the Giants’ big win last night. Really fun evening with an awesome group of founders and friends from across the SF startup community. Thanks to ever...\n\n- [2026-08-26 · 79 reactions, 4 comments] Founders can spend months looking for someone who might become the perfect sales leader. Seb on why you should hire for what you need now, plus the potential to grow into what's next. What gets you...\n\n- [2026-08-25 · 82 reactions, 2 comments] In the first episode of Clera Side Quests, we’re visiting Benjamin Stern (the guy in the ice bath), a Thiel Fellow and the founder and CEO of Tenkara. His take: Get crazier. Push the limits of what...\n\n- [2026-08-25 · 156 reactions, 9 comments] I visited Benjamin, founder of Tenkara and Thiel Fellow (in an ice bath) We talked about what it means to take risk, push the limits and build a company from conviction. Also why he thinks it's irr...\n\n- [2026-08-21 · 95 reactions, 6 comments] The hardest part of recruiting at an AI startup might be finding the time to recruit at all… Korbinian, the founder of Pluno, was doing the usual founder recruiting loop: working with recruiters, m...\n\n- [2026-08-21 · 59 reactions] Our recent case study with Pluno, hiring two engineers via Clera. \"We just provided the JD and Clera took care of the rest\".\n\n- [2026-08-20 · 58 reactions, 1 comment] AI can accelerate the work. It can’t make the judgment call. Across three recent articles, Clera CEO and Co-founder Sebastian Scott explores what that distinction means for careers and leadership i...\n\n- [2026-08-11 · 45 reactions] Join our founder Daniel and Founding Engineer Julian tomorrow for a talk about our migration to ClickHouse. Especially relevant for all founders building agents on top of postgres. If you're there,...\n\n- [2026-08-06 · 58 reactions] One of our favorite things about the Clera hackerhouse is having people over. This Friday, we’re bringing SF founders for poker, good company, and a little friendly competition. There’s a beginner...\n\n- [2026-08-04 · 64 reactions, 2 comments] Founders in San Francisco: clear your Friday night. We are bringing together a group of people for an invite-only night of Texas Hold’em - with drinks, late-night bites, and a little friendly rival...\n\n## Locations\n- Headquarters: san francisco, united states (US)\n- Offices: san francisco, california, united states (US), berlin, germany (DE), san francisco, united states (US), new york, new york, united states (US)",
+        "summary": "{\"description\":\"Clera is an AI talent agent that connects hiring managers with companies they want to work for.\",\"employee_estimate\":24,\"employee_estimate_source\":\"Employees: 24\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Key Executives: Alexander Farr: Co-Founder; Dale Oxciano: Growth Talent Partner; Daniel Wintermeyer: CTO & Co-Founder; Elaine H: Founding Growth; Kieran O'Connor: Founding Talent Partner - Early Stage Specialist; Sebastian Scott: Co-Founder; Shlok Mundhra: Founding AI engineer; Vara L.: Founding Recruiter\",\"hq\":\"San Francisco, United States\",\"hq_quote\":\"Headquarters: San Francisco, United States\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Technology, Information and Internet\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 6,000,000\\n  - Seed (2026-04-01): USD 3.0M\\n  - Pre seed (2026-02-01): USD 3.0M\\n  - Corporate round (2025-01-01)\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQGsOwVYoaBKqA/company-logo_200_200/B4EZ_OdqYjJIAE-/0/1785875310327/getclera_logo?e=2147483647&v=beta&t=ZNM4bPgzFgkk0ndV5cEsnHSGmDjhXUbWmI3Qb8um1YM",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/4lkhpvzm596",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Clera",
+              "foundedYear": 2025,
+              "description": "Your AI career agent. Warm intros to startups backed by a16z, Index, YC & more.",
+              "workforce": {
+                "total": 24
+              },
+              "headquarters": {
+                "address": "San Francisco, US",
+                "city": "San Francisco",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 6000000,
+                "fundingLatestRound": {
+                  "name": "Seed",
+                  "date": "2026-04-01",
+                  "amount": 3000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 118576,
+                "countryRank": 103383,
+                "avgDurationSeconds": 209,
+                "history": [
+                  {
+                    "value": 95182,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 71920,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 77516,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 79721,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 98007,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 98007,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/nzt3x08qkfm",
+        "title": "Clera Inc.",
+        "url": "https://clera.com/",
+        "text": "# Clera Inc.\n\nClera Inc. employs 3 people and has an annual revenue of $10.6M. Headquartered in Vancouver, British Columbia, Canada, with presence in United States.\n\n## Company Details\n- Headquarters: Vancouver, Canada\n- Homepage: clera.com\n- Aliases: clera inc.\n- LinkedIn: linkedin.com/company/abcdefjklm\n- Linkedin Followers: 5\n- Phone: 1-647-547-8947\n\n## Financials\n- Annual Revenue: USD 10,562,826\n\n## Workforce\n- Employees: 3\n- Talent Sources: First Tuesday (1), ADit Corp. (1)\n- Alumni Go To: Soft Trust Inc. (1), Cybersecurity Attorney (1)\n\n## Locations\n- Headquarters: vancouver, british columbia, canada\n- Offices: toronto, ontario m5s 2e1, canada, vancouver, british columbia, canada",
+        "summary": "{\"description\":\"Clera Inc. is a small, Vancouver-based company with a stated headquarters in Vancouver, Canada, operating in a B2B space with a handful of employees and multi-regional presence (Canada and United States).\",\"employee_estimate\":3,\"employee_estimate_source\":\"Employees: 3\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Vancouver, British Columbia, Canada\",\"hq_quote\":\"Headquartered in Vancouver, British Columbia, Canada, with presence in United States.\",\"industry\":\"\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"\\\"LinkedIn: linkedin.com/company/abcdefjklm\\\" and company page excerpts do not explicitly state industry; however, the context presents as a company profile typical of B2B data extraction.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":null,\"recently_funded_seed_or_series_a_quote\":\"\\\"Clera Inc. employs 3 people and has an annual revenue of $10.6M.\\\"\\\"Headquartered in Vancouver, British Columbia, Canada, with presence in United States.\\\"\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4E0BAQGFD1oUDVGvyA/company-logo_200_200/company-logo_200_200/0/1631365391319/abcdefjklm_logo?e=2147483647&v=beta&t=JwfvLiCX9CuQHJdHT3R7HRQahDpaGhV6lT8hqiHKe5o",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/nzt3x08qkfm",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Clera Inc.",
+              "foundedYear": null,
+              "description": null,
+              "workforce": {
+                "total": 3
+              },
+              "headquarters": {
+                "address": "837 W Hastings St, Vancouver, British Columbia, CA",
+                "city": "Vancouver",
+                "postalCode": null,
+                "country": "Canada"
+              },
+              "financials": {
+                "revenueAnnual": 10562826,
+                "fundingTotal": null,
+                "fundingLatestRound": null
+              },
+              "webTraffic": null,
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 6814.9,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

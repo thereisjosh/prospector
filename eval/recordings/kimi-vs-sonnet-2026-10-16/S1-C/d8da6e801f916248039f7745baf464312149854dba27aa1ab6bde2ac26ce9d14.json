@@ -1,0 +1,232 @@
+{
+  "request": {
+    "query": "MyFreightWorld",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "bbce2c1701b90da5552f85de0285d8ac",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/lpp42mws7hf",
+        "title": "MyFreightWorld Inc.",
+        "url": "https://www.myfreightworld.com/",
+        "text": "# MyFreightWorld Inc.\n\nMyFreightWorld Inc. (MYFT) is a Transportation, Logistics, Supply Chain and Storage company. MyFreightWorld is a third-party logistics company that delivers seamless freight management and transportation solutions. MyFreightWorld Inc. employs 151 people (+15.3% YoY, +20 people) and has an annual revenue of $23.5M, founded in 1999. Headquartered in Overland Park, Kansas, United States, with an office in Overland. Its workforce is distributed across United States, India, Colombia, and Armenia.\n\n## About\n\nMyFreightWorld (MFW) makes the wheels of transportation less squeaky, and has been doing so for over 20 years! \n\nMFW helps source transportation solutions and technology for Manufacturers, Distributors, and Retailers. \n\nWe specialize in Managed Services and Freight Brokerage, managing and arranging the movement of LTL, FTL (Dry Van, Flatbed, Reefer, Drayage, Tanker, Hopper, Oversized), Intermodal, Ocean, and Air. Additionally, we perform small package consulting services.\n\nMFW is proud of the technology we bring to our customers, resulting in a more efficient shipping process - integrating into several different ERP systems.\n\nMostly, we're proud of the team we have assembled. Full of individuals that have an extremely high level of care when it comes to executing for our customers. \n\nCheck out the MFW culture in this YouTube video!\nhttps://youtu.be/4U-ubsrF-5Q\n\nWe're currently looking to add problem solvers to our team. People who are looking to make a living and build a career, not just collect a paycheck. Visit https://www.myfreightworld.com/apply-now/ or email recruiting@myfreightworld if you'd like to hear more about the opportunities we have to offer!\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Privately held\n- Headquarters: Overland Park, United States\n- Founded Year: 1999\n- Homepage: myfreightworld.com\n- Aliases: mfw, my freightworld technologies, myfreightworld, myfreightworld inc., myfreightworld.com\n- LinkedIn: linkedin.com/company/myfreightworld\n- Linkedin Followers: 6,419\n- Emails: apps@myfreightworld.com\n- Phone: 1-877-549-9438, 877-549-9438, 877.549.9438, 8775499438\n- Stock Symbols: MYFT\n\n## Financials\n- Annual Revenue: USD 23,450,835\n- Total Funding: USD 1,507,162\n  - Venture (2010-09-08): USD 1.5M\n\n## Workforce\n- Employees: 151\n- Company Size: 51-200 employees\n  - Monthly Growth: -0.7%\n  - Yearly Growth: +15.3%\n- Key Executives:\n  - Clayton Holden: Vice President Sales at MyFreightWorld\n  - Dave Staup: Director\n  - Kurtis Green: Director, Outside Agents\n  - Mary Sullivan-Groves: Vice President of Operations\n  - Mike Chalfant, CPA: President\n  - Roger Gumz: VP of Sales\n- Breakdown:\n  - By Country: United States: 104 (69%), India: 7 (5%), Colombia: 3 (2%), Armenia: 2 (1%)\n  - By Department: Sales: 73 (48%), Operations: 19 (13%), Finance: 12 (8%), General Management: 3 (2%), Marketing: 3 (2%), Other Department: 3 (2%), Hr: 2 (1%), Consulting: 1 (1%), Customer Service: 1 (1%), Legal: 1 (1%)\n  - By Seniority: Specialist: 85 (56%), Manager: 13 (9%), Other Management: 9 (6%), Senior: 4 (3%), Vp: 4 (3%), Director: 2 (1%), Intern: 1 (1%)\n- Active job postings: 5\n- Salary ranges:\n  - Sales: median $153,968.62 per year\n  - Account Executive: median $149,677.2 per year\n  - Senior Software Engineer: median $146,383.05 per year\n  - Account Manager: median $131,668.64 per year\n  - Senior Supply Chain Analyst: median $92,342.43 per year\n  - Carrier Sales Representative: median $80,260.47 per year\n  - Staff Accountant: median $69,574.58 per year\n  - Staff Accounting Intern: median $58,650.57 per year\n  - Account Coordinator: median $49,279.21 per year\n  - Customer Service REp: median $38,920.17 per year\n- Talent Sources: Freightquote (13), Yellow Logistics (7), Franklin National (6), Central Transport (5), XPO (4), Worldwide Express (3), VARSTAR ALLIANCE (3), C.H. Robinson (3), Tallgrass Freight Company (2), RTS (2)\n- Alumni Go To: Port TMS (2), Logistics One (2), Creative Planning (2), The University of Kansas (1), Muse Freight (1), Love to Travel (1), Edison Factory (1), Cascade Orthopedic Supply, LP (1), Avenue Logistics (1), AES Logistics (1)\n\n## Products & Technology\n- Tech Stack: freightquote, hubspot, hubspot crm, linkedin, personify, ramp, time matters, zoominfo, microsoft, microsoft excel, quickbooks, box, well, google calendar\n\n## Web presence\n\n- Twitter: twitter.com/myfreightworld\n- Facebook: facebook.com/myfreightworld-technologies-511844638894976\n- Crunchbase: crunchbase.com/organization/myfreightworld\n- Web traffic:\n  - Monthly visits: 4,399\n  - Global rank: 3,783,868\n  - Bounce rate: 64.0%\n  - Pages per visit: 1.8\n  - Average visit duration: 43s\n\n## Reviews & Ratings\n- Employer Rating: 4.6/5.0 (8 reviews)\n  - Breakdown: Work-Life: 4.5, Compensation: 4.4, Culture: 4.5, Career: 4.1\n\n## Categories\n\nautomotive-transportation, consulting, freight management, information technology, logistics, ltl shipments, managed freight services, outsourcing, seamless, shipping broker, small package audit, software, third-party logistics, tl shipments, transportation, transportation and logistics, transportation management system, transportation solutions\n\n## Competitors\n\nhuaihe energy, crst, ceva logistics europe, bollore transport & logistics\n\n## Recent News\n- [2026-09-26] Yahoo\\! Finance Canada: myFreightWorld Technologies, Inc. \\(MYFT\\) Analyst Insights, Price Targets & Recommendations - Yahoo Finance\n- [2026-08-28] The Business Journals: Logistics company nearly doubles office, plans to triple workforce\n- [2026-08-21] TradingView: Price to sales forward of MY FREIGHTWORLD TECHNOLOGIES INC – OTC:MYFT\n\n## Social\n\n### Linkedin\n\n- [2026-10-07 · Posted · 10 reactions] [What if the “softer market” you are waiting for still feels tight...](https://www.linkedin.com/posts/myfreightworld_tl-capacity-trends-october-2026-activity-7513685973495496704-NGNX)\n  > What if the “softer market” you are waiting for still feels tight when you need a truck?\n  >\n  > Van is turning up from September’s floor. Flatbed has stopped falling. Reefer remains elevated.\n  >\n  > October’s headline numbers only tell part of the story.\n  >\n  > Swipe through our latest TL Capacity Trends to see what the rest could mean for your Q4 freight plans!\n\n- [2026-09-29 · Posted · 36 reactions] [What do the latest economic indicators mean for your transportation...](https://www.linkedin.com/posts/myfreightworld_what-do-the-latest-economic-indicators-mean-activity-7510765915995582464-QQTE)\n  > What do the latest economic indicators mean for your transportation strategy heading into Q4?\n  >\n  > Our September 2026 Economic Insights White Paper examines the latest signals and what they may influence for shippers and the transportation market!\n  >\n  > 🔗: https://hubs.la/Q04yDfjw0\n\n- [2026-09-26 · Posted · 3 reactions] [Hiring](https://www.linkedin.com/posts/myfreightworld_hiring-activity-7509572364494413824-wOv6)\n  > Hiring\n\n- [2026-09-25 · Posted · 77 reactions] [The best business relationships are built through time spent...](https://www.linkedin.com/posts/myfreightworld_the-best-business-relationships-are-built-activity-7509271392459079680-C0Xw)\n  > The best business relationships are built through time spent together.\n  >\n  > A big thanks to the Forward Air Corporation team for a memorable day on the course and for being a valued partner!\n\n- [2026-09-18 · Posted · 34 reactions] [Is your Q4 transportation strategy built for the market ahead, or...](https://www.linkedin.com/posts/myfreightworld_monthly-musings-september-2026-activity-7506746083054845952-7E6W)\n  > Is your Q4 transportation strategy built for the market ahead, or the one you’ve gotten used to?\n  >\n  > From import activity to transportation costs, this month’s Monthly Musings connects the economic indicators to the decisions shippers face heading into peak season.\n  >\n  > Take a swipe through for a closer look. →\n\n- [2026-09-18 · 34 reactions] Is your Q4 transportation strategy built for the market ahead, or the one you’ve gotten used to? From import activity to transportation costs, this month’s Monthly Musings connects the economic ind...\n\n- [2026-09-11 · Posted · 41 reactions] [Today, we pause to mark the 25th anniversary of September 11. A...](https://www.linkedin.com/posts/myfreightworld_today-we-pause-to-mark-the-25th-anniversary-activity-7504244003354308608-EC7q)\n  > Today, we pause to mark the 25th anniversary of September 11.\n  >\n  > A quarter-century later, we remember the lives lost and stand with the families, survivors, and communities forever changed by that day.\n  >\n  > We honor the first responders, service members, and everyday people who answered the call to help others with courage and compassion.\n  >\n  > Their service and sacrifice will never be forgotten.\n\n- [2026-09-11 · 41 reactions] Today, we pause to mark the 25th anniversary of September 11. A quarter-century later, we remember the lives lost and stand with the families, survivors, and communities forever changed by that day...\n\n- [2026-09-09 · Posted · 24 reactions] [When was the last time you checked your routing guide against...](https://www.linkedin.com/posts/myfreightworld_september-2026-tl-capacity-trends-activity-7503540450289569792-52x-)\n  > When was the last time you checked your routing guide against current market conditions?\n  >\n  > September’s TL capacity trends takes a closer look at carrier rejections, regional capacity, and the outside pressures shaping freight costs.\n  >\n  > Swipe through to see what deserves your attention before your next bid!\n\n- [2026-09-09 · 31 reactions] When was the last time you checked your routing guide against current market conditions? September’s TL capacity trends takes a closer look at carrier rejections, regional capacity, and the outside...\n\n- [2026-09-04 · Posted · 54 reactions] [This one is about more than golf. Ahead of the Tee Up for Tyler...](https://www.linkedin.com/posts/myfreightworld_this-one-is-about-more-than-golf-ahead-activity-7501662800822345729-T51Y)\n  > This one is about more than golf.\n  >\n  > Ahead of the Tee Up for Tyler Memorial Golf Tournament, MFW hosted our first Golf Gauntlet at the simulator to determine which three team members would join our president on the course.\n  >\n  > The competition was a great time, but the opportunity they were playing for carries a much greater meaning. On September 8, the team will represent MFW at Blue Hills Country Club during a special event that brings family, friends, and the community together to celebrate Tyler’s life and lasting legacy.\n  >\n  > MFW is honored to once again sponsor a hole and support a meaningful day dedicated to carrying his legacy forward.\n\n- [2026-09-04 · 87 reactions, 4 comments] This one is about more than golf. Ahead of the Tee Up for Tyler Memorial Golf Tournament, MFW hosted our first Golf Gauntlet at the simulator to determine which three team members would join our pr...\n\n- [2026-09-02 · Posted · 32 reactions] [Are peak-season pressures already showing up in your freight data...](https://www.linkedin.com/posts/myfreightworld_fall-2026-peak-season-freight-a-shipper-activity-7500924336757903360-JNEs)\n  > Are peak-season pressures already showing up in your freight data?\n  >\n  > Fall freight planning looks different in 2026. Tighter capacity, shifting demand and seasonal disruptions could leave shippers with less room to react as Q4 approaches.\n  >\n  > Our latest guide breaks down the freight patterns, regional risks and key metrics worth watching, plus practical steps to protect your costs and service levels!\n  >\n  > 🔗: https://hubs.la/Q04wgVvn0\n\n- [2026-09-02 · 32 reactions] Are peak-season pressures already showing up in your freight data? Fall freight planning looks different in 2026. Tighter capacity, shifting demand and seasonal disruptions could leave shippers wit...\n\n- [2026-08-25 · Posted · 79 reactions] [Great people make great teams. Cheers to an afternoon of...](https://www.linkedin.com/posts/myfreightworld_great-people-make-great-teams-cheers-to-activity-7498021832617426945-3XQD)\n  > Great people make great teams.\n  >\n  > Cheers to an afternoon of connecting, catching up, and having a little fun outside the office! 🍻\n\n- [2026-08-18 · Posted · 39 reactions] [If shipment volumes are down, why are freight costs still rising...](https://www.linkedin.com/posts/myfreightworld_monthly-musings-august-2026-activity-7495489144387842048-a2-f)\n  > If shipment volumes are down, why are freight costs still rising?\n  >\n  > That is the disconnect shaping today’s market. Demand indicators are accelerating, shipment volumes remain soft, and transportation expenditures continue climbing.\n  >\n  > August’s Monthly Musings breaks down this growing disconnect and what it could mean heading into Q4 bid season!\n\n- [2026-08-18 · 40 reactions] If shipment volumes are down, why are freight costs still rising? That is the disconnect shaping today’s market. Demand indicators are accelerating, shipment volumes remain soft, and transportation...\n\n- [2026-08-07 · Posted · 23 reactions] [Planning around a September capacity recovery? The latest truckload...](https://www.linkedin.com/posts/myfreightworld_mfw-tl-capacity-trends-august-2026-activity-7491557376874078208-LWmz)\n  > Planning around a September capacity recovery?\n  >\n  > The latest truckload data suggests it may be time to take another look.\n  >\n  > Tender rejections remain elevated, spot exposure continues, and Q4 restocking is approaching quickly.\n  >\n  > See what the numbers mean for van, reefer, and flatbed capacity in our August TL Capacity Trends!\n\n- [2026-08-07 · 26 reactions] Planning around a September capacity recovery? The latest truckload data suggests it may be time to take another look. Tender rejections remain elevated, spot exposure continues, and Q4 restocking...\n\n- [2026-08-04 · Posted · 89 reactions] [Success is rarely about one strong month. It is built through...](https://www.linkedin.com/posts/myfreightworld_success-is-rarely-about-one-strong-month-activity-7490471615303077888-vnPX)\n  > Success is rarely about one strong month. It is built through consistent progress.\n  >\n  > Matt started with MyFreightWorld in Overland Park shortly after college and later made the move to our West Palm Beach office. At every step, he has continued learning, adapting, and making an impact.\n  >\n  > We are proud to recognize Matt as our July Sales Leader and celebrate another milestone in his career with MFW.\n  >\n  > Congratulations, Matt!\n\n## Locations\n- Headquarters: overland park, kansas, united states (US)\n- Offices: overland park, kansas, united states (US), overland, kansas, united states (US)",
+        "summary": "{\"description\":\"MyFreightWorld Inc. is a private transportation, logistics, supply chain and storage company offering managed services, freight brokerage, and diverse shipping modes (LTL, FTL, intermodal, ocean, air) with global workforce distribution.\",\"employee_estimate\":151,\"employee_estimate_source\":\"Employees: 151\",\"hq\":\"Overland Park, Kansas, United States\",\"hq_quote\":\"Headquartered in Overland Park, Kansas, United States\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"MyFreightWorld Inc. is a third-party logistics company that delivers seamless freight management and transportation solutions.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4E0BAQEHJ8DIK4BaKA/company-logo_200_200/company-logo_200_200/0/1630601654698/myfreightworld_logo?e=2147483647&v=beta&t=O11AjHAjHJOZ-1E0ElGeuhdMvN2BEHzfsmfn8TBa50I",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/lpp42mws7hf",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "MyFreightWorld Inc.",
+              "foundedYear": 1999,
+              "description": "MyFreightWorld (MFW) makes the wheels of transportation less squeaky, and has been doing so for over 20 years! \n\nMFW helps source transportation solutions and technology for Manufacturers, Distributors, and Retailers. \n\nWe specialize in Managed Services and Freight Brokerage, managing and arranging the movement of LTL, FTL (Dry Van, Flatbed, Reefer, Drayage, Tanker, Hopper, Oversized), Intermodal, Ocean, and Air. Additionally, we perform small package consulting services.\n\nMFW is proud of the technology we bring to our customers, resulting in a more efficient shipping process - integrating into several different ERP systems.\n\nMostly, we're proud of the team we have assembled. Full of individuals that have an extremely high level of care when it comes to executing for our customers. \n\nCheck out the MFW culture in this YouTube video!\nhttps://youtu.be/4U-ubsrF-5Q\n\nWe're currently looking to add problem solvers to our team. People who are looking to make a living and build a career, not just collect a paycheck. Visit https://www.myfreightworld.com/apply-now/ or email recruiting@myfreightworld if you'd like to hear more about the opportunities we have to offer!",
+              "workforce": {
+                "total": 151
+              },
+              "headquarters": {
+                "address": "7007 College Blvd, Ste 150, Overland Park, Kansas 66211, US",
+                "city": "Overland Park",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 23450835,
+                "fundingTotal": 1507162,
+                "fundingLatestRound": {
+                  "name": "Venture",
+                  "date": "2010-09-08",
+                  "amount": 1507162
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 4399,
+                "countryRank": 1166439,
+                "avgDurationSeconds": 43,
+                "history": [
+                  {
+                    "value": 2446,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 2895,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 2208,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 3250,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 3812,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 4399,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/vs4f6kv86p0",
+        "title": "FREIGHTWORLD",
+        "url": "https://freightworld.com/",
+        "text": "# FREIGHTWORLD\n\nFREIGHTWORLD. FreightWorld.com provides ltl and flatbed freight quotes, covering all 48 states. They offer honest pricing, real people on dispatch, and live tracking from pickup to proof of delivery. FREIGHTWORLD employs 2 people (+100.0% YoY, +1 person). Headquartered in Folsom, United States.\n\n## About\n\nFreightWorld.com provides ltl and flatbed freight quotes, covering all 48 states. They offer honest pricing, real people on dispatch, and live tracking from pickup to proof of delivery.\n\n## Company Details\n- Headquarters: Folsom, United States\n- Homepage: freightworld.com\n- Aliases: freightworld\n- LinkedIn: linkedin.com/company/freightworld\n- Linkedin Followers: 4\n- Emails: sales@freightworld.com\n\n## Workforce\n- Employees: 2\n  - Yearly Growth: +100.0%\n- Talent Sources: HLB International (1)\n- Alumni Go To: Zimbabwe Republic Police (1), HLB International (1), A.P. Moller - Maersk (1)\n\n## Web presence\n\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Categories\n\ndry van, flatbed, freight quotes, logistics, ltl, reefer\n\n## Locations\n- Headquarters: folsom, united states (US)\n- Offices: folsom, united states (US), folsom, california, united states (US)",
+        "summary": "{\"description\":\"FreightWorld.com provides ltl and flatbed freight quotes, covering all 48 states. They offer honest pricing, real people on dispatch, and live tracking from pickup to proof of delivery.\",\"employee_estimate\":2,\"employee_estimate_source\":\"Employees: 2\",\"hq\":\"Folsom, United States\",\"hq_quote\":\"Headquartered in Folsom, United States\",\"industry\":\"logistics, freight quotes\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"FreightWorld.com provides ltl and flatbed freight quotes, covering all 48 states. They offer honest pricing, real people on dispatch, and live tracking from pickup to proof of delivery.\"}",
+        "image": "https://static.licdn.com/aero-v1/sc/h/cs8pjfgyw96g44ln9r7tct85f",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/vs4f6kv86p0",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "FREIGHTWORLD",
+              "foundedYear": null,
+              "description": "FreightWorld.com provides ltl and flatbed freight quotes, covering all 48 states. They offer honest pricing, real people on dispatch, and live tracking from pickup to proof of delivery.",
+              "workforce": {
+                "total": 2
+              },
+              "headquarters": {
+                "address": "Folsom, US",
+                "city": "Folsom",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": 0,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 1800,
+                    "dateFrom": "2024-03",
+                    "dateTo": "2024-03"
+                  },
+                  {
+                    "value": 1700,
+                    "dateFrom": "2024-05",
+                    "dateTo": "2024-05"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2024-09",
+                    "dateTo": "2024-09"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2024-10",
+                    "dateTo": "2024-10"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2025-06",
+                    "dateTo": "2025-06"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 7677.6,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

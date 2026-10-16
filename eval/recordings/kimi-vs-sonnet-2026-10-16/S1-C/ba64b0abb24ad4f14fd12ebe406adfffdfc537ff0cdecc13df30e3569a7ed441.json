@@ -1,0 +1,192 @@
+{
+  "request": {
+    "query": "Langham",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "69440ec6e1270ea5c152d492f546a3aa",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/88nnp4n333w",
+        "title": "Langham Hospitality Group",
+        "url": "https://www.langhamhotels.com/en/",
+        "text": "# Langham Hospitality Group\n\nLangham Hospitality Group is a Hospitality company. Langham Hospitality Group is a company that provides a world where innovation meets hospitality, offering luxury and a touch of genius. Langham Hospitality Group employs 2,458 people (+2.9% YoY, +70 people) and has an annual revenue of $42.6M. Headquartered in Hong Kong, Hong Kong, operates in 7 countries (including China, United States, Australia, Singapore, and United Kingdom). Its workforce is distributed across 30 countries (including United States, Hong Kong, Australia, Indonesia, and China).\n\n## About\n\nA wholly-owned subsidiary of Great Eagle Holdings Limited, Langham Hospitality Group (LHG) comprises a family of distinctive brands, including The Langham Hotels and Resorts, Cordis Hotels and Resorts, Eaton Workshop and Ying’nFlo. With over 40 hotels and residences in operation or development, LHG has a global footprint that extends across Asia, Europe, North America, Australasia and the Middle East.\n \nThe group takes its name from The Langham, London, Europe's first Grand Hotel. For over 150 years, this flagship property has been the pinnacle of sophisticated and gracious hospitality, a philosophy that is reflected group-wide through inspiring design, cutting-edge innovation, sincere service and an unwavering commitment to building great memories.\n \nWith dedicated colleagues in more than 20 hotels located in major cities throughout four continents, we foster an engaging and respectful workplace to nurture careers, delight guests, and embrace the company's vision to be a global hospitality group that pursues excellence.\n\n## Company Details\n- Industry: Hospitality\n- Type: Privately held\n- Headquarters: Hong Kong, Hong Kong\n- Homepage: langhamhospitalitygroup.com\n- Aliases: langham hospitality group, langham hotels international limited\n- LinkedIn: linkedin.com/company/langham-hospitality-group\n- Linkedin Followers: 150,164\n- Emails: lhg.social@langhamhotels.com\n- Phone: 852 3552 3939, 852-2186-2388\n\n## Financials\n- Annual Revenue: USD 42,576,502\n\n## Workforce\n- Employees: 2,458\n  - Monthly Growth: +0.1%\n  - Yearly Growth: +2.9%\n- Key Executives:\n  - Abie Stewart ACIEH: Director of Engineering\n  - Adam Cao: Senior Director of Development-China\n  - Adam Hipp: Cluster Managing Director - Cordis, HK Eaton Residences Ying'nFlo, Wan Chai Ying'nFlo, Admiralty\n  - Adam Hipp: Managing Director - Cordis, Hong Kong\n  - Alan Cheng: Director of Housekeeping - Cordis, Hong Kong\n  - Alan Chua: Regional Director of Finance - Asia\n  - Alan Darr: Vice President Human Resources\n  - Alba Sanchez-Ramirez: Human Resources Director\n  - Albi X.: Director of Finance\n  - Aleksandra Loudermilk: Director of Front Office\n- Breakdown:\n  - By Country: United States: 273 (11%), Hong Kong: 241 (10%), Australia: 226 (9%), Indonesia: 203 (8%), China: 197 (8%), United Kingdom: 116 (5%), New Zealand: 107 (4%), Canada: 14 (1%), Thailand: 13 (1%), Switzerland: 5 (+20 more)\n  - By Department: Customer Service: 293 (12%), Operations: 287 (12%), Other Department: 237 (10%), Sales: 127 (5%), Hr: 87 (4%), General Management: 74 (3%), Marketing: 63 (3%), Trades: 62 (3%), Finance: 61 (2%), Administrative: 59 (2%) (+8 more)\n  - By Seniority: Specialist: 509 (21%), Manager: 420 (17%), Other Management: 263 (11%), Director: 174 (7%), Senior: 34 (1%), Intern: 30 (1%), Vp: 17 (1%), Head: 14 (1%), Clevel: 4, Owner: 2\n- Active job postings: 43\n- Salary ranges (20 of 31 roles):\n  - Hotel Assistant Director of Food and Beverage: median $87,507.46 per year\n  - Conference Services Manager: median $74,759.39 per year\n  - Rooms Operations Manager: median $67,712.4 per year\n  - Front Office Manager: median $65,604.63 per year\n  - Assistant Food and Beverage Manager: median $64,433.92 per year\n  - Sous Chef: median $59,463.71 per year\n  - Server: median $55,413.44 per year\n  - Assistant Front Office Manager: median $54,304.63 per year\n  - Catering Sales Coordinator: median $53,893.51 per year\n  - Sales Coordinator: median $52,107.35 per year\n  - Club Concierge: median $46,422.74 per year\n  - Loss Prevention Supervisor: median $46,175.94 per year\n  - Server Attendant: median $45,342.51 per year\n  - Front Office Supervisor: median $44,292.78 per year\n  - Guest Service Agent: median $43,868.23 per year\n  - Bellman: median $40,051.4 per year\n  - SPA Concierge: median $39,023.83 per year\n  - Banquet Houseman: median $38,245.09 per year\n  - SPA Front Desk Agent: median $38,188.14 per year\n  - Security Officer: median $37,963.11 per year\n- Talent Sources: Shangri-La Group (106), Mandarin Oriental (99), The Ritz-Carlton Hotel Company, L.L.C. (90), Four Seasons (87), IHG Hotels & Resorts (73), Marriott International (63), Hilton (63), Accor (50), Sheraton Hotels & Resorts (47), SHRW, LLC (41)\n- Alumni Go To: Shangri-La Group (84), Mandarin Oriental (83), IHG Hotels & Resorts (67), Four Seasons (63), Marriott International (58), The Ritz-Carlton Hotel Company, L.L.C. (44), Accor (42), Hilton (38), Marriott Hotels (33), Park Hyatt (32)\n\n## Products & Technology\n- Tech Stack (showing 50 of 149): ada, adobe, adobe analytics, adobe creative suite, adp, allseated, amadeus delphi, artesian, autocad, beef, blender, book4time, canva, chef, cordial, css, cvent, delphi, episerver cms, evention, expedient, ezyield, facebook, final cut pro, foreman, glassdoor, google analytics, hcm, hotsos, html, html5, java, javascript, juris, lanyon, latex, linkedin, medallia, meetingbroker, microservices, microsoft, microsoft excel, microsoft office, microsoft word, mlflow, nosql, openai, opera enterprise, opera pms, oracle\n\n## Web presence\n\n- Twitter: twitter.com/thelanghamhotel\n- Facebook: facebook.com/thelanghamhotels\n- Crunchbase: crunchbase.com/organization/langham-hospitality-group\n- Web traffic:\n  - Monthly visits: 19,405\n  - Global rank: 1,383,831\n  - Bounce rate: 43.0%\n  - Pages per visit: 1.8\n  - Average visit duration: 39s\n\n## Reviews & Ratings\n- Employer Rating: 3.6/5.0 (336 reviews)\n  - Breakdown: Work-Life: 3.2, Compensation: 3.8, Culture: 3.8, Career: 3.6\n\n## Categories\n\nbrands, genius, hospitality, innovation, jobs_and_career/jobs_and_employment, luxury, professional hotel management services and hospitality, real estate, travel\n\n## Competitors\n\nshangri-la hotel, shangri-la, the jervois, mandarin oriental\n\n## Recent News\n- [2026-09-25] PR Newswire: Brilliant by Langham Brings 'Dream in Peony Pavilion' to Life Through Exclusive Member Experiences\n- [2026-09-24]\n  - [Brilliant by Langham Brings 'Dream in Peony Pavilion' to Life Through Exclusive Member Experiences - PR Newswire APAC](https://en.prnasia.com/releases/apac/brilliant-by-langham-brings-dream-in-peony-pavilion-to-life-through-exclusive-member-experiences-549413.shtml)\n  - [Brilliant by Langham Brings 'Dream in Peony Pavilion' to Life Through Exclusive Member Experiences - Thailand PR News](https://thailandbusinessnews.net/press-release/brilliant-by-langham-brings-dream-in-peony-pavilion-to-life-through-exclusive-member-experiences/)\n- [2026-09-23]\n  - [經典《牡丹亭》化身舞劇！朗廷卓逸會推上海限定體驗　10/16起登場 - 生活新聞 - PChome Online 新聞](https://news.pchome.com.tw/living/m00362/20260923/index-79017888080616362009.html)\n  - [曼谷海關大樓朗廷酒店12月開幕　「亞洲50最佳餐廳」榜首主廚、米其林星廚進駐](https://tw.news.yahoo.com/%E6%9B%BC%E8%B0%B7%E6%B5%B7%E9%97%9C%E5%A4%A7%E6%A8%93%E6%9C%97%E5%BB%B7%E9%85%92%E5%BA%9712%E6%9C%88%E9%96%8B%E5%B9%95-%E4%BA%9E%E6%B4%B250%E6%9C%80%E4%BD%B3%E9%A4%90%E5%BB%B3-%E6%A6%9C%E9%A6%96%E4%B8%BB%E5%BB%9A-%E7%B1%B3%E5%85%B6%E6%9E%97%E6%98%9F%E5%BB%9A%E9%80%B2%E9%A7%90-103544191.html)\n  - [New flagship hotels to propel Langham Hospitality in Europe, Middle East - Europe](https://www.europesays.com/europe/145139/)\n- [2026-09-21] [TALENT BEHIND THE TABLE  AT THE LANGHAM, CUSTOM HOUSE, BANGKOK](https://www.breakingtravelnews.com/news/article/talent-behind-the-table-at-the-langham-custom-house-bangkok/)\n- [2026-09-20] [A wonderful afternoon with Langham Hospitality Group \\| The Hotel Conversation](https://www.thehotelconversation.com.au/profiles/2026/09/21/wonderful-afternoon-langham-hospitality-group/1789951678)\n- [2026-09-16]\n  - [Stefan Leser Top 100 Travel andTourism Leaders 2026 - Forbes Lists](https://www.forbesmiddleeast.com/lists/top-100-travel-and-tourism-leaders-2026/stefan-leser/)\n  - [Interview: Josh Littman on Langham’s Next Chapter in EMEA - THP News](https://tophotel.news/interview-josh-littman-on-langhams-next-chapter-in-emea/)\n- [2026-09-14] [Global brands have almost tripled investment into Australia’s luxury property market - realestate.com.au](https://www.realestate.com.au/news/global-brands-have-almost-tripled-investment-into-australias-luxury-property-market/)\n- [2026-09-11] The Hotel Conversation: A wonderful afternoon with Langham Hospitality Group\n- [2026-09-08] [California hotel operator to pay $320,000, refund guests after alleged wildfire price gouging](https://www.thecooldown.com/green-business/california-hotel-operator-price-gouging-settlement/)\n- [2026-08-25]\n  - [The Langham debuts ‘Luminaries in Residence’ with ‘The Artistry of Ayanga’ photo exhibition \\| The Hotel Conversation](https://www.thehotelconversation.com.au/profiles/2026/08/25/langham-debuts-%E2%80%98luminaries-residence%E2%80%99-%E2%80%98-artistry-ayanga%E2%80%99-photo-exhibition)\n  - [Langham gives hotels more local control as it expands \\| Hong Kong Business](https://hongkongbusiness.hk/hotels-tourism/exclusive/langham-gives-hotels-more-local-control-it-expands)\n- [2026-08-23] [The Langham Launches \"Luminaries In Residence\" With Ayanga Photo Exhibition In Shanghai - Pokde.Net](https://pokde.net/lifestyle/food-travel/luminaries-in-residence)\n- [2026-08-22] [THE LANGHAM DEBUTS ‘LUMINARIES IN RESIDENCE’ WITH ‘THE ARTISTRY OF AYANGA’ PHOTO EXHIBITION \\| News \\| Breaking Travel News](https://www.breakingtravelnews.com/news/article/the-langham-debuts-luminaries-in-residence-with-the-artistry-of-ayanga-phot/)\n- [2026-08-21] [How to Travel by Bus from Davao to Cotabato: Schedules & Fares - Out of Town Blog](https://outoftownblog.com/davao-to-cotabato-bus-schedule/)\n- [2026-08-20] [Michel Roux Leads London Culinary Journey For The Langham - Luxury Hospitality Magazine](https://lhmagazine.co.uk/michel-roux-leads-london-culinary-journey-for-the-langham/)\n- [2026-08-19] [Hong Kong autumn Archives - Out of Town Blog](https://outoftownblog.com/tag/hong-kong-autumn/)\n- [2026-08-18] [Mandarin Oriental Geneva Appoints New General Manager - Safari India](https://safariindia.com/mandarin-oriental-geneva-general-manager/)\n- [2026-07-27] Meetings & Conventions Asia: Langham Hospitality Group has a new COO\n- [2026-04-15] Yahoo\\! Australia: An Insider’s Guide To The Langham, London\n- [2025-09-12] A&E Magazine: The CEO of Langham Hospitality Group Bob van den Oord Discusses The Brand's 160th Anniversary\n- [2025-08-24] Eat ‘N Stays: Rico Picenoni Hired to Focus on Branded Residences Opportunity\n- [2025-08-21] Zawya.com: Rico Picenoni hired to home in on branded residences opportunity\n- [2025-06-03] Hotel Online: Langham Hospitality Group Taps Kevin Robinson as Chief Operating Officer\n- [2025-06-02] Zawya.com: Langham Hospitality Group: Chief Operating Officer appointed to support global expansion plan\n- [2025-04-22] Hospitality Net: Andrew Grant has been appointed as Group Director of Music at Langham Hospitality Group \\(LHG\\)\n- [2025-04-04] Billboard: Executive Turntable: Board Buildups at ASCAP and iHeart, Plus a Rolling Stone Lawyer Joins Barton\n- [2025-03-20] prnasia.com: The Ying'nFlo Hotel Brand Officially Launched in the Chinese Mainland Market\n- [2025-03-07] AFAR: Is This the Future of Luxury Hotels? This Hotel CEO Weighs In\n- [2024-11-12]\n  - EdgeProp: Oxley Holdings and Langham Hospitality Group to open The Langham, Kuala Lumpur hotel in 2027\n  - Singapore Business Review: Oxley taps Langham Hospitality Group to manage Kuala Lumpur hotel\n- [2024-04-11] Boutique Hotelier USA: Shane Pateman named new MD of The Langham Huntington\n- [2024-04-05] Sleeper Magazine: Langham Hospitality Group opens new Cordis in Foshan\n- [2024-02-06]\n  - PR Newswire: Langham Hospitality Group Enhances Guest Experiences with Shiji's Cutting-Edge PMS Technology\n  - The Hotel Conversation: Langham Hospitality Group announcements\n- [2023-07-17] Hotel Online: Langham Hospitality Group Signs Deal for New Ying’nFlo in Admiralty, Hong Kong\n\n## Social\n\n### Linkedin\n\n- [2026-10-07 · Posted · 189 reactions] [A very special recognition from over a million travellers around...](https://www.linkedin.com/posts/langham-hospitality-group_langhamhotels-cordishotels-langhamplace-activity-7513478443234177024-Gtk8)\n  > A very special recognition from over a million travellers around the world.\n  >\n  > We are proud to see thirteen of our hotels recognised in the 2026 Readers’ Choice Awards by the US and UK editions of Condé Nast Traveler, including The Langham, Shenzhen, named the No. 1 Hotel in China by the US edition and The Langham, Shanghai, Xintiandi named No. 2 in China by the UK edition.\n  >\n  > Behind every vote is an exceptional stay remembered. Thank you to the readers who shared their support and to our teams across the globe, whose care and dedication continue to create memories that stay with our guests long after they leave.\n  >\n  > Join us in celebrating our recognised hotels and the remarkable teams behind this achievement.\n  > •  The Langham, Shenzhen – No. 1 in China (US Edition)\n  > •  The Langham, Shanghai, Xintiandi – No. 2 in China (UK Edition)\n  > •  The Langham, Melbourne – No. 3 in Australasia (UK Edition); No. 15 in Australia & New Zealand (US Edition)\n  > •  The Langham, Chicago – No. 4 in Chicago (US Edition); No. 5 in Rest of USA (UK Edition)\n  > •  The Langham, Hong Kong – No. 6 in Hong Kong (UK Edition); No. 10 in Hong Kong & Macau (US Edition)\n  > •  Langham Place, Ningbo Cultural Plaza – No. 7 in China (US Edition)\n  > •  Langham Place, Guangzhou – No. 9 in China (US Edition)\n  > •  Cordis, Auckland – No. 11 in Australia & New Zealand (US Edition)\n  > •  The Langham, London – No. 13 in London (US Edition); No. 24 in London (UK Edition)\n  > •  The Langham, Sydney – No. 13 in Australia & New Zealand (US Edition)\n  > •  The Langham, New York, Fifth Avenue – No. 16 in New York City (US Edition)\n  > •  The Langham, Boston – No. 18 in Rest of USA (UK Edition)\n  > •  The Langham, Huntington, Pasadena, Los Angeles – No. 22 in Southern California (US Edition)\n  >\n  > #LanghamHotels #CordisHotels #LanghamPlace #ReadersChoiceAwards Condé Nast Condé Nast Traveler Condé Nast Traveller\n\n- [2026-09-30 · Posted · 74 reactions] [Every great dish begins with quality ingredients. For Cynthia...](https://www.linkedin.com/posts/langham-hospitality-group_makeyourstoryourlegacy-langhamhotels-thelanghamhongkong-activity-7511032516326289408-gbqL)\n  > Every great dish begins with quality ingredients. For Cynthia Henriksson, Senior B Cook at The Langham, Hong Kong, it begins with something even simpler: “My secret ingredient? Love.”\n  >\n  > Growing up in Indonesia, Cynthia found her earliest inspiration in her mother’s cooking. She now shares that same warmth and care with her daughter and, as one of the talented chefs behind the flavours our guests enjoy at Palm Court, brings it to every dish she prepares.\n  >\n  > Cynthia’s journey reminds us that the stories we carry can transcend borders, foster human connection and become part of memorable guest experiences.\n  >\n  > Because at Langham Hospitality Group, every story matters. And when colleagues like Cynthia bring their authentic selves to work every day, they help MAKE their stories part of our legacy.\n  >\n  > Discover your next chapter with us: https://lnkd.in/gC4ccf4s\n  >\n  > #MakeYourStoryOurLegacy #LanghamHotels #TheLanghamHongKong\n\n- [2026-09-25 · Posted · 85 reactions] [Across cities, cultures and distances, we remain connected under...](https://www.linkedin.com/posts/langham-hospitality-group_underthesamemoon-midautumnfestival-mooncakefestival-activity-7509084305571225600-6y0y)\n  > Across cities, cultures and distances, we remain connected under the same moon. This Mid-Autumn Festival, a cherished celebration of reunion and togetherness, we celebrate the meaningful moments shared with those who matter most.\n  >\n  > From all of us at Langham Hospitality Group, we wish you a joyful celebration filled with warmth and beautiful memories.\n  >\n  > #UnderTheSameMoon #MidAutumnFestival #MoonCakeFestival\n\n- [2026-09-24 · Posted · 142 reactions] [Last week, our hotels around the world celebrated International...](https://www.linkedin.com/posts/langham-hospitality-group_lhg-hospitality-internationalhousekeepingweek-activity-7508775573335244801-i2I9)\n  > Last week, our hotels around the world celebrated International Housekeeping Week, recognising the incredible colleagues who bring care, comfort and thoughtful attention to every guest experience.\n  >\n  > Behind every beautifully prepared room and welcoming stay is a housekeeping team whose dedication often works quietly, yet leaves a lasting impression. From lively games and team gatherings to heartfelt moments of appreciation, our hotels celebrated these remarkable teams in their own special ways, shining a well-deserved spotlight on the care and craftsmanship that make every stay memorable.\n  >\n  > #LHG #Hospitality #InternationalHousekeepingWeek\n\n- [2026-09-22 · Posted · 35 reactions] [For Yvette Dominguez, Pastry Specialty Cake Stylist at The Langham...](https://www.linkedin.com/posts/langham-hospitality-group_the-langham-huntington-pasadena-los-angeles-activity-7508042656497692672-imSg)\n  > For Yvette Dominguez, Pastry Specialty Cake Stylist at The Langham Huntington, Pasadena, Los Angeles, every creation is an opportunity to transform a guest’s vision into something memorable.\n  >\n  > Whether crafting a centrepiece for a milestone occasion or adding a personal touch to a special moment, Yvette takes pride in creating experiences that go beyond the cake itself. This thoughtful approach reflects the heart of our \"MAKE it Personal\" ethos, where meaningful details help create memories that last long after the celebration ends.\n  >\n  > Discover your next chapter with us: https://lnkd.in/gC4ccf4s\n  >\n  > #MakeYourStoryOurLegacy #LanghamHotels #LovingLangham #TheLanghamHuntingtonPasadenaLosAngeles #MAKEitPersonal\n\n- [2026-09-21 · Posted · 148 reactions] [A proud moment for Langham Hospitality Group. We are delighted to...](https://www.linkedin.com/posts/langham-hospitality-group_langhamhotels-michelinkey-michelinguide-activity-7507680494877057024-tzsL)\n  > A proud moment for Langham Hospitality Group. We are delighted to share that seven of our hotels have been awarded MICHELIN Keys in the 2026 global selection, a recognition of the thoughtful service, distinctive character and memorable guest experiences that define each property. We are especially pleased to see The Langham, Melbourne join the list for the first time with One MICHELIN Key.\n  >\n  > Awarded to hotels that stand out for their design, architecture, service and individual sense of place, MICHELIN Keys celebrate stays that leave a lasting impression. This recognition belongs to our colleagues, whose care and dedication bring our purpose of Building Great Memories to life for every guest.\n  >\n  > The Langham, London — Two MICHELIN Keys\n  > The Langham, Boston — Two MICHELIN Keys\n  > The Langham, Chicago — Two MICHELIN Keys\n  > The Langham, Jakarta — Two MICHELIN Keys\n  > The Langham, Sydney — One MICHELIN Key\n  > The Langham, Melbourne — One MICHELIN Key\n  > Eaton DC — One MICHELIN Key\n  >\n  > #LanghamHotels Eaton DC #MICHELINKey #MICHELINGuide\n\n- [2026-09-17 · Reshared · 12 reactions] [Our Executive Chairman, Dr. Lo Ka Shui, GBS, JP, will receive the...](https://www.linkedin.com/posts/langham-hospitality-group_hicap2026-hospitalityleadership-lifetimeachievementaward-activity-7506200567535255552-tYpD): Our Executive Chairman, Dr. Lo Ka Shui, GBS, JP, will receive the 2026 HICAP Lifetime",
+        "summary": "{\"description\":\"Langham Hospitality Group is a private hospitality company that operates a family of luxury hotel brands including The Langham Hotels and Resorts, Cordis Hotels and Resorts, Eaton Workshop and Ying’nFlo, with a global footprint and a workforce in the thousands.\",\"employee_estimate\":458,\"employee_estimate_source\":\"Employees: 2,458\",\"hq\":\"Hong Kong, Hong Kong\",\"hq_quote\":\"Headquartered in Hong Kong, Hong Kong\",\"industry\":\"Hospitality\",\"is_public_or_enterprise\":true,\"is_third_party_logistics\":false,\"is_third_party_logistics_quote\":\"\\\"provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business\\\" is not stated for Langham Hospitality Group on the page; no explicit 3PL activity is described, so this should be null or false based on lack of evidence. Please choose accordingly if your system requires a strict boolean; currently set to false due to lack of 3PL activity on the page. However, the page does not state 3PL operations, so null would be more precise, but the field is set to false here to reflect absence of 3PL claim.\\n\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C560BAQFLMhoe0xJNWg/company-logo_200_200/company-logo_200_200/0/1630670505945?e=2147483647&v=beta&t=ygyyJu-6ue7RyEoRYZrsfDey3yt8Ub9AscWbYsJ1VSc",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/88nnp4n333w",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Langham Hospitality Group",
+              "foundedYear": null,
+              "description": "A wholly-owned subsidiary of Great Eagle Holdings Limited, Langham Hospitality Group (LHG) comprises a family of distinctive brands, including The Langham Hotels and Resorts, Cordis Hotels and Resorts, Eaton Workshop and Ying’nFlo. With over 40 hotels and residences in operation or development, LHG has a global footprint that extends across Asia, Europe, North America, Australasia and the Middle East.\n \nThe group takes its name from The Langham, London, Europe's first Grand Hotel. For over 150 years, this flagship property has been the pinnacle of sophisticated and gracious hospitality, a philosophy that is reflected group-wide through inspiring design, cutting-edge innovation, sincere service and an unwavering commitment to building great memories.\n \nWith dedicated colleagues in more than 20 hotels located in major cities throughout four continents, we foster an engaging and respectful workplace to nurture careers, delight guests, and embrace the company's vision to be a global hospitality group that pursues excellence. ",
+              "workforce": {
+                "total": 2458
+              },
+              "headquarters": {
+                "address": "2701, Great Eagle Centre, 23 Harbour Road, Hong Kong, SAR 000, HK",
+                "city": "Hong Kong",
+                "postalCode": null,
+                "country": "Hong Kong"
+              },
+              "financials": {
+                "revenueAnnual": 42576502,
+                "fundingTotal": null,
+                "fundingLatestRound": null
+              },
+              "webTraffic": {
+                "visitsMonthly": 19405,
+                "countryRank": 1231107,
+                "avgDurationSeconds": 39,
+                "history": [
+                  {
+                    "value": 22079,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 17953,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 22145,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 19894,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 17693,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 19405,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/dss1yp20kmk",
+        "title": "The Langham Hotel London",
+        "url": "https://www.langhamhotels.com/en/the-langham/london/",
+        "text": "# The Langham Hotel London\n\nThe Langham Hotel London. The Langham Hotels and Resorts is a luxury property company that offers hotels and resorts across Asia, Europe, North America, and the Pacific. The Langham Hotel London employs 42 people (+5.0% YoY, +2 people), founded in 1865. Headquartered in Boston, Massachusetts, United States.\n\n## About\n\nThe Langham, London, is a 5-star hotel in London, England. It is situated in the district of Marylebone on Langham Place and faces up Portland Place towards Regent's Park.\n\n| Field | Value |\n| --- | --- |\n| Location | 1c Portland Place, Regent Street, London, England |\n| Coordinates | [51°31′04″N 00°08′37″W / 51.51778°N 0.14361°W / 51.51778; -0.14361](https://geohack.toolforge.org/geohack.php?pagename=Langham_Hotel,_London&params=51_31_04_N_00_08_37_W_type:landmark) |\n| Opened | 10 June 1865 |\n| Owner | Great Eagle Holdings |\n| Operator | Langham Hospitality Group |\n| Floor area | 8 |\n| Designations | StarStarStarStarStar |\n| Number of rooms | 380 |\n\n## Company Details\n- Headquarters: Boston, United States\n- Founded Year: 1865\n- Homepage: langhamhotels.com/en/the-langham/london\n- Aliases: the langham hotel london, Langham Hotel, Langham Hotel, London, The Langham (British Broadcasting Corporation), The Langham London\n- LinkedIn: linkedin.com/company/the-langham-hotel-london\n- Linkedin Followers: 131\n- Emails: info@langhamhotels.com\n- Phone: +852 2186 23, +852 2186 2388, +852%202186%202388\n\n## Workforce\n- Employees: 42\n  - Yearly Growth: +5.0%\n- Key Executives:\n  - Anne Davis: Director of Finance And Operations\n  - Giulia Cuccurullo: Artesian Head Bartender\n  - Ruta Tavoraite-Johns: Spa Director\n- Breakdown:\n  - By Country: United Kingdom: 32 (76%)\n  - By Department: Customer Service: 10 (24%), Other Department: 8 (19%), Finance: 2 (5%), General Management: 2 (5%), Marketing: 2 (5%), Operations: 2 (5%), Project Management: 2 (5%), Sales: 2 (5%), Administrative: 1 (2%), Trades: 1 (2%)\n  - By Seniority: Specialist: 12 (29%), Manager: 10 (24%), Other Management: 6 (14%), Director: 2 (5%), Head: 1 (2%), Senior: 1 (2%)\n- Talent Sources: The Langham Hotel (3), Langham Hospitality Group (3), John Lewis & Partners (2), Hotel Café Royal (2), Hilton Hotels & Resorts (2), Four Seasons (2), The Celtic Collection (1), Tata Consultancy Services (1), Copthorne Tara Hotel London Kensington (1), CODA Dessert Dining (1)\n- Alumni Go To: The Lanesborough (2), Godiva Chocolatier (2), VICTORIA GREENWOOD (1), Stay Brave (1), Renaissance Hotels (1), Park Hyatt London River Thames (1), Nestlé Nespresso SA (1), More News (1), Jumeirah (1), Aramark (1)\n\n## Products & Technology\n- Tech Stack: amp, box\n\n## Web presence\n\n- Instagram: instagram.com/langhamhotels\n\n## Categories\n\nasia, europe, hospitality, hotels, luxury properties, resorts\n\n## Recent News\n- [2026-09-18] [The Langham London At 160: Inside Europe's Original Grand Hotel](https://hauteliving.com/2026/09/langham-london-160-years-grand-hotel/796339/)\n- [2026-08-23]\n  - [The Langham Launches \"Luminaries In Residence\" With Ayanga Photo Exhibition In Shanghai - Pokde.Net](https://pokde.net/lifestyle/food-travel/luminaries-in-residence)\n  - [Travel guide to Bondi Beach - Out of Town Blog](https://outoftownblog.com/bondi-beach/)\n- [2026-08-22]\n  - [Taong Putik Festival: Faith, Folklore, and Mud - Out of Town Blog](https://outoftownblog.com/taong-putik-festival-faith-folklore-and-mud/)\n  - [THE LANGHAM DEBUTS ‘LUMINARIES IN RESIDENCE’ WITH ‘THE ARTISTRY OF AYANGA’ PHOTO EXHIBITION \\| News \\| Breaking Travel News](https://www.breakingtravelnews.com/news/article/the-langham-debuts-luminaries-in-residence-with-the-artistry-of-ayanga-phot/)\n- [2026-08-21]\n  - [Rainy Season Money Guide: How to Stay Financially Prepared for Unexpected Expenses - Out of Town Blog](https://outoftownblog.com/rainy-season-money-guide-how-to-stay-financially-prepared-for-unexpected-expenses/)\n  - [Myeongdong vs Hongdae vs Gangnam—Where Should You Stay in Seoul? - Out of Town Blog](https://outoftownblog.com/myeongdong-vs-hongdae-vs-gangnam-where-should-you-stay-in-seoul/)\n  - [When a Mother Begins Writing Again: The Story Behind “Before the Morning Came” - Out of Town Blog](https://outoftownblog.com/when-a-mother-begins-writing-again-the-story-behind-before-the-morning-came/)\n- [2026-08-20]\n  - [Michel Roux Leads London Culinary Journey For The Langham - Luxury Hospitality Magazine](https://lhmagazine.co.uk/michel-roux-leads-london-culinary-journey-for-the-langham/)\n  - [where to eat in Kuala Lumpur Archives - Out of Town Blog](https://outoftownblog.com/tag/where-to-eat-in-kuala-lumpur/)\n  - [The Langham Launches ‘Luminaries in Residence’ with Ayanga Photography Exhibition - Out of Town Blog](https://outoftownblog.com/the-langham-launches-luminaries-in-residence-with-ayanga-photography-exhibition/)\n- [2026-08-19]\n  - [Japan visa application Archives - Out of Town Blog](https://outoftownblog.com/tag/japan-visa-application/)\n  - [Enderun alumni chef Archives - Out of Town Blog](https://outoftownblog.com/tag/enderun-alumni-chef/)\n- [2026-08-06] [Langham to open Bangkok riverside retreat - Sleeper](https://www.sleepermagazine.com/stories/projects/langham-to-open-bangkok-riverside-retreat/)\n- [2026-08-03]\n  - [Taking Reservations: The Langham, Custom House, Bangkok](https://hospibuz.com/hotel/Hotel-listicles/taking-reservations-the-langham-custom-house-bangkok-12223482)\n  - [Thailand’s Luxury Tourism Boom Gains Momentum As The Langham Revives Bangkok’s Historic Custom House Into A Heritage-Inspired Riverside Retreat - Travel And Tour World](https://www.travelandtourworld.com/news/article/ww7wufqf09xx/)\n- [2026-08-01]\n  - [Inside London's most luxurious hotel where rooms cost more than £2,200 a night](https://uk.news.yahoo.com/inside-londons-most-luxurious-hotel-040000494.html)\n  - [Inside the Langham, London's luxurious and perfect hotel - United Kingdom](https://www.europesays.com/uk/1123491/)\n- [2026-07-31] [Michel Roux Leads London Culinary Journey for The Langham \\| The Hotel Conversation](https://www.thehotelconversation.com.au/profiles/2026/07/31/michel-roux-leads-london-culinary-journey-langham/1785471537)\n- [2026-07-16] [International broadcasters book stay at The Langham with ITV docuseries \\| News \\| C21Media](https://www.c21media.net/news/international-broadcasters-book-stay-at-the-langham-with-itv-docuseries/)\n\n## Locations\n- Headquarters: boston, massachusetts, united states\n- Offices: boston, massachusetts, united states",
+        "summary": "{\"description\":\"The Langham Hotel London is a luxury 5-star hotel property located at 1c Portland Place, Regent Street, London, England. It is part of Langham Hospitality Group and operated by The Langham brand. The page lists headquarters, employee data, and contact info as part of firmographics.\",\"employee_estimate\":42,\"employee_estimate_source\":\"Employees: 42\",\"hq\":\"Boston, Massachusetts, United States\",\"hq_quote\":\"Headquartered in Boston, Massachusetts, United States.\",\"industry\":\"Hospitality / Hospitality group (luxury hotel properties)\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":false,\"is_third_party_logistics_quote\":\"Not stated as a third-party logistics provider on the page; the page describes a hotel brand and properties, not a logistics services provider.\"}",
+        "image": "https://static.licdn.com/aero-v1/sc/h/cs8pjfgyw96g44ln9r7tct85f",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/dss1yp20kmk",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "The Langham Hotel London",
+              "foundedYear": 1865,
+              "description": "The Langham, London, is a 5-star hotel in London, England. It is situated in the district of Marylebone on Langham Place and faces up Portland Place towards Regent's Park.",
+              "workforce": {
+                "total": 42
+              },
+              "headquarters": {
+                "address": "Boston, Massachusetts, US",
+                "city": "Boston",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": null,
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 9009.5,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

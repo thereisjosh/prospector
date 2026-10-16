@@ -1,0 +1,223 @@
+{
+  "request": {
+    "query": "Nomad",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "39ebb27ef9274c3be30de0470973c826",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/7nqrkwkm9pq",
+        "title": "Nomad",
+        "url": "https://nomad.normandie.fr/",
+        "text": "# Nomad\n\nNomad. Headquartered in France.\n\n## About\n\nFrench public transport network\n\n## Company Details\n- Homepage: nomad.normandie.fr",
+        "summary": "{\"description\":\"Nomad. Headquartered in France. French public transport network\",\"employee_estimate\":\"\",\"employee_estimate_source\":\"\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"France\",\"hq_quote\":\"Headquartered in France.\",\"industry\":\"Public transport network / transportation\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"French public transport network\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":null,\"recently_funded_seed_or_series_a_quote\":\"\"}",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/7nqrkwkm9pq",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Nomad",
+              "foundedYear": null,
+              "description": "French public transport network",
+              "workforce": null,
+              "headquarters": {
+                "address": null,
+                "city": null,
+                "postalCode": null,
+                "country": "France"
+              },
+              "financials": null,
+              "webTraffic": null,
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/sn726fbtn6z",
+        "title": "Nomad",
+        "url": "https://nomadglobal.com/",
+        "text": "# Nomad\n\nNomad is a Financial Services company. Nomad is an international account that offers a complete range of products and services including international debit cards, international payments, credit cards, international chip, travel insurance, and investment accounts. Nomad employs 1,200 people (+21.8% YoY, +215 people) and has an annual revenue of $6M, founded in 2019. Headquartered in São Paulo, São Paulo, Brazil, with presence in United States. Its workforce is distributed across 11 countries (including Brazil, United States, India, Netherlands, and Canada).\n\n## About\n\nA conta internacional que derruba fronteiras e faz o seu dinheiro “falar” inglês. Para investir no exterior sem sair do Brasil. Para viajar com um cartão internacional aceito mundialmente.\n\nSomos uma fintech brasileira que oferece a abertura de uma conta internacional, um cartão de débito internacional e a possibilidade de fazer investimentos no mercado americano, além de outros serviços e produtos financeiros nos EUA para brasileiros. Nossa missão é oferecer esses serviços por meio de uma experiência digital simples com taxas transparentes e justas. \n\nLeia os Avisos Legais: https://www.nomadglobal.com/legal\n\n## Company Details\n- Industry: Financial Services\n- Type: Partnership\n- Legal name: Nomad Fintech Inc.\n- Headquarters: São Paulo, Brazil\n- Founded Year: 2019\n- Homepage: nomadglobal.com\n- Aliases: Nomad Tecnologia Ltda., nomad, nomad global\n- LinkedIn: linkedin.com/company/nomadglobalapp\n- Linkedin Followers: 228,613\n- Emails: ouvidoria@ouribank.com, sac@ouribank.com, support@nomadglobal.com\n- Phone: +55 0800-775-0404, +55 11 4200.0204, 01.415-907, 0800-775-4000, 34.662.852, 800-603-4444\n\n## Legal entities\n- Nomad Fintech Inc. — Crunchbase nomad-deb4, LEI 98450087A38695647E08, Opencorporates us_de/7479545, Wikidata Q120973101\n\n## Financials\n- Annual Revenue: USD 6,000,000\n- Total Funding: USD 117,515,939\n  - Series b (2023-08-22): USD 60.7M\n  - Non equity assistance (2022-09-01)\n  - Series b (2022-05-16): USD 31.6M\n  - Series a (2021-07-27): USD 19.3M\n  - Seed (2020-12-22): USD 5.8M\n\n## Acquisitions\n- Acquired Melhor Cambio (2024-07-17) for USD 550,000\n- Acquired Husky (2022-11-04)\n\n## Workforce\n- Employees: 1,200\n- Company Size: 201-500 employees\n  - Monthly Growth: -0.2%\n  - Yearly Growth: +21.8%\n- Key Executives:\n  - Aldan Tavares: Technical Lead\n  - Amanda Leal: Social Media Specialist\n  - Andrea Mattei: Product Director - Shop and Travel\n  - André Ronquetti: Director of Engineering\n  - Bruno Fumagalli Guarnieri: Partner\n  - Caio Fasanella: Chief Investment Officer (Broker-Dealer)\n  - Caio Fasanella: Managing Director, Head of Investments\n  - Caio Vaz: Business Director\n  - Daniel Carvalho: Partner\n  - Edson Micali Júnior: Diretor Juridico & Compliance\n- Breakdown:\n  - By Country: Brazil: 527 (44%), United States: 11 (1%), India: 4, Netherlands: 2, Canada: 1, Ireland: 1, Jordan: 1, Kenya: 1, Malta: 1, Nigeria: 1 (+1 more)\n  - By Department: Technical: 151 (13%), Finance: 91 (8%), Other Department: 71 (6%), Marketing: 48 (4%), Customer Service: 35 (3%), Product: 35 (3%), Operations: 33 (3%), Legal: 18 (2%), Design: 17 (1%), Hr: 16 (1%) (+6 more)\n  - By Seniority: Specialist: 239 (20%), Other Management: 133 (11%), Manager: 78 (6%), Senior: 70 (6%), Director: 16 (1%), Intern: 14 (1%), Head: 10 (1%), Clevel: 3, Founder: 3, Partner: 3 (+1 more)\n- Talent Sources: Husky (34), PicPay (17), iFood (15), Nubank (12), Grupo OLX (12), will bank (10), Itaú Unibanco (9), XP Inc. (8), SumUp (8), MB Labs (8)\n- Alumni Go To: iFood (7), Nubank (6), Itaú Unibanco (6), Vivo (Telefônica Brasil) (5), Liga de Empreendedorismo da POLI (4), Adaflow (4), will bank (3), XP Inc. (3), Stone (3), Avenue (3)\n\n## Products & Technology\n- Features: Mobile App\n- Tech Stack (showing 50 of 203): ada, adp, altera, amplitude, ant design, aos, apache, apache airflow, apache spark, appsflyer, ativa, ativo, atlantis, atlassian, aws lambda, cloudflare, comit, confluence, cordial, crashlytics, crowdstrike, css, docker, elastic, elastic stack, facebook, feedzai, fintech, firebase, github, github actions, google ads, google workspace, grafana, grpc, helpdesk, html5, iam, integra, java, javascript, jest, jira, jira service management, jira software, json, jumpcloud, kibana, knowbe4, kotlin\n\n## Web presence\n\n- Twitter: twitter.com/nomadglobalapp\n- Facebook: facebook.com/nomadglobalapp\n- Instagram: instagram.com/nomadglobalapp\n- YouTube: youtube.com/@nomadglobalapp\n- Crunchbase: crunchbase.com/organization/nomad-deb4\n- Web traffic:\n  - Monthly visits: 461,098\n  - Global rank: 71,795\n  - Bounce rate: 29.0%\n  - Pages per visit: 6.1\n  - Average visit duration: 31s\n\n## Reviews & Ratings\n- Employer Rating: 4.3/5.0 (166 reviews)\n  - Breakdown: Work-Life: 4.3, Compensation: 4.1, Culture: 4.1, Career: 3.8\n\n## Categories\n\ncredit cards, finance, finance/investing, financial services, fintech, international account, international debit cards, international payments, travel insurance\n\n## Competitors\n\ndock, spin pay, pismo\n\n## Recent News\n- [2026-09-09] [O que está na carteira dos brasileiros que investem nos EUA? Veja ranking](https://valorinveste.globo.com/produtos/investimento-no-exterior/noticia/2026/09/09/o-que-esta-na-carteira-dos-brasileiros-que-investem-nos-eua-veja-ranking.ghtml)\n- [2026-08-21] [Dólar cai 1% e Bolsa sobe 1,84% com cenário político no radar](https://www.bemparana.com.br/noticias/dolar-cai-1-e-bolsa-sobe-184-com-cenario-politico-no-radar/)\n- [2026-08-20] [Minerva \\(BEEF3\\)  dispara 7% e lidera ganhos do Ibovespa; veja maiores altas e baixas - Estadão](https://www.estadao.com.br/einvestidor/cenarios-e-mercado/minerva-dispara-7-e-lidera-ganhos-do-ibovespa-veja-maiores-altas-e-baixas/)\n- [2026-08-19] [Ata do FOMC: Apoio para alta de juros dos EUA foi maior que os três votos dissidentes](https://www.infomoney.com.br/economia/ata-fomc-juros-eua-impacto-brasil/)\n- [2026-08-06] [Um dia após corte na Selic, dólar e Bolsa de Valores caem](https://www.bemparana.com.br/noticias/economia/um-dia-apos-corte-na-selic-dolar-e-bolsa-de-valores-caem/)\n- [2026-07-30] [Dólar cai quase 1% e fecha a R$ 5,06; Bolsa sobe com dados dos EUA e Fed no radar](https://www.bemparana.com.br/noticias/economia/dolar-cai-quase-1-e-fecha-a-r-506-bolsa-sobe-com-dados-dos-eua-e-fed-no-radar/)\n- [2026-07-28] [Dólar fecha perto da estabilidade com divulgação do IPCA-15 e Fed no radar](https://www.bemparana.com.br/noticias/economia/dolar-fecha-perto-da-estabilidade-com-divulgacao-do-ipca-15-e-fed-no-radar/)\n- [2026-07-03] [Nomad quer chegar a 5 milhões de clientes unindo investimentos e lifestyle para a alta renda - Estadão](https://www.estadao.com.br/einvestidor/wealth-management/nomad-quer-chegar-a-5-milhoes-de-clientes-unindo-investimentos-e-lifestyle-para-a-alta-renda/)\n- [2026-06-29] [ينافس نجوم العالم.. عربي وحيد في التشكيلة المثالية لمجموعات كأس العالم 2026](https://al-ain.com/article/mostafa-shobeir-team-of-group-stage-world-cup)\n- [2026-06-18] [Stellar Orange magic: Nomad's hottest wallet tracker just got way more stylish -](https://www.absolutegeeks.com/reviews/stellar-orange-magic-nomads-hottest-wallet-tracker-just-got-way-more-stylish/)\n- [2025-09-02]\n  - 9to5Google: The Sideload 002: Talking Pixel Watch bands and Qi2 with Nomad\n  - The Verge: You can charge your Apple Watch, phone, and laptop all at once with this 240W USB-C cable\n- [2025-08-29]\n  - EIN Presswire: Apple Accessories Market to Nearly Double by 2035, Powered by Innovation, Regulation, and Expanding Device Ecosystem\n  - 9to5Toys: Nomad offering giant 60% price drops on its 3-in-1 and Stand One MagSafe chargers from $46 \\(Open-box\\)\n  - 9to5Toys: Score some Nomad Sport, Rocky Point, and Rugged Apple Watch bands from $34 \\(Nearly 30% off, open-box\\)\n- [2025-08-26]\n  - iphoneincanada.ca: Nomad Launches New Tempo Band for Apple Watch\n  - 9to5mac: Nomad introduces new Apple Watch Band – Tempo\n  - iDownloadBlog.com: Nomad launches Apple Watch Tempo band, focusing on a lightweight & minimal design for active lifestyles\n- [2025-08-21] iDownloadBlog.com: Nomad’s Active Band Pro wrist strap now available for Google’s Pixel Watch\n- [2025-08-20] 9to5Google: The Pixel Watch is getting real leather bands from Nomad – here’s a first look \\[Gallery\\]\n- [2025-07-26] Phone Arena: The Galaxy Z Fold 7 is the dream device for a remote office. Especially when paired with Nomad eSIM\n- [2025-07-25] Billboard: The 10 Best New Products to Buy This Week: Shop adidas, Coach, & K-Pop Demon Hunter Merch\n- [2025-07-24] The Verge: Apple&#8217;s latest AirPods Max for $100 off is a great back-to-school deal\n- [2025-07-23] 9to5Toys: Nomad’s grade 5 Titanium Band for Apple Watch sees giant 49% price drop today \\(46mm and Ultra\\)\n- [2025-07-22] iDownloadBlog.com: Nomad launches white version of company’s popular Universal Cable for Apple Watch\n- [2025-07-16]\n  - 9to5mac: Nomad drops new Carbon Black Rocky Point band for Apple Watch\n  - Techlicious Latest Articles: Track Your Wallet Without Losing a Card Slot\n- [2025-07-15] 9to5Toys: Nomad debuts new special edition Carbon Black Rocky Point Apple Watch band, available now\n- [2025-07-14]\n  - 9to5mac: Deals: M4 MacBook Air $170 off, Apple Watch Series 10 $120 off, Nomad ChargeKey $20, Pride Sport Band, more\n  - 9to5Toys: Rare hangover Prime Day deal has Nomad’s 240W USB-C ChargeKey w/ 10Gbps data transfers at the $20 low\n\n## Social\n\n### Linkedin\n\n- [2026-09-09 · 32 reactions, 2 comments] O financiamento imobiliário no Brasil está mudando. A transição do modelo tradicional de poupança para o mercado de capitais deve trazer mais volatilidade, mas também novas oportunidades para o inv...\n\n- [2026-09-04 · 31 reactions, 1 comment] Privacidade e Segurança são pilares essenciais aqui na Nomad. Afinal, cuidar da vida financeira global de mais de 3,8 milhões de clientes começa por proteger os dados deles. Por isso, promovemos a...\n\n- [2026-09-03 · 248 reactions, 6 comments] A Nomad está trazendo para o Brasil o primeiro Time Out Market da América Latina! O verdadeiro motor de retenção e valor a longo prazo está na capacidade de construir pontes tangíveis entre o clien...\n\n- [2026-08-18 · 48 reactions, 3 comments] A reforma tributária no Brasil, prevista para início em 2027, deve ser um dos principais temas em discussão nos próximos anos. Para entender esse momento, recebemos no Nomad Cast Bernard Appy, econ...\n\n- [2026-08-07 · 46 reactions, 2 comments] Quem contrata ou lidera times globais sabe que o maior desafio não é encontrar habilidades técnicas. É conseguir validá-las. Comunicação assíncrona eficiente, autonomia e capacidade de navegar por...\n\n- [2026-08-04 · 237 reactions, 7 comments] O futuro da alocação internacional passa pela parceria com quem orienta o investidor. Na última quinta-feira (30), a Nomad esteve presente na Portfel Connect, um dos principais encontros de consult...\n\n- [2026-07-23 · 114 reactions, 3 comments] Incertezas fiscais, novo ciclo geopolítico e o avanço sem precedentes da Inteligência Artificial: o que esperar dos mercados no 2º semestre de 2026? O cenário macroeconômico global passou por trans...\n\n- [2026-07-14 · 115 reactions, 4 comments] A Nomad nasceu para facilitar o acesso dos brasileiros ao mercado internacional e a nossa estratégia sempre evoluiu junto com as necessidades de quem investe. Há um ano, demos o passo mais importan...\n\n- [2026-07-07 · 53 reactions, 1 comment] Você já sabe para onde quer viajar. Mas sabe quanto precisa guardar, em dólar, para chegar lá? Muita gente deixa para converter o dinheiro só perto do embarque. Enquanto isso, duas coisas costumam...\n\n- [2026-07-03 · 240 reactions, 1 comment] 80 lideranças da Nomad, um destino e um objetivo claro: desenhar o futuro do negócio. Nosso time embarcou rumo a Miami para uma imersão com sessões de resultados e planejamento estratégico para a c...\n\n- [2026-06-17 · 143 reactions, 5 comments] Sabe aquela sensação boa de ouvir o áudio de um amigo contando as melhores descobertas de uma viagem? Nós também adoramos! Por isso, em parceria com o Spotify, as dicas dos nossos experts Mohamad H...\n\n- [2026-06-09 · 63 reactions, 1 comment] B3: US$5 bilhões/dia. 📈 Mercado americano: US$500 bilhões/dia. O mercado nos EUA não é apenas maior, ele representa cerca de metade de todo o valor de empresas listadas no planeta. É onde o capital...\n\n- [2026-06-01 · 234 reactions, 2 comments] A Nomad é a patrocinadora master do #MasterChefBrasil 2026! Nossa parceria com o principal reality show culinário do país celebra o encontro do Brasil com o mundo. E este é apenas o primeiro passo...\n\n- [2026-05-19 · 213 reactions, 5 comments] Se você estivesse caminhando por Tóquio, Amsterdã ou Buenos Aires hoje, qual seria a sua reação ao dar de cara com um anúncio em português? Enquanto nossos anúncios marcam presença em locais icônic...\n\n- [2026-04-30 · 171 reactions, 3 comments] Dois dias de imersão, conexões profundas e alinhamento estratégico. Reunimos supervisores, coordenadores, gerentes e diretores da Nomad para o Encontro de Liderança 2026. A agenda foi vibrante e co...\n\n- [2026-04-16 · 192 reactions, 6 comments] Nomad no centro das discussões estratégicas do mercado de câmbio. 🌍 Tivemos a honra de ser Patrocinadores Ouro no 9º Compliance & Business Day da ABRACAM - Associação Brasileira de Câmbio. Mais do...\n\n- [2026-04-02 · 203 reactions, 3 comments] O futuro do Brasil ocupou os palcos de Harvard University e do Massachusetts Institute of Technology neste fim de semana, e a Nomad esteve no centro dessa conversa. Nossa participação na Brazil Con...\n\n## Locations\n- Headquarters: são paulo, são paulo, brazil\n- Offices: menlo park, california, united states (US), menlo park, são paulo, brazil, são paulo, são paulo, brazil, campinas, são paulo, brazil",
+        "summary": "{\"description\":\"Nomad is a Financial Services company offering an international account with a range of products including international debit cards, international payments, credit cards, travel insurance, and investment accounts.\",\"employee_estimate\":1200,\"employee_estimate_source\":\"Employees: 1,200\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Key Executives: Aldan Tavares: Technical Lead; Amanda Leal: Social Media Specialist; Andrea Mattei: Product Director - Shop and Travel; André Ronquetti: Director of Engineering; Bruno Fumagalli Guarnieri: Partner; Caio Fasanella: Chief Investment Officer (Broker-Dealer); Caio Fasanella: Managing Director, Head of Investments; Caio Vaz: Business Director; Daniel Carvalho: Partner; Edson Micali Júnior: Diretor Juridico & Compliance\",\"hq\":\"São Paulo, São Paulo, Brazil\",\"hq_quote\":\"Headquartered in São Paulo, São Paulo, Brazil, with presence in United States.\",\"industry\":\"Financial Services\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Financial Services\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 117,515,939; Series b (2023-08-22): USD 60.7M; Series b (2022-05-16): USD 31.6M; Series a (2021-07-27): USD 19.3M; Seed (2020-12-22): USD 5.8M; Non equity assistance (2022-09-01)\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQEmMcvD35jQ8g/company-logo_200_200/B56ZsoFr.jHsAM-/0/1765904138659/nomadglobalapp_logo?e=2147483647&v=beta&t=WYzAdwsnX8NTLvMkj_G070pmzJsaagT0wcwSdFXUMZc",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/sn726fbtn6z",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Nomad",
+              "foundedYear": 2019,
+              "description": "A conta internacional que derruba fronteiras e faz o seu dinheiro “falar” inglês. Para investir no exterior sem sair do Brasil. Para viajar com um cartão internacional aceito mundialmente.\n\nSomos uma fintech brasileira que oferece a abertura de uma conta internacional, um cartão de débito internacional e a possibilidade de fazer investimentos no mercado americano, além de outros serviços e produtos financeiros nos EUA para brasileiros. Nossa missão é oferecer esses serviços por meio de uma experiência digital simples com taxas transparentes e justas. \n\nLeia os Avisos Legais: https://www.nomadglobal.com/legal ",
+              "workforce": {
+                "total": 1200
+              },
+              "headquarters": {
+                "address": "São Paulo, SP 04534000, BR",
+                "city": "São Paulo",
+                "postalCode": null,
+                "country": "Brazil"
+              },
+              "financials": {
+                "revenueAnnual": 6000000,
+                "fundingTotal": 117515939,
+                "fundingLatestRound": {
+                  "name": "Series b",
+                  "date": "2023-08-22",
+                  "amount": 60749651
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 461098,
+                "countryRank": 6987,
+                "avgDurationSeconds": 31,
+                "history": [
+                  {
+                    "value": 1132017,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 1087202,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 870493,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 890551,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 681954,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 461098,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 7660.2,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

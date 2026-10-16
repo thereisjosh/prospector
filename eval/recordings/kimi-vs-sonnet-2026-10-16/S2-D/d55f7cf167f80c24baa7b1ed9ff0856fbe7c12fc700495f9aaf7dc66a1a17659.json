@@ -1,0 +1,239 @@
+{
+  "request": {
+    "query": "BoomerangHR",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "f66b0006d717b3054bd17ad564c65df0",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/1tblpmm97wp",
+        "title": "BoomerangHR",
+        "url": "https://boomeranghr.com/",
+        "text": "# BoomerangHR\n\nBoomerangHR is a Human Resources Services company. BoomerangHR is an affordable ai-powered offboarding and alumni management platform that automates workflows to turn departing talent into an active network of rehires, referrals, and sales leads. BoomerangHR employs 46 people (+142.1% YoY, +27 people), founded in 2023. Headquartered in New York, New York, United States. Its workforce is distributed across Canada, United States, India, and South Africa.\n\n## About\n\nHundreds of companies rely on BoomerangHR, the AI-powered platform that streamlines the complexities of offboarding and turns former employees into an active network of rehires, referrals, and sales leads. Founded by industry experts who are advised by leading CHROs, BoomerangHR is backed by Kalos Ventures and Album Ventures.\n\n## Company Details\n- Industry: Human Resources Services\n- Type: Privately held\n- Headquarters: New York, United States\n- Founded Year: 2023\n- Homepage: boomeranghr.com\n- Aliases: boomeranghr\n- LinkedIn: linkedin.com/company/hiboomeranghr\n- Linkedin Followers: 5,826\n\n## Workforce\n- Employees: 46\n- Company Size: 51-200 employees\n  - Monthly Growth: +31.4%\n  - Yearly Growth: +142.1%\n- Key Executives:\n  - Kanish Raajkumar: President & CTO, Co-Founder\n  - Mallory M.: Co-Founder, COO\n  - Myia Stephens (Kelly): Lead Product Designer\n- Breakdown:\n  - By Country: Canada: 10 (22%), United States: 9 (20%), India: 1 (2%), South Africa: 1 (2%)\n  - By Department: Technical: 6 (13%), Other Department: 5 (11%), Consulting: 2 (4%), Customer Service: 2 (4%), General Management: 2 (4%), Product: 2 (4%), Marketing: 1 (2%), Operations: 1 (2%)\n  - By Seniority: Other Management: 6 (13%), Senior: 5 (11%), Specialist: 5 (11%), Manager: 2 (4%), Clevel: 1 (2%), Founder: 1 (2%), Head: 1 (2%)\n- Talent Sources: Sonero.ai (acquired) (2), UW Blueprint (1), Tata 1mg (1), Northbridge Insurance (1), Latino Corporate Directors Association (LCDA) (1), Ford Motor Company (1), Energizer Holdings (1), Braze (1), Altice USA (1), ARLANXEO (1)\n- Alumni Go To: Vooma (1), Verily Health (1), Uber (1), Turnstile (1), Shopify (1), Salesforce (1), Lenovo (1), Kappa Sigma Fraternity (1), Inktavo (1), Carry (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: boomerang, google sheets, sql, docker, kotlin, mysql, python, react, spring boot, workday, impact, lever, spring, sprint, well\n\n## Web presence\n\n- Web traffic:\n  - Monthly visits: 1,820\n  - Global rank: 9,530,711\n  - Bounce rate: 46.0%\n  - Pages per visit: 1.3\n  - Average visit duration: 15s\n\n## Categories\n\nalumni management, offboarding, rehiring, sales leads, workflows\n\n## Recent News\n- [2026-07-08]\n  - [Boomerang employees: why companies recruit former staff back - The Business Journals](https://www.bizjournals.com/bizjournals/news/2026/07/08/connecting-boomerang-career-opportunities.html)\n  - [Boomerang Hiring: Wenn der Steuervorteil Ex-Mitarbeiter zurückholt](https://www.it-boltwise.de/boomerang-hiring-wenn-der-steuervorteil-ex-mitarbeiter-zurueckholt.html)\n- [2026-07-07] [Boomerang Hiring: Regierung lockt Ex-Mitarbeiter mit Steuervorteil](https://www.ad-hoc-news.de/wissenschaft/boomerang-hiring-regierung-lockt-ex-mitarbeiter-mit-steuervorteil/69718162)\n\n## Locations\n- Headquarters: new york, new york, united states (US)\n- Offices: new york, new york, united states (US)",
+        "summary": "{\"description\":\"BoomerangHR is an affordable ai-powered offboarding and alumni management platform that automates workflows to turn departing talent into an active network of rehires, referrals, and sales leads. It is a Human Resources Services company with a distributed workforce and global presence.\",\"employee_estimate\":46,\"employee_estimate_source\":\"Employees: 46\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Key Executives:\\n  - Kanish Raajkumar: President & CTO, Co-Founder\\n  - Mallory M.: Co-Founder, COO\",\"hq\":\"New York, United States\",\"hq_quote\":\"Headquartered in New York, New York, United States.\",\"industry\":\"Human Resources Services\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Human Resources Services\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":null,\"recently_funded_seed_or_series_a_quote\":\"null\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQEz5jSIRP-9_g/company-logo_200_200/company-logo_200_200/0/1688756876929/hiboomerang_logo?e=2147483647&v=beta&t=nToYnZBVF_qOpJ4Q3Xt6TLEJEZNDAboTc0Ol0cA5IJ8",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/1tblpmm97wp",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "BoomerangHR",
+              "foundedYear": 2023,
+              "description": "Hundreds of companies rely on BoomerangHR, the AI-powered platform that streamlines the complexities of offboarding and turns former employees into an active network of rehires, referrals, and sales leads. Founded by industry experts who are advised by leading CHROs, BoomerangHR is backed by Kalos Ventures and Album Ventures. ",
+              "workforce": {
+                "total": 46
+              },
+              "headquarters": {
+                "address": "New York, New York, US",
+                "city": "New York",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 1820,
+                "countryRank": 542718,
+                "avgDurationSeconds": 15,
+                "history": [
+                  {
+                    "value": 0,
+                    "dateFrom": "2024-04",
+                    "dateTo": "2024-04"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2024-09",
+                    "dateTo": "2024-09"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2024-10",
+                    "dateTo": "2024-10"
+                  },
+                  {
+                    "value": 1820,
+                    "dateFrom": "2026-02",
+                    "dateTo": "2026-02"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/p8fjltpszsy",
+        "title": "Boomerang HR apps",
+        "url": "https://boomerang-hr.com/",
+        "text": "# Boomerang HR apps\n\nBoomerang HR apps is a IT Services and IT Consulting company. Boomerang HR provides a 360 feedback platform that simplifies the feedback process. It offers customization options for branding platforms, white-labeling reports, tailoring feedback measures, deadlines, end-user comms, and more. The platform is clean and uncomplicated, ensuring the admin and end-user ui is intuitive and straightforward. Boomerang HR apps employs 1 person (-50.0% YoY, -1 person), founded in 2019. Headquartered in Manchester, England, United Kingdom.\n\n## About\n\nWe are nerdy tech folk, but we are all about people. We offer a range of digital platforms to help our clients deliver their goals, develop their people and provide effective feedback.\n\n## Company Details\n- Industry: IT Services and IT Consulting\n- Type: Privately held\n- Headquarters: Manchester, United Kingdom\n- Founded Year: 2019\n- Homepage: boomerang-hr.com\n- Aliases: Boomerang Apps Ltd., boomerang hr apps\n- LinkedIn: linkedin.com/company/boomerang-hr-apps\n- Linkedin Followers: 252\n- Emails: info@boomerang-hr.com\n\n## Workforce\n- Employees: 1\n- Company Size: 1-10 employees\n  - Yearly Growth: -50.0%\n- Key Executives:\n  - Tom Davies: Design Director\n- Breakdown:\n  - By Country: United Kingdom: 1 (100%)\n  - By Department: Design: 1 (100%)\n  - By Seniority: Director: 1 (100%)\n- Talent Sources: engage|suite - by Havas People (1), TileCreative (1)\n- Alumni Go To: Sky Betting & Gaming (1), Persona.Studio (1)\n\n## Web presence\n\n- Twitter: twitter.com/appsbyboomerang\n- Crunchbase: crunchbase.com/organization/boomerang-hr-apps\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Categories\n\n360 feedback, apps, customization, data management, data visualization, deadlines, end-user comms, enterprise software, feedback platform, goal tracking, hr, human resources, iso 27001 certified, reports, saas, training\n\n## Recent News\n- [2026-10-03] SaasRise: BoomerangHR raises $12.7M as talent‑acq funding stays cold\n- [2026-09-19]\n  - The Manila Times: BoomerangHR Closes $12M+ Seed Round To Help Companies Build and Maintain Talent through Comprehensive Alumni Management and Offboarding\n  - People Matters - HR News: BoomerangHR raises $12.7 million to help companies rehire former employees using AI\n- [2026-09-17]\n  - citybiz: BoomerangHR Raises $12.7 Million Seed Round for AI-Powered Alumni Management\n  - ad-hoc-news.de: BoomerangHR Raises $12.7 Million to Help Employers Win Back the Workers They Lost\n  - Dealroom: BoomerangHR lands $13 million to turn ex-employees into a hiring pipeline\n- [2026-09-14] HR Brew: [New AI tool looks to bring world-class offboarding and alumni management to every HR team](https://www.hr-brew.com/stories/new-ai-tool-looks-to-bring-world-class-offboarding-and-alumni-management-to-every-hr-team)\n- [2026-03-01] ETHRWorld.com: A leadership lens on boomerang employees\n\n## Social\n\n### Linkedin\n\n- [2024-06-28 · 1 reaction] Empower feedback and secure your data. #360feedback #learninganddevelopment #learningdevelopment #leadership #performanceimprovement buff.ly/3sK2zdA 📍 Find us https://buff.ly/3UsqJru\n\n- [2024-06-26 · 1 reaction] Embark on your journey of development with our free feedback tool. #NoLimits #UnboundedGrowth buff.ly/3sK2zdA 📍 Find us https://buff.ly/3UsqJru\n\n- [2024-06-24 · 3 reactions] How can they support it in others if they don't support it for themselves? #360feedback #learninganddevelopment #learningdevelopment #leadership #performanceimprovement buff.ly/3sK2zdA 📍 Find us ht...\n\n- [2024-06-20 · 5 reactions] If your leaders don't believe, why would anybody else? #360feedback #performanceimprovement #leadership #leadershipdevelopment #behaviours #culturematters #culturebuilding buff.ly/3sK2zdA 📍 Find us...\n\n- [2024-06-18] Nurture your company's culture and our forests. #GreenInitiatives #FeedbackThatGrows buff.ly/3sK2zdA 📍 Find us https://buff.ly/3UsqJru\n\n- [2024-06-17 · 1 reaction] 360 feedback gives you insights into your organisational leadership strengths and opportunities. #360feedback #feedbackmatters #learninganddevelopment #learningdevelopment #leadership buff.ly/3sK2z...\n\n- [2024-06-12 · 1 reaction] Get more than data; get a roadmap for development. #FeedbackThatMatters #NoHiddenFees buff.ly/3sK2zdA 📍 Find us https://buff.ly/3UsqJru\n\n- [2024-06-10 · 1 reaction] People's behaviour is the one thing that impacts all of us. How are you ensuring colleagues display behaviours that align with your target culture? #360feedback #performanceimprovement #leadership...\n\n- [2024-06-06 · 1 reaction] Alignment and understanding of the part you play are vital to commitment. #360feedback #performanceimprovement #leadership #leadershipdevelopment #businessgoals buff.ly/3sK2zdA 📍 Find us https://bu...\n\n- [2024-06-04 · 2 reactions] Huge thanks and shout out to Maclaren Construction. The McLaren group of companies operates in construction, property investment and development in the UK and the United Arab Emirates. Learn more b...\n\n## Locations\n- Headquarters: manchester, england, united kingdom (GB)\n- Offices: manchester, england, united kingdom (GB), manchester, manchester, united kingdom (GB)",
+        "summary": "{\"description\":\"Boomerang HR apps is an IT Services and IT Consulting company providing a 360 feedback platform with customization options for branding, white-labeling, tailoring feedback measures, and related admin/end-user UX.\",\"employee_estimate\":1,\"employee_estimate_source\":\"Employees: 1\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Manchester, United Kingdom\",\"hq_quote\":\"Headquarters: manchester, england, united kingdom (GB)\",\"industry\":\"IT Services and IT Consulting\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"- Industry: IT Services and IT Consulting\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":null,\"recently_funded_seed_or_series_a_quote\":\"\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4E0BAQFRPTHnCkoxVg/company-logo_200_200/company-logo_200_200/0/1630595810677?e=2147483647&v=beta&t=Qvv04YghpZ_CnDEV_uHEUizkH_Xg2yVEodkrlSYZuhc",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/p8fjltpszsy",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Boomerang HR apps",
+              "foundedYear": 2019,
+              "description": "We are nerdy tech folk, but we are all about people. We offer a range of digital platforms to help our clients deliver their goals, develop their people and provide effective feedback. ",
+              "workforce": {
+                "total": 1
+              },
+              "headquarters": {
+                "address": "22 Lever Street, Manchester, England M1 1EA, GB",
+                "city": "Manchester",
+                "postalCode": null,
+                "country": "United Kingdom"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 0,
+                    "dateFrom": "2024-03",
+                    "dateTo": "2024-03"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2024-05",
+                    "dateTo": "2024-05"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2024-09",
+                    "dateTo": "2024-09"
+                  },
+                  {
+                    "value": 1118,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 7883.9,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

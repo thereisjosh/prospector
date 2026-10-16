@@ -1,0 +1,270 @@
+{
+  "request": {
+    "query": "Alta",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "6c263a2ec2994946cf7c94c3eb3c4dcd",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/9skwc6fc64b",
+        "title": "Alta (formerly Fundnel)",
+        "url": "https://alta.exchange/",
+        "text": "# Alta (formerly Fundnel)\n\nAlta (formerly Fundnel) is a Financial Services company. Alta is Southeast Asia’s largest marketplace for alternative assets, licensed and regulated by MAS. They offer a platform for private companies, funds, and alternative assets to invest in, raise funds, and buy and sell tokenized securities backed by private equity, private credit, funds, luxury assets. Alta also provides fund management services and offers customized managed options. Alta (formerly Fundnel) employs 77 people (-7.2% YoY, -6 people) and has an annual revenue of $8M, founded in 2015. Headquartered in Singapore, Singapore, with an office in 18 Cross St. Its workforce is distributed across 8 countries (including Singapore, Indonesia, India, Malaysia, and Hong Kong).\n\n## About\n\nAs Southeast Asia's largest licensed digital marketplace for alternative assets, Alta, formerly known as Fundnel, provides its end-to-end offerings around and through its blockchain-powered exchange, which brings private capital market, fund management, custodial, and other services under one roof.\n\nAs Alta, we are creating a sustainable marketplace with curated investment opportunities in alternative assets, that support a virtuous cycle of private capital growth.\n\n## Company Details\n- Industry: Financial Services\n- Type: Privately held\n- Headquarters: Singapore, Singapore\n- Founded Year: 2015\n- Homepage: alta.exchange\n- Aliases: alta (formerly fundnel), alta group, fundnel\n- LinkedIn: linkedin.com/company/altaexchange\n- Linkedin Followers: 17,475\n- Phone: 43753.49\n\n## Financials\n- Annual Revenue: USD 8,000,000\n- Total Funding: USD 346,000\n  - Venture (2023-09-01): USD 296,000\n  - Venture (2022-05-12)\n  - Venture (2021-01-01)\n  - Unspecified (2020-08-01)\n  - Series a (2017-10-01)\n\n## Acquisitions\n- Acquired HGX Pte. Ltd. (2022-10-01)\n\n## Workforce\n- Employees: 77\n- Company Size: 51-200 employees\n  - Yearly Growth: -7.2%\n- Key Executives:\n  - Allan Tan: Partner\n  - Benjamin Twoon: Co-founder and Chief Commercial Officer\n  - Divya Kunnath: Head of Engineering\n  - Gordon C.: Associate Director, Corporate Development and Strategy\n  - Jasmine L.: Director\n  - Justin Chow: Co-founder\n  - Kelvin Lee: Co-founder and CEO\n  - Khairul Norady: Director of Product\n  - Melissa Yam: Country Head\n  - Muzahir Degani: Chief Commercial Officer\n- Breakdown:\n  - By Country: Singapore: 32 (42%), Indonesia: 9 (12%), India: 7 (9%), Malaysia: 6 (8%), Hong Kong: 1 (1%), Philippines: 1 (1%), United States: 1 (1%), Vietnam: 1 (1%)\n  - By Department: Technical: 11 (14%), Finance: 10 (13%), Other Department: 10 (13%), General Management: 9 (12%), Consulting: 4 (5%), Product: 4 (5%), Legal: 2 (3%), Research: 2 (3%), Sales: 2 (3%), Customer Service: 1 (1%) (+4 more)\n  - By Seniority: Other Management: 13 (17%), Specialist: 13 (17%), Senior: 10 (13%), Manager: 5 (6%), Director: 4 (5%), Founder: 3 (4%), Head: 3 (4%), Intern: 3 (4%), Clevel: 2 (3%), Partner: 2 (3%) (+1 more)\n- Talent Sources: Singapore Army (4), VMacro Management Consultancy (3), Standard Chartered (3), GBA Ships e.V. (3), Shopee (2), RX Global (2), Quest Ventures (2), OCBC (2), J.P. Morgan (2), ADA (2)\n- Alumni Go To: WhiteCoat Global (4), Tomoro (3), Partners Group (3), Illumina (3), Unified National Networks (UNN) (2), PwC (2), Leaders (2), KPMG (2), Grab (2), Citi (2)\n\n## Products & Technology\n- Features: Mobile App\n- Tech Stack: bitbucket, blockchain, fintech, gcc, github, javascript, linkedin, linkedin ads, microsoft, microsoft excel, microsoft office, openai, python, recognize, sql, whatsapp, anchor, c, ups, well, amp, google analytics, looker, terraform, impact, adobe, keynote, google docs, intercom, pardot, salesforce, zoom, google cloud, docker, iam, rds, deputy, segment\n\n## Web presence\n\n- Twitter: twitter.com/altagroupco\n- Facebook: facebook.com/alta.exchange\n- Crunchbase: crunchbase.com/organization/fundnel\n- Web traffic:\n  - Monthly visits: 8,476\n  - Global rank: 2,383,913\n  - Bounce rate: 41.0%\n  - Pages per visit: 2.0\n  - Average visit duration: 49s\n\n## Categories\n\nalternative assets, artificial-intelligence, asset-backed security tokenization, customized managed, digital exchange, finance/investment, financial services, financial-services, fintech, fund management, funds, investment-management, platform, private capital, private companies, technology\n\n## Competitors\n\nequityzen, capbridge, fundersclub, icapital, onevest, wefunder, flat6labs, wealthbucket, spreds, cboe vest, allocator\n\n## Social\n\n### Linkedin\n\n- [2026-08-25 · 4 reactions, 1 comment] We're #hiring a new VP, Execution/Advisory, PCM in Singapore. Apply today or share this post with your network.\n\n- [2025-12-24 · 10 reactions] 🎄✨ The festive season is here! A time to pause, reflect, and celebrate what matters most. Wishing you a joyous, laughter-filled holidays with family, friends, and loved ones. May this Christmas bri...\n\n- [2025-12-21 · 5 reactions] 2025 put investors at a crossroads🎢. Sudden twists, surprises, and high-stakes moments, investors had to navigate multiple strategic decisions simultaneously, with no single “safe” path. In 𝐀𝐥𝐭𝐚 𝐕𝐢...\n\n- [2025-12-17 · 9 reactions] We’re still riding the energy from an incredible evening concluded recently. A room filled with some of the sharpest investors, great conversations swirling around, and panelists who set the tone f...\n\n- [2025-11-30 · 6 reactions] [𝐀𝐥𝐭𝐚 𝐕𝐢𝐞𝐰𝐬. 𝐄𝐝𝐢𝐭𝐢𝐨𝐧 𝟳𝟭] Hello, Greenland! 🌍 The icy island may just be gearing up to challenge China’s > 90% dominance in rare earth processing. Rare earths aren’t exactly “rare” in abundance but...\n\n- [2025-11-18 · 3 reactions] [Alta Views. Edition 70] 🌅 As supply chains move, some grounds shine brighter. With the 𝐂𝐡𝐢𝐧𝐚 𝐏𝐥𝐮𝐬 𝐎𝐧𝐞 shift, 𝐒𝐨𝐮𝐭𝐡𝐞𝐚𝐬𝐭 𝐀𝐬𝐢𝐚 𝐜𝐨𝐧𝐭𝐢𝐧𝐮𝐞𝐬 𝐭𝐨 𝐫𝐞𝐢𝐧𝐟𝐨𝐫𝐜𝐞 𝐢𝐭𝐬 𝐩𝐨𝐬𝐢𝐭𝐢𝐨𝐧 𝐚𝐬 𝐚𝐧 𝐞𝐦𝐞𝐫𝐠𝐢𝐧𝐠 𝐬𝐮𝐩𝐩𝐥𝐲 𝐜𝐡𝐚𝐢𝐧 𝐡𝐮𝐛, unl...\n\n- [2025-10-30 · 6 reactions] 💡 [𝐀𝐥𝐭𝐚 𝐕𝐢𝐞𝐰𝐬, 𝐋𝐚𝐭𝐞𝐬𝐭 𝐄𝐝𝐢𝐭𝐢𝐨𝐧 𝐎𝐮𝐭] If there’s one theme that stands out in this edition, 𝐢𝐭’𝐬 𝐦𝐨𝐦𝐞𝐧𝐭𝐮𝐦. Private markets delivered their strongest quarter since 2021, tokenisation is moving beyond p...\n\n- [2025-10-23 · 5 reactions] #𝗪𝗼𝗺𝗲𝗻𝗜𝗻𝗟𝗲𝗮𝗱𝗲𝗿𝘀𝗵𝗶𝗽 isn’t just about breaking barriers — it’s about rewriting the narrative, building communities, and inspiring the next generation of leaders. We’re grateful for the opportunity to...\n\n- [2025-10-12 · 6 reactions] [Edition 68] 𝐀𝐥𝐥 𝐭𝐡𝐚𝐭 𝐠𝐥𝐢𝐭𝐭𝐞𝐫𝐬 𝐈𝐒 𝐠𝐨𝐥𝐝. Gold has hit US$4,000/oz as investors seek stability. APAC’s data centre operators are 𝐬𝐤𝐢𝐩𝐩𝐢𝐧𝐠 𝐭𝐫𝐚𝐝𝐢𝐭𝐢𝐨𝐧𝐚𝐥 𝐛𝐚𝐧𝐤𝐬, 𝐭𝐮𝐫𝐧𝐢𝐧𝐠 𝐭𝐨 𝐩𝐫𝐢𝐯𝐚𝐭𝐞 𝐜𝐫𝐞𝐝𝐢𝐭 and 𝐬𝐞𝐜𝐮𝐫𝐢𝐭𝐢𝐬𝐚𝐭𝐢...\n\n- [2025-10-10 · 44 reactions] #DigitalAssets #Blockchain #DeFi #Tokenisation beyond buzzwords, how are digital assets shaping capital markets today and tomorrow? At the Global Markets Innovation Summit in Singapore, our COO, Wi...\n\n- [2025-09-30 · 4 reactions] This week’s Alta Views connects 𝗪𝗮𝘀𝗵𝗶𝗻𝗴𝘁𝗼𝗻 and 𝗪𝗮𝗹𝗹 𝗦𝘁𝗿𝗲𝗲𝘁, leading to 𝘄𝗮𝘃𝗲𝘀 𝗼𝗳 𝗴𝗿𝗼𝘄𝘁𝗵 in Asia’s equity markets. 🦾 𝗧𝗿𝘂𝗺𝗽 𝗮𝗱𝗺𝗶𝗻𝗶𝘀𝘁𝗿𝗮𝘁𝗶𝗼𝗻 and 𝗹𝗲𝗮𝗱𝗶𝗻𝗴 𝘁𝗲𝗰𝗵 𝗳𝗶𝗿𝗺𝘀 𝗱𝗼𝘂𝗯𝗹𝗲 𝗱𝗼𝘄𝗻 on the acceleration of AI...\n\n## Locations\n- Headquarters: singapore, singapore (SG)\n- Offices: capital square, singapore (SG), singapore, singapore (SG), 18 cross st, #02-101; singapore, singapore (SG)",
+        "summary": "{\"description\":\"Alta (formerly Fundnel) is Southeast Asia’s largest marketplace for alternative assets, licensed and regulated by MAS. They offer a platform for private companies, funds, and alternative assets to invest in, raise funds, and buy and sell tokenized securities backed by private equity, private credit, funds, luxury assets. Alta also provides fund management services and offers customized managed options.\",\"employee_estimate\":77,\"employee_estimate_source\":\"Employee count listed in highlights\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"- We're #hiring a new VP, Execution/Advisory, PCM in Singapore. Apply today or share this post with your network.\",\"hq\":\"Singapore, Singapore\",\"hq_quote\":\"Headquarters: singapore, singapore (SG)\",\"industry\":\"Financial Services\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Financial Services\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 346,000\\n  - Venture (2023-09-01): USD 296,000\\n  - Venture (2022-05-12)\\n  - Venture (2021-01-01)\\n  - Unspecified (2020-08-01)\\n  - Series a (2017-10-01)\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQHqsr6c_mdnNg/company-logo_200_200/company-logo_200_200/0/1664468310268/fundnel_limited_logo?e=2147483647&v=beta&t=iHEoRXiq8aXRmdpFF5BDjHyU8yhAKPzu9rtJ7sybvrs",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/9skwc6fc64b",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Alta (formerly Fundnel)",
+              "foundedYear": 2015,
+              "description": " As Southeast Asia's largest licensed digital marketplace for alternative assets, Alta, formerly known as Fundnel, provides its end-to-end offerings around and through its blockchain-powered exchange, which brings private capital market, fund management, custodial, and other services under one roof.\n\nAs Alta, we are creating a sustainable marketplace with curated investment opportunities in alternative assets, that support a virtuous cycle of private capital growth.\n",
+              "workforce": {
+                "total": 77
+              },
+              "headquarters": {
+                "address": "23 Church Street, Capital Square, Singapore, 049481, SG",
+                "city": "Singapore",
+                "postalCode": null,
+                "country": "Singapore"
+              },
+              "financials": {
+                "revenueAnnual": 8000000,
+                "fundingTotal": 346000,
+                "fundingLatestRound": {
+                  "name": "Venture",
+                  "date": "2023-09-01",
+                  "amount": 296000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 8476,
+                "countryRank": 2417477,
+                "avgDurationSeconds": 49,
+                "history": [
+                  {
+                    "value": 11235,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 11031,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 32015,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 8013,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 10301,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 8476,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/dcfslhg7tdq",
+        "title": "Alta",
+        "url": "https://altadaily.com/",
+        "text": "# Alta\n\nAlta is a Technology, Information and Internet company. Alta employs 52 people (+20.9% YoY, +9 people). Headquartered in San Francisco, California, United States. Its workforce is distributed across 6 countries (including United States, France, Brazil, Canada, and India).\n\n## About\n\nAlta is a personal style companion that simplifies the daily decision of what to wear, offering stress-free outfit suggestions based on your preferences and daily activities.\n\nAlta is your personalized fashion companion on a mission to simplify your style choices. Named after the Latin word for \"elevated,\" Alta acts as your daily style copilot, making the often stressful task of choosing outfits a breeze. In a rapidly growing $185 billion US apparel e-commerce industry, Alta stands out by streamlining your online shopping experience with tailored suggestions based on your unique preferences. With its AI-driven capabilities, Alta not only optimizes your closet usage but also serves as your helpful shopping assistant, ensuring your purchases fit seamlessly into your existing wardrobe. As Alta evolves, it aspires to become more than just a fashion tool, aiming to curate a lifestyle that enhances your daily experiences.\n\nAlta has a unique partnership with Marie Kondo and her company KonMari to help organize your closet. Alta also collaborate with the CFDA, introducing our A.I.-powered platform as a tool for designers to reimagine how consumers discover, style, and shop for clothing.\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Headquarters: San Francisco, United States\n- Homepage: altadaily.com\n- Aliases: Flagship AI, Inc., alta\n- LinkedIn: linkedin.com/company/altadaily\n- Linkedin Followers: 10,855\n- Emails: legal@altadaily.com\n\n## Financials\n- Total Funding: USD 11,000,000\n  - Seed (2025-07-16): USD 11.0M\n\n## Workforce\n- Employees: 52\n- Company Size: 1-10 employees\n  - Monthly Growth: -1.9%\n  - Yearly Growth: +20.9%\n- Key Executives:\n  - Joon Young Kim: Chief Technology Officer\n  - Joon Young Kim: Founding Eng\n  - Joon Young Kim: Head of Product Engineering\n  - Zita d'Hauteville: Angel Investor\n- Breakdown:\n  - By Country: United States: 12 (23%), France: 2 (4%), Brazil: 1 (2%), Canada: 1 (2%), India: 1 (2%), Italy: 1 (2%)\n  - By Department: Other Department: 4 (8%), Consulting: 3 (6%), Design: 2 (4%), Marketing: 2 (4%), Operations: 2 (4%), Technical: 2 (4%), Medical: 1 (2%), Product: 1 (2%), Project Management: 1 (2%), Sales: 1 (2%)\n  - By Seniority: Other Management: 6 (12%), Specialist: 6 (12%), Founder: 2 (4%), Intern: 2 (4%), Clevel: 1 (2%), Head: 1 (2%), Manager: 1 (2%), Senior: 1 (2%)\n- Active job postings: 1\n- Talent Sources: Zelia (1), Urssaf Paca (1), The Estée Lauder Companies Inc. (1), Neubus (1), Kino (1), Hospital do Rim (HR) (1), Guidehouse (1), GoInvo (1), Essentiel Antwerp (1), Columbia Women's Business Society (1)\n- Alumni Go To: Protein World (2), getGFTD (1), Sandbox at Northeastern (1), Phi Alpha Delta Pre-Law Fraternity, The George Washington University Chapter (1), Limitless Concierge Service LLC (1), Hawaiian Telcom (1), E! News (1), Dexian (1), Delta Printing Press ME FZCO (1), CHANEL (1)\n\n## Products & Technology\n- Tech Stack: doordash, figma, linkedin, tiktok, youtube, nodejs, python, react, typescript, reddit, testflight, amp, impact, instagram, well\n\n## Web presence\n\n- Crunchbase: crunchbase.com/organization/alta-fe21\n- Web traffic:\n  - Monthly visits: 321,017\n  - Global rank: 114,843\n  - Bounce rate: 51.0%\n  - Pages per visit: 4.5\n  - Average visit duration: 155s\n\n## Categories\n\nartificial intelligence, artificial intelligence (ai), fashion, lifestyle, lifestyle/fashion_and_apparel, shopping, technology\n\n## Recent News\n- [2026-09-10] [Liminal horror inspired e.l.f.’s latest social campaign. - YPulse](https://www.ypulse.com/newsfeed/2026/09/10/liminal-horror-inspired-e-l-f-s-latest-social-campaign/)\n- [2026-08-27] [她把电影里的“智能衣柜”做成 AI，已经生成 1亿套穿搭 \\| 人人都是产品经理](https://www.woshipm.com/ai/6453443.html)\n- [2026-07-24] [Artisan vs Alta: Which fits your team? 2026](https://www.artisan.co/blog/artisan-vs-alta)\n- [2026-07-15] [Alta Raises $25M for AI Go-to-Market Agents](https://sentinel.ht/alta-25m-series-a-ai-agents-go-to-market/)\n\n## Social\n\n### Linkedin\n\n- [2026-09-30 · Reshared · 2 reactions] [✨ My Alta avatar just got an ELF makeover! 💜 I’ve been using Alta...](https://www.linkedin.com/posts/altadaily_activity-7511134671884255233-qHnc): ✨ My Alta avatar just got an ELF makeover! 💜 I’ve been using Alta to organize my wardrobe and create different outfit combinations without having to try everything on over and over again. It has ma...\n\n- [2026-09-29 · Posted · 11 reactions] [Alta Avatars for iPhone Duo. Who will you Duo with? Jasmine Tookes...](https://www.linkedin.com/posts/altadaily_alta-avatars-for-iphone-duo-who-will-you-activity-7510724118908993536-kUj4)\n  > Alta Avatars for iPhone Duo. Who will you Duo with?\n  >\n  > Jasmine Tookes Juan David Borrero Silicon Valley Girl\n\n- [2026-09-28 · Reshared · 2 reactions] [Meet my ALTA Avatar, now with a little e.l.f. glam! 💄🩷 Excited to...](https://www.linkedin.com/posts/altadaily_activity-7510480429544710144-uWdw): Meet my ALTA Avatar, now with a little e.l.f. glam! 💄🩷 Excited to try out the new Alta x e.l.f. experience and explore a whole new way to express personal style through AI. Fashion + beauty + techn...\n\n- [2026-09-27 · Reshared · 2 reactions] [Soft glamour Alta Try the app](https://www.linkedin.com/posts/altadaily_activity-7510105246241579008-U_XC): Soft glamour Alta Try the app\n\n- [2026-09-23 · Reshared · 2 reactions] [Pink soft glam](https://www.linkedin.com/posts/altadaily_activity-7508533586413645824-AjzX): Pink soft glam\n\n- [2026-09-21 · Reshared · 17 reactions] [I've been using Alta for almost two months now to help me put...](https://www.linkedin.com/posts/altadaily_activity-7507929457211473920-Rr-F): I've been using Alta for almost two months now to help me put together my outfits. It's a game changer, I highly recommend it. 👕👡\n\n- [2026-09-21 · Reshared · 1 reaction] [Exploring new ways to simplify the everyday. ✨ Probando Alta , una...](https://www.linkedin.com/posts/altadaily_activity-7507929369043128320-wSZE): Exploring new ways to simplify the everyday. ✨ Probando Alta , una app de clóset virtual que combina organización, tecnología y estilo. Siempre me ha gustado descubrir herramientas que hagan más ef...\n\n- [2026-09-18 · Reshared · 2 reactions] [Alta and e.l.f collab ❤️](https://www.linkedin.com/posts/altadaily_activity-7506796367923580928-9l_H): Alta and e.l.f collab ❤️\n\n- [2026-09-18 · Reshared · 4 reactions] [Alta 🌸🤍](https://www.linkedin.com/posts/altadaily_activity-7506796252940980224-Su69): Alta 🌸🤍\n\n- [2026-09-18 · 4 reactions, 2 comments] Alta🌸🤍\n\n- [2026-09-17 · Posted · 6 reactions] [How we're using the new glam sharing background @ Alta HQ 🩷 To...](https://www.linkedin.com/posts/altadaily_how-were-using-the-new-glam-sharing-background-activity-7506453276935168000-l9Wp)\n  > How we're using the new glam sharing background @ Alta HQ 🩷 To share your own, find the e.l.f. experience by searching for \"e.l.f.\" in the Alta Inspo tab (the 🔎  icon), or by clicking the e.l.f. banner. We can't wait to see your looks!\n\n- [2026-09-17 · Posted · 6 reactions] [A Menlo Ventures 2026 report found that 37% of shoppers using AI...](https://www.linkedin.com/posts/altadaily_2026-the-state-of-consumer-ai-menlo-ventures-activity-7506341876292190208-ATqW)\n  > A Menlo Ventures 2026 report found that 37% of shoppers using AI made a final purchase decision based on its recommendation.\n  >\n  > “Alta has found a wedge into fashion as an AI stylist that works from a shopper’s own closet, identifies wardrobe gaps, and lets shoppers buy its recommendations directly in the app.”\n  >\n  > We’re seeing similar behavior through our partnerships. Since partnering with Alta, Rent the Runway has seen 35% feature engagement. Customers who used the experience added items to their bag 12% more often than those who did not, and 77% of the time, users clicked another item within an Alta-styled look.\n  >\n  > With e.l.f. Cosmetics joining Alta, the styling experience now includes beauty, with makeup recommendations alongside outfits.\n  >\n  > A great read by Amy Wu Martin, Samantha Borja, and Shawn Carolan.\n  >\n  > https://lnkd.in/eeEb6Gtu\n\n- [2026-09-17 · 6 reactions] How we're using the new glam sharing background @ Alta HQ 🩷 To share your own, find the e.l.f. experience by searching for \"e.l.f.\" in the Alta Inspo tab (the 🔎 icon), or by clicking the e.l.f. ban...\n\n- [2026-09-17 · 6 reactions] A Menlo Ventures 2026 report found that 37% of shoppers using AI made a final purchase decision based on its recommendation. “Alta has found a wedge into fashion as an AI stylist that works from a...\n\n- [2026-09-15 · Posted · 14 reactions] [All Things Fashion Tech covered Alta's impact on Rent The Runway...](https://www.linkedin.com/posts/altadaily_fashion-tech-in-the-chaos-of-fashion-week-activity-7505710237497327616-Dy_I)\n  > All Things Fashion Tech covered Alta's impact on Rent The Runway per their Q2 Earnings Call. We look forward to integrating with more brands to move the needle on sales and revolutionize shopping.  🛍️\n  >\n  > Big thank you to Mary Korlin-Downs for including us in your NYFW newsroom roundup! ✨\n  >\n  > https://lnkd.in/gmain8dU\n\n- [2026-09-15 · 14 reactions] All Things Fashion Tech covered Alta's impact on Rent The Runway per their Q2 Earnings Call. We look forward to integrating with more brands to move the needle on sales and revolutionize shopping....\n\n- [2026-09-14 · Posted · 58 reactions] [Big moment for Alta x RTR! 🛍️ Rent the Runway just gave Alta a...](https://www.linkedin.com/posts/altadaily_big-moment-for-alta-x-rtr-rent-the-activity-7505256563406745600-8zU_)\n  > Big moment for Alta x RTR! 🛍️\n  >\n  > Rent the Runway just gave Alta a shoutout on their Q2 2026 earnings call, and the numbers back it up.\n  >\n  > Since the launch:\n  > 35% feature engagement; ahead of expectations\n  > Customers using it added to their bag 12% more often than those without it\n  > 77% of the time, users opened another item within an Alta-styled look\n  >\n  > Alta’s avatars allow users to see a look on a range of figures before they commit, and to virtually style items with other RTR pieces. Shoppers no longer have to imagine the outfit, they can instantly see it.\n  >\n  > Proud to be part of how RTR is reshaping the way we shop. More to come. ✨\n\n- [2026-09-14 · 58 reactions, 3 comments] Big moment for Alta x RTR! 🛍️ Rent the Runway just gave Alta a shoutout on their Q2 2026 earnings call, and the numbers back it up. Since the launch: 35% feature engagement; ahead of expectations C...\n\n- [2026-09-11 · Reshared · 11 reactions] [Quem nunca olhou para um guarda-roupa cheio e, ainda assim, teve a...](https://www.linkedin.com/posts/altadaily_activity-7504242850058895361-9_e3): Quem nunca olhou para um guarda-roupa cheio e, ainda assim, teve a sensação de que não tinha nada para vestir? Essa é uma situação comum para muita gente e, comigo, não é diferente. Desde criança,...\n\n- [2026-09-10 · Posted · 13 reactions] [Alta Avatars just got more beautiful. E.L.F. BEAUTY is Alta’s...](https://www.linkedin.com/posts/altadaily_alta-avatars-just-got-more-beautiful-elf-activity-7503814219738279936-4IkX)\n  > Alta Avatars just got more beautiful.\n  >\n  > E.L.F. BEAUTY is Alta’s first-ever beauty brand partner on the app.\n  >\n  > “e.I.f.'s Soft Glam collection will be available to the Alta community where they can keep track of their beauty routine the same way they track their wardrobe. Alta members play inside their digital closets, using Alta avatars to plan their vacation wardrobes, their work wear and their special event looks.”\n  >\n  > Go try it out on Alta's Discovery tab (maybe a Soft Glam Satin Foundation 🪞) and read the full scoop here: https://lnkd.in/gTdC9pcx\n\n## Locations\n- Headquarters: san francisco, california, united states (US)\n- Offices: san francisco, california, united states (US)",
+        "summary": "{\"description\":\"Alta is a technology, information and internet company building an AI-driven fashion assistant and shopping companion.\",\"employee_estimate\":52,\"employee_estimate_source\":\"Employees: 52\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Active job postings: 1\",\"hq\":\"San Francisco, United States\",\"hq_quote\":\"Headquartered in San Francisco, California, United States.\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Technology, Information and Internet\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 11,000,000\\n  - Seed (2025-07-16): USD 11.0M\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQFG1EV-JfUoVA/company-logo_200_200/B56Zne6p.PJoAI-/0/1760381542847/altadaily_logo?e=2147483647&v=beta&t=e3XR-rdMsHxyWxB_QE0KfL3EpLW90GoIiX2DoRHz26g",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/dcfslhg7tdq",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Alta",
+              "foundedYear": null,
+              "description": "Alta is a personal style companion that simplifies the daily decision of what to wear, offering stress-free outfit suggestions based on your preferences and daily activities.\n\nAlta is your personalized fashion companion on a mission to simplify your style choices. Named after the Latin word for \"elevated,\" Alta acts as your daily style copilot, making the often stressful task of choosing outfits a breeze. In a rapidly growing $185 billion US apparel e-commerce industry, Alta stands out by streamlining your online shopping experience with tailored suggestions based on your unique preferences. With its AI-driven capabilities, Alta not only optimizes your closet usage but also serves as your helpful shopping assistant, ensuring your purchases fit seamlessly into your existing wardrobe. As Alta evolves, it aspires to become more than just a fashion tool, aiming to curate a lifestyle that enhances your daily experiences.\n\nAlta has a unique partnership with Marie Kondo and her company KonMari to help organize your closet. Alta also collaborate with the CFDA, introducing our A.I.-powered platform as a tool for designers to reimagine how consumers discover, style, and shop for clothing.",
+              "workforce": {
+                "total": 52
+              },
+              "headquarters": {
+                "address": "San Francisco, California 94104, US",
+                "city": "San Francisco",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 11000000,
+                "fundingLatestRound": {
+                  "name": "Seed",
+                  "date": "2025-07-16",
+                  "amount": 11000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 321017,
+                "countryRank": 84736,
+                "avgDurationSeconds": 155,
+                "history": [
+                  {
+                    "value": 164255,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 178908,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 225111,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 265733,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 336746,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 321017,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 7640.8,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

@@ -1,0 +1,257 @@
+{
+  "request": {
+    "query": "JustAI",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "1c675a9c0a35eb0e8f8415333d25dd71",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/wr46t4kpyf8",
+        "title": "JustAI",
+        "url": "https://getjust.ai/",
+        "text": "# JustAI\n\nJustAI is a Software Development company. JustAI employs 28 people (+180.0% YoY, +18 people), founded in 2024. Headquartered in San Francisco, California, United States. Its workforce is distributed across 5 countries (including United States, France, Kenya, Singapore, and Spain).\n\n## About\n\nJustAI is your AI-Marketer, a full-stack workflow that thinks, creates, optimizes, and measures in sync.\nBuilt by growth leaders from Twitter & Pinterest to help lifecycle marketing finally scale.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: San Francisco, United States\n- Founded Year: 2024\n- Homepage: getjust.ai\n- Aliases: justai\n- LinkedIn: linkedin.com/company/getjustai\n- Linkedin Followers: 3,416\n\n## Financials\n- Total Funding: USD 1,825,000\n  - Seed (2024-08-01): USD 1.7M\n  - Seed (2024-03-01): USD 125,000\n\n## Workforce\n- Employees: 28\n- Company Size: 11-50 employees\n  - Monthly Growth: +7.7%\n  - Yearly Growth: +180.0%\n- Key Executives:\n  - Aaron MacEachen: Founding Account Executive\n  - Bennett G.: Founding Infra Engineer\n  - Daniel B. Slezinger: Product Marketing Lead\n  - Josh Carlsen, M.S.: Founding Account Executive\n  - Julien Dupe: Partner - Investor ✨\n  - Marco Rodriguez: Founding Marketer\n  - Neha Mittal: CEO and Co-founder\n  - Téa J.: Founding Account Executive\n  - jeff hara: Cofounder and CTO\n- Breakdown:\n  - By Country: United States: 18 (64%), France: 1 (4%), Kenya: 1 (4%), Singapore: 1 (4%), Spain: 1 (4%)\n  - By Department: Technical: 7 (25%), Consulting: 4 (14%), General Management: 4 (14%), Sales: 3 (11%), Marketing: 2 (7%), Customer Service: 1 (4%), Finance: 1 (4%)\n  - By Seniority: Founder: 7 (25%), Specialist: 7 (25%), Other Management: 4 (14%), Manager: 2 (7%), Head: 1 (4%), Partner: 1 (4%)\n- Active job postings: 4\n- Talent Sources: Vultron (acquired) (1), The Nature Conservancy (1), Stealth Startup (1), Solace (1), Reddit, Inc. (1), Myriad AI (1), Monitaur (1), Lumafield (1), HappyRobot (1), Goldman Sachs (1)\n- Alumni Go To: askMyu (1), Sentry (1), Rem and Company (1), Pump.co (1), Junoa (1), Hexus (Acquired by Harvey) (1), Google (1), Conduit (1), Común (1), Appy.AI (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: amplitude, braze, canva, css, figma, html, hubspot, iterable, javascript, kubernetes, linkedin, looker, mixpanel, optimizely, persona, prototype, python, salesforce, salesforce marketing cloud, snowflake, sql, twitter, java, scala, typescript, grammarly, notion, react, cloudflare\n\n## Web presence\n\n- Twitter: twitter.com/getjustai\n- YouTube: youtube.com/@the-ai-marketer-podcast/podcasts\n- Crunchbase: crunchbase.com/organization/justai-b159\n- Web traffic:\n  - Monthly visits: 18,955\n  - Global rank: 1,442,929\n  - Bounce rate: 43.0%\n  - Pages per visit: 1.7\n  - Average visit duration: 37s\n\n## Categories\n\nai agents, ai-first, artificial intelligence, content ranking, copy changes, customer growth, data agent, experimentation, growth ai, hyper relevance, hyper-personalized messaging, lifecycle marketing, llms, machine learning, marketing, modern enterprise marketing, personalization, proactive optimizations, retention marketing, short-form content, software\n\n## Recent News\n- [2026-09-22] Upstox: Bank strike from September 28: Customers may get just 2 days of banking in 9 days\n- [2026-09-04] PCMag: The Banned Robot Vacuums America Wasn't Supposed to Get Just Shattered Every Power Record\n- [2026-08-28] MacDailyNews: Apple’s iPhone 18 Pro lineup may get just a $100 price increase\n- [2026-08-21] capradio.org: Why students at one Placer County high school get just 12 minutes to eat lunch\n- [2026-07-10] [JustAI has raised $17 Million in new Series A funding - intelligence360](https://www.intelligence360.news/justai-has-raised-17-million-in-new-series-a-funding/)\n- [2026-07-01] [JustAI eyes India expansion after $17 million Series A; says AI can boost marketing revenue by 30% - CNBC TV18](https://www.cnbctv18.com/videos/business/startup/ai-marketing-startup-justai-series-a-funding-india-expansion-neha-mittal-19936748.htm/amp)\n- [2026-06-26] [JustAI raises over $17 million in funding from Base10 Partners, YC to scale AI marketing platform](https://indianstartupnews.com/funding/justai-raises-over-17-million-in-funding-from-base10-partners-yc-to-scale-ai-marketing-platform-12069109)\n- [2026-06-25] [JustAI Secures $17 Mn Series A To Expand AI Marketing Platform - BW Disrupt](https://www.bwdisrupt.com/article/justai-secures-17-mn-series-a-to-expand-ai-marketing-platform-612126)\n- [2026-06-24]\n  - [Marketing platform JustAI raises $17 million led by Base10 - The Economic Times](https://economictimes.indiatimes.com/tech/funding/marketing-platform-justai-raises-17-million-led-base10/articleshow/131968605.cms)\n  - [JustAI Raises $17 Million in Series A to Scale AI-Powered Marketing Automation Globally - Indian Startup Times](https://www.indianstartuptimes.com/investment/justai-raises-17-million-in-series-a-to-scale-ai-powered-marketing-automation-globally/)\n  - [JustAI Secures $17M to Revolutionize AI-Driven Marketing in 2026](https://www.blogarama.com/software-blogs/1376428-hire-app-developer-websenor-web-development-company-blog/77468580-justai-secures-17m-revolutionize-driven-marketing-2026)\n- [2026-06-23]\n  - [Martech startup JustAI raises $17M](https://www.axios.com/pro/enterprise-software-deals/2026/06/23/martech-justai-agentic-enterprise-software)\n  - [JustAI完成1700万美元A轮融资 用于打造智能代理营销平台](https://finance.sina.cn/2026-06-24/detail-iniemmyf9524901.d.html?cid=76524&node_id=76524&vt=4)\n  - [JustAI完成1700万美元A轮融资 用于打造智能代理营销平台\\_新浪财经\\_新浪网](https://finance.sina.com.cn/stock/usstock/summary/2026-06-24/doc-iniemmyf9524901.shtml)\n  - [JustAI Raises $17M Series A to Build an Agentic Marketing Platform](https://sg.finance.yahoo.com/news/justai-raises-17m-series-build-170000502.html)\n  - [JustAI Secures $17 Million Series A to Scale AI-Driven Marketing Decisioning Platform](https://www.tipranks.com/news/private-companies/justai-secures-17-million-series-a-to-scale-ai-driven-marketing-decisioning-platform)\n  - [JustAI Secures $17 Million in Series A Funding for AI-Driven Marketing Revolution - Third News](https://third-news.com/article/7220e838-6f35-11f1-addc-9ca3ba08e13f)\n\n## Social\n\n### Linkedin\n\n- [2026-09-29 · Posted · 20 reactions] [For years, lifecycle marketers have described their journeys the...](https://www.linkedin.com/posts/getjustai_lifecycle-justai-octopus5-activity-7510500853686943744-2ZrT)\n  > For years, lifecycle marketers have described their journeys the same way: an octopus. Too many arms, too many forks. It grows every time you add a segment.\n  >\n  > So we headed into the tall grass and caught one. 🐙\n  >\n  > Her name is Justine. She's tamed now, and she works for you. Watch her build a whole journey, block by block.\n  >\n  > Stay tuned for October 19. Your journeys are about to get a whole lot easier. 👀\n  > #Lifecycle #JustAI #Octopus5.5 #Marketing\n\n- [2026-09-25 · Posted · 57 reactions] [‼️NEW HIRE ALERT‼️ Meet Téa J., our new Founding Account Executive...](https://www.linkedin.com/posts/getjustai_justai-newhire-hiring-activity-7509296389852553217-y7ou)\n  > ‼️NEW HIRE ALERT‼️\n  >\n  > Meet Téa J., our new Founding Account Executive!\n  >\n  > Téa brings a background in B2B SaaS sales, helping growing companies build and scale their sales and GTM motions. Joining JustAI means being part of an early-stage team with plenty to build, and Tea is especially excited about what AI can unlock for lifecycle marketing.\n  >\n  > Off the clock: tennis, badminton, and pretty much any racket sport. Tea also collects vintage Japanese stationery from the 90s and 2000s, but don’t ask how many pens, pencils, and erasers are in the collection. She lived in Australia for six years and had a pet drop bear. 🐨\n  >\n  > Say hi to Tea in the comments. Really glad you’re here. 🐙\n  >\n  > #JustAI #NewHire #Hiring\n\n- [2026-09-22 · Reshared · 100 reactions] [Just touched down in NYC for the Iterable Activate Tour this week...](https://www.linkedin.com/posts/getjustai_activity-7508232664013836288-RYRV): Just touched down in NYC for the Iterable Activate Tour this week! Looking forward to a day with other marketing leaders & hearing what's going on in the world of lifecycle right now. If you're goi...\n\n- [2026-09-15 · Reshared · 27 reactions] [How do you build amid uncertainty? All the recent chatter about AI...](https://www.linkedin.com/posts/getjustai_activity-7505666379123965952-ovlM): How do you build amid uncertainty? All the recent chatter about AI regulation & global standards has me thinking back to my conversation at The Economic Times World Leaders Forum in New Delhi. When...\n\n- [2026-09-11 · 16 reactions, 2 comments] Last Friday, Shingo Nagano and jeff hara handled lunch and cheffed up takoyaki🇯🇵 (traditional Japanese octopus balls) on a grill in the middle of our office. At JustAI we talk about the octopus pro...\n\n- [2026-09-09 · 29 reactions, 7 comments] Our new case study with Better Mortgage is out: 30% more loan applications, with results starting while the test was still running. Better had two very different groups of homebuyers: those still h...\n\n- [2026-08-31 · Posted · 19 reactions] [‼️NEW HIRE ALERT‼️ Meet Kirill Caldeira, our new Account Manager...](https://www.linkedin.com/posts/getjustai_justai-newhire-hiring-activity-7500260398718255104--pqB)\n  > ‼️NEW HIRE ALERT‼️\n  >\n  > Meet Kirill Caldeira, our new Account Manager!\n  >\n  > Kirill makes sure the teams building on JustAI get everything they can out of it, and as their programs grow, he'll own the partnerships that come with them. His reason for joining, in his words: the product solves a problem marketers feel and live with every day, and it's exciting to be somewhere laying the groundwork for a better way of working.\n  >\n  > Off the clock: he cooks, usually something Thai like Pad Kra Pao, or a vegetarian Shepherd's Pie when he's after comfort food. And when he's not in the kitchen, he's on a tennis court or out on an adventure with his dog Archer. 🐶\n  >\n  > Say hi to Kirill in the comments. Can't wait for you to get started.🐙\n  >\n  > #JustAI #NewHire #Hiring\n\n- [2026-08-31 · 26 reactions, 6 comments] ‼️NEW HIRE ALERT‼️ Meet Kirill Caldeira, our new Account Manager! Kirill makes sure the teams building on JustAI get everything they can out of it, and as their programs grow, he'll own the partner...\n\n- [2026-08-28 · Posted · 17 reactions] [Our co-founder and CEO Neha Mittal joined \"The Next AI revolution...](https://www.linkedin.com/posts/getjustai_worldleadersforum-ai-theeconomictimes-activity-7499179212205879296-h4N9)\n  > Our co-founder and CEO Neha Mittal joined \"The Next AI revolution: From Generative Models to Intelligent Systems\" at The Economic Times World Leaders Forum in New Delhi. On the panel with her: Krishna Rangasayee (SiMa.ai), Sudip Roy (adaption), and Dipanwita Das (Sorcero), moderated by Swathi Moorthy of The Economic Times.\n  >\n  > The Economic Times ran the write-up under a plain subhead 📰: Focus on creating a profitable system, safety regulation as AI scales up. Much of the panel sat on whether this wave of AI spending has profit behind it, and what oversight looks like as the systems get more capable. The rest went to work itself.\n  >\n  > That's where Neha's argument landed. What she's seeing across teams is a re-skilling wave, one that asks a company to rethink an entire workflow instead of training people on another tool, and that switch starts with the people setting direction: \"That's a very big mindset switch that's happening pretty much at the top level and how all the conversations trickle down in terms of hiring, and how big the team should be.\" How big the team should be is where this meets the border question.\n  >\n  > Entering a new market has always been a headcount decision: more people per region, more programs to maintain. Once the workflow itself is rethought, market entry becomes a testing problem. In our data the winning message in one market routinely loses in the next, so the teams that expand well are the ones testing inside each market rather than exporting last quarter's winner.\n  >\n  > Our full read on AI across borders publishes next week. 🐙\n  > #WorldLeadersForum #AI #TheEconomicTimes #AIAcrossBorders\n\n- [2026-08-28 · 22 reactions, 1 comment] Our co-founder and CEO Neha Mittal joined \"The Next AI revolution: From Generative Models to Intelligent Systems\" at The Economic Times World Leaders Forum in New Delhi. On the panel with her: Kris...\n\n- [2026-08-27 · Reshared · 296 reactions] [Last week I met Prime Minister Narendra Modi at the The Economic...](https://www.linkedin.com/posts/getjustai_activity-7498777890444955648-IH8o): Last week I met Prime Minister Narendra Modi at the The Economic Times World Leaders Forum in New Delhi. It was a closed-group gathering alongside global leaders including Boris Johnson and Sergio...\n\n- [2026-08-25 · Posted · 64 reactions] [‼️NEW HIRE ALERT‼️ Meet Bennett G. our Founding Infrastructure...](https://www.linkedin.com/posts/getjustai_justai-newhire-hiring-activity-7498061730233634817-EZUw)\n  > ‼️NEW HIRE ALERT‼️\n  >\n  > Meet Bennett G. our Founding Infrastructure Engineer!\n  >\n  > Bennett joins us from site reliability engineering, where he's spent his career building cloud infrastructure for startups at exactly this growth stage. As we add to the platform, he's the one keeping it fast and reliable underneath, and as the engineering team grows, he'll take on more of our internal tooling and developer experience too.\n  >\n  > Off the clock: he's run six marathons, the latest in SF this July, with Melbourne up next. He lived in Copenhagen for a few months after the pandemic. And when he's not on a long run or a road bike, he's usually painting, writing, out on a trail, or enjoying a good cup of coffee.\n  >\n  > Say hi to Bennett in the comments. Really glad you're here.🐙\n  >\n  > #JustAI #NewHire #Hiring\n\n- [2026-08-25 · 64 reactions, 6 comments] ‼️NEW HIRE ALERT‼️ Meet Bennett G. our Founding Infrastructure Engineer! Bennett joins us from site reliability engineering, where he's spent his career building cloud infrastructure for startups a...\n\n- [2026-08-21 · Reshared · 177 reactions] [I'm humbled & grateful to be given the opportunity to attend and...](https://www.linkedin.com/posts/getjustai_activity-7496657137545191424-Rz2p): I'm humbled & grateful to be given the opportunity to attend and speak at the The Economic Times World Leaders Forum, kicking off today in New Delhi. The stage will be filled with Prime Minister Mo...\n\n- [2026-08-20 · Posted · 8 reactions] [With thousands of small experiments running across your campaigns...](https://www.linkedin.com/posts/getjustai_with-thousands-of-small-experiments-running-activity-7496249782277918722-8KC9)\n  > With thousands of small experiments running across your campaigns at once, learning which message actually converts gets tricky very fast.\n  >\n  > We've released the secret behind the multi-armed bandits in our decisioning agent, and how we tune thousands of them to get the most out of every campaign's data.\n  >\n  > Live on the blog. Link in comments 🐙 ⬇️\n\n- [2026-08-20 · 8 reactions, 2 comments] With thousands of small experiments running across your campaigns at once, learning which message actually converts gets tricky very fast. We've released the secret behind the multi-armed bandits i...\n\n- [2026-08-19 · Reshared · 77 reactions] [Yesterday was was Sohum Bajaj 's last day at JustAI, and the...](https://www.linkedin.com/posts/getjustai_activity-7495876951518138368-TcxR): Yesterday was was Sohum Bajaj 's last day at JustAI, and the whiteboards already look emptier. Sohum Bajaj joined us part-time in March and spent this past summer full-time as an ML Engineer intern...\n\n- [2026-08-19 · 80 reactions, 6 comments] Yesterday was was Sohum Bajaj's last day at JustAI, and the whiteboards already look emptier. Sohum Bajaj joined us part-time in March and spent this past summer full-time as an ML Engineer intern....\n\n- [2026-08-18 · Reshared · 15 reactions] [Is AI actually making marketers better, or is it just a shiny new...](https://www.linkedin.com/posts/getjustai_activity-7495532679560314883-U777): Is AI actually making marketers better, or is it just a shiny new tool? This week's podcast is out now! I had a great conversation with a very special guest, Raechelle (Rae) Hoki . She has led camp...\n\n- [2026-08-18 · 15 reactions, 3 comments] Is AI actually making marketers better, or is it just a shiny new tool? This week's podcast is out now! I had a great conversation with a very special guest, Raechelle (Rae) Hoki. She has led campa...\n\n## Locations\n- Headquarters: san francisco, california, united states (US)\n- Offices: san francisco, california, united states (US)",
+        "summary": "{\"description\":\"JustAI is a Software Development company with a global distributed workforce, headquartered in San Francisco, California, United States. Founded in 2024, the company has raised funding including a USD 1.825M total seed funding and 28 employees across 11-50 headcount range.\",\"employee_estimate\":28,\"employee_estimate_source\":\"Employees: 28\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Active job postings: 4\",\"hq\":\"San Francisco, United States\",\"hq_quote\":\"Headquartered in San Francisco, California, United States.\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"- Industry: Software Development\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 1,825,000\\n  - Seed (2024-08-01): USD 1.7M\\n  - Seed (2024-03-01): USD 125,000\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQFgBUuoJ8fk9g/company-logo_200_200/B56Z.0Hw7WJgAE-/0/1785433362358/getjustai_logo?e=2147483647&v=beta&t=AVHJIRg5O6GS6YryS4Q-0gU7EKYb58jr40j36praqiE",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/wr46t4kpyf8",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "JustAI",
+              "foundedYear": 2024,
+              "description": "JustAI is your AI-Marketer, a full-stack workflow that thinks, creates, optimizes, and measures in sync.\nBuilt by growth leaders from Twitter & Pinterest to help lifecycle marketing finally scale.",
+              "workforce": {
+                "total": 28
+              },
+              "headquarters": {
+                "address": "San Francisco, California 94105, US",
+                "city": "San Francisco",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 1825000,
+                "fundingLatestRound": {
+                  "name": "Seed",
+                  "date": "2024-08-01",
+                  "amount": 1700000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 18955,
+                "countryRank": 699804,
+                "avgDurationSeconds": 37,
+                "history": [
+                  {
+                    "value": 6793,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 8890,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 9177,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 24144,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 24160,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 18955,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/jf8rglh6jtw",
+        "title": "JustAI",
+        "url": "https://justai.fr/en",
+        "text": "# JustAI\n\nJustAI is a IT Services and IT Consulting company. JustAI is a consulting and engineering firm that designs intelligent systems that amplifie human potential with precision in modern architecture. JustAI employs 19 people (-13.6% YoY, -3 people), founded in 2020. Headquartered in Évreux, France.\n\n## About\n\nCabinet de conseil et d'ingénierie en IA qui accompagne, depuis 2020, les PME/ETI françaises dans leur adoption rentable des intelligences artificielles.\n\nNous proposons une offre de service complète pour vous assister durant toutes les étapes de la mise en œuvre des technologies d'intelligence artificielle pour atteindre vos objectifs : \n- La formation de vos collaborateurs et COMEX\n- Le conseil et la stratégie de mise en œuvre des technologies d’IA\n- La conception et l'intégration de solutions, le développement applicatif\n- La conception de modèles sur-mesure (vision, langage, prédictif, autres)\n\n## Company Details\n- Industry: IT Services and IT Consulting\n- Type: Privately held\n- Headquarters: Évreux, France\n- Founded Year: 2020\n- Homepage: justai.fr\n- Aliases: justai\n- LinkedIn: linkedin.com/company/justai-france\n- Linkedin Followers: 1,927\n\n## Workforce\n- Employees: 19\n- Company Size: 11-50 employees\n  - Yearly Growth: -13.6%\n- Key Executives:\n  - Guillaume Macaigne: Directeur de mission\n  - Jonathan Foureur: Co-founder & CEO\n  - Marc Decombas: CEO & cofondateur\n  - Romain CHICOIX: Directeur des Développements logiciel, consultant et Formateur IA\n- Breakdown:\n  - By Country: France: 16 (84%)\n  - By Department: Consulting: 5 (26%), Project Management: 3 (16%), Technical: 3 (16%), Education: 2 (11%), General Management: 2 (11%), Research: 1 (5%), Sales: 1 (5%)\n  - By Seniority: Specialist: 9 (47%), Director: 2 (11%), Founder: 2 (11%), Manager: 2 (11%), Other Management: 1 (5%), Senior: 1 (5%)\n- Talent Sources: Virtuo (2), Yellowpop (1), Université de Caen Normandie (1), Télécom SudParis (1), Solerys (1), Simplon Grand Est (1), Orange Business (1), OLIVIER'S BAKERY LTD (1), CENTRE HOSPITALIER SUD FRANCILIEN (1), Aquantic (Zonova Sarl) (1)\n- Alumni Go To: dalzade (1), Scaleway (1), Push30 Kazakhstan (1), Kincy (1), KEDGE Business School (1), Horiana (1), Entrepreneurs dans la Ville (1), Class'Affair (1), Bouygues Telecom (1), Asekur | Insurtech (1)\n\n## Products & Technology\n- Tech Stack: docusign, google workspace, cision, amp, impact\n\n## Web presence\n\n- Twitter: twitter.com/justai__\n- YouTube: youtube.com/@justai-formation\n- Web traffic:\n  - Monthly visits: 2,799\n  - Global rank: 6,011,912\n  - Bounce rate: 48.0%\n  - Pages per visit: 1.9\n  - Average visit duration: 160s\n\n## Categories\n\nartificial intelligence, cloud computing, computer vision, conseil ia, consulting, consulting & engineering, deep learning, diagnostic ia, engineering, financement de l'innovation, gestion de projet, ia, ingénierie, innovation, intelligent systems, modern architecture, nlp, saas\n\n## Recent News\n- [2026-09-24] Jezebel: So Your College Isn’t Diverse Enough for Marketing Purposes? Just AI-Generate Some Black Students Into Existence\\!\n- [2026-09-14] Pocket Tactics: I just AI-generated an entire Roblox game at RDC 2026\n- [2026-08-31] FutureIOT: HR Leaders Must Lead On Culture, Not Just AI Tech\n- [2026-08-30] MLB Trade Rumors: Yankees Designate Justin Topa For Assignment\n- [2026-08-29]\n  - Denver Broncos: Wide-open Justin Joly hauls in pass, runs for 88-yard touchdown \\| Broncos vs. Vikings\n  - MLive.com: Will Justin Verlander be ready in time for one last start in Detroit?\n- [2026-08-28]\n  - Los Angeles Chargers: Justin Herbert Connects With Quentin Johnston For 65-Yard Touchdown in Preseason Finale\n  - FOX Sports: Seahawks ‘eyeing a repeat’ this season, What are the expectations for Justin Herbert? \\| FTF\n- [2026-08-27] Reuters: US judge awards Blake Lively $407,000 for legal bills in Justin Baldoni dispute, much less than she sought\n- [2026-08-26] The New York Times: Cubs reset expectations for Justin Steele as they make their playoff push - The Athletic\n- [2026-08-21] Daily Mail: Outrage over claim Canadian taxpayers are funding BODYGUARDS for Justin Trudeau's many lavish jaunts with girlfriend Katy Perry\n- [2026-08-20] University of Pittsburgh: Your Pitt login comes with a ton of digital tools \\(not just AI\\)\n- [2026-08-19]\n  - AP News: Athletics reliever Justin Sterner is out for the season after right knee surgery\n  - Orange County Register: Chargers QB Justin Herbert set for early test in joint practice with 49ers\n  - Crain's Chicago Business: Federal rail funding clears path for Justin Ishbia’s big South Loop plans\n  - Sox Machine: Following up: First domino in Justin Ishbia’s South Loop plan tips\n  - Ginger Bowden Madden, State Attorney: Justin Echternacht Sentenced for DUI Manslaughter – Assistant State Attorney, Angela Liles\n- [2026-08-16] FantasyPros: Justin Wrobleski tagged for four runs as Dodgers fall 4-1\n- [2026-08-12]\n  - Legacy \\| Obituary Search: Justin Daniel Hitch Obituary \\(2026\\) - Highland Heights, KY - Woodhead Funeral Home - Falmouth\n  - Yahoo Sports: Justin Fields shares his excitement for his role in the game plan\n\n## Social\n\n### Linkedin\n\n- [2026-08-11 · 3 reactions, 2 comments] AI factories : NVIDIA mobilise 500 milliards, et le prix du calcul monte de 38 %\n\n- [2026-07-02 · 20 reactions] JustAI accélère sur sa présence en ligne pour du contenu pragmatique et actionnable Aujourd'hui avec notre toute nouvelle chaîne Youtube (et même des shorts, montés par #IA bien sûr) On commence av...\n\n- [2026-06-18 · 1 comment] [ACTUALITÉ IA] Midjourney, les premiers à avoir déployé des modèles génératifs d'images de très haute qualité, lance Midjourney Medical. Article en commentaire\n\n- [2026-06-17 · 28 reactions, 4 comments] Après l'indignation de Fable, du concret : 1/3 L'OpenWeight a du répondant avec notamment GLM 5.2 qui va jusqu'à dépasser certains modèles \"frontières\" privés, c'est Chinois certes mais disponible....\n\n- [2026-06-11 · 56 reactions, 8 comments] Hier nous étions au Sénat avec Marc Decombas pour une audition sur l'Alignement des IAs (on vous en dit plus bientôt !) La veille, Fable 5 sortait. Tandis qu'on était en audition, les ingénieurs R&...\n\n- [2026-05-27 · 11 reactions] JustCarbon : l'extension Chrome gratuite de JustAI pour mesurer l'empreinte carbone de votre navigation https://lnkd.in/e26W2T25\n\n- [2026-03-31 · 67 reactions, 11 comments] JustAI a un nouveau site web, avec une ligne téléphonique pour aider à la prise d'infos et de rendez-vous ! Et surtout, une nouvelle offre qui vient compléter notre accompagnement et notre position...\n\n- [2026-03-27 · 10 reactions, 2 comments] 𝗟’𝗜𝗔 𝗮𝘂 𝗰œ𝘂𝗿 𝗱𝗲 𝗻𝗼𝘀 𝘀𝘁𝗿𝘂𝗰𝘁𝘂𝗿𝗲𝘀 : 𝗰𝗼𝗺𝗽𝗿𝗲𝗻𝗱𝗿𝗲, 𝘁𝗿𝗮𝗻𝘀𝗳𝗼𝗿𝗺𝗲𝗿 𝗲𝘁 𝗮𝗰𝗰𝗼𝗺𝗽𝗮𝗴𝗻𝗲𝗿 𝗹𝗲𝘀 𝗲́𝗾𝘂𝗶𝗽𝗲𝘀 🚀 Le 𝗺𝗮𝗿𝗱𝗶 𝟮𝟲 𝗺𝗮𝗿𝘀, 𝗘𝗠𝗢 𝗔𝘃𝗼𝗰𝗮𝘁𝘀, en partenariat avec l’UIMM Rouen/Dieppe, organise un atelier autour de 𝗹’𝗶𝗻𝘁𝗲𝗹𝗹...\n\n- [2026-02-13 · 194 reactions, 5 comments] #ETIncelles | Hier se sont tenues les « Rencontres IA », un événement organisé par les équipes de la Direction Générale des Entreprises et inauguré par Serge Papin, ministre des Petites et Moyennes...\n\n- [2026-02-10 · 32 reactions, 2 comments] ✨ Portrait d’un expert engagé : Marc Decombas ✨ L’intelligence artificielle n’est plus une promesse lointaine. Elle transforme déjà la manière de produire, de décider, de vendre et d’organiser les...\n\n- [2025-12-01 · 151 reactions, 37 comments] JustAI lance officiellement la plateforme Brio ! Avec Marc Decombas et toute l'équipe JustAI, nous sommes fiers de vous annoncer le lancement officiel de la plateforme collaborative et souveraine d...\n\n- [2025-11-29 · 32 reactions, 2 comments] 𝗟'𝗨𝗜𝗠𝗠 𝗠𝗮𝗻𝗰𝗵𝗲 𝗮𝗰𝗰𝗼𝗺𝗽𝗮𝗴𝗻𝗲 𝘀𝗲𝘀 𝗮𝗱𝗵é𝗿𝗲𝗻𝘁𝘀 𝗱𝗮𝗻𝘀 𝗹𝗮 𝘁𝗿𝗮𝗻𝘀𝗳𝗼𝗿𝗺𝗮𝘁𝗶𝗼𝗻 𝗻𝘂𝗺é𝗿𝗶𝗾𝘂𝗲 ! Nous avons eu le plaisir d'organiser une conférence dédiée à l'Intelligence Artificielle, animée par Marc Decombas, Préside...\n\n- [2025-11-07 · 69 reactions, 8 comments] 🇩🇪 Clap de fin pour ces deux journées en Allemagne pour l'évènement annuel BePublic de Bechtle ! JustAI y était invitée pour présenter son offre à l'équipe de Bechtle Public Sector en Europe, notam...\n\n- [2025-11-04 · 74 reactions] Nous sommes présents à l’IT Tour du Monde Informatique à l’Apostrophe ! L’IA s’impose comme un accélérateur incontournable de performance… Mais une question persiste : faut-il craindre l’IA, ou plu...\n\n- [2025-09-25 · 30 reactions, 10 comments] Les humains, c'est \"so 2023\" C'est le coeur de la campagne de pub d'un éditeur il y a... déjà un an Ca a créé la polémique sur le moment, mais le décalage avec l'adoption à date dans les entreprise...\n\n- [2025-09-23 · 71 reactions, 2 comments] 2 jours, 2 contributions à l'écosystème IA en France pour JustAI 💪 - Hier, lancement des réseaux des Ambassadeurs IA pour le programme \"Osez l'IA\", qui avait été initié par Clara Chappaz et son équ...\n\n- [2025-07-07 · 137 reactions, 7 comments] 1 semaine après le lancement officiel du plan national \"Osez l'IA\" par la Ministre Clara Chappaz et ses équipes, pour nos clients et membres de réseau intéressés, voici les infos clés (et celles qu...\n\n- [2025-07-04 · 11 reactions] 🌍 CDG experts in international discussions on AI & productivity with the OECD On May 22, Joanna Bryson, Professor at the Hertie School from the Centre, took part in an OECD-OCDE panel discussion on...\n\n## Locations\n- Headquarters: évreux, france\n- Offices: evreux, france",
+        "summary": "{\"description\":\"Cabinet de conseil et d'ingénierie en IA qui accompagne, depuis 2020, les PME/ETI françaises dans leur adoption rentable des intelligences artificielles.\",\"employee_estimate\":19,\"employee_estimate_source\":\"Employees: 19\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"CEO & cofounder ...\",\"hq\":\"Évreux, France\",\"hq_quote\":\"Headquarters: évreux, france\",\"industry\":\"IT Services and IT Consulting\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: IT Services and IT Consulting\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":false,\"recently_funded_seed_or_series_a_quote\":\"- Yearly Growth: -13.6% (no mention of seed/Series A funding)\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQGFzsOPFudiXw/company-logo_200_200/B4EZpuy5wWKMAI-/0/1762795429385/justai_france_logo?e=2147483647&v=beta&t=tjsuUV-cyPVmUrejqf52mfygC-9dL8lARW0-9SLakH4",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/jf8rglh6jtw",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "JustAI",
+              "foundedYear": 2020,
+              "description": "Cabinet de conseil et d'ingénierie en IA qui accompagne, depuis 2020, les PME/ETI françaises dans leur adoption rentable des intelligences artificielles.\n\nNous proposons une offre de service complète pour vous assister durant toutes les étapes de la mise en œuvre des technologies d'intelligence artificielle pour atteindre vos objectifs : \n- La formation de vos collaborateurs et COMEX\n- Le conseil et la stratégie de mise en œuvre des technologies d’IA\n- La conception et l'intégration de solutions, le développement applicatif\n- La conception de modèles sur-mesure (vision, langage, prédictif, autres)",
+              "workforce": {
+                "total": 19
+              },
+              "headquarters": {
+                "address": "71 rue Marcel Paul, EVREUX, 27000, FR",
+                "city": "Évreux",
+                "postalCode": null,
+                "country": "France"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 2799,
+                "countryRank": 229120,
+                "avgDurationSeconds": 160,
+                "history": [
+                  {
+                    "value": 61,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 595,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 1567,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 2186,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 2799,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 5282.2,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

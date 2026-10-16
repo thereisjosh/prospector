@@ -1,0 +1,253 @@
+{
+  "request": {
+    "query": "Metal",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "5a8fdc1e25875420a0c385bf7f05c1f4",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/3jggkpqgy5v",
+        "title": "Metalorgie",
+        "url": "https://www.metalorgie.com/",
+        "text": "# Metalorgie\n\nMetalorgie is a nonprofit organization. Metalorgie is a webzine that provides news, concerts, albums, and updates on the metal scene. Metalorgie employs 9 people (-18.2% YoY, -2 people) and has an annual revenue of $3.9M, founded in 2001. Headquartered in France, with offices in La Bernerie-en-retz and Nantes.\n\n## About\n\nAssociation éditant le site web metalorgie.com.\r\n\r\nWebzine metal et punk enregistrant plus de 11 000/jour.\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Nonprofit\n- Founded Year: 2001\n- Homepage: metalorgie.com\n- Aliases: metalorgie\n- LinkedIn: linkedin.com/company/metalorgie\n- Linkedin Followers: 105\n- Phone: +33 6 22 21 57 99\n\n## Financials\n- Annual Revenue: USD 3,906,373\n\n## Workforce\n- Employees: 9\n- Company Size: Myself Only\n  - Yearly Growth: -18.2%\n- Breakdown:\n  - By Country: France: 7 (78%)\n  - By Department: Design: 3 (33%), Other Department: 2 (22%), Marketing: 1 (11%), Trades: 1 (11%)\n  - By Seniority: Specialist: 6 (67%), Other Management: 1 (11%)\n- Talent Sources: bluexml (1), Prun'​ (1), Observatoire de la compublique numérique (1), Konecta (1), IFOCOP (1), 6Medias (1)\n- Alumni Go To: University of Lille 1 Sciences and Technology (1), Reworld Media (1), Repti Conseils & Formations (1), La Mandrette (1), DoYouBuzz (1)\n\n## Products & Technology\n- Tech Stack: jquery, mysql, php, amp\n\n## Web presence\n\n- Twitter: twitter.com/metalorgie\n- Facebook: facebook.com/Webzine.Metalorgie\n- Instagram: instagram.com/metalorgie\n- Crunchbase: crunchbase.com/organization/metalorgie\n- Web traffic:\n  - Monthly visits: 152,975\n  - Global rank: 278,844\n  - Bounce rate: 54.0%\n  - Pages per visit: 2.2\n  - Average visit duration: 58s\n\n## Categories\n\narts_and_entertainment/music, hardcore, media, media and entertainment, metal, news, non profit, performing arts, photography, punk, underground\n\n## Recent News\n- [2026-10-08] Metalorgie: Les sorties de la semaine\n- [2026-09-19]\n  - Metalorgie: Madam : ce n'est pas qu'une chanson\n  - Metalorgie: Swept Into Decay\n  - Metalorgie: Wolves at the Gates\n- [2026-09-18]\n  - Metalorgie: Embers Of Dawn - Infernal Culture, sortie le 18/09/2026\n  - Metalorgie: Vana : nouveau single\n- [2026-09-17]\n  - Metalorgie: Trivium : nouveau single\n  - Metalorgie: Yarotz : point sur le nouvel album en interview\n- [2026-09-15]\n  - Metalorgie: Aficionados de la guitare, Audrey Horne a pensé à vous avec la démonstration de Hell is Eternity\n  - Metalorgie: Suicide Silence revient en vidéo avec Graceless\n- [2026-09-08] Metalorgie: Metalorgie Monthly : Août 2026\n- [2026-09-04]\n  - Metalorgie: Les albums cultes du Neo Metal\n  - Metalorgie: Love Sex Machine : nouvel album\n  - Metalorgie: Revnoir\n- [2026-09-03] Metalorgie: Crimson Moon soigne ses boss\n- [2026-09-01] Metalorgie: Megadeth / Black Label Society / Testament - 2027\n- [2026-08-25] Metalorgie: Rock En Seine : gagnez vos places pour le 29\n- [2026-08-23]\n  - Metalorgie: Kamelot revient bientôt\n  - Metalorgie: Le live de Ultra Vomit au Cabaret Vert se regarde chez Arte.\n  - Metalorgie: Nos immanquables du Week-End Rock En Seine 2026\n\n## Social\n\n### Linkedin\n\n- [2026-06-19 · 5 reactions] Comme chaque année depuis 2006 on couvre évidemment le Hellfest. Nos photos du jeudi sont sur le site et on couvre en vidéo sur Insta / TikTok / FB.\n\n- [2026-05-28 · 18 reactions, 2 comments] Metalorgie passe le cap des 25 ans ! 🎂 Pour ceux qui nous suivent depuis le début : on sait que vous soufflez en vous relevant du canapé. Et pour les plus jeunes : oui, Internet est assez vieux pou...\n\n- [2026-01-26 · 5 reactions] Notre top des albums de 2025 est en ligne : https://lnkd.in/eBZQXEGM Le tout accompagné d'une playlist pour résumer cette belle année musicale : https://lnkd.in/egW2TfMn Et vous quel serait votre t...\n\n- [2025-01-09 · 7 reactions] Comme chaque année : voici le top albums 2024; l'un des articles les plus lus chaque année. Bonnes découvertes ! https://lnkd.in/ei8m72Vz\n\n- [2024-11-25 · 9 reactions] On s'est fait une beauté ! Ou plutôt : on a revu le site de A à Z, tout a été refait. On vous explique tout ça : https://lnkd.in/e8RF-S4G Et on a hâte d'avoir vos retours / vos critiques / vos remo...\n\n- [2024-01-24 · 5 reactions] Comme chaque année : l'un des articles les plus attendues, le top de l'an passé. Un choix de top 10 pour les membres de l'équipe limité à 10 disques, et un top général basé sur ces différents tops...\n\n- [2022-06-28 · 10 reactions] On a publié plusieurs centaines de photos du Hellfest 2022 (l'édition XXL avec 350 groupes sur 7 jours !), ainsi qu'un report de chaque jour :https://lnkd.in/emGGD7Ab #hellfest\n\n- [2022-06-28 · 10 reactions] On a publié plusieurs centaines de photos du Hellfest 2022 (l'édition XXL avec 350 groupes sur 7 jours !), ainsi qu'un report de chaque jour : https://lnkd.in/emGGD7Ab #hellfest\n\n## Locations\n- Headquarters: nantes, france\n- Offices: france, nantes, france, nantes, pays-de-la-loire, france, la bernerie-en-retz, pays-de-la-loire, france",
+        "summary": "{\"description\":\"Metalorgie is a nonprofit webzine that provides news, concerts, albums, and updates on the metal scene.\",\"employee_estimate\":9,\"employee_estimate_source\":\"Employees: 9\",\"hiring_first_ops_or_revops\":false,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"France (headquartered in Nantes, France)\",\"hq_quote\":\"Headquartered in France, with offices in La Bernerie-en-retz and Nantes.\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":false,\"is_b2b_company_quote\":\"\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":false,\"recently_funded_seed_or_series_a_quote\":\"No funding rounds mentioned; founded in 2001.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQF9D8GcCwUCQg/company-logo_200_200/company-logo_200_200/0/1732530094323/metalorgie_logo?e=2147483647&v=beta&t=IjvPQL4jJXyGGCA38EyMhMvTi0CKbG8IoY3ssiefwx4",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/3jggkpqgy5v",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Metalorgie",
+              "foundedYear": 2001,
+              "description": "Association éditant le site web metalorgie.com.\r\n\r\nWebzine metal et punk enregistrant plus de 11 000/jour.",
+              "workforce": {
+                "total": 9
+              },
+              "headquarters": {
+                "address": "Nantes, FR",
+                "city": null,
+                "postalCode": null,
+                "country": "france"
+              },
+              "financials": {
+                "revenueAnnual": 3906373,
+                "fundingTotal": null,
+                "fundingLatestRound": null
+              },
+              "webTraffic": {
+                "visitsMonthly": 152975,
+                "countryRank": 11956,
+                "avgDurationSeconds": 58,
+                "history": [
+                  {
+                    "value": 129002,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 120353,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 132104,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 147698,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 169060,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 152975,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/zrmn19vmkrt",
+        "title": "MetalZone",
+        "url": "https://www.metalzone.fr/",
+        "text": "# MetalZone\n\nMetalZone is a Online Audio and Video Media company. MetalZone is a company that provides news, albums, concerts, interviews, chronicles, and events for the metal and rock industry. MetalZone employs 3 people.\n\n## About\n\nMetalZone is a company that provides news, albums, concerts, interviews, chronicles, and events for the metal and rock industry.\n\n## Company Details\n- Industry: Online Audio and Video Media\n- Type: Self-employed\n- Homepage: metalzone.fr\n- Aliases: metalzone\n- LinkedIn: linkedin.com/company/metalzonefr\n- Linkedin Followers: 50\n\n## Workforce\n- Employees: 3\n- Company Size: 1-10 employees\n- Key Executives:\n  - Mathieu Basset: Co-Founder\n- Breakdown:\n  - By Country: France: 1 (33%)\n  - By Department: Consulting: 1 (33%)\n  - By Seniority: Founder: 1 (33%)\n- Alumni Go To: Bedrock Streaming (1)\n\n## Web presence\n\n- Facebook: facebook.com/metalzonefr\n- Instagram: instagram.com/metalzone.fr\n- Web traffic:\n  - Monthly visits: 623,806\n  - Global rank: 99,141\n  - Bounce rate: 68.0%\n  - Pages per visit: 1.7\n  - Average visit duration: 57s\n\n## Categories\n\nalbums, arts_and_entertainment/music, concerts, media, metal, news, rock\n\n## Recent News\n- [2026-10-08]\n  - MetalZone: On pensait ne plus jamais les revoir sur scène : Aerosmith annonce deux concerts à Los Angeles, avec Slash, Duff McKagan et Tom Morello\n  - MetalZone: The Ocean de retour en France en 2027 : neuf concerts pour défendre Solaris, de Paris à Marseille en passant par Grenoble\n  - MetalZone: Vous aimez le metalcore qui ne fait pas dans la dentelle ? Boundaries annonce 23 concerts en Europe, dont deux en France en 2027\n  - MetalZone: Vous ne connaissez Pink Floyd que de nom ? Voici l’album par lequel commencer\n  - MetalZone: « Je ne suis pas du genre à me plaindre sans arrêt » : Dave Mustaine \\(Megadeth\\) revient sur les années difficiles de Rust In Peace\n- [2026-10-07]\n  - MetalZone: David Ellefson n’est plus dans Dieth : l’ancien bassiste de Megadeth remplacé par un membre de Grave et Dismember\n  - MetalZone: John 5 bat un record chez Fender : trois nouvelles Telecaster portent son total à neuf\n  - MetalZone: Linkin Park : Meteora franchit un nouveau cap 23 ans après sa sortie et devient le deuxième album diamant du groupe\n  - MetalZone: Nita Strauss est de retour : la guitariste retrouve Alice Cooper sur scène à la mi-temps d’un match NFL\n  - MetalZone: « Fuck la musique par IA » : Misha Mansoor \\(Periphery\\) révèle les albums qui ont façonné son univers musical\n- [2026-10-06]\n  - MetalZone: Deathcore, djent, passages planants… Par où commencer avec The Contortionist ?\n  - MetalZone: Rammstein : Sonne embrase Mexico dans un nouvel extrait de Live In Mexico City\n  - MetalZone: Scorpions : le biopic Wind Of Change a enfin une date de sortie et dévoile ses premières images\n  - MetalZone: Wage War frappe fort avec God Complex, un dernier morceau avant la sortie de Landfall\n  - MetalZone: « 50 ans, c’est peut-être assez » : Brian May a décidé il y a 18 mois qu’il ne voulait plus tourner avec Queen\n- [2026-10-05]\n  - MetalZone: AC/DC : Highway To Hell, l’album culte qui a changé leur destin\n  - MetalZone: Atreyu réalise un feat jugé “impossible” avec Max Cavalera\n  - MetalZone: Horskh s’attaque à notre plus grande peur sur son nouveau single Glow\n  - MetalZone: Metallica démarre enfin 2026 sur scène : setlist complète et vidéos du concert\n  - MetalZone: Moonspell annonce 40 concerts pour 2027 : Rennes, Toulouse et Paris au programme\n- [2026-09-03] [« C’est plus qu’un changement de nom » : Embersight raconte sa naissance après Common Enemies - Belgique](https://www.europesays.com/be-fr/238098/)",
+        "summary": "{\"description\":\"MetalZone is an Online Audio and Video Media company providing news, albums, concerts, interviews, chronicles, and events for the metal and rock industry.\",\"employee_estimate\":3,\"employee_estimate_source\":\"Employees: 3\",\"hiring_first_ops_or_revops\":false,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"France\",\"hq_quote\":\"By Country: France: 1 (33%)\",\"industry\":\"Online Audio and Video Media\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Online Audio and Video Media\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":false,\"recently_funded_seed_or_series_a_quote\":\"\\\"Aliasing: metalzone\\\"\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4D0BAQEJaTcq_aVg5g/company-logo_200_200/company-logo_200_200/0/1630536036132?e=2147483647&v=beta&t=uUEVTxS4-WLFy4nmJteKOLUVdn-Bx_R9jUDTQIMZrBI",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/zrmn19vmkrt",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "MetalZone",
+              "foundedYear": null,
+              "description": "MetalZone is a company that provides news, albums, concerts, interviews, chronicles, and events for the metal and rock industry.",
+              "workforce": {
+                "total": 3
+              },
+              "headquarters": null,
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 623806,
+                "countryRank": 4203,
+                "avgDurationSeconds": 57,
+                "history": [
+                  {
+                    "value": 484409,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 581431,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 491548,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 534378,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 632490,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 623806,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 5847.4,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

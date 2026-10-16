@@ -1,0 +1,226 @@
+{
+  "request": {
+    "query": "Conduct",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "6ff7c37586b6a5bfde64e46ec6e0595d",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/f11vvlvpjrp",
+        "title": "Conduct",
+        "url": "https://conduct.ai/",
+        "text": "# Conduct\n\nConduct is a Software Development company. Conduct is an AI operating system for enterprise software that helps IT teams understand, modernize, and run their enterprise systems with AI. Conduct employs 63 people (+250.0% YoY, +45 people). Headquartered in London, United Kingdom. Its workforce is distributed across 5 countries (including United Kingdom, Germany, United States, France, and India).\n\n## About\n\nConduct’s mission is to make IT the innovation powerhouse of every company.\n\nOur agentic AI delivers an in-depth understanding of legacy enterprise software. For the first time ever, you can chat directly with your systems to resolve major business issues in days instead of months.\n\nWe’re starting where it matters most: SAP, the OS of global business. \n\nConduct makes the unmanageable, manageable. Setting the stage for the next era of productivity growth with AI-powered Enterprise System Intelligence.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: London, United Kingdom\n- Homepage: conduct.ai\n- Aliases: Conduct AI Ltd., conduct\n- LinkedIn: linkedin.com/company/conduct-ai\n- Linkedin Followers: 10,034\n- Emails: data@conduct-ai.com\n\n## Financials\n- Total Funding: USD 71,730,900\n  - Series a (2026-06-01): USD 59.4M\n  - Seed (2025-10-18): USD 12.3M\n\n## Workforce\n- Employees: 63\n- Company Size: 11-50 employees\n  - Monthly Growth: +1.6%\n  - Yearly Growth: +250.0%\n- Key Executives:\n  - Alex Wood: Founding Account Executive\n  - André Christ: Angel Investor\n  - Edouard P.: Founding Business Development\n  - Ellen Chan: HQ Ops Lead\n  - Henry Thompson: Co-Founder and CTO\n  - Jan Philipp Haas: Co-Founder\n  - Leo Zabudkin: Launch Partner\n  - Noah Smith: Head of Comms and Marketing\n  - Philipp Wolf: General Counsel\n  - Will Sherman: Founding US Operations\n- Breakdown:\n  - By Country: United Kingdom: 45 (71%), Germany: 8 (13%), United States: 3 (5%), France: 1 (2%), India: 1 (2%)\n  - By Department: Consulting: 12 (19%), Sales: 9 (14%), Technical: 8 (13%), Product: 7 (11%), General Management: 6 (10%), Other Department: 6 (10%), Hr: 4 (6%), Marketing: 2 (3%), Operations: 2 (3%), Finance: 1 (2%) (+1 more)\n  - By Seniority: Specialist: 24 (38%), Other Management: 19 (30%), Founder: 6 (10%), Head: 3 (5%), Senior: 3 (5%), Manager: 2 (3%), Partner: 1 (2%)\n- Active job postings: 16\n- Talent Sources: Palantir Technologies (6), Deloitte (3), Talentful (2), Sana (2), Rillet (2), MongoDB (1), McKinsey & Company (1), Infosys (1), Hong Kong Centre for Cerebro-cardiovascular Health Engineering (COCHE) (1), Aries Global (1)\n- Alumni Go To: ICONIQ (2), guapa studio (1), Y Combinator (1), VCola (1), Paper (1), Nscale (1), Index Ventures (1), Helsing (1), Digitally Agency (1), Black Forest Labs (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: harness, java, kotlin, linkedin, prototype, react, sap erp, shippable, palantir, recognize, github, github actions, grafana, launchpad, retool, terraform, typescript, git, sap abap\n\n## Web presence\n\n- Twitter: twitter.com/conductai\n- Crunchbase: crunchbase.com/organization/conduct-a418\n- Web traffic:\n  - Monthly visits: 37,705\n  - Global rank: 808,436\n  - Bounce rate: 43.0%\n  - Pages per visit: 2.4\n  - Average visit duration: 135s\n\n## Categories\n\nai operating system, artificial intelligence (ai), business_and_consumer_services/business_services, enterprise resource planning (erp), enterprise software, information technology, it management, it teams, migration, sap, service industry\n\n## Recent News\n- [2026-10-13] Forbes: Pioneering AI Code Of Conduct Released By Smart Home Manufacturer\n- [2026-10-12]\n  - FOX 56 News: New evidence shows disturbing AI behavior in Kentucky lawsuit against California company\n  - Law.com: The AI Agent Privacy Problem: Who’s Liable When Your Legal AI Shares Client Data?\n  - Daily Pioneer: The Karmayogi in the age of AI: Why ethics must be the operating system of governance\n- [2026-10-10]\n  - TechRadar: Anthropic bans 'needless abusive or cruel behavior' towards Claude — but whose feelings are getting hurt here?\n  - Rising Kashmir: Journalists must embrace AI with ethics, accountability: Prof. Rasool\n- [2026-10-09]\n  - Khaleej Times: Anthropic bans 'abusive' behaviour against Claude AI amid debate over tech consciousness\n  - BBC: Anthropic bans users from being 'cruel' to its AI systems\n  - The Guardian: Anthropic bans users from ‘needless abusive or cruel behavior’ towards Claude\n  - The Verge: Anthropic bans ‘abusive or cruel behavior’ toward Claude\n  - Beth Israel Deaconess Medical Center: BIDMC Researchers Conduct First Real-World Study of Safety and Quality of Patient-Facing AI in Primary Care\n- [2026-10-06]\n  - Colorado Politics: Colorado judges and lawyers discuss ethics, courtroom conduct, AI\n  - Inshorts: Goenka praises Pichai's conduct at Trump's AI meet, says 'deeply Indian' \\| 'Hopefully a better tagline than I'm a monster' \\| Inshorts\n  - Patch: NYC AI Hearing Raises Major Questions\n  - HERALD EXPRESS \\| Baguio City: Tabuk City, PSTO conduct digital marketing, AI training - HERALD EXPRESS \\| News in Cordillera and Northern Luzon\n- [2026-10-01]\n  - The Good Men Project: AI Interviews Affect How Job Candidates Act\n  - Planet Biometrics: Angelic Rountree: Conduct stress testing before deploying AI systems in law enforcement\n  - Crowell & Moring LLP: California Establishes First-in-the-Nation Framework for Verifying Independent AI Auditors\n  - Fierce Pharma: Real Chemistry launches AI-powered MaestroHCP to conduct omnichannel campaigns\n- [2026-09-30] Informat.ro: American AI companies adopt a voluntary code of conduct, backed by Donald Trump, amid growing concerns about the technology’s risks\n- [2026-09-23]\n  - [Conduct AI Takes 7K SF at Capstone’s 140 Crosby Street for First U.S. Office – Commercial Observer](https://commercialobserver.com/2026/09/conduct-ai-lease-capstone-140-crosby-street/)\n  - [Conduct AI mietet Büro in der 140 Crosby Street in SoHo](https://www.it-boltwise.de/conduct-ai-mietet-buero-in-der-140-crosby-street-in-soho.html)\n  - [Conduct AI Takes 7K SF at Capstone’s 140 Crosby Street for First U.S. Office – Commercial Observer - United States](https://www.europesays.com/us/1081122/)\n- [2026-06-19]\n  - [UK tech funding roundup: This week's deals from Conduct to Flagright - UKTN](https://www.uktech.news/funding/uk-tech-funding-roundup-conduct-flagright-20260619)\n  - [Conduct setzt auf Brandschutz mit einer Komplettlösung für PV-Anlagen \\(\\) \\| aktiencheck.de](https://www.aktiencheck.de/news/Artikel-Conduct_setzt_auf_Brandschutz_einer_Komplettloesung_fuer_PV_Anlagen-19865511)\n  - [SAP stärkt Conduct mit KI-Startup-Finanzierung: weniger Aufwand bei Software-Änderungen](https://www.it-boltwise.de/sap-staerkt-conduct-mit-ki-startup-finanzierung-weniger-aufwand-bei-software-aenderungen.html)\n- [2026-06-18]\n  - [Conduct raises $60M to speed up software modernization projects - SiliconANGLE](https://siliconangle.com/2026/06/17/conduct-raises-60m-speed-software-modernization-projects/)\n  - [Conduct AI Raises â‚¬51 Mn in Series A Round co-led by Index Ventures](https://www.blogarama.com/business-blogs/1451819-startup-rise-european-news-funding-insights-blog/77246036-conduct-raises-a51-series-round-led-index-ventures)\n- [2026-06-17] [Conduct sammelt 60 Millionen US-Dollar: Agentic Enterprise OS für SAP](https://www.it-boltwise.de/conduct-sammelt-60-millionen-us-dollar-agentic-enterprise-os-fuer-sap.html)\n\n## Social\n\n### Linkedin\n\n- [2026-10-01 · 76 reactions, 6 comments] New York engineers! Join us and our friends at Anthropic for drinks and food on our rooftop in Soho next Thursday 🗽 We're hosting our first iteration of Conduct After Hours with a fireside chat for...\n\n- [2026-10-01 · 71 reactions, 6 comments] Agents are everywhere but what does building with them at Conduct actually look like? I’m excited to partner with Jack & Jill and Creandum to open the doors to Conduct HQ in London and to lift the...\n\n- [2026-09-25 · 132 reactions, 23 comments] Most conferences start with a coffee and end with conversations at the bar. This time, it started with more than 80 people running the streets of Atlanta ahead of the SAP Transformation Excellence...\n\n- [2026-09-22 · 70 reactions, 2 comments] We were delighted to partner with {Tech: Europe} for their London Agentic AI Hackathon this weekend. We were even more delighted to host at our new London HQ and to see our office full of so many i...\n\n- [2026-09-18 · 82 reactions, 5 comments] Four brand new Conductors on the fridge this week adding insane experience to the team (and we're not stopping anytime soon). Daniel: Engineering wizard and author of a 1st Class Masters' thesis in...\n\n- [2026-09-14 · 67 reactions, 9 comments] In May, we ran hard and fast at SAP Sapphire in Orlando and Madrid. Now Team Conduct is running a real global marathon. Here's where you'll find us getting our laps in over conference season, showi...\n\n- [2026-09-11 · 128 reactions, 18 comments] 🗽 Our first USA Conductor Will is heading back to NYC tomorrow after a warm London summer to get all cylinders firing at our stateside HQ. 🍿 If you want a front-row seat at the biggest software shi...\n\n- [2026-09-07 · 128 reactions, 2 comments] We're hosting a hackathon next Saturday at our new office where teams will ship real agentic projects by sundown. Come meet us, our cohosts Google DeepMind , tech partners Modal and Pydantic, and {...\n\n- [2026-09-04 · 71 reactions, 1 comment] Our Business Development team grew yet again this week, with Jan and Edward sharing their first day with our new London office's first day. Jan joins us an Account Executive, bringing a huge wealth...\n\n- [2026-09-02 · 79 reactions, 12 comments] Building software in 2026 still feels like sci-fi magic every day. Today, Conduct’s agents improve themselves. Given an issue, a swarm of subagents in a sandbox spin up and experiment on the harnes...\n\n- [2026-09-02 · 727 reactions, 77 comments] Big apple, big news! 🗽🍎 Conduct has officially landed in NYC, with our brand new office in the heart of SoHo. New York is our second headquarters: a true home for Conduct, with teams across every f...\n\n- [2026-08-28 · 66 reactions, 7 comments] For the momentous occasion of the first Fridge Friday taken from our new office (full fridge reveal pending), we're super excited to bring two new Conductors to into the team this week: Vanya, who...\n\n- [2026-08-27 · 33 reactions] 🗽🦅👀\n\n- [2026-08-25 · 84 reactions, 6 comments] We’re working on a brand new feature at Conduct and we’re designing it hand-in-hand with customers. Sitting down with colleagues from Freudenberg Group two weeks ago gave us sharp food for thought...\n\n- [2026-08-25 · 118 reactions, 5 comments] Builders in London, assemble! 🇬🇧 We're so excited to be co-hosting OpenAI's London Builder Lounge on 3 September. Come build alongside our engineers, hear from our CTO Henry, and meet others shapin...\n\n- [2026-08-20 · 83 reactions, 11 comments] \"I've never before seen companies move as quickly as they have with us.\" Hear what Jan Philipp had to say about building a global company out of London when Bela from {Tech: Europe} came to visit u...\n\n- [2026-08-19 · 77 reactions, 2 comments] We’re incredibly proud to announce our partnership with SWISS KRONO Group today. Like many leading manufacturers, Swiss Krono’s ERP landscape is highly complex: built over years with deep business...\n\n- [2026-08-18 · 235 reactions, 26 comments] Catch me on the Builder Stage at Slush this year for the as-yet untold story of Conduct's earliest days in stealth mode. You'll never guess how we first got access to an SAP system.\n\n- [2026-08-14 · 68 reactions, 2 comments] This is Sam, the latest face to join our increasingly cramped fridge. Sam's impressive track record in enterprise sales and true builder approach are a huge addition to our growing Business Develop...\n\n- [2026-08-13 · 80 reactions, 12 comments] The eclipse only lasted 4 minutes in London yesterday, but Eclipse has been running for 24 years. The right tools stick around (unlike our devs' improvised eye protection). If looking at your team'...\n\n## Locations\n- Headquarters: london, united kingdom (GB)\n- Offices: london, england, united kingdom (GB), london, united kingdom (GB)",
+        "summary": "{\"description\":\"Conduct is an AI operating system for enterprise software that helps IT teams understand, modernize, and run their enterprise systems with AI.\",\"employee_estimate\":63,\"employee_estimate_source\":\"Employees: 63\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Key Executives: ... Will Sherman: Founding US Operations\",\"hq\":\"London, United Kingdom\",\"hq_quote\":\"Headquartered in London, United Kingdom.\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Software Development\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 71,730,900 - Series a (2026-06-01): USD 59.4M; Seed (2025-10-18): USD 12.3M\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQExbqpzH2Ogag/company-logo_200_200/B4EZ7VZmWhKcAI-/0/1781696719010/conduct_ai_logo?e=2147483647&v=beta&t=V_bJzpYor1ANGD2w5mh8YCRB4jEnl7eIiXmpmrzpM1g",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/f11vvlvpjrp",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Conduct",
+              "foundedYear": null,
+              "description": "Conduct’s mission is to make IT the innovation powerhouse of every company.\n\nOur agentic AI delivers an in-depth understanding of legacy enterprise software. For the first time ever, you can chat directly with your systems to resolve major business issues in days instead of months.\n\nWe’re starting where it matters most: SAP, the OS of global business. \n\nConduct makes the unmanageable, manageable. Setting the stage for the next era of productivity growth with AI-powered Enterprise System Intelligence.",
+              "workforce": {
+                "total": 63
+              },
+              "headquarters": {
+                "address": "London, GB",
+                "city": "London",
+                "postalCode": null,
+                "country": "United Kingdom"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 71730900,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2026-06-01",
+                  "amount": 59430900
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 37705,
+                "countryRank": 97185,
+                "avgDurationSeconds": 135,
+                "history": [
+                  {
+                    "value": 16256,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 34528,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 40106,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 37414,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 37457,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 37705,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/d2q4cl9j4y4",
+        "title": "Office of Congressional Conduct (Previously the Office of Congressional Ethics)",
+        "url": "https://conduct.house.gov/",
+        "text": "# Office of Congressional Conduct (Previously the Office of Congressional Ethics)\n\nOffice of Congressional Conduct (Previously the Office of Congressional Ethics) is a government agency. The Office of Congressional Conduct is a government organization that provides various resources and information related to public reports, investigations, and press advisory. Office of Congressional Conduct (Previously the Office of Congressional Ethics) employs 7 people (+16.7% YoY, +1 person), founded in 2008. Headquartered in Washington, District of Columbia, United States.\n\n## About\n\nThe Office of Congressional Conduct (OCC) — known prior to January 2025 as the Office of Congressional Ethics — is an independent, non-partisan entity charged with investigating allegations of misconduct against Members, officers, and staff of the United States House of Representatives and, when appropriate, referring matters to the House Committee on Ethics. In all but one set of circumstances, the report and findings of the OCC Board must be publicly released.\n\n## Company Details\n- Industry: Government Administration\n- Type: Government agency\n- Headquarters: Washington, United States\n- Founded Year: 2008\n- Homepage: conduct.house.gov\n- Aliases: office of congressional conduct (previously the office of congressional ethics), Office of Congressional Ethics, House OCE, OCE\n- LinkedIn: linkedin.com/company/congressionalethics\n- Linkedin Followers: 345\n- Phone: (202)-225-9739, (202)-226-0997, 20515-0895\n\n## Workforce\n- Employees: 7\n- Company Size: 11-50 employees\n  - Yearly Growth: +16.7%\n- Breakdown:\n  - By Country: United States: 4 (57%)\n  - By Department: Legal: 2 (29%), Consulting: 1 (14%), Research: 1 (14%)\n  - By Seniority: Specialist: 3 (43%), Senior: 1 (14%)\n- Talent Sources: United States Marine Corps (3), Wiley Rein LLP (1), United States Capitol Police (1), U.S. Department of Justice (1), The Council on American-Islamic Relations of New York (CAIR-NY) (1), SKDK (1), Loudoun County Government (1), George Mason University - Antonin Scalia Law School (1), Dechert LLP (1), Covington & Burling LLP (1)\n- Alumni Go To: Cohen & Gresser LLP (2), Wiley Rein LLP (1), United States Capitol Police (1), U.S. Department of Justice, Criminal Division (1), U.S. Department of Justice (1), Office of the Attorney General for the District of Columbia (1), NewDay USA (1), Lucid Motors (1), Dechert LLP (1), California Fair Political Practices Commission, State of California (1)\n\n## Products & Technology\n- Tech Stack: well\n\n## Categories\n\ngovernment, government organization, investigations, job postings, press advisory, public reports\n\n## Recent News\n- [2026-09-30]\n  - CBS News: N.Y. Gov. Kathy Hochul calls for review of Cornell University's response to alleged gang rape at frat house\n  - Democratic Women's Caucus \\(.gov\\): Press Releases\n- [2026-09-29]\n  - Oklahoma House of Representatives \\(.gov\\): Cantrell Named Public Official of the Year by Floodplain Managers Association\n  - House Homeland Democrats \\(.gov\\): Ranking Member Thompson: Committee Democrats Close Out Summer by Conducting Oversight of ICE Where Republicans Refuse\n- [2026-09-28]\n  - Jacobs, Sara \\(.gov\\): Rep. Sara Jacobs Conducts In-Person Oversight of USS Abraham Lincoln\n  - Mediaite: ‘Abuse of Power\\!’ Ethics Watchdogs Blast Trump for Running Back a 2024 Campaign Ad as a Government-Funded Promo Spot\n- [2026-09-27] The Hill: Kehoe says he’s ‘disappointed’ GOP-favored map in Missouri is blocked again\n- [2026-09-26]\n  - News On AIR: Bangladesh launches nationwide measles-rubella vaccination campaign for 34 lakh children\n  - U.S. Representative Jack Bergman \\(.gov\\): Bergman, Van Drew, Davis, Golden introduce SMILE for Veterans Act\n  - KRCG: New Jersey Gov. Sherrill calls on Lt. Gov. Caldwell to resign over ethics report findings\n  - WHYY: New Jersey Lt. Gov. Dale Caldwell resigns after investigation finds he sexually harassed woman\n  - Congressman Chris Pappas \\| \\(.gov\\): Pappas Introduces New Legislation to Lower Energy Costs\n- [2026-09-25]\n  - [Rep. Lauren Boebert gets a protection order after she's accused of having sex with staffers - CBS Colorado](https://www.cbsnews.com/colorado/news/lauren-boebert-protection-order-accused-sex-staff/)\n  - [Lauren Boebert granted restraining order against person who filed ethics complaint alleging sex with staffers \\| The Independent](https://www.the-independent.com/news/world/americas/us-politics/lauren-boebert-ethics-complaint-restraining-order-b3056486.html)\n  - [Did Ashley Hinson’s husband blur ethics lines?](https://iowastartingline.com/news/politics/hinson-insurance-ethics/)\n  - [Lauren Boebert granted restraining order against person who filed ethics complaint alleging sex with staffers - AOL](https://www.aol.com/articles/lauren-boebert-granted-restraining-order-151336000.html)\n  - Congressman Greg Steube \\(.gov\\): Rep. Steube Introduces FLAFO Act to Rein In Warrantless ‘Flock Safety’ Surveillance\n  - Congresswoman Veronica Escobar \\(.gov\\): Representatives Escobar, Bacon Introduce Bill to Prevent Military Families from Losing Access to Nutrition Benefits\n- [2026-09-24]\n  - Congressman Chris Smith \\(.gov\\): 'Congress Warned About Beijing's Repression on US Soil'\n  - Congressman Jerrold Nadler \\(.gov\\): Congressional Jewish Caucus Urges Secretary Rubio To Preserve The Office Of The Special Envoy For Holocaust Issues As A Permanent And Distinct Entity\n  - Congresswoman Julie Johnson \\(.gov\\): Congresswoman Julie Johnson Announces Military Pardon Reform Bill\n  - KOKH: House Rules Committee recommends House censure Rep. Williams for improper conduct\n  - House.gov: Kaptur, Murray Demand Answers on Trump Admin’s Rapid & Sweeping Changes to Nuclear Safety Measures, Putting Workers and the Public at Risk\n- [2026-09-23]\n  - [Boebert and former female staffer refute ethics complaints about alleged affair](https://www.audacy.com/national/news/boebert)\n  - [Ethics complaint filed against Summer Lee](https://jewishchronicle.timesofisrael.com/ethics-complaint-filed-against-summer-lee/)\n  - ABC News - Breaking News, Latest News and Videos: Florida Gov. DeSantis unveils proposed congressional map that could let GOP flip up to 4 seats\n- [2026-09-22]\n  - [Lauren Boebert calls allegation she had sexual relationships with staffers politically motivated, utterly false - CBS Colorado](https://www.cbsnews.com/colorado/news/lauren-boebert-denies-sexual-relationship-staff-colorado-congresswoman/)\n  - [Rep. Boebert slams ethics complaint as ‘garbage’](https://kdvr.com/news/local/rep-boebert-slams-ethics-complaint-as-garbage/)\n  - [Lauren Boebert Denies Affairs With 3 Staffers & Addresses Her Sexuality](https://littlethings.com/entertainment/lauren-boebert-staffer-affair-allegations-sexuality)\n- [2026-09-21]\n  - [Lauren Boebert blasts media over claims she was facing inquiry into alleged affairs with three staffers \\| The Independent](https://www.independent.co.uk/news/world/americas/us-politics/lauren-boebert-affair-staffers-republican-b3053581.html)\n  - [Edwards files complaint against Ethics Committee leaders \\| Regional \\| carolinacoastonline.com](https://www.carolinacoastonline.com/regional/article_98eca283-e054-4d3d-b096-6de6efeb4650.html)\n  - [REP. BOEBERT: THERE IS ZERO TRUTH TO THESE HOUSE ETHICS COMMITTEE ALLEGATIONS \\| Representative Lauren Boebert](https://boebert.house.gov/media/press-releases/rep-boebert-there-zero-truth-these-house-ethics-committee-allegations)\n- [2026-09-20]\n  - [Rep. Lauren Boebert's Biggest Controversies Through the Years](https://www.myrtlebeachonline.com/entertainment/article317315752.html)\n  - [Lauren Boebert refutes ethics complaint: ‘I’m not a lesbian’ \\| Advocate.com](https://www.advocate.com/politics/national/lauren-boebert-relationships-staffers)\n- [2026-09-19]\n  - [Lauren Boebert Accused of Having Affairs With Female and Male Staffers in Ethics Complaint - GO Magazine](https://gomag.com/article/lauren-boebert-accused-of-having-affairs-with-female-and-male-staffers-in-ethics-complaint/)\n  - [Lauren Boebert Reacts to Claims She Had Sex With Staffers](https://www.usmagazine.com/celebrity-news/news/lauren-boebert-reacts-to-claims-she-had-sex-with-staffers/)\n- [2026-09-18] [News Archives - NewsOne](https://newsone.com/category/news/)\n- [2026-09-17] [Candidate Flippo subject of another investigation](https://www.kolotv.com/2026/09/17/candidate-flippo-subject-another-investigation/)\n- [2026-09-16] [Congressman Chuck Edwards files OCC complaint after House censure](https://www.citizen-times.com/story/news/local/2026/09/16/congressman-chuck-edwards-files-occ-complaint-after-house-censure/91788373007/?gnt-cfr=1&gca-cat=p&gca-uir=false&gca-epti=z118805p119750c119750e001800v118805&gca-ft=202&gca-ds=sophi&gnt-djm=1)\n\n## Social\n\n### Linkedin\n\n- [2025-03-26 · 3 reactions] The Office of Congressional Conduct, formerly the Office of Congressional Ethics, is hiring an Investigative Support Analyst. Details below:\n\n## Locations\n- Headquarters: washington, district of columbia, united states (US)\n- Offices: washington, district of columbia, united states (US)",
+        "summary": "{\"description\":\"Office of Congressional Conduct (Previously the Office of Congressional Ethics) is an independent, non-partisan government entity charged with investigating misconduct allegations against U.S. House Members, officers, and staff, with public reporting of findings in most cases.\",\"employee_estimate\":7,\"employee_estimate_source\":\"Employees: 7\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Washington, United States\",\"hq_quote\":\"Headquartered in Washington, District of Columbia, United States.\",\"industry\":\"Government Administration\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Government Administration\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":null,\"recently_funded_seed_or_series_a_quote\":\"\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4E0BAQFhii2FHZ9iYA/company-logo_200_200/company-logo_200_200/0/1630580877853?e=2147483647&v=beta&t=Bx6upcFVxyW2CFcvJso9G8lfjRvjzGG3hODYX0GC34M",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/d2q4cl9j4y4",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Office of Congressional Conduct (Previously the Office of Congressional Ethics)",
+              "foundedYear": 2008,
+              "description": "The Office of Congressional Conduct (OCC) — known prior to January 2025 as the Office of Congressional Ethics — is an independent, non-partisan entity charged with investigating allegations of misconduct against Members, officers, and staff of the United States House of Representatives and, when appropriate, referring matters to the House Committee on Ethics. In all but one set of circumstances, the report and findings of the OCC Board must be publicly released.",
+              "workforce": {
+                "total": 7
+              },
+              "headquarters": {
+                "address": "425 3rd St SW, 1110, Washington, District of Columbia 20024, US",
+                "city": "Washington",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": null,
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 7533.9,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

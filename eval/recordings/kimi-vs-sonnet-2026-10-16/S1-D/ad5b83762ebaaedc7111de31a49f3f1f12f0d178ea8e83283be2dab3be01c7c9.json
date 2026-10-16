@@ -1,0 +1,232 @@
+{
+  "request": {
+    "query": "Manifest.eco",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "b2d93b763caaed2f054ac7161de93a48",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/69vlnv51zyd",
+        "title": "Manifest.eco",
+        "url": "https://manifest.eco/",
+        "text": "# Manifest.eco\n\nManifest.eco is a Transportation, Logistics, Supply Chain and Storage company. Manifest.eco offers direct-to-consumer fulfillment solutions, business-to-business fulfillment solutions, and ecommerce fulfillment solutions. They provide precision, care, and scalability to ensure brand success and ensure retail and marketplace connections fortified with unparalleled efficiency and expert support. Their mission is to transition ecommerce fulfillment to a new standard. Manifest.eco employs 29 people (+16.0% YoY, +4 people), founded in 2021. Headquartered in Austin, Texas, United States. Its workforce is distributed across United States, India, and Greece.\n\n## About\n\nManifest.eco offers a sustainable 3PL experience tailored to exceed all your shipping needs. Located in Austin, TX, we provide D2C and B2B services, personalized account management, and innovative logistics solutions without the premium price.\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Privately held\n- Headquarters: Austin, United States\n- Founded Year: 2021\n- Homepage: manifest.eco\n- Aliases: manifest, manifest.eco\n- LinkedIn: linkedin.com/company/manifest-eco\n- Linkedin Followers: 2,673\n\n## Workforce\n- Employees: 29\n- Company Size: 51-200 employees\n  - Yearly Growth: +16.0%\n- Key Executives:\n  - Bob Sixsmith: Cofounder, COO\n  - George Wojciechowski: Co Founder, CEO\n  - Hannah Yenofsky: Director of Sales and Partnerships\n  - Sean McMahon: Head of Implementation\n- Breakdown:\n  - By Country: United States: 21 (72%), India: 3 (10%), Greece: 1 (3%)\n  - By Department: Sales: 9 (31%), Operations: 3 (10%), Customer Service: 2 (7%), Finance: 2 (7%), General Management: 2 (7%), Marketing: 2 (7%), Consulting: 1 (3%), Other Department: 1 (3%), Project Management: 1 (3%), Research: 1 (3%) (+1 more)\n  - By Seniority: Specialist: 13 (45%), Senior: 4 (14%), Manager: 2 (7%), Other Management: 2 (7%), Clevel: 1 (3%), Director: 1 (3%), Founder: 1 (3%), Head: 1 (3%)\n- Talent Sources: ShipBob (3), BolsterBiz (3), Procore Technologies (2), eQ8 (1), Ship Essential (1), Rivercity Screenprinting and Embroidery (1), Poncho (1), Genpact (1), Cart.com (1), Adquadrant (1)\n- Alumni Go To: BolsterBiz (2), Texas State University (1), Omada.AI (1), Late Model Restoration (1), J&J Global Fulfilment (1), EcoCart (1), ESS (1), ClearJet (1), Chevron (1), AOA (1)\n\n## Products & Technology\n- Tech Stack: asana, bigcommerce, jira, magento, netsuite, ramp, shiphero, shopify, sps commerce, workday, zendesk, google workspace, hubspot, impact, well, the org\n\n## Web presence\n\n- Twitter: twitter.com/manifest_eco\n- Instagram: instagram.com/manifest_commerce\n- YouTube: youtube.com/@manifestcommerce5637\n- Crunchbase: crunchbase.com/organization/manifest-eco\n- Web traffic:\n  - Monthly visits: 2,969\n  - Global rank: 5,490,938\n  - Bounce rate: 36.0%\n  - Pages per visit: 1.9\n  - Average visit duration: 37s\n\n## Categories\n\n3pl, b2b, business-services, business-to-business fulfillment, direct-to-consumer fulfillment, ecommerce fulfillment, logistics, manifest.eco, supply chain management, sustainability, third-party logistics, third-party logistics providers, warehouse automation\n\n## Competitors\n\nsogester, ocensa, logent, jentec storage\n\n## Recent News\n- [2026-06-01] TipRanks: DOSS – Weekly Recap\n- [2026-05-25]\n  - TipRanks: Community Networking Event Highlights DOSS’s Engagement in Texas CPG Ecosystem\n  - TipRanks: DOSS Uses World Cup Event to Deepen Ties in Texas CPG Community\n- [2026-03-02] indonesiakini: Eco-Anxiety: Climate Change’s Silent Mental Toll\n- [2024-11-19] PR Newswire: Manifest.eco has been honored as a Silver Award Winner in The 4th Annual Anthem Awards \\(Launched by The Webby Awards\\)\n\n## Social\n\n### Linkedin\n\n- [2026-07-02 · 14 reactions] Independence doesn't mean doing it all yourself. Most of the brands we work with started with one founder who bet on themselves. As they grow, the founders who scale aren't the ones who carry every...\n\n- [2026-06-01 · 5 reactions] This one belongs to our team. Thank you Fulfill (Fulfill.com) | 3PL Finder.com, and thank you to the Blossom Essentials team.\n\n- [2026-05-07 · 6 reactions, 1 comment] Wholesale shouldn't break a great brand. Proud to be solving it with the RetailReady team.\n\n- [2026-04-28 · 3 reactions] You can't have ecommerce without fulfillment. When the founders and operators we serve were in our city last week for Commerce Roundtable, we hosted them. Thank you to everyone who came. 🫶\n\n- [2026-04-22 · 15 reactions] Today is Earth Day. Most companies will post about it. Manifest.eco is a fulfillment company. Every package we have ever shipped, for every brand we have ever served, has been carbon offset and pla...\n\n- [2026-04-20 · 33 reactions, 3 comments] Ultra launched Operator this week. Purpose built for warehouse automation. Manifest.eco is the first facility in America running it in production. Ultra's engineering team spent months developing O...\n\n- [2026-04-15 · 7 reactions] Home game. ⚾ Commerce Roundtable Austin is next week. We're sponsors, we'll be there both days, and we'd love to meet you. April 20–21 | Austin, TX\n\n- [2026-03-31 · 15 reactions] March is B Corp Month. One year ago we became one of the only B Lab certified fulfillment companies in the U.S. Here's where we stand after year one: 1,842 tonnes of carbon offset Plastic-free ship...\n\n- [2026-03-27 · 3 reactions] Colter Lutz said it better than we could. Hit play.\n\n- [2026-03-24] Automation works when the Ops systems in place are ready for it. Two Ultra robots integrated into our ATX operation. 800 to 1,000 orders packed per robot per day with no additional manual labor. Th...\n\n- [2026-02-18 · 6 reactions] Every shipment, every partner we choose, every call we make...sustainability is the infrastructure at Manifest.eco, not the afterthought. Proud to be working with Klimate 🤝 🥬\n\n## Locations\n- Headquarters: austin, texas, united states\n- Offices: austin, texas, united states",
+        "summary": "{\"description\":\"Manifest.eco is a Transportation, Logistics, Supply Chain and Storage company offering direct-to-consumer, business-to-business, and ecommerce fulfillment solutions with a mission to transition ecommerce fulfillment to a new standard.\",\"employee_estimate\":29,\"employee_estimate_source\":\"Employees: 29\",\"hq\":\"Austin, United States\",\"hq_quote\":\"Headquartered in Austin, Texas, United States.\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"3pl, b2b, business-services, business-to-business fulfillment, direct-to-consumer fulfillment, ecommerce fulfillment, logistics, manifest.eco, supply chain management, sustainability, third-party logistics, third-party logistics providers, warehouse automation\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQEWP84McJKLIA/company-logo_200_200/B56ZigpYqxHMAI-/0/1755041861287/manifest_eco_logo?e=2147483647&v=beta&t=XCQ7FhVMXZ8ADvm_LBDG_cLLSRfNlUkbP_5Xa0G_4l0",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/69vlnv51zyd",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Manifest.eco",
+              "foundedYear": 2021,
+              "description": "Manifest.eco offers a sustainable 3PL experience tailored to exceed all your shipping needs. Located in Austin, TX, we provide D2C and B2B services, personalized account management, and innovative logistics solutions without the premium price.",
+              "workforce": {
+                "total": 29
+              },
+              "headquarters": {
+                "address": "Austin, Texas, US",
+                "city": "Austin",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 2969,
+                "countryRank": 1866884,
+                "avgDurationSeconds": 37,
+                "history": [
+                  {
+                    "value": 2786,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 1988,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 2706,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 2514,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 2450,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 2969,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/grbvvgz01bh",
+        "title": "Manifest Climate",
+        "url": "https://manifestclimate.com/",
+        "text": "# Manifest Climate\n\nManifest Climate is a Technology, Information and Internet company. Manifest Climate is an AI-powered assessment platform that runs rigorous assessments across hundreds of entities in under an hour. Manifest Climate employs 28 people (-6.7% YoY, -2 people) and has an annual revenue of $4.5M, founded in 2015. Headquartered in Toronto, Ontario, Canada, with presence in United States. Its workforce is distributed across Canada, India, and United States.\n\n## About\n\nThe challenge isn't getting answers from AI. It's building the infrastructure that makes those answers rigorous, repeatable, and defensible.\n\nMost teams use AI to generate insights, fast. Then they struggle: findings lack source citations. Results shift with every run. Peer comparison is impossible. Defensibility is an afterthought.\n\nManifest Climate is an AI-powered assessment engine built to solve this. We transform information into comparable, defensible, decision-ready findings, at scale. Every recommendation is source-cited. Every result is consistent. Every finding is auditable.\n\nAdvisory firms win more deals. Asset managers monitor portfolios with confidence. NGOs prove impact. Public companies benchmark against peers. What they all have in common: they need intelligence they can act on and stand behind.\n\nNo manual analysis. No setup required. Just hours to assess hundreds of entities with the rigor that critical decisions demand.\n\nSOC 2 compliant. Built for teams that can't afford to get it wrong.\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Headquarters: Toronto, Canada\n- Founded Year: 2015\n- Homepage: manifestclimate.com\n- Aliases: Manifest Climate Inc., manifest climate, manifest climate, inc.\n- LinkedIn: linkedin.com/company/manifesttech\n- Linkedin Followers: 14,724\n- Emails: hello@manifestclimate.com\n- Phone: 1-877-762-6433, 877-762-6433\n\n## Financials\n- Annual Revenue: USD 4,500,000\n- Total Funding: USD 29,113,820\n  - Debt financing (2023-07-24)\n  - Convertible note (2022-09-13)\n  - Series a (2022-03-31): USD 24.0M\n  - Seed (2021-02-10): USD 5.1M\n\n## Workforce\n- Employees: 28\n- Company Size: 11-50 employees\n  - Yearly Growth: -6.7%\n- Key Executives:\n  - Adam Rochwerg: Head of Climate Solutions\n  - Alex Konson: Director of Marketing\n  - Fatou DIENG: Climate Solutions Lead\n  - Holly Dunne: Director of Strategic Partnerships\n  - Jim MacDonald: Chairman\n  - Jim MacDonald: Chief Executive Officer\n  - Laura Zizzo: Co-founder and Chief Strategy Officer\n  - Madeleine Morse: Director of Product Marketing\n  - Olena Kholodova: Head of Product Innovation\n  - Pete Richardson: Head Of Research\n- Breakdown:\n  - By Country: Canada: 22 (79%), India: 1 (4%), United States: 1 (4%)\n  - By Department: Consulting: 7 (25%), Other Department: 6 (21%), Technical: 4 (14%), General Management: 3 (11%), Marketing: 3 (11%), Product: 1 (4%), Project Management: 1 (4%), Research: 1 (4%)\n  - By Seniority: Other Management: 7 (25%), Head: 5 (18%), Specialist: 4 (14%), Director: 3 (11%), Senior: 3 (11%), Clevel: 2 (7%), Manager: 2 (7%), Founder: 1 (4%), Vp: 1 (4%)\n- Talent Sources: York University (4), EcoOnline (3), Statflo (2), Mediafly (2), CleanSlate UV (2), PharmaChoice Canada (1), Masterschool (1), Independent Diplomat (1), Global Affairs Canada | Affaires mondiales Canada (1), BMO Wealth Management - Canada (1)\n- Alumni Go To: Introhive (2), BMO (2), Aon (2), World Resources Institute (1), Upify Digital (1), The Big Push (1), Ricoh Canada Inc. (1), Mantle Climate (1), American Express (1), AGF Investments (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: linkedin, linkedin sales navigator, sales navigator, salesforce, salesloft, zoominfo, jazzhr, quickbooks, quickbooks online, google drive, gps, microsoft, microsoft office, microsoft teams, ease, impact, signal, c, amp, calendly, zoom, box, hunter, well, adp, facebook, veritas, q4, pardot, postgresql, slack\n\n## Web presence\n\n- Twitter: twitter.com/manifestclimate\n- Facebook: facebook.com/manifestclimate\n- Crunchbase: crunchbase.com/organization/manifest-climate\n- Web traffic:\n  - Monthly visits: 5,540\n  - Global rank: 3,396,054\n  - Bounce rate: 37.0%\n  - Pages per visit: 1.8\n  - Average visit duration: 60s\n\n## Categories\n\nai-powered, analytics, assessment, assessment platform, entities, environmental engineering, full audit trail, information technology, jobs_and_career/jobs_and_employment, manifest climate, rigorous, saas, sustainability management, sustainability management software\n\n## Competitors\n\nplanalytics, jupiter, ehab, accuweather, earth networks, weatherops, athenium analytics llc\n\n## Recent News\n- [2026-10-04]\n  - Moneycontrol.com: India in special position to lead as global risks intensify: Nicholas Stern\n  - The Manila Times: Legarda recalls ICJ advisory opinion: Demands climate justice amid UNEP report, escalating regional hazards \\(NO PHOTO\\)\n  - Herald.co.zw: Not every El Niño means drought, MSD tells nation\n- [2026-09-14] Canada's National Observer: What do you do when the world is burning?\n- [2026-09-07]\n  - NewVision.co.ug: Blogs: Uganda must act boldly on climate change\n  - open.kg: Climate Risks in Kyrgyzstan are Spatially Heterogeneous: The Same Phenomenon Transforms into Principally Different Consequences » News of Kyrgyzstan, Bishkek and Osh — latest events today\n  - Egypt Today: How El Niño is expected to impact Egypt's weather\n- [2026-08-31] EIA International: Climate change – how bad does it have to get before global leaders act?\n- [2026-08-28] The Hastings Center for Bioethics: Are We Ready to Treat a World on Fire? Climate Literacy in Medical Education\n- [2026-08-22] PressReader: Climate action can also serve the cause of economic justice\n- [2026-08-19] www.thenewworld.co.uk: Summer 2026: When the climate crisis came home\n- [2026-08-08]\n  - Mshale: Brace Yourself The Wildest Winter Yet In 2026-2027 Fc Barcelona – Real Madryt \\(oxljZBXhY9\\)\n  - Esquire: The Major Climate-Change Warning Our Country Has Been Ignoring for Far Too Long\n- [2026-07-29] The Guardian: A ​decade on the Iberian ​frontline​ has shown me that Europe’s ​climate ​emergency​ is ​impossible to ​deny\n- [2026-07-23] streamlinefeed.co.ke: 'Little Fire' Forces Thousands to Evacuate Near Pleasanton as Blaze Exceeds 1,000 Acres\n- [2025-05-14]\n  - PR Newswire: Manifest Climate AI Analysis Reveals Ambition-Action Gap in Fortune Global 500 Sustainability Disclosures\n  - Canada NewsWire: Mind the Gap: AI Analysis of the Fortune Global 500 Sustainability Disclosures\n- [2025-04-24] Canada NewsWire: Manifest Climate now available in Microsoft Azure Marketplace and AppSource\n- [2024-05-10] LinkedIn: Manifest Climate on LinkedIn: #climaterisk #paneldiscussion #climateopportunities #ai…\n- [2024-04-22] BetaKit: Changemakers: Did the SEC just help Manifest Climate scale?\n\n## Social\n\n### Linkedin\n\n- [2026-09-02 · 2 reactions] How do you assess 200+ companies' sustainability reporting every year, consistently, without adding headcount? WBCSD – World Business Council for Sustainable Development brought AI into its Reporti...\n\n- [2026-08-31 · 9 reactions] \"As AI was new to us, we had some doubts.\" Hear Uta Jungermann of WBCSD – World Business Council for Sustainable Development on what changed when her team brought trusted AI into its annual sustain...\n\n- [2026-08-26 · 17 reactions, 1 comment] How do you assess 200+ member companies' sustainability reporting every year, consistently, without adding headcount? That was the challenge facing WBCSD – World Business Council for Sustainable De...\n\n- [2026-06-16 · 12 reactions, 1 comment] Four years after the U.S. insurance industry began standardized climate risk reporting, we've released a new report, which finds that while more companies than ever are reporting their climate-rela...\n\n- [2026-06-11 · 19 reactions] Manifest Climate is proud to support the work of Ceres, bringing insights to market like those within the 2026 Progress Report: Climate Risk Reporting in the Insurance Sector. Many thanks to our pa...\n\n- [2026-05-26 · 8 reactions] More US insurers than ever are disclosing climate risk. But disclosure alone doesn’t mean the risk is being measured. That gap matters. Without credible measurement, insurers can’t accurately price...\n\n- [2026-04-30 · 9 reactions] We’re excited to power Symbion’s advisory work with AI! SYMBION - Synergy with Nature brings deep experience helping organizations navigate complex sustainability challenges. Our role is to equip t...\n\n- [2026-03-17 · 5 reactions, 1 comment] Sustainability vs. competitiveness is a false trade-off. Less reporting ≠ less risk. The companies that win in 2026 will be the ones that: understand risk, manage it, and act on it. Worth the read...\n\n- [2026-02-24 · 8 reactions] Monitoring hundreds of portfolio companies. Limited time. Growing scrutiny. Manual processes can’t keep up. AI now can. The AI playbook for portfolio monitoring & stewardship is now live 🚀 Download...\n\n- [2026-02-18 · 26 reactions, 1 comment] Our very own Jeff Horlor and Holly Dunne are onsite at GreenBiz this week, and one theme keeps surfacing 👀 AI is moving from experimentation to essential infrastructure for sustainability professio...\n\n- [2026-02-03 · 9 reactions] Are we moving backwards in 2026? Policy uncertainty. Political noise. Net-zero fatigue. Laura Zizzo reflects on the evolution from voluntary commitments to investor-grade disclosure — and why 2026...\n\n- [2025-12-05 · 2 reactions] Imagine AI that works like you. Analyzing #sustainability data the way you do, but faster and at scale. Join Laura Zizzo and Ryan Meyers on Dec 9 to see how AI can deliver investor-grade sustainabi...\n\n- [2025-11-25 · 5 reactions, 1 comment] ESG data is complex—but AI makes it clear and actionable. Join us on December 9 to learn how AI delivers reliable, comparable sustainability intelligence that streamlines decision-making and drives...\n\n## Locations\n- Headquarters: toronto, ontario, canada\n- Offices: toronto, ontario, canada, toronto, ontario m4w 1b9, canada, toronto, ontario m5r 2a9, canada",
+        "summary": "{\"description\":\"Manifest Climate is an AI-powered assessment platform focused on climate risk and ESG due diligence for entities. It is a technology company providing software services.\",\"employee_estimate\":28,\"employee_estimate_source\":\"Employees: 28\",\"hq\":\"Toronto, Ontario, Canada\",\"hq_quote\":\"Headquartered in Toronto, Ontario, Canada, with presence in United States.\",\"industry\":\"Technology, Information and Internet\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":false,\"is_third_party_logistics_quote\":\"-\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C560BAQFZsyPdkN_-Wg/company-logo_200_200/company-logo_200_200/0/1663763987841/manifesttech_logo?e=2147483647&v=beta&t=uf9pq890jy2SvnjWm2hIPW5ChXSOiuSk3ugGtcs1nx8",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/grbvvgz01bh",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Manifest Climate",
+              "foundedYear": 2015,
+              "description": "The challenge isn't getting answers from AI. It's building the infrastructure that makes those answers rigorous, repeatable, and defensible.\n\nMost teams use AI to generate insights, fast. Then they struggle: findings lack source citations. Results shift with every run. Peer comparison is impossible. Defensibility is an afterthought.\n\nManifest Climate is an AI-powered assessment engine built to solve this. We transform information into comparable, defensible, decision-ready findings, at scale. Every recommendation is source-cited. Every result is consistent. Every finding is auditable.\n\nAdvisory firms win more deals. Asset managers monitor portfolios with confidence. NGOs prove impact. Public companies benchmark against peers. What they all have in common: they need intelligence they can act on and stand behind.\n\nNo manual analysis. No setup required. Just hours to assess hundreds of entities with the rigor that critical decisions demand.\n\nSOC 2 compliant. Built for teams that can't afford to get it wrong.",
+              "workforce": {
+                "total": 28
+              },
+              "headquarters": {
+                "address": "160 Bloor St E, 1010, Toronto, Ontario M4W 1B9, CA",
+                "city": "Toronto",
+                "postalCode": null,
+                "country": "Canada"
+              },
+              "financials": {
+                "revenueAnnual": 4500000,
+                "fundingTotal": 29113820,
+                "fundingLatestRound": {
+                  "name": "Debt financing",
+                  "date": "2023-07-24",
+                  "amount": null
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 5540,
+                "countryRank": 1916358,
+                "avgDurationSeconds": 60,
+                "history": [
+                  {
+                    "value": 8758,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 6167,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 6849,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 6677,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 4645,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 5540,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 8121.7,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

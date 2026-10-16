@@ -1,0 +1,218 @@
+{
+  "request": {
+    "query": "Enigmata, Inc.",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "0c1f296c656523d4091bf8c053cd067f",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/h6jyyd89zm1",
+        "title": "Enigmata, Inc.",
+        "url": "https://www.enigmata.xyz/",
+        "text": "# Enigmata, Inc.\n\nEnigmata, Inc. is a Technology, Information and Internet company. Enigmata is a company that provides cipher solutions for protecting, governing, using, and proveing sensitive data across every AI workflow. Enigmata, Inc. employs 5 people, founded in 2024.\n\n## About\n\nEnigmata, Inc. is the trust infrastructure for the AI data economy, helping enterprises protect, govern, use, and prove sensitive data across AI workflows without expanding breach, compliance, or third‑party leakage risk. Founded in 2024.\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Founded Year: 2024\n- Homepage: enigmata.xyz\n- Aliases: enigmata, inc.\n- LinkedIn: linkedin.com/company/enigmata\n- Linkedin Followers: 52\n\n## Workforce\n- Employees: 5\n- Company Size: 11-50 employees\n- Key Executives:\n  - John Brownlee: CTO\n  - Peter Baer: Co-Founder\n  - Scott Searle: Co-Founder & CEO\n- Breakdown:\n  - By Country: United States: 5 (100%)\n  - By Department: General Management: 2 (40%), Consulting: 1 (20%), Sales: 1 (20%), Technical: 1 (20%)\n  - By Seniority: Founder: 2 (40%), Clevel: 1 (20%), Manager: 1 (20%), Specialist: 1 (20%)\n- Talent Sources: Zerohour Code, LLC (1), World Insurance Associates LLC (1), StartupExperts (1), DripDoc (1)\n\n## Web presence\n\n- Web traffic:\n  - Monthly visits: 75\n  - Bounce rate: 49.0%\n  - Pages per visit: 1.0\n  - Average visit duration: 0s\n\n## Categories\n\nai data, anonymizer, cipher, cipher transformation, third-party collaboration\n\n## Recent News\n- [2026-09-14]\n  - Yahoo Finance: Enigmata Emerges from Stealth with $6.5 Million to Let AI Learn Without Exposing Sensitive Data\n  - Pulse 2.0: Enigmata Raises $6.5 Million Seed Round For AI Encryption Technology\n  - Dealroom.co: Enigmata raises $6.5M to run AI on encrypted data\n- [2026-09-12]\n  - HPCwire: Enigmata Emerges from Stealth with $6.5M to Let AI Learn Without Exposing Sensitive Data\n  - FinSMEs: Enigmata Raises $6.5M in Seed Funding\n  - TipRanks: Enigmata Raises Seed Capital to Run AI on Encrypted Data at Production Speed\n  - InfotechLead: VC funding deals: Enigmata, Pinegrove Venture Partners, Inspiren\n\n## Social\n\n### Linkedin\n\n- [2026-10-05 · 1 comment] Most financial institution leaders believe AI adoption gives them a competitive edge. They're right. But among organizations that had an AI-related breach last year, 97% lacked proper AI access con...\n\n- [2026-09-11 · 4 reactions] Stealth mode: on for your data, off for us. https://lnkd.in/eGAtBvdj\n\n- [2026-09-11 · 11 reactions, 2 comments] Enigmata, Inc., a Nashville, TN provider of a cryptographic technology platform, has raised $6.5 million in a seed funding round led by Blockchange Ventures. The company plans to use the fresh capi...",
+        "summary": "{\"description\":\"Enigmata, Inc. is a technology company providing cipher solutions to protect, govern, use, and prove sensitive data across AI workflows. Headquartered in the United States, it operates in private ownership and focuses on AI data economy trust infrastructure.\",\"employee_estimate\":5,\"employee_estimate_source\":\"Employees: 5\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Key Executives:\\n  - John Brownlee: CTO\\n  - Peter Baer: Co-Founder\\n  - Scott Searle: Co-Founder & CEO\",\"hq\":\"United States\",\"hq_quote\":\"By Country: United States: 5 (100%)\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Enigmata, Inc. is a Technology, Information and Internet company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Recent News\\n- [2026-09-14]\\n  - Yahoo Finance: Enigmata Emerges from Stealth with $6.5 Million to Let AI Learn Without Exposing Sensitive Data\\n  - Pulse 2.0: Enigmata Raises $6.5 Million Seed Round For AI Encryption Technology\\n  - Dealroom.co: Enigmata raises $6.5M to run AI on encrypted data\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQEqv72QeugzhQ/company-logo_200_200/B56Z7sc0f0K0AE-/0/1782083438825/probabilitydrive_logo?e=2147483647&v=beta&t=WbaiUOC3sooDyFIa33CkCzWnfwCHXlsEEQWj5kcxGPM",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/h6jyyd89zm1",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Enigmata, Inc.",
+              "foundedYear": 2024,
+              "description": "Enigmata, Inc. is the trust infrastructure for the AI data economy, helping enterprises protect, govern, use, and prove sensitive data across AI workflows without expanding breach, compliance, or third‑party leakage risk. Founded in 2024.",
+              "workforce": {
+                "total": 5
+              },
+              "headquarters": null,
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 75,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": []
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/xnrqd0dfvnl",
+        "title": "ENGIMATA INC",
+        "url": "https://engimata.net/",
+        "text": "# ENGIMATA INC\n\nENGIMATA INC is a Biotechnology Research company. Engimata is an early stage biopharma company located in the San Francisco Bay Area. ENGIMATA INC employs 4 people, founded in 2019. Headquartered in Livermore, California, United States, with an office in Pleasanton.\n\n## About\n\nEngimata has a patented platform adjuvant technology that improves vaccine efficiency, reduces antigen dose and enhances vaccine stability outside the cold supply chain.\n\n## Company Details\n- Industry: Biotechnology Research\n- Type: Privately held\n- Headquarters: Livermore, United States\n- Founded Year: 2019\n- Homepage: engimata.net\n- Aliases: Engimata Inc., engimata, engimata inc\n- LinkedIn: linkedin.com/company/engimata-inc\n- Linkedin Followers: 175\n- Emails: info@engimata.net\n- Phone: +1 510 734 4812\n\n## Workforce\n- Employees: 4\n- Company Size: 1-10 employees\n- Key Executives:\n  - Rajiv Nayar: CSO\n- Breakdown:\n  - By Country: United States: 2 (50%)\n  - By Department: General Management: 1 (25%), Other Department: 1 (25%)\n  - By Seniority: Clevel: 1 (25%), Other Management: 1 (25%)\n- Talent Sources: Exelixis (1), Bayer (1)\n- Alumni Go To: Tri Valley Biosolutions LLC (1), HTD Biosystems Inc. (1)\n\n## Web presence\n\n- Facebook: facebook.com/engimata\n- Crunchbase: crunchbase.com/organization/engimata\n- Web traffic:\n  - Monthly visits: 1,931\n  - Global rank: 8,468,072\n  - Bounce rate: 39.0%\n  - Pages per visit: 1.6\n  - Average visit duration: 36s\n\n## Categories\n\nbiopharma, biopharmaceutical, biotechnology, covid-19 vaccine, drug delivery systems, lipid nanoparticles, lyophilization, medical, patented, vaccine adjuvant, vaccine adjuvants, vaccine development\n\n## Competitors\n\nwe make scents, union orthotics & prosthetics co, oasis computing, homestead helicopters, brandexx, century, lagier ranches, sprim als, mymlm, fronay collection, fine silver jewelry, ie, mmti, synopia millwork\n\n## Recent News\n- [2026-10-05] xyz Domain Names: Data protection platform Enigmata.xyz aims to help AI work with sensitive data while it stays encrypted\n- [2026-09-12] FinSMEs: Enigmata Raises $6.5M in Seed Funding\n- [2026-09-11] [Enigmata Raises Seed Capital to Run AI on Encrypted Data at Production Speed](https://www.tipranks.com/news/private-companies/enigmata-raises-seed-capital-to-run-ai-on-encrypted-data-at-production-speed)\n- [2026-09-10] Yahoo Finance: Enigmata Emerges from Stealth with $6.5 Million to Let AI Learn Without Exposing Sensitive Data\n- [2023-01-24] Google Patent: Immunogenic composition forming a vaccine, and a method for its manufacture\n\n## Social\n\n### Linkedin\n\n- [2026-04-10] At Engimata, we are excited to share the publication of a new book chapter co-authored by our co-founder and CEO, Dr. Mitra Mosharraf, together with Dr. Rajiv Nayar: “Manufacturing Nanomedicines an...\n\n- [2025-10-10 · 1 reaction] Curious about advances in nanotechnology? Our CSO, Dr. Mitra Mosharraf, was recently interviewed by European Pharmaceutical Manufacturer magazine, where she shares in-depth insights into the manufa...\n\n- [2025-09-22 · 2 reactions] Tomorrow we are excited to join the AAPS Nanotechnology Community webinar featuring Prof. Pieter Cullis (UBC) on “Design of Lipid Nanoparticles to Enable Gene Therapies.” 📆 Tuesday, Sept 23, 2025 ·...\n\n- [2025-05-08] At Engimata, we’re innovating at the intersection of formulation science and complex biologics. We were honored to have our CEO, Dr. Mitra Mosharraf, speak at AAPS NBC 2025 on: “Design of Experimen...\n\n- [2025-04-22 · 1 reaction] 💡 Engimata Shares a Must-Attend Free Webinar from AAPS Nanotechnology Community! Engimata is proud to support innovation in lipid-based delivery systems and vaccine development. Don’t miss this fre...\n\n- [2025-02-08] Engimata Expert Featured in AAPS Nanotechnology Session on Nanoparticle Characterization We are excited to share that Dr. Mitra Mosharraf, Co-Founder of Engimata Inc., was featured as an expert in...\n\n- [2024-10-23 · 4 reactions] We were honored to present our research at the American Association of Pharmaceutical Scientists (AAPS) | @aapscomms PharmSci360 meeting in Salt Lake City this week. Our poster on predicting aggreg...\n\n- [2024-10-23 · 32 reactions, 2 comments] Engimata is proud to announce that its CEO Dr. Mitra Mosharraf, PhD, MBA has been appointed as the 2024-2025 Chair for the Nanotechnology Community of American Association of Pharmaceutical Scienti...\n\n## Locations\n- Headquarters: livermore, california, united states (US)\n- Offices: pleasanton, california, united states (US), livermore, california, united states (US)",
+        "summary": "{\"description\":\"ENGIMATA INC is a Biotechnology Research company. Engimata is an early stage biopharma company located in the San Francisco Bay Area.\",\"employee_estimate\":4,\"employee_estimate_source\":\"Employees: 4\",\"hiring_first_ops_or_revops\":false,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Livermore, California, United States\",\"hq_quote\":\"Headquartered in Livermore, California, United States, with an office in Pleasanton.\",\"industry\":\"Biotechnology Research\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Biotechnology Research\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"ENGIMATA INC employs 4 people, founded in 2019.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C560BAQFUN1WQvONGvw/company-logo_200_200/company-logo_200_200/0/1630672819964/engimata_inc_logo?e=2147483647&v=beta&t=OPHLyUUP_MBA5-G-vpKnWTjKTI7SeNP0Mg-2D1L-Meo",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/xnrqd0dfvnl",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "ENGIMATA INC",
+              "foundedYear": 2019,
+              "description": "Engimata has a patented platform adjuvant technology that improves vaccine efficiency, reduces antigen dose and enhances vaccine stability outside the cold supply chain.\n ",
+              "workforce": {
+                "total": 4
+              },
+              "headquarters": {
+                "address": "3197 Independence Dr, Livermore, California 94551, US",
+                "city": "Livermore",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 1931,
+                "countryRank": 3273088,
+                "avgDurationSeconds": 36,
+                "history": [
+                  {
+                    "value": 622,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 586,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 748,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 1000,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 1258,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 1931,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 6360.9,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

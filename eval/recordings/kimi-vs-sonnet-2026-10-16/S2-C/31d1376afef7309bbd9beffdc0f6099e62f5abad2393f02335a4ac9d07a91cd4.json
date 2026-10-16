@@ -1,0 +1,247 @@
+{
+  "request": {
+    "query": "Haast",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "4dad7ccab39412f6d310b65acb315757",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/2qjy72pjmss",
+        "title": "Haast",
+        "url": "https://haast.io/",
+        "text": "# Haast\n\nHaast is a Technology, Information and Internet company. Haast is an AI marketing compliance software that provides automation solutions to automate marketing compliance. They offer a manual compliance work that slows teams down, reviewing content and communications before they go live, monitoring digital footprint after, and regulatory horizon scanning. Haast employs 55 people (+61.8% YoY, +21 people). Headquartered in New York, New York, United States, with presence in Australia. Its workforce is distributed across 5 countries (including Australia, United States, Philippines, Netherlands, and Switzerland).\n\n## About\n\nWe help enterprise businesses manage compliance risk, enabling them to find and resolve regulatory compliance issues, across their entire digital and marketing presence.\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Headquarters: New York, United States\n- Homepage: haast.io\n- Aliases: Haast Pty Ltd, haast, haast pty ltd.\n- LinkedIn: linkedin.com/company/haast-ai\n- Linkedin Followers: 5,430\n- Emails: hello@haast.io\n\n## Financials\n  - Series a (2026-04-01): USD 12.0M\n  - Seed (2025-06-07): USD 3.9M\n  - Pre seed (2023-08-24): USD 769,580\n  - Grant (2023-04-01): AUD 30,000\n\n## Workforce\n- Employees: 55\n- Company Size: 11-50 employees\n  - Monthly Growth: -3.5%\n  - Yearly Growth: +61.8%\n- Key Executives:\n  - Bec Ching: Head of Customer\n  - Chloe Stevens: Marketing Lead\n  - Eric Chan: Non Executive Director\n  - Jack Tizzard: Head of Strategy and Operations\n  - Joel Tow: Head of Engineering\n  - Kunal Vankadara: Co-Founder\n  - Liam King: Co-Founder\n- Breakdown:\n  - By Country: Australia: 29 (53%), United States: 6 (11%), Philippines: 4 (7%), Netherlands: 1 (2%), Switzerland: 1 (2%)\n  - By Department: Technical: 11 (20%), Consulting: 5 (9%), Legal: 5 (9%), General Management: 3 (5%), Marketing: 3 (5%), Customer Service: 2 (4%), Design: 2 (4%), Operations: 2 (4%), Other Department: 2 (4%), Product: 2 (4%) (+5 more)\n  - By Seniority: Senior: 11 (20%), Specialist: 11 (20%), Other Management: 7 (13%), Manager: 6 (11%), Head: 4 (7%), Founder: 2 (4%), Director: 1 (2%)\n- Active job postings: 2\n- Talent Sources: Atlassian (3), The Australian National University (2), Boston Consulting Group (BCG) (2), Amazon Web Services (AWS) (2), Montu (1), Federal Reserve Bank of Cleveland (1), Elula (1), Deloitte Digital (1), Dataro (1), Condor Global SEA (1)\n- Alumni Go To: Fergus (2), makesense Asia (1), defy.vc (1), Thomson Reuters (1), Relevance AI (1), Protocol Labs (1), Oxford Economics Australia (1), HARWELL. (1), Cathay Pacific (1), Ashurst Perkins Coie (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: auth0, microservices, python, user interviews, adobe, atlassian, canva, github, google cloud, hubspot, jira, microsoft, oauth, react, salesforce, trello, typescript, apache, apache airflow, aws lambda, docker, github actions, gmail, google workspace, microsoft 365, selenium, sqs, linkedin, fintech, javascript, postgresql, influential, telstra, harness, google analytics, webflow, api gateway, graphql, saml, terraform, box, c, crisp, ease, impact, medium, sprint, ups, figma, git\n\n## Web presence\n\n- Crunchbase: crunchbase.com/organization/haast\n- Web traffic:\n  - Monthly visits: 17,445\n  - Global rank: 1,329,613\n  - Bounce rate: 43.0%\n  - Pages per visit: 2.9\n  - Average visit duration: 37s\n\n## Categories\n\nai, ai marketing compliance software, artificial intelligence (ai), compliance, compliance automation platform, enterprise software, financial services, marketing, marketing automation, marketing compliance, regulatory, regulatory horizon scanning, review time, risk tolerance, saas\n\n## Competitors\n\nperformline, kintent, norm ai\n\n## Recent News\n- [2026-09-26] ODT: ‘Bleeding money’: Frustration as SH6 closure hits hard in Haast\n- [2026-08-31] Scoop - New Zealand News: Heavy Alt-Metal Rock Outfit Haast Hunter Announce Debut Album Plastique\n- [2026-08-27]\n  - The Rockpit: New Zealand Based Heavy Outfit HAAST HUNTER Unleash Highly Anticipated Debut Album ‘PLASTIQUE’ + New Music Video\n  - ODT: Stories of giant Haast’s Eagle shared\n- [2026-08-22] Nederlands Dagblad: Welke lessen trekken lezers uit de droogte? ‘Bidden om regen lijkt haast hypocriet’\n- [2026-08-20] XGN.nl: Veel PlayStation fans hebben geen haast met PS6 en de releasedatum\n- [2026-08-16]\n  - FC Utrecht nieuws, transfers & geruchten \\| UtrechtFans: Correia na dreun tegen AZ: \"We moeten nu wel haast gaan maken\"\n  - Eindhovens Dagblad: Kort geding over per direct gesloten horecazaken in Kruisstraat: was die haast wel nodig?\n- [2026-08-15] upday News: Google haast zich met Gemini 3.7 Flash-upgrade - terwijl vlaggenschipmodel uitblijft\n- [2026-08-14] De Standaard: Haast iedereen maakt de Noren rijker, ook als u een Leffe drinkt, een Lotus-koekje eet of naar Kinepolis gaat\n- [2026-08-13] Het Parool: Recensie Les enfants vont bien: geen haast in drama over moeder die kinderen bij haar zus achterlaat\n- [2026-08-12] De Telegraaf: Veroordeelde stalker doet mee aan Vlaamse B&B vol liefde: ’Ik viel haast van mijn stoel toen hij in beeld kwam\\!’\n- [2026-08-03]\n  - VoetbalNieuws.nl: 'Ajax kent strakke deadline voor werkvergunning Arokodare en heeft haast'\n  - Bicycling Nederland: De meest bizarre weetjes uit het wielrennen \\(die je haast niet gelooft\\)\n- [2026-08-02] Sporza: Slechter moment kon haast niet: gefrustreerde Evenepoel moet \\(te\\) lang achtervolgen na fietswissel\n- [2026-07-31]\n  - Ajax1: 'Ajax maakt haast: werkvergunning Arokodare race tegen de klok'\n  - Dagblad070: Wethouder Dubbelaar bezorgd om haast bij opvang in Javastraat\n- [2026-07-28] Zaanstad,nieuws.nl: Pand GGD in Zaandam verkocht bij inschrijving - haast geboden\n- [2026-07-27]\n  - Noordhollands Dagblad: Ganzen- en hondenpoep vergalt plezier in Hoorns Julianapark. ’Mijn dochter is haast zwart als ze uit het water komt’\n  - FCUpdate.nl: KNVB moet haast maken: Amir Bouhamdi \\(17\\) maakt enorme indruk bij PSV\n\n## Social\n\n### Linkedin\n\n- [2026-10-09 · Posted · 2 reactions] [Sometimes, one word is all it takes. ⚠️ A marketing compliance...](https://www.linkedin.com/posts/haast-ai_sometimes-one-word-is-all-it-takes-activity-7514355542480375808-8cld)\n  > Sometimes, one word is all it takes. ⚠️\n  >\n  > A marketing compliance leader told us their reviewer flagged a specific word in a promotion. A different reviewer had previously approved the same word.\n  >\n  > “It’s not a good look that we said no, when other promotions were approved with the same language…it’s hard for us to document these cases accordingly.”\n  >\n  > Haast’s one-agent-per-rule architecture resolves this issue because each agent handles one specific compliance task, taking into account regulation text, internal policies, and previous reviews.\n  >\n  > ▶️ Customers have granular, rule-level tuning that matches how human reviewers behave.\n  > ▶️ An exhaustive audit trail shows what passed the check and why.\n  > ▶️ One agent per task produces more consistent results than a single agent handling many tasks.\n  >\n  > But perhaps most importantly for this compliance leader: Haast's approach builds trust. Teams only fully adopt a tool that doesn’t miss things, over-flag, or send them searching for documentation that doesn't exist.\n\n- [2026-10-06 · Posted · 55 reactions] [Haast welcomes Mimi Kieu to the team! We’re delighted to have Mimi...](https://www.linkedin.com/posts/haast-ai_haast-welcomes-mimi-kieu-to-the-team-we-activity-7513297104434282497-wL7u)\n  > Haast welcomes Mimi Kieu to the team!\n  >\n  > We’re delighted to have Mimi on our customer success team as a Legal AI Implementation Strategist. She comes to Haast from her previous role as Legal Counsel with Telstra, where she supported the Haast implementation as a customer.\n  >\n  > Currently based in Melbourne, Mimi will be working from Haast's New York office soon. We’re thrilled to have her on board. Welcome, Mimi!\n\n- [2026-10-06 · Posted · 18 reactions] [The Haast team is at the Association of Corporate Counsel annual...](https://www.linkedin.com/posts/haast-ai_the-haast-team-is-at-the-association-of-corporate-activity-7513242581649051648-ArOA)\n  > The Haast team is at the Association of Corporate Counsel annual meeting in Boston this week – stop by and see us at booth 908!\n\n- [2026-10-05 · Posted · 4 reactions] [We're headed to the 2026 National Society of Compliance...](https://www.linkedin.com/posts/haast-ai_nscp2026-compliance-activity-7512902697600045057-qtGw)\n  > We're headed to the 2026 National Society of Compliance Professionals National Conference in Orlando, October 25–28 🌴\n  >\n  > Stop by and see Haast at booth 36 to talk through where AI is changing content and communications review workload, and what's actually holding compliance programs back from keeping pace.\n  >\n  > Comment below or drop a DM to let us know if you'll be there!\n  >\n  > #NSCP2026 #Compliance\n\n- [2026-10-05 · Posted · 9 reactions] [We're launching Conversations in Compliance – candid, unscripted...](https://www.linkedin.com/posts/haast-ai_compliance-marketingcompliance-regtech-activity-7512896347792982016-IemD)\n  > We're launching Conversations in Compliance – candid, unscripted conversations about today’s most pressing compliance challenges (and opportunities) across regulator compliance, legal ops, and more.\n  >\n  > Join us on October 20 at 11 am ET / 4 pm GMT for the first episode, featuring Haast's Wessel van Keulen in conversation with Keith Salmon, Former VP Compliance Governance, Mastercard.\n  >\n  > #compliance #marketingcompliance #regtech\n\n- [2026-10-02 · Reshared · 37 reactions] [Hours, not weeks. That’s the edge. Compliance isn’t the brake...](https://www.linkedin.com/posts/haast-ai_activity-7511847839325417473-RW9u): Hours, not weeks. That’s the edge. Compliance isn’t the brake anymore. It’s how the fastest firms actually grow. Looking forward to the session.\n\n- [2026-10-02 · Posted · 27 reactions] [Last week, Haast celebrated our Sydney office-warming with Suit...](https://www.linkedin.com/posts/haast-ai_last-week-haast-celebrated-our-sydney-office-warming-activity-7511787206571896833-gfsa)\n  > Last week, Haast celebrated our Sydney office-warming with Suit Day! Far from being buttoned-up and serious, this was a chance for Haasters to show our style, creativity, and Haast’s international footprint.\n  >\n  > With awards for best dressed, best location, and other dignified honors, Suit Day turned a regular Friday into a global celebration of the goals we’ve accomplished, the goals we’re driving towards, and the pleasure we take in shared success.\n\n- [2026-10-01 · Posted · 10 reactions] [We had a great day earlier this week at Global RegTech Summit in...](https://www.linkedin.com/posts/haast-ai_we-had-a-great-day-earlier-this-week-at-global-activity-7511449134223093760-O-QX)\n  > We had a great day earlier this week at Global RegTech Summit in New York 👏\n  >\n  > It was great to meet everyone who stopped by the booth, caught up with us after our panel session, or stopped by the Innovation Stage to see us demo. We're already looking forward to 2027!\n\n- [2026-09-30 · Posted · 6 reactions] [We're headed to the 2026 FINRA Advertising Regulation Conference in...](https://www.linkedin.com/posts/haast-ai_finraadreg2026-activity-7511086740632260608-LdOh)\n  > We're headed to the 2026 FINRA Advertising Regulation Conference in Washington, DC, October 15–16 🇺🇸\n  >\n  > Every AI tool your marketing team adopted this year handed your review team a new problem: content volume that's climbed as much as 400% at some of the largest brands, with review capacity that hasn't grown to match.\n  >\n  > Haast will be at booth 7 to talk through how pre-publish AI review keeps FINRA Rule 2210 compliance moving at content speed, not compliance-desk speed.\n  >\n  > Want 15 minutes with our team while you're in DC? Leave us a comment or send a DM 📩\n  >\n  > #FINRAAdReg2026\n\n- [2026-09-29 · Posted · 16 reactions] [We're taking the stage at Global RegTech Summit US in 1 hour... 🎤...](https://www.linkedin.com/posts/haast-ai_grtsus26-activity-7510764104157065217-exv7)\n  > We're taking the stage at Global RegTech Summit US in 1 hour... 🎤 ⤵️\n  >\n  > CEO Kunal Vankadara will moderate the panel discussion \"Fair, Balanced, & Not Misleading – Compliance at Scale in the Age of Content Overload.\" Join Kunal and fellow panelists:\n  >\n  > Joe Sheirer, FINRA\n  > Sven Dobler, Zurich Cover-More\n  > Rob Guldner, Steward Partners\n  >\n  > ...at 3:15 pm ET, Stream B, to catch the conversation.\n  >\n  > #GRTSUS26\n\n- [2026-09-24 · Posted · 11 reactions] [We're hiring a US-based Field Marketing Manager. Is it you? ⤵️...](https://www.linkedin.com/posts/haast-ai_were-hiring-a-us-based-field-marketing-manager-activity-7508964230440566785-jilc)\n  > We're hiring a US-based Field Marketing Manager. Is it you? ⤵️\n  >\n  > Haast is looking for a field marketer to own the events, campaigns, and enablement that gets sales the tools and timing they need.\n  >\n  > More details and a complete JD in comments 💬\n\n- [2026-09-23 · Posted · 5 reactions] [Your business is likely sending you signals that mean it’s time to...](https://www.linkedin.com/posts/haast-ai_marketingcompliance-activity-7508545980783497216-tOoN)\n  > Your business is likely sending you signals that mean it’s time to evaluate a #marketingcompliance solution 🆘\n  >\n  > If any of these sound familiar:\n  >\n  > 🚫 No documented risk position\n  > 🔁 Need a better feedback loop for marketing\n  > ⚠️ Want actionable insights, not just alerts\n  > ⚡ Clearing backlog = good, improving the business = better\n  >\n  > ...it's time to flip marketing compliance from a constraint to a competitive advantage:\n  >\n  > 📝 Documented risk position\n  > 🎓 Shorter learning curve for new hires\n  > 💡 Insights that translate into action\n  > 💪 Business case built on more than backlog size\n  >\n  > Ready to treat compliance as a driver of speed and quality, without constraints on either? 🔗 in comments\n\n- [2026-09-18 · Posted · 2 reactions] [We tracked 297 global fintechs and 1,255 product launches. What we...](https://www.linkedin.com/posts/haast-ai_fintech-marketingcompliance-financialpromotions-activity-7506772295441444864-JTz8)\n  > We tracked 297 global fintechs and 1,255 product launches. What we found 🔎 ⬇️\n  >\n  > Specialty products are evolving into “everything” apps, and each new addition brings a new regulatory rulebook.\n  >\n  > Why is this happening?\n  >\n  > 1️⃣ It's more expensive to acquire a new customer than it is to add a new product and offer it to the customers you already have\n  > 2️⃣ Companies can ship faster as they mature\n  > 3️⃣ The market copies new ideas 3x faster than it did 10 years ago\n  >\n  > As fintechs accelerate product launches, regulators are watching, levying heavy fines on firms that \"did not keep pace\" with growth.\n  >\n  > In our latest, Haast co-founder Liam King explores how the industry got from there to here, and what teams that still ship quickly are doing differently. Link in comments ⬇️\n  >\n  > #fintech #marketingcompliance #financialpromotions\n\n- [2026-09-18 · Reshared · 26 reactions] [Twelve months at Haast and the thing I keep coming back to is the...](https://www.linkedin.com/posts/haast-ai_activity-7506691142370062336-8Qnf): Twelve months at Haast and the thing I keep coming back to is the front-row seat. Watching a legal team get their week back. Watching a marketing team ship faster without anyone losing sleep over r...\n\n- [2026-09-18 · 2 reactions, 1 comment] We tracked 297 global fintechs and 1,255 product launches. What we found 🔎 ⬇️ Specialty products are evolving into “everything” apps, and each new addition brings a new regulatory rulebook. Why is...\n\n- [2026-09-17 · Posted · 2 reactions] [2 out of 3 compliance issues disappear from first drafts within a...](https://www.linkedin.com/posts/haast-ai_marketingcompliance-complianceai-activity-7506441364398751744-fuF8)\n  > 2 out of 3 compliance issues disappear from first drafts within a customer's first year on Haast. See the numbers ⤵️\n  >\n  > Across six customers, year over year: red flags fell 📉 from 45% of first-upload checks to 13%.\n  >\n  > It wasn't because reviewers got stricter, it was because the feedback started arriving while marketing was still creating the document.\n  >\n  > #marketingcompliance #complianceAI\n\n- [2026-09-17 · 2 reactions] 2 out of 3 compliance issues disappear from first drafts within a customer's first year on Haast. See the numbers ⤵️ Across six customers, year over year: red flags fell 📉 from 45% of first-upload...\n\n- [2026-09-16 · Posted · 5 reactions] [What specific #marketingcompliance work is slowing you down? Let's...](https://www.linkedin.com/posts/haast-ai_marketingcompliance-activity-7506028411836952576-4v8c)\n  > What specific #marketingcompliance work is slowing you down? Let's use video as a quick example 🎥\n  >\n  > Haast platform data tells us that video's share of compliance review more than doubled in less than a year: from 7.3% of assets in 2025 to 17.6% through August 2026. What does this mean for compliance teams?\n  >\n  > 1️⃣ Marketing output is shifting to formats that are both slower to review and multiplying faster than review teams can grow. (A reviewer can skim a page...a video plays in real time.)\n  >\n  > 2️⃣ Video often arrives with more flags than documents – about 5.5 issues per asset.\n  >\n  > 3️⃣ Increasing personalization compounds the problem, with more tailored variants per campaign.\n  >\n  > According to research from McKinsey & Company, organizations that move an idea to market in under two weeks instead of months see revenue uplifts of 20 to 40%.\n  >\n  > But for compliance teams, increased speed is just one prize. The real question is: What could legal and compliance do with the hours they used to spend reviewing?\n  >\n  > More on how highly regulated business are reviewing faster, reducing risk, and strengthening audit trails in the comments ⬇️\n\n- [2026-09-16 · 5 reactions, 3 comments] What specific #marketingcompliance work is slowing you down? Let's use video as a quick example 🎥 Haast platform data tells us that video's share of compliance review more than doubled in less than...\n\n- [2026-09-15 · Reshared · 3 reactions] [Thanks Economist Enterprise – Events for an energizing day!](https://www.linkedin.com/posts/haast-ai_thanks-economist-enterprise-events-for-activity-7505743524366098434-8HAm): Thanks Economist Enterprise – Events for an energizing day!\n\n## Locations\n- Headquarters: new york, new york, united states (US)\n- Offices: canberra, australia, redfern, new south wales, australia, san francisco, united states (US), new york, united states (US), new york, new york, united states (US)",
+        "summary": "{\"description\":\"Haast is an AI marketing compliance software that provides automation solutions to automate marketing compliance. They help enterprise businesses manage compliance risk across their digital and marketing presence.\",\"employee_estimate\":55,\"employee_estimate_source\":\"Employees: 55\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Active job postings: 2\",\"hq\":\"New York, United States\",\"hq_quote\":\"Headquarters: New York, United States (US)\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Technology, Information and Internet\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Series a (2026-04-01): USD 12.0M; Seed (2025-06-07): USD 3.9M; Pre seed (2023-08-24): USD 769,580; Grant (2023-04-01): AUD 30,000\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQEronC6OnhXhg/company-logo_200_200/B56Z0IQVPkKMAI-/0/1773959992941?e=2147483647&v=beta&t=9wqNzUIjyj1LwxD8X6hUMskDy-FS0Gsq6ae1K1SH4iQ",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/2qjy72pjmss",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Haast",
+              "foundedYear": null,
+              "description": "We help enterprise businesses manage compliance risk, enabling them to find and resolve regulatory compliance issues, across their entire digital and marketing presence.",
+              "workforce": {
+                "total": 55
+              },
+              "headquarters": {
+                "address": "New York, US",
+                "city": "New York",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": null,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2026-04-01",
+                  "amount": 12000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 17445,
+                "countryRank": 59744,
+                "avgDurationSeconds": 37,
+                "history": [
+                  {
+                    "value": 15724,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 15786,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 14797,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 10324,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 12468,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 17445,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/1bbtdw3rgx5",
+        "title": "Haast International",
+        "url": "https://www.haastinternational.com/",
+        "text": "# Haast International\n\nHaast International is a Wholesale Import and Export company. Haast International is a global partner in defence, commodities, and strategic advisory, delivering high-quality solutions in complex and fast-growing markets. They focus on connecting regions, creating opportunity, and supporting secure, sustainable growth.\n\n## About\n\nHaast International is an Australian-owned and run family business with a global reach.\n\nWe have established reliable, long-lasting relationships with government departments and trusted suppliers in Australia and around the world, to ensure complete customer satisfaction. \n\nWith over 18 years of experience, our team is expert in both Australian and Middle East customs compliance, security protocol, classifications, regulatory compliance, and customs clearance when exporting and importing products.\n\n## Company Details\n- Industry: Wholesale Import and Export\n- Type: Privately held\n- Homepage: haastinternational.com\n- Aliases: haast international\n- LinkedIn: linkedin.com/company/haast-international\n- Linkedin Followers: 2\n- Emails: operations@haastinternational.com\n\n## Workforce\n- Company Size: 11-50 employees\n\n## Web presence\n\n- Web traffic:\n  - Monthly visits: 249\n  - Bounce rate: 50.0%\n  - Pages per visit: 1.0\n  - Average visit duration: 0s\n\n## Categories\n\ncommodities, defence, defense & security, fast-growing markets, global partner, strategic advisory",
+        "summary": "{\"description\":\"Haast International is a Wholesale Import and Export company, a global partner in defence, commodities, and strategic advisory, delivering high-quality solutions in complex and fast-growing markets.\",\"employee_estimate\":11,\"employee_estimate_source\":\"Company Size: 11-50 employees\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Australia\",\"hq_quote\":\"Haast International is an Australian-owned and run family business with a global reach.\",\"industry\":\"Wholesale Import and Export\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Haast International is a Wholesale Import and Export company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":null,\"recently_funded_seed_or_series_a_quote\":\"\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C560BAQFnWXOg-vpTCQ/company-logo_200_200/company-logo_200_200/0/1673848071803?e=2147483647&v=beta&t=ifH2jq_GXyNz5RNE1sMCmA0iEIC_I0Xlh1gpGSzrtQc",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/1bbtdw3rgx5",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Haast International",
+              "foundedYear": null,
+              "description": "Haast International is an Australian-owned and run family business with a global reach.\n\nWe have established reliable, long-lasting relationships with government departments and trusted suppliers in Australia and around the world, to ensure complete customer satisfaction. \n\nWith over 18 years of experience, our team is expert in both Australian and Middle East customs compliance, security protocol, classifications, regulatory compliance, and customs clearance when exporting and importing products.",
+              "workforce": {
+                "total": 0
+              },
+              "headquarters": null,
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 249,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 379,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 164,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 87,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 87,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 6914.9,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

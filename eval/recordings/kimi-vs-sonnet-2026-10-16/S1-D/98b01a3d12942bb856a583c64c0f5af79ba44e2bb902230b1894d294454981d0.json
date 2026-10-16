@@ -1,0 +1,196 @@
+{
+  "request": {
+    "query": "Averitt",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "cbfbf1c58daa37542cfe74d5c8c8e4d3",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/97rc3n1gr7s",
+        "title": "Averitt",
+        "url": "https://averitt.com/",
+        "text": "# Averitt\n\nAveritt is a Transportation, Logistics, Supply Chain and Storage company. Averitt is an award-winning transportation & supply chain provider, specializing in LTL, TL, Dedicated, Distribution & Fulfillment, & Integrated solutions. Averitt employs 3,314 people (+3.2% YoY, +102 people) and has an annual revenue of $2.8B, founded in 1971. Headquartered in Cookeville, Tennessee, United States. Its workforce is distributed across United States, Mexico, and Afghanistan.\n\n## About\n\nSince 1971, Averitt has helped businesses move freight and strengthen supply chains through a complete range of transportation and logistics solutions. From LTL and Truckload to Dedicated, Distribution & Fulfillment, and Integrated services, we make it easy to find everything you need under one roof. The Power of One.\n \nOur network of 100+ facilities and thousands of associates keeps freight moving reliably across North America. We’re driven by a simple idea: combine trusted service with forward-thinking technology and sustainability to make logistics work smarter for everyone.\n \nAt Averitt, we don’t just move shipments, we build lasting partnerships that help our customers grow.\n\n| Field | Value |\n| --- | --- |\n| Founder | Thurman Averitt |\n| Owner | Gary Sasser |\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Privately held\n- Headquarters: Cookeville, United States\n- Founded Year: 1971\n- Homepage: averitt.com\n- Aliases: Averitt Express, Inc., averitt, averitt express\n- LinkedIn: linkedin.com/company/averitt\n- Linkedin Followers: 36,974\n- Emails: customerservice@averitt.com, support@averittexpress.com\n- Phone: 18002837488, 800-283-7488, 931-520-2779\n\n## Financials\n- Annual Revenue: USD 2,800,000,000\n\n## Workforce\n- Employees: 3,314\n  - Monthly Growth: +0.1%\n  - Yearly Growth: +3.2%\n- Key Executives:\n  - Alan Jimmerson: Service Center Director\n  - Alan Jimmerson: Service Center Director\n  - Albert Barnes: Director Service Center\n  - Andy Adams: Service Center Director\n  - Bobby Adkins: Service Center Director\n  - Bobby Davis: Service Center Director\n  - Brad Brower: Director Service Center\n  - Brad Brown: Marketing and Communications Director\n  - Brandon Fox: Director Service Center\n  - Brandon Williams: Service Center Director\n- Breakdown:\n  - By Country: United States: 1,376 (42%), Mexico: 2, Afghanistan: 1\n  - By Department: Operations: 638 (19%), Trades: 295 (9%), Other Department: 92 (3%), Sales: 89 (3%), General Management: 52 (2%), Administrative: 48 (1%), Finance: 42 (1%), Customer Service: 39 (1%), Hr: 39 (1%), Technical: 36 (1%) (+10 more)\n  - By Seniority: Specialist: 738 (22%), Other Management: 301 (9%), Manager: 228 (7%), Director: 98 (3%), Vp: 30 (1%), Senior: 11, Head: 8, Intern: 3, Partner: 3\n- Active job postings: 1\n- Talent Sources: US Army (41), Tennessee Technological University (33), Schneider (31), UPS (27), Swift Transportation (23), Werner Enterprises (19), Saia Inc. (18), XPO (17), Old Dominion Freight Line (17), AAA Cooper Transportation (14)\n- Alumni Go To: Old Dominion Freight Line (27), Southeastern Freight Lines (25), FedEx Freight (21), XPO (17), Tennessee Technological University (17), FedEx (17), Estes Express Lines (16), AAA Cooper Transportation (14), J.B. Hunt Transport Services, Inc. (12), Saia Inc. (11)\n\n## Products & Technology\n- Tech Stack: adeptia, adobe, adobe creative cloud, canva, confluence, dash, docker, gps, helpdesk, hubspot, javascript, jira, kronos, linkedin, microsoft, microsoft 365, microsoft excel, microsoft office, microsoft outlook, microsoft teams, microsoft word, omnitracs, onedrive, oracle, sql, zoominfo, cargowise, one system, power bi, synapse, tableau, amp, charter, clutch, ease, instagram, lever, spring, ups, well, ibm i, c, box, swift, impact, indeed, php, recognize\n\n## Web presence\n\n- Twitter: twitter.com/averittexpress\n- Facebook: facebook.com/averittexpress\n- Instagram: instagram.com/averittofficial\n- YouTube: youtube.com/@averittofficial\n- Crunchbase: crunchbase.com/organization/averitt-express-2\n- Web traffic:\n  - Monthly visits: 114,503\n  - Global rank: 305,680\n  - Bounce rate: 26.0%\n  - Pages per visit: 3.6\n  - Average visit duration: 159s\n\n## Categories\n\nautomotive, automotive-transportation, business_and_consumer_services/textiles, cross-border transportation, cross-docking, dedicated, dedicated fleets, distribution, distribution and fulfillment, drayage, drop and hook, expedited services, final mile, full truckload, integrated and global solutions, intermodal, international ocean and air, less-than-truckload, logistics, logistics technology, ltl, north america truckload, order fulfillment, pool distribution, production and event logistics, road-transportation, shipping, specialized equipment, supply chain, supply-chain-management, tl, transload, transportation, transportation & logistics, transportation management, warehousing\n\n## Competitors\n\ncerasis, loaddelivered logistics, loaddelivered, xpo, con-way, odfl, fedex, yrc freight , estes, saia, ups freight, performance team, ups, seaboard solutions, magellan transport logistics, jit transportation, hub group, bison transport\n\n## Recent News\n- [2026-10-08] Upper Cumberland Business Journal: Averitt Named Regional Carrier of the Year by Transportation Insight and Nolan Transportation Group\n- [2026-10-02]\n  - Upper Cumberland Business Journal: Averitt Marks 55 Years of Service, Growth and People-First Culture\n  - Legacy \\| Obituary: Connie Diane Averitt Obituary \\(2026\\) - Brenham, TX - Memorial Oaks Chapel - Brenham\n- [2026-09-25] Upper Cumberland Business Journal: Averitt Named a 2026 Top 100 Trucker by Inbound Logistics\n- [2026-09-21] [When demand won’t sit still: Building a more flexible warehouse network \\| Supply Chain Dive](https://www.supplychaindive.com/spons/when-demand-wont-sit-still-building-a-more-flexible-warehouse-network/830243/)\n- [2026-09-18] TheTrucker.com: [Averitt honors driving force with Driver Appreciation Week festivities](https://www.thetrucker.com/trucking-news/business/averitt-honors-driving-force-with-driver-appreciation-week-festivities)\n- [2026-09-16] TheTrucker.com: [Averitt has a new spot at a crossroads in Mississippi](https://www.thetrucker.com/trucking-news/business/averitt-has-a-new-spot-at-a-crossroads-in-mississippi)\n- [2026-09-14] [TL, LTL executives bemoan lack of drivers, capacity for ‘choppy’ fall peak - Logistics Management](https://www.logisticsmgmt.com/article/tl_ltl_executives_bemoan_lack_of_drivers_capacity_for_choppy_fall_peak)\n- [2026-09-12] [Averitt Podcast: TMS and Dynamic Pricing Tools](https://www.marketscale.com/industries/transportation/freight-tms-is-becoming-a-decision-platform-for-dynamic-pricing)\n- [2026-09-08] Upper Cumberland Business Journal: Averitt Opens New Distribution And Fulfillment Facility In Jackson, Mississippi\n- [2026-09-04] Grice Connect: A Life and Legacy Beyond the Classroom: Exploring Dr. Jack Averitt’s influence on Georgia Southern and the community\n- [2026-09-03]\n  - [FMCSA proposes removing nation's biggest CDL schools amid crackdown](https://www.overdriveonline.com/regulations/article/15834108/fmcsa-proposes-removing-nations-biggest-cdl-schools-amid-crackdown)\n  - [Major CDL schools face FMCSA removal notices](https://www.overdriveonline.com/regulations/article/15834108/major-cdl-schools-face-fmcsa-removal-notices)\n- [2026-09-01] FreightWaves: Averitt expands logistics network with Jackson, Mississippi, facility\n- [2026-08-23] Upper Cumberland Business Journal: Nearly 1,100 Attend Annual Averitt Softball Tournament\n- [2026-08-09] Upper Cumberland Business Journal: ULINE Names Averitt Florida LTL Carrier of the Year for Third Consecutive Year\n- [2026-08-07] [Averitt increases regional, LTL driver pay \\| Trucking Dive](https://www.truckingdive.com/news/averitt-increases-regional-ltl-driver-pay/826986/)\n- [2026-08-04] Upper Cumberland Business Journal: [Averitt Invests in Drivers with Pay Increase and Simplified Compensation](https://cdllife.com/2026/averitt-invests-in-drivers-with-pay-increase-and-simplified-compensation/)\n- [2026-08-01] [Averitt raises regional driver pay, simplifies compensation - Truck News](https://www.trucknews.com/business-management/averitt-raises-regional-driver-pay-simplifies-compensation/1003219322/)\n- [2026-07-31]\n  - [Averitt Express driver pay increase: Regional and hazmat rates \\| FleetOwner](https://www.fleetowner.com/news/news/55394768/averitt-express-driver-pay-increase-regional-and-hazmat-rates)\n  - [This week's trucking headlines: C.H. Robinson nuclear verdict, Averitt pay bump \\| FleetOwner](https://www.fleetowner.com/news/podcast/55394741/this-weeks-trucking-headlines-ch-robinson-nuclear-verdict-averitt-pay-bump)\n  - [Averitt raises and simplifies pay for LTL and regional drivers \\| Truckers News](https://www.truckersnews.com/news/article/15831347/averitt-raises-and-simplifies-pay-for-ltl-and-regional-drivers)\n- [2026-07-16] [Averitt opens new Tulsa, Oklahoma facility - TheTrucker.com](https://www.thetrucker.com/trucking-news/business/averitt-opens-new-tulsa-oklahoma-facility)\n- [2026-07-11] Upper Cumberland Business Journal: Averitt Earns Tennessee REWARD Honor Roll Recognition for Third Consecutive Year\n- [2026-07-10] [Averitt earns Chevron LTL Carrier of the Year award - TheTrucker.com](https://www.thetrucker.com/trucking-news/business/averitt-earns-chevron-ltl-carrier-of-the-year-award)\n- [2026-06-19] [Averitt Express plans expansion in Brooks Kentucky creating 64 new jobs. - intelligence360](https://www.intelligence360.news/averitt-express-plans-expansion-in-brooks-kentucky-creating-64-new-jobs/)\n- [2026-06-17] [Averitt secures $2.9M grant from Mecklenburg County for nearly $240M Charlotte campus - Charlotte Business Journal](https://www.bizjournals.com/charlotte/news/2026/06/17/mecklenburg-county-awards-averitt-campus-grant.html)\n- [2026-05-26] Upper Cumberland Business Journal: Uber Freight Recognizes Averitt with 2026 Carrier of the Year Award\n- [2025-08-26] Just-Auto: Volvo Trucks lands major order in North America\n- [2025-08-21] Volvo Trucks North America: Volvo Trucks lands major order: 264 new VNL trucks to Averitt Express\n- [2025-01-22] Mexico Business: PITT OHIO Unveils LTL Express Lane to Key Texas Border Cities\n- [2024-07-02] LinkedIn: Barbara Hurst on LinkedIn: With Averitt's new lanes for our Costco Dedicated account located in…\n- [2024-04-04] Google Patent: Volume Adjustable Container System\n- [2023-09-20] The Loadstar: News / Capacity crunch at Mexico-US border as nearshoring ...\n\n## Social\n\n### Linkedin\n\n- [2026-10-09 · Posted · 29 reactions] [Houston moves at a fast pace, and Averitt has built its regional...](https://www.linkedin.com/posts/averitt_houston-moves-at-a-fast-pace-and-averitt-activity-7514408429311102976-QHtJ)\n  > Houston moves at a fast pace, and Averitt has built its regional capabilities to keep up.\n  >\n  > With integrated LTL and truckload connections, support near George Bush Intercontinental Airport, and a local team that takes ownership from arrival through final delivery, we’re helping shippers move with greater speed, flexibility, and confidence.\n\n- [2026-10-06 · Posted · 31 reactions] [From overseas manufacturing to furniture dealers across the U.S...](https://www.linkedin.com/posts/averitt_from-overseas-manufacturing-to-furniture-activity-7513280936051007488-2hcf)\n  > From overseas manufacturing to furniture dealers across the U.S., every connection matters.\n  >\n  > Tara Laughter, President and CEO of i5 Industries, shares how working with Averitt helps connect international shipping, port drayage and LTL delivery while supporting the company’s growth.\n  >\n  > Watch the company's story below.\n\n- [2026-10-05 · Posted · 15 reactions] [What could impact your supply chain most before the end of the...](https://www.linkedin.com/posts/averitt_supplychain-logistics-transportation-activity-7512941263009185792-U5Pt)\n  > What could impact your supply chain most before the end of the year?\n  >\n  > Our Q4 2026 Supply Chain & Logistics Outlook covers the trends shaping transportation capacity, warehousing, international shipping, and overall supply chain costs. This video highlights a few key takeaways from our experts, but the full report provides a more detailed look at the factors influencing domestic and global markets.\n  >\n  > #SupplyChain #Logistics #Transportation #Warehousing #GlobalTrade #ThePowerOfOne\n\n- [2026-10-05 · 10 reactions, 1 comment] What could impact your supply chain most before the end of the year? Our Q4 2026 Supply Chain & Logistics Outlook covers the trends shaping transportation capacity, warehousing, international shipp...\n\n- [2026-10-04 · Posted · 12 reactions] [AI Is a Capability, Not a Shortcut Everyone is talking about AI in...](https://www.linkedin.com/posts/averitt_responsible-ai-in-logistics-governance-activity-7512596161476612097-syS9)\n  > AI Is a Capability, Not a Shortcut\n  >\n  > Everyone is talking about AI in logistics. The bigger question isn't whether you use it. It's how you use it.\n  >\n  > At Averitt, we view AI as a capability that supports the business, not a shortcut that replaces responsibility. The goal isn't automation for automation's sake. It's helping people make better decisions while maintaining accountability.\n  >\n  > Technology moves fast. Trust takes longer to build.\n  >\n  > Read more about our approach to responsible AI adoption in logistics: https://lnkd.in/eaf_Pv-J\n  >\n  > #ArtificialIntelligence #Logistics #SupplyChain #Transportation #Innovation\n\n- [2026-10-04 · 9 reactions] AI Is a Capability, Not a Shortcut Everyone is talking about AI in logistics. The bigger question isn't whether you use it. It's how you use it. At Averitt, we view AI as a capability that supports...\n\n- [2026-10-02 · Posted · 37 reactions] [55 years is possible because of all the associates who have been...](https://www.linkedin.com/posts/averitt_55yearsofaveritt-activity-7511871440099405825-LWap)\n  > 55 years is possible because of all the associates who have been part of our story.\n  >\n  > This one's for them. ❤️\n  >\n  > #55YearsOfAveritt\n\n- [2026-10-01 · Posted · 61 reactions] [On this day, 55 years ago, a man with a vision decided to take on...](https://www.linkedin.com/posts/averitt_55yearsofaveritt-activity-7511469493773332482-vQJq)\n  > On this day, 55 years ago, a man with a vision decided to take on the ownership of what you know today as Averitt. Throughout the years, we've had the privilege to serve thousands of customers and associates.\n  >\n  > What's next for us? Keeping the same service and same culture for many more years to come. As our CEO Gary Sasser has said since the beginning, \"We're proud of our past, but more excited about our future.\"\n  >\n  > #55YearsOfAveritt\n\n- [2026-10-01 · 57 reactions, 4 comments] On this day, 55 years ago, a man with a vision decided to take on the ownership of what you know today as Averitt. Throughout the years, we've had the privilege to serve thousands of customers and...\n\n- [2026-09-30 · Posted · 18 reactions] [Strong partnerships have been the foundation of our success. Since...](https://www.linkedin.com/posts/averitt_55yearsofaveritt-activity-7511110389401657345-FOD3)\n  > Strong partnerships have been the foundation of our success.\n  >\n  > Since 1971, our commitment to serving customers and building lasting relationships has remained unchanged. Every load moved, every challenge solved, and every milestone achieved has been made possible through the trust and collaboration of our customers, partners, and associates.\n  >\n  > Thank you to everyone who has been part of this journey.\n  >\n  > #55YearsOfAveritt\n\n- [2026-09-30 · 17 reactions] Strong partnerships have been the foundation of our success. Since 1971, our commitment to serving customers and building lasting relationships has remained unchanged. Every load moved, every chall...\n\n- [2026-09-29 · Reshared · 212 reactions] [As we celebrate our 55th anniversary this week, I can’t help but...](https://www.linkedin.com/posts/averitt_activity-7510743242880159744-NVfW): As we celebrate our 55th anniversary this week, I can’t help but reflect on our humble beginnings. When Gary Sasser purchased a small transportation company in Livingston, Tennessee, in 1971, it co...\n\n- [2026-09-29 · Reshared · 128 reactions] [Averitt celebrates 55 years this week! What a ride it has been...](https://www.linkedin.com/posts/averitt_activity-7510700559675551744-M2x6): Averitt celebrates 55 years this week! What a ride it has been. From servicing small parts of Tennessee, expanding to cover the Southeastern USA, then all of North America, including Canada and Mex...\n\n- [2026-09-29 · Reshared · 23 reactions] [Celebrating 55 Years of Averitt This year marks an incredible...](https://www.linkedin.com/posts/averitt_activity-7510682016166625280-enqD): Celebrating 55 Years of Averitt This year marks an incredible milestone as Averitt celebrates 55 years of serving customers, supporting communities, and creating opportunities for our associates. W...\n\n- [2026-09-29 · 47 reactions, 3 comments] This week celebrates 55 years for Averitt! 55 years is not only a significant milestone, it is also an extraordinary achievement. This achievement represents valued relationships, stability, innova...\n\n- [2026-09-28 · Posted · 51 reactions] [As we celebrate Averitt's 55th anniversary this week, we're taking...](https://www.linkedin.com/posts/averitt_55yearsofaveritt-activity-7510406694502391808-jpFa)\n  > As we celebrate Averitt's 55th anniversary this week, we're taking a brief look at the moments that helped shape who we are today. From decades-old footage to the innovations driving us forward now, this journey through our history is a reminder that progress is built one step, one mile, and one relationship at a time.\n  >\n  > While we're proud of where we've been, our focus has always been on what's next.\n  >\n  > #55YearsOfAveritt\n\n- [2026-09-24 · Posted · 30 reactions] [Houston moves the world – by sea, by rail, by road, and by air. Few...](https://www.linkedin.com/posts/averitt_houston-moves-the-world-by-sea-by-rail-activity-7508922544863834113-b3Nm)\n  > Houston moves the world – by sea, by rail, by road, and by air.\n  >\n  > Few markets offer more ways to connect. And with that opportunity comes complexity.\n  >\n  > That’s where The Power of One makes a difference.\n  >\n  > Averitt brings Houston businesses access to a single, connected network of transportation and logistics solutions, including:\n  >\n  > ▪️ LTL\n  > ▪️ Truckload\n  > ▪️ Dedicated\n  > ▪️ Distribution & Fulfillment\n  > ▪️ Integrated & Global Solutions\n  >\n  > And with a 250,000-square-foot distribution center just minutes from Barbours Cut and Bayport, we can help reduce delays, avoid demurrage and detention, and keep freight moving.\n  >\n  > One team. One network. More ways to move Houston forward.\n\n- [2026-09-23 · Posted · 11 reactions] [Featured on Supply Chain Dive: Warehouse planning has traditionally...](https://www.linkedin.com/posts/averitt_when-demand-wont-sit-still-building-a-more-activity-7508568398499516416-tDyM)\n  > Featured on Supply Chain Dive:\n  >\n  > Warehouse planning has traditionally focused on one question: How much space will we need?\n  >\n  > But when demand shifts, inventory builds unexpectedly or customers emerge in new markets, the better question may be: How quickly can our warehouse network adjust?\n  >\n  > See how flexible warehousing can help businesses scale capacity, position inventory closer to customers and connect storage with fulfillment and transportation.\n  >\n  > Read the article: https://lnkd.in/eahaE9BT\n  >\n  > #Warehousing #SupplyChain #Logistics #Distribution\n\n- [2026-09-22 · Posted · 35 reactions] [If you have a need for flexible warehouse space in Nashville, this...](https://www.linkedin.com/posts/averitt_if-you-have-a-need-for-flexible-warehouse-activity-7508211686873505792-sYB8)\n  > If you have a need for flexible warehou",
+        "summary": "{\"description\":\"Averitt is a Transportation, Logistics, Supply Chain and Storage company providing LTL, TL, Dedicated, Distribution & Fulfillment, and Integrated solutions.\",\"employee_estimate\":314,\"employee_estimate_source\":\"Employees: 3,314\",\"hq\":\"Cookeville, Tennessee, United States\",\"hq_quote\":\"Headquartered in Cookeville, Tennessee, United States.\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"Averitt is a Transportation, Logistics, Supply Chain and Storage company. ... headquartered in Cookeville, Tennessee, United States.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQGTnF2EnD9z1A/company-logo_200_200/B4EZt1QFE9KMAI-/0/1767198708630/averitt_logo?e=2147483647&v=beta&t=X7bKEh9DJlwYdKYDBgkD95Ba2ZjsDCIiFVQSIRYGDew",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/97rc3n1gr7s",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Averitt",
+              "foundedYear": 1971,
+              "description": "Since 1971, Averitt has helped businesses move freight and strengthen supply chains through a complete range of transportation and logistics solutions. From LTL and Truckload to Dedicated, Distribution & Fulfillment, and Integrated services, we make it easy to find everything you need under one roof. The Power of One.\n \nOur network of 100+ facilities and thousands of associates keeps freight moving reliably across North America. We’re driven by a simple idea: combine trusted service with forward-thinking technology and sustainability to make logistics work smarter for everyone.\n \nAt Averitt, we don’t just move shipments, we build lasting partnerships that help our customers grow. ",
+              "workforce": {
+                "total": 3314
+              },
+              "headquarters": {
+                "address": "1415 Neal Street, PO Box 3166, Cookeville, TN 38502-3166, US",
+                "city": "Cookeville",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 2800000000,
+                "fundingTotal": null,
+                "fundingLatestRound": null
+              },
+              "webTraffic": {
+                "visitsMonthly": 114503,
+                "countryRank": 66647,
+                "avgDurationSeconds": 159,
+                "history": [
+                  {
+                    "value": 108393,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 97611,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 95439,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 162699,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 145459,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 114503,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/4qvnygy1703",
+        "title": "Averitt & Associates",
+        "url": "https://averittandassociates.com/",
+        "text": "# Averitt & Associates\n\nAveritt & Associates is a Government Relations Services company. Averitt & Associates employs 9 people (-18.2% YoY, -2 people) and has an annual revenue of $3.6M. Headquartered in Guadalupe, Texas, United States, with an office in Austin.\n\n## Company Details\n- Industry: Government Relations Services\n- Headquarters: Guadalupe, United States\n- Aliases: averitt & associates\n- LinkedIn: linkedin.com/company/averitt-&-associates\n- Linkedin Followers: 11\n\n## Financials\n- Annual Revenue: USD 3,562,706\n\n## Workforce\n- Employees: 9\n- Company Size: 1-10 employees\n  - Monthly Growth: -10.0%\n  - Yearly Growth: -18.2%\n- Talent Sources: Dongguk University (1)\n- Alumni Go To: TIAA (1), CVS Health (1)\n\n## Web presence\n\n- Twitter: twitter.com/averittandassoc\n- Facebook: facebook.com/averittandassociates\n\n## Locations\n- Headquarters: guadalupe, texas, united states (US)\n- Offices: austin, texas, united states",
+        "summary": "{\"description\":\"Averitt & Associates is a Government Relations Services company based in Guadalupe, Texas, United States, with an office in Austin.\",\"employee_estimate\":9,\"employee_estimate_source\":\"Employees: 9\",\"hq\":\"Guadalupe, United States\",\"hq_quote\":\"Headquartered in Guadalupe, Texas, United States, with an office in Austin.\",\"industry\":\"Government Relations Services\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":false,\"is_third_party_logistics_quote\":\"has an office in Austin. (no explicit 3PL/warehousing/etc. description)\"}",
+        "image": "https://static.licdn.com/aero-v1/sc/h/cs8pjfgyw96g44ln9r7tct85f",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/4qvnygy1703",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Averitt & Associates",
+              "foundedYear": null,
+              "description": null,
+              "workforce": {
+                "total": 9
+              },
+              "headquarters": {
+                "address": "1212 Guadalupe St; Austin, Texas 78701, United States",
+                "city": "Guadalupe",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 3562706,
+                "fundingTotal": null,
+                "fundingLatestRound": null
+              },
+              "webTraffic": null,
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 8508.9,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

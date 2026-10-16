@@ -1,0 +1,262 @@
+{
+  "request": {
+    "query": "Vitalize",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.\n\n[quote retry 1] Copy each quote as ONE contiguous span of at most 200 characters exactly as it appears on the page.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "a064df7715c4d7b0d85ec4db05b34f90",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/ln93cwsn2kn",
+        "title": "Vitalize",
+        "url": "https://vitalize.care/",
+        "text": "# Vitalize\n\nVitalize is a Hospitals and Health Care company. Vitalize is an AI platform that unifies staffing, scheduling, flow, and capacity to replace reactivity with proactive, optimized operations. Vitalize employs 65 people (+109.7% YoY, +34 people), founded in 2021. Headquartered in San Francisco, California, United States. Its workforce is distributed across United States, Brazil, Nigeria, and Pakistan.\n\n## About\n\nOur Mission: Unlock Healthcare's Full Capacity\n\nHospitals still run their most important operations—staffing, labor planning, and capacity—on paper, spreadsheets, and guesswork. The result: thousands of wasted hours, millions in unnecessary labor spend, and frontline teams stretched thin.\n\nVitalize replaces this with intelligent, automated staffing operations to align labor supply with patient demand. Our platform gives clinical leaders real-time decision support to reduce manual work, lower labor costs, and unlock patient capacity across the enterprise.\n\nWe are trusted by top health systems across the country, and have raised > $30M from top healthcare and technology investors.\n\n## Company Details\n- Industry: Hospitals and Health Care\n- Type: Privately held\n- Headquarters: San Francisco, United States\n- Founded Year: 2021\n- Homepage: vitalize.care\n- Aliases: Vitalize Care, Inc., vitalize\n- LinkedIn: linkedin.com/company/vitalizecare\n- Linkedin Followers: 4,766\n- Emails: team@vitalize.care\n\n## Financials\n  - Seed (2023-04-05)\n  - Seed (2022-09-21)\n\n## Workforce\n- Employees: 65\n- Company Size: 11-50 employees\n  - Monthly Growth: +4.8%\n  - Yearly Growth: +109.7%\n- Key Executives:\n  - Danyel Germain DNP, RN, CHSE, FNAP: Clinical Operations Lead\n  - Dave Smith: Chief Growth Officer\n  - Gabrielle Wagner: Head of People\n  - Harrison Kurzer: CFO\n  - John McDonough, MBA: Founding GTM\n  - Jon Pike: Head of Growth Operations\n  - Mark Kinsella: CTO\n  - Matt Collins: Founding Head of Sales\n  - Nikhil D'Souza: Co-Founder & Executive Technical Advisor\n  - Ricky Fletcher: Head of Growth & Partnerships\n- Breakdown:\n  - By Country: United States: 46 (71%), Brazil: 2 (3%), Nigeria: 1 (2%), Pakistan: 1 (2%)\n  - By Department: Technical: 11 (17%), Consulting: 7 (11%), Operations: 7 (11%), Customer Service: 5 (8%), General Management: 5 (8%), Marketing: 3 (5%), Other Department: 3 (5%), Design: 2 (3%), Sales: 2 (3%), Finance: 1 (2%) (+4 more)\n  - By Seniority: Other Management: 13 (20%), Specialist: 13 (20%), Founder: 7 (11%), Senior: 6 (9%), Head: 5 (8%), Clevel: 3 (5%), Manager: 3 (5%)\n- Active job postings: 14\n- Talent Sources: Luma Health (3), Commure (2), Revero (1), Recurve (1), NexHacks (1), LeanTaaS (1), Freed (1), Fisga Ai (1), Deer Valley Resort (1), .406 Ventures (1)\n- Alumni Go To: DALI Lab (2), The Chronicle of Higher Education (1), Stealth Startup (AI) (1), Meter (1), Metaview (1), MUTUUS (1), Johns Hopkins Applied Physics Laboratory (1), EnergySage (1), CoStar Group (1), Capital One (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: cerner, figma, intercom, kronos, linkedin, looker, nuance, one system, palantir, prototype, ramp, react, recognize, sql, superhuman, tableau, typescript, ukg, workday, brex, zapier, json, impact, github, redis, python, vercel\n\n## Web presence\n\n- Twitter: twitter.com/vitalize_care\n- Crunchbase: crunchbase.com/organization/vitalize-care\n- Web traffic:\n  - Monthly visits: 33,435\n  - Global rank: 627,064\n  - Bounce rate: 30.0%\n  - Pages per visit: 5.5\n  - Average visit duration: 167s\n\n## Categories\n\nai platform, capacity, enterprise software, flow, health care, health/health, healthcare, predictive analytics, scheduling, staffing\n\n## Recent News\n- [2026-10-08] MedCity News: Vitalize Secures $31M To Help Hospitals Manage Labor, Capacity\n- [2026-10-07]\n  - Dealroom: Vitalize raises $31M Series A to run hospital staffing like air traffic control\n  - MobiHealthNews: Vitalize raises $31M to tackle hospital staffing\n- [2026-10-06]\n  - Business Wire: Vitalize Raises $31M Series A to Bring “Air Traffic Control” to Healthcare\n  - Fierce Healthcare: Vitalize secures $31M to scale AI-powered operating system for hospital staffing and scheduling\n- [2026-09-16] [Vitalize Behavioral Health Launches New Website to Make Mental Health Care Easier to Navigate](https://www.einpresswire.com/article/942584806/vitalize-behavioral-health-launches-new-website-to-make-mental-health-care-easier-to-navigate)\n- [2026-09-05] GetLatka: Vitalize Care Revenue 2024: $2.1M Est. ARR\n- [2026-08-28] [👔 San Francisco executive & management jobs with multiple $180K+ roles - NewsBreak](https://www.newsbreak.com/san-francisco-ca-daily-brief-373156504/4854930328657-san-francisco-executive-management-jobs-with-multiple-180k-roles)\n- [2026-08-19] Senior Housing News: Certus Living Bolsters Wellness, Memory Care With ‘Life By Design’ Philosophy\n- [2026-08-12] GetLatka: Vital Interaction Revenue 2025: $5.4M Est. ARR, $15M Raised\n- [2026-06-21] [Founding Marketer — Shape Our Founder-Led Narrative Job in San Francisco, CA at Vitalize](https://www.mediabistro.com/jobs/3540732390-founding-marketer-shape-our-founder-led-narrative)\n\n## Social\n\n### Linkedin\n\n- [2026-08-03 · 20 reactions] Please join us in welcoming Tina Li to Vitalize 🎉 ! She's helping us tackle some of the most complex design challenges in healthcare. Tina has designed across nearly every stage a company can be in...\n\n- [2026-07-28 · 56 reactions, 1 comment] Please join us in welcoming Jane Kim to Vitalize as a senior full-stack engineer! Jane joins us from Vercel, where she built through their early growth, and after that, Weekend Games. What got us e...\n\n- [2026-07-24 · 7 reactions] Excited to welcome Caroline Barker to Vitalize on our Customer Success Team! Caroline was previously at LeanTaaS, one of the most respected names in healthcare operations, where she led implementat...\n\n- [2026-06-22 · 57 reactions, 5 comments] Recently, at The Health Management Academy's CNE Forum in San Diego, we had the privilege of spending time with nursing leaders from health systems across the country. The conversations on stage fo...\n\n- [2026-05-06 · 37 reactions, 7 comments] Happy Nurses Week from all of us at Vitalize! This week we are particularly grateful for the nurses on our team. Their experience at the bedside, the operating room and everywhere in between is som...\n\n- [2026-04-03 · 118 reactions, 3 comments] Just wrapped one of the most energizing weeks I’ve had in a long time. AONL 2026 was a really good reminder of why we started Vitalize - to solve the greatest operational challenges facing nursing...\n\n- [2026-03-27 · 37 reactions, 1 comment] Calling all nursing leaders attending AONL next week! 🎉 On Wednesday, April 1st at 9:45am CT, our Co-Founder & CEO, Veeraj Shah, will be joined by some of the most accomplished nurse executives in...\n\n- [2026-02-20 · 72 reactions, 6 comments] In healthcare ops, infra performance directly impacts how fast hospitals can respond to staffing gaps. Supabase was good for early stage. It helped us move fast. But as we scaled across major healt...\n\n- [2026-01-30 · 4 reactions] We're #hiring a Senior Software Engineer in San Francisco, California. Apply today or share this post with your network.\n\n- [2026-01-14 · 9 reactions, 1 comment] Welcome to the team Anna Fabrizio!\n\n- [2025-12-23 · 137 reactions, 2 comments] Building a company teaches you a lot of things you do not expect. The biggest one for me: outcomes compound from people, not ideas, not capital, not timing. This team shows up with ownership. They...\n\n- [2025-12-22 · 242 reactions, 19 comments] Our team at Vitalize is growing fast - our team photos can't even keep up 🥲 We're building towards a world where hospital operations are safe, autonomous, fair, and cost-effective. Hiring for the f...\n\n- [2025-12-13 · 43 reactions, 3 comments] We're building the OS for hospitals at Vitalize and we're looking at scale our engineering team in a big way in 2026 If any of these excite you, DMs are open! - recommendation systems - forward dep...\n\n## Locations\n- Headquarters: san francisco, california, united states (US)\n- Offices: san francisco, california, united states (US)",
+        "summary": "{\"description\":\"Vitalize is an AI platform for hospital staffing, scheduling, flow, and capacity optimization, unifying operations to move from reactive to proactive enterprise staffing.\",\"employee_estimate\":65,\"employee_estimate_source\":\"Employees: 65\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"We are trusted by top health systems across the country, and have raised > $30M from top healthcare and technology investors.\",\"hq\":\"San Francisco, California, United States\",\"hq_quote\":\"Headquartered in San Francisco, California, United States.\",\"industry\":\"Hospitals and Health Care\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Vitalize is a Hospitals and Health Care company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"have raised > $30M from top healthcare and technology investors.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQHHkAjKzAf0nQ/company-logo_200_200/B56Z.LyIyhGQAI-/0/1784756604360/vitalizecare_logo?e=2147483647&v=beta&t=WunYnkjzZyBm2HH_7WVo9u51AuzShVOJ3nx1-OYny7Q",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/ln93cwsn2kn",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Vitalize",
+              "foundedYear": 2021,
+              "description": "Our Mission: Unlock Healthcare's Full Capacity\n\nHospitals still run their most important operations—staffing, labor planning, and capacity—on paper, spreadsheets, and guesswork. The result: thousands of wasted hours, millions in unnecessary labor spend, and frontline teams stretched thin.\n\nVitalize replaces this with intelligent, automated staffing operations to align labor supply with patient demand. Our platform gives clinical leaders real-time decision support to reduce manual work, lower labor costs, and unlock patient capacity across the enterprise.\n\nWe are trusted by top health systems across the country, and have raised > $30M from top healthcare and technology investors. ",
+              "workforce": {
+                "total": 65
+              },
+              "headquarters": {
+                "address": "832 Sansome St, Lower Level, San Francisco, California 94111, US",
+                "city": "San Francisco",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": null,
+                "fundingLatestRound": {
+                  "name": "Seed",
+                  "date": "2023-04-05",
+                  "amount": null
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 33435,
+                "countryRank": 165773,
+                "avgDurationSeconds": 167,
+                "history": [
+                  {
+                    "value": 29620,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 25218,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 14646,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 12727,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 25691,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 33435,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/mrfwdq71x5t",
+        "title": "Vitalize Products",
+        "url": "https://www.vitalize.nl/",
+        "text": "# Vitalize Products\n\nVitalize Products is a Wellness and Fitness Services company. Vitalize is a specialist in the field of vitamins, supplements, and minerals. They offer high-quality products at competitive prices. Vitalize Products employs 21 people, founded in 2003. Headquartered in Gorinchem, Netherlands.\n\n## About\n\nJouw eerste stap naar een vitaal leven met supplementen van Vitalize\n\nBij Vitalize geloven we dat vitaliteit voor iedereen bereikbaar moet zijn. Met hoogwaardige supplementen van Nederlandse kwaliteit en eerlijk advies maken we het makkelijk om goed voor jezelf te zorgen. Zonder poespas, altijd met zorg samengesteld – want vitaal leven hoeft niet ingewikkeld te zijn.\n\n## Company Details\n- Industry: Wellness and Fitness Services\n- Type: Public company\n- Headquarters: Gorinchem, Netherlands\n- Founded Year: 2003\n- Homepage: vitalize.nl\n- Aliases: vitalize, vitalize products\n- LinkedIn: linkedin.com/company/vitalize-products\n- Linkedin Followers: 438\n- Phone: +3118369945, 0183 - 699 450\n\n## Workforce\n- Employees: 21\n- Company Size: 11-50 employees\n  - Monthly Growth: +5.0%\n- Key Executives:\n  - Anouk Van Uden: Head of Marketing\n  - Jan Martin van hoogen: directeur\n- Breakdown:\n  - By Country: Netherlands: 15 (71%)\n  - By Department: Marketing: 7 (33%), Other Department: 3 (14%), Finance: 2 (10%), Design: 1 (5%), General Management: 1 (5%), Legal: 1 (5%), Operations: 1 (5%), Technical: 1 (5%)\n  - By Seniority: Specialist: 6 (29%), Other Management: 5 (24%), Manager: 2 (10%), Director: 1 (5%), Head: 1 (5%)\n- Talent Sources: TS Health Products (1), SoliPharma LLC (1), SamenOnlineGroeien (1), Royal Delft (1), RainbowSol BV (1), Rabobank (1), PS. food & lifestyle (1), IBV HOLDINGS (1), Connect-and-Go (1), ANTIGIF (1)\n- Alumni Go To: Webbedrijf (1), The Medical Export Group BV (1), Shell (1), Service Apotheek (1), Lek en Waard Wonen (1), Kok Lexmond B.V. (1), Identity Games International BV (1), Fabory (1), Beeztees (1), Albert Schweitzer ziekenhuis (1)\n\n## Products & Technology\n- Tech Stack: ahrefs, copernica, css, google analytics, google tag manager, html, magento, magento 2, screaming frog, semrush, adobe, adobe creative cloud, canva, figma, whatsapp, amp, bing ads, criteo, google ads, microsoft\n\n## Web presence\n\n- Facebook: facebook.com/vitalizenl\n- Instagram: instagram.com/vitalize.nl\n- YouTube: youtube.com/channel/uclznpd_l7wonar02npq8zag\n- Web traffic:\n  - Monthly visits: 58,987\n  - Global rank: 498,123\n  - Bounce rate: 41.0%\n  - Pages per visit: 3.1\n  - Average visit duration: 203s\n\n## Categories\n\ncompetitive prices, food-additives, health and wellness, health/biotechnology_and_pharmaceuticals, high-quality, minerals, nutrition, nutritional supplements, orthomolecular supplements, pharmacy, retail, sport & fitness supplements, supplements, veterinary products, vitamins\n\n## Competitors\n\nsuppz, newpharma, new natural pharmacy of manipulation and homeopathy campinas, apteka24\n\n## Social\n\n### Linkedin\n\n- [2026-05-19 · 7 reactions] Wil jij bouwen aan webshops die niet alleen goed draaien, maar ook écht groeien? Bij Vitalize zoeken we een E-commerce Specialist (32–40 uur) die techniek, content en commercie weet te combineren....\n\n- [2026-05-15 · 4 reactions, 1 comment] Nieuw bij Vitalize: Vitalize Elektrolyten Poeder Mango 💧 Op warme dagen, tijdens intensieve inspanning of wanneer je veel zweet, heeft het lichaam soms meer nodig dan alleen water. Vitalize Elektro...\n\n- [2026-04-01 · 21 reactions] Wat een fijne en inspirerende ochtend. ✨ Tijdens het Vitalize event kwamen inhoud en praktijk mooi samen. Geen ingewikkelde verhalen, maar juist inzichten waar je echt iets mee kunt in je dagelijks...\n\n- [2026-03-05 · 6 reactions] Wil jij een belangrijke rol spelen in hoe klanten een merk ervaren? Bij Vitalize zoeken we een Medewerker Customer Service & Administratie (32–40 uur) die klantgerichtheid combineert met nauwkeurig...\n\n- [2026-03-02 · 12 reactions] Wil jij met jouw content écht impact maken op gezondheid en vitaliteit? 💙 Bij Vitalize zoeken we een Content Marketeer (32–40 uur) die weet hoe je sterke content vertaalt naar zichtbaarheid, merkbe...\n\n- [2026-02-23 · 2 reactions, 1 comment] Nieuw bij Vitalize. ✨ Vitalize Beauty Collageen Poeder. Met Peptan® gehydrolyseerd rundercollageen type 1, hyaluronzuur, vitamine C en biotine — een doordachte combinatie die het behoud van een ste...\n\n- [2025-12-19 · 1 reaction] Ben jij iemand die ideeën ziet in beelden? Die een merkverhaal kan voelen én vertalen naar design? En krijg je energie van visuals die niet alleen mooi zijn, maar ook werken? 🎨✨ Dan zoeken wij jou...\n\n- [2025-12-18 · 8 reactions, 1 comment] Ben jij iemand die ideeën ziet in beelden? Die een merkverhaal kan voelen én vertalen naar design? En krijg je energie van visuals die niet alleen mooi zijn, maar ook werken? 🎨✨ Dan zoeken wij jou...\n\n- [2025-12-11 · 6 reactions] Ben jij klaar om AI naar een hoger niveau te tillen binnen een snelgroeiend en gezond ambitieus merk? 💙 Vitalize zoekt een AI Manager (32–40 uur) die onze technologische koers vormgeeft én AI laat...\n\n- [2025-11-17 · 3 reactions] Nieuw: Spier- en Gewrichtsgel Zorg goed voor je spieren en gewrichten. Niet alleen van binnenuit, maar nu ook van buitenaf met dit gloednieuwe product. Vitalize Spier- en Gewrichtsgel ondersteunt d...\n\n## Locations\n- Headquarters: gorinchem, netherlands (NL)\n- Offices: gorinchem, netherlands (NL), gorinchem, south holland, netherlands (NL)",
+        "summary": "{\"description\":\"Vitalize Products is a Wellness and Fitness Services company focused on vitamins, supplements, and minerals. It operates with a public profile and combines tech-led growth with health-oriented products.\",\"employee_estimate\":21,\"employee_estimate_source\":\"Employees: 21\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"[2026-05-19 · 7 reactions] Wil jij bouwen aan webshops die niet alleen goed draaien, maar ook écht groeien? Bij Vitalize zoeken we een E-commerce Specialist (32–40 uur) die techniek, content en commercie weet te combineren....\",\"hq\":\"Gorinchem, Netherlands\",\"hq_quote\":\"Headquartered in Gorinchem, Netherlands.\",\"industry\":\"Wellness and Fitness Services\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"- Industry: Wellness and Fitness Services\\n- Type: Public company\",\"is_public_or_enterprise\":true,\"recently_funded_seed_or_series_a\":null,\"recently_funded_seed_or_series_a_quote\":\"null or not stated in the provided excerpt, no seed/Series A funding information is given on the page.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQE-c3ZbGygdmQ/company-logo_200_200/B4EZm5TPDzGYAM-/0/1759750451785/vitalize_products_logo?e=2147483647&v=beta&t=4jsfocIlDQhNB9VwA_yyutPfgWmSSR7j0ZmY7DXhf9s",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/mrfwdq71x5t",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Vitalize Products",
+              "foundedYear": 2003,
+              "description": "Jouw eerste stap naar een vitaal leven met supplementen van Vitalize\n\nBij Vitalize geloven we dat vitaliteit voor iedereen bereikbaar moet zijn. Met hoogwaardige supplementen van Nederlandse kwaliteit en eerlijk advies maken we het makkelijk om goed voor jezelf te zorgen. Zonder poespas, altijd met zorg samengesteld – want vitaal leven hoeft niet ingewikkeld te zijn.",
+              "workforce": {
+                "total": 21
+              },
+              "headquarters": {
+                "address": "Galvaniweg 15, Gorinchem, 4207 HL, NL",
+                "city": "Gorinchem",
+                "postalCode": null,
+                "country": "Netherlands"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 58987,
+                "countryRank": 9903,
+                "avgDurationSeconds": 203,
+                "history": [
+                  {
+                    "value": 26826,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 32883,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 57320,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 37549,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 37304,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 44616,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 3200.2,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

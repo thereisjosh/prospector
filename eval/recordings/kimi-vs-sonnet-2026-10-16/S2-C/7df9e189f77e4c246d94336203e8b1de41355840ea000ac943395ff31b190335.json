@@ -1,0 +1,226 @@
+{
+  "request": {
+    "query": "Solstice",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "062b69a8ec7fe2d1572d7b7a02faa573",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/2sn9fzjxb82",
+        "title": "Solstice",
+        "url": "https://solstice.com/",
+        "text": "# Solstice\n\nSolstice is a IT Services and IT Consulting company. Solstice Advanced Materials delivers high-performance specialty chemicals, semiconductor materials, refrigerants, and industrial solutions for global industries. Solstice employs 205 people (+27.3% YoY, +44 people), founded in 2001. Headquartered in Chicago, Illinois, United States, with offices in 524 Broadway and Buenos Aires. Its workforce is distributed across 6 countries (including United States, Argentina, India, Bermuda, and Indonesia).\n\n## About\n\nSolstice, part of Kin + Carta, is a modern software engineering firm that helps Fortune 500 companies seize new opportunities through world-changing digital solutions. As strategists and consultants, we help organizations evolve their digital strategy to solve mission-critical problems. As designers and developers, we build incredible hardware and software solutions that transcend a standalone product and transform an organization’s relationship with its customers. As instructors and coaches, we help companies transform from the inside out by adopting a high-speed culture of innovation. We’re strategists, researchers, designers, and engineers hell-bent on changing the way the world does business. We’re headquartered in Chicago and have delivery offices in New York, London, and Buenos Aires. \n\nFor more information about Solstice, visit solstice.com\n\n## Company Details\n- Industry: IT Services and IT Consulting\n- Type: Public company\n- Headquarters: Chicago, United States\n- Founded Year: 2001\n- Homepage: solstice.com\n- Aliases: solstice\n- LinkedIn: linkedin.com/company/solstice\n- Linkedin Followers: 25,819\n\n## Workforce\n- Employees: 205\n- Company Size: 201-500 employees\n  - Monthly Growth: +1.0%\n  - Yearly Growth: +27.3%\n- Key Executives:\n  - Carolyn Gaylord: Consultant Co-owner\n  - Elena Cabello: Executive Director\n  - Jaymie Estlick: ISC Materials Management Lead\n  - Kevin Cooper: Owner\n- Breakdown:\n  - By Country: United States: 20 (10%), Argentina: 2 (1%), India: 2 (1%), Bermuda: 1, Indonesia: 1, Uruguay: 1\n  - By Department: Consulting: 4 (2%), Finance: 4 (2%), General Management: 4 (2%), Technical: 4 (2%), Customer Service: 2 (1%), Operations: 2 (1%), Other Department: 2 (1%), Project Management: 2 (1%), Medical: 1, Research: 1 (+1 more)\n  - By Seniority: Specialist: 12 (6%), Other Management: 6 (3%), Manager: 3 (1%), Owner: 2 (1%), Senior: 2 (1%), Director: 1, Head: 1\n- Talent Sources: Globant (8), Accenture (8), JPMorganChase (7), Sears (4), Northwest Missouri State University (4), Lagash (4), Kin + Carta (4), Cognizant (4), Cars.com (4), Deloitte (3)\n- Alumni Go To: Kin + Carta (126), Valtech (4), Cognizant Softvision (4), Uptake (3), University of Chicago (3), Inspire11 (3), Elementum AI (3), EY (3), Brad's Deals (3), Allstate (3)\n\n## Products & Technology\n- Tech Stack: angular, apache, armor, html, kotlin, mulesoft, rabbitmq, spring boot, sql, typescript, webpack, adobe, airtable, envi, fintech, github, google analytics, invision, java, usertesting, amp, c, sketch, spring, swift, transcend, well, carta, cucumber, sprint\n\n## Categories\n\nagile transformation, ai, android, chemicals, cloud native, consulting, conversational ux, cxdd, digital strategy, emerging technology, enterprise architecture, enterprise mobile strategy, global industries, html5 applications, industrial solutions, innovation, internet of things, ios, java/spring, ml, mobile architecture, quality assurance, refrigerants, responsive web, robotics, scrum, semiconductor materials, specialty chemicals, ux design\n\n## Recent News\n- [2026-08-27]\n  - [Acciones de Solstice suben 14% tras cancelar fusión con Element  Por Investing](https://mx.investing.com/news/stock-market-news/acciones-de-solstice-suben-14-tras-cancelar-fusion-con-element-93CH-3747712)\n  - [Solstice cancela fusión con Element y lanza recompra de 500 millones  Por Investing](https://es.investing.com/news/company-news/solstice-cancela-fusion-con-element-y-lanza-recompra-de-500-millones-93CH-3814107)\n- [2026-07-06] [Top-Meldungen zur Mittagszeit: Solstice will Element Solutions für rund 14,5 Mrd. USD übernehmen; Anthropic schließt 20-Jahres-Mietvertrag für TeraWulf-Rechenzentrum ab \\| MarketScreener Deutschland](https://de.marketscreener.com/boerse-nachrichten/top-meldungen-zur-mittagszeit-solstice-will-element-solutions-fuer-rund-14-5-mrd-usd-uebernehmen-an-ce7f5edbdb8bfe26)\n\n## Social\n\n### Linkedin\n\n- [2020-02-12 · 69 reactions, 1 comment] It's official! After 20 years, we are retiring the Solstice brand and making the transition to fully becoming Kin + Carta. More than a logo change, this next evolution reflects the progress we’ve m...\n\n## Locations\n- Headquarters: chicago, illinois, united states (US)\n- Offices: chicago, illinois, united states (US), buenos aires, caba, argentina, 524 broadway, new york, united states (US)",
+        "summary": "{\"description\":\"Solstice is an IT Services and IT Consulting company; Solstice Advanced Materials delivers high-performance specialty chemicals, semiconductor materials, refrigerants, and industrial solutions for global industries. Solstice is part of Kin + Carta and is a modern software engineering firm helping Fortune 500s with digital solutions.\",\"employee_estimate\":205,\"employee_estimate_source\":\"Employees: 205\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Key Executives: Carolyn Gaylord: Consultant Co-owner; Elena Cabello: Executive Director; Jaymie Estlick: ISC Materials Management Lead; Kevin Cooper: Owner\",\"hq\":\"Chicago, Illinois, United States\",\"hq_quote\":\"Headquartered in Chicago, Illinois, United States, with offices in 524 Broadway and Buenos Aires.\",\"industry\":\"IT Services and IT Consulting\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"- Industry: IT Services and IT Consulting\",\"is_public_or_enterprise\":true,\"recently_funded_seed_or_series_a\":null,\"recently_funded_seed_or_series_a_quote\":\"\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4E0BAQE0V083vP6rdA/company-logo_200_200/company-logo_200_200/0/1630608047159/solstice_logo?e=2147483647&v=beta&t=oOXG7-oL1SHLaEsLm9j8uOjwg7G3HHoBTbWhC8aPl58",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/2sn9fzjxb82",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Solstice",
+              "foundedYear": 2001,
+              "description": "Solstice, part of Kin + Carta, is a modern software engineering firm that helps Fortune 500 companies seize new opportunities through world-changing digital solutions. As strategists and consultants, we help organizations evolve their digital strategy to solve mission-critical problems. As designers and developers, we build incredible hardware and software solutions that transcend a standalone product and transform an organization’s relationship with its customers. As instructors and coaches, we help companies transform from the inside out by adopting a high-speed culture of innovation. We’re strategists, researchers, designers, and engineers hell-bent on changing the way the world does business. We’re headquartered in Chicago and have delivery offices in New York, London, and Buenos Aires. \n\nFor more information about Solstice, visit solstice.com",
+              "workforce": {
+                "total": 205
+              },
+              "headquarters": {
+                "address": "111 N Canal, Chicago, IL 60606, US",
+                "city": "Chicago",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": null,
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/60tp2t3kqx0",
+        "title": "Solstice",
+        "url": "https://solstice.us/",
+        "text": "# Solstice\n\nSolstice is a Renewable Energy Semiconductor Manufacturing company. Solstice Community Solar is a company that provides solar energy solutions for businesses and individuals. Solstice employs 32 people (-52.9% YoY) and has an annual revenue of $4M, founded in 2014. Headquartered in Cambridge, Massachusetts, United States. Its workforce is distributed across United States, Cameroon, United Kingdom, and Vietnam.\n\n## About\n\nSolstice is dedicated to bringing the benefits of clean energy to every community. We connect households and businesses to shared solar farms and high-impact RECs, create financing innovations to expand access to underserved Americans, and provide frictionless subscriber management software for community solar projects. Solstice is a wholly owned subsidiary of global energy infrastructure and investment leader Mitsui & Co. Ltd.\n\n## Company Details\n- Industry: Renewable Energy Semiconductor Manufacturing\n- Type: Privately held\n- Headquarters: Cambridge, United States\n- Founded Year: 2014\n- Homepage: solstice.us\n- Aliases: Solstice Power Technologies, Inc., solstice, solstice power technologies, solstice power technologies, llc\n- LinkedIn: linkedin.com/company/solarforgood\n- Linkedin Followers: 13,404\n- Emails: info@solstice.us, sales@solstice.us\n- Phone: (866) 826-1997, 845-853-0768, 866-826-1997\n\n## Financials\n- Annual Revenue: USD 4,000,000\n- Total Funding: USD 8,377,500\n  - Grant (2024-06-23)\n  - Convertible note (2020-07-01): USD 3.1M\n  - Seed (2020-05-01): USD 967,500\n  - Seed (2019-06-01)\n  - Venture (2019-02-01)\n\n## Acquisitions\n- Acquired by: Perch Energy (2022-10-12)\n\n## Workforce\n- Employees: 32\n- Company Size: 11-50 employees\n  - Yearly Growth: -52.9%\n- Key Executives:\n  - Elle Goodwin: Angel Investor Strategic Partner\n  - Jennifer Kinney: Technology and Product Executive\n  - Phil Del Negro: Director of Sales\n  - Tasha Arlen: Area Director of Operations\n- Breakdown:\n  - By Country: United States: 14 (44%), Cameroon: 1 (3%), United Kingdom: 1 (3%), Vietnam: 1 (3%)\n  - By Department: Operations: 6 (19%), General Management: 2 (6%), Other Department: 2 (6%), Technical: 2 (6%), Consulting: 1 (3%), Hr: 1 (3%), Legal: 1 (3%), Product: 1 (3%), Project Management: 1 (3%), Sales: 1 (3%)\n  - By Seniority: Manager: 6 (19%), Other Management: 4 (12%), Specialist: 3 (9%), Director: 2 (6%), Clevel: 1 (3%), Partner: 1 (3%), Senior: 1 (3%)\n- Talent Sources: Ekotrope (3), Tufts University (2), Starry, Inc. (2), Solar United Neighbors (2), ServiceCorps (2), Northeastern University (2), MyPower Corp. (2), IGS Energy (2), GRID Alternatives (2), BlocPower (2)\n- Alumni Go To: Perch Energy (23), BlueWave (4), University of California, Berkeley (2), Tufts University (2), Solstice (2), Nexamp (2), MyPower Corp. (2), DSD Renewables (2), All In Energy (2), AIDS Action Committee (2)\n\n## Products & Technology\n- Tech Stack: css, docker, flask, hirevue, php, python, react, react native, typescript, ubuntu, velocity software, salesforce, microsoft, microsoft office, zendesk, google ai, expensify, microsoft excel, quickbooks, google workspace, linkedin, linkedin sales navigator, sales navigator, zoominfo, google docs, google sheets, hubspot, aon, impact, medium, slack, c, salesforce crm, well, electric, livechat, amp, trello, ups\n\n## Web presence\n\n- Twitter: twitter.com/solarforgood\n- Facebook: facebook.com/solarforgood\n- Instagram: instagram.com/solarforgood\n- YouTube: youtube.com/channel/ucjxmbusgnwu2usghzhvjnqq\n- Crunchbase: crunchbase.com/organization/solstice-2\n- Web traffic:\n  - Monthly visits: 9,462\n  - Global rank: 2,076,326\n  - Bounce rate: 50.0%\n  - Pages per visit: 2.2\n  - Average visit duration: 75s\n\n## Reviews & Ratings\n- Employer Rating: 3.6/5.0 (30 reviews)\n  - Breakdown: Work-Life: 4.1, Compensation: 3.4, Culture: 3.9, Career: 3.6\n\n## Categories\n\nclean energy, cleantech, community, community solar garden, energy, energy bill, energy-utilities, heavy_industry_and_engineering/energy_industry, platform, renewable energy, renewables, saas, shared, shared solar, social enterprise, social entrepreneurship, solar, solar energy, solar power\n\n## Competitors\n\nallume, united states solar, common energy, standard solar, penrith solar centre, uge, city to surf solar, aztech solar, sunfunder, solarmax technologies, primergy, oneenergy renewables, sun exchange, sunshare llc, baseload capital, oya renewables, solarpal, pick my solar, sunlight financial, mosaic, spruce finance, inc., nithio, tata power solar, greenlancer, enpal, clean fund\n\n## Recent News\n- [2026-10-01]\n  - Moomoo: Solstice Advanced Materials to Announce Third Quarter 2026 Financial Results on November 4, 2026\n  - Stock Titan: Solstice will hold its results call at 8:30 a.m. ET on Nov. 4; results are due before market open.\n- [2026-09-30] Department of Energy \\(.gov\\): EERE Success Story—New Refrigerant Boosts Energy Efficiency of Supermarket Display Cases\n- [2026-09-29] PR Newswire: Solstice Advanced Materials, Plaintiffs Announce Agreement in Principle to Settle Longstanding Litigation Related to Metropolis Works Operations\n- [2026-09-27] BBC: West in Pictures: Blessed pets and Jacob Elordi lookalikes\n- [2026-09-26]\n  - EarthSky: 2027 September equinox: All you need to know\n  - BroadwayWorld: AMERICAN CROSSROADS: A SOLSTICE CELEBRATION is Coming to Sanders Theatre\n  - Hindustan Times: Autumn equinox 2026: Know the timings for North Carolina, Ohio, Illinois and Texas and what the day means in astrology \\| Astrology\n  - BioSpace: China’s surging biotech sector represents both competition and lifeline for the US\n  - WV News: Day and night get equal billing on Tuesday. A guide to the fall equinox\n- [2026-09-24] Simply Wall Street: Solstice Advanced Materials \\(NasdaqGS:SOLS\\) Stock Forecast & Analyst Predictions\n- [2026-09-23] Proactive financial news: Solstice Minerals CEO speaks with Proactive at the ASX SMIDcaps Conference\n- [2026-09-22]\n  - FOX Weather: Fall arrives with the autumnal equinox. How much daylight you will begin to lose?\n  - Austin American-Statesman: First day of fall arrives Tuesday: What to know about the equinox and Texas weather\n  - Farmers' Almanac: How Much Daylight Will Your State Lose Before Winter? A State-by-State Guide\n- [2026-09-21]\n  - KMBC: Autumnal Equinox: How will daylight change in your zip code?\n  - History.com: The Mystery of ‘Woodhenge’ and Its Connection to the Equinox\n  - NPR: What the equinox 'henge' effect tells us about U.S. cities\n- [2026-09-20]\n  - MarketBeat: 1,733,804 Shares in Solstice Advanced Mat $SOLS Acquired by Bank of America Corp DE\n  - EarthSky: 2026 September equinox: All you need to know\n- [2026-09-17] [Finance Watch: VC Mega-Rounds Begin A Comeback In September](https://insights.citeline.com/scrip/business/financing/finance-watch/finance-watch-vc-mega-rounds-begin-a-comeback-in-september-VI2FIR6SJNHRJG2A44AIQPFGAY/)\n- [2026-07-07]\n  - [Solstice’s $14.5 billion Element Solutions acquisition expands reach into AI, semiconductor supply chains - South Florida Business Journal](https://www.bizjournals.com/southflorida/news/2026/07/07/south-florida-company-at-center-of-14-5-billion.html)\n  - [Solstice acquisisce Element Solutions](https://it.marketscreener.com/notizie/solstice-acquisisce-element-solutions-ce7f5ed8da8ff62c)\n  - [Freedom Broker rebaja calificación de Element Solutions por adquisición de Solstice  Por Investing.com](https://mx.investing.com/news/analyst-ratings/freedom-broker-rebaja-calificacion-de-element-solutions-por-adquisicion-de-solstice-93CH-3676858)\n  - [Solstice и Element Solutions обсуждают слияние с оценкой объединенной компании в 27 млрд долл. США](https://neftegaz.ru/news/Acquisitions/929270-solstice-i-element-solutions-obsuzhdayut-sliyanie-s-otsenkoy-obedinennoy-kompanii-v-27-mlrd-doll-ssh/)\n- [2026-07-06]\n  - [Solstice CEO defends its $14.5B acquisition of Element Solutions](https://www.cnbc.com/2026/07/06/solstice-ceo-defends-acquisition-element-solutions-stock-plunges.html)\n  - [Honeywell Spinoff Solstice Inks $14.5 Billion Element Solutions Deal For 'Increased Exposure' To AI Boom \\| Investor's Business Daily](https://www.investors.com/news/honeywell-spinoff-solstice-inks-14-5-billion-deal-element-solutions-ai-boom/)\n  - [Solstice buys Element Solutions in $14.5 billion deal, sharpens focus on AI market - CNA](https://www.channelnewsasia.com/business/solstice-buys-element-solutions-in-145-billion-deal-sharpens-focus-ai-market-6235471)\n  - [Solstice, une filiale issue de la scission de Honeywell, va racheter Element Solutions pour 14,5 milliards de dollars - 06/07/2026 à 14:19 - Boursorama](https://www.boursorama.com/bourse/actualites/solstice-une-filiale-issue-de-la-scission-de-honeywell-va-racheter-element-solutions-pour-14-5-milliards-de-dollars-35934259d01ddc1ec7c193109defd417)\n  - [Solstice, grupo escindido de Honeywell, mantiene conversaciones de fusión para crear un líder en los materiales avanzados \\| Financial Times](https://www.expansion.com/economia/financial-times/2026/07/06/6a4b9a21468aeb541d8b4591.html?intcmp=NOT002)\n  - [Solstice, une filiale issue de la scission de Honeywell, serait en pourparlers en vue d'une fusion avec l'entreprise chimique Element Solutions, selon le Financial Times - 06/07/2026 à 08:08 - Boursorama](https://www.boursorama.com/bourse/actualites/solstice-une-filiale-issue-de-la-scission-de-honeywell-serait-en-pourparlers-en-vue-d-une-fusion-avec-l-entreprise-chimique-element-solutions-selon-le-financial-times-d41c8d817c9a4802d60019152aff1861)\n  - [Solstice acuerda la compra de Element Solutions por 12.675 millones](https://www.eleconomista.es/energia/noticias/13996149/07/26/solstice-acuerda-la-compra-de-element-solutions-por-12675-millones.html)\n  - [Belangrijkste middagberichten: Solstice neemt Element Solutions over voor circa 14,5 miljard dollar; Anthropic sluit 20-jarige leaseovereenkomst voor datacentrum TeraWulf \\| MarketScreener België](https://be.marketscreener.com/beursnieuws/belangrijkste-middagberichten-solstice-neemt-element-solutions-over-voor-circa-14-5-miljard-dollar-ce7f5edbdb8bfe26)\n  - [Principales actualités de la mi-journée : Solstice va acquérir Element Solutions pour environ 14,5 milliards de dollars ; Anthropic signe un bail de 20 ans pour un centre de données de TeraWulf \\| Zonebourse](https://www.zonebourse.com/actualite-bourse/principales-actualites-de-la-mi-journee-solstice-va-acquerir-element-solutions-pour-environ-14-5-m-ce7f5edbdb8bfe26)\n  - [Principali notizie di metà giornata: Solstice acquisirà Element Solutions per circa 14,5 Mrd USD; Anthropic sigla un contratto di locazione ventennale per il data center di TeraWulf \\| MarketScreener Italia](https://it.marketscreener.com/notizie/principali-notizie-di-meta-giornata-solstice-acquisira-element-solutions-per-circa-14-5-mrd-usd-an-ce7f5edbdb8bfe26)\n  - [Principales actualités de la mi-journée : Solstice va acquérir Element Solutions pour environ 14,5 milliards de dollars ; Anthropic signe un bail de 20 ans pour un centre de données de TeraWulf \\| Zonebourse Suisse](https://ch.zonebourse.com/actualite-bourse/principales-actualites-de-la-mi-journee-solstice-va-acquerir-element-solutions-pour-environ-14-5-m-ce7f5edbdb8bfe26)\n  - [Solstice closes the purchase of Element Solutions for 12.675 billion \\| Demócrata](https://www.democrata.es/en/economy/solstice-acquires-element-solutions-for-12-675-billion-euros/)\n- [2026-06-29] [Climalife et Solstice signent un accord en faveur de la régénération des fluides frigorigènes](https://lacuisinepro.fr/chr-collectivites/32644/climalife-et-solstice-signent-un-accord-en-faveur-de-la-regeneration-des-fluides-frigorigenes)\n- [2026-06-28] [Solstice Allocates $1B For European Sovereign AI Infrastructure](https://www.ainvest.com/news/solstice-allocates-1b-european-sovereign-ai-infrastructure-2606/)\n- [2026-06-25] [Solstice and Tensorx to Buy $1 Billion in AI Infrastructure to S](https://www.gurufocus.com/news/8932161/solstice-and-tensorx-to-buy-1-billion-in-ai-infrastructure-to-support-eu-sovereign-ai-demand)\n\n## Social\n\n### Linkedin\n\n- [2026-06-26 · 3 reactions] Let's go, Delaware! Don't forget to follow everything we're up to over on the Perch Energy page.\n\n- [2026-06-23 · 24 reactions, 1 comment] We're proud to celebrate one year of savings for Carle Health from the Knox 3A/3B community solar projects alongside ENGIE North America Inc., Microsoft, and the Solstice team. Our anchor subscribe...\n\n- [2026-06-05 · 2 reactions] 𝗪𝗲 𝗹𝗼𝘃𝗲 𝘀𝗲𝗲𝗶𝗻𝗴 𝗼𝘂𝗿 𝗺𝗲𝗺𝗯𝗲𝗿𝘀 𝗶𝗻 𝘁𝗵𝗲 𝘀𝗽𝗼𝘁𝗹𝗶𝗴𝗵𝘁! 🎙️ CHESSA member Perch Energy's Chief Strategy & Marketing Officer Sandhya Murali was recently featured on the Green Giants: Titans of Renewable Energy...\n\n- [2026-06-05 · 11 reactions] Community Solar is gaining momentum in New Mexico, creating new opportunities for residents to save on energy costs while expanding access to clean energy across the state. We know programs like Co...\n\n- [2026-05-26 · 2 reactions] Don’t forget: we’ll soon be retiring use of the Solstice LinkedIn page. To stay connected and continue getting updates, follow Perch Energy here: https://lnkd.in/gPSBdrWS\n\n- [2026-05-20 · 40 reactions] Last week, we joined Pluma Construction, ForeFront Power, Standard Solar and Solstice to celebrate the growing #CommunitySolar portfolio in New Mexico at the ribbon-cutting ceremony at the Pino sol...\n\n- [2026-05-15 · 4 reactions] These are the first projects live in New Mexico - expanding access to clean energy and lowering bills! As the program grows, we’re also seeing where it can work better for people. Help improve the...\n\n- [2026-05-11 · 13 reactions] Big things are ahead. As Solstice transitions into Perch Energy, all future updates will live on our Perch page. Follow along so you don’t miss what’s next: https://lnkd.in/gPSBdrWS\n\n- [2026-05-06 · 1 reaction] We’re making the move! All updates from Solstice are heading to Perch Energy. Follow us here: https://lnkd.in/gPSBdrWS\n\n- [2026-05-01] Big things are ahead. As Solstice joins Perch Energy, all future updates will live on our Perch page. Follow along so you don’t miss what’s next: https://lnkd.in/gPSBdrWS\n\n- [2026-04-23 · 17 reactions, 1 comment] Our mission continues—just under a new name! Solstice is now part of Perch Energy, where we’ll keep expanding access to clean energy for more communities. Join us on the next chapter: https://lnkd....\n\n- [2026-04-16 · 35 reactions, 1 comment] ⚡Expansive portfolios like this 48.8 MW series of 8 systems across New Mexico demonstrate how strong partnerships and deep industry expertise can accelerate the energy transition for a state’s mark...\n\n## Locations\n- Headquarters: cambridge, massachusetts, united states\n- Offices: cambridge, massachusetts, united states\n\n## Parent organization\n\n- Perch Energy",
+        "summary": "{\"description\":\"Solstice is a Renewable Energy Semiconductor Manufacturing company. Solstice Community Solar provides solar energy solutions for businesses and individuals. Wholly owned subsidiary of Mitsui & Co. Ltd.\",\"employee_estimate\":32,\"employee_estimate_source\":\"Employees: 32\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Key Executives: Elle Goodwin: Angel Investor Strategic Partner; Jennifer Kinney: Technology and Product Executive; Phil Del Negro: Director of Sales; Tasha Arlen: Area Director of Operations\",\"hq\":\"Cambridge, United States\",\"hq_quote\":\"Headquartered in Cambridge, Massachusetts, United States.\",\"industry\":\"Renewable Energy Semiconductor Manufacturing\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Renewable Energy Semiconductor Manufacturing\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 8,377,500; Grant (2024-06-23); Convertible note (2020-07-01): USD 3.1M; Seed (2020-05-01): USD 967,500; Seed (2019-06-01); Venture (2019-02-01)\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQEXUUGSofQZIA/company-logo_200_200/B56Z3kUUKwGsAI-/0/1777652024438/solarforgood_logo?e=2147483647&v=beta&t=g9us5nv0P-q14uaELfXPWZZEkBRTsxKWR_IsBesitb4",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/60tp2t3kqx0",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Solstice",
+              "foundedYear": 2014,
+              "description": "Solstice is dedicated to bringing the benefits of clean energy to every community. We connect households and businesses to shared solar farms and high-impact RECs, create financing innovations to expand access to underserved Americans, and provide frictionless subscriber management software for community solar projects. Solstice is a wholly owned subsidiary of global energy infrastructure and investment leader Mitsui & Co. Ltd.",
+              "workforce": {
+                "total": 32
+              },
+              "headquarters": {
+                "address": "Cambridge, MA 02138, US",
+                "city": "Cambridge",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 4000000,
+                "fundingTotal": 8377500,
+                "fundingLatestRound": {
+                  "name": "Grant",
+                  "date": "2024-06-23",
+                  "amount": null
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 9462,
+                "countryRank": 608998,
+                "avgDurationSeconds": 75,
+                "history": [
+                  {
+                    "value": 18748,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 23100,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 21246,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 26665,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 22922,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 9462,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 9279.7,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

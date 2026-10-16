@@ -1,0 +1,226 @@
+{
+  "request": {
+    "query": "Maia",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "919ab5797fe6100530cab7bdce8a1903",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/kwzymjs0whx",
+        "title": "Maiia",
+        "url": "https://www.maiia.com/",
+        "text": "# Maiia\n\nMaiia is a Software Development company. Maiia Agenda is a company that provides online agenda services for healthcare professionals. They offer a range of services including consultations, 24/7 access, and teleconsulting. Maiia employs 46 people. Headquartered in Boulogne-Billancourt, Île-de-France, France. Its workforce is distributed across France and Vietnam.\n\n## About\n\nNée en mars 2020, Maiia est une solution de Cegedim Santé, un des quatre piliers du groupe CEGEDIM, leader français de l’informatique médicale fondé il y a 50 ans.\nAprès deux années de recherche et d’analyse, nous avons co-construit avec le corps médical la solution d’Agenda, prise de rendez-vous en ligne et téléconsultation la plus complète et évolutive du marché.\nNotre ambition : devenir l’assistance digitale santé de référence pour les professionnels de santé et leurs patients.\nAvec 1 100 collaborateurs experts, Cegedim Santé accompagne quotidiennement les praticiens dans l'évolution de leur pratique médicale.\nAujourd'hui, Maiia dispose de 20 000 professionnels de santé qui utilisent notre solution au quotidien.\n\n## Company Details\n- Industry: Software Development\n- Type: Public company\n- Headquarters: Boulogne-Billancourt, France\n- Homepage: cegedim-sante.com/solutions-sante-cegedim/solutions-web/maiia-agenda\n- Aliases: maiia\n- LinkedIn: linkedin.com/company/maiia\n- Linkedin Followers: 7,383\n- Emails: support@maiia.com\n- Phone: 1 49 09 34 98\n\n## Workforce\n- Employees: 46\n- Company Size: 201-500 employees\n  - Monthly Growth: -2.1%\n- Key Executives:\n  - Constance Alexandre: Directeur médical\n- Breakdown:\n  - By Country: France: 27 (59%), Vietnam: 1 (2%)\n  - By Department: Technical: 9 (20%), Product: 6 (13%), Sales: 4 (9%), Medical: 3 (7%), Project Management: 2 (4%), Consulting: 1 (2%), Customer Service: 1 (2%), Hr: 1 (2%), Other Department: 1 (2%)\n  - By Seniority: Specialist: 16 (35%), Other Management: 6 (13%), Manager: 5 (11%), Director: 1 (2%)\n- Talent Sources: Cegedim Santé (4), Cegedim (4), SNCF Connect & Tech (3), MonDocteur (3), Carrefour (3), RDVmedicaux.com (2), Quicktext (2), Harvest Groupe (2), Everwin (2), DECATHLON FRANCE (2)\n- Alumni Go To: Cegedim Santé (25), VIRAGE CONSEIL (2), Noticia (2), Lucky cart (2), Lamy Liaisons (2), INCEPTO (2), Excelya (2), WiiS -Workflow Innovations Imaging Solutions (1), Meetic (1), Carrefour Belgium (1)\n\n## Products & Technology\n- Tech Stack: figma, jenkins, jira, prototype, react, react native, typescript\n\n## Web presence\n\n- Twitter: twitter.com/maiia\n- Facebook: facebook.com/maiiacegedim\n- Crunchbase: crunchbase.com/organization/maiia\n\n## Categories\n\n24/7 access, consultations, e-health, e-sante, frenchtech, health, health care, healthcare, innovation, internet, medical, online agenda, online appointments, online portals, rendezvousenligne, santé, teleconsulting, téléconsultation\n\n## Social\n\n### Linkedin\n\n- [2026-10-09 · Posted · 20 reactions] [🎓 Dès le 1er novembre, les premiers internes de médecine générale...](https://www.linkedin.com/posts/maiia_docteur-junior-et-maiia-m%C3%A9decin-activity-7514263734136168448-fL2d)\n  > 🎓 Dès le 1er novembre, les premiers internes de médecine générale commenceront leur 4ème année de formation du DES. En tout, près de 3 700 Docteurs Juniors exerceront en cabinets, MSP, ou CDS, en autonomie supervisée.\n  >\n  > Peut-être avez-vous prévu d’en accueillir un ? 🤔\n  >\n  > Maiia, logiciel médical tout intégré 100% web, sera prêt au 1er novembre pour répondre aux obligations réglementaires liées à ce statut. ✅\n  >\n  > Découvrez dès à présent notre offre dédiée : sans engagement, avec un tarif adapté à l'exercice à temps partiel.\n  >\n  > Et bien sûr, le Dr Junior aura accès aux mêmes avantages que le profil Maiia de son maître de stage.\n  >\n  > 👉 Pour découvrir lesquels, faites une demande de démo dès aujourd’hui (lien en commentaire).\n\n- [2026-10-01 · Posted · 49 reactions] [La messagerie patient de Maiia, en trois fonctions clés 🔑 ? 1️⃣...](https://www.linkedin.com/posts/maiia_la-messagerie-patient-de-maiia-en-trois-activity-7511424858979868672-bUlI)\n  > La messagerie patient de Maiia, en trois fonctions clés 🔑 ?\n  >\n  > 1️⃣ Donner l'accès à un membre du cabinet\n  > 2️⃣Ouvrir un échange avec un patient\n  > 3️⃣Suivre son statut, prévenir toute sa patientèle en un message.\n  >\n  > Trois usages, une seule messagerie, intégrée à votre logiciel. ✅\n  >\n  > Disponible avec Maiia Premium.\n  >\n  > On vous montre en démo ?\n  > Lien en 1er commentaire 👇\n\n- [2026-09-24 · Posted · 37 reactions] [Un message par SMS, un autre par mail, un troisième sur une appli...](https://www.linkedin.com/posts/maiia_messagerie-patient-maiia-activity-7508928799074496512-chRd)\n  > Un message par SMS, un autre par mail, un troisième sur une appli ?\n  >\n  > À force de canaux, on perd du temps à chercher, et parfois une information au passage 📨.\n  >\n  > La messagerie patient de Maiia rassemble tout dans votre logiciel, de façon tracée et sécurisée 🔒.\n  >\n  > Vous retrouvez vos échanges d'un coup d'œil, au cabinet comme en mobilité.\n  > Disponible avec Maiia Premium\n  >\n  > On vous montre en démo ?\n  > Lien en 1er commentaire 👇\n\n- [2026-09-18 · Posted · 16 reactions] [On vient à vous. 🚗 Le Congrès d'Automne des Médecins de Montagne se...](https://www.linkedin.com/posts/maiia_on-vient-%C3%A0-vous-m%C3%A9decins-de-montagne-activity-7506789840412364800-WwZB)\n  > On vient à vous. 🚗\n  >\n  > Le Congrès d'Automne des Médecins de Montagne se tient du 18 au 21 septembre à La Londe-les-Maures. 🏔️\n  >\n  > Vous ne pourrez pas vous y rendre ? Ce n'est pas une raison pour attendre la prochaine occasion. ⏳\n  >\n  > On peut venir à votre cabinet 🩺 ou échanger en visio 💻 sur votre pratique, vos contraintes multi-sites et ce que Maiia Médecin change concrètement.\n  >\n  > Faire simple, c'est pas compliqué. ✨\n  >\n  > 🔗 Lien en 1er commentaire\n\n- [2026-09-15 · Posted · 16 reactions] [98 % des généralistes* déclarent avoir des difficultés à adresser...](https://www.linkedin.com/posts/maiia_adressage-sp%C3%A9cialistes-activity-7505617935923818496-wDJF)\n  > 98 % des généralistes* déclarent avoir des difficultés à adresser leurs patients vers un spécialiste. Autrement dit : vos confrères cherchent à vous joindre. 🔍\n  >\n  > Comment rendre plus simple vos échanges ?\n  >\n  > Dans Maiia, vous pouvez ouvrir des créneaux réservés à l'adressage, directement depuis votre agenda. Vos confrères y accèdent, posent le rendez-vous, vous transmettent le contexte et les documents.\n  >\n  > Une coordination simplifiée pour un parcours de soins plus fluide. 🤝\n  >\n  > Faire simple, c'est pas compliqué.\n  >\n  > 📽️ La vidéo qui explique tout : lien en 1er commentaire 👇\n  >\n  > *Source : enquête Quotidien du Médecin / URPS Île-de-France, juin 2026\n\n- [2026-09-10 · Posted · 15 reactions] [98 % des généralistes déclarent avoir des difficultés à adresser...](https://www.linkedin.com/posts/maiia_adressage-mg-activity-7503850489151733761-jtcl)\n  > 98 % des généralistes déclarent avoir des difficultés à adresser leurs patients vers un spécialiste*. 📉\n  >\n  > Les agendas sont pleins. Les téléphones aussi.\n  >\n  > Et si un créneau disponible était déjà là, accessible en quelques clics ?\n  >\n  > Depuis Maiia, accédez directement à des créneaux que les professionnels de santé ont réservés pour l'adressage. Vous posez le rendez-vous, vous contextualisez le besoin, vous transmettez vos documents.\n  >\n  > Moins d'appels. Moins d'attente. Plus de temps de soins. 🩺\n  >\n  > Faire simple, c'est pas compliqué.\n  >\n  > 📽️ La vidéo qui explique tout : lien en 1er commentaire 👇\n  >\n  > *Source : enquête Quotidien du Médecin / URPS Île-de-France, juin 2026\n\n- [2026-08-25 · Posted · 27 reactions] [Un bilan bien rédigé prend du temps. Souvent plus qu'une séance...](https://www.linkedin.com/posts/maiia_votre-bilan-plus-vite-plus-complet-plus-activity-7498016328239439872-GuA1)\n  > Un bilan bien rédigé prend du temps. Souvent plus qu'une séance elle-même.\n  > On a décidé de s'attaquer à ce problème avec un assistant bilan IA.\n  > Il écoute la séance, pré-remplit les champs, propose une synthèse structurée conforme au BDK. Vous relisez, vous ajustez, vous validez.\n  > Votre bilan. Plus vite. Plus complet. Plus vous.\n  > Vous pourrez le tester en avant-première sur notre stand, à Rééduca, du 17 au 19 septembre (stand C56).\n  > Avec Maiia Kiné, tout devient plus léger.\n\n- [2026-06-22 · Reshared · 244 reactions] [C’est parti pour presque 1000km de course au large demain en...](https://www.linkedin.com/posts/maiia_activity-7474726976633831426-z2AA): C’est parti pour presque 1000km de course au large demain en class40 en duo pour la MassiliaOffshore organisée par le CNTL-Marseille Yacht Club Fier de porter aussi les couleurs de Maiia et de Cege...\n\n- [2026-06-17 · Reshared · 42 reactions] [Quelques jours après notre Journée Régionale, une impression forte...](https://www.linkedin.com/posts/maiia_activity-7472914456227008513-Y7jC): Quelques jours après notre Journée Régionale, une impression forte demeure : celle d’un collectif en mouvement. 👥 Nous étions près de 250 réunis jeudi. Ce qui ressort, ce sont des temps d'échanges...\n\n- [2026-06-10 · Reshared · 54 reactions] [𝑼𝒏𝒆 6𝒆̀𝒎𝒆 𝒆́𝒅𝒊𝒕𝒊𝒐𝒏 𝒅𝒆 𝑮𝒖𝒆́𝒓𝒊𝒓 𝒆𝒏 𝑴𝒆𝒓 2026 𝒂𝒃𝒔𝒐𝒍𝒖𝒎𝒆𝒏𝒕 𝒎𝒆́𝒎𝒐𝒓𝒂𝒃𝒍𝒆...](https://www.linkedin.com/posts/maiia_activity-7470409110732029952-jznZ): 𝑼𝒏𝒆 6𝒆̀𝒎𝒆 𝒆́𝒅𝒊𝒕𝒊𝒐𝒏 𝒅𝒆 𝑮𝒖𝒆́𝒓𝒊𝒓 𝒆𝒏 𝑴𝒆𝒓 2026 𝒂𝒃𝒔𝒐𝒍𝒖𝒎𝒆𝒏𝒕 𝒎𝒆́𝒎𝒐𝒓𝒂𝒃𝒍𝒆 ! Un immense merci à tous les 🅂🄾🄸🄶🄽🄰🄽🅃🅂 qui nous ont rejoints ce week-end à la Société Nautique de Marseille , ainsi qu’à nos partena...\n\n- [2026-06-10 · Reshared · 40 reactions] [🤖 Dicter un courrier en 30 secondes ? Oui, l'IA sait le faire. Mais...](https://www.linkedin.com/posts/maiia_activity-7470518476194095104-6Ku2): 🤖 Dicter un courrier en 30 secondes ? Oui, l'IA sait le faire. Mais qui est responsable lorsqu'elle se trompe ? Et où vont les données de vos patients ? L'intelligence artificielle est partout dans...\n\n- [2026-06-08 · Reshared · 25 reactions] [Médecins, êtes-vous prêts pour les évolutions financières de 2026...](https://www.linkedin.com/posts/maiia_activity-7469735077376139264-tIwH): Médecins, êtes-vous prêts pour les évolutions financières de 2026 ? Entre nouvelles mesures, changements réglementaires et impacts sur vos outils numériques, il est essentiel de rester à jour pour...\n\n- [2026-06-08 · Reshared · 111 reactions] [Cegedim Santé et Vocca , pionnier français de l’IA...](https://www.linkedin.com/posts/maiia_activity-7469783890644246529-asCI): Cegedim Santé et Vocca , pionnier français de l’IA conversationnelle dédiée à la santé, unissent leurs forces pour transformer la gestion des appels dans les cabinets médicaux, centres de santé et...\n\n- [2026-06-04 · Posted · 16 reactions] [🎙 Vous êtes gynécologue ? En quête d’une solution simple, complète...](https://www.linkedin.com/posts/maiia_gynazur-activity-7468291958919061504-DYHo)\n  > 🎙 Vous êtes gynécologue ? En quête d’une solution simple, complète, qui vous accompagne au quotidien pour vous aider à préserver votre pratique ?\n  >\n  > Nos équipes vous attendent dès jeudi prochain au Congrès Gyn Azur pour vous présenter Maiia Médecin, la solution de gestion de cabinet nouvelle génération qui simplifie vos consultations et allège votre charge administrative.\n  >\n  > 📍 Stand 31 – Palais des Congrès Antipolis - Antibes\n  > 📅 Du 11 au 12 juin\n  >\n  > Vous ne pouvez pas être présent mais souhaitez échanger sur votre projet ? Contactez-nous dès à présent 👉 Lien en commentaire\n\n- [2026-04-15 · Reshared · 15 reactions] [Venez rencontrer nos experts et découvrir notre solution Maiia...](https://www.linkedin.com/posts/maiia_activity-7450280007047954432-JFxf): Venez rencontrer nos experts et découvrir notre solution Maiia Médecin au Congrès d’Allergologie du 21 au 24 avril au Palais des Congrès de Paris #maiia #maiiamedecin\n\n- [2025-06-30 · Posted · 47 reactions] [🏖️ L’été, c’est fait pour souffler. Avec Maiia Kiné, allégez votre...](https://www.linkedin.com/posts/maiia_offre-d%C3%A9t%C3%A9-maiia-kin%C3%A9-activity-7345488786996314113-oXR1)\n  > 🏖️ L’été, c’est fait pour souffler. Avec Maiia Kiné, allégez votre quotidien professionnel dès maintenant.\n  >\n  > ✅ Journée optimisée\n  > 🕐 Suivi patient facilité\n  > 📄 Facturation maitrisée\n  >\n  > Adoptez une solution complète 100% web, simple, pensée pour vous.\n  >\n  > C’est le moment d'en profiter :\n  > ☀️ Offre d'été : -50% pendant 1 an*\n  > Pour toute demande de démo avant le 31 juillet 2025\n  >\n  > Demandez votre démo ici : https://shorturl.at/dmjto 🔗\n  >\n  > *Conditions sur notre site.\n\n- [2025-06-16 · Posted · 39 reactions] [Et si, pour gagner du temps à l’avenir, vous en accordiez un peu à...](https://www.linkedin.com/posts/maiia_et-si-pour-gagner-du-temps-%C3%A0-lavenir-vous-activity-7340287017886380032-X_J0)\n  > Et si, pour gagner du temps à l’avenir, vous en accordiez un peu à la découverte d’une solution de gestion de cabinet nouvelle génération ?\n  >\n  > 🎥 Participez à La consult’ Maiia Médecin : des webinaires de démo live\n  > ⏱ 20 minutes, pas une de plus\n  > 📄 À partir d’un cas clinique, le même avec notre assistant de consultation IA\n  >\n  > 📅 Du 1er au 17 juillet\n  > Les mardis à 8h30 ou jeudis à 19h30 → choisissez le créneau qui vous convient\n  >\n  > 🎁 6 MOIS OFFERTS* à chaque participant sur les offres Maiia Médecin Initial et Premium (IA incluse)\n  > Pour s'inscrire, rendez-vous sur notre site internet : https://lnkd.in/eE8XaKb4\n  >\n  > *Voir conditions sur la page d’inscription\n\n- [2024-09-20 · Posted · 14 reactions] [- Incident résolu (voir message dans les commentaires) 📢 Cher(e)...](https://www.linkedin.com/posts/maiia_incident-r%C3%A9solu-voir-message-dans-les-activity-7242903962356432897-Xbzv)\n  > - Incident résolu (voir message dans les commentaires)\n  > 📢 Cher(e) client(e) nous travaillons actuellement à la résolution d’un incident impactant nos solutions et notre système de téléphonie.\n  > Nos fournisseurs sont entièrement mobilisés à nos côtés pour aboutir à une solution dans les meilleurs délais. Nous nous excusons pour la gêne occasionnée.\n\n- [2024-02-05 · Posted · 25 reactions] [📢 Kinés : Vous saurez tout sur la NGAP ! Ne manquez pas notre...](https://www.linkedin.com/posts/maiia_webinaire-ngap-kin%C3%A9-7-f%C3%A9vrier-2024-activity-7160297915389784064-Mjiy)\n  > 📢 Kinés : Vous saurez tout sur la NGAP !\n  > Ne manquez pas notre webinaire exclusif en partenariat avec NeuroXtrain et SANTÉ FORMAPRO !\n  >\n  > Découvrez les experts qui animeront cet événement :\n  >\n  > 👥 Benoit Sibileau, Directeur produit Maiia Kiné\n  > 👥 Nathan TOUATI, Kiné du sport NeuroXtrain\n  >\n  > 📅 Rejoignez les 4200 inscrits et rendez-vous le 7 février à 20h00.\n  >\n  > 💻 L'inscription est gratuite ! Inscrivez-vous dès maintenant : https://lnkd.in/gFCeuYMY?\n  >\n  > #webinaire #NGAP #cotation #kine\n\n- [2024-01-16 · Posted · 49 reactions] [À partir du 22 février 2024, une mise à jour majeure de la...](https://www.linkedin.com/posts/maiia_nouvelle-ngap-kin%C3%A9s-f%C3%A9vrier-2024-activity-7152921185335275522-Yh-Q)\n  > À partir du 22 février 2024, une mise à jour majeure de la nomenclature kiné, incluse dans l'avenant 7, se mettra en place dans votre solution Maiia Kiné.\n  >\n  > Plus détaillée et plus descriptive, elle intégrera aussi les nouvelles missions confiées aux masseurs kinésithérapeutes. Cette mise à jour ajoutera pas moins de 51 actes et 20 nouvelles lettres clés à la nomenclature, permettant même la facturation de multiples actes lors d'une même séance, offrant ainsi un potentiel financier supplémentaire pour les praticiens.\n  >\n  > Pour y voir plus clair sur ces nouveaux modes de cotation, nous vous proposons un petit décryptage 👉 https://bit.ly/3O6h9Hg\n\n## Locations\n- Headquarters: boulogne-billancourt, île-de-france, france\n- Offices: boulogne-billancourt, île-de-france, france",
+        "summary": "{\"description\":\"Maiia is a Software Development company. Maiia Agenda is a company that provides online agenda services for healthcare professionals. They offer a range of services including consultations, 24/7 access, and teleconsulting.\",\"employee_estimate\":46,\"employee_estimate_source\":\"Employees: 46\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Key Executives:\\n  - Constance Alexandre: Directeur médical\",\"hq\":\"Boulogne-Billancourt, Île-de-France, France\",\"hq_quote\":\"Headquarters: boulogne-billancourt, île-de-france, france\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"- Industry: Software Development\",\"is_public_or_enterprise\":true,\"recently_funded_seed_or_series_a\":null,\"recently_funded_seed_or_series_a_quote\":\"Née en mars 2020, Maiia est une solution de Cegedim Santé, un des quatre piliers du groupe CEGEDIM, leader français de l’informatique médicale fondé il y a 50 ans.\\n... Avec 1 100 collaborateurs experts, Cegedim Santé accompagne quotidiennement les praticiens dans ... 'évolution de leur pratique médicale.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4E0BAQENI8PSVXtuOA/company-logo_200_200/company-logo_200_200/0/1652952148447/maiiabycegedim_logo?e=2147483647&v=beta&t=cKrNX-srLjRAwG6wxiadT9wyOKpuEXp8qeKNDOSIXxw",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/kwzymjs0whx",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Maiia",
+              "foundedYear": null,
+              "description": "Née en mars 2020, Maiia est une solution de Cegedim Santé, un des quatre piliers du groupe CEGEDIM, leader français de l’informatique médicale fondé il y a 50 ans.\nAprès deux années de recherche et d’analyse, nous avons co-construit avec le corps médical la solution d’Agenda, prise de rendez-vous en ligne et téléconsultation la plus complète et évolutive du marché.\nNotre ambition : devenir l’assistance digitale santé de référence pour les professionnels de santé et leurs patients.\nAvec 1 100 collaborateurs experts, Cegedim Santé accompagne quotidiennement les praticiens dans l'évolution de leur pratique médicale.\nAujourd'hui, Maiia dispose de 20 000 professionnels de santé qui utilisent notre solution au quotidien.",
+              "workforce": {
+                "total": 46
+              },
+              "headquarters": {
+                "address": "137, Rue d'aguesseau, Boulogne-Billancourt, Île-de-France 92100, FR",
+                "city": "Boulogne-Billancourt",
+                "postalCode": null,
+                "country": "France"
+              },
+              "financials": null,
+              "webTraffic": null,
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/kk8t49xcm65",
+        "title": "Maia",
+        "url": "https://usemaia.com/",
+        "text": "# Maia\n\nMaia is a Technology, Information and Internet company. Maia is an AI-powered autonomous coding and RCM company that provides solutions for orthopaedics practices. They offer a range of products including e/m autocoders, surgical autocoders, accurate cpt coding for complex operative notes, denial appeals, documentation, compliant notes and templates, prior auth, collections and contracting, analytics, and more. Maia employs 10 people (+350.0% YoY, +7 people), founded in 2024. Headquartered in Denver, Colorado, United States, with an office in Dover. Its workforce is distributed across United States and Germany.\n\n## About\n\nMaia is an AI-powered revenue cycle platform purpose-built for orthopaedic practices. Maia works alongside your existing workflows to proactively code cases, improve authorization accuracy, and reduce downstream denials—before claims are submitted.\n\nOrthopaedic revenue cycle complexity continues to increase as procedures grow more specialized, payer rules change frequently, and staffing shortages strain administrative teams. Maia helps practices stay ahead by continuously monitoring clinical, authorization, and coding data to surface issues early and guide corrective action.\n\nHow Maia Improves Performance for Our Clients:\n\nMaia compares scheduled procedures, clinical documentation, and payer rules to ensure pre-authorizations match what will ultimately be billed. When mismatches are detected, Maia flags them early—helping teams correct issues or trigger re-authorization before services occur.\n\nMaia analyzes operative notes and documentation to surface potential coding gaps, missing specificity, or compliance risks. This supports coders by reducing rework, minimizing post-bill corrections, and improving first-pass claim accuracy.\n\nInstead of reacting to denials after the fact, Maia focuses on prevention. By identifying risk earlier in the workflow, practices can reduce avoidable denials tied to authorization errors, documentation gaps, and coding inconsistencies.\n\nMaia automates repetitive review and monitoring tasks, allowing revenue cycle and administrative staff to focus on higher-value work. This reduces manual audits, shortens turnaround times, and helps teams operate more efficiently without adding headcount.\n\nMaia is designed specifically for orthopaedic practices, supporting high-volume surgical workflows, specialty-specific coding nuances, and evolving payer requirements common in musculoskeletal care.\n\nImproved authorization-to-bill alignment\nFewer preventable denials\nFaster reimbursement cycles\nReduced administrative burden\nBetter visibility into RCM risk\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Headquarters: Denver, United States\n- Founded Year: 2024\n- Homepage: usemaia.com\n- Aliases: maia\n- LinkedIn: linkedin.com/company/usemaia\n- Linkedin Followers: 1,570\n- Emails: info@usemaia.com\n- Phone: +1 952-220-0073\n\n## Financials\n- Total Funding: USD 1,200,000\n  - Seed (2026-06-01): USD 1.2M\n\n## Workforce\n- Employees: 10\n- Company Size: 1-10 employees\n  - Yearly Growth: +350.0%\n- Key Executives:\n  - Anson Antony: Vice President of Artificial Intelligence\n  - Daniel Harp: Chief Technology Officer\n  - Eric Lau: Chief Revenue Officer\n  - Josh Hofstad: Co-Founder\n  - Zach Ruhl: Founder and CEO\n- Breakdown:\n  - By Country: United States: 9 (100%), Germany: 1 (11%)\n  - By Department: Consulting: 3 (33%), Other Department: 3 (33%), General Management: 2 (22%), Technical: 2 (22%), Sales: 1 (11%)\n  - By Seniority: Other Management: 4 (44%), Clevel: 2 (22%), Founder: 2 (22%), Senior: 1 (11%), Specialist: 1 (11%), Vp: 1 (11%)\n- Talent Sources: University of Denver (1), Optime.health (1), McGrath North (1), Markup AI (1), Henry Meds (1), Harp Equity (1), CVG Airport - Cincinnati/Northern Kentucky International Airport (1), Bosch Rexroth (1), Bonterra (1), Asana (1)\n- Alumni Go To: Thoughtworks (1), Goodsill (1), Assort Health (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: operative\n\n## Web presence\n\n- Instagram: instagram.com/maiamedicalbilling\n- YouTube: youtube.com/@maiamedicalbilling\n- Crunchbase: crunchbase.com/organization/maia-dc3d\n- Web traffic:\n  - Monthly visits: 4,917\n  - Global rank: 3,595,873\n  - Bounce rate: 42.0%\n  - Pages per visit: 1.7\n  - Average visit duration: 31s\n\n## Categories\n\nadmin, ai-powered, artificial intelligence (ai), autonomous medical coding, machine learning, medical coding, orthopaedics, revenue, saas\n\n## Recent News\n- [2026-09-05] Stocktwits: Anthropic Reportedly In Talks With Microsoft To Use Maia AI Chips As Compute Race Intensifies\n- [2026-08-04] [How a Cybersecurity Giant Cut Data Pipeline Delivery Time Fourfold, Mid-Acquisition](https://www.ibtimes.co.uk/sophos-transforms-data-infrastructure-maia-1812367)\n- [2026-07-10] [Maia has raised $1,200,000.00 in new Seed funding - intelligence360](https://www.intelligence360.news/maia-has-raised-1200000-00-in-new-seed-funding/)\n- [2026-06-19] [Maia Raises $1.2 Million To Accelerate AI-Powered Medical Coding And RCM For Orthopaedic Practices](https://pulse2.com/maia-raises-1-2-million-to-accelerate-ai-powered-medical-coding-and-rcm-for-orthopaedic-practices/)\n\n## Social\n\n### Linkedin\n\n- [2026-09-23 · 7 reactions] Our co-founders Zach Ruhl and Eric Lau joined KZA on the KZA Kast last week! KZA has been teaching orthopaedic practices how to code correctly since 1985. Maia builds software that helps orthopaedi...\n\n- [2026-09-17 · 3 reactions] In the CY 2027 proposed rule changes, CMS proposed removing 637 more ortho services from the inpatient-only list, with the remaining 801 slated for 2028. That finishes a three-year elimination of t...\n\n- [2026-09-11 · 5 reactions] 🟥 ⬜ 🟦 Twenty-five years. We remember the people lost on September 11, 2001, and the first responders who ran toward the towers. Never forget. 🟥 ⬜ 🟦\n\n- [2026-09-09 · 28 reactions, 4 comments] Every coding outsourcing pitch you have heard starts with the coder shortage. There isn't one, not when you dig in deep. MGMA ranks coders ninth in hiring difficulty. Behind medical assistants. Beh...\n\n- [2026-09-08 · 45 reactions, 6 comments] 🏆Maia is very excited to announce our August Employee of the Month: Anson Antony! Some engineers write great code. Some developers build great AI products. Some are passionate about the industry th...\n\n- [2026-08-31 · 12 reactions] Prior auth is not getting any easier. Under CMS-0057-F, impacted payers owe decisions in shorter windows and have to give a specific reason for a denial. Faster decisions are good. But speed does n...\n\n- [2026-08-28 · 6 reactions] M72.2 stops being a billable code on October 1. If your practice treats feet, that is a daily-volume diagnosis going invalid in 34 days. Plantar fasciitis moves to the new M67.A- subcategory with m...\n\n- [2026-08-26 · 39 reactions] The KZA National Conference was incredible! This event brought together the people who have been teaching orthopaedic coding since before most of us were doing this .Sitting in those sessions was t...\n\n- [2026-08-17 · 23 reactions] We're excited to welcome Mujtaba Ali as Principal AI Architect at Maia. Mujtaba brings 19 years of software development experience, including a decade leading engineering teams across data engineer...\n\n- [2026-08-14 · 9 reactions] \"Is this going to replace me?\" We get asked this by coders on almost every implementation call, and it deserves a straight answer instead of a reassuring one. Here is the truth. So much of the codi...\n\n- [2026-08-10 · 11 reactions] 💜 CAC suggests. Autonomous coding completes. That sounds like marketing, until you follow one knee scope through both. With CAC, the engine flags candidate codes. Your coder still confirms the arth...\n\n- [2026-08-07 · 32 reactions, 10 comments] Maia is heading to Nashville August 20 to 22 for the annual KZA National Conference! KZA has been teaching orthopaedic practices how to code correctly since 1985. We build software that helps ortho...\n\n- [2026-08-05 · 6 reactions] Downcoding doesn't show up on a denial report. The claim gets paid, just at a lower level, and the difference sits quietly in the remittance. That is starting to change. In March, the Maryland Insu...\n\n- [2026-08-01 · 48 reactions, 5 comments] Great day at the Tennessee Orthopaedic Society Annual Meeting in Nashville. We put one line on the screen at our table: We Help Combat Downcoding. Ask Us How. It turned out to be the easiest conver...\n\n- [2026-07-28 · 10 reactions] Your cleanest claims may be the ones costing you the most. A surgeon reviews imaging, weighs surgery against conservative care, counsels the patient through it. That is high-complexity decision mak...\n\n- [2026-07-22 · 11 reactions] 📋 New in 2026: CMS expects the note and the billed level to tell the same story. Document by MDM or by time. Not a blend of both. Sounds simple. It isn't. 🦴 Picture a real orthopaedic clinic day. A...\n\n- [2026-07-17 · 28 reactions, 2 comments] We’re proud to announce that Maia is now SOC 2 Type II certified. As AI becomes a core part of healthcare, security isn’t optional. Healthcare organizations need to know the platforms they use to h...\n\n- [2026-07-16 · 33 reactions] Dr Hao-Hua Wu, M.D. told us he keeps a personal Excel sheet documenting how each insurance company wants prior auths submitted. Let that sit for a second. That's not an administrator. That's a surg...\n\n- [2026-07-14 · 8 reactions] If your orthopaedic practice sits in the low-90s on clean claim rate, you're losing money twice. Once to the delayed cash from reworked claims. Again to the staff hours spent fixing them. What is c...\n\n- [2026-07-10 · 11 reactions] Most denied orthopaedic claims are winnable. They get written off anyway. Not because the claim was wrong. Because the appeal was late, or generic, or never got written at all. Here's what a payer...\n\n## Locations\n- Headquarters: denver, colorado, united states (US)\n- Offices: dover, delaware, united states (US), denver, colorado, united states (US)",
+        "summary": "{\"description\":\"Maia is a Technology, Information and Internet company that uses AI-powered autonomous coding and RCM solutions for orthopaedics practices.\",\"employee_estimate\":10,\"employee_estimate_source\":\"Employees: 10\",\"hiring_first_ops_or_revops\":false,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Denver, Colorado, United States\",\"hq_quote\":\"Headquartered in Denver, Colorado, United States, with an office in Dover.\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Maia is a Technology, Information and Internet company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 1,200,000 - Seed (2026-06-01): USD 1.2M\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQFExx5aIsMUrQ/company-logo_200_200/company-logo_200_200/0/1736880286325/usemaia_logo?e=2147483647&v=beta&t=-Ev_qkcr-luDK_zKHzAMxMJQZ3ZyAJpzbGq71Xn_egs",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/kk8t49xcm65",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Maia",
+              "foundedYear": 2024,
+              "description": "Maia is an AI-powered revenue cycle platform purpose-built for orthopaedic practices. Maia works alongside your existing workflows to proactively code cases, improve authorization accuracy, and reduce downstream denials—before claims are submitted.\n\nOrthopaedic revenue cycle complexity continues to increase as procedures grow more specialized, payer rules change frequently, and staffing shortages strain administrative teams. Maia helps practices stay ahead by continuously monitoring clinical, authorization, and coding data to surface issues early and guide corrective action.\n\nHow Maia Improves Performance for Our Clients:\n\nMaia compares scheduled procedures, clinical documentation, and payer rules to ensure pre-authorizations match what will ultimately be billed. When mismatches are detected, Maia flags them early—helping teams correct issues or trigger re-authorization before services occur.\n\nMaia analyzes operative notes and documentation to surface potential coding gaps, missing specificity, or compliance risks. This supports coders by reducing rework, minimizing post-bill corrections, and improving first-pass claim accuracy.\n\nInstead of reacting to denials after the fact, Maia focuses on prevention. By identifying risk earlier in the workflow, practices can reduce avoidable denials tied to authorization errors, documentation gaps, and coding inconsistencies.\n\nMaia automates repetitive review and monitoring tasks, allowing revenue cycle and administrative staff to focus on higher-value work. This reduces manual audits, shortens turnaround times, and helps teams operate more efficiently without adding headcount.\n\nMaia is designed specifically for orthopaedic practices, supporting high-volume surgical workflows, specialty-specific coding nuances, and evolving payer requirements common in musculoskeletal care.\n\nImproved authorization-to-bill alignment\nFewer preventable denials\nFaster reimbursement cycles\nReduced administrative burden\nBetter visibility into RCM risk",
+              "workforce": {
+                "total": 10
+              },
+              "headquarters": {
+                "address": "Denver, CO 80127, US",
+                "city": "Denver",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 1200000,
+                "fundingLatestRound": {
+                  "name": "Seed",
+                  "date": "2026-06-01",
+                  "amount": 1200000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 4917,
+                "countryRank": 1644224,
+                "avgDurationSeconds": 31,
+                "history": [
+                  {
+                    "value": 106,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 1111,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 3330,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 4197,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 4831,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 4917,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 6487.8,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

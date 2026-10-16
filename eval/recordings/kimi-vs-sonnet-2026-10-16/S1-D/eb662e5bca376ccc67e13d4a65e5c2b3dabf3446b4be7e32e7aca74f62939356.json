@@ -1,0 +1,183 @@
+{
+  "request": {
+    "query": "Shipo LLC",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "427854cfbbc10cd44675877f5ca51142",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/fh12ncxpc0x",
+        "title": "Shipo",
+        "url": "https://shipousa.com/",
+        "text": "# Shipo\n\nShipo is a Warehousing and Storage company. Shipo is an ecommerce fulfillment and 3PL company based in Delaware. They offer US ecommerce fulfillment for growing DTC and B2B brands, with transparent pricing and custom volume rates. Shipo employs 3 people (+50.0% YoY, +1 person), founded in 2017. Headquartered in Wilmington, Delaware, United States.\n\n## About\n\nShipo LLC is a Delaware-based third-party logistics (3PL) provider specializing in Amazon FBA prep and direct-to-consumer (DTC) fulfillment. We operate from Wilmington, Delaware - a 0% sales-tax state on the Northeast/Mid-Atlantic corridor with fast East Coast distribution reach.\nWhat we do:\n- Amazon FBA prep: FNSKU labeling, poly bagging, bundling and kitting, warning/prep labels\n- DTC pick-and-pack fulfillment\n- Inbound receiving and inspection\n- Buffer and pallet storage\n\nWe fulfill orders across Amazon, Shopify/DTC, and TikTok Shop from a single shared inventory pool, integrated via ShipStation and Zenventory for automated order sync, inventory updates, and shipping/tracking.\n\nWhy brands work with us:\n- Orders and prep work received by 3 PM ET ship the same business day\n- Transparent, at-cost pricing - no hidden fees, no long-term lock-in\n- One inventory pool for multichannel selling\n- East Coast location for faster, lower-cost delivery to major US markets\n\nWe're built for Amazon FBA sellers and DTC brands who need reliable prep, accurate fulfillment, and buffer storage close to East Coast ports and carriers - especially growing brands and importers scaling their operations.\n\nPrep smarter. Ship fast\n\n## Company Details\n- Industry: Warehousing and Storage\n- Type: Self-owned\n- Headquarters: Wilmington, United States\n- Founded Year: 2017\n- Homepage: shipousa.com\n- Aliases: shipo\n- LinkedIn: linkedin.com/company/shipo\n- Linkedin Followers: 273\n- Emails: support@shipousa.com\n- Phone: +13024001698, 302-400-1698\n\n## Workforce\n- Employees: 3\n- Company Size: 1-10 employees\n  - Yearly Growth: +50.0%\n- Key Executives:\n  - Ophir Schultz: Co-Founder and CEO\n  - Udi Gershon: CEO\n- Breakdown:\n  - By Country: United States: 2 (67%)\n  - By Department: General Management: 2 (67%)\n  - By Seniority: Clevel: 1 (33%), Founder: 1 (33%)\n- Talent Sources: Tradency (1)\n- Alumni Go To: Jenovice (1)\n\n## Web presence\n\n- Facebook: facebook.com/shipousa\n- Instagram: instagram.com/shipollc\n- YouTube: youtube.com/@shipousa\n\n## Categories\n\n3pl, amazon fba prep, b2b brands, b2b logistics, beauty and cosmetics fulfillment, bundling and kitting, container unloading, delaware, delaware 3pl, dtc fulfillment, east coast fulfillment, ecommerce fulfillment, fba forwarding, fnsku labeling, inventory management, logistics, order fulfillment, pick and pack, polybagging, shopify fulfillment, supplement fulfillment, third-party logistics, transparent pricing, warehousing and storage, worldwide parcel shipping\n\n## Recent News\n- [2026-09-09] openPR.com: Shipo LLC Listed in Amazon's Service Provider Network for FBA\n\n## Social\n\n### Linkedin\n\n- [2026-09-09] I get the same call every few months. A brand that's growing, doing fine, and quietly miserable with their 3PL. Miserable for two years. When I ask why they haven't moved, it's always the same answ...\n\n- [2026-08-16] We just launched the Shipo Partner Referral Program! Refer businesses that need FBA prep services and earn rewards for every qualified referral. Come check it out!\n\n- [2026-07-27] We’ve just updated our Page. Visit our Page to see the latest updates.\n\n- [2026-07-27 · 1 reaction] Meet Shipo. Fulfillment shouldn't be the thing that keeps founders up at night — but for most growing brands, it is. Late shipments. Inventory you can't see. Surprise fees buried in a monthly invoi...\n\n- [2026-07-26 · 2 reactions] How to Choose a 3PL URL:** https://lnkd.in/dS4DxVkn Choosing a 3PL is one of the most important decisions for your ecommerce brand — and most founders get it wrong. They focus on price. They should...\n\n## Locations\n- Headquarters: wilmington, delaware, united states (US)\n- Offices: wilmington, delaware, united states (US)",
+        "summary": "{\"description\":\"Shipo is an ecommerce fulfillment and 3PL company based in Delaware.\",\"employee_estimate\":3,\"employee_estimate_source\":\"Employees: 3\",\"hq\":\"Wilmington, Delaware, United States\",\"hq_quote\":\"Headquarters: wilmington, delaware, united states (US)\",\"industry\":\"Warehousing and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"3pl, amazon fba prep, b2b brands, b2b logistics, beauty and cosmetics fulfillment, bundling and kitting, container unloading, delaware, delaware 3pl, dtc fulfillment, east coast fulfillment, ecommerce fulfillment, fba forwarding, fnsku labeling, inventory management, logistics, order fulfillment, pick and pack, polybagging, shopify fulfillment, supplement fulfillment, third-party logistics, transparent pricing, warehousing and storage, worldwide parcel shipping\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4D0BAQFFLXOw-JC8Vg/company-logo_200_200/B4DaCLntawIQAE-/0/1789048838173/shipo_logo?e=2147483647&v=beta&t=2PlW1aSfnx6vF3BlSJwbcJ84JoblssKHyrga5n9gnQc",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/fh12ncxpc0x",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Shipo",
+              "foundedYear": 2017,
+              "description": "Shipo LLC is a Delaware-based third-party logistics (3PL) provider specializing in Amazon FBA prep and direct-to-consumer (DTC) fulfillment. We operate from Wilmington, Delaware - a 0% sales-tax state on the Northeast/Mid-Atlantic corridor with fast East Coast distribution reach.\nWhat we do:\n- Amazon FBA prep: FNSKU labeling, poly bagging, bundling and kitting, warning/prep labels\n- DTC pick-and-pack fulfillment\n- Inbound receiving and inspection\n- Buffer and pallet storage\n\nWe fulfill orders across Amazon, Shopify/DTC, and TikTok Shop from a single shared inventory pool, integrated via ShipStation and Zenventory for automated order sync, inventory updates, and shipping/tracking.\n\nWhy brands work with us:\n- Orders and prep work received by 3 PM ET ship the same business day\n- Transparent, at-cost pricing - no hidden fees, no long-term lock-in\n- One inventory pool for multichannel selling\n- East Coast location for faster, lower-cost delivery to major US markets\n\nWe're built for Amazon FBA sellers and DTC brands who need reliable prep, accurate fulfillment, and buffer storage close to East Coast ports and carriers - especially growing brands and importers scaling their operations.\n\nPrep smarter. Ship fast",
+              "workforce": {
+                "total": 3
+              },
+              "headquarters": {
+                "address": "310 Cornell Dr, WILMINGTON, Delaware 19801, US",
+                "city": "Wilmington",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": null,
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/czcvktn326h",
+        "title": "Shipo",
+        "url": "https://shipo.app/",
+        "text": "# Shipo\n\nShipo is a Technology, Information and Internet company. Shipo employs 3 people, founded in 2024. Its workforce is distributed across Mexico and United States.\n\n## About\n\nSHIPO es una plataforma digital diseñada para simplificar y profesionalizar la gestión logística de empresas que mueven carga todos los días.\n\nAyudamos a equipos de logística, transporte y operaciones a tener control total sobre sus envíos, costos, transportistas y rentabilidad, todo desde un solo lugar.\n\nNuestra misión es eliminar la complejidad operativa que existe entre cotizar, asignar, dar seguimiento y cerrar un envío, especialmente en entornos donde se combinan FTL, LTL y operaciones multimodales.\n\nCon SHIPO puedes\n• Crear y administrar envíos de forma centralizada\n• Gestionar clientes, carriers y tarifas\n• Visualizar costos, ingresos y márgenes por operación\n• Dar seguimiento al estatus de cada envío\n• Tomar decisiones basadas en datos reales y no en hojas sueltas\n\nSHIPO está pensada tanto para empresas que operan su propia logística como para freight forwarders, brokers y equipos que necesitan visibilidad financiera y operativa en tiempo real.\n\nA diferencia de soluciones enfocadas solo en tracking, SHIPO se centra en el negocio detrás del envío: rentabilidad, control, trazabilidad y eficiencia operativa.\n\nConstruimos SHIPO con una mentalidad SaaS moderna, flexible y escalable, lista para crecer con tu operación y adaptarse a distintos modelos logísticos y mercados.\n\nMenos fricción operativa.\nMás claridad financiera.\nLogística que sí se entiende.\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Founded Year: 2024\n- Homepage: shipo.app\n- Aliases: shipo\n- LinkedIn: linkedin.com/company/shipoapp\n- Linkedin Followers: 93\n\n## Workforce\n- Employees: 3\n- Company Size: 1-10 employees\n- Key Executives:\n  - Adrian Marcelo Cueva: Co-Founder\n  - Elias Aguirre: Co-Founder - Product and Technology\n- Breakdown:\n  - By Country: Mexico: 1 (33%), United States: 1 (33%)\n  - By Department: Consulting: 1 (33%), General Management: 1 (33%)\n  - By Seniority: Founder: 2 (67%)\n- Talent Sources: IQN Co (1), Grupo Cemix (1)\n- Alumni Go To: Logistic Dynamics Corporation (1), Capital One (1)\n\n## Web presence\n\n- Web traffic:\n  - Monthly visits: 4,125\n  - Global rank: 4,089,909\n  - Bounce rate: 38.0%\n  - Pages per visit: 1.7\n  - Average visit duration: 7s\n\n## Social\n\n### Linkedin\n\n- [2026-03-26 · Posted · 12 reactions] [Errores en facturación, envíos mal capturados, retrabajo diario… Si...](https://www.linkedin.com/posts/shipoapp_shipo-el-tms-con-ai-para-tu-operaci%C3%B3n-log%C3%ADstica-activity-7442732289001709568-wUdE)\n  > Errores en facturación, envíos mal capturados, retrabajo diario… Si tu operación logística todavía depende de procesos manuales, estás perdiendo tiempo y dinero. Las logísticas que digitalizan su operación reducen errores hasta un 60%. Shipo centraliza gestión de envíos, documentos y finanzas en una sola plataforma sin implementaciones de meses.\n\n- [2026-03-19 · Posted · 6 reactions] [La mayoría de los TMS están diseñados para mercados gringos. Shipo...](https://www.linkedin.com/posts/shipoapp_shipo-el-tms-con-ai-para-tu-operaci%C3%B3n-log%C3%ADstica-activity-7440209012148596737-kCcH)\n  > La mayoría de los TMS están diseñados para mercados gringos. Shipo es diferente: hecho en México para logísticas mexicanas. Facturación en MXN y USD, soporte en español y una plataforma que tu equipo aprende en días, no meses. Por fin un TMS que entiende cómo operamos.\n\n- [2026-02-26 · Posted · 1 reaction] [Tu operación no necesita más herramientas. Necesita control. Con...](https://www.linkedin.com/posts/shipoapp_logistics-supplychain-freightbroker-activity-7432646473646813185-kG3I)\n  > Tu operación no necesita más herramientas.\n  > Necesita control.\n  >\n  > Con Shipo, gestionas rutas, carriers, facturación y rentabilidad desde una sola plataforma. Sin fricción. Sin hojas sueltas. Sin perder margen.\n  >\n  > Centraliza tu operación. Escala con estructura.\n  >\n  > #Logistics #SupplyChain #FreightBroker #3PL #TMS #SaaS #B2B #DigitalTransformation #BusinessGrowth #Shipo\n\n- [2026-02-26 · 1 reaction] Tu operación no necesita más herramientas. Necesita control. Con Shipo, gestionas rutas, carriers, facturación y rentabilidad desde una sola plataforma. Sin fricción. Sin hojas sueltas. Sin perder...\n\n- [2026-02-26 · 2 reactions] La logística fragmentada frena tu crecimiento. Con Shipo, unificas operación y finanzas en una sola plataforma: envíos, facturación, costos y márgenes con visibilidad total y control en tiempo real...\n\n- [2026-02-26 · 2 reactions] La logística eficiente no es solo mover carga. Es tener control total de tu operación y tu flujo financiero. Con Shipo, conectas envíos, clientes y facturación en una sola plataforma, con visibilid...\n\n- [2026-02-26 · 4 reactions] El crecimiento no viene de trabajar más. Viene de tener control. Con Shipo, integras operación y finanzas en una sola plataforma: envíos, ingresos, costos y márgenes en tiempo real. Menos fricción....\n\n- [2026-02-26 · 2 reactions] El control financiero no puede vivir en Excel. Con Shipo, gestionas tus cuentas por pagar con visibilidad total: pendientes, vencimientos y flujo en tiempo real. Menos retrasos. Más control. Mejor...",
+        "summary": "{\"description\":\"SHIPO es una plataforma digital diseñada para simplificar y profesionalizar la gestión logística de empresas que mueven carga todos los días.\",\"employee_estimate\":3,\"employee_estimate_source\":\"Employees: 3\",\"hq\":\"Mexico and United States\",\"hq_quote\":\"Breakdown:\\n  By Country: Mexico: 1 (33%), United States: 1 (33%)\",\"industry\":\"Technology, Information and Internet\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":null,\"is_third_party_logistics_quote\":\"- SHIPO está pensada tanto para empresas que operan su propia logística como para freight forwarders, brokers y equipos que necesitan visibilidad financiera y operativa en tiempo real.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQHstfEZFwEsJw/company-logo_200_200/B56ZqofDejJwAI-/0/1763763304745?e=2147483647&v=beta&t=qgxGDodHMGh6bGx3dOLvNkbw5koRs-hQjBh6H8_pcCM",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/czcvktn326h",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Shipo",
+              "foundedYear": 2024,
+              "description": "SHIPO es una plataforma digital diseñada para simplificar y profesionalizar la gestión logística de empresas que mueven carga todos los días.\n\nAyudamos a equipos de logística, transporte y operaciones a tener control total sobre sus envíos, costos, transportistas y rentabilidad, todo desde un solo lugar.\n\nNuestra misión es eliminar la complejidad operativa que existe entre cotizar, asignar, dar seguimiento y cerrar un envío, especialmente en entornos donde se combinan FTL, LTL y operaciones multimodales.\n\nCon SHIPO puedes\n• Crear y administrar envíos de forma centralizada\n• Gestionar clientes, carriers y tarifas\n• Visualizar costos, ingresos y márgenes por operación\n• Dar seguimiento al estatus de cada envío\n• Tomar decisiones basadas en datos reales y no en hojas sueltas\n\nSHIPO está pensada tanto para empresas que operan su propia logística como para freight forwarders, brokers y equipos que necesitan visibilidad financiera y operativa en tiempo real.\n\nA diferencia de soluciones enfocadas solo en tracking, SHIPO se centra en el negocio detrás del envío: rentabilidad, control, trazabilidad y eficiencia operativa.\n\nConstruimos SHIPO con una mentalidad SaaS moderna, flexible y escalable, lista para crecer con tu operación y adaptarse a distintos modelos logísticos y mercados.\n\nMenos fricción operativa.\nMás claridad financiera.\nLogística que sí se entiende.",
+              "workforce": {
+                "total": 3
+              },
+              "headquarters": null,
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 4125,
+                "countryRank": 1471002,
+                "avgDurationSeconds": 7,
+                "history": [
+                  {
+                    "value": 680,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 1291,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 727,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 4579,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 4325,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 4125,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 8972.2,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

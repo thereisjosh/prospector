@@ -1,0 +1,270 @@
+{
+  "request": {
+    "query": "Monk",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "80584a97ff5e83c8d7519550dbd093e7",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/ygjnpbxrjph",
+        "title": "Monk",
+        "url": "https://monk.com/",
+        "text": "# Monk\n\nMonk is a Technology, Information and Internet company. Monk is an AR automation platform that saves time and accelerates cash-on-hand via intelligent collections, cash application, disputes, and native integrations with Stripe, HubSpot, QuickBooks, NetSuite, Salesforce. Monk reduces DSO by 40%+ and saves teams an avg. of 26 hrs/month. Monk employs 31 people (+210.0% YoY, +21 people), founded in 2024. Headquartered in New York, New York, United States. Its workforce is distributed across 5 countries (including United States, Canada, Brazil, Georgia, and Sweden).\n\n## About\n\nMonk is an AI-native accounts receivable (AR) automation platform designed to streamline the entire invoice-to-cash lifecycle for B2B companies.\n\nPowered by our autonomous AI agents, Monk eliminates manual AR work for your team by handling invoice follow-ups and questions from customers on your behalf. The team also takes cash application, dispute resolution, credit risk management, and portal submissions off your plate by leveraging frontier models and seamlessly integrating with modern finance stacks to support your AR team. Monk helps customers cut DSO by 40% and get back 26 hours a month.\n\nThe team includes second-time founders and engineers from D.E. Shaw, Google, Bolt, JPMorgan, and Morgan Stanley. Headquartered in New York, Monk manages billions in receivables for fast-growing businesses worldwide.\n\nBook a demo to deploy the Monk platform on your toughest AR problems: https://monk.com/book-a-demo\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Headquarters: New York, United States\n- Founded Year: 2024\n- Homepage: monk.com\n- Aliases: monk\n- LinkedIn: linkedin.com/company/monk-finance\n- Linkedin Followers: 5,032\n- Emails: george@monk.com\n\n## Financials\n- Total Funding: USD 29,000,000\n  - Series a (2026-04-01): USD 25.0M\n  - Seed (2025-10-01): USD 4.0M\n\n## Workforce\n- Employees: 31\n- Company Size: 11-50 employees\n  - Monthly Growth: +6.9%\n  - Yearly Growth: +210.0%\n- Key Executives:\n  - Amanda Cira: Head of Sales\n  - Cade Clark: Founding Account Executive\n  - George Kurdin: Co-Founder\n  - Joe Zhou: Co-Founder\n  - Kendall Warson: Founding Growth Marketer\n  - Michael Morgan: Founding GTM\n  - Nihar Bobba: Lead Seed Investor\n  - Nikhil Basu Trivedi: Series A Lead, Board Member\n  - Oat Wongsajjathiti: Founding Eng\n- Breakdown:\n  - By Country: United States: 21 (68%), Canada: 3 (10%), Brazil: 1 (3%), Georgia: 1 (3%), Sweden: 1 (3%)\n  - By Department: Technical: 5 (16%), Operations: 4 (13%), Sales: 4 (13%), Consulting: 3 (10%), General Management: 3 (10%), Other Department: 3 (10%), Design: 1 (3%), Finance: 1 (3%), Hr: 1 (3%), Marketing: 1 (3%) (+1 more)\n  - By Seniority: Specialist: 11 (35%), Other Management: 7 (23%), Founder: 6 (19%), Head: 1 (3%), Owner: 1 (3%), Partner: 1 (3%)\n- Talent Sources: WRTH (1), Stealth (1), South Park Commons (1), Snap Inc. (1), Rootly (1), Rokt (1), Oppenheimer & Co. Inc. (1), London Spirit (1), Baton (1), Avenue (1)\n- Alumni Go To: Tropic (1), Meroka (1), Highbeam (1), Greenboard (1), Footwork (1), Buf (1), BetterWorld Technology | Managed IT & Cybersecurity (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: fintech, postgresql, react, typescript, vercel\n\n## Web presence\n\n- Twitter: twitter.com/usemonk\n- YouTube: youtube.com/@getmonk\n- Crunchbase: crunchbase.com/organization/monk-b5a0\n- Web traffic:\n  - Monthly visits: 37,252\n  - Global rank: 910,185\n  - Bounce rate: 45.0%\n  - Pages per visit: 1.6\n  - Average visit duration: 18s\n\n## Categories\n\nar automation, artificial intelligence, cash application, disputes, financial services, fintech, intelligent collections, native integrations\n\n## Recent News\n- [2026-09-23] [The Bill Collector Nobody Can Tell Isn't Human](https://theblast.com/855562/bill-collector-nobody-can-tell-isnt-human/)\n- [2026-09-22] [Monk Launches Knowledge, where finance teams store the context Their AI Agents Run On](https://finance.yahoo.com/technology/ai/articles/monk-launches-knowledge-where-finance-214900201.html)\n- [2026-09-16] [Leading AR Automation platform Monk to Host Net30, an Applied AI Summit for Finance Leaders, in New York](https://www.globenewswire.com/news-release/2026/09/16/3363574/0/en/leading-ar-automation-platform-monk-to-host-net30-an-applied-ai-summit-for-finance-leaders-in-new-york.html)\n- [2026-09-05] [The Data Loop: How One Private Startup's Credit Product Reveals the Next Battle in Financial Software](https://www.ainvest.com/news/data-loop-private-startup-credit-product-reveals-battle-financial-software-2609/)\n- [2026-09-03]\n  - [Monk Launches Credit Management, Built on the One Signal a Credit Bureau Can't See: How a Customer Pays You](https://www.prnewswire.com/news-releases/monk-launches-credit-management-built-on-the-one-signal-a-credit-bureau-cant-see-how-a-customer-pays-you-302869477.html)\n  - [Monk Launches AI-Driven Credit Management to Turn Payment Behavior Into Real-Time Risk Decisions](https://www.tipranks.com/news/private-companies/monk-launches-ai-driven-credit-management-to-turn-payment-behavior-into-real-time-risk-decisions)\n  - [Monk Launches Credit Management, Built on the One Signal a Credit Bureau Can't See: How a Customer Pays You ...Middle East](https://eng.pressbee.net/show4862460.html?title=monk-launches-credit-management-built-on-the-one-signal-a-credit-)\n- [2026-06-23] [Monk CI Secures $450K Pre-Seed Funding to Reinvent Continuous Integration for AI-Driven Software Teams - Hindustan Metro – Latest News, Breaking News, India & World Updates](https://hindustanmetro.com/monk-ci-secures-450k-pre-seed-funding-to-reinvent-continuous-integration-for-ai-driven-software-teams)\n\n## Social\n\n### Linkedin\n\n- [2026-10-02 · Posted · 16 reactions] [New on Monk: Collections Home is rebuilt, and it's what you land on...](https://www.linkedin.com/posts/monk-finance_new-on-monk-collections-home-is-rebuilt-activity-7511833992317464577-8Xoh)\n  > New on Monk: Collections Home is rebuilt, and it's what you land on now. Also in this release, remittance advice read straight from email, Knowledge that flags conflicting guidance, and dashboards you build yourself.\n  >\n  > Full changelog from September 15th to October 1st in the link below.\n\n- [2026-09-24 · Reshared · 80 reactions] [Monk poker club is back on Wednesday the 30th, co-hosted with Rubie...](https://www.linkedin.com/posts/monk-finance_activity-7508947422933389312-Y3d-): Monk poker club is back on Wednesday the 30th, co-hosted with Rubie at our office games start at 7pm request a spot in the comments, or dm me or Jimmy McDermott for an invite\n\n- [2026-09-24 · Posted · 26 reactions] [We're hiring an Account Executive in person at our NYC office...](https://www.linkedin.com/posts/monk-finance_were-hiring-an-account-executive-in-person-activity-7508902933514870784-ugX2)\n  > We're hiring an Account Executive in person at our NYC office.\n  >\n  > Trillions sit stuck in unpaid invoices. We eliminate this friction for businesses.\n  >\n  > Day-to-day, you will:\n  > - prospect and build your own pipeline\n  > - run complex deal cycles end to end, from first call to close\n  > - help build the sales motion rather than inherit one\n  > - work with engineering to craft what customers ask for\n  >\n  > $10K cash bonus if we hire someone you recommend.\n  >\n  > Link in comments to apply, or email joe@monk.com.\n\n- [2026-09-23 · Reshared · 27 reactions] [Monk <> Everesteer hedge fund hackathon tonight is already at 200...](https://www.linkedin.com/posts/monk-finance_activity-7508566194942001152-d9aN): Monk <> Everesteer hedge fund hackathon tonight is already at 200 RSVPs If you’re a builder in NYC, come through! Link in comments for details\n\n- [2026-09-23 · Reshared · 5 reactions] [Welcome aboard, Shawn Steuerer!](https://www.linkedin.com/posts/monk-finance_welcome-aboard-shawn-steuerer-activity-7508561257658994688-zKTn): Welcome aboard, Shawn Steuerer!\n\n- [2026-09-23 · Reshared · 18 reactions] [Less than one month until Monk brings together 150 CFOs, operators...](https://www.linkedin.com/posts/monk-finance_activity-7508537236951449602-R__X): Less than one month until Monk brings together 150 CFOs, operators, founders, and researchers for an AI summit on the future of finance in the age of automation. Hosted at The Times Center in NYC o...\n\n- [2026-09-23 · Reshared · 34 reactions] [We are excited to announce Net30 - an applied AI summit on the...](https://www.linkedin.com/posts/monk-finance_activity-7508537253531443201-Nzn2): We are excited to announce Net30 - an applied AI summit on the future of finance in the age of automation October 21st at The Times Center in NYC, hosted by Monk Request an invite in the comments\n\n- [2026-09-22 · Reshared · 61 reactions] [Arrived in New York and can't wait to host the Everesteer Hedge...](https://www.linkedin.com/posts/monk-finance_activity-7508276722639888384-vziL): Arrived in New York and can't wait to host the Everesteer Hedge Fund Hackathon in collaboration with Monk tomorrow! Registrations closed at 200 people, new machine learning dataset and features rea...\n\n- [2026-09-21 · Posted · 15 reactions] [Subject builds AI-powered curriculum and learning intelligence for...](https://www.linkedin.com/posts/monk-finance_subject-builds-ai-powered-curriculum-and-activity-7507828126786236416-Rbf3)\n  > Subject builds AI-powered curriculum and learning intelligence for K-12 schools, serving hundreds of districts nationwide.\n  >\n  > For Subject, every district has varying procurement cycles, purchase orders, fiscal-year budget timing, and approval chains. As they grew, collections ended up spread across multiple finance, sales, and customer success teams with no system of record.\n  >\n  > Monk found districts that were already using Subject's curriculum and had never been sent an invoice for it.\n  >\n  > With Monk:\n  > - substantial unbilled revenue recovered\n  > - a robust AR system of record for a lean finance team\n  > - real-time reporting visibility across hundreds of district accounts\n  >\n  > Proud to partner with the Subject team, to keep cash moving as fast as they are adding districts.\n  >\n  > Full story in comments.\n\n- [2026-09-17 · Posted · 21 reactions] [Fintech Run Club is back. Next Tuesday, September 22, 7am at Marsha...](https://www.linkedin.com/posts/monk-finance_fintech-run-club-is-back-next-tuesday-activity-7506341663154393088-ZYRM)\n  > Fintech Run Club is back.\n  >\n  > Next Tuesday, September 22, 7am at Marsha P. Johnson Memorial Fountain.\n  >\n  > Fast hats for whoever shows up! RSVP in comments.\n  >\n  > Connor Griffin JPMorganChase Rain Katelyn Siragusa Lucas Piazza Pedro D'Avila Kendall Warson Marcel van Oost\n\n- [2026-09-16 · Posted · 4 reactions] [New on Monk: knowledge is now live as a place to store context...](https://www.linkedin.com/posts/monk-finance_new-on-monk-knowledge-is-now-live-as-a-place-activity-7506045857301970944-5nii)\n  > New on Monk: knowledge is now live as a place to store context about your customers and your business, to improve quality and output of your Monk agent. Also in this release, sub-customer billing, bulk actions on drafts, and payment matching by amount.\n  >\n  > Full changelog from September 1st to September 15th in the link below.\n\n- [2026-09-15 · Posted · 20 reactions] [Monk is co-hosting a webinar with HubiFi on September 29 to discuss...](https://www.linkedin.com/posts/monk-finance_monk-is-co-hosting-a-webinar-with-hubifi-activity-7505675387042054145-RoNy)\n  > Monk is co-hosting a webinar with HubiFi on September 29 to discuss accounting for Stripe credit risk and collections under ASC 606 and ASC 326.\n  >\n  > Cody Leach, CPA, Head of Product Experience at HubiFi, joins our co-founder George Kurdin to cover the four ways that revenue leakage shows up before diving into key accounting considerations, with a special focus on how credit risks manifest in Stripe.\n  >\n  > Join to learn how to account for credit losses under ASC 606 and CECL without the audit surprises, and how to get ahead of the risk with automation by setting credit limits and net terms based on each customer's payment history and signals.\n  >\n  > Participants will earn 1.0 CPE credits.\n  >\n  > Tuesday, September 29, 1pm ET / 10am PT. Registration link in the comments.\n\n- [2026-09-04 · Reshared · 19 reactions] [Run club is back by popular demand for the 3rd edition on Tuesday...](https://www.linkedin.com/posts/monk-finance_activity-7501698763451912192-NMma): Run club is back by popular demand for the 3rd edition on Tuesday September 22nd. Bring a friend, meet someone new, and start the day outside on the west side highway. RSVP at the link in the comme...\n\n- [2026-09-03 · Posted · 31 reactions] [Most of credit management comes down to a gut check. While teams...](https://www.linkedin.com/posts/monk-finance_most-of-credit-management-comes-down-to-a-activity-7501344209396801536--lFP)\n  > Most of credit management comes down to a gut check. While teams fly blind making these decisions, the best predictor of whether a customer will pay is often sitting unused, in your own AR ledger.\n  >\n  > Today, we're announcing the Credit Management feature on Monk.\n  >\n  > Monk combines your payment behavior with the credit bureau or commercial data you connect, and generates a credit report with a suggested limit in seconds.\n  >\n  > Now finance teams can answer how much credit to extend a customer in seconds. Watch George Kurdin preview it down below.\n\n- [2026-09-03 · 30 reactions, 3 comments] Most of credit management comes down to a gut check. While teams fly blind making these decisions, the best predictor of whether a customer will pay is often sitting unused, in your own AR ledger....\n\n- [2026-09-02 · Reshared · 63 reactions] [everyone on the team is competitive. turns out that also makes us...](https://www.linkedin.com/posts/monk-finance_activity-7500971298710351872--xyQ): everyone on the team is competitive. turns out that also makes us good at Codenames if you want max ownership, an opportunity to 10x your learning curve and after-hours game nights then reach out o...\n\n- [2026-09-02 · Posted · 21 reactions] [We're hiring a Growth Associate in person at our NYC office...](https://www.linkedin.com/posts/monk-finance_were-hiring-a-growth-associate-in-person-activity-7500961003854032897-McsF)\n  > We're hiring a Growth Associate in person at our NYC office.\n  >\n  > Trillions of dollars sit stuck in unpaid invoices. We eliminate this friction. You help scale our growth engine so businesses get paid fast.\n  >\n  > Day to day, you'll focus on:\n  > - growth experiments across channels, messaging, and outbound\n  > - dashboards and systems behind our pipeline\n  > - turning performance data into clear recommendations\n  >\n  > Above all, you have a bias to action, take full ownership, and ship fast. Sound like you, or do you know someone who'd be a good fit? See comments to apply.\n\n- [2026-09-02 · Reshared · 25 reactions] [At Monk , we believe a great finance platform should deliver...](https://www.linkedin.com/posts/monk-finance_activity-7500909154023219200-ZJIa): At Monk , we believe a great finance platform should deliver outcomes without creating new risks to data or safety. We recently moved fully onto AWS for more control over security, access, and infr...\n\n- [2026-09-02 · 21 reactions, 3 comments] We're hiring a Growth Associate in person at our NYC office. Trillions of dollars sit stuck in unpaid invoices. We eliminate this friction. You help scale our growth engine so businesses get paid f...\n\n- [2026-09-02 · 25 reactions, 5 comments] At Monk, we believe a great finance platform should deliver outcomes without creating new risks to data or safety. We recently moved fully onto AWS for more control over security, access, and infra...\n\n## Locations\n- Headquarters: new york, new york, united states (US)\n- Offices: new york, new york, united states (US), new york, united states (US)",
+        "summary": "{\"description\":\"Monk is an AI-native accounts receivable (AR) automation platform designed to streamline the entire invoice-to-cash lifecycle for B2B companies. Monk is a AR automation platform that saves time and accelerates cash-on-hand via intelligent collections, cash application, disputes, and native integrations with Stripe, HubSpot, QuickBooks, NetSuite, Salesforce.\",\"employee_estimate\":31,\"employee_estimate_source\":\"Employees: 31\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"\\\"We're hiring an Account Executive in person at our NYC office...\\\"  > We're hiring an Account Executive in person at our NYC office.\",\"hq\":\"New York, United States\",\"hq_quote\":\"\\\"Headquartered in New York, Monk\\\" (paraphrase of the page content; exact contiguous quote not provided)\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"\\\"Monk is an AI-native accounts receivable (AR) automation platform designed to streamline the entire invoice-to-cash lifecycle for B2B companies.\\\"\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"\\\"Total Funding: USD 29,000,000\\\"\\\\n  - Series a (2026-04-01): USD 25.0M\\\\n  - Seed (2025-10-01): USD 4.0M\\\"} }\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQEmSZktCr5idg/company-logo_200_200/B4EZn8tpbmHgAI-/0/1760881449023/monk_finance_logo?e=2147483647&v=beta&t=sxFkqJ86TmsqLeAPmwf7SKQgSw--kruQqXPeVv4q-Ns",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/ygjnpbxrjph",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Monk",
+              "foundedYear": 2024,
+              "description": "Monk is an AI-native accounts receivable (AR) automation platform designed to streamline the entire invoice-to-cash lifecycle for B2B companies.\n\nPowered by our autonomous AI agents, Monk eliminates manual AR work for your team by handling invoice follow-ups and questions from customers on your behalf. The team also takes cash application, dispute resolution, credit risk management, and portal submissions off your plate by leveraging frontier models and seamlessly integrating with modern finance stacks to support your AR team. Monk helps customers cut DSO by 40% and get back 26 hours a month.\n\nThe team includes second-time founders and engineers from D.E. Shaw, Google, Bolt, JPMorgan, and Morgan Stanley. Headquartered in New York, Monk manages billions in receivables for fast-growing businesses worldwide.\n\nBook a demo to deploy the Monk platform on your toughest AR problems: https://monk.com/book-a-demo",
+              "workforce": {
+                "total": 31
+              },
+              "headquarters": {
+                "address": "New York, US",
+                "city": "New York",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 29000000,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2026-04-01",
+                  "amount": 25000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 37252,
+                "countryRank": 304060,
+                "avgDurationSeconds": 18,
+                "history": [
+                  {
+                    "value": 18018,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 21042,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 24965,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 39273,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 55198,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 37252,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/lwv20fwtrdl",
+        "title": "Monk AI",
+        "url": "https://monk.ai/",
+        "text": "# Monk AI\n\nMonk AI is a Software Development company. Monk AI employs 26 people (-10.3% YoY, -3 people), founded in 2019. Headquartered in Paris, Île-de-France, France, with presence in India. Its workforce is distributed across France and Switzerland.\n\n## About\n\nCreating trust whenever a car changes hands thanks to AI & computer vision anywhere in the World. \n\n👁 🏎\n\nMonk is an AI company delivering state of the art computer vision solutions for the automotive, insurance and mobility markets, bringing excellence, trust and transparency.\n\nOur technology addresses every stage of the vehicle lifecycle: \nWe help Carsharing, DMS, Remarketing, Logistic, Car experts companies worldwide inspect and evaluate cars.\n\nOur visual intelligence technology inspects and evaluates any car in the world. \nWe have a modular and open technological approach delivering our robust and nimble computer vision solutions through API, SDK and APP. \n\nFollow our page and visit our website to test our AI powered inspection (http://www.monk.ai).\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: Paris, France\n- Founded Year: 2019\n- Homepage: monk.ai\n- Aliases: monk, monk ai\n- LinkedIn: linkedin.com/company/monk-ai\n- Linkedin Followers: 10,378\n\n## Financials\n- Total Funding: EUR 2,100,000\n  - Seed (2020-06-01): EUR 2.1M\n  - Non equity assistance (2020-01-01)\n  - Corporate round (2019-01-01)\n\n## Workforce\n- Employees: 26\n- Company Size: 11-50 employees\n  - Monthly Growth: -3.7%\n  - Yearly Growth: -10.3%\n- Key Executives:\n  - Abou Laraki: Co-founder & CEO\n  - Fays Slaoui: Cofounder & CTO\n  - Mathis Chenuet: R&D Team Lead\n  - Ramy R.: Head of backend and cloud computing\n  - Ramzi Ben Hariz: AI R&D Team Lead\n  - Stanislas Miquel: Director Strategy and Operations\n- Breakdown:\n  - By Country: France: 21 (81%), Switzerland: 1 (4%)\n  - By Department: Technical: 7 (27%), Product: 4 (15%), Consulting: 3 (12%), General Management: 3 (12%), Research: 3 (12%), Finance: 1 (4%), Hr: 1 (4%)\n  - By Seniority: Manager: 6 (23%), Specialist: 6 (23%), Head: 3 (12%), Other Management: 3 (12%), Founder: 2 (8%), Director: 1 (4%), Senior: 1 (4%)\n- Active job postings: 3\n- Salary ranges:\n  - Partnership Manager: median 86,321.28 EUR per year\n  - VP Operations and Product: median 81,779.82 EUR per year\n  - Lead Engineer: median 72,237.6 EUR per year\n  - RH Généraliste: median 71,202.77 EUR per year\n  - Product Manager: median 67,206.71 EUR per year\n  - Lead Front End Engineer: median 64,444.28 EUR per year\n  - AI Engineer: median 49,484.78 EUR per year\n  - Stagiaire: median 29,955.6 EUR per month\n  - Analyst: median $87,650.11 per year\n  - Sales Associate: median 58,932.69 CAD per year\n- Talent Sources: Thales (3), École Polytechnique (2), Revolugo (2), European Space Agency - ESA (2), Entrepreneurs First (2), Ad Scientiam (2), ACV Auctions (2), Stereolabs (1), Lalilo (1), ENSTA (1)\n- Alumni Go To: X-HEC Entrepreneurs (2), Spore.Bio (2), Selas Studio (2), CATENA BYTES (2), Vetted.so (1), Università di Siena (1), Philips (1), Mistral (1), CentraleSupélec (1), CBI (1)\n\n## Products & Technology\n- Tech Stack: autobiz, docker, flask, helm, kubernetes, numpy, postgresql, pytest, python, pytorch, rabbitmq, sql, sqlalchemy, terraform, github, dbt, jupyter, opencv, circleci, javascript, jira, microservices, nodejs, react, react native, typescript, nosql, c, impact, lever, well, scikit-learn, google cloud\n\n## Web presence\n\n- Crunchbase: crunchbase.com/organization/monk-ai\n- Web traffic:\n  - Monthly visits: 3,376\n  - Global rank: 4,479,916\n  - Bounce rate: 45.0%\n  - Pages per visit: 2.4\n  - Average visit duration: 98s\n\n## Reviews & Ratings\n- Employer Rating: 4.8/5.0 (12 reviews)\n  - Breakdown: Work-Life: 4.6, Compensation: 4.4, Culture: 4.6, Career: 4.7\n\n## Categories\n\napi, artificial intelligence, artificial intelligence (ai), auctions, automotive, autotech, company, computer vision, elv, human resources, information technology, insurtech, internet, machine learning, mobility, recycling, remarketing, sharing economy, vehicle inspection\n\n## Recent News\n- [2026-10-10] The State: Judge Luttig warns USC law students of potential Trump election issues. Here's what to know\n- [2026-10-09]\n  - AuntMinnieEurope: JFR: How to integrate AI in emergency imaging\n  - Firstpost: No being mean to Claude? What does Anthropic’s new policy mean for users?\n  - The Christian Century: The monk and the machine\n- [2026-10-07]\n  - Real Estate: 39 Monk Glade, Riverstone, NSW 2765\n  - Free Press Journal: Making Scents Of AI: Can Technology Take The Pressure Off Endangered Plants?\n  - Free Press Journal: OpenAI Publishes 722 AI-Generated Math Manuscripts From An Unreleased Model: Here's Why It's A Big Deal\n  - The Next Web: The 9 best accounts receivable automation software platforms for 2026\n- [2026-10-06]\n  - Business Today: Anthropic brought a Hindu monk to San Francisco to help Claude tackle AI ethics and consciousness\n  - The American Bazaar: Anthropic consults Hindu monk to discuss AI ethics\n  - Finextra Research: Apocaloptimism: How the White House should navigate AI safety\n  - Taste of Reality: Ariana Madix Called Out Love Island Australia’s AI Promo\n  - E\\! News: Ariana Madix Slams Love Island Australia for Putting Her in AI Promo Video\n- [2026-10-05]\n  - Reality Blurb: Ariana Madix Calls Out Love Island Australia for Using AI-Generated Clip of Her in Promo: \"I Am Firmly Against\" This\n  - Who: EXCLUSIVE: Love Island Australia is already facing major backlash after 'devastating' mistake in promo video\n- [2026-10-04]\n  - Livemint: Anthropic vs OpenAI: Why Claude is reaching out to religious leaders while ChatGPT maker warns against it \\| Decoded\n  - inkl: Festival to tackle the questions keeping us up at night\n- [2026-10-03]\n  - NDTV Profit: A Hindu Monk, An AI Lab And Claude: Why Anthropic Turned To Indian Philosophy For Ethics\n  - Free Press Journal: AI Industry Needs $6 Trillion Annual Revenue By 2031 To Justify Data Centre Boom: Bain Report\n  - The Times of India: AI and the monk: Anthropic goes for swami and friends to tame Claude\n- [2026-07-23] [Monk Introduces Voice Collections to Enhance AI-Driven AR Operations - Third News](https://third-news.com/article/59104afa-86eb-11f1-9a66-9ca3ba08e13f)\n\n## Social\n\n### Linkedin\n\n- [2025-03-21 · 76 reactions, 2 comments] 📢 We're hiring! Business & Strategy Intern (Paris) 📢 Join Monk AI, a leading AI-powered automotive inspection company trusted by major automotive players worldwide. This internship offers unique in...\n\n- [2024-12-12 · 30 reactions] Tech Leads, Backend Developers, Computer Vision Interns: we are hiring! 🚀 Join us and help solve real-world problems with impactful technology. At Monk, you’ll be part of a brilliant team working o...\n\n- [2024-05-02 · 65 reactions, 7 comments] 🚀 Join Our Innovative Team at Monk AI! 🚀 We're excited to share a special glimpse into the heart of our operations at Monk AI. Dive into the world of innovation with our latest video featuring Robi...\n\n- [2023-10-30 · 45 reactions, 4 comments] 👨🏫 At Monk, for the past three years, we've had the honor of contributing to the academic experience of X-HEC Entrepreneurs students, sharing our deep expertise in AI and Deep Learning. This enduri...\n\n- [2023-10-26 · 51 reactions, 1 comment] Exciting times ahead as we launched ClearCar, ACV Auctions's latest innovation designed to reshape the landscape of used car sourcing. By integrating cutting-edge AI and Monk technology, ClearCar s...\n\n- [2023-10-16 · 43 reactions, 1 comment] Our partner Ship.Cars handles about 20,000 to 30,000 inspections per month throughout the U.S. at pick-up and delivery locations to spot any damage during transport. Great insights can be drawn fro...\n\n- [2023-06-20 · 73 reactions, 1 comment] We're delighted to see our partner, Ship.Cars, and their Chief Product Officer, Vladimir K., spotlighted for their innovative application of AI in automotive logistics. Leveraging our technology, t...\n\n- [2023-04-04 · 10 reactions, 1 comment] Proprietary & qualitative data is one of the key success factors of an AI strategy. ACV Auctions recently reached 3 million vehicle inspections, made by highly trained inspectors. This accomplishme...\n\n- [2023-02-20 · 14 reactions] 📆 The Monk team will be attending The European Networking Group's 15th annual event in Barcelona from the 21st to 22nd of February. We are excited to share and exchange the latest insights from the...\n\n- [2023-02-09 · 10 reactions] Congratulations to our partner autobiz on their successful first year of operation with autobizTrade! 🎉 As stated by Emmanuel Labi, President of autobiz: \"[This successful launch] shows that gains...\n\n- [2023-01-24 · 69 reactions, 2 comments] 🔥Big news!🔥 We're thrilled to announce that in partnership with Toyota Motor Corporation, we have launched new AI solution to make end-of-contract vehicle inspections easier and more efficient for...\n\n- [2023-01-06 · 46 reactions, 1 comment] 💡 See how easy it is for Carriers to leverage Monk's AI embedded into our partner Ship.Cars' process! ⚡️ The AI Inspection app allows users to: - Reduce time spent manually entering damage informat...\n\n## Locations\n- Headquarters: paris, île-de-france, france\n- Offices: paris, île-de-france, france, bengaluru, karnātaka, india, paris, france",
+        "summary": "{\"description\":\"Monk AI is a Software Development company delivering AI-powered computer vision solutions for automotive, insurance, and mobility markets with global presence and a distributed workforce.\",\"employee_estimate\":26,\"employee_estimate_source\":\"Employees: 26\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Active job postings: 3\",\"hq\":\"Paris, France\",\"hq_quote\":\"Headquarters: paris, île-de-france, france\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Software Development\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: EUR 2,100,000\\n  - Seed (2020-06-01): EUR 2.1M\\n  - Non equity assistance (2020-01-01)\\n  - Corporate round (2019-01-01)\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4D0BAQGkCNMwYlrHKg/company-logo_200_200/company-logo_200_200/0/1630544827441/monk_ai_logo?e=2147483647&v=beta&t=U0TZqvs7bHxZ_Zz47gvOfykmxiSm1IJkXganGOZBeE4",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/lwv20fwtrdl",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Monk AI",
+              "foundedYear": 2019,
+              "description": "Creating trust whenever a car changes hands thanks to AI & computer vision anywhere in the World. \n\n👁 🏎\n\nMonk is an AI company delivering state of the art computer vision solutions for the automotive, insurance and mobility markets, bringing excellence, trust and transparency.\n\nOur technology addresses every stage of the vehicle lifecycle: \nWe help Carsharing, DMS, Remarketing, Logistic, Car experts companies worldwide inspect and evaluate cars.\n\nOur visual intelligence technology inspects and evaluates any car in the world. \nWe have a modular and open technological approach delivering our robust and nimble computer vision solutions through API, SDK and APP. \n\nFollow our page and visit our website to test our AI powered inspection (http://www.monk.ai).",
+              "workforce": {
+                "total": 26
+              },
+              "headquarters": {
+                "address": "Boulevard Raspail, 96 bis, Paris, Île-de-France 75007, FR",
+                "city": "Paris",
+                "postalCode": null,
+                "country": "France"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": null,
+                "fundingLatestRound": {
+                  "name": "Seed",
+                  "date": "2020-06-01",
+                  "amount": null
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 3376,
+                "countryRank": 259331,
+                "avgDurationSeconds": 98,
+                "history": [
+                  {
+                    "value": 2601,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 9244,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 14310,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 10490,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 8330,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 3376,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 9314,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

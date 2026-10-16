@@ -1,0 +1,270 @@
+{
+  "request": {
+    "query": "Lassie",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "0c7bd4c73d97bf1a16f7524e830ac550",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/3p58njffqp7",
+        "title": "Lassie",
+        "url": "https://lassie.co/",
+        "text": "# Lassie\n\nLassie is a Insurance company. Lassie is a digital animal insurance company that helps individuals take care of their pets or dogs. They offer a preventive service and provide digital animal insurance. They are known for their top-ranked pet insurance. Lassie employs 156 people (+45.8% YoY, +49 people) and has an annual revenue of $1M, founded in 2020. Headquartered in Sweden, with presence in France and United States. Its workforce is distributed across 6 countries (including Sweden, Germany, France, United Kingdom, and Russia).\n\n## About\n\nThe world's first preventive pet insurance and companion 🐈🐶\n\n## Company Details\n- Industry: Insurance\n- Type: Privately held\n- Founded Year: 2020\n- Homepage: lassie.co\n- Aliases: Lassie AB, lassie, lassie (sweden)\n- LinkedIn: linkedin.com/company/lassieco\n- Linkedin Followers: 13,820\n- Emails: hej@lassie.co\n\n## Financials\n- Annual Revenue: USD 1,000,000\n- Total Funding: USD 114,861,416\n  - Series c (2026-02-01): USD 75.0M\n  - Series b (2023-11-28): USD 25.3M\n  - Series a (2022-05-20): USD 11.6M\n  - Seed (2021-10-07): USD 2.3M\n  - Pre seed (2020-12-08): USD 617,561\n\n## Workforce\n- Employees: 156\n- Company Size: 51-200 employees\n  - Monthly Growth: +2.6%\n  - Yearly Growth: +45.8%\n- Key Executives:\n  - Andra Petrosan: Chief Product Officer\n  - Andra Petrosan: Head of Product\n  - Ann Eketorp Wennerberg: Head of CS and Claims; Sweden, Germany and France\n  - Bjorn Bergstrom: Angel Investor\n  - Carl-Johan Nilsson: Country Manager Sweden & VP Global Revenue\n  - Ellinor Beckman: Head of People & Talent\n  - Gabriel Baryawno: CFO\n  - Hanns-Christoph Leisewitz: Chief Growth Officer\n  - Hedda Båverud Olsson: CEO and Co-founder\n  - Joakim Wahlgren: Head of Legal\n- Breakdown:\n  - By Country: Sweden: 41 (26%), Germany: 21 (13%), France: 16 (10%), United Kingdom: 7 (4%), Russia: 2 (1%), Singapore: 1 (1%)\n  - By Department: Customer Service: 13 (8%), Other Department: 12 (8%), Marketing: 11 (7%), General Management: 10 (6%), Technical: 9 (6%), Finance: 8 (5%), Operations: 8 (5%), Sales: 6 (4%), Product: 5 (3%), Design: 3 (2%) (+3 more)\n  - By Seniority: Specialist: 27 (17%), Manager: 19 (12%), Other Management: 18 (12%), Senior: 9 (6%), Clevel: 5 (3%), Head: 5 (3%), Director: 2 (1%), Founder: 2 (1%), Intern: 2 (1%), Vp: 2 (1%)\n- Active job postings: 7\n- Talent Sources: ManyPets (3), Evidensia Djursjukvård (3), Trade Republic (2), Spotify (2), Kry (2), If Insurance (2), sapeur GmbH (1), Jurek Recruitment & Consulting (1), FORM Kitchens (1), AMBOSS (1)\n- Alumni Go To: Evidensia Djursjukvård (2), Petson (1), Mynt (1), Mindmore (1), Luminovo (1), Kasada (1), Hotel Jobs (1), HostedScan Security (1), BNP Paribas Personal Finance (1), Aftonbladet (1)\n\n## Products & Technology\n- Features: Mobile App\n- Tech Stack: vendre, canva, fintech, google sheets, google workspace, intercom, mongodb, operative, payroll plus, pipedrive, python, tiktok, typescript, sql, graphql, javascript, react, cision, openai, postgresql, sei, appen, outbrain, youtube, amplitude, google analytics, looker, microsoft, microsoft office, tableau, google ads, contentful, nosql, react native, terraform, c, impact, instagram, lever, mix, box, well, ups, facebook, usps, klaviyo, shopify, juris, user interviews\n\n## Web presence\n\n- Twitter: twitter.com/lassie_co\n- Facebook: facebook.com/lassie.sweden\n- Instagram: instagram.com/lassie_co\n- YouTube: youtube.com/channel/ucbs4arf2blr2tixpopcornq\n- Crunchbase: crunchbase.com/organization/lassie\n- Web traffic:\n  - Monthly visits: 400,536\n  - Global rank: 93,687\n  - Bounce rate: 50.0%\n  - Pages per visit: 5.2\n  - Average visit duration: 167s\n\n## Reviews & Ratings\n- Employer Rating: 4.5/5.0 (2 reviews)\n  - Breakdown: Work-Life: 4.5, Compensation: 4.0, Culture: 4.5, Career: 5.0\n\n## Categories\n\ndigital animal insurance, gps, health, insurance, insurtech, mobile, mobile apps, pet, pet behavior, pet care, pet health, pet insurance, pets, pets_and_animals/pets, veterinary\n\n## Competitors\n\nmanypets, dalma, petplan, vetstrategy, vetic, petiq, anicura\n\n## Recent News\n- [2026-10-08] Fierce Healthcare: Funding Tracker '26: Ours Privacy, Arintra and Happy Health\n- [2026-10-02] Daily Mail: Man's real-life Lassie races to police and barks at them to help after owner fell at home\n- [2026-10-01]\n  - The Detroit News: A dozen Lassies may not be enough to save their Lapeer County owner\n  - Daily Mail: QUENTIN LETTS: Burnham was all bogus modesty. Corn levels have not been this high since the heyday of Lassie\n- [2026-09-26] Daily Racing Form: Scottish Lassie preps for Breeders' Cup Distaff at Belmont\n- [2026-09-25] BUCKSCO.Today: From Pearl S. Buck to Chuck Wendig, Bucks County’s Literary Legacy Runs Deep\n- [2026-09-23] Fierce Healthcare: Fierce Healthcare Fundraising Tracker '26: Blair Health lands CAD $4.24M; Epsilon Health nabs $27.6M\n- [2026-09-20] [B2C-Versicherungen: KI, Prävention und Transparenz statt reaktiver Schadenlogik](https://www.it-boltwise.de/b2c-versicherungen-ki-praevention-und-transparenz-statt-reaktiver-schadenlogik.html)\n- [2026-09-17] WFMZ.com: ‘Lassie’ star to visit Quakertown restaurant to celebrate canine legend’s roots in Bucks County\n- [2026-09-16] Belfast Telegraph: In this week: Lassie, Simon & Garfunkel and the drawdown of troops from NI\n- [2026-09-13]\n  - [テック業界の女性88%が「仕事を楽しんでいる」、それでも格差が縮まらない理由（鐙麻樹） - エキスパート - Yahoo\\!ニュース](https://news.yahoo.co.jp/expert/articles/9c2dce7fa00aecd84642d1b94e3101f8a3994d70)\n  - [Lassie launches ChatGPT plugin for pet insurance](https://coverager.com/lassie-launches-chatgpt-plugin-for-pet-insurance/)\n- [2026-09-09]\n  - Edinburgh News: It’s a family affair for Leeanne, ​the wee lassie from Drumtassie - Nigel Duncan\n  - Fortune: This CEO says the best place to build a startup right now might be outside AI\n- [2026-09-08]\n  - [Lassie CEO Hedda Båverud Olsson says building a startup outside AI is an advantage \\| Fortune](https://fortune.com/2026/09/08/lassie-pet-insurance-europe-female-founder-ai/)\n  - [Newbie News: Hedda Båverud Olsson of Lassie – prevention focused pet insurance - Insurance Age](https://www.insuranceage.co.uk/insight/7958805/newbie-news-hedda-baverud-olsson-of-lassie-prevention-focused-pet-insurance)\n  - [Lassie CEO Hedda Båverud Olsson says building a startup outside AI is an advantage - Europe](https://www.europesays.com/europe/133500/)\n- [2026-09-03] SlashFilm: The 15 Best Dog Movies Of All Time, Ranked\n- [2026-09-01]\n  - TrueNicks: Fully Subscribed, Scottish Lassie Rematch in 'Ensign'\n  - Browne Jacobson: Six minutes to settle: AI and the future of pet insurance\n- [2026-08-25]\n  - AOL.co.uk: 80s Pop Culture Icon Nicknamed 'Lassie' Turns 70\n  - Fierce Healthcare: Fierce Healthcare Fundraising Tracker '26: Arintra lands $25M; Happy Health buoyed by $75M round\n- [2026-08-22] BloodHorse: Scottish Lassie\n- [2026-08-21] Parade Magazine: 80s Pop Culture Icon Nicknamed ‘Lassie’ Turns 70\n- [2026-08-18]\n  - The New Yorker: Cartoons from the August 17, 2026, Issue\n  - Britannica: Lassi \\| Yogurt Drink, Indian Cuisine & Refreshing Beverage\n- [2026-07-22] [Swedish pet insurer Lassie enters UK market with AI-powered platform \\| EasternEye](https://www.easterneye.biz/swedish-pet-insurer-lassie-enters-uk-market-with-ai-powered-platform/)\n- [2026-07-21] [AI-powered pet health insurer Lassie launches in UK - Insurance Today](https://www.insurancetoday.co.uk/i2026072102.php)\n\n## Social\n\n### Linkedin\n\n- [2026-08-24 · 37 reactions, 2 comments] 𝐄𝐮𝐫𝐨𝐩𝐞 𝐡𝐚𝐬 𝐞𝐯𝐞𝐫𝐲𝐭𝐡𝐢𝐧𝐠 𝐢𝐭 𝐧𝐞𝐞𝐝𝐬 𝐭𝐨 𝐛𝐮𝐢𝐥𝐝 𝐠𝐥𝐨𝐛𝐚𝐥 𝐠𝐢𝐚𝐧𝐭𝐬. 𝐒𝐨 𝐰𝐡𝐲 𝐚𝐫𝐞𝐧’𝐭 𝐰𝐞 𝐛𝐮𝐢𝐥𝐝𝐢𝐧𝐠 𝐦𝐨𝐫𝐞 𝐨𝐟 𝐭𝐡𝐞𝐦? That’s the question opening TechBBQ 2026. On stage: ★ Jakob Engel-Schmidt — Skatte- og Vækstministerie...\n\n- [2026-07-24 · 29 reactions, 3 comments] A big milestone for our portfolio company Lassie as they launch in the UK!🐾 Fresh off their recent $75M Series C, expanding into Europe's largest pet insurance market marks another exciting step in...\n\n- [2026-07-22 · 169 reactions, 61 comments] We are so proud to announce that Lassie is now live in the UK!! 🇬🇧 The UK is Europe's largest pet insurance market, where people truly love their pets and see them as family members. We're incredib...\n\n- [2026-07-22 · 31 reactions, 2 comments] Fantastic 🍾 Great to see that the Lassie team finally have paws 🐕 🐈⬛ on the ground in the UK. Congrats Hedda Båverud Olsson, Sophie Wilkinson, Johan Jönsson and the whole team 👏 Looking forward to...\n\n- [2026-07-10 · 96 reactions, 14 comments] This week Lassie turns five years old!! Five years ago we got our first customers who weren't just testing us out. A lot has happened since then, a few highlights below. On to the next five!\n\n- [2026-06-15 · 94 reactions, 6 comments] A week ago we announced our collaboration with Germany's most famous dog trainer and TV host, Martin Rütter. Here's a sneakpeek at what went on behind the scenes of our TV production shoot. 🚀 A hug...\n\n- [2026-06-08 · 22 reactions] Sifted's top 100 consumer list is out! Several pet care or pet tech companies made it to the list, and, to no surprise for our 1m insured paws, Lassie was ranked highest of them all. This year we w...\n\n- [2026-06-08 · 50 reactions, 3 comments] Ever since we started doing research on Germany back in 2022, his name has popped up. The dog trainer Martin Rütter. Everyone in the pet community knows him, and from the start he was described as...\n\n- [2026-06-05 · 180 reactions, 24 comments] 2026 has already been a year of many milestones for us at Lassie. 🚀 €100M in ARR. 1 million paws insured. And now Martin Rütter, Germany's most famous dog trainer and TV host, is joining forces wit...\n\n- [2026-06-03 · 18 reactions] New milestone alert 😻 🔥\n\n- [2026-06-03 · 131 reactions, 11 comments] A lot of milestones right now but this one is the cutest for sure. \"Lassie insures more than one million paws across Europe\"!! Going for that 10 million as the next milestone\n\n- [2026-06-01 · 564 reactions, 52 comments] I think it’s very cool that a VC like Balderton does a campaign like this. And the campaign is spot on. Some of the best founders are from Europe and some of the most inspirational companies are bu...\n\n- [2026-05-29 · 41 reactions, 8 comments] I wasn’t photogenic or famous enough to make it into the photo and the intro 🤣! But that doesn’t mean I’m not behind it. Lassie wants to keep our HQ here in Sweden, and for that we need politicians...\n\n- [2026-05-28 · 10 reactions, 1 comment] Momentum, growth and a good tech stack compounds. Let’s continue to spring past competition in 2026\n\n- [2026-05-28 · 106 reactions, 11 comments] 2025 numbers are in for many companies. We grew 20x faster than the leading pet insurance incumbents on our home market. In just 5 years, we've built a business that's rewriting the playbook for Eu...\n\n- [2026-05-27 · 460 reactions, 89 comments] Five years ago, Lassie was a thought in my head. I've always had big ambitions, and I knew from the start I wanted this to matter. But it's easy to write big numbers in a pitch deck. It's much hard...\n\n- [2026-05-19 · 66 reactions, 5 comments] The next wave of European tech won’t look like the last one. It’s being built in AI, deeptech and scaleups by founders rewriting the playbook in real time. On May 29, Sifted and Endeavor are bringi...\n\n- [2026-05-19 · 152 reactions, 17 comments] A milestone we're genuinely proud of and that we forgot to post about a while back: €100m in recurring premiums 🎉 Behind that number are hundreds of thousands of pets and the families who love them...\n\n- [2026-05-11 · 107 reactions, 11 comments] Super excited to continue this successful collaboration! 🚀\n\n- [2026-05-09 · 354 reactions, 28 comments] A few people have told me I'm the female founder CEO in Sweden, and maybe the Nordics, who has raised the most VC capital. My honest reaction: surprise. Not because the round isn't big. $75m is rea...\n\n## Locations\n- Headquarters: döbelnsgatan 21, stockholm, sweden (SE)\n- Offices: stockholm, stockholm county, sweden (SE), döbelnsgatan 21, stockholm, sweden (SE), paris, île-de-france, france, stockholm, stockholms län 114 27, sweden (SE), berlin, berlin, germany (DE), stockholm, stockholms lan, sweden (SE)",
+        "summary": "{\"description\":\"Lassie is a digital animal insurance company that helps individuals take care of their pets or dogs. They offer a preventive service and provide digital animal insurance.\",\"employee_estimate\":156,\"employee_estimate_source\":\"Employees: 156\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Key Executives: ... Hedda Båverud Olsson: CEO and Co-founder\",\"hq\":\"Stockholm, Sweden\",\"hq_quote\":\"Headquartered in Sweden, with presence in France and United States.\",\"industry\":\"Insurance\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Insurance\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 114,861,416 - Series c (2026-02-01): USD 75.0M; Series b (2023-11-28): USD 25.3M; Series a (2022-05-20): USD 11.6M; Seed (2021-10-07): USD 2.3M; Pre seed (2020-12-08): USD 617,561\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4D0BAQGEQbjImOVntQ/company-logo_200_200/B4DZ9LYSsqIEAE-/0/1783676087387/lassieco_logo?e=2147483647&v=beta&t=Z5bRj3vttrhmCwgNGqcWQ4-u9dQ3jJh467m4zr3MBqQ",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/3p58njffqp7",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Lassie",
+              "foundedYear": 2020,
+              "description": "The world's first preventive pet insurance and companion 🐈🐶",
+              "workforce": {
+                "total": 156
+              },
+              "headquarters": {
+                "address": "Döbelnsgatan 21, Stockholm, SE",
+                "city": null,
+                "postalCode": null,
+                "country": "Sweden"
+              },
+              "financials": {
+                "revenueAnnual": 1000000,
+                "fundingTotal": 114861416,
+                "fundingLatestRound": {
+                  "name": "Series c",
+                  "date": "2026-02-01",
+                  "amount": 75000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 400536,
+                "countryRank": 6122,
+                "avgDurationSeconds": 167,
+                "history": [
+                  {
+                    "value": 184938,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 197945,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 261227,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 289158,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 405433,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 400536,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/jz34bk3fck3",
+        "title": "Lassie",
+        "url": "https://lassie.ai/",
+        "text": "# Lassie\n\nLassie is a Software Development company. Lassie is an AI that runs the Doctor's Office. It automates admin enrollments, payment posting, EFT reconciliation, and helps teams focus on patients. Lassie employs 42 people (+35.5% YoY, +11 people) and has an annual revenue of $7.9M. Headquartered in San Francisco, United States, with offices in Abingdon and Red Bay. Its workforce is distributed across United States, India, and Netherlands.\n\n## About\n\nLassie enables doctors to focus on patients, not paperwork.\n\nThe average practice spends around 200 hours a month running itself. We have seen firsthand how the administrative burden is quietly breaking independent healthcare.\n \nDoctors work late into the night so that they can get through all of their paperwork by hand. Nobody taught them how to submit a claim, bill a patient, or reconcile insurance payments.\n\nOur goal is to enable these businesses to run themselves.\n\nLassie works autonomously, around the clock, reading insurance claims, reconciling payments, handling denials and appeals.\n\nOver 700 practices across 49 states trust Lassie to run their operations. In the past year alone, we have saved more than 250,000 hours of labor, time redirected entirely to patient care.\n\nLearn more or join the team: lassie.ai\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: San Francisco, United States\n- Homepage: lassie.ai\n- Aliases: colliewoode productions llc, lassie\n- LinkedIn: linkedin.com/company/lassie\n- Linkedin Followers: 3,469\n- Phone: +16504050509, 1-410-569-532\n\n## Financials\n- Annual Revenue: USD 7,920,633\n- Total Funding: USD 47,000,000\n  - Series a (2026-06-01): USD 35.0M\n  - Seed (2022-01-01): USD 12.0M\n\n## Workforce\n- Employees: 42\n- Company Size: 11-50 employees\n  - Monthly Growth: -2.3%\n  - Yearly Growth: +35.5%\n- Key Executives:\n  - Bennett Richter: Founding GTM\n  - Bobby Foose: Founding GTM\n  - Frédéric Renken: Co-Founder\n  - Jamie Aijala: Founding GTM/Ops\n  - Max Shore: Founding GTM\n  - Seth Hamson: Founding Bizops\n  - Steijn Pelle: CEO and Co-Founder\n- Breakdown:\n  - By Country: United States: 17 (40%), India: 7 (17%), Netherlands: 1 (2%)\n  - By Department: Technical: 10 (24%), General Management: 6 (14%), Other Department: 4 (10%), Consulting: 2 (5%), Operations: 2 (5%), Marketing: 1 (2%)\n  - By Seniority: Other Management: 11 (26%), Founder: 7 (17%), Specialist: 3 (7%), Intern: 2 (5%), Manager: 2 (5%)\n- Active job postings: 12\n- Talent Sources: Flyhomes (4), Robinhood (2), Ramp (2), Financial Technology Partners / FT Partners (2), AppsForBharat (2), RBC Borealis (1), Nectar (1), Found (1), Deloitte (1), Brex (1)\n- Alumni Go To: ŌURA (1), You.com (1), Troomi Wireless (1), Ramp (1), Headway (1), Ebro Foods Netherlands (1), Cursor (1), Brain Co. (1), AtoB (1), AthenaStudies (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: django, google cloud, google cloud platform, python, react, redis, salesforce, snowflake, sqlite, typescript, vercel, hubspot, coinbase, superhuman, github, linkedin, impact, palantir, plaid, stripe\n\n## Web presence\n\n- Twitter: twitter.com/lassieai\n- Facebook: facebook.com/pages/the-lassie-network/47713297395\n- Instagram: instagram.com/lassieai\n- Crunchbase: crunchbase.com/organization/lassie-7a6a\n- Web traffic:\n  - Monthly visits: 82,779\n  - Global rank: 354,741\n  - Bounce rate: 47.0%\n  - Pages per visit: 5.4\n  - Average visit duration: 80s\n\n## Categories\n\nai, doctor's office, eft reconciliation, enrollments, health care software, healthcare, healthcare claims management, lassie, other dental, other dental software, payment posting, revenue cycle management\n\n## Recent News\n- [2026-10-08] Fierce Healthcare: Funding Tracker '26: Ours Privacy, Arintra and Happy Health\n- [2026-09-12] Fierce Healthcare: Fierce Healthcare Fundraising Tracker '26: Epsilon Health nabs $27.6M; Implicity secures $40M\n- [2026-09-09] Fortune: This CEO says the best place to build a startup right now might be outside AI\n- [2026-08-27] Fierce Healthcare: Fierce Healthcare Fundraising Tracker '26: Arintra lands $25M; Happy Health buoyed by $75M round\n- [2026-08-22] Trend Hunter: Soft Robot Dogs: Lassie is a robot companion designed to encourage movement and social…\n- [2026-07-27] Andreessen Horowitz: AI for America’s Small Businesses \\| Lassie\n- [2026-07-19] Yahoo News UK: Freddy Cannon, Rock and Roller Behind Hits “Palisades Park” and “Tallahassee Lassie,” Dies at 89\n- [2026-07-15] MSN: 5 Lassie cast members: then and now\n- [2026-06-16] [Lassie Raises $35M Series A for Small Business AI Agent](https://www.startupresearcher.com/news/lassie-lands-usd35-million-series-a-to-build-autonomous-ai-agents-for-small-businesses)\n\n## Social\n\n### Linkedin\n\n- [2026-09-17 · 1 reaction] Rooting for you!\n\n- [2026-09-15 · 34 reactions, 8 comments] Dr. Suffiyah Webb opened her pediatric dental practice in Newark just weeks before the pandemic hit. She reopened to a waiting room full of children who desperately needed care. Her rapidly growing...\n\n- [2026-06-03 · 97 reactions, 18 comments] Dr. Eric Kwon built Grace Dental from the ground up. But as his practice grew, so did the admin. Before long, he was spending over 100 hours a month on paperwork: every night, laptop open, a stack...\n\n- [2025-06-25 · 10 reactions] Best 50 ❤️\n\n## Locations\n- Headquarters: san francisco, united states (US)\n- Offices: red bay, alabama, united states (US), abingdon, maryland, united states (US), san francisco, united states (US), san francisco, california, united states (US)",
+        "summary": "{\"description\":\"Lassie is a Software Development company and AI that runs the Doctor's Office, automating admin enrollments, payment posting, EFT reconciliation, and helps teams focus on patients.\",\"employee_estimate\":42,\"employee_estimate_source\":\"Employees: 42\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Active job postings: 12\",\"hq\":\"San Francisco, United States\",\"hq_quote\":\"Headquartered in San Francisco, United States, with offices in Abingdon and Red Bay.\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Software Development\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 47,000,000 - Series a (2026-06-01): USD 35.0M; Seed (2022-01-01): USD 12.0M\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQFs-m59nO70dQ/company-logo_200_200/B4EZ6GshpyIAAE-/0/1780376280018/lassie_logo?e=2147483647&v=beta&t=1vq_s27Z9oQwDB4LBREEflfvA45SNQLeHv5_w1dSQnQ",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/jz34bk3fck3",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Lassie",
+              "foundedYear": null,
+              "description": "Lassie enables doctors to focus on patients, not paperwork.\n\nThe average practice spends around 200 hours a month running itself. We have seen firsthand how the administrative burden is quietly breaking independent healthcare.\n \nDoctors work late into the night so that they can get through all of their paperwork by hand. Nobody taught them how to submit a claim, bill a patient, or reconcile insurance payments.\n\nOur goal is to enable these businesses to run themselves.\n\nLassie works autonomously, around the clock, reading insurance claims, reconciling payments, handling denials and appeals.\n\nOver 700 practices across 49 states trust Lassie to run their operations. In the past year alone, we have saved more than 250,000 hours of labor, time redirected entirely to patient care.\n\nLearn more or join the team: lassie.ai",
+              "workforce": {
+                "total": 42
+              },
+              "headquarters": {
+                "address": "San Francisco, US",
+                "city": "San Francisco",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 7920633,
+                "fundingTotal": 47000000,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2026-06-01",
+                  "amount": 35000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 82779,
+                "countryRank": 100208,
+                "avgDurationSeconds": 80,
+                "history": [
+                  {
+                    "value": 34031,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 38349,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 42273,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 87582,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 49698,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 82779,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 6766.7,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

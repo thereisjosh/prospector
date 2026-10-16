@@ -1,0 +1,266 @@
+{
+  "request": {
+    "query": "Clueso",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "40b37f7d414be1177d21c0f9572d00d6",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/xsndtgjvh28",
+        "title": "Clueso",
+        "url": "https://www.clueso.io/",
+        "text": "# Clueso\n\nClueso is a Software Development company. Clueso is a company that provides product videos and training content in minutes. They offer AI voiceovers, one-click translation, and effortless editing. Clueso employs 41 people (+127.8% YoY, +23 people) and has an annual revenue of $200K, founded in 2023. Headquartered in San Francisco, United States, with an office in Campbell. Its workforce is distributed across India, United States, Kuwait, and Saudi Arabia.\n\n## About\n\nClueso is the fastest and easiest way to create stunning product videos. It converts raw screen recordings into studio-quality videos and step-by-step articles in minutes. No editing or design skills needed.\n\nHere’s how it works: \nSimply record/upload a rough screen recording of your product, and Clueso will instantly transform it into a studio-quality explainer video and a step-by-step how-to article. \n\nHere are some of the top features:\n\nCreate videos\nClueso handles every step of the video production process. It writes your video’s script and generates a professional AI-voiceover that stays perfectly in sync with your video. Clueso also enhances your video with stunning zoom effects, highlights, captions, music, and branding!\n\nCreate SOPs/help articles\nFrom any screen recording, Clueso’s AI automatically generates a step-by-step article with perfectly crafted steps and screenshots/GIFs. Use our AI agent to get the tone and formatting you want.\n\nTranslate your content\nTranslate your videos into 40+ languages. Use the translation glossary feature to fine-tune terms and ensure translation accuracy.\n\nEasily update out-of-date content\nWhenever your videos go out of date, you don’t need to remake them from scratch! Clueso makes it super-easy to replace outdated clips and voiceovers.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: San Francisco, United States\n- Founded Year: 2023\n- Homepage: clueso.io\n- Aliases: Desklamp, Inc., clueso\n- LinkedIn: linkedin.com/company/clueso\n- Linkedin Followers: 14,818\n\n## Financials\n- Annual Revenue: USD 200,000\n- Total Funding: USD 1,900,000\n  - Seed (2024-04-23): USD 1.4M\n  - Pre seed (2023-03-24): USD 500,000\n\n## Workforce\n- Employees: 41\n- Company Size: 11-50 employees\n  - Monthly Growth: -2.4%\n  - Yearly Growth: +127.8%\n- Key Executives:\n  - Akash Anand: Co-founder & CEO\n  - Krish Gandhi: Growth & GTM Engineering Lead\n  - Neel Balar: Co-Founder\n  - Prajwal Prakash: Founder CTO\n  - Srihari BT: Angel Investor\n- Breakdown:\n  - By Country: India: 25 (61%), United States: 4 (10%), Kuwait: 1 (2%), Saudi Arabia: 1 (2%)\n  - By Department: Technical: 11 (27%), Design: 5 (12%), Marketing: 5 (12%), General Management: 3 (7%), Other Department: 3 (7%), Customer Service: 2 (5%), Consulting: 1 (2%), Trades: 1 (2%)\n  - By Seniority: Specialist: 16 (39%), Other Management: 8 (20%), Founder: 4 (10%), Head: 1 (2%), Manager: 1 (2%), Senior: 1 (2%)\n- Talent Sources: Desklamp (3), Fluent Health (2), Fello (2), Upwork (1), Surin International Pvt. Ltd (1), SpotDraft (1), Karagre Softwares Pvt. Ltd. (1), HuskyVoiceAI (1), Beyond The Sugar (1), Arré (1)\n- Alumni Go To: Whatfix (1), SpotDraft (1), Reo.Dev (1), Otel AI (1), Humantic AI (1), ElevenLabs (1), Brivio (1), Birla Institute of Technology and Science, Pilani (1), Adobe (1)\n\n## Products & Technology\n- Features: Free Trial, Demo Available\n- Tech Stack: applitools, bash, browserstack, chrome, davinci resolve, docker, github, github actions, gitlab, grafana, jenkins, jest, lambdatest, linkedin, playwright, postgresql, pytest, python, razorpay, rds, react, redis, selenium, smartsheet, terraform, time matters, twitter, typescript, uipath, youtube, zendesk, hubspot\n\n## Web presence\n\n- Twitter: twitter.com/_clueso\n- YouTube: youtube.com/@cluesoai\n- Crunchbase: crunchbase.com/organization/clueso\n- Web traffic:\n  - Monthly visits: 142,790\n  - Global rank: 242,998\n  - Bounce rate: 37.0%\n  - Pages per visit: 3.5\n  - Average visit duration: 115s\n\n## Reviews & Ratings\n- Product Reviews: 4.8/5.0 (128 reviews)\n\n## Categories\n\nai video generators, ai voiceovers, artificial intelligence (ai), clueso, computers_electronics_and_technology/graphics_multimedia_and_web_design, customer education, editing, product videos, saas, screen and video capture, screen and video capture software, software, technology/software, training content, translation, video editing, work instructions\n\n## Competitors\n\nrephrase ai, trainn, hippo video, justbaat\n\n## Recent News\n- [2026-10-13]\n  - YourStory.com: Agentic video startup Clueso raises $10M in Series A funding round\n  - Dealroom: Clueso raises $10M Series A to scale its agentic video platform\n- [2026-09-05] WEB.DE: Clueso über sein Tourleben: \"Es ist wie eine kleine Familie\"\n- [2026-08-31] ZDFheute: Sänger Clueso: Zwischen Bühnenrituale und Tourstress\n- [2026-08-30]\n  - NWZonline: Clueso im Beachclub Nethen: Vorverkauf gestartet\n  - News.at: Clueso lässt Sommer mit \"Hitzewelle\" ausklingen\n  - Oberösterreichische Nachrichten: Clueso lässt den Sommer mit \"Hitzewelle\"-Song ausklingen\n  - LifeOnStage®: OK KID veröffentlichen zusammen mit Clueso die gemeinsame Single \"Heatwave\"\n- [2026-08-16]\n  - brisant.de: \"Finde ich geil\": Mitten im Song zieht Clueso den Stecker - so still genießt er den \"Chicago\"-Moment\n  - SWR3: Diese Acts spielen kostenlose Konzerte beim New Pop\\!\n- [2026-08-09] Ostsee Zeitung: Traditionshotel wird nach Insolvenz verkauft + Besonderer Strandkorb + Konzert von Clueso\n- [2026-08-06] ARD Mediathek: Clueso live in Bremen\n- [2026-07-26]\n  - Stimme: Clueso begeistert bei Haigern Live: Emotionen, Fan-Nähe und Festivalmagie in Talheim\n  - Stimme: Küsschen für Haigern Live: Clueso sorgt für emotionale Momente am dritten Festival-Tag\n- [2026-07-25]\n  - Schwarzwälder Bote: Ferienzauber Rottweil: Von „Chicago“ bis „Gewinner“ – Clueso sorgt für Gänsehautmomente im Kraftwerk\n  - wirtschaft.com: Video: Clueso sorgt für Gänsehautmomente im Kraftwerk Rottweil\n- [2026-07-19]\n  - MSN: Clueso und Mark Forster in Dortmund: Veranstalter ändert kurz vor Konzerten die Regeln\n  - Lippische Landes-Zeitung: Paderborn: Konzert von Clueso\n- [2026-07-18] Lippische Landes-Zeitung: Clueso tanzt mit Tausenden in Paderborn – und macht einen 13-Jährigen besonders glücklich\n- [2026-07-17] News.de: Clueso auf Tour 2026/2027: Diese Termine dürfen Sie nicht verpassen\n- [2026-07-05] [ZurÃ¼ck auf dem Domplatz: Clueso lÃ¤dt 2027 wieder zum Erfurter Heimspiel â€“ Vorverkauf startet in KÃ¼rze](https://www.blogarama.com/journalism-blogs/328012-tha-14ringen-blick-nachrichten-und-meldungen-blog/77826618-zura14ck-auf-dem-domplatz-clueso-ladt-2027-wieder-zum-erfurter-heimspiel-vorverkauf-startet-ka14rze)\n\n## Social\n\n### Linkedin\n\n- [2026-10-08 · 5 reactions, 1 comment] Every support team knows the feeling of answering the same customer question in Slack again. The good news is there's an easy fix. Most of those answers are already sitting in your threads, so the...\n\n- [2026-10-08 · 25 reactions, 3 comments] Clueso can now run on open source models. Starting today, everything you create in Clueso can be powered by Kimi K3, GLM 5.3, or DeepSeek 4.1, served on Baseten, alongside the frontier models we al...\n\n- [2026-10-08 · 63 reactions, 6 comments] \"Why should we have to create the same content twice?\" That's the question Shannon Cook asked two years ago. Her enablement and education team at Movable Ink was running two separate content pipeli...\n\n- [2026-10-06 · 133 reactions, 16 comments] Today, we’re launching automated demo data for product recordings. One of the most painful parts of doing a product recording isn’t the actual recording. It’s everything you have to do before it: -...\n\n- [2026-10-06 · 8 reactions, 1 comment] Nobody has ever said, \"I loved that 9-minute tutorial. Please make it longer.\" Most tutorials run long because of the dead air and the loading screens. The actual task is usually way shorter. So we...\n\n- [2026-10-05 · 29 reactions, 8 comments] Should've named them better 💀\n\n- [2026-10-05 · 11 reactions, 1 comment] Kinetic typography is one of those things that looks simple and quietly costs a designer a full day in After Effects. Give Clueso a reference video of the style you want, and it builds the whole th...\n\n- [2026-10-01 · 21 reactions] Your international customers should not have to learn your product by watching an English interface. Localizing a product video has always stopped at the voiceover and the captions, because the pro...\n\n- [2026-10-01 · 2 reactions, 1 comment] Most AI voiceovers read your script at one volume, in one mood, from start to finish. In Clueso, you direct it. Emotion tags go inline: [whisper], [warm], [playful], and the delivery changes on tha...\n\n- [2026-10-01 · 40 reactions, 1 comment] Just choose the best option, Claude 💀\n\n- [2026-09-21 · 1 reaction] We've come full circle! Prajwal Prakash made the MCP launch video using the MCP. Every element in this video is a real Clueso element someone can still open and edit, and the MCP put them all there...\n\n- [2026-09-21 · 4 reactions] Making a great video is now just a conversation with Claude or ChatGPT. For years, video meant juggling a screen recorder, an editor, and design software, then stitching the result together by hand...\n\n- [2026-09-18 · 107 reactions, 5 comments] Trading isn’t about always being right. It’s about being right enough that you make a ton of money. At the start of my time as a trader in Hong Kong, I was in an environment that was completely for...\n\n- [2026-09-18 · 9 reactions, 1 comment] PowerPoints are so boring! But what if you could turn your PPTs into engaging videos? We've seen teams use it for sales demos, HR onboarding, training videos, and internal comms. Basically, anywher...\n\n- [2026-09-18 · 12 reactions, 1 comment] Nothing ages faster than a product walkthrough 💀\n\n- [2026-09-17 · 37 reactions] Your product speaks a dozen languages. Your product videos speak one. Every walkthrough you have made is frozen in whichever language it was recorded in, while your UI has already moved on to Germa...\n\n- [2026-09-17 · 10 reactions, 1 comment] You finally got the new system live. Big win, right? Except now half the team is stuck. The old shortcuts are gone, approvals work differently, and something that used to take a minute now takes te...\n\n- [2026-09-17 · 110 reactions, 11 comments] We're launching the Clueso MCP on Product Hunt on September 22nd. Over the last few weeks, we've seen incredible adoption of our MCP, and the videos customers are creating with it have been genuine...\n\n- [2026-09-16 · 20 reactions, 1 comment] What if there was a third button? With Clueso, you can fix the typo and the video gets updated automatically. Check the comments to see how it works👇\n\n- [2026-09-15 · 146 reactions, 15 comments] Today, we’re introducing automatic UI translations for product videos. Most SaaS products today aren’t just in English. Products exist in a dozen languages, but their videos usually don’t. Even tea...\n\n## Locations\n- Headquarters: san francisco, united states (US)\n- Offices: san francisco, united states (US), san francisco, california, united states (US), campbell, california, united states (US)",
+        "summary": "{\"description\":\"Clueso is a software development company offering product videos and training content with AI voiceovers, translation, and editing. Headquarters: San Francisco, United States; office in Campbell; distributed workforce across India, United States, Kuwait, and Saudi Arabia.\",\"employee_estimate\":41,\"employee_estimate_source\":\"Employees: 41\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Key Executives:\\n  - Akash Anand: Co-founder & CEO\\n  - Krish Gandhi: Growth & GTM Engineering Lead\\n  - Neel Balar: Co-Founder\\n  - Prajwal Prakash: Founder CTO\\n  - Srihari BT: Angel Investor\",\"hq\":\"San Francisco, United States\",\"hq_quote\":\"Headquartered in San Francisco, United States, with an office in Campbell.\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Software Development\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"- Total Funding: USD 1,900,000\\n  - Seed (2024-04-23): USD 1.4M\\n  - Pre seed (2023-03-24): USD 500,000\\n...\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQE9z5Ku000ScQ/company-logo_200_200/B56Zb2Tb1CGoAI-/0/1747889012683/clueso_logo?e=2147483647&v=beta&t=NiUuYETCKMHEjo0CvYLrFPUKELRGFGhGaxG185269iA",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/xsndtgjvh28",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Clueso",
+              "foundedYear": 2023,
+              "description": "Clueso is the fastest and easiest way to create stunning product videos. It converts raw screen recordings into studio-quality videos and step-by-step articles in minutes. No editing or design skills needed.\n\nHere’s how it works: \nSimply record/upload a rough screen recording of your product, and Clueso will instantly transform it into a studio-quality explainer video and a step-by-step how-to article. \n\nHere are some of the top features:\n\nCreate videos\nClueso handles every step of the video production process. It writes your video’s script and generates a professional AI-voiceover that stays perfectly in sync with your video. Clueso also enhances your video with stunning zoom effects, highlights, captions, music, and branding!\n\nCreate SOPs/help articles\nFrom any screen recording, Clueso’s AI automatically generates a step-by-step article with perfectly crafted steps and screenshots/GIFs. Use our AI agent to get the tone and formatting you want.\n\nTranslate your content\nTranslate your videos into 40+ languages. Use the translation glossary feature to fine-tune terms and ensure translation accuracy.\n\nEasily update out-of-date content\nWhenever your videos go out of date, you don’t need to remake them from scratch! Clueso makes it super-easy to replace outdated clips and voiceovers.",
+              "workforce": {
+                "total": 41
+              },
+              "headquarters": {
+                "address": "San Francisco, US",
+                "city": "San Francisco",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 200000,
+                "fundingTotal": 1900000,
+                "fundingLatestRound": {
+                  "name": "Seed",
+                  "date": "2024-04-23",
+                  "amount": 1400000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 142790,
+                "countryRank": 56606,
+                "avgDurationSeconds": 115,
+                "history": [
+                  {
+                    "value": 163239,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 161105,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 167070,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 187422,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 157843,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 142790,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/n0f7s7h14my",
+        "title": "Cluso",
+        "url": "https://cluso.com/",
+        "text": "# Cluso\n\nCluso is a Security and Investigations company. Cluso Investigation is a company that specializes in autonomous background checks and provides personalized audit-ready reports. Cluso employs 11 people and has an annual revenue of $2.8M, founded in 2008. Headquartered in Southlake, Texas, United States, with an office in Fort Worth.\n\n## About\n\nDelivering Contract Compliant, Audit-Ready Background Reports on Employees and Contractors. Simplified process and premium results without web portal ordering. Try us and experience \"The Gift of Time.\"​ Our expert investigators conduct and manage your reports \"Revealing Who You Can Trust.\"​\n\n## Company Details\n- Industry: Security and Investigations\n- Type: Privately held\n- Headquarters: Southlake, United States\n- Founded Year: 2008\n- Homepage: cluso.com\n- Aliases: Cluso Investigation LLC, cluso, cluso investigation\n- LinkedIn: linkedin.com/company/cleves-research-llc\n- Linkedin Followers: 133\n- Emails: sales@cluso.com\n- Phone: (817) 945-2289, (817) 945-2297, +1 817 945 2289, 817-945-2289\n\n## Financials\n- Annual Revenue: USD 2,835,177\n\n## Workforce\n- Employees: 11\n- Company Size: 11-50 employees\n- Breakdown:\n  - By Country: United States: 5 (45%)\n  - By Department: Customer Service: 2 (18%), Finance: 1 (9%), Operations: 1 (9%), Project Management: 1 (9%)\n  - By Seniority: Specialist: 4 (36%), Manager: 1 (9%)\n- Talent Sources: WestRock Company (1), USCIS (1), Toppers Pizza (1), TEXAS CRUDE ENERGY, LLC (1), Lowe's Companies, Inc. (1), Fluor Corporation (1), College Promoters USA (1), Class Valuation (1), Centralized Showing Service (1), 1-800-GOT-JUNK? (1)\n- Alumni Go To: Terminix (1), Petmate (1), NAPA Auto Parts (1), LVMH Perfumes & Cosmetics (1), Citi (1), Aspire Residential (1), Alignerr (1)\n\n## Web presence\n\n- Twitter: twitter.com/clusopi\n- Facebook: facebook.com/clusoinvestigation\n- YouTube: youtube.com/channel/ucqw9oxfsxp3p1mpy9yckb8a\n- Crunchbase: crunchbase.com/organization/cluso-investigation\n- Web traffic:\n  - Monthly visits: 5,188\n  - Global rank: 2,875,932\n  - Bounce rate: 32.0%\n  - Pages per visit: 3.6\n  - Average visit duration: 154s\n\n## Categories\n\naudit-ready reports, autonomous background checks, background checks, criminal investigations, crm, customer services, databases, employment laws, employment screening, employment verification, empolyee relations, expert licensed investigators, global credential searches, insurance, jobs_and_career/jobs_and_employment, legal, personalized, professional services, recruitment, risk assesment, security\n\n## Recent News\n- [2026-08-29] [Investigative Researcher – Hybrid – Greene Center \\| University of Rochester](https://careereducation.rochester.edu/jobs/cluso-investigation-investigative-researcher-hybrid/)\n- [2025-05-29] NotiCel: Walter Morciglio presenta su nuevo álbum \\[IN\\_\\_\\_CLUSO\\]\n\n## Locations\n- Headquarters: southlake, texas, united states (US)\n- Offices: southlake, texas cluso, united states, fort worth, texas, united states (US), southlake, texas, united states (US)",
+        "summary": "{\"description\":\"Cluso is a Security and Investigations company that specializes in autonomous background checks and provides personalized audit-ready reports for employees and contractors.\",\"employee_estimate\":11,\"employee_estimate_source\":\"Employees: 11\",\"hiring_first_ops_or_revops\":false,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Southlake, Texas, United States\",\"hq_quote\":\"Headquartered in Southlake, Texas, United States\",\"industry\":\"Security and Investigations\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Security and Investigations\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":false,\"recently_funded_seed_or_series_a_quote\":\"There is no mention of recent seed or Series A funding on the page.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4D0BAQETkrLRQdhfBA/company-logo_200_200/company-logo_200_200/0/1631336865722?e=2147483647&v=beta&t=0EqZzb17qsW5HbSOb0DZz5YdO500anCAVCkU2egMb3I",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/n0f7s7h14my",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Cluso",
+              "foundedYear": 2008,
+              "description": "Delivering Contract Compliant, Audit-Ready Background Reports on Employees and Contractors. Simplified process and premium results without web portal ordering. Try us and experience \"The Gift of Time.\"​ Our expert investigators conduct and manage your reports \"Revealing Who You Can Trust.\"​\n",
+              "workforce": {
+                "total": 11
+              },
+              "headquarters": {
+                "address": "2600 E Southlake Blvd, Ste 120-379, Southlake, Texas Cluso, US",
+                "city": "Southlake",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 2835177,
+                "fundingTotal": null,
+                "fundingLatestRound": null
+              },
+              "webTraffic": {
+                "visitsMonthly": 5188,
+                "countryRank": 805754,
+                "avgDurationSeconds": 154,
+                "history": [
+                  {
+                    "value": 17681,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 19424,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 226,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 2789,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 11232,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 5188,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 7324.1,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

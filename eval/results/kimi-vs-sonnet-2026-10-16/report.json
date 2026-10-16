@@ -1,0 +1,154 @@
+{
+  "cells": [
+    {
+      "scenarioId": "S1",
+      "arm": "C_agent_sonnet",
+      "rep": 1,
+      "n": 8,
+      "good_leads": 7,
+      "precision": 0.875,
+      "cost_per_good_lead": 0.12583638571428576,
+      "latency": 212883,
+      "stop_reason": "budget",
+      "adaptive_actions": 43,
+      "workflow_shaped": false,
+      "pass": true,
+      "unjudged": {
+        "count": 0,
+        "companies": [],
+        "signal_urls": []
+      },
+      "q2_tolerated": "MyFreightWorld",
+      "graders": {
+        "must_pass": true,
+        "failed": []
+      }
+    },
+    {
+      "scenarioId": "S1",
+      "arm": "D_agent_kimi",
+      "rep": 1,
+      "n": 4,
+      "good_leads": 3,
+      "precision": 0.75,
+      "cost_per_good_lead": 0.18645356000000005,
+      "latency": 374886,
+      "stop_reason": "max_active_ms",
+      "adaptive_actions": 11,
+      "workflow_shaped": false,
+      "pass": false,
+      "unjudged": {
+        "count": 0,
+        "companies": [],
+        "signal_urls": []
+      },
+      "q2_tolerated": "FreezPak Logistics",
+      "graders": {
+        "must_pass": false,
+        "failed": [
+          "cost_reconciles"
+        ]
+      }
+    },
+    {
+      "scenarioId": "S2",
+      "arm": "C_agent_sonnet",
+      "rep": 1,
+      "n": 10,
+      "good_leads": 9,
+      "precision": 0.9,
+      "cost_per_good_lead": 0.06761788888888891,
+      "latency": 157569,
+      "stop_reason": "target_leads",
+      "adaptive_actions": 4,
+      "workflow_shaped": false,
+      "pass": true,
+      "unjudged": {
+        "count": 0,
+        "companies": [],
+        "signal_urls": []
+      },
+      "graders": {
+        "must_pass": true,
+        "failed": []
+      }
+    },
+    {
+      "scenarioId": "S2",
+      "arm": "D_agent_kimi",
+      "rep": 1,
+      "n": 6,
+      "good_leads": 5,
+      "precision": 0.8333333333333334,
+      "cost_per_good_lead": 0.12204943600000004,
+      "latency": 386361,
+      "stop_reason": "max_active_ms",
+      "adaptive_actions": 4,
+      "workflow_shaped": false,
+      "pass": false,
+      "unjudged": {
+        "count": 0,
+        "companies": [],
+        "signal_urls": []
+      },
+      "graders": {
+        "must_pass": true,
+        "failed": []
+      }
+    }
+  ],
+  "summaries": [
+    {
+      "scenarioId": "S1",
+      "arm": "C_agent_sonnet",
+      "n": 1,
+      "pass_at_1": 1,
+      "pass_3": null,
+      "mean_good_leads": 7,
+      "mean_precision": 0.875,
+      "mean_cost_per_good_lead": 0.12583638571428576,
+      "p50_latency": 212883,
+      "p95_latency": 212883,
+      "workflow_shaped_share": 0
+    },
+    {
+      "scenarioId": "S1",
+      "arm": "D_agent_kimi",
+      "n": 1,
+      "pass_at_1": 0,
+      "pass_3": null,
+      "mean_good_leads": 3,
+      "mean_precision": 0.75,
+      "mean_cost_per_good_lead": 0.18645356000000005,
+      "p50_latency": 374886,
+      "p95_latency": 374886,
+      "workflow_shaped_share": 0
+    },
+    {
+      "scenarioId": "S2",
+      "arm": "C_agent_sonnet",
+      "n": 1,
+      "pass_at_1": 1,
+      "pass_3": null,
+      "mean_good_leads": 9,
+      "mean_precision": 0.9,
+      "mean_cost_per_good_lead": 0.06761788888888891,
+      "p50_latency": 157569,
+      "p95_latency": 157569,
+      "workflow_shaped_share": 0
+    },
+    {
+      "scenarioId": "S2",
+      "arm": "D_agent_kimi",
+      "n": 1,
+      "pass_at_1": 0,
+      "pass_3": null,
+      "mean_good_leads": 5,
+      "mean_precision": 0.8333333333333334,
+      "mean_cost_per_good_lead": 0.12204943600000004,
+      "p50_latency": 386361,
+      "p95_latency": 386361,
+      "workflow_shaped_share": 0
+    }
+  ]
+}
