@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Records the demo walkthrough at 1280 and writes docs/screenshots/walkthrough.gif (≤ 8 MB) plus fresh PNGs.
+// Records the demo walkthrough at 1280 and writes docs/screenshots/walkthrough.gif (≤ 8 MB) plus a 1280 PNG per screen.
 //
 //   npx next build && node scripts/demo-gif.mjs            # starts `next start` with DEMO_MODE=1 on a free port
 //   BASE=http://localhost:3000 node scripts/demo-gif.mjs   # or record an already-running demo server
@@ -19,9 +19,17 @@ const OUT = join(ROOT, "docs", "screenshots");
 const GIF = join(OUT, "walkthrough.gif");
 const MAX_BYTES = 8 * 1024 * 1024;
 const VIEW = { width: 1280, height: 800 };
-/** The API rate-limits per IP; give each browser context its own bucket so a full walk never waits on a 429. */
+/** The API rate-limits per IP; give each browser context its own bucket so a full walk never waits on a 429.
+ *  The header goes on our own origin only: sent to the font CDN it triggers a CORS preflight that fails, and the
+ *  page would fall back from Satoshi to the system face. */
 let bucket = 0;
-const ownIp = () => ({ "x-forwarded-for": `10.77.${process.pid % 250}.${(bucket += 1)}` });
+async function context(browser, base, options) {
+  const ctx = await browser.newContext(options);
+  const ip = `10.77.${process.pid % 250}.${(bucket += 1)}`;
+  await ctx.route(`${base}/**`, (route) => route.continue({ headers: { ...route.request().headers(), "x-forwarded-for": ip } }));
+  return ctx;
+}
+const ready = (page) => page.evaluate(() => document.fonts.ready.then(() => document.fonts.check("500 15px Satoshi")));
 
 function loadPlaywright() {
   const candidates = [ROOT, process.env.PLAYWRIGHT_DIR].filter(Boolean);
@@ -84,6 +92,7 @@ async function press(page, locator, hold = 350) {
 async function walk(page, base) {
   await page.goto(base);
   await page.waitForFunction(() => (document.querySelector("#seller-input")?.value.length ?? 0) > 0);
+  if (!(await ready(page))) throw new Error("Satoshi did not load (Fontshare unreachable?)");
   await pause(page, 1400);
   // Describe
   await press(page, page.locator(".pr-prompt-go").first());
@@ -128,26 +137,59 @@ async function walk(page, base) {
   const trigger = page.locator(".pr-mem-trigger");
   if ((await trigger.getAttribute("aria-expanded")) !== "true") await press(page, trigger);
   await pause(page, 900);
-  // The learned note sits at the bottom of the rail, below the fold: bring it whole into view for the last frames.
+  // The memory row sits under the nav: bring the learned note whole into view for the last frames.
   await page.evaluate(() => document.querySelector(".pr-mem-items.is-notes")?.scrollIntoView({ block: "nearest" }));
   await pause(page, 2400);
 }
 
+/** One 1280 still per screen (light), plus the results screen in dark. */
 async function stills(browser, base) {
+  const snap = (page, name) => page.screenshot({ path: join(OUT, `${name}.png`) });
   for (const scheme of ["light", "dark"]) {
-    const ctx = await browser.newContext({ viewport: VIEW, colorScheme: scheme, deviceScaleFactor: 1, extraHTTPHeaders: ownIp() });
+    const ctx = await context(browser, base, { viewport: VIEW, colorScheme: scheme, deviceScaleFactor: 1 });
     const page = await ctx.newPage();
+    const light = scheme === "light";
     await page.goto(base);
     await page.waitForFunction(() => (document.querySelector("#seller-input")?.value.length ?? 0) > 0);
+    if (!(await ready(page))) throw new Error("Satoshi did not load");
+    if (light) await snap(page, "screen-1-describe");
     await page.locator(".pr-prompt-go").first().click();
     await page.getByRole("button", { name: "Suggest who to target" }).click();
+    await page.getByRole("button", { name: "Build the plan" }).waitFor();
+    await pause(page, 300);
+    if (light) await snap(page, "screen-2-target");
     await page.getByRole("button", { name: "Build the plan" }).click();
+    await page.getByRole("button", { name: "Run agent" }).waitFor();
+    await pause(page, 300);
+    if (light) await snap(page, "screen-3-approve");
     await page.getByRole("button", { name: "Run agent" }).click();
+    await page.locator(".pr-confirm").waitFor();
+    await pause(page, 500);
+    if (light) await snap(page, "screen-4-approval");
     await page.getByRole("button", { name: "Approve", exact: true }).click();
+    if (light) {
+      await page.waitForFunction(() => document.querySelectorAll(".lrow").length > 3, null, { timeout: 120000 });
+      await page.evaluate(() => document.querySelector(".pr-run-head")?.scrollIntoView({ block: "start" }));
+      await pause(page, 300);
+      await snap(page, "screen-5-run-live");
+    }
     await page.locator(".pr-outcome").waitFor({ timeout: 120000 });
     await page.evaluate(() => scrollTo({ top: 0 }));
     await pause(page, 800);
     await page.screenshot({ path: join(OUT, `demo-${scheme}.png`) });
+    if (light) {
+      await snap(page, "screen-6-results");
+      await page.locator(".lrow-evidence [data-slot=trace-collapsible-trigger]").first().click();
+      await page.locator(".lrow-evidence [data-testid=evidence]").first().waitFor();
+      await page.evaluate(() => document.querySelector(".lrow-evidence")?.scrollIntoView({ block: "center" }));
+      await pause(page, 300);
+      await snap(page, "screen-7-evidence");
+      await page.evaluate(() => scrollTo({ top: 0 }));
+      const trigger = page.locator(".pr-mem-trigger");
+      if ((await trigger.getAttribute("aria-expanded")) !== "true") await trigger.click();
+      await pause(page, 400);
+      await snap(page, "screen-8-memory");
+    }
     await ctx.close();
   }
 }
@@ -170,7 +212,7 @@ const server = await startServer();
 const browser = await chromium.launch();
 const videoDir = mkdtempSync(join(tmpdir(), "prospector-video-"));
 try {
-  const ctx = await browser.newContext({ viewport: VIEW, colorScheme: "light", recordVideo: { dir: videoDir, size: VIEW }, extraHTTPHeaders: ownIp() });
+  const ctx = await context(browser, server.base, { viewport: VIEW, colorScheme: "light", recordVideo: { dir: videoDir, size: VIEW } });
   const page = await ctx.newPage();
   const t0 = Date.now();
   await walk(page, server.base);
@@ -179,7 +221,7 @@ try {
   await ctx.close(); // flushes the video
   toGif(video);
   await stills(browser, server.base);
-  console.log(`wrote ${GIF}, ${join(OUT, "demo-light.png")}, ${join(OUT, "demo-dark.png")}`);
+  console.log(`wrote ${GIF}, demo-light.png, demo-dark.png and screen-1…8 PNGs in ${OUT}`);
 } finally {
   await browser.close();
   server.stop();

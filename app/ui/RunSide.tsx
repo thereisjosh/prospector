@@ -87,7 +87,7 @@ export function ChecklistPanel({ model, finished, decided = false }: { model: Ch
                 const Icon = done ? CircleCheckIcon : CircleIcon;
                 return (
                   <li key={i} className={done ? "is-done" : undefined}>
-                    <Icon aria-hidden="true" className={done ? "pr-queue-icon text-[var(--green)]" : "pr-queue-icon"} />
+                    <Icon aria-hidden="true" className={done ? "pr-queue-icon pr-icon-strong" : "pr-queue-icon"} />
                     <span>
                       <span className="sr-only">{done ? `${RUN.done}: ` : `${RUN.todo}: `}</span>
                       {item.text}

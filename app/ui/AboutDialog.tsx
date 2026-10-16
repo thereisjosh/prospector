@@ -5,7 +5,7 @@ import { Close } from "./parts";
 
 /**
  * "About this build": a Base UI Dialog (focus trap, Escape closes, focus returns to the trigger).
- * The trigger is the rail link; motion is M10 (globals.css), radius 16px, scrim dims without blur.
+ * The trigger is a footer link (class kept as rail-link); motion is M10 (globals.css), 22px feature radius, scrim dims without blur.
  */
 export function AboutDialog({ defaultOpen = false }: { defaultOpen?: boolean }) {
   return (

@@ -438,9 +438,11 @@ export default function Page() {
     ? { stopReason: snapshot.stopReason, selfNotes: runEvents.filter((e) => e.kind === "tool_call" && e.tool === "remember" && e.is_error !== true).length }
     : undefined;
 
+  const resultsHead = step === "run" && !!finishedRun;
+
   return (
     <div className="app">
-      <aside className="rail">
+      <header className="nav">
         <div className="brand">
           <Crosshair />
           <span>Prospector</span>
@@ -465,152 +467,151 @@ export default function Page() {
           </ol>
         </nav>
 
-        <MemoryPanel memory={memory} error={memoryError} onClear={clearMemory} onForget={forgetMemoryItem} disabled={runActive} lastRun={lastRun} />
-
-        <div className="rail-foot">
-          <AboutDialog />
-          <a className="rail-link" href="https://github.com/thereisjosh/prospector" target="_blank" rel="noopener noreferrer">
-            View source <ArrowUpRight />
-          </a>
+        <div className="nav-actions">
+          {demo ? (
+            <span className="live is-demo" title="No API keys needed: this replays a recorded agent run">
+              <span className="live-dot" />
+              <span>
+                Demo<span className="live-more">: replaying a recorded run</span>
+              </span>
+            </span>
+          ) : (
+            <span className="live">
+              <span className="live-dot" /> Live
+            </span>
+          )}
+          <button type="button" className="icon-btn" onClick={toggleTheme} aria-label={dark ? "Switch to light theme" : "Switch to dark theme"}>
+            {dark ? <Sun /> : <Moon />}
+          </button>
         </div>
-      </aside>
+      </header>
 
-      <div className="stage">
-        <header className="topbar">
-          <div className="topbar-title">
-            <h1 ref={headingRef} tabIndex={-1}>
-              {step === "run" && finishedRun ? "Results" : meta.title}
-            </h1>
-            <p>{step === "run" && finishedRun ? "Leads with evidence, and what was turned down." : meta.sub}</p>
-          </div>
-          <div className="topbar-actions">
-            {demo ? (
-              <span className="live is-demo" title="No API keys needed: this replays a recorded agent run">
-                <span className="live-dot" />
-                <span>
-                  Demo<span className="live-more">: replaying a recorded run</span>
-                </span>
-              </span>
-            ) : (
-              <span className="live">
-                <span className="live-dot" /> Live
-              </span>
-            )}
-            <button type="button" className="icon-btn" onClick={toggleTheme} aria-label={dark ? "Switch to light theme" : "Switch to dark theme"}>
-              {dark ? <Sun /> : <Moon />}
-            </button>
-          </div>
-        </header>
-
-        <main className="content">
-          {step === "start" && (
-            <StartStep
-              demo={demo}
-              input={input}
-              setInput={setInput}
-              busy={profileBusy}
-              error={profileError}
-              candidates={candidates}
-              askDescription={askDescription}
-              description={description}
-              setDescription={setDescription}
-              profile={profile}
-              setProfile={setProfile}
-              editing={editingProfile}
-              setEditing={setEditingProfile}
-              onSubmit={() => submitProfile(input)}
-              onPickCandidate={(domain) => submitProfile(domain)}
-              onDescribeInstead={() => {
-                setCandidates(null);
-                setAskDescription(true);
-              }}
-              onDescribe={() => submitProfile(description, { fromDescription: true })}
-              onContinue={loadCards}
-            />
-          )}
-
-          {step === "cards" &&
-            (cards && baseCards ? (
-              <CardsStep
-                cards={cards}
-                base={baseCards}
-                activeAlt={activeAlt}
-                onPickAlt={pickAlternative}
-                onChange={(c) => {
-                  setCards(c);
-                  setPlan(null);
-                }}
-                onContinue={() => void buildPlan(cards)}
-                onBack={() => setStep("start")}
-                busy={planBusy}
-                error={planError}
-              />
-            ) : cardsBusy ? (
-              <div className="step pr-pending" aria-live="polite">
-                <Trace>
-                  <TraceLine status="running" className="pr-trace-line pr-reading">
-                    <TraceTitle>Suggesting who to target…</TraceTitle>
-                  </TraceLine>
-                </Trace>
-              </div>
-            ) : (
-              <div className="state state-error" role="alert">
-                <AlertIcon />
-                <p>{cardsError || "Nothing to show yet."}</p>
-                <div className="actions center">
-                  <button type="button" className="ghost-btn" onClick={() => setStep("start")}>Back</button>
-                  {profile && <button type="button" className="primary-btn" onClick={() => void loadCards()}>Try again</button>}
-                </div>
-              </div>
-            ))}
-
-          {step === "contract" && plan && cards && (
-            <ContractStep
-              demo={demo}
-              cards={cards}
-              plan={plan}
-              targetLeads={targetLeads}
-              setTargetLeads={setTargetLeads}
-              maxSpend={maxSpend}
-              setMaxSpend={setMaxSpend}
-              busy={creating}
-              error={createError}
-              allowance={visitor}
-              rememberedCount={memory?.seenCount ?? 0}
-              onRun={startRun}
-              onBack={() => setStep("cards")}
-            />
-          )}
-
-          {step === "run" && (
-            <RunView
-              demo={demo}
-              snapshot={snapshot}
-              events={runEvents}
-              screened={screened}
-              stepping={stepping}
-              pausedByUser={pausedByUser}
-              runError={runError}
-              deciding={deciding}
-              decisionError={decisionError}
-              onStop={() => {
-                stopRef.current = true;
-              }}
-              onResume={() => runId && void runLoop(runId)}
-              onDecide={decide}
-              feedback={feedback}
-              onFeedback={sendFeedback}
-              cards={cards}
-              maxSpend={maxSpend}
-              onApply={applySuggestion}
-              applying={applying || planBusy}
-              onEditTargeting={() => setStep("cards")}
-              onNewSearch={newSearch}
-            />
-          )}
-        </main>
+      {/* Cross-run memory: one full-width row under the nav, on every step (DESIGN.md §4). */}
+      <div className="memory-row">
+        <MemoryPanel memory={memory} error={memoryError} onClear={clearMemory} onForget={forgetMemoryItem} disabled={runActive} lastRun={lastRun} />
       </div>
 
+      <main className="content" data-step={step}>
+        <header className={resultsHead ? "page-head is-results" : "page-head"}>
+          <h1 ref={headingRef} tabIndex={-1}>
+            {resultsHead ? "Results" : meta.title}
+          </h1>
+          <p>{resultsHead ? "Leads with evidence, and what was turned down." : meta.sub}</p>
+        </header>
+
+        {step === "start" && (
+          <StartStep
+            demo={demo}
+            input={input}
+            setInput={setInput}
+            busy={profileBusy}
+            error={profileError}
+            candidates={candidates}
+            askDescription={askDescription}
+            description={description}
+            setDescription={setDescription}
+            profile={profile}
+            setProfile={setProfile}
+            editing={editingProfile}
+            setEditing={setEditingProfile}
+            onSubmit={() => submitProfile(input)}
+            onPickCandidate={(domain) => submitProfile(domain)}
+            onDescribeInstead={() => {
+              setCandidates(null);
+              setAskDescription(true);
+            }}
+            onDescribe={() => submitProfile(description, { fromDescription: true })}
+            onContinue={loadCards}
+          />
+        )}
+
+        {step === "cards" &&
+          (cards && baseCards ? (
+            <CardsStep
+              cards={cards}
+              base={baseCards}
+              activeAlt={activeAlt}
+              onPickAlt={pickAlternative}
+              onChange={(c) => {
+                setCards(c);
+                setPlan(null);
+              }}
+              onContinue={() => void buildPlan(cards)}
+              onBack={() => setStep("start")}
+              busy={planBusy}
+              error={planError}
+            />
+          ) : cardsBusy ? (
+            <div className="step pr-pending" aria-live="polite">
+              <Trace>
+                <TraceLine status="running" className="pr-trace-line pr-reading">
+                  <TraceTitle>Suggesting who to target…</TraceTitle>
+                </TraceLine>
+              </Trace>
+            </div>
+          ) : (
+            <div className="state state-error" role="alert">
+              <AlertIcon />
+              <p>{cardsError || "Nothing to show yet."}</p>
+              <div className="actions center">
+                <button type="button" className="ghost-btn" onClick={() => setStep("start")}>Back</button>
+                {profile && <button type="button" className="primary-btn" onClick={() => void loadCards()}>Try again</button>}
+              </div>
+            </div>
+          ))}
+
+        {step === "contract" && plan && cards && (
+          <ContractStep
+            demo={demo}
+            cards={cards}
+            plan={plan}
+            targetLeads={targetLeads}
+            setTargetLeads={setTargetLeads}
+            maxSpend={maxSpend}
+            setMaxSpend={setMaxSpend}
+            busy={creating}
+            error={createError}
+            allowance={visitor}
+            rememberedCount={memory?.seenCount ?? 0}
+            onRun={startRun}
+            onBack={() => setStep("cards")}
+          />
+        )}
+
+        {step === "run" && (
+          <RunView
+            demo={demo}
+            snapshot={snapshot}
+            events={runEvents}
+            screened={screened}
+            stepping={stepping}
+            pausedByUser={pausedByUser}
+            runError={runError}
+            deciding={deciding}
+            decisionError={decisionError}
+            onStop={() => {
+              stopRef.current = true;
+            }}
+            onResume={() => runId && void runLoop(runId)}
+            onDecide={decide}
+            feedback={feedback}
+            onFeedback={sendFeedback}
+            cards={cards}
+            maxSpend={maxSpend}
+            onApply={applySuggestion}
+            applying={applying || planBusy}
+            onEditTargeting={() => setStep("cards")}
+            onNewSearch={newSearch}
+          />
+        )}
+      </main>
+
+      <footer className="foot">
+        <AboutDialog />
+        <a className="rail-link" href="https://github.com/thereisjosh/prospector" target="_blank" rel="noopener noreferrer">
+          View source <ArrowUpRight />
+        </a>
+      </footer>
     </div>
   );
 }

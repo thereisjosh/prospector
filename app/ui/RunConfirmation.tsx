@@ -96,7 +96,7 @@ export function RunConfirmation({
               )}
             </div>
             {typeof input.est_cost_dollars === "number" && (
-              <ItemDescription className="line-clamp-none text-[length:var(--t-base)]">
+              <ItemDescription className="pr-confirm-est line-clamp-none">
                 Its estimate for the whole run: <b className="ink">{money(input.est_cost_dollars)}</b> (your limit is {money(contract.maxCostDollars)}).
               </ItemDescription>
             )}

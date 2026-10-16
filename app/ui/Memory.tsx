@@ -3,7 +3,7 @@
 /** @jsxImportSource react */
 
 /**
- * The rail's "What I remember" (docs/UI-REWORK.md §1a): what the agent keeps between runs, where each item
+ * "What I remember", the full-width row under the nav (docs/UI-REWORK.md §1a): what the agent keeps between runs, where each item
  * came from, and a way to drop any of it. Three Trace sections (one line per item, provenance as the
  * description), a per-item forget button, and clear-all behind a Confirmation. The disclosure is a
  * Collapsible that remembers whether it was open (localStorage, best effort).
@@ -242,7 +242,7 @@ export function MemoryPanel({ memory, error, onClear, onForget, disabled, lastRu
                 <ItemActions className="pr-mem-confirm-actions">
                   <button
                     type="button"
-                    className="rail-btn danger"
+                    className="ghost-btn small danger"
                     disabled={disabled}
                     onClick={() => {
                       setConfirming(false);
@@ -251,13 +251,13 @@ export function MemoryPanel({ memory, error, onClear, onForget, disabled, lastRu
                   >
                     {MEMORY_COPY.clearConfirm}
                   </button>
-                  <button type="button" className="rail-btn" onClick={() => setConfirming(false)}>
+                  <button type="button" className="ghost-btn small" onClick={() => setConfirming(false)}>
                     {MEMORY_COPY.cancel}
                   </button>
                 </ItemActions>
               </Item>
             ) : (
-              <button ref={clearButton} type="button" className="rail-btn" disabled={disabled} onClick={() => setConfirming(true)}>
+              <button ref={clearButton} type="button" className="ghost-btn small" disabled={disabled} onClick={() => setConfirming(true)}>
                 {MEMORY_COPY.clear}
               </button>
             )}

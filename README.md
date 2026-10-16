@@ -114,7 +114,7 @@ Demo mode turns on with `DEMO_MODE=1` or when either key is missing (`src/demo/m
 
 ![The demo walkthrough: describe, target, approve, the agent's opening-plan approval, the live run, results with the handback, a lead's evidence, and the memory panel](docs/screenshots/walkthrough.gif)
 
-The walkthrough above (40 s, 1280 px, recorded 2026-10-15 from this replay) goes Describe → Target → Approve → the approval → the run → Results → a lead's Evidence → the memory panel. Stills of the results screen: [light](docs/screenshots/demo-light.png), [dark](docs/screenshots/demo-dark.png). Re-record all three with `npx next build && node scripts/demo-gif.mjs` (needs Playwright's Chromium and ffmpeg; the script starts its own `DEMO_MODE=1` server).
+The walkthrough above (41 s, 1280 px, recorded 2026-10-16 from this replay, on the pop.site-based visual system in [DESIGN.md](DESIGN.md)) goes Describe → Target → Approve → the approval → the run → Results → a lead's Evidence → the memory row. One 1280 still per screen: [Describe](docs/screenshots/screen-1-describe.png), [Target](docs/screenshots/screen-2-target.png), [Approve](docs/screenshots/screen-3-approve.png), [the approval](docs/screenshots/screen-4-approval.png), [the live run](docs/screenshots/screen-5-run-live.png), [Results](docs/screenshots/screen-6-results.png), [Evidence](docs/screenshots/screen-7-evidence.png), [Memory](docs/screenshots/screen-8-memory.png); Results in [light](docs/screenshots/demo-light.png) and [dark](docs/screenshots/demo-dark.png). Re-record them all with `npx next build && node scripts/demo-gif.mjs` (needs Playwright's Chromium, ffmpeg, and network access to Fontshare for the Satoshi font; the script starts its own `DEMO_MODE=1` server).
 
 ## 5. How it works
 

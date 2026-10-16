@@ -140,7 +140,7 @@ export function StartStep(props: StartStepProps) {
                 ) : (
                   <div className="pr-suggestions" role="group" aria-labelledby="iyou-h">
                     {props.candidates.slice(0, 5).map((c) => (
-                      <Suggestion key={c.domain} className="pr-suggestion-mono" disabled={props.busy} onClick={() => props.onPickCandidate(c.domain)}>
+                      <Suggestion key={c.domain} disabled={props.busy} onClick={() => props.onPickCandidate(c.domain)}>
                         {c.domain}
                       </Suggestion>
                     ))}

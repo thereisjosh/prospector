@@ -70,12 +70,12 @@ const ICONS: Record<IconName, LucideIcon> = {
   clock: ClockIcon,
 };
 
-/** State colours sit on the icon only; the line's words always carry the state (DESIGN.md State Words Rule). */
+/** No state colours (DESIGN.md Ink States Rule): a pass is full ink, a turn-down is quieter, the words carry the state. */
 const ICON_TONE: Partial<Record<IconName, string>> = {
-  check: "text-[var(--green)]",
-  x: "text-[var(--red)]",
-  approval: "text-[var(--amber)]",
-  alert: "text-[var(--red)]",
+  check: "pr-icon-strong",
+  x: "pr-icon-quiet",
+  approval: "pr-icon-strong",
+  alert: "pr-icon-strong",
 };
 
 export function LineIcon({ name }: { name: IconName }) {
@@ -122,7 +122,7 @@ export function EvidenceBlock({ detail }: { detail: EvidenceDetail }) {
     ...rows.map((r) => `${r.question ? `${r.label} (${r.question})` : r.label}: ${r.quote ? quoted(r.quote) : TRACE.noQuote}`),
   ].join("\n");
   return (
-    <CodeBlock size="sm" className="pr-evidence bg-[var(--bg)]" data-testid="evidence">
+    <CodeBlock size="sm" className="pr-evidence" data-testid="evidence">
       <CodeBlockHeader>
         <CodeBlockTitle className="font-normal text-muted-foreground">{header}</CodeBlockTitle>
         <CodeBlockActions>

@@ -231,7 +231,7 @@ function RunHeader({
     <div ref={ref_} tabIndex={-1} className="pr-run-head">
       {waiting ? (
         <TraceLine className="pr-run-line">
-          <span data-slot="trace-icon" aria-hidden="true" className="flex size-4 shrink-0 items-center justify-center text-[var(--amber)]">
+          <span data-slot="trace-icon" aria-hidden="true" className="flex size-4 shrink-0 items-center justify-center pr-icon-strong">
             <ClockIcon className="size-4" />
           </span>
           <TraceTitle role="status">Waiting for your OK</TraceTitle>
