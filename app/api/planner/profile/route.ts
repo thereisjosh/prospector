@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { classifyInput, profileFromText, profileSeller, resolveToSite } from "../../../../src/planner";
+import { classifyInput, countryFromLocale, profileFromText, profileSeller, resolveToSite } from "../../../../src/planner";
 import { CostGuard } from "../../../../src/exa";
 import { isDemoMode, readDemoJson } from "../../../../src/demo/mode";
 import { addVisitorSpend } from "../../../../src/agent/quota";
@@ -46,7 +46,7 @@ export async function POST(request: Request) {
         "profile",
         workspaceId,
         { kind: classified.kind, input: classified.value },
-        () => resolveToSite(classified, { guard }),
+        () => resolveToSite(classified, { guard, countryHint: countryFromLocale(request.headers.get("x-locale")) }),
         (r) => ({ kind: "candidates", source: r.source, platform: r.platform, candidates: r.candidates.length, askName: r.askName === true, exaCost: guard.spent }),
       );
       await addDailySpend(guard.spent);

@@ -27,7 +27,7 @@ Positioning change: v1 was "Exa-only". v2 is **"Claude plans, Exa retrieves"** �
 
 ### Describe input contract (`src/planner/resolve.ts`, `profile.ts`, `POST /api/planner/profile`)
 
-`classifyInput(raw)` returns one shape; every paid call runs under the route's `CostGuard(0.10)`; resolving costs at most one Exa `/search` (5 results) plus, for bio links, one `/contents`.
+`classifyInput(raw)` returns one shape; every paid call runs under the route's `CostGuard(0.10)`; resolving costs at most one Exa `/search` (10 results, filtered to up to 3 candidates) plus, for bio links, one `/contents`.
 
 | Input shape | Examples | Handling |
 |---|---|---|
@@ -39,6 +39,8 @@ Positioning change: v1 was "Exa-only". v2 is **"Claude plans, Exa retrieves"** �
 | maps / listing | `maps.google.com/?q=…`, `google.com/maps/place/…`, `g.page/<x>`, `maps.app.goo.gl/…`, `yelp.com/biz/<x>`, tripadvisor | Name from the URL (g.page slug, yelp biz slug, `q=`/`query=`, `/place/<name>`); search `"<name> official website"`; candidates. No name (short links): ask "That's a map link. What's the business called?" |
 | bare company name | `SAS Airconditioning`, `Acme Logistics Pte Ltd` | At most 6 words, no verb (sell, offer, provide, we, our …), Title Case or ending Ltd/Pte/Inc/LLC/GmbH/Co: search `"<name> official website"`; candidates. Plain sentences stay `text` (the offering, verbatim). The name prompt sends `asName: true`, which skips the heuristic. |
 | unusable | `wa.me/…`, `mailto:`, `tel:`, a bare email, a phone number | No call. "That's a contact link, not a site. Paste your website or tell us in one sentence." |
+
+Locale hint: the UI sends the browser locale (`navigator.language`, e.g. `en-SG`) as `x-locale` on API calls; the route maps its region subtag to a country name (`COUNTRY_TABLE` in `resolve.ts`: SG, MY, ID, PH, TH, VN, HK, AU, NZ, IN, GB, US, CA, JP, KR, TW, CN, AE, DE, FR; unknown or missing region means no hint) and passes it as `countryHint`. The resolver appends the country to the search query ("... official website Singapore") and ranks only, never filters: +2 for a 4-character name overlap, +1 when the domain's TLD matches the country (`.sg`, `.com.sg`, `.co.uk`, `.com.au` ...), +1 when a result's title or snippet mentions the country. Social, marketplace, maps and bio-link hosts are still dropped; the top 3 candidates are shown with one evidence URL each, plus "None of these". Zero candidates: "We couldn't find a website for that page."
 
 Response shapes: `{ kind: "candidates", source: "social"|"biolink"|"maps"|"name", platform?, candidates: [{domain, score, evidence}], askName? }`; `{ kind: "url", profile, needsDescription, cost }`; `{ kind: "text", profile, needsDescription: false, cost: 0 }`; `{ kind: "unusable", reason: "contact_link"|"marketplace_home" }`. `kind: "instagram"` is accepted by the UI for one release as an alias for candidates from an Instagram handle; the server no longer sends it. Host lists (`SOCIAL_HOSTS`, `MARKETPLACE_HOSTS`, `MAPS_HOSTS`, `BIOLINK_HOSTS`, `SITE_BUILDER_HOSTS`) are exported from `src/planner`.
 

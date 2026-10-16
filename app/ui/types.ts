@@ -76,11 +76,22 @@ function workspaceHeader(): Record<string, string> {
   }
 }
 
+/** Browser locale (e.g. en-SG); the planner turns its region into a soft country hint for website search. */
+function localeHeader(): Record<string, string> {
+  try {
+    const l = typeof navigator !== "undefined" ? navigator.language : "";
+    return l && /^[A-Za-z0-9_-]{2,35}$/.test(l) ? { "x-locale": l } : {};
+  } catch {
+    return {};
+  }
+}
+
 export async function api<T>(url: string, init?: { method?: string; body?: unknown }): Promise<T> {
   const response = await fetch(url, {
     method: init?.method ?? (init?.body !== undefined ? "POST" : "GET"),
     headers: {
       ...workspaceHeader(),
+      ...localeHeader(),
       ...(init?.body !== undefined ? { "content-type": "application/json" } : {}),
     },
     body: init?.body !== undefined ? JSON.stringify(init.body) : undefined,

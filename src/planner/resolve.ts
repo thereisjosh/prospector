@@ -82,7 +82,44 @@ export type ResolveDeps = {
   guard?: CostGuard;
   exaSearch?: typeof exaSearch;
   exaPost?: typeof exaPost;
+  /** Country name (e.g. "Singapore") from the browser locale. A soft ranking hint, never a filter. */
+  countryHint?: string;
 };
+
+/** Region subtag (upper case) to country name, plus the TLDs that signal that country. Unknown region: no hint. */
+export const COUNTRY_TABLE: Record<string, { name: string; tlds: string[] }> = {
+  SG: { name: "Singapore", tlds: [".sg", ".com.sg"] },
+  MY: { name: "Malaysia", tlds: [".my", ".com.my"] },
+  ID: { name: "Indonesia", tlds: [".id", ".co.id"] },
+  PH: { name: "Philippines", tlds: [".ph", ".com.ph"] },
+  TH: { name: "Thailand", tlds: [".th", ".co.th"] },
+  VN: { name: "Vietnam", tlds: [".vn", ".com.vn"] },
+  HK: { name: "Hong Kong", tlds: [".hk", ".com.hk"] },
+  AU: { name: "Australia", tlds: [".au", ".com.au"] },
+  NZ: { name: "New Zealand", tlds: [".nz", ".co.nz"] },
+  IN: { name: "India", tlds: [".in", ".co.in"] },
+  GB: { name: "United Kingdom", tlds: [".uk", ".co.uk"] },
+  US: { name: "United States", tlds: [".us"] },
+  CA: { name: "Canada", tlds: [".ca"] },
+  JP: { name: "Japan", tlds: [".jp", ".co.jp"] },
+  KR: { name: "South Korea", tlds: [".kr", ".co.kr"] },
+  TW: { name: "Taiwan", tlds: [".tw", ".com.tw"] },
+  CN: { name: "China", tlds: [".cn", ".com.cn"] },
+  AE: { name: "United Arab Emirates", tlds: [".ae"] },
+  DE: { name: "Germany", tlds: [".de"] },
+  FR: { name: "France", tlds: [".fr"] },
+};
+
+/** "en-SG" / "en_sg" / "zh-Hans-SG" to "Singapore"; undefined for no region or an unknown one. */
+export function countryFromLocale(locale: string | null | undefined): string | undefined {
+  return regionEntry(locale)?.name;
+}
+
+function regionEntry(locale: string | null | undefined) {
+  if (!locale) return undefined;
+  const region = locale.split(/[-_]/).slice(1).find((t) => /^[A-Za-z]{2}$/.test(t));
+  return region ? COUNTRY_TABLE[region.toUpperCase()] : undefined;
+}
 
 export type ResolveResult = {
   source: ResolveSource;
@@ -301,11 +338,19 @@ function socialQuery(platform: string, handle: string): string {
   return `${spaced || !path[platform] ? `${platform} ${handle}` : path[platform]} official website`;
 }
 
+/** Candidates shown to the seller. */
+export const MAX_CANDIDATES = 3;
+/** Raw results requested: social/marketplace/maps hosts are filtered out, so ask for more than we show. */
+const SEARCH_RESULTS = 10;
+
 async function searchCandidates(query: string, needleSource: string, deps: ResolveDeps): Promise<SiteCandidate[]> {
   const search = deps.exaSearch ?? exaSearch;
-  const response = await search({ query, numResults: 5 }, deps.credentials, deps.guard);
+  const country = deps.countryHint?.trim() || undefined;
+  const q = country ? `${query} ${country}` : query;
+  const response = await search({ query: q, numResults: SEARCH_RESULTS }, deps.credentials, deps.guard);
   const byDomain = new Map<string, SiteCandidate>();
-  for (const result of (response.results ?? []).slice(0, 5)) {
+  const mentions = new Set<string>();
+  for (const result of (response.results ?? []).slice(0, SEARCH_RESULTS)) {
     const url = typeof result.url === "string" ? result.url : undefined;
     if (!url) continue;
     const domain = acceptableDomain(url);
@@ -314,16 +359,34 @@ async function searchCandidates(query: string, needleSource: string, deps: Resol
     existing.score += 1;
     existing.evidence.push(url);
     byDomain.set(domain, existing);
+    if (country && mentionsCountry(result, country)) mentions.add(domain);
   }
-  return rank(byDomain, needleSource);
+  for (const domain of mentions) byDomain.get(domain)!.score += 1;
+  return rank(byDomain, needleSource, country);
 }
 
-function rank(byDomain: Map<string, SiteCandidate>, needleSource: string): SiteCandidate[] {
+function mentionsCountry(result: { title?: unknown; text?: unknown; highlights?: unknown; summary?: unknown }, country: string): boolean {
+  const parts = [result.title, result.text, typeof result.summary === "string" ? result.summary : undefined];
+  if (Array.isArray(result.highlights)) parts.push(...result.highlights);
+  const hay = parts.filter((p): p is string => typeof p === "string").join(" ").toLowerCase();
+  return hay.includes(country.toLowerCase());
+}
+
+function tldMatches(domain: string, country: string): boolean {
+  const entry = Object.values(COUNTRY_TABLE).find((c) => c.name === country);
+  return !!entry && entry.tlds.some((t) => domain.endsWith(t));
+}
+
+/** Ranking: +2 for a 4-character name overlap, +1 for a country-TLD match, +1 per result that mentions the country. Never filters. */
+function rank(byDomain: Map<string, SiteCandidate>, needleSource: string, country?: string): SiteCandidate[] {
   const needle = needleSource.toLowerCase().replace(/[^a-z0-9]/g, "");
   for (const candidate of byDomain.values()) {
     if (hasFourCharOverlap(candidate.domain.replace(/[^a-z0-9]/g, ""), needle)) candidate.score += 2;
+    if (country && tldMatches(candidate.domain, country)) candidate.score += 1;
   }
-  return [...byDomain.values()].sort((a, b) => b.score - a.score || a.domain.localeCompare(b.domain));
+  return [...byDomain.values()]
+    .sort((a, b) => b.score - a.score || a.domain.localeCompare(b.domain))
+    .slice(0, MAX_CANDIDATES);
 }
 
 async function bioLinkCandidates(url: string, handle: string | undefined, deps: ResolveDeps): Promise<SiteCandidate[]> {
@@ -347,7 +410,7 @@ async function bioLinkCandidates(url: string, handle: string | undefined, deps: 
     order += 1;
     if (byDomain.size >= 3) break;
   }
-  return rank(byDomain, handle ?? "");
+  return rank(byDomain, handle ?? "", deps.countryHint?.trim() || undefined);
 }
 
 /** Registrable-ish domain of a result URL, or undefined when it is a social/marketplace/maps/bio-link page. */

@@ -8,7 +8,7 @@ import { StartStep, type StartStepProps } from "../app/ui/StartStep";
 import { BudgetExceededError, CostGuard } from "../src/exa";
 import {
   BIOLINK_HOSTS, classifyInput, MAPS_HOSTS, MARKETPLACE_HOSTS, ProfileTargetError, profileSeller, profileTarget,
-  resolveToSite, SOCIAL_HOSTS,
+  countryFromLocale, resolveToSite, SOCIAL_HOSTS,
 } from "../src/planner";
 
 const FB = "https://www.facebook.com/SASairconditioning/";
@@ -79,7 +79,7 @@ describe("resolveToSite", () => {
     const body = exa.mock.calls[0]![0];
     expect(body.query).toContain("facebook.com/SASairconditioning");
     expect(body.query).toContain("official website");
-    expect(body.numResults).toBe(5);
+    expect(body.numResults).toBe(10);
     expect(out).toMatchObject({ source: "social", platform: "facebook" });
     expect(out.candidates.map((c) => c.domain)).toEqual(["sasairconditioning.com.sg"]);
   });
@@ -152,6 +152,51 @@ describe("resolveToSite", () => {
     expect(MARKETPLACE_HOSTS).toEqual(expect.arrayContaining(["shopee.sg", "lazada.sg", "carousell.sg", "etsy.com", "amazon.com", "tokopedia.com"]));
     expect(MAPS_HOSTS).toEqual(expect.arrayContaining(["g.page", "maps.app.goo.gl", "yelp.com", "tripadvisor.com"]));
     expect(BIOLINK_HOSTS).toEqual(expect.arrayContaining(["linktr.ee", "beacons.ai", "bio.site", "lnk.bio"]));
+  });
+});
+
+describe("locale hint: country mapping, query, ranking", () => {
+  it("maps the region subtag to a country name; unknown or missing region gives none", () => {
+    expect(countryFromLocale("en-SG")).toBe("Singapore");
+    expect(countryFromLocale("en_gb")).toBe("United Kingdom");
+    expect(countryFromLocale("zh-Hans-MY")).toBe("Malaysia");
+    expect(countryFromLocale("en-US")).toBe("United States");
+    expect(countryFromLocale("en")).toBeUndefined();
+    expect(countryFromLocale("en-ZZ")).toBeUndefined();
+    expect(countryFromLocale("")).toBeUndefined();
+    expect(countryFromLocale(null)).toBeUndefined();
+  });
+
+  it("appends the country to the query; no hint leaves the query unchanged", async () => {
+    const exa = search(["https://acme.com/"]);
+    await resolveToSite(classifyInput(FB), { exaSearch: exa as never, countryHint: "Singapore" });
+    await resolveToSite(classifyInput(FB), { exaSearch: exa as never });
+    expect(exa.mock.calls[0]![0].query).toBe("facebook.com/SASairconditioning official website Singapore");
+    expect(exa.mock.calls[1]![0].query).toBe("facebook.com/SASairconditioning official website");
+  });
+
+  it("TLD bonus ranks .sg above .co.uk for an SG locale with equal base scores; never filters", async () => {
+    const urls = ["https://sasaircon.co.uk/", "https://sasaircon.com.sg/"];
+    const sg = await resolveToSite(classifyInput(FB), { exaSearch: search(urls) as never, countryHint: "Singapore" });
+    expect(sg.candidates.map((c) => c.domain)).toEqual(["sasaircon.com.sg", "sasaircon.co.uk"]);
+    const gb = await resolveToSite(classifyInput(FB), { exaSearch: search(urls) as never, countryHint: "United Kingdom" });
+    expect(gb.candidates.map((c) => c.domain)).toEqual(["sasaircon.co.uk", "sasaircon.com.sg"]);
+  });
+
+  it("a title or snippet that mentions the country adds one point", async () => {
+    const exa = vi.fn(async () => ({ results: [
+      { url: "https://zzz-aircon.com/", title: "ZZZ Aircon" },
+      { url: "https://aaa-aircon.com/", title: "Aircon servicing in Singapore" },
+    ] }));
+    const out = await resolveToSite(classifyInput("Zeta Cooling"), { exaSearch: exa as never, countryHint: "Singapore" });
+    expect(out.candidates.map((c) => c.domain)).toEqual(["aaa-aircon.com", "zzz-aircon.com"]);
+    expect(out.candidates[0]!.score - out.candidates[1]!.score).toBe(1);
+  });
+
+  it("returns up to 3 candidates", async () => {
+    const exa = search(["https://a.com/", "https://b.com/", "https://c.com/", "https://d.com/", "https://www.facebook.com/x"]);
+    const out = await resolveToSite(classifyInput(FB), { exaSearch: exa as never });
+    expect(out.candidates).toHaveLength(3);
   });
 });
 
@@ -255,6 +300,21 @@ describe("POST /api/planner/profile response shapes", () => {
     expect(guards.map((g) => g.capDollars)).toEqual([0.10, 0.10]);
   });
 
+  it("the route reads x-locale and passes countryHint; no header passes none", async () => {
+    const resolve = vi.fn(async () => ({ source: "social", platform: "facebook", candidates: [] }));
+    const POST = await route(true, { resolveToSite: resolve });
+    const withLocale = (locale?: string) => new Request("http://x/api/planner/profile", {
+      method: "POST",
+      headers: { "content-type": "application/json", "x-forwarded-for": crypto.randomUUID(), ...(locale ? { "x-locale": locale } : {}) },
+      body: JSON.stringify({ workspaceId: "w9", input: FB }),
+    });
+    await POST(withLocale("en-SG"));
+    await POST(withLocale());
+    await POST(withLocale("en-ZZ"));
+    const hints = resolve.mock.calls.map((c) => (c as unknown as [unknown, { countryHint?: string }])[1].countryHint);
+    expect(hints).toEqual(["Singapore", undefined, undefined]);
+  });
+
   it("unusable and text", async () => {
     const POST = await route(true);
     expect(await (await POST(req({ workspaceId: "w3", input: "https://wa.me/6591234567" }))).json()).toEqual({ kind: "unusable", reason: "contact_link" });
@@ -294,6 +354,22 @@ describe("Describe UI: candidate heading names the platform", () => {
     expect(html).toContain("Is this your website?");
     expect(html).toContain("We found it from your Facebook page.");
     expect(html).toMatch(/>sasairconditioning\.com\.sg<\/button>/);
+  });
+  it("shows up to 3 candidates with one evidence URL each, and None of these", () => {
+    const html = start({ candidates: [
+      { domain: "a.com.sg", score: 3, evidence: ["https://a.com.sg/about", "https://a.com.sg/x"] },
+      { domain: "b.com", score: 2, evidence: ["https://b.com/"] },
+      { domain: "c.com", score: 1, evidence: ["https://c.com/"] },
+      { domain: "d.com", score: 1, evidence: ["https://d.com/"] },
+    ], candidateSource: { source: "social", platform: "facebook" } });
+    expect(html).toContain("https://a.com.sg/about");
+    expect(html).not.toContain("https://a.com.sg/x");
+    expect(html).toContain(">c.com</button>");
+    expect(html).not.toContain("d.com");
+    expect(html).toContain("None of these");
+  });
+  it("no candidates says we could not find a website for that page", () => {
+    expect(start({ candidates: [], candidateSource: { source: "social", platform: "facebook" } })).toContain("We couldn&#x27;t find a website for that page.");
   });
   it("maps, name and bio link name their source", () => {
     expect(start({ candidates: [], candidateSource: { source: "maps" } })).toContain("We found it from your map link.");

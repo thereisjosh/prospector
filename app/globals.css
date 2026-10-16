@@ -969,6 +969,32 @@
     flex-wrap: wrap;
     gap: 8px;
   }
+  /* "Is this your website?": one hairline row per candidate, domain button over a muted evidence URL.
+     --muted is granite #5e5e5e on light and #a1a1a6 on dark (the theme pair), --line is mist / #2c2c2e. */
+  .pr-candidates {
+    display: flex;
+    flex-direction: column;
+    max-width: 62ch;
+  }
+  .pr-candidate {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    min-width: 0;
+    padding: 10px 0;
+    border-top: 1px solid var(--line);
+  }
+  .pr-candidate:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+  .pr-candidate-evidence {
+    max-width: 100%;
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    color: var(--muted);
+    overflow-wrap: anywhere;
+  }
 
   /* ---------- Target: one form surface, hairline rows ---------- */
   .pr-target {

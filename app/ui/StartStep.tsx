@@ -171,11 +171,14 @@ export function StartStep(props: StartStepProps) {
                     {props.candidates.length === 0 ? (
                       <p className="pr-msg-text">{DESCRIBE_COPY.noCandidates}</p>
                     ) : (
-                      <div className="pr-suggestions" role="group" aria-labelledby="iyou-h">
-                        {props.candidates.slice(0, 5).map((c) => (
-                          <Suggestion key={c.domain} disabled={props.busy} onClick={() => props.onPickCandidate(c.domain)}>
-                            {c.domain}
-                          </Suggestion>
+                      <div className="pr-candidates" role="group" aria-labelledby="iyou-h">
+                        {props.candidates.slice(0, 3).map((c) => (
+                          <span key={c.domain} className="pr-candidate">
+                            <Suggestion disabled={props.busy} onClick={() => props.onPickCandidate(c.domain)}>
+                              {c.domain}
+                            </Suggestion>
+                            {c.evidence?.[0] && <span className="pr-candidate-evidence">{c.evidence[0]}</span>}
+                          </span>
                         ))}
                       </div>
                     )}

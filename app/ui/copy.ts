@@ -792,7 +792,7 @@ export function candidateOrigin(source: string, platform?: string): string {
 export const DESCRIBE_COPY = {
   candidatesHeading: "Is this your website?",
   candidatesFrom: (source: string, platform?: string) => `We found it from ${candidateOrigin(source, platform)}.`,
-  noCandidates: "We couldn't find a website for that.",
+  noCandidates: "We couldn't find a website for that page.",
   askNameMaps: "That's a map link. What's the business called?",
   askNameOther: "We couldn't tell the business from that link. What's it called?",
   namePlaceholder: "Business name",
