@@ -203,13 +203,13 @@ When the *harness* stops the run, the model cannot call `finish`. So $0.05 of th
 
 Also kept: server-only keys, per-IP rate limit, generic errors, http(s)-only links.
 
-## 5b. Contacts: who to reach at an accepted lead (built 2026-10-16; not yet exercised live)
+## 5b. Contacts: who to reach at an accepted lead (built 2026-10-16; one live probe, rules tightened after it)
 
 Background, market and legal research: `docs/RESEARCH-contacts-and-graph.md` (§5 design, §6 build order, §7 decisions). This is build step 1 there: named contacts with gates. No warm paths, no email reveal.
 
 **Decisions** (Joshua chose to build; the defaults below were set by the orchestrator and are reversible):
 1. **LinkedIn-only people are shown as inferred**: name and profile link only, no copied text (LinkedIn User Agreement §8.2 bans using LinkedIn data obtained "through third parties (such as search tools…)"). Nothing from a profile is stored or displayed; the people-index title is read in code only to say which approved role the person was listed under.
-2. **A verified contact needs a non-LinkedIn page** (company site, press, conference bio) that names the person next to a title fitting an approved buyer role, both checked on the captured page text by code (`quoteMatch`). Two tiers: verified / inferred.
+2. **A verified contact needs a page that names the person next to a title fitting an approved buyer role**, both checked on the captured page text by code (`quoteMatch`), AND the page is either the company's own registrable domain, or press (rule below). Two tiers: verified / inferred. (Tightened 2026-10-16, FAILURES #29: "not LinkedIn" was not enough; a scraped-profile mirror and a 2019 press release both verified.)
 3. **No emails or phones** are fetched, stored or displayed. Email reveal through a user-supplied provider key is a later step.
 4. **Retention:** contacts live on the run's lead (`AcceptedLead.contacts`), so run retention applies. Nothing contact-related is written to workspace memory: `appendRunToMemory` records company names only, and `remember` refuses a note that names a person `find_contacts` returned.
 5. **"Who to reach" card** on the Target step, pre-filled by code from the seller profile's `buyer_roles`, editable chips, saved on the plan as `buyerRoles: string[]` (validated like other plan fields: ≤ 6 roles, ≤ 80 chars, deduped case-insensitively; absent or empty = no contact lookups).
@@ -240,14 +240,22 @@ type LeadContacts = { at: string; roles: string[]; contacts: Contact[]; cost: nu
 | Code | Tier | Rule |
 |---|---|---|
 | — | verified | all below pass |
-| `contact_unverified` | inferred | no page; the page is LinkedIn, a LinkedIn copy or a people-data aggregator (`CONTACT_NON_EVIDENCE_DOMAINS`: linkedin.com, exa.ai, theorg.com, datanyze.com, zoominfo.com, rocketreach.co, apollo.io, …); no page text; the page is neither the company's registrable domain nor names the company; no title for the person on the page |
+| `contact_unverified` | inferred | no page; the page is LinkedIn, a LinkedIn copy or a people-data aggregator (`CONTACT_NON_EVIDENCE_DOMAINS`: linkedin.com, exa.ai, theorg.com, muraena.ai, zoominfo.com, rocketreach.co/.com, apollo.io, lusha, contactout, signalhire, kaspr, crunchbase, pitchbook, cbinsights, datanyze, seamless.ai, leadiq, clearbit, hunter.io, findymail, snov.io, getprospect, wiza, uplead, cognism, 6sense, lead411, …); no page text; off the company's domain and the URL is profile/directory-shaped, or the page does not name the company, or under 200 characters of prose surround the name and title; no title for the person on the page |
+| `contact_stale` | inferred | off the company's domain, the page is older than 24 months and the people index does not list the person in a current approved role at the company (below) |
 | `contact_quote_not_in_page` | rejected | title quote over 120 chars; not a full name (2+ tokens); the name (word-bounded, one middle initial allowed) or the title (`quoteMatch`) not on the page text; title more than 200 characters from the name |
 | `contact_role_mismatch` | rejected | the title fits none of the approved roles |
+
+**What may verify** (`checkContact`, FAILURES #29). The aggregator list is a floor, not the rule: mirrors are endless. A page verifies only if (a) its registrable domain equals the company's own domain (from the lookup URL), or (b) it is press: not on the aggregator list; its URL path has none of the segments `profile(s)`, `person`, `people`, `employee(s)`, `contact(s)`, `in`, `pub`, `directory` (this covers `/company/<x>/people`) and no `?person=` query; it names the company; and at least 200 characters of prose surround the name and title (`proseCharsAround`: sentences of 7+ words that are mostly lowercase words, within 600 characters of the span; aggregator pages are field lists). Anything else is inferred at best.
+
+**Recency.** Each evidence page gets a date: Exa's `publishedDate` on the result, else the full date (`Jun 3, 2019`, `3 June 2019`, `June 2019`, `2019-06-03`) written nearest the quote within 400 characters, else none. It is stored on the evidence (`ContactEvidence.published`: `YYYY`, `YYYY-MM` or `YYYY-MM-DD`). A press page older than 24 months cannot verify on its own: it verifies only if the people index (call A) lists the same person with a CURRENT position at the company in an approved role (`findContacts` passes `currentInIndex`). Otherwise the contact is inferred (`contact_stale`) with `why` = the quoted title, no evidence, and `note` "last confirmed <year>". Company-domain pages have no age rule (they are current by construction) but still record the date if present. A page with no date at all has no age to judge and is not penalised (a known gap). The UI line is name · “quoted title” · host · Jun 2019 (muted), the date is also on the evidence row beside the host, and a stale inferred contact reads name · “title” · muted “last confirmed 2019”.
+
+**Cost guard.** The run's `CostGuard` is `FindContactsInput.guard` and nothing else; both Exa calls go through it, so the tool's spend lands on the run. `deps.guard` is `never` in the type and throws at runtime (a guard handed over that way was silently ignored in the first live probe: cost $0.019, guard spent $0).
 
 `titleMatchesRole(title, role)` is deterministic token overlap, case-insensitive. Both sides are folded first: abbreviations (`VP`/`SVP`/`EVP` → vp, `ops` → operations, `HR` → people), C-suite titles carry their function (`COO` / "Chief Operating Officer" → coo + operations, CFO → finance, CTO → technology, CMO → marketing, CRO → revenue), word stems (`operational` → operations, `warehousing` → warehouse). If the role names a function (any word that is not a rank or filler word such as VP, director, head, senior, of), the title must share at least one function word; a rank-only role ("CEO", "Founder", "VP") must share a rank word. **Refinement of the brief's "≥ 1 role word":** a shared rank word alone does not count when the role names a function, because "VP" would otherwise match "VP of Sales" to "VP of Operations". The Verst title disagreement (research §5.3) shows the cost: "Senior Vice President, Logistics" does not fit "VP of Operations"; the user adds "Logistics" as a role if they want it.
 
 **Who becomes what** (code only; the model never decides a tier):
-- verified on any page in B → **verified** (with the LinkedIn link too if A listed them).
+- verified on any page in B (own domain or press, current enough) → **verified** (with the LinkedIn link too if A listed them).
+- only an old press page (`contact_stale`) → **inferred**, title as quoted, "last confirmed <year>".
 - not verified, listed in A in an approved role, and no page gives them a title outside the roles → **inferred** (`code` = the most specific failure).
 - a name only B's summariser produced that its page does not support, someone A lists at another company or in a past role, or a page title outside the roles → **dropped** (counted in the trace, never shown).
 - At most 3 per lead, verified first.

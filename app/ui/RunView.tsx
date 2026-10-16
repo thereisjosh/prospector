@@ -10,6 +10,7 @@ import type { CardSet } from "../../src/planner/cards";
 import { Candidates } from "./Candidates";
 import {
   CONTACTS,
+  contactDate,
   RUN,
   UNVERIFIED_SUFFIX,
   formatDate,
@@ -653,12 +654,24 @@ export function WhoToReach({ lead, demo, onShowEvidence }: { lead: AcceptedLead;
                   <button type="button" className="link-btn pr-contact-source" aria-label={CONTACTS.showSource(source)} onClick={() => onShowEvidence(index)}>
                     {source}
                   </button>
+                  {c.evidence.published && contactDate(c.evidence.published) && (
+                    <>
+                      <span className="pr-contact-sep" aria-hidden="true">·</span>
+                      <span className="muted pr-contact-date">{contactDate(c.evidence.published)}</span>
+                    </>
+                  )}
                 </li>
               );
             }
             return (
-              <li key={`${c.tier}:${c.name}`} className="pr-contact" data-tier="inferred" title={CONTACTS.inferredTitle(c.role)}>
+              <li key={`${c.tier}:${c.name}`} className="pr-contact" data-tier="inferred" title={c.note ? CONTACTS.staleTitle(c.role) : CONTACTS.inferredTitle(c.role)}>
                 <span className="pr-contact-name">{c.name}</span>
+                {c.note && (
+                  <>
+                    <span className="pr-contact-sep" aria-hidden="true">·</span>
+                    <span className="pr-mono pr-contact-title">“{c.why}”</span>
+                  </>
+                )}
                 {c.profile_url && isHttpUrl(c.profile_url) && (
                   <>
                     <span className="pr-contact-sep" aria-hidden="true">·</span>
@@ -668,7 +681,7 @@ export function WhoToReach({ lead, demo, onShowEvidence }: { lead: AcceptedLead;
                   </>
                 )}
                 <span className="pr-contact-sep" aria-hidden="true">·</span>
-                <span className="muted">{CONTACTS.inferred}</span>
+                <span className="muted">{c.note ?? CONTACTS.inferred}</span>
               </li>
             );
           })}

@@ -263,6 +263,8 @@ export type ContactEvidence = {
   url: string;
   quote: string;
   title_quote: string;
+  /** When the page was written: `YYYY`, `YYYY-MM` or `YYYY-MM-DD` (Exa's publishedDate, else a date near the quote). Absent = unknown. */
+  published?: string;
 };
 
 /** The bounded evidence object. The spans are verbatim, so an over-long one is refused, never cut. */
@@ -270,5 +272,6 @@ export function contactEvidence(parts: ContactEvidence): ContactEvidence | undef
   const quote = parts.quote.replace(/\s+/g, " ").trim();
   const title = parts.title_quote.replace(/\s+/g, " ").trim();
   if (!parts.url || !quote || !title || quote.length > CONTACT_QUOTE_MAX || title.length > CONTACT_TITLE_MAX) return undefined;
-  return { url: parts.url, quote, title_quote: title };
+  const published = parts.published && /^\d{4}(-\d{2}(-\d{2})?)?$/.test(parts.published) ? parts.published : undefined;
+  return { url: parts.url, quote, title_quote: title, ...(published ? { published } : {}) };
 }

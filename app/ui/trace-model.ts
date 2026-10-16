@@ -69,7 +69,7 @@ export type EvidenceDetail = {
   contacts?: EvidenceContact[];
 };
 
-export type EvidenceContact = { name: string; quote: string; titleQuote: string; source: string; url: string };
+export type EvidenceContact = { name: string; quote: string; titleQuote: string; source: string; url: string; published?: string };
 
 export type TraceDetail = EvidenceDetail | { kind: "text"; text: string } | { kind: "json"; value: unknown };
 
@@ -183,7 +183,7 @@ export function evidenceFor(lead: AcceptedLead, contract?: ContractView): Eviden
   const match = details.size_quote_match;
   const contacts: EvidenceContact[] = (lead.contacts?.contacts ?? []).flatMap((c) =>
     c.tier === "verified" && c.evidence && isHttpUrl(c.evidence.url)
-      ? [{ name: c.name, quote: c.evidence.quote, titleQuote: c.evidence.title_quote, source: host(c.evidence.url), url: c.evidence.url }]
+      ? [{ name: c.name, quote: c.evidence.quote, titleQuote: c.evidence.title_quote, source: host(c.evidence.url), url: c.evidence.url, ...(c.evidence.published ? { published: c.evidence.published } : {}) }]
       : [],
   );
   return {

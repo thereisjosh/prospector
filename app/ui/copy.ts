@@ -41,6 +41,16 @@ export function host(url: string): string {
   }
 }
 
+const MONTH_ABBR = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+/** An evidence page date (`YYYY`, `YYYY-MM`, `YYYY-MM-DD`) as "Jun 2019" ("2019" when only the year is known). */
+export function contactDate(published: string): string {
+  const m = /^(\d{4})(?:-(\d{2}))?/.exec(published);
+  if (!m) return "";
+  const month = m[2] ? MONTH_ABBR[Number(m[2]) - 1] : undefined;
+  return month ? `${month} ${m[1]}` : m[1]!;
+}
+
 const WORDS: Record<string, string> = { ops: "operations", hq: "HQ", b2b: "B2B", saas: "SaaS", vp: "VP", ai: "AI", us: "US", uk: "UK" };
 
 /** "ops_hiring_wave" -> "Operations hiring wave". */
@@ -798,6 +808,8 @@ export const CONTACTS = {
   heading: "Who to reach",
   profile: "profile",
   inferred: "inferred from a public profile",
+  /** Tooltip on an inferred contact that only an old press page names: the title is as that page wrote it. */
+  staleTitle: (role: string): string => `An old public page gave this title (fits ${role}); nothing recent confirms it.`,
   /** Tooltip on an inferred contact: the approved role it was matched to, and what was not checked. */
   inferredTitle: (role: string): string => `Listed in a public people index under a role you approved (${role}). Title not confirmed on a public page.`,
   /** The source host of a verified contact opens the evidence block on its "Who to reach" row. */

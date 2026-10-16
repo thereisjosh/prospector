@@ -910,7 +910,7 @@ export function checkLead(plan: SearchPlan, input: LeadInput, options: CheckLead
 // Contacts (docs/SPEC-agent.md §5b). Pure, like checkLead: the model never decides a contact's tier.
 // ---------------------------------------------------------------------------
 
-export type ContactGateCode = "contact_unverified" | "contact_role_mismatch" | "contact_quote_not_in_page";
+export type ContactGateCode = "contact_unverified" | "contact_role_mismatch" | "contact_quote_not_in_page" | "contact_stale";
 
 /**
  * Hosts that are LinkedIn, a copy of it, or a people-data aggregator. A page here is never evidence for a
@@ -938,7 +938,108 @@ export const CONTACT_NON_EVIDENCE_DOMAINS = [
   "craft.co",
   "zippia.com",
   "adapt.io",
+  // Added 2026-10-16 (FAILURES #29): the list is a floor, not the rule. A page off the company's own domain
+  // must also pass the aggregator-shape and prose checks in checkContact, so mirrors this list misses fail too.
+  "muraena.ai",
+  "rocketreach.com",
+  "pitchbook.com",
+  "kaspr.io",
+  "hunter.io",
+  "findymail.com",
+  "snov.io",
+  "getprospect.com",
+  "wiza.co",
+  "uplead.com",
+  "cognism.com",
+  "6sense.com",
+  "lead411.com",
 ] as const;
+
+/** Path segments (or a `person` query key) that mark a scraped-profile / people-directory page. */
+const AGGREGATOR_PATH_SEGMENTS = new Set(["profile", "profiles", "person", "people", "employee", "employees", "contact", "contacts", "in", "pub", "directory"]);
+
+/** A URL shaped like a person profile or people directory: /profile/, /person/, /people/, /in/, /pub/, /directory/, /company/<x>/people, ?person=. */
+export function isAggregatorShapedUrl(url: string): boolean {
+  try {
+    const u = new URL(url);
+    if (u.searchParams.has("person")) return true;
+    return u.pathname.toLowerCase().split("/").some((seg) => AGGREGATOR_PATH_SEGMENTS.has(seg));
+  } catch {
+    return true;
+  }
+}
+
+/** Evidence older than this cannot verify a press/news contact on its own. */
+export const CONTACT_MAX_PAGE_AGE_MONTHS = 24;
+/** Characters of prose a press/news page must hold around the name and title (aggregators are field lists). */
+export const CONTACT_MIN_PROSE_CHARS = 200;
+
+/** Characters in prose sentences (7+ words, mostly lowercase function words) within 600 chars of the span. */
+export function proseCharsAround(text: string, start: number, end: number): number {
+  const window = text.slice(Math.max(0, start - 600), Math.min(text.length, end + 600));
+  let total = 0;
+  for (const raw of window.split(/(?<=[.!?])\s+|\n+/)) {
+    const sentence = raw.trim();
+    const words = sentence.split(/\s+/).filter(Boolean);
+    if (words.length < 7) continue;
+    const lower = words.filter((w) => /^[a-z][a-z'’-]*[,.;:!?]?$/.test(w)).length;
+    if (lower / words.length >= 0.3) total += sentence.length;
+  }
+  return total;
+}
+
+const MONTHS = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+
+function isoFrom(year: number, month?: number, day?: number): string {
+  const y = String(year).padStart(4, "0");
+  if (!month) return y;
+  const m = String(month).padStart(2, "0");
+  return day ? `${y}-${m}-${String(day).padStart(2, "0")}` : `${y}-${m}`;
+}
+
+/** A page date as `YYYY`, `YYYY-MM` or `YYYY-MM-DD`, or undefined (not a plausible past-or-today date). */
+export function normalizePageDate(raw: string | undefined, now: Date = new Date()): string | undefined {
+  const s = (raw ?? "").trim();
+  const m = /^(\d{4})(?:-(\d{2})(?:-(\d{2}))?)?/.exec(s);
+  if (!m) return undefined;
+  const year = Number(m[1]);
+  const month = m[2] ? Number(m[2]) : undefined;
+  const day = m[3] ? Number(m[3]) : undefined;
+  if (year < 1990 || (month !== undefined && (month < 1 || month > 12)) || (day !== undefined && (day < 1 || day > 31))) return undefined;
+  const iso = isoFrom(year, month, day);
+  const upper = new Date(Date.UTC(year, (month ?? 12) - 1, day ?? 28));
+  return upper.getTime() > now.getTime() + 2 * 86_400_000 ? undefined : iso;
+}
+
+/** The full date written nearest the span (within 400 chars): "Jun 3, 2019", "3 June 2019", "June 2019", "2019-06-03". */
+export function dateNearSpan(text: string, start: number, end: number, now: Date = new Date()): string | undefined {
+  const from = Math.max(0, start - 400);
+  const window = text.slice(from, Math.min(text.length, end + 400));
+  const mon = "(Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:t(?:ember)?)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\\.?";
+  const patterns: Array<[RegExp, (m: RegExpExecArray) => string | undefined]> = [
+    [/\b(\d{4})-(\d{2})-(\d{2})\b/g, (m) => normalizePageDate(`${m[1]}-${m[2]}-${m[3]}`, now)],
+    [new RegExp(`\\b${mon}\\s+(\\d{1,2})(?:st|nd|rd|th)?,?\\s+(\\d{4})\\b`, "gi"), (m) => normalizePageDate(isoFrom(Number(m[3]), MONTHS.indexOf(m[1]!.slice(0, 3).toLowerCase()) + 1, Number(m[2])), now)],
+    [new RegExp(`\\b(\\d{1,2})(?:st|nd|rd|th)?\\s+${mon},?\\s+(\\d{4})\\b`, "gi"), (m) => normalizePageDate(isoFrom(Number(m[3]), MONTHS.indexOf(m[2]!.slice(0, 3).toLowerCase()) + 1, Number(m[1])), now)],
+    [new RegExp(`\\b${mon},?\\s+(\\d{4})\\b`, "gi"), (m) => normalizePageDate(isoFrom(Number(m[2]), MONTHS.indexOf(m[1]!.slice(0, 3).toLowerCase()) + 1), now)],
+  ];
+  const mid = (start + end) / 2;
+  let best: { date: string; dist: number } | undefined;
+  for (const [re, toDate] of patterns) {
+    for (const m of window.matchAll(re)) {
+      const date = toDate(m as RegExpExecArray);
+      if (!date) continue;
+      const dist = Math.abs(from + (m.index ?? 0) - mid);
+      if (!best || dist < best.dist) best = { date, dist };
+    }
+  }
+  return best?.date;
+}
+
+/** Whole months from a page date (`YYYY`, `YYYY-MM`, `YYYY-MM-DD`) to now; a bare year counts from its December. */
+export function monthsSince(date: string, now: Date = new Date()): number {
+  const [y, mo] = date.split("-").map(Number);
+  return (now.getUTCFullYear() - y!) * 12 + (now.getUTCMonth() + 1 - (mo ?? 12));
+}
 
 export function isContactNonEvidenceUrl(url: string): boolean {
   if (!safeDomain(url)) return true;
@@ -1110,26 +1211,45 @@ export type ContactCheckInput = {
   title_quote?: string;
 };
 
-export type ContactPage = { url: string; text?: string };
+export type ContactPage = {
+  url: string;
+  text?: string;
+  /** Exa's `publishedDate` for the result, if any. */
+  publishedDate?: string;
+};
 
 export type ContactVerdict =
   | { ok: true; tier: "verified"; role: string; evidence: ContactEvidence }
-  | { ok: false; tier: "inferred" | "rejected"; code: ContactGateCode; reason: string };
+  | {
+      ok: false;
+      tier: "inferred" | "rejected";
+      code: ContactGateCode;
+      reason: string;
+      /** `contact_stale` only: the title the old page gave and when it was written (the person is not shown as verified). */
+      stale?: { role: string; title_quote: string; published: string; url: string };
+    };
 
 /**
  * Is this person a verified contact on this page? Verified needs all of:
- * 1. a page that is not LinkedIn, a LinkedIn copy or a people-data aggregator, with its text captured;
- * 2. the page is the company's own domain or names the company;
+ * 1. a page with its text captured that is not LinkedIn, a LinkedIn copy or a people-data aggregator;
+ * 2. the page is the company's own registrable domain, OR a press/news page: not shaped like a profile or
+ *    directory (isAggregatorShapedUrl), naming the company, with at least CONTACT_MIN_PROSE_CHARS of prose
+ *    around the name and title (aggregators are field lists; the domain list can never be complete);
  * 3. a title quote of at most 120 characters;
  * 4. the full name, and the title quote verbatim (quoteMatch), both on the page text,
  *    the title within CONTACT_PROXIMITY characters of the name;
  * 5. the title fits an approved buyer role (titleMatchesRole).
+ * 6. recency: a press/news page older than CONTACT_MAX_PAGE_AGE_MONTHS (Exa `publishedDate`, else a date
+ *    written near the quote; no date = no age rule) verifies only with `ctx.currentInIndex` (the people index
+ *    lists the same person in a current approved role at the company). Otherwise `contact_stale` (inferred),
+ *    carrying `stale` so the caller can say "last confirmed <year>". Company-domain pages have no age rule.
+ *    The evidence records the page date when one is known.
  * Failing 1-3 is `contact_unverified` (tier inferred: nothing on the page contradicts the person);
  * failing 4 is `contact_quote_not_in_page` and 5 is `contact_role_mismatch` (tier rejected).
  */
 export function checkContact(
   contact: ContactCheckInput,
-  ctx: { page?: ContactPage; buyerRoles: readonly string[]; companyUrl?: string },
+  ctx: { page?: ContactPage; buyerRoles: readonly string[]; companyUrl?: string; currentInIndex?: boolean; now?: Date },
 ): ContactVerdict {
   const inferred = (reason: string): ContactVerdict => ({ ok: false, tier: "inferred", code: "contact_unverified", reason });
   const notInPage = (reason: string): ContactVerdict => ({ ok: false, tier: "rejected", code: "contact_quote_not_in_page", reason });
@@ -1138,8 +1258,10 @@ export function checkContact(
   if (isContactNonEvidenceUrl(page.url)) return inferred(`${safeDomain(page.url)} is LinkedIn or a people-data site, not evidence`);
   const text = (page.text ?? "").slice(0, CONTACT_PAGE_TEXT_MAX).normalize("NFC");
   if (!text.trim()) return inferred("the page text was not captured");
+  const now = ctx.now ?? new Date();
   const pageDomain = registrableDomain(page.url);
   const ownDomain = pageDomain !== undefined && pageDomain === registrableDomain(ctx.companyUrl);
+  if (!ownDomain && isAggregatorShapedUrl(page.url)) return inferred(`${safeDomain(page.url)} is not the company's site and the URL looks like a profile or directory page, not press`);
   if (!ownDomain && mentionOffsets(contact.company, text, 1).length === 0) return inferred(`the page does not name ${contact.company}`);
   const title = (contact.title_quote ?? "").replace(/\s+/g, " ").trim();
   if (!title) return inferred("the page gives no title for this person");
@@ -1162,9 +1284,22 @@ export function checkContact(
     }
   }
   if (!best || best.gap > CONTACT_PROXIMITY) return notInPage("the title is not next to the name on the page");
+  if (!ownDomain && proseCharsAround(text, best.start, best.end) < CONTACT_MIN_PROSE_CHARS) {
+    return inferred(`${safeDomain(page.url)} is not the company's site and the page has under ${CONTACT_MIN_PROSE_CHARS} characters of prose around the name: a field list, not press`);
+  }
   const role = matchedBuyerRole(title, ctx.buyerRoles);
   if (!role) return { ok: false, tier: "rejected", code: "contact_role_mismatch", reason: `the title "${title}" fits none of the approved roles` };
-  const evidence = contactEvidence({ url: page.url, quote: text.slice(best.start, best.end), title_quote: title });
+  const published = normalizePageDate(page.publishedDate, now) ?? dateNearSpan(text, best.start, best.end, now);
+  const evidence = contactEvidence({ url: page.url, quote: text.slice(best.start, best.end), title_quote: title, ...(published ? { published } : {}) });
   if (!evidence) return notInPage("the name and title span is too long to quote");
+  if (!ownDomain && published && monthsSince(published, now) > CONTACT_MAX_PAGE_AGE_MONTHS && !ctx.currentInIndex) {
+    return {
+      ok: false,
+      tier: "inferred",
+      code: "contact_stale",
+      reason: `the page is from ${published}, over ${CONTACT_MAX_PAGE_AGE_MONTHS} months old, and the people index does not list this person in a current approved role`,
+      stale: { role, title_quote: title, published, url: page.url },
+    };
+  }
   return { ok: true, tier: "verified", role, evidence };
 }

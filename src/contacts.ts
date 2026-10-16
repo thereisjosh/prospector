@@ -7,9 +7,12 @@
  *      role a person was listed under (their "role bucket").
  *   B. a plain web search that excludes LinkedIn, its copies and people-data aggregators, with page text
  *      and a summariser that lists the people each page names with their title as written.
- * Code then decides every tier with `checkContact` (src/gates.ts): `verified` needs a non-LinkedIn page that
- * names the person next to a title fitting an approved role, both checked on the page text; `inferred` is a
- * people-index listing in an approved role, shown as name + profile link only. A name only the summariser
+ * Code then decides every tier with `checkContact` (src/gates.ts): `verified` needs a page that names the
+ * person next to a title fitting an approved role, both checked on the page text, and that page is the
+ * company's own domain or real press (not a profile/directory page, with prose around the quote); press older
+ * than 24 months also needs the people index to list the person in a current approved role. `inferred` is a
+ * people-index listing in an approved role (name + profile link only), or an old press page (title as quoted,
+ * "last confirmed <year>"). A name only the summariser
  * produced and the page does not support is dropped: code never shows a person no source supports.
  * No emails or phones are fetched, stored or shown.
  */
@@ -36,6 +39,8 @@ export type Contact = {
   found_via: "people_index" | "web_page";
   /** Why an inferred contact is not verified (gate code). */
   code?: ContactGateCode;
+  /** Inferred from an old press page only: "last confirmed 2019". */
+  note?: string;
 };
 
 /** What `find_contacts` stored on the lead. One per lead; run retention applies, nothing goes to workspace memory. */
@@ -72,6 +77,11 @@ export type FindContactsInput = {
 export type FindContactsDeps = {
   exaSearch?: typeof exaSearch;
   credentials?: ExaCredentials;
+  /**
+   * Not accepted: the run's CostGuard travels in `FindContactsInput.guard` and is the only one charged.
+   * (A guard passed here was silently ignored in the 2026-10-16 live probe: cost 0.019, guard.spent 0.)
+   */
+  guard?: never;
 };
 
 export type FindContactsResult = {
@@ -238,6 +248,7 @@ export function parsePagePeople(summary: unknown): PageClaim[] {
  * calls' estimate exceeds CONTACT_LIMITS.maxCostDollars or the run guard's remaining budget.
  */
 export async function findContacts(input: FindContactsInput, deps: FindContactsDeps = {}): Promise<FindContactsResult> {
+  if ((deps as { guard?: unknown }).guard !== undefined) throw new Error("findContacts: pass the CostGuard as input.guard, not deps.guard");
   const roles = input.buyerRoles.filter((r) => r.trim());
   if (roles.length === 0) throw new Error("no approved buyer roles: contacts cannot be checked");
   const estimate = estimateContactCost(input.company, roles);
@@ -279,13 +290,20 @@ export async function findContacts(input: FindContactsInput, deps: FindContactsD
   for (const person of candidates) {
     const key = personKey(person.name);
     let verified: Contact | undefined;
+    let stale: NonNullable<Extract<ReturnType<typeof checkContact>, { ok: false }>["stale"]> | undefined;
     const codes = new Set<ContactGateCode>();
     for (const { result, claims } of pageClaims) {
       const titles = claims.filter((c) => personKey(c.name) === key).map((c) => c.title_quote);
       for (const title_quote of titles.length > 0 ? titles : [undefined]) {
         const verdict = checkContact(
           { name: person.name, company: input.company, ...(title_quote ? { title_quote } : {}) },
-          { page: { url: result.url, ...(result.text ? { text: result.text } : {}) }, buyerRoles: roles, companyUrl: input.companyUrl },
+          {
+            page: { url: result.url, ...(result.text ? { text: result.text } : {}), ...(result.publishedDate ? { publishedDate: result.publishedDate } : {}) },
+            buyerRoles: roles,
+            companyUrl: input.companyUrl,
+            // The index lists them in a CURRENT position at this company in an approved role.
+            currentInIndex: Boolean(person.index?.role),
+          },
         );
         if (verdict.ok) {
           verified = {
@@ -300,6 +318,7 @@ export async function findContacts(input: FindContactsInput, deps: FindContactsD
           break;
         }
         codes.add(verdict.code);
+        if (verdict.stale && (!stale || verdict.stale.published > stale.published)) stale = verdict.stale;
       }
       if (verified) break;
     }
@@ -321,6 +340,19 @@ export async function findContacts(input: FindContactsInput, deps: FindContactsD
         code: worst,
       });
       checked.push({ name: person.name, outcome: "inferred", code: worst });
+    } else if (stale && !roleMismatch) {
+      // Only an old press page names them in an approved role: the title as quoted, with when it was last confirmed.
+      contacts.push({
+        name: person.name,
+        tier: "inferred",
+        role: stale.role,
+        why: stale.title_quote,
+        ...(person.index ? { profile_url: person.index.profileUrl } : {}),
+        found_via: person.index ? "people_index" : "web_page",
+        code: "contact_stale",
+        note: `last confirmed ${stale.published.slice(0, 4)}`,
+      });
+      checked.push({ name: person.name, outcome: "inferred", code: "contact_stale" });
     } else {
       checked.push({ name: person.name, outcome: "dropped", code: worst });
     }

@@ -220,6 +220,17 @@ Also fixed: Exa 429s under load (aac0a20: ≤ 4 in flight, jittered retry); an u
 - **Not covered:** the workspace id is a bearer secret kept in the visitor's localStorage, not an account; anyone who learns both ids has the run. The route-level `rate_limit` policy line (step) is still written for a run id before the owner check; it is throttled to one line per minute per run.
 - **Earlier:** a test per route listing the access matrix (no workspace, other workspace, unknown run, owner) when the events route was written would have shown four routes without it.
 
+## 29. Aggregator mirror page verified a contact; stale press release counted as current [measured]
+
+- **Symptom:** 2026-10-16, first live `find_contacts` (Verst Logistics, $0.019, 11.7 s): `muraena.ai/profile/virgil_chandler_7a81e5b6`, a scraped-profile mirror, produced a VERIFIED contact ("VP of Warehousing"). A second verified contact, Todd Johnson "President and COO", rested on a PR Newswire release (id 300836065) from 2019: a seven-year-old "names X as new President and COO" is not proof of a current role.
+- **Layer:** contact gate (`checkContact`, `src/gates.ts`). **Cause:** "not an aggregator" was a finite domain list, and mirrors are endless; and a page's age was never read, so any page that quoted a fitting title verified.
+- **Fix:** a page verifies only if its registrable domain is the company's own, or it is press: not on the (extended) aggregator list, not shaped like a profile or directory (`/profile/`, `/person/`, `/people/`, `/employee/`, `/contact/`, `/in/`, `/pub/`, `/directory/`, `/company/<x>/people`, `?person=`), and with at least 200 characters of prose around the name and title (aggregators are field lists). Everything else is inferred. Evidence now carries `published` (Exa `publishedDate`, else a full date written within 400 characters of the quote, else none). Press older than 24 months verifies only if the people index lists the same person in a current approved role at the company; otherwise the contact is inferred (`contact_stale`), `why` is the quoted title, and the note reads "last confirmed 2019". Company-domain pages have no age rule but record their date. The lead line shows the date (muted) and the evidence row shows it next to the host.
+- **Also found:** the probe passed the run guard through `deps`, which `findContacts` never read, so the guard showed spent 0 while the call cost $0.019. The run guard is `input.guard` (the tool passes it, and it was charged); `deps.guard` is now a type error and a thrown error instead of silently ignored.
+- **Before -> after:** the muraena page: verified -> inferred (`contact_unverified`); the 2019 release alone: verified -> inferred "last confirmed 2019"; with a current people-index entry: verified, 2019 date shown.
+- **Test:** `eval/contacts.test.ts` (muraena-like page, eleven aggregator URL shapes, prose rule, company domain verifies at any age, 2019 press with and without the index entry, the 24-month line, date from text, guard path); `app/ui/contacts-ssr.test.tsx` (date on the line and the evidence row).
+- **Not covered:** an undated press page (no `publishedDate`, no date near the quote) has no age to judge and can still verify. The 200-character prose test is a heuristic: a long field list with sentence-like text would pass, and a short real bio (a one-paragraph conference page) would not. A recent press page proves the role at that date, not today. None of this is measured on more than the one live probe.
+- **Earlier:** feeding the first live probe's three results through the gate before shipping would have shown both defects; the unit tests used one invented team page on the company's own domain.
+
 ## What we would monitor weekly
 
 Extends SPEC-agent §14; a breach rolls back one stage.
@@ -237,6 +248,7 @@ Extends SPEC-agent §14; a breach rolls back one stage.
 | Accepted leads whose signal URL is listing-shaped (`jobs.`, `/job/`, `/careers/`) or whose domain is a board; `non_event_page` rejects by reason | Job boards the list does not know yet | 22, 26 |
 | Describe: share of profile requests ending in "Tell us in one sentence" by input shape (`kind` / `source`); candidates lists where nobody picks a domain | Input shapes the resolver misreads | 27 |
 | Run-route 403s (a stranger holding a run id) | Leaked run ids or a client not sending the workspace header | 28 |
+| Verified contacts by evidence host and age; `contact_stale` and prose-rule inferred counts | Aggregators the rules miss; press that is too old to trust | 29 |
 | Exa 429/retry count; p95 turn time vs the 60 s route limit | Load and hosting | — |
 | Judge parse failures; share of "cannot verify"; leads with no verdict | Eval health | 8–11 |
 | Runs with 0 verification reads  | The agent is not verifying | — |

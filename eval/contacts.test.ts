@@ -10,12 +10,12 @@ import { agentTools, executeTool, validateNote, type ToolDeps } from "../src/age
 import { contactCounts, toObservations } from "../src/agent/trace";
 import { CONTACT_LIMITS, estimateContactCost, findContacts, pageSearchBody, peopleSearchBody, type FindContactsResult } from "../src/contacts";
 import { BudgetExceededError, CostGuard, estimateExaCost } from "../src/exa";
-import { checkContact, titleMatchesRole } from "../src/gates";
+import { CONTACT_NON_EVIDENCE_DOMAINS, checkContact, isAggregatorShapedUrl, normalizePageDate, titleMatchesRole } from "../src/gates";
 import { validatePlan, type SearchPlan } from "../src/plan";
 import { validateCards, withBuyerRoles, type CardSet } from "../src/planner/cards";
 import { demoPlan } from "../src/demo/planner";
 import { firstUserMessage, AGENT_SYSTEM_PROMPT } from "../src/agent/prompts";
-import { CONTACT_CSV_COLUMNS, leadsCsv } from "../app/ui/copy";
+import { CONTACT_CSV_COLUMNS, contactDate, leadsCsv } from "../app/ui/copy";
 import type { ExaResult, ExaSearchResponse } from "../src/types";
 
 const NOW = new Date("2026-10-16T00:00:00.000Z");
@@ -71,6 +71,12 @@ const TEAM_TEXT =
   "Our team. Travis French, Senior Vice President of Warehousing and Fulfillment Operations, joined Verst Logistics in 2024 and runs every building. " +
   "Chris Verst, Vice President, Transportation, leads the fleet.";
 
+// Press prose: a sentence about the person with enough surrounding text (>= 200 chars) to count as an article.
+const PRESS_TEXT =
+  "Travis French, Senior Vice President of Warehousing and Fulfillment Operations, joined Verst Logistics in 2024 and runs every building in the network. " +
+  "The company said the move reflects how quickly its contract logistics business has grown over the last two years. " +
+  "Chris Verst, Vice President, Transportation, leads the fleet.";
+
 describe("checkContact: code decides the tier", () => {
   const base = { name: "Travis French", company: "Verst Logistics", title_quote: "Senior Vice President of Warehousing and Fulfillment Operations" };
   const ctx = { page: { url: TEAM_URL, text: TEAM_TEXT }, buyerRoles: ROLES, companyUrl: "https://verstlogistics.com" };
@@ -86,9 +92,9 @@ describe("checkContact: code decides the tier", () => {
   });
 
   it("verified on another site only when it names the company", () => {
-    const press = { url: "https://news.example.com/verst", text: TEAM_TEXT };
+    const press = { url: "https://news.example.com/verst", text: PRESS_TEXT };
     expect(checkContact(base, { ...ctx, page: press }).ok).toBe(true);
-    const unnamed = { url: "https://news.example.com/x", text: TEAM_TEXT.replace(/Verst Logistics/g, "the company") };
+    const unnamed = { url: "https://news.example.com/x", text: PRESS_TEXT.replace(/Verst Logistics/g, "the company") };
     expect(checkContact(base, { ...ctx, page: unnamed })).toMatchObject({ ok: false, tier: "inferred", code: "contact_unverified" });
   });
 
@@ -122,6 +128,103 @@ describe("checkContact: code decides the tier", () => {
   it("a middle initial on the page still matches the name", () => {
     const text = "At Verst Logistics, Travis J. French, Senior Vice President of Warehousing and Fulfillment Operations, leads operations.";
     expect(checkContact(base, { ...ctx, page: { url: TEAM_URL, text } }).ok).toBe(true);
+  });
+});
+
+/* ---------- what may verify, and how old (FAILURES #29) ---------- */
+
+describe("checkContact: only the company's own site or real press can verify; old press needs a current index entry", () => {
+  const NOW_D = new Date("2026-10-16T00:00:00.000Z");
+  const todd = { name: "Todd Johnson", company: "Verst Logistics", title_quote: "President and COO" };
+  const roles = ["VP of Operations", "COO"];
+  const PRESS_URL = "https://www.prnewswire.com/news-releases/verst-logistics-names-todd-johnson-as-new-president-and-coo-300836065.html";
+  const press = (dateLine: string) =>
+    `${dateLine} CINCINNATI -- Verst Logistics today announced that Todd Johnson has been named President and COO of the company. ` +
+    "Johnson will oversee warehousing, transportation and customer operations across all of the company's facilities in the Midwest and Southeast.";
+  const base = { buyerRoles: roles, companyUrl: "https://verstlogistics.com", now: NOW_D };
+  const FIELD_LIST = "Virgil Chandler\nTitle: VP of Warehousing\nCompany: Verst Logistics\nLocation: Cincinnati, Ohio\nIndustry: Logistics\nSeniority: VP\nDepartment: Operations";
+
+  it("a muraena-like people-data mirror is inferred, never verified (list, URL shape and prose rule each catch it)", () => {
+    const v = { name: "Virgil Chandler", company: "Verst Logistics", title_quote: "VP of Warehousing" };
+    const ctx = { ...base, buyerRoles: ["Head of Warehousing", "VP of Warehousing"] };
+    expect(checkContact(v, { ...ctx, page: { url: "https://muraena.ai/profile/virgil_chandler_7a81e5b6", text: FIELD_LIST } })).toMatchObject({ ok: false, tier: "inferred", code: "contact_unverified" });
+    // An aggregator the list does not know, with a profile-shaped URL.
+    expect(checkContact(v, { ...ctx, page: { url: "https://peoplemirror.example/profile/virgil-chandler", text: FIELD_LIST } })).toMatchObject({ ok: false, code: "contact_unverified", reason: expect.stringContaining("profile or directory") });
+    // Unknown domain, neutral URL, but the page is a field list: the prose rule.
+    expect(checkContact(v, { ...ctx, page: { url: "https://peoplemirror.example/v/virgil-chandler", text: FIELD_LIST } })).toMatchObject({ ok: false, code: "contact_unverified", reason: expect.stringContaining("prose") });
+  });
+
+  it.each([
+    "https://x.example/profile/todd",
+    "https://x.example/profiles/todd",
+    "https://x.example/person/todd-johnson",
+    "https://x.example/people/todd-johnson",
+    "https://x.example/employee/123",
+    "https://x.example/contact/todd",
+    "https://x.example/in/todd-johnson",
+    "https://x.example/pub/todd-johnson/1/2/3",
+    "https://x.example/directory/verst",
+    "https://x.example/company/verst-logistics/people",
+    "https://x.example/lookup?person=todd-johnson",
+  ])("aggregator URL shape %s cannot verify", (url) => {
+    expect(isAggregatorShapedUrl(url)).toBe(true);
+    expect(checkContact(todd, { ...base, page: { url, text: press("Oct 1, 2026"), publishedDate: "2026-10-01" } })).toMatchObject({ ok: false, code: "contact_unverified" });
+  });
+
+  it("every newly listed aggregator host is excluded from the evidence search", () => {
+    for (const d of ["muraena.ai", "rocketreach.com", "zoominfo.com", "apollo.io", "lusha.com", "contactout.com", "signalhire.com", "kaspr.io", "theorg.com", "crunchbase.com", "pitchbook.com", "cbinsights.com", "datanyze.com", "seamless.ai", "leadiq.com", "clearbit.com", "hunter.io", "findymail.com", "snov.io", "getprospect.com", "wiza.co", "uplead.com", "cognism.com", "6sense.com", "lead411.com", "exa.ai"]) {
+      expect(CONTACT_NON_EVIDENCE_DOMAINS.some((x) => d === x || d.endsWith(`.${x}`)), d).toBe(true);
+    }
+  });
+
+  it("prose rule: a press-shaped URL with a bare name-and-title line is inferred; the same name in an article verifies", () => {
+    const bare = "Todd Johnson, President and COO. Verst Logistics.";
+    expect(checkContact(todd, { ...base, page: { url: "https://news.example.com/a", text: bare, publishedDate: "2026-09-01" } })).toMatchObject({ ok: false, code: "contact_unverified" });
+    expect(checkContact(todd, { ...base, page: { url: "https://news.example.com/a", text: press("Sep 1, 2026"), publishedDate: "2026-09-01" } })).toMatchObject({ ok: true });
+  });
+
+  it("the company's own domain verifies whatever its age or shape, and records the date when it has one", () => {
+    const own = { url: "https://www.verstlogistics.com/about/people/todd-johnson", text: "Todd Johnson, President and COO.", publishedDate: "2019-06-03T00:00:00.000Z" };
+    const v = checkContact(todd, { ...base, page: own });
+    expect(v).toMatchObject({ ok: true, tier: "verified" });
+    if (v.ok) expect(v.evidence.published).toBe("2019-06-03");
+    const undated = checkContact(todd, { ...base, page: { url: own.url, text: own.text } });
+    expect(undated).toMatchObject({ ok: true });
+    if (undated.ok) expect(undated.evidence.published).toBeUndefined();
+  });
+
+  it("2019 press with a current people-index entry verifies, and the date is kept", () => {
+    const page = { url: PRESS_URL, text: press("Jun 3, 2019"), publishedDate: "2019-06-03T00:00:00.000Z" };
+    const v = checkContact(todd, { ...base, page, currentInIndex: true });
+    expect(v).toMatchObject({ ok: true, tier: "verified", role: "VP of Operations" });
+    if (v.ok) expect(v.evidence.published).toBe("2019-06-03");
+  });
+
+  it("2019 press alone is inferred (contact_stale) with the title and the year it was last confirmed", () => {
+    const page = { url: PRESS_URL, text: press("Jun 3, 2019"), publishedDate: "2019-06-03T00:00:00.000Z" };
+    const v = checkContact(todd, { ...base, page });
+    expect(v).toMatchObject({ ok: false, tier: "inferred", code: "contact_stale", stale: { title_quote: "President and COO", published: "2019-06-03", role: "VP of Operations" } });
+  });
+
+  it("the date comes from the text near the quote when Exa gave none; no date at all means the age rule has nothing to apply", () => {
+    const fromText = checkContact(todd, { ...base, page: { url: PRESS_URL, text: press("June 3, 2019") } });
+    expect(fromText).toMatchObject({ ok: false, code: "contact_stale", stale: { published: "2019-06-03" } });
+    const undated = checkContact(todd, { ...base, page: { url: "https://news.example.com/a", text: press("") } });
+    expect(undated).toMatchObject({ ok: true });
+    if (undated.ok) expect(undated.evidence.published).toBeUndefined();
+  });
+
+  it("24 months is the line: 23 months old verifies, 25 does not", () => {
+    expect(checkContact(todd, { ...base, page: { url: "https://news.example.com/a", text: press(""), publishedDate: "2024-11-10" } })).toMatchObject({ ok: true });
+    expect(checkContact(todd, { ...base, page: { url: "https://news.example.com/a", text: press(""), publishedDate: "2024-09-10" } })).toMatchObject({ ok: false, code: "contact_stale" });
+  });
+
+  it("date helpers", () => {
+    expect(normalizePageDate("2019-06-03T10:00:00.000Z", NOW_D)).toBe("2019-06-03");
+    expect(normalizePageDate("2030-01-01", NOW_D)).toBeUndefined();
+    expect(normalizePageDate("garbage", NOW_D)).toBeUndefined();
+    expect(contactDate("2019-06-03")).toBe("Jun 2019");
+    expect(contactDate("2019")).toBe("2019");
   });
 });
 
@@ -239,6 +342,52 @@ describe("findContacts", () => {
     const roomy = new CostGuard(1);
     await findContacts({ company: "Verst Logistics", buyerRoles: ROLES, guard: roomy }, { exaSearch: exa.fn as never });
     expect(roomy.spent).toBeCloseTo(0.019, 9);
+  });
+
+  it("a people-data mirror page cannot verify a contact; an old press page needs the index, else the contact is inferred with 'last confirmed'", async () => {
+    const mirror = page("https://muraena.ai/profile/virgil_chandler_7a81e5b6", "Virgil Chandler\nTitle: VP of Operations\nCompany: Verst Logistics", [{ name: "Virgil Chandler", title_quote: "VP of Operations" }]);
+    const oldPress: ExaResult = {
+      ...page(
+        "https://www.prnewswire.com/news-releases/verst-names-todd-johnson-300836065.html",
+        "Verst Logistics today announced that Todd Johnson has been named President and COO of the company, effective immediately. Johnson will oversee warehousing, transportation and customer operations across all of the company's facilities in the Midwest and Southeast.",
+        [{ name: "Todd Johnson", title_quote: "President and COO" }, { name: "Jane Ops", title_quote: "Vice President of Fulfillment Operations" }],
+      ),
+      publishedDate: "2019-06-03T00:00:00.000Z",
+    };
+    const roles = ["VP of Operations", "COO"];
+    const people = [
+      person("https://www.linkedin.com/in/todd-johnson", "Todd Johnson", [{ title: "President and COO", company: "Verst Logistics" }]),
+    ];
+    // Todd: index lists him current in an approved role -> the 2019 press verifies, date kept.
+    const withIndex = await findContacts({ company: "Verst Logistics", buyerRoles: roles }, { exaSearch: fakeExa(people, [mirror, oldPress]).fn as never });
+    const todd = withIndex.contacts.find((c) => c.name === "Todd Johnson")!;
+    expect(todd).toMatchObject({ tier: "verified" });
+    expect(todd.evidence!.published).toBe("2019-06-03");
+    expect(withIndex.contacts.find((c) => c.name === "Virgil Chandler")).toBeUndefined();
+    // Without the index entry the same page only infers, and says when it was last confirmed.
+    const alone = await findContacts({ company: "Verst Logistics", buyerRoles: roles }, { exaSearch: fakeExa([], [mirror, oldPress]).fn as never });
+    expect(alone.contacts.find((c) => c.name === "Todd Johnson")).toEqual({
+      name: "Todd Johnson",
+      tier: "inferred",
+      role: "VP of Operations",
+      why: "President and COO",
+      found_via: "web_page",
+      code: "contact_stale",
+      note: "last confirmed 2019",
+    });
+    expect(alone.contacts.some((c) => c.tier === "verified")).toBe(false);
+  });
+
+  it("the run's guard is input.guard: spend lands on it; a guard passed through deps is refused, not silently ignored", async () => {
+    const exa = fakeExa(PEOPLE, PAGES);
+    const guard = new CostGuard(1);
+    const r = await findContacts({ company: "Verst Logistics", buyerRoles: ROLES, guard }, { exaSearch: exa.fn as never });
+    expect(r.cost).toBeCloseTo(0.019, 9);
+    expect(guard.spent).toBeCloseTo(r.cost, 9);
+    expect(exa.fn.mock.calls.every((c) => c[2] === guard)).toBe(true);
+    const other = new CostGuard(1);
+    await expect(findContacts({ company: "Verst Logistics", buyerRoles: ROLES }, { exaSearch: exa.fn as never, guard: other } as never)).rejects.toThrow(/input\.guard/);
+    expect(other.spent).toBe(0);
   });
 
   it("no approved roles: refuses without spending", async () => {

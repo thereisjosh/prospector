@@ -48,7 +48,7 @@ import {
   CodeBlockHeader,
   CodeBlockTitle,
 } from "@/components/ui/code-block";
-import { CONTACTS, RUN, TRACE } from "./copy";
+import { CONTACTS, RUN, TRACE, contactDate } from "./copy";
 import type { EvidenceDetail, TraceDetail, TraceIcon as IconName, TraceLine as Line, TraceTree, TraceTurn } from "./trace-model";
 
 /* ---------- icons ---------- */
@@ -119,7 +119,7 @@ function evidenceRows(detail: EvidenceDetail): EvidenceRow[] {
   }
   // Verified contacts: the page span that names the person with their title, verbatim, and where it is.
   (detail.contacts ?? []).forEach((c, i) => {
-    rows.push({ label: CONTACTS.evidenceRow, question: c.name, quote: c.quote, note: c.source, id: contactRowId(detail.company, i) });
+    rows.push({ label: CONTACTS.evidenceRow, question: c.name, quote: c.quote, note: c.published && contactDate(c.published) ? `${c.source} · ${contactDate(c.published)}` : c.source, id: contactRowId(detail.company, i) });
   });
   return rows;
 }

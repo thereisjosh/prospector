@@ -113,6 +113,42 @@ describe("Who to reach on a lead row", () => {
   });
 });
 
+describe("Who to reach: evidence date and stale press", () => {
+  const dated: AcceptedLead = {
+    ...base,
+    contacts: {
+      at: "2026-10-16T00:00:00.000Z",
+      roles: ["VP of Operations"],
+      cost: 0.019,
+      contacts: [
+        {
+          name: "Todd Johnson",
+          tier: "verified",
+          role: "VP of Operations",
+          why: "President and COO",
+          found_via: "people_index",
+          evidence: { url: "https://www.prnewswire.com/news-releases/x-300836065.html", quote: "Todd Johnson has been named President and COO", title_quote: "President and COO", published: "2019-06-03" },
+        },
+        { name: "Pat Old", tier: "inferred", role: "VP of Operations", why: "VP of Operations", found_via: "web_page", code: "contact_stale", note: "last confirmed 2018" },
+      ],
+    },
+  };
+
+  it("the lead line ends name · “title” · host · Jun 2019 (muted); a stale inferred contact shows its title and 'last confirmed'", () => {
+    const html = renderToStaticMarkup(h(WhoToReach, { lead: dated, demo: false, onShowEvidence: noop }));
+    expect(html).toMatch(/Todd Johnson[\s\S]*?“President and COO”[\s\S]*?prnewswire.com<\/button>[\s\S]*?<span class="muted pr-contact-date">Jun 2019<\/span>/);
+    expect(html).toMatch(/Pat Old[\s\S]*?“VP of Operations”[\s\S]*?<span class="muted">last confirmed 2018<\/span>/);
+    expect(html).not.toContain("inferred from a public profile");
+  });
+
+  it("the evidence row carries the page date next to the host; an undated page shows only the host", () => {
+    const detail = evidenceFor(dated, contract);
+    expect(detail.contacts).toEqual([expect.objectContaining({ source: "prnewswire.com", published: "2019-06-03" })]);
+    expect(renderToStaticMarkup(h(EvidenceBlock, { detail }))).toContain("prnewswire.com · Jun 2019");
+    expect(renderToStaticMarkup(h(EvidenceBlock, { detail: evidenceFor(withContacts, contract) }))).not.toContain(" · Jun ");
+  });
+});
+
 describe("Who to reach in the evidence block", () => {
   it("a verified contact's page span is a row, verbatim, with its host; an inferred one adds nothing", () => {
     const detail = evidenceFor(withContacts, contract);
