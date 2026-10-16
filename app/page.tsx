@@ -11,7 +11,7 @@ import { ContractStep } from "./ui/ContractStep";
 import { MemoryPanel, type LastRun } from "./ui/Memory";
 import { RunView, type Decision } from "./ui/RunView";
 import { StartStep } from "./ui/StartStep";
-import { allowanceLine, httpErrorMessage, screenedFrom, uniq, type AllowanceView, type HttpErrorKind, type Screened } from "./ui/copy";
+import { allowanceLine, DESCRIBE_COPY, httpErrorMessage, screenedFrom, uniq, type AllowanceView, type HttpErrorKind, type Screened } from "./ui/copy";
 import { type ContractView, type SuggestionPatch } from "./ui/copy";
 import { AlertIcon, ArrowUpRight, Crosshair, Moon, Sun } from "./ui/parts";
 import {
@@ -19,12 +19,13 @@ import {
   HttpError,
   withRateLimitRetry,
   type Feedback,
-  type InstagramCandidate,
+  type CandidateSource,
   type MemoryView,
   type PlanResult,
   type ProfileResponse,
   type RunSnapshot,
   type SellerProfile,
+  type SiteCandidate,
   type StepResponse,
 } from "./ui/types";
 
@@ -79,7 +80,9 @@ export default function Page() {
   const [input, setInput] = useState("");
   const [profileBusy, setProfileBusy] = useState(false);
   const [profileError, setProfileError] = useState("");
-  const [candidates, setCandidates] = useState<InstagramCandidate[] | null>(null);
+  const [candidates, setCandidates] = useState<SiteCandidate[] | null>(null);
+  const [candidateSource, setCandidateSource] = useState<CandidateSource | null>(null);
+  const [askName, setAskName] = useState(false);
   const [askDescription, setAskDescription] = useState(false);
   const [description, setDescription] = useState("");
   const [profile, setProfile] = useState<SellerProfile | null>(null);
@@ -191,17 +194,25 @@ export default function Page() {
 
   /* ---------- step 1: profile ---------- */
 
-  async function submitProfile(text: string, opts: { fromDescription?: boolean } = {}) {
+  async function submitProfile(text: string, opts: { fromDescription?: boolean; asName?: boolean } = {}) {
     const value = text.trim();
     if (!value) return;
     setProfileBusy(true);
     setProfileError("");
     try {
-      const res = await api<ProfileResponse>("/api/planner/profile", { body: { input: value } });
-      if (res.kind === "instagram") {
+      const res = await api<ProfileResponse>("/api/planner/profile", { body: { input: value, ...(opts.asName ? { asName: true } : {}) } });
+      setAskName(false);
+      if (res.kind === "candidates" || res.kind === "instagram") {
         setCandidates(res.candidates);
+        setCandidateSource(res.kind === "instagram" ? { source: "social", platform: "instagram" } : { source: res.source, platform: res.platform });
+        setAskName(res.kind === "candidates" && res.askName === true);
         setAskDescription(false);
         setProfile(null);
+      } else if (res.kind === "unusable") {
+        setCandidates(null);
+        setAskDescription(true);
+        setProfile(null);
+        setProfileError(DESCRIBE_COPY.unusable[res.reason] ?? DESCRIBE_COPY.unusable.contact_link!);
       } else if (res.needsDescription) {
         setCandidates(null);
         setAskDescription(true);
@@ -507,6 +518,9 @@ export default function Page() {
             busy={profileBusy}
             error={profileError}
             candidates={candidates}
+            candidateSource={candidateSource}
+            askName={askName}
+            onSubmitName={(name) => submitProfile(name, { asName: true })}
             askDescription={askDescription}
             description={description}
             setDescription={setDescription}

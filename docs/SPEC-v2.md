@@ -11,12 +11,8 @@ Positioning change: v1 was "Exa-only". v2 is **"Claude plans, Exa retrieves"** �
 ## 2. Pipeline
 
 ```
-[0] RESOLVE INPUT        one field → kind ∈ {url, instagram, text}
-      url        → normalise to origin
-      instagram  → Exa /search for pages citing the handle ("@h", "instagram.com/h")
-                   → pick the brand's own domain (bio link / linktree / press)
-                   → none found: ask the user for one sentence (explicit, not a guess)
-      text       → used directly as the seller description
+[0] RESOLVE INPUT        one field → classifyInput → profile directly OR resolveToSite → candidates
+                         (table below; FAILURES #27). Never auto-commit a candidate.
 [1] SELLER PROFILE       Exa: category:"company" lookup + /contents on the seller origin,
                          summary.schema = {offering, buyer_type, buyer_roles, price_band,
                          geo_served, existing_customers[], competitors[]}
@@ -28,6 +24,24 @@ Positioning change: v1 was "Exa-only". v2 is **"Claude plans, Exa retrieves"** �
 [5] EXECUTE              generalised v1 pipeline driven by SearchPlan (no per-ICP code)
 [6] RESULTS              table, per-field provenance badges, CSV export
 ```
+
+### Describe input contract (`src/planner/resolve.ts`, `profile.ts`, `POST /api/planner/profile`)
+
+`classifyInput(raw)` returns one shape; every paid call runs under the route's `CostGuard(0.10)`; resolving costs at most one Exa `/search` (5 results) plus, for bio links, one `/contents`.
+
+| Input shape | Examples | Handling |
+|---|---|---|
+| website | `acme.com`, `https://acme.com/products/x` | Profile: origin + `/about`, `/about-us`, `/pricing` (path dropped). |
+| site-builder page | `acme.carrd.co`, `acme.pop.site` | The page IS the seller's site: profile the full URL, subdomain and path kept. |
+| social profile | `facebook.com/<page>`, `instagram.com/<h>`, `@handle`, `tiktok.com/@<h>`, `x.com/<h>`, `twitter.com/<h>`, `youtube.com/@<h>` or `/c/<x>`, `linkedin.com/company/<slug>`, `threads.net/@<h>` | Exa search `"<platform>.com/<handle> official website"`; social, marketplace, maps and bio-link hosts removed; candidates scored by 4-character overlap with the handle; seller confirms ("Is this your website? We found it from your Facebook page."); the chosen domain is profiled. A social URL is never normalised to its host. No readable handle (e.g. `profile.php?id=`): ask for the business name. |
+| bio link | `linktr.ee/<x>`, `beacons.ai/<x>`, `bio.site/<x>`, `lnk.bio/<x>` | Fetch the page text via Exa `/contents`, take outbound links, drop social/marketplace/maps/bio-link hosts, first remaining domain leads (up to 3). None: fall back to the social-search path with the bio handle. |
+| marketplace storefront | `shopee.sg/<shop>`, `lazada.sg/shop/<x>`, `carousell.sg/u/<x>`, `etsy.com/shop/<x>`, `amazon.com/stores/<x>`, tokopedia, `<shop>.myshopify.com` | Profile the storefront URL with its path; `profile.channel = "marketplace:<platform>"`; the summary query says it is a storefront listing on a marketplace and asks about the seller, not the marketplace. A marketplace homepage (no path) is `unusable: marketplace_home`. |
+| maps / listing | `maps.google.com/?q=…`, `google.com/maps/place/…`, `g.page/<x>`, `maps.app.goo.gl/…`, `yelp.com/biz/<x>`, tripadvisor | Name from the URL (g.page slug, yelp biz slug, `q=`/`query=`, `/place/<name>`); search `"<name> official website"`; candidates. No name (short links): ask "That's a map link. What's the business called?" |
+| bare company name | `SAS Airconditioning`, `Acme Logistics Pte Ltd` | At most 6 words, no verb (sell, offer, provide, we, our …), Title Case or ending Ltd/Pte/Inc/LLC/GmbH/Co: search `"<name> official website"`; candidates. Plain sentences stay `text` (the offering, verbatim). The name prompt sends `asName: true`, which skips the heuristic. |
+| unusable | `wa.me/…`, `mailto:`, `tel:`, a bare email, a phone number | No call. "That's a contact link, not a site. Paste your website or tell us in one sentence." |
+
+Response shapes: `{ kind: "candidates", source: "social"|"biolink"|"maps"|"name", platform?, candidates: [{domain, score, evidence}], askName? }`; `{ kind: "url", profile, needsDescription, cost }`; `{ kind: "text", profile, needsDescription: false, cost: 0 }`; `{ kind: "unusable", reason: "contact_link"|"marketplace_home" }`. `kind: "instagram"` is accepted by the UI for one release as an alias for candidates from an Instagram handle; the server no longer sends it. Host lists (`SOCIAL_HOSTS`, `MARKETPLACE_HOSTS`, `MAPS_HOSTS`, `BIOLINK_HOSTS`, `SITE_BUILDER_HOSTS`) are exported from `src/planner`.
+
 
 ## 3. Cards → Exa levers (UI must show hard vs estimated)
 

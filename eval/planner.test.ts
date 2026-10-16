@@ -2,7 +2,7 @@ import probe from "./probe-v2-results.json";
 import { describe, expect, it, vi } from "vitest";
 import { validatePlan } from "../src/plan";
 import { CostGuard } from "../src/exa";
-import { classifyInput, compilePlan, profileSeller, resolveInstagram, suggestCards, type CardSet } from "../src/planner";
+import { classifyInput, compilePlan, profileSeller, resolveToSite, suggestCards, type CardSet } from "../src/planner";
 import { extractFirstJsonObject, PlannerTokenLimitError } from "../src/planner/claude";
 
 function probeUrls(id: string): string[] {
@@ -39,8 +39,8 @@ const validCards = (): CardSet => ({
 
 describe("planner input resolution", () => {
   it("classifies urls, instagram handles, instagram URLs, and text", () => {
-    expect(classifyInput("@lovebonito")).toEqual({ kind: "instagram", value: "lovebonito" });
-    expect(classifyInput("instagram.com/hitpay.sg")).toEqual({ kind: "instagram", value: "hitpay.sg" });
+    expect(classifyInput("@lovebonito")).toMatchObject({ kind: "social", platform: "instagram", handle: "lovebonito" });
+    expect(classifyInput("instagram.com/hitpay.sg")).toMatchObject({ kind: "social", platform: "instagram", handle: "hitpay.sg" });
     expect(classifyInput("hitpayapp.com")).toEqual({ kind: "url", value: "hitpayapp.com" });
     expect(classifyInput("we sell payment terminals to cafes")).toEqual({
       kind: "text",
@@ -55,10 +55,9 @@ describe("planner input resolution", () => {
         : "A3 instagram resolution hitpaysg";
       return { results: probeUrls(id).map((url) => ({ url })) };
     });
-    await expect(resolveInstagram("lovebonito", { exaSearch: exaSearch as never })).resolves.toMatchObject({
-      candidates: [{ domain: "lovebonito.com" }],
-    });
-    const hitpay = await resolveInstagram("hitpaysg", { exaSearch: exaSearch as never });
+    const love = await resolveToSite(classifyInput("@lovebonito"), { exaSearch: exaSearch as never });
+    expect(love).toMatchObject({ source: "social", platform: "instagram", candidates: [{ domain: "lovebonito.com" }] });
+    const hitpay = await resolveToSite(classifyInput("@hitpaysg"), { exaSearch: exaSearch as never });
     expect(hitpay.candidates.map((c) => c.domain).slice(0, 2)).toEqual(["hitpayapp.com", "hitpay.org"]);
   });
 });

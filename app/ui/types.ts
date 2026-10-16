@@ -2,14 +2,20 @@ import type { AgentEvent } from "../../src/agent/events";
 import type { AcceptedLead, Handback, RunStatus } from "../../src/agent/state";
 import type { SearchPlan } from "../../src/plan";
 import type { SellerProfile } from "../../src/planner/profile";
-import type { InstagramCandidate } from "../../src/planner/resolve";
+import type { ResolveSource, SiteCandidate, UnusableReason } from "../../src/planner/resolve";
 import type { Note, Preference, SeenItem } from "../../src/agent/memory";
 import type { ContractView } from "./copy";
 
 /** POST /api/planner/profile */
 export type ProfileResponse =
   | { kind: "url" | "text"; profile: SellerProfile; needsDescription: boolean; cost: number }
-  | { kind: "instagram"; candidates: InstagramCandidate[] };
+  | { kind: "candidates"; source: ResolveSource; platform?: string; candidates: SiteCandidate[]; askName?: boolean }
+  | { kind: "unusable"; reason: UnusableReason }
+  /** Alias kept for one release (older deploys / fixtures): same as candidates from an Instagram handle. */
+  | { kind: "instagram"; candidates: SiteCandidate[] };
+
+/** Where an "Is this your website?" list came from: names the platform in the heading. */
+export type CandidateSource = { source: ResolveSource; platform?: string };
 
 /** POST /api/planner/plan */
 export type PlanResult = { plan: SearchPlan; cost: number; estimatedRunCost: number };
@@ -56,7 +62,9 @@ export type MemoryView = {
   preferenceNotes: string[];
 };
 
-export type { SellerProfile, InstagramCandidate };
+/** @deprecated use SiteCandidate */
+export type InstagramCandidate = SiteCandidate;
+export type { SellerProfile, SiteCandidate, ResolveSource, UnusableReason };
 
 /** The anonymous workspace id the page stores; live routes use it for the visitor allowance. */
 function workspaceHeader(): Record<string, string> {

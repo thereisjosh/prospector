@@ -11,9 +11,9 @@ import {
 } from "@/components/ui/input-group";
 import { Message, MessageContent, MessageFooter } from "@/components/ui/message";
 import { Trace, TraceLine, TraceTitle } from "@/components/ui/trace";
-import { joinWords } from "./copy";
+import { DESCRIBE_COPY, joinWords } from "./copy";
 import { Crosshair, Suggestion } from "./parts";
-import type { InstagramCandidate, SellerProfile } from "./types";
+import type { CandidateSource, SellerProfile, SiteCandidate } from "./types";
 
 const DEMO_LINE = "Demo mode replays one recorded seller, so any input leads to the same example.";
 
@@ -36,7 +36,12 @@ export type StartStepProps = {
   setInput: (v: string) => void;
   busy: boolean;
   error: string;
-  candidates: InstagramCandidate[] | null;
+  candidates: SiteCandidate[] | null;
+  /** Where the candidates came from; names the platform in the heading. */
+  candidateSource?: CandidateSource | null;
+  /** The input gave no business name or handle to search with: ask for the name. */
+  askName?: boolean;
+  onSubmitName?: (name: string) => void;
   askDescription: boolean;
   description: string;
   setDescription: (v: string) => void;
@@ -58,6 +63,7 @@ export type StartStepProps = {
 export function StartStep(props: StartStepProps) {
   const { profile } = props;
   const [reopened, setReopened] = useState(false);
+  const [nameDraft, setNameDraft] = useState("");
   const started = props.busy || !!profile || !!props.candidates || props.askDescription;
   const showInput = !started || reopened;
   const submit = () => {
@@ -134,17 +140,46 @@ export function StartStep(props: StartStepProps) {
           <MessageContent className="pr-agent-body">
             {props.candidates && (
               <section aria-labelledby="iyou-h" className="pr-agent-part">
-                <h2 id="iyou-h" className="pr-msg-title">Is this you?</h2>
-                {props.candidates.length === 0 ? (
-                  <p className="pr-msg-text">We couldn't find a website for that handle.</p>
+                {props.askName ? (
+                  <>
+                    <h2 id="iyou-h" className="pr-msg-title">
+                      {props.candidateSource?.source === "maps" ? DESCRIBE_COPY.askNameMaps : DESCRIBE_COPY.askNameOther}
+                    </h2>
+                    <form
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                        if (nameDraft.trim()) props.onSubmitName?.(nameDraft.trim());
+                      }}
+                    >
+                      <label htmlFor="name-input" className="sr-only">{DESCRIBE_COPY.namePlaceholder}</label>
+                      <InputGroup className="pr-prompt pr-prompt-line">
+                        <InputGroupInput id="name-input" value={nameDraft} placeholder={DESCRIBE_COPY.namePlaceholder} onChange={(e) => setNameDraft(e.target.value)} />
+                        <InputGroupAddon align="inline-end">
+                          <InputGroupButton type="submit" variant="default" className="pr-prompt-go pr-press" disabled={props.busy || !nameDraft.trim()}>
+                            {props.busy ? "Reading…" : "Continue"}
+                          </InputGroupButton>
+                        </InputGroupAddon>
+                      </InputGroup>
+                    </form>
+                  </>
                 ) : (
-                  <div className="pr-suggestions" role="group" aria-labelledby="iyou-h">
-                    {props.candidates.slice(0, 5).map((c) => (
-                      <Suggestion key={c.domain} disabled={props.busy} onClick={() => props.onPickCandidate(c.domain)}>
-                        {c.domain}
-                      </Suggestion>
-                    ))}
-                  </div>
+                  <>
+                    <h2 id="iyou-h" className="pr-msg-title">{DESCRIBE_COPY.candidatesHeading}</h2>
+                    <p className="pr-msg-text">
+                      {DESCRIBE_COPY.candidatesFrom(props.candidateSource?.source ?? "social", props.candidateSource?.platform ?? "instagram")}
+                    </p>
+                    {props.candidates.length === 0 ? (
+                      <p className="pr-msg-text">{DESCRIBE_COPY.noCandidates}</p>
+                    ) : (
+                      <div className="pr-suggestions" role="group" aria-labelledby="iyou-h">
+                        {props.candidates.slice(0, 5).map((c) => (
+                          <Suggestion key={c.domain} disabled={props.busy} onClick={() => props.onPickCandidate(c.domain)}>
+                            {c.domain}
+                          </Suggestion>
+                        ))}
+                      </div>
+                    )}
+                  </>
                 )}
                 <button type="button" className="link-btn" onClick={props.onDescribeInstead}>
                   None of these. I'll describe it instead

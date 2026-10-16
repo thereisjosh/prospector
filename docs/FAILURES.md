@@ -200,6 +200,16 @@ Also fixed: Exa 429s under load (aac0a20: ≤ 4 in flight, jittered retry); an u
 - **Test:** `eval/gates.test.ts` ("third-party job listings": snaprecruit-shaped path, `jobs.` and `careers.` subdomain, unknown company domain treated as third-party, own-domain careers page still allowed, slug words such as "jobs-per-shift" not matched, any declared `signal_type` still rejected (Jay Group shape), the three new domains).
 - **Earlier:** a replay of every judged lead against a URL-shape rule when #22 was fixed would have shown that the domain list alone was a blocklist of known boards, and that the two-role fallback was a loophole for any board with a company page.
 
+## 27. Facebook page URL profiled facebook.com; every non-website input shape was misread [measured]
+
+- **Symptom:** 2026-10-16, observed live: input `https://www.facebook.com/SASairconditioning/` came back "Tell us in one sentence". Related shapes failed the same way unobserved: a bare company name ("SAS Airconditioning") was taken verbatim as the offering sentence; a Linktree, Shopee shop or Google Maps link was profiled at its host.
+- **Layer:** planner input resolution (`src/planner/resolve.ts`, `profile.ts`). **Cause:** `classifyInput` knew two shapes besides text: an Instagram handle (resolved through Exa to the seller's own site) and "anything URL-like". The second went to `normalizeOrigin`, which dropped the path and fetched `https://facebook.com`, `/about`, `/about-us`, `/pricing`: the platform's pages, which describe no seller, so `offering` was empty and the fallback fired. Facebook was in `SOCIAL_HOSTS`, but that set only filtered Instagram candidates. A bare name matched neither URL test, so it fell through to `text`.
+- **Fix:** one pipeline, `classifyInput` then `resolveToSite`, for every shape (contract: SPEC-v2 section 2 [0]): website and carrd/pop.site pages are profiled directly; social profiles, bio links, map links and bare company names are searched once on Exa (`facebook.com/<handle> official website`, `<name> official website`), filtered through `SOCIAL_HOSTS` + `MARKETPLACE_HOSTS` + `MAPS_HOSTS` + `BIOLINK_HOSTS`, and shown as "Is this your website? We found it from your Facebook page."; marketplace storefronts are profiled at their own URL with `profile.channel = "marketplace:<platform>"`; contact links get a specific refusal. `normalizeOrigin` is replaced by `profileTarget`, which throws `ProfileTargetError` for any social, bio-link, maps, name, text or contact input, so no caller can collapse a platform URL to its host again.
+- **Before -> after:** the reported URL: profiled `facebook.com` (empty offering) -> Exa query containing `facebook.com/SASairconditioning`, candidates with facebook/instagram/yelp/shopee removed, the chosen domain profiled. Not re-measured live.
+- **Test:** `eval/planner-resolve.test.ts` (one classify case per input shape incl. the exact URL; resolve per shape; `profileTarget` throws for platform URLs; route response shapes, CostGuard(0.10), demo fixtures; the candidate heading names the platform).
+- **Not covered:** how often the right domain is among the top 5 for these shapes is unmeasured (the only evidence is the 3/3 Instagram probe, SPEC-v2 section 8 A3). The bio-link path reads the page's text for URLs and has not been run against a live Linktree. Link-in-bio pages whose links are click-tracked redirects (`l.instagram.com/...`) yield no outbound domain and fall back to the handle search.
+- **Earlier:** feeding one URL per platform through `classifyInput` and asserting the pages that would be fetched. The tests only exercised the Instagram handle and a plain site.
+
 ## What we would monitor weekly
 
 Extends SPEC-agent §14; a breach rolls back one stage.
@@ -215,6 +225,7 @@ Extends SPEC-agent §14; a breach rolls back one stage.
 | Lookup entity mismatches; `hq` rejections after lookup | Wrong-company enrichment | 5 |
 | `lookup_retry` events by reason and outcome; lookups screened `quote_not_in_page` | Summariser noise; retries that did not help | 25 |
 | Accepted leads whose signal URL is listing-shaped (`jobs.`, `/job/`, `/careers/`) or whose domain is a board; `non_event_page` rejects by reason | Job boards the list does not know yet | 22, 26 |
+| Describe: share of profile requests ending in "Tell us in one sentence" by input shape (`kind` / `source`); candidates lists where nobody picks a domain | Input shapes the resolver misreads | 27 |
 | Exa 429/retry count; p95 turn time vs the 60 s route limit | Load and hosting | — |
 | Judge parse failures; share of "cannot verify"; leads with no verdict | Eval health | 8–11 |
 | Runs with 0 verification reads  | The agent is not verifying | — |

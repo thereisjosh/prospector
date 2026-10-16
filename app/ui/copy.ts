@@ -762,3 +762,42 @@ export const RUN = {
 export function shortenList(items: string[], max = 4): string {
   return items.length > max ? joinWords([...items.slice(0, max - 1), `${items.length - (max - 1)} more`]) : joinWords(items);
 }
+
+/* ---------- Describe: resolving what the seller pasted ---------- */
+
+const PLATFORM_LABEL: Record<string, string> = {
+  instagram: "Instagram",
+  facebook: "Facebook page",
+  tiktok: "TikTok",
+  x: "X profile",
+  youtube: "YouTube channel",
+  linkedin: "LinkedIn page",
+  threads: "Threads",
+  "linktr.ee": "Linktree",
+  "linktree.com": "Linktree",
+  "beacons.ai": "Beacons page",
+  "bio.site": "bio link",
+  "lnk.bio": "bio link",
+};
+
+/** "your Facebook page", "your map link", "the name you gave". */
+export function candidateOrigin(source: string, platform?: string): string {
+  if (source === "maps") return "your map link";
+  if (source === "name") return "the name you gave";
+  const label = platform ? PLATFORM_LABEL[platform] ?? platform : undefined;
+  if (source === "biolink") return `your ${label ?? "bio link"}`;
+  return label ? `your ${label}` : "your profile";
+}
+
+export const DESCRIBE_COPY = {
+  candidatesHeading: "Is this your website?",
+  candidatesFrom: (source: string, platform?: string) => `We found it from ${candidateOrigin(source, platform)}.`,
+  noCandidates: "We couldn't find a website for that.",
+  askNameMaps: "That's a map link. What's the business called?",
+  askNameOther: "We couldn't tell the business from that link. What's it called?",
+  namePlaceholder: "Business name",
+  unusable: {
+    contact_link: "That's a contact link, not a site. Paste your website or tell us in one sentence.",
+    marketplace_home: "That's a marketplace, not your shop. Paste your shop's link or tell us in one sentence.",
+  } as Record<string, string>,
+};

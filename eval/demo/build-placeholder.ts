@@ -367,7 +367,9 @@ mkdirSync(join(OUT, "run"), { recursive: true });
 const write = (path: string, value: unknown) => writeFileSync(join(OUT, path), JSON.stringify(value, null, 2) + "\n", "utf8");
 write("planner/profile.json", { kind: "text", profile, needsDescription: false, cost: 0 });
 write("planner/profile-instagram.json", {
-  kind: "instagram",
+  kind: "candidates",
+  source: "social",
+  platform: "instagram",
   candidates: [
     { domain: "lanehand.example", score: 3, evidence: ["https://lanehand.example/"] },
     { domain: "lanehand-staffing.example", score: 1, evidence: ["https://lanehand-staffing.example/about"] },

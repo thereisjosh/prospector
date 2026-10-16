@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { classifyInput, profileFromText, profileSeller, resolveInstagram } from "../../../../src/planner";
+import { classifyInput, profileFromText, profileSeller, resolveToSite } from "../../../../src/planner";
 import { CostGuard } from "../../../../src/exa";
 import { isDemoMode, readDemoJson } from "../../../../src/demo/mode";
 import { addVisitorSpend } from "../../../../src/agent/quota";
@@ -12,17 +12,25 @@ export async function POST(request: Request) {
   try {
     const limited = rateLimit(request);
     if (limited) return limited;
-    const body = await readJsonBody(request) as { input?: unknown };
+    const body = await readJsonBody(request) as { input?: unknown; asName?: unknown };
     validateSmallShape(body);
     if (typeof body.input !== "string" || !body.input.trim()) {
       return NextResponse.json({ error: "Invalid request." }, { status: 400 });
     }
-    const classified = classifyInput(body.input);
+    // asName: the seller answered "What's the business called?", so the text is a name whatever its casing.
+    const classified = classifyInput(body.input, { asName: body.asName === true });
     if (isDemoMode()) {
-      // Demo: one recorded seller. Instagram input shows the recorded "Is this you?" candidates.
-      return NextResponse.json(
-        await readDemoJson(classified.kind === "instagram" ? "planner/profile-instagram.json" : "planner/profile.json"),
-      );
+      // Demo: one recorded seller. Anything that resolves to candidates shows the recorded "Is this you?"
+      // candidates, labelled with the real source so the heading still names the platform.
+      if (classified.kind === "social" || classified.kind === "biolink" || classified.kind === "maps" || classified.kind === "name") {
+        const fixture = await readDemoJson("planner/profile-instagram.json") as Record<string, unknown>;
+        return NextResponse.json({
+          ...fixture,
+          source: classified.kind,
+          ...(classified.kind === "social" || classified.kind === "biolink" ? { platform: classified.platform } : { platform: undefined }),
+        });
+      }
+      return NextResponse.json(await readDemoJson("planner/profile.json"));
     }
     if (await dailyBudgetReached()) return dailyBudgetResponse();
     const workspaceId = workspaceIdFromRequest(request, body as Record<string, unknown>);
@@ -30,17 +38,26 @@ export async function POST(request: Request) {
     const exhausted = await allowanceResponse(workspaceId);
     if (exhausted) return exhausted;
     const guard = new CostGuard(0.10);
-    if (classified.kind === "instagram") {
-      const { candidates } = await tracePlanner(
+    if (classified.kind === "unusable") {
+      return NextResponse.json({ kind: "unusable", reason: classified.reason });
+    }
+    if (classified.kind === "social" || classified.kind === "biolink" || classified.kind === "maps" || classified.kind === "name") {
+      const resolved = await tracePlanner(
         "profile",
         workspaceId,
-        { kind: "instagram", input: classified.value },
-        () => resolveInstagram(classified.value, { guard }),
-        (r) => ({ kind: "instagram", candidates: r.candidates.length, exaCost: guard.spent }),
+        { kind: classified.kind, input: classified.value },
+        () => resolveToSite(classified, { guard }),
+        (r) => ({ kind: "candidates", source: r.source, platform: r.platform, candidates: r.candidates.length, askName: r.askName === true, exaCost: guard.spent }),
       );
       await addDailySpend(guard.spent);
       await addVisitorSpend(workspaceId, guard.spent);
-      return NextResponse.json({ kind: "instagram", candidates });
+      return NextResponse.json({
+        kind: "candidates",
+        source: resolved.source,
+        ...(resolved.platform ? { platform: resolved.platform } : {}),
+        candidates: resolved.candidates,
+        ...(resolved.askName ? { askName: true } : {}),
+      });
     }
     if (classified.kind === "text") {
       return NextResponse.json({

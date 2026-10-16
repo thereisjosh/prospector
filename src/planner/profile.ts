@@ -1,8 +1,11 @@
 import { CostGuard, ExaHttpError, type ExaCredentials } from "../exa";
 import { normalizeNullish } from "../plan";
+import { classifyInput, isSiteBuilderPage, parseUrl, type ClassifiedInput } from "./resolve";
 
 export type SellerProfile = {
   origin?: string;
+  /** Where the seller sells, when it is not their own site: "marketplace:shopee". */
+  channel?: string;
   offering?: string;
   buyer_type?: "B2B" | "B2C" | "both";
   buyer_roles: string[];
@@ -46,21 +49,18 @@ export async function profileSeller(origin: string, deps: ProfileDeps = {}): Pro
   needsDescription: boolean;
   cost: number;
 }> {
-  const cleanOrigin = normalizeOrigin(origin);
-  const urls = [
-    cleanOrigin,
-    `${cleanOrigin}/about`,
-    `${cleanOrigin}/about-us`,
-    `${cleanOrigin}/pricing`,
-  ];
+  const target = profileTarget(origin);
+  const cleanOrigin = target.origin;
+  const urls = target.urls;
   const guard = deps.guard;
   const estimate = urls.length * 0.002;
   guard?.reserve(estimate);
   try {
-    const json = await contentsRequest(urls, deps);
+    const json = await contentsRequest(urls, deps, target.channel);
     const actual = typeof json.costDollars?.total === "number" ? json.costDollars.total : estimate;
     guard?.settle(estimate, actual);
     const profile = emptyProfile(cleanOrigin);
+    if (target.channel) profile.channel = target.channel;
     for (const result of json.results ?? []) {
       mergeProfile(profile, cleanSummary(result.summary));
     }
@@ -82,13 +82,37 @@ export function profileFromText(text: string): SellerProfile {
   };
 }
 
-function normalizeOrigin(input: string): string {
-  const withScheme = /^https?:\/\//i.test(input) ? input : `https://${input}`;
-  const url = new URL(withScheme);
-  return `${url.protocol}//${url.hostname.toLowerCase().replace(/^www\./, "")}`;
+/** Thrown by profileTarget for input that is not a page we can profile (social, bio link, maps, name, text, contact). */
+export class ProfileTargetError extends Error {
+  readonly classified: ClassifiedInput;
+  constructor(classified: ClassifiedInput) {
+    super(`"${classified.value}" is a ${classified.kind} input: resolve it to a website first, never profile its host`);
+    this.name = "ProfileTargetError";
+    this.classified = classified;
+  }
 }
 
-async function contentsRequest(urls: string[], deps: ProfileDeps): Promise<{
+/**
+ * The pages to read for a seller. A website gets its origin plus /about, /about-us, /pricing; a marketplace
+ * storefront and a carrd/pop.site page are read at their own URL (path and subdomain kept); a social, bio-link,
+ * maps, name, text or contact input throws ProfileTargetError because collapsing it to its host profiles
+ * the platform instead of the seller (FAILURES #27).
+ */
+export function profileTarget(input: string): { urls: string[]; origin: string; channel?: string } {
+  const classified = classifyInput(input);
+  if (classified.kind !== "url" && classified.kind !== "marketplace") throw new ProfileTargetError(classified);
+  const url = parseUrl(classified.value);
+  if (!url) throw new ProfileTargetError({ kind: "text", value: classified.value });
+  url.hash = "";
+  if (classified.kind === "marketplace") {
+    return { urls: [url.toString()], origin: url.toString(), channel: `marketplace:${classified.platform}` };
+  }
+  if (isSiteBuilderPage(url)) return { urls: [url.toString()], origin: url.toString() };
+  const origin = `${url.protocol}//${url.hostname.toLowerCase().replace(/^www\./, "")}`;
+  return { urls: [origin, `${origin}/about`, `${origin}/about-us`, `${origin}/pricing`], origin };
+}
+
+async function contentsRequest(urls: string[], deps: ProfileDeps, channel?: string): Promise<{
   results?: { summary?: unknown }[];
   costDollars?: { total?: number };
 }> {
@@ -102,7 +126,7 @@ async function contentsRequest(urls: string[], deps: ProfileDeps): Promise<{
       urls,
       livecrawl: "fallback",
       summary: {
-        query: "Describe this seller: offering, buyer type, buyer roles, price band, geographies served, competitors, and existing customers.",
+        query: summaryQuery(channel),
         schema: SELLER_SCHEMA,
       },
     }),
@@ -111,6 +135,14 @@ async function contentsRequest(urls: string[], deps: ProfileDeps): Promise<{
   const json = text ? JSON.parse(text) as { results?: { summary?: unknown }[]; costDollars?: { total?: number } } : {};
   if (!response.ok) throw new ExaHttpError(response.status, text);
   return json;
+}
+
+const SELLER_QUERY = "Describe this seller: offering, buyer type, buyer roles, price band, geographies served, competitors, and existing customers.";
+
+function summaryQuery(channel?: string): string {
+  if (!channel?.startsWith("marketplace:")) return SELLER_QUERY;
+  const platform = channel.slice("marketplace:".length);
+  return `This page is a storefront listing on ${platform}, a marketplace. Describe the seller (the shop and what it sells), not the marketplace itself: offering, buyer type, buyer roles, price band, geographies served, competitors, and existing customers.`;
 }
 
 function emptyProfile(origin: string): SellerProfile {
