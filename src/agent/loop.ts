@@ -14,6 +14,7 @@ import { promptLink } from "./prompt-store";
 import { runEnded } from "./online-eval";
 import { rejectionCounts, type RunState, type Handback } from "./state";
 import { APPROVAL_TOOLS, agentTools, executeTool, type ToolDeps } from "./tools";
+import { CONTACT_LIMITS } from "../contacts";
 
 export type LoopDeps = ToolDeps & {
   /**
@@ -267,8 +268,14 @@ function orderedResults(uses: ToolUseBlock[], results: ToolResultBlockParam[]): 
   return uses.map((tool) => byId.get(tool.id)).filter((result): result is ToolResultBlockParam => !!result);
 }
 
+/** Leads whose one `find_contacts` call has returned (success, even with zero people). */
+function leadsWithContacts(state: RunState): number {
+  return state.leads.filter((lead) => lead.contacts && !lead.contacts.error).length;
+}
+
 function noProgressSnapshot(state: RunState) {
   return {
+    contacts: leadsWithContacts(state),
     leads: state.leads.length,
     candidates: state.caches.candidateCompanies.length + (state.candidates?.length ?? 0),
     enrichments: Object.keys(state.caches.enrichmentByName).length,
@@ -280,6 +287,8 @@ function madeProgress(state: RunState, before: ReturnType<typeof noProgressSnaps
   return (
     decisionResumed ||
     state.leads.length > before.leads ||
+    // A find_contacts result is progress: contact lookups for accepted leads are work the run asked for.
+    leadsWithContacts(state) > before.contacts ||
     state.caches.candidateCompanies.length + (state.candidates?.length ?? 0) > before.candidates ||
     Object.keys(state.caches.enrichmentByName).length > before.enrichments ||
     state.adaptive.verificationReads > before.reads
@@ -293,6 +302,46 @@ function limitReason(state: RunState): { status: "done" | "stopped"; reason: str
   if (state.counters.noProgressTurns >= DEFAULT_LIMITS.noProgressTurns) return { status: "stopped", reason: "no_progress" };
   if (state.leads.length >= state.contract.targetLeads) return { status: "done", reason: "target_leads" };
   return undefined;
+}
+
+/**
+ * Contacts phase. When the run would stop on `target_leads` while some accepted lead has no `contacts`
+ * entry, the plan has approved buyer roles, and budget remains for at least one lookup, the run gets up to
+ * ceil(leads / 3) more turns to call `find_contacts` (several per turn). The phase's Exa spend is capped at
+ * leads × CONTACT_LIMITS.maxCostDollars and never passes the run cap (the turn's CostGuard is lowered to it).
+ * Returns the leads still without contacts when this turn belongs to the phase, else undefined (stop).
+ */
+export function contactsPhaseTurn(state: RunState): { pending: string[] } | undefined {
+  if (!(state.contract.buyerRoles && state.contract.buyerRoles.length > 0)) return undefined;
+  const pending = state.leads.filter((lead) => !lead.contacts).map((lead) => lead.company);
+  if (pending.length === 0) return undefined;
+  const runRoom = state.contract.maxCostDollars - state.spend.total - DEFAULT_LIMITS.handbackReserveDollars;
+  if (runRoom + 1e-9 < CONTACT_LIMITS.maxCostDollars) return undefined;
+  if (!state.contactsPhase) {
+    state.contactsPhase = {
+      startedAtTurn: state.counters.turns + 1,
+      maxTurns: Math.ceil(state.leads.length / 3),
+      turnsUsed: 0,
+      budgetDollars: state.leads.length * CONTACT_LIMITS.maxCostDollars,
+      exaAtStart: state.spend.exa,
+    };
+  }
+  const phase = state.contactsPhase;
+  if (phase.turnsUsed >= phase.maxTurns) return undefined;
+  if (phase.budgetDollars - (state.spend.exa - phase.exaAtStart) + 1e-9 < CONTACT_LIMITS.maxCostDollars) return undefined;
+  return { pending };
+}
+
+/** The turn nudge: appended to the user message the model is about to read (it has not been sent yet). */
+function appendContactsNudge(state: RunState, pending: string[]): void {
+  const text = `Target reached: look up contacts for the ${pending.length} lead${pending.length === 1 ? "" : "s"} without them (${pending.join(", ")}) with find_contacts, then finish.`;
+  const last = state.messages[state.messages.length - 1];
+  if (last && last.role === "user") {
+    const content = typeof last.content === "string" ? [{ type: "text", text: last.content }] : [...last.content];
+    last.content = [...content, { type: "text", text }] as Anthropic.MessageParam["content"];
+  } else {
+    state.messages.push({ role: "user", content: [{ type: "text", text }] } as Anthropic.MessageParam);
+  }
 }
 
 async function finishRun(state: RunState, events: AgentEvent[], status: "done" | "stopped", reason: string, deps: LoopDeps) {
@@ -345,7 +394,9 @@ async function stepTurn(state: RunState, deps: LoopDeps): Promise<StepResult> {
     return { state, events };
   }
 
-  const hit = limitReason(state);
+  let hit = limitReason(state);
+  const contactsTurn = hit?.reason === "target_leads" ? contactsPhaseTurn(state) : undefined;
+  if (contactsTurn) hit = undefined;
   if (hit) {
     events.push(makeEvent(state, "policy", { scope: "loop", check: "limits", outcome: "stop", reason: hit.reason, status: hit.status, snapshot: policySnapshot(state) }));
     await finishRun(state, events, hit.status, hit.reason, deps);
@@ -360,6 +411,22 @@ async function stepTurn(state: RunState, deps: LoopDeps): Promise<StepResult> {
   delete state.resumedFromDecision;
   state.counters.turns += 1;
   events.push(makeEvent(state, "policy", { scope: "loop", check: "limits", outcome: "pass", snapshot: policySnapshot(state) }));
+  if (contactsTurn && state.contactsPhase) {
+    state.contactsPhase.turnsUsed += 1;
+    const phase = state.contactsPhase;
+    events.push(makeEvent(state, "policy", {
+      scope: "loop",
+      check: "contacts_phase",
+      outcome: "pass",
+      reason: "target_reached_contacts_pending",
+      leadsWithoutContacts: contactsTurn.pending.length,
+      phaseTurn: phase.turnsUsed,
+      maxTurns: phase.maxTurns,
+      budgetDollars: phase.budgetDollars,
+      snapshot: { ...policySnapshot(state), leadsWithoutContacts: contactsTurn.pending.length, phaseTurn: phase.turnsUsed, phaseMaxTurns: phase.maxTurns },
+    }));
+    appendContactsNudge(state, contactsTurn.pending);
+  }
   if (state.memoryRecall && !state.memoryRecallEmitted) {
     // Written once, on the run's first turn: which memories (by id) were put in front of the model.
     state.memoryRecallEmitted = true;
@@ -444,7 +511,10 @@ async function stepTurn(state: RunState, deps: LoopDeps): Promise<StepResult> {
         } as ToolResultBlockParam,
         exaCost: 0,
       }));
-      const guard = new CostGuard(Math.max(0, state.contract.maxCostDollars - state.spend.claude - DEFAULT_LIMITS.handbackReserveDollars));
+      const runExaCap = Math.max(0, state.contract.maxCostDollars - state.spend.claude - DEFAULT_LIMITS.handbackReserveDollars);
+      // In the contacts phase, Exa spend since the phase began is capped at its budget, never past the run cap.
+      const phaseCap = contactsTurn && state.contactsPhase ? state.contactsPhase.exaAtStart + state.contactsPhase.budgetDollars : Infinity;
+      const guard = new CostGuard(Math.min(runExaCap, phaseCap));
       guard.spent = state.spend.exa;
       // Live ledger: `tool_started` is written just before a tool runs, its `tool_call` (with the
       // retry/verdict lines that belong to it) the moment it settles, so a parallel batch lands

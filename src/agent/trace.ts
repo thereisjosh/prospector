@@ -129,6 +129,15 @@ function maskBlobsOutsideUrls(value: string): string {
   return out + value.slice(last).replace(BLOB_RE, "[redacted:blob]");
 }
 
+/**
+ * `find_contacts` resultSummary ("Acme: verified=1 · inferred=2 · dropped=0") as numeric metadata, so contact
+ * coverage can be charted per run. The summary carries counts only; people's names never reach the trace.
+ */
+export function contactCounts(summary: string | undefined): { contacts?: { verified: number; inferred: number; dropped: number } } {
+  const m = summary ? /verified=(\d+) · inferred=(\d+) · dropped=(\d+)/.exec(summary) : null;
+  return m ? { contacts: { verified: Number(m[1]), inferred: Number(m[2]), dropped: Number(m[3]) } } : {};
+}
+
 /** Mask one string: known secret values, the raw workspace id, then patterns; clip to 2,000 chars. */
 export function maskString(value: string, options: MaskOptions = {}): string {
   const env = options.env ?? process.env;
@@ -401,7 +410,7 @@ export function toObservations(events: AgentEvent[], options: ToObservationsOpti
             endTime: e.ts,
             input: e.input ?? {},
             output: { ...(str(e.resultSummary) !== undefined ? { result: str(e.resultSummary) } : {}), is_error: isError },
-            metadata: { tool, exaCost: num(e.exaCost), latencyMs, ...(toolUseId ? { toolUseId } : {}) },
+            metadata: { tool, exaCost: num(e.exaCost), latencyMs, ...(toolUseId ? { toolUseId } : {}), ...(tool === "find_contacts" ? contactCounts(str(e.resultSummary)) : {}) },
             // Exa spend as the tool observation's cost, so trace/session totals are Claude + Exa.
             // exaCost already includes a lookup's retry (tools.ts folds retryExaCost into it): never add it again.
             ...(num(e.exaCost) > 0 ? { costDetails: { total: num(e.exaCost) } } : {}),

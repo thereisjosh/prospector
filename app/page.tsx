@@ -7,7 +7,7 @@ import type { AgentEvent } from "../src/agent/events";
 import type { CardSet } from "../src/planner/cards";
 import { AboutDialog } from "./ui/AboutDialog";
 import { mergeBySeq, subscribeRunEvents } from "./ui/live-events";
-import { CardsStep, applyAlternative } from "./ui/CardsStep";
+import { CardsStep, applyAlternative, withBuyerRoles } from "./ui/CardsStep";
 import { ContractStep } from "./ui/ContractStep";
 import { MemoryPanel, type LastRun } from "./ui/Memory";
 import { RunView, type Decision } from "./ui/RunView";
@@ -246,8 +246,10 @@ export default function Page() {
     setCards(null);
     try {
       const res = await api<{ cards: CardSet }>("/api/planner/cards", { body: { profile } });
-      setBaseCards(res.cards);
-      setCards(res.cards);
+      // "Who to reach" starts from the roles the profile found, unless the cards already carry them.
+      const filled = withBuyerRoles(res.cards, profile);
+      setBaseCards(filled);
+      setCards(filled);
       setActiveAlt(-1);
       setPlan(null);
     } catch (error) {

@@ -9,6 +9,7 @@ import type { AcceptedLead, Handback } from "../../src/agent/state";
 import type { CardSet } from "../../src/planner/cards";
 import { Candidates } from "./Candidates";
 import {
+  CONTACTS,
   RUN,
   UNVERIFIED_SUFFIX,
   formatDate,
@@ -35,7 +36,7 @@ import {
 import { ArrowUpRight, Download, Suggestion, ThumbDown, ThumbUp } from "./parts";
 import { RunConfirmation, type Decision, type PendingApproval } from "./RunConfirmation";
 import { ChecklistPanel, SpendPanel, shownSpend } from "./RunSide";
-import { EvidenceBlock, LineIcon, LiveTrace, ProvenanceTrace } from "./RunTrace";
+import { EvidenceBlock, LineIcon, LiveTrace, ProvenanceTrace, contactRowId } from "./RunTrace";
 import { checklistModel, evidenceFor, rejectionsModel, traceModel, type RejectionSection } from "./trace-model";
 import type { Feedback, RunSnapshot } from "./types";
 
@@ -187,7 +188,7 @@ function RunBody(props: Props & { snapshot: RunSnapshot }) {
         />
       )}
 
-      {finished && <Leads leads={snapshot.leads} target={contract.targetLeads} contract={contract} finished live={false} feedback={props.feedback} onFeedback={props.onFeedback} />}
+      {finished && <Leads demo={props.demo} leads={snapshot.leads} target={contract.targetLeads} contract={contract} finished live={false} feedback={props.feedback} onFeedback={props.onFeedback} />}
 
       <div className="pr-run-grid">
         <div className="pr-run-main">
@@ -208,6 +209,7 @@ function RunBody(props: Props & { snapshot: RunSnapshot }) {
       {!finished && (
         <>
           <Leads
+            demo={props.demo}
             leads={snapshot.leads}
             target={contract.targetLeads}
             contract={contract}
@@ -410,6 +412,7 @@ function HandbackView({
 /* ---------- leads ---------- */
 
 function Leads({
+  demo,
   leads,
   target,
   contract,
@@ -418,6 +421,7 @@ function Leads({
   feedback,
   onFeedback,
 }: {
+  demo: boolean;
   leads: AcceptedLead[];
   target: number;
   contract: ContractView;
@@ -464,7 +468,7 @@ function Leads({
           </div>
           <ul className="lrows">
             {leads.map((lead) => (
-              <LeadRow key={lead.company} lead={lead} contract={contract} finished={finished} live={live} fb={feedback[lead.company] ?? {}} onFeedback={onFeedback} />
+              <LeadRow key={lead.company} demo={demo} lead={lead} contract={contract} finished={finished} live={live} fb={feedback[lead.company] ?? {}} onFeedback={onFeedback} />
             ))}
           </ul>
         </div>
@@ -474,6 +478,7 @@ function Leads({
 }
 
 function LeadRow({
+  demo,
   lead,
   contract,
   finished,
@@ -481,6 +486,7 @@ function LeadRow({
   fb,
   onFeedback,
 }: {
+  demo: boolean;
   lead: AcceptedLead;
   contract: ContractView;
   finished: boolean;
@@ -494,6 +500,13 @@ function LeadRow({
   const evidence = useMemo(() => evidenceFor(lead, contract), [lead, contract]);
   // M6 only for a row that lands while the run is live; a finished table appears as it is.
   const [isNew] = useState(live);
+  // Controlled so a verified contact's source link can open the evidence on its "Who to reach" row.
+  const [evidenceOpen, setEvidenceOpen] = useState(false);
+  const showContact = (index: number) => {
+    setEvidenceOpen(true);
+    if (typeof window === "undefined") return;
+    window.requestAnimationFrame(() => document.getElementById(contactRowId(lead.company, index))?.scrollIntoView({ block: "nearest", behavior: prefersReducedMotion() ? "auto" : "smooth" }));
+  };
   return (
     <li className={isNew ? "lrow is-new" : "lrow"}>
       <div className="cell-company">
@@ -580,8 +593,9 @@ function LeadRow({
           <span className="muted small">After the run</span>
         )}
       </div>
+      <WhoToReach lead={lead} demo={demo} onShowEvidence={showContact} />
       <div className="lrow-evidence">
-        <TraceCollapsible>
+        <TraceCollapsible open={evidenceOpen} onOpenChange={(next) => setEvidenceOpen(next)}>
           <TraceCollapsibleTrigger className="pr-press">
             <TraceLine className="pr-trace-line">
               <LineIcon name="file" />
@@ -595,6 +609,72 @@ function LeadRow({
         </TraceCollapsible>
       </div>
     </li>
+  );
+}
+
+
+/* ---------- who to reach (docs/SPEC-agent.md §5b) ---------- */
+
+/**
+ * One line under a lead: verified contacts as name · “quoted title” · source host (opens the evidence row),
+ * inferred ones as name · profile link · "inferred from a public profile". Never a LinkedIn snippet.
+ * Nothing when contacts were not looked up, except the demo's one muted line (the recording has none).
+ */
+export function WhoToReach({ lead, demo, onShowEvidence }: { lead: AcceptedLead; demo: boolean; onShowEvidence: (index: number) => void }) {
+  const looked = lead.contacts;
+  if (!looked) {
+    if (!demo) return null;
+    return (
+      <div className="lrow-contacts">
+        <span className="lrow-contacts-label">{CONTACTS.heading}</span>
+        <span className="muted">{CONTACTS.demoNone}</span>
+      </div>
+    );
+  }
+  const list = looked.contacts;
+  const verifiedIndex = new Map(list.filter((c) => c.tier === "verified" && c.evidence && isHttpUrl(c.evidence.url)).map((c, i) => [c, i]));
+  return (
+    <div className="lrow-contacts">
+      <span className="lrow-contacts-label">{CONTACTS.heading}</span>
+      {list.length === 0 ? (
+        <span className="muted">{looked.error ? CONTACTS.failed : CONTACTS.none}</span>
+      ) : (
+        <ul className="pr-contacts">
+          {list.map((c) => {
+            const index = verifiedIndex.get(c);
+            if (index !== undefined && c.evidence) {
+              const source = host(c.evidence.url);
+              return (
+                <li key={`${c.tier}:${c.name}`} className="pr-contact" data-tier="verified">
+                  <span className="pr-contact-name">{c.name}</span>
+                  <span className="pr-contact-sep" aria-hidden="true">·</span>
+                  <span className="pr-mono pr-contact-title">“{c.why}”</span>
+                  <span className="pr-contact-sep" aria-hidden="true">·</span>
+                  <button type="button" className="link-btn pr-contact-source" aria-label={CONTACTS.showSource(source)} onClick={() => onShowEvidence(index)}>
+                    {source}
+                  </button>
+                </li>
+              );
+            }
+            return (
+              <li key={`${c.tier}:${c.name}`} className="pr-contact" data-tier="inferred" title={CONTACTS.inferredTitle(c.role)}>
+                <span className="pr-contact-name">{c.name}</span>
+                {c.profile_url && isHttpUrl(c.profile_url) && (
+                  <>
+                    <span className="pr-contact-sep" aria-hidden="true">·</span>
+                    <a href={c.profile_url} target="_blank" rel="noopener noreferrer nofollow">
+                      {CONTACTS.profile} <ArrowUpRight />
+                    </a>
+                  </>
+                )}
+                <span className="pr-contact-sep" aria-hidden="true">·</span>
+                <span className="muted">{CONTACTS.inferred}</span>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </div>
   );
 }
 

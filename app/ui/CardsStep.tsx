@@ -5,7 +5,8 @@ import { ChevronRightIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import type { CardSet } from "../../src/planner/cards";
-import { COUNTRY_CHOICES, STAGES, countryName, humanize, toSignalKey } from "./copy";
+import { PLAN_LIMITS, cleanBuyerRoles } from "../../src/plan";
+import { CONTACTS, COUNTRY_CHOICES, STAGES, countryName, humanize, toSignalKey } from "./copy";
 import { Close, Suggestion } from "./parts";
 
 /** Merges one alternative's partial cards over the suggested set (one level deep). */
@@ -20,6 +21,11 @@ export function applyAlternative(base: CardSet, alt: Partial<CardSet>): CardSet 
         : value;
   }
   return next as CardSet;
+}
+
+/** Cards with "Who to reach" pre-filled from the profile's buyer roles, unless the cards already carry them. */
+export function withBuyerRoles(cards: CardSet, profile: { buyer_roles?: string[] } | null | undefined): CardSet {
+  return Array.isArray(cards.buyerRoles) ? cards : { ...cards, buyerRoles: cleanBuyerRoles(profile?.buyer_roles) };
 }
 
 /** What blocks "Build the plan", in plain words. */
@@ -164,6 +170,18 @@ export function CardsStep({ cards, base, activeAlt, onPickAlt, onChange, onConti
             normalize={(v) => v.trim().toLowerCase().replace(/^https?:\/\//, "").replace(/^www\./, "").replace(/\/.*$/, "")}
           />
         </Row>
+
+        <Row title={CONTACTS.cardTitle} why={CONTACTS.cardWhy}>
+          <ChipList
+            label={CONTACTS.rolesLabel}
+            items={cards.buyerRoles ?? []}
+            addLabel={CONTACTS.addRole}
+            emptyLabel={CONTACTS.noRoles}
+            onChange={(buyerRoles) => set({ buyerRoles })}
+            normalize={(v) => v.replace(/\s+/g, " ").trim().slice(0, PLAN_LIMITS.maxBuyerRoleChars)}
+            max={PLAN_LIMITS.maxBuyerRoles}
+          />
+        </Row>
       </div>
 
       {error && (
@@ -239,6 +257,7 @@ function ChipList({
   normalize = (v) => v.trim(),
   max,
   collapsedAfter,
+  emptyLabel = "None",
 }: {
   label: string;
   items: string[];
@@ -248,6 +267,7 @@ function ChipList({
   normalize?: (v: string) => string;
   max?: number;
   collapsedAfter?: number;
+  emptyLabel?: string;
 }) {
   const [draft, setDraft] = useState("");
   const [expanded, setExpanded] = useState(false);
@@ -263,7 +283,7 @@ function ChipList({
     <div className="field">
       <span className="field-label" id={`${id}-label`}>{label}</span>
       <ul className="chips" aria-labelledby={`${id}-label`}>
-        {items.length === 0 && <li className="chips-empty">None</li>}
+        {items.length === 0 && <li className="chips-empty">{emptyLabel}</li>}
         {shown.map((item) => (
           <li key={item} className="chip">
             <span>{display(item)}</span>

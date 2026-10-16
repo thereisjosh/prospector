@@ -76,9 +76,9 @@ describe("Target: one form surface with hairline rows", () => {
     h(CardsStep, { cards, base: cards, activeAlt: -1, onPickAlt: noop, onChange: noop, onContinue: noop, onBack: noop, busy: false, error: "" }),
   );
 
-  it("renders all 7 fields as rows with their Badges, and no card grid", () => {
-    expect(count(html, 'class="pr-row"')).toBe(7);
-    for (const title of ["Who", "Why now", "Company size", "Stage", "Where they&#x27;re based", "How recent", "Leave out"]) {
+  it("renders all 8 fields as rows with their Badges, and no card grid", () => {
+    expect(count(html, 'class="pr-row"')).toBe(8);
+    for (const title of ["Who", "Why now", "Company size", "Stage", "Where they&#x27;re based", "How recent", "Leave out", "Who to reach"]) {
       expect(html).toMatch(new RegExp(`<h3 id="[^"]+">${title}</h3>`));
     }
     // 3 Estimated + 2 Hard filter on rows, plus one of each in the legend
@@ -89,7 +89,7 @@ describe("Target: one form surface with hairline rows", () => {
   });
 
   it("each row has a Why this? Collapsible, and labels keep their htmlFor", () => {
-    expect(count(html, 'data-slot="collapsible-trigger"')).toBe(7);
+    expect(count(html, 'data-slot="collapsible-trigger"')).toBe(8);
     const fors = [...html.matchAll(/<label for="([^"]+)"/g)].map((m) => m[1]!);
     expect(fors.length).toBeGreaterThanOrEqual(7);
     for (const id of fors) expect(html).toContain(`id="${id}"`);

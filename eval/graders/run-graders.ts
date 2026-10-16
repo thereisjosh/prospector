@@ -13,6 +13,7 @@ export const AGENT_TOOLS = [
   "propose_strategy",
   "request_scope_change",
   "remember",
+  "find_contacts",
   "finish",
 ] as const;
 

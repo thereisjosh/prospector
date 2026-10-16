@@ -2,6 +2,7 @@ import { resolvePrompt, type PromptConfig, type PromptDef } from "../agent/promp
 import { callClaudeJson, cleanString, formatSection, isRecord, type PlannerModelDeps } from "./claude";
 import { coerceCardSet } from "./coerce";
 import type { SellerProfile } from "./profile";
+import { cleanBuyerRoles } from "../plan";
 
 // <langfuse-prompt name="prospector-planner-cards"> repo copy and runtime fallback; sync with `npx tsx eval/langfuse-prompts.ts push|pull|diff` (docs/prompts.md)
 export const CARDS_SYSTEM_PROMPT = `You suggest lead-search cards for a B2B prospecting tool.
@@ -79,12 +80,23 @@ export type CardSet = {
   exclusions: { names: string[]; domains: string[] };
   rationale: Record<string, string>;
   alternatives: { label: string; cards: Partial<CardSet> }[];
+  /**
+   * "Who to reach": buyer roles the user approves for contact lookups. Filled by code from the seller
+   * profile's buyer_roles (never by the cards model), edited as chips, copied to SearchPlan.buyerRoles.
+   */
+  buyerRoles?: string[];
 };
+
+/** Cards with the "Who to reach" roles pre-filled from the profile, unless the cards already carry them. */
+export function withBuyerRoles(cards: CardSet, profile: Pick<SellerProfile, "buyer_roles"> | null | undefined): CardSet {
+  if (Array.isArray(cards.buyerRoles)) return cards;
+  return { ...cards, buyerRoles: cleanBuyerRoles(profile?.buyer_roles) };
+}
 
 export async function suggestCards(profile: SellerProfile, deps: PlannerModelDeps): Promise<{ cards: CardSet; cost: number }> {
   const prompt = await resolvePrompt(CARDS_PROMPT_DEF);
   const { value, cost } = await callClaudeJson(deps, prompt, JSON.stringify(profile), validateCards);
-  return { cards: value, cost };
+  return { cards: withBuyerRoles(value, profile), cost };
 }
 
 export function validateCards(raw: unknown) {
@@ -140,6 +152,8 @@ export function validateCards(raw: unknown) {
   const alternatives = Array.isArray(input.alternatives) ? input.alternatives : [];
   if (!Array.isArray(input.alternatives)) errors.push("alternatives must be an array");
   if (alternatives.length > 2) errors.push("alternatives must have max 2 items");
+  if (input.buyerRoles !== undefined && input.buyerRoles !== null && !Array.isArray(input.buyerRoles)) errors.push("buyerRoles must be an array");
+  const buyerRoles = input.buyerRoles === undefined || input.buyerRoles === null ? undefined : cleanBuyerRoles(input.buyerRoles);
 
   if (errors.length) return { ok: false as const, errors };
   const cards: CardSet = {
@@ -158,6 +172,7 @@ export function validateCards(raw: unknown) {
       label: isRecord(alt) ? cleanString(alt.label) ?? "Alternative" : "Alternative",
       cards: isRecord(alt) && isRecord(alt.cards) ? alt.cards as Partial<CardSet> : {},
     })),
+    ...(buyerRoles ? { buyerRoles } : {}),
   };
   return { ok: true as const, value: cards };
 }

@@ -7,6 +7,7 @@ import { firstUserMessage } from "./prompts";
 import type { PinnedPrompt } from "./prompt-store";
 import type { SearchPlan } from "../plan";
 import type { SignalEvidence } from "../evidence";
+import type { LeadContacts } from "../contacts";
 import type { CompanySummary, SignalSummary } from "../types";
 import type { GateCode } from "../gates";
 import { renderPreference, squashName, type Note } from "./memory";
@@ -34,6 +35,12 @@ export type AcceptedLead = {
    */
   evidence?: SignalEvidence;
   turn: number;
+  /**
+   * People to reach at this lead, from its one `find_contacts` call (src/contacts.ts): up to 3, each
+   * verified (title quote checked on a non-LinkedIn page) or inferred (people-index listing, link only).
+   * Absent = not looked up. Lives and dies with the run; never written to workspace memory.
+   */
+  contacts?: LeadContacts;
 };
 
 export type CandidateLead = AcceptedLead & { code: GateCode; missing: string };
@@ -105,6 +112,11 @@ export type RunState = {
   notes?: Note[];
   /** `finish` was held back once to offer `remember`. */
   rememberNudged?: boolean;
+  /**
+   * The contacts phase (src/agent/loop.ts contactsPhaseTurn): entered when the target is reached while some
+   * accepted lead has no `contacts` yet. Bounded by turns and by Exa dollars spent since it started.
+   */
+  contactsPhase?: { startedAtTurn: number; maxTurns: number; turnsUsed: number; budgetDollars: number; exaAtStart: number };
   /**
    * The last real count_tokens result, keyed by model + message count + system/tools hash, so a resumed
    * or retried step does not measure the same request twice (src/agent/context.ts).

@@ -7,6 +7,7 @@ import { nameMatchesSignal, normalizeName } from "./eval";
 import { textInCountries } from "./geo";
 import { normalizeNullish, normalizeSignalDate, type SearchPlan } from "./plan";
 import type { CompanySummary, SignalSummary } from "./types";
+import { CONTACT_TITLE_MAX, contactEvidence, mentionOffsets, type ContactEvidence } from "./evidence";
 
 export type GateCode =
   | "stale_date"
@@ -903,4 +904,267 @@ export function checkLead(plan: SearchPlan, input: LeadInput, options: CheckLead
       ...(sizeQuoteMatch ? { size_quote_match: sizeQuoteMatch } : {}),
     },
   };
+}
+
+// ---------------------------------------------------------------------------
+// Contacts (docs/SPEC-agent.md §5b). Pure, like checkLead: the model never decides a contact's tier.
+// ---------------------------------------------------------------------------
+
+export type ContactGateCode = "contact_unverified" | "contact_role_mismatch" | "contact_quote_not_in_page";
+
+/**
+ * Hosts that are LinkedIn, a copy of it, or a people-data aggregator. A page here is never evidence for a
+ * verified contact (LinkedIn User Agreement §8.2: no LinkedIn data obtained through search tools or
+ * aggregators is copied), and the contact page search excludes them.
+ */
+export const CONTACT_NON_EVIDENCE_DOMAINS = [
+  "linkedin.com",
+  "exa.ai",
+  "theorg.com",
+  "datanyze.com",
+  "zoominfo.com",
+  "rocketreach.co",
+  "apollo.io",
+  "signalhire.com",
+  "contactout.com",
+  "lusha.com",
+  "leadiq.com",
+  "seamless.ai",
+  "clearbit.com",
+  "peopledatalabs.com",
+  "crunchbase.com",
+  "cbinsights.com",
+  "owler.com",
+  "craft.co",
+  "zippia.com",
+  "adapt.io",
+] as const;
+
+export function isContactNonEvidenceUrl(url: string): boolean {
+  if (!safeDomain(url)) return true;
+  return domainExcluded(url, CONTACT_NON_EVIDENCE_DOMAINS);
+}
+
+/** Multi-word titles folded to one token before splitting ("Chief Operating Officer" -> coo). */
+const TITLE_PHRASES: Array<[RegExp, string]> = [
+  [/\bchief executive officer\b/g, " ceo "],
+  [/\bchief operat(?:ing|ions) officer\b/g, " coo "],
+  [/\bchief financial officer\b/g, " cfo "],
+  [/\bchief technology officer\b/g, " cto "],
+  [/\bchief marketing officer\b/g, " cmo "],
+  [/\bchief revenue officer\b/g, " cro "],
+  [/\bchief people officer\b/g, " people "],
+  [/\bhuman resources\b/g, " people "],
+  [/\bsupply chain\b/g, " supplychain "],
+  [/\bco-?founder\b/g, " founder "],
+  [/\bgeneral manager\b/g, " gm "],
+  [/\bmanaging director\b/g, " md "],
+  [/\bvice[\s-]+president\b/g, " vp "],
+];
+
+/** Abbreviations: the C-suite ones also carry their function, so "COO" shares "operations" with "VP of Operations". */
+const TITLE_ABBREVIATIONS: Record<string, string[]> = {
+  coo: ["coo", "operations"],
+  cfo: ["cfo", "finance"],
+  cto: ["cto", "technology"],
+  cmo: ["cmo", "marketing"],
+  cro: ["cro", "revenue"],
+  ceo: ["ceo"],
+  vp: ["vp"],
+  svp: ["vp"],
+  evp: ["vp"],
+  avp: ["vp"],
+  ops: ["operations"],
+  hr: ["people"],
+};
+
+/** Word stems folded to one canonical function word ("operational", "operating" -> operations). First match wins. */
+const TITLE_STEMS: Array<[string, string]> = [
+  ["operat", "operations"],
+  ["logistic", "logistics"],
+  ["warehous", "warehouse"],
+  ["fulfil", "fulfillment"],
+  ["procure", "procurement"],
+  ["purchas", "procurement"],
+  ["financ", "finance"],
+  ["partnership", "partnerships"],
+  ["marketing", "marketing"],
+  ["sales", "sales"],
+  ["technolog", "technology"],
+  ["engineer", "engineering"],
+  ["production", "production"],
+  ["product", "product"],
+  ["transport", "transportation"],
+  ["distribut", "distribution"],
+  ["facilit", "facilities"],
+  ["recruit", "recruiting"],
+  ["talent", "recruiting"],
+];
+
+/**
+ * Seniority, scope and filler words. They say how senior someone is, not what they do, so they never
+ * count as the shared role word when the role phrase names a function ("VP" alone would match "VP of Sales"
+ * to "VP of Operations").
+ */
+const TITLE_RANK_WORDS = new Set([
+  "vp", "president", "director", "head", "chief", "officer", "manager", "management", "lead", "leader", "senior", "sr",
+  "junior", "jr", "gm", "md", "executive", "founder", "owner", "partner", "principal", "managing", "ceo", "coo",
+  "cfo", "cto", "cmo", "cro", "associate", "assistant", "deputy", "staff", "team", "global", "regional",
+  "national", "group", "division", "department", "country", "area", "site", "interim", "acting", "coordinator",
+  "specialist", "supervisor", "administrator", "analyst", "consultant", "advisor", "board", "member", "general",
+  "of", "the", "and", "for", "at", "in", "to", "a", "an", "on", "with", "s",
+]);
+
+function titleTokens(text: string): string[] {
+  let s = ` ${text.normalize("NFKD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/&/g, " and ")} `;
+  for (const [pattern, replacement] of TITLE_PHRASES) s = s.replace(pattern, replacement);
+  const out: string[] = [];
+  for (const raw of s.split(/[^a-z0-9]+/)) {
+    if (!raw) continue;
+    const abbreviation = TITLE_ABBREVIATIONS[raw];
+    if (abbreviation) {
+      out.push(...abbreviation);
+      continue;
+    }
+    const stem = TITLE_STEMS.find(([prefix]) => raw.startsWith(prefix));
+    out.push(stem ? stem[1] : raw.length > 4 && raw.endsWith("s") && !raw.endsWith("ss") ? raw.slice(0, -1) : raw);
+  }
+  return out;
+}
+
+/**
+ * Does a page title fit one approved buyer role phrase? Deterministic token overlap, case-insensitive:
+ * - both sides are folded (abbreviations, "Vice President" -> vp, "Chief Operating Officer" -> coo + operations,
+ *   word stems: "operational" -> operations);
+ * - when the role names a function (any word that is not a rank or filler word, e.g. "operations",
+ *   "warehouse", "logistics"), the title must share at least one of those function words;
+ * - when the role is rank only ("CEO", "Founder", "VP"), the title must share one of its rank words.
+ */
+export function titleMatchesRole(title: string, role: string): boolean {
+  const roleTokens = titleTokens(role);
+  const titleSet = new Set(titleTokens(title));
+  if (roleTokens.length === 0 || titleSet.size === 0) return false;
+  const functions = roleTokens.filter((t) => !TITLE_RANK_WORDS.has(t));
+  if (functions.length > 0) return functions.some((t) => titleSet.has(t));
+  const ranks = roleTokens.filter((t) => !["of", "the", "and", "for", "at", "in", "to", "a", "an", "on", "with", "s"].includes(t));
+  return ranks.some((t) => titleSet.has(t));
+}
+
+/** The first approved role the title fits, or undefined. */
+export function matchedBuyerRole(title: string, buyerRoles: readonly string[]): string | undefined {
+  return buyerRoles.find((role) => titleMatchesRole(title, role));
+}
+
+const HONORIFICS = new Set(["dr", "mr", "mrs", "ms", "mx", "prof", "sir", "dame"]);
+
+/** A person's name as tokens (honorifics dropped). Fewer than 2 tokens is not a checkable full name. */
+export function personNameTokens(name: string): string[] {
+  return name
+    .normalize("NFC")
+    .split(/[^\p{L}\p{N}'’-]+/u)
+    .map((t) => t.replace(/^['’-]+|['’-]+$/g, ""))
+    .filter((t) => t.length > 0 && !HONORIFICS.has(t.toLowerCase().replace(/\.$/, "")));
+}
+
+/** Raw [start, end) spans where the full name appears (word-bounded, case-insensitive; one middle initial allowed). */
+export function personNameSpans(name: string, text: string): Array<[number, number]> {
+  const tokens = personNameTokens(name);
+  if (tokens.length < 2) return [];
+  const body = tokens.map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("(?:\\s+\\p{L}\\.?)?\\s+");
+  const re = new RegExp(`(?<![\\p{L}\\p{N}])${body}(?![\\p{L}\\p{N}])`, "giu");
+  const out: Array<[number, number]> = [];
+  for (const m of text.normalize("NFC").matchAll(re)) out.push([m.index!, m.index! + m[0].length]);
+  return out;
+}
+
+/** Raw [start, end) spans of `phrase` in `text`, matched on letters and digits only (case, punctuation and spacing ignored). */
+function strippedSpans(phrase: string, text: string): Array<[number, number]> {
+  const needle = phrase.normalize("NFKC").toLowerCase().replace(/[^\p{L}\p{N}]+/gu, "");
+  if (!needle) return [];
+  let stream = "";
+  const at: number[] = [];
+  for (let i = 0; i < text.length; i += 1) {
+    const folded = text[i]!.normalize("NFKC").toLowerCase().replace(/[^\p{L}\p{N}]+/gu, "");
+    for (const ch of folded) {
+      stream += ch;
+      at.push(i);
+    }
+  }
+  const out: Array<[number, number]> = [];
+  for (let hit = stream.indexOf(needle); hit >= 0; hit = stream.indexOf(needle, hit + 1)) {
+    out.push([at[hit]!, at[hit + needle.length - 1]! + 1]);
+  }
+  return out;
+}
+
+/** Max characters between the name and the title on the page; further apart, the title may be someone else's. */
+export const CONTACT_PROXIMITY = 200;
+/** Page text window the contact gate reads (the contact page search asks for up to this much). */
+export const CONTACT_PAGE_TEXT_MAX = 20_000;
+
+export type ContactCheckInput = {
+  name: string;
+  /** The accepted lead's company. */
+  company: string;
+  /** The title phrase as the page writes it (from the page summariser); verified here, never trusted. */
+  title_quote?: string;
+};
+
+export type ContactPage = { url: string; text?: string };
+
+export type ContactVerdict =
+  | { ok: true; tier: "verified"; role: string; evidence: ContactEvidence }
+  | { ok: false; tier: "inferred" | "rejected"; code: ContactGateCode; reason: string };
+
+/**
+ * Is this person a verified contact on this page? Verified needs all of:
+ * 1. a page that is not LinkedIn, a LinkedIn copy or a people-data aggregator, with its text captured;
+ * 2. the page is the company's own domain or names the company;
+ * 3. a title quote of at most 120 characters;
+ * 4. the full name, and the title quote verbatim (quoteMatch), both on the page text,
+ *    the title within CONTACT_PROXIMITY characters of the name;
+ * 5. the title fits an approved buyer role (titleMatchesRole).
+ * Failing 1-3 is `contact_unverified` (tier inferred: nothing on the page contradicts the person);
+ * failing 4 is `contact_quote_not_in_page` and 5 is `contact_role_mismatch` (tier rejected).
+ */
+export function checkContact(
+  contact: ContactCheckInput,
+  ctx: { page?: ContactPage; buyerRoles: readonly string[]; companyUrl?: string },
+): ContactVerdict {
+  const inferred = (reason: string): ContactVerdict => ({ ok: false, tier: "inferred", code: "contact_unverified", reason });
+  const notInPage = (reason: string): ContactVerdict => ({ ok: false, tier: "rejected", code: "contact_quote_not_in_page", reason });
+  const page = ctx.page;
+  if (!page || !/^https?:\/\//i.test(page.url) || !safeDomain(page.url)) return inferred("no page other than a profile names this person");
+  if (isContactNonEvidenceUrl(page.url)) return inferred(`${safeDomain(page.url)} is LinkedIn or a people-data site, not evidence`);
+  const text = (page.text ?? "").slice(0, CONTACT_PAGE_TEXT_MAX).normalize("NFC");
+  if (!text.trim()) return inferred("the page text was not captured");
+  const pageDomain = registrableDomain(page.url);
+  const ownDomain = pageDomain !== undefined && pageDomain === registrableDomain(ctx.companyUrl);
+  if (!ownDomain && mentionOffsets(contact.company, text, 1).length === 0) return inferred(`the page does not name ${contact.company}`);
+  const title = (contact.title_quote ?? "").replace(/\s+/g, " ").trim();
+  if (!title) return inferred("the page gives no title for this person");
+  if (title.length > CONTACT_TITLE_MAX) return notInPage(`the title quote is ${title.length} characters; the limit is ${CONTACT_TITLE_MAX}`);
+  if (personNameTokens(contact.name).length < 2) return notInPage("a full name (first and last) is needed to check the page");
+  const names = personNameSpans(contact.name, text);
+  if (names.length === 0) return notInPage("the name is not on the page");
+  if (!quoteMatch(title, text, { minSegment: 2, minTotal: 2 }).ok) return notInPage("the title is not on the page");
+  let titles = strippedSpans(title, text);
+  if (titles.length === 0) {
+    // quoteMatch accepted it clause by clause; anchor on the longest clause.
+    const longest = title.split(/[,;:|·–—]/).map((s) => s.trim()).sort((a, b) => b.length - a.length)[0] ?? "";
+    titles = strippedSpans(longest, text);
+  }
+  let best: { gap: number; start: number; end: number } | undefined;
+  for (const [ns, ne] of names) {
+    for (const [ts, te] of titles) {
+      const gap = Math.max(0, Math.max(ns, ts) - Math.min(ne, te));
+      if (!best || gap < best.gap) best = { gap, start: Math.min(ns, ts), end: Math.max(ne, te) };
+    }
+  }
+  if (!best || best.gap > CONTACT_PROXIMITY) return notInPage("the title is not next to the name on the page");
+  const role = matchedBuyerRole(title, ctx.buyerRoles);
+  if (!role) return { ok: false, tier: "rejected", code: "contact_role_mismatch", reason: `the title "${title}" fits none of the approved roles` };
+  const evidence = contactEvidence({ url: page.url, quote: text.slice(best.start, best.end), title_quote: title });
+  if (!evidence) return notInPage("the name and title span is too long to quote");
+  return { ok: true, tier: "verified", role, evidence };
 }

@@ -33,6 +33,12 @@ export type SearchPlan = {
   excludeNames: string[];
   /** 2-8 snake_case signal types, ordered most -> least valuable. */
   signalTypes: string[];
+  /**
+   * Buyer roles the user approved on the Target step's "Who to reach" card (pre-filled from the seller
+   * profile's buyer_roles). Contact titles are checked against these by code (src/gates.ts titleMatchesRole).
+   * Absent or empty: no contact lookups.
+   */
+  buyerRoles?: string[];
 };
 
 export const OTHER_SIGNAL_TYPE = "other";
@@ -61,6 +67,8 @@ export const PLAN_LIMITS = {
   maxQueryChars: 400,
   maxExcludeDomains: 100,
   maxExcludeNames: 300,
+  maxBuyerRoles: 6,
+  maxBuyerRoleChars: 80,
 } as const;
 
 export type PlanValidation =
@@ -262,6 +270,25 @@ export function validatePlan(input: unknown): PlanValidation {
     });
   }
 
+  const buyerRoles: string[] = [];
+  if (input.buyerRoles !== undefined && input.buyerRoles !== null) {
+    if (!Array.isArray(input.buyerRoles)) {
+      errors.push("buyerRoles must be an array when present");
+    } else {
+      if (input.buyerRoles.length > PLAN_LIMITS.maxBuyerRoles) {
+        errors.push(`buyerRoles must have at most ${PLAN_LIMITS.maxBuyerRoles} items`);
+      }
+      input.buyerRoles.forEach((r, i) => {
+        const t = typeof r === "string" ? r.replace(/\s+/g, " ").trim() : "";
+        if (!t || t.length > PLAN_LIMITS.maxBuyerRoleChars || !/[\p{L}]/u.test(t)) {
+          errors.push(`buyerRoles[${i}] must be a non-empty role phrase (<=${PLAN_LIMITS.maxBuyerRoleChars} chars)`);
+        } else if (!buyerRoles.some((b) => b.toLowerCase() === t.toLowerCase())) {
+          buyerRoles.push(t);
+        }
+      });
+    }
+  }
+
   if (errors.length > 0) return { ok: false, errors };
 
   const plan: SearchPlan = {
@@ -277,8 +304,22 @@ export function validatePlan(input: unknown): PlanValidation {
     excludeDomains,
     excludeNames,
     signalTypes,
+    ...(buyerRoles.length > 0 ? { buyerRoles } : {}),
   };
   return { ok: true, plan };
+}
+
+/** Clean a list of buyer roles: trimmed, deduped case-insensitively, at most PLAN_LIMITS.maxBuyerRoles of at most maxBuyerRoleChars. */
+export function cleanBuyerRoles(roles: unknown): string[] {
+  if (!Array.isArray(roles)) return [];
+  const out: string[] = [];
+  for (const role of roles) {
+    const t = typeof role === "string" ? role.replace(/\s+/g, " ").trim() : "";
+    if (!t || t.length > PLAN_LIMITS.maxBuyerRoleChars || !/\p{L}/u.test(t)) continue;
+    if (!out.some((r) => r.toLowerCase() === t.toLowerCase())) out.push(t);
+    if (out.length >= PLAN_LIMITS.maxBuyerRoles) break;
+  }
+  return out;
 }
 
 /** Signal types a model may emit: plan.signalTypes plus the catch-all. */

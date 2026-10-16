@@ -8,6 +8,7 @@
 import type { AgentEvent } from "../../src/agent/events";
 import type { AcceptedLead } from "../../src/agent/state";
 import {
+  CONTACTS,
   TRACE,
   TRACE_LIVE,
   candidateReason,
@@ -64,7 +65,11 @@ export type EvidenceDetail = {
   gates: EvidenceGate[];
   size?: { employees?: number; basis?: string; range?: string; inRange?: boolean };
   sizeQuoteMatch?: "phrase" | "number_adjacent";
+  /** Verified contacts only: the page span naming the person and their title, and the page host. Inferred ones carry no quote. */
+  contacts?: EvidenceContact[];
 };
+
+export type EvidenceContact = { name: string; quote: string; titleQuote: string; source: string; url: string };
 
 export type TraceDetail = EvidenceDetail | { kind: "text"; text: string } | { kind: "json"; value: unknown };
 
@@ -176,6 +181,11 @@ export function evidenceFor(lead: AcceptedLead, contract?: ContractView): Eviden
         }
       : undefined;
   const match = details.size_quote_match;
+  const contacts: EvidenceContact[] = (lead.contacts?.contacts ?? []).flatMap((c) =>
+    c.tier === "verified" && c.evidence && isHttpUrl(c.evidence.url)
+      ? [{ name: c.name, quote: c.evidence.quote, titleQuote: c.evidence.title_quote, source: host(c.evidence.url), url: c.evidence.url }]
+      : [],
+  );
   return {
     kind: "evidence",
     company: lead.company,
@@ -186,6 +196,7 @@ export function evidenceFor(lead: AcceptedLead, contract?: ContractView): Eviden
     gates,
     ...(size ? { size } : {}),
     ...(match === "phrase" || match === "number_adjacent" ? { sizeQuoteMatch: match } : {}),
+    ...(contacts.length > 0 ? { contacts } : {}),
   };
 }
 
@@ -255,6 +266,12 @@ function toolCallLine(event: AgentEvent, id: string, ctx: Ctx): { line: TraceLin
       return { line: line(id, "finish", "flag", eventLine(event, ctx.contract)!.text) };
     case "remember":
       return { line: line(id, "remember", "memory", TRACE.remembered) };
+    case "find_contacts": {
+      const m = summary ? /verified=(\d+) · inferred=(\d+)/.exec(summary) : null;
+      return {
+        line: line(id, "contacts", "search", CONTACTS.looking(str(input.company)), m ? { description: CONTACTS.found(Number(m[1]), Number(m[2])) } : {}),
+      };
+    }
     case "submit_lead":
       return { line: null }; // the verdict line says what happened
     default:
@@ -304,6 +321,7 @@ function startedLine(event: AgentEvent, id: string): TraceLine {
     finish: ["finish", "flag"],
     remember: ["remember", "memory"],
     submit_lead: ["submit", "check"],
+    find_contacts: ["contacts", "search"],
   };
   const [kind, icon] = kinds[tool] ?? ["tool_started", "wrench"];
   return line(id, kind, icon, TRACE_LIVE.started(tool, rec(event.input)), { inflight: true });

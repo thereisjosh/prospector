@@ -134,7 +134,7 @@ Browser (app/page.tsx)                      Server: one HTTP request = one agent
 POST /api/runs ──────────────────────────▶ validate plan → runs/<id>/state.json
 POST /api/runs/:id/step  (repeat) ───────▶ lock run, load state (versioned)
                                            limits? budget / 30 turns / 6 min / 4 no-progress / target
-                                           messages.create(cached system + 9 tools, append-only history)
+                                           messages.create(cached system + 10 tools, append-only history)
                                            run tool_use blocks in parallel (≤6) ──▶ Exa (one CostGuard)
                                            submit_lead ──▶ checkLead (src/gates.ts)
                                            append tool_results, save state, append events.jsonl
@@ -145,7 +145,7 @@ status = awaiting_approval → POST /api/runs/:id/decision appends the tool_resu
 | Element | How it is built | Files |
 |---|---|---|
 | Loop | Hand-written tool-use loop on the stateless Messages API, one turn per `POST /step`; no framework (DECISIONS #1) | `src/agent/loop.ts`, `app/api/runs/[id]/step/route.ts` |
-| Orchestration | One agent, 9 narrow tools, up to 6 parallel calls per turn; no subagents (DECISIONS #3, #9) | `src/agent/tools.ts`, `src/agent/config.ts` |
+| Orchestration | One agent, 10 narrow tools, up to 6 parallel calls per turn; no subagents (DECISIONS #3, #9) | `src/agent/tools.ts`, `src/agent/config.ts` |
 | Context engineering | Stable cached system prompt; contract and memory in the first user message; append-only history; compact tool results | `src/agent/prompts.ts`, `docs/prompts.md`, `src/agent/state.ts` |
 | Guardrails | `checkLead` is the only definition of a lead, shared by both arms; combined $ cap via CostGuard; turn, time and no-progress limits | `src/gates.ts`, `src/exa.ts`, `src/agent/config.ts` |
 | Approval | Strategy and scope change pause the run as an unanswered `tool_use`; the decision is bound to its `toolUseId` | `app/api/runs/[id]/decision/route.ts`, `src/agent/loop.ts` |
@@ -154,6 +154,8 @@ status = awaiting_approval → POST /api/runs/:id/decision appends the tool_resu
 | Evals | Cell runner, blind pooling, Opus judge, scorer, simulated user | `eval/harness/`, `eval/RUBRIC.md`, `eval/truth/` |
 
 `checkLead` runs in order: non-company or built-in job-board source · excluded name/domain · personal/non-event pages · seen in an earlier run · duplicate · event date in the window (publish date substituted only for a year-slip) · company named on the signal page · signal quote found on the page · lookup exists · not enterprise · HQ country with quote · size (the estimate must be backed by its quoted source) · required yes/no questions with quotes. Missing required proof is stored as a candidate, not an accepted lead. The results table is built only from accepted `submit_lead` records, never from the model's text.
+
+**Who to reach (built 2026-10-16, not yet run live).** After a lead is accepted, the agent can call `find_contacts` once for it: up to 3 people in the buyer roles the user approved on the Target step. Code decides each person's tier. **Verified** needs a page that is not LinkedIn (the company's site, press, a conference bio) naming the person next to a title that fits an approved role, both checked on the captured page text. **Inferred** is a people-index listing in an approved role, shown as a name and a profile link only: no LinkedIn text is copied or stored (LinkedIn User Agreement §8.2). No emails or phones; contacts live and die with the run. Worst case $0.03 of Exa per lead, capped in code. What is not known yet: how many leads get a verified contact, and how often a verified title is stale. Both need the contact eval (`eval/harness/judge-contacts.ts`, labelled set still empty). Design and limits: SPEC-agent §5b; research: `docs/RESEARCH-contacts-and-graph.md`.
 
 **Autonomy** (SPEC-agent §5a), with what the 9 runs actually did:
 

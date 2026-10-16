@@ -1,6 +1,6 @@
-# Agent prompts (agent-a4-2026-10-15)
+# Agent prompts (agent-a5-2026-10-16)
 
-The copy the agent model reads: the system prompt, the first user message, and the nine tool descriptions. Source of truth: Langfuse Prompt Management for the system prompt and the two planner prompts (label `production`, kept identical to the repo copy by the sync CLI below), `src/agent/prompts.ts` for the first user message, and the `description` fields in `src/agent/tools.ts`. The system prompt below is copied from the repo block verbatim; if it changes, update this file.
+The copy the agent model reads: the system prompt, the first user message, and the ten tool descriptions. Source of truth: Langfuse Prompt Management for the system prompt and the two planner prompts (label `production`, kept identical to the repo copy by the sync CLI below), `src/agent/prompts.ts` for the first user message, and the `description` fields in `src/agent/tools.ts`. The system prompt below is copied from the repo block verbatim; if it changes, update this file.
 
 ## Prompt management (Langfuse)
 
@@ -21,7 +21,7 @@ Three text prompts in the Langfuse project (L3):
 - By label `LANGFUSE_PROMPT_LABEL` (default `production`), through the SDK's client-side cache with the default **60 s TTL**: a cache hit is instant, an expired entry is served stale while it refreshes in the background ([caching](https://langfuse.com/docs/prompt-management/features/caching)). The first fetch of a process is bounded (3 s timeout, 1 retry).
 - **Fallback** to the repo copy when the keys are unset, `LANGFUSE_PROMPTS=off`, the first fetch fails (SDK `fallback`, [guaranteed availability](https://langfuse.com/docs/prompt-management/features/guaranteed-availability)), or the prompt is not a text prompt. It never throws.
 - **Pinned per run.** On a run's first step the agent resolves the prompt once and stores the pin (`name`, `version`, label, source, exact text, sha256) in `state.prompt`. Every later turn and the handback send `state.prompt.text`, never a fresh fetch, so the cached prefix is byte-stable and the append-only history never mixes versions, even if `production` moves mid-run, the process restarts, or Langfuse goes down. Runs created before L3 (already talking to the model, no pin) are pinned to the repo text they were using. A planner call pins one version for the call and its validation retry; the retry repeats that version's format section (from "Reply with one JSON object with exactly these keys" to the end, which push/pull require).
-- **Version ids.** `promptVersion` on every event is the pin's id: `prospector-agent-system@<n>` when fetched, `PROMPT_VERSION` (`agent-a4-2026-10-15`) for the repo text.
+- **Version ids.** `promptVersion` on every event is the pin's id: `prospector-agent-system@<n>` when fetched, `PROMPT_VERSION` (`agent-a5-2026-10-16`) for the repo text.
 - **Linked generations.** Each agent `model_call` event carries `prompt: {name, version}` and the trace layer sets it as the generation's SDK prompt link; planner generations do the same. The prompt's **Metrics** tab in Langfuse then compares latency, tokens, cost and scores per version ([link to traces](https://langfuse.com/docs/prompt-management/features/link-to-traces)). Calls that ran the repo fallback are not linked.
 
 **Workflow.**
@@ -73,6 +73,9 @@ Never resubmit a rejected company, under any spelling.
 
 ## Scope
 Never widen the contract yourself, and never submit a company you believe fails it. If evidence shows the contract itself blocks the goal (say 6 of 8 rejections are `size`, just over the ceiling, after you already tried smaller-firm phrasing), call `request_scope_change` with one field, the reason, and the rejection counts. If declined, keep working within the contract or finish.
+
+## Who to reach
+When the first message lists approved buyer roles, call `find_contacts` once for each accepted lead while the budget allows, in a later turn than its `submit_lead`; batch several leads in one turn, alongside other work. Code finds and checks the people. Never name, guess or add a person yourself.
 
 ## Finishing
 Call `finish` when you reach the target, or when the remaining candidates look poor and more searching is unlikely to pay off. While work remains, every turn must call at least one tool; a reply with only text ends the run. If you finish short, include a handback: how many you found, the main reasons candidates were turned down with counts, and at most 2 concrete plan changes ("allow up to 2,000 employees", "look back 6 months instead of 3"). The handback must use the structured object from the tool schema (never text), with real counts from your lookups and rejections, including companies you screened out at lookup. If most rejections are `no_enrichment`, `entity_mismatch` or lookup misses, say candidates couldn't be verified from public sources and suggest no plan change (field `none`), not a wider size or recency. The harness also stops the run on budget, turns, time, or several turns without progress, so do useful work early.
@@ -217,6 +220,14 @@ Save one reusable lesson from this search for future searches in this workspace:
 ```
 
 **Why:** Code validates every limit the description states (length, tag count, URLs, company names the run never decided on, 3 per run), so the model gets an error it can fix instead of a silent truncation. Notes are stored dated and expire after 60 days; recall puts them in the first message, never the system prompt.
+
+### `find_contacts` (133 words)
+
+```text
+Find up to 3 people to reach at one ACCEPTED lead, in the buyer roles the user approved. Call it once per accepted lead when budget allows (about $0.03), in a later turn than its submit_lead; several leads can go in one turn. `company`: exactly the accepted lead's name. Code finds and checks everyone: `verified` = a public page that is not LinkedIn names the person with a title in an approved role, quote checked on the page; `inferred` = a people index lists them in an approved role, title unconfirmed, link only. Returns JSON {company, contacts: [{name, tier, why, evidence_url?}], note}. A non-accepted company, a second call for a lead, or no approved roles is an error and costs nothing. Never name or add a person yourself, or put one in `remember`.
+```
+
+**Why:** Contacts are attempted only for accepted leads and at most once per lead, both enforced in code (a refused call costs nothing). The tool says what the two tiers mean so the model does not overstate an inferred person, and forbids it from naming anyone itself: every person shown comes from a source code checked (docs/SPEC-agent.md §5b). It is the one tool whose result carries people's names; the trace gets counts only.
 
 ### `finish` (99 words)
 

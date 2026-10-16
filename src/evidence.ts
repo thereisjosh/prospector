@@ -246,3 +246,29 @@ export function judgeEvidence(parts: { signal?: Partial<SignalEvidence>; enrichm
 export function emptyJudgeEvidence(): JudgeEvidence {
   return { ...EMPTY_SIGNAL_EVIDENCE, company_lookup: null, gate_result: null };
 }
+
+/* ---------- contacts (docs/SPEC-agent.md §5b) ---------- */
+
+/** Max chars of the verbatim page span that names a verified contact and their title. */
+export const CONTACT_QUOTE_MAX = 400;
+/** Max chars of a contact's title quote. */
+export const CONTACT_TITLE_MAX = 120;
+
+/**
+ * Why a contact is verified: a non-LinkedIn page (`url`) whose captured text holds `quote`, a verbatim span
+ * cut by code that contains the person's name and `title_quote`, the title phrase that matched an approved
+ * buyer role. Only `checkContact` (src/gates.ts) builds one; inferred contacts carry none.
+ */
+export type ContactEvidence = {
+  url: string;
+  quote: string;
+  title_quote: string;
+};
+
+/** The bounded evidence object. The spans are verbatim, so an over-long one is refused, never cut. */
+export function contactEvidence(parts: ContactEvidence): ContactEvidence | undefined {
+  const quote = parts.quote.replace(/\s+/g, " ").trim();
+  const title = parts.title_quote.replace(/\s+/g, " ").trim();
+  if (!parts.url || !quote || !title || quote.length > CONTACT_QUOTE_MAX || title.length > CONTACT_TITLE_MAX) return undefined;
+  return { url: parts.url, quote, title_quote: title };
+}

@@ -81,6 +81,7 @@ export async function compilePlan(cards: CardSet, deps: PlannerModelDeps): Promi
     excludeDomains: cards.exclusions.domains,
     excludeNames: cards.exclusions.names,
     signalTypes: cards.whyNow.signalTypes,
+    ...(cards.buyerRoles && cards.buyerRoles.length > 0 ? { buyerRoles: cards.buyerRoles } : {}),
   };
   const valid = validatePlan(plan);
   if (!valid.ok) {
@@ -138,6 +139,7 @@ function validateCompileOutput(raw: unknown, cards: CardSet) {
     excludeDomains: cards.exclusions.domains,
     excludeNames: cards.exclusions.names,
     signalTypes: cards.whyNow.signalTypes,
+    ...(cards.buyerRoles && cards.buyerRoles.length > 0 ? { buyerRoles: cards.buyerRoles } : {}),
   };
   const planValidation = validatePlan(candidate);
   if (!planValidation.ok) return { ok: false as const, errors: planValidation.errors };

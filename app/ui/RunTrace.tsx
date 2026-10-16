@@ -48,7 +48,7 @@ import {
   CodeBlockHeader,
   CodeBlockTitle,
 } from "@/components/ui/code-block";
-import { RUN, TRACE } from "./copy";
+import { CONTACTS, RUN, TRACE } from "./copy";
 import type { EvidenceDetail, TraceDetail, TraceIcon as IconName, TraceLine as Line, TraceTree, TraceTurn } from "./trace-model";
 
 /* ---------- icons ---------- */
@@ -93,7 +93,12 @@ export function LineIcon({ name }: { name: IconName }) {
 
 const quoted = (q: string) => `“${q}”`;
 
-type EvidenceRow = { label: string; quote?: string; note?: string; question?: string };
+type EvidenceRow = { label: string; quote?: string; note?: string; question?: string; id?: string };
+
+/** DOM id of a lead's "Who to reach" evidence row, so the lead row's source link can scroll to it. */
+export function contactRowId(company: string, index: number): string {
+  return `who-${company.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}-${index}`;
+}
 
 function evidenceRows(detail: EvidenceDetail): EvidenceRow[] {
   const gateByLabel = new Map(detail.gates.map((g) => [g.label, g]));
@@ -112,6 +117,10 @@ function evidenceRows(detail: EvidenceDetail): EvidenceRow[] {
       ...(label === TRACE.quoteLabels.size && detail.size ? { note: RUN.sizeNote(detail.size.basis, detail.size.range, detail.size.inRange) || undefined } : {}),
     });
   }
+  // Verified contacts: the page span that names the person with their title, verbatim, and where it is.
+  (detail.contacts ?? []).forEach((c, i) => {
+    rows.push({ label: CONTACTS.evidenceRow, question: c.name, quote: c.quote, note: c.source, id: contactRowId(detail.company, i) });
+  });
   return rows;
 }
 
@@ -133,7 +142,7 @@ export function EvidenceBlock({ detail }: { detail: EvidenceDetail }) {
       </CodeBlockHeader>
       <CodeBlockContent wrap>
         {rows.map((r, i) => (
-          <span key={i} className="pr-ev-row">
+          <span key={i} className="pr-ev-row" {...(r.id ? { id: r.id } : {})}>
             <span className="pr-ev-label">{r.label}</span>
             <span className="pr-ev-value">
               {r.question && <span className="pr-ev-question">{r.question}</span>}

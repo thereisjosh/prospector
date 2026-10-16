@@ -97,7 +97,7 @@ describe("plain-words copy", () => {
     const csv = leadsCsv(state.leads);
     const lines = csv.split("\r\n");
     expect(lines).toHaveLength(state.leads.length + 1);
-    expect(lines[0]).toBe("Company,Why now,Event date,Size,Size basis,Fit,Source,Your verdict,Your note");
+    expect(lines[0]).toBe("Company,Why now,Event date,Size,Size basis,Fit,Source,Your verdict,Your note,Contact names,Contact titles,Contact tiers,Contact profile URLs,Contact evidence URLs");
     expect(csv).toContain("https://");
   });
 });

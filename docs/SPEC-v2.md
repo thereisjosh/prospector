@@ -56,6 +56,7 @@ Response shapes: `{ kind: "candidates", source: "social"|"biolink"|"maps"|"name"
 | Funding stage | trigger (hard-ish) or extracted gate (estimated) | estimated |
 | Geography | query text + HQ gate | estimated |
 | Exclusions (customers, competitors, giants) | `excludeDomains` + name denylist | **hard** |
+| Who to reach (buyer roles; pre-filled by code from the profile's `buyer_roles`) | not a search lever: `buyerRoles` on the plan; contact titles are checked against it by code (`titleMatchesRole`, docs/SPEC-agent.md §5b). Why-text: "Code checks titles against these roles; nothing is scraped from LinkedIn." | code check |
 
 ## 4. SearchPlan (replaces hand-written IcpConfig)
 
@@ -72,6 +73,7 @@ type SearchPlan = {
   hqCountries: string[];                // ISO-2; [] = any
   excludeDomains: string[];
   excludeNames: string[];
+  buyerRoles?: string[];                // "Who to reach" card; ≤ 6 roles of ≤ 80 chars; absent = no contact lookups
 };
 ```
 

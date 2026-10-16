@@ -21,6 +21,7 @@ import {
 } from "../plan";
 import type { CompanySummary, ExaResult, ExaSearchResponse, SignalSummary } from "../types";
 import { readExaContents } from "./exa-contents";
+import { contactsToolResult, findContacts, type LeadContacts } from "../contacts";
 import type { LeadChecker } from "./gate-port";
 import { NOTE_TAG_LIMIT, NOTE_TEXT_LIMIT, NOTE_TTL_MS, type Note } from "./memory";
 import type { SeenInfo } from "./recall";
@@ -33,6 +34,7 @@ export type ToolDeps = {
   exaSearch?: typeof exaSearch;
   lookupCompany?: typeof lookupCompany;
   readExaContents?: typeof readExaContents;
+  findContacts?: typeof findContacts;
 };
 
 export type ToolExecutionContext = {
@@ -86,6 +88,12 @@ export function agentTools(): Anthropic.Tool[] {
         { company: { type: "string" }, signal_url: { type: "string" }, why_now: { type: "string" } },
         ["company", "signal_url", "why_now"],
       ),
+      strict: true,
+    },
+    {
+      name: "find_contacts",
+      description: "Find up to 3 people to reach at one ACCEPTED lead, in the buyer roles the user approved. Call it once per accepted lead when budget allows (about $0.03), in a later turn than its submit_lead; several leads can go in one turn. `company`: exactly the accepted lead's name. Code finds and checks everyone: `verified` = a public page that is not LinkedIn names the person with a title in an approved role, quote checked on the page; `inferred` = a people index lists them in an approved role, title unconfirmed, link only. Returns JSON {company, contacts: [{name, tier, why, evidence_url?}], note}. A non-accepted company, a second call for a lead, or no approved roles is an error and costs nothing. Never name or add a person yourself, or put one in `remember`.",
+      input_schema: objectSchema({ company: { type: "string" } }, ["company"]),
       strict: true,
     },
     {
@@ -521,6 +529,17 @@ export function validateNote(state: RunState, input: Record<string, unknown>): {
     if (!tags.includes(tag)) tags.push(tag);
   }
   if (URL_LIKE.test(text) || tags.some((t) => URL_LIKE.test(t))) return { ok: false, error: "no URLs or domain names in notes" };
+  // Contacts live and die with the run: no person found by find_contacts reaches workspace memory.
+  const people = state.leads.flatMap((lead) => lead.contacts?.contacts ?? []).map((c) => c.name);
+  const haystackLower = [text, ...tags].join(" \n ").toLowerCase();
+  const asWord = (word: string) => new RegExp(`(^|[^\\p{L}\\p{N}])${escapeRegExp(word)}([^\\p{L}\\p{N}]|$)`, "u").test(haystackLower);
+  for (const name of people) {
+    const parts = name.toLowerCase().split(/\s+/).filter((p) => p.replace(/\./g, "").length >= 2);
+    // The full name, or first and last name both present as words.
+    if (parts.length >= 2 && asWord(parts[0]!) && asWord(parts[parts.length - 1]!)) {
+      return { ok: false, error: "notes must not name people found by find_contacts. Describe the pattern without names." };
+    }
+  }
   const haystack = [text, ...tags].join(" \n ");
   for (const name of undecidedCompanies(state)) {
     if (new RegExp(`(^|[^a-z0-9])${escapeRegExp(name)}([^a-z0-9]|$)`, "i").test(haystack)) {
@@ -842,6 +861,36 @@ async function executeToolInner(
         content = `rejected: ${verdict.code} — ${verdict.reason}`;
         const seenInfo = verdict.code === "already_seen" ? state.caches.seenInfo?.[squashName(company)] : undefined;
         verdictEvent = { company, code: verdict.code, reason: verdict.reason, ok: false, ...(seenInfo ? { seen: seenInfo, lookupSaved: false } : {}) };
+      }
+    } else if (tool.name === "find_contacts") {
+      const company = String(input.company ?? "").trim();
+      const key = squashName(company);
+      const lead = key ? state.leads.find((l) => squashName(l.company) === key) : undefined;
+      if (!lead) throw new Error(`${company || "That company"} is not an accepted lead. find_contacts works only on companies submit_lead accepted in an earlier turn.`);
+      if (lead.contacts) throw new Error(`People at ${lead.company} were already looked up; one find_contacts call per lead.`);
+      const roles = state.contract.buyerRoles ?? [];
+      if (roles.length === 0) throw new Error("This plan has no approved buyer roles, so contacts cannot be checked. Do not call find_contacts again in this run.");
+      // Claimed before the first await, so a second call for this lead in the same parallel batch is refused.
+      const record: LeadContacts = { at: (deps.now ?? new Date()).toISOString(), roles: [...roles], contacts: [], cost: 0 };
+      lead.contacts = record;
+      try {
+        const found = await (deps.findContacts ?? findContacts)(
+          { company: lead.company, companyUrl: state.caches.enrichmentByName[key]?.url, buyerRoles: roles, guard },
+          { ...(deps.exaSearch ? { exaSearch: deps.exaSearch } : {}), ...(deps.credentials ? { credentials: deps.credentials } : {}) },
+        );
+        record.contacts = found.contacts;
+        record.cost = found.cost;
+        exaCost = found.cost;
+        content = contactsToolResult(lead.company, found);
+        const verified = found.contacts.filter((c) => c.tier === "verified").length;
+        const inferred = found.contacts.length - verified;
+        const dropped = found.checked.filter((c) => c.outcome === "dropped").length;
+        // Counts only: names of people never go to the trace.
+        summary = `${lead.company}: verified=${verified} · inferred=${inferred} · dropped=${dropped}`;
+      } catch (error) {
+        record.cost = Math.max(0, guard.spent - beforeSpent);
+        record.error = error instanceof Error ? error.message : String(error);
+        throw error;
       }
     } else if (tool.name === "update_todo") {
       state.todo = String(input.markdown ?? "");

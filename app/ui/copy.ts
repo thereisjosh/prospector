@@ -326,6 +326,7 @@ export function eventLine(event: AgentEvent, contract?: ContractView): FeedLine 
         return { text: url && isHttpUrl(url) ? `Reading ${host(url)} to double-check` : "Reading a page to double-check", tone: "info" };
       }
       if (event.tool === "update_todo") return { text: "Updated its checklist", tone: "info" };
+      if (event.tool === "find_contacts") return { text: CONTACTS.looking(str(input.company)), tone: "info" };
       if (event.tool === "finish") return { text: "Wrapping up", tone: "info" };
       return null; // submit_lead: the verdict line says what happened
     }
@@ -544,8 +545,24 @@ function csvCell(value: string): string {
   return /[",\n\r]/.test(value) ? `"${value.replace(/"/g, '""')}"` : value;
 }
 
+/** Contact columns: one cell per field, up to 3 contacts joined by "; " in the same order in every column. No emails or phones. */
+export const CONTACT_CSV_COLUMNS = ["Contact names", "Contact titles", "Contact tiers", "Contact profile URLs", "Contact evidence URLs"] as const;
+
+export function contactCsvCells(lead: AcceptedLead): string[] {
+  const list = lead.contacts?.contacts ?? [];
+  const join = (f: (c: (typeof list)[number]) => string) => list.map(f).join("; ");
+  return [
+    join((c) => c.name),
+    // Inferred contacts have no confirmed title; nothing from a profile is copied.
+    join((c) => (c.tier === "verified" ? c.why : "")),
+    join((c) => c.tier),
+    join((c) => (c.profile_url && isHttpUrl(c.profile_url) ? c.profile_url : "")),
+    join((c) => (c.evidence && isHttpUrl(c.evidence.url) ? c.evidence.url : "")),
+  ];
+}
+
 export function leadsCsv(leads: AcceptedLead[], feedback: Record<string, { verdict?: "up" | "down"; reason?: string }> = {}): string {
-  const head = ["Company", "Why now", "Event date", "Size", "Size basis", "Fit", "Source", "Your verdict", "Your note"];
+  const head = ["Company", "Why now", "Event date", "Size", "Size basis", "Fit", "Source", "Your verdict", "Your note", ...CONTACT_CSV_COLUMNS];
   const rows = leads.map((lead) => {
     const size = leadSize(lead);
     const fb = feedback[lead.company];
@@ -559,6 +576,7 @@ export function leadsCsv(leads: AcceptedLead[], feedback: Record<string, { verdi
       isHttpUrl(lead.signal_url) ? lead.signal_url : "",
       fb?.verdict === "up" ? "Good lead" : fb?.verdict === "down" ? "Not a fit" : "",
       fb?.reason ?? "",
+      ...contactCsvCells(lead),
     ];
   });
   return [head, ...rows].map((row) => row.map((cell) => csvCell(String(cell ?? ""))).join(",")).join("\r\n");
@@ -767,6 +785,36 @@ export const RUN = {
   consideredHeading: "Considered but not added",
 } as const;
 
+/** "Who to reach": the Target card and the contact line on each lead (docs/SPEC-agent.md §5b). Same voice as RUN. */
+export const CONTACTS = {
+  /* Target card */
+  cardTitle: "Who to reach",
+  cardWhy: "Code checks titles against these roles; nothing is scraped from LinkedIn.",
+  rolesLabel: "Roles to look for at each lead",
+  addRole: "Add a role, e.g. Head of Operations",
+  noRoles: "No roles: contacts won't be looked up",
+
+  /* lead row */
+  heading: "Who to reach",
+  profile: "profile",
+  inferred: "inferred from a public profile",
+  /** Tooltip on an inferred contact: the approved role it was matched to, and what was not checked. */
+  inferredTitle: (role: string): string => `Listed in a public people index under a role you approved (${role}). Title not confirmed on a public page.`,
+  /** The source host of a verified contact opens the evidence block on its "Who to reach" row. */
+  showSource: (source: string): string => `Show where ${source} says this`,
+  none: "Looked for people in your roles; no one found",
+  failed: "Couldn't look up people this time",
+  demoNone: "No contacts looked up in this recording",
+
+  /* evidence block row */
+  evidenceRow: "Who to reach",
+
+  /* trace */
+  looking: (company: string | undefined): string => (company ? `Looking for people to reach at ${company}` : "Looking for people to reach"),
+  found: (verified: number, inferred: number): string =>
+    verified + inferred === 0 ? "No one found in your roles" : [verified > 0 ? `${int(verified)} verified` : "", inferred > 0 ? `${int(inferred)} inferred` : ""].filter(Boolean).join(" · "),
+} as const;
+
 /** "Walmart, Maersk, Arvato and 12 more" (names beyond `max` collapse into a count). */
 export function shortenList(items: string[], max = 4): string {
   return items.length > max ? joinWords([...items.slice(0, max - 1), `${items.length - (max - 1)} more`]) : joinWords(items);
@@ -836,6 +884,10 @@ export const TRACE_LIVE = {
         return "Wrapping up…";
       case "remember":
         return "Saving a note for next time…";
+      case "find_contacts": {
+        const company = s(input.company);
+        return `${CONTACTS.looking(company)}…`;
+      }
       case "submit_lead": {
         const company = s(input.company);
         return company ? `Checking ${company}…` : "Checking a lead…";

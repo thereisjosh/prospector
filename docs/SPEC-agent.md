@@ -117,9 +117,10 @@ What the model decides that the workflow cannot, each logged as an **adaptive ac
 | `propose_strategy(angles[], first_queries[], est_cost)` | **Required before any spend.** Pauses for user approval (§5a) | `approved` / `revised: <user note>` / `declined` |
 | `request_scope_change(change, reason, evidence)` | Asks to relax the contract (size, recency, geo, adjacent industry) or raise the budget. Pauses for approval | `approved` (contract updated by code) / `declined` |
 | `remember(text, tags[])` | Saves a lesson for future runs (§6a); ≤ 3 per run, only once the run has a lead or handback; code validates it | `saved (n of 3)` or an error to fix |
+| `find_contacts(company)` | Up to 3 people to reach at one **accepted** lead, in the plan's approved buyer roles (§5b). Code decides every tier; one call per lead; refused for a non-accepted company or a plan without roles (no spend) | JSON `{company, contacts: [{name, tier, why, evidence_url?}], note}` |
 | `finish(summary, handback?)` | Ends the run; `handback` is required if fewer than N leads were accepted (§5). Held once with a reminder to `remember` | — |
 
-No other write actions exist. `submit_lead` is the only way a lead enters the results. The results table is built **only from code-accepted `submit_lead` records**, never from the model's final text (the output check). The model may issue several tool calls in one turn; the harness runs them in parallel and returns all results in one message (the parallelisation pattern, logged as calls per turn).
+No other write actions exist (`find_contacts` writes only to its own lead's `contacts`). `submit_lead` is the only way a lead enters the results. The results table is built **only from code-accepted `submit_lead` records**, never from the model's final text (the output check). The model may issue several tool calls in one turn; the harness runs them in parallel and returns all results in one message (the parallelisation pattern, logged as calls per turn).
 
 ## 5a. Autonomy table and mid-run approval
 
@@ -130,6 +131,7 @@ No other write actions exist. `submit_lead` is the only way a lead enters the re
 | Scope change: wider size, longer recency, new geography, adjacent industry | | ✅ with reason + evidence | |
 | Budget increase | | ✅ | |
 | Accepting a lead that fails a check | | | ✅ (code refuses) |
+| Looking up people at an accepted lead (`find_contacts`, once per lead, code-gated) | ✅ | | |
 | Contacting anyone / any external side effect | | | ✅ (no tool exists) |
 
 **Mechanism: durable pause by persisting the message history (no framework).** The Messages API is stateless, so a run's entire state is ours: `messages` (stored exactly as received, thinking blocks included), the contract, spend, and counters.
@@ -172,6 +174,8 @@ Measured as: approval requests per run, approval rate, and whether approved scop
 | `unquoted_gate` (truncated page) | candidate | a lookup quote (HQ, employee source, gate) is absent from the lookup text and `lookup_text_truncated` is true: the page was cut at 20,000 characters, so the quote is unproven rather than false |
 | `quote_not_in_page` | reject | a signal, date, HQ, employee-source or gate quote is not in the captured page text (lookup quotes can only be checked when `lookupText` was captured, and only on an untruncated page) |
 
+**Contact gate codes** (`checkContact`, §5b): `contact_unverified` (tier inferred), `contact_quote_not_in_page` and `contact_role_mismatch` (rejected). They decide a contact's tier only; they never change a lead's status, the lead count, or lead precision.
+
 `checkLead(plan, input, { evidenceMode: "skip-quotes" })` disables the quote-dependent rules (`unquoted_*`, `quote_not_in_page`). It exists for replaying old runs only (`eval/replay-gates.ts`); the production default is full enforcement. Unproven on live Exa until a paid run.
 
 Budget and loop limits are enforced by the harness, never by the prompt. The run stops at whichever comes first:
@@ -198,6 +202,69 @@ When the *harness* stops the run, the model cannot call `finish`. So $0.05 of th
 **Prompt injection:** page text and search results are data. The system prompt says so, and the blast radius is bounded because the only effect a tool result can have is a `submit_lead` that still must pass every code check.
 
 Also kept: server-only keys, per-IP rate limit, generic errors, http(s)-only links.
+
+## 5b. Contacts: who to reach at an accepted lead (built 2026-10-16; not yet exercised live)
+
+Background, market and legal research: `docs/RESEARCH-contacts-and-graph.md` (§5 design, §6 build order, §7 decisions). This is build step 1 there: named contacts with gates. No warm paths, no email reveal.
+
+**Decisions** (Joshua chose to build; the defaults below were set by the orchestrator and are reversible):
+1. **LinkedIn-only people are shown as inferred**: name and profile link only, no copied text (LinkedIn User Agreement §8.2 bans using LinkedIn data obtained "through third parties (such as search tools…)"). Nothing from a profile is stored or displayed; the people-index title is read in code only to say which approved role the person was listed under.
+2. **A verified contact needs a non-LinkedIn page** (company site, press, conference bio) that names the person next to a title fitting an approved buyer role, both checked on the captured page text by code (`quoteMatch`). Two tiers: verified / inferred.
+3. **No emails or phones** are fetched, stored or displayed. Email reveal through a user-supplied provider key is a later step.
+4. **Retention:** contacts live on the run's lead (`AcceptedLead.contacts`), so run retention applies. Nothing contact-related is written to workspace memory: `appendRunToMemory` records company names only, and `remember` refuses a note that names a person `find_contacts` returned.
+5. **"Who to reach" card** on the Target step, pre-filled by code from the seller profile's `buyer_roles`, editable chips, saved on the plan as `buyerRoles: string[]` (validated like other plan fields: ≤ 6 roles, ≤ 80 chars, deduped case-insensitively; absent or empty = no contact lookups).
+
+**Data model** (`src/contacts.ts`):
+
+```ts
+type Contact = {
+  name: string;
+  tier: "verified" | "inferred";
+  role: string;               // the approved buyer role it fits
+  why: string;                // "why this person": the quoted title (verified) or the role bucket (inferred)
+  profile_url?: string;       // linkedin.com/in/… from the people index: a link only
+  evidence?: { url: string; quote: string; title_quote: string }; // verified only (src/evidence.ts ContactEvidence)
+  found_via: "people_index" | "web_page";
+  code?: ContactGateCode;     // why an inferred contact is not verified
+};
+type LeadContacts = { at: string; roles: string[]; contacts: Contact[]; cost: number; error?: string }; // AcceptedLead.contacts
+```
+
+**The two Exa calls** (`findContacts`, under the run's `CostGuard`):
+- **A. People index:** `{ query: "<roles joined by ' or '> at <company>", category: "people", type: "auto", numResults: 5 }`, no contents. Keeps results whose URL is `linkedin.com/in/…`, with the entity's name and, from `workHistory`, the approved role of a *current* position (no end date) at this company (≥ 60% name-token overlap, so "Verst Group Logistics" = "Verst Logistics").
+- **B. Public pages:** `{ query: "\"<company>\" <roles> leadership team", type: "auto", numResults: 5, excludeDomains: CONTACT_NON_EVIDENCE_DOMAINS, contents: { text ≤ 20,000 chars, summary: {people: [{name, title_quote}]} } }`. The summary query lists the names from A. Exa's `site:` operator is not documented, so the brief's `site:<host>` was not used; the company's own domain is recognised by the gate instead.
+- **Cost:** worst-case estimate $0.00875 (A) + $0.02125 (B) = **$0.03 per lead**, the cap (`CONTACT_LIMITS.maxCostDollars`, checked before any call, and against the run guard's remaining budget). Actual is probably ≈ $0.014–0.019 (research §5.3 measured $0.007 per call with contents included; the page summaries may add $0.001 per page); unmeasured until a live run.
+
+**Gate** (`checkContact(contact, { page, buyerRoles, companyUrl })` in `src/gates.ts`, pure):
+
+| Code | Tier | Rule |
+|---|---|---|
+| — | verified | all below pass |
+| `contact_unverified` | inferred | no page; the page is LinkedIn, a LinkedIn copy or a people-data aggregator (`CONTACT_NON_EVIDENCE_DOMAINS`: linkedin.com, exa.ai, theorg.com, datanyze.com, zoominfo.com, rocketreach.co, apollo.io, …); no page text; the page is neither the company's registrable domain nor names the company; no title for the person on the page |
+| `contact_quote_not_in_page` | rejected | title quote over 120 chars; not a full name (2+ tokens); the name (word-bounded, one middle initial allowed) or the title (`quoteMatch`) not on the page text; title more than 200 characters from the name |
+| `contact_role_mismatch` | rejected | the title fits none of the approved roles |
+
+`titleMatchesRole(title, role)` is deterministic token overlap, case-insensitive. Both sides are folded first: abbreviations (`VP`/`SVP`/`EVP` → vp, `ops` → operations, `HR` → people), C-suite titles carry their function (`COO` / "Chief Operating Officer" → coo + operations, CFO → finance, CTO → technology, CMO → marketing, CRO → revenue), word stems (`operational` → operations, `warehousing` → warehouse). If the role names a function (any word that is not a rank or filler word such as VP, director, head, senior, of), the title must share at least one function word; a rank-only role ("CEO", "Founder", "VP") must share a rank word. **Refinement of the brief's "≥ 1 role word":** a shared rank word alone does not count when the role names a function, because "VP" would otherwise match "VP of Sales" to "VP of Operations". The Verst title disagreement (research §5.3) shows the cost: "Senior Vice President, Logistics" does not fit "VP of Operations"; the user adds "Logistics" as a role if they want it.
+
+**Who becomes what** (code only; the model never decides a tier):
+- verified on any page in B → **verified** (with the LinkedIn link too if A listed them).
+- not verified, listed in A in an approved role, and no page gives them a title outside the roles → **inferred** (`code` = the most specific failure).
+- a name only B's summariser produced that its page does not support, someone A lists at another company or in a past role, or a page title outside the roles → **dropped** (counted in the trace, never shown).
+- At most 3 per lead, verified first.
+
+**Tool rules** (`find_contacts` in `src/agent/tools.ts`): the company must be in `state.leads` (squashed name); a second call for the same lead is refused, including a duplicate in the same parallel batch (the lead's `contacts` record is claimed before the first await); a failed call still spends the one call and records `error`. The tool result to the model has names, tiers and a "why" line, never page or profile text. The trace (`tool:find_contacts` observation) gets the Exa cost and counts only (`metadata.contacts = {verified, inferred, dropped}`), never names. Prompt: the system prompt's "Who to reach" section and the first message's approved roles (only when the plan has roles).
+
+**UI:** each lead row has a "Who to reach" line. Verified: name · “quoted title” · source host (a button that opens the evidence block on its "Who to reach" row: the verbatim page span and host). Inferred: name · "profile" link · muted "inferred from a public profile" (tooltip: the approved role it was listed under, title not confirmed). Never a LinkedIn snippet. In demo mode a lead without contacts shows one muted line, "No contacts looked up in this recording"; a live lead that was not looked up shows nothing. CSV gains "Contact names / titles / tiers / profile URLs / evidence URLs" (up to 3 joined by "; ", inferred titles blank).
+
+**Contacts phase** (`contactsPhaseTurn` in `src/agent/loop.ts`). Reaching the target no longer stops the run at once when contacts are still missing. If `limitReason` would stop on `target_leads`, the plan has approved buyer roles, some accepted lead has no `contacts` entry, and at least one lookup's $0.03 is left under the run cap (after the $0.05 handback reserve), the run enters a bounded phase:
+- at most ceil(leads / 3) extra turns (`state.contactsPhase.maxTurns`);
+- each phase turn writes a `policy` event `check: "contacts_phase"` with `leadsWithoutContacts`, `phaseTurn`, `maxTurns`, `budgetDollars`, and appends the turn nudge to the (not yet sent) user message: "Target reached: look up contacts for the N leads without them (…) with find_contacts, then finish.";
+- Exa spend since the phase began is capped at leads × $0.03: that turn's `CostGuard` is lowered to it, never above the run cap, so `findContacts` refuses before spending when it would not fit;
+- the run stops as `target_leads` when every lead has contacts, the phase's turns are used, or its budget cannot pay for another lookup. Every other limit (budget, turns, time, no progress) still wins first; a `finish` in the phase ends the run as usual.
+
+A turn in which at least one `find_contacts` call returned (success, even with zero people) counts as progress for the no-progress limit; a failed lookup does not.
+
+**Eval scaffold** (not run): `eval/datasets/contact-cases.jsonl` (ships empty; one `ContactCase` per line: company, candidate_name, title, url, label verified | inferred | wrong, note) and `eval/harness/judge-contacts.ts` (web-search judge: is this person currently in that role at that company? yes / no / cannot_verify; the judge never sees the tier; metrics: verified precision, stale rate, inferred wrong-share). Paid: run `--limit 1` first.
 
 ## 6. Context engineering (applying Manus's published lessons; verify against the original post)
 

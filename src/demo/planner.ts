@@ -19,6 +19,7 @@ export async function demoPlan(cards: CardSet): Promise<{ plan: SearchPlan; cost
     excludeDomains: cards.exclusions.domains,
     excludeNames: cards.exclusions.names,
     signalTypes: cards.whyNow.signalTypes,
+    ...(cards.buyerRoles && cards.buyerRoles.length > 0 ? { buyerRoles: cards.buyerRoles } : { buyerRoles: undefined }),
   };
   const valid = validatePlan(candidate);
   if (!valid.ok) throw new Error(`demo plan invalid: ${valid.errors.join("; ")}`);

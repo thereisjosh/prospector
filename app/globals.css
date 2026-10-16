@@ -1886,6 +1886,71 @@
     min-width: 0;
     margin-top: -6px;
   }
+  /* who to reach: one line of up to 3 people under the lead (docs/SPEC-agent.md §5b) */
+  .lrow-contacts {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 12px;
+    min-width: 0;
+    margin-top: -6px;
+    font-size: var(--text-small);
+    line-height: var(--text-small--line-height);
+  }
+  .lrow-contacts-label {
+    flex: none;
+    font-size: var(--text-caption);
+    font-weight: 500;
+    color: var(--faint-ink);
+  }
+  .pr-contacts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 16px;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .pr-contact {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 6px;
+    min-width: 0;
+  }
+  .pr-contact-name {
+    font-weight: 500;
+    color: var(--ink-strong);
+  }
+  .pr-contact-sep {
+    color: var(--faint-ink);
+  }
+  .pr-contact-title {
+    overflow-wrap: anywhere;
+    color: var(--ink);
+  }
+  .pr-contact a {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--line);
+    text-underline-offset: 3px;
+  }
+  .pr-contact a:hover {
+    text-decoration-color: currentColor;
+  }
+  .pr-contact a svg {
+    width: 11px;
+    height: 11px;
+  }
+  .pr-contact[data-tier="inferred"] .pr-contact-name {
+    font-weight: 400;
+    color: var(--ink);
+  }
   @media (max-width: 1100px) {
     .lrow {
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);

@@ -7,7 +7,7 @@ import type { RunState } from "./state";
  * Version id of the in-repo system prompt. A run that fetched its prompt from Langfuse
  * records `prospector-agent-system@<n>` instead (RunState.prompt.id); see promptVersionOf().
  */
-export const PROMPT_VERSION = "agent-a4-2026-10-15";
+export const PROMPT_VERSION = "agent-a5-2026-10-16";
 
 /**
  * The system prompt is the cached prefix: it must not contain dates, run ids,
@@ -44,6 +44,9 @@ Never resubmit a rejected company, under any spelling.
 
 ## Scope
 Never widen the contract yourself, and never submit a company you believe fails it. If evidence shows the contract itself blocks the goal (say 6 of 8 rejections are \`size\`, just over the ceiling, after you already tried smaller-firm phrasing), call \`request_scope_change\` with one field, the reason, and the rejection counts. If declined, keep working within the contract or finish.
+
+## Who to reach
+When the first message lists approved buyer roles, call \`find_contacts\` once for each accepted lead while the budget allows, in a later turn than its \`submit_lead\`; batch several leads in one turn, alongside other work. Code finds and checks the people. Never name, guess or add a person yourself.
 
 ## Finishing
 Call \`finish\` when you reach the target, or when the remaining candidates look poor and more searching is unlikely to pay off. While work remains, every turn must call at least one tool; a reply with only text ends the run. If you finish short, include a handback: how many you found, the main reasons candidates were turned down with counts, and at most 2 concrete plan changes ("allow up to 2,000 employees", "look back 6 months instead of 3"). The handback must use the structured object from the tool schema (never text), with real counts from your lookups and rejections, including companies you screened out at lookup. If most rejections are \`no_enrichment\`, \`entity_mismatch\` or lookup misses, say candidates couldn't be verified from public sources and suggest no plan change (field \`none\`), not a wider size or recency. The harness also stops the run on budget, turns, time, or several turns without progress, so do useful work early.
@@ -139,6 +142,14 @@ export function firstUserMessage(contract: Contract, opts: { today?: string } = 
       : []),
     `- Excluded companies: ${list(contract.excludeNames, "none")}.`,
     `- Excluded sites (already filtered out of searches): ${list(contract.excludeDomains, "none")}.`,
+    ...(contract.buyerRoles && contract.buyerRoles.length > 0
+      ? [
+          "",
+          "## Who to reach",
+          `- Approved buyer roles: ${contract.buyerRoles.join("; ")}.`,
+          "- After a lead is accepted, `find_contacts` looks for up to 3 people in these roles at it (about $0.03 per lead).",
+        ]
+      : []),
     "",
     "## Seed query ideas from planning (optional; write your own)",
     ...contract.signalQueries.map((q) => `- ${q}`),
