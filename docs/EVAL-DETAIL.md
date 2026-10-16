@@ -213,3 +213,91 @@ Companies with zero contacts: Hollingsworth Logistics. Companies with only infer
 **Judge, one contact.** The judge asks "is <name> currently <title> at <company>?" with web_search (max 3) and web_fetch (max 2), may reason first, and its verdict is the LAST JSON block of the reply (FAILURES #8). It never sees the tier. Each verdict records cost, searches, fetches, `judgedAt` and the masked raw reply. Run `--tier verified --limit 1`: Karim Fofana, "Chief Operating Officer", Capacity LLC (tier verified) -> `current: yes`, source https://www.capacityllc.com/the-capacity-difference/team/ (company team page; press page and ZoomInfo agree), cost $0.1447 (2 searches, 0 fetches). Verdict: `eval/results/contact-eval-2026-10-16/contacts-v1-2026-10-16T12-52-10-257Z.jsonl`. Nothing else was judged.
 
 **Projected judge cost** (one measured call, $0.1447): all 45 verified contacts about $6.51; all 72 contacts about $10.42. One call is a thin sample (it used no fetch and 2 of 3 searches), so treat as +/-40%.
+
+## Smallest model per job (2026-10-16)
+
+Question: which model is the smallest that does each job well enough? Measured where it was cheap to measure, and marked "not evaluated" where it was not. Defaults are **unchanged** (Opus 5.5 everywhere) until a 3-rep confirmation. Every number below comes from the file named next to it.
+
+### Agent loop: Sonnet 5.5 vs Opus 5.5 vs Kimi K2.6
+
+Set `kimi-vs-sonnet-2026-10-16` (S1 and S2, arms C_agent_sonnet and D_agent_kimi, **n = 1 per cell**, $1.00 cap; report `eval/results/kimi-vs-sonnet-2026-10-16/report.md`, cells `.../{S1,S2}/{C_agent_sonnet,D_agent_kimi}/1/run.json`). The 20 new leads were judged blind by the Opus judge on 2026-10-16 (verdicts in `eval/truth/{S1,S2}/*.json` with `judgedAt` after 14:00Z).
+
+| Scenario | Model | Source | n | Leads | Good | Precision | $/good | p50 ms | Spend (Exa + Claude) | Stop |
+|---|---|---|---|---|---|---|---|---|---|---|
+| S1 | Sonnet 5.5 | kimi-vs-sonnet | 1 | 8 | 7 | 0.88 | $0.126 | 212,883 | $0.881 ($0.621 + $0.260) | budget |
+| S1 | Kimi K2.6 | kimi-vs-sonnet | 1 | 4 | 3 | 0.75 | $0.186 | 374,886 | $0.559 ($0.427 + $0.132) | max_active_ms |
+| S1 | Opus 5.5 | pilot-2026-10-12 | 3 | 7 to 10 | 7.33 mean (9, 7, 6) | 0.88 | $0.118 | 132,147 | $0.81 to $0.85 per rep | target / budget / finish |
+| S1 | Opus 5.5 | live-quotes-2026-10-14 | 2 | 4, 6 | 4.5 mean (4, 5) | 0.92 | $0.194 | 275,128 | $0.85 to $0.87 per rep | finish, finish |
+| S2 | Sonnet 5.5 | kimi-vs-sonnet | 1 | **10 of 10** | **9** | 0.90 | $0.068 | 157,569 | $0.609 ($0.454 + $0.155) | target_leads |
+| S2 | Kimi K2.6 | kimi-vs-sonnet | 1 | 6 | 5 | 0.83 | $0.122 | 386,361 | $0.610 ($0.486 + $0.124) | max_active_ms |
+| S2 | Opus 5.5 | pilot-2026-10-12 | 3 | 10, 10, 10 | 8.00 mean (8, 8, 8) | 0.80 | $0.090 | 102,122 | $0.52 to $0.85 per rep | target_leads x3 |
+| S2 | Opus 5.5 | live-quotes-2026-10-14 | 2 | 0, 3 | 1.5 mean (0, 3) | 0.50 mean (rep 2: 1.00) | n/a (rep 1 had 0 good) | 176,536 | $0.57, $0.82 | finish, finish |
+
+Opus rows are medians (p50) and means from `eval/results/pilot-2026-10-12/report.md` and `eval/results/live-quotes-2026-10-14/report.md`; Opus leads counts are from the README's per-rep tables (pilot) and the live-quotes table. Memory-eval S1 first runs on Opus (set `memory-eval-2026-10-15b`, runs A and B'): 3 good of 7 ($0.293/good) and 6 of 6 ($0.141/good).
+
+**What the cells say.**
+
+- **Sonnet is at least as good as Opus on these two scenarios, at the same or lower cost.** S2: 10 leads, 9 good, stopped on `target_leads` at $0.61 and 157 s. S1: 8 leads, 7 good, stopped on the budget guard ($0.88 of the $1.00 cap). Both are inside the pilot Opus range (S1 9 / 7 / 6 good, S2 8 / 8 / 8) and above the post-gate Opus runs (S1 4 and 5, S2 0 and 3). **That comparison is confounded:** the pilot Opus runs predate the evidence-required gates, the live-quotes Opus runs ran under them (one rep before the quote-matcher fix), and the Sonnet runs ran under the final gates. n = 1 per Sonnet cell, so a single cell does not show Sonnet beats Opus; it shows Sonnet is not obviously worse.
+- **Kimi hit the 6-minute wall (`max_active_ms`) in both cells.** It delivered 4 and 6 leads against Sonnet's 8 and 10. Its model calls are slow: median 14.5 s (S1) and 21.7 s (S2) per call against Sonnet's 4.2 s and 4.0 s (`latencyMs` of `model_call` events in each cell's `events.jsonl`). Total model time was 253 s and 278 s of the 375 s and 386 s runs. So Kimi was **penalised by latency, not shown to be a worse reasoner**: its precision (0.75, 0.83) rests on 4 and 6 leads and cannot be told from Sonnet's.
+- **Neither Kimi cell passed.** Both fail the good-lead bar (3 and 5 good). S1 also failed the code grader `cost_reconciles` (`report.json`); the cause was not investigated (Kimi has no `count_tokens`, so its context sizes are estimated at 4 characters per token, and its cache-write price is an assumption in `docs/RESEARCH-kimi.md` §1; either could be the reason, neither is shown). S2 had a model call that ended in `stop_reason: max_tokens` (K2.6's thinking counts against the 8,000-token turn cap, the risk named in `docs/RESEARCH-kimi.md` §2).
+- **Kimi's Claude-side cost is lower, its total is not.** Claude-side spend was $0.132 and $0.124 against Sonnet's $0.260 and $0.155, but Exa spend was similar, so spend per good lead was higher for Kimi ($0.186 and $0.122 against $0.126 and $0.068) because it delivered fewer leads for the same Exa bill.
+- **Kimi smoke run (not judged):** `eval/recordings/kimi-smoke-2026-10-16/agent/` (ICP 1, `kimi-k2.6`), 13 turns, 14 model calls, $0.655 ($0.492 + $0.163), `stopReason: max_active_ms`. `events.jsonl` has 8 `submit_verdict` events with `code: accepted` and 1 `quote_not_in_page`. The commit message for the recording says "2 leads"; the file says 8 accepted. Use the file.
+- Judge cost for the 20 new leads: $6.7566 (`costDollars` summed over the 20 verdict files), $0.34 per lead.
+
+**Recommendation: agent loop to Sonnet, pending a 3-rep confirmation.** The evidence is one cell per scenario; it is enough to say Sonnet is worth confirming, not enough to switch (reversible, so the cost of waiting is low; a wrong switch that quietly lowers precision on a 98% product bar is not). Kimi is not recommended on this evidence: it does not finish inside the 6-minute limit at the account tier used, and the cost advantage disappears per good lead. Whether Kimi's slowness is the model or the Moonshot tier (Tier0 is 3 RPM, concurrency 1 per `docs/RESEARCH-kimi.md` §1) is **unknown**: the account's tier was not checked.
+
+### Offline lead judge (web_search + web_fetch)
+
+**Not re-evaluated; stays Opus 5.5.** The planned Kimi agreement check (`npm run eval:judge -- --set live-quotes-2026-10-14 --scenario S1 --model kimi --limit 3`, `docs/RESEARCH-kimi.md` §4c) **was not run**: no `judge-agreement-kimi.json` exists under `eval/results/`. No Sonnet judge comparison exists either (DECISIONS #14 still stands: Sonnet judge was an alternative considered, not measured). The judge is the ground truth for every number in this file, so it is the last job to downgrade.
+
+### Online evidence-only judges (`judge_q1..q3`, 10 labelled items each)
+
+Calibration against the human labels in the `judge-calibration/*` Langfuse datasets (10 items per question, 30 total), all four models answering from the same lead evidence, no browsing. Files: `eval/results/calibration/2026-10-16/judge_q{1,2,3}.evidence-{kimi-k2.6,claude-sonnet-5-5}.json` and `judge_q{1,2,3}.json` (model field `jev-1.13.0`).
+
+| Model | Q1 | Q2 | Q3 | Cost for the 30 items | Source |
+|---|---|---|---|---|---|
+| Opus 5.5 | 7/10 | 8/10 | 8/10 | $0.81 | commit messages `bfc452d` and `ccf6980` only |
+| Sonnet 5.5 | 7/10 | 8/10 | 8/10 | $0.39 ($0.135 + $0.112 + $0.140) | `.evidence-claude-sonnet-5-5.json` |
+| Kimi K2.6 | 7/10 | 8/10 | 9/10 | $0.18 ($0.075 + $0.039 + $0.068) | `.evidence-kimi-k2.6.json` |
+| Jev 1.13.0 | 6/10 | 8/10 | 8/10 | $0.002 ($0.00062 + $0.00062 + $0.00066) | `judge_q{1,2,3}.json` |
+
+The Opus round's per-item files are **not on disk**: the Jev run wrote the same `judge_q{1,2,3}.json` paths on the same date and overwrote them (git history has them only as the Jev versions). The Opus scores and cost are quoted from the commit messages. 10 items per question means one item is 10 points; the differences between rows (one item) are noise.
+
+**Where they miss (same 10 items every time).**
+
+- Hollingsworth Logistics is wrong for **every model on every question** where it appears (Q1, Q2, Q3), always as `cannot_verify` where the human label is `yes`. The human label came from fetching the page (SPOT-CHECKS #4); an evidence-only judge cannot. That is a safe-direction miss, and a ceiling on all four.
+- Sybill Q1 (`no`): Kimi and Sonnet say `cannot_verify`; Jev says `cannot_verify`. Miter Q1 (`no`): Sonnet `cannot_verify`, Kimi produced no verdict (`invalid`: the turn hit `max_tokens`; 1 of 30 Kimi items), Jev said `yes` at confidence 0.30.
+- Unsafe-direction misses are rarer: Jev Q1 Miter `yes` (truth `no`, confidence 0.30), Jev Q2 Capacity LLC `yes` (truth `cannot_verify`, confidence 0.97), Jev and Sonnet Q3 Miter `no` (truth `yes`, Jev confidence 0.72). Kimi and Sonnet also say `yes` on Q2 Capacity LLC.
+
+**Jev confidence threshold.** Jev reports a `confidence` per answer (concentration of its probabilities, not correctness; `docs/RESEARCH-jev.md`). On these 30 items a 0.4 floor drops 2 items, both wrong (Q1 Miter 0.30, Q1 Away Team 0.33), and no right answer. It keeps 8 of 10 Q1 answers, 10 of 10 Q2 and 10 of 10 Q3. **It does not remove the confident misses**: Hollingsworth is wrong at 0.98 (Q1, Q2) and 0.77 (Q3), Capacity Q2 at 0.97. A threshold is a filter on uncertainty, not a guarantee of correctness. Tuned on the set it is evaluated on, with n = 30, so 0.4 is a starting point, not a calibrated value.
+
+**Recommendation: online judges to Jev with a 0.4 confidence threshold** (items below it become `cannot_verify`, i.e. not auto-accepted). Accuracy is within one item of Opus on each question at about 1/400 of the cost ($0.002 against $0.81). Kimi (7/8/9, $0.18) is not needed if Jev holds; Sonnet is the fallback if Jev is unavailable. Risk: Jev is early access, retention terms and rate limits are unpublished, and its "jaggedness" page (known weak spots) has not been read.
+
+### Contact judge ("is this person currently this title at this company")
+
+| Judge | n | Verdicts | Cost | Notes |
+|---|---|---|---|---|
+| Opus 5.5 + web_search/web_fetch | 1 | Capacity LLC / Karim Fofana: yes | $0.1447 | `eval/results/contact-eval-2026-10-16/contacts-v1-2026-10-16T12-52-10-257Z.jsonl` (2 searches, 0 fetches) |
+| Jev 1.13.0, evidence only | 45 | 36 yes, 9 cannot_verify | $0.0033 (about $0.00007 each) | `eval/results/contacts/jev-contacts-2026-10-16T13-50-12-202Z.jsonl`; a `--limit 1` first call is in `...T13-49-30-400Z.jsonl` |
+
+Agreement with Opus: **1 of 1** (Capacity LLC: both yes; Jev `pFound` 0.83 and 0.84 across the two runs). That is the only overlap; the other 44 have **no second opinion and no human label**, so the 36 yes are unverified. Jev's `pFound` separates cleanly in this run: the 9 `cannot_verify` span 0.42 to 0.73, the 36 yes span 0.81 to 0.97. That is a feature of this set, not a calibrated threshold (the 0.8 / 0.2 values in the adapter are the docs' placeholders). A Jev yes means "this page text shows the person in the role", narrower than the Opus judge, which searches the web. Cost at 45 contacts: Jev $0.0033 against about $6.51 projected for Opus (`docs/EVAL-DETAIL.md`, Contact eval).
+
+**Recommendation: contact judge to Jev evidence-only, with Opus spot checks** on a sample of Jev yes verdicts and all cannot_verify that a user would otherwise see. Jev cannot find a changed role; it only reads what the gate already fetched.
+
+### Planner
+
+**Not evaluated.** No planner run used Sonnet or Kimi. The planner stays on its current model. (It generates structured plans, so Jev cannot do it.)
+
+### Spend ledger for 2026-10-16 model evals
+
+| Item | Dollars | Source |
+|---|---|---|
+| 4 agent cells (Sonnet S1 + S2, Kimi S1 + S2) | $2.66 | `run.json` spend.total: 0.881 + 0.559 + 0.609 + 0.610 |
+| Opus judging of the 20 new leads | $6.76 | `eval/truth/*/*.json` `costDollars` where `judgedAt` is after 14:00Z (20 files, $6.7566) |
+| Evidence-judge calibrations (Sonnet $0.387, Kimi $0.181) | $0.57 | `calibration/2026-10-16/*.evidence-*.json` |
+| Jev (calibration $0.0019 + Sybill single item $0.0001 + 45 contacts $0.0033) | $0.005 | `calibration/2026-10-16/judge_q*.json`, `contacts/jev-contacts-*.jsonl` |
+| Kimi smoke run | $0.66 | `eval/recordings/kimi-smoke-2026-10-16/agent/state.json` spend.total $0.655 |
+| Accidental Kimi calibration round (killed after about 2 minutes) | about $0.21 | upper bound from `docs/RESEARCH-kimi.md`; the platform.kimi.ai usage page was not checked |
+| **Total** | **about $10.85** | sum of the unrounded values |
+
+Not in the list above: the Opus contact verdict ($0.1447, 12:51Z) and the earlier Opus evidence round ($0.81, date not recorded).

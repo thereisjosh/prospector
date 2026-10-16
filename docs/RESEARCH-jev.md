@@ -1,6 +1,6 @@
 # Jev (TypeSafe AI) for Prospector's classification jobs
 
-Researched 2026-10-16 from docs.typesafe.ai (WebFetch summaries of the pages below; where a page was paraphrased rather than quoted, the facts are as the fetch tool reported them). No API key exists yet: nothing here has been run against the live API. Everything in the adapter (`src/judges/jev.ts`) is tested against fakes that follow the documented schema, so the first live call is the real verification of the schema.
+Researched 2026-10-16 from docs.typesafe.ai (WebFetch summaries of the pages below; where a page was paraphrased rather than quoted, the facts are as the fetch tool reported them). No API key existed when this was written (live runs happened later the same day, see Results at the end): at the time nothing here had been run against the live API. Everything in the adapter (`src/judges/jev.ts`) is tested against fakes that follow the documented schema, so the first live call is the real verification of the schema.
 
 ## Verdict
 
@@ -109,3 +109,22 @@ Jev bills input tokens only, $42 / 1e9.
 2. Latency and 429 behaviour at the default rate limit.
 3. Calibration against the human labels, per category, before any gate or routing uses a Jev verdict; thresholds for confidence-gating (cannot_verify when confidence is low) are untuned.
 4. Early-access stability: the model alias moves; we pin `jev-1.13.0`.
+
+## Results (2026-10-16, live API, `jev-1.13.0`)
+
+Full tables: `docs/EVAL-DETAIL.md` "Smallest model per job (2026-10-16)".
+
+- **Schema held:** the adapter's strict response validation did not throw on the live calls (calibration and contacts completed with 0 errors in `eval/results/calibration/2026-10-16/judge_q*.json`).
+- **Calibration, 10 labelled items per question** (`judge_q1.json`, `judge_q2.json`, `judge_q3.json`): Q1 6/10, Q2 8/10, Q3 8/10, total $0.00191 ($0.000624 + $0.000624 + $0.000662); a one-item check on Sybill cost $0.00007. For comparison: Opus on the same evidence 7/8/8 for $0.81 (commit messages only; the per-item file was overwritten by this run), Sonnet 7/8/8 $0.39, Kimi 7/8/9 $0.18.
+- **Confidence behaved as the docs warn.** A 0.4 floor drops 2 of 30 answers (Q1 Miter 0.30, Q1 Away Team 0.33), both wrong. But Jev was wrong at 0.98 on Hollingsworth Logistics (Q1 and Q2, `cannot_verify` where the human label is `yes`), 0.97 on Capacity LLC Q2 (`yes`, label `cannot_verify`) and 0.72 on Miter Q3 (`no`, label `yes`). Concentration is not correctness. The Hollingsworth miss is shared by Opus-class models too: the label needed a page fetch the evidence did not contain.
+- **Contacts:** 45 verified contacts, one Noul each, $0.003265 total (`eval/results/contacts/jev-contacts-2026-10-16T13-50-12-202Z.jsonl`): 36 yes, 9 `cannot_verify`. `pFound` for the 9 spans 0.42 to 0.73; for the 36 yes, 0.81 to 0.97, a clean split on this set. Agreement with the Opus contact judge: 1 of 1 (Capacity LLC / Karim Fofana, `contacts-v1-2026-10-16T12-52-10-257Z.jsonl`, $0.1447). The other 44 have no second opinion and no human label.
+- The projected cost held: about $0.005 for 45 contacts (actual $0.0033), about $0.004 to $0.012 for the round (actual $0.0019).
+
+### Open items
+
+1. **Jaggedness page unread:** `/model-jaggedness/jev-1.13.md` (known weak spots) has still not been read. Read it before any gate or routing uses a Jev verdict.
+2. **Latency and 429 behaviour** were not recorded in the result files; the run files carry cost only. Measure on the next live run.
+3. **Thresholds untuned:** 0.4 for lead judges is chosen on 30 items; the contact judge's 0.8 / 0.2 are the docs' placeholders. A labelled contact set (the 45 verified contacts have none) is needed to say how many of the 36 yes are right.
+4. **Early-access terms, ZDR, rate limits and the DPA retention period** are still unread or unpublished.
+5. **Not built:** job-listing detection and handback-reason classification (section "Job mapping").
+

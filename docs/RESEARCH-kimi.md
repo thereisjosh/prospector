@@ -1,6 +1,6 @@
 # Kimi K2.6 vs Sonnet 5.5: research, provider design, and how to run it
 
-**Status (2026-10-16):** the code is built and tested against fakes only. The paid runs below have not been done. **One exception:** at 21:46 a `calibrate-evidence-judge --model kimi --run --max-dollars 1` command, meant to check that the script refuses to run without a key, actually started a paid round. `.env` already had a non-empty `KIMI_API_KEY`, which was not checked first. It was killed after about 2 minutes, before the first judge's 10 items finished. No report was written. The worst case is 10 kimi-k2.6 calls, about **$0.21 or less**. The real figure is on the platform.kimi.ai usage page.
+**Status (2026-10-16, written before the runs; the paid runs were done later the same day, see Results at the end):** the code is built and tested against fakes only. The paid runs below have not been done. **One exception:** at 21:46 a `calibrate-evidence-judge --model kimi --run --max-dollars 1` command, meant to check that the script refuses to run without a key, actually started a paid round. `.env` already had a non-empty `KIMI_API_KEY`, which was not checked first. It was killed after about 2 minutes, before the first judge's 10 items finished. No report was written. The worst case is 10 kimi-k2.6 calls, about **$0.21 or less**. The real figure is on the platform.kimi.ai usage page.
 
 Sources were read on 2026-10-16. `platform.moonshot.ai/docs/*` now returns a 301 to `platform.kimi.ai/docs/*`.
 
@@ -123,3 +123,22 @@ npx tsx eval/online/calibrate-evidence-judge.ts --model sonnet --run --max-dolla
 The upper-bound estimates are $0.63 (kimi, with a 4,000-token output budget per verdict) and $0.62 (sonnet). Expected actual cost is about $0.15–0.30 each. Compare with the Opus rounds in `eval/results/calibration/*/judge_q*.json`.
 
 **Expected total:** (a) ≤ $1, (b) ≤ $4 in cells plus Opus judging per the dry-run projection, (c) ≈ $0.10, (d) ≈ $0.6. The total stays at or under $6 only if (b)'s judging is small; otherwise limit (b) to S1.
+
+## Results (2026-10-16, later the same day)
+
+Full tables: `docs/EVAL-DETAIL.md` "Smallest model per job (2026-10-16)".
+
+- **(a) Smoke run done.** `eval/recordings/kimi-smoke-2026-10-16/agent/`: `kimi-k2.6` accepted on `/anthropic` (no 400), 13 turns, 14 model calls, $0.655, stopped on `max_active_ms`. 8 `submit_verdict` accepted, 1 `quote_not_in_page`. One model call ended in `stop_reason: max_tokens` (risk 6 in section 2 materialised, and the run continued). The recording's commit message says 2 leads; the events file says 8 accepted.
+- **(b) Comparison done, n = 1 per cell** (`eval/results/kimi-vs-sonnet-2026-10-16/report.md`). Kimi S1: 4 leads, 3 good, $0.186/good, 374,886 ms, `max_active_ms`, and it failed the code grader `cost_reconciles` (cause not investigated). Kimi S2: 6 leads, 5 good, $0.122/good, 386,361 ms, `max_active_ms`. Sonnet S1: 8 leads, 7 good, $0.126/good, 212,883 ms. Sonnet S2: 10 leads, 9 good, $0.068/good, 157,569 ms, target reached. **Kimi hit the 6-minute wall both times.** Median model-call latency was 14.5 s (S1) and 21.7 s (S2) for Kimi, against 4.2 s and 4.0 s for Sonnet (`latencyMs` in `events.jsonl`). Kimi's Claude-side cost was lower ($0.132, $0.124 against $0.260, $0.155) but cost per good lead was higher because it delivered fewer leads.
+- **(c) Kimi as offline judge: not run.** No `judge-agreement-kimi.json` exists. The offline judge stays Opus.
+- **(d) Evidence-only calibration done** (`eval/results/calibration/2026-10-16/judge_q*.evidence-*.json`): Kimi 7/8/9 of 10 for $0.181 ($0.075, $0.039, $0.068); Sonnet 7/8/8 for $0.387. Kimi had 1 `invalid` of 30 (Q1 Miter, `max_tokens` before a verdict). It missed Hollingsworth Logistics on all three questions, as did Sonnet and Jev.
+- **Accidental paid round:** the earlier round started by a refusal-check command is the "about $0.21 or less" in the Status paragraph. Not reconciled against the platform.kimi.ai usage page.
+
+### Open items
+
+1. **Moonshot tier is unknown.** The cells' latency may be the account's tier rather than the model: Tier0 is 3 RPM and concurrency 1 (section 1). Check the account's recharge level before drawing any conclusion about Kimi's speed. Whether the 14 to 22 s per call is the model, the endpoint or the tier was not tested.
+2. **`$web_search` deprecation, 2026-10-20.** The judge path uses Web Search Pro, not `$web_search`, so it is unaffected; nothing in the repo depends on the builtin.
+3. **`cost_reconciles` failure on Kimi S1:** root cause not found (candidates: 4-chars-per-token context estimate, the assumed cache-write price). Needed before any Kimi cost number is relied on.
+4. **`max_tokens` stops:** K2.6 thinking counts against the 8,000-token turn cap; seen in the smoke run and in S2 (and one calibration item). Whether to raise the cap for Kimi is undecided.
+5. Kimi has not been tried as planner, offline judge or contact judge.
+
