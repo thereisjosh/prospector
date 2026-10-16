@@ -350,11 +350,12 @@ describe("offline judge --model kimi", () => {
     expect(page.title).toBe("T");
     expect(page.text).toContain("Hello & welcome");
     expect(page.text).not.toMatch(/bad\(\)|x\{\}|<p>/);
-    const ok = await fetchPageText("https://a.example/p", (async () => new Response("<html><body>Acme</body></html>", { status: 200, headers: { "content-type": "text/html" } })) as never);
+    const lookup = async () => [{ address: "93.184.216.34", family: 4 }];
+    const ok = await fetchPageText("https://a.example/p", { lookup, fetchImpl: (async () => new Response("<html><body>Acme</body></html>", { status: 200, headers: { "content-type": "text/html" } })) as never });
     expect(ok).toMatchObject({ ok: true, text: "Acme" });
-    const notFound = await fetchPageText("https://a.example/p", (async () => new Response("", { status: 404 })) as never);
+    const notFound = await fetchPageText("https://a.example/p", { lookup, fetchImpl: (async () => new Response("", { status: 404 })) as never });
     expect(notFound).toEqual({ ok: false, url: "https://a.example/p", error: "http_404" });
-    expect(await fetchPageText("http://127.0.0.1/admin", vi.fn() as never)).toMatchObject({ ok: false, error: "blocked_host" });
+    expect(await fetchPageText("http://127.0.0.1/admin", { fetchImpl: vi.fn() as never })).toMatchObject({ ok: false, error: "blocked_host" });
   });
 });
 

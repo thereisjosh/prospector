@@ -1,5 +1,6 @@
 import { ENTERPRISE_DENYLIST } from "./config";
 import type { SearchPlan } from "./plan";
+import { safeFetch, type SafeFetchOptions } from "./net/safe-fetch";
 
 export function normalizeName(value: string): string {
   return value
@@ -69,12 +70,11 @@ export function companyFitChecks(args: {
   return { size_in_range: sizeInRange, required_gates_pass: requiredGatesPass };
 }
 
-export async function urlResolves(url: string): Promise<boolean> {
+export async function urlResolves(url: string, options: SafeFetchOptions = {}): Promise<boolean> {
   try {
-    const head = await fetch(url, { method: "HEAD", redirect: "follow" });
+    const head = await safeFetch(url, { method: "HEAD" }, options);
     if (head.ok) return true;
-    const get = await fetch(url, { method: "GET", redirect: "follow" });
-    return get.ok;
+    return (await safeFetch(url, { method: "GET" }, { ...options, allowedContentTypes: null })).ok;
   } catch {
     return false;
   }

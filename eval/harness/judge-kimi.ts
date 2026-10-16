@@ -4,7 +4,7 @@
  * Anthropic server tools; here the same two names are CLIENT tools run by this file:
  *
  *   web_search -> Moonshot Web Search Pro (src/judges/moonshot-search.ts), at most 3 calls
- *   web_fetch  -> our own plain fetch + HTML-to-text, at most 2 pages, ~6,000 tokens each (24,000 chars)
+ *   web_fetch  -> our own SSRF-guarded fetch (src/net/safe-fetch.ts) + HTML-to-text, at most 2 pages, ~6,000 tokens each (24,000 chars)
  *
  * Calls past a cap get an is_error tool_result ("limit reached"), never a silent skip. The model sees the
  * same rubric and instruction text as the Opus judge (judge.ts userPrompt).
@@ -12,6 +12,7 @@
 import type { Message, ToolUseBlock } from "@anthropic-ai/sdk/resources/messages";
 import { claudeCostDollars, type AgentModel } from "../../src/agent/config";
 import type { ModelClient } from "../../src/agent/providers";
+import { safeFetch, SafeFetchError, type SafeFetchOptions } from "../../src/net/safe-fetch";
 import { MOONSHOT_SEARCH_DOLLARS_PER_CALL, type MoonshotSearchResult } from "../../src/judges/moonshot-search";
 
 export const KIMI_JUDGE_MAX_SEARCHES = 3;
@@ -53,36 +54,20 @@ export function htmlToText(html: string): { title: string; text: string } {
   return { title, text };
 }
 
-function blockedHost(url: URL): boolean {
-  const h = url.hostname.toLowerCase();
-  return h === "localhost" || h.endsWith(".local") || h === "0.0.0.0" || h === "[::1]" || /^(127|10|169\.254|192\.168)\./.test(h) || /^172\.(1[6-9]|2\d|3[01])\./.test(h);
-}
-
-/** Plain GET of a public http(s) page; HTML reduced to text and capped. Errors are returned, not thrown. */
-export async function fetchPageText(rawUrl: string, fetchImpl: typeof fetch = fetch): Promise<PageFetchResult> {
-  let url: URL;
+/** Plain GET of a public http(s) page via safeFetch (SSRF-guarded); HTML reduced to text and capped. Errors are returned, not thrown. */
+export async function fetchPageText(rawUrl: string, options: SafeFetchOptions = {}): Promise<PageFetchResult> {
   try {
-    url = new URL(rawUrl);
-  } catch {
-    return { ok: false, url: rawUrl, error: "invalid_url" };
-  }
-  if (url.protocol !== "http:" && url.protocol !== "https:") return { ok: false, url: rawUrl, error: "invalid_url" };
-  if (blockedHost(url)) return { ok: false, url: rawUrl, error: "blocked_host" };
-  try {
-    const res = await fetchImpl(url.toString(), {
-      redirect: "follow",
-      headers: { "User-Agent": "Mozilla/5.0 (compatible; prospector-eval-judge/1.0)", Accept: "text/html,text/plain;q=0.9,*/*;q=0.5" },
-      signal: AbortSignal.timeout(20_000),
-    });
+    const res = await safeFetch(rawUrl, { headers: { "User-Agent": "Mozilla/5.0 (compatible; prospector-eval-judge/1.0)", Accept: "text/html,text/plain;q=0.9" } }, options);
     if (!res.ok) return { ok: false, url: rawUrl, error: `http_${res.status}` };
-    const type = res.headers.get("content-type") ?? "";
-    if (type && !/text\/|html|xml|json/i.test(type)) return { ok: false, url: rawUrl, error: "unsupported_content_type" };
-    const body = await res.text();
-    const { title, text } = /html|xml/i.test(type) || /<html|<body/i.test(body.slice(0, 2000)) ? htmlToText(body) : { title: "", text: body.trim() };
+    const body = res.text;
+    const { title, text } = /<html|<body/i.test(body.slice(0, 2000)) ? htmlToText(body) : { title: "", text: body.trim() };
     if (!text) return { ok: false, url: rawUrl, error: "empty_page" };
     return { ok: true, url: rawUrl, title, text: text.slice(0, FETCH_MAX_CHARS) };
   } catch (error) {
-    return { ok: false, url: rawUrl, error: error instanceof Error && error.name === "TimeoutError" ? "timeout" : "fetch_failed" };
+    if (!(error instanceof SafeFetchError)) return { ok: false, url: rawUrl, error: "fetch_failed" };
+    const r = error.reason;
+    const code = r === "blocked_scheme" || r === "blocked_credentials" || r === "blocked_port" || r === "blocked_address" ? "blocked_host" : r === "bad_content_type" ? "unsupported_content_type" : r === "network" ? "fetch_failed" : r;
+    return { ok: false, url: rawUrl, error: code };
   }
 }
 
