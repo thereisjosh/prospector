@@ -1,0 +1,213 @@
+{
+  "request": {
+    "query": "Route2 Logistics",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "b9702d9fa37ab6fc87558f3adaf4d1fd",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/v393t5c0yg7",
+        "title": "Route 2",
+        "url": "https://r2l.co.uk/",
+        "text": "# Route 2\n\nRoute 2 is a Transportation, Logistics, Supply Chain and Storage company. Route2 Logistics is a specialist haulage and pallet distribution company providing pallet deliveries across Scotland, England, and Ireland. Route 2 employs 9 people (-18.2% YoY, -2 people), founded in 2024. Headquartered in Dunfermline, Scotland, United Kingdom.\n\n## About\n\nRoute2 Logistics (R2L) is a specialist haulage and pallet distribution company providing pallet deliveries across Scotland, England and Ireland.\n\nWith Depots in Dunfermline, Telford, Milton Keynes, Maltby, and Bristol we are strategically positioned to deal with your logistic requirements.\n\nBuilt on the award-winning logistics expertise of Cress Co, Route2 Logistics delivers a trusted, reliable distribution service designed to move your goods safely, efficiently and on time.\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Privately held\n- Headquarters: Dunfermline, United Kingdom\n- Founded Year: 2024\n- Homepage: r2l.co.uk\n- Aliases: route 2\n- LinkedIn: linkedin.com/company/route2-supply\n- Linkedin Followers: 343\n- Emails: info@r2l.co.uk\n- Phone: 01383347900, 1383 3479\n\n## Workforce\n- Employees: 9\n- Company Size: 11-50 employees\n  - Yearly Growth: -18.2%\n- Breakdown:\n  - By Country: United Kingdom: 2 (22%)\n  - By Department: Operations: 1 (11%), Sales: 1 (11%)\n  - By Seniority: Manager: 2 (22%)\n- Talent Sources: TRADEBE (1), Royal Bank of Scotland Business (1), Keedwell Scotland (1)\n- Alumni Go To: Cress Co (1), Adamsons Drinks (1)\n\n## Web presence\n\n- Web traffic:\n  - Monthly visits: 1,231\n  - Global rank: 12,455,908\n  - Bounce rate: 44.0%\n  - Pages per visit: 1.5\n  - Average visit duration: 0s\n\n## Categories\n\ncontract logistics, england, full loads, groupage, haulier, inter scottish distribution, logistics, pallet distribution, part loads, same day, scotland, specialist, trunking\n\n## Recent News\n- [2026-08-14] [Route2 Logistics officially opens new depot in Coatbridge - Daily Record](https://www.dailyrecord.co.uk/in-your-area/lanarkshire/route2-logistics-officially-opens-new-37549016)\n\n## Social\n\n### Linkedin\n\n- [2026-09-10 · 52 reactions, 2 comments] We went to our first ever Fife Chamber of Commerce Conference and Tradeshow today in order to meet and learn about other Fife businesses and tell them about us. Marc Batey and Nicki Daw were there...\n\n- [2026-09-07 · 47 reactions] We may have had a few “moments” filming the opening of our new Coatbridge depot… 😂 The ribbon was dropped. There was a high-vis wardrobe malfunction. And there were a few attempts at getting everyo...\n\n- [2026-08-13 · 48 reactions, 2 comments] The official opening of the Coatbridge depot happened yesterday, and was deliberately low-key, with the priority firmly on getting drivers on the road with customer deliveries - but we did feel we...\n\n- [2026-07-30 · 27 reactions, 2 comments] Great to be a part of this fleet rebranding project for Route 2! We supplied our client with this vibrant new set of lorry tension curtains, professionally printed using our state-of-the-art indust...\n\n- [2026-07-22 · 10 reactions, 4 comments] It's not all about the merchandise... ...but we do think we've got some pretty good merch at the moment! Our latest Route2 goodies have landed and, we're not going to lie, we're quite pleased with...\n\n- [2026-07-15 · 18 reactions] 📍 Where in Scotland have we been today? One of the best things about Route2 is that no two days are ever the same. Some days we're heading north. Some days we're crossing the Central Belt. Some day...\n\n- [2026-07-08 · 8 reactions] 🔎 Clues from the Depot This week's clue that the summer holidays are approaching... 🎲 A pallet of games. Anything to try to stop the kids from saying \"I'm bored!\" less than an hour into the summer...\n\n- [2026-06-30 · 16 reactions] 🔎 Clues from the Depot You don't always need a calendar to know what time of year it is. Sometimes all you need is a walk around our Dunfermline depot. This week's clues? - Garden furniture - An ic...\n\n- [2026-06-23 · 43 reactions, 4 comments] Ahead of our official opening, we snuck into our new Coatbridge depot to have a nose around, before the trucks returned from their busy day of deliveries. Here's a sneak preview. 🤫\n\n- [2026-06-11 · 22 reactions] ⚽ Football fever has arrived! ⚽ With Scotland back on the World Cup stage for the first time in 28 years, we're joining customers, suppliers and football fans across the country in getting behind t...\n\n- [2026-06-09 · 52 reactions, 2 comments] We are currently trialling an electric lorry from MAN Truck & Bus UK within our collection and delivery fleet, putting it through its paces to better understand its performance and capabilities in...\n\n- [2026-06-01 · 34 reactions, 1 comment] We popped down to Coatbridge – where things are really shaping up nicely as we gradually increase the number of postcodes we cover from there as we build up to full opening. We managed to chat to J...\n\n- [2026-05-12 · 27 reactions, 1 comment] Getting a depot ready is not just about space and vehicles. It is about flow. This week at Coatbridge we have been marking out pedestrian walkways and defining vehicle routes across the yard, separ...\n\n- [2026-05-07 · 18 reactions] Just another day in our paradise - building today’s inter-Scotland groupage load - carefully planned, securely packed, and ready for dispatch. This morning’s load was off to Fife and Falkirk!\n\n- [2026-05-05 · 54 reactions, 11 comments] As we revealed recently, we are opening a new depot in Coatbridge. We had a chat with Marc Batey, our Route2 Commercial Manager to find out what that actually means. 𝐖𝐡𝐲 𝐝𝐢𝐝 𝐲𝐨𝐮 𝐰𝐚𝐧𝐭 𝐚 𝐧𝐞𝐰 𝐝𝐞𝐩𝐨𝐭? D...\n\n- [2026-04-29 · 19 reactions] With the Scottish elections happening next Thursday, MCALLISTER LITHO GLASGOW & CO. LIMITED been busy printing election leaflets, including party manifesto summaries, and in turn we have been busy...\n\n- [2026-04-20 · 17 reactions] Not every delivery needs a full truck. And not every job fits into a standard network. That’s exactly why we built our InterScotland service the way we did. Groupage, part load, full load, daily ro...\n\n- [2026-04-15 · 33 reactions] If you are delivering across Scotland, you have probably had to choose between cost, speed, or flexibility. Route2 is built to remove that trade-off. Shared transport with our sister companies Cres...\n\n- [2026-04-13 · 32 reactions] 4 pallets of Print to Brechin 8 pallets of whisky to Wishaw 1 pallet of eggs to Elgin 2 pallets of Animal Feed to Oban 6 pallets of slate to Wick Just another day in Route2. Different loads. Differ...\n\n- [2026-04-10 · 55 reactions, 2 comments] Scotland is moving and so are we! From our established Dunfermline depot to deliveries happening across the country every day, Route2 is already a preferred distribution provider for numerous busin...\n\n## Locations\n- Headquarters: dunfermline, scotland, united kingdom (GB)\n- Offices: dunfermline, scotland ky11 8hn, united kingdom (GB)",
+        "summary": "{\"description\":\"Route2 Logistics is a specialist haulage and pallet distribution company providing pallet deliveries across Scotland, England and Ireland.\",\"employee_estimate\":9,\"employee_estimate_source\":\"Employees: 9\",\"hq\":\"Dunfermline, United Kingdom\",\"hq_quote\":\"Headquartered in Dunfermline, Scotland, United Kingdom.\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"Route2 Logistics is a specialist haulage and pallet distribution company providing pallet deliveries across Scotland, England and Ireland.\\nWith Depots in Dunfermline, Telford, Milton Keynes, Maltby, and Bristol we are strategically positioned to deal with your logistic requirements.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C560BAQE-32EK6eqb9g/company-logo_200_200/company-logo_200_200/0/1630606436634/route2_supply_logo?e=2147483647&v=beta&t=1J8LXXdoEszRzloinGhY0MccPr64kerzmGRb_7pdKgE",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/v393t5c0yg7",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Route 2",
+              "foundedYear": 2024,
+              "description": "Route2 Logistics (R2L) is a specialist haulage and pallet distribution company providing pallet deliveries across Scotland, England and Ireland.\n\nWith Depots in Dunfermline, Telford, Milton Keynes, Maltby, and Bristol we are strategically positioned to deal with your logistic requirements.\n\nBuilt on the award-winning logistics expertise of Cress Co, Route2 Logistics delivers a trusted, reliable distribution service designed to move your goods safely, efficiently and on time.",
+              "workforce": {
+                "total": 9
+              },
+              "headquarters": {
+                "address": "Queensferry View, Dunfermline, Scotland KY11 8HN, GB",
+                "city": "Dunfermline",
+                "postalCode": null,
+                "country": "United Kingdom"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 1231,
+                "countryRank": 1133465,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 461,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 1380,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 1231,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/w7jhtnwxqt0",
+        "title": "R2 Logistics",
+        "url": "https://r2logistics.com/",
+        "text": "# R2 Logistics\n\nR2 Logistics is a Transportation, Logistics, Supply Chain and Storage company. R2 Logistics is a reliable supply chain solutions provider of transportation and logistics services. They offer services such as ocean, intermodal, truckload, expedited & air, flatbed & specialized transportation, reverse logistics, technology, carriers, resources, and blog. R2 Logistics employs 164 people and has an annual revenue of $4M, founded in 2007. Headquartered in Dallas, Texas, United States, with an office in Jacksonville.\n\n## About\n\nFounded in 2007, R2 Logistics is a global provider of transportation services and logistics solutions. As a third-party logistics company, we provide access to thousands of transportation providers and have the capacity to resolve all your shipping needs. Backed by game-changing technology and our culture for Reliable Service and Relentless Passion, we’ve built a strong reputation as an industry leader.\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Privately held\n- Headquarters: Dallas, United States\n- Founded Year: 2007\n- Homepage: r2logistics.com\n- Aliases: R2 Logistics, Inc., r2 logistics\n- LinkedIn: linkedin.com/company/r2-logistics\n- Linkedin Followers: 16,581\n- Phone: 214-451-4671, 614-899-6350\n\n## Financials\n- Annual Revenue: USD 4,000,000\n\n## Workforce\n- Employees: 164\n- Company Size: 201-500 employees\n  - Monthly Growth: +0.6%\n- Key Executives:\n  - Colton Robertson: Director of Sales\n  - David Crowley: Vice President of Truckload Operations\n  - Jerry Gase: Executive VP\n  - John Hansen: Director Of LTL Operations\n  - John Hansen: Vice President of LTL Operations\n  - John Pavlick: Senior Vice President Operations\n  - John Pavlick: Vice President\n  - Katie Quinn: Chief Executive Officer\n  - Lauren Hicks: Director of LTL Sales & Business Development\n  - Zach Nadaud: Director of Procurement\n- Breakdown:\n  - By Country: United States: 99 (60%)\n  - By Department: Sales: 38 (23%), Operations: 20 (12%), Finance: 17 (10%), Customer Service: 14 (9%), General Management: 10 (6%), Hr: 3 (2%), Other Department: 2 (1%), Administrative: 1 (1%), Marketing: 1 (1%), Project Management: 1 (1%) (+1 more)\n  - By Seniority: Specialist: 65 (40%), Manager: 22 (13%), Other Management: 5 (3%), Director: 4 (2%), Vp: 4 (2%), Senior: 3 (2%), Clevel: 1 (1%)\n- Active job postings: 5\n- Salary ranges (20 of 67 roles):\n  - National Sales: median $171,160.6 per year\n  - National Accounts Manager: median $138,869.2 per year\n  - Sales Manager: median $129,779.05 per year\n  - Senior Account Executive: median $126,701.19 per year\n  - IP Project Manager: median $122,701.9 per year\n  - Financial Controller: median $113,094.03 per year\n  - Business Development Manager: median $108,225.18 per year\n  - IP Network Engineer: median $104,384.79 per year\n  - National Sales Representative: median $96,727.33 per year\n  - Consultant: Business Consultant: median $96,660.27 per year\n  - Logistics Broker: median $94,999.75 per year\n  - Operations Manager: median $93,097.4 per year\n  - Account Executive: median $92,100.61 per year\n  - Manager: median $90,514.97 per year\n  - Sales Representative: median $88,772.23 per year\n  - Senior EDI Analyst: median $87,851.2 per year\n  - Account Manager: median $85,519.5 per year\n  - Branch Manager: median $83,512.82 per year\n  - Transportation Sales: median $83,492.31 per year\n  - Freight Broker: median $81,932.91 per year\n- Talent Sources: C.H. Robinson (5), NFM (4), Florida East Coast Railway (4), Expeditors (4), Target (3), Lower (3), Coyote Logistics (3), Topgolf (2), TCF Bank (2), Baxter International Inc. (2)\n- Alumni Go To: M2 Logistics, Inc. (4), XPO (3), TRAFFIX (3), Shift Digital (3), Quality Freight Logistics (3), ProTrans (3), Hewlett Packard Enterprise (3), Fanatics (3), Consilium (3), McKesson (2)\n\n## Products & Technology\n- Tech Stack: google sheets, microsoft, microsoft power bi, oracle, oracle transportation management, power bi, saas transportation, sql, tableau, windows server, smc czarlite, microsoft office, microsoft dynamics, adobe, adobe acrobat, amp, impact, well, microsoft excel, microsoft word, dell, windows 10, c\n\n## Web presence\n\n- Twitter: twitter.com/r2_logistics\n- Facebook: facebook.com/r2logistics\n- Instagram: instagram.com/r2_logistics\n- YouTube: youtube.com/@r2logistics\n- Crunchbase: crunchbase.com/organization/r2-logistics\n- Web traffic:\n  - Monthly visits: 6,085\n  - Global rank: 2,922,147\n  - Bounce rate: 39.0%\n  - Pages per visit: 2.1\n  - Average visit duration: 21s\n\n## Reviews & Ratings\n- Employer Rating: 3.4/5.0 (132 reviews)\n  - Breakdown: Work-Life: 2.9, Compensation: 3.0, Culture: 3.1, Career: 3.1\n\n## Categories\n\nair frieght, automotive, automotive-transportation, business_and_consumer_services/shipping_and_logistics, expedited, freight management, intermodal, logistics, logistics services, ltl, railroad, reliable, specialized, supply chain, supply chain solutions, supply-chain, tms, total logistics management / brokerage, transportation, transportation and logistics, transportation brokerage, truckload\n\n## Competitors\n\namware, verde, selery, palisades logistics, sg, shipwire, fulfilltopia, abc fulfillment, whitebox, co, green rabbit, datapak services, webgility, order management systems, acutrack, wesco international, om logistics, fm logistic, dsv\n\n## Recent News\n- [2026-07-02] [R2 Deliveries Have Started and Rivian Just Blew Past Its Q2 Guidance](https://riviantrackr.com/news/rivian-q2-2026-deliveries/)\n- [2023-12-29] PRWeb: R2 Logistics Announces New CEO Katie Quinn with Owner Ben Gase to Remain as Chairman of the Board\n- [2019-08-09] PRWeb: R2 Logistics Opens Specialized Solutions Office\n- [2018-02-27] PRWeb: Supply & Demand Chain Executive Awards R2 Logistics Vice President in 2018 Pros to Know Listing\n- [2018-01-30] PRWeb: R2 Logistics, Inc. Announces 2017 Dry Van Carrier of the Year\n- [2018-01-25] PRWeb: R2 Logistics, Inc. Announces 2017 LTL Carrier of the Year\n\n## Social\n\n### Linkedin\n\n- [2026-10-08 · Posted · 16 reactions] [Congratulations to our September Service Rep of the Month, Hannah...](https://www.linkedin.com/posts/r2-logistics_congratulations-to-our-september-service-activity-7513978501075693568-RR1T)\n  > Congratulations to our September Service Rep of the Month, Hannah Ward!\n  >\n  > \"Hannah is a great example of what R2 is looking for in a great employee and team member.  As the customers in her pod have grown and changed she has had the ability to grow and change with them.  Hannah’s reliability, attention to detail, and team-first approach make her one of the best employees at R2 Logistics.  Thanks for the hard work Hannah!\"\n  > - Ben Jordan | VP of Customer Service\n\n- [2026-09-17 · Posted · 3 reactions] [We’re hiring a Carrier Sales Rep in Columbus, Ohio! Join R2...](https://www.linkedin.com/posts/r2-logistics_hiring-columbusjobs-logisticsjobs-activity-7506383993496600576-rTRy)\n  > We’re hiring a Carrier Sales Rep in Columbus, Ohio! Join R2 Logistics and help build strong carrier relationships while keeping freight moving.\n  >\n  > Interested? Apply here: https://ow.ly/plCS50ZONnQ\n  >\n  > #Hiring #ColumbusJobs #LogisticsJobs\n\n- [2026-09-17 · 3 reactions] We’re hiring a Carrier Sales Rep in Columbus, Ohio! Join R2 Logistics and help build strong carrier relationships while keeping freight moving. Interested? Apply here: https://ow.ly/plCS50ZONnQ #Hi...\n\n- [2026-09-09 · Posted · 1 reaction] [🚨 We’re Hiring! 🚨 We’re looking for an Account Executive to join...](https://www.linkedin.com/posts/r2-logistics_nowhiring-columbusjobs-salesjobs-activity-7503486966236110849-6GKf)\n  > 🚨 We’re Hiring! 🚨\n  >\n  > We’re looking for an Account Executive to join our team in Columbus, Ohio!\n  >\n  > Ready to grow your career, build strong customer relationships, and be part of a great team? We’d love to hear from you.\n  >\n  > Apply today!\n  > https://ow.ly/7oj550ZLw1u\n  > #NowHiring #ColumbusJobs #SalesJobs\n\n- [2026-09-09 · 1 reaction] 🚨 We’re Hiring! 🚨 We’re looking for an Account Executive to join our team in Columbus, Ohio! Ready to grow your career, build strong customer relationships, and be part of a great team? We’d love t...\n\n- [2026-08-25 · Posted · 2 reactions] [Are you an outgoing problem-solver who thrives in a fast-paced...](https://www.linkedin.com/posts/r2-logistics_nowhiring-dallasjobs-customerservice-activity-7498098116705898496-UWZL)\n  > Are you an outgoing problem-solver who thrives in a fast-paced environment? We’re hiring an Account Service Representative to join our Dallas operations team!\n  >\n  > Ready for your next opportunity? Apply today.\n  > https://ow.ly/yvmo50ZFnAk\n  > #NowHiring #DallasJobs #CustomerService #Careers\n\n- [2026-08-25 · 2 reactions] Are you an outgoing problem-solver who thrives in a fast-paced environment? We’re hiring an Account Service Representative to join our Dallas operations team! Ready for your next opportunity? Apply...\n\n- [2026-08-19 · Posted · 2 reactions] [We are seeking an experienced remote Supply Chain Sales...](https://www.linkedin.com/posts/r2-logistics_r2-logistics-hiring-supply-chain-sales-representative-activity-7495879870443532288-X7dM)\n  > We are seeking an experienced remote Supply Chain Sales Representative. The ideal candidate will demonstrate confidence in developing strategies and building strong customer relationships.\n  > https://ow.ly/rQmf50ZBxFk\n\n- [2026-08-19 · 3 reactions] We are seeking an experienced remote Supply Chain Sales Representative. The ideal candidate will demonstrate confidence in developing strategies and building strong customer relationships. https://...\n\n- [2026-08-06 · Posted · 5 reactions] [Congratulations to our July Service Rep of the Month, Nilda Rivera...](https://www.linkedin.com/posts/r2-logistics_congratulations-to-our-july-service-rep-of-activity-7491118736125538304-Bdn0)\n  > Congratulations to our July Service Rep of the Month, Nilda Rivera!\n  >\n  > “Nilda consistently demonstrates a positive attitude and a strong willingness to help wherever she is needed. She approaches every project with enthusiasm and is always eager to learn new skills and take on new challenges. Her loyalty, kindness, and quick ability to learn make her a valuable member of the team. Her positive attitude and willingness to help are truly appreciated, making her truly deserving of this recognition.”\n  > - Marcy Shuler | Treasury Manager\n\n- [2026-08-06 · 7 reactions, 2 comments] Congratulations to our July Service Rep of the Month, Nilda Rivera! “Nilda consistently demonstrates a positive attitude and a strong willingness to help wherever she is needed. She approaches ever...\n\n- [2026-07-14 · Posted · 3 reactions] [Ready for your next opportunity? We're looking for a Carrier Sales...](https://www.linkedin.com/posts/r2-logistics_nowhiring-carriersales-dallasjobs-activity-7482823786027790336-KDnR)\n  > Ready for your next opportunity? We're looking for a Carrier Sales Representative in Dallas, TX to build relationships with our carrier partners and keep supply chains moving. Apply today! 🚛 #NowHiring #CarrierSales #DallasJobs\n  > https://lnkd.in/eCRBcDUW\n\n- [2026-07-14 · 3 reactions] Ready for your next opportunity? We're looking for a Carrier Sales Representative in Dallas, TX to build relationships with our carrier partners and keep supply chains moving. Apply today! 🚛 #NowHi...\n\n- [2026-07-10 · Posted · 9 reactions] [Congratulations to our June Service Rep of the Month, Mark Fattal...](https://www.linkedin.com/posts/r2-logistics_congratulations-to-our-june-service-rep-of-activity-7481359563678687232-Ftpi)\n  > Congratulations to our June Service Rep of the Month, Mark Fattal!\n  >\n  > “Mark is a prime example of the qualities R2 looks for in a new team member. He proactively supports the team and anticipates issues as though he has been with the company for years. His dedication to delivering exceptional customer service, combined with his laser focus on sourcing profitable capacity, makes Mark one of our strongest new team members. He consistently demonstrates initiative, teamwork, and a results-driven mindset, making him a valuable asset to both the team and the organization.”\n  > - Ben Jordan | VP of Customer Service\n\n- [2026-07-10 · 11 reactions, 2 comments] Congratulations to our June Service Rep of the Month, Mark Fattal! “Mark is a prime example of the qualities R2 looks for in a new team member. He proactively supports the team and anticipates issu...\n\n- [2026-07-09 · Posted · 7 reactions] [We’re excited to share that R2 Logistics has been recognized as the...](https://www.linkedin.com/posts/r2-logistics_r2logistics-top3pl-logistics-activity-7481006318288543744-u-xl)\n  > We’re excited to share that R2 Logistics has been recognized as the #7 third-party logistics provider in the Inbound Logistics Top 3PL Awards!\n  >\n  > This recognition is especially meaningful as it marks our eighth consecutive year earning a spot in the Top 10—a testament to the dedication of our team and our unwavering commitment to delivering exceptional service and innovative logistics solutions.\n  >\n  > Thank you to our employees, customers, and carrier partners for your trust and support. Your collaboration continues to drive our success, and we look forward to building on this momentum together.\n  >\n  > #R2Logistics #Top3PL #Logistics #SupplyChain #Transportation #CustomerService #Teamwork\n\n- [2026-07-09 · 9 reactions] We’re excited to share that R2 Logistics has been recognized as the #7 third-party logistics provider in the Inbound Logistics Top 3PL Awards! This recognition is especially meaningful as it marks...\n\n- [2026-07-02 · Posted · 2 reactions] [🚀 Join our team! We're hiring an Electronic Data Interchange...](https://www.linkedin.com/posts/r2-logistics_jobalert-hiring-activity-7478476971879079937-zSXJ)\n  > 🚀 Join our team! We're hiring an Electronic Data Interchange Manager to drive innovation and streamline processes. Apply now! 🌟 #JobAlert #Hiring\n  > https://ow.ly/Quos50ZjIC2\n\n- [2026-06-19 · Posted · 1 reaction] [🚀 Join our team! We’re on the hunt for an EDI Manager to lead...](https://www.linkedin.com/posts/r2-logistics_jobopportunity-edi-activity-7473795794656063488-d2Gh)\n  > 🚀 Join our team! We’re on the hunt for an EDI Manager to lead integrations & maintain excellence. Ready to make an impact? Apply now! 🌟 #JobOpportunity #EDI\n  > https://lnkd.in/eqdXKw_c\n\n- [2026-06-18 · 8 reactions] Congratulations to our Service Rep of the Month, Brandon Wriston! “Brandon has been an outstanding contributor to our team, and his dedication to those around him truly sets him apart. Brandon, tha...\n\n## Locations\n- Headquarters: dallas, texas, united states (US)\n- Offices: dallas, texas, united states (US), jacksonville, florida, united states (US)",
+        "summary": "{\"description\":\"R2 Logistics is a Transportation, Logistics, Supply Chain and Storage company providing access to thousands of transportation providers and comprehensive logistics solutions.\",\"employee_estimate\":164,\"employee_estimate_source\":\"Employees: 164\",\"hq\":\"Dallas, Texas, United States\",\"hq_quote\":\"Headquartered in Dallas, Texas, United States, with an office in Jacksonville.\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"As a third-party logistics company, we provide access to thousands of transportation providers and have the capacity to resolve all your shipping needs.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4E0BAQEFFVMLR2zpfw/company-logo_200_200/company-logo_200_200/0/1630577567441/r2_logistics_logo?e=2147483647&v=beta&t=qJD-nd5aZd3FQs5z_6C4x6z2qrVaX6CpKhHuLaDLlxE",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/w7jhtnwxqt0",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "R2 Logistics",
+              "foundedYear": 2007,
+              "description": "Founded in 2007, R2 Logistics is a global provider of transportation services and logistics solutions. As a third-party logistics company, we provide access to thousands of transportation providers and have the capacity to resolve all your shipping needs. Backed by game-changing technology and our culture for Reliable Service and Relentless Passion, we’ve built a strong reputation as an industry leader.",
+              "workforce": {
+                "total": 164
+              },
+              "headquarters": {
+                "address": "4131 N Central Expy, Suite 1200, Dallas, Texas 75204, US",
+                "city": "Dallas",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 4000000,
+                "fundingTotal": null,
+                "fundingLatestRound": null
+              },
+              "webTraffic": {
+                "visitsMonthly": 6085,
+                "countryRank": 1186499,
+                "avgDurationSeconds": 21,
+                "history": [
+                  {
+                    "value": 4909,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 5551,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 5442,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 6102,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 6559,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 6559,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 2247.6,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

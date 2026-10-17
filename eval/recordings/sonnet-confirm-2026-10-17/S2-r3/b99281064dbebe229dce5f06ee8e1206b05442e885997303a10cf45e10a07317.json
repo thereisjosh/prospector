@@ -1,0 +1,262 @@
+{
+  "request": {
+    "query": "Assured",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "705b507ec63a25cdea92ccb97592c8b2",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/97mlcq5q8wk",
+        "title": "Assured",
+        "url": "https://www.assured.com/",
+        "text": "# Assured\n\nAssured is a Insurance company. Assured is a company that provides straight-through claims processing solutions powered by quality data and AI lines of business. They offer modular solutions that power the entire claims lifecycle. Assured employs 229 people (+179.3% YoY, +147 people), founded in 2019. Headquartered in Palo Alto, California, United States. Its workforce is distributed across United States, Canada, and Ireland.\n\n## About\n\n**We have been made aware of individuals falsely posing as recruiters from Assured Insurance Technologies Inc. Please note that we only contact candidates from official @assured.claims email addresses and all interviews are conducted through verified company channels. If you are unsure whether a message is legitimate, please contact us directly at recruiting-ops@assured.claims before sharing any personal information**\n\nAssured is the the AI engine powering the next era of claims, transforming how carriers ingest, service, and process claims.\n\n## Company Details\n- Industry: Insurance\n- Type: Privately held\n- Headquarters: Palo Alto, United States\n- Founded Year: 2019\n- Homepage: assured.com\n- Aliases: ASSURED INSURANCE TECHNOLOGIES INC., assured, assured (ca), assured insurance technologies\n- LinkedIn: linkedin.com/company/assured\n- Linkedin Followers: 6,629\n\n## Financials\n  - Venture (2025-04-04)\n  - Seed (2021-01-01)\n\n## Workforce\n- Employees: 229\n- Company Size: 201-500 employees\n  - Monthly Growth: +3.2%\n  - Yearly Growth: +179.3%\n- Key Executives:\n  - Adi Dehejia: Head of Finance\n  - Jacob Zukerman: Head of Product Design\n  - Jassis C.: Director of Special Projects\n  - Jeff Jarvis: Product Analyics Lead\n  - Jesse Cravens: Head of Engineering\n  - John Geary: Head of Strategy and Ops\n  - Johnny Cochran: Director of Program Management\n  - Joyce W. Phan: Director of Product Management\n  - Justin Lewis-Weber: Founder/CEO\n  - Matt Barnard: Member Board of Directors\n- Breakdown:\n  - By Country: United States: 157 (69%), Canada: 2 (1%), Ireland: 1\n  - By Department: Technical: 99 (43%), Product: 18 (8%), Design: 9 (4%), Consulting: 6 (3%), Hr: 6 (3%), Other Department: 6 (3%), General Management: 5 (2%), Sales: 4 (2%), Project Management: 3 (1%), Administrative: 2 (1%) (+4 more)\n  - By Seniority: Senior: 53 (23%), Specialist: 51 (22%), Manager: 27 (12%), Other Management: 18 (8%), Head: 6 (3%), Director: 5 (2%), Founder: 3 (1%), Vp: 2 (1%)\n- Active job postings: 39\n- Talent Sources: Amperity (4), Vanilla (3), Square (3), Slalom (3), Engine (3), DISCO (3), Veza (2), StockX (2), Maven AGI (2), Fanatics (2)\n- Alumni Go To: Socket (2), Gray Scalable (2), WorkOS (1), Guidewire Software (1), Flanco Romania (1), Fanatics (1), Distyl (1), Daikin Comfort (1), Avis Budget Group (1), Astraeus (1)\n\n## Products & Technology\n- Tech Stack (showing 50 of 97): 4d, cinema 4d, docker, graphql, iam, linkedin, playwright, postgresql, python, pytorch, react, tensorflow, typescript, 1password, amazon aurora, boolean, circleci, databricks, fintech, github, gitlab, google workspace, houdini, javascript, jest, json, kubernetes, linkedin recruiter, linux, looker, macos, mixpanel, oauth, okta, persona, power bi, prototype, ramp, recognize, rippling, saml, snowflake, sql, tableau, terraform, bash, adobe, adobe creative suite, argocd, css\n\n## Web presence\n\n- Crunchbase: crunchbase.com/organization/assured-insurance-technologies\n- Web traffic:\n  - Monthly visits: 18,133\n  - Global rank: 1,312,125\n  - Bounce rate: 63.0%\n  - Pages per visit: 2.4\n  - Average visit duration: 182s\n\n## Reviews & Ratings\n- Employer Rating: 5.0/5.0 (1 reviews)\n  - Breakdown: Work-Life: 5.0, Compensation: 4.0, Culture: 5.0, Career: 5.0\n\n## Categories\n\nai-powered capabilities, assured, claims processing, development services providers, financial services, frontier ai agents, insurance, insurtech, jobs_and_career/human_resources, modular solutions, straight-through, testing and qa, testing and qa providers\n\n## Recent News\n- [2026-10-08]\n  - Euronews.com: 2027 state budget reaches parliament with Socialist Party backing assured\n  - The Star: Badminton: Malaysia assured of medal after reaching World Juniors semis\n  - Hamilton Hammers: HAMILTON HAMMERS WELCOME ASSURED AUTOMOTIVE & LiUNA AS FOUNDING PARTNERS\n  - Unmanned Systems Technology: Huntsville Manufacturing Expansion Targets Defense Assured PNT Gap\n  - Fibre2Fashion: India's cotton sector calls for price stability and assured supply\n- [2026-10-06]\n  - Financial Times: Sanae Takaichi tells markets to ‘rest assured’ over Japan’s spending plans\n  - Yahoo Finance: Takaichi tells Japanese investors to 'rest assured' amid fiscal worries\n- [2026-10-05] Daily Mail: Why Sale's 'Cement' hooker Jibulu can force his way into England team\n- [2026-10-02]\n  - Rediff: Asian Games: Indian Squash Teams Advance To Semis, Assured Of Medals\n  - Investing.com South Africa: Assured Guaranty stock hits 52-week low at $67.99 By Investing.com\n  - Seeking Alpha: Assured Guaranty: Priced For A 6% ROE, With A Clear Path To 10% \\(NYSE:AGO\\)\n  - BusinessLine: Bank strike deferred after IBA assurance on five-day work week\n  - The Business Journals: Brightline creditors take control as Fortress loses ownership in bankruptcy restructuring\n- [2026-09-25]\n  - Rediff: Asian Games: Anahat, Abhay Assured Of Squash Singles Medals\n  - Yahoo Finance: Assured Guaranty Statement Regarding Brightline Florida Financial Restructuring\n  - The Daily Gazette: High-spending Mets assured of first last-place finish since 2003 with 7-6 loss to Nationals\n  - Seeking Alpha: Huge Upside For Assured Guaranty's Shareholders If The Monoline Moves Away From Insurance\n  - Lubbock Avalanche-Journal: It's Debatable explores merits of Mutual Assured Destruction policy\n- [2026-09-19]\n  - THISDAYLIVE: Dangote Refinery IPO: Shareholders Assured of Huge Dividends, Minimal Risks\n  - Daily Independent: Further Nursing Education Opportunities Assured for Gwadar Schoolgirls\n- [2026-08-03] [AI-Powered Provider Operations](https://www.trendhunter.com/trends/healthcare-provider-operations)\n- [2026-07-31] [Henry AI raises $16.5M to automate commercial real estate work — plus 7 more NYC VC deals to know - New York Business Journal](https://www.bizjournals.com/newyork/news/2026/07/31/henry-ai-raises-165m-plus-other-fundraising-news.html)\n- [2026-07-19] [Lead Vice President OF Product Marketing Job in Palo Alto, CA at ASSURED](https://www.mediabistro.com/jobs/3542153850-lead-vice-president-of-product-marketing)\n\n## Social\n\n### Linkedin\n\n- [2020-07-27 · Posted · 3 reactions] [Assured has appointed industry-veteran Richard Palmer as Head of...](https://www.linkedin.com/posts/assured_press-release-assured-appoints-head-of-sales-activity-6693556863801413632-RzXc)\n  > Assured has appointed industry-veteran Richard Palmer as Head of Sales. Palmer will lead go-to-market activities for Assured’s digital FNOL and claims automation solutions.\n  >\n  > “The opportunity to work at an insurtech focused on helping P&C insurance carriers automate the claims process is extremely meaningful to me,” Palmer said.\n  >\n  > “Automation has long been the holy grail of increasing accuracy and decreasing costs in claims, yet no company has yet offered a functional solution because the majority of data at the onset of the claims process (FNOL ingestion) is imprecise and unstructured. Assured's realization that “it’s all about the data”—and that better data is all about superior ingestion, represents an extraordinarily compelling vision for how to realize my long-held dream of fully automating claims processing.\n  >\n  > I’m drawn to how challenging, yet solvable, this problem is—and the boldness of Assured’s vision.\"\n  >\n  > Mr. Palmer comes to Assured with prominent credentials and a proven record of success as a sales leader of technology-driven insurance businesses. Prior to joining Assured, he served as Senior Director at Duck Creek Technologies, a leading SaaS provider of core system solutions to the P&C and General Insurance industry.\n\n## Locations\n- Headquarters: palo alto, california, united states (US)\n- Offices: palo alto, california, united states (US)",
+        "summary": "{\"description\":\"Assured is an insurance technology company providing AI-powered claims processing solutions and modular claims lifecycle management.\",\"employee_estimate\":229,\"employee_estimate_source\":\"Employees: 229\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Active job postings: 39\",\"hq\":\"Palo Alto, United States\",\"hq_quote\":\"Headquartered in Palo Alto, California, United States.\",\"industry\":\"Insurance\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Assured is a Insurance company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Venture (2025-04-04)\\n- Seed (2021-01-01)\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQE8jJ61Qso23g/company-logo_200_200/B56aCGUiWDIkAI-/0/1788959925875/assured_logo?e=2147483647&v=beta&t=EWcyEbOW3iuK4PNDuV0BW_AUr2ghuJ4cf5SupZjzwoQ",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/97mlcq5q8wk",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Assured",
+              "foundedYear": 2019,
+              "description": "**We have been made aware of individuals falsely posing as recruiters from Assured Insurance Technologies Inc. Please note that we only contact candidates from official @assured.claims email addresses and all interviews are conducted through verified company channels. If you are unsure whether a message is legitimate, please contact us directly at recruiting-ops@assured.claims before sharing any personal information**\n\nAssured is the the AI engine powering the next era of claims, transforming how carriers ingest, service, and process claims.",
+              "workforce": {
+                "total": 229
+              },
+              "headquarters": {
+                "address": "Palo Alto, CA 94301, US",
+                "city": "Palo Alto",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": null,
+                "fundingLatestRound": {
+                  "name": "Venture",
+                  "date": "2025-04-04",
+                  "amount": null
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 18133,
+                "countryRank": 340943,
+                "avgDurationSeconds": 182,
+                "history": [
+                  {
+                    "value": 15408,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 14579,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 14452,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 14665,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 12431,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 18133,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/m6zvt2lb1cn",
+        "title": "Assured",
+        "url": "https://assured.co.uk/",
+        "text": "# Assured\n\nAssured is a Insurance Agencies and Brokerages company. Assured is a trusted cyber insurance broker that helps businesses protect against cyber risks. They provide exceptional planning, solid policies, and security progression to protect businesses before, during, and after a cyber incident. Assured employs 85 people (+51.8% YoY, +29 people), founded in 2022. Headquartered in London, United Kingdom, with offices in Cambridgeshire and Saint Neots. Its workforce is distributed across United Kingdom, Netherlands, Canada, and Switzerland.\n\n## About\n\nAt Assured, we curate and execute cyber insurance programmes that assure corporates and institutions that their insurance will deliver when they need it most.\n\nWithout the distractions of other commercial insurance lines, Assured channels all of its effort and passion into cyber. Assured wants to change the way executives engage with cyber insurance. Our value goes above and beyond a standard insurance policy. We understand the importance of buying a policy that actually pays out, but we believe cyber insurance should go further. It must inspire confidence, empower executives and ultimately, deliver assurance.\n\n## Company Details\n- Industry: Insurance Agencies and Brokerages\n- Type: Privately held\n- Headquarters: London, United Kingdom\n- Founded Year: 2022\n- Homepage: assured.co.uk\n- Aliases: Assured Cyber Ltd., assured, assured information systems\n- LinkedIn: linkedin.com/company/assuredcyberinsurance\n- Linkedin Followers: 3,857\n- Emails: hello@assured.co.uk\n- Phone: +1 (833) 366-6887, +44 (0)20 3854 4270, .12.2025, 05.01.2026, 8.12.2025\n\n## Workforce\n- Employees: 85\n- Company Size: 51-200 employees\n  - Monthly Growth: -1.2%\n  - Yearly Growth: +51.8%\n- Key Executives:\n  - Aaron Medina-Toner: Head of Business Systems\n  - Anna Farquhar: Head of Service Delivery\n  - Danielle Ngo: Resilience Lead\n  - Ed Ventham: Co-Founder\n  - Ed Ventham: Head of Broking\n  - Harvey Coles: Director of Communications\n  - Henry Green: Chief Executive Officer\n  - Henry Green: Founder\n  - Morgan Tillbrook: Founding Partner and Ned\n  - Neil Brown: Head of Technology\n- Breakdown:\n  - By Country: United Kingdom: 40 (47%), Netherlands: 10 (12%), Canada: 5 (6%), Switzerland: 1 (1%)\n  - By Department: Finance: 23 (27%), Other Department: 6 (7%), Technical: 6 (7%), General Management: 5 (6%), Marketing: 5 (6%), Sales: 5 (6%), Consulting: 4 (5%), Operations: 4 (5%)\n  - By Seniority: Manager: 23 (27%), Specialist: 12 (14%), Head: 7 (8%), Other Management: 7 (8%), Director: 3 (4%), Clevel: 2 (2%), Founder: 2 (2%), Partner: 2 (2%), Senior: 1 (1%)\n- Talent Sources: Alpha Group (10), RX Global (2), Caely Renewables (2), Aon (2), Uber (1), Twilight Trees (1), The Branded Furniture Company (1), Servca (1), Barrows (1), Altus Group (1)\n- Alumni Go To: WorkNest Group (1), Tradition (1), The Guardian (1), ProFinda (1), Privalgo (1), Price Forbes Re (1), Grupo Uvesa (1), Dayjob (1), Cognism (1), 32Co (1)\n\n## Products & Technology\n- Tech Stack: salesforce, linkedin, teamtailor, well, c\n\n## Web presence\n\n- Twitter: twitter.com/assured_intel\n- Crunchbase: crunchbase.com/organization/assured-2cde\n- Web traffic:\n  - Monthly visits: 5,157\n  - Global rank: 3,570,197\n  - Bounce rate: 48.0%\n  - Pages per visit: 1.7\n  - Average visit duration: 23s\n\n## Categories\n\nbroker, business_and_consumer_services/marketing_and_advertising, content, customized solutions, cyber, cyber insurance, cyber security, cybersecurity, cybersecurity content, information security, insurance, insurance broker, security progression, specialist\n\n## Social\n\n### Linkedin\n\n- [2026-10-04 · 30 reactions] Assured is heading to Rotterdam for FERMA Forum. Ed Ventham, Al Mackenzie and Eleanor Dallaway will be there. Whether you’re a familiar face or someone we’ve yet to meet, we’d love to make time for...\n\n- [2026-09-22 · 21 reactions] At least ten major US law firms have reportedly suffered cyber attacks this year. We asked The Law Society what UK firms can learn from these breaches, while our senior cyber broker, Caspar Rogers,...\n\n- [2026-06-16 · 26 reactions] We're at #AIRMIC2026 in Birmingham today. The Assured team on the ground: 🟣 Ed Ventham 🟣 Oliver Baxendale 🟣 Olly Thorne Feel free to drop us a message or grab us for a coffee if you see us around.\n\n- [2026-06-04 · 111 reactions, 2 comments] Assured's next chapter starts in Toronto. Today, we're pleased to officially announce the launch of our new office in Canada, marking the next step in Assured's international growth. Led by Tre Eli...\n\n- [2026-05-08 · 18 reactions] How is the cyber insurance market responding to AI risk? Yesterday, we hosted a short executive briefing on AI risk, myths, emerging threats, and how tools such as Mythos are shaping conversations...\n\n- [2026-04-21 · 24 reactions] Last week, the UK government issued an open letter to business leaders warning on AI-driven cyber threats. This follows a week where Claude Mythos has dominated headlines. Much of the coverage has...\n\n- [2026-03-27 · 12 reactions] A supply chain attack has compromised Trivy, a popular tool used to scan for vulnerabilities, giving attackers access to sensitive credentials it’s meant to protect. This week’s update covers how t...\n\n- [2026-03-06 · 11 reactions] Four developments CISOs should have on their radar this week spanning nation state activity, credential phishing, mobile exploitation, and software vulnerabilities: NCSC warning UK organisations ab...\n\n- [2026-02-25 · 9 reactions] How can a minimum viable company posture help CISOs? When crisis erupts, it pays to have a plan. Fail to prepare for a worst-case scenario, and the results could be catastrophic. For a growing numb...\n\n- [2026-02-18 · 8 reactions] Chainlit vulnerabilities identified. Two newly disclosed flaws in the open source AI framework Chainlit could enable extensive cloud compromise. Chainlit sees around 700,000 downloads per month. Ap...\n\n- [2026-02-13 · 57 reactions, 1 comment] Last week, Swiss insurance giant Zurich reached an agreement in principle to purchase Beazley for £8bn. Citing Beazley’s Lloyd’s of London presence. Zurich claimed the two “highly complementary bus...\n\n- [2026-02-06 · 13 reactions] New alleged ransomware actor 0apt unmasked as a scam-as-a-service outfit. Our weekly cyber briefing has been rebranded for the year. A tightly curated update of the latest cyber news, trends and in...\n\n- [2026-01-30 · 11 reactions] What happens when excessive data retention, poor security monitoring and non-existent access controls collide? In late 2024, attackers gained access to the internal systems of Free, one of France’s...\n\n## Locations\n- Headquarters: london, ec2a 4rp, united kingdom (GB)\n- Offices: saint neots, cambridgeshire, united kingdom (GB), london, ec2a 4rp, united kingdom (GB), cambridgeshire, england pe19 8er, united kingdom (GB)",
+        "summary": "{\"description\":\"Assured is a trusted cyber insurance broker that helps businesses protect against cyber risks, offering planning, policies, and security progression to protect before, during, and after cyber incidents.\",\"employee_estimate\":85,\"employee_estimate_source\":\"Employees: 85\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Key Executives: Aaron Medina-Toner: Head of Business Systems; Anna Farquhar: Head of Service Delivery; Danielle Ngo: Resilience Lead; Ed Ventham: Co-Founder; Ed Ventham: Head of Broking; Harvey Coles: Director of Communications; Henry Green: Chief Executive Officer; Henry Green: Founder; Morgan Tillbrook: Founding Partner and Ned; Neil Brown: Head of Technology\",\"hq\":\"London, United Kingdom\",\"hq_quote\":\"Headquarters: london, ec2a 4rp, united kingdom (GB)\",\"industry\":\"Insurance Agencies and Brokerages\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Insurance Agencies and Brokerages\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":null,\"recently_funded_seed_or_series_a_quote\":\"None available on page to indicate recent seed or Series A funding; page lists foundation year 2022 but not funding rounds clearly as seed/Series A.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4D0BAQGAqSHse8BXFA/company-logo_200_200/company-logo_200_200/0/1677164739879/assuredcyberinsurance_logo?e=2147483647&v=beta&t=vEUcwIHtLdVvfeshLgVSsgSqiKOl_sAkifQ05ssdlT0",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/m6zvt2lb1cn",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Assured",
+              "foundedYear": 2022,
+              "description": "At Assured, we curate and execute cyber insurance programmes that assure corporates and institutions that their insurance will deliver when they need it most.\n\nWithout the distractions of other commercial insurance lines, Assured channels all of its effort and passion into cyber. Assured wants to change the way executives engage with cyber insurance. Our value goes above and beyond a standard insurance policy. We understand the importance of buying a policy that actually pays out, but we believe cyber insurance should go further. It must inspire confidence, empower executives and ultimately, deliver assurance. \n",
+              "workforce": {
+                "total": 85
+              },
+              "headquarters": {
+                "address": "28 Scrutton Street, London, EC2A 4RP, GB",
+                "city": "London",
+                "postalCode": null,
+                "country": "United Kingdom"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 5157,
+                "countryRank": 422362,
+                "avgDurationSeconds": 23,
+                "history": [
+                  {
+                    "value": 8443,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 7436,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 5131,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 4955,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 4946,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 5157,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 8786.6,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

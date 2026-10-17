@@ -1,0 +1,262 @@
+{
+  "request": {
+    "query": "Stuut",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "90bb03aa0f981fc4b6e46e5390c16e53",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/vqf1723hmmj",
+        "title": "Stuut",
+        "url": "https://stuut.ai/",
+        "text": "# Stuut\n\nStuut is a Software Development company. Stuut is a company that brings autonomous order-to-cash to enterprise customers. They offer a cash app, payment matching, disputes and deductions, auto resolutions, security, and encryption with keys. Stuut employs 88 people, founded in 2024. Headquartered in New York, New York, United States, with an office in San Francisco. Its workforce is distributed across United States, Nigeria, Spain, and United Kingdom.\n\n## About\n\nStuut is the AI platform that does accounts receivable work instead of just assisting with it. We collect 40% more revenue for businesses by autonomously handling their entire AR process—from customer outreach to payment collection—with seamless integration that's live in days, not months.\n\nWe're backed by some of the best investors: a16z, Khosla, Microsoft, Activant, 1984, Carya, Vesey, and Page One. Also, we are hiring!\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: New York, United States\n- Founded Year: 2024\n- Homepage: stuut.ai\n- Aliases: Stuut Inc, stuut\n- LinkedIn: linkedin.com/company/stuut\n- Linkedin Followers: 29,270\n- Emails: sales@stuut.co\n\n## Financials\n- Total Funding: USD 35,500,000\n  - Series a (2025-11-01): USD 29.5M\n  - Seed (2025-04-01)\n  - Seed (2024-11-01): USD 6.0M\n  - Pre seed (2024-02-05)\n\n## Workforce\n- Employees: 88\n- Company Size: 11-50 employees\n  - Monthly Growth: +3.5%\n- Key Executives:\n  - Aayush Iyer: Head of Product & Design\n  - Adam Chaarawi: Co-Founder & Engineer\n  - Adam Ward: Regional Vice President\n  - Alan Edwards: Customer Success Director\n  - Brooke T.: Head of Business Operations\n  - Carolyn Orfanos: Regional Vice President of Sales\n  - Darbie Bredemeier: Regional Vice President of Sales\n  - Deren R.: Chief Revenue Officer\n  - Dylan Rushe: Head of Sales\n  - Emma Yueshan Teng: Head of AI\n- Breakdown:\n  - By Country: United States: 73 (83%), Nigeria: 1 (1%), Spain: 1 (1%), United Kingdom: 1 (1%)\n  - By Department: Technical: 25 (28%), Sales: 20 (23%), General Management: 6 (7%), Customer Service: 4 (5%), Marketing: 4 (5%), Operations: 4 (5%), Product: 3 (3%), Design: 2 (2%), Hr: 2 (2%), Other Department: 2 (2%) (+4 more)\n  - By Seniority: Specialist: 29 (33%), Head: 10 (11%), Senior: 10 (11%), Vp: 8 (9%), Other Management: 6 (7%), Director: 5 (6%), Manager: 3 (3%), Clevel: 2 (2%), Founder: 2 (2%), Intern: 1 (1%) (+1 more)\n- Active job postings: 30\n- Talent Sources: Rippling (4), Deel (3), Meta (2), Fairmarkit (2), Alex AI (2), South Park Commons (1), Sage Supply Chain Intelligence (1), Findigs, Inc. (1), Canary Technologies (1), Attentive (1)\n- Alumni Go To: US Army (1), Sygaldry Technologies (1), Stanford University School of Engineering (1), Optimize Receivables (1), Onakwa. (1), Glimpse (1), Edia (1), Devotion (1), DeepXL.ai (1), Concurrence (1)\n\n## Products & Technology\n- Tech Stack: fintech, html, impact, linkedin, python, react, amp\n\n## Web presence\n\n- Twitter: twitter.com/stuutai\n- Instagram: instagram.com/stuutai\n- YouTube: youtube.com/@stuuttechnologies\n- Crunchbase: crunchbase.com/organization/stuut\n- Web traffic:\n  - Monthly visits: 36,982\n  - Global rank: 877,123\n  - Bounce rate: 55.0%\n  - Pages per visit: 1.6\n  - Average visit duration: 50s\n\n## Categories\n\naccounting & finance software, accounts receivable, accounts receivable software, ai, ai agents, artificial intelligence (ai), autonomous order-to-cash, business_and_consumer_services/business_services, cash app, cash application, financial services, fintech, payment matching, security, software, stuut, technology/software\n\n## Recent News\n- [2026-10-10] AlleyWatch: #NYCtech Week in Review: 10/4/26 – 10/10/26\n- [2026-10-09]\n  - FinTech Global: Big deals dominate in bumper week for FinTech investments\n  - Legal Desire: Latham & Watkins Advises Stuut on US$52.5 Million Series B Financing\n  - Yahoo Finance: Stuut’s $52.5M Series B Shows Microsoft Betting the Agent Economy’s Revenue Layer Is Already Here\n  - The Business Journals: Valon raises $150M for AI mortgage servicing platform — plus 7 more NYC VC deals to know\n- [2026-10-08]\n  - Korea IT Times: AI fintech Stuut gets $52.5M having unlocked 40% cashflow for business\n  - GlobeNewswire: AI order-to-cash platform Stuut raises $52.5M Series B after unlocking 40% more cash for enterprises\n  - Axios: Exclusive: Stuut lands $52.5M for AI receivables\n  - Forbes: Stuut Promises To Put A Stop To Enterprises’ Payments Misery\n  - Pulse 2.0: Stuut Raises $52.5 Million Series B Led By Insight Partners To Expand AI-Powered Order-To-Cash Platform\n- [2026-10-07] WSJ: Maker of Open-Source AI Assistant Hermes Secures $90 Million\n- [2026-09-25] Morning Brew: Bob vs. Bob\n- [2026-09-20]\n  - [#NYCtech Week in Review: 9/14/26 – 9/20/26 – AlleyWatch](https://alleywatch.com/2026/09/nyctech-week-in-review-9-14-26-9-20-26/)\n  - AlleyWatch: #NYCtech Week in Review: 9/14/26 – 9/20/26\n- [2026-09-19] Dealroom: Stuut pulls in $68M to automate accounts receivable with AI\n- [2026-09-17] AlleyWatch: The AlleyWatch Startup Daily Funding Report: 9/16/2026\n- [2026-09-16] [NYC-Startup-Funding: Stuut, Evvy und Footprint mit neuen Finanzierungsrunden](https://www.it-boltwise.de/nyc-startup-funding-stuut-evvy-und-footprint-mit-neuen-finanzierungsrunden.html)\n- [2026-09-12]\n  - Techloy: Best AI-Native Accounts Receivable Software for 2026\n  - TipRanks: Innovation Culture Recognition Highlights Potential Growth Drivers at Stuut Technologies\n- [2026-09-05] Business Wire: Stuut Deepens Microsoft Relationship to Bring Autonomous Order-to-Cash to Enterprise Customers\n- [2026-09-02]\n  - [Stuut Inc. renforce sa relation avec Microsoft Corporation pour proposer l'automatisation du cycle Order-to-Cash aux entreprises \\| Zonebourse](https://www.zonebourse.com/actualite-bourse/stuut-inc-renforce-sa-relation-avec-microsoft-corporation-pour-proposer-l-automatisation-du-cycle-o-ce785bdad88ff222)\n  - [Stuut Inc. vertieft die Zusammenarbeit mit Microsoft Corporation, um autonomes Order-to-Cash für Unternehmenskunden bereitzustellen](https://de.marketscreener.com/boerse-nachrichten/stuut-inc-vertieft-die-zusammenarbeit-mit-microsoft-corporation-um-autonomes-order-to-cash-fuer-unt-ce785bdad88ff222)\n  - [Stuut Deepens Microsoft Relationship to Bring Autonomous Order-to-Cash to Enterprise Customers \\| Technology \\| postregister.com](https://www.postregister.com/businessreport/technology/stuut-deepens-microsoft-relationship-to-bring-autonomous-order-to-cash-to-enterprise-customers/article_e65cffff-f05a-5c46-bab9-e822466e1bfe.html)\n- [2026-08-16] [Fiserv and Stuut partner to automate enterprise receivables - EUROPE SAYS](https://www.europesays.com/3197254/)\n- [2026-08-15]\n  - [Fiserv and Stuut partner on agentic AI for enterprise AR](https://www.marketscale.com/industries/software-and-technology/fiserv-and-stuut-bring-agentic-ai-to-enterprise-receivables-targeting-2b-in-b2b-invoice-automation)\n  - MarketScale: Fiserv and Stuut bring agentic AI to enterprise order-to-cash, with $2B in invoices already processed\n  - MarketScale: Fiserv and Stuut bring agentic AI to enterprise receivables, targeting $2B+ in B2B invoice automation\n- [2026-08-14] [Fiserv and Stuut partner on agentic AI for receivables](https://www.marketscale.com/industries/software-and-technology/fiserv-and-stuut-bring-agentic-ai-to-enterprise-order-to-cash-with-2b-in-invoices-already-processed-fda03e)\n- [2026-08-12] [Fiserv and Stuut bring agentic AI to enterprise receivables](https://www.marketscale.com/industries/business-services/fiserv-and-stuuts-agentic-ai-partnership-targets-the-2b-b2b-invoice-backlog-in-enterprise-order-to-cash)\n- [2026-08-09] [Fiserv and Stuut target B2B receivables with agentic AI - EUROPE SAYS](https://www.europesays.com/3183455/)\n- [2026-08-07]\n  - [Fiserv and Stuut target B2B receivables with agentic AI](https://www.marketscale.com/industries/software-and-technology/fiserv-and-stuut-bring-agentic-ai-to-enterprise-b2b-receivables-with-2b-in-invoices-already-processed)\n  - [Fiserv and Stuut target enterprise receivables with agentic](https://www.marketscale.com/industries/software-and-technology/fiserv-and-stuut-bring-agentic-ai-to-enterprise-order-to-cash-with-2b-in-invoices-already-processed)\n- [2026-08-05]\n  - [Fiserv And Stuut Partner To Bring Agentic AI To Enterprise Receivables - Collaboration Combines Fiserv Commerce Hub And SnapPay With Stuutâ€™s AI-Powered Automation To Help Eligible Businesses Modernize Order-To-Cash Operations Where Available](https://mondovisione.com/media-and-resources/news/fiserv-and-stuut-partner-to-bring-agentic-ai-to-enterprise-receivables-collabo-202685/)\n  - [PYMNTS \\| Fiserv and Stuut Team to Bring AI Agents to Accounts Receivable](https://www.pymnts.com/back-office/accounts-receivable/2026/fiserv-and-stuut-team-to-bring-ai-agents-to-accounts-receivable/)\n  - [Stuut - News, Articles & Research - Finextra](https://www.finextra.com/company-news/13346/stuut)\n  - [Fiserv, Inc. und Stuut Technologies kooperieren, um agentische KI in Enterprise-Forderungsmanagement zu bringen \\| MarketScreener Deutschland](https://de.marketscreener.com/boerse-nachrichten/fiserv-inc-und-stuut-technologies-kooperieren-um-agentische-ki-in-enterprise-forderungsmanagement-ce7f50dcd980f027)\n  - [Fiserv and Stuut Partner to Bring Agentic AI to Enterprise Receivables](https://ae.marketscreener.com/news/fiserv-and-stuut-partner-to-bring-agentic-ai-to-enterprise-receivables-ce7f50dfd08bf321)\n  - [Fiserv Partners With Stuut Technologies To Help Eligible Enterprise Finance Teams Modernize Manual, Fragm - Benzinga](https://www.benzinga.com/news/26/08/60949152/fiserv-partners-stuut-technologies-help-eligible-enterprise-finance-teams-modernize-manual-fragmente)\n\n## Social\n\n### Linkedin\n\n- [2026-10-09 · Posted · 18 reactions] [We're #hiring a new Sales Enablement Lead in New York, New York...](https://www.linkedin.com/posts/stuut_hiring-activity-7514287074900897793-I1KG)\n  > We're #hiring a new Sales Enablement Lead in New York, New York. Apply today or share this post with your network.\n\n- [2026-10-07 · Posted · 220 reactions] [Today's a big day for Stuut: we just raised a $52.5M Series B led...](https://www.linkedin.com/posts/stuut_todays-a-big-day-for-stuut-we-just-raised-activity-7513631221248151552-ciE_)\n  > Today's a big day for Stuut: we just raised a $52.5M Series B led by Insight Partners for our autonomous agent that handles the work between order and cash for the world's leading enterprises. $93M total raised, and we're just getting started.\n  >\n  > This round is all about our customers.\n  >\n  > We're building on overwhelming demand for our AI coworker that automates all of the work between order and cash for the world's leading enterprises. It's grinding, repetitive work, and Stuut takes it on so our customers can focus on the judgment calls.\n  >\n  > We’ve already moved over $3B for enterprises including ZoomInfo, Honeywell Technologies, and PerkinElmer, with Stuut unlocking 40% more cash flow for our customers. You'll be hearing more of their stories over the next week 🔥\n  >\n  > We're growing fast, and if you want to join a rocket ship, now's the time. Take a look at our open roles here: https://lnkd.in/eNjWwccs\n  >\n  > Special thanks to Julian Marcu / Thomas Krane at Insight Partners for believing in our vision. We're extremely grateful to Andreessen Horowitz, Activant Capital, and M12, Microsoft's Venture Fund for joining.\n  >\n  > Above all else, thanks to our customers for trusting us. Their finance teams are thinking years ahead, thinking about what they'll be able to accomplish when AI owns a large part of the process. We'll be with them every step of the way.\n  >\n  > Read more below!\n\n- [2026-10-02 · Posted · 135 reactions] [This week, Team Stuut left the skyscrapers of New York and SF for a...](https://www.linkedin.com/posts/stuut_this-week-team-stuut-left-the-skyscrapers-activity-7511816180865732610-SIVn)\n  > This week, Team Stuut left the skyscrapers of New York and SF for a team offsite in Montana. The perfect way to close a record quarter. 🦬\n  >\n  > For a few days, we traded in our laptops for hiking, campfires, and disconnecting. Luckily, the whole time Lil' Stuut was working 24/7 for our customers, collecting cash.\n  >\n  > Nothing beats getting together with ambitious, wonderful people. Somehow, we've got even more energy for what's ahead.\n  >\n  > Speaking of, we've got some big news next week...stay tuned 🤫\n\n- [2026-09-28 · Posted · 23 reactions] [Stuut ❤️ s Private Equity, and we're proud to be sponsoring Private...](https://www.linkedin.com/posts/stuut_stuut-s-private-equity-and-were-proud-activity-7510406747237281792-gp8-)\n  > Stuut ❤️ s Private Equity, and we're proud to be sponsoring Private Equity International's Operating Partners Forum next month in New York.\n  >\n  > This is the largest global event for private equity value creation, and it couldn't come at a more important time. Stuut PE customers have used our agent in their portfolios to create outcomes that wouldn't have been possible 5 years ago. Imagine how the world will look 5 years from now!\n  >\n  > If you're on the fence about attending, go. In-person events are more valuable than ever, and you can use code OPNY26_STUUT, to get an additional 10% off.\n  >\n  > We hope to see you there!\n\n- [2026-09-25 · Posted · 32 reactions] [We're proud to announce Stuut is now HIPAA-compliant! Stuut's AI...](https://www.linkedin.com/posts/stuut_were-proud-to-announce-stuut-is-now-hipaa-compliant-activity-7509261729214734336-pibA)\n  > We're proud to announce Stuut is now HIPAA-compliant!\n  >\n  > Stuut's AI coworker has recovered billions for our customers. It's time to point that talent to healthcare, and give healthcare companies an AR agent that saves them time, and recovers their cash.\n  >\n  > Thanks to Laurence Bierner for leading the charge to make this happen!\n\n- [2026-09-24 · Reshared · 208 reactions] [Well, it finally happened. Ramp , the $60B fintech giant, is...](https://www.linkedin.com/posts/stuut_activity-7508991159583698945-2A0R): Well, it finally happened. Ramp , the $60B fintech giant, is entering the AR space. As an ex-employee, I've been waiting for this one. And yes, it makes me more bullish on Stuut . Way back when, I...\n\n- [2026-09-22 · Posted · 80 reactions] [Photo dump from the last month of Stuut...around the world, at the...](https://www.linkedin.com/posts/stuut_photo-dump-from-the-last-month-of-stuut-activity-7508185994542845952-BTL0)\n  > Photo dump from the last month of Stuut...around the world, at the US Open, on-stage at summits, and everywhere in-between 📸\n  >\n  > - Our very own Benjamin Hummel, Ben Winter, and @Mike Metcalf met with customers at Gymkhana in London, then flew to Switzerland. Love the Stuut vs Everybody shirt 🔥\n  > - Private Equity dinner in San Francisco co-hosted with Brex\n  > - Stuut at AI Pathfinder's PE AI Strategy Day in London 🇬🇧\n  > - Head of Sales Dylan Rushe live and on-stage at the HIG AI Engage Summit (we got introduced as the highest ROI AI use case across the portfolio, NBD)\n  > - Buffalo Bills vs Detroit Lions game with Tarek Alaruri and Shawn Ryan\n  > - Of course, Team Stuut with customers at the US Open 🎾\n  >\n  > It's a great time to work at Stuut...we're hiring if you want to attend events like these 🚀\n\n- [2026-09-18 · Posted · 34 reactions] [Stuut x Brex with Asif Rahman was a huge success - thanks to all...](https://www.linkedin.com/posts/stuut_stuut-x-brex-with-asif-rahman-was-a-huge-activity-7506725035135557634-U2K4)\n  > Stuut x Brex with Asif Rahman was a huge success - thanks to all the private equity leaders who came out to our co-hosted dinner last week in San Francisco!\n  >\n  > If you missed it this time around, stay tuned. Next up is Boston on 9/30. If you're a private equity operating partner we would love to have you!\n  >\n  > (Special shoutout to Henry Kamp and Deren R. for representing team Stuut 🫡 )\n\n- [2026-09-16 · Posted · 58 reactions] [We love to see it: Stuut's own Dylan Rushe crushing it onstage at...](https://www.linkedin.com/posts/stuut_we-love-to-see-it-stuuts-own-dylan-rushe-activity-7505991421133295616-bMyG)\n  > We love to see it: Stuut's own Dylan Rushe crushing it onstage at the H.I.G. Capital Engage Summit.\n  >\n  > What we love to see even more: he appeared onstage alongside Shaun Blakeman, the CFO of Highridge Medical, who introduced Stuut as the highest ROI AI use case they've seen across the portfolio! Highridge is the gold standard for supporting their portfolio companies, and they're doing an incredibly effective job of deploying AI within the finance org. We're proud to play a part.\n  >\n  > Shoutout to Mark Fiske, Barry Booth, Rob Rosenwein, and Gilbert Lemieux at H.I.G. for an incredible partnership, and for throwing an unforgettable event.\n\n- [2026-09-15 · Posted · 59 reactions] [Bird watching, traveling the world with a dog, watching Sesame...](https://www.linkedin.com/posts/stuut_bird-watching-traveling-the-world-with-a-activity-7505654210504314880-B2CO)\n  > Bird watching, traveling the world with a dog, watching Sesame Street, spinning vinyl, building an Iron Man suit and flying around the world...\n  >\n  > We asked the Stuut team \"What would you do with more time in your day if you didn't have to chase invoices?\" and it turns out, the possibilities are endless.\n  >\n  > Let us chase the invoices for you, so you have more time to...eat a bunch of candy or do whatever you want to do.\n\n- [2026-09-11 · Posted · 32 reactions] [25 years later, we will never forget. 🇺🇸](https://www.linkedin.com/posts/stuut_25-years-later-we-will-never-forget-activity-7504220889320783872-2cg2)\n  > 25 years later, we will never forget. 🇺🇸\n\n- [2026-09-11 · Posted · 17 reactions] [Stuut is hitting the road, and we'll be at Shared Services &...](https://www.linkedin.com/posts/stuut_stuut-is-hitting-the-road-and-well-be-at-activity-7504200871925284865-Tm4Q)\n  > Stuut is hitting the road, and we'll be at Shared Services & Outsourcing Week Americas in San Diego next week, as a proud sponsor!\n  >\n  > Come see us at booth 109, and learn how AI coworkers help finance teams standardize and automate collections, cash application, deductions, and disputes across business units, improving cash flow without adding headcount.\n  >\n  > We'd love to talk shop.\n  >\n  > Learn more: https://lnkd.in/dhfc3CP9\n\n- [2026-09-08 · Posted · 26 reactions] [Stuut just got named a Fast Company Best Workplace for Innovators...](https://www.linkedin.com/posts/stuut_stuut-just-got-named-a-fast-company-best-activity-7503118723009060864-WOEa)\n  > Stuut just got named a Fast Company Best Workplace for Innovators!\n  >\n  > This is a team that crashed competitor conferences with tacos, put our co-founder's face on billboards in three cities, interrogated our mascot on camera, and built an AI co-worker that has collected over $2B in cash (still just as innovative, but that felt less fun to lead with).\n  >\n  > Grateful for a team that makes this the kind of place where the ideas that sound ridiculous at 2pm on Wednesday are live by Thursday.\n\n- [2026-09-03 · Posted · 49 reactions] [Poker night at Stuut HQ! ♠️ ♥️ ♣️ ♦️ (We're hiring btw, if you want...](https://www.linkedin.com/posts/stuut_poker-night-at-stuut-hq-were-activity-7501291720073019392-uc0h)\n  > Poker night at Stuut HQ! ♠️ ♥️ ♣️ ♦️\n  >\n  > (We're hiring btw, if you want to do stuff like this, and help build the AI coworker that makes collecting cash easy. Link below!)\n\n- [2026-09-03 · Reshared · 12 reactions] [Very pleased to welcome a new partner to AI Pathfinder. Stuut will...](https://www.linkedin.com/posts/stuut_activity-7501270770942316546-pLhF): Very pleased to welcome a new partner to AI Pathfinder. Stuut will be joining us as Innovation Partner for our two upcoming AI Pathfinder Private Equity AI Strategy Days: 👉 London on Tuesday, 15 Se...\n\n- [2026-09-02 · Reshared · 78 reactions] [Next Thursday in San Francisco, I’m spending the ",
+        "summary": "{\"description\":\"Stuut is a software development company delivering autonomous order-to-cash solutions for enterprise customers, including a cash app, payment matching, disputes and deductions, auto resolutions, security, and encryption.\",\"employee_estimate\":88,\"employee_estimate_source\":\"Employees: 88\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"We're hiring!\",\"hq\":\"New York, United States\",\"hq_quote\":\"Headquartered in New York, New York, United States, with an office in San Francisco.\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Stuut is a Software Development company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 35,500,000 - Series a (2025-11-01): USD 29.5M - Seed (2025-04-01) - Seed (2024-11-01): USD 6.0M - Pre seed (2024-02-05)\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQFwYmUEvwJ2cw/company-logo_200_200/B4EZoryvdgKcAI-/0/1761671313564/stuut_logo?e=2147483647&v=beta&t=OuX-wIxolXu2cTK4r2hBTPgBujl1nFwQlBdMcG-4ofo",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/vqf1723hmmj",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Stuut",
+              "foundedYear": 2024,
+              "description": "Stuut is the AI platform that does accounts receivable work instead of just assisting with it. We collect 40% more revenue for businesses by autonomously handling their entire AR process—from customer outreach to payment collection—with seamless integration that's live in days, not months.\n\nWe're backed by some of the best investors: a16z, Khosla, Microsoft, Activant, 1984, Carya, Vesey, and Page One. Also, we are hiring!",
+              "workforce": {
+                "total": 88
+              },
+              "headquarters": {
+                "address": "373 Park Ave S, New York, NY 10016, US",
+                "city": "New York",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 35500000,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2025-11-01",
+                  "amount": 29500000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 36982,
+                "countryRank": 268780,
+                "avgDurationSeconds": 50,
+                "history": [
+                  {
+                    "value": 12308,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 14540,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 20053,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 36834,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 34650,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 36982,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/9w6dkgyprp5",
+        "title": "Stuut Lifting & Lashing",
+        "url": "https://lifting-lashing.de/",
+        "text": "# Stuut Lifting & Lashing\n\nStuut Lifting & Lashing is a International Trade and Development company. Stuut Lifting & Lashing is a company that specializes in lifting and lashing products. They offer a wide range of products including ox and rud lifting and accessories, modular lifting, telescopic lifting, modular frame lifting, multi-loch lifting, eco lifting, container lifting, trolleys, chaken, coilwender, and more. They provide a. Stuut Lifting & Lashing employs 4 people, founded in 2012. Headquartered in Vlotho, North Rhine-Westphalia, Germany, with presence in United States.\n\n## About\n\nStuut Lifting & Lashing \"​...the best link between you and the manufacturer\"​\n\nWith our company SLL Handelsvertretung e.K. (Stuut Lifting & Lashing) we represent various manufacturers of lifting and lashing equipment. As their exclusive agents, we coordinate and facilitate all commercial activities on behalf of these factories. We are not a trading company: The customers we serve buy directly from the manufacturer and we assist at every step. In this way, we are able to offer high quality products with very competitive prices. \n\nOUR EXPERIENCE - OUR CONNECTIONS - YOUR ADVANTAGES\n\nCompetetive pricing\nAs a customer you buy directly from the manufacturer and not from a trading company. In this way we can offer you the best price-quality-ratio on the market.\n\nGreat support\nWe will assist you throughout the entire process of request for quotations, orders and deliveries. Key\nbenefits being that we will communicate with the manufacturer on your behalf, offer you quotations\nin your own language (English, German or Dutch) and monitor your orders.\n\nCompetent consulting\nOur extensive experience in this sector means we can provide expert market knowledge and a tailor-made service to suit your needs.\n\nContinuous high quality\nAll items are produced by our manufacturers themselves under strict internal quality control.\n\nOur manufacturers:\n\n* Donati Sollevamenti S.r.l.\n* Dromec B.V.\n* Gebuwin B.V.\n* Modulift UK Ltd.\n* Miao Run Sen Corp. Ltd.\n* Qingdao Qinde Rigging Hardware Co. Ltd.\n* Qingdao Yuedasite Rigging Co. Ltd.\n* Remer S.r.l.\n* Schilling Gerätebau e.K.\n* Terrier Lifting Clamps B.V.\n* TWS B.V.\n\nFor further information please visit our websites:\n\nwww.lifting-lashing.de (Main website of Stuut Lifting & Lashing)\nwww.spreiztraversen.de (Modular spreader beam systems of Modulift)\nwww.winden.de (Driven winches - sale by Dromec, rental & service by TWS)\nwww.marine-lashing.com (Marine Lashing Equipment of Asian manufacturers)\n\n(Copyright by Stuut Lifting & Lashing, 2019)\n\n## Company Details\n- Industry: International Trade and Development\n- Type: Self-owned\n- Headquarters: Vlotho, Germany\n- Founded Year: 2012\n- Homepage: lifting-lashing.de\n- Aliases: stuut lifting & lashing, stuut lifting &a; lashing\n- LinkedIn: linkedin.com/company/stuut-lifting-lashing\n- Linkedin Followers: 583\n- Emails: alexander@lifting-lashing.de, bertine@lifting-lashing.de, sabrina@lifting-lashing.de, sales@lifting-lashing.de\n- Phone: +49 (0)5228 9628290, +49 5228 9628290, 0151-40429797, 05228-9628290, 151-22931014\n\n## Workforce\n- Employees: 4\n- Company Size: 1-10 employees\n- Key Executives:\n  - Alexander Stuut: Owner\n- Breakdown:\n  - By Country: Germany: 2 (50%)\n  - By Department: General Management: 2 (50%)\n  - By Seniority: Other Management: 1 (25%), Owner: 1 (25%)\n- Alumni Go To: Unitex Rolf Lübbe GmbH (1)\n\n## Products & Technology\n- Tech Stack: amp, c\n\n## Web presence\n\n- Crunchbase: crunchbase.com/organization/stuut-lifting-lashing\n- Web traffic:\n  - Monthly visits: 508\n  - Bounce rate: 37.0%\n  - Pages per visit: 1.0\n  - Average visit duration: 0s\n\n## Categories\n\naccessories, advice, aluminum gantry cranes, chain hoists, crane blocks, d-rings, din hooks, g80 & g100 chain fittings, jib cranes, lashing, lifting, lifting clamps, loadbinders, manufacturer, manufacturing/industrial, rental, roro lashing chains, shackles (us type din82101), spreaders, tensioners, turnbuckles, wholesale, winches, wire rope hoists, wire ropes\n\n## Social\n\n### Linkedin\n\n- [2026-10-08 · Posted · 11 reactions] [𝟭𝟳 𝗪𝗶𝗻𝗱𝗲𝗻. 𝗘𝗶𝗻 𝗶𝗻𝘁𝗲𝗴𝗿𝗶𝗲𝗿𝘁𝗲𝘀 𝗦𝗹𝗶𝗽𝗮𝗻𝗹𝗮𝗴𝗲𝗻𝘀𝘆𝘀𝘁𝗲𝗺 𝗳ü𝗿 𝗱𝗶𝗲 𝗪𝗲𝗿𝗳𝘁. Dromec...](https://www.linkedin.com/posts/stuut-lifting-lashing_dromec-hitzlerwerft-schiffbau-activity-7513933048749408256-ViKr)\n  > 𝟭𝟳 𝗪𝗶𝗻𝗱𝗲𝗻. 𝗘𝗶𝗻 𝗶𝗻𝘁𝗲𝗴𝗿𝗶𝗲𝗿𝘁𝗲𝘀 𝗦𝗹𝗶𝗽𝗮𝗻𝗹𝗮𝗴𝗲𝗻𝘀𝘆𝘀𝘁𝗲𝗺 𝗳ü𝗿 𝗱𝗶𝗲 𝗪𝗲𝗿𝗳𝘁.\n  > Dromec Winches wurde von der Hitzler Werft GmbH Werft mit der Entwicklung, Konstruktion, Fertigung und Umsetzung des kompletten Winden-, Steuerungs- und Bedienkonzepts für ihre Schiffsslipanlage beauftragt.\n  >\n  > Die technische Herausforderung ist klar: Alle 17 Hellingwinden müssen sowohl einzeln als auch vollständig synchron betrieben werden können. Eine präzise Überwachung und Steuerung ist entscheidend, um Schiffe auch unter wechselnden Betriebsbedingungen auf der Werft sicher und zuverlässig bewegen zu können.\n  >\n  > Mechanik, Steuerungstechnik, Sicherheit und Gleichlaufüberwachung werden daher bereits ab der ersten Engineeringphase als ein integriertes Gesamtsystem betrachtet und aufeinander abgestimmt. nbsp; Der offizielle Projektstart erfolgte im Rahmen eines Besuchs bei der Hitzler Werft. Gemeinsam besprachen beide Teams die Gegebenheiten vor Ort, die technischen Rahmenbedingungen sowie die ersten Schritte für die Konstruktion und Umsetzung.\n  >\n  > Wir freuen uns auf die weitere Zusammenarbeit mit der Hitzler Werft und die erfolgreiche Realisierung dieses anspruchsvollen Projekts!\n  >\n  > https://lnkd.in/e4u7cKS3\n  >\n  > #DROMEC #HitzlerWerft #Schiffbau #Slipanlage #Winden #WinchSystems #MaritimeEngineering #Automation #Engineering nbsp;\n\n- [2026-06-11 · Posted · 3 reactions] [#Breakbulk #Speedlash #HMPElashing #HLP #HeavyLoadPlatform](https://www.linkedin.com/posts/stuut-lifting-lashing_breakbulk-speedlash-hmpelashing-activity-7470781799158325250-nXqa)\n  > #Breakbulk #Speedlash #HMPElashing #HLP #HeavyLoadPlatform\n\n- [2026-06-03 · Reshared · 3 reactions] [Schon an unserem Stand E14 vorbeigeschaut? Heute sind wir noch bis...](https://www.linkedin.com/posts/stuut-lifting-lashing_schon-an-unserem-stand-e14-vorbeigeschaut-activity-7467941049899032577-whcv): Schon an unserem Stand E14 vorbeigeschaut? Heute sind wir noch bis 21 Uhr auf der Messe Maritime Industry in Gorinchem vertreten, morgen dann noch einmal von 13 bis 21 Uhr. Wir freuen uns auf viele...\n\n- [2026-04-16 · Reshared · 1 reaction] [Maximale Spannweite bei voller Flexibilität (Teil 3 von 3 unserer...](https://www.linkedin.com/posts/stuut-lifting-lashing_12-meter-pr%C3%A4zision-wenn-aus-zwei-starken-activity-7450504851681185792-SrKk): Maximale Spannweite bei voller Flexibilität (Teil 3 von 3 unserer Reihe: BMJ – Was ist das?) Diese Woche haben wir Unternehmensgruppe Franz Bracht in Erwitte besucht. Im vergangenen Jahr haben sie...\n\n- [2026-04-15 · Posted · 14 reactions] [Maximale Spannweite bei voller Flexibilität (Teil 3 von 3 in...](https://www.linkedin.com/posts/stuut-lifting-lashing_12-meter-pr%C3%A4zision-wenn-aus-zwei-starken-activity-7450164998598897664-lQqc)\n  > Maximale Spannweite bei voller Flexibilität\n  > (Teil 3 von 3 in unserer Reihe: BMJ - Was ist das?)\n  >\n  > Gestern durften wir in Erwitte bei der Franz Bracht Kranvermietung live dabei sein, als aus zwei 6-Meter-Traversen ein 12-Meter-Gigant wurde. Das Geheimnis dahinter ist ein Verbindungsstück namens BMJ.\n  >\n  > Warum das für die Kranbranche ein echter Gamechanger ist? Lest selbst:\n  >\n  > #StuutLiftingLashing #FranzBracht #OxRud #Kranvermietung #HeavyLifting #Innovation #Hebelösung #LiftingSolutions #Erwitte #Schwerlast\n\n- [2026-04-15 · 15 reactions] Maximale Spannweite bei voller Flexibilität (Teil 3 von 3 in unserer Reihe: BMJ - Was ist das?) Gestern durften wir in Erwitte bei der Franz Bracht Kranvermietung live dabei sein, als aus zwei 6-Me...\n\n- [2026-03-05 · 3 reactions] Verschleiß, Ausfallzeiten und Risiken minimieren Immer mehr Kranunternehmen finden den Weg zu Tension & Winding Solutions TWS und verlassen sich auf deren Service, um ihre Kranseile in einwandfreie...\n\n- [2026-03-04 · 6 reactions] WBX Shanghai Exhibition – Booth D01 We’re excited to welcome you to our booth at WBX Shanghai! Join us to explore our latest developments in lifting and lashing solutions: - Speedlash – new types n...\n\n- [2026-03-03 · 9 reactions] Speedlash – advantages compared to traditional Tension Levers Over recent years, demand for speedlashes on MPP and heavy lift vessels has steadily increased, gradually replacing traditional tension...\n\n- [2026-02-19 · 26 reactions] Die OX-SB-1350 mit DTML Trunnion Endstücken im Einsatz Das Unternehmen RSN Offshore B.V. (Rigging Service Netherlands B.V.) hat mehrere Lasttests und einen Überlasttest am ausgefahrenen Hauptkran d...\n\n- [2026-01-12 · Reshared · 2 reactions] [Letzte Woche schloss Tension & Winding Solutions TWS erfolgreich...](https://www.linkedin.com/posts/stuut-lifting-lashing_tws-marineoperations-portoperations-activity-7416427850980917248-qGvY): Letzte Woche schloss Tension & Winding Solutions TWS erfolgreich ein Projekt an Bord der Oyeli Star ab, während das Schiff im Hafen von Dakar lag. Im Rahmen dieser Operation wurde das Schleppseil d...\n\n- [2025-12-15 · Posted · 18 reactions] [Auflösung unseres Bilderrätsels - Können Sie es erahnen? Jetzt, wo...](https://www.linkedin.com/posts/stuut-lifting-lashing_oxrud-liftingsolutions-brandnew-activity-7406339987174219776-3wWb)\n  > Auflösung unseres Bilderrätsels - Können Sie es erahnen?\n  >\n  > Jetzt, wo alle Teile lackiert und montiert sind, sieht es schon deutlich mehr nach einer Traverse aus – allerdings fehlt noch etwa ein Drittel der Hebelösung.\n  >\n  > Dieses brandneue Traversenkonzept von OX & RUD LIFTING SOLUTIONS, S.L. mit einer Gesamtlänge von 7,5 m und einem Gewicht von 4,4 t wird in Kürze unserem Kunden in Deutschland geliefert.\n  >\n  > Wir sind auf den ersten Einsatz gespannt!\n  >\n  > #oxrud #liftingsolutions #brandnew #innovation #liftingbeam #multilug #bmj\n\n- [2025-12-15 · 18 reactions] Auflösung unseres Bilderrätsels - Können Sie es erahnen? Jetzt, wo alle Teile lackiert und montiert sind, sieht es schon deutlich mehr nach einer Traverse aus – allerdings fehlt noch etwa ein Dritt...\n\n- [2025-12-03 · Posted · 6 reactions] [Was könnte das sein? Nur ein kleiner Ausschnitt – aber dahinter...](https://www.linkedin.com/posts/stuut-lifting-lashing_oxrud-liftingsolutions-brandnew-activity-7401935361339187200-MIwK)\n  > Was könnte das sein?\n  >\n  > Nur ein kleiner Ausschnitt – aber dahinter steckt etwas Großes. OX & RUD LIFTING SOLUTIONS, S.L. arbeiten an einer brandneuen Traversen-Lösung.\n  >\n  > Bald gibt’s mehr!\n  >\n  > #oxrud #liftingsolutions #brandnew\n\n- [2025-12-03 · 6 reactions] Was könnte das sein? Nur ein kleiner Ausschnitt – aber dahinter steckt etwas Großes. OX & RUD LIFTING SOLUTIONS, S.L. arbeiten an einer brandneuen Traversen-Lösung. Bald gibt’s mehr! #oxrud #liftin...\n\n- [2025-11-21 · Posted · 4 reactions] [Meet us in Shanghai! Together with our partner Qingdao Mingrun...](https://www.linkedin.com/posts/stuut-lifting-lashing_exhibition-lashingsolutions-liftingequipment-activity-7397528994822266880-sGP1)\n  > Meet us in Shanghai!\n  >\n  > Together with our partner Qingdao Mingrun Machinery Co Ltd, we will exhibit at the upcoming Marintec China 2025 exhibition – Booth Nr. N4E8E\n  >\n  > Please contact us by DM to schedule a meeting.\n  >\n  > #Exhibition #LashingSolutions #LiftingEquipment #PortOperations #CargoHandling #HeavyLift #CargoSecuring #LashingChains #TensionLevers #Speedlashes #Turnbuckles #Drings #StopperPlates #Twistlocks #BridgeFittings #StackingCones #LahingBars #DunnageWood #RubberMats #Shackles #Bins #Grommets #WireRopeSlings #PolyesterRoundSlings #WebbingSlings #RatchetStraps #WeldingBlankets #HatchCoverTape\n\n- [2025-11-21 · 4 reactions] Meet us in Shanghai! Together with our partner Qingdao Mingrun Machinery Co Ltd, we will exhibit at the upcoming Marintec China 2025 exhibition – Booth Nr. N4E8E Please contact us by DM to schedule...\n\n- [2025-05-14 · Posted · 15 reactions] [Meet you in Rotterdam! #breakbulk #breakbulkeurope #bbe #bbe25...](https://www.linkedin.com/posts/stuut-lifting-lashing_breakbulk-breakbulkeurope-bbe-activity-7328350753708781568-O78D)\n  > Meet you in Rotterdam!\n  >\n  > #breakbulk #breakbulkeurope #bbe #bbe25 #rotterdam #exhibition\n\n- [2025-05-14 · Posted · 7 reactions] [DROMEC liefert Ankerwinden für die Schleppnetzfischerei auf dem...](https://www.linkedin.com/posts/stuut-lifting-lashing_dromec-ankerwinden-f%C3%BCr-die-schleppnetzfischerei-activity-7328316136679235584-YPzS)\n  > DROMEC liefert Ankerwinden für die Schleppnetzfischerei auf dem Bodensee\n  >\n  > Im Rahmen eines ökologischen Projekts zur Erhaltung des natürlichen Gleichgewichts des Bodensees unterstützt DROMEC die Bayerische Landesanstalt für Landwirtschaft (LfL). Mit der Lieferung leistungsstarker Ankerwinden soll untersucht werden, ob der Stichlingsbestand im See durch Schleppnetzfischerei reduziert werden kann.\n  >\n  > Elektrische Ankerwinden\n  > Dromec Winches hat zwei elektrische Ankerwinden vom Typ ECA-500-KB an die Bayerische Landesanstalt für Landwirtschaft geliefert. Diese Winden wurden direkt an Deck von Fischereifahrzeugen installiert und bereits erfolgreich in Betrieb genommen. Mit einer maximalen Hubkraft von 500 kg in der fünften Lage und einer beeindruckenden Haltekraft von 3.500 kg in der ersten Lage erfüllen diese Winden höchste Leistungs- und Sicherheitsstandards. Die Trommel fasst bis zu 150 Meter Stahlseil mit 6 mm Durchmesser, das mit einer Geschwindigkeit von ca. 15 Metern pro Minute präzise auf- und abgewickelt werden kann.\n  >\n  > Innovatives Projekt\n  > Diese Winden werden in einem innovativen Projekt zur Wiederherstellung des natürlichen Gleichgewichts des Bodensees eingesetzt. Ziel ist es zu testen, ob der Stichlingsbestand – eine Fischart, deren Überpopulation das Ökosystem des Sees negativ beeinflusst – durch gezielte Schleppnetzfischerei reguliert werden kann.\n  >\n  > „Wir danken der Bayerischen Landesanstalt für Landwirtschaft für ihr Vertrauen und freuen uns, dass unsere Technologie zu einer nachhaltigen Fischerei und zum Schutz des Ökosystems Bodensee beitragen kann“, sagt Bertine Stuut, Ansprechpartnerin von DROMEC für die DACH-Region.\n  >\n  > Zu weiteren Seilwinden & Seilwickelmaschinen: https://winden.de/\n  >\n  > #dromec #seilwinden #ankerwinden #innovation #fischerei #ökosystem\n\n- [2025-05-02 · Posted · 41 reactions] [Delivery of a Truly Exceptional Lifting Solution! We’re proud to...](https://www.linkedin.com/posts/stuut-lifting-lashing_heavylifting-spreaderbeam-oxrud-activity-7323992158351364097-NJJP)\n  > Delivery of a Truly Exceptional Lifting Solution!\n  >\n  > We’re proud to announce the successful delivery of the massive OX-SB-1350 spreader beam, featuring the innovative DTML Trunnion end units (patent pending), to our valued customer RSN Offshore B.V. (Rigging Service Netherlands B.V.).\n  >\n  > With an assembled length of 13 metres and a Working Load Limit (WLL) of 1,350 tonnes, this impressive spreader sets a new benchmark in heavy lifting and proof load testing.\n  >\n  > What sets this system apart is the smart DTML Trunnion design: Additional lifting points on both top and bottom offer unmatched flexibility — especially beneficial for load testing with water bags.\n  >\n  > 🔹 Direct sling-to-trunnion connection eliminates the need for shackles, significantly reducing rigging time for conventional lifting operations.\n  > 🔹 Optional lifting points provide an easy connection for additional lifting gear when needed.\n  >\n  > This is a prime example of innovative and efficient lifting technology — designed with the end-user in mind.\n  >\n  > 👏 Many thanks to everyone involved — OX & RUD LIFTING SOLUTIONS, S.L. and RSN — for making this project a success. We wish RSN the best of luck with their new spreader!\n  >\n  > #HeavyLifting #SpreaderBeam #OXRUD #LiftingSolutions #Innovation #EngineeringExcellence #WaterBagTesting #ProofLoadTesting\n\n## Locations\n- Headquarters: vlotho, north rhine-westphalia, germany (DE)\n- Offices: vlotho, nordrhein-westfalen, germany (DE), vlotho, nrw d-, germany (DE)",
+        "summary": "{\"description\":\"Stuut Lifting & Lashing is a company that specializes in lifting and lashing products with a focus on representing manufacturers and providing high quality products at competitive prices.\",\"employee_estimate\":4,\"employee_estimate_source\":\"Employees: 4\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Vlotho, Germany\",\"hq_quote\":\"Headquarters: Vlotho, North Rhine-Westphalia, Germany (DE)\",\"industry\":\"International Trade and Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: International Trade and Development\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":false,\"recently_funded_seed_or_series_a_quote\":\"- Industry: International Trade and Development\\n- Type: Self-owned\\n- Headquarters: Vlotho, Germany\\n- Founded Year: 2012\\n- Homepage: lifting-lashing.de\\n- Aliases: stuut lifting & lashing, stuut lifting &a; lashing\\n- LinkedIn: linkedin.com/company/stuut-lifting-lashing\\n- Linkedin Followers: 583\\n- Emails: alexander@lifting-lashing.de, bertine@lifting-lashing.de, sabrina@lifting-lashing.de, sales@lifting-lashing.de\\n- Phone: +49 (0)5228 9628290, +49 5228 9628290, 0151-40429797, 05228-9628290, 151-22931014\\n...\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4E0BAQGJYCiLVsOtPw/company-logo_200_200/company-logo_200_200/0/1631353122022?e=2147483647&v=beta&t=otQ7Uicw31l7a4-lfzwvDWscPG3y96xz73R7HPT2gj8",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/9w6dkgyprp5",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Stuut Lifting & Lashing",
+              "foundedYear": 2012,
+              "description": "Stuut Lifting & Lashing \"​...the best link between you and the manufacturer\"​\n\nWith our company SLL Handelsvertretung e.K. (Stuut Lifting & Lashing) we represent various manufacturers of lifting and lashing equipment. As their exclusive agents, we coordinate and facilitate all commercial activities on behalf of these factories. We are not a trading company: The customers we serve buy directly from the manufacturer and we assist at every step. In this way, we are able to offer high quality products with very competitive prices. \n\nOUR EXPERIENCE - OUR CONNECTIONS - YOUR ADVANTAGES\n\nCompetetive pricing\nAs a customer you buy directly from the manufacturer and not from a trading company. In this way we can offer you the best price-quality-ratio on the market.\n\nGreat support\nWe will assist you throughout the entire process of request for quotations, orders and deliveries. Key\nbenefits being that we will communicate with the manufacturer on your behalf, offer you quotations\nin your own language (English, German or Dutch) and monitor your orders.\n\nCompetent consulting\nOur extensive experience in this sector means we can provide expert market knowledge and a tailor-made service to suit your needs.\n\nContinuous high quality\nAll items are produced by our manufacturers themselves under strict internal quality control.\n\nOur manufacturers:\n\n* Donati Sollevamenti S.r.l.\n* Dromec B.V.\n* Gebuwin B.V.\n* Modulift UK Ltd.\n* Miao Run Sen Corp. Ltd.\n* Qingdao Qinde Rigging Hardware Co. Ltd.\n* Qingdao Yuedasite Rigging Co. Ltd.\n* Remer S.r.l.\n* Schilling Gerätebau e.K.\n* Terrier Lifting Clamps B.V.\n* TWS B.V.\n\nFor further information please visit our websites:\n\nwww.lifting-lashing.de (Main website of Stuut Lifting & Lashing)\nwww.spreiztraversen.de (Modular spreader beam systems of Modulift)\nwww.winden.de (Driven winches - sale by Dromec, rental & service by TWS)\nwww.marine-lashing.com (Marine Lashing Equipment of Asian manufacturers)\n\n(Copyright by Stuut Lifting & Lashing, 2019)",
+              "workforce": {
+                "total": 4
+              },
+              "headquarters": {
+                "address": "Roggenkamp 29, Vlotho, NRW D-32602, DE",
+                "city": "Vlotho",
+                "postalCode": null,
+                "country": "Germany"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 508,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 1249,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 928,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 315,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 737,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 155,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 508,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 5749,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

@@ -1,0 +1,270 @@
+{
+  "request": {
+    "query": "OpenObserve",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "66be051f789035b80d9e6827c0dd436b",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/3rvcyb1bsvs",
+        "title": "OpenObserve",
+        "url": "https://openobserve.ai/",
+        "text": "# OpenObserve\n\nOpenObserve is a Software Development company. OpenObserve is an open-source observability platform that provides high-performance, unified observability for the AI era. It offers a lower storage cost and offers a 140x lower storage cost. OpenObserve employs 34 people (+9.7% YoY, +3 people) and has an annual revenue of $250K, founded in 2022. Headquartered in San Francisco, California, United States. Its workforce is distributed across India, United States, China, and Mexico.\n\n## About\n\nOpenObserve is an open-source, high-performance platform for unified observability — bringing logs, metrics, traces, and real user monitoring into a single system so teams stop juggling disconnected tools. \n\nWith over 20K GitHub stars and 8K+ active deployments at organizations like Walmart, Banorte, Sony Music, and Hitachi Ventara, it's proven at scale. \n\nBuilt on open standards like OpenTelemetry with S3-native storage, it avoids proprietary lock-in while delivering up to 140x better storage efficiency than Elastic and 30x better compute efficiency than Splunk, at roughly 4x lower cost than Datadog.\n\nBeyond traditional observability, OpenObserve is expanding into AI-driven operations. Its AI SRE capabilities auto-correlate signals across logs, metrics, and traces to speed root-cause analysis and cut alert fatigue, shifting teams from reactive dashboards to proactive incident response. \n\nAs LLM adoption grows, OpenObserve also supports LLM observability, tracking prompts, completions, latency, token usage, and quality signals — letting teams monitor and optimize AI applications through the same unified pipeline used for the rest of their stack.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: San Francisco, United States\n- Founded Year: 2022\n- Homepage: openobserve.ai\n- Aliases: OpenObserve Inc, openobserve, zinc labs, inc., zincsearch\n- LinkedIn: linkedin.com/company/openobserve\n- Linkedin Followers: 7,282\n- Emails: hello@openobserve.ai\n- Phone: (415) 429-6096, 1-415-429-6096\n\n## Financials\n- Annual Revenue: USD 250,000\n- Total Funding: USD 13,600,000\n  - Series a (2026-04-01): USD 10.0M\n  - Seed (2022-03-19): USD 3.6M\n\n## Workforce\n- Employees: 34\n- Company Size: 11-50 employees\n  - Monthly Growth: -5.6%\n  - Yearly Growth: +9.7%\n- Key Executives:\n  - Anand Babu Periasamy: Angel Investor\n  - Prabhat Sharma: Founder & CEO\n  - Shani Shoham: Chief Revenue Officer (CRO)\n- Breakdown:\n  - By Country: India: 20 (59%), United States: 9 (26%), China: 2 (6%), Mexico: 1 (3%)\n  - By Department: Technical: 17 (50%), Other Department: 3 (9%), Sales: 3 (9%), Marketing: 2 (6%), Product: 2 (6%), Consulting: 1 (3%), General Management: 1 (3%), Hr: 1 (3%), Operations: 1 (3%), Research: 1 (3%)\n  - By Seniority: Other Management: 17 (50%), Specialist: 8 (24%), Senior: 3 (9%), Clevel: 2 (6%), Founder: 1 (3%), Manager: 1 (3%)\n- Talent Sources: Grafana Labs (2), Datadog (2), Spundhann (1), Siemens PLM Software (inactive) (1), Kotak Mahindra Bank (1), Fortanix (1), Fast Radius, a SyBridge Technologies Company (1), DevOpsHub (1), DataHub (1), Akamai Technologies (1)\n- Alumni Go To: Synqly (1), Self-Employed (1), Saia Agrobotics (1), Rightfoot (1), Lee & Associates Commercial Real Estate Services | Pacific Northwest (1), Isovalent (1), Inventyv Software Services Pvt. Ltd. (1), HydraDB (1), Confident AI (1), Attio (1)\n\n## Products & Technology\n- Tech Stack: datadog, elastic, elasticsearch, github, github actions, playwright, pytest, splunk, iam, hubspot, marketo, amp, impact, well, grafana, kubernetes, docker, git, google cloud, jenkins, mongodb, mysql, postgresql, postman, python, dell, java, prometheus, slack, apache, javascript, vue.js\n\n## Web presence\n\n- Twitter: twitter.com/openobserve\n- YouTube: youtube.com/@openobserve\n- Crunchbase: crunchbase.com/organization/zincsearch\n- GitHub: github.com/openobserve/openobserve\n- Web traffic:\n  - Monthly visits: 137,863\n  - Global rank: 346,455\n  - Bounce rate: 48.0%\n  - Pages per visit: 1.8\n  - Average visit duration: 37s\n\n## Categories\n\nai era, analytics, artificial intelligence (ai), computers_electronics_and_technology/programming_and_developer_software, data-collection, data-management, monitoring software, observability platform, observability software, openobserve, search-engine, software, storage efficiency, technology, technology/software, unified observability\n\n## Competitors\n\nbuiltwith, neeva, elastic, mobius knowledge services, mathematica, jarmany, dynamed\n\n## Recent News\n- [2026-09-26] Yahoo Finance: OpenObserve Reaches v1.0, Bringing AI Observability into the Same Platform as Logs, Metrics, Traces, and RUM\n- [2026-09-23] HPCwire: OpenObserve Reaches v1.0, Bringing AI Observability into Same Platform as Logs, Metrics, Traces, and RUM\n- [2026-09-22] [OpenObserve Reaches v1.0, Bringing AI Observability into the Same Platform as Logs, Metrics, Traces, and RUM \\| VentureBeat](https://venturebeat.com/business/openobserve-reaches-v10-bringing-ai-observability-into-the-same-platform-as-logs-metrics-traces-and-rum)\n- [2026-09-15]\n  - Heise Online: OpenObserve shows why AI agents give wrong answers\n  - heise online: Safety requirements: AI companies reportedly in talks since July\n- [2026-09-14]\n  - [OpenObserve zeigt, warum KI-Agenten falsche Antworten geben \\| heise online](https://www.heise.de/news/OpenObserve-zeigt-warum-KI-Agenten-falsche-Antworten-geben-11452620.html)\n  - [OpenObserve zeigt, warum KI-Agenten falsche Antworten geben](https://www.finanzen.at/nachrichten/aktien/openobserve-zeigt--warum-ki-agenten-falsche-antworten-geben-15933248)\n  - [Why a wrong AI answer becomes traceable: what observability teaches you about per-workflow verification](https://www.blogarama.com/technology-blogs/1459255-infosec-technews-blog/80257868-why-wrong-answer-becomes-traceable-what-observability-teaches-you-about-per-workflow-verification)\n  - heise online: Top mathematicians warn of AI race for proofs\n- [2026-09-11] heise online: OpenAI CEO Sam Altman considers slowing down AI development pace\n- [2026-09-03] Mshale: Running AI In Production: What Nobody Tells You About LLM Costs, Reliability & Observability Iranian War \\(pT9oSOilIT\\)\n- [2026-07-15]\n  - [OpenObserve Surpasses 20,000 GitHub Stars as Developers Embrace Open Source Observability](https://www.advfn.com/stock-market/stock-news/98926159/openobserve-surpasses-20-000-github-stars-as-devel)\n  - [Helicone is now in maintenance mode. Here's how to switch to OpenObserve in 5 minutes. - DEV Community](https://dev.to/simran_kumari_464546e0a3c/helicone-is-now-in-maintenance-mode-heres-how-to-switch-to-openobserve-in-5-minutes-41no)\n- [2026-07-07] [OpenCost vs Kubecost: Which K8s Cost Tool to Use](https://cast.ai/blog/opencost-vs-kubecost/)\n- [2026-01-28] 01net: OpenObserve Appoints Proven B2B SaaS Leader Shani Shoham as Chief Revenue Officer to Accelerate Market Leadership\n- [2025-12-04] Хабр: 10 лучших open source инструментов Observability 2025\n- [2025-06-23] PR Newswire: CNCF Welcomes New Silver Members to Strengthen Enterprise Cloud Infrastructure, Observability, and Analytics\n- [2022-05-19]\n  - TechCrunch: Former AWS engineer sets out to build a better log search engine\n  - FinSMES: ZincSearch Raises $3.6M in Seed Funding\n\n## Social\n\n### Linkedin\n\n- [2026-10-06 · Posted · 5 reactions] [The app alerted on 503s. But that was only a symptom. Kubernetes...](https://www.linkedin.com/posts/openobserve_kubernetes-sre-observability-activity-7513275174285328385-kPgx)\n  > The app alerted on 503s. But that was only a symptom.\n  > Kubernetes nodes were going offline without triggering an alert, leaving the platform short on capacity. The investigation led to an Unbound DNS bug.\n  >\n  > Sarah Kaplan, Sr. Engineering Manager at Apple, shares how her team followed the clues, including nodes that had stopped logging, to uncover what was actually failing.\n  >\n  > When the first alert only tells part of the story, where do you look next?\n  >\n  > Watch the full panel for more real production stories and lessons you can apply before your next incident: https://lnkd.in/gRJg_vPS\n  >\n  > #Kubernetes #SRE #Observability #IncidentResponse #DevOps\n\n- [2026-10-01 · Posted · 83 reactions] [Decklar used to wait days, to a week, to get to the information its...](https://www.linkedin.com/posts/openobserve_devops-sre-sitereliabilityengineering-activity-7511459080817946626-pJnu)\n  > Decklar used to wait days, to a week, to get to the information its team needed.\n  > Now, the information comes to them. OpenObserve sends alerts into the tools they already use, so the team can respond without first digging through the data.\n  >\n  > “We don’t even go and query this data. It comes to us in the form of alerts.” - Shailesh Mangal, CTO at Decklar.\n  >\n  > Read the customer story: https://lnkd.in/gbA5SfJK\n  >\n  > #DevOps #SRE #SiteReliabilityEngineering #SoftwareEngineering #Observability\n\n- [2026-09-28 · Reshared · 7 reactions] [The alert fired. Now what? It tells you something is wrong, but the...](https://www.linkedin.com/posts/openobserve_sre-observability-incidentresponse-activity-7510397461681848321-DwG-): The alert fired. Now what? It tells you something is wrong, but the cause is still unclear. Meanwhile, other alerts are piling up, and you need to know whether users are affected. This Wednesday, h...\n\n- [2026-09-25 · Posted · 47 reactions] [We’re excited to welcome Amber Lopez to the OpenObserve GTM team...](https://www.linkedin.com/posts/openobserve_observability-devops-opentelemetry-activity-7509257936276340736-QKWd)\n  > We’re excited to welcome Amber  Lopez to the OpenObserve GTM team.\n  > Amber brings a strong background across observability, DevOps, and AI-powered platforms, along with a deep curiosity for how technology works. Never afraid to get hands on, she brings both technical understanding and a passion for helping engineering teams solve real challenges.\n  >\n  > “I’m thrilled to join OpenObserve and help bring open, unified observability to more engineering teams. OpenObserve’s open source, OpenTelemetry native approach gives teams a simpler path to understanding and operating their systems, and I’m excited to be part of what comes next.”\n  >\n  > We’re glad to have you with us, Amber!\n  >\n  > Interested in joining the team? Check out opportunities at OpenObserve: https://lnkd.in/gXpzdbpS\n  >\n  > #Observability #DevOps #OpenTelemetry #OpenSource\n\n- [2026-09-25 · 5 reactions] We’re excited to welcome Amber Lopez to the OpenObserve GTM team. Amber brings a strong background across observability, DevOps, and AI-powered platforms, along with a deep curiosity for how techno...\n\n- [2026-09-24 · Reshared · 6 reactions] [Private suite at Fenway Park, Boston✔️ Next? We’re not revealing...](https://www.linkedin.com/posts/openobserve_engineeringleadership-devops-sre-activity-7508941943423451136-uRj9): Private suite at Fenway Park, Boston✔️ Next? We’re not revealing everything just yet. 😉 We’re bringing engineering leaders together around the world for one-of-a-kind experiences, great conversatio...\n\n- [2026-09-24 · Posted · 6 reactions] [Heading to KubeCon + CloudNativeCon North America 2026? Get 20% off...](https://www.linkedin.com/posts/openobserve_kubecon-devops-sre-activity-7508903584202416129-EnL5)\n  > Heading to KubeCon + CloudNativeCon North America 2026?\n  > Get 20% off your ticket → https://lnkd.in/gc5Q6kCY\n  >\n  > And when you get to Salt Lake City, come find us at Booth 167:\n  > • See Kubernetes, unified, and AI/LLM observability in action\n  > • Grab exclusive swag\n  > • Find out how to get a custom 3D figurine made to look like you\n  >\n  > #KubeCon #DevOps #SRE #Kubernetes #Observability #SoftwareEngineering\n\n- [2026-09-24 · 5 reactions] Heading to KubeCon + CloudNativeCon North America 2026? Get 20% off your ticket → https://lnkd.in/gc5Q6kCY And when you get to Salt Lake City, come find us at Booth 167: • See Kubernetes, unified,...\n\n- [2026-09-23 · Posted · 21 reactions] [How do you catch a production failure you never thought to alert...](https://www.linkedin.com/posts/openobserve_how-to-catch-production-failures-you-never-activity-7508537438953295874-0nMh)\n  > How do you catch a production failure you never thought to alert on?\n  > Alert on everything and you create noise. Alert on too little and you create blind spots.\n  >\n  > The challenge is making sure the signals you do have can still reveal failures you never predicted. The worst time to discover that gap is during the incident.\n  >\n  > In the latest edition of The Observer, we break down how teams can improve coverage without alerting on everything.\n  >\n  > Read it here and subscribe for future insights on observability, SRE, DevOps, and operating modern systems.\n  >\n  > #SRE #DevOps #Observability #RootCauseAnalysis #SiteReliabilityEngineering #IncidentManagement\n\n- [2026-09-23 · 20 reactions, 1 comment] How do you catch a production failure you never thought to alert on? Alert on everything and you create noise. Alert on too little and you create blind spots. The challenge is making sure the signa...\n\n- [2026-09-22 · Posted · 35 reactions] [What happens when someone actually installs OpenObserve 1.0 and...](https://www.linkedin.com/posts/openobserve_openobserve-observability-kubernetes-activity-7508171003273998336-Oir0)\n  > What happens when someone actually installs OpenObserve 1.0 and puts it through its paces? Watch Saiyam Pathak’s full hands-on walkthrough: https://lnkd.in/gZguikci\n  >\n  > He starts with a single binary on his Mac, then connects a three-node Kubernetes cluster and explores:\n  >\n  > • Logs, metrics, and distributed traces\n  > • Dashboards and 1,200+ prebuilt alerts\n  > • OpenObserve’s architecture and compression\n  > • Claude Code integration through MCP\n  > • SLOs and error budgets\n  > • AI-assisted troubleshooting\n  > • LLM token, latency, and cost monitoring\n  >\n  > The OpenObserve vs. Elasticsearch benchmark sparked his curiosity. What followed was a 30-minute technical deep dive into how the platform actually works.\n  >\n  > Thanks, Saiyam, for taking OpenObserve 1.0 for a spin and sharing the entire experience.\n  >\n  > #OpenObserve #Observability #Kubernetes #LLM #MCP\n\n- [2026-09-22 · 29 reactions, 1 comment] What happens when someone actually installs OpenObserve 1.0 and puts it through its paces? Watch Saiyam Pathak’s full hands-on walkthrough: https://lnkd.in/gZguikci He starts with a single binary o...\n\n- [2026-09-21 · Posted · 18 reactions] [How do you prepare for the production problem you never thought to...](https://www.linkedin.com/posts/openobserve_engineering-leaders-activity-7507800905396768768-zdO7)\n  > How do you prepare for the production problem you never thought to alert on?\n  > Ask the experts live on September 30: https://lnkd.in/guNstXpZ\n  >\n  > • Sarah Kaplan, Sr. Engineering Manager, Apple\n  > • Heather Osborn, Manager, Software Engineering / DevOps, Cars.com\n  > • Barnadeep Bhowmik, Sr. Infrastructure Engineer, SLB\n  >\n  > They’ll share production stories and lessons learned about which signals deserve attention, how to cut noise without creating blind spots, and where to start when an alert only shows a symptom.\n  >\n  > Learn lessons you won’t find in a playbook, then put them into practice before your next incident.\n  >\n  > #DevOps #SRE #IncidentManagement #AlertsFatigue #SLOs\n\n- [2026-09-21 · 16 reactions, 1 comment] How do you prepare for the production problem you never thought to alert on? Ask the experts live on September 30: https://lnkd.in/guNstXpZ • Sarah Kaplan, Sr. Engineering Manager, Apple • Heather...\n\n- [2026-09-17 · Posted · 35 reactions] [When you’re the founder of OpenObserve, spend all day talking about...](https://www.linkedin.com/posts/openobserve_observability-telemetry-otel-activity-7506366451834830849-_H4V)\n  > When you’re the founder of OpenObserve, spend all day talking about observability… and then realize you’re the one being observed by 1.5 million people 👀\n  >\n  > Prabhat Sharma, caught in the wild after LeadDev NYC by streamer N3on: https://lnkd.in/gffBwNFK\n  >\n  > #Observability #telemetry #OTel #DevOps\n\n- [2026-09-17 · Posted · 31 reactions] [Kem cho, Ahmedabad? We're heading to KCD Gujarat | CNCG Ahmedabad...](https://www.linkedin.com/posts/openobserve_ahmedabad-observability-devops-activity-7506208007484194816-ueb4)\n  > Kem cho, Ahmedabad?\n  > We're heading to KCD Gujarat | CNCG Ahmedabad, and you’ve got 4 chances to win by completing a 2-minute survey: https://lnkd.in/geXPi-aD\n  >\n  > Submit ahead of time, then stop by the OpenObserve booth during the draw to claim your prize.\n  >\n  > #Ahmedabad #Observability #DevOps #CloudNative\n\n- [2026-09-17 · 44 reactions, 1 comment] When you’re the founder of OpenObserve, spend all day talking about observability… and then realize you’re the one being observed by 1.5 million people 👀 Prabhat Sharma, caught in the wild after Le...\n\n- [2026-09-17 · 36 reactions, 1 comment] Kem cho, Ahmedabad? We're heading to KCD Gujarat | CNCG Ahmedabad, and you’ve got 4 chances to win by completing a 2-minute survey: https://lnkd.in/geXPi-aD Submit ahead of time, then stop by the O...\n\n- [2026-09-16 · Reshared · 8 reactions] [There’s a reason OpenObserve can start as a single binary and grow...](https://www.linkedin.com/posts/openobserve_telemetry-observability-sre-activity-7506048040319918080-CwEk): There’s a reason OpenObserve can start as a single binary and grow to handle petabytes of #telemetry. John Hayes takes a closer look at the architecture behind OpenObserve, including Parquet, objec...\n\n- [2026-09-15 · Reshared · 17 reactions] [We love to see this kind of technical validation. Saiyam Pathak...](https://www.linkedin.com/posts/openobserve_kubernetes-telemetry-observability-activity-7505651093448863744-6-_R): We love to see this kind of technical validation. Saiyam Pathak didn’t just look at OpenObserve from the outside. He ran OpenObserve 1.0 on #Kubernetes, dug into how the backend works, tested it wi...\n\n## Locations\n- Headquarters: san francisco, california, united states (US)\n- Offices: san francisco, california, united states (US)",
+        "summary": "{\"description\":\"OpenObserve is an open-source observability platform and software development company providing high-performance, unified observability in the AI era.\",\"employee_estimate\":34,\"employee_estimate_source\":\"Employees: 34\",\"hiring_first_ops_or_revops\":false,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"San Francisco, United States\",\"hq_quote\":\"Headquartered in San Francisco, California, United States.\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Software Development\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 13,600,000 - Series a (2026-04-01): USD 10.0M - Seed (2022-03-19): USD 3.6M\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQFYhdBBR6iz9A/company-logo_200_200/B56Zc6yMKTG0AQ-/0/1749037925326/openobserve_logo?e=2147483647&v=beta&t=cLRQLGavf5HWQ_dIptQ_GdErXn9BlX_uKJSruohtokY",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/3rvcyb1bsvs",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "OpenObserve",
+              "foundedYear": 2022,
+              "description": "OpenObserve is an open-source, high-performance platform for unified observability — bringing logs, metrics, traces, and real user monitoring into a single system so teams stop juggling disconnected tools. \n\nWith over 20K GitHub stars and 8K+ active deployments at organizations like Walmart, Banorte, Sony Music, and Hitachi Ventara, it's proven at scale. \n\nBuilt on open standards like OpenTelemetry with S3-native storage, it avoids proprietary lock-in while delivering up to 140x better storage efficiency than Elastic and 30x better compute efficiency than Splunk, at roughly 4x lower cost than Datadog.\n\nBeyond traditional observability, OpenObserve is expanding into AI-driven operations. Its AI SRE capabilities auto-correlate signals across logs, metrics, and traces to speed root-cause analysis and cut alert fatigue, shifting teams from reactive dashboards to proactive incident response. \n\nAs LLM adoption grows, OpenObserve also supports LLM observability, tracking prompts, completions, latency, token usage, and quality signals — letting teams monitor and optimize AI applications through the same unified pipeline used for the rest of their stack.",
+              "workforce": {
+                "total": 34
+              },
+              "headquarters": {
+                "address": "315 Montgomery St, 10th Floor, San Francisco, California 94104, US",
+                "city": "San Francisco",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 250000,
+                "fundingTotal": 13600000,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2026-04-01",
+                  "amount": 10000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 137863,
+                "countryRank": 98361,
+                "avgDurationSeconds": 37,
+                "history": [
+                  {
+                    "value": 92640,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 91655,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 90842,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 91331,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 195145,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 137863,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/w8q3lt82tgw",
+        "title": "OpenReplay",
+        "url": "https://openreplay.com/",
+        "text": "# OpenReplay\n\nOpenReplay is a Software Development company. OpenReplay provides self-hosted session replay and product analytics solutions for product pricing, solutions, and resources. They offer features such as cobrowse, seamless in-app support, and data security and privacy control. OpenReplay employs 55 people (-35.3% YoY, -30 people) and has an annual revenue of $2M, founded in 2018. Headquartered in New York, New York, United States, with an office in San Francisco. Its workforce is distributed across 5 countries (including Nigeria, France, United States, United Kingdom, and Uganda).\n\n## About\n\nOpenReplay is a developer friendly, open-source session replay stack that lets you see what users do on your web app, helping you troubleshoot issues faster.\n\nWe’ve recently completed our second round of financing from some of the best European angels, and we’re constantly looking for new talents to help us shape the future of our product and company.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: New York, United States\n- Founded Year: 2018\n- Homepage: openreplay.com\n- Aliases: Asayer, Inc, asayer, asayer sas, openreplay\n- LinkedIn: linkedin.com/company/openreplay\n- Linkedin Followers: 4,294\n- Emails: hey@openreplay.com, sales@openreplay.com\n\n## Financials\n- Annual Revenue: USD 2,000,000\n- Total Funding: USD 6,275,000\n  - Seed (2022-06-28): USD 4.7M\n  - Seed (2019-09-01): USD 125,000\n  - Seed (2019-08-19): USD 150,000\n  - Seed (2019-01-31): USD 1.0M\n  - Pre seed (2018-01-01): USD 300,000\n\n## Workforce\n- Employees: 55\n- Company Size: 11-50 employees\n  - Yearly Growth: -35.3%\n- Key Executives:\n  - Mehdi Osman: CEO\n- Breakdown:\n  - By Country: Nigeria: 26 (47%), France: 6 (11%), United States: 4 (7%), United Kingdom: 2 (4%), Uganda: 1 (2%)\n  - By Department: Technical: 31 (56%), Design: 2 (4%), Marketing: 2 (4%), Consulting: 1 (2%), General Management: 1 (2%), Other Department: 1 (2%), Sales: 1 (2%)\n  - By Seniority: Specialist: 31 (56%), Other Management: 5 (9%), Manager: 2 (4%), Clevel: 1 (2%)\n- Talent Sources: Pieces (8), Empower Her Community (3), Bejamas (3), Turing (2), Semaphore (2), Self Employed (2), LogRocket (2), HNG Tech (2), Datanumia, EDF Group (2), Baeldung (2)\n- Alumni Go To: freeCodeCamp (6), LogRocket (6), Pieces (5), Strapi (4), Turing (3), ButterCMS 🧈 (3), Mattermost (2), CNFPT (Centre national de la fonction publique territoriale) (2), Bejamas (2), 100Pay (2)\n\n## Products & Technology\n- Tech Stack: angularjs, chrome, graphql, nginx, react, react native, redux, typescript, vuepress, webpack, clickhouse, css, figma, html, javascript, microservices, python, pytorch, tensorflow, nvidia, sql, amp, angular, ansible, github, grafana, kubernetes, linux, prometheus, terraform, unix, webrtc, well\n\n## Web presence\n\n- YouTube: youtube.com/@openreplay\n- Crunchbase: crunchbase.com/organization/asayer\n- GitHub: github.com/openreplay\n- Web traffic:\n  - Monthly visits: 1,021,868\n  - Global rank: 58,811\n  - Bounce rate: 62.0%\n  - Pages per visit: 2.0\n  - Average visit duration: 81s\n\n## Categories\n\nai software testing tools, cobrowse, computers_electronics_and_technology/computers_electronics_and_technology, data security, developer tools, developer-tools, devtools, enterprise-software, generative ai software, internet, open source, open-source, openreplay, oss, platform, product analytics, seamless in-app support, self-hosted session replay, session replay, software, technology, technology/software\n\n## Competitors\n\nnginx, embrace, livesession.io, smartbear, postman, influxdata, circleci\n\n## Recent News\n- [2022-06-28] TechCrunch: OpenReplay raises $4.7M for its open source tool to find the bugs in sites\n- [2021-06-28] Legaltech News: Alma Asay Heading to Crowell & Moring in Senior Innovation Role\n\n## Social\n\n### Linkedin\n\n- [2026-10-01] If your stylesheets already lean on custom properties and native nesting, a handful of Sass mixins might be the only thing keeping your build step alive. Native CSS mixins promise to change that, b...\n\n- [2026-09-30] Your TypeScript CLI is 40KB of logic wrapped in a 100MB runtime. scriptc compiles the code you already write into a native binary that leaves the JavaScript engine out, and it refuses to fake it wh...\n\n- [2026-09-29 · 1 reaction] The top line of a JavaScript stack trace tells you what broke, but rarely why. Follow one real error from start to finish and learn which frame to open first, why async traces suddenly go quiet, an...\n\n- [2026-09-28 · 1 reaction] Your first Hono middleware probably works fine. The trouble starts when a handler reads a value that middleware set and TypeScript has no idea what type it is. Discover how the onion model really r...\n\n- [2026-09-27] The WordPress dashboard has no screen for rewriting serialized data during a domain change, running PHP against a live site, or updating ten installs from one prompt. WP-CLI does all three, and it...\n\n- [2026-09-26] AI agents are already clicking through your site, guessing what your buttons do. WebMCP flips that: your page declares its own actions, and agents call them directly. But every tool you register ru...\n\n- [2026-09-25 · 1 reaction] What if React's strictest rules only exist to keep its runtime happy? Octane, Dominic Gannaway's successor to Inferno, compiles familiar React-style components straight into DOM code, so hooks can...\n\n- [2026-09-24 · 1 reaction] What if you could get Bun-style speed and convenience without swapping out the Node runtime your production service depends on? Nub is a Rust toolkit that runs the TypeScript Node rejects, dispatch...\n\n- [2026-09-23 · 1 reaction] You install an auth library, add the middleware, load your account page, and nothing happens: no error, no log, just an empty user. In Astro, the culprit usually isn't your auth code but how the pa...\n\n- [2026-09-22 · 1 reaction] For years, keeping component styles from leaking meant BEM naming rules, hashed class names, or a runtime style injector. CSS `@scope` does it natively: you define a root, an optional lower boundar...\n\n- [2026-09-17] A mystery package appears in node_modules, and your first instinct is to delete everything and reinstall. That reflex destroys the only evidence of how it got there. Two npm commands can trace any...\n\n- [2026-09-16] DHH launched a nonprofit for Omarchy Linux in August with $8 million in pledges. Weeks later the figure sits near $18.5 million, Hyprland has an exclusive sponsor, and three creators are on the pay...\n\n- [2026-09-15 · 1 reaction] xAI's Grok Bot promises AI teammates that log into your tools, work while you sleep, and hand tasks to each other. But independent reporting reveals a catch: every Bot on your account shares one ma...\n\n- [2026-09-15] `Object.groupBy` collapses that familiar `reduce` accumulator into a single line — but it comes with two quiet surprises: number and boolean keys turn into strings (and reorder themselves), and cal...\n\n- [2026-09-13 · 1 reaction, 1 comment] Your site loads as a blank white page, and there's no error message to tell you why. Here's the thing: the error already exists — WordPress is simply hiding it. Four lines in wp-config.php reveal t...\n\n- [2026-09-12] A file's Content-Type header and its extension are both supplied by whoever is uploading it — which means checking either one validates an attacker's claim, not the file. Learn the five server-side...\n\n- [2026-09-11] Most comparisons of AI coding agents drown you in feature tables that expire in a month. There's really only one difference between OpenCode and Claude Code that will still matter next year — and i...\n\n- [2026-09-10] Ink caps redraws at 30 frames per second, and if you've watched your terminal dashboard stutter under a busy log stream, you've felt it. OpenTUI moves rendering into a native Zig core and already p...\n\n- [2026-09-09] SQLite in the browser sounds like one import away — until your data vanishes on refresh. Real persistence means the Origin Private File System, a Worker thread, and a choice between two storage bac...\n\n- [2026-09-08] Shipping a custom element usually means shipping a README that explains which methods to call. But what if your component's public API were just HTML attributes? Custom invoker commands let you wri...\n\n## Locations\n- Headquarters: new york, new york, united states (US)\n- Offices: new york, new york, united states (US), san francisco, california, united states (US)",
+        "summary": "{\"description\":\"OpenReplay is a Software Development company offering self-hosted session replay and product analytics solutions with features like cobrowse, seamless in-app support, and data security and privacy control.\",\"employee_estimate\":55,\"employee_estimate_source\":\"Employees: 55\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"We’ve recently completed our second round of financing from some of the best European angels, and we’re constantly looking for new talents to help us shape the future of our product and company.\",\"hq\":\"New York, United States\",\"hq_quote\":\"Headquarters: new york, new york, united states (US)\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Software Development\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 6,275,000\\n  - Seed (2022-06-28): USD 4.7M\\n  - Seed (2019-09-01): USD 125,000\\n  - Seed (2019-08-19): USD 150,000\\n  - Seed (2019-01-31): USD 1.0M\\n  - Pre seed (2018-01-01): USD 300,000\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4E0BAQEo4usZoFkcUw/company-logo_200_200/company-logo_200_200/0/1631716188601/openreplay_logo?e=2147483647&v=beta&t=W7m4lPeuQip17ivt7Fy_YwoDmqnmHNMxRFgO0fTrPlM",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/w8q3lt82tgw",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "OpenReplay",
+              "foundedYear": 2018,
+              "description": "OpenReplay is a developer friendly, open-source session replay stack that lets you see what users do on your web app, helping you troubleshoot issues faster.\n\nWe’ve recently completed our second round of financing from some of the best European angels, and we’re constantly looking for new talents to help us shape the future of our product and company.",
+              "workforce": {
+                "total": 55
+              },
+              "headquarters": {
+                "address": "New York, New York 10018, US",
+                "city": "New York",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 2000000,
+                "fundingTotal": 6275000,
+                "fundingLatestRound": {
+                  "name": "Seed",
+                  "date": "2022-06-28",
+                  "amount": 4700000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 1021868,
+                "countryRank": 23446,
+                "avgDurationSeconds": 81,
+                "history": [
+                  {
+                    "value": 297268,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 298642,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 312883,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 303482,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 407901,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 1021868,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 3100.9,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

@@ -1,0 +1,242 @@
+{
+  "request": {
+    "query": "airspeed",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "1c6ac5163f402eb9213bae04eed44fe1",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/45533xdtbjy",
+        "title": "Airspeed",
+        "url": "https://goairspeed.com/",
+        "text": "# Airspeed\n\nAirspeed is a Software Development company. Airspeed is a CRM platform that helps reps sell, not type, and turn customer conversations into CRM updates, deal intelligence, and coaching. Airspeed employs 55 people, founded in 2022. Headquartered in London, England, United Kingdom, with presence in United States. Its workforce is distributed across 5 countries (including United Kingdom, United States, Brazil, Israel, and Slovenia).\n\n## About\n\nAI revenue execution. Deal risk flagged weeks early. Every deal babysat. Every forecast traceable to buyer evidence. Most tools analyze. Airspeed acts.\n\nAirspeed is the GTM execution platform built for the era of agentic AI.\n\nWe just announced our $20M Series A, led by DN Capital with Framework.vc, Atlassian Ventures, and Vi Partners and others, with the mission to build the defining GTM platform of the AI era.\n\nSince AI began reshaping sales, go-to-market teams have faced the same problem: the data is there. Calls are logged, signals are captured, insights are generated. But acting on all of it – consistently, at speed, across every rep and every deal – is where things break down. Resources, time, and competing priorities get in the way.\n\nAirspeed closes that gap. Our agents work continuously in the background, preparing reps for every conversation, flagging deal risks before they become losses, updating forecasts in real time, and executing on every signal so your team is always about to close deals.\n\nWe're trusted by 200+ revenue teams including Deepsea, Pricefx, and Light, and have grown 4x year-over-year, and we’re excited to be continuing our growth exponentially and become the world’s generational GTM engine.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: London, United Kingdom\n- Founded Year: 2022\n- Homepage: goairspeed.com\n- Aliases: Glyphic AI Limited., airspeed\n- LinkedIn: linkedin.com/company/go-airspeed\n- Linkedin Followers: 8,368\n- Emails: hello@glyphic.ai\n\n## Financials\n- Total Funding: USD 25,448,473\n  - Series a (2026-06-01): USD 20.0M\n  - Series a (2026-01-01)\n  - Pre seed (2023-06-14): USD 5.4M\n  - Pre seed (2022-07-01)\n  - Corporate round (2022-05-01)\n\n## Workforce\n- Employees: 55\n- Company Size: 51-200 employees\n  - Monthly Growth: +1.9%\n- Key Executives:\n  - Alexandr Medvedev: Lead Machine Learning Engineer\n  - Devang Agrawal: Co-Founder & CTO\n  - Emily Gates: Vice President of Customer Success\n  - Jack Bowden: EMEA Sales Director\n  - Steve Hult: Angel Investor\n  - Tamar Martirosyan: VP of Growth\n  - Tom Andrews: VP of GTM Strategy & Operations\n- Breakdown:\n  - By Country: United Kingdom: 27 (49%), United States: 14 (25%), Brazil: 1 (2%), Israel: 1 (2%), Slovenia: 1 (2%)\n  - By Department: Technical: 14 (25%), Sales: 11 (20%), Marketing: 4 (7%), Customer Service: 3 (5%), Other Department: 3 (5%), Product: 3 (5%), Consulting: 2 (4%), General Management: 2 (4%), Operations: 2 (4%)\n  - By Seniority: Specialist: 19 (35%), Other Management: 14 (25%), Vp: 3 (5%), Founder: 2 (4%), Manager: 2 (4%), Senior: 2 (4%), Director: 1 (2%), Head: 1 (2%)\n- Active job postings: 1\n- Talent Sources: Torii (1), Thérapie Clinic (1), Point72 Ventures (1), Otter.ai (1), Hivebrite (1), Harrington Moore (1), Google DeepMind (1), Data Futurists (1), CreditorWatch (1), B. Braun Group (1)\n- Alumni Go To: trumpet 🎺 (1), transcend (1), Whistle (1), Raft (1), DoubleVerify (1), Codility (1), Business Bricks (1), Amber (1)\n\n## Products & Technology\n- Tech Stack: ahrefs, figma, google adwords, google analytics, google search console, hubspot, linkedin, linkedin ads, persona, pricefx, reddit, screaming frog, semrush\n\n## Web presence\n\n- Twitter: twitter.com/glyphicai\n- YouTube: youtube.com/@goairspeed\n- Crunchbase: crunchbase.com/organization/glyphic-ai\n- Web traffic:\n  - Monthly visits: 26,583\n  - Global rank: 899,520\n  - Bounce rate: 39.0%\n  - Pages per visit: 3.7\n  - Average visit duration: 148s\n\n## Categories\n\nagent, artificial intelligence (ai), call intelligence, conversation intelligence, crm, crm/venture management, engineering, revenue intelligence, revenue operations, sales, sales automation, sales enablement\n\n## Recent News\n- [2023-11-23] Sifted: UK in 2023\n- [2023-08-28] Analytics India Magazine: Former Google DeepMind Researchers Go Deep for Sales ...\n- [2023-06-14] PRNewswire UK: Glyphic AI Raises $5.5m Pre-Seed to Build AI Copilot Reinventing How Sales Teams Work\n\n## Social\n\n### Linkedin\n\n- [2026-10-08 · Posted · 5 reactions] [GTM Takes Flight was a week ago, and the rest of the photos have...](https://www.linkedin.com/posts/go-airspeed_gtm-takes-flight-was-a-week-ago-and-the-activity-7514038033005060096-OJia)\n  > GTM Takes Flight was a week ago, and the rest of the photos have just landed 📸\n  >\n  > Thank you to everyone who came, and to Goodfit, Dust, and Captivate Talent for co-hosting with us.\n  >\n  > Were you there? Comment “PHOTO” and we’ll DM you the link. No regrets, the portraits are great!!\n\n- [2026-10-08 · Reshared · 4 reactions] [We still got one spot left! Sign up as fast as you can, don't miss...](https://www.linkedin.com/posts/go-airspeed_we-still-got-one-spot-left-sign-up-as-fast-activity-7514031552385957888-QfUj): We still got one spot left! Sign up as fast as you can, don't miss your chance!\n\n- [2026-10-08 · Posted · 13 reactions] [At Pavilion last week, our team watched a room full of very smart...](https://www.linkedin.com/posts/go-airspeed_what-we-heard-at-pavilions-gtm2026-how-activity-7513936824571031552-tk47)\n  > At Pavilion last week, our team watched a room full of very smart revenue leaders nod confidently about their AI strategy, then quietly admit over drinks they have no idea how well it's working.\n  >\n  > That was basically the whole conference: agents everywhere, but certainty only in a few places (such as Devang Agrawal's session on how to enhance AI's ROI)\n  >\n  > Here's what we discussed on the ground, and what the teams who've figured it out are doing differently 👇\n\n- [2026-10-07 · Posted · 47 reactions] [Last week at Pavilion's GTM2026 in New York one word followed us...](https://www.linkedin.com/posts/go-airspeed_highlights-from-last-weeks-pavilion-gtm2026-activity-7513599786348982274-3UzU)\n  > Last week at Pavilion's GTM2026 in New York one word followed us everywhere: agents (but in a way we didn't expect).\n  >\n  > Everyone is using them. And yet, almost nobody is convinced they're using them the right way‼️\n  >\n  > One rep has a brilliant workflow, and the rest of the org has no idea it exists. The teams pulling ahead are the ones turning what works for one person into a process the whole org can repeat.\n  >\n  > A few other things stuck with us:\n  > → The near future is hybrid. AI works alongside the team to help it perform better, not to replace it.\n  > → People are tired of AI pitches. They want proof of how it works in their own workflows.\n  > → Reps still matter MORE, not less. Trust comes from expertise in your domain, your product, and your org, and no agent can fake that.\n  >\n  > P.S. If you'd like us to mail you some swag, just comment \"swag\" below!\n  >\n  > And thanks George Markham for moderating this one!\n\n- [2026-10-07 · Reshared · 86 reactions] [Lots of people have asked me “how has the return to work been?” and...](https://www.linkedin.com/posts/go-airspeed_activity-7513560223438266370-ooxP): Lots of people have asked me “how has the return to work been?” and honestly, it’s been a lot more manageable that I had expected to be a Mum and a CRO in a high-growth business. A big part of that...\n\n- [2026-10-06 · Posted · 12 reactions] [Wrapping up the Q3 at Airspeed: 50+ releases in 12 weeks. 🥂 Since...](https://www.linkedin.com/posts/go-airspeed_wrapping-up-the-q3-at-airspeed-50-releases-activity-7513208464245182465-iA_B)\n  > Wrapping up the Q3 at Airspeed: 50+ releases in 12 weeks. 🥂\n  >\n  > Since the end of July we've shipped something new almost every working day, and most of it points in one direction: revenue execution done better.\n  >\n  > Here's what mattered most 👇\n  >\n  > Agents that act, not just answer\n  > • Agent Command Center: one place to see and run every agent across your team\n  > • Build an agent just by chatting, no setup screens\n  > • Agents that kick in the moment a call ends, with zero clicks\n  > • Agents can now build decks, generate charts, write code, read and post comments, and work from files you hand them\n  > • Agent Connections are now generally available\n  >\n  > Airspeed, wherever you already work\n  > • The new Airspeed MCP server brings your deal and call context into the tools your team uses every day\n  > • Google Drive and RingCentral integrations\n  > • Follow up email drafts that land straight in your inbox\n  > • Slack, set up your way\n  >\n  > A sharper daily workflow\n  > • CRM fields on the deal board and deal table, plus full change history on every deal\n  > • Ask questions about any deal straight from the list\n  > • Call playlists, saved views, playback focused on a single speaker, and call analysis that adapts to the type of call\n  > • A smarter Cmd+K search and sharper transcripts across the board\n  >\n  > And the one we're most excited about: you can now sign up and try Airspeed yourself. 30 days, the full product, on your own calls.\n  >\n  > Thank you to every customer who sent us feedback this quarter. A lot of what's above started as a message from one of YOU.\n\n- [2026-10-05 · Posted · 29 reactions] [Time to welcome four new pilots joining the team, ready to steer...](https://www.linkedin.com/posts/go-airspeed_time-to-welcome-four-new-pilots-joining-the-activity-7512881909849444353-1Ye7)\n  > Time to welcome four new pilots joining the team, ready to steer the Airspeed wheels 🙌\n  >\n  > 🚀 Jade Bullock joins as an SDR. Fun fact: She built a social media marketing business at 20 and a clothing brand at 22. Needless to say, she knows exactly what it takes to get something off the ground.\n  >\n  > ✈️ Malcolm Terry II also joins as an SDR, and he might be the most literal hire we've ever made: Malcolm has actually already flown a plane, so he knows a thing or two about airspeed (all FAQs forwarded to him as of now).\n  >\n  > 🎲 Charles Ogunsanya joins as a Customer Engineer. When he's not helping customers get Airspeed running across their GTM teams, you'll find him deep in a Dungeons & Dragons campaign (which we're told is excellent training for complex customer setups!!)\n  >\n  > 📈 Christopher Smith joins as Senior Growth Manager. A little bird whispered to us that he love climbing mountains yet somehow he is really scared of heights. Guess all we're left asking is if he'll be up for the challenge of flying the Airspeed jet to new heights?\n  >\n  > Welcome to the team everyone! We can't wait to see what you build with us, and the places we'll reach together.\n\n- [2026-10-02 · Posted · 47 reactions] [Saying we had an amazing time at Pavilion's GTM2026 is an...](https://www.linkedin.com/posts/go-airspeed_saying-we-had-an-amazing-time-at-pavilions-activity-7511835876562513920-U8mU)\n  > Saying we had an amazing time at Pavilion's GTM2026 is an understatement! Swipe through the gallery to see this week's highlights 👉\n  >\n  > From the Women's Summit keynote to the Happy Hour GTM Takes Flight, to Devang Agrawal's breakout session, the many interesting people we met, and all the swag we gave away (and picked up ourselves 😅 ), the energy was incredible.\n  >\n  > Thank you to the Pavilion team for putting on such a brilliant event, and to everyone who stopped by to say hello.\n  >\n  > See you next year!\n\n- [2026-10-01 · Posted · 43 reactions] [We had such a blast at yesterday's GTM Takes Flight happy hour...](https://www.linkedin.com/posts/go-airspeed_we-had-such-a-blast-at-yesterdays-gtm-takes-activity-7511465024398336001-SRQX)\n  > We had such a blast at yesterday's GTM Takes Flight happy hour!\n  >\n  > Boarding the Intrepid like that with a big GTM crew made it a very special occasion. To everyone who joined: thank you for spending your evening with us. 🥂\n  >\n  > Also, a big thank you to Christopher Gannon from Captivate Talent, Harrison Rose from Goodfit and Gabriel Hubert from Dust for co-sponsoring. The whole evening was brilliant.\n  >\n  > And yes, we're already planning the next one! Maybe, on a commercial plane this time? 💭\n\n- [2026-10-01 · Posted · 18 reactions] [Nearly every revenue team now uses AI, yet almost none are seeing...](https://www.linkedin.com/posts/go-airspeed_the-2026-gtm-maturity-report-adoption-is-activity-7511418831282528256-NbKU)\n  > Nearly every revenue team now uses AI, yet almost none are seeing it in revenue per head.\n  >\n  > That is the finding behind our 2026 GTM Maturity Report: adoption is no longer what sets teams apart. What happens after the sales conversation is.\n  >\n  > 53% of organisations are deploying AI agents, up from 12% in 2024, and the tools already in place are saving around 4.8 hours per seller every week.\n  >\n  > And yet 72% of organisations never reinvest that time into selling. The hours get absorbed, they never reach the P&L, and they flatter initiatives that changed nothing.\n  >\n  > So hours saved is the wrong question. The right one is narrow, and unforgiving: did revenue per head go up? If it does not move, the initiative did not work, however many seats are live.\n  >\n  > What predicts that number is not the tools you have bought. It is how much of the work after a conversation your system does for you. We map it as four stages:\n  >\n  > 1) Call recording, passive capture\n  > 2) Conversation intelligence, keywords, sentiment, and coaching\n  > 3) Revenue execution, pipeline and process run off what buyers actually said\n  > 4) An agentic harness that executes, with a human in the loop\n  >\n  > There is measurable return at every stage. The largest gains, and the most common point of stall, sit at one move: from operating the system to directing it.\n  >\n  > The teams that make that move see it compound.\n  >\n  > Across Airspeed customers, heavy agent use indexes revenue per rep at 154 against a pre Airspeed baseline of 100, and the median customer wins 45% more deals per rep while growing deals won more than twice as fast as headcount.\n  >\n  > Read the key findings below.\n\n- [2026-09-30 · Posted · 51 reactions] [We're at Pavilion's GTM2026 and can't wait to hang out at our...](https://www.linkedin.com/posts/go-airspeed_come-meet-us-at-pavilion-gtm2026-booth-activity-7511018772812726272-srxA)\n  > We're at Pavilion's GTM2026 and can't wait to hang out at our booth!\n  >\n  > Day 1, Tamar Martirosyan took the stage for the keynote session at the women's summit. Yesterday, we spent chatting with sales teams about their revenue goals, and how to achieve them quicker.\n  >\n  > Today, we have three specials:\n  > - We'll be waiting at booth 38 with the BEST merch from the entire event (spoiler, you can even win a theragun!)\n  > - Devang Agrawal's talking about how to increase revenue per rep head at 3:30 at the breakout room no. 2\n  > - We're boarding the Intrepid at night for a special happy hour (registration link in the comments).\n  >\n  > If you’re at GTM2026 or in NYC, we’d love to meet and chat!\n\n- [2026-09-29 · Posted · 37 reactions] [Yesterday, our VP of Growth Tamar Martirosyan joined Pavilion's...](https://www.linkedin.com/posts/go-airspeed_yesterday-our-vp-of-growth-tamar-martirosyan-activity-7510667687224709120-5F4V)\n  > Yesterday, our VP of Growth Tamar Martirosyan joined Pavilion's GTM2026 Women's Summit to deliver the keynote on how women GTM leaders protect both performance and people.\n  >\n  > We're so proud of her, and excited to spend the next few days with the Pavilion community.\n  >\n  > From today, you'll find our team (and some great merch & prizes) at booth 38.\n  >\n  > Also, don't miss:\n  > 📍 Devang is flying a session tomorrow at 3:30 PM \"If AI isn't increasing revenue per head, you're doing it wrong\"\n  > 📍 We're inviting you to board a happy hour tomorrow from 6 PM at The Intrepid (sign up here: https://luma.com/luycojwy)\n  >\n  > A packed few days ahead. Come, say hi and meet the crew!\n\n- [2026-09-25 · Posted · 16 reactions] [AI is everywhere in the revenue org, and yet, revenue per head has...](https://www.linkedin.com/posts/go-airspeed_if-ai-isnt-lifting-revenue-per-head-it-activity-7509201019252224001-Ti1y)\n  > AI is everywhere in the revenue org, and yet, revenue per head has barely moved. Why?\n  >\n  > Devang Agrawal giving a preview of his session at Pavilion's GTM2026 \"If AI isn’t lifting revenue per head, it isn’t working yet\", where to find us after hours on Wednesday, and what’s new in the product.\n  >\n  > Enjoy the read! 😊\n\n- [2026-09-23 · Posted · 16 reactions] [Every RevOps leader is caught between two goals that pull against...](https://www.linkedin.com/posts/go-airspeed_get-crm-insight-without-the-rep-admin-airspeed-activity-7508579901193732096-ApDi)\n  > Every RevOps leader is caught between two goals that pull against each other:\n  >\n  > 1️⃣ Leadership wants deeper, more reliable insight to run the business.\n  > 2️⃣ Reps want LESS admin, not more fields to fill in after every call. So the data ends up sparse, late, or simply wrong.\n  >\n  > In this walkthrough, Airspeed's GTM Agentic Lead, Chad Boersma shows how Airspeed CRM Sync removes that trade-off entirely.\n  >\n  > Using Airspeed's AI native platform, you can:\n  >\n  > ✅ Capture everything that matters to your business, from your qualification framework and seat count to the buying panel\n  > ✅ Look at strategic insights across all of your calls, like why customers want to switch and the pains that keep coming up\n  > ✅ Define what you want with a simple prompt and push it straight into your CRM\n  > ✅ Choose whether to append, merge, or override existing data\n  >\n  > The result is a CRM your leadership can trust, without asking reps to do the manual work after every conversation.\n  >\n  > Watch yourself!\n\n- [2026-09-18 · Reshared · 96 reactions] [Today I discovered on of the best cold calls I've ever heard, even...](https://www.linkedin.com/posts/go-airspeed_activity-7506691308942528512-upXV): Today I discovered on of the best cold calls I've ever heard, even though it probably broke every rule in the playbook: singing the opening line. You heard right! Hector Lobb was cold calling this...\n\n- [2026-09-17 · Posted · 15 reactions] [We're #hiring a new Operations Associate in London Area, United...](https://www.linkedin.com/posts/go-airspeed_hiring-activity-7506316108530921472-MOWW)\n  > We're #hiring a new Operations Associate in London Area, United Kingdom. Apply today or share this post with your network.\n\n- [2026-09-17 · Posted · 13 reactions] [The biggest problem in sales: open deals, that suddenly go quiet...](https://www.linkedin.com/posts/go-airspeed_how-to-spot-and-act-on-deal-risks-before-activity-7506398219531300864-r8nt)\n  > The biggest problem in sales: open deals, that suddenly go quiet.\n  >\n  > One week they're your best buyer. The next, they've slipped.\n  >\n  > But is that really so surprising? Or were the signs there the whole time?\n  >\n  > Deals almost never slip suddenly. They slip in the gaps between interest and action and those gaps show up early, if you know what you're looking at:\n  >\n  > → No reason to buy now. \"Let's circle back next quarter\" is where good deals go to die.\n  > → The real competitor is the status quo, or a build — not another vendor.\n  > → No one with real authority is holding the rope. Interest isn't authority.\n  > → No cost to doing nothing. A case built on features gives leadership nothing to weigh.\n  >\n  > The deal that \"suddenly\" slipped was telling you for weeks. You just had to be reading the signals! Read how in Revenue Decoded👇\n\n- [2026-09-17 · 13 reactions] The biggest problem in sales: open deals, that suddenly go quiet. One week they're your best buyer. The next, they've slipped. But is that really so surprising? Or were the signs there the whole ti...\n\n- [2026-09-1",
+        "summary": "{\"description\":\"Airspeed is a CRM-enabled Software Development company that helps reps sell, not type, by turning customer conversations into CRM updates, deal intelligence, and coaching.\",\"employee_estimate\":55,\"employee_estimate_source\":\"Relevant highlights mention: Employees: 55\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"We just announced our $20M Series A, led by DN Capital with Framework.vc, Atlassian Ventures, and Vi Partners and others, with the mission to build the defining GTM platform of the AI era.\",\"hq\":\"London, United Kingdom\",\"hq_quote\":\"Headquartered in London, England, United Kingdom, with presence in United States.\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Software Development\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"We just announced our $20M Series A, led by DN Capital with Framework.vc, Atlassian Ventures, and Vi Partners and others, with the mission to build the defining GTM platform of the AI era.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4D0BAQFNwX3fVcLotQ/company-logo_200_200/B4DaDzMCgIJYAM-/0/1790786414886/go_airspeed_logo?e=2147483647&v=beta&t=KZn5WyBNMv3hAYdUSMD_pirUJ4iobl-jiuvS7nA12GA",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/45533xdtbjy",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Airspeed",
+              "foundedYear": 2022,
+              "description": "AI revenue execution. Deal risk flagged weeks early. Every deal babysat. Every forecast traceable to buyer evidence. Most tools analyze. Airspeed acts.\n\nAirspeed is the GTM execution platform built for the era of agentic AI.\n\nWe just announced our $20M Series A, led by DN Capital with Framework.vc, Atlassian Ventures, and Vi Partners and others, with the mission to build the defining GTM platform of the AI era.\n\nSince AI began reshaping sales, go-to-market teams have faced the same problem: the data is there. Calls are logged, signals are captured, insights are generated. But acting on all of it – consistently, at speed, across every rep and every deal – is where things break down. Resources, time, and competing priorities get in the way.\n\nAirspeed closes that gap. Our agents work continuously in the background, preparing reps for every conversation, flagging deal risks before they become losses, updating forecasts in real time, and executing on every signal so your team is always about to close deals.\n\nWe're trusted by 200+ revenue teams including Deepsea, Pricefx, and Light, and have grown 4x year-over-year, and we’re excited to be continuing our growth exponentially and become the world’s generational GTM engine.",
+              "workforce": {
+                "total": 55
+              },
+              "headquarters": {
+                "address": "3 Waterhouse Square, London, England EC1N 2SW, GB",
+                "city": "London",
+                "postalCode": null,
+                "country": "United Kingdom"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 25448473,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2026-06-01",
+                  "amount": 20000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 26583,
+                "countryRank": 115704,
+                "avgDurationSeconds": 148,
+                "history": [
+                  {
+                    "value": 128043,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 26583,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/gdpm0y9pgml",
+        "title": "Airspeed",
+        "url": "https://airspeed.ph/",
+        "text": "# Airspeed\n\nAirspeed is a Transportation, Logistics, Supply Chain and Storage company. Airspeed is an end-to-end logistics solutions and express courier company that has been in the industry for over 40 years. Airspeed employs 452 people (+8.4% YoY, +35 people). Headquartered in Parañaque, Philippines, with offices in Paranaque City, New Manila, and Paranaque. Its workforce is distributed across Philippines and Pakistan.\n\n## About\n\nAirspeed is an end-to-end logistics solutions company that has been in the industry for over 35 years.\n\nYou can trust us to grow your business and provide your logistics needs because we employ the right people, manage an updated system, and uphold company values to fulfil all your requirements.\n\n Experience reliable service garnered through decades of experience.\n Trust in the expertise provided by the very best of the logistics industry.\n Rest assured that your package will be delivered with the utmost care and respect. \n \nFor your logistics needs, send us a message and we will make it happen for you!\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Privately held\n- Headquarters: Parañaque, Philippines\n- Homepage: airspeed.ph\n- Aliases: Airspeed International Corporation, airspeed, airspeed international\n- LinkedIn: linkedin.com/company/airspeedgroupofcompanies\n- Linkedin Followers: 2,864\n- Emails: info@airspeed.ph\n- Phone: (032) 346-628, (034) 466-7187, (082) 235-0388, (083) 5000-0070, (088) 557-6938, +2 8852 73, 02 8852 7328, 02-86648814, 0286648814, 0288527328, 0323466280, 0344667187, 0822350388, 08350000070, 0885576938, 09100272703, 0912 679 1134, 09126791134, 0915 727 445, 09157274456, 0926 557 269, 09265572692, 0928 936 7466, 09289367466, 0956 223 5809, 09565515910, 0977 012 6270, 09770126270, 9562235809\n\n## Workforce\n- Employees: 452\n- Company Size: 501-1000 employees\n  - Monthly Growth: +1.3%\n  - Yearly Growth: +8.4%\n- Key Executives:\n  - Cecil Marcelo: Vice President for Mindanao\n  - Eliza Nieveras: Executive Vice President CFO\n  - Gabb Pensader: Vice President - North & Central Luzon\n  - Joana Marie Comon-Peregrino, LPT, RPm, CHRA: HR Business Partner\n  - Kelly Gonzaga: Vice President Operations\n  - MARIAM ASIF: Head of Marketing\n  - Marcelo (Arcus) Fernando, Jr.: Non Executive Director\n  - Ranz Ramos: Assistant Vice President for International Operations\n  - Rea Lim, CHRP®: Head of Human Resources\n  - Retshe Intes, MBA, CMP: Head of Account Management\n- Breakdown:\n  - By Country: Philippines: 80 (18%), Pakistan: 1\n  - By Department: Operations: 23 (5%), Finance: 14 (3%), Sales: 11 (2%), Hr: 7 (2%), General Management: 6 (1%), Technical: 5 (1%), Customer Service: 4 (1%), Other Department: 4 (1%), Administrative: 3 (1%), Marketing: 3 (1%) (+2 more)\n  - By Seniority: Specialist: 34 (8%), Manager: 30 (7%), Other Management: 7 (2%), Vp: 4 (1%), Head: 3 (1%), Senior: 3 (1%), Clevel: 1, Director: 1, Partner: 1\n- Talent Sources: Airfreight 2100, Inc. (Air21) (7), Lazada E-Services Philippines Inc. (Operations - eLogistics) (5), QuadX (4), Philippine Airlines (3), PH Global Jet Express Inc. (J&T Express) (3), Cebu Oversea Hardware Co., Inc. - Manila (3), SMDC (2), SM Supermalls (2), DB Schenker (2), AP Cargo (2)\n- Alumni Go To: Intrepid Asia (5), Shopee (3), DSV - Global Transport and Logistics (3), DHL Express (3), TP (2), Newage Software & Solutions (2), Locad (2), Lead Logistics Innovations Inc. (2), Kareila Management Corporation (2), Crown Worldwide Group (2)\n\n## Products & Technology\n- Tech Stack: asx, jda, microsoft, microsoft office, amp, well\n\n## Web presence\n\n- Facebook: facebook.com/airspeedgroupofcompanies\n- Instagram: instagram.com/airspeedgroupph\n- YouTube: youtube.com/@airspeedgroupph607\n- Crunchbase: crunchbase.com/organization/airspeed-international-limited\n- Web traffic:\n  - Monthly visits: 3,636\n  - Global rank: 4,543,093\n  - Bounce rate: 48.0%\n  - Pages per visit: 1.7\n  - Average visit duration: 53s\n\n## Categories\n\nair freight, business_and_consumer_services/shipping_and_logistics, end-to-end, express courier, logistics, sea freight, supply chain management, transportation\n\n## Recent News\n- [2026-09-27] Daily Tribune: $80M investment pushes Switchblade flying car closer to production\n- [2026-09-26] Popular Mechanics: The Best Battery Leaf Blowers Offer Power to Rival Gas and Easier Use\n- [2026-09-21] [PH deepens Canada agri push with fresh mango shipment](https://business.inquirer.net/612174/ph-deepens-canada-agri-push-with-fresh-mango-shipment)\n- [2026-08-27]\n  - Pixelfy.me: Top 5 Best Backpack Leaf Blower 2026\n  - Pixelfy.me: Top 5 Best Craftsman Leaf Blower 2026\n- [2026-08-21] Popular Mechanics: Fall Cleanup Is Coming. These Cordless Leaf Blowers Make Quick Work of Leaves, Clippings, and Debris.\n- [2026-08-06] United Nations in Philippines: Ten Companies Complete the Philippines’ First WEPs Corporate Action Lab\n- [2026-07-07] [Manila Bulletin - Apexford enters local logistics zone to tap rising supply chain demand](https://mb.com.ph/2026/07/08/apexford-enters-local-logistics-zone-to-tap-rising-supply-chain-demand)\n- [2025-09-18] teamduval.org: BOSCH GBL18V-450N PROFACTOR™ 18V Cordless Blower - High Performance Brushless Motor, 450 CFM, 123 MPH Air Speed, Ergonomic Design, Lightweight & Low Noise - \\(Battery & Charger Sold Separately\n- [2025-05-28] BusinessWorld Online: Exports starting to be disrupted by trade uncertainty — Airspeed\n- [2025-01-23] GMA Network: This national art competition is for Filipinas, by Filipinas\n- [2025-01-05] Daily Guardian: PH Returns To The World’s Most Powerful Tech Show\n- [2024-05-30] Manila Bulletin: Airspeed: From humble beginnings to thriving success\n- [2024-04-26] Inquirer.net: Airspeed embraces digitalization to improve customer-centricity\n- [2024-04-17] Montana Outdoor: Holy Quack\\! Drake Mallard Sets New Flight Speed Record for Wildlife Research Lab\n- [2024-04-12] Simple Flying: What Combat Aircraft Does The Philippines Have?\n- [2024-03-15] Manila Bulletin: SMIC puts more focus on expansion outside NCR\n- [2024-02-21] The Points Guy: Passenger planes hit 800mph ground speeds thanks to powerful jet stream\n- [2024-02-20] CBS News: 3 commercial flights topped 800 mph\n- [2024-02-19] New York Post: Washington flights exceed 800 mph due to near-record winds over DC -- arrive 45 minutes early\n- [2024-02-16] SunStar Publishing Inc.: Airspeed expands operations with the opening of a new healthcare facility\n- [2023-02-16] Light Rail Manila Corporation: LRMC, Airspeed officially launch PopBox at LRT-1 stations\n\n## Social\n\n### Linkedin\n\n- [2026-10-08] The ASEAN Trade Expo 2026: Way of the Weave featured, highlighting how culture, craftsmanship, and enterprise can come together to create meaningful connections across borders. Bringing together 11...\n\n- [2026-10-05 · 2 reactions] Airspeed's storage solutions can give your business the capacity, security, and operational support you need to keep products moving efficiently! Whether you're scaling up or managing seasonal dema...\n\n- [2026-09-21 · 28 reactions, 1 comment] Making It Happen for Philippine Agriculture: A milestone send-off for fresh Philippine mangoes to Canada! Our partner- exporter, Mensch FilAm Corporation, led by President & Owner Racquel Simon, pa...\n\n- [2026-09-17 · 5 reactions] Move your business higher with Airspeed! Through our Land Freight Forwarding Services, Airspeed ensures your bulk cargo reach their destination safely and on schedule. Optimize your logistics netwo...\n\n- [2026-09-16 · 1 reaction] Secure your customers' trust this holiday season with Airspeed's seamless e-commerce fulfillment service! Let us handle your inventory, packing, and shipping so your online business scales effortle...\n\n- [2026-09-10 · 7 reactions] Airspeed is making it happen at SCMAP 2026! We are proud to once again be an exhibitor at this premier gathering of logistics and supply chain leaders. Visit our booth at the Palawan Ballroom, Edsa...\n\n- [2026-09-08 · 1 reaction] At Airspeed, we make room for your business growth with flexible and ultra-secure storage solutions. Let’s keep your business moving forward! Contact our team at info@airspeed.ph to find the right...\n\n- [2026-09-04 · 19 reactions] Shaping the Future of Logistics Starts with PEOPLE. The logistics industry is evolving rapidly. Driven by technology, digitalization, sustainability, and changing customer expectations, the industr...\n\n- [2026-09-03 · 7 reactions] Airspeed Joins SM General Trias and Tagum’s Tenant Preview at the SMX Mall of Asia! Let Airspeed help you handle your daily shipments, inventory, or delivery requirements. Send us an email at info@...\n\n- [2026-08-31 · 1 reaction] Honoring the bravery and sacrifices of our heroes. Thank you for making freedom and democracy happen. Happy National Heroes’ Day! #Airspeed #wemakeithappen #NationalHeroesDay\n\n- [2026-08-30 · 3 reactions] Scale your business without the packing stress! 📦⚡ Partner with Airspeed for a reliable E-Fulfillment services. Focus on growing and we’ll handle the rest. #Airspeed #EFulfillment\n\n- [2026-08-28 · 2 reactions] Airspeed is here to keep your business moving forward. We provide flexible, end-to-end Sea Freight Solutions tailored specifically to grow with your enterprise. From cost-effective ocean transport...\n\n- [2026-08-24 · 17 reactions] Airspeed Manila is Hiring! If you are interested or know someone who may be interested for the position, please email your CV at careers@airspeed.com.ph For more available positions, you may visit...\n\n- [2026-08-21 · 3 reactions] We commemorate Ninoy Aquino’s legacy. His life is filled with courage, sacrifice, and undying love to the country. Thank you for making it happen! 💛🤍 #Airspeed #WaMakeItHappen #NinoyAquinoDay\n\n- [2026-08-18 · 3 reactions] Taking the taste of fresh Philippine mangoes to the rest of the world! No matter the destination, Airspeed provides fast and reliable air freight forwarding to keep your agricultural exports fresh...\n\n- [2026-08-14 · 26 reactions, 1 comment] FROM GUIMARAS TO HONG KONG: A SERIES OF FIRSTS Airspeed is proud to be part of a milestone shipment, opening new pathways for Guimaras mangoes to reach the global market. On August 9, 2026, Airspee...\n\n- [2026-08-12 · 3 reactions] When transporting temperature-sensitive cargo, speed and precision are everything. At Airspeed, our active temperature-controlled Air Freight Solutions ensure your perishable goods arrive fresh, se...\n\n- [2026-08-08 · 3 reactions] Airspeed provides end-to-end logistics solutions tailored to keep your automotive business moving without interruption. From heavy components and engine parts to essential assembly tools, we ensure...\n\n- [2026-08-05 · 7 reactions] When time and temperature are critical, we go beyond logistics. From cold-chain medical supplies to urgent vaccine deliveries, Airspeed ensures the safe and swift delivery of your life-saving needs...\n\n- [2026-07-24 · 17 reactions] Airspeed is making it happen at the 1st Southern Luzon Logistics Conference & Exhibit 2026! We are proud to participate as an exhibitor at this premier gathering of logistics and supply chain leade...\n\n## Locations\n- Headquarters: parañaque, philippines\n- Offices: paranaque, philippines, parañaque, philippines, new manila, quezon city, philippines, paranaque city, philippines",
+        "summary": "{\"description\":\"Airspeed is an end-to-end logistics solutions and express courier company with over 40 years in the industry, operating in Transportation, Logistics, Supply Chain and Storage.\",\"employee_estimate\":452,\"employee_estimate_source\":\"Employees: 452\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"AirSpeed Manila is Hiring! If you are interested or know someone who may be interested for the position, please email your CV at careers@airspeed.com.ph\",\"hq\":\"Parañaque, Philippines\",\"hq_quote\":\"Headquartered in Parañaque, Philippines, with offices in Paranaque City, New Manila, and Paranaque.\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":false,\"recently_funded_seed_or_series_a_quote\":\"- \\n- Emails: info@airspeed.ph\\n- \\n-...\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQFnOWA2WbvzCA/company-logo_200_200/B56ZvZvj_VJUAI-/0/1768884685763/airspeedgroupofcompanies_logo?e=2147483647&v=beta&t=5U5TEbtljlpyif0MPSmfd2_10TlonUd2yPEmLDwk2Ws",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/gdpm0y9pgml",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Airspeed",
+              "foundedYear": null,
+              "description": "Airspeed is an end-to-end logistics solutions company that has been in the industry for over 35 years.\n\nYou can trust us to grow your business and provide your logistics needs because we employ the right people, manage an updated system, and uphold company values to fulfil all your requirements.\n\n Experience reliable service garnered through decades of experience.\n Trust in the expertise provided by the very best of the logistics industry.\n Rest assured that your package will be delivered with the utmost care and respect. \n \nFor your logistics needs, send us a message and we will make it happen for you!\n",
+              "workforce": {
+                "total": 452
+              },
+              "headquarters": {
+                "address": "Parañaque, PH",
+                "city": "Parañaque",
+                "postalCode": null,
+                "country": "Philippines"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 3636,
+                "countryRank": 71257,
+                "avgDurationSeconds": 53,
+                "history": [
+                  {
+                    "value": 7316,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 6678,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 4748,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 3390,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 9313,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 3636,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 6045.9,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

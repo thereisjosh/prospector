@@ -1,0 +1,270 @@
+{
+  "request": {
+    "query": "Fazeshift",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "021845f9691f1c9723e6ca91529ee630",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/2thhl1nz94q",
+        "title": "Fazeshift",
+        "url": "https://www.fazeshift.com/",
+        "text": "# Fazeshift\n\nFazeshift is a Software Development company. Fazeshift is an AI-powered platform that offers an AI-powered platform to automate accounts receivable, invoicing, payment matching, and customer communications. Fazeshift employs 44 people (+388.9% YoY, +35 people). Headquartered in San Francisco, California, United States.\n\n## About\n\nFazeshift is an AI-driven accounts receivable platform designed to help enterprises automate invoicing, cash application, and collections—improving efficiency, reducing errors, and accelerating revenue cycles. \n\nBig enterprises trust Fazeshift to:\n- Automate invoice creation and distribution, eliminating manual processing.\n- Enhance collections with AI-powered reminders and predictive payment insights.\n- Seamlessly integrate with ERP and accounting systems to ensure accurate reconciliation.\n\nWithout automation, businesses struggle with slow payments, revenue leakage, and inefficient AR management. Fazeshift transforms AR from a bottleneck into a growth driver.\n\nSupercharge your cash flow with intelligent automation. Visit www.fazeshift.com.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: San Francisco, United States\n- Homepage: fazeshift.com\n- Aliases: Fazeshift, Inc., fazeshift\n- LinkedIn: linkedin.com/company/fazeshift\n- Linkedin Followers: 5,850\n- Emails: support@fazeshift.com\n\n## Financials\n- Total Funding: USD 21,825,000\n  - Venture (2026-08-01)\n  - Series a (2026-05-01): USD 17.0M\n  - Seed (2025-01-07): USD 4.0M\n  - Pre seed (2024-09-25): USD 500,000\n  - Seed (2024-08-01): USD 125,000\n\n## Workforce\n- Employees: 44\n- Company Size: 11-50 employees\n  - Monthly Growth: +4.8%\n  - Yearly Growth: +388.9%\n- Key Executives:\n  - Caitlin Leksana: Co-Founder & CEO\n  - Connor Saal: Founding SDR\n  - Garrett Miller: Head of Sales\n  - Jonathan Busch: Head of Finance\n  - Max Robbins, MBA: Head of Partnerships (Fractional)\n  - Mike Mignosa: Founding GTM\n  - Nyamekye Coleman: Head of Strategy & Operations\n  - Rocio Wu Dianoux: Series A Lead Investor & Board Member\n  - Timmy Galvin: Co-Founder & CTO\n- Breakdown:\n  - By Country: United States: 37 (84%)\n  - By Department: Sales: 9 (20%), Technical: 8 (18%), General Management: 4 (9%), Other Department: 4 (9%), Consulting: 3 (7%), Finance: 3 (7%), Administrative: 2 (5%), Operations: 2 (5%), Hr: 1 (2%), Real Estate: 1 (2%)\n  - By Seniority: Specialist: 13 (30%), Other Management: 9 (20%), Founder: 4 (9%), Head: 4 (9%), Manager: 4 (9%), Owner: 1 (2%), Partner: 1 (2%), Senior: 1 (2%)\n- Talent Sources: Y Combinator (2), Stampli (2), Nuvo (2), Epic (2), Boston Consulting Group (BCG) (2), Stealth Startup (1), ShiftKey (1), Marvin (1), Esri (1), Cookie Dough Bliss (1)\n- Alumni Go To: iDynamics Business Solutions (1), Reducto (1), Peregrine (1), Omnigence (1), Keller Williams Elite (1), Frec (1), Forbes (1), Edra (1), Ecolens.io (1), DecisionHR (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: ramp, typescript, athenahealth\n\n## Web presence\n\n- Twitter: twitter.com/fazeshifthq\n- Crunchbase: crunchbase.com/organization/fazeshift\n- Web traffic:\n  - Monthly visits: 10,548\n  - Global rank: 2,182,260\n  - Bounce rate: 52.0%\n  - Pages per visit: 1.6\n  - Average visit duration: 12s\n\n## Categories\n\naccounting, accounting & finance software, accounts receivable, accounts receivable automation, accounts receivable software, ai, ai agent, ai-powered platform, artificial intelligence (ai), automation, billing, business process automation (bpa), business_and_consumer_services/business_services, cash application automation, collections, customer communications, fazeshift, finance, financial operations automation, financial services, fintech, information technology, intelligent workflow automation, invoicing, it, order-to-cash, payment matching, saas, software, technology/software\n\n## Recent News\n- [2026-10-05] TipRanks: Fazeshift Highlights AI-Focused CFO Events During SF Tech Week\n- [2026-10-03]\n  - TipRanks: Fazeshift Highlights AI-Driven Accounts Receivable Workflow Optimization\n  - TipRanks: Fazeshift Highlights Opportunity in Streamlined Dispute-Resolution Workflows\n  - TipRanks: Fazeshift Targets CFO Suite With AI-Focused SF Tech Week Events\n  - TipRanks: Fazeshift – Weekly Recap\n- [2026-09-13]\n  - TipRanks: Fazeshift Partnership Highlights AI-Driven Finance Scaling at NOVA Engineering\n  - TipRanks: Fazeshift Strengthens Go-to-Market Capabilities With Strategic Partnerships Hire\n  - TipRanks: Fazeshift Targets CFO Audience at Baker Tilly Technology Finance Symposium\n- [2026-09-12] [Fazeshift Highlights Strategic Role in Technology Finance Symposium and AI-Driven AR Focus](https://www.tipranks.com/news/private-companies/fazeshift-highlights-strategic-role-in-technology-finance-symposium-and-ai-driven-ar-focus)\n- [2026-09-10]\n  - TipRanks: Fazeshift Advances AI AR Automation Strategy and Builds Partnership-Led Growth\n  - TipRanks: Podcast Appearance Underscores Fazeshift’s Momentum in Accounting AI\n- [2026-09-09] TipRanks: [Fazeshift Highlights Strategic Partnership Activity With American Express](https://www.tipranks.com/news/private-companies/fazeshift-highlights-strategic-partnership-activity-with-american-express)\n- [2026-09-03] TipRanks: Fazeshift Gains Traction With ALKU on AI-Driven Accounts Receivable Automation\n- [2026-08-29]\n  - [Fazeshift Sharpens AI AR Automation Strategy and Expands Commercial Team](https://www.tipranks.com/news/private-companies/fazeshift-sharpens-ai-ar-automation-strategy-and-expands-commercial-team)\n  - TipRanks: Fazeshift Deepens AR Automation Focus and Expands Go-To-Market Team\n- [2026-08-26] TipRanks: Fazeshift Highlights Cash Application Inefficiencies in Enterprise Finance\n- [2026-08-19] TipRanks: Fazeshift Strengthens Go-To-Market Capabilities With New Head of Marketing\n- [2026-08-12]\n  - [Amex Ventures Backs Fazeshift To Enable AI-Driven Finance Automation \\| Crowdfund Insider](https://www.crowdfundinsider.com/2026/08/296407-amex-ventures-backs-fazeshift-to-enable-ai-driven-finance-automation/)\n  - [Fazeshift Secures Investment From Amex Ventures Following $22 Million Series A](https://pulse2.com/fazeshift-secures-investment-from-amex-ventures-following-22-million-series-a/)\n  - [Fazeshift Secures Amex Ventures Investment for AI Finance](https://www.startupresearcher.com/news/fazeshift-secures-investment-from-amex-ventures)\n  - PYMNTS.com: Amex Ventures Funds Fazeshift’s Agentic AI Expansion Beyond Accounts Receivable\n  - FF News: Amex Ventures Invests in Fazeshift to Scale AI-Powered Autonomous Accounts Receivable\n  - citybiz: Fazeshift Adds Amex Ventures Investment to Accelerate Autonomous Finance Platform\n  - Yahoo Finance: Fazeshift Announces Investment from Amex Ventures\n- [2026-08-11]\n  - Finextra Research: [Amex Ventures invests in autonomous finance startup Fazeshift](https://www.finextra.com/newsarticle/48230/amex-ventures-invests-in-autonomous-finance-startup-fazeshift)\n  - [PYMNTS \\| Amex Ventures Funds Fazeshift’s Agentic AI Expansion](https://www.pymnts.com/news/investment-tracker/2026/amex-ventures-funds-fazeshifts-agentic-ai-expansion-beyond-accounts-receivable/)\n  - [Fazeshift Adds Amex Ventures Investment to Accelerate Autonomous Finance Platform \\| citybiz](https://www.citybiz.co/article/887372/fazeshift-adds-amex-ventures-investment-to-accelerate-autonomous-finance-platform/)\n  - [FinancialContent - Fazeshift Announces Investment from Amex Ventures](https://markets.financialcontent.com/stocks/article/bizwire-2026-8-11-fazeshift-announces-investment-from-amex-ventures)\n  - [Amex Ventures invests in Fazeshift to expand AI... \\| Pluang](https://pluang.com/en/news-feed/amex-ventures-dan-fazeshift-perluas-ai-untuk-operasi-keuangan)\n- [2026-07-25] [fazeshift-weekly-recap-7](https://www.tipranks.com/news/private-companies/fazeshift-weekly-recap-7)\n- [2026-06-20] [Fazeshift Deepens Finance AI Push With Hackett Group Fireside Chat and Enterprise Outreach - TipRanks.com](https://www.tipranks.com/news/private-companies/fazeshift-deepens-finance-ai-push-with-hackett-group-fireside-chat-and-enterprise-outreach)\n\n## Social\n\n### Linkedin\n\n- [2026-10-09 · 41 reactions, 2 comments] Before Fazeshift existed, our co-founder & CEO Caitlin Leksana didn't pitch anyone. She just asked questions. Her message to strangers was essentially: \"I'm not selling anything. I'm actually pivot...\n\n- [2026-10-08 · 31 reactions, 8 comments] SF TECH WEEK by a16z put us in a room with Wiss Labs for \"Applied AI: The Office of the CFO\" — a lunch packed with CFOs, controllers, treasury leads, and accountants, all circling the same question...\n\n- [2026-10-08 · 12 reactions, 1 comment] Agentic AI is moving from promise to production in the Office of the CFO. We are excited to share that Fazeshift has been recognized in Forrester's new report, Top Agentic AI Use Cases In Accounts...\n\n- [2026-10-07 · 37 reactions, 3 comments] \"Everyone uses AI. Few have an AI capability.\" That's the line our co-founder & CEO Caitlin Leksana is building a Community Summit 2026 talk around (Oct 11–15, Nashville) — the difference between a...\n\n- [2026-10-06 · 5 reactions] It's like looking for something in a maze. You know it's in there. You just don't know which turn gets you to it. The customer paid — cash landed, clean, dated, done. But the remittance is somewher...\n\n- [2026-10-06 · 211 reactions, 24 comments] 2026 has been an incredible year at Fazeshift. We 4x’d Q1 in Q2. Then, in Q3 alone, we booked more ARR than we did in all of last year. Our team is now 40+ people strong across our SF & NYC offices...\n\n- [2026-10-05 · 9 reactions] SF TECH WEEK by a16z starts tomorrow, and we've got two events on the calendar. 🎉 First up — tomorrow, Oct 6, 12:30–2:30pm — Applied AI: The Office of the CFO With Wiss Labs. An on-stage conversati...\n\n- [2026-10-02 · 9 reactions] We're live today. In a few hours, our Co-founder & CEO Caitlin Leksana is fixing a real past-due collections email and building a self-running aging report cadence — live, on screen. 45 minutes. Fr...\n\n- [2026-10-02 · 42 reactions, 2 comments] We just hired Chris Zehner as VP of Engineering at Fazeshift 🎉 His track record: - Head of Engineering at AngelList - CTO at Cable, building software for automated BSA/AML testing - Head of Risk En...\n\n- [2026-10-01 · 33 reactions, 1 comment] What does AI actually look like inside a finance team? That’s the conversation we’re hosting with Fazeshift during SF TECH WEEK by a16z On October 6, Wiss Labs and Fazeshift are bringing together a...\n\n- [2026-09-23 · 20 reactions] Tsailing (Lillian) Fung has joined Fazeshift as a Senior Engineer, after nearly a decade building the systems that move and record people's money. Almost seven of those years were at Square, finish...\n\n- [2026-09-22 · 13 reactions] Everything is tangled. How are the knots ever going to get unpicked? Take one: a single payment lands as one lump sum, meant to cover four invoices split across three entities under the same parent...\n\n- [2026-09-21 · 20 reactions, 1 comment] Most \"AI for finance\" content is a slide deck about the future of work. This isn't that. Next Friday, our co-founder and CEO Caitlin Leksana is going live to actually build something: fixing a real...\n\n- [2026-09-18 · 176 reactions, 9 comments] 99 investors said no. The 100th said yes. Before Fazeshift existed, our co-founders Caitlin Leksana and Timmy Galvin were second-year students at Harvard Business School — weighing a safe corporate...\n\n- [2026-09-17 · 165 reactions, 10 comments] 🎉🐝 Congratulations to Woodruff School alumna Caitlin Leksana on recently being named a 2026 100 Women in AI honoree! The recognition highlights women whose technical accomplishments, leadership, an...\n\n- [2026-09-17 · 8 reactions, 1 comment] I’ve been sharing Caitlin’s podcast with a lot of people in my network lately, and if you’re curious about what AI-native finance actually looks like in practice, this is worth checking out. This u...\n\n- [2026-09-17 · 79 reactions, 10 comments] Gregory Sale has joined Fazeshift to build our outbound function! Greg has made a career of building business development teams from the ground up. He spent eight years at WalkMe, starting as an SD...\n\n- [2026-09-16 · 38 reactions, 2 comments] Live AI Masterclass for Finance Teams 👉 Come AI-curious.... leave AI-pilled. Join us Friday, October 2nd to go through a live practical build and leave with reusable prompts you can use in your own...\n\n- [2026-09-16 · 7 reactions] Finance teams don’t need another high-level conversation about the potential of AI. They need practical examples of how to use it in their day-to-day work. That’s why I’m excited to invite finance...\n\n- [2026-09-16 · 29 reactions, 1 comment] Enjoyed sitting down with Caitlin Leksana from Fazeshift for this one. A couple things I'd add. The \"be cautious, then go all in\" part sounds simple, but the cautious part is where most firms get s...\n\n## Locations\n- Headquarters: san francisco, california, united states (US)\n- Offices: san francisco, california, united states (US)",
+        "summary": "{\"description\":\"Fazeshift is an AI-powered platform that automates accounts receivable, invoicing, payment matching, and customer communications for enterprises. It is a software development company focused on finance automation and AI-driven workflow automation.\",\"employee_estimate\":44,\"employee_estimate_source\":\"Employees: 44\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Head of Sales, Head of Strategy & Operations, Co-Founder & CTO, Founding GTM\",\"hq\":\"San Francisco, California, United States\",\"hq_quote\":\"Headquartered in San Francisco, California, United States.\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Software Development\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 21,825,000\\n  - Venture (2026-08-01)\\n  - Series a (2026-05-01): USD 17.0M\\n  - Seed (2025-01-07): USD 4.0M\\n  - Pre seed (2024-09-25): USD 500,000\\n  - Seed (2024-08-01): USD 125,000\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQFxU2qUOlysIQ/company-logo_200_200/B4EZqUWDe9KcAI-/0/1763425401084/fazeshift_logo?e=2147483647&v=beta&t=YKqiJSlo16u9ckUB-lDx0aQWBIQFwKta7C_C3Qo7ZGQ",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/2thhl1nz94q",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Fazeshift",
+              "foundedYear": null,
+              "description": "Fazeshift is an AI-driven accounts receivable platform designed to help enterprises automate invoicing, cash application, and collections—improving efficiency, reducing errors, and accelerating revenue cycles. \n\nBig enterprises trust Fazeshift to:\n- Automate invoice creation and distribution, eliminating manual processing.\n- Enhance collections with AI-powered reminders and predictive payment insights.\n- Seamlessly integrate with ERP and accounting systems to ensure accurate reconciliation.\n\nWithout automation, businesses struggle with slow payments, revenue leakage, and inefficient AR management. Fazeshift transforms AR from a bottleneck into a growth driver.\n\nSupercharge your cash flow with intelligent automation. Visit www.fazeshift.com.",
+              "workforce": {
+                "total": 44
+              },
+              "headquarters": {
+                "address": "San Francisco, CA, US",
+                "city": "San Francisco",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 21825000,
+                "fundingLatestRound": {
+                  "name": "Venture",
+                  "date": "2026-08-01",
+                  "amount": null
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 10548,
+                "countryRank": 749421,
+                "avgDurationSeconds": 12,
+                "history": [
+                  {
+                    "value": 19546,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 18090,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 15329,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 11892,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 13199,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 10548,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/5r1x9lvzdw4",
+        "title": "Tradeshift",
+        "url": "https://tradeshift.com/",
+        "text": "# Tradeshift\n\nTradeshift is a Software Development company. Tradeshift is a company that provides e-Invoicing software and accounts payables automation platform. They ensure compliance in 69 countries, including in France and Belgium. Tradeshift employs 339 people (-8.6% YoY, -32 people) and has an annual revenue of $146.8M, founded in 2009. Headquartered in San Francisco, California, United States, operates in 8 countries (including Japan, United Kingdom, Romania, Malaysia, and Belgium). Its workforce is distributed across 21 countries (including Romania, Malaysia, United Kingdom, United States, and China).\n\n## About\n\nLeading AP automation software | Reduce processing cost by 90% | For large and mid-sized companies | Our customers include DHL, Danone, HSBC, Kuehne + Nagel, and Air France KLM.\n\nOur platform automates accounts payable, e-invoicing, and procurement, generating huge efficiencies and cost savings for buyers and suppliers. \n\nAdvanced AI-driven invoice processing eliminates manual tasks, reducing manual coding by up to 99.5%. \n\nLast year, we saved customers over 3 million hours of manual work, cutting invoice processing costs tenfold.\n\nTradeshift ensures e-invoicing compliance in over 70 countries, including China, and is a registered Plateforme Dematerialization Partenaire (PDP) in France. \n\nOur global compliance-as-a-service capabilities keep you ready for e-invoicing and clearance mandates worldwide.\nOur tailored onboarding approach and unique supplier value proposition deliver 80%+ e-invoicing adoption across our customers’ supplier bases. \n\nThe Tradeshift network connects over one million businesses in 190 countries. We add an average of 30,000 new supplier connections each month. \n\nRecognised as the top Procure to Pay solution by Spend Matters, Tradeshift helps businesses Digitise, Automate, and Grow—delivering tangible value across your digital transformation.\n\nFind out more at: www.Tradeshift.com\n\n| Field | Value |\n| --- | --- |\n| Founder | Christian Lanng, Mikkel Hippe Brun, Gert Sylvest |\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: San Francisco, United States\n- Founded Year: 2009\n- Homepage: tradeshift.com\n- Aliases: Tradeshift Holdings, Inc., tradeshift, tradeshift holdings, tradeshift, inc., tradeshift.com\n- LinkedIn: linkedin.com/company/tradeshift\n- Linkedin Followers: 73,328\n- Emails: jpninfo@tradeshift.com\n- Phone: +1 800-381-3585, 1-415-272-3566\n\n## Financials\n- Annual Revenue: USD 146,800,000\n  - Venture (2023-07-31): USD 70.0M\n  - Venture (2022-10-18)\n  - Venture (2021-12-09): USD 200.0M\n  - Convertible note (2021-03-16): USD 200.0M\n  - Secondary market (2021-03-09)\n\n## Acquisitions\n- Acquired Babelway (2018-12-18)\n- Acquired IBX Business Network (2017-03-08)\n- Acquired IBX Business Network, Capgemini (2017-03-01)\n- Acquired Hyper Travel (2016-06-23)\n- Acquired Hyper (2016-06-01)\n\n## Workforce\n- Employees: 339\n- Company Size: 501-1000 employees\n  - Monthly Growth: -0.6%\n  - Yearly Growth: -8.6%\n- Key Executives:\n  - Abdulwahab Al-Shaikh: Director of Business Development\n  - Alina Paraschiv: VP, People\n  - Daniel Ionita: Director of Product Management\n  - Elton W.: Account Director\n  - Ioana Millon: Director of Product Marketing\n  - Keith Fogarty: Director\n  - Marcus Carr: Chief Financial Officer\n  - Michel Colin: Vice President Services & Delivery\n  - Mike Cowles: Chief Executive Officer\n  - Raphael Bres: Chief Product and Technology Officer\n- Breakdown:\n  - By Country: Romania: 41 (12%), Malaysia: 24 (7%), United Kingdom: 13 (4%), United States: 13 (4%), China: 12 (4%), Egypt: 7 (2%), Belgium: 6 (2%), France: 6 (2%), Denmark: 5 (1%), Sweden: 3 (1%) (+11 more)\n  - By Department: Technical: 61 (18%), Finance: 16 (5%), Consulting: 10 (3%), Marketing: 10 (3%), General Management: 9 (3%), Project Management: 8 (2%), Sales: 8 (2%), Customer Service: 7 (2%), Operations: 7 (2%), Other Department: 7 (2%) (+7 more)\n  - By Seniority: Specialist: 53 (16%), Manager: 38 (11%), Senior: 35 (10%), Other Management: 22 (6%), Director: 7 (2%), Clevel: 6 (2%), Vp: 2 (1%), Intern: 1\n- Active job postings: 4\n- Salary ranges (20 of 42 roles):\n  - Chief Product Officer: median $367,594.52 per year\n  - Manager- Solutions Consulting: median $263,419.73 per year\n  - Director: median $259,968.74 per year\n  - Sales: median $259,674.32 per year\n  - Engineering Manager: median $221,777.86 per year\n  - Sr. Software Engineer: median $211,248.34 per year\n  - Professional Services Architect: median $201,229.57 per year\n  - Solutions Consultant: median $194,291.46 per year\n  - Staff DevOps Engineer: median $178,062.1 per year\n  - Engineering: median $165,085.85 per year\n  - Software Engineer: median $155,505.7 per year\n  - Senior Operations Manager: median $151,972.43 per year\n  - Marketing: median $137,273.21 per year\n  - Project Manager: median $127,483.58 per year\n  - Software Developer: median $124,818.05 per year\n  - Senior Accountant: median $120,447.23 per year\n  - Recruiter: median $119,677.1 per year\n  - Executive Assistant: median $103,673.89 per year\n  - Accountant: median $97,903.05 per year\n  - Office Manager: median $88,745.19 per year\n- Talent Sources: Capgemini (65), Oracle (53), IBX Business Network (acquired by Tradeshift) (29), Tungsten Network, a Kofax company (19), Babelway (17), SAP Ariba (16), Basware (16), Microsoft (15), Honeywell Technologies (13), IBM (12)\n- Alumni Go To: Ivalua (16), Microsoft (13), Legion Technologies (13), A.P. Moller - Maersk (13), UiPath (9), SAP (9), Oracle (9), IBM (9), Coupa (9), GEP Worldwide (8)\n\n## Products & Technology\n- Tech Stack (showing 50 of 192): accenture, akka, amazon quicksight, angularjs, aruba wireless, atlassian, avalara, babelway, browserstack, clickup, confluence, css, css3, datadog, demandbase, docker, edifact, elasticsearch, figma, filezilla, fintech, genpact, github, github actions, google analytics, google sheets, google workspace, grafana, grails, haproxy, helm, hornetq, html, html5, imperva, intercom, jamf, jasmine, java, javascript, jdk, jenkins, jest, jira, jquery, json, kubernetes, linkedin, linkedin sales navigator, linux\n\n## Web presence\n\n- Twitter: twitter.com/tradeshift\n- Facebook: facebook.com/tradeshift\n- Instagram: instagram.com/tradeshift\n- YouTube: youtube.com/@tradeshift\n- Crunchbase: crunchbase.com/organization/tradeshift\n- Web traffic:\n  - Monthly visits: 198,657\n  - Global rank: 137,712\n  - Bounce rate: 17.0%\n  - Pages per visit: 9.7\n  - Average visit duration: 525s\n\n## Reviews & Ratings\n- Product Reviews: 4.0/5.0 (213 reviews)\n- Employer Rating: 3.0/5.0 (489 reviews)\n  - Breakdown: Work-Life: 3.8, Compensation: 3.1, Culture: 3.1, Career: 2.9\n\n## Categories\n\naccounting & finance software, accounts payable automation software, accounts payables automation platform, ai, ap automation, artificial intelligence, b2b, business_and_consumer_services/business_services, clearance, compliance, e-invoicing automation, e-invoicing software, enterprise software, enterprise-software, finance transformation, financial services, fintech, france and belgium, global, global compliance, invoice management, payments, platform, procurement, purchasing, saas, software, supplier relationship management (srm), technology, technology/software, tradeshift, transaction processing, vat compliance, vendor management\n\n## Competitors\n\ncoupa, taulia, basware, ariba, ivalua, quickbooks, sage intacct, buyerquest, synertrade, internex capital, omx, procurify, reliabills, starcompliance, sage group, procureport, sap ariba, logicsource, jaggaer\n\n## Recent News\n- [2026-09-22] [The Top Procurement Software Vendors According to the FeaturedCustomers Fall 2026 Customer Success Report Rankings](https://www.einpresswire.com/article/944030905/the-top-procurement-software-vendors-according-to-the-featuredcustomers-fall-2026-customer-success-report-rankings)\n- [2026-09-14]\n  - [Paraglide Targets Enterprise AR Automation With AI Supplier-Portal Agents - TipRanks.com](https://www.tipranks.com/news/private-companies/paraglide-targets-enterprise-ar-automation-with-ai-supplier-portal-agents)\n  - EIN Presswire: [Tradeshift Announces Incorporation of Tradeshift Arabia, Deepening Its Commitment to Saudi Arabia's Digital Economy](https://www.einpresswire.com/article/940872458/tradeshift-announces-incorporation-of-tradeshift-arabia-deepening-its-commitment-to-saudi-arabia-s-digital-economy)\n- [2026-09-11] GetLatka: Tradeshift Revenue 2024: $161.5M Est. ARR\n- [2026-08-08] GetLatka: Tradeshift Revenue 2024: $161.5M Est. ARR, $2.7B Valuation\n- [2026-07-27] [Tradeshift exits HSBC SemFi embedded invoice finance venture](https://bcrpub.com/news/tradeshift-exits-hsbc-semfi-embedded-invoice-finance-venture/)\n- [2026-07-24] [Tradeshift exits SemFi joint venture with HSBC \\| Global Trade Review \\(GTR\\)](https://www.gtreview.com/news/digital-trade/tradeshift-exits-semfi-joint-venture-with-hsbc/)\n- [2026-07-20] [Evolving from legacy BI to agentic AI at Tradeshift with Amazon Quick \\| Artificial Intelligence](https://aws.amazon.com/blogs/machine-learning/evolving-from-legacy-bi-to-agentic-ai-at-tradeshift-with-amazon-quick/)\n- [2025-08-21] Tech.eu: Brex aims to crack EU market with partnership-led approach\n- [2025-06-24] EIN Presswire: Tradeshift Launches AI-Powered Reporting & Analytics App, Giving Buyers Unprecedented Control Over AP Data\n- [2025-06-20] City A.M.: High street banks’ SME lending comeback won’t rattle challengers\n- [2025-06-10]\n  - EIN Presswire: The Top Spend Management Software Vendors According to the FeaturedCustomers Summer 2025 Customer Success Report\n  - Global Trade Review: Viscepan joins Traydstream as sales director\n- [2025-05-05] Crunchbase News: Is Your Startup Ready For An Enterprise Partnership? Lessons From Investing In 50-Plus Fintechs\n- [2025-04-22] EIN Presswire: E Invoicing Market Predicted to Hit 24.35 Billion by 2034\n- [2025-01-17] EIN Presswire: FinTech Industry Market Projected To Witness Substantial Growth, 2025-2032 \\| The UPS Store, Inc, Tradeshift.\n- [2024-12-23] FinSMEs: Financial Revolution: How Fintech is Changing the Game\n- [2024-12-18] Global Trade Review \\(GTR\\): Five trends that shaped trade finance in 2024\n- [2024-10-04] FinTech Global: HSBC teams up with Tradeshift to enhance SME financing with new embedded finance platform\n- [2024-10-03] Global Trade Review \\(GTR\\): HSBC’s embedded finance joint venture with Tradeshift goes live\n- [2024-04-04]\n  - Globe Newswire: Raphael Bres Returns to Tradeshift as Chief Product & Technology Officer\n  - BusinessCloud: Tradeshift goes for familiar face in latest hire\n- [2024-02-18] BusinessCloud: Tradeshift opts for experience for new CEO\n- [2024-02-14] PYMNTS.com: Tradeshift Taps FinTech Veteran Iain Balchin as New CFO\n\n## Social\n\n### Linkedin\n\n- [2026-10-01 · 6 reactions] We’re hiring: Enterprise Account Executive 💙 Are you passionate about building strong customer relationships, solving complex business challenges, and helping organisations unlock new opportunities...\n\n- [2026-09-30 · 19 reactions] Three days. 38,000+ attendees. 1,050+ investors. 450+ fintech companies. Money20/20 Middle East 2026 was the largest fintech gathering ever held in the Middle East. Saudi Arabia's financial sector...\n\n- [2026-09-29 · 12 reactions] 🌍 Global e-invoicing compliance is changing faster than ever. Are you ready for what comes next? With mandates evolving across Europe, the Middle East, the Americas and APAC, keeping up with differ...\n\n- [2026-09-25 · 13 reactions] We’re growing our Sales team! 💙 As we continue to grow, we’re looking for talented people to join our Sales and Strategic Partnerships teams. 🔹 Enterprise Account Executive Be the link between key...\n\n- [2026-09-25 · 16 reactions] AI in AP is moving beyond extraction and reporting. It’s becoming something finance teams can act on. Our Fall Release ’26 introduces new agentic AI capabilities across Tradeshift, helping AP teams...\n\n- [2026-09-24 · 19 reactions] Saudi Arabia’s ZATCA e-invoicing approach offers an interesting example of how shared infrastructure can support continuous evolution across an entire ecosystem. Our latest blog explores what this...\n\n- [2026-09-23 · 17 reactions] 🌍 E-invoicing compliance is moving quickly across global markets. Our Fall ’26 Release brings new compliance capabilities across France, Germany, the UAE, and Spain, and Babelway. In our latest blo...\n\n- [2026-09-23 · 7 reactions] كل عام والمملكة العربية السعودية بخير 🇸🇦 نحتفي اليوم بالمملكة العربية السعودية، بتاريخها العريق، وإنجازاتها، وطموحها نحو مستقبل أكثر ازدهارًا في Tradeshift، نفخر بكوننا جزءًا من رحلة التحول الرقمي...\n\n- [2026-09-23 · 36 reactions, 2 comments] Last week in London, at an AWS event bringing together technology leaders, Robert Iordache showcased how Agentic AI is transforming decision-making for accounts payable teams. The topic was Agentic...\n\n- [2026-09-16 · 16 reactions] This week at Money20/20 Riyadh, the best conversations weren't about payments tech — they were about the boundary between commerce data and financial decision-making starting to dissolve. Saudi Ara...\n\n- [2026-09-15 · 34 reactions, 2 comments] 🇸🇦 A new chapter for Tradeshift in Saudi Arabia We’re pleased to announce the incorporation of Tradeshift Arabia, an important milestone in Tradeshift’s continued commitment to Saudi Arabia and its...\n\n- [2026-09-08 · 25 reactions] Saudi Arabia is not just digitizing invoices. It is creating the foundation for what comes next. ZATCA has brought businesses across the Kingdom into a digital ecosystem. The next opportunity is to...\n\n- [2026-09-01 · 19 reactions, 1 comment] With mandates expanding across 80+ countries, multinational companies need to navigate different requirements, formats, and deadlines. Keeping up with these constant changes requires a smarter way...\n\n- [2026-08-28 · 11 reactions] Invoice anomalies are a lot more useful when you catch them before they become a loss. Tradeshift’s AP Auditor Agent helps AP teams quickly find invoice anomalies, investigate risks, and take actio...\n\n- [2026-08-17 · 8 reactions] The U.S. has its own Peppol network. Most businesses have no idea. It's called the DBNAlliance — and Chevron, Microsoft, and Halliburton are already on it. Our own Dan Young breaks down how it work...\n\n- [2026-08-05 · 15 reactions, 1 comment] Six months remain until Germany’s B2B e-invoicing compliance framework goes live. Planning a structured transition protects your operations; waiting creates unnecessary friction. For transnational...\n\n- [2026-07-29 · 9 reactions] Intelligent business networks transform mandatory regulatory data into direct corporate intelligence. Germany’s 2027 B2B mandate requires businesses to generate highly structured, machine-readable...\n\n- [2026-07-22 · 12 reactions] An e-invoicing compliance strategy is only as effective as the number of suppliers who successfully adopt it. Germany’s January 1, 2027 mandate requires your supply chain to deliver structured, EN...\n\n- [2026-07-15 · 13 reactions] Are you addressing Germany’s 2027 mandate as an isolated local tax issue, or as a broader global operational strategy? For transnational corporations, patching together independent IT tools for eve...\n\n- [2026-07-08 · 7 reactions] International enterprises with active business entities in Germany face a definitive compliance timeline. On January 1, 2027, the Wachstumschancengesetz eliminates the legal status of paper and PDF...\n\n## Locations\n- Headquarters: san francisco, california, united states (US)\n- Offices: copenhagen, capital region of denmark, denmark (DK), san francisco, california, united states (US), tokyo, akasaka ‍150-, japan (JP), ottignies-louvain-la-neuve, ottignies-louvain-la-neuve, belgium, kuala lumpur, kuala lumpur, malaysia (MY), bucharest, bucharest 011-171, romania, suzhou, sip, china (CN), london, london wc1a 2sn, united kingdom (GB)",
+        "summary": "{\"description\":\"Tradeshift is a Software Development company that provides e-Invoicing software and accounts payables automation platform.\",\"employee_estimate\":339,\"employee_estimate_source\":\"Employees: 339\",\"hiring_first_ops_or_revops\":false,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"San Francisco, California, United States\",\"hq_quote\":\"Headquartered in San Francisco, California, United States\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Software Development\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":null,\"recently_funded_seed_or_series_a_quote\":\"- Venture (2023-07-31): USD 70.0M\\n- Venture (2022-10-18)\\n- Venture (2021-12-09): USD 200.0M\\n- Convertible note (2021-03-16): USD 200.0M\\n- Secondary market (2021-03-09)\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQHAq6b8Bn68AQ/company-logo_200_200/company-logo_200_200/0/1696521207640/tradeshift_logo?e=2147483647&v=beta&t=HafQc6XyXP08KXRyuyRo4U86orKDFenoSVXzjT_a9uA",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/5r1x9lvzdw4",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Tradeshift",
+              "foundedYear": 2009,
+              "description": "Leading AP automation software | Reduce processing cost by 90% | For large and mid-sized companies | Our customers include DHL, Danone, HSBC, Kuehne + Nagel, and Air France KLM.\n\nOur platform automates accounts payable, e-invoicing, and procurement, generating huge efficiencies and cost savings for buyers and suppliers. \n\nAdvanced AI-driven invoice processing eliminates manual tasks, reducing manual coding by up to 99.5%. \n\nLast year, we saved customers over 3 million hours of manual work, cutting invoice processing costs tenfold.\n\nTradeshift ensures e-invoicing compliance in over 70 countries, including China, and is a registered Plateforme Dematerialization Partenaire (PDP) in France. \n\nOur global compliance-as-a-service capabilities keep you ready for e-invoicing and clearance mandates worldwide.\nOur tailored onboarding approach and unique supplier value proposition deliver 80%+ e-invoicing adoption across our customers’ supplier bases. \n\nThe Tradeshift network connects over one million businesses in 190 countries. We add an average of 30,000 new supplier connections each month. \n\nRecognised as the top Procure to Pay solution by Spend Matters, Tradeshift helps businesses Digitise, Automate, and Grow—delivering tangible value across your digital transformation.\n\nFind out more at: www.Tradeshift.com ",
+              "workforce": {
+                "total": 339
+              },
+              "headquarters": {
+                "address": "447 Sutter St, Suite 405, San Francisco, California 94108, US",
+                "city": "San Francisco",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 146800000,
+                "fundingTotal": null,
+                "fundingLatestRound": {
+                  "name": "Venture",
+                  "date": "2023-07-31",
+                  "amount": 70000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 198657,
+                "countryRank": 22804,
+                "avgDurationSeconds": 525,
+                "history": [
+                  {
+                    "value": 184342,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 199972,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 212047,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 214384,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 199619,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 198657,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 6295.9,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

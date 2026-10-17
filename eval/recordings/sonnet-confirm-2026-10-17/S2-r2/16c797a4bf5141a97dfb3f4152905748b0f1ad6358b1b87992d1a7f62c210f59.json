@@ -1,0 +1,262 @@
+{
+  "request": {
+    "query": "Qualitate",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "9c1bcdf54371d341e19e807d0dd0415e",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/rtb626rc9m1",
+        "title": "Qualitate",
+        "url": "https://qualitate.io/",
+        "text": "# Qualitate\n\nQualitate is a Technology, Information and Internet company. Qualitate is an AI-powered expert intelligence platform that deploys intelligent AI moderators to conduct expert-driven conversations at scale. Qualitate employs 42 people, founded in 2024. Headquartered in New York, New York, United States. Its workforce is distributed across United States and United Kingdom.\n\n## About\n\nQualitate delivers real-time expert intelligence for investment and strategy teams. \n\nOur AI moderator powers the full primary research workflow, from study design and expert recruitment to interview moderation and insight creation. \n\nBuilt for enterprises, Qualitate offers a full suite of products, including moderated calls, transcript libraries, analyst research, market & company intelligence, and productivity tools.\n\nTrusted by the world’s largest investment funds and corporations, Qualitate equips every company with the world’s most valuable asset: expert intelligence.\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Headquarters: New York, United States\n- Founded Year: 2024\n- Homepage: qualitate.io\n- Aliases: qualitate\n- LinkedIn: linkedin.com/company/qualitate-io\n- Linkedin Followers: 1,336\n\n## Financials\n- Total Funding: USD 7,000,000\n  - Seed (2026-04-01): USD 7.0M\n\n## Workforce\n- Employees: 42\n- Company Size: 11-50 employees\n  - Monthly Growth: +2.4%\n- Key Executives:\n  - Alyssa Anchelowitz: Head of Marketing\n  - Brian Badolato: Director, Sales\n  - Edward Dennis: Director, Sales\n  - Eric Christianson: CFO / CCO\n  - Erroll Davis: VP of Product\n  - Ivana Lahcanski: Director, Private Equity Sales\n  - Jeff Capobianco: CTO & Head of Applied AI\n  - Luis Frey: Director, Enterprise Sales\n  - Mark Langan: Director, Client Experience\n  - Michael Ganian, CFA: Director of Research, Fintech\n- Breakdown:\n  - By Country: United States: 39 (93%), United Kingdom: 1 (2%)\n  - By Department: Operations: 8 (19%), Other Department: 8 (19%), Research: 6 (14%), Technical: 6 (14%), Sales: 4 (10%), General Management: 2 (5%), Consulting: 1 (2%), Customer Service: 1 (2%), Design: 1 (2%), Finance: 1 (2%) (+3 more)\n  - By Seniority: Other Management: 11 (26%), Specialist: 11 (26%), Director: 7 (17%), Senior: 4 (10%), Clevel: 3 (7%), Vp: 3 (7%), Head: 2 (5%)\n- Active job postings: 24\n- Talent Sources: GLG (8), CB Insights (5), AlphaSights (4), Gartner (3), YipitData (2), OnsiteIQ (1), IDTechEx (1), Daloopa (1), Crew Capital (1), Blueflame AI (1)\n- Alumni Go To: Wild Tree Ventures (1), Lettermark (1), 8VC (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: adyen, dbt, deepgram, driven data, fintech, github, google sheets, gps, hubspot, launchpad, lemlist, linkedin, linkedin recruiter, looker, microservices, openai, pitchbook, prototype, python, ramp, react, snowflake, sql, stripe, tableau, typescript, webrtc, zapier\n\n## Web presence\n\n- Web traffic:\n  - Monthly visits: 11,027\n  - Global rank: 1,892,123\n  - Bounce rate: 37.0%\n  - Pages per visit: 2.5\n  - Average visit duration: 118s\n\n## Categories\n\nai-powered expert intelligence platform, expert-driven conversations, fast, high-quality insights, technology/consulting\n\n## Recent News\n- [2026-09-05] EIN News: flowres.io launches SlideBuilder, eliminates disconnect between qualitative analysis & qualitative research reporting\n- [2026-08-29] [CrowdStrike’s post-Mythos surge: Moat, momentum and the blast-radius test - SiliconANGLE](https://siliconangle.com/2026/08/29/crowdstrikes-post-mythos-surge-moat-momentum-and-the-blast-radius-test/)\n- [2026-08-22] [#NYCtech Week in Review: 8/16/26 – 8/22/26 – AlleyWatch](https://alleywatch.com/2026/08/nyctech-week-in-review-8-16-26-8-22-26/)\n\n## Social\n\n### Linkedin\n\n- [2026-10-05 · Reshared · 5 reactions] [We're doubling this year - check out our open roles here...](https://www.linkedin.com/posts/qualitate-io_were-doubling-this-year-check-out-our-activity-7512874045420486658-YTR2): We're doubling this year - check out our open roles here: https://lnkd.in/gFH3w_ze\n\n- [2026-10-02 · Reshared · 6 reactions] [More buyer insight. Less time chasing interviews. Next Thursday...](https://www.linkedin.com/posts/qualitate-io_more-buyer-insight-less-time-chasing-interviews-activity-7511796337529769984-f25G): More buyer insight. Less time chasing interviews. Next Thursday, Qualitate’s Luis Frey and Isabelle Lowe join AR expert Carter Lusher to explore how AI-moderated interviews can help analyst relatio...\n\n- [2026-10-01 · Reshared · 16 reactions] [I've been blown away by the response to our latest report on AI...](https://www.linkedin.com/posts/qualitate-io_activity-7511523616862302208-p8CE): I've been blown away by the response to our latest report on AI disruption (linked below so you can get it yourself). One of the most interesting parts of our analysis was understanding: what happe...\n\n- [2026-09-29 · Reshared] [Custom expert research in days instead of 6-8 weeks. Ahead of...](https://www.linkedin.com/posts/qualitate-io_custom-expert-research-in-days-instead-of-activity-7510794922753548288-Pr13): Custom expert research in days instead of 6-8 weeks. Ahead of CoreWeave’s Fully Connected conference, SiliconANGLE & theCUBE used Qualitate to gather 13 in-depth interviews and more than seven hour...\n\n- [2026-09-23 · Reshared · 6 reactions] [Join our team to build the future of research - we're hiring across...](https://www.linkedin.com/posts/qualitate-io_join-our-team-to-build-the-future-of-research-activity-7508594578250280960-Biaf): Join our team to build the future of research - we're hiring across the entire company:\n\n- [2026-09-23 · Reshared · 1 reaction] [How customers use Qualitate to understand where budgets are moving...](https://www.linkedin.com/posts/qualitate-io_how-customers-use-qualitate-to-understand-activity-7508527465233924096-HUfE): How customers use Qualitate to understand where budgets are moving and why:\n\n- [2026-09-21 · Reshared · 2 reactions] [Check out David Vellante's deep dive on Salesforce with Qualitate...](https://www.linkedin.com/posts/qualitate-io_check-out-david-vellantes-deep-dive-on-salesforce-activity-7507790173661995008-W1sb): Check out David Vellante's deep dive on Salesforce with Qualitate data:\n\n- [2026-09-14 · Reshared · 2 reactions] [Join our growing team: https://lnkd.in/gFH3w_ze](https://www.linkedin.com/posts/qualitate-io_join-our-growing-team-httpslnkdingfh3wze-activity-7505290516456972289-rMdU): Join our growing team: https://lnkd.in/gFH3w_ze\n\n- [2026-09-09 · 23 reactions, 1 comment] One of the most common requests we hear from customers: help me understand what’s behind the number. Qualitate turns expert & tech buyer discussions into quantified signals across markets, companie...\n\n- [2026-09-03 · Reshared · 5 reactions] [Using Qualitate’s Research Analyst, you can turn one prompt into a...](https://www.linkedin.com/posts/qualitate-io_using-qualitates-research-analyst-you-can-activity-7501371021392781313-wIvT): Using Qualitate’s Research Analyst, you can turn one prompt into a synthesized briefing, cited directly to the underlying buyer conversations. \"Perform a detailed analysis of why Nvidia would acqui...\n\n- [2026-09-03 · 39 reactions, 3 comments] Caught a great conversation earlier this week between David Vellante, co-founder and co-CEO of SiliconANGLE & theCUBE, and George Kurtz, CEO of CrowdStrike. Dave brought data from 1,250 Qualitate i...\n\n- [2026-09-02 · Reshared · 32 reactions] [We are HIRING Senior, Staff, and Senior Applied AI engineers. Apply...](https://www.linkedin.com/posts/qualitate-io_activity-7500919737326104577-3s5J): We are HIRING Senior, Staff, and Senior Applied AI engineers. Apply today 👽\n\n- [2026-08-31 · Reshared · 1 reaction] [Don’t miss tomorrow’s session with Tyler Fein on what our latest...](https://www.linkedin.com/posts/qualitate-io_dont-miss-tomorrows-session-with-tyler-activity-7500251482433286144-VRCb): Don’t miss tomorrow’s session with Tyler Fein on what our latest senior tech buyer data is showing about AI-driven disruption across enterprise software: https://lnkd.in/eme-gx9m\n\n- [2026-08-31 · Reshared · 14 reactions] [Inside Salesforce spend increases: AI is playing a bigger role...](https://www.linkedin.com/posts/qualitate-io_activity-7500264350922854400-x23C): Inside Salesforce spend increases: AI is playing a bigger role. Among Salesforce customers planning to spend more over the next 12 months, 28% cited AI as a driver in our 1H ’26 research, up from 1...\n\n- [2026-08-29 · Reshared · 4 reactions] [Check out David Vellante's analysis of CrowdStrike with Qualitate's...](https://www.linkedin.com/posts/qualitate-io_check-out-david-vellantes-analysis-of-crowdstrike-activity-7499522782452568064-hskW): Check out David Vellante's analysis of CrowdStrike with Qualitate's primary buyer intelligence:\n\n- [2026-08-28 · Reshared · 2 reactions] [The enterprise software buyer outlook, 22 vendors...](https://www.linkedin.com/posts/qualitate-io_the-enterprise-software-buyer-outlook-22-activity-7499131555408433152-KqlG): The enterprise software buyer outlook, 22 vendors: https://lnkd.in/gY9MUWVQ\n\n- [2026-08-27 · Reshared · 9 reactions] [Where are incumbent software vendors most defensible in the AI...](https://www.linkedin.com/posts/qualitate-io_activity-7498832224889405441-FSqW): Where are incumbent software vendors most defensible in the AI transition? Systems of record may be one answer. Workday remains one of the strongest vendors for customer retention in our enterprise...\n\n- [2026-08-24 · Reshared · 1 reaction] [6 charts on the state of enterprise SaaS vendors...](https://www.linkedin.com/posts/qualitate-io_6-charts-on-the-state-of-enterprise-saas-activity-7497655050731913216-Omwz): 6 charts on the state of enterprise SaaS vendors: https://lnkd.in/eKu9pg7b\n\n- [2026-08-19 · Reshared · 1 reaction] [Which software markets are most vulnerable to disruption...](https://www.linkedin.com/posts/qualitate-io_which-software-markets-are-most-vulnerable-activity-7495919783910060033-dqKu): Which software markets are most vulnerable to disruption: https://lnkd.in/gSRBTBQX\n\n- [2026-08-18 · Reshared · 52 reactions] [When Thomas Teravainen joined Qualitate in February 2025, he became...](https://www.linkedin.com/posts/qualitate-io_activity-7495500769069096960-0vrd): When Thomas Teravainen joined Qualitate in February 2025, he became the second person on our research team. On his first day, he walked into one of our tiny early offices, saw a dog, and wondered w...\n\n## Locations\n- Headquarters: new york, new york, united states (US)\n- Offices: new york, new york, united states (US)",
+        "summary": "{\"description\":\"Qualitate is an AI-powered expert intelligence platform providing moderated interviews and expert-driven insights for investment and strategy teams.\",\"employee_estimate\":42,\"employee_estimate_source\":\"Employees: 42\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Active job postings: 24\",\"hq\":\"New York, United States\",\"hq_quote\":\"Headquarters: New york, new york, united states (US)\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Technology, Information and Internet\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 7,000,000\\n  - Seed (2026-04-01): USD 7.0M\\n...\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQHpMuax6IfNKg/company-logo_200_200/B4EZwggmEzJAAI-/0/1770071942192/qualitate_io_logo?e=2147483647&v=beta&t=bcsNEyfdw7PaH8AzB8O9YAgCl-RemHmz8xiwNox30EE",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/rtb626rc9m1",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Qualitate",
+              "foundedYear": 2024,
+              "description": "Qualitate delivers real-time expert intelligence for investment and strategy teams. \n\nOur AI moderator powers the full primary research workflow, from study design and expert recruitment to interview moderation and insight creation. \n\nBuilt for enterprises, Qualitate offers a full suite of products, including moderated calls, transcript libraries, analyst research, market & company intelligence, and productivity tools.\n\nTrusted by the world’s largest investment funds and corporations, Qualitate equips every company with the world’s most valuable asset: expert intelligence.",
+              "workforce": {
+                "total": 42
+              },
+              "headquarters": {
+                "address": "115 Broadway, 04-102, New York, NY 10006, US",
+                "city": "New York",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 7000000,
+                "fundingLatestRound": {
+                  "name": "Seed",
+                  "date": "2026-04-01",
+                  "amount": 7000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 11027,
+                "countryRank": 483405,
+                "avgDurationSeconds": 118,
+                "history": [
+                  {
+                    "value": 9945,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 8208,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 12562,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 13871,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 18399,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 11027,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/gtxkh1s1x57",
+        "title": "Qualitate",
+        "url": "https://qualitate.eu/",
+        "text": "# Qualitate\n\nQualitate is a Information Technology & Services company. Qualitate employs 4 people (+100.0% YoY, +2 people), founded in 2012. Headquartered in Spain, with an office in Badalona.\n\n## About\n\nSince 2012 we have been the technological partner of renowned multinational companies for their digital validation needs.\n\n## Company Details\n- Industry: Information Technology & Services\n- Type: Self-owned\n- Founded Year: 2012\n- Homepage: qualitate.eu\n- Aliases: qualitate\n- LinkedIn: linkedin.com/company/qualitate\n- Linkedin Followers: 285\n- Emails: info@qualitate.eu\n- Phone: +34 936 55 26 75\n\n## Workforce\n- Employees: 4\n- Company Size: 1-10 employees\n  - Yearly Growth: +100.0%\n- Breakdown:\n  - By Country: Brazil: 1 (25%)\n  - By Department: Other Department: 1 (25%), Technical: 1 (25%)\n  - By Seniority: Other Management: 1 (25%), Specialist: 1 (25%)\n- Talent Sources: Trébol Digital (2), ISI Engenharia (2), Zigron (1), Test-Cloud a Mindata company (1), Shortcuts Software (1), Positivity ® (1), Moebio Barcelona (1), Institut de Recerca Biomèdica de Lleida Fundació Dr. Pifarré - IRBLLEIDA (1), Grupo Antea (1), Asseco PST (1)\n- Alumni Go To: Grifols (2), Teladoc Health (1), Qustodio (part of the Qoria family) (1), ProKanban.org (1), MKS – Special Engineering Services (1), Fundació Clínic per a la Recerca Biomèdica (1), AllWomen (1)\n\n## Web presence\n\n- Twitter: twitter.com/qualitatest\n- Web traffic:\n  - Monthly visits: 936\n  - Global rank: 7,766,757\n  - Bounce rate: 44.0%\n  - Pages per visit: 1.0\n  - Average visit duration: 0s\n\n## Categories\n\napp-development, application delivery lifecycle managment and validación de sistemas informáticos, automation, business solutions, enterprise-software, it-services, lifecycle applications, optimization, software, technology, technology/software, testing\n\n## Competitors\n\nsuccessive technologies, marketing and governance of information technologies, bpm company, aorborc technologies\n\n## Recent News\n- [2026-08-28] Moldpres: Moldovan parliament makes qualitative leap in implementing EU-Moldova Association Agreement\n- [2026-05-31] WION: Russia Threatens Response As US Boosts Poland Forces; Moscow Warns 'Qualitative Escalation'\n\n## Social\n\n### Linkedin\n\n- [2023-04-17 · 6 reactions] Are you struggling to keep your OpenText ALM system up to date and fully functional? Do you need help with OTA development, workflow customization, or reporting? Look no further than our expert tea...\n\n- [2022-06-01 · 17 reactions] Ya estamos en expo:QA 🎉 No te pierdas a Ewout van Driel a las 16:30 en el track 3 hablando sobre \"The way of the Agile QA\"\n\n- [2022-05-18 · 2 reactions] ➡Os esperamos a todo el 31 de mayo, 1 y 2 de junio en IFEMA en la expo:QA 2022 donde podréis escuchar a nuestro CEO Ewout van Driel hablar sobre \"The way of Agile QA\" 🙌Save the date https://lnkd.in...\n\n- [2022-05-05 · 9 reactions] Con muchas ganas de veros a todos muy pronto por la expo:QA ¡os esperamos! #expoqa # #qa #agiletesting #conference #testing #agile #agiletesting #qa #softwaretesting #testers\n\n- [2022-04-22 · 5 reactions] #Santjordi #qualitateam #qualityengineer\n\n- [2022-03-18 · 12 reactions] Happy to announce We are expo:QA platinum sponsor🥳 Ewout van Driel will talk about \"The way of the agile QA\" on 1st June in Track 3 | 16:30 - 17:15 https://lnkd.in/dcac7SRN #qualitate #expoQA #qual...\n\n- [2022-03-08 · 9 reactions] En Qualitate creemos en la igualdad y en el empoderamiento de la mujer, por eso nos enorgullece celebrar este día tan especial #8M #womensday #diadelamujer #mujerespower #qualitateteam #Internation...\n\n## Locations\n- Headquarters: badalona, cataluña, spain (ES)\n- Offices: badalona, catalonia, spain (ES), badalona, cataluña, spain (ES)",
+        "summary": "{\"description\":\"Qualitate is an Information Technology & Services company founded in 2012, with headquarters in Badalona, Spain, and an office in Badalona.\",\"employee_estimate\":4,\"employee_estimate_source\":\"Employees: 4\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"badalona, cataluña, spain (ES)\",\"hq_quote\":\"Headquartered in Spain, with an office in Badalona.\",\"industry\":\"Information Technology & Services\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industries: Information Technology & Services\\n- Type: Self-owned\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":null,\"recently_funded_seed_or_series_a_quote\":\"\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4D0BAQGsNO2XWW-nGA/company-logo_200_200/company-logo_200_200/0/1647598636255/qualitate_logo?e=2147483647&v=beta&t=t3JJKR6AE2_2eZrLxqJneWCzccW4YUwUHixtu2RC-Xc",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/gtxkh1s1x57",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Qualitate",
+              "foundedYear": 2012,
+              "description": "Since 2012 we have been the technological partner of renowned multinational companies for their digital validation needs.",
+              "workforce": {
+                "total": 4
+              },
+              "headquarters": {
+                "address": "Carrer Marcus Porcius, Badalona, Cataluña 08915, ES",
+                "city": null,
+                "postalCode": null,
+                "country": "Spain"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 936,
+                "countryRank": 362316,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 751,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 1641,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 1775,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 2705,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 928,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 936,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 4579.4,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

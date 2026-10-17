@@ -1,0 +1,221 @@
+{
+  "request": {
+    "query": "Rivvun",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "e8b5b2307159acf1803c3e3324ffffab",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/4f4yxzp14kc",
+        "title": "Rivvun AI",
+        "url": "https://rivvun.ai/",
+        "text": "# Rivvun AI\n\nRivvun AI is a Software Development company. Rivvun is an autonomous agent execution layer that detects, verifies, and acts on spend leakage, revenue leakage, and margin erosion across enterprise P&L workflows. Rivvun AI employs 16 people, founded in 2026. Headquartered in Seattle, United States, with presence in India and Singapore. Its workforce is distributed across India, United States, and Singapore.\n\n## About\n\nRivvun is an agentic AI execution layer that closes the gap between what an enterprise negotiated, what was approved, and what actually hits the books. It continuously senses commercial events, assembles cross-system context, applies governed playbooks, executes corrective action in source systems, and proves the outcome with audit-grade evidence.\n \nEnterprises lose value when contracts, pricing terms, invoices, approvals, evidence, and financial systems do not reconcile continuously. The result is spend leakage, revenue leakage, margin erosion, delayed recovery, and weak evidence when leaders need control.\n \nRivvun protects both sides of the P&L. Stewards govern money going out across invoice assurance, supplier compliance, spend visibility, leakage recovery, and supplier activation. Sentinels protect money coming in across pricing enforcement, renewal intelligence, customer activation, and revenue entitlement capture. Margin Bridge reconciles customer commitments with supplier obligations before misalignment erodes margin.\n \nBuilt for enterprise execution, Rivvun uses domain-native playbooks, governed determinism, approval thresholds, audit trails, and human review for material decisions. It overlays existing systems through connectors and policy-scoped tools, without forcing rip-and-replace transformation.\n \nFor CFOs, Rivvun strengthens P&L integrity. For CPOs, it turns negotiated savings into realized savings. For CROs, it protects revenue, renewals, and pricing integrity. For CIOs, it provides governed agentic AI for the existing technology estate.\n\nSpend Synchronized. Margin Orchestrated. Profit Realized.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: Seattle, United States\n- Founded Year: 2026\n- Homepage: rivvun.ai\n- Aliases: RIVVUN AI INDIA PRIVATE LIMITED, rivvun ai\n- LinkedIn: linkedin.com/company/rivvun\n- Linkedin Followers: 5,283\n- Emails: careers@rivvun.ai, info@rivvun.ai\n\n## Financials\n- Total Funding: USD 7,550,000\n  - Seed (2026-06-01): USD 7.6M\n\n## Workforce\n- Employees: 16\n- Company Size: 11-50 employees\n  - Monthly Growth: +14.3%\n- Key Executives:\n  - Anand Veerkar: Co-Founder and CEO\n  - Hemant Inamdar: Vice President - Sales\n  - Patrick Linton: Co-Founder\n- Breakdown:\n  - By Country: India: 7 (44%), United States: 4 (25%), Singapore: 1 (6%)\n  - By Department: Other Department: 5 (31%), General Management: 2 (12%), Sales: 2 (12%), Consulting: 1 (6%), Hr: 1 (6%), Technical: 1 (6%)\n  - By Seniority: Other Management: 5 (31%), Founder: 2 (12%), Senior: 2 (12%), Specialist: 2 (12%), Vp: 1 (6%)\n- Talent Sources: Execo (6), Icertis (2), malomatia (1), UNCIA (1), The Awakening Trail (1), LeadSimple (1), Infosys (1), FareRx (1)\n- Alumni Go To: Execo (1), Bansuri Studio (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: azure backup, docker, fintech, hubspot, icertis, linkedin, linkedin sales navigator, microservices, microsoft, microsoft entra, python, sales navigator, salesforce, windows server\n\n## Web presence\n\n- Twitter: twitter.com/rivvunai\n- Crunchbase: crunchbase.com/organization/rivvun-ai-india-private-limited\n- Web traffic:\n  - Monthly visits: 19,432\n  - Global rank: 1,007,259\n  - Bounce rate: 31.0%\n  - Pages per visit: 4.1\n  - Average visit duration: 114s\n\n## Categories\n\nagentic ai, artificial intelligence (ai), autonomous agent, data integration, enterprise p&l workflows, enterprise software, financial services, margin erosion, p&l workflows, procurement, revenue leakage, spend leakage\n\n## Recent News\n- [2026-10-06] Yahoo Finance: Claimio CEO David Dorfman Selected to Pitch at Google DeepMind Event During San Francisco Tech Week\n- [2026-09-14] Yahoo Finance: Cotiviti Retail Expands Contract Compliance Offering to Help Businesses Recover Lost Value, Protect Negotiated Terms and Savings\n- [2026-09-03] HackerNoon: 3 Architecture Mistakes When Building Autonomous AI Agents \\(And How to Fix Them\\)\n- [2026-08-15] Inc42: Discovered Materials Raises $9 Mn For AI-Led Semiconductor Material Discovery\n- [2026-08-11]\n  - The Economic Times: PayU CEO on MDR; Qcomm’s festive hiring\n  - HackerNoon: The Case Against Fully Autonomous AI Agents\n- [2026-07-21] HackerNoon: Pamamahala ng AI sa Mataas ang Panganib na Pangangalakal: Radhika Venugopal\n\n## Social\n\n### Linkedin\n\n- [2026-10-02 · Posted · 31 reactions] [Procurement’s mandate is expanding—from negotiated savings to...](https://www.linkedin.com/posts/rivvun_directprocurement-procurementleadership-activity-7511796615616139264-Ro1_)\n  > Procurement’s mandate is expanding—from negotiated savings to 𝐫𝐞𝐚𝐥𝐢𝐳𝐞𝐝 𝐩𝐫𝐨𝐟𝐢𝐭, 𝐜𝐚𝐬𝐡 𝐚𝐧𝐝 𝐫𝐞𝐬𝐢𝐥𝐢𝐞𝐧𝐜𝐞.\n  >\n  > Rivvun is proud to sponsor the 𝐃𝐢𝐫𝐞𝐜𝐭 𝐏𝐫𝐨𝐜𝐮𝐫𝐞𝐦𝐞𝐧𝐭 𝐋𝐞𝐚𝐝𝐞𝐫𝐬𝐡𝐢𝐩 𝐒𝐮𝐦𝐦𝐢𝐭, hosted by KonnectHouse on October 20–21 in Chicago.\n  >\n  > Our Co-Founder & CPO, Niranjan Umarane, will lead two sessions:\n  >\n  > 𝐏𝐫𝐨𝐜𝐮𝐫𝐞𝐦𝐞𝐧𝐭’𝐬 𝐁𝐢𝐠𝐠𝐞𝐫 𝐌𝐚𝐧𝐝𝐚𝐭𝐞: 𝐂𝐥𝐨𝐬𝐢𝐧𝐠 𝐭𝐡𝐞 𝐋𝐚𝐬𝐭 𝐌𝐢𝐥𝐞 𝐭𝐨 𝐏𝐫𝐨𝐟𝐢𝐭 𝐚𝐧𝐝 𝐂𝐚𝐬𝐡\n  > A fireside chat with Shashi Mandapaty, former CPO at Johnson & Johnson.\n  >\n  > 𝐅𝐫𝐨𝐦 𝐍𝐞𝐠𝐨𝐭𝐢𝐚𝐭𝐞𝐝 𝐕𝐚𝐥𝐮𝐞 𝐭𝐨 𝐑𝐞𝐚𝐥𝐢𝐳𝐞𝐝 𝐏𝐫𝐨𝐟𝐢𝐭 𝐚𝐧𝐝 𝐂𝐚𝐬𝐡\n  > A look at how direct procurement can protect margins, recover supplier entitlements and release working capital.\n  >\n  > At 𝐑𝐢𝐯𝐯𝐮𝐧, 𝐰𝐞 𝐡𝐞𝐥𝐩 𝐩𝐫𝐨𝐜𝐮𝐫𝐞𝐦𝐞𝐧𝐭 𝐜𝐥𝐨𝐬𝐞 𝐭𝐡𝐞 𝐠𝐚𝐩 𝐛𝐞𝐭𝐰𝐞𝐞𝐧 𝐧𝐞𝐠𝐨𝐭𝐢𝐚𝐭𝐞𝐝 𝐯𝐚𝐥𝐮𝐞 𝐚𝐧𝐝 𝐫𝐞𝐚𝐥𝐢𝐳𝐞𝐝 𝐟𝐢𝐧𝐚𝐧𝐜𝐢𝐚𝐥 𝐢𝐦𝐩𝐚𝐜𝐭.\n  >\n  > If you’re attending, we look forward to connecting in Chicago.\n  >\n  > #DirectProcurement #ProcurementLeadership #SupplyChain\n\n- [2026-09-03 · Posted · 14 reactions] [Enterprises have spent decades building systems to record what...](https://www.linkedin.com/posts/rivvun_rivvunai-systemofoutcomes-agenticai-activity-7501256495884582913-Iu4r)\n  > Enterprises have spent decades building systems to record what happened: every purchase order, invoice, payment, and transaction.\n  >\n  > Then came analytics to explain what happened.\n  >\n  > But there’s still a gap between knowing what happened and making sure the value your teams negotiated actually makes it to the bottom line.\n  >\n  > That’s the gap where Rivvun AI helps: System of Outcomes.\n  >\n  > Our CPO & Co-Founder, Niranjan Umarane, explains how Rivvun’s Agents close this gap by reading the contract, testing every transaction line against entitlements and evidence, executing within defined approval thresholds, and proving the outcome with audit-grade evidence.\n  >\n  > Because visibility is not the same as value realization.\n  >\n  > Read Niranjan’s full perspective. Link in the comments.\n  >\n  > Want to see where value may already be leaking in your business?\n  >\n  > Request a Value Scan: https://lnkd.in/gwB25UcN\n  >\n  > #RivvunAI #SystemOfOutcomes #AgenticAI #ValueScan\n\n- [2026-08-24 · Posted · 14 reactions] [2 days to go. On Wednesday, Niranjan Umarane our Co-Founder & CPO...](https://www.linkedin.com/posts/rivvun_procurement-finance-rivvunai-activity-7497700637279735808-bKqp)\n  > 2 days to go.\n  >\n  > On Wednesday, Niranjan Umarane our Co-Founder & CPO, is showing how AI agents are catching the procurement savings that usually slip through missed rebates, pricing errors, compliance gaps, before the window to realize them closes.\n  >\n  > 45 minutes - a live demo of the agents actually working.\n  >\n  > 📅 Wed, Aug 26 · 8am PT / 11am ET\n  >\n  > Still a couple of spots, link in the comments.\n  >\n  > #Procurement #Finance #RivvunAI #AgenticAI\n\n- [2026-08-19 · Posted · 27 reactions] [One week to go. Procurement can show what was negotiated. Finance...](https://www.linkedin.com/posts/rivvun_webinar-rivvunai-procurement-activity-7495819409899302912-Q_2P)\n  > One week to go.\n  >\n  > Procurement can show what was negotiated. Finance can show what was paid. Most companies can't confidently say the two match.\n  >\n  > Contracted prices that never reach the invoice. Rebates earned but never claimed. Supplier credits left unapplied. SLA deductions that quietly go untaken.\n  >\n  > Niranjan Umarane, our Co-Founder and CPO, saw this gap up close.\n  >\n  > On Wednesday, August 26 at 8:00 AM PT, he's walking through how to connect the commercial term, the transaction, the evidence, and the action, so the P&L outcome actually matches what was signed.\n  >\n  > Register Today: https://lnkd.in/d7dTQhvY\n  >\n  > #Webinar #RivvunAI #Procurement #Finance\n\n- [2026-08-19 · 42 reactions] One week to go. Procurement can show what was negotiated. Finance can show what was paid. Most companies can't confidently say the two match. Contracted prices that never reach the invoice. Rebates...\n\n- [2026-08-14 · Posted · 18 reactions] [Every enterprise works hard to negotiate value - rebates, price...](https://www.linkedin.com/posts/rivvun_automotive-ceoperspective-enterpriseai-activity-7493981510908309505-aShb)\n  > Every enterprise works hard to negotiate value - rebates, price protection, cost escalators. Then the contract is signed, everyone moves on, and we assume it shows up in the numbers.\n  >\n  > Too often, it doesn't.\n  >\n  > In this CEO Perspective, Anand Veerkar makes the case that before chasing the next cost-cutting program, leaders should ask a simpler question: how much of the margin already earned is actually reaching the P&L?\n  >\n  > Read the full piece: https://lnkd.in/d29AgMU6\n  >\n  > #Automotive #CEOPerspective #EnterpriseAI #MarginRecovery #ContractManagement #FinanceLeadership #ProcurementExcellence #AgenticAI #RivvunAI\n\n- [2026-08-14 · 19 reactions] Every enterprise works hard to negotiate value - rebates, price protection, cost escalators. Then the contract is signed, everyone moves on, and we assume it shows up in the numbers. Too often, it...\n\n- [2026-08-10 · Posted · 21 reactions] [Live Product Demo | Aug 26 at 8.00 AM PT | Register Now Our...](https://www.linkedin.com/posts/rivvun_rivvunai-cpo-cfo-activity-7492572969345605632-Odi7)\n  > Live Product Demo | Aug 26 at 8.00 AM PT | Register Now\n  >\n  > Our Co-Founder & CPO, Niranjan Umarane, is running this session live — walking through exactly how our agentic AI platform realize procurement savings, in real time.\n  >\n  > Join him for 45 minutes of live product showcase, real numbers, and live Q&A.\n  >\n  > https://lnkd.in/d7dTQhvY\n  >\n  > #RivvunAI #CPO #CFO #RivvunWebinar #procurement #finance\n\n- [2026-08-10 · 21 reactions] Live Product Demo | Aug 26 at 8.00 AM PT | Register Now Our Co-Founder & CPO, Niranjan Umarane, is running this session live — walking through exactly how our agentic AI platform realize procuremen...\n\n- [2026-08-05 · Posted · 13 reactions] [Rivvun AI's new whitepaper, The Contract Value Gap, is an essential...](https://www.linkedin.com/posts/rivvun_rivvun-ais-new-whitepaper-the-contract-activity-7490663124337975296-PWw5)\n  > Rivvun AI's new whitepaper, The Contract Value Gap, is an essential read for you.\n  >\n  > Written by a product leader who spent 12 years building a category-leading CLM platform — on why enterprises still lose 8–9% of contract value every year.\n  >\n  > Download now: https://lnkd.in/dFJXgZxF\n\n- [2026-08-05 · 19 reactions] Rivvun AI's new whitepaper, The Contract Value Gap, is an essential read for you. Written by a product leader who spent 12 years building a category-leading CLM platform — on why enterprises still...\n\n- [2026-08-03 · Posted · 2 reactions] [Most procurement teams negotiate hard for savings. But the biggest...](https://www.linkedin.com/posts/rivvun_rivvunai-procurement-agenticai-activity-7489995564504485888-Dnvk)\n  > Most procurement teams negotiate hard for savings. But the biggest losses don't happen at the negotiating table — they happen after, quietly, across contracts, ERP systems, emails, and manual approvals.\n  >\n  > On Aug 26, our Co-Founder & CPO Niranjan Umarane is hosting a live session on where that margin actually hides — and how agentic AI is starting to close the gap.\n  >\n  > Register Now! https://lnkd.in/d7dTQhvY\n  >\n  > Anand Veerkar\n  >\n  > #RivvunAI #procurement #agenticAI #finance #AI\n\n- [2026-08-03 · 2 reactions] Most procurement teams negotiate hard for savings. But the biggest losses don't happen at the negotiating table — they happen after, quietly, across contracts, ERP systems, emails, and manual appro...\n\n- [2026-07-28 · Posted · 17 reactions] [“You know value is leaking. Waiting is a decision to keep paying...](https://www.linkedin.com/posts/rivvun_procurement-finance-marginerosion-activity-7487739067074412545-P_sP)\n  > “You know value is leaking. Waiting is a decision to keep paying for it.”\n  >\n  > Every procurement leader our Co-Founder & CPO, Niranjan Umarane, talks to already knows this. Rebates go unclaimed. Negotiated prices don't make it to the invoice. Credits get issued and never applied.\n  >\n  > The debate was never whether leakage exists. It's what it takes to find, prove, and capture it - and the moment that feels like a transformation project, most teams stall.\n  >\n  > Here's the reframe: you don't need clean data across the whole estate. You need one bounded scope, one hypothesis, and the evidence to prove one saving and Bank it.\n  >\n  > Niranjan wrote up why perfect data can wait, but the P&L shouldn't: https://lnkd.in/dpkEDW_S\n  >\n  > #Procurement #Finance #MarginErosion #AgenticAI #SpendManagement #RivvunAI\n\n- [2026-07-28 · 18 reactions] “You know value is leaking. Waiting is a decision to keep paying for it.” Every procurement leader our Co-Founder & CPO, Niranjan Umarane, talks to already knows this. Rebates go unclaimed. Negotia...\n\n- [2026-07-27 · Posted · 1 reaction] [The next margin pool isn't waiting in another sourcing event. It's...](https://www.linkedin.com/posts/rivvun_recover-what-leaked-prevent-what-might-leak-activity-7487523158611247104-aOT0)\n  > The next margin pool isn't waiting in another sourcing event.\n  >\n  > It's already sitting inside signed contracts, negotiated pricing, rebates and supplier commitments that never make it into paid reality.\n  >\n  > Read why commercial execution—not commercial negotiation—is becoming the next competitive advantage.\n\n- [2026-07-21 · Posted · 30 reactions] [Security is a commitment, not a checkbox. We just got our SOC 2...](https://www.linkedin.com/posts/rivvun_enterpriseai-soc2-aisecurity-activity-7485260919812513794-jRCA)\n  > Security is a commitment, not a checkbox.\n  >\n  > We just got our SOC 2 Type 1 certification, and honestly, it feels good to have this validated by someone other than us.\n  >\n  > This means the controls protecting customer data and platform operations — across security, availability, processing integrity, confidentiality, and privacy — have been independently assessed and verified.\n  >\n  > We're not stopping here. SOC 2 Type 2 certification is already underway, targeted for completion in October 2026.\n  >\n  > For procurement, security, and finance teams evaluating Rivvun AI, this is your answer to the vendor security questionnaire, with a clear path already in motion.\n  >\n  > Read the full announcement: https://lnkd.in/dJfsWAJg\n  >\n  > #EnterpriseAI #SOC2 #AISecurity #TrustAndCompliance #RivvunAI\n\n- [2026-07-21 · 35 reactions] Security is a commitment, not a checkbox. We just got our SOC 2 Type 1 certification, and honestly, it feels good to have this validated by someone other than us. This means the controls protecting...\n\n- [2026-07-13 · Posted · 8 reactions] [The savings were real. The contract was airtight. And still, the...](https://www.linkedin.com/posts/rivvun_the-savings-were-real-the-contract-was-airtight-activity-7482375451886305280-qZVR)\n  > The savings were real. The contract was airtight. And still, the P&L didn't move the way it should have.\n  >\n  > Value leaks between contract and payment. Unless someone's watching.\n  >\n  > That's where the agents go to work — synchronizing spend, orchestrating margin, realizing profit. Before it becomes a write-off.\n  >\n  > Swipe through for the numbers: 3–8% in cost savings. 2–5% in gross margin. 1–4% in revenue uplift. 100% audit-ready, every time.\n  >\n  > Stop the leak!\n  >\n  > Request Executive Briefing → https://rivvun.ai/contact/\n\n- [2026-07-13 · 12 reactions] The savings were real. The contract was airtight. And still, the P&L didn't move the way it should have. Value leaks between contract and payment. Unless someone's watching. That's where the agents...\n\n## Locations\n- Headquarters: seattle, united states (US)\n- Offices: pune, india, pune, mahārāshtra, india, seattle, united states (US), singapore, sg",
+        "summary": "{\"description\":\"Rivvun AI is a Software Development company offering an autonomous agent execution layer to detect, verify, and act on spend leakage, revenue leakage, and margin erosion across enterprise P&L workflows.\",\"employee_estimate\":16,\"employee_estimate_source\":\"Employees: 16\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Key Executives\",\"hq\":\"Seattle, United States\",\"hq_quote\":\"Headquarters: Seattle, United States\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Rivvun AI is a Software Development company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 7,550,000\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4D0BAQH4UzEKsXNe7w/company-logo_200_200/B4DZ.tVKO8HEAE-/0/1785319433488/rivvun_logo?e=2147483647&v=beta&t=k0A9_sFq5brywrgG4DHqTgmDRTrhwlYUTyRhTXEDWPQ",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/4f4yxzp14kc",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Rivvun AI",
+              "foundedYear": 2026,
+              "description": "Rivvun is an agentic AI execution layer that closes the gap between what an enterprise negotiated, what was approved, and what actually hits the books. It continuously senses commercial events, assembles cross-system context, applies governed playbooks, executes corrective action in source systems, and proves the outcome with audit-grade evidence.\n \nEnterprises lose value when contracts, pricing terms, invoices, approvals, evidence, and financial systems do not reconcile continuously. The result is spend leakage, revenue leakage, margin erosion, delayed recovery, and weak evidence when leaders need control.\n \nRivvun protects both sides of the P&L. Stewards govern money going out across invoice assurance, supplier compliance, spend visibility, leakage recovery, and supplier activation. Sentinels protect money coming in across pricing enforcement, renewal intelligence, customer activation, and revenue entitlement capture. Margin Bridge reconciles customer commitments with supplier obligations before misalignment erodes margin.\n \nBuilt for enterprise execution, Rivvun uses domain-native playbooks, governed determinism, approval thresholds, audit trails, and human review for material decisions. It overlays existing systems through connectors and policy-scoped tools, without forcing rip-and-replace transformation.\n \nFor CFOs, Rivvun strengthens P&L integrity. For CPOs, it turns negotiated savings into realized savings. For CROs, it protects revenue, renewals, and pricing integrity. For CIOs, it provides governed agentic AI for the existing technology estate.\n\nSpend Synchronized. Margin Orchestrated. Profit Realized.",
+              "workforce": {
+                "total": 16
+              },
+              "headquarters": {
+                "address": "Seattle, US",
+                "city": "Seattle",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 7550000,
+                "fundingLatestRound": {
+                  "name": "Seed",
+                  "date": "2026-06-01",
+                  "amount": 7550000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 19432,
+                "countryRank": 73733,
+                "avgDurationSeconds": 114,
+                "history": [
+                  {
+                    "value": 3365,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 1796,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 12357,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 19432,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/yzbw6lppp75",
+        "title": "Rivvn Technologies",
+        "url": "https://rivvn.com/",
+        "text": "# Rivvn Technologies\n\nRivvn Technologies is a Technology, Information and Internet company. Rivvn Technologies is a software & AI development company building vibrant, intelligent products that move businesses forward. Rivvn Technologies employs 2 people, founded in 2025. Headquartered in Colombo, Western Province, Sri Lanka.\n\n## About\n\nA product-driven software company building scalable digital solutions from the ground up.\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Headquarters: Colombo, Sri Lanka\n- Founded Year: 2025\n- Homepage: rivvn.com\n- Aliases: rivvn technologies\n- LinkedIn: linkedin.com/company/rivvntech\n- Linkedin Followers: 12\n- Emails: contact@rivvn.com\n- Phone: +94 70 241 2408\n\n## Workforce\n- Employees: 2\n- Company Size: 1-10 employees\n- Key Executives:\n  - Faheem Saleem: Technical Lead\n- Breakdown:\n  - By Country: Sri Lanka: 2 (200%)\n  - By Department: Technical: 2 (200%)\n  - By Seniority: Head: 1 (100%), Senior: 1 (100%)\n- Talent Sources: MEDIIO Ltd. (1)\n\n## Web presence\n\n- Instagram: instagram.com/rivvntech\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Categories\n\nai development, businesses, intelligent products, software development, technology/software development, vibrant products\n\n## Recent News\n- [2026-10-06] Stocktwits: RIVN Stock Rises Overnight: Analyst Urges Bears To Test Drive R2 Before Betting Against Rivian\n- [2026-10-05]\n  - Investing.com: Baird reiterates Rivian stock rating on strong Q3 deliveries\n  - Quiver Quantitative: Lobbying Update: $150,000 of RIVIAN AUTOMOTIVE LLC lobbying was just disclosed\n  - Yahoo\\! Finance Canada: RIVN Jan 2027 30.000 call \\(RIVN270115C00030000\\) Interactive Stock Chart\n  - Yahoo Finance Singapore: RIVN Oct 2026 30.000 call \\(RIVN261009C00030000\\) stock price, news, quote and history\n  - Yahoo Finance Singapore: RIVN Oct 2026 9.000 put \\(RIVN261009P00009000\\) stock price, news, quote and history\n- [2026-10-04]\n  - Moomoo: Morgan Stanley Maintains Rivian Automotive\\(RIVN.US\\) With Sell Rating, Maintains Target Price $14\n  - Yahoo Finance Australia: RIVN Oct 2026 20.000 call \\(RIVN261023C00020000\\) stock price, news, quote and history\n  - Stocktwits: RIVN Stock Eases After Biggest-Ever Jump – An Analyst Sees Up To 40% Downside Amid Delayed R2 Plans Outside US\n  - Stocktwits: RIVN Stock Edges Up After-Hours — EV Maker Narrows Full Year Guidance And Tempers Spending Plans\n  - Stocktwits: RIVN Stock Pulls Back But Eyes Third Straight Green Week On R2 Hype\n- [2026-10-03]\n  - MarketBeat: Investors Buy High Volume of Rivian Automotive Call Options \\(NASDAQ:RIVN\\)\n  - GuruFocus: Is Rivian Automotive Inc \\(RIVN\\) a Bargain After 3.1% Drop? GF Va\n  - Yahoo Finance: RIVN 8-K & SEC Filings\n  - Yahoo\\! Finance Canada: RIVN Nov 2026 13.500 call \\(RIVN261106C00013500\\) Stock Price, News, Quote & History\n  - StocksToTrade: RIVN Slides As Recall, Insider Selling Cloud Citi Price Target\n- [2026-10-02]\n  - Stock Titan: An officer proposes selling $225K of restricted Rivian \\(NASDAQ: RIVN\\) shares.\n  - Yahoo\\! Finance Canada: RIVN Jan 2029 10.000 put \\(RIVN290119P00010000\\) Stock Price, News, Quote & History\n  - Yahoo Finance UK: RIVN Oct 2026 23.000 put \\(RIVN261002P00023000\\) interactive stock chart\n  - MarketBeat: Rivian Automotive \\(NASDAQ:RIVN\\) Stock Price Down 1.2% - Here's Why\n\n## Social\n\n### Linkedin\n\n- [2026-02-04 · 4 reactions] 78 years of independence. Count your blessings, catch the deals! 🇱🇰✨ Happy Independence Day from Rivvn.\n\n- [2026-02-02 · 1 reaction] thinking ‘bout you ❌ who? ✅\n\n- [2026-02-01] 📢 Something’s cooking for 2026. Stay tuned [Instant Deals. Easy Living.]\n\n## Locations\n- Headquarters: colombo, western province, sri lanka (LK)\n- Offices: colombo, western, sri lanka (LK)",
+        "summary": "{\"description\":\"Rivvn Technologies is a Technology, Information and Internet company that provides software and AI development services.\",\"employee_estimate\":2,\"employee_estimate_source\":\"Employees: 2\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Colombo, Sri Lanka\",\"hq_quote\":\"Headquarters: Colombo, Sri Lanka\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Technology, Information and Internet\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":false,\"recently_funded_seed_or_series_a_quote\":\"Founded in 2025; Privately held; Aliases: rivvn technologies; LinkedIn: linkedin.com/company/rivvntech; Emails: contact@rivvn.com; Phone: +94 70 241 2408; Headquarters: Colombo, Sri Lanka; Employees: 2; Company Size: 1-10 employees; Technical Lead: Faheem Saleem; Location: Sri Lanka; Instagram: instagram.com/rivvntech; Web presence: rivvn.com; Categories: ai development, businesses, intelligent products, software development, technology/software development, vibrant products; Web traffic metrics\\\"},\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQENjhcen4YT_A/company-logo_200_200/B56ZxMdvKyJoAI-/0/1770809401931/rivvntech_logo?e=2147483647&v=beta&t=6V96h5V1gv1k4KXc4luszb1LjuYmrLWaO5VIm9pT7nM",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/yzbw6lppp75",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Rivvn Technologies",
+              "foundedYear": 2025,
+              "description": "A product-driven software company building scalable digital solutions from the ground up.",
+              "workforce": {
+                "total": 2
+              },
+              "headquarters": {
+                "address": "Colombo, Western, LK",
+                "city": "Colombo",
+                "postalCode": null,
+                "country": "Sri Lanka"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": []
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 3534.1,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

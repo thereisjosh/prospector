@@ -1,0 +1,254 @@
+{
+  "request": {
+    "query": "Lightfield",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "04a653f07529280c57d5e04c76d79ca8",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/5yzhhqkrk15",
+        "title": "Lightfield",
+        "url": "https://lightfield.app/",
+        "text": "# Lightfield\n\nLightfield is a Technology, Information and Internet company. Lightfield is an AI-native CRM for companies to capture, analyze, and understand everything about their customers. Lightfield employs 48 people (+100.0% YoY, +24 people). Headquartered in San Francisco, California, United States. Its workforce is distributed across United States, Canada, and India.\n\n## About\n\nLightfield is an AI-native CRM that assembles itself from your email, calendar, and meetings. It captures every interaction and turns it into organized context: accounts, tasks, follow-ups, and insights, so nothing slips through the cracks.\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Headquarters: San Francisco, United States\n- Homepage: lightfield.app\n- Aliases: Magical Tome, Inc., lightfield\n- LinkedIn: linkedin.com/company/lightfld\n- Linkedin Followers: 7,503\n- Emails: elena@retool.com, james@bolt.engineering, marcus@vercel.com, support@lightfield.app\n\n## Financials\n  - Series b\n  - Seed\n\n## Acquisitions\n- Acquired by: AngelList\n\n## Workforce\n- Employees: 48\n- Company Size: 11-50 employees\n  - Monthly Growth: +4.3%\n  - Yearly Growth: +100.0%\n- Key Executives:\n  - Adam Partrite: Founding Account Executive\n  - Alex Cannon: Founding Designer\n  - Blake Fine: Founding Account Executive\n  - Christopher Doege: Founding Recruiter\n  - Giancarlo Zevallos: Founding Account Executive\n  - Henri Liriani: Co-Founder\n  - Keith Peiris: Co-Founder\n  - Matt Serna: Head of GTM\n  - Matthew Willian: Boston Site Lead\n  - Nikita Butakov: Founding Machine Learning Engineer\n- Breakdown:\n  - By Country: United States: 41 (85%), Canada: 2 (4%), India: 1 (2%)\n  - By Department: Technical: 18 (38%), Sales: 6 (12%), Consulting: 4 (8%), Design: 4 (8%), Other Department: 4 (8%), Hr: 2 (4%), Marketing: 2 (4%), Operations: 2 (4%), Administrative: 1 (2%), Customer Service: 1 (2%) (+1 more)\n  - By Seniority: Specialist: 19 (40%), Other Management: 10 (21%), Founder: 9 (19%), Head: 3 (6%), Manager: 2 (4%), Intern: 1 (2%), Vp: 1 (2%)\n- Active job postings: 24\n- Talent Sources: Tome (9), The Wharton School (2), Airbnb (2), The Click Studio (1), Seam AI (1), Product@GT (1), OpenText (1), Emerson Collective (1), Coinbase (1), Aven (1)\n- Alumni Go To: Studiohire.me (1), Oracle (1), Meticulous (1), Mercor (1), McKinsey & Company (1), Maverick Ventures (1), ICON (1), Espresso Systems (1), Common Room by Zoom (1), Assort Health (1)\n\n## Products & Technology\n- Features: Free Trial\n- Tech Stack: clari, clickhouse, facebook, foundation software, graphql, hubspot, influential, level access, linkedin, outgrow, parallels, postgresql, prototype, ramp, react, reddit, redis, salesforce, salesloft, sandbox, typescript, youtube, celery, sql, unify, zapier, automated insights, neo4j, google workspace, superhuman, crisp, impact, instagram, notion, signal, slack, ups\n\n## Web presence\n\n- Twitter: twitter.com/lightfld\n- Crunchbase: crunchbase.com/organization/lightfield-cd67\n- Web traffic:\n  - Monthly visits: 172,310\n  - Global rank: 236,497\n  - Bounce rate: 45.0%\n  - Pages per visit: 2.9\n  - Average visit duration: 123s\n\n## Categories\n\nai-native crm, analyze, artificial intelligence (ai), capture, computers_electronics_and_technology/graphics_multimedia_and_web_design, crm, customers, generative ai, information technology, sales enablement, software, understand\n\n## Recent News\n- [2026-10-09] FAD Magazine: Rendering of Hathill House, Goodwood Art Foundation. Image credit Lightfield London\n- [2026-10-05] Alphr: How Does Lightfield AI Measure Up as a CRM?\n- [2026-09-29] Hackaday: Electromechanical TV Goes 3D With This Light-field Display\n- [2026-09-26] MyNewsLA.com: lottery loser – photo courtesy of LightField Studioso on shutterstock\n- [2026-09-16] [Keith Peiris: Intelligence Is Greater Than Schema](https://finance.biggo.com/news/907cea14a23afcb9)\n- [2026-09-13] Quasa.io: [Lightfield Raises $47M After a Seven-Person Reset](https://quasa.io/insights/lightfield-raises-47m-its-series-a-follows-a-seven-person-reset)\n- [2026-09-12] Quasa.io: [Lightfield Raises $47M, but 5,000 Signups Need Context](https://quasa.io/insights/lightfield-raises-47m-5-000-signups-are-not-5-000-crm-migrations)\n- [2026-09-11]\n  - Pulse 2.0: [Lightfield Raises $47 Million Series A To Build AI-Native CRM For Companies Using Agents](https://pulse2.com/lightfield-raises-47-million-series-a-to-build-ai-native-crm-for-companies-using-agents/)\n  - [AI-Native CRM Lightfield Raises $47M Series A - WOWTALE](https://en.wowtale.net/2026/09/12/235079/)\n  - Wowtale: AI-Native CRM Lightfield Raises $47M Series A\n  - FinSMEs: Lightfield Raises $47M in Series A Funding\n- [2026-09-10]\n  - [Lightfield raises $47 million in Series A for AI agent CRM](https://www.digitaltoday.co.kr/en/view/102168/lightfield-raises-47-million-in-series-a-for-ai-agent-crm)\n  - [Lightfield Raises $47M Series A](https://www.thesaasnews.com/news/lightfield-raises-47m-series-a/)\n  - [Lightfield Raises $47 Million Series A to Expand AI Agent Capabilities](https://cryptopanic.com/news/33361503/Lightfield-Raises-47-Million-Series-A-to-Expand-AI-Agent-Capabilities)\n  - [Is Lightfield the End of Human-Centric CRM Systems? \\| B2Bdaily.com](https://b2bdaily.com/martech/is-lightfield-the-end-of-human-centric-crm-systems/)\n  - Dealroom: AI CRM startup Lightfield raises $47M Series A led by a16z\n  - SiliconANGLE: AI-native CRM startup Lightfield raises $47M to build an AI agent-ready replacement for Salesforce\n  - Andreessen Horowitz: Investing in Lightfield\n  - TradingView: Lightfield Raises $47 Mln Series A To Build CRM\n- [2026-09-09]\n  - [Techmeme: AI CRM software startup Lightfield raised a $47M Series A led by a16z; formerly Tome, it had raised $80M across earlier Series A and B rounds \\(Alex Konrad/Upstarts Media\\)](https://www.techmeme.com/260909/p23)\n  - [AI-native CRM startup Lightfield raises $47M to build an AI agent-ready replacement for Salesforce - SiliconANGLE](https://siliconangle.com/2026/09/09/ai-native-crm-startup-lightfield-raises-47m-to-build-an-ai-agent-ready-replacement-for-salesforce/)\n  - Yahoo Finance: [Lightfield Raises $47 Million Series A to Build the CRM for Companies that Run on Agents](https://www.prnewswire.com/news-releases/lightfield-raises-47-million-series-a-to-build-the-crm-for-companies-that-run-on-agents-302874024.html)\n  - TipRanks: [Lightfield Secures $47 Million Series A to Redefine CRM for AI-Agent Workflows](https://www.tipranks.com/news/private-companies/lightfield-secures-47-million-series-a-to-redefine-crm-for-ai-agent-workflows)\n  - Crypto Briefing: [Lightfield raises $47M Series A led by a16z to build AI-native CRM](https://cryptobriefing.com/lightfield-raises-47m-a16z-ai-crm/)\n  - [Lightfield Secures $47 Million in Series A to Transform CRM for Agent-Driven Businesses - Third News](https://third-news.com/article/b07f5378-ac69-11f1-8eaa-9ca3ba08e13f)\n  - [Venture Capital & Startup Funding Roundup, September 9, 2026: Coatue, Andreessen Horowitz, Greylock, Kleiner Perkins, Sequoia & More - Tech Startups](https://techstartups.com/2026/09/09/venture-capital-startup-funding-roundup-september-9-2026-andreessen-horowitz-coatue-management-greylock-lightspeed-kleiner-perkins-sequoia-more/)\n  - [🛒 San Francisco retail & customer roles with multiple openings - NewsBreak](https://www.newsbreak.com/san-francisco-ca-daily-brief-373156504/4874424191416-san-francisco-retail-customer-roles-with-multiple-openings)\n- [2026-08-28] [Lightfield](https://lightfield.app/blog/formula-fields-html-signatures)\n- [2026-08-09] nokiapoweruser.com: Xiaomi's Next Big Update Looks Unrecognizable: First Look at HyperOS 4\n- [2026-03-09] MSN: John Lightfield Sentenced For Making Explosives In Maryland\n\n## Social\n\n### Linkedin\n\n- [2026-10-08 · Posted · 29 reactions] [Lightfields Chief AI Officer Ves Stoyanov tested whether an agent...](https://www.linkedin.com/posts/lightfld_lightfields-chief-ai-officer-ves-stoyanov-activity-7514007014767837185-l4yB)\n  > Lightfields Chief AI Officer Ves Stoyanov tested whether an agent can build and maintain the classifiers to do its repetitive work, with Claude Opus writing the classifiers and TypeSafes Jev running them.\n  >\n  > When given the same training data, agent-built classifiers matched or beat a conventionally fine-tuned model on all six tasks we tested.\n  >\n  > Read our latest research to see how agents can hand off repetitive ‘system one’ judgments to classifier models, and how we’re bringing this into Lightfield.\n  >\n  > https://lnkd.in/eWPrEpPK\n\n- [2026-10-07 · Posted · 39 reactions] [Last night we hosted 50 founders and go-to-market leaders at the...](https://www.linkedin.com/posts/lightfld_sftechweek-activity-7513638702880030721-RMLW)\n  > Last night we hosted 50 founders and go-to-market leaders at the Exploratorium for a conversation between Joe Schmidt IV from a16z and Keith Peiris from Lightfield on how to choose the right sales strategy for your company: \"Lighthouse\" (win a few marquee customers first) or \"Landgrab\" (close as many logos as fast as possible).\n  >\n  > For those who couldn’t join us, the essay that inspired the talk is linked in the comments.\n  >\n  > #SFTechWeek\n\n- [2026-10-06 · Posted · 27 reactions] [Macroscope runs its go-to-market on a business world model built...](https://www.linkedin.com/posts/lightfld_macroscope-runs-its-go-to-market-on-a-business-activity-7513281476747042818-t5WE)\n  > Macroscope runs its go-to-market on a business world model built with Lightfield.\n  >\n  > They ingest customer touchpoints across marketing interactions, product use, and sales into a single platform. This gives agents full context on entire customer lifecycle. Agentic workflows that used to take months to build in other systems can be designed in hours using natural language.\n  >\n  > Read how Macroscope is building its GTM system on Lightfield.\n  >\n  > https://lnkd.in/eKc6azqJ\n\n- [2026-10-05 · Posted · 10 reactions] [Inc. covered how GTM agent failures trace back to the CRM, and how...](https://www.linkedin.com/posts/lightfld_your-crm-was-built-for-a-world-before-ai-activity-7512895834620096514-hnxa)\n  > Inc. covered how GTM agent failures trace back to the CRM, and how Lightfield is reimagining CRM as a business world model.\n  >\n  > https://lnkd.in/en2RZrsT\n\n- [2026-09-29 · Posted · 24 reactions] [Agree.com runs its sales pipeline with agents on Lightfield. Every...](https://www.linkedin.com/posts/lightfld_agreecom-runs-its-sales-pipeline-with-agents-activity-7510708770134589440-k0Ko)\n  > Agree.com runs its sales pipeline with agents on Lightfield.\n  >\n  > Every interaction with their customers is automatically captured and structured as a business world model. Their team uses that to manage deal updates, inspect deals, and identify trends to help them decide where to expand next.\n  >\n  > Everything they need to know about their business can be accessed through chat in seconds.\n  >\n  > Read how they're scaling their GTM organization on Lightfield: https://lnkd.in/dgZMmR_X\n\n- [2026-09-22 · Posted · 17 reactions] [Keith Peiris joined the Pavilion Topline podcast to talk with Sam...](https://www.linkedin.com/posts/lightfld_crm-as-a-business-world-model-the-future-activity-7508228700887236608-Zi8C)\n  > Keith Peiris joined the Pavilion Topline podcast to talk with Sam Jacobs, Asad Zaman, and AJ Bruno about how we're reimagining CRM as a business world model.\n  >\n  > A few things they covered:\n  >\n  > Why business forecasting is harder than ever, and what a CRM has to capture in order to do it well.\n  >\n  > How Lightfield provides reliable answers while using non-deterministic models.\n  >\n  > The reasons we’re seeing for why companies decide to replace their legacy CRM.\n  >\n  > Watch the recording here: https://lnkd.in/gPXdPVSZ\n\n- [2026-09-22 · 16 reactions] Keith Peiris joined the Pavilion Topline podcast to talk with Sam Jacobs, Asad Zaman, and AJ Bruno about how we're reimagining CRM as a business world model. A few things they covered: Why business...\n\n- [2026-09-21 · Posted · 32 reactions] [Lightfield's Chief AI Officer Ves Stoyanov benchmarked TypeSafe's...](https://www.linkedin.com/posts/lightfld_testing-typesafe-jev-on-text-understanding-activity-7507914983121424385-ofFm)\n  > Lightfield's Chief AI Officer Ves Stoyanov benchmarked TypeSafe's Jev model on text understanding, including customer-conversation tasks.\n  >\n  > With extended thinking turned off, Jev matched Opus 5 on accuracy at 40 to 150 times lower cost.\n  >\n  > Full write-up, including initial thinking on how we'll be using Jev in our own platform: https://lnkd.in/dEZ3Ss-T\n\n- [2026-09-21 · 31 reactions, 2 comments] Lightfield's Chief AI Officer Ves Stoyanov benchmarked TypeSafe's Jev model on text understanding, including customer-conversation tasks. With extended thinking turned off, Jev matched Opus 5 on ac...\n\n- [2026-09-17 · Posted · 38 reactions] [Verdigris left Salesforce after a decade to build an AI-native GTM...](https://www.linkedin.com/posts/lightfld_verdigris-left-salesforce-after-a-decade-activity-7506491708537344001-MQFg)\n  > Verdigris left Salesforce after a decade to build an AI-native GTM on Lightfield.\n  >\n  > The team migrated nearly 10,000 contacts, a 211-field custom implementation object, and all of the workflows that make their company run.\n  >\n  > Today, Lightfield scores every open deal against Verdigris’s MEDDPICC methodology, automates processes across sales and implementation, and gives the entire company access to the same customer context.\n  >\n  > Read how Verdigris rebuilt its GTM system on Lightfield.\n  >\n  > https://lnkd.in/gsR6cmHh\n\n- [2026-09-17 · 40 reactions, 2 comments] Verdigris left Salesforce after a decade to build an AI-native GTM on Lightfield. The team migrated nearly 10,000 contacts, a 211-field custom implementation object, and all of the workflows that m...\n\n- [2026-09-16 · Reshared · 94 reactions] [Great sitting down with Keith Peiris , co-founder and CEO of...](https://www.linkedin.com/posts/lightfld_activity-7506132393938796544-wxxs): Great sitting down with Keith Peiris , co-founder and CEO of Lightfield . Keith's last product hit 2 million monthly users and he killed it anyway, because nobody on the team liked what they'd buil...\n\n- [2026-09-16 · 89 reactions, 7 comments] Great sitting down with Keith Peiris, co-founder and CEO of Lightfield. Keith's last product hit 2 million monthly users and he killed it anyway, because nobody on the team liked what they'd built....\n\n- [2026-09-15 · 85 reactions, 9 comments] AI is changing what customers need, what competitors can offer, and what anyone can charge. A company can keep hitting its targets while the reasons customers choose it are disappearing. That makes...\n\n- [2026-09-14 · Posted · 27 reactions] [In case you missed it, last week we announced our $47M Series A...](https://www.linkedin.com/posts/lightfld_ai-crm-startup-lightfield-raises-47m-series-activity-7505308773201293312-5-rY)\n  > In case you missed it, last week we announced our $47M Series A, led by Andreessen Horowitz.\n  >\n  > Read the full story, as covered in Upstarts Media.\n  >\n  > https://lnkd.in/gFqzbB7n\n\n- [2026-09-09 · Reshared · 71 reactions] [We’ve raised $47M in Series A funding led by Andreessen Horowitz to...](https://www.linkedin.com/posts/lightfld_weve-raised-47m-in-series-a-funding-led-activity-7503483539691229189-0GFs): We’ve raised $47M in Series A funding led by Andreessen Horowitz to reimagine CRM as a world model of a business. Read the full story from Alex Konrad in Upstarts: https://lnkd.in/gFqzbB7n\n\n- [2026-08-06 · Reshared · 118 reactions] [I'm hiring for 2 roles at Lightfield - 1. Founding Customer Success...](https://www.linkedin.com/posts/lightfld_activity-7491251737119502336-hX8K): I'm hiring for 2 roles at Lightfield - 1. Founding Customer Success Manager 2. Founding Support Engineer ~5K companies have signed up since launch in November. Our customers run their entire GTM in...\n\n- [2026-07-20 · Posted · 28 reactions] [Forbes interviewed Keith Peiris on why we built Lightfield and the...](https://www.linkedin.com/posts/lightfld_ai-startups-are-pivoting-from-flashy-demos-activity-7485014016336101377-vTlc)\n  > Forbes interviewed Keith Peiris on why we built Lightfield and the growth we’ve seen from the 1000s of companies adopting us as their system of record.\n  >\n  > Check it out here:\n  >\n  > https://lnkd.in/ghm6Q9pS\n\n- [2026-07-17 · Posted · 2 reactions] [Layering agents on top of your legacy CRM won't fix bad data...](https://www.linkedin.com/posts/lightfld_lightfield-agentic-crm-activity-7483896531507421184-ng1r)\n  > Layering agents on top of your legacy CRM won't fix bad data.\n  >\n  > Lightfield is built from scratch so every call, email, and meeting is captured automatically.\n  >\n  > Ask it to draft a follow up or build a proposal and it just does it.\n\n- [2026-07-14 · Posted · 3 reactions] [A CRM as ambitious as you are.](https://www.linkedin.com/posts/lightfld_lightfield-agentic-crm-activity-7482586352581054465-BWAX)\n  > A CRM as ambitious as you are.\n\n## Locations\n- Headquarters: san francisco, california, united states (US)\n- Offices: san francisco, california, united states (US)",
+        "summary": "{\"description\":\"Lightfield is an AI-native CRM for companies to capture, analyze, and understand everything about their customers.\",\"employee_estimate\":48,\"employee_estimate_source\":\"Employees: 48\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"San Francisco, United States\",\"hq_quote\":\"Headquartered in San Francisco, California, United States.\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Lightfield is an AI-native CRM for companies to capture, analyze, and understand everything about their customers.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"- Series b\\n  - Seed\\n...\\\"Lightfield raises $47 million in Series A\\\"\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQH3iBFLLBOwpQ/company-logo_200_200/B4EZp70WjiKYAI-/0/1763013913185/lightfld_logo?e=2147483647&v=beta&t=IBYtNCWZMgVQhIjC2AW_sECQZNQwbVgyQw_m4Tprcss",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/5yzhhqkrk15",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Lightfield",
+              "foundedYear": null,
+              "description": "Lightfield is an AI-native CRM that assembles itself from your email, calendar, and meetings. It captures every interaction and turns it into organized context: accounts, tasks, follow-ups, and insights, so nothing slips through the cracks.",
+              "workforce": {
+                "total": 48
+              },
+              "headquarters": {
+                "address": "San Francisco, CA, US",
+                "city": "San Francisco",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 172310,
+                "countryRank": 86414,
+                "avgDurationSeconds": 123,
+                "history": [
+                  {
+                    "value": 142382,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 100502,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 172260,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 158419,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 113280,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 172310,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/h09677hxxzg",
+        "title": "Lightfield Medical",
+        "url": "https://lightfieldmedical.com/",
+        "text": "# Lightfield Medical\n\nLightfield Medical is a Medical Equipment Manufacturing company. Lightfield Medical is a company that provides an autonomous slit-lamp imaging system designed to standardize image quality, simplify clinical workflows, and enable scalable, cloud-connected care across ophthalmology and optometry settings. Lightfield Medical employs 13 people, founded in 2024. Headquartered in Minneapolis, Minnesota, United States, with presence in Spain. Its workforce is distributed across Spain, Greece, and United States.\n\n## About\n\nLightfield Medical is pioneering a new era in anterior imaging technology.\n\nOur proprietary platform combines precision optics, intelligent automation, and secure cloud connectivity to enable consistent, high-quality anterior imaging in a connected environment.\n\nFor decades, slit-lamp imaging has relied on manual operation and variable results. Lightfield is developing a new approach designed to standardize image capture and simplify the imaging process across diverse settings.\n\nBuilt with advanced optics and engineered for always in-focus quality, Lightfield’s patented technology supports reliable visualization, secure data handling, and seamless integration into modern workflows.\n\nOur mission is to help shape the future of connected eye care — improving efficiency, accessibility, and image consistency through innovation.\n\nHeadquartered in the US, with operations in Spain and Greece, Lightfield unites leading experts in ophthalmology, optics, and medical device design.\n\n## Company Details\n- Industry: Medical Equipment Manufacturing\n- Type: Privately held\n- Headquarters: Minneapolis, United States\n- Founded Year: 2024\n- Homepage: lightfieldmedical.com\n- Aliases: lightfield medical\n- LinkedIn: linkedin.com/company/lightfield-medical\n- Linkedin Followers: 1,144\n\n## Workforce\n- Employees: 13\n- Company Size: 11-50 employees\n- Key Executives:\n  - Cándido Guerrero Cabana: CFO and General Manager\n  - Dimitrios Christaras: Head of Research And Development\n  - Jan Bonel: President & Co-Founder\n  - John (Chip) Berestka, MD: Co-Founder\n- Breakdown:\n  - By Country: Spain: 8 (62%), Greece: 2 (15%), United States: 1 (8%)\n  - By Department: Medical: 2 (15%), Technical: 2 (15%), Consulting: 1 (8%), Finance: 1 (8%), General Management: 1 (8%), Marketing: 1 (8%), Operations: 1 (8%), Research: 1 (8%), Sales: 1 (8%)\n  - By Seniority: Manager: 5 (38%), Founder: 2 (15%), Specialist: 2 (15%), Clevel: 1 (8%), Head: 1 (8%)\n- Talent Sources: Diestia Systems (2), Thisisweye (1), THE PLAN (1), Smilics Technologies (1), Overture Life (1), Northwest Eye (1), GENE VECTOR (1), CGI (1), Bynocs (1), BD (1)\n\n## Products & Technology\n- Tech Stack: figma, flutter, persona, testflight\n\n## Web presence\n\n- Instagram: instagram.com/lightfield_medical\n- YouTube: youtube.com/@lightfieldmedical\n- Web traffic:\n  - Monthly visits: 1,600\n  - Global rank: 11,497,419\n  - Bounce rate: 40.0%\n  - Pages per visit: 1.1\n  - Average visit duration: 0s\n\n## Categories\n\nanterior segment imaging, clinical data management, clinical workflow automation, cloud-based diagnostics, computational imaging, diagnostic imaging, digital health, eye care technology, eye imaging, healthcare, healthcare innovation, medical device manufacturing, medical devices, medical software (saas), ophthalmology, optometry, optometry settings, research & development, scalable care, slit lamp automation, slit-lamp imaging system, telemedicine, teleophthalmology, vision science\n\n## Recent News\n- [2026-10-12] openPR.com: Light Field Display Market to Reach US$ 6.8 Billion by 2033, Growing at 18.3% CAGR\n- [2026-09-12] Unite.AI: Lightfield Raises $47M Series A Led by a16z to Accelerate Growth\n- [2026-08-17]\n  - The American Journal of Managed Care: Atlanta Panel Confronts Bottlenecks in Alzheimer Disease Diagnosis and Care\n  - openPR.com: Light Field Camera Market to Reach US$399.1 Million by 2033, Growing at a 16.3% CAGR\n- [2026-08-10] News-Medical: Light-field microscopy enables snapshot volumetric imaging of fast neural activit\n- [2026-06-09] MSN: Why A Calorie Deficit Still Beats Every Other Diet According To Science\n\n## Social\n\n### Linkedin\n\n- [2026-09-30 · 14 reactions] Captura 1.7.0 is now live. The latest software release brings a series of improvements across the Captura ecosystem, with updates to the web viewer, iPad experience, capture workflow, infrastructur...\n\n- [2026-09-28 · 20 reactions] We are pleased to welcome Ainhoa Ramos Navarro as Head of Quality and Regulatory Affairs at Lightfield Medical. Ainhoa brings extensive experience in medical device quality management and regulator...\n\n- [2026-09-25 · 46 reactions] The fleet is getting ready 💪 🔥 A growing number of Captura units are now moving through the final stages of manufacturing at our Barcelona facility as we prepare for the upcoming U.S. launch. These...\n\n- [2026-09-23 · 12 reactions] Meet Lightfield Medical at #AAO 2026 in New Orleans. From October 9–12, part of the Lightfield team will be in New Orleans for AAO 2026, with a strong focus on private Captura demonstrations and st...\n\n- [2026-09-21 · 15 reactions] What does the Captura workflow look like from patient setup to digital review? In this video, Jan Bonel, President and Co-founder of Lightfield Medical, walks through the Captura workflow step by s...\n\n- [2026-09-18 · 24 reactions, 2 comments] A major milestone for Lightfield Medical Europe (our European headquarters in Barcelona, where CAPTURA manufacturing is centralized.), as it has officially obtained ISO 13485 certification. This ce...\n\n- [2026-09-17 · 20 reactions, 1 comment] 🔬Building #AI into a medical device isn’t just about designing good algorithms. It’s about structuring clinical data in a way that doctors can actually rely on. When Lightfield Medical began the jo...\n\n- [2026-09-16 · 11 reactions] The Captura workflow: capture, store, review At the heart of Captura is a simple idea: imaging shouldn’t get in the way of work. With an autonomous capture process, automatic secure cloud storage,...\n\n- [2026-09-16 · 103 reactions, 27 comments] I am happy to share that Lightfield Medical took first place at the The European Society of Cataract and Refractive Surgeons (ESCRS) iNovation Day in London this weekend. The audience voted Lightfi...\n\n- [2026-09-14 · 16 reactions] Day 4 at The European Society of Cataract and Refractive Surgeons (ESCRS), and our final day in London. A great way to close an intense few days of conversations, demos, and new opportunities for L...\n\n- [2026-09-13 · 29 reactions] Day 3 at The European Society of Cataract and Refractive Surgeons (ESCRS) London, and our busiest day so far. We started the day with visits from potential distribution partners from Switzerland an...\n\n- [2026-09-12 · 30 reactions] Day 2 at ESCRS London, and another very strong day for Lightfield Medical. Today, our founders held several important meetings with major strategic players in ophthalmology. We cannot share names a...\n\n- [2026-09-11 · 44 reactions, 1 comment] First day at The European Society of Cataract and Refractive Surgeons (ESCRS) London done, and it’s been a very full one! Most of my day was focused on Lightfield Medical, where we’ve been hosting...\n\n- [2026-09-09 · 19 reactions] Data-driven imaging, built for reliability Consistency doesn’t happen by accident. It comes from engineering a system where every component works toward the same goal: clear, structured, and standa...\n\n- [2026-09-07 · 23 reactions] What does an anterior segment exam look like when it becomes digitally navigable across position and depth? This image shows a screenshot from the Captura viewing interface, illustrating how a phys...\n\n- [2026-09-02 · 21 reactions, 1 comment] AI in ophthalmology is projected to grow into a multi-billion-dollar field in the next decade. But AI depends on one thing: Data. Retinal AI exploded because large standardized datasets became avai...\n\n- [2026-08-31 · 17 reactions] Inside Lightfield Medical’s manufacturing operations in Barcelona. In this video, recorded a few months ago, Juan Girón, Manufacturing Operations Manager at Lightfield Medical, walks through how we...\n\n- [2026-08-26 · 10 reactions] Team Spotlight: Sergiu Nicolaescu, MSc Sergiu is part of Lightfield Medical’s Engineering team, bringing a strong background in mechanical and electrical engineering to our medical device developme...\n\n- [2026-08-24 · 35 reactions] What happens when one of ophthalmology’s most fundamental examinations becomes structured, automated, and digital? In this video, Jan Bonel, President and Co-founder of Lightfield Medical, introduc...\n\n- [2026-08-21 · 16 reactions] Demand for eye care is rising. But the number of ophthalmologists is not growing at the same pace. Aging populations, myopia growth, and increasing surgical demand are putting pressure on clinics w...\n\n## Locations\n- Headquarters: minneapolis, minnesota, united states (US)\n- Offices: viladecans, catalonia, spain (ES), minneapolis, minnesota, united states (US)",
+        "summary": "{\"description\":\"Lightfield Medical is a medical equipment manufacturing company offering an autonomous slit-lamp imaging system designed to standardize image quality and streamline clinical workflows across ophthalmology and optometry settings.\",\"employee_estimate\":13,\"employee_estimate_source\":\"Employees: 13\",\"hiring_first_ops_or_revops\":false,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Minneapolis, United States\",\"hq_quote\":\"Headquartered in Minneapolis, Minnesota, United States, with presence in Spain.\",\"industry\":\"Medical Equipment Manufacturing\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Medical Equipment Manufacturing\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":null,\"recently_funded_seed_or_series_a_quote\":\"\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4D0BAQFdWkBrtf5VEg/company-logo_200_200/B4DZpI17LyGgAM-/0/1762158687736/lightfield_medical_logo?e=2147483647&v=beta&t=cN3YDeCYWpT55KsfxYsuw6x399fVrpl_qKijTH1-eEQ",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/h09677hxxzg",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Lightfield Medical",
+              "foundedYear": 2024,
+              "description": "Lightfield Medical is pioneering a new era in anterior imaging technology.\n\nOur proprietary platform combines precision optics, intelligent automation, and secure cloud connectivity to enable consistent, high-quality anterior imaging in a connected environment.\n\nFor decades, slit-lamp imaging has relied on manual operation and variable results. Lightfield is developing a new approach designed to standardize image capture and simplify the imaging process across diverse settings.\n\nBuilt with advanced optics and engineered for always in-focus quality, Lightfield’s patented technology supports reliable visualization, secure data handling, and seamless integration into modern workflows.\n\nOur mission is to help shape the future of connected eye care — improving efficiency, accessibility, and image consistency through innovation.\n\nHeadquartered in the US, with operations in Spain and Greece, Lightfield unites leading experts in ophthalmology, optics, and medical device design.",
+              "workforce": {
+                "total": 13
+              },
+              "headquarters": {
+                "address": "3400 W Bde Maka Ska Pkwy, Minneapolis, Minnesota 55416, US",
+                "city": "Minneapolis",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 1600,
+                "countryRank": 5580352,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 21,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 200,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 476,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 193,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 7,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 1600,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 4983.4,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

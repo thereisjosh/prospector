@@ -1,0 +1,262 @@
+{
+  "request": {
+    "query": "Mosaic",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "1c3a34b0d7573cdf547e373e246fa54e",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/90f4nnl58mr",
+        "title": "The Mosaic Factory _TMF®_ since 1993",
+        "url": "https://www.themosaicfactory.com/fr/",
+        "text": "# The Mosaic Factory _TMF®_ since 1993\n\nThe Mosaic Factory _TMF®_ since 1993 is a Wholesale Building Materials company. The Mosaic Factory is a specialist in the production and distribution of glass and ceramic mosaics. The Mosaic Factory _TMF®_ since 1993 employs 13 people (+18.2% YoY, +2 people), founded in 1993. Headquartered in Nistelrode, Netherlands, with offices in Noord-Brabant and Amsterdam. Its workforce is distributed across Netherlands and United Kingdom.\n\n## About\n\nAbout UCI - The Mosaic Factory:\n\nFor over 30 years now, UCI has been a specialist in the design and distribution of glass- and porcelain mosaic products. The collections we offer are produced according to our specifications and high standards.\n\nThe Mosaic Factory, TMF® is a registered brand of UCI Union Ceramics International B.V. UCI has her head office, showroom and European warehouse in Nistelrode, The Netherlands and a Quality & Sourcing Office in Singapore.\n\nMission:\nMaking projects more beautiful and distinctive with affordable high quality mosaics.\n\nVision:\nWe want to make our customers successful by following the market trends and offer them the right assortment in shape, colour and materials. Our goal is to be the best mosaic supplier in Europe.\n\nUCI delivers exclusively through selected dealers.\n\n## Company Details\n- Industry: Wholesale Building Materials\n- Type: Privately held\n- Headquarters: Nistelrode, Netherlands\n- Founded Year: 1993\n- Homepage: themosaicfactory.com\n- Aliases: The Mosaic Factory, the mosaic factory _tmf®_ since 1993\n- LinkedIn: linkedin.com/company/uci-the-mosaic-factory\n- Linkedin Followers: 1,816\n- Emails: info@themosaicfactory.com\n- Phone: + 31 0 88 5 064 064, +31885064064, 31 (0) 88 5 064 064\n\n## Workforce\n- Employees: 13\n- Company Size: 11-50 employees\n  - Monthly Growth: -7.1%\n  - Yearly Growth: +18.2%\n- Key Executives:\n  - Bastiaan Beun: Company Owner + Managing Director\n- Breakdown:\n  - By Country: Netherlands: 8 (62%), United Kingdom: 1 (8%)\n  - By Department: Sales: 4 (31%), Marketing: 2 (15%), Operations: 2 (15%), General Management: 1 (8%)\n  - By Seniority: Specialist: 4 (31%), Manager: 2 (15%), Other Management: 2 (15%), Owner: 1 (8%)\n- Talent Sources: Mozaiektegelwinkel.nl (2), dormakaba (1), Vitam (1), The Athlete's Foot (1), Qtents (1), Lucovitaal (1), Janssen en Ko Keukens (1), Homeij NL (1), Guardhouse powered by Financieringsgilde (1), BrabantZorg (1)\n- Alumni Go To: Bernhoven (2), Streekziekenhuis Koningin Beatrix (1), PK Benelux BV (1), Liberpee (1), Hansgrohe Group (1)\n\n## Products & Technology\n- Tech Stack: elk\n\n## Web presence\n\n- Facebook: facebook.com/themosaicfactory\n- Instagram: instagram.com/tmf_mosaic\n- YouTube: youtube.com/channel/ucxx2cjiufciptefx93gtsoq\n- Crunchbase: crunchbase.com/organization/the-mosaic-factory\n- Web traffic:\n  - Monthly visits: 10,127\n  - Global rank: 1,562,517\n  - Bounce rate: 32.0%\n  - Pages per visit: 4.4\n  - Average visit duration: 93s\n\n## Categories\n\nbardesign, building material, ceramic mosaics, construction/building materials, distribution, glass mosaics, glazed porcelain mosaics, hospitalitydesign, interior design, interiordesign, manufacturing, mosaic, mosaictiles, patterns logo's, production, restaurantdesign, retaildesign, shopdesign, specialist, unglazed porcelain mosaics\n\n## Recent News\n- [2026-09-07] Wonen360: Zo vertaalt The Mosaic Factory deze trend naar het interieur\n- [2026-08-31] Wonen360: The Mosaic Factory zet mozaïek in de spotlights tijdens twee design-events\n- [2026-08-25] [Arches et miroir en perspective dans la salle de bains  - Marie Claire](https://www.marieclaire.fr/photo/1510818/3423979/arches-et-miroir-en-perspective-)\n- [2026-02-05] Wonen360: The Mosaic Factory lanceert nieuwe hexagon mozaïekcollectie van Osiris Hertman\n- [2026-01-15] Wonen360: Patterns-collectie: The Mosaic Factory zet in op creatieve mix-and-match\n- [2025-12-24] Wonen360: The Mosaic Factory versterkt trade-team met nieuwe accountmanager\n- [2025-04-15] Wonen360: Uitbreiding Valencia: special effect met mozaïek\n- [2024-09-18] BetaKit: Mosaic to scale homegrown 3D printing infrastructure with $28 million CAD of equity growth funding\n\n## Social\n\n### Linkedin\n\n- [2026-09-18 · 44 reactions] Matter in Form An artistic mosaic installation by The Mosaic Factory / UCI Union Ceramics International B.V. For GLUE amsterdam connected by design\n\n- [2026-09-16 · 25 reactions] Come and visit us at GLUE amsterdam connected by design to experience our matter in form concept. The Mosaic Factory / UCI Union Ceramics International B.V. #interiordesign #interieurdesign\n\n- [2026-09-15 · 24 reactions, 1 comment] We’re excited to be part of The Village Square at Kromhout Museum in Amsterdam! From 17–19 September, eight Dutch brands, eight designers and eight unique ‘houses’ come together during GLUE amsterd...\n\n- [2026-09-10 · 40 reactions, 1 comment] Dag 1 van ARCHITECT@WORK zit erop. Veel mooie ontmoetingen, interessante gesprekken en nieuwe ideeën over de mogelijkheden van mozaïek binnen architectuur en interieur. Van nieuwe collecties en kle...\n\n- [2026-09-08 · 88 reactions, 3 comments] Klaar voor ARCHITECT@WORK Rotterdam! Woensdag en donderdag van 10.00 tot 18.00 uur, Ahoy Rotterdam, stand 85. Naast de nieuwe items die we het afgelopen jaar geïntroduceerd hebben, ook items die wi...\n\n- [2026-09-04 · 5 reactions] The Mosaic Factory × Aglaé Jarry Wilson at The Village Square The Mosaic Factory takes part in The Village Square at Museum Kromhout in Amsterdam, formerly known as GLUE Brand Hub. Eight Dutch bran...\n\n- [2026-09-01 · 55 reactions, 4 comments] Welcome Freek! 👋 We're pleased to welcome Freek van Wingerden to The Mosaic Factory. Freek joins our internal account management team and brings a valuable addition to the way we support our client...\n\n- [2026-09-01 · 49 reactions, 1 comment] Thoughtful material choices can shape spaces that support both physical comfort and mental wellbeing. This collection brings together low-VOC finishes, acoustic solutions, natural textures, and bio...\n\n- [2026-08-26 · 36 reactions, 5 comments] Wanneer mozaïek en messing samenkomen. Soms is het juist de combinatie van verschillende materialen die een vloer écht bijzonder maakt. Voor dit project is ons klassieke hexagonmozaïek gecombineerd...\n\n- [2026-08-26 · 10 reactions] TMF at Architect@Work Rotterdam On 9 & 10 September, we'll be exhibiting at ARCHITECT@WORK Rotterdam. We're looking forward to presenting our latest novelties! Visit us at stand 85. We look forward...\n\n- [2026-08-20 · 21 reactions] The Mosaic Factory joins The Village Square, Amsterdam This September, we're taking part in The Village Square at Museum Kromhout, formerly known as GLUE Brand Hub. Eight Dutch brands, eight design...\n\n- [2026-07-28 · 43 reactions, 1 comment] Hoe bouw je een tegelmerk dat opvalt in een markt vol keuze? In de nieuwste editie van ons Update magazine gaan we in gesprek met Bastiaan Beun en Lieke Bruisten van The Mosaic Factory / UCI Union...\n\n- [2026-07-17 · 30 reactions, 6 comments] Een rijke mix van bruintinten in de Caramel Blend badkamer 🤎 In de Caramel Blend badkamer staan warme aardetinten, organische vormen en verfijnde materialen centraal. De rijke karameltinten worden...\n\n- [2026-06-26 · 61 reactions, 6 comments] Ons Gamechangers kantoor is zo waanzinnig gaaf geworden! Oprecht iedere dag een feestje om hier te werken. Wat met een idee voor een klein barretje begon werd een totale make over naar een kantoor...\n\n- [2026-06-12 · 60 reactions, 2 comments] Today we had the pleasure of having 24 students of Summa Wonen & Design in our TMF Experience centre. I had the opportunity to tell them all about mosaics and how to use them in their designs. The...\n\n- [2026-05-27 · 39 reactions, 1 comment] Vorige week kwamen twee werelden samen bij de Architecten Showroom Amsterdam. nicole uniquole nam ons mee achter de schermen van tien jaar Masterly | The Dutch in Milano. En Antony Laurijsen van KA...\n\n- [2026-05-21 · 27 reactions, 1 comment] Expanding our Natural Stone Collection: Travertine Kitkat We're pleased to introduce three new additions to our natural stone range. The Kitkat format, a staple in our ceramic collection for years,...\n\n- [2026-05-13 · 14 reactions, 1 comment] We are proud to announce that The Mosaic Factory has officially achieved ISO 14001:2015 certification for Environmental Management. Certified by EBN Certification B.V. , this milestone reflects our...\n\n- [2026-05-06 · 23 reactions] Milan Design Week: a wrap🌿 What a week it's been. To everyone who stepped into our Oasis in the heart of Milan, thank you. Your enthusiasm, your feedback, and the conversations we shared made it al...\n\n- [2026-05-04 · 13 reactions] The Mosaic Factory zoekt een parttime Commercieel Medewerker Binnendienst in Nistelrode Werken met prachtige mozaïeken, klanten adviseren én deals rondmaken, dit is geen standaard binnendienstfunct...\n\n## Locations\n- Headquarters: nistelrode, the netherlands, netherlands (NL)\n- Offices: nistelrode, the netherlands, netherlands (NL), amsterdam, north holland, netherlands (NL)",
+        "summary": "{\"description\":\"The Mosaic Factory TMF® since 1993 is a wholesale building materials company and specialist in production and distribution of glass and ceramic mosaics. Brand of UCI Union Ceramics International B.V. Headquartered in Nistelrode, Netherlands with offices in Noord-Brabant and Amsterdam; workforce distributed across the Netherlands and United Kingdom.\",\"employee_estimate\":13,\"employee_estimate_source\":\"Employees: 13\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"The Mosaic Factory, TMF® is a registered brand of UCI Union Ceramics International B.V. UCI has her head office, showroom and European warehouse in Nistelrode, The Netherlands and a Quality & Sourcing Office in Singapore.\",\"hq\":\"Nistelrode, Netherlands\",\"hq_quote\":\"Headquarters: nistelrode, the netherlands, netherlands (NL)\",\"industry\":\"Wholesale Building Materials\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"- Industry: Wholesale Building Materials\\n- Type: Privately held\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":false,\"recently_funded_seed_or_series_a_quote\":\"- (No mention of recent seed/Series A funding in provided text)\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQH8EfmJxuWiLQ/company-logo_200_200/B4EZ0lQijeJ0AI-/0/1774446586459/uci_the_mosaic_factory_logo?e=2147483647&v=beta&t=5CSgSbIy4Q-BmpDwRT3PPulLQTca3hxuHh4k7k7y2LE",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/90f4nnl58mr",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "The Mosaic Factory _TMF®_ since 1993",
+              "foundedYear": 1993,
+              "description": "About UCI - The Mosaic Factory:\n\nFor over 30 years now, UCI has been a specialist in the design and distribution of glass- and porcelain mosaic products. The collections we offer are produced according to our specifications and high standards.\n\nThe Mosaic Factory, TMF® is a registered brand of UCI Union Ceramics International B.V. UCI has her head office, showroom and European warehouse in Nistelrode, The Netherlands and a Quality & Sourcing Office in Singapore.\n\nMission:\nMaking projects more beautiful and distinctive with affordable high quality mosaics.\n\nVision:\nWe want to make our customers successful by following the market trends and offer them the right assortment in shape, colour and materials. Our goal is to be the best mosaic supplier in Europe.\n\nUCI delivers exclusively through selected dealers.",
+              "workforce": {
+                "total": 13
+              },
+              "headquarters": {
+                "address": "Canadabaan 7c, Nistelrode, The Netherlands 5388 RT, NL",
+                "city": "Nistelrode",
+                "postalCode": null,
+                "country": "Netherlands"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 10127,
+                "countryRank": 54439,
+                "avgDurationSeconds": 93,
+                "history": [
+                  {
+                    "value": 20372,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 14287,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 18249,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 11128,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 9476,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 10127,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/mc0p060g9jp",
+        "title": "Mosaic",
+        "url": "https://mosaicapp.com/",
+        "text": "# Mosaic\n\nMosaic is a Software Development company. Mosaic employs 205 people (+16.5% YoY, +29 people), founded in 2020. Headquartered in New York, New York, United States, with offices in Toronto and New York City. Its workforce is distributed across 5 countries (including United States, Canada, Bangladesh, Kuwait, and Nigeria).\n\n## About\n\nHeadquartered in New York City and launched in 2019, Mosaic is the first resource management software that enables real-time collaboration for planning work. Harnessing the power of AI and automation, Mosaic enables data-driven resource planning, management, reporting, and forecasting for project-based businesses. Through powerful integrations, Mosaic automatically gathers, \norganizes, and analyzes data to optimize who is working on what, when, and deliver complete business visibility in one intuitive interface. Mosaic rescues teams from clunky spreadsheets and provides greater visibility than traditional ERP software. We guarantee that we’ll boost efficiency and profitability. Take our free product test drive today!\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: New York, United States\n- Founded Year: 2020\n- Homepage: mosaicapp.com\n- Aliases: MosaicApp Inc. dba Mosaic, mosaic, mosaic (ny), mosaicapp inc.\n- LinkedIn: linkedin.com/company/mosaicai\n- Linkedin Followers: 23,531\n- Emails: founders@mosaicapp.com, hello@mosaicapp.com\n- Phone: (212) 597-9333, 1-212-597-9333\n\n## Financials\n- Total Funding: USD 6,800,000\n  - Convertible note (2023-06-01)\n  - Convertible note (2022-06-01)\n  - Convertible note (2021-12-01)\n  - Venture (2021-06-01): USD 4.0M\n  - Seed (2020-07-01): USD 100,000\n\n## Workforce\n- Employees: 205\n- Company Size: 51-200 employees\n  - Yearly Growth: +16.5%\n- Key Executives:\n  - Adrian C.: Director of Engineering\n  - Amanda DiFeterici: Dir of GTM Solutions\n  - Andrew Linford: Head of Operations\n  - Angie Hungle: Director, Internal Audit\n  - Dan Porter: Account Director\n  - Han M.: Director of Growth Marketing\n  - John Blum: Director of Resource Management Engineering and Enablement\n  - John Meyer: Founder & CEO\n  - Lindsey Ulmer: Director of Customer Success\n  - Weichen Wang: Director of Engineering\n- Breakdown:\n  - By Country: United States: 35 (17%), Canada: 26 (13%), Bangladesh: 1, Kuwait: 1, Nigeria: 1\n  - By Department: Technical: 29 (14%), Sales: 9 (4%), Customer Service: 5 (2%), Other Department: 3 (1%), Consulting: 2 (1%), Hr: 2 (1%), Marketing: 2 (1%), Operations: 2 (1%), Product: 2 (1%), Project Management: 2 (1%) (+6 more)\n  - By Seniority: Specialist: 34 (17%), Manager: 9 (4%), Director: 7 (3%), Other Management: 7 (3%), Senior: 7 (3%), Clevel: 2 (1%), Head: 1\n- Salary ranges:\n  - Strategic Account Director: median $217,579.27 per year\n  - Director Growth: median $216,456.1 per year\n  - Head of Marketing: median $181,407.65 per year\n  - Senior Software Engineer: median $150,617.46 per year\n  - Software Engineer: median $118,450.22 per year\n  - Account Executive: median $116,298.57 per year\n  - UX Designer: median $111,169.77 per year\n  - Senior Sales Development Representative (SDR): median $102,827.98 per year\n  - Software Developer: median $94,086.97 per year\n  - Sales: median $87,152.09 per year\n  - Marketing Specialist: median $70,171.61 per year\n  - Intern: median $60,401.26 per year\n- Talent Sources: EDG Architecture + Engineering (3), ZettaMine Labs Pvt. Ltd. (2), Walgreens (2), ThoughtFocus (2), Templafy (2), Schoox (2), Samsara (2), SMG - Service Management Group (2), AUROBINDO PHARMA LTD (2), ANDMORE® (2)\n- Alumni Go To: EDG Architecture + Engineering (8), Siteline (3), Payhawk (3), Amazon (3), Stripe (2), SMG - Service Management Group (2), 7-Eleven (2), KPMG US (1), Datadog (1), Britec Computer Systems (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack (showing 50 of 104): ajax, alteryx, amazon aws, angularjs, apache, apache kafka, appexchange, azure data factory, azure data lake, azure sql, bootstrap, chef, confluence, css, css3, databricks, docker, eclipse ide, elastic, git, gmail, hibernate, html, html5, iam, j2ee, java, jenkins, jest, jira, json, junit, mixpanel, numpy, oauth, openid connect, oracle, power bi, python, rds, react, redux, salesforce, salesforce crm, saml, scala, snowflake, snowflake data warehouse, sns, splunk\n\n## Web presence\n\n- Twitter: twitter.com/mosaicapp\n- Facebook: facebook.com/mosaicai\n- Instagram: instagram.com/mosaicai\n- Crunchbase: crunchbase.com/organization/mosaic-app\n- Web traffic:\n  - Monthly visits: 112,428\n  - Global rank: 263,634\n  - Bounce rate: 37.0%\n  - Pages per visit: 8.0\n  - Average visit duration: 457s\n\n## Reviews & Ratings\n- Employer Rating: 4.1/5.0 (13 reviews)\n  - Breakdown: Work-Life: 3.5, Compensation: 3.8, Culture: 3.8, Career: 4.1\n\n## Categories\n\nai, ai-powered platform, artificial intelligence, artificial intelligence (ai), business management, capacity planning, collaboration, collaboration management, computers_electronics_and_technology/programming_and_developer_software, enterprise resource planning (erp), enterprise software, enterprise-software, forecast revenue, machine learning, operational insight, planning software, productivity and management applications, project management, project-management, resource allocation, resource management, resource management software, resource planning, scheduling, software, team management, technology, work management, workload management\n\n## Competitors\n\nzcon solutions, sopheon, securetech, rei systems india, fortude\n\n## Recent News\n- [2026-08-11] Six Colors: MLB hires indie Mosaic app developer\n\n## Social\n\n### Linkedin\n\n- [2026-09-18 · 4 reactions] Standing room only for John Meyer's session during Autodesk University, \"How AI Agents Are Reshaping the Way AEC Works,\" and it was great to see so many of you there. If you want a personalized loo...\n\n- [2026-09-16] If you're at AU in Las Vegas, come by to say hi and let us show you Chello, our AI planning assistant, in action. Keep an eye out for the sloth stuffies hanging off the monitor.\n\n- [2026-09-16 · 6 reactions] Day 2 at Autodesk University. Stop by booth 4108 to see how the Mosaic platform manages people and projects around real capacity. John Meyer Hallie Stennes Aaron Marcum-Noftsger Han M. #AutodeskUni...\n\n- [2026-09-15 · 4 reactions] We are officially at Autodesk University! 🚀 If you're at AU this week, swing by the Mosaic booth #4108 for: - Live demos: See real-time resource tracking and intelligent forecasting in action - 1:1...\n\n- [2026-08-15] Our team is #hiring a new #accountdirector in San Francisco Bay Area or NYC. If you're looking to be part of an #ai-first company and AI-first sales team, join us!\n\n- [2026-06-04 · 2 reactions] We're heading to San Diego next week! If you're in the area or will be attending AIA, join us for our Happy Hour and Strategic Management Roundtable with T.Y. Lin on Thursday, June 11. Jeremy and A...\n\n- [2026-05-04 · 2 reactions] Calling all Austin area AEC Leaders! Join Mosaic for an evening of great conversation and connection at Swift's Attic on May 28th. Matthew Onken (Director, Lionakis) and Alon Verdnikov (CRO, Mosaic...\n\n- [2026-04-10 · 2 reactions, 1 comment] 67% of A&E leaders support AI but only 13% say their teams can use it effectively. That’s not an AI problem, it’s an operational one. In this webinar on April 16th, we’ll break down the real barrie...\n\n- [2026-04-09 · 4 reactions] Why is AI adoption in A&E stuck in experimentation? 57% of firms say productivity is the goal but most are still using AI in fragmented ways. We surveyed 138 A&E professionals and found a clear gap...\n\n- [2026-04-08] Bad resource data quietly drains 10-15% of annual profit, which could mean $100K-$300K/year for mid-market firms. Most firms are leaking profit and don’t even know it. It starts with out of date sp...\n\n- [2026-03-23] Happening tomorrow! AI and the Future of Architecture & Engineering: What Comes Next and How to Prepare. AI is moving beyond design tools and into the core of how firms operate: planning, staffing,...\n\n- [2026-03-20 · 2 reactions] Everyone’s talking about AI, but the hard part is figuring out what to focus on and how to prepare. With so much changing across design, planning, and delivery that most firms don’t know where to f...\n\n- [2026-03-18 · 3 reactions] Happening tomorrow: Plan Better with Mosaic – Live Demo Most A&E firms manage their finances in an ERP, but manage their people in spreadsheets. That gap creates a massive blind spot once a project...\n\n- [2026-03-16 · 4 reactions] Your ERP shows where the money went — but not where your people are going. For most A&E firms, the gap between financial plans and daily work gets filled with spreadsheets, gut feel, and too many s...\n\n- [2026-02-23 · 10 reactions] Artificial intelligence is moving beyond isolated tools and point solutions. The next phase will be defined by AI agents that will be capable of reasoning across projects, people, and data. For arc...\n\n## Locations\n- Headquarters: new york, new york, united states (US)\n- Offices: toronto, ontario m5c 2w7, canada, new york, new york, united states (US), new york city, new york, united states (US)",
+        "summary": "{\"description\":\"Mosaic is a software development company offering AI-powered resource management and planning tools for project-based businesses, with a focus on data-driven planning, forecasting, and visibility.\",\"employee_estimate\":205,\"employee_estimate_source\":\"Employees: 205\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Our team is #hiring a new #accountdirector in San Francisco Bay Area or NYC. If you're looking to be part of an #ai-first company and AI-first sales team, join us!\",\"hq\":\"New York, New York, United States\",\"hq_quote\":\"Headquartered in New York, New York, United States\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Software Development\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 6,800,000\\n  - Convertible note (2023-06-01)\\n  - Convertible note (2022-06-01)\\n  - Convertible note (2021-12-01)\\n  - Venture (2021-06-01): USD 4.0M\\n  - Seed (2020-07-01): USD 100,000\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQHD6H_xIP4hJw/company-logo_200_200/B56aCVp4VMHIAI-/0/1789217179210/mosaicai_logo?e=2147483647&v=beta&t=WAmU6Aru3j4FX3sHjy2UQVOjnf0sk-pwgzaV4dd39JM",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/mc0p060g9jp",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Mosaic",
+              "foundedYear": 2020,
+              "description": "Headquartered in New York City and launched in 2019, Mosaic is the first resource management software that enables real-time collaboration for planning work. Harnessing the power of AI and automation, Mosaic enables data-driven resource planning, management, reporting, and forecasting for project-based businesses. Through powerful integrations, Mosaic automatically gathers, \norganizes, and analyzes data to optimize who is working on what, when, and deliver complete business visibility in one intuitive interface. Mosaic rescues teams from clunky spreadsheets and provides greater visibility than traditional ERP software. We guarantee that we’ll boost efficiency and profitability. Take our free product test drive today!",
+              "workforce": {
+                "total": 205
+              },
+              "headquarters": {
+                "address": "58 W 40th St, 3rd Floor, New York, NY 10018, US",
+                "city": "New York",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 6800000,
+                "fundingLatestRound": {
+                  "name": "Convertible note",
+                  "date": "2023-06-01",
+                  "amount": null
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 112428,
+                "countryRank": 60248,
+                "avgDurationSeconds": 457,
+                "history": [
+                  {
+                    "value": 74567,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 73489,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 75993,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 110869,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 110736,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 112428,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 6388.2,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

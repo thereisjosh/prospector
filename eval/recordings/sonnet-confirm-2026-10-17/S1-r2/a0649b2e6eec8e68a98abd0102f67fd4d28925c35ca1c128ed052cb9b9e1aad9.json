@@ -1,0 +1,222 @@
+{
+  "request": {
+    "query": "Capstone Logistics",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "1a979765528b954eca4fcb04667469fd",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/cmxhd6fvmqf",
+        "title": "Capstone Logistics, LLC",
+        "url": "https://www.capstonelogistics.com/",
+        "text": "# Capstone Logistics, LLC\n\nCapstone Logistics, LLC is a Transportation, Logistics, Supply Chain and Storage company. Capstone Logistics is a third-party logistics (3PL) company that provides warehouse management and transportation services for supply chain operations. Capstone Logistics, LLC employs 8,035 people (+11.9% YoY, +854 people) and has an annual revenue of $1.9B, founded in 1986. Headquartered in Peachtree Corners, Georgia, United States, with an office in Peachtree City. Its workforce is distributed across 17 countries (including United States, Canada, Egypt, France, and Colombia).\n\n## About\n\nCapstone Logistics is a leading third-party logistics (3PL) provider with a performance-based model built to improve efficiency and lower costs across the supply chain — running Warehousing, Transportation, and Performance operations at scale. Backed by 22,000+ team members, 700+ warehouse sites, and 18M+ shipments managed annually, Capstone delivers the accountability that today's largest retail, grocery, and manufacturing supply chains run on. \n\nCapstone's model is built around three solution areas. Warehouse Management covers full-service operations, inbound unloading, outbound selection, manufacturing support, and warehouse automation inside the four walls. Transportation Services connect those operations to the final consumer through last-mile delivery, cross-docking, yard management, and dedicated fleets. Performance Solutions layers on tactical labor support, pay-for-performance engineering, and the APEX technology suite to stabilize, scale, or transform an operation under pressure. \n\nAutomation alone doesn't move a supply chain. Capstone pairs a performance-based business model with real people managing the supply chain at scale — the combination that lowers costs, increases value, and reduces risk for partners who need more than a vendor relationship. \n\nHeadquartered in Peachtree Corners, GA, Capstone partners with recognized brands across retail, grocery, automotive, food manufacturing, home improvement, and healthcare. \n\nLearn more at capstonelogistics.com. \n\nLooking for your next career? Visit https://www.capstone.jobs/us/en\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Privately held\n- Headquarters: Peachtree Corners, United States\n- Founded Year: 1986\n- Homepage: capstonelogistics.com\n- Aliases: capstone logistics, capstone logistics, llc\n- LinkedIn: linkedin.com/company/capstone-logistics-llc\n- Linkedin Followers: 86,743\n- Emails: info@capstonelogistics.com\n- Phone: (770) 414-1929, 1-770-414-1929, 610-364-3300, 678-385-4189, 770-414-1929\n\n## Financials\n- Annual Revenue: USD 1,920,000,000\n- Total Funding: USD 37,500,000\n  - Venture (2021-04-01)\n  - Private equity (2020-10-01)\n  - Debt financing (2015-06-16): USD 37.5M\n  - Debt financing (2011-11-29)\n\n## Acquisitions\n- Acquired by: H.I.G. Capital (2020-10-22)\n- Acquired Rapid Response Delivery (2023-05-09)\n- Acquired Insource Performance Solutions (2022-01-10)\n- Acquired Priority Express Courier (2019-10-29)\n- Acquired MileZero (2019-10-03)\n- Acquired Priority Express Courier, Inc. (2019-09-01) for USD 45.0M\n\n## Workforce\n- Employees: 8,035\n  - Monthly Growth: +0.7%\n  - Yearly Growth: +11.9%\n- Key Executives:\n  - Ahmed Abdalla: Chief Technology Officer\n  - Alexander Maka: Talent Acquisition Business Partner\n  - Alicia Michelle Long: Talent Acquisition Partner\n  - Alyssa Hooks: Travel Team Lead\n  - Andrew W. Powell: Director Of Operations\n  - Angel Arriaza: Director of Equipment Management\n  - Anthony DiTrolio: Director of Operations\n  - Antonio Ortiz: Regional Director of Operations\n  - Ashley Serge: Human Resources Director\n  - Bill Wood: Vice President Operations\n- Breakdown:\n  - By Country: United States: 1,644 (20%), Canada: 7, Egypt: 5, France: 3, Colombia: 2, India: 2, Mexico: 2, Bahamas: 1, Cuba: 1, Georgia: 1 (+7 more)\n  - By Department: Operations: 821 (10%), Trades: 229 (3%), Other Department: 128 (2%), General Management: 110 (1%), Hr: 84 (1%), Project Management: 74 (1%), Administrative: 67 (1%), Technical: 67 (1%), Finance: 52 (1%), Sales: 27 (+9 more)\n  - By Seniority: Specialist: 676 (8%), Manager: 592 (7%), Other Management: 235 (3%), Director: 98 (1%), Senior: 54 (1%), Vp: 30, Head: 13, Partner: 11, Clevel: 4, Intern: 4 (+1 more)\n- Active job postings: 889\n- Talent Sources: Amazon (91), Walmart (65), UPS (54), LoadDelivered Logistics (38), US Army (32), The Home Depot (27), Target (22), Lowe's Companies, Inc. (22), FedEx (19), Old Workforce (17)\n- Alumni Go To: Amazon (50), Sysco (26), The Home Depot (23), US Foods (19), LoadDelivered Logistics (18), Walmart (16), XPO (15), FedEx (15), UPS (14), humano LLC (12)\n\n## Products & Technology\n- Tech Stack (showing 50 of 177): 3pl warehouse manager, ada, adp, adp payroll, adp reporting, amazon redshift, angular, apache, apache kafka, apache spark, arcgis, artesia, asp, aws lambda, aws step functions, azure data factory, azure data lake, azure databricks, azure sql, beeline, bootstrap, changepoint, cherokee, citrix workspace, cohesity, core hr, css, dash, databricks, doordash, elasticsearch, esri, gauges, git, google analytics, google drive, gps, grunt, harvester, hcm, hibernate, hive, html, iam, indeed, intercom, jasmine, java, javascript, jda\n\n## Web presence\n\n- Twitter: twitter.com/capstonetweets\n- Facebook: facebook.com/368179123266435\n- Instagram: instagram.com/officialcapstonelogistics\n- YouTube: youtube.com/@capstonelogisticsllc\n- Crunchbase: crunchbase.com/organization/capstone-logistics\n- Web traffic:\n  - Monthly visits: 113,955\n  - Global rank: 294,407\n  - Bounce rate: 46.0%\n  - Pages per visit: 3.6\n  - Average visit duration: 145s\n\n## Categories\n\nautomation, automotive-transportation, business_and_consumer_services/shipping_and_logistics, freight management, last mile delivery, logistics, payments, road-transportation, supply chain operations, supply chain optimization, supply-chain-management, technology, third-party, third-party logistics, transportation, transportation services, warehouse labor management, warehouse management, warehouse services\n\n## Competitors\n\nunited facilities, omni logistics, pgl, accelerated logistics, seko, pilot freight, diakon logistics, inc., fsa logistix, keystone logistics, itn worldwide, fan courier, 4e lojistik\n\n## Recent News\n- [2026-09-17] [🏭 Madison Manufacturing Jobs with Multiple Hands-On Roles - NewsBreak](https://www.newsbreak.com/madison-wi-daily-brief-375426899/4891092944583-madison-manufacturing-jobs-with-multiple-hands-on-roles)\n- [2026-09-10]\n  - [🏭 Lexington, SC Manufacturing Jobs with Multiple Openings - NewsBreak](https://www.newsbreak.com/lexington-sc-daily-brief-375425965/4879284774678-lexington-sc-manufacturing-jobs-with-multiple-openings)\n  - [🏭 Statesville, NC Manufacturing: Multiple Steady Shop & Warehouse Jobs - NewsBreak](https://www.newsbreak.com/statesville-nc-daily-brief-373362987/4879065481377-statesville-nc-manufacturing-multiple-steady-shop-warehouse-jobs)\n  - [🏭 North Salt Lake Manufacturing Jobs with Multiple Openings - NewsBreak](https://www.newsbreak.com/north-salt-lake-ut-daily-brief-375430822/4878592509554-north-salt-lake-manufacturing-jobs-with-multiple-openings)\n- [2026-09-09]\n  - [🏭 Romulus, MI Manufacturing Jobs With Multiple Openings - NewsBreak](https://www.newsbreak.com/romulus-mi-daily-brief-373349814/4876965641552-romulus-mi-manufacturing-jobs-with-multiple-openings)\n  - [🏭 Multiple Memphis Manufacturing Jobs With Solid Pay & Benefits - NewsBreak](https://www.newsbreak.com/memphis-tn-daily-brief-375428074/4874581612285-multiple-memphis-manufacturing-jobs-with-solid-pay-benefits)\n  - [🚚 Anchorage Supply Chain Jobs with Multiple Openings & $80K+ Role - NewsBreak](https://www.newsbreak.com/anchorage-ak-daily-brief-373172151/4874428502974-anchorage-supply-chain-jobs-with-multiple-openings-80k-role)\n- [2026-09-08] [🚚 Several Supply Chain & Logistics Jobs Hiring Now in St. Louis - NewsBreak](https://www.newsbreak.com/missouri-daily-brief-373355561/4873363581662-several-supply-chain-logistics-jobs-hiring-now-in-st-louis)\n- [2026-09-05]\n  - [🏭 North Las Vegas Manufacturing Jobs with Multiple Openings - NewsBreak](https://www.newsbreak.com/north-las-vegas-nv-daily-brief-375430762/4868943197537-north-las-vegas-manufacturing-jobs-with-multiple-openings)\n  - [🚧 Chester, VA construction hiring now – multiple solid trade openings - NewsBreak](https://www.newsbreak.com/chester-va-daily-brief-375413694/4868564328900-chester-va-construction-hiring-now-multiple-solid-trade-openings)\n- [2026-09-02] [Capstone Logistics, LLC hiring Director of Operations  in Greater Chicago Area \\| LinkedIn](https://www.linkedin.com/jobs/view/director-of-operations-at-capstone-logistics-llc-4459959454)\n- [2026-08-29]\n  - [🏭 Los Angeles Manufacturing: Multiple Roles Up to $80K+ - NewsBreak](https://www.newsbreak.com/los-angeles-ca-daily-brief-373155135/4856285754583-los-angeles-manufacturing-multiple-roles-up-to-80k)\n  - Send2Press: Inbound Logistics Names Capstone Logistics a 2026 Top 3PL Provider\n- [2026-08-28]\n  - [🚚 Bensenville, IL Logistics Jobs: Multiple Roles Now Hiring - NewsBreak](https://www.newsbreak.com/bensenville-il-daily-brief-373187893/4855262411880-bensenville-il-logistics-jobs-multiple-roles-now-hiring)\n  - [🚚 Boise Supply Chain Hiring Now: Several Solid Logistics Roles - NewsBreak](https://www.newsbreak.com/boise-id-daily-brief-373186606/4854524824962-boise-supply-chain-hiring-now-several-solid-logistics-roles)\n- [2026-08-24]\n  - [Capstone Logistics, LLC hiring Director of Operations  in Virginia, United States \\| LinkedIn](https://www.linkedin.com/jobs/view/director-of-operations-at-capstone-logistics-llc-4456521315)\n  - [Inbound Logistics Names Capstone Logistics a 2026 Top 3PL Provider - Send2Press Newswire](https://www.send2press.com/wire/inbound-logistics-names-capstone-logistics-a-2026-top-3pl-provider/)\n  - [News: Capstone Logistics named a 2026 Top 3PL Provider - NewsBreak](https://www.newsbreak.com/news/4846704192447-news-capstone-logistics-named-a-2026-top-3pl-provider)\n- [2026-08-21] [🏭 Greensboro Manufacturing: Multiple Local Openings With Solid Pay - NewsBreak](https://www.newsbreak.com/greensboro-nc-daily-brief-373361464/4841077628807-greensboro-manufacturing-multiple-local-openings-with-solid-pay)\n- [2026-08-20] [🚌 Lake Charles transportation jobs with multiple local routes - NewsBreak](https://www.newsbreak.com/lake-charles-la-daily-brief-373340411/4840282757634-lake-charles-transportation-jobs-with-multiple-local-routes)\n- [2026-08-19] [🚚 Canton, MS Logistics Jobs With Multiple Shift Options - NewsBreak](https://www.newsbreak.com/canton-ms-daily-brief-373357173/4838367243109-canton-ms-logistics-jobs-with-multiple-shift-options)\n- [2024-04-26] LinkedIn: Derek Ryder on LinkedIn: Supply Chain Management & Logistics Execution\n- [2023-10-18] Atlanta Business Chronicle: Deals of the Year: Lazer Logistics sale, Capstone Logistics acquisition honored\n- [2022-06-01] dynamo.vc: Re-Air: Sean Coakley of Capstone Logistics\n- [2020-11-18] dynamo.vc: FoSC #71: Sean Coakley of Capstone Logistics\n- [2019-10-30] linkedin.com: Capstone Logistics, LLC Acquires Priority Express Courier, Inc., a…\n\n## Social\n\n### Linkedin\n\n- [2026-10-09 · Posted · 13 reactions] [What could a 20% boost in driver efficiency mean for your...](https://www.linkedin.com/posts/capstone-logistics-llc_lastmiledelivery-supplychain-logistics-activity-7514358375246393344-5HlN)\n  > What could a 20% boost in driver efficiency mean for your operation?\n  >\n  > For one national office supply retailer, it meant getting more from a busy delivery network. Capstone brought together cross-docking and last-mile services with pay-for-performance, giving drivers a clear connection between how they work and what they earn.\n  >\n  > The result: a 20% increase in driver efficiency. Today, Capstone supports 365 daily routes and up to 75,000 parcels a day for the retailer.\n  >\n  > That’s pay-for-performance at work: drivers have a reason to keep deliveries moving, and companies get stronger day-to-day operations.\n  >\n  > See what Capstone’s last-mile and cross-docking services could do for your operation.\n  >\n  > 👉View Our Example: https://lnkd.in/gghsVN4e\n  >\n  > #LastMileDelivery #SupplyChain #Logistics #CrossDocking #3PL\n\n- [2026-10-08 · Posted · 12 reactions] [How do you get production moving when 29,000 vehicles are backed...](https://www.linkedin.com/posts/capstone-logistics-llc_29000-backlog-activity-7514019343010267137-NZm1)\n  > How do you get production moving when 29,000 vehicles are backed up?\n  >\n  > For one manufacturing partner, the first step was getting the right support on the floor fast. Capstone brought in 30 trained associates and an on-site manager within 72 hours, then worked with the team to steady the workforce and improve the processes slowing production down.\n  >\n  > The backlog dropped 60%, and productivity climbed 48%.\n  > Capstone Performance Solutions helps manufacturers bring in experienced people, strengthen day-to-day operations, and get production back on track.\n  >\n  > See how Capstone helped this operation move forward.\n  >\n  > 👉View Our Case Study: https://lnkd.in/eMZNq9Bw\n  >\n  > #SupplyChain #Backlog #Automotive #Logistics #RapidResponse\n\n- [2026-10-06 · Posted · 9 reactions] [A busy warehouse isn't necessarily a productive warehouse. When...](https://www.linkedin.com/posts/capstone-logistics-llc_underperforming-warehouse-activity-7513282733645918209-hMuX)\n  > A busy warehouse isn't necessarily a productive warehouse.\n  >\n  > When performance falls short, adding overtime or headcount can look like the obvious solution. But if inefficient processes are the real problem, more labor can simply mean more cost.\n  >\n  > The better question: Where is the operation losing productivity?\n  > Learn how labor efficiency, benchmarking and the right performance metrics can expose the true cost of warehouse underperformance—and help build a more productive operation.\n  >\n  > 👉 https://lnkd.in/eCkk2u6Q\n  >\n  > #WarehouseOperations #WarehouseProductivity #SupplyChain #Logistics\n\n- [2026-10-01 · Posted · 15 reactions] [Warehouse leaders invest heavily in automation, WMS platforms...](https://www.linkedin.com/posts/capstone-logistics-llc_rethinking-warehouse-unloading-activity-7511484845047541760-Vlux)\n  > Warehouse leaders invest heavily in automation, WMS platforms, robotics, and transportation optimization. Inbound unloading — the function that determines how every one of those investments actually performs — usually gets a fraction of that attention.\n  >\n  > The dock is where operational flow starts. Every pallet that comes off a trailer sets the pace for receiving, put-away, replenishment, and fulfillment downstream. When unloading is inconsistent, everything after it turns reactive.\n  >\n  > Rethinking Warehouse Unloading breaks down how high-performing distribution centers treat inbound as a structured system instead of an isolated task:\n  >\n  > → The hidden cost of inefficient unloading and the six inbound challenges even well-run warehouses face\n  > → What separates high-performing dock operations — structured teams, predictable scheduling, operational visibility, and vendor accountability\n  > → How dock scheduling, yard management, and inbound quality technology work together to reduce congestion and wait times\n  > → Why performance-based labor models outperform traditional hourly structures when inbound volume fluctuates\n  > → The five principles high-performing warehouses build their inbound operations around\n  >\n  > At scale, cutting unload time by a few minutes per trailer changes dock throughput and labor productivity across the entire operation.\n  >\n  > Read the full guide. 👇\n  > https://lnkd.in/eWgFjN6w\n  >\n  > #InboundLogistics #WarehouseManagement #SupplyChain #WarehouseOperations #Unloading\n\n- [2026-09-29 · Posted · 20 reactions] [U.S. port imports just hit 2.31 million TEUs in September — the...](https://www.linkedin.com/posts/capstone-logistics-llc_welcome-to-the-september-2026-edition-of-activity-7510742186787958785-tCYF)\n  > U.S. port imports just hit 2.31 million TEUs in September — the highest month of the year and 9.6% above last year. Peak season is not following anyone's plan. 📦\n  >\n  > A month ago that number was forecast at 2.16 million TEUs. What started as an early peak in the spring never actually wound down — it just kept going.\n  > September's edition of Logistics Insights covers that story and two more — why finished inventory is getting stuck inside the warehouse before it ever reaches the customer, and how AI is starting to look less like a workforce replacement and more like a tool that makes the people already on the floor more capable faster.\n  >\n  > This month's issue also includes our employee spotlight on Chris Outlaw — a 12-year Capstone team member who started unloading trailers in Memphis and today leads 24 locations and more than 800 associates. His story is in there and it is worth reading.\n  >\n  > On the blog side we are covering warehouse relocation planning, heat safety on the dock, and why more operations are bringing kitting, co-packing, and value-added services inside the four walls — three topics that are directly relevant to what operations teams are managing heading into Q4.\n  >\n  > 📬 Subscribe to Logistics Insights — supply chain intelligence delivered straight to your feed every month.\n  >\n  > #SupplyChain #Logistics #3PL #WarehouseOperations #LogisticsInsights\n\n- [2026-09-24 · Posted · 21 reactions] [Our Senior Director of Business Development, Victoria Drake, will...](https://www.linkedin.com/posts/capstone-logistics-llc_sac2026-southernautomotiveconference-automotive-activity-7508938642183254016-1soC)\n  > Our Senior Director of Business Development, Victoria Drake, will be at Southern Automotive Conference 2026 in Atlanta, GA from October 6–8. Whether you're navigating workforce scalability during a production ramp-up, tightening dock execution, or need support keeping pace with a line-side schedule, Victoria has the expertise to help.\n  >\n  > Don't miss the chance to connect on the floor. Grab some time on Victoria's calendar below:\n  > 📍 October 6–8 | Atlanta, GA | Gas South Convention Center\n  > 👉 https://lnkd.in/guDDT32v\n  >\n  > #SAC2026 #SouthernAutomotiveConference #Automotive #SupplyChain\n\n- [2026-09-18 · Posted · 10 reactions] [As we all know, peak season doesn’t leave much room for a learning...](https://www.linkedin.com/posts/capstone-logistics-llc_warehouseoperations-supplychain-logistics-activity-7506767568020520960-zDtZ)\n  > As we all know, peak season doesn’t leave much room for a learning curve.\n  >\n  > When a major food and beverage operation needed experienced warehouse support during its highest-volume period, Capstone deployed a travel team built to step into complex operations and get to work quickly while bringing existing staff up to speed on performance-based processes.\n  >\n  > The result: 35% cost savings during peak season.\n  >\n  > That kind of improvement comes when you bypass the learning curve: putting experienced people where they’re needed most, aligning performance with operational goals, and measuring success by results.\n  >\n  > With 40+ years of warehouse experience and teams supporting operations across the country, Capstone knows how to execute when the pressure is on.\n  >\n  > See how the team delivered 35% savings during peak season\n  > https://lnkd.in/evbqvRy9\n  >\n  > #WarehouseOperations #SupplyChain #Logistics #3PL\n\n- [2026-09-18 · 10 reactions] As we all know, peak season doesn’t leave much room for a learning curve. When a major food and beverage operation needed experienced warehouse support during its highest-volume period, Capstone de...\n\n- [2026-09-17 · Posted · 12 reactions] [Moving a warehouse is one of the highest-risk moments in any supply...](https://www.linkedin.com/posts/capst",
+        "summary": "{\"description\":\"Capstone Logistics, LLC is a Transportation, Logistics, Supply Chain and Storage company and a leading third-party logistics (3PL) provider offering warehouse management, transportation and performance solutions.\",\"employee_estimate\":8500,\"employee_estimate_source\":\"Employees: 8,035\",\"hq\":\"Peachtree Corners, Georgia, United States\",\"hq_quote\":\"Headquartered in Peachtree Corners, GA\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"Capstone Logistics is a leading third-party logistics (3PL) provider with a performance-based model built to improve efficiency and lower costs across the supply chain.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQGdd_Wf6vf_Dg/company-logo_200_200/B56Zj2erGeHcAM-/0/1756481893121/capstone_logistics_llc_logo?e=2147483647&v=beta&t=9X6DP5adTVRak1rsL2KXGoXoA2HRs37Xb11TfGu8W3U",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/cmxhd6fvmqf",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Capstone Logistics, LLC",
+              "foundedYear": 1986,
+              "description": "Capstone Logistics is a leading third-party logistics (3PL) provider with a performance-based model built to improve efficiency and lower costs across the supply chain — running Warehousing, Transportation, and Performance operations at scale. Backed by 22,000+ team members, 700+ warehouse sites, and 18M+ shipments managed annually, Capstone delivers the accountability that today's largest retail, grocery, and manufacturing supply chains run on. \n\nCapstone's model is built around three solution areas. Warehouse Management covers full-service operations, inbound unloading, outbound selection, manufacturing support, and warehouse automation inside the four walls. Transportation Services connect those operations to the final consumer through last-mile delivery, cross-docking, yard management, and dedicated fleets. Performance Solutions layers on tactical labor support, pay-for-performance engineering, and the APEX technology suite to stabilize, scale, or transform an operation under pressure. \n\nAutomation alone doesn't move a supply chain. Capstone pairs a performance-based business model with real people managing the supply chain at scale — the combination that lowers costs, increases value, and reduces risk for partners who need more than a vendor relationship. \n\nHeadquartered in Peachtree Corners, GA, Capstone partners with recognized brands across retail, grocery, automotive, food manufacturing, home improvement, and healthcare. \n\nLearn more at capstonelogistics.com. \n\nLooking for your next career? Visit https://www.capstone.jobs/us/en",
+              "workforce": {
+                "total": 8035
+              },
+              "headquarters": {
+                "address": "30 Technology Pkwy S, Peachtree Corners, Georgia 30092, US",
+                "city": "Peachtree Corners",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 1920000000,
+                "fundingTotal": 37500000,
+                "fundingLatestRound": {
+                  "name": "Venture",
+                  "date": "2021-04-01",
+                  "amount": null
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 113955,
+                "countryRank": 63632,
+                "avgDurationSeconds": 145,
+                "history": [
+                  {
+                    "value": 137844,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 90957,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 86532,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 120776,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 115818,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 113955,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/vx9pjgm29pz",
+        "title": "Capstone Logistics",
+        "url": "https://www.capstone.jobs/",
+        "text": "# Capstone Logistics\n\nCapstone Logistics is a Construction company. Capstone Logistics employs 175 people (+3.6% YoY, +6 people), founded in 2016. Headquartered in Trenton, Texas, United States.\n\n## About\n\nCapstone Logistics is providing logistics services to Construction Materials providers in the North Texas (\"NTX\"​) market, hauling their rock, sand & gravel to support the rapidly growing NTX Construction industry.\n\nOur innovative and structured approach will provide reliability to each of our Customers delivering on the promise that \"We've Got You Covered.\"​\n\n## Company Details\n- Industry: Construction\n- Type: Privately held\n- Headquarters: Trenton, United States\n- Founded Year: 2016\n- Homepage: capstone-logistics.net\n- Aliases: capstone logistics\n- LinkedIn: linkedin.com/company/capstonelogistics\n- Linkedin Followers: 675\n- Phone: 50.414.863, 51.845.052, 905.581.784\n\n## Workforce\n- Employees: 175\n- Company Size: 11-50 employees\n  - Yearly Growth: +3.6%\n- Breakdown:\n  - By Country: United States: 16 (9%)\n  - By Department: Operations: 6 (3%), Trades: 4 (2%), Administrative: 2 (1%), Project Management: 2 (1%), Other Department: 1 (1%), Technical: 1 (1%)\n  - By Seniority: Specialist: 9 (5%), Manager: 4 (2%), Other Management: 3 (2%)\n- Salary ranges (20 of 52 roles):\n  - Director: median $150,069.38 per year\n  - Regional Director: median $145,362.1 per year\n  - Senior Manager: median $131,567.37 per year\n  - Director of Operations: median $129,003.19 per year\n  - Software Engineer: median $121,817.18 per year\n  - Product Manager: median $118,700.53 per year\n  - Senior Network Administrator: median $105,723.01 per year\n  - Strategic Account Manager: median $94,057.84 per year\n  - Help Desk Manager: median $93,387.38 per year\n  - UX Designer: median $92,400.44 per year\n  - General Manager: median $92,023.34 per year\n  - Project Manager: median $91,208.51 per year\n  - Client Sales Trainer: median $82,220.43 per year\n  - Site Operations Manager: median $82,139.34 per year\n  - Account Manager: median $77,656.11 per year\n  - Commission Unloader/Lumper: median $76,471.31 per year\n  - Human Resources: median $72,593.17 per year\n  - Site Manager: median $71,367.72 per year\n  - Client Account Executive: median $69,441.41 per year\n  - Traveling Order Selector: median $64,306.58 per year\n- Talent Sources: U.S. Bank (1), TEACH Acquisitions (1), Serenity Home Healthcare (1), Metal Technologies (1), Locke Supply Co (1), INPROV, LLC (1), Harlow's Casino Resort & Spa (1), Camp Verde Fire District (1), Advance Auto Parts (1), AGRO Merchants Group (1)\n- Alumni Go To: Capstone Logistics, LLC (2), Veho (1), Southwestern Roofing (1), Pool & Electrical Products (1), Kelly Logistics, LLC (1), IFF (1), Clove Creek Dinner Theater (1), CVS Health (1), Aterro (1), Amazon Fullfillment Centre (1)\n\n## Products & Technology\n- Tech Stack: well, elk, impact, microsoft, prototype, c, matlab, python, signal, supersonic, git, linux, puppet, red hat, simulink, vmware, autocad, deltek costpoint, mix, ups, catia, ease, electric, braze, gauges, medium, upkeep, qlik\n\n## Web presence\n\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Reviews & Ratings\n- Employer Rating: 2.7/5.0 (1,104 reviews)\n  - Breakdown: Work-Life: 2.4, Compensation: 2.3, Culture: 2.4, Career: 2.3\n\n## Categories\n\nconstruction materials logistics avetta approved for ready-mix, gambling, indonesia, live performance, online slot, potential games, spin\n\n## Recent News\n- [2026-09-15] Stock Titan: Building-products spending fell an estimated 8.5%. One distributor's sales grew about 7%.\n- [2026-08-29]\n  - Stock Titan: Capstone says 75% of convertible note principal is retired, $1.72M remains\n  - Send2Press: Inbound Logistics Names Capstone Logistics a 2026 Top 3PL Provider\n- [2026-08-21] DVIDS: Logistics captains take on VCU supply chain management program\n- [2026-08-19] [🚚 Dallas Supply Chain & Logistics – Multiple Roles Up to $110K - NewsBreak](https://www.newsbreak.com/dallas-tx-daily-brief-375415202/4837010046189-dallas-supply-chain-logistics-multiple-roles-up-to-110k)\n- [2026-08-16]\n  - scanx.trade: Capstone Holding Restates Q2, Q3 2025 Net Loss Per Share\n  - Stock Titan: Revenue grew 67%; Capstone shareholders can ask what's next\n- [2026-08-09]\n  - Toimihenkilöliitto Erto: Rabbitdogs Net\n  - Toimihenkilöliitto Erto: Springfield Mo Police Department\n  - Toimihenkilöliitto Erto: The Ultimate Guide To K And B Trucking Reviews The Pros The Cons And Everything In Between\n  - Toimihenkilöliitto Erto: Unveiling The Hunt Familys Influence Power And Politics Behind The Net Worth\n- [2026-07-28] Revelio Labs: Capstone Logistics Number of Employees 2026 \\| Employee Count & Headcount Data\n\n## Locations\n- Headquarters: trenton, texas, united states (US)\n- Offices: trenton, texas, united states (US)",
+        "summary": "{\"description\":\"Capstone Logistics provides logistics services to Construction Materials providers in the North Texas market, hauling rock, sand & gravel to support the NTX Construction industry.\",\"employee_estimate\":175,\"employee_estimate_source\":\"Employees: 175\",\"hq\":\"Trenton, United States\",\"hq_quote\":\"Headquartered in Trenton, Texas, United States.\",\"industry\":\"Construction\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"Capstone Logistics is providing logistics services to Construction Materials providers in the North Texas (\\\"NTX\\\"​) market, hauling their rock, sand & gravel to support the rapidly growing NTX Construction industry.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C560BAQFeHTpXliwpng/company-logo_200_200/company-logo_200_200/0/1631413805482/capstonelogistics_logo?e=2147483647&v=beta&t=0_UGMXiZuFm4kmyzFzaHk70jkwAW3gaRL6Qo_mZTqh0",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/vx9pjgm29pz",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Capstone Logistics",
+              "foundedYear": 2016,
+              "description": "Capstone Logistics is providing logistics services to Construction Materials providers in the North Texas (\"NTX\"​) market, hauling their rock, sand & gravel to support the rapidly growing NTX Construction industry.\n\nOur innovative and structured approach will provide reliability to each of our Customers delivering on the promise that \"We've Got You Covered.\"​",
+              "workforce": {
+                "total": 175
+              },
+              "headquarters": {
+                "address": "721 N. Hwy. 69 Trenton, Texas 75490, Trenton, Texas 75490, US",
+                "city": "Trenton",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 777,
+                    "dateFrom": "2026-01",
+                    "dateTo": "2026-01"
+                  },
+                  {
+                    "value": 777,
+                    "dateFrom": "2026-02",
+                    "dateTo": "2026-02"
+                  },
+                  {
+                    "value": 50,
+                    "dateFrom": "2026-03",
+                    "dateTo": "2026-03"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 5157.7,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

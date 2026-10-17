@@ -1,0 +1,266 @@
+{
+  "request": {
+    "query": "Greptile",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "d3327c8cfe550c556cdc9e833f937b5a",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/1tzr86zpdr9",
+        "title": "Greptile",
+        "url": "https://www.greptile.com/",
+        "text": "# Greptile\n\nGreptile is a Technology, Information and Internet company. Greptile is an AI Code Review company that helps automate PR reviews, catch bugs faster, and improve code quality with AI-driven analysis. Greptile employs 41 people (+173.3% YoY, +26 people), founded in 2024. Headquartered in San Francisco, California, United States. Its workforce is distributed across United States, Singapore, Canada, and India.\n\n## About\n\nBuilding the universal code validation layer, starting with AI agents that review pull requests with full codebase context.\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Headquarters: San Francisco, United States\n- Founded Year: 2024\n- Homepage: greptile.com\n- Aliases: Tabnam, Inc., greptile, onboard ai\n- LinkedIn: linkedin.com/company/greptile\n- Linkedin Followers: 10,038\n- Emails: hello@greptile.com\n\n## Financials\n- Total Funding: USD 32,075,000\n  - Series a (2025-10-23): USD 25.0M\n  - Seed (2024-06-06): USD 3.8M\n  - Pre seed (2024-04-03): USD 500,000\n  - Seed (2024-03-01): USD 125,000\n  - Pre seed (2023-08-17): USD 1.0M\n\n## Workforce\n- Employees: 41\n- Company Size: 11-50 employees\n  - Monthly Growth: +5.1%\n  - Yearly Growth: +173.3%\n- Key Executives:\n  - DJ Parker: Enterprise Account Director\n  - Daksh Gupta: Co-Founder, CEO\n  - Eddie Medak: Chief Revenue Officer\n  - Jihoon Choi: Founding Account Executive\n  - Kelvin Song: Head of Information Technology\n  - Rahul Bathija: Head of Growth\n  - Soohoon Choi: CTO, Cofounder\n  - Vaishant Kameswaran: Co-Founder\n- Breakdown:\n  - By Country: United States: 31 (76%), Singapore: 2 (5%), Canada: 1 (2%), India: 1 (2%)\n  - By Department: Technical: 18 (44%), Sales: 4 (10%), Marketing: 3 (7%), Research: 2 (5%), Administrative: 1 (2%), Consulting: 1 (2%), General Management: 1 (2%), Hr: 1 (2%), Legal: 1 (2%), Operations: 1 (2%) (+2 more)\n  - By Seniority: Other Management: 13 (32%), Specialist: 11 (27%), Clevel: 3 (7%), Intern: 3 (7%), Founder: 2 (5%), Head: 2 (5%), Director: 1 (2%), Manager: 1 (2%)\n- Active job postings: 16\n- Talent Sources: Stripe (2), Anyscale (2), Wise (1), University of Chicago (1), LinkedIn (1), Kipo AI (1), Grass Labs Pte Ltd (1), Figma (1), Design Intelligence Lab (1), AirMettle, Inc. (1)\n- Alumni Go To: Trace AI (1), Startup (1), Rhodium Software (1), Pierre Computer Company (1), Kryterion, Inc. (1), Honeywell Technologies (1), Confidential (1), Cherry Servers (1), Backtick (1), Amazon Web Services (AWS) (1)\n\n## Products & Technology\n- Features: Free Trial\n- Tech Stack: bitbucket, coinbase, docker, figma, git, github, gitlab, html, javascript, klaviyo, kubernetes, linkedin, linux, mlops, nvidia, prototype, saml, sql, stripe, terraform, typescript, zapier, twitter, well\n\n## Web presence\n\n- Twitter: twitter.com/getonboardai\n- YouTube: youtube.com/@greptileai\n- Crunchbase: crunchbase.com/organization/tabnam\n- GitHub: github.com/greptileai\n- Web traffic:\n  - Monthly visits: 277,559\n  - Global rank: 161,643\n  - Bounce rate: 49.0%\n  - Pages per visit: 2.8\n  - Average visit duration: 91s\n\n## Reviews & Ratings\n- Product Reviews: 4.2/5.0 (19 reviews)\n\n## Categories\n\nai code review, ai coding assistants, ai-driven analysis, artificial-intelligence, bug catching, cloud-services, code quality, computers_electronics_and_technology/programming_and_developer_software, developer tools, developer-tools, devsecops software, enterprise software, greptile, machine learning, pr reviews, secure code review, secure code review software, software, technology, technology/software\n\n## Competitors\n\nnexus frontiertech, level4, deepcode, cloud9\n\n## Recent News\n- [2026-10-04] BigGo Finance: AI-Generated Code Now Matches Human Quality, Greptile's Daksh Gupta Says\n- [2026-09-28] [Enterprise AI desperately needs to protect data and models. Here's how confidential AI could do it. - The New Stack](https://thenewstack.io/confidential-ai-sensitive-enterprise-data/)\n- [2026-09-25] [Where agents find answers](https://parallel.ai/)\n- [2026-09-24] [Nvidia–Greptile collaboration reportedly cuts merge times by up to 80% · Digg](https://digg.com/ai/t8p2sx22)\n- [2026-09-21] [Daksh Miglani: Build the Rubric Before Building the Agent Loop](https://www.dnaindia.com/insights/report-daksh-miglani-build-the-rubric-before-building-the-agent-loop-3220941)\n- [2026-09-10] GetLatka: Greptile Revenue 2024: $1M Est. ARR, $180M Valuation\n- [2026-09-09]\n  - [Claude did best on a new benchmark for agents that build agents. It still passed fewer than a quarter of the tests. - The New Stack](https://thenewstack.io/claude-build-agents-benchmark/)\n  - [\"It could kill us all\": what Anthropic's own researchers really think about superintelligence - The New Stack](https://thenewstack.io/anthropic-alignment-superintelligence-warnings/)\n  - [How much control should AI get? A CISO roundtable takes on SOC autonomy - The New Stack](https://thenewstack.io/ai-agents-soc-autonomy/)\n  - [K2 Horizon just shipped as six new fully open models — developers aren't fully convinced - The New Stack](https://thenewstack.io/k2-horizon-fully-open/)\n  - [Harness rebuilt its Git repository for nonstop AI agent traffic - The New Stack](https://thenewstack.io/harness-ai-code-review/)\n- [2026-09-08]\n  - [DeepSeek is hiring 150 engineers, and none of them will touch a model - The New Stack](https://thenewstack.io/deepseek-dsec-agent-hiring/)\n  - [After nine years as HashiCorp CEO, Dave McJannet now wants to \"unblock\" enterprise AI agents - The New Stack](https://thenewstack.io/hashicorp-mcjannet-dome-agents/)\n- [2026-09-07]\n  - [“Twenty years of brand building simply froze in time”: How coding agents select their tools of choice - The New Stack](https://thenewstack.io/coding-agents-tool-choice/)\n  - [Permissions belong in the assembly context - The New Stack](https://thenewstack.io/enterprise-rag-permission-assembly/)\n- [2026-09-06] [Polars 2.0 pre-release comes with a 5x speed boost — but it could change row order - The New Stack](https://thenewstack.io/polars-streaming-row-order/)\n- [2026-09-05]\n  - [Claude Fable 5.1 vs. Fable 5: On real work, I couldn't tell them apart. - The New Stack](https://thenewstack.io/claude-fable-upgrade-tested/)\n  - [Building trust in agentic RAG starts with evidence - The New Stack](https://thenewstack.io/building-trust-agentic-rag/)\n- [2026-09-04]\n  - [AI agent evaluations are part of the product - The New Stack](https://thenewstack.io/ai-agent-evaluation-gates/)\n  - [\"1% of my engineers are responsible for 40% of token spend\": Why Coder and SpaceXAI want to give developers nice things - The New Stack](https://thenewstack.io/coder-cursor-agent-relay/)\n- [2026-09-01] [Vibe-coded apps are the new shadow IT - The New Stack](https://thenewstack.io/vibe-coded-shadow-it/)\n- [2026-08-31] [MCP was supposed to solve the agent tooling problem. It missed a step. - The New Stack](https://thenewstack.io/ard-agent-discovery-specification/)\n- [2026-08-21] Mshale: WTF Is An \"AI Agent Loop\"? Genius Or Hype? Ryan Seacrest \\(Hl26Fywq4R\\)\n- [2026-08-14] GetLatka: Greptile Revenue 2024: $1M Est. ARR\n- [2026-06-27] The New Stack: Greptile, Cursor, and Devin agree that agents should run their code. What they run it against matters.\n- [2026-05-15] MSN: Who is Daksh Gupta, 23-year-old Indian-origin CEO going viral for 9-9-6 rule?\n- [2025-09-13] Times of India: An AI start-up wants you to work 9am–9pm, 6 days a week. You will be paid rather well. Would you?\n- [2025-09-03] Livemint.com: Who is Daksh Gupta, the 23-year-old AI startup CEO, and what is his viral ‘9-9-6’ rule?\n- [2025-09-01]\n  - Livemint.com: 90-hour work week debate: Meet Daksh Gupta, 23-year-old Indian-origin CEO who advocates 12-hour workdays\n  - Livemint.com: Indian-origin CEO Daksh Gupta offers ₹1.5 crore salary package for freshers, but there’s a ‘9-9-6’ rule\n- [2025-07-21] Tech Funding News: AI startup Greptile eyes $180M valuation to disrupt future of AI code review\n- [2025-07-18] TechCrunch: Benchmark in talks to lead Series A for Greptile, valuing AI-code reviewer at $180M, sources say\n- [2024-11-18]\n  - mint: Indian-American CEO says ‘20% death threats and 80% job applications…’ after post about company’s 84-hour workweeks\n  - Times Now: Job or 'Modern-Day Slavery': Indian-Origin CEO Faces Backlash Over '84-Hour Workweek' Policy\n  - Times Now: Work-Life Balance No Longer A Necessity? THIS Indian-Origin CEO’s 14-Hour Workday Policy Stirs Controversy\n- [2024-11-04] Crunchbase News: How Startups Stopped Being Fun\n- [2024-06-30] TechCrunch: Greptile raises $4M to build an AI-fueled code base expert\n- [2024-06-18] Crunchbase News: Right Off The Batch: 50% Of YC W24 Is Built With AI. Who Got Funded?\n- [2024-06-07] The SaaS News: Greptile Raises $4 Million in Seed Round\n- [2024-06-06] FinSMES: Greptile Raises $4.1M in Seed Funding\n\n## Social\n\n### Linkedin\n\n- [2026-10-02 · Posted · 46 reactions] [\"The thought of adding an agent to PRs to do code reviews, a...](https://www.linkedin.com/posts/greptile_the-thought-of-adding-an-agent-to-prs-to-activity-7511819894083047424-HMaN)\n  > \"The thought of adding an agent to PRs to do code reviews, a potential slop cannon, was extremely contentious. We took the leap and we're so glad we did.\"\n  >\n  > Austin Pray, Eng Manager at Mixpanel, on how they review agent-written code at scale.\n  >\n  > Mixpanel tried building their own AI reviewer first. It was expensive and buried real bugs under nitpicks. Now Greptile reviews ~2,900 of their PRs a month, including ones written by TAL, their in-house coding agent.\n  >\n  > Read the full story: https://lnkd.in/e4YQBS8t\n\n- [2026-09-30 · Posted · 48 reactions] [We're a launch partner for the OpenAI Marketplace. OpenAI...](https://www.linkedin.com/posts/greptile_were-a-launch-partner-for-the-openai-marketplace-activity-7511114029856325635-_tO7)\n  > We're a launch partner for the OpenAI Marketplace.\n  >\n  > OpenAI enterprise customers can now apply part of their existing commitment toward Greptile for code review on every PR.\n  >\n  > Learn more: https://lnkd.in/gf_c3bdJ\n\n- [2026-09-24 · Posted · 61 reactions] [Todd Tanber, Senior Engineering Manager at NVIDIA: \"Most code...](https://www.linkedin.com/posts/greptile_todd-tanber-senior-engineering-manager-at-activity-7508906063442735104-Rnrn)\n  > Todd Tanber, Senior Engineering Manager at NVIDIA: \"Most code review tools just look at the diff. Greptile reads across the entire codebase. That's essential for NVIDIA at the scale in which we operate.\"\n  >\n  > Greptile has reviewed over 395,000 pull requests across NVIDIA's large, complex codebases, where keeping up with code review was taking a growing share of engineers' time.\n  >\n  > Greptile reviews first against NVIDIA's own coding standards. Praveen Dorairaj, who used to review code for everyone on a team of 6, now gets changes after they've been through a couple of rounds with Greptile.\n  >\n  > On one team, the average time to merge went from more than 24 hours to 6 hours.\n\n- [2026-09-24 · 31 reactions, 2 comments] Todd Tanber, Senior Engineering Manager at NVIDIA: \"Most code review tools just look at the diff. Greptile reads across the entire codebase. That's essential for NVIDIA at the scale in which we ope...\n\n- [2026-09-23 · Posted · 11 reactions] [Greptile already reviews across NVIDIA's Perforce and GitLab...](https://www.linkedin.com/posts/greptile_code-review-that-runs-on-both-gitlab-perforce-activity-7508666555765964800-lMle)\n  > Greptile already reviews across NVIDIA's Perforce and GitLab depots. It reads the whole codebase rather than the diff, and applies your team's standards. Ask your admin to enable your depot path.\n\n- [2026-09-21 · Posted · 9 reactions] [We're starting a lecture series at The Interval called Blackboard...](https://www.linkedin.com/posts/greptile_were-starting-a-lecture-series-at-the-interval-activity-7507878854913417216-FWyZ)\n  > We're starting a lecture series at The Interval called Blackboard Lectures on Tap.\n  >\n  > Developers, founders, and researchers can share what they’re working on, thinking about, or know way too much about.\n  >\n  > First edition tomorrow, Sept 22, 6:30pm with:\n  >\n  > Jacob Thornton : Reinventing the wheel and the capacity for work\n  > Hahnbee Lee : Rebuilding docs infrastructure to a 100% cache hit rate\n  > James Wu : Scaling agentic workloads on Kubernetes with MicroVMs\n  >\n  > Come learn something, ask questions, stay for drinks.\n\n- [2026-09-21 · 13 reactions, 2 comments] We're starting a lecture series at The Interval called Blackboard Lectures on Tap. Developers, founders, and researchers can share what they’re working on, thinking about, or know way too much abou...\n\n- [2026-09-16 · Posted · 107 reactions] [Introducing the Knowledge Base MCP. Greptile maintains a detailed...](https://www.linkedin.com/posts/greptile_introducing-the-knowledge-base-mcp-greptile-activity-7506034315932213248-7OE1)\n  > Introducing the Knowledge Base MCP.\n  >\n  > Greptile maintains a detailed knowledge base of how every part of your codebase works, as well as a history of past incidents.\n  >\n  > Starting today coding agents like Codex, Claude can access the Knowledge Base via Greptile's MCP, so they can use Greptile's learnings to write better code.\n\n- [2026-09-16 · 131 reactions, 9 comments] Introducing the Knowledge Base MCP. Greptile maintains a detailed knowledge base of how every part of your codebase works, as well as a history of past incidents. Starting today coding agents like...\n\n- [2026-08-26 · Posted · 51 reactions] [On Sunday we hosted our second Fast Hackathon at Y Combinator...](https://www.linkedin.com/posts/greptile_on-sunday-we-hosted-our-second-fast-hackathon-activity-7498394084353458176-vdRu)\n  > On Sunday we hosted our second Fast Hackathon at Y Combinator sponsored by Stripe, OpenAI, Modal, Amazon Web Services (AWS), and DoorDash.\n  >\n  > Congratulations to all the winners! Here are the top 3 projects that were built in just 4 hours.\n  >\n  > 1st Place: AltShift catches accessibility bugs by using browser agents to compare standard and simulated assisted experiences on websites.\n  >\n  > 2nd Place: Leo is a voice SRE (site reliability engineer) agent that detects, diagnoses, and fixes issues in your infrastructure. It can be your helper when oncall or when you need a second opinion.\n  >\n  > 3rd Place: Repo world is a gamified way to visualize and understand your codebase. Fight bugs with Greptile and explore the city.\n  >\n  > People's Choice Award: Autofix self-heals bad API requests in real time so your apps and agents never go down.\n  >\n  > Claude-mem Prize Track: Team Brain\n  >\n  > Thank you to all the participants, judges, partners, and our amazing Greptile team that made this all possible!\n\n- [2026-08-26 · 67 reactions, 5 comments] On Sunday we hosted our second Fast Hackathon at Y Combinator sponsored by Stripe, OpenAI, Modal, Amazon Web Services (AWS), and DoorDash. Congratulations to all the winners! Here are the top 3 pro...\n\n- [2026-08-18 · Reshared · 8 reactions] [GREP SUMMER!](https://www.linkedin.com/posts/greptile_grep-summer-activity-7495616385625255936-3CkI): GREP SUMMER!\n\n- [2026-08-05 · Reshared · 259 reactions] [Introducing Greptile v5, a ground-up rewrite of the Greptile coding...](https://www.linkedin.com/posts/greptile_activity-7490824604379377664-cbOo): Introducing Greptile v5, a ground-up rewrite of the Greptile coding agent. It catches more bugs, with higher precision, and 2x faster (~2 minutes per review) 3 things are better: First, it catches...\n\n- [2026-07-29 · Reshared · 182 reactions] [Introducing Greptile security agent. It combines static analysis...](https://www.linkedin.com/posts/greptile_activity-7488264059549548548-nrn7): Introducing Greptile security agent. It combines static analysis, SCA, and AI agents to efficiently catch security flaws before merge. Why did we build this? - Coding agents have caused the frequen...\n\n- [2026-07-25 · Reshared · 1,199 reactions] [Introducing model inversion. Greptile detects if your PR was...](https://www.linkedin.com/posts/greptile_activity-7486838208698396672-lihW): Introducing model inversion. Greptile detects if your PR was generated using GPT or Claude models, and uses the other model for review. Rohan and Rodrigo from our research team share why we do this:\n\n- [2026-07-22 · Posted · 2 reactions] [Greptile reviews every PR against your whole codebase, so it...](https://www.linkedin.com/posts/greptile_contact-sales-greptile-activity-7485751385309802496-KqVX)\n  > Greptile reviews every PR against your whole codebase, so it catches bugs a diff-only reviewer misses. 10,000+ teams run it on their repos. Add it to yours in a few minutes.\n\n- [2026-07-22 · Posted · 3 reactions] [The State of AI Coding - 2026 Report: A cross-industry study on...](https://www.linkedin.com/posts/greptile_ai-code-review-greptile-merge-4x-faster-activity-7485719448209752064-tnvG)\n  > The State of AI Coding - 2026 Report: A cross-industry study on recent trends in AI software development.\n\n- [2026-07-21 · Posted · 5 reactions] [Greptile now reviews your PostHog code with additional context...](https://www.linkedin.com/posts/greptile_partners-greptile-activity-7485474567898202112-Trfh)\n  > Greptile now reviews your PostHog code with additional context directly from PostHog. Better context, more catches.\n\n- [2026-07-21 · Posted · 3 reactions] [Greptile now reviews your Braintrust code with additional context...](https://www.linkedin.com/posts/greptile_partners-greptile-activity-7485480288953712641-0Fbt)\n  > Greptile now reviews your Braintrust code with additional context directly from Braintrust. Better context, more catches.\n\n- [2026-07-21 · Posted · 4 reactions] [Greptile now reviews your Mintlify code with additional context...](https://www.linkedin.com/posts/greptile_partners-greptile-activity-7485475665434275841-vRbm)\n  > Greptile now reviews your Mintlify code with additional context directly from Mintlify. Better context, more catches.\n\n## Locations\n- Headquarters: san francisco, california, united states (US)\n- Offices: san francisco, california, united states (US)",
+        "summary": "{\"description\":\"Greptile is an AI Code Review company that helps automate PR reviews, catch bugs faster, and improve code quality with AI-driven analysis.\",\"employee_estimate\":41,\"employee_estimate_source\":\"Employees: 41\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"San Francisco, California, United States\",\"hq_quote\":\"Headquartered in San Francisco, California, United States.\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Greptile is a Technology, Information and Internet company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 32,075,000\\n  - Series a (2025-10-23): USD 25.0M\\n  - Seed (2024-06-06): USD 3.8M\\n  - Pre seed (2024-04-03): USD 500,000\\n  - Seed (2024-03-01): USD 125,000\\n  - Pre seed (2023-08-17): USD 1.0M\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQE8tnWiA02OCg/company-logo_200_200/B56Z2TOlyHIsAI-/0/1776291569102/greptile_logo?e=2147483647&v=beta&t=bY9btxNJ7E2nWe6joJOCniVFlwyvo9o4x_d7M8vXBnA",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/1tzr86zpdr9",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Greptile",
+              "foundedYear": 2024,
+              "description": "Building the universal code validation layer, starting with AI agents that review pull requests with full codebase context. ",
+              "workforce": {
+                "total": 41
+              },
+              "headquarters": {
+                "address": "San Francisco, California 94133, US",
+                "city": "San Francisco",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 32075000,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2025-10-23",
+                  "amount": 25000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 277559,
+                "countryRank": 87917,
+                "avgDurationSeconds": 91,
+                "history": [
+                  {
+                    "value": 231636,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 226099,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 283525,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 268857,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 253151,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 277559,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/f2rx18qdfj1",
+        "title": "Reptile",
+        "url": "https://reptile.tech/",
+        "text": "# Reptile\n\nReptile is a Technology, Information and Internet company. Reptile is a web agency that provides digital services such as website creation, digital marketing, seo, and online advertisi. Reptile employs 25 people (+13.6% YoY, +3 people) and has an annual revenue of $5.6M, founded in 2001. Headquartered in Brossard, Quebec, Canada, with presence in United States. Its workforce is distributed across Canada, France, and Spain.\n\n## About\n\nWe are Reptile, a firm founded in 2001 specializing in interactive websites and multi-platform solutions. We have been called creative, geeky, and most of all, really nice people! Our specializations are digital marketing strategies, web development, e-commerce, web design, social media marketing, CMS, and more! Mix creativity and results, and results happen!\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Headquarters: Brossard, Canada\n- Founded Year: 2001\n- Homepage: reptile.tech\n- Aliases: reptile, reptile technology, inc.\n- LinkedIn: linkedin.com/company/reptile.tech\n- Linkedin Followers: 1,874\n- Phone: 450-466-9173\n\n## Financials\n- Annual Revenue: USD 5,569,552\n\n## Workforce\n- Employees: 25\n- Company Size: 11-50 employees\n  - Yearly Growth: +13.6%\n- Key Executives:\n  - Jean-Francois Labelle: COO, Co-Founder\n  - Julie Thériault: Cheffe stratégie et service-conseil\n  - Stéphane Gagné: Directeur Technique Associé\n- Breakdown:\n  - By Country: Canada: 10 (40%), France: 1 (4%), Spain: 1 (4%)\n  - By Department: Technical: 3 (12%), Consulting: 2 (8%), Other Department: 2 (8%), Administrative: 1 (4%), Design: 1 (4%), General Management: 1 (4%), Marketing: 1 (4%), Project Management: 1 (4%)\n  - By Seniority: Specialist: 4 (16%), Manager: 2 (8%), Other Management: 2 (8%), Clevel: 1 (4%), Director: 1 (4%), Head: 1 (4%), Senior: 1 (4%)\n- Talent Sources: SmartBi (3), MyEvent.com (2), Lime Blogue (2), Akufen (2), Trévi (1), Seedbox Technologies (1), RCL - Reitmans Canada Ltd/Ltée (1), CQM - Conseil québécois de la musique (1), Akoha (1), Activis (1)\n- Alumni Go To: ideali Relationship Marketing + E-Commerce (2), Unity (2), Trinary (2), Seriously Social (2), Agence Tokilab (2), SmartBi (1), Santé Québec Montérégie-Ouest (1), NEXT AI (1), Julie Thério (1), FHCQ - Fédération de l'habitation coopérative du Québec (1)\n\n## Products & Technology\n- Tech Stack: linkedin, pipedrive, proposify, shopify, tiktok, wordpress, youtube, canva, facebook, fera, figma, google ads, linkedin ads, c, impact, instagram, stats, chef, cision, amp, mix\n\n## Web presence\n\n- Twitter: twitter.com/agence_reptile\n- Facebook: facebook.com/agencereptile\n- Instagram: instagram.com/agencereptile\n- Web traffic:\n  - Monthly visits: 2,019\n  - Global rank: 8,176,967\n  - Bounce rate: 37.0%\n  - Pages per visit: 1.5\n  - Average visit duration: 28s\n\n## Categories\n\nanalysis and strategy, application / mobile, back-end development, blog, business model canvas, cms, computers_electronics_and_technology/graphics_multimedia_and_web_design, content strategy, contest tool, dashboard implementation, digital marketing, digital services, e-commerce, e-mail marketing, e-mail strategy, ergonomics, intranet / extranet, mobile development, performance measurement, project management, sem, seo, social network, technology/internet services, visual identity, web agency, web design, web hosting, website, website creation\n\n## Recent News\n- [2026-10-02] ThePrint: 345-million-year-old reptile Lizzie was not a reptile at all, X-rays reveal\n- [2026-09-28] Yahoo: Air Jordan 12 'Reptile' Resale Price, Where to Buy\n- [2026-09-21] Yahoo: Southern Arizona Reptile Rescue seeks homes for baby tortoises found citywide\n- [2026-08-27] SciTechDaily: Scientists Discover a Mysterious New Snake Species Hiding in New Guinea\n- [2026-08-12] The Cool Down: Rare fossil from Australia reveals one giant reptile's final meal, and the predator that tore it apart\n- [2026-05-14] Yahoo: Toledo Zoo to reopen Reptile House after more than a year of renovations\n- [2025-06-08] WFMZ.com: Scientists discover how this prehistoric reptile could fly\n- [2025-05-12] Click2Houston: How ancient reptile footprints are rewriting the history of when animals evolved to live on land\n- [2025-04-20] MSN: 20 Endangered Reptiles Fighting for Survival in America\n- [2025-02-13] EL PAÍS English: Mammals, birds, and reptiles evolved complex brains through different paths\n- [2024-11-20] SciTechDaily: Unusual 200-Million-Year-Old Pterosaur Fossil Unlocks Secrets of Flying Reptile Evolution\n- [2024-10-14] EurekAlert\\!: New venomous reptile species unearthed in Arizona\n- [2024-09-06] Giant Freakin Robot: Rare Snake Hatches From Groundbreaking Reproduction Tech\n- [2024-06-23] SciTechDaily: Ancient Crocodile-Like Reptile Discovered in Brazil\n- [2024-06-20] Tech Times: Fossil Finds Suggest Small, Crocodile-Like Reptiles Roamed Brazil Before Dinosaurs\n- [2024-04-25] Scripps News: This your reptile? Colorado officials rescue orange iguana at a park\n- [2024-03-15] Tech Explorist: The world’s oldest long-necked marine reptile\n- [2024-02-26] SciTechDaily: Deception in Paleontology: The Painted ‘Skin’ on a 280-Million-Year-Old Fossil\n- [2024-02-23] Sky News: Scientists unveil 240-million-year-old reptile likened to 'Chinese dragon'\n- [2024-02-10] SciTechDaily: Earliest Known Skin Fossil Shocks Paleontologists – “Unlike Anything We Would Have Expected”\n\n## Social\n\n### Linkedin\n\n- [2026-10-07 · Posted · 1 reaction] [💡L'IA et les algorithmes sont puissants pour optimiser tes...](https://www.linkedin.com/posts/reptile%2Etech_lia-et-les-algorithmes-sont-puissants-activity-7513622427923505152-aUg2)\n  > 💡L'IA et les algorithmes sont puissants pour optimiser tes campagnes publicitaires, mais attention aux pièges!\n  > Valentin te résume 3 éléments indispensables pour garder le contrôle sur tes résultats et ne pas gaspiller ton budget.\n\n- [2026-10-06 · Posted] [Est-ce que ton site web actuel va te bloquer dans 3 ans? 🛑 Wix est...](https://www.linkedin.com/posts/reptile%2Etech_est-ce-que-ton-site-web-actuel-va-te-bloquer-activity-7513259773644152832-ZZUE)\n  > Est-ce que ton site web actuel va te bloquer dans 3 ans? 🛑\n  > Wix est une excellente solution pour se lancer vite et à bas prix. Mais quand ton entreprise grandit, les limites arrivent très vite.\n  > Paul nous explique la vraie question à se poser avant de choisir une plateforme web.\n  >\n  > 🎬 Visionne la vidéo complète ici: https://lnkd.in/gEjMDG97\n\n- [2026-10-01 · Posted · 2 reactions] [L’automne s'installe et apporte avec lui une énergie que tout le...](https://www.linkedin.com/posts/reptile%2Etech_lautomne-sinstalle-et-apporte-avec-lui-activity-7511441267709558787-xs8d)\n  > L’automne s'installe et apporte avec lui une énergie que tout le monde ressent! 🍂\n  > C’est le timing parfait pour réaligner vos priorités, capter l'attention de votre audience et attaquer la fin de l'année avec un impact réel et concret.\n  >\n  > 💻 Simplification de vos outils, positionnement sur l'IA, contenu authentique, relations directes... découvrez les opportunités sur lesquelles miser en ce début de saison avec ces 5 moteurs de croissance sur lesquels miser en cette période de renouveau: 🔗 https://lnkd.in/gEGpBdnk...\n  >\n  > Quelles stratégies vous parlent le plus parmi celles-ci?\n\n- [2026-09-30 · Posted · 4 reactions] [Stratégie, production visuelle, direction créative, transformation...](https://www.linkedin.com/posts/reptile%2Etech_strat%C3%A9gie-production-visuelle-direction-activity-7511079498193330178-Ooyj)\n  > Stratégie, production visuelle, direction créative, transformation de nos bureaux en studio et même modèles d'un jour.... Chez Reptile, toutes nos expertises s'unissent pour donner vie aux projets de nos clients. 🎥 🦎\n  >\n  > Coup d'œil sur l'une de ces journées bien chargées, et surtout particulièrement stimulantes! ✨\n\n- [2026-09-10 · Posted · 1 reaction] [On s’entend: l’intelligence artificielle marquera les prochaines...](https://www.linkedin.com/posts/reptile%2Etech_on-sentend-lintelligence-artificielle-activity-7503830724324560896-__F3)\n  > On s’entend: l’intelligence artificielle marquera les prochaines décennies.\n  > Mais le vrai tournant sera dans notre façon de l’utiliser. On évolue vers des outils plus personnels et autonomes, où chacun pourra gérer ses données en toute confidentialité. 🔐\n  >\n  > Reste à voir quelle place l’IA prendra dans notre quotidien d’ici 2036…\n\n- [2026-09-10 · 1 reaction] On s’entend: l’intelligence artificielle marquera les prochaines décennies. Mais le vrai tournant sera dans notre façon de l’utiliser. On évolue vers des outils plus personnels et autonomes, où cha...\n\n- [2026-08-28 · Posted · 1 reaction] [Quand le vidéaste est multitâche... Capter des images appétissantes...](https://www.linkedin.com/posts/reptile%2Etech_quand-le-vid%C3%A9aste-est-multit%C3%A2che-capter-activity-7499159092813529088-p4z7)\n  > Quand le vidéaste est multitâche...\n  > Capter des images appétissantes et s'assurer sur le terrain que c'est aussi bon que ça en a l'air, on peut définitivement appeler ça de la rigueur. 🎥😜\n  > On a toujours du plaisir à tourner avec @lepetitquebec! La semaine dernière, c'était pour célébrer la grande ouverture du Petit Cornet à Mercier. 🍦\n\n- [2026-08-28 · 2 reactions] Quand le vidéaste est multitâche... Capter des images appétissantes et s'assurer sur le terrain que c'est aussi bon que ça en a l'air, on peut définitivement appeler ça de la rigueur. 🎥😜 On a toujo...\n\n- [2026-08-25 · Posted · 2 reactions] [✦ Chaque image cache une histoire... et toute une équipe qui s'en...](https://www.linkedin.com/posts/reptile%2Etech_chaque-image-cache-une-histoire-et-toute-activity-7498045623284355072-7rAD)\n  > ✦ Chaque image cache une histoire... et toute une équipe qui s'en imprègne. 🎬\n  >\n  > Vidéos, photos, publicités, affichages ou visuels web, on crée du matériel sur mesure qui ressemble à votre marque. ✦ Rien ne vaut une approche simple et authentique pour raconter ce qui se passe chez vous. On vient vous visiter bientôt?\n  >\n  > ➔ Plongez dans les coulisses de notre production de contenu: https://lnkd.in/dKXy4R-D\n\n- [2026-08-25 · 2 reactions] ✦ Chaque image cache une histoire... et toute une équipe qui s'en imprègne. 🎬 Vidéos, photos, publicités, affichages ou visuels web, on crée du matériel sur mesure qui ressemble à votre marque. ✦ R...\n\n- [2026-08-20 · Posted · 1 reaction] [Créer et mettre un site web en ligne, ce n’est que la pointe de...](https://www.linkedin.com/posts/reptile%2Etech_cr%C3%A9er-et-mettre-un-site-web-en-ligne-ce-activity-7496258315161710593-bbjB)\n  > Créer et mettre un site web en ligne, ce n’est que la pointe de l’iceberg. 🧊\n  > Connaissez-vous les impacts réels d’une plateforme laissée sans entretien?\n  > On vous explique ce qui se passe sous la surface et pourquoi l'évolution en continu fait une différence. 📈\n\n- [2026-08-20 · 2 reactions] Créer et mettre un site web en ligne, ce n’est que la pointe de l’iceberg. 🧊 Connaissez-vous les impacts réels d’une plateforme laissée sans entretien? On vous explique ce qui se passe sous la surf...\n\n- [2026-08-13 · Posted · 3 reactions] [« L'impact de la publicité numérique, ça ne se mesure pas vraiment...](https://www.linkedin.com/posts/reptile%2Etech_limpact-de-la-publicit%C3%A9-num%C3%A9rique-%C3%A7a-activity-7493699301211123712-dXhQ)\n  > « L'impact de la publicité numérique, ça ne se mesure pas vraiment. » ❌\n  > Valentin nous explique pourquoi c'est faux. Du clic initial au lead généré six mois plus tard, tout se mesure quand on a les bons outils. 💡\n\n- [2026-08-13 · 3 reactions] « L'impact de la publicité numérique, ça ne se mesure pas vraiment. » ❌ Valentin nous explique pourquoi c'est faux. Du clic initial au lead généré six mois plus tard, tout se mesure quand on a les...\n\n- [2026-08-05 · Posted · 8 reactions] [Coder un site avec l'A, ça peut avoir l'air facile, mais réussir...](https://www.linkedin.com/posts/reptile%2Etech_coder-un-site-avec-la-%C3%A7a-peut-avoir-lair-activity-7490790045109583873-S7rD)\n  > Coder un site avec l'A, ça peut avoir l'air facile, mais réussir ton projet web, c'est une autre affaire. 💻\n  > L'IA fait des beaux plans, mais elle ne sait pas ce dont tu as vraiment besoin.\n  >\n  > Visionne la vidéo complète sur youtube pour en savoir plus! https://lnkd.in/dQH3dZMh\n\n- [2026-08-05 · 8 reactions] Coder un site avec l'A, ça peut avoir l'air facile, mais réussir ton projet web, c'est une autre affaire. 💻 L'IA fait des beaux plans, mais elle ne sait pas ce dont tu as vraiment besoin. Visionne...\n\n- [2026-07-13 · Posted · 7 reactions] [C'est quoi le GEO? 🤔 📍 On ne parle pas de géographie, mais de la...](https://www.linkedin.com/posts/reptile%2Etech_cest-quoi-le-geo-on-ne-parle-pas-activity-7482512632663433216-epnp)\n  > C'est quoi le GEO? 🤔\n  > 📍 On ne parle pas de géographie, mais de la suite logique du SEO à l'ère de l'intelligence artificielle.\n  > 💡 L'enjeu actuel, c'est de faire en sorte que l'IA vous cite directement comme la réponse à la question de l'internaute.\n  > Pour tout comprendre et adapter votre stratégie, visionnez la vidéo complète:\n  > https://lnkd.in/gH_KUb_u\n\n- [2026-07-13 · 10 reactions] C'est quoi le GEO? 🤔 📍 On ne parle pas de géographie, mais de la suite logique du SEO à l'ère de l'intelligence artificielle. 💡 L'enjeu actuel, c'est de faire en sorte que l'IA vous cite directemen...\n\n- [2026-07-12 · Posted · 5 reactions] [Cibler les décideurs de l’industrie alimentaire américaine? C’est...](https://www.linkedin.com/posts/reptile%2Etech_cibler-les-d%C3%A9cideurs-de-lindustrie-alimentaire-activity-7482071271170564096-N1Ds)\n  > Cibler les décideurs de l’industrie alimentaire américaine? C’est le défi qu’on a relevé en partenariat avec Nortera! 🥦 🇺🇸\n  >\n  > Comment?\n  > Avec une stratégie LinkedIn ultra-ciblée pour installer la marque Arctic Gardens aux États-Unis.\n  >\n  > « LinkedIn est devenu un véritable levier de développement stratégique [...] particulièrement dans des contextes B2B internationaux. » – Julie Thériault, cheffe stratégie service-conseil chez Reptile.\n  >\n  > ➔ Découvrez le résultat par ici:\n  > https://lnkd.in/ghDX29cP\n\n- [2026-07-12 · 7 reactions] Cibler les décideurs de l’industrie alimentaire américaine? C’est le défi qu’on a relevé en partenariat avec Nortera! 🥦 🇺🇸 Comment? Avec une stratégie LinkedIn ultra-ciblée pour installer la marque...\n\n## Locations\n- Headquarters: brossard, quebec, canada\n- Offices: brossard, quebec j4z 3p5, canada, brossard, québec j4z 3p5, canada",
+        "summary": "{\"description\":\"Reptile is a Technology, Information and Internet company. A web agency providing digital services such as website creation, digital marketing, SEO, and online advertising.\",\"employee_estimate\":25,\"employee_estimate_source\":\"Employees: 25\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"- Breakdown:\\n  - By Country: Canada: 10 (40%), France: 1 (4%), Spain: 1 (4%)\\n  - By Department: Technical: 3 (12%), Consulting: 2 (8%), Other Department: 2 (8%), Administrative: 1 (4%), Design: 1 (4%), General Management: 1 (4%), Marketing: 1 (4%), Project Management: 1 (4%)\\n  - By Seniority: Specialist: 4 (16%), Manager: 2 (8%), Other Management: 2 (8%), Clevel: 1 (4%), Director: 1 (4%), Head: 1 (4%), Senior: 1 (4%)\",\"hq\":\"Brossard, Quebec, Canada\",\"hq_quote\":\"Headquartered in Brossard, Quebec, Canada, with presence in United States.\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"- Industry: Technology, Information and Internet\\n- Type: Privately held\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":false,\"recently_funded_seed_or_series_a_quote\":\"- Yearly Growth: +13.6%\\n- Annual Revenue: USD 5,569,552\\n- Employees: 25\\n- Company Size: 11-50 employees\\n- LinkedIn: linkedin.com/company/reptile.tech\\n- Linkedin Followers: 1,874\\n- Phone: 450-466-9173\\n...\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQFzrTvjqysuWQ/company-logo_200_200/company-logo_200_200/0/1724172651563/reptiletech_logo?e=2147483647&v=beta&t=_n2h51E7qG_AZFOPyE4IHyJ7-Sp3o9_mJdo_I019EEQ",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/f2rx18qdfj1",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Reptile",
+              "foundedYear": 2001,
+              "description": "We are Reptile, a firm founded in 2001 specializing in interactive websites and multi-platform solutions. We have been called creative, geeky, and most of all, really nice people! Our specializations are digital marketing strategies, web development, e-commerce, web design, social media marketing, CMS, and more! Mix creativity and results, and results happen!",
+              "workforce": {
+                "total": 25
+              },
+              "headquarters": {
+                "address": "6400 Av. Auteuil, Bureau 210, Brossard, Québec J4Z 3P5, CA",
+                "city": "Brossard",
+                "postalCode": null,
+                "country": "Canada"
+              },
+              "financials": {
+                "revenueAnnual": 5569552,
+                "fundingTotal": null,
+                "fundingLatestRound": null
+              },
+              "webTraffic": {
+                "visitsMonthly": 2019,
+                "countryRank": 5618338,
+                "avgDurationSeconds": 28,
+                "history": [
+                  {
+                    "value": 1678,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 1039,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 6915,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 6656,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 6722,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 2019,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 8708.2,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

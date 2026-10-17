@@ -1,0 +1,257 @@
+{
+  "request": {
+    "query": "Euno",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "c24b3ecb873622cdcb8433deddee8f22",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/bwvysptrj8c",
+        "title": "Euno",
+        "url": "https://euno.ai/",
+        "text": "# Euno\n\nEuno is a Data Infrastructure and Analytics company. Euno is an AI context platform for enterprise data that allows agents to turn their metadata into automated, trusted context for AI. Euno employs 34 people (+54.5% YoY, +12 people), founded in 2023. Headquartered in Sunnyvale, California, United States. Its workforce is distributed across Israel, United States, France, and Netherlands.\n\n## About\n\nEuno’s AI context platform continuously learns how organizations build, use, and govern their data, giving AI agents the organizational intelligence they need to navigate enterprise data and act reliably. Acting as the AI brain behind enterprise data, Euno enables Fortune 500 customers to move a wide range of AI initiatives from pilot to production in weeks.\n\n## Company Details\n- Industry: Data Infrastructure and Analytics\n- Type: Privately held\n- Headquarters: Sunnyvale, United States\n- Founded Year: 2023\n- Homepage: euno.ai\n- Aliases: Euno Inc., euno\n- LinkedIn: linkedin.com/company/eunoai\n- Linkedin Followers: 3,900\n\n## Financials\n- Total Funding: USD 12,500,000\n  - Seed (2024-03-19): USD 6.2M\n  - Seed (2023-05-01): USD 6.2M\n\n## Workforce\n- Employees: 34\n- Company Size: 11-50 employees\n  - Yearly Growth: +54.5%\n- Key Executives:\n  - Adam Kariv: Head of AI Research\n  - Chuck Frisbie: Director of Solution Architecture\n  - Evan Fleisch: Head of Sales\n  - Eyal Firstenberg: Co-Founder & CTO\n  - Gil Adirim: VP Product\n  - Hamid Ajose: Founding Enterprise ADR\n  - Lea Sitbon: Head of Content Marketing\n  - Neta Goldstein: Head of Operations\n  - Raz Widrich: Head of Brand\n  - Regev Azriel: VP R&D\n- Breakdown:\n  - By Country: Israel: 14 (41%), United States: 10 (29%), France: 1 (3%), Netherlands: 1 (3%)\n  - By Department: Technical: 12 (35%), Marketing: 3 (9%), Sales: 3 (9%), General Management: 2 (6%), Product: 2 (6%), Research: 2 (6%), Consulting: 1 (3%), Design: 1 (3%), Operations: 1 (3%), Real Estate: 1 (3%)\n  - By Seniority: Specialist: 10 (29%), Founder: 4 (12%), Head: 4 (12%), Senior: 4 (12%), Manager: 2 (6%), Vp: 2 (6%), Director: 1 (3%), Owner: 1 (3%)\n- Talent Sources: Pagaya (3), CyCognito (3), dbt Labs (2), Sayata (2), Wishi (1), Self Employed (1), Port.io (1), Palo Alto Networks (1), Medisafe® (1), Deeep Social (1)\n- Alumni Go To: Twine Security (1), Snowflake (1), RonaHealth (1), OpenAI (1), Minded (1), Linx Security (1), Independent (1), EQT Group (1), Bezalel Academy of Art and Design (1), Beacon Security (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: cortex, databricks, dbt, looker, power bi, snowflake, tableau\n\n## Web presence\n\n- Crunchbase: crunchbase.com/organization/euno-36f7\n- Web traffic:\n  - Monthly visits: 5,816\n  - Global rank: 3,152,613\n  - Bounce rate: 37.0%\n  - Pages per visit: 2.0\n  - Average visit duration: 40s\n\n## Categories\n\nai agents, ai context platform, ai/enterprise data, analytics, artificial intelligence (ai), automated, data governance, data-management, enterprise scale, enterprise-software, it infrastructure, platform, technology, trusted context\n\n## Competitors\n\nliveramp, kalibrate, health catalyst, dotmatics\n\n## Recent News\n- [2026-10-01] CTech: Israel’s startup funding hits $2.77 billion in September, driven by five mega-rounds\n- [2026-09-17] Pulse 2.0: [Euno Raises $23 Million Series A To Help Companies Deploy Trusted AI Agents](https://pulse2.com/euno-raises-23-million-series-a/)\n- [2026-09-15] PYMNTS.com: Euno Raises $23 Million to Give AI Agents Corporate Memory\n- [2026-09-14]\n  - [PYMNTS \\| Euno Raises $23 Million to Give AI Agents Corporate Memory](https://www.pymnts.com/news/artificial-intelligence/2026/euno-raises-23-million-to-give-ai-agents-corporate-memory/)\n  - Pulse 2.0: Euno Raises $23 Million Series A To Build AI Context Brain For Enterprise Data And Agents\n  - The Tech Buzz: SignalPulse: Weekly Signals, Startups & Deals To Watch Alert\n  - InfotechLead: VC funding deals: Euno, Harmoni, ZeroRisk\n- [2026-09-13]\n  - citybiz: Euno Raises $23 Million Series A to Scale Enterprise AI Context Platform\n  - Quasa.io: Euno Raises $23M for an Enterprise AI Context Layer\n  - Dealroom: Euno raises $23M Series A for enterprise AI context platform\n  - SiliconANGLE: Euno raises $23M to build the AI-native context brain for autonomous agents\n- [2026-09-12] [Euno – Weekly Recap](https://www.tipranks.com/news/private-companies/euno-weekly-recap)\n- [2026-09-10]\n  - [Euno raises $23m to give enterprise AI agents the context they lack](https://thenextweb.com/news/euno-raises-23m-series-a-n47-ai-agent-context-platform)\n  - [Euno Raises $23 Million to Help AI Agents Work With Enterprise Data \\| Israel Defense](https://www.israeldefense.co.il/en/node/70693)\n- [2026-09-09]\n  - [Euno, whose platform reconstructs data flow, meaning, health, and more across data environments to give agents context, raised a $23M Series A led by N47](https://www.techmeme.com/260909/p14)\n  - [Wiz, Cyera and Eon founders back Israeli AI startup Euno in $23 million round \\| Ctech](https://www.calcalistech.com/ctechnews/article/h1snf20ugx)\n  - [Euno Raises $23M to Teach AI Agents What Company Data Means](https://www.reworked.co/knowledge-findability/euno-lands-23m-series-a-for-ai-context-platform/)\n  - [הסטארט-אפ Euno גייס 23 מיליון דולר כדי ללמד סוכני AI על איזה מידע אפשר לסמוך](https://www.bizportal.co.il/BizTech/news/article/20041607)\n  - [Euno Raises $23M in Series A Funding](https://www.finsmes.com/2026/09/euno-raises-23m-in-series-a-funding.html)\n  - [Euno raises $23M to build the AI-native context brain for autonomous agents - SiliconANGLE](https://siliconangle.com/2026/09/09/euno-raises-23m-to-build-the-ai-native-context-brain-for-autonomous-agents/)\n  - PR Newswire: [Euno Raises $23 Million Series A to Build the AI Context Brain for the Enterprise](https://uk.advfn.com/stock-market/share-news/Euno-Raises-23-Million-Series-A-to-Build-the-AI-C/99275375)\n  - [Euno Gains Gartner Cool Vendor Status as AI Context Emerges Strategic Priority](https://www.tipranks.com/news/private-companies/euno-gains-gartner-cool-vendor-status-as-ai-context-emerges-strategic-priority)\n  - [Euno Secures $23 Million Series A to Scale AI-Native Context Platform for Enterprises - TipRanks.com](https://www.tipranks.com/news/private-companies/euno-secures-23-million-series-a-to-scale-ai-native-context-platform-for-enterprises)\n  - [Euno Secures $23M Series A for Enterprise AI Platform](https://www.startupresearcher.com/news/euno-secures-usd23-million-series-a-funding)\n  - [Euno Raises $23M to Scale Enterprise AI Context Platform](https://ventureburn.com/euno-raises-23m-enterprise-ai-context/)\n  - [Euno sammelt 23 Millionen Dollar für eine KI-„Context Brain“-Plattform](https://www.it-boltwise.de/euno-sammelt-23-millionen-dollar-fuer-eine-ki-context-brain-plattform.html)\n  - [מייסד וויז השקיע: הסטארטאפ של בוגרי תלפיות גייס 23 מיליון דולר - אייס](https://www.ice.co.il/finance/news/article/1129290)\n  - StartupHub.ai: Euno Series A · $23M raised · \\(2026\\)\n- [2026-09-07] CTech: Wint raises $36 million Series D to use AI to detect water risks before they become costly damage\n- [2026-09-02] PR Newswire: [Euno Named as a Cool Vendor™ in the 2026 Gartner® Coolest Vendor Innovations in Data Management](https://www.prnewswire.com/news-releases/euno-named-as-a-cool-vendor-in-the-2026-gartner-coolest-vendor-innovations-in-data-management-302866845.html)\n- [2026-08-29] Irish Examiner: Motorsport: Pajari in charge at Euno Rally del Paraguay\n- [2025-07-18] Digital Music News: Suno Launches v4.5+, Adding Vocal Overlays, Instrumental Underlays, and More — ‘It’s a Glimpse of the Future’\n- [2025-07-08]\n  - Newser: Is EUNO\\(euno\\) a Good Investment - Fast ROI with Proven Strategies\n  - Newser: Top Reasons to Buy EUNO\\(euno\\) - Steady Returns with Minimal Effort\n- [2025-07-07] Newser: euno\\(euno\\) future outlook - Safe High-Return Investment Strategy\n- [2025-07-06] Newser: euno\\(euno\\) tokenomics explained - Blockchain Investing for Big Gains\n\n## Social\n\n### Linkedin\n\n- [2026-10-01 · Reshared · 138 reactions] [One I’ve been looking forward to sharing: my new column for The AI...](https://www.linkedin.com/posts/eunoai_activity-7511387149020135424-BLC_): One I’ve been looking forward to sharing: my new column for The AI Journal is out! → https://lnkd.in/dpfjXiNP I wrote about a question my Euno team and I have spent the past two years digging into:...\n\n- [2026-09-22 · Reshared · 58 reactions] [Data & AI people work for the robots. Should be the other way...](https://www.linkedin.com/posts/eunoai_activity-7508119635452383233-g4WD): Data & AI people work for the robots. Should be the other way around, don’t you think? Enterprise knowledge can be fragmented and complex and chaotic, spread across warehouses, BI tools, transforma...\n\n- [2026-09-17 · Reshared · 30 reactions] [Calling all data **humans** at #dbtSummit 💜 As you wrap up another...](https://www.linkedin.com/posts/eunoai_activity-7506235915598565377-HYN_): Calling all data **humans** at #dbtSummit 💜 As you wrap up another great day at the conference, I want you to reconsider how you start tomorrow morning. Join us for a guided meditation session at T...\n\n- [2026-09-16 · 32 reactions, 6 comments] Strike a pose, data people 📸 What a fantastic first day at #dbtSummit But you know what they say... if you didn’t take a photo, did it even happen? We’ve got you covered. The Eunotastic Photo Booth...\n\n- [2026-09-14 · 58 reactions, 15 comments] ’Twas the night before Big Data LDN… when Euno and Sifflet are bringing together a small group of London data & AI leaders for an invite-only dinner. We’re especially excited to team up with Salma...\n\n- [2026-09-11 · Posted · 70 reactions] [Our Series A announcement, but make it 1986 📼 Euno raised a $23M...](https://www.linkedin.com/posts/eunoai_our-series-a-announcement-but-make-it-1986-activity-7504131720242376705-oRPj)\n  > Our Series A announcement, but make it 1986 📼\n  >\n  > Euno raised a $23M Series A to solve the AI context problem. And we’re still buzzing from all the love and support we’ve received from our customers, partners, and friends over the past couple of days 💜\n  >\n  > But apparently, we announced it in the wrong decade. At least judging by the PR shot. So here are the same Euno co-founders Sarah and Eyal with the same mission. Just significantly more hairspray.\n  >\n  > More about the Euno story and what’s next:\n  > https://lnkd.in/d_ig_uSS\n\n- [2026-09-11 · 78 reactions, 13 comments] Our Series A announcement, but make it 1986 📼 Euno raised a $23M Series A to solve the AI context problem. And we’re still buzzing from all the love and support we’ve received from our customers, p...\n\n- [2026-09-10 · 43 reactions, 14 comments] What happens in Vegas stays in... context 😏 Euno is hosting an intimate, invite-only dinner for customers on the evening of September 16 during #dbtSummit next week. Just a chance to wind down afte...\n\n- [2026-09-09 · 547 reactions, 143 comments] EUNO IT! 💜 I’m so proud to share that Euno has raised a $23M Series A, led by N47, bringing our total funding to $29M. 2026 has shown incredible momentum for Euno. We’ve watched more and more of ou...\n\n- [2026-09-08 · Reshared · 48 reactions] [Can’t wait to share the #dbtSummit stage in Vegas next week with...](https://www.linkedin.com/posts/eunoai_activity-7503063666993545216-Hikw): Can’t wait to share the #dbtSummit stage in Vegas next week with Bradley Levy , Director of Analytics at AlphaSense . dbt Labs manages to bring together some of the most trailblazing data professio...\n\n- [2026-09-08 · 47 reactions, 7 comments] Can’t wait to share the #dbtSummit stage in Vegas next week with Bradley Levy, Director of Analytics at AlphaSense. dbt Labs manages to bring together some of the most trailblazing data professiona...\n\n- [2026-09-06 · Reshared · 37 reactions] [Calling opinionated data & AI leaders! I’m working on the 2026...](https://www.linkedin.com/posts/eunoai_activity-7502309918570573824-Qm4L): Calling opinionated data & AI leaders! I’m working on the 2026 edition of futuredatacringe.com 😬 and I’m missing one last contribution. I’m asking 20 leaders from trailblazing organizations the sam...\n\n- [2026-09-02 · Reshared · 112 reactions] [WE MADE IT! Euno has been named as a Cool Vendor™ in the 2026...](https://www.linkedin.com/posts/eunoai_activity-7500906074057793536-gYN9): WE MADE IT! Euno has been named as a Cool Vendor™ in the 2026 Gartner ® Coolest Vendor Innovations in Data Management. We feel this recognition points to a shift already underway. As enterprises ra...\n\n- [2026-09-02 · 140 reactions, 25 comments] WE MADE IT! Euno has been named as a Cool Vendor™ in the 2026 Gartner® Coolest Vendor Innovations in Data Management. We feel this recognition points to a shift already underway. As enterprises rac...\n\n- [2026-09-01 · Reshared · 49 reactions] [This is becoming a thing 💜 Euno has been hosting more and more...](https://www.linkedin.com/posts/eunoai_activity-7500567011694120960-EzH0): This is becoming a thing 💜 Euno has been hosting more and more fantastical dinners for data & AI leaders, and I love it. Last week's dinner in San Francisco was no exception, with leaders from Fana...\n\n- [2026-08-31 · Reshared · 19 reactions] [A catalog. A semantic layer. An ontology. Prior approaches treat...](https://www.linkedin.com/posts/eunoai_activity-7500178219233423360-jHTC): A catalog. A semantic layer. An ontology. Prior approaches treat enterprise context as something to be declared. Then, maintained by a manual curation process. The problem is that these artifacts d...\n\n- [2026-08-26 · Reshared · 21 reactions] [One buzzword is starting to dominate the AI context space, and for...](https://www.linkedin.com/posts/eunoai_activity-7498393091314278400-FgdG): One buzzword is starting to dominate the AI context space, and for good reason: Sustained trust. As autonomous workflows move into production, they need context that stays trustworthy as the busine...\n\n- [2026-08-25 · Posted · 16 reactions] [Fashionable items in our office that just make sense 👀 - Insulated...](https://www.linkedin.com/posts/eunoai_fashionable-items-in-our-office-that-just-activity-7497957946266492929-7CNw)\n  > Fashionable items in our office that just make sense 👀\n  >\n  > - Insulated bottles: hydration, but make it on-brand\n  > - Euno caps for bad hair days, and sunny ones too\n  > - Lilac toothpicks to avoid awkward conversations\n  > - Silky eye masks to give your eyes a break from Slack\n  > - Glow-in-the-dark stickers to light the way (to the snacks)\n  >\n  > 📷 Bonus: Neta Goldstein from our team, mid-demonstration.\n\n- [2026-08-25 · 18 reactions, 2 comments] Fashionable items in our office that just make sense 👀 - Insulated bottles: hydration, but make it on-brand - Euno caps for bad hair days, and sunny ones too - Lilac toothpicks to avoid awkward con...\n\n- [2026-08-24 · Reshared · 21 reactions] [Monday metadata thoughts 💭 Enterprises spent a decade building data...](https://www.linkedin.com/posts/eunoai_activity-7497672451628363776-FKmf): Monday metadata thoughts 💭 Enterprises spent a decade building data infrastructure for human consumption: Catalogs people browse Semantic layers people maintain Governance policies people read Ever...\n\n## Locations\n- Headquarters: sunnyvale, california, united states (US)\n- Offices: sunnyvale, california, united states (US)",
+        "summary": "{\"description\":\"Euno is an AI context platform for enterprise data that turns metadata into automated, trusted context for AI; focuses on data infrastructure and analytics.\",\"employee_estimate\":34,\"employee_estimate_source\":\"Employees: 34\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Founding Enterprise ADR\",\"hq\":\"Sunnyvale, United States\",\"hq_quote\":\"Headquartered in Sunnyvale, California, United States.\",\"industry\":\"Data Infrastructure and Analytics\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Euno is an AI context platform for enterprise data that allows agents to turn their metadata into automated, trusted context for AI.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 12,500,000; Seed (2024-03-19): USD 6.2M; Seed (2023-05-01): USD 6.2M\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4D0BAQFS5lEODA_rnw/company-logo_200_200/B4DZ8isg.jJ8AI-/0/1782993523310/eunoai_logo?e=2147483647&v=beta&t=GVUghZuwLW1iBXs91TnXefvtQj0Xp_s71nOvAC3DaB8",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/bwvysptrj8c",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Euno",
+              "foundedYear": 2023,
+              "description": "Euno’s AI context platform continuously learns how organizations build, use, and govern their data, giving AI agents the organizational intelligence they need to navigate enterprise data and act reliably. Acting as the AI brain behind enterprise data, Euno enables Fortune 500 customers to move a wide range of AI initiatives from pilot to production in weeks.",
+              "workforce": {
+                "total": 34
+              },
+              "headquarters": {
+                "address": "1648 Mariani Dr, Sunnyvale, California 94087, US",
+                "city": "Sunnyvale",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 12500000,
+                "fundingLatestRound": {
+                  "name": "Seed",
+                  "date": "2024-03-19",
+                  "amount": 6250000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 5816,
+                "countryRank": 1375026,
+                "avgDurationSeconds": 40,
+                "history": [
+                  {
+                    "value": 5570,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 6693,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 7741,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 6050,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 6010,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 5816,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/ktks4r12q56",
+        "title": "Euno",
+        "url": "https://euno.global/",
+        "text": "# Euno\n\nEuno is a Technology, Information and Internet company. Euno is the world’s first global rewards marketplace, connecting customers with the brands and rewards that they love, and transforming everyday moments into memorable experiences. Euno employs 4 people. Its workforce is distributed across Australia, Malta, Singapore, and United Kingdom.\n\n## About\n\nThe Future of Rewards.\n\nEuno is the world’s first global rewards marketplace platform, giving businesses a smarter and more flexible way to engage and reward their customers, whilst instantly monetising their customer base and unlocking new revenue streams. \n\nUnlike traditional loyalty models that limit both businesses and their customers, Euno enables seamless earning and redemption across brands, industries and regions to become a truly fluid and interconnected rewards solution - always on and always relevant. \n\nCustomers expect more choice, more freedom and more value from their rewards. Euno provides the ideal platform for businesses to not only meet but exceed these expectations, enabling them to offer their customers rewards that they actually want and will use, whilst driving higher engagement, increased spending and stronger brand loyalty.\n\nEuno services global and national brands, their ancillary partners and localised SMEs across a broad range of lifestyle sectors including but not limited to travel, retail, hospitality and entertainment, providing a singular rewards network that benefits everybody. \n\nPlease follow along here for updates, visit the website www.euno.global and reach out to a member of our team today to learn how Euno can work for your business.\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Homepage: euno.global\n- Aliases: euno\n- LinkedIn: linkedin.com/company/eunorewards\n- Linkedin Followers: 42\n\n## Workforce\n- Employees: 4\n- Company Size: 1-10 employees\n- Key Executives:\n  - John Edginton: Co-Founder and Executive Director\n  - Julio Endara: Chief Executive Officer\n- Breakdown:\n  - By Country: Australia: 1 (25%), Malta: 1 (25%), Singapore: 1 (25%), United Kingdom: 1 (25%)\n  - By Department: General Management: 2 (50%), Product: 1 (25%), Sales: 1 (25%)\n  - By Seniority: Clevel: 1 (25%), Founder: 1 (25%), Manager: 1 (25%), Specialist: 1 (25%)\n- Talent Sources: East2 Technology (3), Volenday Group (1), SALV Group (1)\n- Alumni Go To: 242.group (1)\n\n## Web presence\n\n- Web traffic:\n  - Monthly visits: 2,318\n  - Global rank: 7,784,273\n  - Bounce rate: 37.0%\n  - Pages per visit: 1.3\n  - Average visit duration: 0s\n\n## Categories\n\ncustomer engagement, global network, global rewards marketplace, loyalty management technology, new customers, rewards marketplace\n\n## Recent News\n- [2026-09-20] Pulse 2.0: Euno Raises $23 Million Series A To Help Companies Deploy Trusted AI Agents\n- [2026-09-13]\n  - PR Newswire: Euno Raises $23 Million Series A to Build the AI Context Brain for the Enterprise\n  - PYMNTS.com: Euno Raises $23 Million to Give AI Agents Corporate Memory\n  - TipRanks: Euno – Weekly Recap\n  - Axios: Exclusive: AI context platform Euno raises $23 million\n  - InfotechLead: VC funding deals: Euno, Harmoni, ZeroRisk\n  - CTech: Wiz, Cyera and Eon founders back Israeli AI startup Euno in $23 million round\n- [2026-09-12]\n  - Pulse 2.0: Euno Raises $23 Million Series A To Build AI Context Brain For Enterprise Data And Agents\n  - Unite.AI: Euno Raises $23M Series A to Build a Context Layer for Enterprise AI Agents\n- [2026-09-06] Morningstar: Euno Named as a Cool Vendor™ in the 2026 Gartner® Coolest Vendor Innovations in Data Management\n- [2026-08-31] Irish Examiner: Motorsport: Pajari in charge at Euno Rally del Paraguay\n\n## Social\n\n### Linkedin\n\n- [2026-02-05 · 19 reactions] Proud to share early progress from KM Rewards, delivered with KM Malta Airlines in collaboration with Oliver Ross and team: 📈 4x growth in program membership ✏️ 80% reported CSAT 📱 New member app l...\n\n- [2026-02-03 · 3 reactions] Euno's marketplace platform integral to KM Malta Airlines' next-generation rewards program, KM Rewards\n\n- [2025-12-18 · 4 reactions] Why rewards that can’t be used don’t drive loyalty - and what real value looks like\n\n- [2025-06-27 · 3 reactions] Euno is tackling the airline loyalty dilemma head on\n\n- [2025-06-27] Euno Is Tackling The Airline Loyalty Dilemma Head On\n\n- [2025-04-01 · 3 reactions] Euno, the future of rewards\n\n- [2025-04-01] Euno, the Future of Rewards",
+        "summary": "{\"description\":\"Euno is the world’s first global rewards marketplace platform, connecting customers with the brands and rewards that they love, and transforming everyday moments into memorable experiences. It serves global and national brands and a broad range of lifestyle sectors with a singular rewards network.\",\"employee_estimate\":4,\"employee_estimate_source\":\"Employees: 4\",\"hiring_first_ops_or_revops\":false,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Australia, Malta, Singapore, United Kingdom\",\"hq_quote\":\"\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Technology, Information and Internet\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"[2026-09-20] Pulse 2.0: Euno Raises $23 Million Series A To Help Companies Deploy Trusted AI Agents\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQFg-tJvCqOjpQ/company-logo_200_200/B56ZXvOsm1HEAI-/0/1743475362645/eunorewards_logo?e=2147483647&v=beta&t=uZAf9Luy4D0kMrHfuGzUMlCnX0Ou_U6QG-qRHSnXTvY",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/ktks4r12q56",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Euno",
+              "foundedYear": null,
+              "description": "The Future of Rewards.\n\nEuno is the world’s first global rewards marketplace platform, giving businesses a smarter and more flexible way to engage and reward their customers, whilst instantly monetising their customer base and unlocking new revenue streams. \n\nUnlike traditional loyalty models that limit both businesses and their customers, Euno enables seamless earning and redemption across brands, industries and regions to become a truly fluid and interconnected rewards solution - always on and always relevant. \n\nCustomers expect more choice, more freedom and more value from their rewards. Euno provides the ideal platform for businesses to not only meet but exceed these expectations, enabling them to offer their customers rewards that they actually want and will use, whilst driving higher engagement, increased spending and stronger brand loyalty.\n\nEuno services global and national brands, their ancillary partners and localised SMEs across a broad range of lifestyle sectors including but not limited to travel, retail, hospitality and entertainment, providing a singular rewards network that benefits everybody. \n\nPlease follow along here for updates, visit the website www.euno.global and reach out to a member of our team today to learn how Euno can work for your business. ",
+              "workforce": {
+                "total": 4
+              },
+              "headquarters": null,
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 2318,
+                "countryRank": 3813841,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 2293,
+                    "dateFrom": "2026-02",
+                    "dateTo": "2026-02"
+                  },
+                  {
+                    "value": 2482,
+                    "dateFrom": "2026-03",
+                    "dateTo": "2026-03"
+                  },
+                  {
+                    "value": 3792,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 3528,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 1148,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 2318,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 5899.2,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

@@ -1,0 +1,270 @@
+{
+  "request": {
+    "query": "Clueso",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "32f3db41a9725b7b4d8275ac562c1965",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/xsndtgjvh28",
+        "title": "Clueso",
+        "url": "https://clueso.io/",
+        "text": "# Clueso\n\nClueso is a Software Development company. Clueso is a company that provides product videos and training content in minutes. They offer AI voiceovers, one-click translation, and effortless editing. Clueso employs 41 people (+127.8% YoY, +23 people) and has an annual revenue of $200K, founded in 2023. Headquartered in San Francisco, United States, with an office in Campbell. Its workforce is distributed across India, United States, Kuwait, and Saudi Arabia.\n\n## About\n\nClueso is the fastest and easiest way to create stunning product videos. It converts raw screen recordings into studio-quality videos and step-by-step articles in minutes. No editing or design skills needed.\n\nHere’s how it works: \nSimply record/upload a rough screen recording of your product, and Clueso will instantly transform it into a studio-quality explainer video and a step-by-step how-to article. \n\nHere are some of the top features:\n\nCreate videos\nClueso handles every step of the video production process. It writes your video’s script and generates a professional AI-voiceover that stays perfectly in sync with your video. Clueso also enhances your video with stunning zoom effects, highlights, captions, music, and branding!\n\nCreate SOPs/help articles\nFrom any screen recording, Clueso’s AI automatically generates a step-by-step article with perfectly crafted steps and screenshots/GIFs. Use our AI agent to get the tone and formatting you want.\n\nTranslate your content\nTranslate your videos into 40+ languages. Use the translation glossary feature to fine-tune terms and ensure translation accuracy.\n\nEasily update out-of-date content\nWhenever your videos go out of date, you don’t need to remake them from scratch! Clueso makes it super-easy to replace outdated clips and voiceovers.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: San Francisco, United States\n- Founded Year: 2023\n- Homepage: clueso.io\n- Aliases: Desklamp, Inc., clueso\n- LinkedIn: linkedin.com/company/clueso\n- Linkedin Followers: 14,818\n\n## Financials\n- Annual Revenue: USD 200,000\n- Total Funding: USD 1,900,000\n  - Seed (2024-04-23): USD 1.4M\n  - Pre seed (2023-03-24): USD 500,000\n\n## Workforce\n- Employees: 41\n- Company Size: 11-50 employees\n  - Monthly Growth: -2.4%\n  - Yearly Growth: +127.8%\n- Key Executives:\n  - Akash Anand: Co-founder & CEO\n  - Krish Gandhi: Growth & GTM Engineering Lead\n  - Neel Balar: Co-Founder\n  - Prajwal Prakash: Founder CTO\n  - Srihari BT: Angel Investor\n- Breakdown:\n  - By Country: India: 25 (61%), United States: 4 (10%), Kuwait: 1 (2%), Saudi Arabia: 1 (2%)\n  - By Department: Technical: 11 (27%), Design: 5 (12%), Marketing: 5 (12%), General Management: 3 (7%), Other Department: 3 (7%), Customer Service: 2 (5%), Consulting: 1 (2%), Trades: 1 (2%)\n  - By Seniority: Specialist: 16 (39%), Other Management: 8 (20%), Founder: 4 (10%), Head: 1 (2%), Manager: 1 (2%), Senior: 1 (2%)\n- Talent Sources: Desklamp (3), Fluent Health (2), Fello (2), Schmooze (1), Paperflite (1), PaperBrain (1), Mynerva (1), Ministry of Comedy (1), Google Developer Student Clubs, IIIT-Allahabad (1), ClearFeed (1)\n- Alumni Go To: Whatfix (1), SpotDraft (1), Reo.Dev (1), Otel AI (1), Humantic AI (1), ElevenLabs (1), Brivio (1), Birla Institute of Technology and Science, Pilani (1), Adobe (1)\n\n## Products & Technology\n- Features: Free Trial, Demo Available\n- Tech Stack: applitools, bash, browserstack, chrome, davinci resolve, docker, github, github actions, gitlab, grafana, jenkins, jest, lambdatest, linkedin, playwright, postgresql, pytest, python, razorpay, rds, react, redis, selenium, smartsheet, terraform, time matters, twitter, typescript, uipath, youtube, zendesk, hubspot\n\n## Web presence\n\n- Twitter: twitter.com/_clueso\n- YouTube: youtube.com/@cluesoai\n- Crunchbase: crunchbase.com/organization/clueso\n- Web traffic:\n  - Monthly visits: 142,790\n  - Global rank: 242,998\n  - Bounce rate: 37.0%\n  - Pages per visit: 3.5\n  - Average visit duration: 115s\n\n## Reviews & Ratings\n- Product Reviews: 4.8/5.0 (128 reviews)\n\n## Categories\n\nai video generators, ai voiceovers, artificial intelligence (ai), clueso, computers_electronics_and_technology/graphics_multimedia_and_web_design, customer education, editing, product videos, saas, screen and video capture, screen and video capture software, software, technology/software, training content, translation, video editing, work instructions\n\n## Competitors\n\nrephrase ai, trainn, hippo video, justbaat\n\n## Recent News\n- [2026-10-13]\n  - YourStory.com: Agentic video startup Clueso raises $10M in Series A funding round\n  - Dealroom: Clueso raises $10M Series A to scale its agentic video platform\n- [2026-09-05] WEB.DE: Clueso über sein Tourleben: \"Es ist wie eine kleine Familie\"\n- [2026-08-31] ZDFheute: Sänger Clueso: Zwischen Bühnenrituale und Tourstress\n- [2026-08-30]\n  - NWZonline: Clueso im Beachclub Nethen: Vorverkauf gestartet\n  - News.at: Clueso lässt Sommer mit \"Hitzewelle\" ausklingen\n  - Oberösterreichische Nachrichten: Clueso lässt den Sommer mit \"Hitzewelle\"-Song ausklingen\n  - LifeOnStage®: OK KID veröffentlichen zusammen mit Clueso die gemeinsame Single \"Heatwave\"\n- [2026-08-16]\n  - brisant.de: \"Finde ich geil\": Mitten im Song zieht Clueso den Stecker - so still genießt er den \"Chicago\"-Moment\n  - SWR3: Diese Acts spielen kostenlose Konzerte beim New Pop\\!\n- [2026-08-09] Ostsee Zeitung: Traditionshotel wird nach Insolvenz verkauft + Besonderer Strandkorb + Konzert von Clueso\n- [2026-08-06] ARD Mediathek: Clueso live in Bremen\n- [2026-07-26]\n  - Stimme: Clueso begeistert bei Haigern Live: Emotionen, Fan-Nähe und Festivalmagie in Talheim\n  - Stimme: Küsschen für Haigern Live: Clueso sorgt für emotionale Momente am dritten Festival-Tag\n- [2026-07-25]\n  - Schwarzwälder Bote: Ferienzauber Rottweil: Von „Chicago“ bis „Gewinner“ – Clueso sorgt für Gänsehautmomente im Kraftwerk\n  - wirtschaft.com: Video: Clueso sorgt für Gänsehautmomente im Kraftwerk Rottweil\n- [2026-07-19]\n  - MSN: Clueso und Mark Forster in Dortmund: Veranstalter ändert kurz vor Konzerten die Regeln\n  - Lippische Landes-Zeitung: Paderborn: Konzert von Clueso\n- [2026-07-18] Lippische Landes-Zeitung: Clueso tanzt mit Tausenden in Paderborn – und macht einen 13-Jährigen besonders glücklich\n- [2026-07-17] News.de: Clueso auf Tour 2026/2027: Diese Termine dürfen Sie nicht verpassen\n- [2026-07-05] [ZurÃ¼ck auf dem Domplatz: Clueso lÃ¤dt 2027 wieder zum Erfurter Heimspiel â€“ Vorverkauf startet in KÃ¼rze](https://www.blogarama.com/journalism-blogs/328012-tha-14ringen-blick-nachrichten-und-meldungen-blog/77826618-zura14ck-auf-dem-domplatz-clueso-ladt-2027-wieder-zum-erfurter-heimspiel-vorverkauf-startet-ka14rze)\n\n## Social\n\n### Linkedin\n\n- [2026-10-08 · 5 reactions, 1 comment] Every support team knows the feeling of answering the same customer question in Slack again. The good news is there's an easy fix. Most of those answers are already sitting in your threads, so the...\n\n- [2026-10-08 · 25 reactions, 3 comments] Clueso can now run on open source models. Starting today, everything you create in Clueso can be powered by Kimi K3, GLM 5.3, or DeepSeek 4.1, served on Baseten, alongside the frontier models we al...\n\n- [2026-10-08 · 63 reactions, 6 comments] \"Why should we have to create the same content twice?\" That's the question Shannon Cook asked two years ago. Her enablement and education team at Movable Ink was running two separate content pipeli...\n\n- [2026-10-06 · 133 reactions, 16 comments] Today, we’re launching automated demo data for product recordings. One of the most painful parts of doing a product recording isn’t the actual recording. It’s everything you have to do before it: -...\n\n- [2026-10-06 · 8 reactions, 1 comment] Nobody has ever said, \"I loved that 9-minute tutorial. Please make it longer.\" Most tutorials run long because of the dead air and the loading screens. The actual task is usually way shorter. So we...\n\n- [2026-10-05 · 29 reactions, 8 comments] Should've named them better 💀\n\n- [2026-10-05 · 11 reactions, 1 comment] Kinetic typography is one of those things that looks simple and quietly costs a designer a full day in After Effects. Give Clueso a reference video of the style you want, and it builds the whole th...\n\n- [2026-10-01 · 21 reactions] Your international customers should not have to learn your product by watching an English interface. Localizing a product video has always stopped at the voiceover and the captions, because the pro...\n\n- [2026-10-01 · 2 reactions, 1 comment] Most AI voiceovers read your script at one volume, in one mood, from start to finish. In Clueso, you direct it. Emotion tags go inline: [whisper], [warm], [playful], and the delivery changes on tha...\n\n- [2026-10-01 · 40 reactions, 1 comment] Just choose the best option, Claude 💀\n\n- [2026-09-21 · 1 reaction] We've come full circle! Prajwal Prakash made the MCP launch video using the MCP. Every element in this video is a real Clueso element someone can still open and edit, and the MCP put them all there...\n\n- [2026-09-21 · 4 reactions] Making a great video is now just a conversation with Claude or ChatGPT. For years, video meant juggling a screen recorder, an editor, and design software, then stitching the result together by hand...\n\n- [2026-09-18 · 107 reactions, 5 comments] Trading isn’t about always being right. It’s about being right enough that you make a ton of money. At the start of my time as a trader in Hong Kong, I was in an environment that was completely for...\n\n- [2026-09-18 · 9 reactions, 1 comment] PowerPoints are so boring! But what if you could turn your PPTs into engaging videos? We've seen teams use it for sales demos, HR onboarding, training videos, and internal comms. Basically, anywher...\n\n- [2026-09-18 · 12 reactions, 1 comment] Nothing ages faster than a product walkthrough 💀\n\n- [2026-09-17 · 37 reactions] Your product speaks a dozen languages. Your product videos speak one. Every walkthrough you have made is frozen in whichever language it was recorded in, while your UI has already moved on to Germa...\n\n- [2026-09-17 · 10 reactions, 1 comment] You finally got the new system live. Big win, right? Except now half the team is stuck. The old shortcuts are gone, approvals work differently, and something that used to take a minute now takes te...\n\n- [2026-09-17 · 110 reactions, 11 comments] We're launching the Clueso MCP on Product Hunt on September 22nd. Over the last few weeks, we've seen incredible adoption of our MCP, and the videos customers are creating with it have been genuine...\n\n- [2026-09-16 · 20 reactions, 1 comment] What if there was a third button? With Clueso, you can fix the typo and the video gets updated automatically. Check the comments to see how it works👇\n\n- [2026-09-15 · 146 reactions, 15 comments] Today, we’re introducing automatic UI translations for product videos. Most SaaS products today aren’t just in English. Products exist in a dozen languages, but their videos usually don’t. Even tea...\n\n## Locations\n- Headquarters: san francisco, united states (US)\n- Offices: san francisco, united states (US), san francisco, california, united states (US), campbell, california, united states (US)",
+        "summary": "{\"description\":\"Clueso is a Software Development company that provides product videos and training content with AI features, including AI voiceovers, one-click translation, and editing. Headquarters in San Francisco with an office in Campbell; distributed team across India, United States, Kuwait, and Saudi Arabia.\",\"employee_estimate\":41,\"employee_estimate_source\":\"Employees: 41\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Key Executives: Akash Anand: Co-founder & CEO; Krish Gandhi: Growth & GTM Engineering Lead; Neel Balar: Co-Founder; Prajwal Prakash: Founder CTO; Srihari BT: Angel Investor\",\"hq\":\"San Francisco, United States\",\"hq_quote\":\"Headquartered in San Francisco, United States, with an office in Campbell.\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"- Industry: Software Development\\n- Type: Privately held\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 1,900,000\\n  - Seed (2024-04-23): USD 1.4M\\n  - Pre seed (2023-03-24): USD 500,000\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQE9z5Ku000ScQ/company-logo_200_200/B56Zb2Tb1CGoAI-/0/1747889012683/clueso_logo?e=2147483647&v=beta&t=NiUuYETCKMHEjo0CvYLrFPUKELRGFGhGaxG185269iA",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/xsndtgjvh28",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Clueso",
+              "foundedYear": 2023,
+              "description": "Clueso is the fastest and easiest way to create stunning product videos. It converts raw screen recordings into studio-quality videos and step-by-step articles in minutes. No editing or design skills needed.\n\nHere’s how it works: \nSimply record/upload a rough screen recording of your product, and Clueso will instantly transform it into a studio-quality explainer video and a step-by-step how-to article. \n\nHere are some of the top features:\n\nCreate videos\nClueso handles every step of the video production process. It writes your video’s script and generates a professional AI-voiceover that stays perfectly in sync with your video. Clueso also enhances your video with stunning zoom effects, highlights, captions, music, and branding!\n\nCreate SOPs/help articles\nFrom any screen recording, Clueso’s AI automatically generates a step-by-step article with perfectly crafted steps and screenshots/GIFs. Use our AI agent to get the tone and formatting you want.\n\nTranslate your content\nTranslate your videos into 40+ languages. Use the translation glossary feature to fine-tune terms and ensure translation accuracy.\n\nEasily update out-of-date content\nWhenever your videos go out of date, you don’t need to remake them from scratch! Clueso makes it super-easy to replace outdated clips and voiceovers.",
+              "workforce": {
+                "total": 41
+              },
+              "headquarters": {
+                "address": "San Francisco, US",
+                "city": "San Francisco",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 200000,
+                "fundingTotal": 1900000,
+                "fundingLatestRound": {
+                  "name": "Seed",
+                  "date": "2024-04-23",
+                  "amount": 1400000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 142790,
+                "countryRank": 56606,
+                "avgDurationSeconds": 115,
+                "history": [
+                  {
+                    "value": 163239,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 161105,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 167070,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 187422,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 157843,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 142790,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/gzjz3bjmwlz",
+        "title": "CLUES",
+        "url": "https://clues.org/",
+        "text": "# CLUES\n\nCLUES is a nonprofit organization. CLUES employs 316 people (-1.6% YoY, -5 people) and has an annual revenue of $15.4M, founded in 1981. Headquartered in Saint Paul, Minnesota, United States, with offices in Austin, Willmar, and Minneapolis.\n\n## About\n\nCLUES (Comunidades Latinas Unidas en Servicio) is Minnesota’s largest Latino-led nonprofit agency, founded in 1981 by and for Latinos to provide culturally and linguistically relevant services. CLUES’ mission is to advance social and economic equity and wellbeing for Latinos by building upon our strengths and cultures, uplifting our community, and enabling leadership for systemic change. Our vision is an empowered Latino community that is growing in strength and unity, with diverse and amplified voices, equal representation, and the resources needed to lead healthy and thriving lives.\n\nCLUES programs and services connect individuals and families to resources, skills, institutions and systems and create an environment for people to be engaged and empowered. We bundle services across Health & Wellness, Economic Empowerment, Educational Enrichment and Cultural and Civic Engagement to meet the complex and interrelated needs of our community. We welcome immigrants and low-income individuals from all walks of life who dream of a better future.\n\nIn addition to its Headquarters in Saint Paul and its office in Minneapolis, CLUES has offices in Willmar and Austin, MN.\n\n## Company Details\n- Industry: Individual and Family Services\n- Type: Nonprofit\n- Headquarters: Saint Paul, United States\n- Founded Year: 1981\n- Homepage: clues.org\n- Aliases: Chicanos Latinos Unidos En Servicio, clues, comunidades latinas unidas en servicio, comunidades latinas unidas en servicio - clues\n- LinkedIn: linkedin.com/company/clues\n- Linkedin Followers: 3,666\n- Emails: info@clues.org\n- Phone: +1 651 379 4200, 12-439-9671, 2019-2026, 320-262-5106, 41-1386986, 507-355-2575, 612-404-2600, 612-746-3500, 612-871-1058, 651-292-034, 651-379-42\n\n## Research\n\nScholarly output includes 2 works and 9 citations. 0% open access; field-weighted citation impact 4.3. 0% of works involve international collaboration, most frequently with US.\n\n### Research areas\n\n- Social Sciences — 100% of works (2)\n\n### Notable works\n\n- Melissa L. Constantine, Todd H. Rockwood, Barbara Schillo, et al. The relationship between acculturation and knowledge of health harms and benefits associated with smoking in the Latino population of Minnesota. Addictive Behaviors. 2009. doi:10.1016/j.addbeh.2009.05.008. — 9 citations\n\nFrequently collaborates with ClearWay Minnesota.\n\n## Financials\n- Annual Revenue: USD 15,390,960\n- Total Funding: USD 1,500,000\n  - Grant (2022-04-06): USD 1.5M\n  - Grant (2021-10-28)\n\n## Workforce\n- Employees: 316\n- Company Size: 51-200 employees\n  - Monthly Growth: +0.3%\n  - Yearly Growth: -1.6%\n- Key Executives:\n  - Elizabeth Franklin: Director of Behavioral Health\n  - Jacqueline Virginia Perez, M.A.: Vice President of Programs\n  - Jessica P.: Director of Marketing and Communications\n  - Kaitlyn Laurélle, MSc, PMP: Director of Corporate And Foundation Relations\n  - Kathryn Ross: Senior Director of Development\n  - Martin Figueroa: Institutional Events and Community Partnerships Lead\n  - Norberto Quintero: Human Resources Business Partner\n  - Ryan Robinson: Vice President of Finance and Administration\n  - Samuel McNeil-Chavez, MA-HRM, PHR: Associate Director of Human Resources\n  - Violeta Hernandez Espinosa, MDP: Director of Early Childhood Initiatives and Policy\n- Breakdown:\n  - By Country: United States: 88 (28%)\n  - By Department: Other Department: 25 (8%), Medical: 20 (6%), Hr: 12 (4%), Education: 11 (3%), Finance: 5 (2%), Project Management: 5 (2%), Marketing: 4 (1%), Consulting: 3 (1%), Administrative: 1, General Management: 1 (+3 more)\n  - By Seniority: Other Management: 30 (9%), Specialist: 26 (8%), Manager: 17 (5%), Director: 7 (2%), Intern: 3 (1%), Head: 2 (1%), Vp: 2 (1%), Partner: 1, Senior: 1\n- Active job postings: 6\n- Salary ranges (20 of 30 roles):\n  - Manager: median $92,889.57 per year\n  - Director of Art and Culture: median $91,184.45 per year\n  - Communication: median $89,915.36 per year\n  - Program Manager: median $89,674.23 per year\n  - Development and Marketing Manager: median $85,831.04 per year\n  - Communications Manager: median $78,320.02 per year\n  - Chemical Dependency Counselor/Assessor: median $63,639.29 per year\n  - Sexual Assault Advocate: median $61,945.17 per year\n  - Instructor/Career Navigator: median $61,902.32 per year\n  - Mental Health Counselor: median $60,397.27 per year\n  - Development Associate: median $57,713.97 per year\n  - Senior Coordinator: median $56,795.38 per year\n  - Employment Recruiter, Counselor, Career Navigator: median $56,525.85 per year\n  - Career Advisor: median $55,749.26 per year\n  - Family Welfare Case Manager: median $55,506.36 per year\n  - Program Coordinator: median $54,690.95 per year\n  - Domestic Violence Advocate: median $54,258.65 per year\n  - Family Welfare Worker: median $52,922.89 per year\n  - Coordinator: median $52,612.66 per year\n  - Facilities Coordinator: median $52,446.09 per year\n- Talent Sources: University of Minnesota (9), Minneapolis Public Schools (9), St. Catherine University (6), Fairview Health Services (6), Target (5), Hazelden Betty Ford Foundation (5), University of St. Thomas (4), Neighborhood House (4), Fraser (4), City of Minneapolis (4)\n- Alumni Go To: Target (9), Minneapolis Public Schools (9), University of Minnesota (8), Washburn Center For Children (5), Metro State University (5), Macalester College (5), Esperanza United (5), Ramsey County (4), International Institute of Minnesota (4), Hennepin County (4)\n\n## Products & Technology\n- Tech Stack: acronis, adobe, adobe creative suite, barracuda backup, canva, cisco meraki, constant contact, docusign, facebook, google hangouts, helpdesk, linkedin, mailchimp, material design, microsoft, microsoft office, microsoft word, twitter, vicarious, vision critical, windows 10, youtube, ada, adp, paycom, ukg, sed, c, impact, well, amp, mix, unity, instagram, zoom\n\n## Web presence\n\n- Twitter: twitter.com/clues_mn\n- Facebook: facebook.com/cluespage\n- Instagram: instagram.com/cluesofficial\n- YouTube: youtube.com/channel/ucln3f83wp30wh_-whhabwha\n- Crunchbase: crunchbase.com/organization/clues\n- Web traffic:\n  - Monthly visits: 5,114\n  - Global rank: 3,034,505\n  - Bounce rate: 38.0%\n  - Pages per visit: 3.2\n  - Average visit duration: 141s\n\n## Reviews & Ratings\n- Employer Rating: 3.3/5.0 (23 reviews)\n  - Breakdown: Work-Life: 3.2, Compensation: 3.4, Culture: 3.8, Career: 3.2\n\n## Categories\n\naging well services, chemical health services, community health workers services, community resources, community_and_society/philanthropy, cultural and civic engagement, donation, economic advancement services, education enrichment, employment services, events, family, family enrichment services, health & family wellbeing, latinos, mental health services, minnesota, non profit, non-profit organization, nonprofit, rehabilitation, social, socio-economic empowerment, youth\n\n## Recent News\n- [2026-10-12]\n  - Bioengineer.org: Iron, Lipids and Cell Death: Ferroptosis Biomarkers Emerge as Clues to Vitiligo Activity\n  - USA Today: Org. that's interested in your baggage Crossword Clue\n  - NPR: Texas' 15th Congressional District provides clues to state's Latino vote\n  - NPR: Texas' 5th Congressional District provides clues to state's Latino vote\n- [2026-10-11]\n  - Bioengineer.org: Brain Scans Reveal Hidden Clues to Gut Scarring in Crohn’s Disease\n  - Bioengineer.org: Dual-Stream AI Combines Compression Clues and Deep Vision to Expose Doctored Images\n  - Bioengineer.org: Genes and early treatment clues reveal which Graves’ patients will defy standard therapy\n  - Phys.org: Preschool boys favor bigger groups while adults' choices hint at political attitudes\n  - Phys.org: Zimbabwe's dinosaurs were different from South Africa's: New species offers clues\n- [2026-10-10]\n  - Bioengineer.org: Human Milk Reveals Molecular Clues Linking Maternal Nutrition to Infant Growth\n  - Elizabethton Star: Vanderbilt Health researchers uncover longevity clues from 194-year-old tortoise\n  - Bioengineer.org: X Chromosome Gene Dials Offer New Clues to Autism’s Male Bias\n  - National Security Journal: ‘The Clues Look Real’: Donald Trump Is Showing the World He Still Might Strike Iran Afterall\n- [2026-10-09]\n  - Bioengineer.org: Brain Scans and Mitochondrial DNA Offer Clues to Maternal Alzheimer’s Risk\n  - Bioengineer.org: How a Plant Hormone Helps Tomatoes Beat the Heat: New Clues From the Photosynthesis Genes\n  - Bioengineer.org: Organ Failure Trajectories Offer Limited Prognostic Clues in Transplant Patients in the ICU\n  - Lawfare: The Cyber Corps: Ukraine’s Least Understood Cyber Actor\n  - Phys.org: Where does Earth's nitrogen go? Two atoms offer a clue\n- [2026-10-08]\n  - Bioengineer.org: Blood Clues Reveal How Healthy Diets Leave Their Mark on Aging Bodies\n  - Phys.org: Chain reaction that begins when tumor suppression gene is switched off offers clues to how cancer develops\n- [2026-09-17] [CLUES Fiesta Latina 2026 at CHS Field in St. Paul](https://hoodline.com/2026/09/clues-fiesta-latina-marks-10-years-at-chs-field-this-saturday/)\n\n## Social\n\n### Linkedin\n\n- [2026-10-11 · Posted · 29 reactions] [During Hispanic Heritage Month, Álvaro Hugo Vidal Ospina, CLUES'...](https://www.linkedin.com/posts/clues_hispanicheritagemonth-mesdelaherenciahispana-activity-7515120290876612608-M8Rc)\n  > During Hispanic Heritage Month, Álvaro Hugo Vidal Ospina, CLUES' Housing & Economic Support Services Manager, joined the Connection, Community & Homeownership panel at KW Roseville.\n  >\n  > Alongside Henry Jiménez (Propel Nonprofits), Elba (Guille) Garza, REALTOR®️, C2EX, GRI®️, AHWD, ABR, and Isaac Contreras (KW Integrity Bilingual Connect), he shared insights on expanding access to homeownership and strengthening economic stability for Latino families.\n  >\n  > 💙 Thank you to Julia Lashay Israel, and the KW Roseville team for bringing community partners together for this important conversation.\n  >\n  > Learn more about CLUES' housing programs: www.clues.org/housing\n  >\n  > #HispanicHeritageMonth #MesDeLaHerenciaHispana #CLUESMN #HousingEquity #Homeownership #EconomicProsperity\n\n- [2026-10-11 · Posted · 28 reactions] [Celebrating Excellence in Behavioral Health and Social Work! Please...](https://www.linkedin.com/posts/clues_celebrating-excellence-in-behavioral-health-activity-7515059950679900160-3Cgu)\n  > Celebrating Excellence in Behavioral Health and Social Work!\n  >\n  > Please join us in congratulating Lusnnette Andujar (\"Lucy\"), a valued member of CLUES' Behavioral Health team, on receiving national recognition from the National Association of Social Workers (NASW) Headquarters in Washington, DC!\n  >\n  > Lucy's professional story has also been selected for inclusion in the NASW 70th Anniversary Album, a special commemorative publication celebrating social workers' experiences, achievements, and contributions while preserving the profession's history and inspiring future generations.\n  >\n  > As a bilingual mental health social worker, Lucy brings professional expertise, cultural understanding, and a deep commitment to serving Latino communities. Her work reflects the importance of culturally responsive mental health care and ensuring individuals and families feel understood, respected, and supported.\n  >\n  > Through her professional journey, advocacy for Latino communities, and experience as an ambassador for the CDC-funded Connect to End COVID-19 initiative, Lucy continues to demonstrate the meaningful impact social workers have on the communities they serve.\n  >\n  > At CLUES, we're incredibly proud to work alongside professionals like Lucy, whose dedication and leadership help strengthen our Behavioral Health services and advance more inclusive and accessible mental health care.\n  >\n  > ¡Felicidades, Lucy! Gracias for your leadership, compassion, and commitment to the communities we serve.\n  >\n  > Learn more about our Behavioral Health services and staff at https://lnkd.in/gZEYJW7j\n\n- [2026-10-08 · Posted · 8 reactions] [In partnership with @Doherty Staffing Solutions, CLUES is hosting a...](https://www.linkedin.com/posts/clues_hiringevent-feriadeempleo-trabajomn-activity-7513997893159108608-4Bbn)\n  > In partnership with @Doherty Staffing Solutions, CLUES is hosting a bilingual hiring event on October 15th! We invite you and your networks to explore a wide range of positions, connect directly with Doherty team members, and interview for positions on-site.\n  >\n  > What will be provided:\n  > -Interview with Doherty team members on-site.\n  > -Explore a wide variety of Doherty positions.\n  > -Information about different CLUES Programs.\n  >\n  > When? Thursday, October 15th, 2026\n  > Time: 9:00 a.m. - 3:00 p.m.\n  > Where? CLUES Saint Paul (797 E 7th St, St Paul, MN 55106)\n  > Admission: Completely FREE and open to all!\n  >\n  > If you have any questions or would like to partner with CLUES for an event like this in the future, please email CareerDevelopment@clues.org.\n  >\n  > ***\n  >\n  > En colaboración con Doherty Staffing Solutions, CLUES organiza un evento de contratación bilingüe el 15 de octubre. Te invitamos a ti y a tus contactos a explorar una amplia gama de puestos, conectar directamente con miembros del equipo de Doherty y realizar entrevistas presenciales.\n  >\n  > ¿Qué se ofrece?\n  > - Entrevista presencial con miembros del equipo de Doherty.\n  > - Exploración de una amplia variedad de puestos en Doherty.\n  > - Información sobre los diferentes programas CLUES.\n  >\n  > ¿Cuándo? Jueves, 15 de octubre, 2026\n  > ¿A qué hora? 9:00 a.m. - 3:00 p.m.\n  > ¿Dónde? CLUES Saint Paul (797 E 7th St, St Paul, MN 55106)\n  > Admisión: ¡Completamente GRATIS y abierto para todo el público!\n  >\n  > Si tiene alguna pregunta o le gustaría colaborar con CLUES en un evento similar en el futuro, envíe un correo electrónico a CareerDevelopment@clues.org.\n  >\n  > #HiringEvent #FeriaDeEmpleo #TrabajoMN #MinnesotaJobs #OportunidadLaboral #CLUES_MN\n\n- [2026-10-01 · Posted · 6 reactions] [Join us for an evening celebrating art, identity, and community...](https://www.linkedin.com/posts/clues_latinoart-latineartists-artexhibition-activity-7511234521476833280-TjQ0)\n  > Join us for an evening celebrating art, identity, and community!\n  >\n  > You’re invited to the Celebration with Artists for To Be Minnesotane: Ser y Estar, a special opportunity to meet the artists, experience the exhibition, and come together through art and community.\n  >\n  > Featuring 17 Latine artists connected to Minnesota, the exhibition explores the layered meanings of ser and estar: identity, origin, presence, and place. Through their work, the artists reflect on what it means to carry one place within us while creating home in another.\n  >\n  > Celebration with Artists\n  > Saturday, October 10\n  > 6–8 p.m.\n  > CLUES St. Paul\n  > 797 E 7th St, St. Paul, MN 55106\n  >\n  > Come meet the artists, experience their work, and celebrate the stories and experiences that continue to redefine what it means to be Minnesotane.\n  >\n  > We hope to see you there! More information: clues.org/arte\n  >\n  > Can’t join us on October 10? Visit the exhibition through November 6, Monday through Friday, from 9 a.m. to 5 p.m. at CLUES St. Paul Art Gallery.\n  > ***\n  > ¡Acompáñanos a celebrar el arte, la identidad y nuestra comunidad!\n  >\n  > Te invitamos a la Celebración con Artistas de To Be Minnesotane: Ser y Estar, una oportunidad especial para conocer a los artistas, explorar la exhibición y compartir una noche de arte y comunidad.\n  >\n  > La exposición reúne a 17 artistas Latines con vínculos a Minnesota y explora los múltiples significados de ser y estar: identidad, origen, presencia y lugar. A través de sus obras, los artistas reflexionan sobre lo que significa llevar un lugar dentro de nosotros mientras construimos un hogar en otro.\n  >\n  > Celebración con Artistas\n  > Sábado, 10 de octubre\n  > 6–8 p.m.\n  > CLUES St. Paul\n  > 797 E 7th St, St. Paul, MN 55106\n  >\n  > Ven a conocer a los artistas, a descubrir sus obras y a celebrar las historias y experiencias que continúan redefiniendo lo que significa ser Minnesotane.\n  >\n  > ¡Te esperamos!\n  >\n  > Más información: www.clues.org/arte\n  >\n  > #LatinoArt #LatineArtists #ArtExhibition #MinnesotaArts #CLUES_MN\n\n- [2026-09-30 · Reshared · 9 reactions] [We’re excited to see “To Be Minnesotane: Ser y Estar Group Art...](https://www.linkedin.com/posts/clues_to-be-minnesotane-activity-7511147043487129600-0gjb): We’re excited to see “To Be Minnesotane: Ser y Estar Group Art Exhibition” featured in this new article by Myah Goff. The exhibition brings together 17 local Latine artists exploring home, identity...\n\n- [2026-09-27 · Posted · 8 reactions] [We're #hiring a new Community Resource Navigator (bilingual...](https://www.linkedin.com/posts/clues_hiring-activity-7509935139297173505-R7cW)\n  > We're #hiring a new Community Resource Navigator (bilingual Eng-Span) in St Paul, Minnesota. Apply today or share this post with your network.\n\n- [2026-09-26 · Posted · 11 reactions] [We're #hiring a new Marketing & Digital Content Coordinator...](https://www.linkedin.com/posts/clues_hiring-activity-7509571744475676672-p3b-)\n  > We're #hiring a new Marketing & Digital Content Coordinator (bilingual Eng-Span) in St Paul, Minnesota. Apply today or share this post with your network.\n\n- [2026-09-20 · Posted · 6 reactions] [We're #hiring a new Victim Advocate, Domestic Violence & Sexual...](https://www.linkedin.com/posts/clues_hiring-activity-7507403861272465408-6Uhm)\n  > We're #hiring a new Victim Advocate, Domestic Violence & Sexual Assault (bilingual Eng-Span) in Minneapolis, Minnesota. Apply today or share this post with your network.\n\n- [2026-09-15 · Posted · 17 reactions] [There’s so much to celebrate at CLUES! As we mark 45 years of...](https://www.linkedin.com/posts/clues_the-latest-news-from-clues-issue-4-2026-activity-7505684735319265280-pHsm)\n  > There’s so much to celebrate at CLUES! As we mark 45 years of impact and kick off Latine and Hispanic Heritage Month, our latest newsletter brings together the people, culture, and community moments that make this season so special.\n  >\n  > From Fiesta Latina (September 19) and Gala Latina (November 12) to arts and culture, youth opportunities, community recognition, and more! See what’s happening at CLUES and what’s ahead.\n  >\n  > 📩 Read our latest newsletter: https://conta.cc/4xiOMsV\n  >\n  > #CLUES #CLUES45Years #FiestaLatina #GalaLatina #LatineHeritageMonth #HispanicHeritageMonth #MinnesotaLatinos #CommunityImpact\n\n- [2026-09-15 · 17 reactions] There’s so much to celebrate at CLUES! As we mark 45 years of impact and kick off Latine and Hispanic Heritage Month, our latest newsletter brings together the people, culture, and community moment...\n\n- [2026-09-13 · Posted · 36 reactions] [What an extraordinary two days for Minnesota’s Latino community and...](https://www.linkedin.com/posts/clues_hispanicheritageawards-clues-minnesota-activity-7504962118144798721-1y09)\n  > What an extraordinary two days for Minnesota’s Latino community and for our entire state.\n  >\n  > On Wednesday, September 9, CLUES had the privilege of welcoming the Hispanic Heritage Foundation and Academias La Paz to our home, bringing together more than 140 young people for a morning centered on connection, inspiration, and opportunity.\n  >\n  > The following day, we joined the 39th Hispanic Heritage Awards at Minnesota Orchestra Hall for a historic moment: for the first time, this national celebration was held outside Washington, D.C.\n  >\n  > The evening culminated with an especially meaningful recognition: the 2026 Hispanic Heritage Humanitarian Award was presented to the People of Minnesota, honoring the solidarity, courage, resilience, and care Minnesotans have shown in ",
+        "summary": "{\"description\":\"CLUES (Comunidades Latinas Unidas en Servicio) is Minnesota’s largest Latino-led nonprofit agency founded in 1981 to provide culturally and linguistically relevant services, advancing social and economic equity for Latinos.\",\"employee_estimate\":316,\"employee_estimate_source\":\"Employees: 316\",\"hiring_first_ops_or_revops\":false,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Saint Paul, Minnesota, United States\",\"hq_quote\":\"Headquartered in Saint Paul, Minnesota, United States, with offices in Austin, Willmar, and Minneapolis.\",\"industry\":\"Individual and Family Services\",\"is_b2b_company\":null,\"is_b2b_company_quote\":\"\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":false,\"recently_funded_seed_or_series_a_quote\":\"\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4E0BAQFjWC_Gk1GC3Q/company-logo_200_200/company-logo_200_200/0/1631370277037/clues_logo?e=2147483647&v=beta&t=A5gEWGsGkfv_wdLPXDu3SQbY9DoQpPT5jiSvu-SIwcE",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/gzjz3bjmwlz",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "CLUES",
+              "foundedYear": 1981,
+              "description": "CLUES (Comunidades Latinas Unidas en Servicio) is Minnesota’s largest Latino-led nonprofit agency, founded in 1981 by and for Latinos to provide culturally and linguistically relevant services. CLUES’ mission is to advance social and economic equity and wellbeing for Latinos by building upon our strengths and cultures, uplifting our community, and enabling leadership for systemic change. Our vision is an empowered Latino community that is growing in strength and unity, with diverse and amplified voices, equal representation, and the resources needed to lead healthy and thriving lives.\n\nCLUES programs and services connect individuals and families to resources, skills, institutions and systems and create an environment for people to be engaged and empowered. We bundle services across Health & Wellness, Economic Empowerment, Educational Enrichment and Cultural and Civic Engagement to meet the complex and interrelated needs of our community. We welcome immigrants and low-income individuals from all walks of life who dream of a better future.\n\nIn addition to its Headquarters in Saint Paul and its office in Minneapolis, CLUES has offices in Willmar and Austin, MN.",
+              "workforce": {
+                "total": 316
+              },
+              "headquarters": {
+                "address": "797 7th St E, St Paul, Minnesota 55106, US",
+                "city": "Saint Paul",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 15390960,
+                "fundingTotal": 1500000,
+                "fundingLatestRound": {
+                  "name": "Grant",
+                  "date": "2022-04-06",
+                  "amount": 1500000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 5114,
+                "countryRank": 867436,
+                "avgDurationSeconds": 141,
+                "history": [
+                  {
+                    "value": 6425,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 7652,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 6108,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 7178,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 7257,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 5114,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 6938,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

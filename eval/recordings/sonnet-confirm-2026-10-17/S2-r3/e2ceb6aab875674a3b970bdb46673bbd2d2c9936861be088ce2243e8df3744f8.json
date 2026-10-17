@@ -1,0 +1,201 @@
+{
+  "request": {
+    "query": "FSH Technologies",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "ba6fee6fb29c2c859a09af2598172961",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/25gq7gtxlpg",
+        "title": "FSH Technologies",
+        "url": "https://fsh.org/",
+        "text": "# FSH Technologies\n\nFSH Technologies is a Software Development company. FSH Technologies is a software company that builds software for municipalities to reduce software spending and get to value faster. FSH Technologies employs 26 people (+62.5% YoY, +10 people) and has an annual revenue of $1M, founded in 2021. Headquartered in Philadelphia, Pennsylvania, United States.\n\n## About\n\nFSH Technologies is the software platform for municipalities\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: Philadelphia, United States\n- Founded Year: 2021\n- Homepage: fsh.org\n- Aliases: Contenda Inc., fsh technologies, fsh technologies (formerly contenda), fshtech\n- LinkedIn: linkedin.com/company/fshtech\n- Linkedin Followers: 1,264\n- Emails: info@fsh.org\n\n## Financials\n- Annual Revenue: USD 1,000,000\n- Total Funding: USD 25,000,000\n  - Series a (2026-08-01): USD 20.0M\n  - Seed (2026-02-01): USD 5.0M\n\n## Workforce\n- Employees: 26\n- Company Size: 11-50 employees\n  - Monthly Growth: -3.7%\n  - Yearly Growth: +62.5%\n- Key Executives:\n  - Jason Chen: COO\n  - Jason 🧠 Shen: Angel Investor\n  - Johnson Lin: Co-Founder and Engineering Lead\n  - Lilly Chen: Founder & CEO\n  - Rodda John: CTO\n  - Ryan Hendry: Director of Operations\n- Breakdown:\n  - By Country: United States: 16 (62%)\n  - By Department: Technical: 5 (19%), General Management: 3 (12%), Other Department: 3 (12%), Consulting: 2 (8%), Administrative: 1 (4%), Finance: 1 (4%), Operations: 1 (4%)\n  - By Seniority: Other Management: 5 (19%), Specialist: 4 (15%), Clevel: 3 (12%), Founder: 2 (8%), Director: 1 (4%), Intern: 1 (4%)\n- Talent Sources: Contrary (2), Colorado College (2), Tutor Doctor (1), PANDA AI (1), Northeastern University (1), Nava (1), Maeve (1), Insomnia Cookies (1), Fidelity Investments (1), Deloitte (1)\n- Alumni Go To: University of Pennsylvania (2), Amazon Web Services (AWS) (2), honeycomb.io (1), Spokeo (1), Scout (1), Savvas Learning Company (1), Launch by NTT DATA (1), Freelance | Self-Employed (1), Envision Accelerator (1), Department of Computer Science, UMD (1)\n\n## Products & Technology\n- Tech Stack: jazzhr, microsoft, microsoft office, figma, github, tailwind, vercel, well, nosql, python\n\n## Web presence\n\n- Twitter: twitter.com/contendaco\n- Crunchbase: crunchbase.com/organization/contenda\n- Web traffic:\n  - Monthly visits: 6,454\n  - Global rank: 2,947,727\n  - Bounce rate: 33.0%\n  - Pages per visit: 1.9\n  - Average visit duration: 28s\n\n## Categories\n\nbuilding technology, consulting, content, crm, information technology, municipalities, reduce software spending, software, value faster\n\n## Competitors\n\ncontentbot.ai, toks, chopcast\n\n## Recent News\n- [2026-09-10] [GitHub for Total Beginners, Live with Cassidy Williams](https://www.theneurondaily.com/p/live-github-for-total-beginners-cassidy-williams)\n- [2026-08-31] [Philadelphia GovTech Firm FSH Raises $25 Million to Expand - MyChesCo](https://www.mychesco.com/a/news/regional/philadelphia-govtech-firm-fsh-raises-25-million-to-expand/)\n- [2026-08-24]\n  - GlobeNewswire: [FSH Technologies Raises $25 Million to Take On The Consulting Firms Running Up The Bill on American Taxpayers](https://lesechos-comfi.lesechos.fr/press-release/fsh-technologies-raises-25-million-to-take-on-the-consulting-firms-running-up-the-bill-on-american-taxpayers-WLIzNqsfU41)\n  - [General Intuition eyes $6b, a railroad vegetation deal, and Starcloud's $2.3b valuation](https://www.axios.com/pro/all-deals/2026/08/24/pro-rata-premium-first-look-general-intuition)\n  - [FSH Technologies Secures $25M to Push Government Consulting With Scalable Software](https://www.citybiz.co/article/892945/fsh-technologies-secures-25m-to-push-government-consulting-with-scalable-software/)\n  - [FSH Technologies Raises $20M to Sell Cities Software Instead of Billable Hours - NewsBreak](https://www.newsbreak.com/news/4847339891274-fsh-technologies-raises-20m-to-sell-cities-software-instead-of-billable-hours)\n- [2026-08-23] [From Buddhist monk at 16 to Meta engineer : How 30 year old Lilly Chen built a $25 million startup to challenge Accenture - BusinessToday](https://www.businesstoday.in/technology/story/from-buddhist-monk-at-16-to-meta-engineer-how-30-year-old-lilly-chen-built-a-25-million-startup-to-challenge-accenture-550795-2026-08-23)\n- [2026-08-22] [FSH Technologies Raises $25M to Replace Hourly Gov Consulting](https://ventureburn.com/fsh-technologies-raises-25m-replace-hourly-gov-consulting/)\n- [2026-08-21]\n  - [FSH Technologies Raises $20M in Series A Funding](https://www.finsmes.com/2026/08/fsh-technologies-raises-20m-in-series-a-funding.html)\n  - [Best Crypto Payment Gateways 2026](https://techfinancials.co.za/2026/08/21/best-crypto-payment-solution-providers-in-2026/)\n  - [Govtech firm FSH Technologies secures $20M to expand nationwide - United States](https://www.europesays.com/us/1014198/)\n- [2026-08-20]\n  - [Govtech firm FSH Technologies secures $20M to expand nationwide](https://technical.ly/entrepreneurship/fsh-technologies-secures-20m-to-modernize-municipal-it/)\n  - [Buddhist Monk-turned-Meta Engineer: Lilly Chen Earns Rs 3 Crore, Takes on Accenture](https://assets.thehansindia.com/tech/buddhist-monk-turned-meta-engineer-lilly-chen-earns-rs-3-crore-takes-on-accenture-1111825)\n  - [Buddhist monk gets job at Meta with roughly Rs 3 crore pay, now challenging Accenture - India Today](https://www.indiatoday.in/technology/news/story/buddhist-monk-gets-job-at-meta-with-over-rs-3-crore-salary-now-challenging-accenture-2975763-2026-08-20)\n  - [Lilly Chen left high school at 16 to become a Buddhist monk. Years later, she joined Meta and founded a startup competing with Accenture - The Economic Times](https://economictimes.indiatimes.com/news/international/global-trends/lilly-chen-left-high-school-at-16-to-become-a-buddhist-monk-years-later-she-joined-meta-and-founded-a-startup-competing-with-accenture/articleshow/133384519.cms)\n  - [In 2021, a former Buddhist monk who was a software engineer at Meta accidentally founded a startup that now competes with Accenture - The Times of India](https://timesofindia.indiatimes.com/technology/tech-news/in-2021-a-former-buddhist-monk-who-was-a-software-engineer-at-meta-accidentally-founded-a-startup-that-now-competes-with-accenture/articleshow/133375483.cms)\n  - [I dropped out at 16 to become a Buddhist monk. Now my startup has raised $25 million to take on Accenture. - AOL](https://www.aol.com/articles/dropped-high-school-16-become-090501000.html)\n  - [FSH Technologies Raises $25 Million to Take On The Consulting Firms Running Up The Bill on American Taxpayers \\| The AI Journal](https://aijourn.com/fsh-technologies-raises-25-million-to-take-on-the-consulting-firms-running-up-the-bill-on-american-taxpayers/)\n  - [I Dropped Out at 16 to Be a Monk. Now I'm Taking on Accenture. - Ireland](https://www.europesays.com/ie/647546/)\n\n## Social\n\n### Linkedin\n\n- [2026-09-30 · Posted · 16 reactions] [MED Week is almost here, and Philly means business. For 42 years...](https://www.linkedin.com/posts/fshtech_medweek-philadelphia-activity-7511169153400172545-nrgu)\n  > MED Week is almost here, and Philly means business.\n  >\n  > For 42 years, Maximizing Economic Development (MED) Week has connected business owners with the resources and relationships they need to thrive. This year's theme, \"Advancing Economic Opportunity for All,\" captures what the week is about: helping Philadelphians start, build, and grow their companies.\n  >\n  > There are a ton of great events. Here's a few!\n  >\n  > 🤝 Tue, Oct 6, 2–3:30 PM. Urban Affairs Coalition – Economic Development Projects hosts Working With Unions, on how to partner with unions in the Philadelphia region.\n  >\n  > 🌱 Tue, Oct 6, 2–4:30 PM. IBA & SBN host Triple Bottom Line: People, Planet, Prosperity, on building sustainable business practices.\n  >\n  > 🧾 Thu, Oct 8, 2–3:30 PM. The Department of Revenue hosts Understanding Business Taxes in Philadelphia, on navigating your tax liability and this year's policy changes.\n  >\n  > 📈 Thu, Oct 8, 10–11 AM. Temple University's Small Business Development Center hosts Marketing on a Budget, on free tools and strategies to boost your visibility online.\n  >\n  > ✨ Fri, Oct 9, 8:30 AM–1 PM. Council Majority Leader Katherine Gilmore Richardson and Council President Kenyatta Johnson host From Visibility to Opportunity, on building a stronger brand and positioning your business for growth.\n  >\n  > 🐟 Catch Lilly at the MED Week Kickoff Breakfast & Awards or join our workshop.\n  >\n  > We're proud to be sponsors of #medweek and support the growth of #Philadelphia.\n  >\n  > 🔗 Links in comments.\n\n- [2026-09-17 · Reshared · 75 reactions] [\"What does FSH do?\" That's usually the first question I get asked...](https://www.linkedin.com/posts/fshtech_activity-7506369066509639681-fL99): \"What does FSH do?\" That's usually the first question I get asked. ✍ The technical answer is software. 💪 The real answer is solve civic problems. We built a unified platform for Philadelphia's Comm...\n\n- [2026-09-11 · Posted · 25 reactions] [Philadelphia small business owners have access to free tax prep...](https://www.linkedin.com/posts/fshtech_philadelphia-small-business-owners-have-access-activity-7504175712904491009-Hemg)\n  > Philadelphia small business owners have access to free tax prep, grants up to $50K, and forgivable loans up to $100K. FSH Technologies partnered with the City to help small business owners take advantage of them.\n  >\n  > As part of the City's 42nd Annual MED Week, hosted by the Office of Economic Opportunity, we are holding an in-person workshop to walk through all three programs, step by step:\n  >\n  > 📝 Free Business Tax Preparation Program: free help from local, state, and federal tax professionals for businesses with $250K or less in annual revenue.\n  > 💰 Small Business Catalyst Fund: grants up to $50K, plus advisory support, for growth-minded businesses.\n  > 💌  InStore Loan Forgiveness Program: $50K–$100K in forgivable loans for retail, food, and personal-service businesses to fund equipment and space upgrades.\n  >\n  > We know exactly where people get stuck, and how to move forward.\n  >\n  > 🗓️ Wednesday, October 7 | 9–11 AM\n  > 📍 Center City, Philadelphia\n  >\n  > 🔗 RSVP Link in comments\n\n- [2026-09-11 · 25 reactions, 2 comments] Philadelphia small business owners have access to free tax prep, grants up to $50K, and forgivable loans up to $100K. FSH Technologies partnered with the City to help small business owners take adv...\n\n- [2026-08-26 · Reshared · 39 reactions] [FSH Technologies has raised $25M in total funding, including a $20M...](https://www.linkedin.com/posts/fshtech_activity-7498497226286030848-mHAA): FSH Technologies has raised $25M in total funding, including a $20M Series A led by Lachy Groom with Acrew Capital co-leading and Operator Partners, Contrary, Cooley and several angels participatin...\n\n- [2026-08-25 · Posted · 14 reactions] [Ryan Mulligan of the Philadelphia Business Journal interviewed...](https://www.linkedin.com/posts/fshtech_ryan-mulligan-of-the-philadelphia-business-activity-7498125351974297600-E38_)\n  > Ryan Mulligan of the Philadelphia Business Journal interviewed Lilly Chen about FSH's future and why Philadelphia has her heart, taxes & all.  💕\n  >\n  > 🔗 link in comments\n\n- [2026-08-24 · Reshared · 60 reactions] [I’m proud of what I do and why I do it. I recently started a new...](https://www.linkedin.com/posts/fshtech_activity-7497713406368710656-SYwB): I’m proud of what I do and why I do it. I recently started a new job at FSH Technologies , where every day I come to work to learn and create software that just works for civil servants who need it...\n\n- [2026-08-24 · 66 reactions, 7 comments] I’m proud of what I do and why I do it. I recently started a new job at FSH Technologies, where every day I come to work to learn and create software that just works for civil servants who need it....\n\n- [2026-08-22 · Reshared · 25 reactions] [One of the most rewarding kinds of investments we at Acrew Capital...](https://www.linkedin.com/posts/fshtech_activity-7496733502105751552-f1B6): One of the most rewarding kinds of investments we at Acrew Capital make is when a founder figures out how to take a historically tough market and reinvent it in a way that truly delights customers...\n\n- [2026-08-22 · Reshared · 85 reactions] [Congratulations to Lilly Chen and FSH Technologies team on their...](https://www.linkedin.com/posts/fshtech_activity-7496883125428408321-j0yq): Congratulations to Lilly Chen and FSH Technologies team on their $25M raise and dedication to Phiily!! And making national news!! https://lnkd.in/g4rQQwJ5 . Eating the incumbents lunch. Jeff Friedm...\n\n- [2026-08-22 · 88 reactions, 5 comments] Congratulations to Lilly Chen and FSH Technologies team on their $25M raise and dedication to Phiily!! And making national news!! https://lnkd.in/g4rQQwJ5. Eating the incumbents lunch. Jeff Friedma...\n\n- [2026-08-21 · Reshared · 43 reactions] [Philadelphia govtech startup FSH Technologies has raised a $20...](https://www.linkedin.com/posts/fshtech_activity-7496637150180864000-QIRm): Philadelphia govtech startup FSH Technologies has raised a $20 million Series A, bringing its total funding to $25 million. The woman-owned company builds software for cities, school districts and...\n\n- [2026-08-21 · Posted · 29 reactions] [Thank you for an incredible welcome City of Philadelphia! 🎀 We did...](https://www.linkedin.com/posts/fshtech_thank-you-for-an-incredible-welcome-city-activity-7496627825622577152-0F2v)\n  > Thank you for an incredible welcome City of Philadelphia!\n  >\n  > 🎀  We did our ribbon cutting with Philadelphia Department of Commerce's Salim Wilson, Liam Kelly Fleming, Tiffany Justice, and Tempest Carter to celebrate the new Philadelphia HQ office!\n  >\n  > 💰 We announced our $25M Series A raise\n  >\n  > 👯 We are hiring for dozens of roles across engineering, ops, and client strategy! Welcome to the team Rodda John, Clara D., Jack Gill, Jason Chen, and Nikki Pressey!\n  >\n  > Here's a few recent press articles about our recent growth in the comments!\n\n- [2026-08-21 · 53 reactions, 3 comments] Thank you for an incredible welcome City of Philadelphia! 🎀 We did our ribbon cutting with Philadelphia Department of Commerce's Salim Wilson, Liam Kelly Fleming, Tiffany Justice, and Tempest Carte...\n\n- [2026-08-21 · 17 reactions, 1 comment] Local government IT is a $160B market running on decades-old software. FSH Technologies is rebuilding it from the procurement process up. Proud to have led FSH's Seed and to back their Series A alo...\n\n- [2026-08-20 · Reshared · 302 reactions] [FSH Technologies has raised a $25M Series A to make local...](https://www.linkedin.com/posts/fshtech_activity-7496182078863163392-qZs1): FSH Technologies has raised a $25M Series A to make local government software that just works. Why? A quick snapshot of our work so far: 🏙️ Our average project directly impacts at least 57,000 peop...\n\n- [2026-08-11 · Posted · 23 reactions] [Philly neighbors - our doors are officially open. 🎉 We just opened...](https://www.linkedin.com/posts/fshtech_philly-neighbors-our-doors-are-officially-activity-7492953095895810049-gXf-)\n  > Philly neighbors - our doors are officially open.  🎉\n  >\n  > We just opened an office in our home city of Philadelphia. Celebrate with us on August 21st - ribbon-cutting, good food, and an open conversation about what your city actually needs.\n  >\n  > Because building local government software that doesn't suck starts with listening to the people who use it. 🐟\n  >\n  > This is a neighborhood party first - matcha from Baby's Kusina, charcuterie from Heavy Metal Sausage, free swag, and more - but if you're slugging through old software, stick around to see demos and meet the FSH team building what comes next.\n  >\n  > We can only fit so many neighbors - RSVP today (link in comments) 🔗\n\n- [2026-08-11 · 38 reactions, 2 comments] Philly neighbors - our doors are officially open. 🎉 We just opened an office in our home city of Philadelphia. Celebrate with us on August 21st - ribbon-cutting, good food, and an open conversation...\n\n- [2026-07-31 · Reshared · 8 reactions] [We are so incredibly excited to have Jason join the team. If you'd...](https://www.linkedin.com/posts/fshtech_we-are-so-incredibly-excited-to-have-jason-activity-7488990415950393345-VSLJ): We are so incredibly excited to have Jason join the team. If you'd like to work with him, he's hiring for several roles right now!\n\n- [2026-03-13 · 31 reactions, 3 comments] Welcome our 2026 class of FSH Public Lab Fellows! 🐠 Ahmed Haj Ahmed, Kevin Henner, and Simran Sohal join our talented FSH team to develop technology that serves the public interest. Each fellow sel...\n\n## Locations\n- Headquarters: philadelphia, pennsylvania, united states (US)\n- Offices: philadelphia, pennsylvania, united states (US)",
+        "summary": "{\"description\":\"FSH Technologies is a software development company that builds software for municipalities to reduce software spending and get to value faster.\",\"employee_estimate\":26,\"employee_estimate_source\":\"Employees: 26\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"- Key Executives:\\n  - Jason Chen: COO\\n  - Jason 🧠 Shen: Angel Investor\\n  - Johnson Lin: Co-Founder and Engineering Lead\\n  - Lilly Chen: Founder & CEO\\n  - Rodda John: CTO\\n  - Ryan Hendry: Director of Operations\",\"hq\":\"Philadelphia, Pennsylvania, United States\",\"hq_quote\":\"Headquartered in Philadelphia, Pennsylvania, United States.\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Software Development\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 25,000,000; - Series a (2026-08-01): USD 20.0M; - Seed (2026-02-01): USD 5.0M;\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4D0BAQEmHICSl-wdRw/company-logo_200_200/B4DZUq5qOOHAAI-/0/1740181513382/fshtech_logo?e=2147483647&v=beta&t=xCJjrnTzzAAWcG40I3K3ihiXnazaIpKI68PbnFsnd14",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/25gq7gtxlpg",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "FSH Technologies",
+              "foundedYear": 2021,
+              "description": "FSH Technologies is the software platform for municipalities ",
+              "workforce": {
+                "total": 26
+              },
+              "headquarters": {
+                "address": "Philadelphia, Pennsylvania 19106, US",
+                "city": "Philadelphia",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 1000000,
+                "fundingTotal": 25000000,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2026-08-01",
+                  "amount": 20000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 6454,
+                "countryRank": 1004166,
+                "avgDurationSeconds": 28,
+                "history": [
+                  {
+                    "value": 6454,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/6whmqwp2f9t",
+        "title": "FHS Technologies Pvt Ltd.",
+        "url": "https://linkedin.com/company/fhs-technologies-pvt-ltd",
+        "text": "# FHS Technologies Pvt Ltd.\n\nFHS Technologies Pvt Ltd. is a IT Services and IT Consulting company. FHS Technologies Pvt Ltd. employs 7 people (+16.7% YoY, +1 person). Headquartered in Karachi, Sindh, Pakistan.\n\n## About\n\nIn today's rapidly changing world of technology, where the digital landscape constantly evolves, FHS Technologies stands out as a beacon of innovation and excellence. As a leading Information Technology (IT) company, we firmly believe in the transformative power of technology to drive growth, streamline operations, and enhance user experience. \n \nOur unwavering commitment to pushing boundaries and embracing emerging trends enables organizations to thrive in an increasingly digital world. \n\nWelcome to FHS Technologies, where your bridge to technological excellence is.\n\n## Company Details\n- Industry: IT Services and IT Consulting\n- Type: Privately held\n- Headquarters: Karachi, Pakistan\n- Aliases: fhs technologies pvt ltd.\n- LinkedIn: linkedin.com/company/fhs-technologies-pvt-ltd\n- Linkedin Followers: 430\n\n## Workforce\n- Employees: 7\n- Company Size: 11-50 employees\n  - Yearly Growth: +16.7%\n- Key Executives:\n  - Vaqas Uddin: Chief Technology Officer\n- Breakdown:\n  - By Country: Pakistan: 5 (71%)\n  - By Department: Technical: 3 (43%), Consulting: 1 (14%), Other Department: 1 (14%)\n  - By Seniority: Other Management: 2 (29%), Specialist: 2 (29%), Clevel: 1 (14%)\n- Talent Sources: WebOptia (1), Walfia.ai (1), SportsNow PK (1), OSHA Outreach Courses (1), Creative Thumb (1), Changing Digital (1), Adateck (1)\n- Alumni Go To: Vitalchat (1), SEO Mavens (1), OSHA Outreach Courses (1), Mentory (1), Apex Solutions (1)\n\n## Products & Technology\n- Tech Stack: git, javascript, laravel, linux, mongodb, mysql, php, react, redux, well\n\n## Social\n\n### Linkedin\n\n- [2024-05-22 · 3 reactions] We're hiring a talented Graphic Designer to join our dynamic team! https://lnkd.in/dmCNG-uw #hiring #graphicdeigner\n\n- [2024-04-29 · 3 reactions] We are seeking a talented and experienced Software Engineer with at least 5 years of experience in Laravel and React development, and expertise in the LAMP stack. Experience with the MERN stack, se...\n\n- [2024-04-29 · 5 reactions] At FHS Technologies, we're on a mission to revolutionize the way businesses leverage technology to drive growth and innovation. Whether it's developing bespoke software solutions, harnessing the po...\n\n## Locations\n- Headquarters: karachi, sindh, pakistan (PK)\n- Offices: karachi, sindh, pakistan (PK)",
+        "summary": "{\"description\":\"FHS Technologies Pvt Ltd. is an IT Services and IT Consulting company based in Karachi, Pakistan, with a small team and a focus on technology solutions.\",\"employee_estimate\":7,\"employee_estimate_source\":\"Employees: 7\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Karachi, Pakistan\",\"hq_quote\":\"Headquarters: Karachi, Pakistan\",\"industry\":\"IT Services and IT Consulting\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"- Industry: IT Services and IT Consulting\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":false,\"recently_funded_seed_or_series_a_quote\":\"There is no mention of seed or Series A funding on the page; ongoing hiring and company details are listed, but no fundraising information is provided.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4D0BAQEUnSVYSoyAXg/company-logo_200_200/company-logo_200_200/0/1711610261423?e=2147483647&v=beta&t=Y3aE7l3swOOVoSuDHlGyoSBywpQoyudeGFKU-zrXJww",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/6whmqwp2f9t",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "FHS Technologies Pvt Ltd.",
+              "foundedYear": null,
+              "description": "In today's rapidly changing world of technology, where the digital landscape constantly evolves, FHS Technologies stands out as a beacon of innovation and excellence. As a leading Information Technology (IT) company, we firmly believe in the transformative power of technology to drive growth, streamline operations, and enhance user experience. \n \nOur unwavering commitment to pushing boundaries and embracing emerging trends enables organizations to thrive in an increasingly digital world. \n\nWelcome to FHS Technologies, where your bridge to technological excellence is.",
+              "workforce": {
+                "total": 7
+              },
+              "headquarters": {
+                "address": "Bahria Town Tower, P.E.C.H.S Block 2, 610, 6th Floor, Karachi, Sindh 75400, PK",
+                "city": "Karachi",
+                "postalCode": null,
+                "country": "Pakistan"
+              },
+              "financials": null,
+              "webTraffic": null,
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 8987,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

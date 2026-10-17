@@ -1,0 +1,226 @@
+{
+  "request": {
+    "query": "Omnea",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "777d85fd3b4267ee5434a4306802d00e",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/2jp8xkht436",
+        "title": "Omnea",
+        "url": "https://www.omnea.co/",
+        "text": "# Omnea\n\nOmnea is a Software Development company. Omnea is an AI procurement platform that connects systems, automate workflows, and give humans and agents one place to manage source-to-pay. Omnea employs 219 people (+90.4% YoY, +104 people) and has an annual revenue of $365.4K, founded in 2022. Headquartered in London, United Kingdom, with presence in United States and Germany. Its workforce is distributed across 7 countries (including United Kingdom, United States, Germany, Australia, and Cyprus).\n\n## About\n\nOmnea is the Agentic Operating System (aOS) for procurement and supplier management. The platform connects systems, automates workflows, and gives humans and agents one place to manage suppliers. It runs the full procurement lifecycle, from intake and sourcing through onboarding, contracting, and renewal, and embeds commercial and risk governance at every step.\n\nOmnea is trusted by Spotify, PayPal, Adecco Group, Albertsons, and Just Eat. Since its founding in 2022, Omnea has raised over $75M from Khosla Ventures, Insight Partners, and Accel.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: London, United Kingdom\n- Founded Year: 2022\n- Homepage: omnea.co\n- Aliases: Omnea Limited, omnea, omnea (united kingdom)\n- LinkedIn: linkedin.com/company/omnea\n- Linkedin Followers: 19,989\n\n## Financials\n- Annual Revenue: USD 365,432\n- Total Funding: USD 75,000,000\n  - Non equity assistance (2026-03-01)\n  - Series b (2025-10-17): USD 50.0M\n  - Series a (2024-10-14): USD 20.0M\n  - Seed (2022-06-16): USD 5.0M\n\n## Workforce\n- Employees: 219\n- Company Size: 201-500 employees\n  - Monthly Growth: +0.5%\n  - Yearly Growth: +90.4%\n- Key Executives:\n  - Abhirukt Sapru: Chief Commercial Officer\n  - Abhirukt Sapru: Investor & Advisor\n  - Adam Schoenhaut: US Founding Team\n  - Alex Roden: Founding RevOps\n  - Andrew Gavrila: Solution & Implementation Lead\n  - Ariana Pilco: VP, Strategic Projects\n  - Ariana von Anrep: VP, Strategic\n  - Ashil Shah: VP Business Development\n  - Ben Allen: Co-Founder\n  - Ben Freeman: Co-founder & CEO\n- Breakdown:\n  - By Country: United Kingdom: 138 (63%), United States: 39 (18%), Germany: 2 (1%), Australia: 1, Cyprus: 1, Romania: 1, Sweden: 1\n  - By Department: Technical: 44 (20%), Other Department: 32 (15%), Operations: 26 (12%), General Management: 22 (10%), Product: 17 (8%), Consulting: 14 (6%), Sales: 12 (5%), Project Management: 8 (4%), Hr: 7 (3%), Marketing: 7 (3%) (+5 more)\n  - By Seniority: Other Management: 60 (27%), Specialist: 43 (20%), Senior: 26 (12%), Manager: 22 (10%), Head: 21 (10%), Vp: 14 (6%), Founder: 8 (4%), Clevel: 3 (1%), Director: 3 (1%), Partner: 2 (1%)\n- Active job postings: 49\n- Talent Sources: Tractable (3), Tessian (3), Stealth Startup (3), Multiverse (3), Bain & Company (3), Various Companies (2), Pigment (2), Klarna (2), Efficio (2), Celonis (2)\n- Alumni Go To: Tracebit (3), Platformed (2), Entrepreneurs First (2), Yale School of Management (1), Metris (1), Maze (1), Leah (1), Freelance (1), Coverage (1), Avantra (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack (showing 50 of 81): adecco, adobe, adobe creative suite, adp, adyen, aws lambda, centricity, css, datadog, dreamdata, figma, github, github actions, google ads, grunt, hopin, hubspot, iam, javascript, json, launchpad, linkedin, linkedin ads, logrocket, mcafee, mixpanel, mongodb, netapp, onfido, paypal, people hr, persona, pleo, proofpoint, prototype, python, ramp, react, recognize, springboard, sql, teamviewer, typescript, zapier, achievers, java, typeform, nodejs, fintech, clever\n\n## Web presence\n\n- Twitter: twitter.com/omnea_de\n- Facebook: facebook.com/omnea.de\n- YouTube: youtube.com/@omnea-ltd\n- Crunchbase: crunchbase.com/organization/omnea-2c90\n- Web traffic:\n  - Monthly visits: 77,431\n  - Global rank: 327,774\n  - Bounce rate: 37.0%\n  - Pages per visit: 6.6\n  - Average visit duration: 336s\n\n## Reviews & Ratings\n- Employer Rating: 4.8/5.0 (21 reviews)\n  - Breakdown: Work-Life: 4.3, Compensation: 4.6, Culture: 5.0, Career: 5.0\n\n## Categories\n\nai procurement platform, application-software, artificial intelligence (ai), automated workflows, b2b, business_and_consumer_services/business_services, human and agent, manage source-to-pay, platform, procurement, software, source-to-pay, technology, technology/software, transaction processing\n\n## Competitors\n\npositive, ply financial, digital purchase order, decideware\n\n## Recent News\n- [2026-09-25] [Omnea's MVK on AI and Level Four Procurement \\| Procurement Magazine](https://procurementmag.com/news/omneas-mvk-on-ai-and-level-four-procurement)\n- [2026-09-08] [Omena: AI Supplier Risk Management Reshapes Procurement \\| Procurement Magazine](https://procurementmag.com/news/omena)\n- [2026-08-22] [Best Workplaces for Innovators 2025](https://www.fastcompany.com/best-workplaces-for-innovators/list/88?es_id=afaf3de2de)\n- [2026-08-19]\n  - [Top 10: Procurement Chatbots \\| Procurement Magazine](https://procurementmag.com/top10/top-10-procurement-chatbots)\n  - [Michael van Keulen joins Omnea as CPO in Residence – News Radio KOTA](https://lifestyle.kotaradio.com/story/368530/michael-van-keulen-joins-omnea-as-cpo-in-residence/)\n- [2026-08-07]\n  - [300 Customer Interviews Before Writing a Line of Code - The Discovery Process Behind Omnea - DEV Community](https://dev.to/stella_penso/300-customer-interviews-before-writing-a-line-of-code-the-discovery-process-behind-omnea-474)\n  - [Agentic Workflows in the Enterprise — What Omnea Gets Right About AI Agents That Aren't Just Chatbots - DEV Community](https://dev.to/harry_williams/agentic-workflows-in-the-enterprise-what-omnea-gets-right-about-ai-agents-that-arent-just-3lm6)\n  - [What \"Single Source of Truth\" Actually Means in Practice — A Look at Omnea's Data Architecture - DEV Community](https://dev.to/benten_clifford/what-single-source-of-truth-actually-means-in-practice-a-look-at-omneas-data-architecture-2ehn)\n- [2026-08-04]\n  - [Michael van Keulen to Transform Procurement With Omnea](https://procurementmag.com/news/michael-van-keulen-to-transform-procurement-with-omnea)\n  - [Michael van Keulen joins Omnea as CPO in Residence](https://au.finance.yahoo.com/news/michael-van-keulen-joins-omnea-090000485.html)\n  - [omnea-adds-veteran-cpo-in-residence-as-ai-native-procurement-platform-accelerates-growth](https://www.tipranks.com/news/private-companies/omnea-adds-veteran-cpo-in-residence-as-ai-native-procurement-platform-accelerates-growth)\n- [2026-08-03] [Omnea: Interview With Founder And CEO Ben Freeman About The Agentic Operating System For Procurement](https://pulse2.com/omnea-profile-ben-freeman-interview/)\n- [2026-07-28]\n  - [Omnea triples revenue in twelve months as enterprises choose agentic operating system for procurement \\| The Manila Times](https://www.manilatimes.net/2026/07/28/tmt-newswire/globenewswire/omnea-triples-revenue-in-twelve-months-as-enterprises-choose-agentic-operating-system-for-procurement/2393022)\n  - [omnea-triples-revenue-and-accelerates-ai-native-procurement-platform-growth-in-h1-2026](https://www.tipranks.com/news/private-companies/omnea-triples-revenue-and-accelerates-ai-native-procurement-platform-growth-in-h1-2026)\n- [2026-07-02] [Omnea Launches Future Founders Venture Fund to Back Employee-Led Startups in London Through Firedrop Partnership - TDPel Media](https://tdpelmedia.com/omnea-launches-future-founders-venture-fund-to-back-employee-led-startups-in-london-through-firedrop-partnership/)\n- [2026-07-01]\n  - [Omnea, Firedrop Launch $250K Fund for Employee Startups](https://www.startupresearcher.com/news/omnea-and-firedrop-launch-usd250-000-future-founders-fund-for-employees)\n  - [Omnea startet „Future Founders Fund“: 250.000 US-Dollar für interne Startup-Pläne](https://www.it-boltwise.de/omnea-startet-future-founders-fund-250-000-us-dollar-fuer-interne-startup-plaene.html)\n  - [AI Startup Omnea to Give Employees $250K to Launch Next Startups - Archynewsy](https://www.archynewsy.com/ai-startup-omnea-to-give-employees-250k-to-launch-next-startups/)\n- [2026-06-30]\n  - [Exclusive: No More Side Hustles: Why AI Startup Omnea Will Give Employees $250K To Openly Plan Their Next Startup](https://news.crunchbase.com/startups/omnea-funding-employees-future-founders-freeman/)\n  - [Omnea launches fund with Firedrop to back employees as future founders - Tech.eu](https://tech.eu/2026/06/30/omnea-launches-fund-with-firedrop-to-back-employees-as-future-founders/)\n- [2025-05-27] EU-Startups: The AI uprising: 20 European AI startups to watch in 2025 and beyond\n- [2025-04-24] GlobeNewswire: Omnea Named “Best Overall eProcurement Software” in 2025 FinTech Breakthrough Awards Program\n- [2025-01-21]\n  - Finovate: Fintech Rundown: A Rapid Review of Weekly News\n  - Paypers: Omena partners Thought Machine\n  - FF News \\| Fintech Finance: Omnea Partners With Thought Machine to Transform Procurement Governance\n- [2025-01-20] Paypers: Search\n- [2024-10-15]\n  - FinTech Global: Accel leads $20m Series A investment in procurement Innovator Omnea\n  - Financial IT: Omnea Raises $20M Series A\n  - Finextra Research: Omnea raises $20 million Series A\n  - Tech.eu: Omnea raises $20M for AI-powered procurement and supplier risk management\n  - Paypers: Omnea raises USD 20 million for more control over spending\n  - BusinessCloud: Omnea, aiming to make procurement painless, backed by Accel\n\n## Social\n\n### Linkedin\n\n- [2026-10-02 · 122 reactions, 1 comment] We’re officially the 11th fastest-growing startup in Europe 🚀 Tracked by Sifted, the ranking is based on real revenue growth. It's been an unreal 12 months. We've grown the team to over 200 talente...\n\n- [2026-10-01 · 57 reactions] If you’d like a physical copy of Adyen’s whitepaper come grab one at DPW Booth 34 👀 It’s written by Gabriel Galdino and Sam Kaserer from Adyen's procurement team. It's procurement people writing fo...\n\n- [2026-09-30 · 101 reactions, 3 comments] In 2024, Adyen's procurement team went live with their first source-to-pay suite. It wasn't intuitive, it was slow to change, and it couldn't keep up with Adyen's speed and ambition. Under three ye...\n\n- [2026-09-29 · 69 reactions, 4 comments] The Omnea team is in Amsterdam for DPW 🇳🇱 Come and find us at booth 34. We've got food, games and prizes. We'd also love to hear what you're working towards this year (and how Omnea can help you ge...\n\n- [2026-09-28 · 160 reactions, 6 comments] Today we're launching the Agentic Operating System (aOS) for procurement: one place for people and agents to manage suppliers, from intake to renewal. Legacy suites are slow, unpleasant to use and...\n\n- [2026-09-25 · 44 reactions] We’re hiring across GTM at Omnea, and we’re joining First Round Capital’s Sales Combine program. If you’re a new grad, changing careers or just getting started in sales, this might be a great way i...\n\n- [2026-09-24 · 96 reactions, 5 comments] Potatoes and procurement. Joined Omnea and Michael V. for lunch a couple of weeks ago, alongside fellow platform users. Plenty of enthusiasm and optimism for the new agentic operating system, as we...\n\n- [2026-09-24 · 50 reactions, 6 comments] Most people can't name the person who controls how their company spends its money. Omnea Spotlight is a new interview series for the procurement and finance leaders reshaping how their businesses r...\n\n- [2026-09-23 · 65 reactions] Conference season continues! Come to the Omnea booth if you're in Cologne for #ProcureCon #Europe - we've got great merch, smoothies, good chat, and a grand prize of AirPods (two already won today!!)\n\n- [2026-09-23 · 35 reactions] At Procurement & Supply Chain LIVE, our CPO-in-Residence Michael V. sat down with Samuele Erbì, Head of Third Party Management & Procurement at Wise, to talk about how Sam rebuilt Wise's procuremen...\n\n- [2026-09-17 · 91 reactions, 11 comments] We've welcomed a wave of Omneans over the last month (19 in fact) and we couldn't be happier to have them 🤝 Chief among them: Michael V. joins us as CPO-in-Residence, bringing decades of procuremen...\n\n- [2026-09-16 · 45 reactions, 1 comment] Meet our Artefacts Agent 🛡️ Onboarding a new vendor takes longer than it used to. Technology demands tighter vetting. New regulation means more to check. And you're onboarding more suppliers than e...\n\n- [2026-09-14 · 79 reactions] Last week in Zurich, we brought together 40 CPOs and Heads of Procurement at Storchen, Switzerland’s oldest hotel, for our latest 'Agents of Change dinner'. The conversation ranged from practical a...\n\n- [2026-09-10 · 60 reactions, 1 comment] Meet our Intake Review Agent 🔎 Most procurement delays don't start in procurement. They start with an request that's missing context, contradicts supporting documents, or skips the details Legal or...\n\n- [2026-09-09 · 124 reactions, 7 comments] Congratulations to Kai Nowosel and the team at The Adecco Group, who was named a Procurement Hero at the Global Procurement Awards 🏆 We're proud to have played a part in the story behind the award....\n\n- [2026-09-08 · 96 reactions, 4 comments] Great day at Procurement and Supplychain. Live London. Lots of interest conversations about the future of Procurement Procurement & Supply Chain LIVE\n\n- [2026-09-08 · 271 reactions, 12 comments] 30 days in. A lot learned. I’ve wrapped up my first month at Omnea, and it’s been a great mix of learning, listening, meeting brilliant people, and getting stuck in. I’ve shared a few reflections,...\n\n- [2026-09-04 · 85 reactions] Last month our Founder & CEO Ben Freeman sat down with Jonny Clifford at Entrepreneurs First HQ. They talked about when to found (spoiler: when you have an unfair advantage). And when to keep learn...\n\n- [2026-09-03 · 107 reactions] We've freshened things up. New brand, new site, designed to better reflect what Omnea has become: the Agentic Operating System for procurement. September has a lot in store, including some big anno...\n\n- [2026-08-28 · 31 reactions, 4 comments] Partnerships are critical to our momentum. They have generated millions in revenue, driving our >3x growth for the third year running 🚀 We're hiring across two of the most exciting and impactful ar...\n\n## Locations\n- Headquarters: london, united kingdom (GB)\n- Offices: new york, new york, united states (US), london, england, united kingdom (GB), london, united kingdom (GB), london, england sw1w 9sa, united kingdom (GB), de, united states (US), berlin, berlin, germany (DE)",
+        "summary": "{\"description\":\"Omnea is a software development company and an AI procurement platform that connects systems, automates workflows, and provides a single place to manage supplier processes across the full procurement lifecycle.\",\"employee_estimate\":219,\"employee_estimate_source\":\"Employees: 219\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Team includes a Chief Commercial Officer and various executives; active job postings: 49\",\"hq\":\"London, United Kingdom\",\"hq_quote\":\"Headquarters: london, united kingdom (GB)\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Omnea is a Software Development company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 75,000,000; Series a (2024-10-14): USD 20.0M; Seed (2022-06-16): USD 5.0M; Series b (2025-10-17): USD 50.0M\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQENGI-lVXOAcg/company-logo_200_200/B4EaBcHnPbHAAE-/0/1788251895059/omnea_logo?e=2147483647&v=beta&t=-RrHkPA2FBmhy7n_6p7BZ7v1QaDKBVCqBNSMTFQBHHI",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/2jp8xkht436",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Omnea",
+              "foundedYear": 2022,
+              "description": "Omnea is the Agentic Operating System (aOS) for procurement and supplier management. The platform connects systems, automates workflows, and gives humans and agents one place to manage suppliers. It runs the full procurement lifecycle, from intake and sourcing through onboarding, contracting, and renewal, and embeds commercial and risk governance at every step.\n\nOmnea is trusted by Spotify, PayPal, Adecco Group, Albertsons, and Just Eat. Since its founding in 2022, Omnea has raised over $75M from Khosla Ventures, Insight Partners, and Accel.",
+              "workforce": {
+                "total": 219
+              },
+              "headquarters": {
+                "address": "London, GB",
+                "city": "London",
+                "postalCode": null,
+                "country": "United Kingdom"
+              },
+              "financials": {
+                "revenueAnnual": 365432,
+                "fundingTotal": 75000000,
+                "fundingLatestRound": {
+                  "name": "Non equity assistance",
+                  "date": "2026-03-01",
+                  "amount": null
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 77431,
+                "countryRank": 111494,
+                "avgDurationSeconds": 336,
+                "history": [
+                  {
+                    "value": 36792,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 48381,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 61886,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 53856,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 50752,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 77431,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/md2y2gvs21t",
+        "title": "Omnea",
+        "url": "https://linkedin.com/company/omnea-pty-ltd",
+        "text": "# Omnea\n\nOmnea is a Financial Services company. Omnea employs 30 people (+11.1% YoY, +3 people), founded in 1999. Headquartered in Tshwane, Gauteng, South Africa.\n\n## About\n\nAt Omnea, we believe that TechFin is the catalyst for growth in Africa, and by enabling the fintech industry through our open digital platform, we enable the creation of unique banking and financial services experiences for the markets we serve.\n\n## Company Details\n- Industry: Financial Services\n- Type: Privately held\n- Headquarters: Tshwane, South Africa\n- Founded Year: 1999\n- Aliases: omnea\n- LinkedIn: linkedin.com/company/omnea-pty-ltd\n- Linkedin Followers: 774\n\n## Workforce\n- Employees: 30\n- Company Size: 11-50 employees\n  - Yearly Growth: +11.1%\n- Key Executives:\n  - Denise Herbst: Cheif Operations Officer\n  - Denise Herbst: Chief Operations Officer\n  - Deon Tromp: Chief Executive Officer\n- Breakdown:\n  - By Country: South Africa: 19 (63%)\n  - By Department: Technical: 6 (20%), Sales: 5 (17%), General Management: 3 (10%), Operations: 3 (10%), Project Management: 2 (7%), Customer Service: 1 (3%), Legal: 1 (3%)\n  - By Seniority: Specialist: 10 (33%), Manager: 6 (20%), Clevel: 3 (10%), Other Management: 1 (3%), Senior: 1 (3%)\n- Talent Sources: Tegra (8), Standard Bank Group (2), Ukukula Consulting (1), Telkom (1), TCM - Technology Corporate Management (1), Snapt (1), Life Healthcare (1), Dealt (1), AfriGIS (1), Absa Group (1)\n- Alumni Go To: Standard Bank Group (2), iSSC Group (1), XEA Capital (1), Ukukula Consulting (1), Qmark Solutions (1), Monocle Solutions (1), IBM (1), Ekwantu Consulting (1), Covarius (1), Centurion Systems (1)\n\n## Products & Technology\n- Tech Stack: axway, ibm sterling, ibm sterling connect, postgresql, docker, html, javascript, mysql, nginx, php, postman, prestashop, redis, woocommerce, well\n\n## Categories\n\nfinancial services, isolink, open digital platforms, payment network, sars, stplink, techfin\n\n## Social\n\n### Linkedin\n\n- [2026-09-17 · Posted · 9 reactions] [Your bank connectivity shouldn’t dictate how your business...](https://www.linkedin.com/posts/omnea-pty-ltd_omnea-hosttohost-treasury-activity-7506201721765941249-ocWv)\n  > Your bank connectivity shouldn’t dictate how your business operates.\n  >\n  > One ERP.\n  > Multiple banks.\n  > Constant change.\n  >\n  > Why should every change mean another integration project?\n  >\n  > Omnea provides a bank-independent, ERP-independent host-to-host integration layer that connects your systems to multiple banks through one managed service.\n  >\n  > You integrate once.\n  > We manage the complexity behind it:\n  > • Bank-specific formats and protocols\n  > • Certificates and security\n  > • Routing and validation\n  > • Monitoring and reconciliation\n  > • Ongoing change management\n  >\n  > Your ERP can change.\n  > Your banks can change.\n  > Your connectivity doesn’t have to.\n  >\n  > If multi-bank treasury, ERP migration or host-to-host complexity is becoming a constraint, let’s talk.\n  >\n  > Book a Discovery Session with Omnea at www.omnea.co.za\n  >\n  > #Omnea #HostToHost #Treasury #FinancialInfrastructure #ERP #FinTech\n\n- [2026-09-09 · Posted · 5 reactions] [The best financial products don't start with infrastructure. They...](https://www.linkedin.com/posts/omnea-pty-ltd_omnea-fintech-financialinfrastructure-activity-7503309239126380544-bnnX)\n  > The best financial products don't start with infrastructure.\n  > They start with an idea.\n  >\n  > But turning that idea into reality often means navigating a long list of challenges:\n  > - Bank integrations.\n  > - Payment infrastructure.\n  > - Compliance.\n  > - Settlement.\n  > - Accounts.\n  > - Service providers.\n  >\n  > And before you've built the product your customers actually want, you're already deep in the complexity underneath it.\n  >\n  > That's where Omnea changes the equation.\n  >\n  > Our platform gives businesses access to proven financial infrastructure they can build on; helping FinTechs, enterprises and innovators move from concept to market faster.\n  >\n  > With Omnea, you can access:\n  > → Pre-integrated financial infrastructure\n  > → Connections to banks and service providers\n  > → Compliance and regulatory capabilities\n  > → Payment and settlement functionality\n  > → Embedded financial services\n  > → A platform designed to scale as your business does\n  >\n  > You don't need to build every layer yourself.\n  > You need the right foundation to build something better.\n  >\n  > Because innovation moves faster when the infrastructure is already in place.\n  >\n  > Launch faster.\n  > Scale smarter.\n  > Lead the market.\n  >\n  > Omnea. Financial infrastructure, ready to build on.\n  >\n  > #Omnea #FinTech #FinancialInfrastructure #EmbeddedFinance #Payments  #APIs\n\n- [2026-09-09 · 5 reactions] The best financial products don't start with infrastructure. They start with an idea. But turning that idea into reality often means navigating a long list of challenges: - Bank integrations. - Pay...\n\n- [2026-09-01 · Posted · 11 reactions] [Happy Spring Day! Here's to new beginnings, stronger partnerships...](https://www.linkedin.com/posts/omnea-pty-ltd_happy-spring-day-heres-to-new-beginnings-activity-7500409387673612288-IApA)\n  > Happy Spring Day!\n  >\n  > Here's to new beginnings, stronger partnerships and a season of growth!\n\n- [2026-08-31 · Posted · 4 reactions] [When your infrastructure is mission-critical, “support” isn’t...](https://www.linkedin.com/posts/omnea-pty-ltd_omnea-ibm-sterling-activity-7500047017755336704-0gLD)\n  > When your infrastructure is mission-critical, “support” isn’t enough.\n  >\n  > You need people who understand the environment.\n  >\n  > At Omnea, we provide specialist support for enterprise IBM Sterling and Managed File Transfer environments, helping banks, MNOs and other organisations keep critical financial operations running securely and reliably.\n  >\n  > Our support goes beyond fixing problems when they happen.\n  > We monitor.\n  > We optimise.\n  > We anticipate.\n  > We respond.\n  >\n  > From Sterling SI and SFG to Connect:Direct and Axway CFT, our certified specialists provide managed support, technical expertise, professional services and infrastructure support across complex enterprise environments.\n  >\n  > And the results matter:\n  > 95% reduction in file transfer failures.\n  > 2-hour average MTTR for critical issues.\n  > 50% faster Sterling deployments.\n  > 100% downtime migration success rate.\n  >\n  > Behind those numbers is more than technology.\n  > It’s 20+ years of Sterling experience, 15+ certified IBM Sterling professionals, proprietary monitoring capabilities and 24/7 support with a 1-hour emergency response.\n  >\n  > Because when the systems carrying your business cannot afford to stop, you need a partner who knows exactly how to keep them moving.\n  >\n  > Omnea. Expert support for the infrastructure your business depends on.\n  >\n  > #Omnea #IBM #Sterling #MFT #ConnectDirect #ManagedServices #FinancialInfrastructure #FinTech\n\n- [2026-08-31 · 4 reactions] When your infrastructure is mission-critical, “support” isn’t enough. You need people who understand the environment. At Omnea, we provide specialist support for enterprise IBM Sterling and Managed...\n\n- [2026-08-18 · Posted · 8 reactions] [The fastest way to lose a customer? Make them wait to become one...](https://www.linkedin.com/posts/omnea-pty-ltd_omnea-fintech-kyc-activity-7495324934534197248-64DB)\n  > The fastest way to lose a customer?\n  > Make them wait to become one.\n  >\n  > Onboarding sits at the intersection of two competing priorities:\n  > Move fast.\n  > Know exactly who you’re dealing with.\n  >\n  > For banks, FinTechs, insurers and businesses, getting that balance right is critical.\n  >\n  > Omnea’s onboarding and verification capabilities bring the process together through a secure, API-driven layer, helping businesses automate the checks that matter without turning onboarding into a manual bottleneck.\n  >\n  > That includes:\n  > → KYC and AML compliance\n  > → ID and Passport verification\n  > → Real-time bank account verification\n  > → Business and director checks\n  > → PEP and sanctions screening\n  > → Address verification\n  >\n  > The result is more than faster onboarding.\n  > It means less manual intervention.\n  > Less fraud risk.\n  > Fewer incorrect payments.\n  > Better customer experiences.\n  > And a stronger compliance foundation from the very first interaction.\n  >\n  > Verification shouldn’t feel like friction.\n  > It should feel like confidence.\n  >\n  > Onboard faster. Verify with certainty. Build trust from the first click.\n  >\n  > #Omnea #FinTech #KYC #AML #Compliance #DigitalOnboarding #FinancialInfrastructure #IdentityVerification\n\n- [2026-08-18 · 8 reactions] The fastest way to lose a customer? Make them wait to become one. Onboarding sits at the intersection of two competing priorities: Move fast. Know exactly who you’re dealing with. For banks, FinTec...\n\n- [2026-08-14 · Posted · 6 reactions] [Financial infrastructure is easy to notice when it fails. A file...](https://www.linkedin.com/posts/omnea-pty-ltd_omnea-ibm-sterling-activity-7493890062640660480-_0Ai)\n  > Financial infrastructure is easy to notice when it fails.\n  >\n  > A file transfer stops.\n  > A critical payment is delayed.\n  > A compliance issue brings an operation to a standstill.\n  > A system that has run quietly for years suddenly becomes the biggest problem in the room.\n  >\n  > That’s why the infrastructure behind financial services matters so much.\n  > At Omnea, we’ve spent more than 20 years working inside complex financial technology environments, building, running and supporting systems where reliability isn’t a nice-to-have.\n  >\n  > Today, banks, MNOs and enterprises across Africa rely on us to keep critical financial data moving securely and seamlessly.\n  >\n  > Our expertise spans enterprise integration, IBM Sterling environments, managed file transfer, security, compliance and ongoing operational support.\n  > But the real value isn’t simply keeping technology running.\n  >\n  > It’s having the experience to anticipate what can go wrong, the infrastructure to keep systems resilient, and the people who know what to do when something does.\n  >\n  > Because when your technology sits at the heart of your operation, support shouldn’t start when there’s a problem.\n  > It should already be there.\n  >\n  > #Omnea #IBM #Sterling #MFT #EnterpriseIT #DataSecurity #FinancialInfrastructure #TechnologySupport\n\n- [2026-08-14 · 6 reactions] Financial infrastructure is easy to notice when it fails. A file transfer stops. A critical payment is delayed. A compliance issue brings an operation to a standstill. A system that has run quietly...\n\n- [2026-08-11 · Posted · 9 reactions] [Every FinTech reaches the same fork in the road. To offer more, you...](https://www.linkedin.com/posts/omnea-pty-ltd_fintech-api-payments-activity-7492796891450023936-VGVs)\n  > Every FinTech reaches the same fork in the road. To offer more, you have to integrate more. More banks, more providers, more compliance, more rails. And each one is its own build, its own contract, its own maintenance burden.\n  > That's where roadmaps go to die. Not in the product your team is trying to ship, but in the plumbing underneath it.\n  >\n  > Omnea's API integration hub is built to remove that fork entirely.\n  > Connect once, and your application plugs into a whole ecosystem: a network of pre integrated banks and service providers, payments, collections, disbursements, compliance, data exchange, and value added services, all through a single integration. Store value across banks, wallets, or custodial accounts. Move freely within the financial ecosystem as your needs evolve, with compliance handled end to end.\n  >\n  > The point is simple. Your engineers build the product only you can build, and Omnea provides the infrastructure underneath so you don't have to.\n  >\n  > That's what lets a fintech scale faster, operate more efficiently, and stay agile while the market keeps shifting.\n  >\n  > One connection. A full ecosystem. Build on top, not from scratch.\n  >\n  > If you're spending more time integrating than building, let's talk.\n  >\n  > www.omnea.co.za\n  >\n  > #Fintech #API #Payments #EmbeddedFinance #FinancialInfrastructure #Omnea\n\n- [2026-08-11 · 13 reactions] Every FinTech reaches the same fork in the road. To offer more, you have to integrate more. More banks, more providers, more compliance, more rails. And each one is its own build, its own contract,...\n\n- [2026-08-04 · Posted · 12 reactions] [Most bank integrations fail for the same reason. They're tied to...](https://www.linkedin.com/posts/omnea-pty-ltd_hosttohost-treasury-payments-activity-7490242219380236288-bj4w)\n  > Most bank integrations fail for the same reason. They're tied to the wrong dependency.\n  >\n  > When your host to host integration is owned by your ERP or by your bank, every change becomes expensive. A new bank. A new entity. A new file format. An upgrade, a migration, a reorganisation. Each one means rebuilding connections you thought were already done, at consulting rates, on someone else's timeline.\n  >\n  > The problem isn't the technology. It's the coupling.\n  >\n  > Omnea sits outside both your ERP and your banks. Your systems integrate once, in a single agreed format, and we absorb the rest. We validate and enrich each flow, translate to each bank's specific requirements, deliver over secure host to host channels, and normalise every acknowledgement and statement back to you.\n  >\n  > Certificates, protocols, format changes, cutover windows, monitoring, and support are all managed as a service. Not another piece of middleware for your team to own.\n  >\n  > The result is independence. Your banks stay interchangeable. Your ERP stays interchangeable. You can change either without the other one breaking, and you can onboard a new bank or entity as a normal operational task rather than a project.\n  >\n  > For treasury teams running multiple banks, groups with multiple entities, or any enterprise where change and scale are inevitable, that decoupling is the difference between infrastructure that constrains you and infrastructure that gets out of your way.\n  >\n  > Change is coming to your systems either way. The question is whether your current integration survives it.\n  >\n  > Book a discovery call with us: www.omnea.co.za\n  >\n  > #HostToHost #Treasury #Payments #ERP #FinancialInfrastructure #Omnea\n\n- [2026-08-04 · 14 reactions] Most bank integrations fail for the same reason. They're tied to the wrong dependency. When your host to host integration is owned by your ERP or by your bank, every change becomes expensive. A new...\n\n- [2026-07-28 · Posted · 5 reactions] [There’s a quiet revolution happening in South Africa’s financial...](https://www.linkedin.com/posts/omnea-pty-ltd_from-complexity-to-clarity-how-omnea-is-activity-7487726823745720320-E4kE)\n  > There’s a quiet revolution happening in South Africa’s financial landscape. It’s not led by a traditional bank.\n  >\n  > It’s led by Omnea.\n  >\n  > For years, launching a fintech product meant one thing: waiting. Waiting for sponsor banks. Waiting for integrations. Waiting for compliance approvals that could stretch into years. The barriers weren’t just technical. They were systemic.\n  >\n  > Omnea decided to change that. Read more below 👇\n\n- [2026-07-28 · 17 reactions] There’s a quiet revolution happening in South Africa’s financial landscape. It’s not led by a traditional bank. It’s led by Omnea. For years, launching a fintech product meant one thing: waiting. W...\n\n- [2026-07-23 · Posted · 10 reactions] [Every new capability you add to a fintech application usually means...](https://www.linkedin.com/posts/omnea-pty-ltd_fintech-api-payments-activity-7485933464815382529-x4hz)\n  > Every new capability you add to a fintech application usually means another integration. Another provider, another set of docs, another round of testing, another thing to maintain.\n  >\n  > It's the quiet tax on building. Roadmaps stretch, engineering time gets consumed by plumbing rather than product, and by the time you've shipped one capability the next is already queued behind it.\n  >\n  > Omnea works differently. One integration connects your application to the full stack. Switch on what you need, when you need it. Adding a capability becomes a configuration decision rather than a development project.\n  >\n  > For fintech teams, that changes the math. Your engineers build the things that differentiate your product, and the infrastructure underneath simply works. Time to market shortens, and expanding what you offer no longer means starting from scratch.\n  >\n  > Building something and wondering how much of it you actually need to build yourself? Let's talk.\n  >\n  > www.omnea.co.za\n  >\n  > #Fintech #API #Payments #FinancialInfrastructure #Developers #Omnea\n\n- [2026-07-23 · 13 reactions] Every new capability you add to a fintech application usually means another integration. Another provider, another set of docs, another round of testing, another thing to maintain. It's the quiet t...\n\n- [2026-07-16 · Posted · 8 reactions] [For most finance and fintech teams, compliance is the part that...](https://www.linkedin.com/posts/omnea-pty-ltd_compliance-fintech-payments-activity-7483381569999605760-LydN)\n  > For most finance and fintech teams, compliance is the part that slows everything down.\n  >\n  > New provider? Re-do the checks.\n  > New market? Rebuild the controls.\n  >\n  > Every growth decision drags a compliance workload behind it, and audit season turns into a scramble to prove the trail was there all along.\n  >\n  > Omnea takes a different approach. Compliance is built into the platform, not bolted on afterwards. KYC, AML, and verification are handled through the same APIs that move your money, with full audit trails as standard.\n  >\n  > That means you can onboard faster, reduce fraud exposure, and scale into new providers and channels without rebuilding your controls each time.\n  >\n  > Regulatory-ready infrastructure.\n  > Millions of transactions processed.\n  > Built for banks, fintechs, corporates, and SMEs that can't afford to get compliance wrong.\n  >\n  > Growth and compliance shouldn't pull in opposite directions. With the right foundation, they don't.\n  >\n  > Book a discovery session: www.omnea.co.za\n  >\n  > #Compliance #Fintech #Payments #KYC #AML #FinancialInfrastructure #Omnea\n\n- [2026-07-16 · 9 reactions] For most finance and fintech teams, compliance is the part that slows everything down. New provider? Re-do the checks. New market? Rebuild the controls. Every growth decision drags a compliance wor...\n\n## Locations\n- Headquarters: tshwane, gauteng, south africa (ZA)\n- Offices: city of tshwane, gauteng, south africa (ZA)",
+        "summary": "{\"description\":\"Omnea is a Financial Services company offering an open digital platform to enable fintech experiences in Africa.\",\"employee_estimate\":30,\"employee_estimate_source\":\"Employees: 30\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Tshwane, Gauteng, South Africa\",\"hq_quote\":\"Headquartered in Tshwane, Gauteng, South Africa.\",\"industry\":\"Financial Services\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Financial Services\\n- Type: Privately held\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":null,\"recently_funded_seed_or_series_a_quote\":\"- Yearly Growth: +11.1% (from employees data); no explicit seed/Series A funding information on page\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4D0BAQE-b2jwoO8uVw/company-logo_200_200/company-logo_200_200/0/1677010483780/omnea_pty_ltd_logo?e=2147483647&v=beta&t=1Fu6e2WjvWSanm62BphI9yeOVCd3I3V_QMcTItdwu5k",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/md2y2gvs21t",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Omnea",
+              "foundedYear": 1999,
+              "description": "At Omnea, we believe that TechFin is the catalyst for growth in Africa, and by enabling the fintech industry through our open digital platform, we enable the creation of unique banking and financial services experiences for the markets we serve.",
+              "workforce": {
+                "total": 30
+              },
+              "headquarters": {
+                "address": "Oberon Avenue, Glenfield Office Park, City of Tshwane, Gauteng 0081, ZA",
+                "city": "Tshwane",
+                "postalCode": null,
+                "country": "South Africa"
+              },
+              "financials": null,
+              "webTraffic": null,
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 4720.5,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

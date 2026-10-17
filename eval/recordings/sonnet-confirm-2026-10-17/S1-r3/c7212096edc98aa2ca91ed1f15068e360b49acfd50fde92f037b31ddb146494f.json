@@ -1,0 +1,227 @@
+{
+  "request": {
+    "query": "Arrive Logistics",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "fbd210e235d55ff28bbfaed4585309a1",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/b1pb99yr2cs",
+        "title": "Arrive Logistics",
+        "url": "https://www.arrivelogistics.com/",
+        "text": "# Arrive Logistics\n\nArrive Logistics is a Transportation, Logistics, Supply Chain and Storage company. Arrive Logistics is a North American logistics brokerage that provides shipping and carrier services. They have a team of partners, team, and technology to deliver fast-growing products. Arrive Logistics employs 2,545 people (+21.0% YoY, +442 people) and has an annual revenue of $810.7M, founded in 2014. Headquartered in Austin, Texas, United States, with presence in Mexico. Its workforce is distributed across 6 countries (including United States, Mexico, Colombia, Canada, and India).\n\n## About\n\nArrive Logistics is a top 4 North American truckload brokerage headquartered in Austin, Texas, with 10 locations across North America. Founded in 2014, Arrive delivers unparalleled service and custom strategic solutions to a diverse network of globally recognized brands and vetted carriers. Arrive has 2,000+ employees, 5,500 customers, and 10,000 core carriers in its network. The company has been recognized for its service excellence by more than 50 enterprise shippers in the trailing 36 months. At Arrive, \"We Deliver, So You Can.“ For more information, visit www.arrivelogistics.com.\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Privately held\n- Headquarters: Austin, United States\n- Founded Year: 2014\n- Homepage: arrivelogistics.com\n- Aliases: Arrive Logistics LLC, arrive logistics, dm trans, llc\n- LinkedIn: linkedin.com/company/arrive-logistics\n- Linkedin Followers: 61,609\n- Emails: contact@arrivelogistics.com, nicolep@nextpr.com, support@wageverify.com\n- Phone: (888) 861-0650, (888)861-0650, 1-888-861-065, 888-861-0650\n\n## Financials\n- Annual Revenue: USD 810,700,032\n- Total Funding: USD 335,000,000\n  - Private equity (2026-08-01)\n  - Private equity (2021-04-28): USD 300.0M\n  - Series b (2019-06-18): USD 25.0M\n  - Series a (2018-06-26): USD 10.0M\n\n## Acquisitions\n- Acquired by: Mubadala Capital\n- Acquired Forager Group’s Cross-Border Business and Proprietary Platform (2022-02-01)\n- Acquired Forager - Cross-Border Business (2022-02-01)\n- Acquired Forager Logistics, LLC\n\n## Workforce\n- Employees: 2,545\n- Company Size: 1001-5000 employees\n  - Monthly Growth: +0.4%\n  - Yearly Growth: +21.0%\n- Key Executives:\n  - Aaron Galer: Senior Vice President, Partnerships\n  - Adelaida Aguirre: Claims Director\n  - Ahmed Ismail: Director of Engineering, SRE\n  - Amanda Conlon: Director of Brokerage Operations\n  - Analicia Galindo: Director of Product Management\n  - Anne Adyniec, PMP: Vice President, Strategic Initiatives\n  - Anthony Munari: Director of Client Success\n  - Brad Sawallich: Senior Vice President, Strategic Partnerships\n  - Braden Anderson: VP of Data\n  - Branton Phillips: Director of Business Development\n- Breakdown:\n  - By Country: United States: 1,815 (71%), Mexico: 150 (6%), Colombia: 31 (1%), Canada: 4, India: 2, South Africa: 1\n  - By Department: Sales: 1,226 (48%), Customer Service: 248 (10%), Technical: 121 (5%), Operations: 111 (4%), Finance: 85 (3%), Hr: 58 (2%), Other Department: 55 (2%), Marketing: 45 (2%), General Management: 34 (1%), Consulting: 21 (1%) (+8 more)\n  - By Seniority: Specialist: 1,159 (46%), Other Management: 346 (14%), Senior: 312 (12%), Manager: 208 (8%), Director: 36 (1%), Vp: 31 (1%), Intern: 25 (1%), Clevel: 8, Head: 3, Founder: 2\n- Active job postings: 59\n- Salary ranges (20 of 92 roles):\n  - Staff Software Engineer: median $202,400.59 per year\n  - Director: median $180,570.6 per year\n  - Enterprise Account Executive: median $151,725.23 per year\n  - Senior Software Engineer: median $150,643.28 per year\n  - Senior Product Designer: median $142,546.35 per year\n  - Strategic Account Executive: median $138,876.9 per year\n  - National Account Manager: median $124,105.63 per year\n  - Software Engineer: median $122,493.25 per year\n  - Product Manager: median $119,070.11 per year\n  - National Account Executive: median $118,598.95 per year\n  - Data Engineer: median $118,116.08 per year\n  - Analytics Engineer: median $116,651.28 per year\n  - Business Development Manager: median $113,607.72 per year\n  - Senior Account Manager: median $110,005.56 per year\n  - People Operations: median $107,107.44 per year\n  - Sales & BizDev: median $106,880.35 per year\n  - Product Operations Manager: median $103,675.53 per year\n  - UX Designer: median $102,924.02 per year\n  - Senior Account Executive: median $101,821.83 per year\n  - Business Development Operations Manager: median $99,825.28 per year\n- Talent Sources: Coyote Logistics (45), C.H. Robinson (45), Echo Global Logistics (25), Amazon (25), Forager (23), Command Transportation (21), TP (17), Sherwin-Williams (17), H-E-B (17), Northwestern Mutual (16)\n- Alumni Go To: NetSuite (21), Traffic Tech (17), Amazon (16), Lean Solutions Group (15), SHI International Corp. (14), Salesforce (12), Dell Technologies (12), Nolan Transportation Group (NTG) (10), 4WRD Freight & Logistics Group (10), Oracle (9)\n\n## Products & Technology\n- Tech Stack (showing 50 of 149): ada, api gateway, atlassian, aws step functions, carta, chrome, confluence, cortex, css, databricks, dbt, docker, elasticsearch, figma, fourkites, g suite, git, gmail, google sheets, google workspace, gps, graphql, handlebars, html, hugging face, iam, indeed, influential, jamf, java, javascript, jira, json, kotlin, kubernetes, launchdarkly, linkedin, microsoft, microsoft azure, microsoft excel, microsoft office, microsoft word, mongodb, netsuite, new relic, nextgen, nosql, oauth, okta, oracle\n\n## Web presence\n\n- Twitter: twitter.com/arrivelogistics\n- Facebook: facebook.com/arrivewithus\n- Instagram: instagram.com/arrivelogistics\n- YouTube: youtube.com/channel/ucufziy75mlwjmyqck91dyma\n- Crunchbase: crunchbase.com/organization/arrive-logistics\n- Web traffic:\n  - Monthly visits: 221,138\n  - Global rank: 130,618\n  - Bounce rate: 23.0%\n  - Pages per visit: 10.8\n  - Average visit duration: 622s\n\n## Reviews & Ratings\n- Employer Rating: 3.1/5.0 (959 reviews)\n  - Breakdown: Work-Life: 2.4, Compensation: 3.0, Culture: 3.2, Career: 2.8\n\n## Categories\n\n3pl, automotive-transportation, brokerage, business_and_consumer_services/shipping_and_logistics, carriers, drayage, flatbed, freight service, intermodal, logistics, ltl, market insights, monitoring, platform, shipping, shipping broker, supply chain management, technology, transportation, truckload\n\n## Competitors\n\njetex logistics, velocity transport, mathis transportation services, afn, echo, cargomatic, cloud logistics, uship, ngl, blujay, transporeon, intelligent logistics, llc., willbox, quincannon associates, mcquilling, frontier supply chain solutions\n\n## Recent News\n- [2026-10-06] Built In: What's the Work-Life Balance Like at Arrive Logistics 2026?\n- [2026-09-11]\n  - [Austin’s top 184 private companies by revenue, 2026 - Austin Business Journal](https://www.bizjournals.com/austin/research/lists/2026/private-companies-revenue-austin.html)\n  - The Business Journals: Arrive Logistics holds onto No. 1 spot among Austin-area private companies\n- [2026-09-10] [🚚 Chicago Supply Chain & Logistics Jobs With Multiple Openings - NewsBreak](https://www.newsbreak.com/chicago-il-daily-brief-373188216/4877601585980-chicago-supply-chain-logistics-jobs-with-multiple-openings)\n- [2026-09-09] [What's the Work-Life Balance Like at Arrive Logistics 2026? \\| Built In](https://builtin.com/company/arrive-logistics/faq/work-life-balance-wellbeing)\n- [2026-09-08] [Mubadala to acquire truckload brokerage firm Arrive Logistics \\| PE Hub](https://www.pehub.com/mubadala-to-acquire-truckload-brokerage-firm-arrive-logistics/)\n- [2026-09-04] [Big jump in truck transportation jobs in latest BLS report - FreightWaves](https://www.freightwaves.com/news/big-jump-in-truck-transportation-jobs-in-latest-bls-report)\n- [2026-09-03]\n  - [Arrive Logistics Deal: No Debt, More Growth](https://finance.yahoo.com/small-business/articles/arrive-logistics-deal-no-debt-181250646.html)\n  - [PE Weekly: M&A Roundup Aug. 27-Sept. 3 \\| ACG Insights \\(Formerly Middle Market Growth\\)](https://middlemarketgrowth.org/pe-weekly-august-27-september-3/)\n- [2026-09-01] [- events.freightwaves](https://events.freightwaves.com/series/8c380c19d90e/show_speaker_details)\n- [2026-08-31]\n  - FreightWaves: Arrive Logistics plans 1,000 hires after Mubadala majority investment\n  - WSJ: Exclusive \\| Mubadala Backs Freight-Broker Arrive Logistics\n  - PR Newswire: Mubadala Capital to Acquire Majority Equity Interest in Arrive Logistics\n- [2026-08-29]\n  - [Mubadala Capital To Acquire Majority Stake In Arrive Logistics As Network Reaches 5,500 Customers And 10,000 Carriers](https://pulse2.com/mubadala-capital-to-acquire-majority-stake-in-arrive-logistics-as-network-reaches-5500-customers-and-10000-carriers/)\n  - [Arrive’s owner buys truckload fleet scale](https://www.marketscale.com/industries/transportation/arrives-new-owner-is-buying-a-truckload-fleet-of-its-own-beyond-brokerage)\n- [2026-08-28]\n  - [Intra-Asia rates continue upward climb on storm disruption, strong peak \\| Journal of Commerce](https://www.joc.com/article/intra-asia-rates-continue-upward-climb-on-storm-disruption-strong-peak-6277804)\n  - [Abu Dhabi-backed Mubadala buys Arrive Logistics majority stake - TT](https://www.ttnews.com/articles/mubadala-arrive-majority)\n- [2026-08-27]\n  - [Mubadala invests in Arrive Logistics as AI-driven tech race heats up \\| Journal of Commerce](https://www.joc.com/article/mubadala-invests-in-arrive-logistics-as-ai-driven-tech-race-heats-up-6277284)\n  - [Arrive Logistics Receives Majority Equity Investment From Mubadala Capital](https://www.finsmes.com/2026/08/arrive-logistics-receives-majority-equity-investment-from-mubadala-capital.html)\n  - [Arrive Logistics plans 1,000 hires after Mubadala majority investment  - FreightWaves](https://www.freightwaves.com/news/arrive-logistics-plans-1000-hires-after-mubadala-majority-investment)\n- [2026-08-26] Transport Topics: Abu Dhabi-backed Mubadala buys Arrive Logistics majority stake\n- [2025-06-16] Seattle TechFlash: Arrive Logistics has the right roadmap for market share gains\n- [2025-04-17] EIN Presswire: Bettaway Beverage Distributors Named a 2024 Carrier of the Year by Arrive Logistics\n- [2025-04-07] EIN Presswire: Savant to Showcase Agentic AI Analytics Platform at Tableau Conference 2025\n- [2025-04-06] Seattle TechFlash: Best Places to Work\n- [2024-11-06] Built In: Empowering Careers Through Collaboration and Mentorship at Arrive Logistics\n- [2024-05-15] LinkedIn: William Diaz on LinkedIn: Cargo Theft Webinar - Arrive Logistics\n- [2024-04-17]\n  - Built In Austin: Arrive Logistics Austin Office: Careers, Perks + Culture\n  - LinkedIn: Arrive Logistics on LinkedIn: Freight Market Update - April 2024 - Arrive Logistics\n- [2024-04-01] Built In: The 51 Best Sales Companies to Work For in 2024\n- [2024-03-06] PR Newswire: Arrive Opens Office in Guadalajara, Doubling Down on Cross-Border, Nearshoring Boom\n- [2024-02-26] LinkedIn: Logan Holmes on LinkedIn: I am beyond blessed and honored to announce my recent inauguration…\n\n## Social\n\n### Linkedin\n\n- [2026-10-08 · Posted · 34 reactions] [Diesel climbed to a record $6.53 per gallon in late September, and...](https://www.linkedin.com/posts/arrive-logistics_2027-fuel-outlook-and-budget-guide-arrive-activity-7514021981269209089-f8mV)\n  > Diesel climbed to a record $6.53 per gallon in late September, and with supply disruptions in both the Middle East and Russia still unresolved, near-term relief is unlikely.\n  >\n  > To help you plan for a prolonged stretch of elevated costs, Arrive’s Market Intelligence team built a 2027 Fuel Outlook and Budget Guide that breaks down what’s driving the surge and the steps to take now to manage the impact on your transportation spend.\n  >\n  > Read the guide: https://lnkd.in/gWuTFc-S\n\n- [2026-10-08 · Posted · 60 reactions] [Arrive’s Market Intelligence team just released the latest edition...](https://www.linkedin.com/posts/arrive-logistics_2027-truckload-freight-forecast-arrive-activity-7514006899361517568-TSid)\n  > Arrive’s Market Intelligence team just released the latest edition of its 2027 Truckload Freight Forecast. The report provides a comprehensive outlook on where rates, demand and supply are heading, including the dynamics supporting a higher rate floor and the risks that could reshape the market. Use these insights to inform procurement, budgeting and network planning for 2027.\n  >\n  > Access the full report: https://lnkd.in/gktFEe6H\n  >\n  > #FreightMarket #Logistics #SupplyChain #RateForecast #Transportation\n\n- [2026-09-24 · Posted · 66 reactions] [The most valuable AI applications aren't always the flashiest...](https://www.linkedin.com/posts/arrive-logistics_we-asked-8-supply-chain-leaders-what-impressed-activity-7508964578857504769-PDxl)\n  > The most valuable AI applications aren't always the flashiest. Often, they're the ones quietly freeing employees from low-impact manual work — like building loads or reformatting bids — so people can focus on the highest and best use of their time.\n  >\n  > Our Chief Strategy Officer, J-Ann Tio Toles, shared her perspective with Business Insider: \"The one that still excites me is simple in concept and was very hard to execute before AI: we take whatever a customer sends us, in whatever format and through whatever channel they prefer, and turn it into something our systems can act on. … Work that took hours takes minutes; work that took minutes takes seconds. And no customer had to change a thing.\"\n  >\n  > Read more from J-Ann and seven other supply chain leaders: https://lnkd.in/gJzVAKbt\n\n- [2026-09-24 · 58 reactions, 1 comment] The most valuable AI applications aren't always the flashiest. Often, they're the ones quietly freeing employees from low-impact manual work — like building loads or reformatting bids — so people c...\n\n- [2026-09-23 · Posted · 132 reactions] [We’re proud to announce that Performance Food Group (PFG) has named...](https://www.linkedin.com/posts/arrive-logistics_arrive-logistics-earns-back-to-back-broker-activity-7508601802993491968-IlN0)\n  > We’re proud to announce that Performance Food Group (PFG) has named Arrive Logistics Broker Partner of the Year for the second year in a row and third time since 2024.\n  >\n  > This recognition reflects the consistent service, strong collaboration and commitment to continuous improvement that continue to drive our partnership forward.\n  >\n  > Thank you to the PFG team for their continued trust and to everyone at Arrive who made this possible.\n  >\n  > Read more: https://lnkd.in/gYiqj7Ns\n\n- [2026-09-23 · 126 reactions, 1 comment] We’re proud to announce that Performance Food Group (PFG) has named Arrive Logistics Broker Partner of the Year for the second year in a row and third time since 2024. This recognition reflects the...\n\n- [2026-09-22 · Posted · 62 reactions] [Freight market conditions softened as summer peak pressure faded...](https://www.linkedin.com/posts/arrive-logistics_september-2026-freight-market-update-arrive-activity-7508249260417798144-wP-D)\n  > Freight market conditions softened as summer peak pressure faded from July to August. Labor Day brought volatility that faded quickly, but all-in rates have since climbed due to record diesel prices this month.\n  >\n  > With a weakening demand outlook and no major seasonal disruptions on the horizon, market conditions should remain largely stable in the near term. However, fleet growth constraints will leave little capacity cushion as the holiday peak season ramps up.\n  >\n  > Read the full September Freight Market Update to get up to speed on the trends shaping the months ahead:\n  > https://lnkd.in/gbBEG458\n\n- [2026-09-22 · 60 reactions, 1 comment] Freight market conditions softened as summer peak pressure faded from July to August. Labor Day brought volatility that faded quickly, but all-in rates have since climbed due to record diesel price...\n\n- [2026-09-21 · Posted · 51 reactions] [Heading to Inland26 in Chicago this month? Technology gives a...](https://www.linkedin.com/posts/arrive-logistics_surviving-and-thriving-a-conversation-with-activity-7507841703471677440-1giP)\n  > Heading to Inland26 in Chicago this month?\n  > Technology gives a brokerage speed and scale. Operations gives it muscle and judgment. Arrive's Chief Strategy Officer, J-Ann Tio Toles, joins Eric Johnson, Senior Editor, Technology at the Journal of Commerce by S&P Global, to discuss how Arrive is balancing both through changing industry and market dynamics.\n  >\n  > Learn more about the session here:\n  > https://lnkd.in/dGn553HF\n  >\n  > #InlandDistribution #JournalofCommerce Mina Patel\n\n- [2026-09-21 · 50 reactions, 1 comment] Heading to Inland26 in Chicago this month? Technology gives a brokerage speed and scale. Operations gives it muscle and judgment. Arrive's Chief Strategy Officer, J-Ann Tio Toles, joins Eric Johnso...\n\n- [2026-09-14 · Posted · 116 reactions] [Austin Business Journal just released its ranking of Austin-area...](https://www.linkedin.com/posts/arrive-logistics_arrive-logistics-holds-onto-no-1-spot-among-activity-7505279546514882560-926x)\n  > Austin Business Journal just released its ranking of Austin-area private companies by revenue, and Arrive Logistics holds onto the No. 1 spot for the fifth consecutive year.\n  >\n  > That kind of growth doesn't happen without great people. We're always looking for talented folks who want to build something meaningful, whether that's here in Austin or at any of our 10 offices across North America.\n  >\n  > If you've been thinking about your next move, now's the time to join Arrive.\n  > Explore our open roles: https://lnkd.in/eG9XGqJ\n  > Read the full ABJ article: https://lnkd.in/gcgKqqtf\n\n- [2026-09-14 · 159 reactions, 2 comments] Austin Business Journal just released its ranking of Austin-area private companies by revenue, and Arrive Logistics holds onto the No. 1 spot for the fifth consecutive year. That kind of growth doe...\n\n- [2026-09-01 · Posted · 228 reactions] [We are proud to share that Arrive Logistics has been named FY26...](https://www.linkedin.com/posts/arrive-logistics_we-are-proud-to-share-that-arrive-logistics-activity-7500603491070099456-TOmp)\n  > We are proud to share that Arrive Logistics has been named FY26 Truckload Carrier of the Year by Cardinal Health’s Global Medical Products and Distribution business.\n  >\n  > This recognition reflects our team’s commitment to delivering the scalable capacity, consistent execution and flexibility Cardinal Health needs across its nationwide network.\n  >\n  > Thank you to the Cardinal Health team for the recognition and continued partnership!\n  >\n  > Read more about the award here:\n  > https://lnkd.in/gE9WXHwU\n\n- [2026-09-01 · 347 reactions, 11 comments] We are proud to share that Arrive Logistics has been named FY26 Truckload Carrier of the Year by Cardinal Health’s Global Medical Products and Distribution business. This recognition reflects our t...\n\n- [2026-08-27 · Reshared · 149 reactions] [The next chapter of Arrive starts today. With Mubadala Capital...](https://www.linkedin.com/posts/arrive-logistics_the-next-chapter-activity-7498730652113133568-KDAQ): The next chapter of Arrive starts today. With Mubadala Capital joining our existing investors, we are going to accelerate our investments in our team, technology, and services; ultimately building...\n\n- [2026-08-20 · Posted · 53 reactions] [Spot market conditions have eased from the summer peak as contract...](https://www.linkedin.com/posts/arrive-logistics_august-2026-freight-market-update-arrive-activity-7496274256973029376-yl3V)\n  > Spot market conditions have eased from the summer peak as contract reconfigurations improve routing guide performance and bring overall tender rejections down to their lowest levels in more than three months.\n  >\n  > As the market settles into a slower stretch, we expect limited seasonal volatility until Q4 peak period gets underway. However, the market remai",
+        "summary": "{\"description\":\"Arrive Logistics is a Transportation, Logistics, Supply Chain and Storage company, a North American logistics brokerage providing shipping and carrier services with a tech-enabled approach.\",\"employee_estimate\":5450,\"employee_estimate_source\":\"Employees: 2,545\",\"hq\":\"Austin, Texas, United States\",\"hq_quote\":\"Headquartered in Austin, Texas, United States, with presence in Mexico.\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"Arrive Logistics is a North American logistics brokerage that provides shipping and carrier services.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C560BAQGVXo25u2Wkkw/company-logo_200_200/company-logo_200_200/0/1678718975096/arrive_logistics_logo?e=2147483647&v=beta&t=uKwU_94z7S8Ktw2obZnCpMROX4M7vYzn7_vENSfM1B8",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/b1pb99yr2cs",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Arrive Logistics",
+              "foundedYear": 2014,
+              "description": "Arrive Logistics is a top 4 North American truckload brokerage headquartered in Austin, Texas, with 10 locations across North America. Founded in 2014, Arrive delivers unparalleled service and custom strategic solutions to a diverse network of globally recognized brands and vetted carriers. Arrive has 2,000+ employees, 5,500 customers, and 10,000 core carriers in its network. The company has been recognized for its service excellence by more than 50 enterprise shippers in the trailing 36 months. At Arrive, \"We Deliver, So You Can.“ For more information, visit www.arrivelogistics.com.",
+              "workforce": {
+                "total": 2545
+              },
+              "headquarters": {
+                "address": "7701 Metropolis Dr, Austin, Texas 78744, US",
+                "city": "Austin",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 810700032,
+                "fundingTotal": 335000000,
+                "fundingLatestRound": {
+                  "name": "Private equity",
+                  "date": "2026-08-01",
+                  "amount": null
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 221138,
+                "countryRank": 31505,
+                "avgDurationSeconds": 622,
+                "history": [
+                  {
+                    "value": 249264,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 205888,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 279762,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 269927,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 238512,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 221138,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/7ylvbw681jv",
+        "title": "ARRive Growth Partners",
+        "url": "https://arrivegrowthpartners.com/",
+        "text": "# ARRive Growth Partners\n\nARRive Growth Partners is a Business Consulting and Services company. ARRive helps healthtech startups build commercialization maturity across sales, marketing, technology, and people systems to create predictable ARR. ARRive Growth Partners employs 3 people (+50.0% YoY, +1 person), founded in 2025. Headquartered in Nashville, Tennessee, United States.\n\n## About\n\nARRive Growth Partners helps healthtech startups build the commercialization maturity required to turn product traction into predictable growth.\n\nProduct maturity and commercialization maturity rarely happen at the same speed.\n\nA company can have a strong product, early customers, and a validated market opportunity while still lacking the commercial infrastructure required to scale. Over time, that gap creates Commercialization Debt™: the accumulated constraints that make growth increasingly difficult, expensive, and dependent on the founder.\n\nThe ARRive Commercialization Framework™ identifies where those constraints exist, determines what is limiting growth, and builds the commercialization capabilities required to address them.\n\nThrough our Commercialization Assessment™, we establish the company's current commercialization state and identify the constraints standing between where the business is today and where it needs to go.\n\nWe then work alongside leadership through the ARRive Commercialization System™ to build the capabilities, operating discipline, and commercial infrastructure required to reduce Commercialization Debt™, strengthen execution, and create a more predictable path to ARR.\n\nARRive is not a fractional sales team, marketing agency, or traditional advisory firm.\n\nWe don't advise. We execute.\n\n## Company Details\n- Industry: Business Consulting and Services\n- Type: Privately held\n- Headquarters: Nashville, United States\n- Founded Year: 2025\n- Homepage: arrivegrowthpartners.com\n- Aliases: arrive growth partners\n- LinkedIn: linkedin.com/company/arrive-growth-partners\n- Linkedin Followers: 63\n- Emails: hello@arrivegrowthpartners.com, mymail@mailservice.com\n- Phone: 555-555-5555\n\n## Workforce\n- Employees: 3\n- Company Size: 1-10 employees\n  - Yearly Growth: +50.0%\n- Key Executives:\n  - Scott Heatherly: Founder & CEO\n- Breakdown:\n  - By Country: United States: 2 (67%)\n  - By Department: General Management: 1 (33%), Marketing: 1 (33%)\n  - By Seniority: Clevel: 1 (33%), Specialist: 1 (33%)\n- Talent Sources: freelance (1), Amenities Health (1)\n\n## Products & Technology\n- Tech Stack: hubspot\n\n## Web presence\n\n- Crunchbase: crunchbase.com/organization/arrive-growth-partners\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Categories\n\narr growth / revenue growth, brand positioning & messaging, business development, commercial operations, commercialization, commercialization debt, commercialization leadership, commercialization maturity, commercialization strategy, commercialization systems, enterprise adoption, enterprise health system sales, enterprise sales strategy, founder-led revenue, go-to-market execution, health system sales, healthtech, healthtech commercialization, healthtech marketing strategy, healthtech startups, marketing, revenue growth, revenue operations, sales, sales infrastructure, startups\n\n## Recent News\n- [2026-09-03]\n  - FreightWaves: Arrive Logistics Deal: No Debt, More Growth\n  - HBS Dealer: BlueLinx describes its Trex deal\n  - InvestmentNews: Coldstream and Intellectus add client experience leaders as talent race intensifies\n  - Clough: First Western Sydney Airport Metro Train Arrives at Webuild-Delivered Orchard Hills Facility\n  - ACG Insights: PE Weekly: M&A Roundup Aug. 27-Sept. 3\n- [2026-09-02]\n  - Reinsurance News: Defining feature of today's market is the amount of capital and choice available to buyers: Gallagher Re CEO\n  - Legal Desire: Sidley Represents Mubadala Capital in Its Acquisition of Arrive Logistics\n- [2026-09-01] Gulf Business: Inside LEAP: Behind the scenes of Saudi Arabia’s tech showcase\n- [2026-08-31] markets.businessinsider.com: More Growth Reports Partner Revenue Milestones Across Multiple Service Business Categories\n- [2026-08-29]\n  - Transport Topics: Abu Dhabi-backed Mubadala buys Arrive Logistics majority stake\n  - The Business Journals: Austin businesses ink at least a dozen deals as freight company sells majority stake\n- [2026-08-28]\n  - FreightWaves: Arrive Logistics plans 1,000 hires after Mubadala majority investment\n  - CommercialSearch: CRE People on the Move \\(Week of August 24, 2026\\)\n  - Indian Television Dot Com: ChatGPT Ads arrive in India as OpenAI pushes ahead with revenue growth\n  - WSJ: Exclusive \\| Mubadala Backs Freight-Broker Arrive Logistics\n  - Finovate: Exit-Readiness and Underwriting Performance: Isabelle Freidheim of Athena Capital\n- [2026-08-27]\n  - Truck News: Arrive Logistics investment to fuel technology, service expansion\n  - The Business Journals: Arrive Logistics sells majority stake to Abu Dhabi sovereign wealth fund\n  - Logistics Management: Arrive Logistics set for new growth chapter with Mubadala Capital investment\n  - The Jerusalem Post: Families, young professionals fuel historic North American aliyah wave\n\n## Social\n\n### Linkedin\n\n- [2026-06-22 · 6 reactions, 1 comment] Most healthtech founders assume commercialization starts when the product is ready to scale. It actually starts much earlier, and most don't notice the gap until growth gets a lot harder than it sh...\n\n- [2026-06-19 · 4 reactions, 1 comment] Healthtech founders often assume market fit and market adoption are the same thing. They're not. Market fit gets you conversations. Market adoption gets you decisions. You can have a strong product...\n\n- [2026-06-11 · 6 reactions, 1 comment] AI didn't replace marketers. It exposed the founders who never had a marketing system. Three years into \"content at scale,\" only 6% of B2B marketers say AI has meaningfully improved content perform...\n\n- [2026-06-09 · 4 reactions, 1 comment] You hired a VP of Sales. Six months later the pipeline looks exactly the same. Here's what nobody tells you: most sales leaders don't know how to build a commercialization system. They know how to...\n\n- [2026-06-08 · 8 reactions, 1 comment] Most healthtech startups don't fail because of the product. They fail because commercialization got scaled before it was ready. The old-school playbook still tells founders to fix growth by adding...\n\n- [2026-06-08] I've spent 30 years selling enterprise solutions into health systems and provider organizations. One lesson I've learned: adding people doesn't create commercialization maturity. If positioning is...\n\n- [2026-05-19 · 2 reactions, 1 comment] Healthtech founders: You know this feeling. Great first meetings. Pipeline activity. Late-stage conversations. A CRM full of movement. But the number never really grows. So the instinct kicks in: h...\n\n- [2026-05-15 · 3 reactions, 1 comment] In healthtech, technology used to live in the background. Uptime, tickets, tools, infrastructure. That changes the moment you start selling into health systems and provider organizations. Suddenly,...\n\n- [2026-05-12 · 2 reactions, 1 comment] Most healthtech founders know the raise is coming. What they don't think about is what it costs. Every round: more dilution. More investors. More competing priorities pulling your company in direct...\n\n- [2026-05-05 · 2 reactions, 1 comment] Most healthtech startups don't add HR until something breaks. A key hire leaves. Managers get promoted with no support. Comp decisions made in a vacuum create problems that take years to unwind. Th...\n\n- [2026-05-05 · 6 reactions, 4 comments] Most healthtech investments don't fail because of the product. They stall because commercialization was never built as a system. You did the diligence. You validated market fit. You made the bet. B...\n\n- [2026-05-05 · 2 reactions] Excited to share this. We built ARRive specifically for this problem - and after years of watching capable healthtech companies underperform their potential, I know how fixable it is. If you're a V...\n\n- [2026-04-17 · 4 reactions, 2 comments] Healthtech Founders - You built something that actually works for health systems and providers. But your revenue still depends on a few good months and a lot of founder hustle. That's not a sales p...\n\n- [2026-04-07 · 81 reactions, 16 comments] I am thrilled to officially join ARRive Growth Partners and help build something truly meaningful for health tech companies navigating rapid growth. The key to sustainable success during accelerati...\n\n- [2026-04-07 · 12 reactions, 2 comments] Excited to welcome our new Fractional HR leader to the team! Lindsay Dagiantis joins ARRive as VP, People & HR Services. Her energy, perspective, and people-first approach are exactly what this org...\n\n- [2026-04-06 · 6 reactions, 2 comments] Most healthtech companies don't break because of product. They don't break because of pipeline, either. They break when they try to scale the team before the system is ready. We see it constantly....\n\n- [2026-03-24 · 6 reactions, 3 comments] Most healthtech founders don’t stall because they lack effort. They stall because they scale too early. Capital comes in. The instinct is to hire fast: Head of Sales, AEs, and a marketing team. We’...\n\n- [2026-03-16 · 4 reactions, 1 comment] Health system procurement teams are getting more rigorous, not less. Your product can be clinically validated, your champion can be enthusiastic, and your ROI story can be airtight. None of that ma...\n\n- [2026-03-03 · 13 reactions, 6 comments] Healthcare growth companies arent surrounded by bad technology... But they may be feeling a perceived pinch because growth outpaces technology structure. Founder-led. PE-backed. Scaling fast. = Rev...\n\n- [2026-02-26 · 2 reactions, 1 comment] Most healthtech founders don’t stall because they lack effort. They stall because they scale too early. Capital comes in. The instinct is to hire fast: Head of Sales, AEs, a marketing team. But ent...\n\n## Locations\n- Headquarters: nashville, tennessee, united states (US)\n- Offices: nashville, tennessee, united states (US)",
+        "summary": "{\"description\":\"ARRive Growth Partners is a Business Consulting and Services company that helps healthtech startups build commercialization maturity across sales, marketing, technology, and people systems to create predictable ARR.\",\"employee_estimate\":3,\"employee_estimate_source\":\"Employees: 3\",\"hq\":\"Nashville, Tennessee, United States\",\"hq_quote\":\"Headquartered in Nashville, Tennessee, United States.\",\"industry\":\"Business Consulting and Services\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":false,\"is_third_party_logistics_quote\":\"Not stated as a 3PL; page describes consulting services, not warehousing/fulfillment/logistics services.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQF42EuL9ZbFxg/company-logo_200_200/B4EZx34kchGgAI-/0/1771537844273/arrive_growth_partners_logo?e=2147483647&v=beta&t=5KPKjLRdH2bSA61gNqYOg8dW88raByiUSG25uUF86sI",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/7ylvbw681jv",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "ARRive Growth Partners",
+              "foundedYear": 2025,
+              "description": "ARRive Growth Partners helps healthtech startups build the commercialization maturity required to turn product traction into predictable growth.\n\nProduct maturity and commercialization maturity rarely happen at the same speed.\n\nA company can have a strong product, early customers, and a validated market opportunity while still lacking the commercial infrastructure required to scale. Over time, that gap creates Commercialization Debt™: the accumulated constraints that make growth increasingly difficult, expensive, and dependent on the founder.\n\nThe ARRive Commercialization Framework™ identifies where those constraints exist, determines what is limiting growth, and builds the commercialization capabilities required to address them.\n\nThrough our Commercialization Assessment™, we establish the company's current commercialization state and identify the constraints standing between where the business is today and where it needs to go.\n\nWe then work alongside leadership through the ARRive Commercialization System™ to build the capabilities, operating discipline, and commercial infrastructure required to reduce Commercialization Debt™, strengthen execution, and create a more predictable path to ARR.\n\nARRive is not a fractional sales team, marketing agency, or traditional advisory firm.\n\nWe don't advise. We execute.",
+              "workforce": {
+                "total": 3
+              },
+              "headquarters": {
+                "address": "Nashville, Tennessee, US",
+                "city": "Nashville",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 455,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 367,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 159,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 202,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 1955.8,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

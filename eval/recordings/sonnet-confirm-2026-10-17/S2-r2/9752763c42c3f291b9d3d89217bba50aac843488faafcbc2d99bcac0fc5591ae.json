@@ -1,0 +1,266 @@
+{
+  "request": {
+    "query": "Sandstone",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "3f4748ad2b4eff637b6e64de7d409e5a",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/1lq496cf5x4",
+        "title": "Sandstone",
+        "url": "https://sandstone.com/",
+        "text": "# Sandstone\n\nSandstone is a Software Development company. Sandstone is an ai-native operating system for in-house legal departments, providing a single platform to manage and resolve legal requests with agents. It unifies legal data, drives end-to-end workflows, and or. Sandstone employs 48 people, founded in 2025. Headquartered in New York, New York, United States, with presence in South Africa.\n\n## About\n\nSandstone is a comprehensive solution for intake, triage, execution, cataloging, and measurement of legal work, directly in the business tools teams already use. \n\nSandstone connects every company, person, and document related to legal work into a single connected system of record to route, draft, and execute work. \n\nThis is Legal Relationship Management: legal work on a foundation of shared institutional knowledge.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: New York, United States\n- Founded Year: 2025\n- Homepage: sandstone.com\n- Aliases: Glaze AI, Inc., sandstone\n- LinkedIn: linkedin.com/company/sandstone-ai\n- Linkedin Followers: 5,612\n- Emails: team@sandstone.com\n- Phone: (914)-677-1820, 12345\n\n## Financials\n- Total Funding: USD 69,551,600\n  - Series a (2026-06-01): USD 30.0M\n  - Seed (2026-01-01): USD 39.6M\n\n## Workforce\n- Employees: 48\n- Company Size: 11-50 employees\n  - Monthly Growth: +11.6%\n- Key Executives:\n  - Edward Atkins: Head of Machine Learning\n  - Jessica Nguyen: President, Chief Strategy & Legal Officer\n  - Liam Germain: Co-Founder @ Sandstone\n  - Maggie Pote: Head of Marketing and Community\n  - Marc Miller: Distinguished Founding Engineer\n  - Nick Fleisher: Co-Founder\n  - Oliver Pour: Vice President\n  - Ryan Reid: Founding Product Designer\n- Breakdown:\n  - By Country: United States: 38 (79%)\n  - By Department: Technical: 11 (23%), Consulting: 6 (12%), General Management: 4 (8%), Sales: 4 (8%), Marketing: 3 (6%), Operations: 3 (6%), Legal: 2 (4%), Other Department: 2 (4%), Design: 1 (2%), Finance: 1 (2%) (+2 more)\n  - By Seniority: Specialist: 20 (42%), Other Management: 6 (12%), Founder: 4 (8%), Manager: 3 (6%), Head: 2 (4%), Senior: 2 (4%), Clevel: 1 (2%), Vp: 1 (2%)\n- Talent Sources: Robin AI (2), Microsoft (2), McKinsey & Company (2), Ironclad (2), attention labs (1), Tennr (1), Luminance (1), Halfdays (1), Contract Nerds 📝 🤓 (1), 360 World, Inc (1)\n- Alumni Go To: Whop (1), Sourcegraph (1), SignalFire (1), Reducto (1), Neurophos (1), JPMorganChase (1), Gong (1)\n\n## Products & Technology\n- Features: Demo Available\n\n## Web presence\n\n- Twitter: twitter.com/sandstonehq\n- Crunchbase: crunchbase.com/organization/sandstone-0a07\n- Web traffic:\n  - Monthly visits: 9,679\n  - Global rank: 2,449,286\n  - Bounce rate: 53.0%\n  - Pages per visit: 1.5\n  - Average visit duration: 9s\n\n## Categories\n\nartificial intelligence (ai), in-house legal departments, information technology, legal, legal data, legal experts, legal relationship management, legal tech, legal technology, software, workflows\n\n## Recent News\n- [2026-10-06] Real Estate: 1 Sandstone Grove, Blackmans Bay, Tas 7052\n- [2026-10-05]\n  - Real Estate: 2 Bed/16 Sandstone Crescent, Macquarie Park, NSW 2113\n  - Kalkine: Brightstar Resources \\(ASX:BTR\\) Reports 167m Gold Intercept at Bull Oak as Sandstone Study Advances\n- [2026-10-04] Kalkine: Brightstar Resources Returns 167m @ 2.07g/t Au at Bull Oak Deposit in Sandstone\n- [2026-10-02] WorldAtlas: The 9 Most Scenic Illinois Towns\n- [2026-10-01]\n  - Real Estate: 3-5 Keith Court, Sandstone Point, Qld 4511\n  - Real Estate: 58 Marlborough Street, Malvern, SA 5061\n  - Centre Daily Times: Kimble, Independence invest in Tuscarawas Co. project creating new jobs\n- [2026-09-30]\n  - Real Estate: 43 Mackerel Street, Sandstone Point, Qld 4511\n  - Fast Food Club: Wander The Sandstone Cliffs And Waterfall Views At McConnells Mill In Portersville\n- [2026-09-29]\n  - GM Authority: 2027 Cadillac Escalade Gets New Sandstone Color: First Look\n  - Reuters Connect: Licensable picture: Waves slam into a closed beach access stairway that leads beachgoers down a sandstone bluff to the beach, in Encinitas\n  - WKTV: Restoration at Silas D. Childs Chapel is Officially Underway\n  - Reuters: Rising sea destroys homes, erases beaches in California. Is worse to come?\n  - Chronicle Telegram: Sandstone Village Fall Festival highlights handmade traditions\n- [2026-09-28]\n  - TipRanks: Brightstar Doubles Two Mile Hill Resource, Boosts Sandstone Gold Inventory\n  - Mining Weekly: Brightstar grows Sandstone mineral resource to 3.6-million ounces\n- [2026-09-25] Reuters Connect: Licensable picture: Waves slam into a closed beach access stairway that leads beachgoers down a sandstone bluff to the beach in Encinitas\n- [2026-09-24]\n  - Moomoo: Brightstar Resources Reports 94% Average Gold Recoveries in Sandstone PFS Metallurgical Testing\n  - Kalkine: Brightstar Resources Reports Average Gold Recoveries of 94% from Sandstone Metallurgical Testwork\n- [2026-09-11] [Wilson Sonsini Advises GCVC Fund on Launch \\| Wilson Sonsini](https://www.wsgr.com/en/insights/wilson-sonsini-advises-gcvc-fund-on-launch.html)\n- [2026-09-08] [New Legal Tech VC Fund Launches – Wilson Sonsini Invests – Artificial Lawyer](https://www.artificiallawyer.com/2026/09/08/new-legal-tech-vc-fund-launches-wilson-sonsini-invests/)\n- [2026-07-08] [Brightstar Resources confirms district-scale opportunity at Sandstone \\| The Market Online](https://themarketonline.com.au/brightstar-resources-confirms-district-scale-opportunity-at-sandstone-2026-07-08/)\n\n## Social\n\n### Linkedin\n\n- [2026-10-02 · Posted · 25 reactions] [Andy Dale is Chief Legal Officer and Chief Privacy & AI Governance...](https://www.linkedin.com/posts/sandstone-ai_andy-dale-is-chief-legal-officer-and-chief-activity-7511866049949261824-wopT)\n  > Andy Dale is Chief Legal Officer and Chief Privacy & AI Governance Officer at OpenAP, where legal, privacy, and AI governance sit under one roof. Now he's advising Sandstone.\n  >\n  > We asked him three questions: what he's proudest of (it has nothing to do with work), the \"GC/CPO circle\" he leans on, and why he said yes to advising us.\n  >\n  > Full conversation linked in the comments.\n\n- [2026-09-30 · Posted · 22 reactions] [Episode 7 of Evolving with Jessica Nguyen is live. Jessica sat down...](https://www.linkedin.com/posts/sandstone-ai_episode-7-of-evolving-with-jessica-nguyen-activity-7511051378337849344-iONd)\n  > Episode 7 of Evolving with Jessica Nguyen is live.\n  >\n  > Jessica sat down with Alexandra Sepulveda, Associate General Counsel at Trust & Will. Alexandra has stepped into legal roles at companies of every stage and size, and she's learned that the instinct to prove your value on day one usually backfires.\n  >\n  > Her advice for new in-house leaders: don't disturb the herd. Learn the company, understand the people, and let your curiosity do the rest.\n  >\n  > Full episode in the comments.\n\n- [2026-09-25 · Reshared · 9 reactions] [We're proud to partner with OpenAI on Astra for Law. The Sandstone...](https://www.linkedin.com/posts/sandstone-ai_astra-for-law-frontier-intelligence-built-activity-7509353170557427712-VhsP): We're proud to partner with OpenAI on Astra for Law. The Sandstone MCP brings your legal team's full picture of contracts, requests and decisions into ChatGPT.\n\n- [2026-09-24 · Posted · 110 reactions] [Sandstone welcomed more new colleagues over the last two weeks than...](https://www.linkedin.com/posts/sandstone-ai_sandstone-welcomed-more-new-colleagues-over-activity-7508929782399651841-x7l9)\n  > Sandstone welcomed more new colleagues over the last two weeks than ever before. A year ago, the team was just five people. Today, we welcome five more. We couldn't be more excited to be building the next generation of legal tech alongside each and every one of them.\n  >\n  > Meet the newest members of our team👋\n  >\n  > Ryan Reid joins as Founding Product Designer, coming from Figma, Uber, and Spotify.\n  >\n  > Joseph Amari joins as an Enterprise AE, coming from Square, where he was a leading global Enterprise AE.\n  >\n  > Ryan Brown joins as a Founding FDE, coming from the AI engineering team at Blackstone.\n  >\n  > Celeste de Rubertis is our first Associate AE, coming from GTM at Tennr.\n  >\n  > Robel Eyasu joins our post-sales team as Customer Strategy Lead, coming from Luminance.\n  >\n  > Every new member has made our team sharper, and we couldn't be more fired up for what comes next!\n  >\n  > Want to be in the next cohort? Sandstone is always looking for talented people who want to build the future of legal tech.\n  >\n  > Check open roles here: https://lnkd.in/gBqk8j5g\n\n- [2026-09-24 · 86 reactions, 13 comments] Sandstone welcomed more new colleagues over the last two weeks than ever before. A year ago, the team was just five people. Today, we welcome five more. We couldn't be more excited to be building t...\n\n- [2026-09-23 · Posted · 24 reactions] [We’re excited to share that Sandstone is sponsoring #SOLIDNYC2026...](https://www.linkedin.com/posts/sandstone-ai_solidnyc2026-solidnyc2026-solidsummit-activity-7508555397742489602-uoeo)\n  > We’re excited to share that Sandstone is sponsoring #SOLIDNYC2026, a gathering of some of the sharpest minds in legal innovation, operations, and technology.\n  >\n  > This isn’t just another event. It’s a space for real conversations, sparking ideas, and shaping the future of the business of law. We’re proud to be part of it.\n  >\n  > Planning to attend? Let’s find time to connect.\n  >\n  > More info: https://lnkd.in/gAQYhqgX\n  >\n  > SOLID Summit by The Cowen Group #SOLIDNYC2026 #SOLIDSummit #SOLIDNewYork\n\n- [2026-09-23 · 17 reactions, 1 comment] We’re excited to share that Sandstone is sponsoring #SOLIDNYC2026, a gathering of some of the sharpest minds in legal innovation, operations, and technology. This isn’t just another event. It’s a s...\n\n- [2026-09-22 · Reshared · 9 reactions] [Our brilliant CLO Jessica Nguyen is hosting a CLE Webinar today at...](https://www.linkedin.com/posts/sandstone-ai_our-brilliant-clo-jessica-nguyen-is-hosting-activity-7508194066027827200-Qujg): Our brilliant CLO Jessica Nguyen is hosting a CLE Webinar today at 3:00pm! She’s back with In-House Connect alongside Robert Graham (GC at fal) to break down the current state of Gen AI contract te...\n\n- [2026-09-22 · Posted · 25 reactions] [Earlier this month, GCVC launched. A venture fund backed by 50+...](https://www.linkedin.com/posts/sandstone-ai_legal-tech-is-booming-a-new-vc-firm-wants-activity-7508175433553571840-tTX1)\n  > Earlier this month, GCVC launched. A venture fund backed by 50+ general counsels with direct operating experience from some of the largest and fastest-growing companies in the world.\n  >\n  > Sandstone is proud to be among their first investments.\n  >\n  > https://lnkd.in/e8jz4VWj\n\n- [2026-09-22 · 8 reactions, 1 comment] Earlier this month, GCVC launched. A venture fund backed by 50+ general counsels with direct operating experience from some of the largest and fastest-growing companies in the world. Sandstone is p...\n\n- [2026-09-21 · Posted · 43 reactions] [Last weekend, Sandstone partnered with The IRONMAN Group 70.3 Santa...](https://www.linkedin.com/posts/sandstone-ai_last-weekend-sandstone-partnered-with-the-activity-7507879976893968384-nVoG)\n  > Last weekend, Sandstone partnered with The IRONMAN Group 70.3 Santa Cruz for an exhilarating race — proud to support incredible athletes who continually push themselves past their limits to discover new heights.\n  >\n  > That same ethos drives the work here: treating the limits of what's possible as a challenge to be surmounted.\n  >\n  > One of the team's own, Anthony Frascella, had a photo finish with a 5:39:31 time. Congratulations to all of the athletes who, like Sandstone, don't accept \"what's possible\" as a limit. They treat it as a starting line.\n\n- [2026-09-21 · 40 reactions, 2 comments] Last weekend, Sandstone partnered with The IRONMAN Group 70.3 Santa Cruz for an exhilarating race — proud to support incredible athletes who continually push themselves past their limits to discove...\n\n- [2026-09-16 · Posted · 41 reactions] [Dina Segal has spent her career building legal functions that keep...](https://www.linkedin.com/posts/sandstone-ai_evolving-with-jessica-nguyen-episode-6-activity-7505988992325173248-mfMT)\n  > Dina Segal has spent her career building legal functions that keep pace with fast-growing companies, and as CLO at Gusto, she's doing it at scale for a business serving hundreds of thousands of small and medium employers.\n  >\n  > On this episode of Evolving with Jessica Nguyen, Dina explains how commercial contracting has moved past the old playbook model into a system that analyzes contracts and drafts redlines, freeing the team to focus on the strategic judgment calls only a human can make.\n  >\n  > For legal teams managing growing contract volume, that's what makes scaling possible: the knowledge compounds in the system instead of living in one person's head.\n  >\n  > Full episode linked in the comments.\n\n- [2026-09-16 · 40 reactions, 3 comments] Dina Segal has spent her career building legal functions that keep pace with fast-growing companies, and as CLO at Gusto, she's doing it at scale for a business serving hundreds of thousands of sma...\n\n- [2026-09-14 · Posted · 39 reactions] [Mary O'Carroll spent 13 years building one of the world's most...](https://www.linkedin.com/posts/sandstone-ai_mary-ocarroll-spent-13-years-building-one-activity-7505284310715846658-Cfek)\n  > Mary O'Carroll spent 13 years building one of the world's most advanced legal ops functions at Google, co-founded CLOC, and most recently served as COO of Goodwin. Now she's advising Sandstone.\n  >\n  > We asked her three questions — about the moment she actually considers a real accomplishment, the \"personal board of directors\" she leans on, and why she said yes to advising us.\n  >\n  > Read the full conversation on our blog → https://bit.ly/4h7DpOG\n\n- [2026-09-14 · 51 reactions, 2 comments] Mary O'Carroll spent 13 years building one of the world's most advanced legal ops functions at Google, co-founded CLOC, and most recently served as COO of Goodwin. Now she's advising Sandstone. We...\n\n- [2026-09-11 · Posted · 33 reactions] [The IRONMAN Group 70.3 Santa Cruz is this weekend, and we couldn't...](https://www.linkedin.com/posts/sandstone-ai_the-ironman-group-703-santa-cruz-is-this-activity-7504182678137589760-Xf2L)\n  > The IRONMAN Group 70.3 Santa Cruz is this weekend, and we couldn't be more excited.\n  >\n  > As the Official Legal AI Partner of IRONMAN 70.3 Santa Cruz, we've seen firsthand what it takes to compete at this level. The preparation, the commitment, the months of work before race day even begins.\n  >\n  > This weekend, we even have one of our own on the course, Anthony Frascella. Good luck to Ted and every athlete competing this weekend.\n\n- [2026-09-11 · 36 reactions, 2 comments] The IRONMAN Group 70.3 Santa Cruz is this weekend, and we couldn't be more excited. As the Official Legal AI Partner of IRONMAN 70.3 Santa Cruz, we've seen firsthand what it takes to compete at thi...\n\n- [2026-09-08 · Posted · 9 reactions] [The Sandstone team is at RLLB 2026 this week in Las Vegas, joining...](https://www.linkedin.com/posts/sandstone-ai_the-sandstone-team-is-at-rllb-2026-this-week-activity-7503137178697420800-OzzO)\n  > The Sandstone team is at RLLB 2026 this week in Las Vegas, joining 900+ legal ops leaders and GCs at the Fontainebleau.\n  >\n  > Come find Brendan Bettencourt, Celeste de Rubertis, and Nick Fleisher at Booth 31 through September 11.\n\n- [2026-09-08 · 9 reactions] The Sandstone team is at RLLB 2026 this week in Las Vegas, joining 900+ legal ops leaders and GCs at the Fontainebleau. Come find Brendan Bettencourt, Celeste de Rubertis, and Nick Fleisher at Boot...\n\n## Locations\n- Headquarters: new york, new york, united states (US)\n- Offices: cape town, south africa (ZA), new york, united states (US), brooklyn, new york, united states (US)",
+        "summary": "{\"description\":\"Sandstone is an ai-native operating system for in-house legal departments, providing a single platform to manage and resolve legal requests with agents. It unifies legal data, drives end-to-end workflows, and or.\",\"employee_estimate\":\"48\",\"employee_estimate_source\":\"Employees: 48\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Key Executives: Edward Atkins: Head of Machine Learning; Jessica Nguyen: President, Chief Strategy & Legal Officer; Liam Germain: Co-Founder @ Sandstone; Maggie Pote: Head of Marketing and Community; Marc Miller: Distinguished Founding Engineer; Nick Fleisher: Co-Founder; Oliver Pour: Vice President; Ryan Reid: Founding Product Designer\",\"hq\":\"New York, United States\",\"hq_quote\":\"Headquarters: New York, United States\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Software Development\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 69,551,600 - Series a (2026-06-01): USD 30.0M; Seed (2026-01-01): USD 39.6M\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQHMzA0fqjAj5g/company-logo_200_200/B4EZqcoA.UGcAI-/0/1763564327343/sandstone_ai_logo?e=2147483647&v=beta&t=FoGAFW1G0TDnkviNznmsu5jg9m18aWM35YK9xMt29Kg",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/1lq496cf5x4",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Sandstone",
+              "foundedYear": 2025,
+              "description": "Sandstone is a comprehensive solution for intake, triage, execution, cataloging, and measurement of legal work, directly in the business tools teams already use. \n\nSandstone connects every company, person, and document related to legal work into a single connected system of record to route, draft, and execute work. \n\nThis is Legal Relationship Management: legal work on a foundation of shared institutional knowledge.\n\n",
+              "workforce": {
+                "total": 48
+              },
+              "headquarters": {
+                "address": "New York, US",
+                "city": "New York",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 69551600,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2026-06-01",
+                  "amount": 30000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 9679,
+                "countryRank": 879383,
+                "avgDurationSeconds": 9,
+                "history": [
+                  {
+                    "value": 11317,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 11457,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 8527,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 14053,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 12251,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 9679,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/m1vxfdz0bs7",
+        "title": "Gosford Quarries Sandstone",
+        "url": "https://gosfordquarries.com.au/",
+        "text": "# Gosford Quarries Sandstone\n\nGosford Quarries Sandstone is a Wholesale Building Materials company. Gosford Quarries is a leading Australian natural sandstone supplier. They offer a wide range of products and services in various categories such as residential, commercial, civil, heritage, and professional partners. They also provide architectural specifications, epd sandstone documentation, CPD course, quarry tours, stonemasons & installers, landscapers & installers, and more. Gosford Quarries focuses on environmental sustainability and. Gosford Quarries Sandstone employs 34 people (+17.2% YoY, +5 people) and has an annual revenue of $20.5M. Headquartered in Terrey Hills, New South Wales, Australia, with offices in Beaudesert, annandale, Somersby, and Clayton South.\n\n## About\n\nGosford Quarries Sandstone is Australia's largest, oldest and most experienced supplier of 100% natural Australian sandstone. \n\nSince 1922 Gosford Quarries have been the leaders and experts in Australian sandstone. \n\nWith access to exclusive sandstone quarries in NSW and QLD, Gosford Quarries boast the largest variety of Sandstone colours, textures and sandstone products for any project. \n\nGosford Quarries is the most trusted and specified Sandstone supplier to the Commercial, Heritage, Residential, Civil & Landscape sectors and continue to be entrusted with supplying sandstone to the most prestigious and iconic projects in Australia.\n\nFor over 100 years, Gosford Quarries sandstone have lead the way in innovative processing technologies and strive to continue supplying the industry with the highest quality Australian sandstone for affordable prices.\n \nFrom Rustic retaining wall blocks and crushed civil materials to sophisticated customisable sandstone cladding, paving, capping and intricate profiled carving, Gosford Quarries have the resources and capabilities to supply stone to any project.\n\nGosford Quarries is 100% Australian family owned and operated and is committed to supporting Australian jobs and keeping stonemasonry alive in Australia. GQ is also committed to environmental sustainability and ensure that all our sandstone is sourced, extracted and processed responsibly. \n\nGosford Quarries are the experts in all things sandstone and are known as “The Sandstone people since 1922”. \n\nFor more information on how to use Australian sandstone in your next project, contact our expert team 8585 8282.\n\n## Company Details\n- Industry: Wholesale Building Materials\n- Type: Privately held\n- Headquarters: Terrey Hills, Australia\n- Homepage: gosfordquarries.com.au\n- Aliases: Gosford Quarries Pty Ltd, gosford quarries, gosford quarries sandstone, gosford quarry holdings limited\n- LinkedIn: linkedin.com/company/gosford-quarries\n- Linkedin Followers: 503\n- Emails: sales@gosfordquarries.com.au\n- Phone: (02) 8585 8282, +61 2 8585 828, 02 8585 8282, 61-02-9810-7555\n\n## Financials\n- Annual Revenue: USD 20,489,316\n\n## Workforce\n- Employees: 34\n- Company Size: 51-200 employees\n  - Monthly Growth: -2.9%\n  - Yearly Growth: +17.2%\n- Breakdown:\n  - By Country: Australia: 9 (26%)\n  - By Department: Operations: 4 (12%), Administrative: 1 (3%), Design: 1 (3%), Finance: 1 (3%), Sales: 1 (3%), Technical: 1 (3%)\n  - By Seniority: Specialist: 5 (15%), Manager: 4 (12%)\n- Talent Sources: Subsidence Advisory NSW (1), Sara Lee Australia & New Zealand (1), PIMAS GALE (1), OzLOG Landscaping (1), Lubrication Engineering Pty Ltd (1), JanusKS Pty. Ltd. (1), CCTS (1), BMT Tax Depreciation Quantity Surveyors (1), All Energy Contracting (1), Absolute Roofing (1)\n- Alumni Go To: UTi Worldwide (DSV A/S) (1), TCE Contracting (1), StoneBricks (1), Kephix Pty Ltd (1), Ghella (1), Double R (1), Confluence Water | Sydney Water's North Regional Delivery Partner (1), Autex Acoustics Australia (1), Aqua Energy Group (1), ACCIONA (1)\n\n## Products & Technology\n- Tech Stack: ups, well\n\n## Web presence\n\n- Facebook: facebook.com/100004707731481\n- Instagram: instagram.com/gosfordquarries\n- YouTube: youtube.com/channel/ucqcalho73yoccjealeljvtw\n- Crunchbase: crunchbase.com/organization/gosford-quarries\n- Web traffic:\n  - Monthly visits: 3,965\n  - Global rank: 3,831,204\n  - Bounce rate: 35.0%\n  - Pages per visit: 2.1\n  - Average visit duration: 51s\n\n## Categories\n\narchitecture, australia, building material, commercial, construction, construction/manufacturing, education, heavy_industry_and_engineering/construction_and_maintenance, home and garden, landscaping, manufacturing, mining, natural resources, natural sandstone, professional services, residential, suppliers\n\n## Social\n\n### Linkedin\n\n- [2022-12-13 · 10 reactions] Wishing you a Merry Christmas and a safe and happy new year! 🎄🎉 We would like to thank our valued customers, suppliers and staff for their support this year; our special 100th year anniversary. 🥳 ✨...\n\n- [2022-12-01 · 10 reactions] #100magicmoments : Design concept set in stone. 💡🪨 Behind the scenes: seeing robotic CNC computer programming translate to real-life sandstone processing. These curved cladding panels were commissi...\n\n- [2022-11-14 · 5 reactions] #100magicmoments: Sandstone, The height of luxury. 🏎️ @hiltonmelbournelqs - Little Queen Street, Melbourne. Featuring Gosford Quarries Pure White Profiled and honed sandstone cladding. The stunning...\n\n- [2022-11-11 · 11 reactions] #100magicmoments : Hawkesbury Sandstone Collection by Max Lamb. The @broached_commisions \"Hawkesbury Sandstone Collection\", designed by Max Lamb was created in 2011. Gosford Quarries had the opport...\n\n- [2022-11-09 · 6 reactions] #100magicmoments : “Wurrungwuri\" Stone Sculpture This magnificent artwork located in Sydney's Royal botanical gardens is an example of the intricacy and workmanship that can be accomplished by our...\n\n- [2022-11-05 · 13 reactions, 1 comment] #100magicmoments : Golden hour never looked so good ✨🌇 The John Gorton building, Canberra ACT This incredible building features some of the best Wondabyne sandstone, a Gosford quarries exclusive! P...\n\n- [2022-10-20 · 14 reactions] #100magicmoments: this hand-carved spiral column in our iconic brown banded sandstone. Nothing says luxury like a bespoke finish in our exclusive Aussie sandstone! Gosford Quarries. No Equivalent ....\n\n- [2022-10-18 · 7 reactions] #100magicmoments : ☀️🏄🏼Light and Bright Beach house vibes🏄🏼☀️ . This gorgeous Northern Beaches home celebrating natural materials and natural light. Details: Light brown select random course rockfa...\n\n- [2022-08-15 · 8 reactions] #100magicmoments : Traditional dry-stack ballast walling. This \"free-form\" \"random\" style has come back in a big way! We have been getting so many requests about creating this look. The good news i...\n\n- [2022-08-09 · 10 reactions] #100magicmoments : Seeing this stunning cottage transformation. The ideal Aussie home complete with GQ sandstone and wrap-around verandah. Reposted from the talented team @harlorbuilding 𝗦𝗔𝗡𝗗𝗦𝗧𝗢𝗡𝗘...\n\n- [2022-07-08 · 5 reactions] #100magicmoments : Community. ⁠ ⁠ As NAIDOC Week draws to an end, we continue to celebrate the history, culture and achievements of Aboriginal and Torres Strait Islander peoples. ⁠ Drawing from the...\n\n## Locations\n- Headquarters: terrey hills, new south wales, australia\n- Offices: beaudesert, queensland, australia, terrey hills, new south wales, australia, annandale, new south wales, australia, clayton south, victoria, australia, somersby, new south wales, australia",
+        "summary": "{\"description\":\"Gosford Quarries Sandstone is a Wholesale Building Materials company. Gosford Quarries is a leading Australian natural sandstone supplier. They offer a wide range of products and services in various categories such as residential, commercial, civil, heritage, and professional partners.\",\"employee_estimate\":34,\"employee_estimate_source\":\"Employees: 34\",\"hiring_first_ops_or_revops\":false,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Terrey Hills, New South Wales, Australia\",\"hq_quote\":\"Headquartered in Terrey Hills, New South Wales, Australia\",\"industry\":\"Wholesale Building Materials\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Wholesale Building Materials\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":false,\"recently_funded_seed_or_series_a_quote\":\" annual revenue of $20.5M. Headquartered in Terrey Hills, New South Wales, Australia, with offices in Beaudesert, annandale, Somersby, and Clayton South.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4E0BAQGyuKZQLoUlCg/company-logo_200_200/company-logo_200_200/0/1630650744513/gosford_quarries_logo?e=2147483647&v=beta&t=OQ1OCpy-gvm7RglskW8fhet4RmPe3GGSqji_Vx-yll0",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/m1vxfdz0bs7",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Gosford Quarries Sandstone",
+              "foundedYear": null,
+              "description": "Gosford Quarries Sandstone is Australia's largest, oldest and most experienced supplier of 100% natural Australian sandstone. \n\nSince 1922 Gosford Quarries have been the leaders and experts in Australian sandstone. \n\nWith access to exclusive sandstone quarries in NSW and QLD, Gosford Quarries boast the largest variety of Sandstone colours, textures and sandstone products for any project. \n\nGosford Quarries is the most trusted and specified Sandstone supplier to the Commercial, Heritage, Residential, Civil & Landscape sectors and continue to be entrusted with supplying sandstone to the most prestigious and iconic projects in Australia.\n\nFor over 100 years, Gosford Quarries sandstone have lead the way in innovative processing technologies and strive to continue supplying the industry with the highest quality Australian sandstone for affordable prices.\n \nFrom Rustic retaining wall blocks and crushed civil materials to sophisticated customisable sandstone cladding, paving, capping and intricate profiled carving, Gosford Quarries have the resources and capabilities to supply stone to any project.\n\nGosford Quarries is 100% Australian family owned and operated and is committed to supporting Australian jobs and keeping stonemasonry alive in Australia. GQ is also committed to environmental sustainability and ensure that all our sandstone is sourced, extracted and processed responsibly. \n\nGosford Quarries are the experts in all things sandstone and are known as “The Sandstone people since 1922”. \n\nFor more information on how to use Australian sandstone in your next project, contact our expert team 8585 8282.\n",
+              "workforce": {
+                "total": 34
+              },
+              "headquarters": {
+                "address": "301 Mona Vale Rd, Terrey Hills, New South Wales 2084, AU",
+                "city": "Terrey Hills",
+                "postalCode": null,
+                "country": "Australia"
+              },
+              "financials": {
+                "revenueAnnual": 20489316,
+                "fundingTotal": null,
+                "fundingLatestRound": null
+              },
+              "webTraffic": {
+                "visitsMonthly": 3965,
+                "countryRank": 158942,
+                "avgDurationSeconds": 51,
+                "history": [
+                  {
+                    "value": 23741,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 14745,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 7751,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 5918,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 6269,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 3965,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 5753.7,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

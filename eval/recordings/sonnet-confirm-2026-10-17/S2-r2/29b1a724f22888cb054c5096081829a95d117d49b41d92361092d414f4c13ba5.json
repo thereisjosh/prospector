@@ -1,0 +1,270 @@
+{
+  "request": {
+    "query": "Thoughtly AI",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "4f02d7fbee04fe1d9630f66e746f3a18",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/69twg8r47nt",
+        "title": "Thoughtly",
+        "url": "https://thoughtly.com/",
+        "text": "# Thoughtly\n\nThoughtly is a Software Development company. Thoughtly is a company that provides AI solutions to help teams achieve a follow up. Thoughtly employs 16 people (+23.1% YoY, +3 people), founded in 2023. Headquartered in New York, New York, United States, with an office in 41 E 11th St. Its workforce is distributed across 5 countries (including United States, Brazil, Mexico, Nepal, and Poland).\n\n## About\n\nThoughtly is revolutionizing calling by helping businesses deploy human-like AI voice agents in under 20 minutes. \n\nUsing a no-code, drag and drop UI, users write or import the agent's script, customize the agents voice and personality, and deploy - no technical expertise required. \n\nThoughtly agents come pre-skilled and are able to handle calls for Retail, Real Estate, Hospitality, Transportation, Legal, Utility, and Insurance companies out-of-the-box. \n\nFor those customers looking to deploy AI agents without lifting a finger, Thoughtly has an Agent Accelerator Program. \n\nInterested in learning more? Visit www.thoughtly.com\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: New York, United States\n- Founded Year: 2023\n- Homepage: thoughtly.com\n- Aliases: Thoughtlead, Inc., thoughtly\n- LinkedIn: linkedin.com/company/thoughtly-ai\n- Linkedin Followers: 3,527\n- Phone: +1(855)717-0250, 10003-1502\n\n## Financials\n- Total Funding: USD 9,500,000\n  - Seed (2026-04-01): USD 5.5M\n  - Seed (2024-06-04): USD 3.0M\n  - Pre seed (2023-08-11): USD 1.0M\n\n## Workforce\n- Employees: 16\n- Company Size: 11-50 employees\n  - Yearly Growth: +23.1%\n- Key Executives:\n  - Jen Williams, CPA: VP Revenue\n  - Joshua Pollock: Founding Account Executive\n  - Torrey Leonard: CEO\n  - Will Del Principe: Founding GTM\n- Breakdown:\n  - By Country: United States: 8 (50%), Brazil: 1 (6%), Mexico: 1 (6%), Nepal: 1 (6%), Poland: 1 (6%)\n  - By Department: Technical: 4 (25%), Sales: 3 (19%), Customer Service: 2 (12%), General Management: 2 (12%), Product: 1 (6%)\n  - By Seniority: Manager: 3 (19%), Founder: 2 (12%), Senior: 2 (12%), Specialist: 2 (12%), Clevel: 1 (6%), Other Management: 1 (6%), Vp: 1 (6%)\n- Active job postings: 3\n- Talent Sources: WeFit - Digital Service Design (2), Linear Logic B.V. (2), Affiniti (2), Tandem (1), PolyAI (1), Mana Up (1), King's College Nepal (1), Hart Agency (1), Dialpad (1), CloudKitchens (1)\n- Alumni Go To: RVMPD (2), WPP (1), SuperDial (1), PolyAI (1), Optimizepros (1), Mellon Foundation (1), Intro (1), DATAmundi (1), Arca (1), AlpHa Measurement Solutions, LLC (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: fathom, hubspot, javascript, json, prototype, python, ramp, react, salesforce, shippable, siemens, sql, stripe, typescript, zapier, clearbit, linkedin, docker, github, github actions, grafana, iam, prometheus, rds, sns, sqs, terraform, dialpad, integra, redux, twilio, telnyx, webrtc, c, ease, figma, angular, java, php, adobe, canva, google cloud, html, impact, instagram, intercom, kubernetes, microsoft, postgresql, twitter\n\n## Web presence\n\n- Twitter: twitter.com/thoughtlyai\n- Instagram: instagram.com/thoughtly.ai\n- Crunchbase: crunchbase.com/organization/thoughtly-6e4f\n- Web traffic:\n  - Monthly visits: 14,173\n  - Global rank: 1,729,122\n  - Bounce rate: 41.0%\n  - Pages per visit: 1.7\n  - Average visit duration: 11s\n\n## Categories\n\nai, ai solutions, appointment book, artificial intelligence (ai), artificial-intelligence, ccaas, computers_electronics_and_technology/graphics_multimedia_and_web_design, follow up, inbound calls, lead, outbound calls, platform, software, speech-recognition, teams, technology, technology/software, voice agents\n\n## Competitors\n\nspectronn, soundhound, iflytek, fano labs, emotech, defined.ai, cognigy, aispeech\n\n## Recent News\n- [2026-08-13] GetLatka: Thoughtly Revenue 2025: $1.2M Est. ARR \\(Bootstrapped\\)\n- [2026-07-18] [Product Marketing Manager AI-Driven GTM Leader Job in New York, NY at Thoughtly](https://www.mediabistro.com/jobs/3542101951-product-marketing-manager-ai-driven-gtm-leader)\n- [2025-03-10] The Economic Times: Artificial intelligence is changing how Silicon Valley builds startups\n- [2024-06-04] PR Newswire: Thoughtly announces $3M seed round to revolutionize contact centers with human-like AI agents\n\n## Social\n\n### Linkedin\n\n- [2026-08-10 · 24 reactions, 1 comment] We are hosting a happy hour for EdTech operators, founders, and builders in New York City for an evening on our rooftop! Details: -August 20 | 436 W 18th St, Chelsea | 5:30pm-8pm -Katz's Deli cater...\n\n- [2026-07-28 · 19 reactions] Calendly ranked Thoughtly #1 in their roundup of AI platforms that turn calls into confirmed meetings. Here is how it works: your agent checks Calendly availability live, offers times, and the meet...\n\n- [2026-07-02 · 15 reactions, 4 comments] Proud to continue building our partnership with Thoughtly and their team, including Founder & CEO Torrey Leonard. As with any new disruptive technology, there are always hiccups, growth pains, test...\n\n- [2026-06-02 · 32 reactions, 2 comments] Three founders. One Andreessen Horowitz partner. A (hypothetical) Series A on the line. Today at #NYTechWeek, our CEO and co-founder Torrey Leonard is one of three seed-stage founders pitching live...\n\n- [2026-05-19 · 117 reactions, 24 comments] Most AI voice agents don’t fail because of what they say. They fail because the conversation never starts. Today, iOS and Android's latest updates are screening calls before a human even hears thei...\n\n- [2026-05-08 · 218 reactions, 9 comments] Every week, our a16z team posts a fresh list of open roles with epic founders & startups hiring right now. Here's the latest! Featuring roles with founders like Brendan Falk, Alex Modon, Torrey Leo...\n\n- [2026-04-28 · 36 reactions, 4 comments] Last week, we celebrated something big. 🎉 Thoughtly officially launched our omnichannel platform — and announced our seed funding round — surrounded by the people who made it possible. We loved hos...\n\n- [2026-04-22 · 57 reactions, 8 comments] Most revenue teams touch 5–10% of their pipeline. We built Thoughtly to reach all of it. Today: Our seed round and the launch of our omnichannel platform — voice, SMS, and email, native to your CRM...\n\n- [2026-04-22 · 382 reactions, 89 comments] Companies spend millions generating leads. Then a human has to find time to call them back. Most don't make it. Nomad was handling 20,000 calls a day and couldn't keep up. Podium Education was reac...\n\n- [2026-04-08 · 64 reactions, 5 comments] 🗣️ Real talk - I don't do slow. I don't do corporate. and I definitely don't do \"we're like a family here\" energy from a company that hasn't shipped anything in 6 months. Thoughtly is hiring and I'...\n\n- [2026-04-03 · 148 reactions, 36 comments] We're hiring. And I want to give you a real picture of what you're walking into. Thoughtly is growing faster than I expected. New verticals opening up. A product that's genuinely working in the mar...\n\n- [2026-03-30 · 126 reactions, 6 comments] What happens when you can finally call every single lead? Podium Education found out. As enrollment scaled, voice outreach couldn't keep up. Not every student got a call. Follow-ups fell behind. Co...\n\n- [2026-03-23 · 55 reactions, 3 comments] Had a blast at SXSW! Educating and networking with industry leaders is something that has always been something that I have valued. At SXSW, we had the opportunity to chat about the future of educa...\n\n- [2026-03-11 · 175 reactions, 14 comments] What happens when your CRM gets a voice? 🗣️ 💬 More natural conversations. 😃 More expressive voice agents. 💰️ More revenue-driving calls. Our expanded Thoughtly voice library makes every interaction...\n\n- [2026-03-11 · 35 reactions, 3 comments] We upgraded our stack: Thoughtly adds Cartesia to our voice library. We’ve expanded and upgraded our voice infrastructure to deliver: 🎙 More voices, greater control: review thousands of voices, acc...\n\n- [2026-03-11 · 47 reactions, 6 comments] Thoughtly has upgraded to Cartesia as their default voice infrastructure - and we’re proud to be powering what comes next. ⚡ Their GTM agents have already achieved 15x ROI for customers and are tru...\n\n## Locations\n- Headquarters: new york, new york, united states (US)\n- Offices: 41 e 11th st, floor, united states (US), new york, new york, united states (US)",
+        "summary": "{\"description\":\"Thoughtly is a Software Development company that provides AI solutions to help teams with AI-based outreach and calling using a no-code platform and human-like agent technology.\",\"employee_estimate\":16,\"employee_estimate_source\":\"Employees: 16\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Active job postings: 3\",\"hq\":\"New York, United States\",\"hq_quote\":\"Headquarters: New York, United States\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Software Development\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 9,500,000\\n  - Seed (2026-04-01): USD 5.5M\\n  - Seed (2024-06-04): USD 3.0M\\n  - Pre seed (2023-08-11): USD 1.0M\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQECvEd0W87LpA/company-logo_200_200/company-logo_200_200/0/1719258141439/thoughtly_ai_logo?e=2147483647&v=beta&t=aRSd9B_FQzNVkup2-Noqjy6s10E6X-cOiWjQ4m0RnMc",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/69twg8r47nt",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Thoughtly",
+              "foundedYear": 2023,
+              "description": "Thoughtly is revolutionizing calling by helping businesses deploy human-like AI voice agents in under 20 minutes. \n\nUsing a no-code, drag and drop UI, users write or import the agent's script, customize the agents voice and personality, and deploy - no technical expertise required. \n\nThoughtly agents come pre-skilled and are able to handle calls for Retail, Real Estate, Hospitality, Transportation, Legal, Utility, and Insurance companies out-of-the-box. \n\nFor those customers looking to deploy AI agents without lifting a finger, Thoughtly has an Agent Accelerator Program. \n\nInterested in learning more? Visit www.thoughtly.com",
+              "workforce": {
+                "total": 16
+              },
+              "headquarters": {
+                "address": "436 W 18th St, New York, NY 10011, US",
+                "city": "New York",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 9500000,
+                "fundingLatestRound": {
+                  "name": "Seed",
+                  "date": "2026-04-01",
+                  "amount": 5500000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 14173,
+                "countryRank": 1124430,
+                "avgDurationSeconds": 11,
+                "history": [
+                  {
+                    "value": 16091,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 10716,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 20444,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 14553,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 18568,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 14173,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/47hvbg9gbcx",
+        "title": "Thoughtly",
+        "url": "https://thoughtly.co/",
+        "text": "# Thoughtly\n\nThoughtly is a Technology, Information and Internet company. Thoughtly employs 3 people, founded in 2012. Headquartered in United States, with offices in Chicago and New York.\n\n## About\n\nArtificial Intelligence Solutions for Enterprise to Analyze, Visualize and Summarize Text\n\nAt Thoughtly, we provide enterprise tools that leverage artificial intelligence  to rapidly ascertain actionable insight from unstructured text. \n\nAI for Finance: Transforming KYC, Client-Onboarding & AML Operations\nAutomatically aggregate content, organize various documents and generate comprehensive reports, utilizing artificial intelligence.\n\nAI for Media:\nGain an unprecedented depth of insight into the context, themes and nuances of content. Understand what drives performance by characterizing patterns and attributes.\n\nAutomated Reporting: \nAnalyze, Visualize & Characterize\nMap content, discover trends, and reveal anomalies effortlessly with speed and precision.\n\nContent Genomes:\nOrganize and intelligently classify content catalogs.\n\nTextual Topographies:\nVisually map, analyze and summarize large volumes of unstructured text. Quickly navigate and contextually assess large document sets.\n\nBy harnessing machine learning and natural language processing, our platform lends a potent perspective to assessing unstructured text. Through automated natural language analysis, our platform renders text as an interactive visual, identifies anomalies and generates useful summaries for non-technical users.\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Founded Year: 2012\n- Homepage: thoughtly.co\n- Aliases: Thoughtly, Inc., thoughtly\n- LinkedIn: linkedin.com/company/thoughtly\n- Linkedin Followers: 152\n- Emails: perkins@thoughtly.co\n\n## Financials\n- Total Funding: USD 2,625,000\n  - Seed (2015-02-26): USD 2.5M\n  - Angel (2013-12-10): USD 125,000\n\n## Workforce\n- Employees: 3\n- Company Size: 1-10 employees\n- Key Executives:\n  - Chase Perkins: Founder & CEO\n  - Peter Thomas: CTO\n- Breakdown:\n  - By Country: United States: 2 (67%)\n  - By Department: General Management: 1 (33%), Technical: 1 (33%)\n  - By Seniority: Clevel: 2 (67%)\n- Talent Sources: NAVWAR (1), Littler (1), Floodlight Software LLC (1)\n- Alumni Go To: Impervious.ai (1), Clear Ridge Defense (1), CellTrak - A Homecare Homebase Company (1)\n\n## Products & Technology\n- Tech Stack: amp\n\n## Web presence\n\n- Twitter: twitter.com/thoughtly_me\n- Facebook: facebook.com/thoughtlyapp\n- Crunchbase: crunchbase.com/organization/thoughtly\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Categories\n\nagentic ai software, ai sdrs, ai sdrs software, ai voice assistants, artificial intelligence, artificial intelligence (ai), bot platforms, enterprise software, machine learning, natural language processing, saas, text analysis, thoughtly\n\n## Recent News\n- [2026-09-14] GetLatka: Thoughtly Revenue 2025: $1.2M Est. ARR\n- [2026-08-15] GetLatka: Thoughtly Revenue 2025: $1.2M Est. ARR \\(Bootstrapped\\)\n- [2024-07-03] VentureBeat: Thoughtly announces seed round to revolutionize contact centers with human-like AI agents\n- [2024-06-16] Pulse 2.0: Thoughtly: AI Voice Agent Company Raises $3 Million\n- [2024-06-04]\n  - FinSMEs: Thoughtly Raises $3M in Seed Funding\n  - PR Newswire: Thoughtly announces $3M seed round to revolutionize contact centers with human-like AI agents\n\n## Locations\n- Headquarters: san francisco, california, united states (US)\n- Offices: chicago, illinois, united states (US), san francisco, california, united states (US), new york, new york, united states (US)",
+        "summary": "{\"description\":\"Thoughtly is a Technology, Information and Internet company offering AI-powered enterprise tools to analyze, visualize and summarize unstructured text.\",\"employee_estimate\":3,\"employee_estimate_source\":\"Employees: 3\",\"hiring_first_ops_or_revops\":false,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"United States (Headquartered in United States)\",\"hq_quote\":\"Headquartered in United States, with offices in Chicago and New York.\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Technology, Information and Internet\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 2,625,000; Seed (2015-02-26): USD 2.5M; Angel (2013-12-10): USD 125,000;\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C510BAQHS8hEkydD6cg/company-logo_200_200/company-logo_200_200/0/1631386559671?e=2147483647&v=beta&t=yRsDVasHka3EqeED_rpwysozsaV6VMvIMfLCdexV4IQ",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/47hvbg9gbcx",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Thoughtly",
+              "foundedYear": 2012,
+              "description": "Artificial Intelligence Solutions for Enterprise to Analyze, Visualize and Summarize Text\n\nAt Thoughtly, we provide enterprise tools that leverage artificial intelligence  to rapidly ascertain actionable insight from unstructured text. \n\nAI for Finance: Transforming KYC, Client-Onboarding & AML Operations\nAutomatically aggregate content, organize various documents and generate comprehensive reports, utilizing artificial intelligence.\n\nAI for Media:\nGain an unprecedented depth of insight into the context, themes and nuances of content. Understand what drives performance by characterizing patterns and attributes.\n\nAutomated Reporting: \nAnalyze, Visualize & Characterize\nMap content, discover trends, and reveal anomalies effortlessly with speed and precision.\n\nContent Genomes:\nOrganize and intelligently classify content catalogs.\n\nTextual Topographies:\nVisually map, analyze and summarize large volumes of unstructured text. Quickly navigate and contextually assess large document sets.\n\nBy harnessing machine learning and natural language processing, our platform lends a potent perspective to assessing unstructured text. Through automated natural language analysis, our platform renders text as an interactive visual, identifies anomalies and generates useful summaries for non-technical users.",
+              "workforce": {
+                "total": 3
+              },
+              "headquarters": {
+                "address": "156 2nd St, San Francisco, San Francisco, CA 94105, US",
+                "city": null,
+                "postalCode": null,
+                "country": null
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 2625000,
+                "fundingLatestRound": {
+                  "name": "Seed",
+                  "date": "2015-02-26",
+                  "amount": 2500000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": 0,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 1700,
+                    "dateFrom": "2024-11",
+                    "dateTo": "2024-11"
+                  },
+                  {
+                    "value": 328,
+                    "dateFrom": "2025-01",
+                    "dateTo": "2025-01"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2025-03",
+                    "dateTo": "2025-03"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2025-04",
+                    "dateTo": "2025-04"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2025-06",
+                    "dateTo": "2025-06"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 4271.1,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

@@ -1,0 +1,261 @@
+{
+  "request": {
+    "query": "BAND",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "08fac30bd00581db1004db3a2b659bd6",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/hvdhyrlys6c",
+        "title": "BAND",
+        "url": "https://band.ai/",
+        "text": "# BAND\n\nBAND is a Software Development company. BAND provides enterprise-grade interaction infrastructure that enables real-time, multi-peer collaboration between agents and humans through a shared interaction layer with built-in governance. BAND employs 31 people. Headquartered in Kokhav Ya'ir, HaMerkaz, Israel. Its workforce is distributed across 5 countries (including Israel, United Kingdom, United States, Poland, and Spain).\n\n## About\n\nAt BAND, we believe the future of enterprise productivity lies in the seamless interaction between humans and AI. As organizations deploy increasingly complex, distributed multi-agent ecosystems, the challenge is no longer just building agents - it’s governing how they work together.\n\nBAND is the enterprise-grade interaction infrastructure designed to solve the chaos of heterogeneous agent environments. We provide a shared interaction layer that enables real-time, multi-peer collaboration with built-in governance.\nWhile frameworks focus on how agents think, we focus on how they interact. \nBy defining the rules of engagement, BAND ensures that collaboration is structured, secure, and scalable - not constrained by technical fragmentation.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: Kokhav Ya'ir, Israel\n- Homepage: band.ai\n- Aliases: band\n- LinkedIn: linkedin.com/company/bandhq\n- Linkedin Followers: 2,161\n- Emails: support@band.center\n\n## Financials\n- Total Funding: USD 17,000,000\n  - Seed (2026-04-01): USD 17.0M\n\n## Workforce\n- Employees: 31\n- Company Size: 11-50 employees\n- Key Executives:\n  - Dafna Tadmor: Head of Operations\n  - Joanna Braunold: Head of Brand and Communications\n  - Karin B.Y: Director of Engineering\n  - Ofer Mendelevitch: Head of developer relations\n  - Vlad Luzin: CTO & Co-Founder\n  - Yaniv Bar-Dayan: Angel Investor\n- Breakdown:\n  - By Country: Israel: 20 (65%), United Kingdom: 2 (6%), United States: 2 (6%), Poland: 1 (3%), Spain: 1 (3%)\n  - By Department: Technical: 9 (29%), Other Department: 4 (13%), Sales: 4 (13%), Consulting: 2 (6%), Marketing: 2 (6%), Design: 1 (3%), Finance: 1 (3%), General Management: 1 (3%), Hr: 1 (3%), Operations: 1 (3%) (+1 more)\n  - By Seniority: Specialist: 9 (29%), Other Management: 6 (19%), Head: 3 (10%), Manager: 3 (10%), Senior: 3 (10%), Clevel: 1 (3%), Director: 1 (3%), Founder: 1 (3%)\n- Talent Sources: Zipher (2), Zenzap (2), Seal Security (2), Wizzo AI (1), Slice of Healthcare (1), Mixtiles (1), Lumana (1), Lavanda (1), General Motors (1), CrowdStrike (1)\n- Alumni Go To: Sygnia (1), Qodo (1), Nouriche Nutrition LLC. (1), Lavi Prime (1), Jumpstart (1), Indipendent (1), HIS (1)\n\n## Products & Technology\n- Features: Demo Available\n\n## Web presence\n\n- Twitter: twitter.com/band_hq\n- Crunchbase: crunchbase.com/organization/thenvoi\n- GitHub: github.com/thenvoi\n- Web traffic:\n  - Monthly visits: 3,632\n  - Global rank: 4,728,890\n  - Bounce rate: 47.0%\n  - Pages per visit: 1.6\n  - Average visit duration: 10s\n\n## Categories\n\nagentic ai, built-in governance, industrial automation, interaction infrastructure, multi-peer collaboration, real-time collaboration, shared interaction layer\n\n## Recent News\n- [2026-10-09]\n  - Bandai Namco Europe: ACE COMBAT 8: WINGS OF THEVE soars to million seller faster than any other title in the 30-year franchise\n  - TheSixthAxis: Ace Combat 8 PC online multiplayer issues addressed by Bandai Namco\n  - News18: Band-Aid Finance: The IMF’s $1.2 Billion Bailout Leaves Pakistan's Structural Rot Untouched\n  - WN Hub: Bandai Namco reports record sales for the first quarter; however, operating profit in the Digital segment declines by 30.9%\n  - AI Insider: Cal AI Co-Founder Zach Yadegari Secures $10M for Persona, an AI Assistant With a Wearable Band\n- [2026-10-08]\n  - Accounting Today: AI recommendations favoring narrow band of big firms\n  - AD HOC NEWS: Bandai Namco stock falls 1.81 percent in Tokyo trading\n  - The Des Moines Register: CloserLook.AI Announces Launch of the CloserLook Health Band for Senior Health Monitoring\n  - Nikkei Asia: Gundam maker Bandai's stock soars as group seeks North American breakout\n- [2026-10-07]\n  - The Economic Times: 'Like a band-aid opening': Eye wittnesses reveal the unsettling sounds they heard from Christa Pike's exec\n  - Comic Book Resources: Bandai Launches First-Ever Sailor Moon Release for Adorable Plush Series That Promises Purrfect Posture\n  - AD HOC NEWS: Bandai Namco stock reports 9.3 percent first quarter sales growth\n  - Essential Japan: Bandai Opens Official US Gunpla Kit Fan Vote Featuring 19 Exclusive Kits\n  - City AM: Labour’s band-aid won’t save the justice system from collapse\n- [2026-10-06]\n  - Daily Star: 'Ross Kemp's paranoia in Celebrity Traitors rips the band-aid off show's mystery'\n  - Stripes Japan: Bandai-Azuma Skyline: An autumn foliage favorite with some spectacular scenery\n  - WKMG: Relief or a Band-Aid? Debate over Volusia County's solution to neighborhood flooding\n- [2026-10-05]\n  - Essential Japan: Bandai Officially Unveils Gundam’s First-Ever Blind-Box Gunpla Kits\n  - IrishCentral: Bob Geldof turns 75 and the Live Aid myth deserves a second look\n  - Livemint: Jio IPO GMP latest price today: Grey market premium is rising day by day - Check expected price band\n- [2026-09-24]\n  - [BAND Partners With Docker to Bring Sandboxed Local Execution to Multi-Agent Teams](https://www.prnewswire.com/il/news-releases/band-partners-with-docker-to-bring-sandboxed-local-execution-to-multi-agent-teams-302889566.html)\n  - [BAND Integrates Docker Sandboxes to Secure Local Code Execution for Multi-Agent Teams - TipRanks.com](https://www.tipranks.com/news/private-companies/band-integrates-docker-sandboxes-to-secure-local-code-execution-for-multi-agent-teams)\n\n## Social\n\n### Linkedin\n\n- [2026-10-05 · Posted · 13 reactions] [Did you know your Codex agents can work in BAND? Connect the Codex...](https://www.linkedin.com/posts/bandhq_did-you-know-your-codex-agents-can-work-in-activity-7512902972104970240-6wR0)\n  > Did you know your Codex agents can work in BAND?\n  >\n  > Connect the Codex CLI you already use, with the same codex login you already have, and your agent can join a BAND room. There it talks with your team and the other agents in the room, and it keeps the thread going from one conversation to the next. You spend less time copy-pasting context between terminals, and your agents actually work together.\n  >\n  > Setup takes a few lines. See it, plus the rest of our integrations: https://lnkd.in/ecciZv2V\n\n- [2026-10-02 · Posted · 4 reactions] [Wow! We are LOVING seeing the work that everyone is coming up with...](https://www.linkedin.com/posts/bandhq_lablab-the-1-ecosystem-for-ai-builders-activity-7511785322255470592-fPC0)\n  > Wow! We are LOVING seeing the work that everyone is coming up with at our WeAreDevelopers Dark Factory Hackathon, which we're running together with lablab.ai and Docker, Inc.\n  >\n  > There's still time to get involved - 3 days left, so sign up now before you miss out!\n  >\n  > https://lnkd.in/etNMhCD4\n\n- [2026-09-29 · Posted · 15 reactions] [The AI Conference is kicking off tomorrow with Hack Day! We can't...](https://www.linkedin.com/posts/bandhq_the-ai-conference-is-kicking-off-tomorrow-activity-7510695892652400640-xC8G)\n  > The AI Conference is kicking off tomorrow with Hack Day! We can't wait to see what everyone is going to build, and how their agents are going to work together. Plus, we'll be at booth 226 during the main event, and our CTO Vlad Luzin will be speaking. So basically - get yourselves to the AI Conference asap... We'll see you there!\n\n- [2026-09-28 · Posted · 10 reactions] [Our CTO is giving a talk called \"Is Orchestration the Future?\" You...](https://www.linkedin.com/posts/bandhq_agentic-engineering-multi-agent-systems-activity-7510335029076504576-fTDn)\n  > Our CTO is giving a talk called \"Is Orchestration the Future?\" You can probably guess his answer.\n  >\n  > Tomorrow, Vlad Luzin gets a few rapid-fire minutes to argue that predefined orchestration can't be the primary model for multi-agent work. When every handoff is decided before the work starts, the system only works while reality sticks to the plan. It rarely does, so someone ends up babysitting the agents. The alternative is agents that respond to each other and to what's actually in front of them, with people still able to watch and steer.\n  >\n  > He's speaking at TechEquity Ai's forum at the Snowflake Silicon Valley AI Hub, alongside talks and workshops from Snowflake, cognee and ClawMax. Tuesday, September 29, in person or online: https://lnkd.in/ef4jSuRp\n\n- [2026-09-24 · Posted · 15 reactions] [Agents are getting good at talking to each other. Sooner or later...](https://www.linkedin.com/posts/bandhq_agents-are-getting-good-at-talking-to-each-activity-7508937066513072128-4jsZ)\n  > Agents are getting good at talking to each other. Sooner or later, one of them has to touch real code.\n  >\n  > Today we're launching the BAND Python Kit for Docker Sandboxes, built with Docker, Inc. One command runs a coding agent inside an isolated Docker Sandbox microVM and connects it to the rest of your agent team in a BAND room.\n  >\n  > Picture a room with a hosted planning agent, a hosted research agent and a local coding agent. The planner decides how the change should be made, the researcher digs into the relevant API, and the coding agent makes the change, runs the tests against your workspace and @mentions a reviewer with the result. Only the coding agent ever sees your repo.\n  >\n  > Docker Sandboxes handles the boundary: its own kernel, filesystem and network, network access that's deny-by-default, and credentials managed through a host-side proxy instead of sitting inside the VM. BAND handles the collaboration: persistent agent identities, shared rooms, @mention routing, message history, and every tool execution event visible to the team.\n  >\n  > Docker gives your agents a safe place to run. BAND lets them work together from wherever they run.\n\n- [2026-09-23 · Posted · 18 reactions] [We're teaming up with WeAreDevelopers, Docker, Inc, and lablab.ai...](https://www.linkedin.com/posts/bandhq_were-teaming-up-with-wearedevelopers-docker-activity-7508519821920219136-e-0Z)\n  > We're teaming up with WeAreDevelopers, Docker, Inc, and lablab.ai for the WeAreDevelopers x BAND Hackathon. The challenge: design an AI software factory in BAND Desktop. That means a band of coding agents that plans the work, builds it, hands off evidence, and checks its own results. You give it a job, walk away, and come back to decide whether you'd accept what it made.\n  >\n  > Here are the details:\n  > Sep 26 – Oct 5, fully online\n  > $6,000 prize pool: $1,500 / $1,000 / $500 in each track\n  > Build on Featherless AI open-source models, or bring your own\n  >\n  > Get involved, sign up, learn more - we cannot wait!!! https://lnkd.in/dExiueDN\n\n- [2026-09-21 · Posted · 10 reactions] [Our CTO and Co-founder Vlad Luzin is putting four coding agents on...](https://www.linkedin.com/posts/bandhq_our-cto-and-co-founder-vlad-luzin-is-putting-activity-7507815182174191616-xHiH)\n  > Our CTO and Co-founder Vlad Luzin is putting four coding agents on the same task, on stage, and letting them actually work it out — who does what, who hands off to whom, who gets pulled in when something breaks. Join him on Friday Sept 25 at 4:10 PM, Stage 7, at WeAreDevelopers World Congress North America in San José: \"Loop Engineering in the Wild: A Live Multi-Agent Coding Session.\"\n\n- [2026-09-21 · 8 reactions] Our CTO and Co-founder Vlad Luzin is putting four coding agents on the same task, on stage, and letting them actually work it out — who does what, who hands off to whom, who gets pulled in when som...\n\n- [2026-09-20 · Posted · 9 reactions] [We're sponsoring Day ZERØ's live Hack Day at The AI Conference this...](https://www.linkedin.com/posts/bandhq_were-sponsoring-day-zer%C3%B8s-live-hack-day-activity-7507383085118676992-rPsG)\n  > We're sponsoring Day ZERØ's live Hack Day at The AI Conference this year. It's happening on Sept 29 and we cannot wait to be part of a full day of people building with AI agents - and seeing how they work together.\n  >\n  > We'll be at booth 226 for the rest of the week if building isn't your day one plan.\n\n- [2026-09-20 · 10 reactions, 1 comment] We're sponsoring Day ZERØ's live Hack Day at The AI Conference this year. It's happening on Sept 29 and we cannot wait to be part of a full day of people building with AI agents - and seeing how th...\n\n- [2026-09-17 · Posted · 13 reactions] [Our CEO Arick Goomanovsky joined a panel at AI Infra Conference...](https://www.linkedin.com/posts/bandhq_our-ceo-arick-goomanovsky-joined-a-panel-activity-7506378219202465792-0yOJ)\n  > Our CEO Arick Goomanovsky joined a panel at AI Infra Conference this week with Vinay Kuruvila, CTO (Tinder), Krishna Gade, Founder & CEO (Fiddler AI), Dr. Sambit Sahu, MVP, LLM Core & Agentic AI (Capital One) and Zaid Kahn, Co-Founder & CEO (Neuron Factory).\n  >\n  > They discussed designing and deploying multi-agent AI frameworks, how their businesses are building these, and how we can improve our processes around these going forward.\n  >\n  > If you're at the event, come and say hi - we're at booth 956!\n\n- [2026-09-17 · 13 reactions, 1 comment] Our CEO Arick Goomanovsky joined a panel at AI Infra Conference this week with Vinay Kuruvila, CTO (Tinder), Krishna Gade, Founder & CEO (Fiddler AI), Dr. Sambit Sahu, MVP, LLM Core & Agentic AI (C...\n\n- [2026-09-16 · Posted · 9 reactions] [We're headed to WeAreDevelopers World Congress North America in San...](https://www.linkedin.com/posts/bandhq_were-headed-to-wearedevelopers-world-congress-activity-7506014313632096256-Q4Uh)\n  > We're headed to WeAreDevelopers World Congress North America in San José, September 23–25, and this year we've got a full lineup. Our CTO Vlad Luzin has two sessions, and we're sponsoring the WeAreDevelopers hackathon with lablab.ai right after the show!\n  >\n  > We'll be at the show for three days. Visit our booth to hear about any of it, or just come say hi!\n\n- [2026-09-16 · 9 reactions, 2 comments] We're headed to WeAreDevelopers World Congress North America in San José, September 23–25, and this year we've got a full lineup. Our CTO Vlad Luzin has two sessions, and we're sponsoring the WeAre...\n\n- [2026-09-15 · Posted · 7 reactions] [AI agents need somewhere to work. Most business processes don't...](https://www.linkedin.com/posts/bandhq_ai-agents-need-somewhere-to-work-most-activity-7505610885948747776-50EX)\n  > AI agents need somewhere to work.\n  >\n  > Most business processes don't stay inside one workspace. They cross clouds, departments, and companies you don't control, which means a chat room can coordinate what happens inside it and nothing outside it.\n  >\n  > In a new piece for Techstrong.ai, our co-founder Arick Goomanovsky makes the case for the layer underneath: agents need to coordinate everywhere they already operate, with real authorization, approval tracking, and failure handling built in - not just a better room to sit in.\n  >\n  > Read the full piece: https://lnkd.in/dWjparnn\n\n- [2026-09-15 · 7 reactions] AI agents need somewhere to work. Most business processes don't stay inside one workspace. They cross clouds, departments, and companies you don't control, which means a chat room can coordinate wh...\n\n- [2026-09-14 · Posted · 4 reactions] [Tomorrow, AI Infra Summit kicks off in Santa Clara. We're at booth...](https://www.linkedin.com/posts/bandhq_tomorrow-ai-infra-summit-kicks-off-in-santa-activity-7505271690503913472-iTo1)\n  > Tomorrow, AI Infra Summit kicks off in Santa Clara. We're at booth 956 for all three days, and our CEO Arick Goomanovsky is speaking on a panel called \"Designing and Deploying Multi-Agent AI Frameworks\" on Day One at 11:20am.\n  >\n  > If you're headed to the show, come and find us - we'll be the ones talking about agents that actually coordinate 😜\n\n- [2026-09-14 · 4 reactions, 1 comment] Tomorrow, AI Infra Summit kicks off in Santa Clara. We're at booth 956 for all three days, and our CEO Arick Goomanovsky is speaking on a panel called \"Designing and Deploying Multi-Agent AI Framew...\n\n- [2026-09-11 · Posted · 12 reactions] [BAND is going to be at The AI Conference next month - and we cannot...](https://www.linkedin.com/posts/bandhq_band-is-going-to-be-at-the-ai-conference-activity-7504158816016633856-34SY)\n  > BAND is going to be at The AI Conference next month - and we cannot wait! We've got live demos showing how agents from different platforms and harnesses can actually (shock!!) collaborate, our CTO Vlad Luzin will be speaking, and (can you believe there's more!) we're sponsoring Hack Day. PHEW!\n  >\n  > And if all that's not enough, we've also got giveaways. So yeah, come see us at booth 226 - we'll be waiting!\n\n- [2026-09-11 · 12 reactions, 1 comment] BAND is going to be at The AI Conference next month - and we cannot wait! We've got live demos showing how agents from different platforms and harnesses can actually (shock!!) collaborate, our CTO...\n\n## Locations\n- Headquarters: kokhav ya'ir, hamerkaz, israel (IL)\n- Offices: kokhav ya'ir, hamerkaz, israel (IL)",
+        "summary": "{\"description\":\"BAND provides enterprise-grade interaction infrastructure enabling real-time, multi-peer collaboration through a shared interaction layer with built-in governance.\",\"employee_estimate\":31,\"employee_estimate_source\":\"Employees: 31\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Kokhav Ya'ir, HaMerkaz, Israel\",\"hq_quote\":\"Headquartered in Kokhav Ya'ir, HaMerkaz, Israel.\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Software Development\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 17,000,000 - Seed (2026-04-01): USD 17.0M\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4D0BAQHgnfk2obFG0A/company-logo_200_200/B4DZ26LbOkGQAI-/0/1776945051244/bandhq_logo?e=2147483647&v=beta&t=XzmKzLKQ6GKI0aH4tWkEODEennxf5SpVDXtV4RBv204",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/hvdhyrlys6c",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "BAND",
+              "foundedYear": null,
+              "description": "At BAND, we believe the future of enterprise productivity lies in the seamless interaction between humans and AI. As organizations deploy increasingly complex, distributed multi-agent ecosystems, the challenge is no longer just building agents - it’s governing how they work together.\n\nBAND is the enterprise-grade interaction infrastructure designed to solve the chaos of heterogeneous agent environments. We provide a shared interaction layer that enables real-time, multi-peer collaboration with built-in governance.\nWhile frameworks focus on how agents think, we focus on how they interact. \nBy defining the rules of engagement, BAND ensures that collaboration is structured, secure, and scalable - not constrained by technical fragmentation.",
+              "workforce": {
+                "total": 31
+              },
+              "headquarters": {
+                "address": "Kokhav Ya'ir, HaMerkaz, Israel",
+                "city": "Kokhav Ya'ir",
+                "postalCode": null,
+                "country": "Israel"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 17000000,
+                "fundingLatestRound": {
+                  "name": "Seed",
+                  "date": "2026-04-01",
+                  "amount": 17000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 3632,
+                "countryRank": 1722618,
+                "avgDurationSeconds": 10,
+                "history": [
+                  {
+                    "value": 26419,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 42677,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 50626,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 14430,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 3632,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/wdvg721zxyb",
+        "title": "BAND",
+        "url": "https://about.band.us/",
+        "text": "# BAND\n\nBAND is a Technology, Information and Internet company. BAND is a free group communication app for sports teams, schools, businesses, communities, faith groups, projects and events. Share messages, calendars, polls, and chats in one place. BAND employs 202 people (+6.3% YoY, +12 people) and has an annual revenue of $1M. Headquartered in Los Angeles, California, United States, with offices in Renton, Jersey City, and Palo Alto. Its workforce is distributed across United States and Brazil.\n\n## About\n\nBAND is one of the largest private social networking services, aiming to provide private spaces to facilitate the management of inter-personal relationships. BAND serves as a group communication tool supporting not only chat functionality but also boards, polls, albums, scheduling, and address books. New members can join BAND groups through invitations from the other members or can simply create a BAND and invite others. One BAND can have over 10,000 members. Recently, BAND has surpassed 50 million users worldwide.\n\nNAVER BAND Inc. (www.navercorp.com/en), is a subsidiary of Naver Corp., the operator of South Korea's top portal, Naver.com (http://naver.com). NAVER BAND Inc. operates the mobile and web-based services, BAND.\n\n| Field | Value |\n| --- | --- |\n| Developer(s) | Naver Corporation |\n| Operating system | iOS, Android, Windows, Mac |\n| Available in | English, Chinese, Korean, Japanese, Spanish, Thai, Vietnamese |\n| Licence | Freeware |\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Headquarters: Los Angeles, United States\n- Homepage: about.band.us\n- Aliases: NAVER Corporation, band, band (ca)\n- LinkedIn: linkedin.com/company/thebandapp\n- Linkedin Followers: 5,808\n- Phone: 1-201-221-7577\n\n## Financials\n- Annual Revenue: USD 1,000,000\n\n## Workforce\n- Employees: 202\n- Company Size: 11-50 employees\n  - Yearly Growth: +6.3%\n- Breakdown:\n  - By Country: United States: 2 (1%), Brazil: 1\n  - By Department: Other Department: 2 (1%), Design: 1\n  - By Seniority: Specialist: 2 (1%), Other Management: 1\n- Salary ranges:\n  - Senior Marketing Manager: median $151,739.14 per year\n  - Marketing: median $113,812.11 per year\n  - Content Strategist: median $104,235.91 per year\n  - Content Manager: median $92,258.47 per year\n  - Marketing Associate: median $86,436.21 per year\n  - Marketing Specialist: median $74,616.83 per year\n  - Content Marketing Associate: median $70,144.55 per year\n  - Content Creator: median $62,866.73 per year\n  - Intern: median $62,763.83 per year\n  - Administrative Support: median $54,963.82 per year\n  - Warehouse Worker: median $39,767.1 per year\n  - Business Development Manager: median 540,000 INR per month\n- Talent Sources: Zooshine Studios (1), University of Illinois Urbana-Champaign (1), SIC TV RECORD PORTO VELHO (1), Relatable (1), Record Rio (1), Record (1), Power Washing Pros (1), Dwight Bentel & Hall Communications (1), Center for Healthy Sex (1), ArtsEmerson (1)\n- Alumni Go To: ÁLAMO ENGENHARIA SA (1), Wayfair (1), University of California, San Diego - Rady School of Management (1), Sony Pictures Entertainment (1), Prefeitura de Porto Velho (1), Oracle (1), MANSFIELD HOCKEY ASSOCIATION INC (1), LINE Taiwan Limited (1), Kaiser Permanente (1), Bay Cities (1)\n\n## Products & Technology\n- Features: Mobile App\n- Tech Stack: adobe, canva, google docs, impact, user interviews, microsoft, ups, well\n\n## Web presence\n\n- Twitter: twitter.com/thebandapp\n- Facebook: facebook.com/bandglobal\n- Crunchbase: crunchbase.com/organization/band-f597\n- Web traffic:\n  - Monthly visits: 11,909,291\n  - Global rank: 3,244\n  - Bounce rate: 26.0%\n  - Pages per visit: 8.7\n  - Average visit duration: 432s\n\n## Reviews & Ratings\n- Employer Rating: 2.7/5.0 (14 reviews)\n  - Breakdown: Work-Life: 3.0, Compensation: 2.1, Culture: 2.5, Career: 2.1\n\n## Categories\n\napp marketing, apps, businesses, communities, computers_electronics_and_technology/programming_and_developer_software, education, family, group communication, mobile apps, schools, social media, software, sports, sports teams\n\n## Recent News\n- [2026-10-07]\n  - TicketNews: Band of Horses and Dinosaur Jr. Set Summer 2026 U.S. Tour Dates\n  - Korea JoongAng Daily: Boy band TWS to drop second single 'TO US' in November\n  - Patch: Local Event: HONK\\! Festival w/35 U.S activist bands on-site, plus 6 int'l bands streaming in; runs Oct.9-11.\n  - WGAL: Mass performance of “God Bless America” caps Mechanicsburg band show\n  - The Desert Sun: Train, Zac Brown Band tapped for 2027 American Express Concert Series\n- [2026-10-06]\n  - ABC News - Breaking News, Latest News and Videos: Doug Band, former aide to Bill Clinton, repeatedly tells panel he cannot recall interactions with Epstein: Sources\n  - Wide Open Country: Metal Band Cancels Entire US Tour Due to \"Family Health Emergency\"\n  - NBC Montana: U.S. Air Force Band to perform free concerts across Montana\n  - Bozeman Daily Chronicle: U.S. Air Force band to play Bozeman Oct. 15, 17\n- [2026-10-04]\n  - AL.com: Alabama’s largest marching band heading to Europe for historic performance\n  - CNN: Racist backlash after mariachi band performs national anthem for Monday Night Football\n  - TAPinto: Sparta Showcase - US Bands Marching Band Competition: Rescheduled Date\\!\n  - PerthNow: The two-man WA band taking on ‘weird towns’ in Florida\n- [2026-10-02]\n  - Snopes: Did Trump ban people from listening to Canadian band Rush amid trade war?\n  - Reuters Connect: Licensable video: Madrid comes alive with New Orleans brass band during US 250th anniversary celebrations\n  - WMDT: Salisbury University to Host ‘The President’s Own’ U.S. Marine Band for Concert\n- [2026-10-01]\n  - Hypebot: Did a Russian Cover Band Accidentally Stumble Onto a Winning US Tour Strategy?\n  - DVIDS: III MEF Band Performs at Oita American Festival \\[Image 11 of 11\\]\n  - 104.5 WOKV: IN DEPTH: U.S. Marine Band returns to Jacksonville for first time in 10 years\n  - Yahoo Sports: Mariachi Band Bothered By 'Racist' Criticism Of U.S. National Anthem Performance\n- [2026-09-09] [집회 물품 납품처가 장인 회사…삼전 노조위원장 ‘가족 특혜’ 논란 \\< 산업/재계 \\< 경제 \\< 기사본문 - 시사저널](https://www.sisajournal.com/news/articleView.html?idxno=386584)\n- [2026-09-08]\n  - [김어준도 진중권도 ‘2자’ 경고…李 지지율에 동시에 켜진 빨간불 \\< 정치일반 \\< 정치 \\< 기사본문 - 시사저널](https://www.sisajournal.com/news/articleView.html?idxno=386514)\n  - [檢출신 중수청장에 여권도 반발…“개혁 철학 없다면 인사 재고” \\< 정치일반 \\< 정치 \\< 기사본문 - 시사저널](https://www.sisajournal.com/news/articleView.html?idxno=386513)\n  - [진중권 “국힘 의원들, 한동훈 혼자만 못해…韓, 민주당과 싸우는 법 보여줘” \\< 정치일반 \\< 정치 \\< 기사본문 - 시사저널](https://www.sisajournal.com/news/articleView.html?idxno=386501)\n  - [“사라지는 검찰, 피해자는 무방비”…김예원 변호사, 9일 《전영기의 빅샷》 출연 \\< 정치일반 \\< 정치 \\< 기사본문 - 시사저널](https://www.sisajournal.com/news/articleView.html?idxno=386488)\n  - [홍익표 “李대통령 연임 논란 커져 유감…직접 더 분명히 밝히실 것” \\< 청와대 \\< 정치 \\< 기사본문 - 시사저널](https://www.sisajournal.com/news/articleView.html?idxno=386417)\n- [2026-09-07]\n  - [장동혁 “李대통령, 좌파 두목 되겠다는 것…국민이 반드시 심판” \\< 국회/정당 \\< 정치 \\< 기사본문 - 시사저널](https://www.sisajournal.com/news/articleView.html?idxno=386230)\n  - [김의겸 “한동훈, 수사 기록 편집·왜곡하는 ‘조선제일가위’” \\< 국회/정당 \\< 정치 \\< 기사본문 - 시사저널](https://www.sisajournal.com/news/articleView.html?idxno=386224)\n- [2026-09-05] [\\[정치1인치\\] 용혜인 버리고 김승원 취한다? 민주당 방어선은 왜 엇갈렸을까 \\< 국회/정당 \\< 정치 \\< 기사본문 - 시사저널](https://www.sisajournal.com/news/articleView.html?idxno=386161)\n- [2026-09-04]\n  - [\\[민심 X-ray\\] 통하지 않은 개각 카드…李, 20대 지지율 ‘첫 20%대’ 비상 \\< 국회/정당 \\< 정치 \\< 기사본문 - 시사저널](https://www.sisajournal.com/news/articleView.html?idxno=386154)\n  - [김승원 ‘음주’·용혜인 ‘겸직’…개각 후폭풍에 靑 ‘전전긍긍’ \\< 정치일반 \\< 정치 \\< 기사본문 - 시사저널](https://www.sisajournal.com/news/articleView.html?idxno=386171)\n  - [검증대 오른 김승원…법무장관 인사청문회 핵심 쟁점은 \\< 사회 일반 \\< 사회 \\< 기사본문 - 시사저널](https://www.sisajournal.com/news/articleView.html?idxno=386123)\n  - [오세훈 “부동산 포기했나…821조 초팽창 예산이 맞는 선택인가” \\< 정치일반 \\< 정치 \\< 기사본문 - 시사저널](https://www.sisajournal.com/news/articleView.html?idxno=386133)\n  - [신뢰가 흔들리니 ‘코어 지지층’도 등 돌렸다 \\[배종찬의 민심풍향계\\] \\< 정치 \\< 기사본문 - 시사저널](https://www.sisajournal.com/news/articleView.html?idxno=385878)\n- [2026-09-01]\n  - [한우·굴비·과일 벗어난 백화점 추석선물, 키보드·미술·맛집까지 '진화' \\< 유통 \\< 경제 \\< 기사본문 - 테크M](https://www.techm.kr/news/articleView.html?idxno=154808)\n  - [\\[테크M 트렌드\\] '16도 소주' 사라진다…참이슬 이어 처음처럼도 15.7도로 \\< 유통 \\< 경제 \\< 기사본문 - 테크M](https://www.techm.kr/news/articleView.html?idxno=154801)\n- [2026-08-31]\n  - [교체 앞둔 안규백, “영창 갔다 왔나” 질의에 “곧 밝혀질 것” \\< 국방/외교 \\< 정치 \\< 기사본문 - 시사저널](https://www.sisajournal.com/news/articleView.html?idxno=385446)\n  - [정교유착 합수본 활동 종료...한학자·이만희 등 32명 재판에 \\< 사회 일반 \\< 사회 \\< 기사본문 - 시사저널](https://www.sisajournal.com/news/articleView.html?idxno=385391)\n- [2026-08-30] [20년 만의 여성 총리, 36세 장관까지…李 2기 내각에 부는 ‘여풍’ \\< 정치일반 \\< 정치 \\< 기사본문 - 시사저널](https://www.sisajournal.com/news/articleView.html?idxno=385354)\n- [2026-08-29] [“공정거래위 직원입니다”…연기자까지 고용한 ‘83억 사기 혐의’ 자매의 최후 \\< 사건사고 \\< 사회 \\< 기사본문 - 시사저널](https://www.sisajournal.com/news/articleView.html?idxno=385343)\n\n## Locations\n- Headquarters: los angeles, california, united states (US)\n- Offices: palo alto, california, united states (US), los angeles, california, united states (US), jersey city, new jersey, united states (US), renton, washington, united states (US)",
+        "summary": "{\"description\":\"BAND is a Technology, Information and Internet company. BAND is a free group communication app for sports teams, schools, businesses, communities, faith groups, projects and events. Share messages, calendars, polls, and chats in one place.\",\"employee_estimate\":202,\"employee_estimate_source\":\"Employees: 202\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Los Angeles, California, United States\",\"hq_quote\":\"Headquartered in Los Angeles, California, United States, with offices in Renton, Jersey City, and Palo Alto.\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"BAND is a Technology, Information and Internet company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":false,\"recently_funded_seed_or_series_a_quote\":\"No explicit seed/Series A funding information stated on the page.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C560BAQGo4uEvRjcong/company-logo_200_200/company-logo_200_200/0/1630663103635/thebandapp_logo?e=2147483647&v=beta&t=YBRxE3D_SdsReo6mVEhwHur4F9iiMiimCEwWqtX9x2I",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/wdvg721zxyb",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "BAND",
+              "foundedYear": null,
+              "description": "BAND is one of the largest private social networking services, aiming to provide private spaces to facilitate the management of inter-personal relationships. BAND serves as a group communication tool supporting not only chat functionality but also boards, polls, albums, scheduling, and address books. New members can join BAND groups through invitations from the other members or can simply create a BAND and invite others. One BAND can have over 10,000 members. Recently, BAND has surpassed 50 million users worldwide.\n\nNAVER BAND Inc. (www.navercorp.com/en), is a subsidiary of Naver Corp., the operator of South Korea's top portal, Naver.com (http://naver.com). NAVER BAND Inc. operates the mobile and web-based services, BAND.",
+              "workforce": {
+                "total": 202
+              },
+              "headquarters": {
+                "address": "5750 Wilshire Blvd, 640, Los Angeles, California 90036, US",
+                "city": "Los Angeles",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 1000000,
+                "fundingTotal": null,
+                "fundingLatestRound": null
+              },
+              "webTraffic": {
+                "visitsMonthly": 11909291,
+                "countryRank": 145,
+                "avgDurationSeconds": 432,
+                "history": [
+                  {
+                    "value": 11987685,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 12164715,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 10933987,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 11210816,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 12283770,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 11909291,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 5221.1,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

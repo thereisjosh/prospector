@@ -1,0 +1,262 @@
+{
+  "request": {
+    "query": "Nova Intelligence",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "87884e134baebc609f56c0a669261f7b",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/34zxr6mmp03",
+        "title": "Nova Intelligence",
+        "url": "https://www.novaintelligence.com/",
+        "text": "# Nova Intelligence\n\nNova Intelligence is a Technology, Information and Internet company. Nova Intelligence is an agency platform that unifies enterprise system discovery, design, build, and operations in one platform. Nova Intelligence employs 34 people (+277.8% YoY, +25 people), founded in 2024. Headquartered in New York, New York, United States. Its workforce is distributed across 6 countries (including United States, Germany, Poland, United Kingdom, and Mexico).\n\n## About\n\nNova is the agentic AI platform for enterprise systems, unifying operational and development teams on one system of intelligence. Acting as an autonomous, always-improving colleague across your SAP lifecycle, Nova discovers how your landscape is architected, designs fit-to-standard configurations, builds working software from specs, and proactively preempts issues and optimizes processes. Teams using Nova see 5x productivity, 50% lower project costs, and 8x faster issue resolution, and tasks run on Nova compound into a knowledge core that grows with your business.\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Headquarters: New York, United States\n- Founded Year: 2024\n- Homepage: novaintelligence.com\n- Aliases: nova intelligence\n- LinkedIn: linkedin.com/company/novaintelligence\n- Linkedin Followers: 2,900\n- Emails: contact@novaintelligence.com\n\n## Financials\n- Total Funding: USD 40,000,000\n  - Series a (2026-05-01): USD 31.5M\n  - Seed (2025-12-01): USD 8.5M\n\n## Workforce\n- Employees: 34\n- Company Size: 11-50 employees\n  - Monthly Growth: +6.2%\n  - Yearly Growth: +277.8%\n- Key Executives:\n  - Alexa Kayman: Head of Operations\n  - Carol Lu-Vernooij: Head of Marketing\n  - Emma Qian: Co-Founder & CEO\n  - Justin Kershaw: Chief Customer Officer\n  - Mark Smith: Founding Customer Engineer (FDE)\n  - Peter Koslowski: Founding GTM & Ecosystem\n  - Prof. Dr. Alexander Zeier: Co-Founder & Chief Scientist\n  - Sam Yang: Co-Founder\n- Breakdown:\n  - By Country: United States: 21 (62%), Germany: 3 (9%), Poland: 2 (6%), United Kingdom: 2 (6%), Mexico: 1 (3%), Philippines: 1 (3%)\n  - By Department: Technical: 12 (35%), General Management: 4 (12%), Other Department: 3 (9%), Sales: 3 (9%), Operations: 2 (6%), Administrative: 1 (3%), Consulting: 1 (3%), Customer Service: 1 (3%), Design: 1 (3%), Finance: 1 (3%) (+1 more)\n  - By Seniority: Specialist: 12 (35%), Other Management: 6 (18%), Founder: 5 (15%), Manager: 3 (9%), Head: 2 (6%), Clevel: 1 (3%), Senior: 1 (3%)\n- Active job postings: 8\n- Talent Sources: Bloom (2), USC Annenberg Media (1), Otto-von-Guericke University Magdeburg (1), Mindset Consulting, LLC (1), Maybern (1), LeverX (1), IMC Trading (1), Databook (1), Athena (1), Assembly (1)\n- Alumni Go To: LexlabsAI (2), WestBridge Capital (1), RadixArk (1), Origin (1), Littlebird (1), Brio (1)\n\n## Products & Technology\n- Tech Stack: accenture, odata, sap hana, github, github actions, hubspot, iam, javascript, kms, kubernetes, oauth, python, react, recognize, saml, sandbox, sap abap, terraform, typescript, vanta, ecc, emma\n\n## Web presence\n\n- Web traffic:\n  - Monthly visits: 20,210\n  - Global rank: 1,093,606\n  - Bounce rate: 36.0%\n  - Pages per visit: 4.3\n  - Average visit duration: 248s\n\n## Categories\n\nbuild, design, discovery, enterprise system, enterprise systems, nova intelligence, operations, sap and s4hana, sap store, sap store software\n\n## Recent News\n- [2026-10-08] TipRanks: Nova Intelligence Showcases ZEISS SAP Use Cases at Berlin Summit\n- [2026-10-05] ニコニコニュース: 【株式会社CIO】Amazonで開催される「Amazon プライム感謝祭」対象商品\n- [2026-09-15] TipRanks: Nova Intelligence Executive Engagement Highlights Enterprise AI Focus\n- [2026-06-25]\n  - [Nova Intelligence Targets Enterprise AI Visibility at Davos Tech Summit 2026 - TipRanks.com](https://www.tipranks.com/news/private-companies/nova-intelligence-targets-enterprise-ai-visibility-at-davos-tech-summit-2026)\n  - OREFOLDER: CIO、Amazonプライムデーの対象商品 第1弾を発表！充電器や電源タップが最大50%オフ\n- [2026-06-24] ニコニコニュース: 【株式会社CIO】Amazonで開催される「Amazon プライムデー」対象商品\n- [2026-06-15] TipRanks: Nova Intelligence – Weekly Recap\n- [2025-11-26] ライブドアニュース: CIOの「全部入り」充電器、事前予約でもう最安なんだが\n- [2025-11-16] OREFOLDER: CIOがブラックフライデーのセール対象製品 第1弾を発表！NovaPort IIシリーズや電源タップなど\n- [2025-10-31] ウレぴあ総研: CIOの充電器はコンパクトサイズすぎてポート構成ちょうどいい。今なら3千円台です #AmazonスマイルSALE\n- [2025-10-10] まぐまぐ！: 厚さわずか16.8mm！CIOの超薄型USB充電器でデスクの配線問題に終止符を #Amazonプライム感謝祭\n\n## Social\n\n### Linkedin\n\n- [2026-10-05 · Posted · 68 reactions] [We’re heading to DSAG Jahreskongress tomorrow, October 6! Find us...](https://www.linkedin.com/posts/novaintelligence_were-heading-to-dsag-jahreskongress-tomorrow-activity-7512880868634382337-nHid)\n  > We’re heading to DSAG Jahreskongress tomorrow, October 6!\n  >\n  > Find us on stage with Festo’s Udo Deuschle (Head of Information Management Finance) for “Clean Core at Breakneck Speed: How Festo Sets New Standards with Nova Intelligence’s Agentic AI Platform,” joined by Nova’s Prof. Dr. Alexander Zeier and Volodymyr Vashchenko.\n  >\n  > Find the session at October 6 · 15:00 by Conference Hall 1, Level 0.\n  >\n  > Want to see Nova in action? Find us at our partners’ stands for live demos.\n  >\n  > REALTECH AG — Hall 2.1, Stand E4 with Natallia Arkhipava\n  > Tue · 06 Oct 16:00–16:30\n  > Wed · 07 Oct 11:00–11:30\n  > Thu · 08 Oct 09:00–09:30\n  >\n  > CONSILIO — Hall 2.2, Stand O5 with Volodymyr Vashchenko\n  > Tue · 06 Oct 17:00–17:30\n  > Wed · 07 Oct 13:00–13:30\n  > Thu · 08 Oct 12:00–12:30\n  >\n  > Come meet the team and see what agentic AI can do for your SAP systems.\n\n- [2026-09-24 · Posted · 65 reactions] [Join Co-inventor of SAP HANA and Nova Intelligence Co-founder and...](https://www.linkedin.com/posts/novaintelligence_bits26-sap-agenticai-activity-7508931640425984000-cpj-)\n  > Join Co-inventor of SAP HANA and Nova Intelligence Co-founder and Chief Scientist Prof. Dr. Alexander Zeier at the Bits & Pretzels 2026 conference in Munich next Monday through Wednesday.\n  >\n  > On Tuesday, September 29, Alexander will also be one of a dozen C-level executives, including from Lufthansa Group, Liebherr Group, Montblanc, Sana Kliniken, and Bureau Veritas, leading roundtables during the event's invite-only CIO AI Summit, where he will explore what agentic AI offers enterprises weighing greenfield vs brownfield approaches, and how it changes the economics of SAP systems.\n  >\n  > 📍 Tuesday, September 29\n  > 🕑 2:00–2:45 PM\n  > 📌 Room 13b | Roundtable 2\n  >\n  > If you’ll be at Bits & Pretzels, DM Prof. Dr. Alexander Zeier to connect while he’s in Munich!\n  > #bits26 #SAP #AgenticAI #SAPTransformation\n\n- [2026-09-23 · Posted · 56 reactions] [KION Group is taking 86% of the time out of core SAP work with Nova...](https://www.linkedin.com/posts/novaintelligence_kion-group-is-taking-86-of-the-time-out-activity-7508557046842159104-ZntT)\n  > KION Group is taking 86% of the time out of core SAP work with Nova Intelligence.\n  >\n  > If you’ve bought anything online, there’s a good chance your order passed through a warehouse equipped or automated by a KION Group system. Behind that global operation is an SAP landscape supporting 42,000 employees across more than 100 countries.\n  >\n  > KION built its S/4HANA system greenfield and around Clean Core principles. But, as with most transformations, some functionality still has to make the journey from ECC.\n  >\n  > Nova Intelligence now helps KION tackle both sides of that equation: modernizing what came before, while holding what gets built next to a higher standard.\n  >\n  > 𝗜𝗻 𝗿𝗲𝘀𝗲𝗮𝗿𝗰𝗵 𝗮𝗻𝗱 𝘀𝘂𝗽𝗽𝗼𝗿𝘁: SAP artifact and table research that took 3+ hours now takes just over 10 minutes. Root-cause analysis and resolution for production incidents has fallen from 2–3 hours to 15 minutes.\n  >\n  > 𝗜𝗻 𝗱𝗲𝘃𝗲𝗹𝗼𝗽𝗺𝗲𝗻𝘁: KION has reduced average time spent on code refactoring and development by 80%. In one example, Nova helped modernize two SD reports, cutting application runtimes by 65% and 81% and HANA CPU consumption by 85%.\n  >\n  > 𝗜𝗻 𝗖𝗹𝗲𝗮𝗻 𝗖𝗼𝗿𝗲 𝗴𝗼𝘃𝗲𝗿𝗻𝗮𝗻𝗰𝗲: Nova checks new requirements against standard SAP functionality before custom development is approved, applies KION’s own development and documentation standards, and is now powering a quality gate that reviews changes before they move downstream.\n  >\n  > And every time Nova investigates, builds, or changes something, it leaves behind the documentation and context KION’s SAP experts can reuse.\n  >\n  > As KION's SAP Solution Architect Saber LAMINE puts it: “𝗜𝘁 𝗱𝗼𝗲𝘀𝗻'𝘁 𝗳𝗲𝗲𝗹 𝗹𝗶𝗸𝗲 𝘄𝗲'𝗿𝗲 𝘂𝘀𝗶𝗻𝗴 𝗮𝗴𝗲𝗻𝘁𝘀, 𝗶𝘁 𝗳𝗲𝗲𝗹𝘀 𝗹𝗶𝗸𝗲 𝘄𝗲'𝘃𝗲 𝗵𝗶𝗿𝗲𝗱 𝗮𝗻 𝗲𝗻𝘁𝗶𝗿𝗲 𝗮𝗱𝗱𝗶𝘁𝗶𝗼𝗻𝗮𝗹 𝘁𝗲𝗮𝗺 𝗼𝗳 𝗰𝗮𝗽𝗮𝗯𝗹𝗲 𝗰𝗼𝗹𝗹𝗲𝗮𝗴𝘂𝗲𝘀.”\n  >\n  > Read the full case study.\n  >\n  > 📍Link in the comments.\n\n- [2026-09-17 · Posted · 28 reactions] [If you’re in Munich over the next two weeks, you might cross paths...](https://www.linkedin.com/posts/novaintelligence_if-youre-in-munich-over-the-next-two-weeks-activity-7506390628713250816-J_xD)\n  > If you’re in Munich over the next two weeks, you might cross paths with Nova Intelligence.\n  >\n  > We’ll be out in full force across three events, meeting customers, partners, and enterprise leaders at:\n  >\n  > ◘ 𝗠𝘂𝗻𝗶𝗰𝗵 𝗦𝗔𝗣 𝗗𝗮𝘆𝘀, where we’ll take the stage with Festo to share the 5x productivity they’ve achieved on the Nova platform.\n  >\n  > ◘ 𝗢𝗸𝘁𝗼𝗯𝗲𝗿𝗳𝗲𝘀𝘁, where we’re bringing customers and partners together at the Ammer tent on the Theresienwiese for an evening of conversation, connection, and celebratory 🍻\n  >\n  > ◘ Bits & Pretzels 𝗙𝗼𝘂𝗻𝗱𝗲𝗿𝘀 𝗙𝗲𝘀𝘁𝗶𝘃𝗮𝗹 + 𝗖𝗜𝗢 𝗔𝗜 𝗦𝘂𝗺𝗺𝗶𝘁, where we’ll join 7,500+ industry leaders invested in what’s next in AI. At the invite-only CIO AI Summit on September 29, our co-founder, Chief Scientist, and HANA co-inventor Prof. Dr. Alexander Zeier will also host a roundtable on how agentic AI is changing the economics of SAP systems, and how enterprises should think about greenfield vs. brownfield transformation.\n  >\n  > So if you’ll also be in Munich, don’t just run into us by chance. Book time with the Nova team (👇 link in comments below), or DM Prof. Dr. Alexander Zeier to connect while we’re in town.\n\n- [2026-09-17 · 28 reactions, 4 comments] If you’re in Munich over the next two weeks, you might cross paths with Nova Intelligence. We’ll be out in full force across three events, meeting customers, partners, and enterprise leaders at: ◘...\n\n- [2026-09-16 · Posted · 45 reactions] [🛫 Nova Intelligence is headed to Atlanta next week for the SAP...](https://www.linkedin.com/posts/novaintelligence_nova-intelligence-is-headed-to-atlanta-activity-7506014272100012032-qddI)\n  > 🛫 Nova Intelligence is headed to Atlanta next week for the SAP Transformation Excellence Summit, kicking off a packed fall and winter conference season for our team.\n  >\n  > We’re especially excited to be taking the conference stage with one of the largest agrochemical companies in the U.S. to talk about how they’re using Nova to make some of their most business-critical supply chain applications more productive, robust, and future-proof.\n  >\n  > We'll be there with Emma Qian, Co-founder and CEO, Mark Smith, our founding Customer Engineer, Peter Koslowski, our Head of Strategic Partnerships, and Carol Lu-Vernooij, our Head of Marketing. We’ll be running live demos 🧑💻 throughout the event at the Nova Intelligence booth right next to registration.\n  >\n  > Come meet us and see how our agentic platform can transform your SAP operations.\n\n- [2026-09-16 · 45 reactions, 6 comments] 🛫 Nova Intelligence is headed to Atlanta next week for the SAP Transformation Excellence Summit, kicking off a packed fall and winter conference season for our team. We’re especially excited to be...\n\n- [2026-09-11 · Reshared · 60 reactions] [𝗡𝗼𝘃𝗮’𝘀 𝘀𝗰𝗮𝗹𝗲𝘂𝗽 𝗶𝗻 𝘀𝗶𝘅 𝗺𝗼𝗻𝘁𝗵𝘀: in May, we were having conversations...](https://www.linkedin.com/posts/novaintelligence_activity-7504239879409651712-dhuz): 𝗡𝗼𝘃𝗮’𝘀 𝘀𝗰𝗮𝗹𝗲𝘂𝗽 𝗶𝗻 𝘀𝗶𝘅 𝗺𝗼𝗻𝘁𝗵𝘀: in May, we were having conversations with CIOs. Coming this November, we’re bringing the dialogue into the board room. The E3 Magazine put Nova Intelligence on its May...\n\n- [2026-08-09 · Reshared · 82 reactions] [Perfektes Wetter am Bodensee beim Data Migration International...](https://www.linkedin.com/posts/novaintelligence_activity-7492261522220474368-QHCt): Perfektes Wetter am Bodensee beim Data Migration International Event, v. r. Prof. Dr. Alexander Zeier ( Nova Intelligence ), Joern Weigle ( Festo ), Emma Qian ( Nova Intelligence ) und ich ( E3-Mag...\n\n- [2026-08-06 · Posted · 16 reactions] [𝗪𝗲'𝗿𝗲 𝗹𝗼𝗼𝗸𝗶𝗻𝗴 𝗳𝗼𝗿𝘄𝗮𝗿𝗱 𝘁𝗼 𝗰𝗲𝗹𝗲𝗯𝗿𝗮𝘁𝗶𝗻𝗴 𝘁𝗵𝗲 𝗯𝗲𝘀𝘁 𝗖𝗜𝗢𝘀 𝗶𝗻 𝗔𝗺𝗲𝗿𝗶𝗰𝗮 𝗮𝘁...](https://www.linkedin.com/posts/novaintelligence_cio100-activity-7491146107721367552-WnMw)\n  > 𝗪𝗲'𝗿𝗲 𝗹𝗼𝗼𝗸𝗶𝗻𝗴 𝗳𝗼𝗿𝘄𝗮𝗿𝗱 𝘁𝗼 𝗰𝗲𝗹𝗲𝗯𝗿𝗮𝘁𝗶𝗻𝗴 𝘁𝗵𝗲 𝗯𝗲𝘀𝘁 𝗖𝗜𝗢𝘀 𝗶𝗻 𝗔𝗺𝗲𝗿𝗶𝗰𝗮 𝗮𝘁 𝘁𝗵𝗲 𝗖𝗜𝗢 𝟭𝟬𝟬 𝗔𝘄𝗮𝗿𝗱𝘀 & 𝗖𝗼𝗻𝗳𝗲𝗿𝗲𝗻𝗰𝗲.\n  >\n  > Nova Intelligence Chief Customer Officer Justin Kershaw will be in Frisco, TX, August 17–19, joining CIOs from organizations like Dow, AstraZeneca, and PepsiCo, where he'll be welcoming a new class of winners and honorees, and taking part in a special executive roundtable, 𝘽𝙪𝙞𝙡𝙙𝙞𝙣𝙜 𝙩𝙝𝙚 𝙀𝙣𝙩𝙚𝙧𝙥𝙧𝙞𝙨𝙚 𝙁𝙤𝙪𝙣𝙙𝙖𝙩𝙞𝙤𝙣 𝙛𝙤𝙧 𝙀𝙣𝙩𝙚𝙧𝙥𝙧𝙞𝙨𝙚 𝘼𝙄, hosted by Anthropic and Amazon Web Services (AWS).\n  >\n  > Justin himself was inducted into the CIO Hall of Fame in 2017, while serving as Corporate Vice President and CIO of Cargill, the largest privately held company in the United States. His four decades of experience buying, building, and betting on solutions to better run enterprise systems is what makes Justin our voice of the customer.\n  >\n  > If you're also going to be there, say hello. Justin's always up for a conversation about the latest in enterprise AI — and happy to share what we're working on at Nova.\n  >\n  > #CIO100\n\n- [2026-08-06 · 62 reactions, 1 comment] 𝗪𝗲'𝗿𝗲 𝗹𝗼𝗼𝗸𝗶𝗻𝗴 𝗳𝗼𝗿𝘄𝗮𝗿𝗱 𝘁𝗼 𝗰𝗲𝗹𝗲𝗯𝗿𝗮𝘁𝗶𝗻𝗴 𝘁𝗵𝗲 𝗯𝗲𝘀𝘁 𝗖𝗜𝗢𝘀 𝗶𝗻 𝗔𝗺𝗲𝗿𝗶𝗰𝗮 𝗮𝘁 𝘁𝗵𝗲 𝗖𝗜𝗢 𝟭𝟬𝟬 𝗔𝘄𝗮𝗿𝗱𝘀 & 𝗖𝗼𝗻𝗳𝗲𝗿𝗲𝗻𝗰𝗲. Nova Intelligence Chief Customer Officer Justin Kershaw will be in Frisco, TX, August 17–19, joinin...\n\n- [2026-08-05 · Reshared · 29 reactions] [Nova Intelligence co-founder and CEO Emma Qian is presenting our...](https://www.linkedin.com/posts/novaintelligence_nova-intelligence-co-founder-and-ceo-emma-activity-7490764251402338304-nlK6): Nova Intelligence co-founder and CEO Emma Qian is presenting our vision on agentic productivity for companies running on SAP. She will be joined by Festo CIO Joern Weigle, Nova Chief Customer Offic...\n\n- [2026-07-30 · Posted · 45 reactions] [Haas Automation, Inc. runs Nova Intelligence across the largest CNC...](https://www.linkedin.com/posts/novaintelligence_haas-automation-inc-runs-nova-intelligence-activity-7488613820446191619-Yoqq)\n  > Haas Automation, Inc. runs Nova Intelligence across the largest CNC manufacturing facility in the United States.\n  >\n  > Haas' production sits on an SAP backbone customized to the business over decades. The logic that keeps over a million square feet of factory floor running lives in bespoke configurations, overseen by a short list of experts with more requests than hours.\n  >\n  > Nova now works alongside all of them, live in development, QA, and production.\n  >\n  > 𝗜𝗻 𝗼𝗽𝗲𝗿𝗮𝘁𝗶𝗼𝗻𝘀: the weekly MRP run that sets the rhythm for the entire plant used to depend on the few people who knew how to orchestrate it. Nova has traced that execution path and turned it into a Business Process Procedure the wider team can pick up and run.\n  >\n  > 𝗜𝗻 𝗱𝗲𝘃𝗲𝗹𝗼𝗽𝗺𝗲𝗻𝘁: a spec and working code for one program can be created in five minutes, and shipped within the hour. It used to take a day and a half.\n  >\n  > 𝗜𝗻 𝘀𝘂𝗽𝗽𝗼𝗿𝘁: order and delivery issues no longer need to be manually handled. Today, the Haas team passes them directly to Nova, which finds the root causes and implements fixes. Nova now closes 80% of customer incidents on its own.\n  >\n  > And the biggest benefits is that this 𝘀𝗰𝗮𝗹𝗲𝘀. Nova documents every task it takes on, so business, operational, and development processes are recorded as the work is done – and improves with every task that follows.\n  >\n  > \"𝘿𝙞𝙙 𝙮𝙤𝙪 𝙖𝙨𝙠 𝙉𝙤𝙫𝙖?\" is now a routine question at Haas. Read our case study about this, and more ways that CTO Craig Leonard, SAP Manager Justin Zimmerman, and other members of the Haas team are leveraging Nova.\n  >\n  > 📍Link in the comments.\n\n- [2026-07-30 · 62 reactions, 4 comments] Haas Automation, Inc. runs Nova Intelligence across the largest CNC manufacturing facility in the United States. Haas' production sits on an SAP backbone customized to the business over decades. Th...\n\n- [2026-06-24 · Posted · 17 reactions] [We’re heading to Davos. Nova Intelligence will be at the Davos Tech...](https://www.linkedin.com/posts/novaintelligence_were-heading-to-davos-nova-intelligence-activity-7475608687290535936-ISEI)\n  > We’re heading to Davos.\n  >\n  > Nova Intelligence will be at the Davos Tech Summit 2026 — July 1–4 at Kongresszentrum Davos — joining the world’s most forward-thinking leaders shaping the future of enterprise AI.\n  >\n  > If you’re attending and want to talk SAP modernization, agentic AI, or what’s next for your business, let’s meet.\n  >\n  > 📍 Davos Congress, Switzerland\n  > July 1–4, 2026\n  >\n  > Drop a comment or reach out directly to schedule time. See you in Davos.\n  >\n  > Prof. Dr. Alexander Zeier , Juergen Helmle\n\n- [2026-06-24 · 24 reactions, 1 comment] We’re heading to Davos. Nova Intelligence will be at the Davos Tech Summit 2026 — July 1–4 at Kongresszentrum Davos — joining the world’s most forward-thinking leaders shaping the future of enterpr...\n\n- [2026-06-08 · 45 reactions, 1 comment] 🚀 We’re growing the Nova Intelligence team We’re offering a $15,000 referral bonus for experienced SAP engineers who join Nova through your referral. Here’s who we’re looking for: ~You bring deep S...\n\n- [2026-06-08 · 75 reactions, 1 comment] The largest companies in the world run on SAP. Now there’s an AI platform built for it. Nova Intelligence gives SAP teams superpowers — accelerating process design, development, and production supp...\n\n- [2026-05-17 · Posted · 56 reactions] [Nova Intelligence is heading to SAP Sapphire Madrid May 19–21 ✈️...](https://www.linkedin.com/posts/novaintelligence_sapsapphire-sap-ai-activity-7461706826510770176--FqK)\n  > Nova Intelligence is heading to SAP Sapphire Madrid May 19–21 ✈️\n  >\n  > Find us at Booth 10.514 all week to meet the team and see Nova in action.\n  >\n  > Don't miss our session with Joern Weigle, CIO of Festo: \"How Festo accelerates its Clean Core initiative with Nova Intelligence\" 📅 Wednesday, 11:00 AM · Hall 10, Theater 13\n  >\n  > See how SAP teams are tripling productivity across the full SAP lifecycle — design, development, testing, operations, and more — with Nova's agentic AI platform.\n  >\n  > #SAPSapphire #SAP #AI\n  >\n  > Connect with the team in person, including\n  > Emma Qian, Sam Yang, Justin Kershaw, Prof. Dr. Alexander Zeier, Peter K., Juergen Helmle, Brian Saverino, Alexa Kayman, Paul Modderman, Marcello Urbani, Mark Smith, and Emilie Duran.\n\n- [2026-05-17 · 57 reactions, 7 comments] Nova Intelligence is heading to SAP Sapphire Madrid May 19–21 ✈️ Find us at Booth 10.514 all week to meet the team and see Nova in action. Don't miss our session with Joern Weigle, CIO of Festo: \"H...\n\n## Locations\n- Headquarters: new york, new york, united states (US)\n- Offices: new york, new york, united states (US)",
+        "summary": "{\"description\":\"Nova Intelligence is a Technology, Information and Internet company that provides an agency platform unifying enterprise system discovery, design, build, and operations in one platform.\",\"employee_estimate\":34,\"employee_estimate_source\":\"Employees: 34\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Active job postings: 8\",\"hq\":\"New York, United States\",\"hq_quote\":\"Headquarters: New York, United States\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Technology, Information and Internet\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 40,000,000 - Series a (2026-05-01): USD 31.5M - Seed (2025-12-01): USD 8.5M\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQEMTzN8VuvmmA/company-logo_200_200/B56ZU32oQPGUAI-/0/1740398822837/nova_ai_software_logo?e=2147483647&v=beta&t=t9P8219gxBJQpnfh4XzxMLY-wsaJzjqQtd3f1jhKE3M",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/34zxr6mmp03",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Nova Intelligence",
+              "foundedYear": 2024,
+              "description": "Nova is the agentic AI platform for enterprise systems, unifying operational and development teams on one system of intelligence. Acting as an autonomous, always-improving colleague across your SAP lifecycle, Nova discovers how your landscape is architected, designs fit-to-standard configurations, builds working software from specs, and proactively preempts issues and optimizes processes. Teams using Nova see 5x productivity, 50% lower project costs, and 8x faster issue resolution, and tasks run on Nova compound into a knowledge core that grows with your business.",
+              "workforce": {
+                "total": 34
+              },
+              "headquarters": {
+                "address": "New York, NY, US",
+                "city": "New York",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 40000000,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2026-05-01",
+                  "amount": 31500000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 20210,
+                "countryRank": 289898,
+                "avgDurationSeconds": 248,
+                "history": [
+                  {
+                    "value": 3547,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 7337,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 8249,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 8700,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 7788,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 20210,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/qm4011k6k2k",
+        "title": "Nova Inteligência | Assessoria de Marketing e Vendas",
+        "url": "https://novainteligencia.com/",
+        "text": "# Nova Inteligência | Assessoria de Marketing e Vendas\n\nNova Inteligência | Assessoria de Marketing e Vendas is a Advertising Services company. Nova Inteligência is a digital marketing agency focused on results. They specialize in traffic generation, lead generation, and product launch. Nova Inteligência | Assessoria de Marketing e Vendas employs 22 people (-8.3% YoY, -2 people), founded in 2010. Headquartered in Maringá, Paraná, Brazil.\n\n## About\n\nNova Inteligência é uma assessoria de marketing, vendas e inteligência artificial para pequenas e médias empresas que querem crescer com mais clareza, processo e resultado. Partimos dos seus objetivos, gargalos e capacidade de entrega para transformar estratégia em execução. Reunimos pessoas, processos, ferramentas e agentes de IA para conectar marketing à operação comercial.\n\n## Company Details\n- Industry: Advertising Services\n- Type: Privately held\n- Headquarters: Maringá, Brazil\n- Founded Year: 2010\n- Homepage: novainteligencia.com\n- Aliases: nova inteligência | assessoria de marketing e vendas\n- LinkedIn: linkedin.com/company/novainteligencia\n- Linkedin Followers: 1,067\n- Emails: contato@novai.com.br\n- Phone: 23.730.256\n\n## Workforce\n- Employees: 22\n- Company Size: 11-50 employees\n  - Yearly Growth: -8.3%\n- Key Executives:\n  - Alessandro Franco: Diretor de desenvolvimento de negócios\n  - Cesar Silva: Sócio e Marketing Strategist\n  - Michel Martins Leal: Maior aprendiz - Sócio Proprietário\n- Breakdown:\n  - By Country: Brazil: 15 (68%)\n  - By Department: Marketing: 4 (18%), Design: 3 (14%), General Management: 3 (14%), Sales: 3 (14%), Other Department: 2 (9%), Customer Service: 1 (5%), Hr: 1 (5%), Technical: 1 (5%)\n  - By Seniority: Specialist: 10 (45%), Other Management: 3 (14%), Senior: 2 (9%), Director: 1 (5%), Manager: 1 (5%), Owner: 1 (5%), Partner: 1 (5%)\n- Talent Sources: liveSEO (2), ResultPubli (2), Box Martech (2), Vow Digital (1), V4 Company (1), SóDABLIO Marketing Digital (1), Perpétua Lab (1), Mixtra (1), Giga+ Fibra (1), Colégio Nobel (1)\n- Alumni Go To: ResultPubli (3), Gerente de Pasto (2), Fiscal.io | Gestão de Documentos Fiscais (2), Crefaz (2), Surya Dental Odontologia (1), Lode - We Love Code (1), Ibitech Gestao Publica (1), Grupo Amigão (1), F2K (1), DevFellowship (1)\n\n## Products & Technology\n- Tech Stack: facebook, facebook ads, google ads, whatsapp, aos, adobe, adobe photoshop, canva, rd station, visa, google analytics, google sheets, looker, ahrefs, linkedin, semrush, tiktok\n\n## Web presence\n\n- Crunchbase: crunchbase.com/organization/ag%C3%AAncia-nova-intelig%C3%AAncia\n- Web traffic:\n  - Monthly visits: 819\n  - Bounce rate: 34.0%\n  - Pages per visit: 1.5\n  - Average visit duration: 3s\n\n## Categories\n\ndata analysis, desenvolvimento de campanhas, digital marketing, geração de leads qualificados para mercado imobiliário, lançamento de produtos, lead generation, marketing, marketing de performance, otimização de seo, planejamento de comunicação, planejamento de marketing, planejamento de mídia, posicionamento de marca, product launch, promoção de produtos e serviços, traffic generation, ux\n\n## Social\n\n### Linkedin\n\n- [2025-12-15 · 7 reactions] Encerrando mais um ano com a certeza de que os melhores resultados são construídos juntos. 💙 Para celebrar esse ciclo e agradecer a parceria ao longo do ano, preparamos um presente com muito carinh...\n\n- [2025-12-01 · 8 reactions] Vaga aberta na Nova I! Envie seu currículo para rh@novainteligencia.com.br 🤝 😍 💻 🩵\n\n- [2025-07-23 · 3 reactions] IA generativa é mais do que tendência — é uma ferramenta estratégica que já está transformando a produção de conteúdo. Este vídeo foi inteiramente criado com inteligência artificial generativa, uti...\n\n- [2025-07-16 · 4 reactions] Essa semana a Carol foi efetivada no time Nova I! Com muita dedicação e talento, ela vem fazendo a diferença no atendimento, contribuindo para entregas cada vez mais assertivas e com qualidade. Par...\n\n- [2025-06-03 · 13 reactions, 3 comments] Parabéns, Julia Rodrigues Marques! 🎉😍 Você é o grande destaque do mês de maio! Sua dedicação, comprometimento e presença constante fizeram toda a diferença para o time como um todo e, principalment...\n\n- [2025-05-08 · 10 reactions] Vaga aberta na Nova I! Envie seu currículo para rh@novainteligencia.com.br 🤝 😍 💻 🩵 #maringá #maringaempregos #vagaaberta #temosvagas\n\n- [2025-04-17 · 7 reactions] Páscoa na Nova Inteligência é assim: cheia de chocolate e carinho! 🐇🍫 A gente acredita que trabalhar junto é também celebrar junto, e nada melhor do que uma pausa estratégica para adoçar o dia com...\n\n- [2025-04-01 · 13 reactions] E o parabéns deste mês de março vai para: Pedro! Até o momento, bicampeão em ser destaque! 🤩 Em um mês cheio de desafios, ele foi aquele ponto de apoio que faz toda a diferença no coletivo. Sempre...\n\n- [2025-02-07 · 5 reactions] 💊 Agora temos mais um benefício para nossa equipe! A Nova Inteligência fechou convênio com a Rede de Farmácias Nissei, garantindo descontos especiais para nossos colaboradores. Cuidar do bem-estar...\n\n- [2025-02-03 · 11 reactions] 🎉 Parabéns, Anna Reis! 🎉 O mês de janeiro é seu! E queremos aproveitar a oportunidade para reconhecer o excelente trabalho que você vem realizando! Sua dedicação e compromisso na construção dos PDC...\n\n## Locations\n- Headquarters: maringá, paraná, brazil\n- Offices: maringá, paraná, brazil",
+        "summary": "{\"description\":\"Nova Inteligência is a digital marketing agency focused on results, offering marketing, sales and AI-driven services for small and medium businesses to grow with clarity, process and outcomes.\",\"employee_estimate\":22,\"employee_estimate_source\":\"Employees: 22\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Key Executives:\\n  - Alessandro Franco: Diretor de desenvolvimento de negócios\\n  - Cesar Silva: Sócio e Marketing Strategist\\n  - Michel Martins Leal: Maior aprendiz - Sócio Proprietário\",\"hq\":\"Maringá, Paraná, Brazil\",\"hq_quote\":\"Headquartered in Maringá, Paraná, Brazil.\",\"industry\":\"Advertising Services\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Advertising Services\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":false,\"recently_funded_seed_or_series_a_quote\":\"- Industry: Advertising Services\\n- Type: Privately held\\n- Headquarters: Maringá, Brazil\\n- Founded Year: 2010\\n- Homepage: novainteligencia.com\\n- Aliases: nova inteligência | assessoria de marketing e vendas\\n- LinkedIn: linkedin.com/company/novainteligencia\\n- Linkedin Followers: 1,067\\n- Emails: contato@novai.com.br\\n- Phone: 23.730.256\\n...\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4D0BAQF50CZfhWZwJQ/company-logo_200_200/B4DaDPlNt8HMAE-/0/1790189034574/novainteligencia_logo?e=2147483647&v=beta&t=_2cPeRWPHOsvpENfvfVfg0CzFkVRzhJzhGxyAy1esnk",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/qm4011k6k2k",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Nova Inteligência | Assessoria de Marketing e Vendas",
+              "foundedYear": 2010,
+              "description": " Nova Inteligência é uma assessoria de marketing, vendas e inteligência artificial para pequenas e médias empresas que querem crescer com mais clareza, processo e resultado. Partimos dos seus objetivos, gargalos e capacidade de entrega para transformar estratégia em execução. Reunimos pessoas, processos, ferramentas e agentes de IA para conectar marketing à operação comercial.",
+              "workforce": {
+                "total": 22
+              },
+              "headquarters": {
+                "address": "Av. Carlos Correa Borges, n° 1593 - Atmos Coworking, Sala 19, Maringá, Paraná 87060-000, BR",
+                "city": "Maringá",
+                "postalCode": null,
+                "country": "Brazil"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 819,
+                "countryRank": null,
+                "avgDurationSeconds": 3,
+                "history": [
+                  {
+                    "value": 459,
+                    "dateFrom": "2026-01",
+                    "dateTo": "2026-01"
+                  },
+                  {
+                    "value": 459,
+                    "dateFrom": "2026-02",
+                    "dateTo": "2026-02"
+                  },
+                  {
+                    "value": 466,
+                    "dateFrom": "2026-03",
+                    "dateTo": "2026-03"
+                  },
+                  {
+                    "value": 242,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 767,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 419,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 5104.4,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

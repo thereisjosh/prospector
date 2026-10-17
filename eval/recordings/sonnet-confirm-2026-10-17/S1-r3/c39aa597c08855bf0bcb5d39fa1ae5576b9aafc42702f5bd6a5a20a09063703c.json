@@ -1,0 +1,232 @@
+{
+  "request": {
+    "query": "Medvantx",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "1133ff80656d70eba11841aaf0de1669",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/bmkr60kq6p6",
+        "title": "Medvantx",
+        "url": "https://medvantx.com/",
+        "text": "# Medvantx\n\nMedvantx is a Pharmaceutical Manufacturing company. Medvantx is a healthcare company that aims to create seamless access across patient, provider, and healthcare companies. They offer services such as patient assistance programs, additional fulfillment programs, cash pay, central fill pharmacy, automated fulfillment, and telehealth solutions. Medvantx employs 186 people (-1.6% YoY, -3 people) and has an annual revenue of $35M. Headquartered in San Diego, California, United States, with offices in Louisville and Sioux Falls. Its workforce is distributed across United States, Egypt, and Mexico.\n\n## About\n\nConnecting patients, providers, and healthcare organizations to improve lives through service and technology.\n\n## Company Details\n- Industry: Pharmaceutical Manufacturing\n- Type: Privately held\n- Headquarters: San Diego, United States\n- Homepage: medvantx.com\n- Aliases: medvantx\n- LinkedIn: linkedin.com/company/medvantxinc\n- Linkedin Followers: 10,725\n- Twitter Followers: 14,917\n- Phone: 1-866-526-1206\n\n## Financials\n- Annual Revenue: USD 35,000,000\n- Total Funding: USD 27,700,000\n  - Debt financing (2014-12-01)\n  - Series d (2005-05-01): USD 10.5M\n  - Series c (2003-11-01): USD 5.1M\n  - Series c (2002-03-01): USD 12.1M\n\n## Acquisitions\n- Acquired RxS LLC (2025-07-01)\n\n## Workforce\n- Employees: 186\n- Company Size: 201-500 employees\n  - Monthly Growth: +1.1%\n  - Yearly Growth: -1.6%\n- Key Executives:\n  - Alexis Bottger: Associate Director, Customer Experience\n  - Ali Farazdaghi: Director of Software Engineering\n  - Amanda Chuk: Director, Quality\n  - Amanda Kudlawiec: Associate Director of Project Management\n  - Autumn “Ton’i” Medlock: Human Resources Business Partner\n  - Brian Bernstein: Vice President of Business Development\n  - Cassalena Pendleton: Associate Director, Customer Experience\n  - Chris S.: Director of IT\n  - Ellie Jenkins: VP, Talent & Experience\n  - Emily Vrchota: Production Certified Pharmacy Technician Lead\n- Breakdown:\n  - By Country: United States: 102 (55%), Egypt: 2 (1%), Mexico: 1 (1%)\n  - By Department: Medical: 34 (18%), Customer Service: 22 (12%), Operations: 13 (7%), Technical: 7 (4%), Finance: 5 (3%), Hr: 5 (3%), Other Department: 5 (3%), General Management: 4 (2%), Project Management: 4 (2%), Administrative: 3 (2%) (+3 more)\n  - By Seniority: Specialist: 47 (25%), Manager: 23 (12%), Director: 14 (8%), Other Management: 9 (5%), Vp: 5 (3%), Senior: 3 (2%), Head: 2 (1%), Clevel: 1 (1%), Intern: 1 (1%), Partner: 1 (1%)\n- Active job postings: 4\n- Salary ranges (20 of 48 roles):\n  - VP Strategy: median $323,501.94 per year\n  - Chief Operating Officer: median $250,275.05 per year\n  - Chief Commercial Officer: median $249,812.8 per year\n  - Sr. Director, Pharmacy Solutions: median $193,208.89 per year\n  - Director of Analytics: median $183,821.66 per year\n  - Director, IT: median $180,349.23 per year\n  - Director, Information Technology: median $159,834.05 per year\n  - Human Resources Director: median $155,300.09 per year\n  - Senior Product Manager: median $149,343.21 per year\n  - Director of Accounting: median $147,317.17 per year\n  - Staff Pharmacist: median $141,795.44 per year\n  - Associate Director Customer Experience: median $140,192.87 per year\n  - Sales Representative: median $134,100.13 per year\n  - Pharmacist: median $122,321.87 per year\n  - QA Manager: median $118,026.88 per year\n  - Program Manager: median $115,101.59 per year\n  - Scrum Master/Project Manager: median $114,378.98 per year\n  - Commercial Loan Review Officer: median $113,300.39 per year\n  - Compliance Manager: median $109,544.5 per year\n  - Manager, Training and Development: median $105,120.85 per year\n- Talent Sources: Hy-Vee, Inc. (6), Cigna Healthcare (6), Walgreens (5), Sanford Health (5), BD (5), Presidio (4), CVS Pharmacy (4), Midco Connections (3), First PREMIER Bank/PREMIER Bankcard (3), Cardinal Health (3)\n- Alumni Go To: Silencer Central (4), Hy-Vee, Inc. (4), Avera McKennan Hospital & University Health Center (4), Sanford Health (3), QPharma, Inc. (3), IT Solutions (3), Avera Health (3), The FlexPro Group, A Network Partners Group company (2), Grand Falls Casino & Golf Resort® (2), CenturyLink (2)\n\n## Products & Technology\n- Features: Free Trial\n- Tech Stack: angular, asp, azure data factory, azure sql, carepoint, git, guardianrx, html5, javascript, json, microservices, microsoft, microsoft azure, microsoft office, microsoft sql server, power bi, scrum development, sql, synapse, microsoft excel, jazzhr, pci, quali, netsuite, oracle, jira, css, html, react, c, electric, impact, square, ups, well, vue.js, stats, onedrive, box, sprint\n\n## Web presence\n\n- Twitter: twitter.com/best-independent-non-commercial-dispensing-pharmacy-2023-usa\n- Facebook: facebook.com/medvantx\n- Web traffic:\n  - Monthly visits: 2,650\n  - Global rank: 6,183,814\n  - Bounce rate: 48.0%\n  - Pages per visit: 1.9\n  - Average visit duration: 39s\n\n## Reviews & Ratings\n- Employer Rating: 3.8/5.0 (48 reviews)\n  - Breakdown: Work-Life: 3.8, Compensation: 3.8, Culture: 3.8, Career: 3.5\n\n## Categories\n\nfulfillment programs, healthcare, patient assistance, seamless access, telehealth\n\n## Competitors\n\nzohas pharmacy, j&s therapeutic designs, paseo oaks pharmacy, mynexus, warrens pharmacy, rxschool, icarepharmacyrx, family pet hospital, vacaville, lima's professional pharmacy, patterson family pharmacy, s and r pharmacy, queens pharmacy, herbay pharmacy sm, trusted tablets, crystalmedrx, pill box drug\n\n## Recent News\n- [2026-09-28] USA Today: Impiricus Integrates Medvantx to Expand Real-Time Patient Access and Therapy Support\n- [2026-09-21] WDRB: Ribbon cutting for pharmacy company Medvantx\n- [2026-09-17]\n  - WBIR: [Medvantx company is teaming up with UPS Healthcare to expand access across the country](https://www.wbir.com/video/news/kentucky/medvantx-company-is-teaming-up-with-ups-healthcare-to-expand-access-across-the-country/51-72c67f39-bf9b-475f-93dd-cfbb6e5406f7)\n  - Hoodline: Medvantx Pours $27M Into Louisville Pharmacy, Promises 122 New Jobs\n- [2026-09-16]\n  - The Courier-Journal: [Medvantx opens new Louisville hub for medicine access](https://www.courier-journal.com/story/money/companies/2026/09/16/new-medvantx-facility-brings-122-jobs-to-louisville/91581224007/?gnt-cfr=1&gca-cat=p&gca-uir=false&gca-epti=z117233p118050c118050e1167xxv117233&gca-ft=158&gca-ds=sophi&gnt-djm=1)\n  - The Courier-Journal: [See inside the new Medvantx pharmacy services facility in Louisville](https://www.courier-journal.com/picture-gallery/life/wellness/health/2026/09/16/medvantx-pharmacy-services-company-opens-new-facility-in-louisville/91792619007/)\n  - [Medvantx opens $27M pharmacy at UPS Healthcare in Louisville - Louisville Business First](https://www.bizjournals.com/louisville/news/2026/09/16/medvantx-opens-new-louisville-facility.html)\n  - [Gov. Beshear Joins Medvantx To Cut Ribbon on Newly Expanded Louisville Operation, a $26.8 Million Investment Creating 122 New Jobs](https://www.einpresswire.com/article/942754206/gov-beshear-joins-medvantx-to-cut-ribbon-on-newly-expanded-louisville-operation-a-26-8-million-investment-creating-122-new-jobs)\n  - [Medvantx expands Louisville distribution facility with $27M investment, 122 new jobs](https://www.wdrbwave.com/2026/09/16/medvantx-expands-louisville-distribution-facility-with-27m-investment-122-new-jobs/)\n- [2026-09-08] [Raw Garden Launches Solventless Live Rosin All-In-One \\| Daily Guardian](https://dailyguardian.ca/raw-garden-launches-solventless-live-rosin-all-in-one/)\n- [2026-08-27] [🛒 Sioux Falls Customer Service & Retail Roundup: Multiple Roles Hiring - NewsBreak](https://www.newsbreak.com/sioux-falls-sd-daily-brief-375439242/4853141705866-sioux-falls-customer-service-retail-roundup-multiple-roles-hiring)\n- [2026-08-19] [Medvantx Opens New Louisville Facility Expanding Capacity for Pharmacy Fulfillment – News Radio KOTA](https://lifestyle.kotaradio.com/story/368833/medvantx-opens-new-louisville-facility-expanding-capacity-for-pharmacy-fulfillment/)\n- [2026-08-04] The Manila Times: [Medvantx Opens New Louisville Facility Expanding Capacity for Pharmacy Fulfillment](https://markets.businessinsider.com/news/stocks/medvantx-opens-new-louisville-facility-expanding-capacity-for-pharmacy-fulfillment-1036405732)\n\n## Social\n\n### Linkedin\n\n- [2026-09-21 · 25 reactions, 2 comments] Last week’s ribbon cutting with Gov. Andy Beshear, Louisville Mayor Craig Greenberg and Rep. Jared Bauman was a great success. We were honored to welcome community leaders, media, partners at UPS H...\n\n- [2026-09-18 · 8 reactions, 1 comment] This expansion marks an exciting new chapter. By combining Medvantx pharmacy services expertise with UPS Healthcare's world-class logistics network, we are enhancing our ability to support patients...\n\n- [2026-09-18 · 38 reactions] Medvantx, the fast-growing company that builds the “behind-the-scenes” pharmacy infrastructure that is necessary for pharmaceutical companies to get medicine into a patient’s hand faster…is expandi...\n\n- [2026-09-18 · 60 reactions] Louisville's life sciences sector continues to gain momentum, this time with a $27 million investment from San Diego-based pharmaceutical company Medvantx! This investment will more than double the...\n\n- [2026-09-18 · 220 reactions, 2 comments] Congratulations to Medvantx CEO Kurt Browning on the opening of the new facility in the UPS Healthcare campus. Customers like Medvantx are a powerful reminder that behind every healthcare shipment...\n\n- [2026-09-16 · 57 reactions, 2 comments] We were proud to celebrate the grand opening of Medvantx’s new state-of-the-art pharmacy in Louisville, Kentucky — an important milestone in our continued growth and our commitment to expanding pat...\n\n- [2026-09-16 · 11 reactions] New peer-reviewed data just published in Sexual Medicine. Our Phase 1 study in men found that topical Sildenafil Cream, 3.6% resulted in dramatically lower systemic exposure than oral sildenafil. A...\n\n- [2026-09-11 · 22 reactions, 1 comment] The conversations happening across specialty pharmacy have never been more important. That's why Medvantx is excited to attend #inSPire2026 in National Harbor, MD, September 22-25. We'll be meeting...\n\n- [2026-09-11 · 5 reactions, 1 comment] September is World Alzheimer's Month, a time to raise awareness and encourage early detection of Alzheimer's disease and other forms of dementia. A reminder that taking steps to support brain healt...\n\n- [2026-09-08 · 13 reactions] We're excited to partner with Impiricus to bring real-time therapy access and patient support resources directly into healthcare providers' digital workflows regarding prescription sample programs....\n\n- [2026-08-28 · 24 reactions, 1 comment] Heading to HUB WEST next week? Medvantx CEO Kurt Browning will be in San Diego for HUB WEST, September 1–2. As patient support programs continue to evolve, Kurt is looking forward to connecting wit...\n\n- [2026-08-18 · 10 reactions] August is Psoriasis Action Month 💜 At Medvantx, we're committed to helping patients access the therapies they need while supporting their treatment journey with care and compassion. Together, we ca...\n\n- [2026-08-17 · 7 reactions] Medvantx Opens Louisville Pharmacy Fulfilment Facility Built on Automated Conveyance and RFID-Enabled Routing Medvantx has opened a new pharmacy fulfilment facility in Louisville, Kentucky, and the...\n\n- [2026-08-05 · 65 reactions, 4 comments] 📦💊 Collaboration drives progress—especially when healthcare demands are evolving this quickly. Medvantx and UPS Healthcare continue to build momentum together, expanding into a new pharmacy space i...\n\n- [2026-07-24 · 14 reactions] Progress behind the scenes. Patient access in mind. 📢 Stay tuned for more information #HealthcarePartnerships #FutureOfPharmacy #Medvantx #UPSHealthcare #UPS #EndOfRunwayPharmacy #PatientDriven\n\n- [2026-07-17 · 10 reactions] At Medvantx, we believe access to care should be available to every patient. 💙 Through Patient Support Services, Direct to Patient Solutions, and Sample Services, we help connect patients to treatm...\n\n- [2026-07-04 · 19 reactions] Medvantx wishes you and your families a wonderful, safe Independence Day as we celebrate America’s 250th birthday! From backyard barbecues across the U.S. to stadiums filled with fans from around t...\n\n- [2026-06-19 · 3 reactions] As Men’s Health Week aligns with Father’s Day this June, it’s the perfect time to check in on the health of loved ones in our lives. This week is a reminder to: 💙 Stay on top of medications and ref...\n\n- [2026-06-17 · 9 reactions, 1 comment] At Medvantx, we are a quality-first organization, where disciplined processes and attention to detail ensure safe, reliable access to therapy every day. This commitment is grounded alongside a stro...\n\n- [2026-06-05 · 10 reactions] Pride is about inclusion, visibility, and access. At Medvantx, we're proud to support the LGBTQIA+ community and help ensure patients can access the medications and services they need with dignity,...\n\n## Locations\n- Headquarters: san diego, california, united states (US)\n- Offices: san diego, california, united states (US), sioux falls, south dakota, united states (US), louisville, kentucky, united states (US)",
+        "summary": "{\"description\":\"Medvantx is a Pharmaceutical Manufacturing company that seeks to create seamless access across patients, providers, and healthcare companies, offering services such as patient assistance programs, fulfillment, cash pay, central fill, automated fulfillment, and telehealth solutions.\",\"employee_estimate\":186,\"employee_estimate_source\":\"Employees: 186\",\"hq\":\"San Diego, California, United States\",\"hq_quote\":\"Headquartered in San Diego, California, United States, with offices in Louisville and Sioux Falls.\",\"industry\":\"Pharmaceutical Manufacturing\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"Medvantx employs 186 people and has an annual revenue of $35M. Headquartered in San Diego, California, United States, with offices in Louisville and Sioux Falls.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQE4J3yi2wH-BA/company-logo_200_200/company-logo_200_200/0/1667272141657/vytal_logo?e=2147483647&v=beta&t=H2r9PHR-Q_mP6yCbTXnIQdK5MnBFzQrBW3mhplg1RAs",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/bmkr60kq6p6",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Medvantx",
+              "foundedYear": null,
+              "description": "Connecting patients, providers, and healthcare organizations to improve lives through service and technology.",
+              "workforce": {
+                "total": 186
+              },
+              "headquarters": {
+                "address": "12680 High Bluff Dr, San Diego, California 92130, US",
+                "city": "San Diego",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 35000000,
+                "fundingTotal": 27700000,
+                "fundingLatestRound": {
+                  "name": "Debt financing",
+                  "date": "2014-12-01",
+                  "amount": null
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 2650,
+                "countryRank": 2177199,
+                "avgDurationSeconds": 39,
+                "history": [
+                  {
+                    "value": 5824,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 4442,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 7806,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 28123,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 19707,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 2650,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/znm4bdb38nf",
+        "title": "Medivant Healthcare",
+        "url": "https://medivanthealth.com/",
+        "text": "# Medivant Healthcare\n\nMedivant Healthcare is a Pharmaceutical Manufacturing company. Medivant Healthcare is a leading manufacturer of sterile injectable medications, committed to alleviating drug shortages and ensuring patient safety with FDA-registered, cGMP compliant, and US-based facilities. Medivant Healthcare employs 180 people (+23.3% YoY, +34 people), founded in 2015. Headquartered in Chandler, Arizona, United States. Its workforce is distributed across 5 countries (including United States, India, Georgia, United Arab Emirates, and United Kingdom).\n\n## About\n\nUniquely poised as a world class FDA registered outsourcing pharmaceutical manufacturer, Medivant offers the best in the industry when it comes to reliability and management, supply chain transparency, and lower total net cost. *dba Tailstorm Health, Inc.\n\nOur vials are made to the exact dosage specification allowing you to achieve a lower net cost of ordering, reducing total waste, and saving you money in the process.\n\nOur state of the art manufacturing facility has been completely designed from the ground up with the highest technology available, with full automation, and superior excellence, with highly trained staff experienced in top quality production.\n\n## Company Details\n- Industry: Pharmaceutical Manufacturing\n- Type: Privately held\n- Headquarters: Chandler, United States\n- Founded Year: 2015\n- Homepage: medivanthealth.com\n- Aliases: medivant healthcare\n- LinkedIn: linkedin.com/company/medivant-health\n- Linkedin Followers: 48,974\n- Emails: customerservice@medivanthealth.com\n- Phone: +1 480 770 689\n\n## Workforce\n- Employees: 180\n- Company Size: 51-200 employees\n  - Monthly Growth: +1.1%\n  - Yearly Growth: +23.3%\n- Key Executives:\n  - Austin Rodrigues: Associate Director of Quality Control\n  - Dr. Prakash K.: Vice President -Global Quality\n  - Hemant Khemka: Director\n  - Jose Cardenas: Director of HR and Operations\n  - Matthew Shanks: Director of IT\n  - Mitesh Gandhi: Director Of Operations\n  - Mitesh Gandhi: Executive Vice President\n  - Mitesh Gandhi: Vice President of Finance And Operations\n  - Muktesh Kumar: Associate Director of Engineering\n  - Nandan Kavishwar: Director of Information Technology\n- Breakdown:\n  - By Country: United States: 81 (45%), India: 35 (19%), Georgia: 1 (1%), United Arab Emirates: 1 (1%), United Kingdom: 1 (1%)\n  - By Department: Sales: 39 (22%), Operations: 21 (12%), Technical: 11 (6%), General Management: 8 (4%), Other Department: 8 (4%), Research: 8 (4%), Finance: 6 (3%), Administrative: 4 (2%), Hr: 4 (2%), Marketing: 3 (2%) (+8 more)\n  - By Seniority: Specialist: 57 (32%), Manager: 26 (14%), Other Management: 17 (9%), Director: 14 (8%), Senior: 6 (3%), Vp: 3 (2%), Clevel: 1 (1%)\n- Active job postings: 10\n- Talent Sources: Arizona State University (5), Revolut (4), TP (3), Livspace (3), upGrad (2), Miramar Copies, Inc. (2), Mercy Gilbert Medical Center (2), MANKIND PHARMA LTD (2), AmbioPharm - A Global Peptide CDMO (2), Accredo Specialty Pharmacy (2)\n- Alumni Go To: hims & hers (3), Vendxa, LLC (2), HomelyMD (2), Fry's Food and Drug (2), Darwin Research Group (2), Bristol Myers Squibb (2), Blackrock Neurotech (2), Scripx® Compounding Pharmacy (1), Edwards Vacuum (1), Barrett Financial Group LLC (1)\n\n## Products & Technology\n- Tech Stack (showing 50 of 82): adobe, adobe creative suite, adp, adp payroll, asana, canva, css, driven data, fishbowl inventory, fortinet, genesys, google ads, google analytics, google cloud, gps, html, hubspot, javascript, jira, linkedin, mastercontrol, microsoft, microsoft 365, microsoft dynamics, microsoft excel, microsoft office, microsoft word, netsuite, oracle, pcr, power bi, python, salesforce, sql, tableau, veeam, vizient, zoho, zoho crm, zoho one, influential, google tag manager, looker, doximity, quickbooks, quickbooks online, zoho books, msi, scada, autocad\n\n## Web presence\n\n- Crunchbase: crunchbase.com/organization/medivant-healthcare\n- Web traffic:\n  - Monthly visits: 3,637\n  - Global rank: 4,555,879\n  - Bounce rate: 42.0%\n  - Pages per visit: 1.7\n  - Average visit duration: 10s\n\n## Categories\n\ncgmp, drug shortages, fda shortage medications, fda-registered, fully automated manufacturing, healthcare, made in the usa, manufacturer, manufacturing, patient safety, pharmaceutical, pharmaceutical manufacturing, sales, single dose vials, sterile injectable medications\n\n## Recent News\n- [2025-02-25] EIN Presswire: U.S. Injectable Compounding Pharmacy Market Projected To Witness Substantial Growth, 2025-2032: Empower Pharmacy\n- [2024-07-02]\n  - LinkedIn: Dr. Prakash K. on LinkedIn: “At Medivant we Treat every patient as our family - Our care is reflected…\n  - LinkedIn: Viraj Gandhi on LinkedIn: #healthcare #innovation #medicationshortage #qualitycare\n  - LinkedIn: Viraj Gandhi on LinkedIn: #healthcare #innovation #patientcare #medivanthealthcare #semaglutide… \\| 25 comments\n- [2024-02-14] Pulse 2.0: Medivant Healthcare: How This Company Help Hospitals Avoid Injectable Shortages\n\n## Social\n\n### Linkedin\n\n- [2026-10-05 · 14 reactions, 1 comment] Meet the Medivant Healthcare team Viraj Gandhi Anuj Patodia Mitesh Gandhi Ramesh Vijayaraghavan Shrijit Menon Aayushi Patel Sonu Desai at Booth #1400 and learn more about our portfolio of prefilled...\n\n- [2026-09-30 · 21 reactions] Pharmacy professionals, we will see you in Kansas City! Medivant Healthcare is heading to National Community Pharmacists Association (NCPA) Annual Convention 2026 and we are excited to connect with...\n\n- [2026-09-30 · 13 reactions] Midlife women have waited a long time for this conversation to reach the FDA. We are grateful to voices like Angelina Norman, MSN, CRNP, FNP-C's for keeping the focus where it belongs: rigorous res...\n\n- [2026-09-28 · 33 reactions] A few moments from the The National Association of Nurse Practitioners in Women's Health (NPWH) Conference 2026 in Richmond, VA. From meaningful conversations and new connections to representing th...\n\n- [2026-09-22 · 16 reactions] One vial, built for flexibility. Nadexra is a compounded NAD+ injectable that comes as a 10 mL multidose vial at 100 mg/mL. It's a practical format for healthcare professionals, made with quality,...\n\n- [2026-09-21 · 15 reactions] Medivant Healthcare is looking forward to attending the NPWH Women's Healthcare Conference 2026, taking place September 23–25 at the Greater Richmond Convention Center in Richmond, Virginia. This c...\n\n- [2026-09-17 · 10 reactions] Three major GPOs. One important milestone. A meaningful step in our journey to make ready-to-use sterile injectables more accessible to healthcare systems nationwide. And we’re just getting started...\n\n- [2026-09-16 · 34 reactions] A milestone worth celebrating. Medivant Healthcare is excited to join the Vizient network, expanding our reach across the U.S. healthcare supply chain and reinforcing our commitment to dependable,...\n\n- [2026-09-16 · 30 reactions] A milestone worth celebrating. Medivant Healthcare is excited to join the Vizient network, expanding our reach across the U.S. healthcare supply chain and reinforcing our commitment to dependable,...\n\n- [2026-09-14 · 37 reactions, 1 comment] Medivant Healthcare is excited to be part of The ReLaunch flagship event – ReLaunch to a Rich Life Live 2026, happening September 17–19 in Scottsdale, Arizona. This inspiring gathering brings toget...\n\n- [2026-09-12 · 6 reactions] Proud to have been part of this conversation with Carrie Jones, ND, FABNE, MPH, MSCP. Testosterone in women gets dismissed way more than it should. \"Your labs are normal\" doesn't mean much if you'r...\n\n- [2026-09-11 · 6 reactions] Testosterone isn't just a men's health topic — and it's not just about libido. In this episode of Hello Hormones with Carrie Jones, ND, FABNE, MPH, MSCP, Angelina Norman, MSN, CRNP, FNP-C, breaks d...\n\n- [2026-09-03 · 10 reactions] Excited to add Nadexra™ to the Medivant portfolio — a high‑quality NAD+ injectable compounded at 100 mg/mL with a 6‑month BUD. This launch strengthens our commitment to delivering reliable sterile‑...\n\n- [2026-09-02 · 24 reactions, 1 comment] Milestone reached. Thank you to Angels for Change for the partnership. Together, we've established ready-to-activate U.S. manufacturing capacity for 10% Calcium Chloride Injection, an essential med...\n\n- [2026-08-25 · 14 reactions] 📣 Now Taking Pre-Orders: Ketamine, Rocuronium Bromide & Succinylcholine Medivant Healthcare is now accepting pre-orders for Ketamine, Rocuronium Bromide and Succinylcholine — each supplied as a USP...\n\n- [2026-08-13 · 25 reactions, 1 comment] Thank you to the pharmacists and pharmacy industry peers who took time to connect with Medivant at this year's Buyer Lounge. We're grateful for the partnership and can't wait to continue the conver...\n\n- [2026-08-08 · 22 reactions, 2 comments] Medivant Healthcare is looking forward to attending the Hospital Pharmacy Buyer Conference (HPBC) 2026, taking place August 9–10 at the Hyatt Regency Grand Cypress in Orlando, FL. Join us as we con...\n\n- [2026-07-30 · 8 reactions, 1 comment] Proud to see Medivant Healthcare contributing to the conversation on building a more resilient drug supply chain through #ProjectPROTECT alongside Angels for Change and fellow industry leaders. #Dr...\n\n- [2026-07-16 · 16 reactions] Medivant Healthcare is looking forward to attending the HealthTrust University Conference 2026, taking place July 20–22 at the Colorado Convention Center in Denver, CO. Come find us at Booth 2103!...\n\n- [2026-07-09 · 58 reactions, 1 comment] Launch announcement: Medivant Healthcare is proud to introduce Andrenyx — our ready-to-use, prefilled syringe of compounded Testosterone Cypionate. Andrenyx was created around one simple belief: te...\n\n## Locations\n- Headquarters: chandler, arizona, united states (US)\n- Offices: chandler, arizona, united states (US)",
+        "summary": "{\"description\":\"Medivant Healthcare is a leading manufacturer of sterile injectable medications, committed to alleviating drug shortages and ensuring patient safety with FDA-registered, cGMP compliant, and US-based facilities.\",\"employee_estimate\":180,\"employee_estimate_source\":\"Employees: 180\",\"hq\":\"Chandler, Arizona, United States\",\"hq_quote\":\"Headquartered in Chandler, Arizona, United States.\",\"industry\":\"Pharmaceutical Manufacturing\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":false,\"is_third_party_logistics_quote\":\"null\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C560BAQEy_RLJ69CJVw/company-logo_200_200/company-logo_200_200/0/1630672909389?e=2147483647&v=beta&t=2NPFpVVkEsnUtt6yORvWgmj6aiqWcrdllFSb3GDmi0k",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/znm4bdb38nf",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Medivant Healthcare",
+              "foundedYear": 2015,
+              "description": "Uniquely poised as a world class FDA registered outsourcing pharmaceutical manufacturer, Medivant offers the best in the industry when it comes to reliability and management, supply chain transparency, and lower total net cost. *dba Tailstorm Health, Inc.\n\nOur vials are made to the exact dosage specification allowing you to achieve a lower net cost of ordering, reducing total waste, and saving you money in the process.\n\nOur state of the art manufacturing facility has been completely designed from the ground up with the highest technology available, with full automation, and superior excellence, with highly trained staff experienced in top quality production.",
+              "workforce": {
+                "total": 180
+              },
+              "headquarters": {
+                "address": "158 S Kyrene Rd, Chandler, Arizona 85226, US",
+                "city": "Chandler",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 3637,
+                "countryRank": 3320018,
+                "avgDurationSeconds": 10,
+                "history": [
+                  {
+                    "value": 3525,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 2415,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 1831,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 2906,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 2101,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 3637,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 4080.4,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

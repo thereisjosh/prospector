@@ -1,0 +1,224 @@
+{
+  "request": {
+    "query": "MaineDelivery",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "c0d63c73c64fdbdc1245f42917a51387",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/7k23r1nlw0z",
+        "title": "MaineDelivery",
+        "url": "https://www.getmainedelivery.com/",
+        "text": "# MaineDelivery\n\nMaineDelivery is a Transportation, Logistics, Supply Chain and Storage company. MaineDelivery offers final mile, home delivery, and logistics services to Maine's Coast, the Western Mountains, North Woods, & Aroostook County. MaineDelivery employs 2 people (-33.3% YoY, -1 person). Headquartered in Bangor, Maine, United States.\n\n## About\n\nWe offer final mile and home delivery solutions that are reliable, affordable and we know Maine. When we deliver to your customer’s home, your brand’s image is our #1 priority. Our drivers are uniformed professionals. Our equipment and vehicles are kept in great condition and we are committed to making sure your customer’s buying experience is an exceptional one and that their expectations are always exceeded.\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Public company\n- Headquarters: Bangor, United States\n- Homepage: getmainedelivery.com\n- Aliases: mainedelivery\n- LinkedIn: linkedin.com/company/mainedelivery\n- Linkedin Followers: 137\n- Phone: 207-947-4422\n\n## Workforce\n- Employees: 2\n- Company Size: 1-10 employees\n  - Yearly Growth: -33.3%\n- Key Executives:\n  - Ryan Lynch: President\n- Breakdown:\n  - By Country: United States: 2 (100%)\n  - By Department: General Management: 1 (50%), Sales: 1 (50%)\n  - By Seniority: Specialist: 1 (50%), Vp: 1 (50%)\n- Active job postings: 1\n- Talent Sources: Wayfair (1), ShipRight (1), PepsiCo (1)\n- Alumni Go To: Lynch Logistics, Inc. (1), Agren (1)\n\n## Products & Technology\n- Tech Stack: recaptcha\n\n## Web presence\n\n- Facebook: facebook.com/getmainedelivery\n- Instagram: instagram.com/getmainedelivery\n- Web traffic:\n  - Monthly visits: 4,503\n  - Global rank: 4,617,693\n  - Bounce rate: 80.0%\n  - Pages per visit: 1.0\n  - Average visit duration: 0s\n\n## Categories\n\nbig parcels, bulky parcels, final mile delivery, logistics, logistics services, maine\n\n## Social\n\n### Linkedin\n\n- [2026-09-16] Celebrating our drivers this National Truck Driver Appreciation Week! 🚛 We’ve been celebrating throughout the week, including breakfast with some of our drivers as a small thank you for everything...\n\n- [2026-09-14] It’s National Professional Truck Driver Appreciation Week! 🚛 This week, we’re recognizing the Lynch Logistics, MaineDelivery, and Shredding On Site drivers who keep our businesses and our customers...\n\n- [2026-09-11 · 2 reactions] Recently, Lynch Logistics, MaineDelivery, and RMC/SOS have earned a combined six clean DOT inspections! 👏 A big thank you to our drivers and maintenance team for keeping our equipment maintained, s...\n\n- [2026-09-08 · 1 reaction] We wrapped up summer with a Labor Day BBQ! ☀️🍖 Great food, carnival games, the return of the dunk tank, and plenty of time to hang out with coworkers, family, and friends. Even better, the dunk tan...\n\n- [2026-08-31 · 2 reactions] From the warehouse to the final room, MaineDelivery handles more than just the drive. Our team provides final-mile delivery and white-glove service for homes and businesses across Maine and Norther...\n\n- [2026-08-19 · 1 reaction, 1 comment] Looking for a career that’s active, hands-on, and different every day? MaineDelivery might be the perfect fit for you! 🚚✨ We’re hiring at our new Auburn location, backed by over 60 years of family-...\n\n- [2026-08-17 · 7 reactions] Lynch Group was proud to once again participate in the Champion the Cure Challenge, coming together to support life-saving cancer research and care at Northern Light Health. This year, our Shreddin...\n\n- [2026-08-15 · 8 reactions, 1 comment] At MaineDelivery, we’re a family-owned company proud to deliver experiences our customers can count on every day. We’re currently hiring for our Auburn, ME team and offer: 📍 Local routes 🏠 Home eve...\n\n- [2026-08-14 · 6 reactions] Lynch Group is proud to once again be named one of the Best Places to Work in Maine for 2026, marking our third consecutive year receiving this recognition! This recognition is especially meaningfu...\n\n- [2026-08-14 · 6 reactions, 1 comment] EXCITING NEWS: Our brand-new Auburn location is officially OPEN! 🎉 MaineDelivery is growing, and we’re hiring local delivery drivers to join our team in Auburn, ME! Why join our award-winning team?...\n\n- [2026-08-13 · 1 reaction] Tomorrow is go time! 🚚💪 After months of receiving, warehousing, organizing and planning, the MaineDelivery team is loading the trucks and getting ready to roll. Tomorrow, our six-day installation a...\n\n- [2026-08-13] From the coast to the mountains, small towns to bustling cities, MaineDelivery proudly serves businesses and customers across the entire state. Whether it's furniture, appliances, fitness equipment...\n\n- [2026-08-12 · 1 reaction] The countdown is on - 3 days to go! For months, our team has been receiving, organizing and warehousing more than 50,000 pounds of inventory in preparation for a six-day commercial installation at...\n\n- [2026-08-12 · 2 reactions] Looking for an active, fast-paced work environment where you can stay moving and work with a great team? 📦💨 MaineDelivery is hiring! Join our team in the warehouse and on the road—click the link be...\n\n- [2026-08-11 · 4 reactions] The Lynch Group is proud to support the Holy Mackerel Fishing Tournament and the Robbins Lumber Firefighter Relief Fund with a $3,500 donation raised by our team. We’re grateful to our team members...\n\n- [2026-08-11 · 1 reaction, 1 comment] MaineDelivery is growing fast and looking for Final Mile Delivery Drivers & Helpers to join our team! Why work with us? ✅ Great pay for your hard work ✅ Home every night ✅ Supportive team environme...\n\n- [2026-08-06 · 2 reactions, 1 comment] Join the MaineDelivery Team! Looking for a career that keeps you moving and lets you make a difference every day? MaineDelivery is now hiringFinal Mile Delivery Drivers for our NEW Auburn location!...\n\n- [2026-07-31 · 1 reaction] Not every delivery requires full in-home service, but every delivery should be handled with professionalism and care. MaineDelivery’s Basic Service – Outside Drop-Off / Curbside offers a dependable...\n\n- [2026-07-24 · 1 comment] Sound ON for these impressions! 🔊🚚 We asked the Maine Delivery team what a lift gate sounds like... and while our team knows the sound by heart, everyone hears it a little differently! 😂 Which impr...\n\n- [2026-07-22 · 1 comment] Looking for more than just a driving job? MaineDelivery is hiring a Delivery Driver / Operations Specialist in Bangor, Maine! This position is perfect for someone who enjoys variety, takes pride in...\n\n## Locations\n- Headquarters: bangor, maine, united states (US)\n- Offices: bangor, maine, united states (US)",
+        "summary": "{\"description\":\"MaineDelivery is a Transportation, Logistics, Supply Chain and Storage company offering final mile, home delivery, and logistics services across Maine.\",\"employee_estimate\":2,\"employee_estimate_source\":\"Employees: 2\",\"hq\":\"Bangor, United States\",\"hq_quote\":\"Headquartered in Bangor, Maine, United States.\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"public company? The page lists \\\"Type: Public company\\\" but the extracted highlights describe MaineDelivery and the user query shows conflicting hints. The page content provided includes \\\"Type: Public company\\\" and also detailed operations as a service provider; to resolve, we rely on the explicit field: Public vs Private: the page states \\\"Type: Public company\\\" so set true for public/enterprise. However, the company appears to be a small operation with 2 employees. Given the user’s schema, we should reflect the stated type as public. Therefore is_public_or_enterprise: true, is_third_party_logistics_quote: \\\"provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business\\\" (not explicitly stated in the provided extract).\\\"},\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C560BAQFVwXZDmguyPQ/company-logo_200_200/company-logo_200_200/0/1656528485730?e=2147483647&v=beta&t=-3CMEf6cu6J8uvTAjFaftr-aPJEltfVwRInDiFjj06U",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/7k23r1nlw0z",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "MaineDelivery",
+              "foundedYear": null,
+              "description": "We offer final mile and home delivery solutions that are reliable, affordable and we know Maine. When we deliver to your customer’s home, your brand’s image is our #1 priority. Our drivers are uniformed professionals. Our equipment and vehicles are kept in great condition and we are committed to making sure your customer’s buying experience is an exceptional one and that their expectations are always exceeded.",
+              "workforce": {
+                "total": 2
+              },
+              "headquarters": {
+                "address": "78 Rice Street, Bangor, Maine 04401, US",
+                "city": "Bangor",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 4503,
+                "countryRank": 1566772,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 563,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 314,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 795,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 593,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 1311,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 4503,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/thctk732xv1",
+        "title": "Maine Delivery",
+        "url": "https://www.linkedin.com/company/maine-delivery",
+        "text": "# Maine Delivery\n\nMaine Delivery is a Transportation, Logistics, Supply Chain and Storage company. Maine Delivery employs 6 people (+20.0% YoY, +1 person), founded in 2018. Headquartered in Bangor, Maine, United States.\n\n## About\n\nWe offer final mile and home delivery solutions that are reliable, affordable and we know Maine. When we deliver to your customer’s home, your brand’s image is our #1 priority. Our drivers are uniformed professionals. Our equipment and vehicles are kept in great condition and we are committed to making sure your customer’s buying experience is an exceptional one and that their expectations are always exceeded.\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Privately held\n- Headquarters: Bangor, United States\n- Founded Year: 2018\n- Homepage: movingmaine.com\n- Aliases: Central Maine Moving & Storage Co., central maine moving & storage, central maine moving &a; storage, maine delivery\n- LinkedIn: linkedin.com/company/maine-delivery\n- Linkedin Followers: 31\n- Phone: 1 207-947-4114\n\n## Workforce\n- Employees: 6\n- Company Size: 11-50 employees\n  - Yearly Growth: +20.0%\n- Breakdown:\n  - By Country: United States: 1 (17%)\n  - By Department: Trades: 1 (17%)\n  - By Seniority: Specialist: 1 (17%)\n- Talent Sources: FedEx (1), Daigle & Houghton Inc. (1), Capstone Logistics, LLC (1), COMPOTECH, INC. (1)\n- Alumni Go To: Freightliner Of Maine Inc (1), Cyr Bus Line (1), ABM MECHANICAL, INC. (1)\n\n## Web presence\n\n- Crunchbase: crunchbase.com/organization/central-maine-moving-storage\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Categories\n\ncompetitive edge, consumer goods, customer service, delivery in maine, delivery solutions, e-commerce, fast-moving consumer goods, final mile delivery, freight forward, home delivery, large parcel delivery, large parcel receiving, logistics, ltl, maine home delivery, online sales fulfillment, product tracking, self-storage, warehousing, white glove\n\n## Recent News\n- [2026-10-02] Portland Press Herald - Maine Sunday Telegram: ICE is moving Maine detainees more quickly and farther away, report says\n- [2018-09-26] Centre Daily Times: The Barn at Lemont is moving, Maine Bay & Berry is expanding\n\n## Locations\n- Headquarters: bangor, maine, united states (US)\n- Offices: bangor, maine, united states (US)",
+        "summary": "{\"description\":\"Maine Delivery is a Transportation, Logistics, Supply Chain and Storage company delivering final mile and home delivery solutions in Maine.\",\"employee_estimate\":6,\"employee_estimate_source\":\"Employees: 6\",\"hq\":\"Bangor, United States\",\"hq_quote\":\"Headquartered in Bangor, Maine, United States.\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"We offer final mile and home delivery solutions that are reliable, affordable and we know Maine. When we deliver to your customer’s home, your brand’s image is our #1 priority.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C560BAQHpDC4hQlrnMg/company-logo_200_200/company-logo_200_200/0/1630643653337?e=2147483647&v=beta&t=De8J8mDuMtqJN160ppJY3Kui2IktqDgCKpLTjNvrR7g",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/thctk732xv1",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Maine Delivery",
+              "foundedYear": 2018,
+              "description": "We offer final mile and home delivery solutions that are reliable, affordable and we know Maine. When we deliver to your customer’s home, your brand’s image is our #1 priority. Our drivers are uniformed professionals. Our equipment and vehicles are kept in great condition and we are committed to making sure your customer’s buying experience is an exceptional one and that their expectations are always exceeded.",
+              "workforce": {
+                "total": 6
+              },
+              "headquarters": {
+                "address": "78 Rice St, Bangor, Maine 04401, US",
+                "city": "Bangor",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": 0,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 659,
+                    "dateFrom": "2025-03",
+                    "dateTo": "2025-03"
+                  },
+                  {
+                    "value": 659,
+                    "dateFrom": "2025-04",
+                    "dateTo": "2025-04"
+                  },
+                  {
+                    "value": 1500,
+                    "dateFrom": "2025-05",
+                    "dateTo": "2025-05"
+                  },
+                  {
+                    "value": 943,
+                    "dateFrom": "2025-06",
+                    "dateTo": "2025-06"
+                  },
+                  {
+                    "value": 476,
+                    "dateFrom": "2025-07",
+                    "dateTo": "2025-07"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 6211.4,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

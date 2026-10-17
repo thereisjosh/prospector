@@ -1,0 +1,185 @@
+{
+  "request": {
+    "query": "MDSi, Inc.",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "197644dd41382529fb4843469ad42041",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/gz7y39rbsh7",
+        "title": "MDSi, Inc.",
+        "url": "https://www.mdsiinc.com/",
+        "text": "# MDSi, Inc.\n\nMDSi, Inc. is a IT Services and IT Consulting company. MDSI delivers secure, scalable IT solutions and lifecycle services that optimize performance, reduce costs, and support business growth. MDSi, Inc. employs 217 people (+3.8% YoY, +8 people) and has an annual revenue of $4.4M, founded in 1990. Headquartered in Alpharetta, Georgia, United States, with offices in MDSi - Tampa and Allentown. Its workforce is distributed across United States, United Kingdom, France, and Oman.\n\n## About\n\nMDSI is the IT solutions partner of choice for some of the world’s largest, most trusted service providers and enterprises. We specialize in professional services, technology acquisition and integration, and supply chain logistics. We help companies derive maximum value from their IT assets while delivering highly responsive, world-class levels of service.\n\n## Company Details\n- Industry: IT Services and IT Consulting\n- Type: Privately held\n- Headquarters: Alpharetta, United States\n- Founded Year: 1990\n- Homepage: mdsiinc.com\n- Aliases: management data systems international, management data systems international, inc, mdsi, mdsi, inc.\n- LinkedIn: linkedin.com/company/mdsi-inc-\n- Linkedin Followers: 4,098\n- Phone: +1-800-874-985, 800-874-9850\n\n## Financials\n- Annual Revenue: USD 4,367,182\n\n## Workforce\n- Employees: 217\n- Company Size: 201-500 employees\n  - Yearly Growth: +3.8%\n- Key Executives:\n  - Ashley Walker: Director of Marketing and Communications\n  - Chris Flanary: Director of Enterprise Applications\n  - Harry Winning: Executive Director - Service Provider\n  - James Mashburn: Director of Supply Chain Solutions\n  - Larry Schilling: Chief Operating Officer\n  - Larry Schilling: President & Chief Operating Officer\n  - Lisa Lashbrook: Director of Human Resources\n  - Lisa McDonald: CEO\n  - Melissa (Huntley) Fulford: Marketing Director\n  - Shannon Payne: Vice President Supply Chain Solutions\n- Breakdown:\n  - By Country: United States: 108 (50%), United Kingdom: 6 (3%), France: 1, Oman: 1\n  - By Department: Operations: 30 (14%), Technical: 25 (12%), Sales: 21 (10%), Project Management: 16 (7%), Other Department: 11 (5%), Marketing: 4 (2%), Finance: 3 (1%), General Management: 3 (1%), Hr: 3 (1%), Customer Service: 2 (1%) (+6 more)\n  - By Seniority: Specialist: 59 (27%), Manager: 25 (12%), Other Management: 22 (10%), Director: 10 (5%), Senior: 3 (1%), Clevel: 2 (1%), Intern: 1, Vp: 1\n- Salary ranges (20 of 45 roles):\n  - Director of Sales: median $252,204.26 per year\n  - Enterprise Account Executive: median $212,553.09 per year\n  - Vice President Operations: median $210,332.82 per year\n  - Vice President Professional Services: median $203,270.7 per year\n  - Director of Software Development: median $175,526.77 per year\n  - National Account Manager: median $157,893.06 per year\n  - Technical Project Manager: median $141,265.91 per year\n  - Account Executive: median $120,646.14 per year\n  - Developer: median $117,245.92 per year\n  - Manager: median $111,627.61 per year\n  - Software Developer: median $106,025.01 per year\n  - Account Manager: median $105,033.97 per year\n  - App Developer: median $102,903.79 per year\n  - Project Manager: median $98,908.8 per year\n  - Sales: median $91,772.53 per year\n  - Systems Administrator: median $85,512.78 per year\n  - Inside Sales Representative: median $83,868.25 per year\n  - Technical Recruiter: median $83,481.75 per year\n  - Information Technology: median $79,177.8 per year\n  - Junior Designer: median $64,991.59 per year\n- Talent Sources: TD SYNNEX North America (6), AT&T (6), eSOURCE Ltd (3), Vology (3), Flexport (3), Cisco (3), Adecco (3), Verizon 4G Wireless (2), Verizon (2), Avnet Technology Solutions (2)\n- Alumni Go To: ThinkTLS (2), TSG TechSource (2), Secureworks (2), Mimic Productions (2), MDSI (2), Lazer Logistics (2), Cox Communications (2), Converge Technology Solutions Corp. (2), CenturyLink (2), 360 Smart Networks (2)\n\n## Products & Technology\n- Tech Stack: avaya, comcast, microsoft, microsoft dynamics, microsoft dynamics 365, microsoft excel, microsoft office, nvidia, propel, salesforce, sql, verizon, zendesk, hubspot, pure storage, amp, box, juniper, network solutions, well, adobe, adp\n\n## Web presence\n\n- Twitter: twitter.com/mdsisocial\n- Facebook: facebook.com/managementdatasystemsinternational\n- Crunchbase: crunchbase.com/organization/mdsi-inc\n- Web traffic:\n  - Monthly visits: 2,644\n  - Global rank: 7,316,098\n  - Bounce rate: 50.0%\n  - Pages per visit: 1.1\n  - Average visit duration: 0s\n\n## Reviews & Ratings\n- Employer Rating: 3.4/5.0 (45 reviews)\n  - Breakdown: Work-Life: 3.6, Compensation: 3.0, Culture: 3.1, Career: 2.9\n\n## Categories\n\nadvanced engineering services, application development, application-software, asset management, business growth, business intelligence, cloud, cloud infrastructure, collaboration, computers_electronics_and_technology/telecommunications, cost reduction, cyber security, ef&i, engineering, enterprise software, enterprise-software, field services, information technology and services, installation & de-installation, internet-of-things, it infrastructure, it services, it solutions, lifecycle management, lifecycle services, managed services, network hardware, networking, performance optimization, professional services, repairs, reverse logistics, security, staging & config, storage, supply chain management, supply chain solutions, supply-chain, sustainability, technology, telecommunications\n\n## Competitors\n\nvology, datto, datarecovery, storagecraft, ten four optics, curvature, cablesandkits, cxtec, network dynamics, inc., delta computer group, inc., mindshift, solaris technologies, all covered, cio technology, aventis systems, inc, aventis systems, ubuntu, rtc, iron systems, elunic\n\n## Recent News\n- [2026-07-01] [HMSI Reports Strong Q1FY27 Sales Growth](https://www.passionateinmarketing.com/honda-motorcycle-scooter-india-delivers-strong-q1fy27-performance-with-16-11-lakh-units-sold-registering-17-yoy-growth/)\n\n## Social\n\n### Linkedin\n\n- [2026-10-06 · 3 reactions] Your IT equipment has a lifecycle. At MDSI, we manage every stage of it. ✔️ Hardware integration & assembly ✔️ Configuration & custom cabling ✔️ Software & firmware imaging ✔️ Warehousing, distribu...\n\n- [2026-09-30 · 6 reactions] We're excited to share that Chuck Nadeau was recently invited to Smartoptics headquarters for advanced optical networking training. Chuck leads MDSI's Optical & Data Center Solutions practice. Over...\n\n- [2026-09-29 · 2 reactions] What happens to AI infrastructure when it reaches end of life? Brandon Peterson, Senior Account Executive at MDSI, shares how Project Crucible takes MDSI beyond traditional ITAD, turning retired se...\n\n- [2026-09-25 · 10 reactions] The MDSI team had a wonderful time and a valuable learning experience at the AI Infra Summit in Santa Clara last week. As Tom Bates, our Executive Director of Remarketing Sales, shared from the sho...\n\n- [2026-09-22 · 25 reactions] We look forward to attending SCTE next week in Atlanta, GA. For over 30 years, MDSI has been a trusted expert in the telecom and broadband industry. Our team will be there discussing how we help se...\n\n- [2026-09-17 · 11 reactions] Most businesses don't think about their sparing model until something breaks. By then, it's too late and downtime is already costing your business. At MDSI, we build resilience into the supply chai...\n\n- [2026-09-15 · 17 reactions] What's your retired IT equipment actually costing you? Not solely the recycling fee. The bigger number, the one that shows up as lost resale value, compliance exposure, or security vulnerabilities....\n\n- [2026-09-10 · 12 reactions] For over 30 years, MDSI has partnered with service providers, data center operators, and enterprises to solve their toughest network challenges. Our Advanced Engineering team takes a proven, four-p...\n\n- [2026-09-07 · 13 reactions] Happy Labor Day from all of us at MDSI! Today we're celebrating the hard work, dedication, and collaboration of our MDSI team. We're thankful for the people who make it possible for us to deliver c...\n\n- [2026-09-03 · 27 reactions, 1 comment] We're excited to welcome Emre Washburn as our new Circular Economy Specialist, focused on data centers and telecommunications. With 20+ years in telecom sales and operations, Emre has deep expertis...\n\n- [2026-08-31 · 43 reactions, 1 comment] We're excited to give you a look inside our new warehouse in Buford, GA. From above, you'll see the full scale of what we've built. Step inside and you'll find floor to ceiling racking and narrow a...\n\n- [2026-08-27 · 27 reactions] See you in Atlanta! Our team will be in attendance from September 29th-October 1st. We're looking forward to connecting with anyone attending SCTE to discuss your AI infrastructure, your IT asset l...\n\n- [2026-08-25 · 46 reactions, 1 comment] The countdown is on. Construction is underway on our new Buford, GA warehouse, and the finishing touches are coming together. We can't wait to show you what's inside! 35 dock doors for shipping and...\n\n- [2026-08-19 · 20 reactions, 1 comment] Shout out to our very own Guy Gallelli for putting the \"V\" in Value into a t-shirt. Everyone else just resells, but we go the extra mile for our customers.😊\n\n- [2026-08-18 · 50 reactions, 4 comments] Something big is coming to Buford, GA. MDSI is opening a brand new warehouse this October to give our customers more capabilities, more room to scale, and faster output. Designed with our customers...\n\n- [2026-08-13 · 10 reactions] Fragmented IT vendors aren't just inconvenient — they're costing you money and visibility. Every handoff between procurement, network integration, logistics, and decommissioning partners is a new p...\n\n- [2026-08-06 · 17 reactions] A lot of resellers move boxes; we move outcomes. Learn more about how MDSI is an industry leading IT solutions partner at https://www.mdsiinc.com/.\n\n- [2026-07-28 · 26 reactions] If you're heading to ITAD Summit next week, reach out to James Anderson, Brian Gats, and Noah Watson to schedule an appointment.\n\n- [2026-06-16 · 43 reactions, 3 comments] Incentive Trip 2026 – Casa de Campo, Dominican Republic What an incredible few days spent recognizing and celebrating our top performers at Casa de Campo in the Dominican Republic. This trip was a...\n\n- [2026-05-05 · 6 reactions] What does comprehensive IT partnership actually look like? It's high performance architecture designed to handle your most demanding workloads. Enterprise network infrastructure built for scale and...\n\n## Locations\n- Headquarters: alpharetta, georgia, united states (US)\n- Offices: alpharetta, united states (US), allentown, pennsylvania, united states (US), mdsi - tampa, florida, united states (US), alpharetta, georgia, united states (US)",
+        "summary": "{\"description\":\"MDSi, Inc. is an IT Services and IT Consulting company delivering secure, scalable IT solutions and lifecycle services.\",\"employee_estimate\":217,\"employee_estimate_source\":\"Employees: 217\",\"hq\":\"Alpharetta, United States\",\"hq_quote\":\"Headquartered in Alpharetta, Georgia, United States\",\"industry\":\"IT Services and IT Consulting\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"MDSI is the IT solutions partner of choice for some of the world’s largest, most trusted service providers and enterprises. We specialize in professional services, technology acquisition and integration, and supply chain logistics.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQFw7qMioua9AQ/company-logo_200_200/B56Z_8pW5hGsAQ-/0/1786650128658/mdsi_inc__logo?e=2147483647&v=beta&t=NH-RdTLmMLxkMHN5-L8o00l9HoLs0nF8hMByY4iQTNQ",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/gz7y39rbsh7",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "MDSi, Inc.",
+              "foundedYear": 1990,
+              "description": "MDSI is the IT solutions partner of choice for some of the world’s largest, most trusted service providers and enterprises. We specialize in professional services, technology acquisition and integration, and supply chain logistics. We help companies derive maximum value from their IT assets while delivering highly responsive, world-class levels of service.",
+              "workforce": {
+                "total": 217
+              },
+              "headquarters": {
+                "address": "6225 Shiloh Rd, Alpharetta, GA 30005, US",
+                "city": "Alpharetta",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 4367182,
+                "fundingTotal": null,
+                "fundingLatestRound": null
+              },
+              "webTraffic": {
+                "visitsMonthly": 2644,
+                "countryRank": 2741134,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 1525,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 3063,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 4303,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 3390,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 1598,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 2644,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/nqbl37n38h4",
+        "title": "MDSI",
+        "url": "https://mdsi.re/",
+        "text": "# MDSI\n\nMDSI. Founded in 2010.\n\n## About\n\nFrench IT services company (managed services, cybersecurity, cloud hosting) based in Le Port, Réunion, covering the Indian Ocean and French Caribbean & Guiana, founded in 2010\n\n## Company Details\n- Founded Year: 2010\n- Homepage: mdsi.re\n- Aliases: Groupe MDSI, Groupe MDSI Indian Ocean, M.D.S.I, MDSI Réunion, Maintenance Distribution Solution Informatique, mdsi.re\n- Linkedin Followers: 2,037",
+        "summary": "{\"description\":\"French IT services company (managed services, cybersecurity, cloud hosting) based in Le Port, Réunion, covering the Indian Ocean and French Caribbean & Guiana, founded in 2010\",\"employee_estimate\":\"\",\"employee_estimate_source\":\"\",\"hq\":\"Le Port, Réunion\",\"hq_quote\":\"based in Le Port, Réunion, founded in 2010\",\"industry\":\"IT services (managed services, cybersecurity, cloud hosting)\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":null,\"is_third_party_logistics_quote\":\"\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQHR40Y2i9TD-Q/company-logo_200_200/company-logo_200_200/0/1734592507532/groupe_mdsi_logo?e=2147483647&v=beta&t=K7bE7LvlQpxw0liNBNEUw1a_QZKTlsm6OKUGE5Bdhxg",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/nqbl37n38h4",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "MDSI",
+              "foundedYear": 2010,
+              "description": "French IT services company (managed services, cybersecurity, cloud hosting) based in Le Port, Réunion, covering the Indian Ocean and French Caribbean & Guiana, founded in 2010",
+              "workforce": null,
+              "headquarters": null,
+              "financials": null,
+              "webTraffic": null,
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 4828.3,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

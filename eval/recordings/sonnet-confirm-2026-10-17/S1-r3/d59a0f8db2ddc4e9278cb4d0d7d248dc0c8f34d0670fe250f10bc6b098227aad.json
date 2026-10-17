@@ -1,0 +1,228 @@
+{
+  "request": {
+    "query": "QE Dynamics LLC",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "716d0774c51f091950f8d9c9361b0947",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/xscz9v14c56",
+        "title": "QE Solar",
+        "url": "https://qesolar.com/",
+        "text": "# QE Solar\n\nQE Solar is a Services for Renewable Energy company. QE Solar is a leading national operations and maintenance (o&m) provider for renewable assets. QE Solar employs 258 people (+30.3% YoY, +60 people) and has an annual revenue of $5M, founded in 2010. Headquartered in Springfield, New Jersey, United States, with offices in Scottsdale and Cranford. Its workforce is distributed across United States and Poland.\n\n## About\n\nQE Solar is one of the nation's largest independent solar and BESS operations and maintenance providers, with over 15 years of operating experience. We manage 10 GW of solar and 7.5 GWh of BESS across 44 states, supporting asset owners with multi-hundred MW utility solar projects and large standalone BESS systems.\n \nWe're pure-play O&M. That focus means our entire organization is built around one thing: keeping solar and storage assets running well. Our technicians carry broad OEM certifications, and our in-house capabilities span MV/HV electrical, vegetation management, engineering, and capital improvements, to streamline asset management for project owners.\n \nReach out if you're looking for a long-term O&M partner for your solar or storage assets.\n\n## Company Details\n- Industry: Services for Renewable Energy\n- Type: Privately held\n- Headquarters: Springfield, United States\n- Founded Year: 2010\n- Homepage: qesolar.com\n- Aliases: qe solar, qe solar llc\n- LinkedIn: linkedin.com/company/qe-solar\n- Linkedin Followers: 7,818\n- Emails: sales@qesolar.com\n- Phone: +1 888-287-0207, 1-888-287-0207, 888.287.0207, 8882870207\n\n## Contractor licensing\n\n### California Contractors State License Board\n- License 1101174 held as QE SOLAR CA LLC (CLEAR; Pending IFS). Classifications: C10 (Electrical). Business type: Limited Liability. Issued 2023-02-06, expires 2027-02-28. Mailing locality: CRANFORD, NJ.\n\n## Financials\n- Annual Revenue: USD 5,000,000\n\n## Acquisitions\n- Acquired by: 424 Capital (2021-05-11)\n- Acquired Vanguard Energy Partners, LLC's Operations & Maintenance Division (2026-06-01)\n- Acquired Quercus Land Stewardship Services LLC's Renewable Services Team (2026-03-01)\n- Acquired Donahue & Sons (2025-05-23)\n- Acquired Donahue & Sons Mgmt Inc. (2025-05-01)\n- Acquired S3 Power (2024-09-26)\n\n## Workforce\n- Employees: 258\n- Company Size: 201-500 employees\n  - Monthly Growth: +0.4%\n  - Yearly Growth: +30.3%\n- Key Executives:\n  - A.J. Toth: Director, Commercial Assets - Utility\n  - Alex Wenthe: Vice President - Vegetation Operations\n  - Claire Sweet: Director, Commercial Assets\n  - Cliff Kazmarek: Chief Executive Officer\n  - David Hayes: Chief Financial Officer\n  - Elizabeth Kwederas: Director, Talent Development and Human Resources\n  - Ken Heissler: Executive Chairman\n  - Kevin Billenstein, ASP®: Safety Director\n  - Lee Allyn: Director of Operations\n  - Mike Butler, MBA-Finance: VP of Operations - Distributed Generation\n- Breakdown:\n  - By Country: United States: 185 (72%), Poland: 2 (1%)\n  - By Department: Technical: 73 (28%), Operations: 33 (13%), Project Management: 27 (10%), Other Department: 18 (7%), Finance: 16 (6%), Trades: 15 (6%), Real Estate: 8 (3%), General Management: 4 (2%), Hr: 4 (2%), Administrative: 2 (1%) (+1 more)\n  - By Seniority: Specialist: 83 (32%), Manager: 65 (25%), Other Management: 25 (10%), Senior: 14 (5%), Director: 7 (3%), Clevel: 3 (1%), Vp: 3 (1%), Intern: 2 (1%), Head: 1\n- Active job postings: 28\n- Talent Sources: Tesla (8), Vanguard Energy Partners LLC (6), NovaSource Power Services (5), Cypress Creek Energy (4), University of Delaware (3), Sunrun (3), Pure Power Engineering (3), Colonial Pipeline Company (3), RER Energy Group (2), ACT Power Services (2)\n- Alumni Go To: Ameresco (7), Omnidian (5), MN8 Energy (3), University of Massachusetts Dartmouth (2), Sunspear Energy (2), PureSky Energy (2), NextEra Energy, Inc. (2), NextEra Energy Resources (2), Lockheed Martin (2), Cypress Creek Energy (2)\n\n## Products & Technology\n- Tech Stack (showing 50 of 78): ada, ansible, asset panda, cisco asa, confluence, elastic, foreman, fortinet, gps, graylog, hubspot, iam, jasper, jira, linux, lucidchart, microsoft, microsoft 365, microsoft excel, microsoft office, microsoft outlook, microsoft teams, netsuite, power bi, pvsyst, recognize, rippling, salesforce, scada, smartsheet, splunk, tcpdump, terraform, vmware, windows server, wireshark, avetta, ifix, ot cybersecurity, siemens, sql, wonderware, google sheets, servicenow, fis getpaid, python, netsuite erp, quickbooks, rake, workday\n\n## Web presence\n\n- Twitter: twitter.com/qesolar\n- Facebook: facebook.com/qesolar\n- Crunchbase: crunchbase.com/organization/qe-solar\n- Web traffic:\n  - Monthly visits: 3,654\n  - Global rank: 3,822,279\n  - Bounce rate: 28.0%\n  - Pages per visit: 2.5\n  - Average visit duration: 39s\n\n## Reviews & Ratings\n- Employer Rating: 2.6/5.0 (39 reviews)\n  - Breakdown: Work-Life: 2.4, Compensation: 3.0, Culture: 2.3, Career: 2.4\n\n## Categories\n\nbess, commissioning, consulting, diagnostic technologies, electrician, energy-utilities, engineering, green technology, maintenance, o&m, operations & maintenance, preventative maintenance, professional services, renewable assets, renewable energy, safetyfirst, solar, solar design, solar engineering, solar operations, solar power, solar technician, solar utility power, solarrepair, solartroubleshooting, thermal imaging, utility operations, utility services\n\n## Competitors\n\nmeridian solar services, brite idea energy, suntuity, rec solar holdings, omni navitas, ari solar\n\n## Recent News\n- [2024-09-27] altenergymag.com: QE Solar Acquires S3 Power expanding QE's inhouse medium voltage and substation maintenance services\n- [2024-08-19] PRWeb: QE Solar Commences Maintenance Services for Plus Power's Kapolei Energy Storage Project\n- [2023-10-07] Pacific Inno: QE Solar acquires Tritium3 Renewable Services\n- [2023-09-28] PRWeb: QE Solar Acquires Tritium3 Renewable Services of Honolulu, HI\n\n## Social\n\n### Linkedin\n\n- [2026-10-10 · 2 reactions] Job Opening Alert! @QESolar is #hiring for the following new role. Click View job below to learn more about this position, our fantastic team, superb benefits, and life here at QE Solar. We're look...\n\n- [2026-07-20 · 181 reactions, 6 comments] Remembering Jim Swansey It is with profound sadness that we share the unexpected passing of our colleague, leader, and friend, Jim Swansey, Vice President of MV Services. Jim joined the QE Solar fa...\n\n- [2026-07-06 · 160 reactions, 48 comments] Today, Chief Executive Officer Ken Heissler transitions to the role of Executive Chairman, where he will continue serving in a full-time capacity with QE Solar. Cliff Kazmarek, currently serving as...\n\n- [2026-06-08 · 135 reactions, 2 comments] QE Solar announces the acquisition of Vanguard Energy Partners LLC O&M Division and Services! \"This acquisition strengthens our ability to support utility-scale and commercial clients with comprehe...\n\n- [2026-05-26 · 22 reactions, 1 comment] CleanPower 2026 is right around the corner, and QE Solar and Doman Energy will be there. Ryan McCauley, Aaron Burkhart, Mike Yellin, and Nolan Lortz will be on the ground all week. If you want to t...\n\n- [2026-04-27 · 12 reactions] We are thrilled to be an exhibitor at RE+ in Las Vegas for our fourth year in a row, and this time around we're teaming up with QE Solar. Come meet the team at booth C5490 in the central hall of th...\n\n## Locations\n- Headquarters: springfield, new jersey, united states (US)\n- Offices: springfield, new jersey, united states (US), cranford, new jersey, united states (US), scottsdale, arizona, united states (US)",
+        "summary": "{\"description\":\"QE Solar is a Services for Renewable Energy company and one of the nation’s largest independent solar and BESS operations and maintenance providers.\",\"employee_estimate\":258,\"employee_estimate_source\":\"Employees: 258\",\"hq\":\"Springfield, New Jersey, United States\",\"hq_quote\":\"Headquartered in Springfield, New Jersey, United States, with offices in Scottsdale and Cranford.\",\"industry\":\"Services for Renewable Energy\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":null,\"is_third_party_logistics_quote\":\"\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQEEeIxcgjhO2w/company-logo_200_200/company-logo_200_200/0/1722355933137/qe_solar_logo?e=2147483647&v=beta&t=YulEAsSLRIzeBjYwSs-SeOWhOIO7z7P_F3D7I8EF5pM",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/xscz9v14c56",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "QE Solar",
+              "foundedYear": 2010,
+              "description": "QE Solar is one of the nation's largest independent solar and BESS operations and maintenance providers, with over 15 years of operating experience. We manage 10 GW of solar and 7.5 GWh of BESS across 44 states, supporting asset owners with multi-hundred MW utility solar projects and large standalone BESS systems.\n \nWe're pure-play O&M. That focus means our entire organization is built around one thing: keeping solar and storage assets running well. Our technicians carry broad OEM certifications, and our in-house capabilities span MV/HV electrical, vegetation management, engineering, and capital improvements, to streamline asset management for project owners.\n \nReach out if you're looking for a long-term O&M partner for your solar or storage assets.",
+              "workforce": {
+                "total": 258
+              },
+              "headquarters": {
+                "address": "18 Commerce St, Springfield, New Jersey 07081, US",
+                "city": "Springfield",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 5000000,
+                "fundingTotal": null,
+                "fundingLatestRound": null
+              },
+              "webTraffic": {
+                "visitsMonthly": 3654,
+                "countryRank": 1170601,
+                "avgDurationSeconds": 39,
+                "history": [
+                  {
+                    "value": 3821,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 3510,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 4433,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 3513,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 4328,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 3654,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/v15bjck9f7t",
+        "title": "QE Deutschland GmbH",
+        "url": "https://qe-deutschland.de/",
+        "text": "# QE Deutschland GmbH\n\nQE Deutschland GmbH is a Business Consulting and Services company. QE Deutschland GmbH is a company that focuses on developing quality and ensuring a future. They offer services in reha and vorsorge, ipreg, mobile reha, audit & zertifizierung, katastrophenschutz, hotel & gastronomie, digitalisierung, and e-learning. QE Deutschland GmbH employs 3 people. Headquartered in Frankfurt, Hessen, Germany.\n\n## About\n\nQE Deutschland GmbH – Qualität entwickeln. Zukunft sichern.\n\nDie QE Deutschland GmbH ist ein Beratungs-, Schulungs- und Zertifizierungsunternehmen mit Fokus auf Qualitätsmanagement, Organisationsentwicklung und Zertifizierung. Wir unterstützen Unternehmen und Einrichtungen bei der Entwicklung nachhaltiger Strukturen, effizienter Prozesse und der sicheren Umsetzung regulatorischer Anforderungen.\n\nIm Bereich Gesundheitswesen, Rehabilitation und Vorsorge begleiten wir Einrichtungen strategisch und operativ und führen als Zertifizierungsstelle Verfahren nach QM-FAM Reha durch.\n\nIn Hotellerie und Gastronomie entwickeln wir Exzellenz- und Qualitätsstandards, beraten Betriebe konzeptionell und qualifizieren Führungskräfte sowie Teams in Qualitäts-, Service- und Hygienemanagement.\n\nDarüber hinaus initiieren und begleiten wir Forschungs- und Entwicklungsprojekte in struktur- und sicherheitsrelevanten Bereichen.\n\nUnser Verständnis von Qualität: Führungsinstrument, Wettbewerbsvorteil und Vertrauensbasis.\n\n## Company Details\n- Industry: Business Consulting and Services\n- Type: Public company\n- Headquarters: Frankfurt, Germany\n- Homepage: qe-deutschland.de\n- Aliases: qe deutschland gmbh\n- LinkedIn: linkedin.com/company/qe-deutschland-gmbh\n- Linkedin Followers: 254\n- Emails: info@qe-deutschland.de, kontakt@qe-deutschland.de\n- Phone: +49 (0) 69 257375233\n\n## Workforce\n- Employees: 3\n- Company Size: 11-50 employees\n- Key Executives:\n  - Patrick Paschke: Managing General Partner\n- Breakdown:\n  - By Country: Germany: 2 (67%)\n  - By Department: General Management: 2 (67%)\n  - By Seniority: Manager: 1 (33%), Partner: 1 (33%)\n- Talent Sources: TÜV Hessen (1), AMY - A-cademy Meets You (1)\n\n## Web presence\n\n- Web traffic:\n  - Monthly visits: 486\n  - Bounce rate: 44.0%\n  - Pages per visit: 1.0\n  - Average visit duration: 0s\n\n## Categories\n\naudit, beratung, certification audits, compliance, compliance audits, digitalization, excellence, exzellenzstandard für hotel & gastronomie, future security, healthcare, hoga, hotellerie, hygieneaudit, ipreg, iso9, katastrophenschutz, kritis, management, mobile reha, qm-fam reha, qmb, quality development, qualitätssicherung, reha & vorsorge, unternehmensberatung, zertifizierung\n\n## Recent News\n- [2026-10-02] Gazeta Express: Deutschland übt Druck auf die EU in der Balkanfrage aus: Wir haben unsere Versprechen nicht eingehalten\n- [2026-10-01] KOHA.net: Der „Flaschen“-Skandal des Fußballers, der auf sein Debüt in Deutschland wartet\n- [2026-09-19] Albinfo: Von Deutschland nach Harvard und Cambridge: Emin Gashi, das albanische Talent, das an neuen Krebstherapien forscht\n- [2026-09-04] ZDFheute: Hitzesommer 2026 war zweitwärmster seit Aufzeichnungsbeginn\n- [2026-08-25] MarketScreener Deutschland: Rückkäufe des Finanzministeriums sind kein 'QE light', argumentiert Claudia Sahm\n- [2026-08-02] KOHA.net: Koci: Ein aus Deutschland einreisender kosovarischer Staatsbürger wurde von serbischen Behörden festgenommen.\n- [2026-07-01] Albinfo: Das albanische Talent in Deutschland, das einen Vertrag mit Adidas unterschrieben hat\n\n## Social\n\n### Linkedin\n\n- [2026-09-18 · 3 reactions] 🎧 Familiengesundheit stärken – mit der ICF im Klinikalltag. Unser Fachpodcast greift auf, wie aus Diagnosen individuelle Ziele für die Mutter-Vater-Kind-Reha und -Vorsorge werden. Im Artikel stelle...\n\n- [2026-08-19 · 5 reactions] 10 HÄUSER GESUCHT. QE Deutschland startet die Pilotphase für den neuen QE Exzellenzstandard Hotellerie & Gastronomie. Wir suchen 10 ausgewählte Hotels und Gastronomiebetriebe, die ihren Qualitätsan...\n\n- [2026-07-01 · 3 reactions, 1 comment] Wer Risiken bewertet, braucht Expertise.\n\n- [2026-06-20] Der Bundesverband Geriatrie weist zu Recht auf Zielkonflikte zwischen Finanzierung, Rehabilitationsstärkung und Pflegereformen hin. Aus unserer Sicht lohnt sich in diesem Zusammenhang unbedingt ein...\n\n- [2026-06-12 · 1 reaction, 1 comment] Deutschland sucht nach Wegen, Pflegebedürftigkeit zu vermeiden.\n\n- [2026-03-17 · 2 reactions] Reha und Vorsorge im Kontext des IPReG: Herausforderung. Bewährungsprobe. Chance.\n\n- [2026-03-10 · 6 reactions] Warum klassische Standards für Hotels und Restaurants oft zu kurz greifen - ein neuer Qualitätsmaßstab für Hotellerie und Gastronomie!\n\n## Locations\n- Headquarters: frankfurt, hessen, germany (DE)\n- Offices: frankfurt, hessen, germany (DE), frankfurt, hesse, germany (DE)",
+        "summary": "{\"description\":\"QE Deutschland GmbH is a Business Consulting and Services company focusing on developing quality and ensuring a future, with services across various sectors including reha, vorsorge, ipreg, mobile reha, audit & zertifizierung, katastrophenschutz, hotel & gastronomie, digitalisierung and e-learning.\",\"employee_estimate\":3,\"employee_estimate_source\":\"Employees: 3\",\"hq\":\"Frankfurt, Hessen, Germany\",\"hq_quote\":\"Headquartered in Frankfurt, Hessen, Germany.\",\"industry\":\"Business Consulting and Services\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":false,\"is_third_party_logistics_quote\":\"\\\"Industry: Business Consulting and Services\\\"\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4D0BAQHaju8uGp_wrQ/company-logo_200_200/B4DZyQviHKKEAI-/0/1771954906176?e=2147483647&v=beta&t=c0ca_H1RwayVebktMdRxW-arAOtW8gHt058xXuWvEGg",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/v15bjck9f7t",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "QE Deutschland GmbH",
+              "foundedYear": null,
+              "description": "QE Deutschland GmbH – Qualität entwickeln. Zukunft sichern.\n\nDie QE Deutschland GmbH ist ein Beratungs-, Schulungs- und Zertifizierungsunternehmen mit Fokus auf Qualitätsmanagement, Organisationsentwicklung und Zertifizierung. Wir unterstützen Unternehmen und Einrichtungen bei der Entwicklung nachhaltiger Strukturen, effizienter Prozesse und der sicheren Umsetzung regulatorischer Anforderungen.\n\nIm Bereich Gesundheitswesen, Rehabilitation und Vorsorge begleiten wir Einrichtungen strategisch und operativ und führen als Zertifizierungsstelle Verfahren nach QM-FAM Reha durch.\n\nIn Hotellerie und Gastronomie entwickeln wir Exzellenz- und Qualitätsstandards, beraten Betriebe konzeptionell und qualifizieren Führungskräfte sowie Teams in Qualitäts-, Service- und Hygienemanagement.\n\nDarüber hinaus initiieren und begleiten wir Forschungs- und Entwicklungsprojekte in struktur- und sicherheitsrelevanten Bereichen.\n\nUnser Verständnis von Qualität: Führungsinstrument, Wettbewerbsvorteil und Vertrauensbasis.",
+              "workforce": {
+                "total": 3
+              },
+              "headquarters": {
+                "address": "Thurn-und-Taxis Platz, Nextower, Frankfurt, Hessen 60313, DE",
+                "city": "Frankfurt",
+                "postalCode": null,
+                "country": "Germany"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 486,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 110,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 124,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 380,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 421,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 46,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 486,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 2158.7,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

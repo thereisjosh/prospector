@@ -1,0 +1,270 @@
+{
+  "request": {
+    "query": "Spott",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "311a4d30de4781152178059c7041b71e",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/kb67mwy4536",
+        "title": "Spott",
+        "url": "https://spott.io/",
+        "text": "# Spott\n\nSpott is a Software Development company. Spott is an AI-native ATS and CRM platform for recruitment and staffing firms to manage candidates, automate workflows, and close placements faster. Spott employs 46 people (+283.3% YoY, +34 people), founded in 2024. Headquartered in New York, New York, United States, with presence in Belgium and Australia. Its workforce is distributed across Belgium, United States, and Australia.\n\n## About\n\nSpott is an all-in-one AI-native ATS/CRM for recruitment firms.\n\nSpott redefines what a recruitment platform can do. It doesn't just store data, it actively works for you.\n\nThe result? More placements, faster.\n\nRequest your demo now at www.spott.io 📈\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: New York, United States\n- Founded Year: 2024\n- Homepage: spott.io\n- Aliases: Spott, Inc., spott\n- LinkedIn: linkedin.com/company/spottai\n- Linkedin Followers: 11,970\n- Emails: info@spott.io\n\n## Financials\n- Total Funding: USD 3,325,000\n  - Seed (2025-06-28): USD 3.2M\n  - Seed (2025-01-01): USD 125,000\n\n## Workforce\n- Employees: 46\n- Company Size: 51-200 employees\n  - Yearly Growth: +283.3%\n- Key Executives:\n  - Benjamin Nicodème: Head of Infrastructure\n  - Dimitri Van Fraeyenhoven: Head of Customer Success\n  - Jasper Callaerts: Head of Data Migrations\n  - Kevin Vandeputte: Founding GTM Engineer\n  - Kevin Vandeputte: GTM Lead\n  - Lander Degrève: Co-Founder & CEO\n  - Manu Vanderveeren: Co-Founder & COO\n  - Melanie Hoek: Founding Frontend Engineer\n  - Samuel Smeys: Co-Founder & CTO\n  - Tom Rooijakkers: Founding Head of Sales\n- Breakdown:\n  - By Country: Belgium: 36 (78%), United States: 4 (9%), Australia: 2 (4%)\n  - By Department: Technical: 22 (48%), Sales: 6 (13%), Customer Service: 5 (11%), General Management: 4 (9%), Other Department: 2 (4%), Design: 1 (2%), Finance: 1 (2%), Marketing: 1 (2%), Product: 1 (2%)\n  - By Seniority: Specialist: 20 (43%), Other Management: 8 (17%), Head: 6 (13%), Founder: 4 (9%), Manager: 4 (9%), Clevel: 1 (2%)\n- Talent Sources: Salesforce (3), Innoptus Solar Team (3), McKinsey & Company (2), Green Island (2), Easi (2), Boston Consulting Group (BCG) (2), AE (2), Loxo (1), KBC Bank & Verzekering (1), BuildPass (1)\n- Alumni Go To: imec (1), Rothschild & Co (1), KU Leuven (1), Coca-Cola Europacific Partners (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: bash, dbt, docker, figma, hotjar, kubernetes, linkedin, postgresql, prototype, python, snowflake, sql, stripe, terraform, typescript, spotme, adobe, usersnap, circleci, css, impact, sketch, tailwind, ups\n\n## Web presence\n\n- Crunchbase: crunchbase.com/organization/spott-12e4\n- Web traffic:\n  - Monthly visits: 89,093\n  - Global rank: 272,314\n  - Bounce rate: 24.0%\n  - Pages per visit: 10.2\n  - Average visit duration: 853s\n\n## Categories\n\nai-native ats, artificial intelligence (ai), b2b, computers_electronics_and_technology/programming_and_developer_software, crm, enterprise software, human resources, placements, recruiting, recruitment, saas, software engineering and recruiting, staffing, technology/consulting\n\n## Recent News\n- [2026-09-24] Dealroom.co: Recruitment startup Spott raises $21M Series A led by Balderton\n- [2026-09-06] GetLatka: Spott \\(YC W25\\) Revenue 2025: $990K Est. ARR\n- [2026-08-14] GetLatka: Spott \\(YC W25\\) Revenue 2025: $990K Est. ARR \\(Bootstrapped\\)\n- [2026-05-13] PlayCentral: 007 First Light – IO Interactive zeigt PS5-Pro-Qualitätsmodus mit 60 FPS\n- [2025-08-18] Merkur: Übergewicht: Spott und Häme sind Alltag\n- [2025-08-17] Berlin-live.de: Berliner Polizei am Limit – es braucht endlich echten Rückhalt\n- [2025-08-15]\n  - Berlin-live.de: AfD-Frau sorgt im Ausland für Spott – „Rassismus, Hass und Polarisierung“\n  - Berlin-live.de: Trumps Millionen-Vision: DIESES neue Prestigeprojekt sorgt für Wut und Spott\n- [2025-08-14] insideBW.de: US-Vize auf Urlaub in England: Rollende Spott-Kampagne gegen JD Vance\n- [2025-08-13] STERN.de: JD Vance: Lkw fährt Spott-Bild von US-Vizepräsident durch dessen Urlaubsort\n- [2025-08-04]\n  - www.joyn.ch: Crash auf der Autobahn: Reality-Star Gigi Birofio kontert Oliver Pochers Spott nach schwerem Unfall\n  - FOCUS online: Gaga-Interview von Ex-Bundesliga-Star sorgt für Spott: „Wie eine Geiselnahme“\n  - WA.de: „Für jede Körpergröße auf Augenhöhe“ – Schilderwald bei Edeka erntet Spott\n- [2025-08-01] MSN: Peinliches Interview mit neuem Klub: Jetzt hagelt es Spott für Granit Xhaka\n- [2025-07-29]\n  - MSN: \"Fernsehgarten\" muss evakuiert werden – ZDF-Show kassiert noch mehr Spott als sonst\n  - SchlagerPlanet.com: Nach Coras fiesem Spott-Video: So reagiert Ralf Schumacher auf den Werbe-Clip\n- [2025-07-08] News.de: Beißender Spott aus Russland: Donald Trump nach Putin-Abfuhr als \"Verlierer\" abgestempelt\n- [2025-06-30] MSN: \"Katastrophe\" – Heftiger Spott für Silbereisen & Borg\n- [2025-06-23]\n  - News.de: Donald Trump: Spott und Häme für seinen peinlichen Jammer-Auftritt vor aller Augen\n  - motociclismo.pt: Steve Spott entfacht eine Renaissance für die Boston Bruins mit einer frischen Coaching-Vision unter Marco Sturm.\n\n## Social\n\n### Linkedin\n\n- [2026-10-07 · Reshared · 156 reactions] [Our Customer Success team grew from 1 to 6 over the summer, and is...](https://www.linkedin.com/posts/spottai_activity-7513538713394626560-k8Tg): Our Customer Success team grew from 1 to 6 over the summer, and is out here looking like prime Barça. 🔵🔴 Five signings in one transfer window: a former recruiter, an engineer, a change manager, a p...\n\n- [2026-10-06 · Reshared · 114 reactions] [The DIY office chair that got me through my first two weeks in...](https://www.linkedin.com/posts/spottai_activity-7513295554425049088-2oD-): The DIY office chair that got me through my first two weeks in Sydney. It is, indeed, a chair on top of a stool. Textbook example of our founder mode principle: end-to-end responsibility to plan, b...\n\n- [2026-10-05 · Posted · 62 reactions] [We're entering the Lion's Den at the E-recruitment Congress! 🦁 Our...](https://www.linkedin.com/posts/spottai_were-entering-the-lions-den-at-the-e-recruitment-activity-7512840946586243072-PBL8)\n  > We're entering the Lion's Den at the E-recruitment Congress! 🦁\n  >\n  > Our chief storyteller Felix gets a few minutes on the HR Tech Stage, hosted by Federgon - Network for work, to pitch Spott to a jury of four.\n  >\n  > Curious how agencies that switched to Spott use AI in their day-to-day? Want to swap ideas and experiences? Come chat to Felix or Tom!\n  >\n  > 🗓️ Tuesday 6 October\n  > 📍 Muziekgebouw, Amsterdam\n\n- [2026-10-05 · Reshared · 112 reactions] [A week in New York with Tycho taught me two things about how US...](https://www.linkedin.com/posts/spottai_activity-7512814239615434752-XvFk): A week in New York with Tycho taught me two things about how US recruitment differs from Europe 🇺🇸🇪🇺 𝟭. 𝗙𝗮𝗰𝗲-𝘁𝗼-𝗳𝗮𝗰𝗲 𝗶𝘀 𝗳𝘂𝗹𝗹𝘆 𝗯𝗮𝗰𝗸 In Europe, most first meetings still happen on Teams or Zoom. In N...\n\n- [2026-10-02 · Reshared · 69 reactions] [Joined Recruiter Startup Podcast 's first NYC live show yesterday...](https://www.linkedin.com/posts/spottai_activity-7511765494098604032-lPyR): Joined Recruiter Startup Podcast 's first NYC live show yesterday. We covered three questions on the panel. Should agencies buy, build or rent their AI tooling? How much should you experiment with...\n\n- [2026-10-02 · Posted · 24 reactions] [Recruiters who fully use their CRM are about 300% more effective at...](https://www.linkedin.com/posts/spottai_recruiters-who-fully-use-their-crm-are-about-activity-7511727481490677760-qSnp)\n  > Recruiters who fully use their CRM are about 300% more effective at winning new business.\n  >\n  > Mike Ames found this out when he compared them with recruiters who stick to the basics, measured on pipeline size and conversion speed.\n  >\n  > Which means a lot of agencies already pay for more pipeline than they get.\n  >\n  > That's what Manu and Mike are tackling on the Mike Ames Recruitment Show next Tuesday:\n  >\n  > • Why so many CRMs end up underused and how to fix it\n  > • Simple ways to get more out of the one you have\n  > • How leaders get the whole team using it to win business\n  >\n  > 🗓️ Tuesday 6 October, 13:15 CEST / 12:15 UK\n  > 🔗 Event link in the comments\n\n- [2026-10-01 · Posted · 36 reactions] [Snap a paper CV. Spott reads it and fills in the candidate profile...](https://www.linkedin.com/posts/spottai_snap-a-paper-cv-spott-reads-it-and-fills-activity-7511367463960297472-wo13)\n  > Snap a paper CV. Spott reads it and fills in the candidate profile. 📲\n  >\n  > Here's what we shipped in September:\n  >\n  > 𝗠𝗼𝗯𝗶𝗹𝗲 𝗮𝗽𝗽 𝘂𝗽𝗴𝗿𝗮𝗱𝗲: CV capture is just the start. Meetings, transcripts, recordings, notes and tasks now also live on your phone, and you can update key record details there.\n  >\n  > And the rest:\n  > • 𝗜𝗻𝗯𝗼𝘂𝗻𝗱 𝗮𝗽𝗽𝗹𝗶𝗰𝗮𝗻𝘁𝘀 𝗶𝗻 𝗼𝗻𝗲 𝘃𝗶𝗲𝘄: every applicant waiting on a decision, across all your jobs, in one list. Accept or reject from there.\n  > • 𝗪𝗮𝗶𝘁 𝗯𝗹𝗼𝗰𝗸𝘀 𝗶𝗻 𝗔𝘂𝘁𝗼𝗺𝗮𝘁𝗶𝗼𝗻𝘀: pause a workflow, then check for an interaction, or create a task if there's none yet.\n  > • 𝗦𝗺𝗮𝗿𝘁𝗲𝗿 𝗚𝗹𝗼𝗯𝗮𝗹 𝗦𝗲𝗮𝗿𝗰𝗵: part of a first name plus a last name, or first name plus        company, still finds the record (and faster too).\n  >\n  > Plus: variables in subject lines, scorecard templates, bulk CV import into a job or list... And our ChatGPT plugin is now in OpenAI's plugin directory.\n  >\n  > Full September update in the comments. 🔧\n\n- [2026-10-01 · Reshared · 165 reactions] [Childhood dream checked off yesterday 🎬 I used to be into acting...](https://www.linkedin.com/posts/spottai_activity-7511364353414057984-2nsM): Childhood dream checked off yesterday 🎬 I used to be into acting, but never knew how to combine that with my interests in engineering and business. Yesterday, they finally came together. We spent t...\n\n- [2026-10-01 · Reshared · 183 reactions] [By Belgian standards, my first week in Sydney was a disaster. Half...](https://www.linkedin.com/posts/spottai_activity-7511316977349443584-2zkR): By Belgian standards, my first week in Sydney was a disaster. Half the calls and twice the coffee... By every other standard, I've never had more energy or better insights from a week of work. I've...\n\n- [2026-09-30 · Posted · 188 reactions] [Meet Mathilde, joining us as a GTM Engineer. How a recruiting...](https://www.linkedin.com/posts/spottai_meet-mathilde-joining-us-as-a-gtm-engineer-activity-7511001246204436480-QbUQ)\n  > Meet Mathilde, joining us as a GTM Engineer.\n  >\n  > How a recruiting agency first hears about Spott is rarely luck. Someone works out who to reach and what to say.\n  >\n  > Mathilde can do it fluently in four languages (and number five is in progress). 😎\n  >\n  > She's an engineer who's worked with partners and the press, handled socials, run projects, built teams, and even done some recruiting herself.\n  >\n  > Talk about a Swiss Army knife.\n  >\n  > Happy to have you, Mathilde! 🙌\n\n- [2026-09-25 · Posted · 57 reactions] [We're partnering up with Recruiter Startup Podcast for their live...](https://www.linkedin.com/posts/spottai_were-partnering-up-with-recruiter-startup-activity-7509194194800787456-vUtg)\n  > We're partnering up with Recruiter Startup Podcast for their live show in NYC!\n  >\n  > Tycho is on the opening panel to talk about:\n  >\n  > • What the best agencies do with the time AI gives them back\n  > • How they use their data to find new revenue (and where it leaks)\n  > • What their top recruiters do differently\n  >\n  > Tom will be there too. That's double the chances of getting your burning questions answered.\n  >\n  > 🗓️ October 1, doors at 5:30 PM ET\n  > 📍 Ketchy Shuby Lounge, Lower Manhattan\n  >\n  > See you there! Registration link in the comments.\n\n- [2026-09-22 · Posted · 285 reactions] [We've raised a $21M Series A to accelerate our global expansion...](https://www.linkedin.com/posts/spottai_weve-raised-a-21m-series-a-to-accelerate-activity-7508071420090953728-99sO)\n  > We've raised a $21M Series A to accelerate our global expansion, deepen our enterprise functionality and keep leading the recruitment industry on AI.\n  >\n  > This funding round, led by Balderton, with Base10 Partners, Y Combinator, and Fortino Ventures, brings our total funding to $24.2M.\n  >\n  > 500+ agencies already run their desk on Spott today. Our revenue is up >10x since January, and our customers see up to 30% more placements.\n  >\n  > Our story is as much theirs as it is ours. We're excited to continue writing the next chapter together.\n  >\n  > Full story on our Series A in the comments. 👇\n\n- [2026-09-22 · Reshared · 2,480 reactions] [We raised a $21M Series A led by Balderton to build the global...](https://www.linkedin.com/posts/spottai_activity-7508066781266227201-igB9): We raised a $21M Series A led by Balderton to build the global AI-native operating system for recruitment agencies, bringing our valuation to $100M+. When Lander , Samuel and I started Spott two ye...\n\n- [2026-09-22 · 230 reactions, 20 comments] We've raised a $21M Series A to accelerate our global expansion, deepen our enterprise functionality and keep leading the recruitment industry on AI. This funding round, led by Balderton, with Base...\n\n- [2026-09-22 · 2,267 reactions, 369 comments] We raised a $21M Series A led by Balderton to build the global AI-native operating system for recruitment agencies, bringing our valuation to $100M+. When Lander, Samuel and I started Spott two yea...\n\n- [2026-09-22 · 553 reactions, 54 comments] We raised a $21M Series A led by Balderton to build the global AI-native operating system for recruitment agencies, bringing our valuation to $100M+. 18 months ago, our product had not even launche...\n\n- [2026-09-21 · Posted · 114 reactions] [Meet Ann, the latest addition to our Customer Success team. When an...](https://www.linkedin.com/posts/spottai_meet-ann-the-latest-addition-to-our-customer-activity-7507737830387908608-qUBB)\n  > Meet Ann, the latest addition to our Customer Success team.\n  >\n  > When an agency moves to Spott, the software is the easy part. Getting a whole team comfortable with a new way of working takes a person like Ann.\n  >\n  > She spent the past two years doing exactly that as a business transformation consultant, mostly for defence organisations. Sitting down with the people who'd use a tool, listening to what they needed, and making sure it got built that way.\n  >\n  > Those projects inspired her enough to become a military reservist herself. Something she's rightly proud of!\n  >\n  > Smile and wave if she turns up in your support chat. 👋\n  >\n  > Welcome to the team, Ann!\n\n- [2026-09-21 · 139 reactions, 12 comments] Meet Ann, the latest addition to our Customer Success team. When an agency moves to Spott, the software is the easy part. Getting a whole team comfortable with a new way of working takes a person l...\n\n- [2026-09-18 · Posted · 130 reactions] [Say hello to Max, joining our Customer Success team. The best...](https://www.linkedin.com/posts/spottai_say-hello-to-max-joining-our-customer-success-activity-7506685951587516416-UBUE)\n  > Say hello to Max, joining our Customer Success team.\n  >\n  > The best people in customer success spot a better way of working before the customer even asks. Max has spent years being that person.\n  >\n  > Three years as the go-to expert on a ticketing platform, then a product and sales role at a health-data company. Two different tools, the same job: making software work for the people who rely on it.\n  >\n  > He also once founded his own tonic and mocktail brand. So we're very much looking forward to our next afterwork. 🍹\n  >\n  > Welcome to the team, Max!\n\n- [2026-09-18 · Reshared · 175 reactions] [See you soon, Sydney! Turns out 40kg of luggage fits exactly 74...](https://www.linkedin.com/posts/spottai_activity-7506629309701373952-iaeP): See you soon, Sydney! Turns out 40kg of luggage fits exactly 74 Spott hoodies. Add a laptop and that's the essentials covered. 🧳 Good thing, because the first few weeks are booked with visits to so...\n\n## Locations\n- Headquarters: new york, new york, united states (US)\n- Offices: sydney, australia, new york, united states (US), san francisco, california, united states (US), leuven, flemish region, belgium",
+        "summary": "{\"description\":\"Spott is an all-in-one AI-native ATS/CRM for recruitment firms.\",\"employee_estimate\":46,\"employee_estimate_source\":\"Employees: 46\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"New York, New York, United States\",\"hq_quote\":\"Headquartered in New York, New York, United States, with presence in Belgium and Australia.\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Software Development\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 3,325,000 - Seed (2025-06-28): USD 3.2M - Seed (2025-01-01): USD 125,000\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQHMGsC1FReuCQ/company-logo_200_200/B4EZvg7yopKgAI-/0/1769005329397/spottai_logo?e=2147483647&v=beta&t=-P9a9GoGK8hf46HaGYX9eVXtqI_s6KSsM4ULHdbavmc",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/kb67mwy4536",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Spott",
+              "foundedYear": 2024,
+              "description": "Spott is an all-in-one AI-native ATS/CRM for recruitment firms.\n\nSpott redefines what a recruitment platform can do. It doesn't just store data, it actively works for you.\n\nThe result? More placements, faster.\n\nRequest your demo now at www.spott.io 📈",
+              "workforce": {
+                "total": 46
+              },
+              "headquarters": {
+                "address": "New York, US",
+                "city": "New York",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 3325000,
+                "fundingLatestRound": {
+                  "name": "Seed",
+                  "date": "2025-06-28",
+                  "amount": 3200000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 89093,
+                "countryRank": 4795,
+                "avgDurationSeconds": 853,
+                "history": [
+                  {
+                    "value": 30137,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 58462,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 55872,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 64678,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 66115,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 89093,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/64zbsqyrh0w",
+        "title": "Spott",
+        "url": "https://spott.ai/",
+        "text": "# Spott\n\nSpott is a Software Development company. Spott is a company that provides interactive content solutions for web content, including images, catalogues, videos, and ads. They offer customizable templates for branding purposes and multi-channel publishing. Spott employs 5 people, founded in 2015. Headquartered in Belgium, with offices in Aalst and Brussels. Its workforce is distributed across Belgium and Netherlands.\n\n## About\n\nAdd interactivity to your content with Spott. \n\nGet more value out of your published content by making it actionable and measurable in a multichannel environment.\n\nSpott is an interactive marketing & advertising platform with an overall score on Capterra of 4,6 out of 5.\n\nGet started with your free account on www.spott.ai.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Founded Year: 2015\n- Homepage: spott.ai\n- Aliases: Spott NV, spott\n- LinkedIn: linkedin.com/company/spott-ai\n- Linkedin Followers: 7,314\n- Emails: sales@spott.ai\n\n## Financials\n- Total Funding: EUR 4,890,000\n  - Grant (2020-08-31)\n  - Angel (2019-03-05)\n  - Grant (2018-09-01): EUR 2.2M\n  - Grant (2018-05-01): EUR 1.5M\n  - Unspecified (2017-01-01)\n\n## Acquisitions\n- Acquired by: Publitas.com (2023-03-14)\n\n## Workforce\n- Employees: 5\n- Company Size: 11-50 employees\n- Key Executives:\n  - Luc Burgelman: Chairman Of The Board of Directors\n- Breakdown:\n  - By Country: Belgium: 1 (20%), Netherlands: 1 (20%)\n  - By Department: General Management: 1 (20%), Operations: 1 (20%)\n  - By Seniority: Other Management: 1 (20%), Vp: 1 (20%)\n- Talent Sources: VRT (2), Sparkasse Bielefeld (2), 2imagine (2), WSI (1), Similarweb (1), Multiphone Latin America, Inc. (1), Luminus (1), ITS Group Benelux (1), Arc (1), Actito (1)\n- Alumni Go To: VS Talents (2), Publitas.com (2), KBC Bank & Verzekering (2), Ghent University (2), Codifly (2), Rombit (1), Northwestern University (1), Medici Living Group (1), Klea, a Quantios solution (1), Erudit (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: segment\n\n## Web presence\n\n- Twitter: twitter.com/spott\n- Facebook: facebook.com/spott.be\n- Crunchbase: crunchbase.com/organization/spott-3bf9\n- Web traffic:\n  - Monthly visits: 6,818\n  - Global rank: 2,911,774\n  - Bounce rate: 34.0%\n  - Pages per visit: 1.8\n  - Average visit duration: 33s\n\n## Categories\n\nads, adtech, advertising, ai, analytics, audio and video algorithms, brand marketing, catalogues, content marketing, conversion, digitalmarketing, ecommerce, engagement, facebook, fashion, google, image, images, impact, innovation, intentionmarketing, interactive content, interactive image, interactive video, interactiveimage, interactivemarketing, interactivevideo, lifestyle/fashion_and_apparel, madtech, marketing, martech, microsoft, publishing, roi, saas, shoppable image, shoppable video, video, video editing, videos\n\n## Recent News\n- [2026-10-08]\n  - Causeway Crowd: Boston Bruins News: Marco Sturm, Pavel Zacha, Steve Spott, Senators domination\n  - East Lothian Courier: Two overnight road closures confirmed for main route in and out of town\n- [2026-09-28]\n  - Tagesspiegel: Er wollte nur „ein Stück Heimat“ – und erntete Spott Amthor will Strandkorb selbst bezahlt haben und schickt ihn zurück\n  - Ventureburn: Snorkel AI Raises $350 Million To Build Data Factory for Frontier AI Labs\n  - AI Insider: Spott Announces $21M Series A to Bring Agentic AI to Recruitment Agencies\n  - Promiflash: Spott über ihr Aussehen: Apple Martin bereut Lippenfiller\n  - Marzahn-Hellersdorf LIVE -: Strandkorb auf dem Kanzleramtsbalkon: Szene mit Philipp Amthor sorgt für Spott im Netz\n- [2026-09-26]\n  - Notebookcheck: Nach wochenlangem Spott: Wolverines \"Furzwolken\" Effekt wird abgeschwächt\n  - InfotechLead: VC funding deals: Paymob, Ramona Optics, Circle Games, Spott\n  - Die Weltwoche: ZDF-Doku «Inside CDU» sorgt für Debatten und viel Spott. Im Zentrum: Staatsminister Philipp Amthor, der sich von Prunk umgeben präsentiert\n- [2026-09-25]\n  - TAG24: Philipp Amthor kassiert nach ZDF-Doku Spott und Häme: \"Dagegen wirkt Ludwig XIV. bodenständig\"\n  - Oberhessische Presse: Spott und Sorge: So lief der Abend mit Dieter Nuhr in Marburgs Pfarrkirche\n  - Audimax.de: Trump sorgt mit Outfit beim Empfang von Xi für Spott und Kritik\n- [2026-09-24]\n  - Ventureburn: Ema Raises $77 Million To Replace Enterprise Software With AI Agent Employees\n  - Audimax.de: Kritik am roten Teppich: US-Präsident Trump erntet Spott für Outfit beim Empfang von Xi\n  - Ventureburn: Moxing Raises $150 Million At $1.5B Valuation To Build Low-Cost 4D AI Infrastructure\n  - Pulse 2.0: Spott Raises $21 Million Series A Led By Balderton To Expand AI Recruitment Platform\n- [2026-09-23]\n  - AOL.ca: \"Trump TV\" wird zum Flop: \"Das ist peinlich\" - Spott über miese Zuschauerzahlen\n  - Analytics Insight: Alibaba’s New Chip to Boost Domestic AI in China\n- [2026-09-22]\n  - [La start-up Spott lève 21 millions de dollars avec la participation d'Y Combinator \\| L'Echo](https://www.lecho.be/entreprises/tech-science/21-millions-pour-une-start-up-belge-soutenue-par-le-y-combinator/10686909.html)\n  - The Next Web: [Spott raises $21M Series A led by Balderton for its AI platform for recruitment agencies](https://thenextweb.com/news/spott-raises-21m-series-a-balderton-recruitment)\n  - [Techmeme: Belgium-based AI recruitment platform Spott raised a $21M Series A led by Balderton, with Base10, YC, and Fortino participating, bringing total funding to $24M \\(Chris Metinko/Axios\\)](https://www.techmeme.com/260922/p4)\n  - [Spott Raises $21M Series A to Bring Agentic AI to Recruitment Agencies - WOWTALE](https://en.wowtale.net/2026/09/23/235206/)\n  - [Spott raises $21M Series A to build the global AI-native operating system for recruitment agencies \\| Onrec](https://www.onrec.com/news/product-company-news/spott-raises-21m-series-a-to-build-the-global-ai-native-operating-system)\n  - [Startup Funding News Today, September 22, 2026: Benford, CellPoint, HighLife, BCI-Sonics, Spott & More - Tech Startups](https://techstartups.com/2026/09/22/startup-funding-news-today-september-22-2026-benford-cellpoint-highlife-bci-sonics-spott-more/)\n  - [Spott Raises $21 Million to Build AI Recruitment Platform](https://ventureburn.com/spott-raises-21-million-ai-recruitment-platform/)\n  - [Spott привлекает $21 млн в раунде серии A под руководством Balderton для своей ИИ-платформы для кадровых агентств - PCNEWS.RU](https://pcnews.ru/news/spott_privlekaet_21_mln_v_raunde_serii_a_pod_rukovodstvom_balderton_dla_svoej_ii_platformy_dla_kadrovyh_agentstv-1839924.html)\n  - [Spott series raises $21M in Balderton-led AI funding](https://technosports.co.in/spott-series-funding/)\n- [2026-09-21] [Exclusive: Recruitment platform Spott nabs $21 million](https://www.axios.com/pro/enterprise-software-deals/2026/09/21/recruitment-platform-spott-balderton)\n\n## Social\n\n### Linkedin\n\n- [2023-03-24 · 29 reactions] Exciting news! Spott has been acquired by Publitas.com. We’re thrilled to be joining forces with such a great company and can’t wait to see what we can achieve together. We’d like to thank all of o...\n\n- [2023-02-21 · 12 reactions] For a third consecutive year, Spott has been shortlisted by Capterra as one of the best #videomarketing and #contentmarketing #software platforms in the market 🔥 🚀 . Boost your lead generation, and...\n\n- [2023-01-26 · 7 reactions] GREAT NEWS, part II. next to Outbrain, you can now make all of your native ads interactive and publish them via Taboola 🥳 Who wants to double his CTRs on his #valentinesday campaign? 🤩 We are givin...\n\n- [2023-01-20 · 10 reactions] GREAT NEWS. You are now able to get much more ROI on your native ads: you can make all of your native ads interactive and push them through via the Outbrain network. Who wants to double his CTRs 😄🥳...\n\n- [2023-01-19 · 41 reactions] If you are not making all of your web content interactive, you are missing out...up to 20% of your online sales revenues 👇 💰 Producing interactive content allows users to instantly convert when ins...\n\n- [2023-01-05 · 9 reactions] First valuable tip of the year Do not forget to leverage the produced events on interactive content on your website for your retargeting ads on social. You'll achieve a much higher ROI on every cam...\n\n- [2022-12-19 · 15 reactions, 1 comment] DPG Media België and Spott have been long-term partners in bringing advertising innovation to the market, so we are super excited to bring you this client case. 👉 https://lnkd.in/gpmtUfXY DPG media...\n\n- [2022-12-14 · 8 reactions] The challenge of a well-constructed and qualitative digital marketing plan is to continuously find ways to further reduce the number of online touches (about 11 on average according to Google) you...\n\n## Locations\n- Headquarters: aalst, brussels region, belgium\n- Offices: aalst, oost-vlaanderen, belgium, brussels, belgium, aalst, flanders, belgium, aalst, brussels region, belgium",
+        "summary": "{\"description\":\"Spott is a Software Development company that provides interactive content solutions for web content, including images, catalogues, videos, and ads. They offer customizable templates for branding purposes and multi-channel publishing.\",\"employee_estimate\":5,\"employee_estimate_source\":\"Employees: 5\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Key Executives: Luc Burgelman: Chairman Of The Board of Directors\",\"hq\":\"aalst, brussels region, belgium\",\"hq_quote\":\"Headquarters: aalst, brussels region, belgium\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Software Development\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: EUR 4,890,000\\n  - Grant (2020-08-31)\\n  - Angel (2019-03-05)\\n  - Grant (2018-09-01): EUR 2.2M\\n  - Grant (2018-05-01): EUR 1.5M\\n  - Unspecified (2017-01-01)\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQGMFSSPz8wpFA/company-logo_200_200/company-logo_200_200/0/1665046558255/spott_ai_logo?e=2147483647&v=beta&t=6ifLvralHmt2ke04EwD1JUqbHXaHu-1ptt9rTJUljzA",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/64zbsqyrh0w",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Spott",
+              "foundedYear": 2015,
+              "description": "Add interactivity to your content with Spott. \n\nGet more value out of your published content by making it actionable and measurable in a multichannel environment.\n\nSpott is an interactive marketing & advertising platform with an overall score on Capterra of 4,6 out of 5.\n\nGet started with your free account on www.spott.ai. ",
+              "workforce": {
+                "total": 5
+              },
+              "headquarters": {
+                "address": "Ninovesteenweg 198 bus 41, 9320 Aalst, Aalst, Brussels Region 9300, BE",
+                "city": null,
+                "postalCode": null,
+                "country": "Belgium"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": null,
+                "fundingLatestRound": {
+                  "name": "Grant",
+                  "date": "2020-08-31",
+                  "amount": null
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 6818,
+                "countryRank": 1307750,
+                "avgDurationSeconds": 33,
+                "history": [
+                  {
+                    "value": 5418,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 4286,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 7122,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 7439,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 7054,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 6818,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 7703,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

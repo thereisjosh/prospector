@@ -1,0 +1,262 @@
+{
+  "request": {
+    "query": "Andera",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "748f261a8e5796827a63b701cabf207d",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/9y1cgfkzb5f",
+        "title": "Andera Partners",
+        "url": "https://www.anderapartners.com/fr/",
+        "text": "# Andera Partners\n\nAndera Partners is a Financial Services company. Andera Partners is a leading private equity player that helps companies and their management achieve strong and sustainable growth. They have been in operation for over 20 years and are committed to innovation, growth, and adapting to a rapidly changing environment. Andera Partners employs 157 people (+7.5% YoY, +11 people) and has an annual revenue of EUR77.7M. Headquartered in Paris, Île-de-France, France. Its workforce is distributed across 9 countries (including France, Italy, Spain, Belgium, and Canada).\n\n## About\n\nCreated over 20 years ago, Andera Partners is a major player in private company investments in France and internationally. Its teams manage nearly €6 billion in investments in life sciences (Andera Life Sciences), growth and buyout capital (Andera MidCap, Andera Expansion/Croissance, Andera Co-Invest), sponsorless transactions (Andera Acto) and ecological transition (Andera Infra).\n\nAndera Partners’ mission is to work alongside companies and their managers to support them in achieving strong and sustainable growth. The quality of performance offered to our investors relies on a strong partnership between the entrepreneurs in our portfolio companies and our teams, based on shared values. Performance through collective engagement, the “Power of And”, constitutes Andera Partners’ DNA.\n\nBased in Paris, with offices in Antwerp, Madrid, Milan and Munich, Andera Partners counts nearly 120 professionals, of which 72 investment professionals. It is structured as a partnership and managed by a board of 13 partners.\n\n## Company Details\n- Industry: Financial Services\n- Type: Partnership\n- Headquarters: Paris, France\n- Homepage: anderapartners.com\n- Aliases: andera partners\n- LinkedIn: linkedin.com/company/anderapartners\n- Linkedin Followers: 36,232\n- Emails: contact@bper.ch\n- Phone:  58 818 91 , 33-1-85-73-64-\n\n## Financials\n- Annual Revenue: EUR 77,682,928\n\n## Acquisitions\n- Acquired Ayming (2025-02-05)\n- Acquired Tecnikabel (2024-07-26)\n- Acquired Mistertemp (2024-01-18)\n- Acquired Kepler Consulting (2023-09-12)\n- Acquired Kepler (2023-09-12)\n\n## Workforce\n- Employees: 157\n- Company Size: 51-200 employees\n  - Monthly Growth: -1.3%\n  - Yearly Growth: +7.5%\n- Key Executives:\n  - Alexander Cuniasse: Advising Partner Andera Co-Invest\n  - Andrei Buzdugan: CFO\n  - Anne-Claire PICCHIOTTINO: Directrice de participations\n  - Antoine Guérillon: Investment Director\n  - Antoine Le Bourgeois: Partner\n  - Antoine Soucaze: Director\n  - Arnaud Faure: Partner Andera Acto\n  - Aurelie Owona: Directrice\n  - Bruno Bonnin: Partner\n  - Carlo Cartapani: Investment Director\n- Breakdown:\n  - By Country: France: 107 (68%), Italy: 3 (2%), Spain: 2 (1%), Belgium: 1 (1%), Canada: 1 (1%), Germany: 1 (1%), Monaco: 1 (1%), United Kingdom: 1 (1%), United States: 1 (1%)\n  - By Department: Finance: 63 (40%), General Management: 23 (15%), Other Department: 12 (8%), Consulting: 7 (4%), Hr: 4 (3%), Legal: 3 (2%), Sales: 3 (2%), Administrative: 1 (1%), Marketing: 1 (1%), Operations: 1 (1%) (+1 more)\n  - By Seniority: Specialist: 29 (18%), Director: 25 (16%), Other Management: 15 (10%), Partner: 15 (10%), Senior: 14 (9%), Manager: 12 (8%), Intern: 8 (5%), Clevel: 2 (1%)\n- Talent Sources: EdRIP (10), Ardian (8), Tikehau Capital (4), Edmond de Rothschild (4), Bpifrance (4), Rothschild & Co (3), Omnes (3), Messier & Associés (3), EY (3), Deloitte (3)\n- Alumni Go To: Ardian (5), KPMG France (3), Sagard (2), SORGEM Evaluation (2), PwC (2), Proparco (2), OLMA Capital Management (2), Eurazeo (2), BNP Paribas CIB (2), BNP Paribas (2)\n\n## Products & Technology\n- Tech Stack: comit, efront, investis, microsoft, microsoft 365, prototype, cegid, c, revue, cision, linkedin, twitter, upslide, ivanti, instagram, mailchimp, wordpress\n\n## Web presence\n\n- Twitter: twitter.com/anderapartners\n- Instagram: instagram.com/anderapartners\n- YouTube: youtube.com/@anderapartners792\n- Crunchbase: crunchbase.com/organization/edmond-de-rothschild-investment-partners\n- Web traffic:\n  - Monthly visits: 11,649\n  - Global rank: 1,928,748\n  - Bounce rate: 39.0%\n  - Pages per visit: 1.8\n  - Average visit duration: 9s\n\n## Categories\n\nbanking, finance/investing, financial services, growth, innovation, investment, investment-management, partnership, private equity, private equity capital investissement, private-equity, sustainable growth\n\n## Competitors\n\nvertis sgr, the carlyle group, point72, j.p. morgan investment management, insight partners, cvc capital partners, bain capital, advent international\n\n## Recent News\n- [2026-09-24]\n  - [Sotralu s'ouvre au renouveau avec un fonds smid \\| CFNEWS](https://www.cfnews.net/L-actualite/LBO/Operations/LBO-Quaternaire/Sotralu-s-ouvre-au-renouveau-avec-un-fonds-smid-735735)\n  - [Andera rachète Sotralu à Bridgepoint - Capital Finance](https://capitalfinance.lesechos.fr/deals/lbo/andera-rachete-sotralu-a-bridgepoint-2253357)\n  - [Nominations : Eramet, SEB, U-Space, Crédit Agricole Ukraine, MUFG, Andera Partners - Le Moci](https://www.lemoci.com/nominations-eramet-seb-u-space-credit-agricole-ukraine-mufg-andera-partners/)\n- [2026-09-23]\n  - [Basecamp's $140m, Bessemer's mega fund, and MoonPay looks North](https://www.axios.com/pro/merger-deals/2026/09/23/pro-rata-premium-first-look)\n  - [HighLife secures $90m+ in funding](https://www.bioxconomy.com/investment/highlife-banks-over-90m-to-launch-us-study-and-advance-european-commercial-growth)\n- [2026-09-22]\n  - [Le fonds français Andera Partners fait son entrée dans Sabena Engineering pour l'aider à se déployer à l'international \\| L'Echo](https://www.lecho.be/entreprises/defense-aeronautique/le-fonds-francais-andera-partners-fait-son-entree-dans-sabena-engineering-pour-l-aider-a-se-deployer-a-l-international/10686645.html)\n  - [Ellisphere enquête dans le sud \\| CFNEWS](https://www.cfnews.net/L-actualite/Build-up/Ellisphere-enquete-dans-le-sud-735261)\n  - [French Tech : HighLife, la start-up qui veut réparer les coeurs, lève 80 millions d'euros - Les Echos](https://www.lesechos.fr/start-up/deals/french-tech-highlife-la-start-up-qui-veut-reparer-les-coeurs-leve-80-millions-deuros-2252797)\n  - [HighLife draine de nouveaux capitaux \\| CFNEWS](https://www.cfnews.net/L-actualite/Capital-innovation/Operations/5eme-tour/HighLife-draine-de-nouveaux-capitaux-735042)\n  - [Italy’s angels & incubators and venture capital weekly roundup. News from Medical Microinstruments, newcleo, NewHold Investment Corp, Tundr, CDP, 360 Capital, and more – BeBeez International](https://bebeez.eu/2026/09/22/italys-angels-incubators-and-venture-capital-weekly-roundup-news-from-medical-microinstruments-newcleo-newhold-investment-corp-tundr-cdp-360-capital-and-more/)\n  - [HighLife Medical Raises More Than $90 Million To Advance U.S. Clinical Study And European Expansion](https://pulse2.com/highlife-medical-raises-more-than-90-million-to-advance-u-s-clinical-study-and-european-expansion/)\n  - [HighLife lève plus de 90 millions de dollars pour lancer son étude pivot aux États-Unis et accélérer son développement commercial en Europe](https://www.24matins.fr/pr/highlife-leve-plus-de-90-millions-de-dollars-pour-lancer-son-etude-pivot-aux-etats-unis-et-accelerer-son-developpement-commercial-en-europe)\n  - [FinancialContent - HighLife Raises $90+ Million to start its US Pivotal Study and accelerate Commercial Expansion in Europe](https://markets.financialcontent.com/stocks/article/gnwcq-2026-9-22-highlife-raises-90-million-to-start-its-us-pivotal-study-and-accelerate-commercial-expansion-in-europe)\n  - [HighLife Raises $90 Million for Study and Europe Expansion](https://ventureburn.com/highlife-raises-90-million-us-study-europe-expansion/)\n- [2026-09-21]\n  - [Spartes s'implante en Espagne \\| CFNEWS](https://www.cfnews.net/L-actualite/International/Operations/Build-up-International/Spartes-s-implante-en-Espagne-734925)\n  - [Alberto  Vigo - L'Agefi](https://www.agefi.fr/nominations/alberto-vigo-58706)\n  - [Telex Poltrone – Le nomine del 21 settembre - Spot and Web](https://www.spotandweb.it/news/921401/telex-poltrone-le-nomine-del-21-settembre.html)\n- [2026-09-17] [Andera Partners to open second office in Germany \\| PE Hub](https://www.pehub.com/andera-partners-to-open-second-office-in-germany/)\n- [2026-09-10] [Renaud Distribution et Horticash se regroupent au sein de RdH Groupe - Le Journal des Entreprises](https://www.lejournaldesentreprises.com/article/renaud-distribution-et-horticash-se-regroupent-au-sein-de-rdh-groupe-2147467)\n- [2025-03-03] PE Hub: Boston Scientific agrees to buy SoniVie from Andera Partners\n- [2025-02-21]\n  - Real Deals: Andera Partners and BPI France co-lead a €27m Series B funding round in French biotech\n  - Pharma Letter: EG 427 raises 27 million euros in Series B financing\n- [2024-12-12] Coverager - Insurance news and insights: New York Life Investments to acquire minority interest in Andera Partners\n- [2024-12-02] PE Hub: Andera Partners’ Gonzalo Boada: Cross-border build-ups are our ‘bread and butter’\n- [2024-11-13] capital-riesgo.es: Andera Partners continues its international expansion and announces the opening of a Madrid office\n\n## Social\n\n### Linkedin\n\n- [2026-10-13 · Posted · 86 reactions] [📢 𝗣𝗠 𝗦𝘁𝘂𝗱𝗶𝗼 𝗚𝗿𝗼𝘂𝗽 poursuit son développement avec l’acquisition de...](https://www.linkedin.com/posts/anderapartners_anderaexpansion-packaging-beauty-activity-7515682750348050435-8pYF)\n  > 📢 𝗣𝗠 𝗦𝘁𝘂𝗱𝗶𝗼 𝗚𝗿𝗼𝘂𝗽 poursuit son développement avec l’acquisition de TNT GROUP, spécialiste des solutions de packaging premium pour les secteurs de la beauté et des vins & spiritueux.\n  >\n  > Cette opération donne naissance à un nouvel ensemble international représentant environ 130 M€ de chiffre d’affaires combiné et près de 150 collaborateurs dans le monde.\n  >\n  > Accompagné par Andera Partners via son activité 𝗔𝗻𝗱𝗲𝗿𝗮 𝗘𝘅𝗽𝗮𝗻𝘀𝗶𝗼𝗻 depuis octobre 2024, PM Studio Group s’appuiera sur la complémentarité des expertises, des savoir-faire et des implantations de TNT Group pour élargir son offre, renforcer sa présence internationale et poursuivre sa stratégie de croissance organique et externe.\n  >\n  > Nous sommes heureux d’accompagner Patricia Stranik, Sven Döbert et les équipes de PM Studio Group dans cette nouvelle étape, qui ouvre de nouvelles perspectives pour le développement du Groupe sur les marchés de la beauté, du luxe et des vins & spiritueux.\n  >\n  > #AnderaExpansion #Packaging #Beauty #Luxury #GrowthStrategy\n  > cc Léopold Brichard, Nicolas Debonneuil, Augustin Bayvet, PM STUDIO | Packaging & Gift\n\n- [2026-10-06 · Posted · 64 reactions] [🤝 Last week in Barcelona, Andera Partners' Raphael WISNIEWSKI took...](https://www.linkedin.com/posts/anderapartners_medtech-venturecapital-innovation-activity-7513144306656862208-HMHa)\n  > 🤝 Last week in Barcelona, Andera Partners' Raphael WISNIEWSKI took the stage alongside Raymond W. Cohen, Andera Venture Advisor and long-time partner, with Henry Peck (LSI) moderating.\n  >\n  > The track record speaks for itself. Ray was CEO of 𝗩𝗲𝘀𝘀𝗶𝘅 𝗩𝗮𝘀𝗰𝘂𝗹𝗮𝗿, then CEO of Axonics, Inc., then Chair of SoniVie Ltd. Raphaël led investment rounds into each of them. All three were acquired by Boston Scientific.\n  >\n  > So Henry asked the obvious question: why did Ray and Raphaël choose to work together again, and again, and again? And what are the critical ingredients of a collaboration that compounds over three companies and more than a decade?\n  >\n  > The audience heard, first hand, a testimony on long-term relationships, deep trust, effective execution that builds that trust, and finally creating and maintaining alignment across the board.\n  >\n  > Thank you to Henry and the whole LSI team for hosting the conversation.\n  >\n  > #medtech #venturecapital #innovation #LSIEurope26\n\n- [2026-10-05 · Posted · 65 reactions] [🔎 Last week, Andera Partners' Olivier Litzka moderated an inspiring...](https://www.linkedin.com/posts/anderapartners_lsieurope26-innovation-medtech-activity-7512821636119707648-dKn7)\n  > 🔎 Last week, Andera Partners' Olivier Litzka moderated an inspiring session on innovation in minimally invasive cardiac valves at #LSIEurope26 in Barcelona.\n  >\n  > Our thanks to the panellists for such an open and substantive discussion: Eric Schantz, Medtronic, Stefan Pilz, HighLife Medical, Prof. Pawel Buszman, American Heart of Poland /\n  > InFlow TAVI (Innovations for Heart and Vessels Sp. z o.o.), Ahmed Elmouelhi, TRiCares GmbH.\n  >\n  > Many thanks as well as to Henry Peck and Scott Pantel and the whole LSI team for putting together an outstanding event in Barcelona.\n  >\n  > So what were the conclusions from our discussion?\n  > 1- 𝗔𝗼𝗿𝘁𝗶𝗰 𝗶𝘀 𝗺𝗮𝘁𝘂𝗿𝗶𝗻𝗴, 𝗯𝘂𝘁 𝗳𝗮𝗿 𝗳𝗿𝗼𝗺 \"𝗱𝗼𝗻𝗲\". As TAVI moves to patients in their 60s and 70s, durability and lifetime management of the valve become the defining questions\n  > 2- 𝗠𝗶𝘁𝗿𝗮𝗹 𝗵𝗮𝘀 𝗹𝗲𝗮𝗿𝗻𝗲𝗱 𝗶𝘁𝘀 𝗹𝗲𝘀𝘀𝗼𝗻𝘀 𝘁𝗵𝗲 𝗵𝗮𝗿𝗱 𝘄𝗮𝘆. The field had to accept that the mitral valve is a fundamentally different problem: geometry, no \"tube\" to anchor against, LVOT, chordae. TEER took the market first; the real debate now is which patients, and on what clinical evidence, are better served by replacement. The devices that fit are now arriving on the market.\n  > 3- 𝗧𝗿𝗶𝗰𝘂𝘀𝗽𝗶𝗱 𝘀𝗵𝗼𝘄𝘀 𝘀𝘁𝗿𝗶𝗸𝗶𝗻𝗴 𝗲𝗳𝗳𝗶𝗰𝗮𝗰𝘆. Dedicated TTVR devices deliver impressive TR reduction and reverse remodelling, benefits so far largely in quality of life and symptoms, but initial mortality reduction arriving soon. Treating earlier, while the right ventricle is still recoverable, and bringing pacemaker rates down are two important levers.\n  > 4- 𝗧𝗵𝗲 𝗳𝗿𝗼𝗻𝘁𝗶𝗲𝗿 𝗯𝗲𝘁𝘄𝗲𝗲𝗻 𝘀𝘂𝗿𝗴𝗲𝗿𝘆 𝗮𝗻𝗱 𝗰𝗮𝘁𝗵𝗲𝘁𝗲𝗿 𝗸𝗲𝗲𝗽𝘀 𝗺𝗼𝘃𝗶𝗻𝗴. Across all three valves, the five-year view of the panel was unanimous: minimally invasive will become the default for a growing group of patients.\n  >\n  > #innovation #medtech #structuralheart #TAVI #TMVR #TTVR #LSIEurope26 #cardiovascular #venturecapital\n\n- [2026-09-29 · Posted · 60 reactions] [𝐀𝐧𝐝𝐞𝐫𝐚 𝐋𝐢𝐟𝐞 𝐒𝐜𝐢𝐞𝐧𝐜𝐞𝐬 team will be attending #LSIEurope26 conference...](https://www.linkedin.com/posts/anderapartners_lsieurope26-lsieurope26-medtech-activity-7510600626821668864-08iA)\n  > 𝐀𝐧𝐝𝐞𝐫𝐚 𝐋𝐢𝐟𝐞 𝐒𝐜𝐢𝐞𝐧𝐜𝐞𝐬 team will be attending #LSIEurope26 conference in Barcelona this week.\n  >\n  > We look forward to seeing the MedTech community at this fantastic event!\n  >\n  > #LSIEurope26 #MedTech #LifeSciences #AnderaLifeSciences\n  > cc LSI, LSI Europe, Raphael WISNIEWSKI, Olivier Litzka, Aneta Sottil, Mathieu Pieronne\n\n- [2026-09-24 · Posted · 49 reactions] [🤝 ELLISPHERE poursuit son développement avec l’acquisition du...](https://www.linkedin.com/posts/anderapartners_growthstrategy-externalgrowth-businessinformation-activity-7508824025687699456-1fBV)\n  > 🤝 ELLISPHERE poursuit son développement avec l’acquisition du Groupe Intersud (INTERSUD SERVICES et GCI).\n  >\n  > Acteur historique basé à Aubagne et Lyon, le Groupe Intersud est spécialisé dans l'enquête financière à haute valeur ajoutée et l'information décisionnelle pour les entreprises.\n  >\n  > Cette opération, soutenue par 𝗔𝗻𝗱𝗲𝗿𝗮 𝗔𝗰𝘁𝗼, Tikehau Capital et Bpifrance, s’inscrit dans la continuité de la feuille de route stratégique d'Ellisphere et permet au Groupe d'affirmer sa position de leader sur son marché tout en poursuivant sa dynamique de croissance externe.\n  >\n  > Nous sommes heureux d’accompagner Nicolas Da Costa, Marine Voyer et les équipes d’ELLISPHERE dans cette nouvelle étape structurante et de contribuer au développement du Groupe !\n  >\n  > Consulter le communiqué de presse : https://lnkd.in/eHkDv23a\n  >\n  > #GrowthStrategy #ExternalGrowth #BusinessInformation\n  > cc Stéphane BERGEZ, Laurent Fichter, Alban Ravinet\n\n- [2026-09-24 · Posted · 56 reactions] [🚀 Andera Partners, via son équipe 𝗔𝗻𝗱𝗲𝗿𝗮 𝗘𝘅𝗽𝗮𝗻𝘀𝗶𝗼𝗻, devient...](https://www.linkedin.com/posts/anderapartners_sotralu-andera-partners-activity-7508789890784993281-dEXX)\n  > 🚀 Andera Partners, via son équipe 𝗔𝗻𝗱𝗲𝗿𝗮 𝗘𝘅𝗽𝗮𝗻𝘀𝗶𝗼𝗻, devient l’actionnaire majoritaire du Groupe Sotralu aux côtés de son équipe de management.\n  >\n  > Fondé en 1978, SOTRALU a construit une plateforme européenne spécialisée dans les solutions haut de gamme pour les menuiseries aluminium.\n  >\n  > Cette nouvelle étape doit permettre au Groupe d’accélérer dans l’innovation et dans le lancement de nouveaux produits, d’investir dans son outil industriel et de déployer une feuille de route commerciale ambitieuse et de poursuivre sa politique de croissance externe.\n  >\n  > Nous sommes particulièrement fiers d’accompagner Sotralu dans cette nouvelle étape et de contribuer à l’accélération d’une plateforme industrielle européenne construite au fil des années !\n  >\n  > Pour en savoir plus :\n  > 🇫🇷 https://lnkd.in/gyhpBsfr\n  > 🇬🇧 https://lnkd.in/eWicQDzp\n  >\n  > #AnderaExpansion #MenuiserieAluminium #IndustrialGrowth #EuropeanExpansion #PrivateEquity\n  > cc David Robin, Nicolas Debonneuil, Jeanne Chabenat, Sotralu Group, Groupe Solatru\n\n- [2026-09-24 · 17 reactions, 1 comment] 🤝 ELLISPHERE poursuit son développement avec l’acquisition du Groupe Intersud (INTERSUD SERVICES et GCI). Acteur historique basé à Aubagne et Lyon, le Groupe Intersud est spécialisé dans l'enquête...\n\n- [2026-09-24 · 27 reactions] 🚀 Andera Partners, via son équipe 𝗔𝗻𝗱𝗲𝗿𝗮 𝗘𝘅𝗽𝗮𝗻𝘀𝗶𝗼𝗻, devient l’actionnaire majoritaire du Groupe Sotralu aux côtés de son équipe de management. Fondé en 1978, SOTRALU a construit une plateforme euro...\n\n- [2026-09-22 · Posted · 41 reactions] [HighLife completes a $90+ million financing round to support its...](https://www.linkedin.com/posts/anderapartners_medtech-structuralheart-tmvr-activity-7508117988974272513-q4Km)\n  > HighLife completes a $90+ million financing round to support its European commercial expansion and US clinical development.\n  >\n  > Andera Partners is proud to have co-led this financing round, which will support HighLife’s commercial expansion across Europe and advance its US pivotal clinical study for its Transcatheter Mitral Valve Replacement (TMVR) system.\n  >\n  > The financing follows significant regulatory successes for HighLife, including CE Mark approval for its TMVR system earlier this year and, in July, for its second-generation Clarity valve. Designed to address the risk of left ventricular outflow tract obstruction, the Clarity valve will help extend access to TMVR for additional patient populations.\n  >\n  > We are glad to support HighLife as it enters this next phase of development and works to bring new treatment options to patients suffering from mitral regurgitation who have limited therapeutic alternatives.\n  >\n  > Congratulations to Stefan Pilz and the entire HighLife team on this important milestone.\n  >\n  > Read the full press release: https://lnkd.in/evbsGk-P\n  >\n  > #MedTech #StructuralHeart #TMVR #MitralRegurgitation #MedicalInnovation #Cardiology\n  > cc Olivier Litzka, Mathieu Pieronne\n\n- [2026-09-22 · Posted · 86 reactions] [📢 Andera Partners, via son équipe 𝗔𝗻𝗱𝗲𝗿𝗮 𝗘𝘅𝗽𝗮𝗻𝘀𝗶𝗼𝗻, annonce une...](https://www.linkedin.com/posts/anderapartners_sabena-andera-partners-activity-7508070023488241664-ZBol)\n  > 📢 Andera Partners, via son équipe 𝗔𝗻𝗱𝗲𝗿𝗮 𝗘𝘅𝗽𝗮𝗻𝘀𝗶𝗼𝗻, annonce une prise de participation de référence au capital de Sabena Aerospace aux côtés de son dirigeant Stephane Burton dans le cadre de la poursuite du partenariat avec SFPIM, le fonds souverain belge.\n  >\n  > Issue de la branche technique de Sabena technics, Sabena Engineering est devenue, depuis son indépendance en 2014, un acteur international des services de maintenance aéronautique. Son positionnement sur les marchés civils et militaires bénéficie de dynamiques structurelles favorables, notamment l’augmentation des flottes, l’externalisation croissante de la maintenance et la hausse des dépenses ",
+        "summary": "{\"description\":\"Andera Partners is a leading private equity firm with over 20 years of operation, focused on innovation, growth, and adapting to a changing environment. It manages multiple investment strategies (life sciences, growth and buyout, sponsorless transactions, ecological transition) and is headquartered in Paris with a European and global footprint.\",\"employee_estimate\":157,\"employee_estimate_source\":\"Employees: 157\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Paris, France\",\"hq_quote\":\"Headquartered in Paris, Île-de-France, France.\",\"industry\":\"Financial Services\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Financial Services\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Created over 20 years ago, Andera Partners is a major player in private company investments in France and internationally.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQFbZw1rrSCEtw/company-logo_200_200/B4EZrE.DbUHUAI-/0/1764241193092/anderapartners_logo?e=2147483647&v=beta&t=b7cGV70fnAOqYD4emqQA7rdmCNYAttj4AqtwH5Uc5NI",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/9y1cgfkzb5f",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Andera Partners",
+              "foundedYear": null,
+              "description": "Created over 20 years ago, Andera Partners is a major player in private company investments in France and internationally. Its teams manage nearly €6 billion in investments in life sciences (Andera Life Sciences), growth and buyout capital (Andera MidCap, Andera Expansion/Croissance, Andera Co-Invest), sponsorless transactions (Andera Acto) and ecological transition (Andera Infra).\n\nAndera Partners’ mission is to work alongside companies and their managers to support them in achieving strong and sustainable growth. The quality of performance offered to our investors relies on a strong partnership between the entrepreneurs in our portfolio companies and our teams, based on shared values. Performance through collective engagement, the “Power of And”, constitutes Andera Partners’ DNA.\n\nBased in Paris, with offices in Antwerp, Madrid, Milan and Munich, Andera Partners counts nearly 120 professionals, of which 72 investment professionals. It is structured as a partnership and managed by a board of 13 partners. ",
+              "workforce": {
+                "total": 157
+              },
+              "headquarters": {
+                "address": "2, place Rio de Janeiro, Paris, Île-de-France 75008, FR",
+                "city": "Paris",
+                "postalCode": null,
+                "country": "France"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 11649,
+                "countryRank": 1426038,
+                "avgDurationSeconds": 9,
+                "history": [
+                  {
+                    "value": 14759,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 12231,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 10976,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 12284,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 10146,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 11649,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/v988458z5gn",
+        "title": "Andera",
+        "url": "https://andera.ai/",
+        "text": "# Andera\n\nAndera is a Accounting company. Andera is a company that provides AI-native grc and testing platform to automate controls testing. Andera employs 23 people (+475.0% YoY, +19 people), founded in 2024. Headquartered in San Francisco, California, United States. Its workforce is distributed across United States, Argentina, Brazil, and Canada.\n\n## About\n\nAndera is using AI to automate the manual burden of SOX testing for enterprises.\n\n## Company Details\n- Industry: Accounting\n- Type: Privately held\n- Headquarters: San Francisco, United States\n- Founded Year: 2024\n- Homepage: andera.ai\n- Aliases: andera\n- LinkedIn: linkedin.com/company/andera-ai\n- Linkedin Followers: 2,489\n- Emails: team@andera.ai\n\n## Financials\n- Total Funding: USD 37,000,000\n  - Series a (2026-06-01): USD 37.0M\n  - Seed (2026-01-01)\n\n## Workforce\n- Employees: 23\n- Company Size: 1-10 employees\n  - Monthly Growth: +4.5%\n  - Yearly Growth: +475.0%\n- Key Executives:\n  - Aryo Patel: Co-Founder\n  - Carina Marie Averilla: Founding Auditor\n  - Jared Lauber: Chief Growth Officer\n  - Kyle Eggers, CPA: Audit Operations Lead\n  - Tinah Hong: Co-Founder\n- Breakdown:\n  - By Country: United States: 18 (78%), Argentina: 1 (4%), Brazil: 1 (4%), Canada: 1 (4%)\n  - By Department: Consulting: 4 (17%), Other Department: 4 (17%), Technical: 4 (17%), Finance: 3 (13%), Operations: 2 (9%), General Management: 1 (4%), Marketing: 1 (4%), Product: 1 (4%), Project Management: 1 (4%)\n  - By Seniority: Other Management: 6 (26%), Specialist: 6 (26%), Manager: 4 (17%), Founder: 3 (13%), Clevel: 1 (4%), Head: 1 (4%)\n- Talent Sources: Deloitte (2), Ziina زينة (1), The D. E. Shaw Group (1), Simulation Labs (1), Scotiabank (1), Revolut (1), Poker (1), NVIDIA (1), Legion Health (1), Australian Institute for Machine Learning (AIML) (1)\n- Alumni Go To: NerdWallet (1), Meridian AI (1), Lyra (1), Lightspeed (1), DRW (1), Aaru (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: hubspot, quickbooks, quickbooks online, salesforce, vanta, well\n\n## Web presence\n\n- Crunchbase: crunchbase.com/organization/andera-4751\n- Web traffic:\n  - Monthly visits: 13,105\n  - Global rank: 1,750,539\n  - Bounce rate: 54.0%\n  - Pages per visit: 1.9\n  - Average visit duration: 23s\n\n## Categories\n\naccounting, ai, artificial intelligence (ai), audit, automation, compliance, controls testing, financial audit, fintech, grc, sarbanes oxley, sox, technology/software, testing platform\n\n## Recent News\n- [2026-09-10] Tupaki English: Beyond ChatGPT and Anthropic, What’s The New AI Giant?\n- [2026-09-06]\n  - FF News: Andera and RSM Launch First AI-Enabled Control Testing Platform to Modernize Internal Audit\n  - FF News: Freedom24 Explores Expansion into Geneva to Target Swiss Private Wealth and AI Infrastructure\n- [2026-08-28] Accounting Today: RSM launches AI-guided internal audit platform \"Beacon\" with Andera\n- [2026-08-27] CPA Practice Advisor: Andera and RSM US Partner to Create AI-Enabled Control Testing Platform for Internal Audit\n- [2026-07-20] [AI audit startup Andera raises $37 million Series A · Digg](https://digg.com/tech/mgsfrem1)\n- [2026-06-19] [Andera raises $37M to automate audit with AI](https://thenextweb.com/news/andera-37m-series-a-ai-internal-audit)\n- [2026-06-18]\n  - [Andera Raises $37 Million Series A To Automate Internal Audit](https://pulse2.com/andera-raises-37-million-series-a-to-automate-internal-audit/)\n  - [Andera Raises $37M Series A](https://www.thesaasnews.com/news/andera-raises-37m-series-a/)\n- [2025-10-27] BioWorld MedTech: Andera announces first close of Biodiscovery Fund 7 at €300M-plus\n- [2025-10-19] boerse.de: EQS-News: Andera Partners co-leads €105 million Series A round for Adcytherix, its first investment from the BioDiscovery 7 fund - boerse.de\n- [2025-10-08] Decorah News: Tour in Spillville to Showcase Efforts to Preserve Historic Andera Grave Crosses\n- [2025-08-26] South Dakota War College: Looks like State Rep. Bobbi Andera jumped ship from 2% Hansen campaign to 4% Doeden campaign\n- [2025-08-13] Tribute Archive: Charles Andera Obituary \\| 1953 - 2025 \\| Parma, OH\n- [2025-08-09] BizAsiaLive: Prime Video announces premiere of supernatural series ‘Andera’\n- [2025-03-31] PR Newswire: AlgosOne AI Rejects Acquisition Offers Up to $500M\n\n## Social\n\n### Linkedin\n\n- [2026-09-16 · 43 reactions] That’s a wrap on Gartner Enterprise Risk, Audit & Compliance Conference. Two packed days of conversations with audit, risk and compliance leaders - talking about where AI can actually make a differ...\n\n- [2026-09-14 · 359 reactions, 95 comments] Proud to announce Andera GRC, an AI native home for your controls. For the past two years, the team has been solely focused on partnering with clients to build agents that can test 100% of an envir...\n\n- [2026-09-14 · 60 reactions, 5 comments] Introducing Andera GRC: a new era of connected risk. For twenty years GRC has been a system of record. Incumbent interfaces are built for data entry, and AI bolted on top only makes the typing fast...\n\n- [2026-08-30 · 124 reactions, 2 comments] Top 10 Firm RSM, in cooperation with AI-powered audit and compliance technology Andera, announced a new AI-driven control testing platform for internal audit functions called RSM Beacon. Andera's A...\n\n- [2026-08-26 · 140 reactions, 9 comments] Today we're announcing a first-of-its-kind strategic alliance with RSM US LLP to deliver an AI-enabled control testing platform for internal audit. Every year audit is asked to do more, with more c...\n\n- [2026-08-18 · 170 reactions, 10 comments] The two most expensive words in startups: 'move fast.' Ignoring them is how we built a $250M company. Startup culture is obsessed with scaling fast and moving even faster. But \"moving fast\" is how...\n\n- [2026-08-11 · 91 reactions, 9 comments] We're bringing the future of auditing to the 2026 GRC Conference in San Diego next week! This year, Andera is a supporting sponsor of the IIA and ISACA GRC Conference, running August 17-19. Andera...\n\n- [2026-08-11 · 18 reactions] Proud of this one. I spent 30 years on the other side EY, Williams-Sonoma, McKesson, Eventbrite, Instacart before I ever worked here. I was the first customer to run this to 100% adoption, back whe...\n\n- [2026-07-20 · 302 reactions, 9 comments] We’re excited to lead Andera’s $37M Series A. For the average public company, audit fees cost around $3M annually. For Fortune 100 companies, they can spend north of $20M annually. Andera’s platfor...\n\n- [2026-07-20 · 441 reactions, 128 comments] We almost didn't start Andera at all. But today, we're thrilled to announce our $37M Series A led by Lightspeed to build the future of AI auditing. I met my cofounder Aryo Patel when we were 11, ex...\n\n- [2026-07-20 · 147 reactions, 16 comments] Today, we’re announcing Andera’s $37M Series A led by Lightspeed, with participation from Bain Capital Ventures (BCV), @A*, and Pear VC, to build the future of AI auditing. Andera builds agents tha...\n\n- [2026-07-20 · 1,103 reactions, 440 comments] Today, we’re announcing Andera's $37M series A led by Lightspeed with participation from Bain Capital Ventures (BCV), A*, and Pear VC to build the future of AI auditing. At Andera, we’re building a...\n\n- [2026-07-20 · 127 reactions, 24 comments] Today, I'm incredibly excited to share that Andera has raised a $37M Series A. 🎉 At Andera, we're building AI that automates control testing across SOX, operational, compliance, and other audit eng...\n\n- [2026-07-20 · 317 reactions, 60 comments] Today we’re announcing Andera's $37M Series A. Instead of looking ahead, I can't help but think back to my last year as an auditor, before any of this was possible. Testing meant drawing red boxes...\n\n- [2026-07-20 · 115 reactions, 39 comments] I've spent years in pursuit of my designs reaching the masses - and reaching them somewhere significant. Today, they did both. I'm honored to have helped Andera launch and to have designed the scre...\n\n- [2026-07-20 · 29 reactions, 4 comments] Aryo Patel and Tinah Hong recently visited my hometown in Arkansas (birthplace of the 'former' F1). We built legos, visited the Walton 5 & 10, and recounted Andera lore. In reflection, I saw two re...\n\n- [2026-07-18 · 63 reactions, 8 comments] Checkmate is on the board. Your partner's yelling for a knight. Andera is teaming up with Browserbase to throw SF's first Bughouse Tournament ♟️ Next Thursday, July 23rd, 6:30 PM Two boards, four p...\n\n- [2026-07-07 · 93 reactions, 5 comments] 8 of us from the Andera team flew to Singapore for our first exhibit booth at the IIA International Conference, and it was our first time as a silver sponsor. A month ago, we were still figuring ou...\n\n- [2026-06-26 · 87 reactions, 9 comments] The past 3 days at IIA Singapore has been a blur of meeting over 100 business leaders from pre-IPO hyper-growth startups to the largest conglomerates in the world. Across all companies, people were...\n\n- [2026-06-26 · 155 reactions, 15 comments] The Andera team took our first global stage at IIA International in Singapore this week and I came home more sure of what we’re building than when I left. I know this product inside out, every edge...\n\n## Locations\n- Headquarters: san francisco, california, united states (US)\n- Offices: san francisco, california, united states (US)",
+        "summary": "{\"description\":\"Andera is an AI-native GRC and testing platform to automate controls testing for enterprises, announced Series A funding and led by Lightspeed, Bain Capital Ventures, and others.\",\"employee_estimate\":23,\"employee_estimate_source\":\"Employees: 23\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Key Executives: Aryo Patel: Co-Founder; Carina Marie Averilla: Founding Auditor; Jared Lauber: Chief Growth Officer; Kyle Eggers, CPA: Audit Operations Lead; Tinah Hong: Co-Founder\",\"hq\":\"San Francisco, United States\",\"hq_quote\":\"Headquarters: San Francisco, United States\",\"industry\":\"Accounting\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Accounting\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 37,000,000 - Series a (2026-06-01): USD 37.0M - Seed (2026-01-01)\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQG29oRmz1Hxig/company-logo_200_200/B56Z_afM1JHcAE-/0/1786077040555/andera_ai_logo?e=2147483647&v=beta&t=zP89CA9baLrcFilnfCLTFWOEJFWFv7sbKY2pZa2rr-I",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/v988458z5gn",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Andera",
+              "foundedYear": 2024,
+              "description": "Andera is using AI to automate the manual burden of SOX testing for enterprises.",
+              "workforce": {
+                "total": 23
+              },
+              "headquarters": {
+                "address": "500 3rd St, San Francisco, California 94107, US",
+                "city": "San Francisco",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 37000000,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2026-06-01",
+                  "amount": 37000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 13105,
+                "countryRank": 468991,
+                "avgDurationSeconds": 23,
+                "history": [
+                  {
+                    "value": 8515,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 10939,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 5920,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 9113,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 25681,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 13105,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 8123.3,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

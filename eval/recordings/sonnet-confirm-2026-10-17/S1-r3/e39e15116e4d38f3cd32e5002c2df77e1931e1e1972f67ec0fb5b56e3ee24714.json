@@ -1,0 +1,204 @@
+{
+  "request": {
+    "query": "RJW Logistics Group",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "ce23bf609ff066a773416e450bc9c5ce",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/vvdjk3t1mt8",
+        "title": "RJW Logistics Group",
+        "url": "https://rjwgroup.com/",
+        "text": "# RJW Logistics Group\n\nRJW Logistics Group is a Transportation, Logistics, Supply Chain and Storage company. RJW Logistics Group delivers industry-leading retail logistics solutions that optimize supply chains, improve performance, and drive scalable business growth. RJW Logistics Group employs 1,111 people (+36.3% YoY, +296 people), founded in 1981. Headquartered in Romeoville, Illinois, United States, with an office in Woodridge. Its workforce is distributed across United States, Mexico, and Venezuela.\n\n## About\n\nRJW Logistics Group is a leading retail logistics and consolidation provider that out-performs the market by bringing your product to the retail shelf on-time, in-full, and at a lower overall cost. We serve over 100 national retailers, delivering our customers’ products 98%+ OTIF on average, and offering compliance solutions that ensure you don’t experience fines and fees. Our full suite of in-house customer solutions and proprietary technologies streamline the supply chain process and simplify your retail efforts, including value-added services, asset-based transportation and warehousing, 99%+ inventory accuracy, automated dispute resolution, online traceability, trade show services, and more.\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Privately held\n- Headquarters: Romeoville, United States\n- Founded Year: 1981\n- Homepage: rjwgroup.com\n- Aliases: rjw logistics group, rjw transport\n- LinkedIn: linkedin.com/company/rjw-logistics\n- Linkedin Followers: 14,263\n- Phone: +16304242400, 630-424-2400, 63042424\n\n## Financials\n  - Private equity (2024-12-01)\n  - Private equity (2019-03-01)\n\n## Workforce\n- Employees: 1,111\n- Company Size: 1001-5000 employees\n  - Monthly Growth: +1.6%\n  - Yearly Growth: +36.3%\n- Key Executives:\n  - Adam Johnson: Chief Commercial Officer (CCO)\n  - Alejandra Calderon, PHR: Human Resources Director\n  - Andrew Myers: Director of Commercial Strategy\n  - Anita Genovese: Director of Training And Development\n  - Anthony Caracci: Senior Director of Strategy\n  - Ashley Quattlander: Director of Marketing\n  - Brandon Fender: Director of Inventory Control\n  - Brett Kurtenbach, PMP: Director, Project Management\n  - Brian Groves: Vice President of Strategic Accounts\n  - Caren France: Vice President of Packaging Sales\n- Breakdown:\n  - By Country: United States: 539 (49%), Mexico: 8 (1%), Venezuela: 1\n  - By Department: Operations: 220 (20%), Sales: 63 (6%), Customer Service: 45 (4%), Technical: 38 (3%), Hr: 36 (3%), Project Management: 31 (3%), Administrative: 28 (3%), Finance: 28 (3%), Other Department: 25 (2%), General Management: 20 (2%) (+5 more)\n  - By Seniority: Manager: 271 (24%), Specialist: 143 (13%), Other Management: 61 (5%), Senior: 30 (3%), Director: 27 (2%), Vp: 20 (2%), Clevel: 6 (1%), Head: 5, Intern: 2\n- Active job postings: 223\n- Talent Sources: Amazon (12), CJ Logistics America (11), SPS Commerce (9), Uber Freight (7), Walmart (6), Radial Inc. (6), GlobalTranz (6), C.H. Robinson (6), XPO (5), MoLo Solutions (5)\n- Alumni Go To: Rapido Solutions Group (6), Echo Global Logistics (4), Ryder Supply Chain Solutions (3), NFI (3), Freight Management, Inc (FMI) (3), CJ Logistics America (3), Penske Logistics (2), National Product Expansion Services (2), GXO Logistics, Inc. (2), GEODIS (2)\n\n## Products & Technology\n- Tech Stack (showing 50 of 88): adp, adp payroll, alchemy systems, ansible, apriori, bash, blue prism, css, dart, databricks, dell, dell boomi, docker, edifact, git, iam, ibm sterling, jira, jira software, json, kubernetes, linux, mcleod software, microsoft, microsoft azure, microsoft dynamics, microsoft excel, microsoft office, microsoft outlook, microsoft power bi, microsoft sql server, microsoft teams, microsoft word, mulesoft, netsuite, onestream, oracle, owasp, packer, power bi, python, recognize, rpa, rstudio, sql, synapse, tableau, tanium, terraform, tracegains\n\n## Web presence\n\n- Facebook: facebook.com/rjwlogisticsgroup\n- YouTube: youtube.com/channel/ucx1l63vq2lewki_wbtmno8g\n- Web traffic:\n  - Monthly visits: 54,582\n  - Global rank: 529,236\n  - Bounce rate: 35.0%\n  - Pages per visit: 3.3\n  - Average visit duration: 101s\n\n## Categories\n\nbusiness_and_consumer_services/shipping_and_logistics, industry-leading, integrated logistics, logistics, otif, performance, retail consolidation, retail logistics, scalable business growth, supply chain, supply chains, transportation, walmart\n\n## Social\n\n### Linkedin\n\n- [2026-10-08 · Posted · 15 reactions] [Demand creates opportunity. A scalable supply chain turns it into...](https://www.linkedin.com/posts/rjw-logistics_is-your-logistics-partner-helping-you-grow-activity-7513952632705667072-Ymaz)\n  > Demand creates opportunity. A scalable supply chain turns it into growth.\n  >\n  > In our latest Supply Chain Intelligence Series article, we explore four ways the right 3PL partner can help CPG suppliers scale with confidence.\n  >\n  > Is your logistics partner helping you grow, or holding you back? Read the full article: https://lnkd.in/ecYM2jj6\n\n- [2026-10-07 · Posted · 83 reactions] [Today, we’re celebrating the anniversary of our Pennsylvania...](https://www.linkedin.com/posts/rjw-logistics_today-were-celebrating-the-anniversary-activity-7513629939707961344-2TIW)\n  > Today, we’re celebrating the anniversary of our Pennsylvania warehouse!\n  >\n  > For one year, the PA team has helped keep products moving, support our customers, and strengthen RJW’s retail logistics network. This milestone belongs to the dedicated associates whose commitment, teamwork, and attention to detail make it all possible.\n  >\n  > Thank you to everyone who has contributed to the success of this facility. Here’s to many more years of moving retail forward together!\n\n- [2026-10-06 · Posted · 26 reactions] [We’re proud to partner with customers who trust RJW to help keep...](https://www.linkedin.com/posts/rjw-logistics_testimonialtuesday-activity-7513252133811593218-t3eA)\n  > We’re proud to partner with customers who trust RJW to help keep their operations moving. Our team is committed to delivering dependable support, seamless collaboration, and service that makes a difference.\n  >\n  > Thank you to our customers for sharing your experiences and allowing us to be part of your journey!\n  >\n  > #TestimonialTuesday\n\n- [2026-10-05 · Posted · 20 reactions] [At RJW, great customer service shows up in the details—quick...](https://www.linkedin.com/posts/rjw-logistics_customerserviceweek2025-csweek2025-activity-7512903199696195585-_tLq)\n  > At RJW, great customer service shows up in the details—quick answers, thoughtful follow-through, and a willingness to step in when it matters most. This Customer Service Week, we're celebrating every Customer Account Manager who builds trust one customer interaction at a time. Thank you for bringing care, consistency, and partnership to the work you do every day!\n  >\n  > #CustomerServiceWeek2025 #CSWeek2025\n\n- [2026-10-02 · Posted · 45 reactions] [At RJW, growth is something we build together. We’re proud to...](https://www.linkedin.com/posts/rjw-logistics_at-rjw-growth-is-something-we-build-together-activity-7511816034325221376-Hb7D)\n  > At RJW, growth is something we build together. We’re proud to create opportunities for our associates to learn, take on new challenges, and make an impact across the supply chain.\n  >\n  > Every contribution helps move us forward—and we’re grateful for the people who bring their talent and ambition to RJW each day.\n\n- [2026-10-01 · Posted · 39 reactions] [At RJW, the future is built by the people who keep the business...](https://www.linkedin.com/posts/rjw-logistics_at-rjw-the-future-is-built-by-the-people-activity-7511415927326961664-alVv)\n  > At RJW, the future is built by the people who keep the business moving every day. MyShare—RJW’s employee ownership program—gives eligible full-time employees the opportunity to share in the company’s progress and benefit from the value they help create.\n  >\n  > It’s one more reason to build your career at RJW—and one more way the work you do can create value beyond today.\n\n- [2026-09-29 · Posted · 25 reactions] [When your business is moving fast, dependable support makes all the...](https://www.linkedin.com/posts/rjw-logistics_testimonialtuesday-activity-7510715361403564033-CviM)\n  > When your business is moving fast, dependable support makes all the difference. From quick responses to careful follow-through, our team is committed to making every interaction seamless and every order count.\n  >\n  > We’re grateful to our food manufacturing customer for recognizing the care our team brings to customer service every day.\n  >\n  > #TestimonialTuesday\n\n- [2026-09-28 · Posted · 11 reactions] [From the people who make and pack food to the teams who store...](https://www.linkedin.com/posts/rjw-logistics_from-the-people-who-make-and-pack-food-to-activity-7510370277571244035-VeA8)\n  > From the people who make and pack food to the teams who store, move, and deliver it, every step matters. This National Food Safety Education Month, we’re highlighting the care and consistency that help support safe food throughout the supply chain.\n  >\n  > Because behind every product that reaches the shelf is a team committed to doing things the right way.\n\n- [2026-09-24 · Posted · 76 reactions] [Safety starts with the conversations we share. We kicked off our...](https://www.linkedin.com/posts/rjw-logistics_safety-starts-with-the-conversations-we-share-activity-7508879222812184577-e81n)\n  > Safety starts with the conversations we share. We kicked off our first Safety Lunch at our new W19 location, bringing associates together to connect, refocus, and keep safety top of mind in everything we do. A great first gathering in our new space!\n\n- [2026-09-23 · Posted · 18 reactions] [Food safety depends on what happens throughout the supply chain—not...](https://www.linkedin.com/posts/rjw-logistics_food-safety-depends-on-what-happens-throughout-activity-7508556487749787648-oq1L)\n  > Food safety depends on what happens throughout the supply chain—not just at the point of production. At RJW, careful handling, reliable storage, and coordinated transportation help support the journey from warehouse to shelf.\n  >\n  > This National Food Safety Education Month, we’re recognizing the teams whose attention to detail keeps food logistics moving and helps our customers deliver with confidence.\n\n- [2026-09-22 · Posted · 21 reactions] [Great partnerships are built on more than getting the job...](https://www.linkedin.com/posts/rjw-logistics_testimonialtuesday-activity-7508178679571869698-cPCI)\n  > Great partnerships are built on more than getting the job done—they’re built on responsiveness, follow-through, and the flexibility to support what’s next.\n  >\n  > We’re proud to help our customers move forward with dependable service and solutions that contribute to their success. Thank you to our customer seasoning brand partner for the kind words.\n  >\n  > #TestimonialTuesday\n\n- [2026-09-22 · 13 reactions] Great partnerships are built on more than getting the job done—they’re built on responsiveness, follow-through, and the flexibility to support what’s next. We’re proud to help our customers move fo...\n\n- [2026-09-21 · Posted · 198 reactions] [We’re excited to celebrate the groundbreaking of W21, a new...](https://www.linkedin.com/posts/rjw-logistics_were-excited-to-celebrate-the-groundbreaking-activity-7507829847428304897-Qjzi)\n  > We’re excited to celebrate the groundbreaking of W21, a new facility spanning 1.2 million square feet in Montgomery, Illinois. Coming next spring, the facility will bring another 400 jobs to the community and marks an exciting step forward for RJW’s continued growth.\n\n- [2026-09-21 · 131 reactions, 2 comments] We’re excited to celebrate the groundbreaking of W21, a new facility spanning 1.2 million square feet in Montgomery, Illinois. Coming next spring, the facility will bring another 400 jobs to the co...\n\n- [2026-09-18 · Posted · 18 reactions] [As National Truck Driver Appreciation Week comes to a close, our...](https://www.linkedin.com/posts/rjw-logistics_ntdaw26-thankatrucker-truckdriverappreciation-activity-7506742605255331840-2tJ1)\n  > As National Truck Driver Appreciation Week comes to a close, our gratitude keeps going. To every RJW driver who navigates long roads, early mornings, late nights, and miles of responsibility, thank you. The work you do reaches far beyond the cab. It helps keep businesses stocked, communities supplied, and the country moving forward.\n  >\n  > We appreciate you this week and every week.\n  >\n  > #NTDAW26 #ThankATrucker #TruckDriverAppreciation\n\n- [2026-09-18 · 19 reactions] As National Truck Driver Appreciation Week comes to a close, our gratitude keeps going. To every RJW driver who navigates long roads, early mornings, late nights, and miles of responsibility, thank...\n\n- [2026-09-17 · Posted · 37 reactions] [Behind every successful delivery is a driver who shows up, stays...](https://www.linkedin.com/posts/rjw-logistics_thankatrucker-ntdaw26-truckdriverappreciation-activity-7506381833786540032-deGs)\n  > Behind every successful delivery is a driver who shows up, stays focused, and gets the job done. We’re proud to recognize the RJW truck drivers who help deliver safe, reliable service day after day. Your professionalism and hard work make a difference on every route.\n  >\n  > Thank you for being such an important part of the RJW team!\n  >\n  > #ThankATrucker #NTDAW26 #TruckDriverAppreciation\n\n- [2026-09-17 · 31 reactions] Behind every successful delivery is a driver who shows up, stays focused, and gets the job done. We’re proud to recognize the RJW truck drivers who help deliver safe, reliable service day after day...\n\n- [2026-09-16 · Posted · 14 reactions] [Food safety is built in the everyday details. Clear communication...](https://www.linkedin.com/posts/rjw-logistics_nfsem-safefood-nationalfoodsafetyeducationmonth-activity-7506011590090027008-EMWf)\n  > Food safety is built in the everyday details. Clear communication, careful checks, and consistent practices help protect products throughout the supply chain. During National Food Safety Education Month, we’re recognizing the people who stay focused on doing things the right way at every step. Together, we help deliver safe, quality products to the families and communities we serve!\n  >\n  > #NFSEM #SafeFood #NationalFoodSafetyEducationMonth #FoodSafety\n\n- [2026-09-16 · 14 reactions] Food safety is built in the everyday details. Clear communication, careful checks, and consistent practices help protect products throughout the supply chain. During National Food Safety Education...\n\n## Locations\n- Headquarters: romeoville, illinois, united states (US)\n- Offices: romeoville, illinois, united states (US), woodridge, illinois, united states (US)",
+        "summary": "{\"description\":\"RJW Logistics Group is a Transportation, Logistics, Supply Chain and Storage company delivering retail logistics solutions that optimize supply chains, improve performance, and drive scalable business growth.\",\"employee_estimate\":1111,\"employee_estimate_source\":\"Employees: 1,111\",\"hq\":\"Romeoville, Illinois, United States\",\"hq_quote\":\"Headquartered in Romeoville, Illinois, United States, with an office in Woodridge.\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"RJW Logistics Group delivers industry-leading retail logistics solutions that optimize supply chains, improve performance, and drive scalable business growth. ... industry-leading retail logistics solutions that optimize supply chains, improve performance, and drive scalable business growth.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C560BAQG3poLefDnO7g/company-logo_200_200/company-logo_200_200/0/1630667095073/rjw_logistics_logo?e=2147483647&v=beta&t=1xKJ3kcbXRElG8iHl2Ov0m816RzoYItjOe9izuYcldo",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/vvdjk3t1mt8",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "RJW Logistics Group",
+              "foundedYear": 1981,
+              "description": "RJW Logistics Group is a leading retail logistics and consolidation provider that out-performs the market by bringing your product to the retail shelf on-time, in-full, and at a lower overall cost. We serve over 100 national retailers, delivering our customers’ products 98%+ OTIF on average, and offering compliance solutions that ensure you don’t experience fines and fees. Our full suite of in-house customer solutions and proprietary technologies streamline the supply chain process and simplify your retail efforts, including value-added services, asset-based transportation and warehousing, 99%+ inventory accuracy, automated dispute resolution, online traceability, trade show services, and more.",
+              "workforce": {
+                "total": 1111
+              },
+              "headquarters": {
+                "address": "Romeoville, IL 60446, US",
+                "city": "Romeoville",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": null,
+                "fundingLatestRound": {
+                  "name": "Private equity",
+                  "date": "2024-12-01",
+                  "amount": null
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 54582,
+                "countryRank": 123121,
+                "avgDurationSeconds": 101,
+                "history": [
+                  {
+                    "value": 98486,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 71417,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 72025,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 79679,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 63860,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 54582,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/5nzrzn421fg",
+        "title": "Rjw Trucking Company Inc",
+        "url": "https://linkedin.com/company/rjw-trucking-company-inc",
+        "text": "# Rjw Trucking Company Inc\n\nRjw Trucking Company Inc is a Transportation/Trucking/Railroad company. RJW Logistics Group delivers industry-leading retail logistics solutions that optimize supply chains, improve performance, and drive scalable business growth. Rjw Trucking Company Inc employs 3 people (+50.0% YoY, +1 person) and has an annual revenue of $7.5M. Headquartered in Chapel Hill, North Carolina, United States, with offices in Woodridge and Lemont.\n\n## About\n\nRJW is a full service freight company providing 3rd-party Logistics, Nationwide Truckload, LTL, Rail, Warehousing, Protect From Freeze service, and Flatbed Transportation Services. Located in the Chicago area, RJW offers service throughout the continental United States, with next-day service throughout the Midwest.\n\n## Company Details\n- Industry: Transportation/Trucking/Railroad\n- Type: Privately held\n- Headquarters: Chapel Hill, United States\n- Aliases: RJW Logistics Group Inc., rjw, rjw logistics group, rjw transport, rjw trucking company inc\n- LinkedIn: linkedin.com/company/rjw-trucking-company-inc\n- Linkedin Followers: 8\n- Emails: ajohnson@rjwgroup.com\n- Phone: +16304242400, 1 630-424-2400, 630-424-2400, 63042424\n\n## Financials\n- Annual Revenue: USD 7,500,000\n  - Private equity (2024-12-03)\n\n## Acquisitions\n- Acquired by: Mason Wells (2019-03-18)\n\n## Workforce\n- Employees: 3\n- Company Size: 1-10 employees\n  - Yearly Growth: +50.0%\n- Salary ranges (20 of 24 roles):\n  - Senior Software Engineer: median $134,497.55 per year\n  - Operations Supervisor: median $76,360.06 per year\n  - Supervisor: median $74,783.27 per year\n  - Account Executive: median $74,243.58 per year\n  - Inventory Control Supervisor: median $73,485.33 per year\n  - Warehouse Manager: median $71,514.28 per year\n  - Warehouse Supervisor: median $64,622.02 per year\n  - Assistant Warehouse Manager: median $61,582.3 per year\n  - Carrier Sales Representative: median $58,087.71 per year\n  - Dispatcher: median $53,921.14 per year\n  - Mail Carrier: median $49,553.12 per year\n  - Administrative Assistant: median $46,619.29 per year\n  - Customer Service: median $46,522.64 per year\n  - Administration Clerk: median $46,072.88 per year\n  - Inventory Control Clerk: median $45,386.87 per year\n  - Material Handler: median $44,732.32 per year\n  - Customer Service Specialist: median $44,360.07 per year\n  - Forklift Operator: median $44,054.57 per year\n  - Shipping And Receiving Clerk: median $43,849.88 per year\n  - Janitor: median $43,460.21 per year\n\n## Web presence\n\n- Facebook: facebook.com/rjwtransport\n- Crunchbase: crunchbase.com/organization/rjw-transport\n\n## Reviews & Ratings\n- Employer Rating: 2.9/5.0 (69 reviews)\n  - Breakdown: Work-Life: 2.5, Compensation: 2.5, Culture: 2.5, Career: 2.8\n\n## Categories\n\nautomotive-transportation, freight, industry-leading, logistics, performance, retail, retail logistics, scalable business growth, storage-tanks, supply chains, supply-chain, transportation\n\n## Competitors\n\nbluegrace, kenco, magna transportation group, mir mir transport, casestack, ccs trucking, cycle logistics inc, xpo, freightquote, c.h. robinson, trinity logistics, yusen logistics benelux, heniff transportation systems, esperia, cbn\n\n## Recent News\n- [2024-06-05] Dallas Innovates: Illinois’ RJW Logistics Group Opens Its Second Large Warehouse Facility in Mesquite\n- [2024-02-07] RJW LOGISTICS GROUP ACHIEVES A DECADE OF INDUSTRY-LEADING 98%+ ON-TIME AND IN-FULL ...\n\n## Locations\n- Headquarters: chapel hill, north carolina, united states (US)\n- Offices: woodridge, illinois, united states (US), lemont, illinois, united states (US), chapel hill, north carolina, united states (US)\n\n## Parent organization\n\n- Mason Wells",
+        "summary": "{\"description\":\"Rjw Trucking Company Inc is a Transportation/Trucking/Railroad company. RJW Logistics Group delivers industry-leading retail logistics solutions that optimize supply chains, improve performance, and drive scalable business growth.\",\"employee_estimate\":3,\"employee_estimate_source\":\"Employees: 3\",\"hq\":\"Chapel Hill, North Carolina, United States\",\"hq_quote\":\"Headquartered in Chapel Hill, North Carolina, United States, with offices in Woodridge and Lemont.\",\"industry\":\"Transportation/Trucking/Railroad\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"RJW is a full service freight company providing 3rd-party Logistics, Nationwide Truckload, LTL, Rail, Warehousing, Protect From Freeze service, and Flatbed Transportation Services.\"}",
+        "image": "https://static.licdn.com/aero-v1/sc/h/cs8pjfgyw96g44ln9r7tct85f",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/5nzrzn421fg",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Rjw Trucking Company Inc",
+              "foundedYear": null,
+              "description": "RJW is a full service freight company providing 3rd-party Logistics, Nationwide Truckload, LTL, Rail, Warehousing, Protect From Freeze service, and Flatbed Transportation Services. Located in the Chicago area, RJW offers service throughout the continental United States, with next-day service throughout the Midwest.",
+              "workforce": {
+                "total": 3
+              },
+              "headquarters": {
+                "address": "5904 Morrow Mill Rd, Chapel Hill, North Carolina 27516, US",
+                "city": "Chapel Hill",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 7500000,
+                "fundingTotal": null,
+                "fundingLatestRound": {
+                  "name": "Private equity",
+                  "date": "2024-12-03",
+                  "amount": null
+                }
+              },
+              "webTraffic": null,
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 2469.3,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

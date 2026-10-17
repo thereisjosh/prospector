@@ -1,0 +1,270 @@
+{
+  "request": {
+    "query": "Arcade.dev",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "789a14e56f33df748809493f747e5b26",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/8xggptt3ryy",
+        "title": "Arcade.dev",
+        "url": "https://www.arcade.dev/",
+        "text": "# Arcade.dev\n\nArcade.dev is a Software Development company. Arcade is a control point for enterprise AI agents to enforce, execute, and govern every action, every time. Arcade.dev employs 48 people (+118.2% YoY, +26 people), founded in 2024. Headquartered in San Francisco, California, United States. Its workforce is distributed across United States, Brazil, Canada, and Peru.\n\n## About\n\nArcade.dev is the action runtime for enterprise AI agents. We enforce your security and governance policies on every action, execute reliably across every business system, and govern your agents from a single control plane. Configure once and use any model, framework, and client. Deploy the first agent the same way you deploy the hundredth.\n\nWe're proud to announce our recent $60 million Series A, led by SYN Ventures, with strategic investment from Morgan Stanley and Wipro Ventures. Check out our profile in the Wall Street Journal for more on how we're solving the hardest problem in enterprise AI right now and why we are the team to solve it (see our Featured post).\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: San Francisco, United States\n- Founded Year: 2024\n- Homepage: arcade.dev\n- Aliases: Arcade AI, Inc, arcade.dev\n- LinkedIn: linkedin.com/company/arcade-ai\n- Linkedin Followers: 7,434\n\n## Financials\n- Total Funding: USD 72,000,000\n  - Series a (2026-06-01): USD 60.0M\n  - Seed (2025-04-18): USD 12.0M\n\n## Acquisitions\n- Acquired Smithery\n\n## Workforce\n- Employees: 48\n- Company Size: 11-50 employees\n  - Yearly Growth: +118.2%\n- Key Executives:\n  - Alex Salazar: Co-Founder/CEO\n  - Alexandra (Alex) Gutow: Head of Marketing\n  - Emily Rollo: Founding Account Executive\n  - Emmit Hood: Founding GTM Engineer\n  - Sam Partee: Co-Founder\n  - Shub Argha: Head of Solutions Engineering\n  - Trey King: Founding GTM\n- Breakdown:\n  - By Country: United States: 36 (75%), Brazil: 3 (6%), Canada: 1 (2%), Peru: 1 (2%)\n  - By Department: Technical: 21 (44%), Consulting: 5 (10%), Marketing: 4 (8%), Other Department: 3 (6%), Sales: 3 (6%), General Management: 2 (4%), Product: 2 (4%), Administrative: 1 (2%), Finance: 1 (2%)\n  - By Seniority: Specialist: 22 (46%), Other Management: 10 (21%), Founder: 5 (10%), Head: 2 (4%), Senior: 2 (4%), Manager: 1 (2%)\n- Active job postings: 4\n- Talent Sources: Airbyte (3), Transcend (2), Seam AI (2), Cobbler (2), Weaviate (1), Redis (1), Please (1), Factory (1), Cyera (1), Ascend.io (1)\n- Alumni Go To: Watercress Capital (1), Visa (1), TollBit (1), Stealth (1), StackOne (1), Redpanda Data (1), MongoDB (1), GTM Capital (1), BoxGroup (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack (showing 50 of 72): auth0, automation anywhere, clever, clickhouse, confluent, databricks, elastic, figma, firebase, fivetran, harness, informatica, istio, javascript, jboss, kubernetes, linkedin, microservices, microsoft, microsoft azure, mongodb, mulesoft, ngrok, oauth, okta, postman, prototype, python, rave, react, redis, rpa, saml, splunk, stormpath, stripe, typescript, uipath, vercel, workato, zapier, discord, github, postgresql, reddit, stitch, salesforce, amplitude, cloudflare, google ai\n\n## Web presence\n\n- Twitter: twitter.com/tryarcade\n- Crunchbase: crunchbase.com/organization/arcade-ai\n- GitHub: github.com/arcadeai\n- Web traffic:\n  - Monthly visits: 90,993\n  - Global rank: 426,554\n  - Bounce rate: 39.0%\n  - Pages per visit: 1.9\n  - Average visit duration: 45s\n\n## Categories\n\nactions runtime, agentic ai, ai agent integration tools platforms, arcade, arcade.dev, artificial intelligence (ai), computers_electronics_and_technology/programming_and_developer_software, control point, cyber security, data integration, developer apis, developer platform, developer tools, emerging ai software, enforce, enterprise ai agents, enterprise software, technology/software\n\n## Recent News\n- [2026-09-23] [Outlook, Snowflake, Calendly, and Airtable Top Our List of New Agent-Optimized Tools](https://www.arcade.dev/blog/agent-optimized-toolkit-round-up/)\n- [2026-09-17] [We Built an AIO Tool to Track Citations. Now It’s Yours.](https://www.arcade.dev/blog/aio-tool-how-llms-reach-arcade/)\n- [2026-09-11]\n  - [How to securely set up Grok Bot with Arcade without sharing your passwords](https://www.arcade.dev/blog/secure-grok-bot-mcp-setup-arcade/)\n  - [What is AI agent governance? A lifecycle framework for governing production AI agents](https://www.arcade.dev/blog/ai-agent-lifecycle-governance/)\n- [2026-09-10] [Trace Every Action Your Agents Take With Execution Tool Logs](https://www.arcade.dev/blog/execution-tool-logs/)\n- [2026-09-08] [OpenAI Shipped Skills Over MCP. The Spec Isn't Merged Yet.](https://www.arcade.dev/blog/skills-over-mcp-explained/)\n- [2026-09-02]\n  - [Stop Bot-Sitting & Pre-Authorize All Your Agent's Tools Up Front](https://www.arcade.dev/blog/pre-authorize-agent-tools/)\n  - [Approve Once, Scale Every Agent: How Governance Unlocks ROI](https://www.arcade.dev/blog/approve-once-scale-every-agent/)\n- [2026-09-01] [One Question, Every Tool Call: How Runtime Governance Actually Works](https://www.arcade.dev/blog/one-question-every-tool-call/)\n- [2026-08-31] [AI Agent Governance Is Not Governing People: Why the Rules Change When Agents Act on Your Behalf](https://www.arcade.dev/blog/ai-agent-governance-is-not-governing-people/)\n- [2026-08-27] [30 Days After MCP 07-28: Stateless Won, Now Come Skills, Triggers, & Identity](https://www.arcade.dev/blog/mcp-30-days-later/)\n- [2026-08-26] [https://www.arcade.dev/blog/bring-third-party-mcp-server-to-arcade/](https://www.arcade.dev/blog/bring-third-party-mcp-server-to-arcade/)\n- [2026-08-24] [https://www.arcade.dev/blog/typescript-ai-agent-frameworks/](https://www.arcade.dev/blog/typescript-ai-agent-frameworks/)\n- [2026-08-19]\n  - [What Is a Plugin? From Add-Ons to AI Tools \\| Arcade.dev](https://www.arcade.dev/blog/what-is-a-plugin/)\n  - [https://www.arcade.dev/blog/arcade-joins-open-secure-ai-alliance/](https://www.arcade.dev/blog/arcade-joins-open-secure-ai-alliance/)\n- [2026-08-13]\n  - [https://www.arcade.dev/blog/securely-connect-pi-mcp-tools/](https://www.arcade.dev/blog/securely-connect-pi-mcp-tools/)\n  - [https://www.arcade.dev/blog/role-based-access-control-arcade/](https://www.arcade.dev/blog/role-based-access-control-arcade/)\n- [2026-08-12] [https://www.arcade.dev/blog/answering-forbes-questions/](https://www.arcade.dev/blog/answering-forbes-questions/)\n- [2026-08-11] [Download the Complete Guide to MCP '26](https://www.arcade.dev/blog/complete-guide-mcp-26/)\n- [2026-08-10] [https://www.arcade.dev/blog/meta-glimmer-agentic-model-authorization/](https://www.arcade.dev/blog/meta-glimmer-agentic-model-authorization/)\n- [2025-08-05] Business Wire: Arcade.dev and Lithic Announce Partnership to Create E-Commerce Agents\n- [2025-06-17] Crunchbase News: AI Autonomous Agents Are Top 2025 Trend For Seed Investment\n- [2025-05-19] WSJ: AI Agents Face One Last, Big Obstacle\n- [2025-03-25] thesaasnews.com: Arcade.dev Raises $12 Million in Seed Round\n- [2025-03-18]\n  - Morningstar, Inc.: Arcade.dev Scores $12M to Solve the Biggest Security Problem with AI Agents\n  - Pulse 2.0: Arcade.dev: $12 Million \\(Seed\\) Raised For Solving AI Agent Security Problems\n\n## Social\n\n### Linkedin\n\n- [2026-10-06 · Posted · 11 reactions] [Builders are already adopting MCP's July 28 spec, and the servers...](https://www.linkedin.com/posts/arcade-ai_builders-are-already-adopting-mcps-july-activity-7513287228257685504-O65X)\n  > Builders are already adopting MCP's July 28 spec, and the servers using it are doing better. In our ToolBench rescan of more than 90,000 open-source servers, stateless request handling shows up on 5.8%, and those servers average about eight points higher. Just over 300 servers have adopted multi round-trip requests as well.\n  >\n  > That adoption is happening as MCP settles into enterprise work. Of the servers we could classify by industry, about half serve software, infrastructure, data, and security, or business functions like finance, sales, and HR.\n  >\n  > Adoption is early, and the builders moving to the new spec are the ones pulling ahead. Guru Sattanathan breaks down the full findings: https://lnkd.in/gNMUhdtc\n\n- [2026-10-01 · Posted · 22 reactions] [Arcade.dev's ToolBench now covers more than 90,000 open-source MCP...](https://www.linkedin.com/posts/arcade-ai_arcadedevs-toolbench-now-covers-more-than-activity-7511465628302520320-isUr)\n  > Arcade.dev's ToolBench now covers more than 90,000 open-source MCP servers and 600K+ agent-ready tools, making it the most comprehensive look at the MCP server and agent tool ecosystem out there.\n  >\n  > Across all that data, growth is far outpacing safety and quality. The number of servers has more than doubled in six months, yet only 260 servers earn an A, and the riskiest tools tend to come with the least documentation.\n  >\n  > Guru Sattanathan's blog digs into the findings and the fixes with the clearest payoff for tool builders. See where your servers stand: https://lnkd.in/gNMUhdtc\n\n- [2026-09-30 · Posted · 24 reactions] [Last night at HogPatch, the PostHog co-working space in SF, Thierry...](https://www.linkedin.com/posts/arcade-ai_last-night-at-hogpatch-the-posthog-co-working-activity-7511150751445078016-wBhH)\n  > Last night at HogPatch, the PostHog co-working space in SF, Thierry Damiba showed a room full of enterprise builders how to build a governed agent with Arcade at Fix My Agent.\n  >\n  > Attendees brought an agent problem, and got tips on how you could improve your agent.\n  >\n  > Governance, tool calling, execution hooks, MCP, all the fun stuff.\n  >\n  > A few trends we noticed. First, everyone wants to explore the intersection of the agent and the user. Second, MCP has fully penetrated. The baseline knowledge is higher and people are starting to ask questions that only bubble up after you've used MCP or built for MCP first hand.\n  >\n  > Thanks for joining Prathmesh Patel from MCPJam, Hendrik Krack from CodeRabbit, Mingjun Sun from GMI Cloud and Courtney Ko from AI Valley.\n\n- [2026-09-30 · 18 reactions] Last night at HogPatch, the PostHog co-working space in SF, Thierry Damiba showed a room full of enterprise builders how to build a governed agent with Arcade at Fix My Agent. Attendees brought an...\n\n- [2026-09-29 · Posted · 54 reactions] [Arcade.dev CTO Sam Partee and Sabrykrishnan Loganathan, Sr...](https://www.linkedin.com/posts/arcade-ai_arcadedev-cto-sam-partee-and-sabrykrishnan-activity-7510808779400224768-cxR4)\n  > Arcade.dev CTO Sam Partee and Sabrykrishnan Loganathan, Sr. Director and Head of Enterprise AI at Peloton Interactive, teamed up for a fireside chat on governing enterprise agents in production at The Future of IT & Cybersecurity in Chicago.\n  >\n  > Drawing on their own enterprise agent work, they got into the identity models and controls that keep agents in bounds, what changes when user and data policies extend to agents serving many users, and what that means for audits. They closed with the lessons they wish they'd known before scaling past the pilot.\n  >\n  > We're hoping to get Sam and Sabry on a stage together again soon.\n\n- [2026-09-29 · 40 reactions] Arcade.dev CTO Sam Partee and Sabrykrishnan Loganathan, Sr. Director and Head of Enterprise AI at Peloton Interactive, teamed up for a fireside chat on governing enterprise agents in production at...\n\n- [2026-09-28 · Posted · 38 reactions] [Cisco Investments is backing Arcade.dev to govern every agent...](https://www.linkedin.com/posts/arcade-ai_cisco-investments-is-backing-arcadedev-to-activity-7510378869963579392-ehrO)\n  > Cisco Investments is backing Arcade.dev to govern every agent action, joining our oversubscribed Series A.\n  >\n  > Cisco’s backing puts another major enterprise security name behind Arcade’s strategy that AI agent governance belongs in core enterprise infrastructure as a separate layer from the model.\n  >\n  > \"Our enterprise customers are seeking real-time visibility, governance and accountability for agent actions,\" according to Janey Hoe, Vice President at Cisco Investments. “Arcade's actions runtime delivers that at the moment of every tool call, checking whether this agent can take this action on this resource for this user, whatever model, client, or framework it uses.”\n  >\n  > Full announcement: https://lnkd.in/gp59sX-g\n\n- [2026-09-28 · 33 reactions, 1 comment] Cisco Investments is backing Arcade.dev to govern every agent action, joining our oversubscribed Series A. Cisco’s backing puts another major enterprise security name behind Arcade’s strategy that...\n\n- [2026-09-24 · Posted · 30 reactions] [Hands up if you have agents in production. A few weeks ago, that...](https://www.linkedin.com/posts/arcade-ai_hands-up-if-you-have-agents-in-production-activity-7508948672152387584-iUoW)\n  > Hands up if you have agents in production.\n  >\n  > A few weeks ago, that question got a handful of hands. In Charlotte this week, it was a big share of the room.\n  >\n  > We hosted 20 leaders from global banks and beyond for a conversation Cat Kurtin moderated with Bill Schoonmaker from Redis and our CTO and co-founder Sam Partee. The group was so chatty that we dropped the last panel questions and asked attendees for their own agent stories. Those stories carried the rest of the night.\n  >\n  > In Chicago, more enterprise leaders kept the conversation going. The goal that kept coming up was automating away the admin work so frontline teams can spend all their time with customers.\n  >\n  > Thanks to Redis for co-hosting. Want Arcade in your city? Let us know in the comments.\n\n- [2026-09-24 · Posted · 17 reactions] [Outlook agents could always read an inbox. Now they can clear it...](https://www.linkedin.com/posts/arcade-ai_outlook-agents-could-always-read-an-inbox-activity-7508889732735582208-PfzR)\n  > Outlook agents could always read an inbox. Now they can clear it.\n  >\n  > Since our last round-up, we've rebuilt our Microsoft Outlook toolkit and shipped new agent-optimized toolkits for Snowflake, Calendly, and Airtable. What ties them together is that every tool is built for the way agents actually work, not wrapped around a raw API.\n  >\n  > All of them run on Arcade where enforce delegated user authorization on every action, execute reliably against the systems your teams already use, and govern every tool, agent, and action from one place. A Snowflake agent reaches only the tables its user's role allows. Nothing more.\n  >\n  > David Cabrera Sarmiento walks through what your agents can do on Arcade now that they couldn't a couple of months ago:\n  >\n  > https://lnkd.in/g7N4V_Fz\n\n- [2026-09-24 · 17 reactions] Outlook agents could always read an inbox. Now they can clear it. Since our last round-up, we've rebuilt our Microsoft Outlook toolkit and shipped new agent-optimized toolkits for Snowflake, Calend...\n\n- [2026-09-24 · 27 reactions] Hands up if you have agents in production. A few weeks ago, that question got a handful of hands. In Charlotte this week, it was a big share of the room. We hosted 20 leaders from global banks and...\n\n- [2026-09-23 · 28 reactions] A while back I opened up an Ask Alex mailbag, where people send in questions about getting agents into production and I answer them on video. Here's the first one. Gorish Aggarwal, CEO @ Sybill, as...\n\n- [2026-09-22 · Posted · 10 reactions] [81% of teams have moved agents past planning and into testing or...](https://www.linkedin.com/posts/arcade-ai_81-of-teams-have-moved-agents-past-planning-activity-7508275926070185984-7KeR)\n  > 81% of teams have moved agents past planning and into testing or live use, while only 14% have full security sign-off. That gap is dangerous.\n  >\n  > We wrote a playbook for the people stuck between those two numbers. It covers the six things you need to enforce at the action layer, how to map governance onto the identity and security systems you already run, and a readiness checklist you can score your own program against today.\n  >\n  > Download it here: https://lnkd.in/gKgWGWvm\n\n- [2026-09-22 · Posted · 42 reactions] [AGNTCon and MCPCon Europe wrapped up in Amsterdam last week. Shub...](https://www.linkedin.com/posts/arcade-ai_agntcon-and-mcpcon-europe-wrapped-up-in-amsterdam-activity-7508206660423766016-SqNR)\n  > AGNTCon and MCPCon Europe wrapped up in Amsterdam last week.\n  >\n  > Shub Argha, our Head of Solutions Engineering, was on a panel about the new MCP release alongside Sam Morrow from GitHub and Shaun Smith from Hugging Face. Good split across the three of them, with Sam on the server side, Shaun on the client side, and Shub on what the release actually means for the teams deploying against it.\n  >\n  > Thanks to everyone who visited our booth, and to the Agentic AI Foundation for hosting.\n\n- [2026-09-22 · Reshared · 8 reactions] [In 90 mins Mateo Torres & Brandon Barros will go live to show you...](https://www.linkedin.com/posts/arcade-ai_activity-7508174888143044609-rWKe): In 90 mins Mateo Torres & Brandon Barros will go live to show you how to build a Mastra agent for a loan officer. Arcade.dev governs the agent by enforcing policy on every tool call. 🎟️ RSVP: https...\n\n- [2026-09-22 · 42 reactions, 1 comment] AGNTCon and MCPCon Europe wrapped up in Amsterdam last week. Shub Argha, our Head of Solutions Engineering, was on a panel about the new MCP release alongside Sam Morrow from GitHub and Shaun Smith...\n\n- [2026-09-22 · 10 reactions, 1 comment] 81% of teams have moved agents past planning and into testing or live use, while only 14% have full security sign-off. That gap is dangerous. We wrote a playbook for the people stuck between those...\n\n- [2026-09-21 · Reshared · 6 reactions] [TOMORROW: Your agent queries a database and a customer's bank...](https://www.linkedin.com/posts/arcade-ai_tomorrow-your-agent-queries-a-database-and-activity-7507879446574641153-Pfho): TOMORROW: Your agent queries a database and a customer's bank account number comes back. It gets stripped out before the model ever reads it. We're showing how tomorrow at 9 am PT, in a workshop wi...\n\n- [2026-09-21 · Posted · 15 reactions] [Sophia Dew put a good analogy to our CEO Alex Salazar on MTS. In...](https://www.linkedin.com/posts/arcade-ai_sophia-dew-put-a-good-analogy-to-our-ceo-activity-7507841558704992256-Huw1)\n  > Sophia Dew put a good analogy to our CEO Alex Salazar on MTS. In crypto, there's a difference between telling an agent to pinky promise it will never reveal your seed phrase, and designing the wallet so it never had the seed phrase to begin with.\n  >\n  > When Arcade sits between an agent and the systems it acts on, the agent never sees a credential.\n  >\n  > The agent says it needs an operation performed. The operation might require a secret, and we hold it or fetch it on the agent's behalf, but the agent never has it.\n  >\n  > There's nothing to leak, nothing to prompt-inject out, and nothing to promise.\n  >\n  > Full segment below.\n\n## Locations\n- Headquarters: san francisco, california, united states (US)\n- Offices: san francisco, california, united states (US)",
+        "summary": "{\"description\":\"Arcade.dev is a software development company that acts as an action runtime for enterprise AI agents, enforcing security and governance across actions, and enabling deployment with any model, framework, and client.\",\"employee_estimate\":48,\"employee_estimate_source\":\"Employees: 48\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Active job postings: 4\",\"hq\":\"San Francisco, United States\",\"hq_quote\":\"Headquartered in San Francisco, California, United States.\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Arcade.dev is a Software Development company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"We’re proud to announce our recent $60 million Series A, led by SYN Ventures, with strategic investment from Morgan Stanley and Wipro Ventures.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQFj4IDDLf5m-Q/company-logo_200_200/B56Zu4ShAfHEAI-/0/1768323421203/arcade_ai_logo?e=2147483647&v=beta&t=cWdBka_ahSQMWaGZxNkeyPyEeB6iC1n0Xx2YwlI4ArI",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/8xggptt3ryy",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Arcade.dev",
+              "foundedYear": 2024,
+              "description": "Arcade.dev is the action runtime for enterprise AI agents. We enforce your security and governance policies on every action, execute reliably across every business system, and govern your agents from a single control plane. Configure once and use any model, framework, and client. Deploy the first agent the same way you deploy the hundredth.\n\nWe're proud to announce our recent $60 million Series A, led by SYN Ventures, with strategic investment from Morgan Stanley and Wipro Ventures. Check out our profile in the Wall Street Journal for more on how we're solving the hardest problem in enterprise AI right now and why we are the team to solve it (see our Featured post).",
+              "workforce": {
+                "total": 48
+              },
+              "headquarters": {
+                "address": "San Francisco, CA, US",
+                "city": "San Francisco",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 72000000,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2026-06-01",
+                  "amount": 60000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 90993,
+                "countryRank": 333153,
+                "avgDurationSeconds": 45,
+                "history": [
+                  {
+                    "value": 87410,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 74306,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 82837,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 91617,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 116615,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 116615,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/84cl69ycr4w",
+        "title": "Arcade",
+        "url": "https://arcade.software/",
+        "text": "# Arcade\n\nArcade is a Software Development company. Arcade is an AI-powered platform that allows users to create on-brand AI videos in minutes. It offers a range of features including agents, interactive demos, personalized storytelling, integrations, and product marketing solutions. Arcade employs 92 people (+22.7% YoY, +17 people), founded in 2021. Headquartered in San Francisco, California, United States. Its workforce is distributed across 6 countries (including United States, France, United Kingdom, Belgium, and Poland).\n\n## About\n\nTelling the story of your product is hard. In a crowded market, it’s more important than ever to stand out with great storytelling.\n\nArcade is an AI visual storytelling platform that enables GTM teams to create effortlessly beautiful product demos, videos, and visuals - in minutes.\n\nDesigned for ease of use, Arcade removes the creative and technical barriers often felt by teams wanting to showcase their product on a website, in sales calls, or on social media.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: San Francisco, United States\n- Founded Year: 2021\n- Homepage: arcade.software\n- Aliases: Arcade Software, Inc., arcade, arcade software\n- LinkedIn: linkedin.com/company/arcadehq\n- Linkedin Followers: 9,904\n- Phone: +1 650 676-0208\n\n## Financials\n- Total Funding: USD 21,500,000\n  - Series a (2024-11-21): USD 14.0M\n  - Seed (2022-09-21): USD 5.0M\n  - Seed (2022-01-11): USD 2.5M\n\n## Workforce\n- Employees: 92\n- Company Size: 11-50 employees\n  - Monthly Growth: -3.2%\n  - Yearly Growth: +22.7%\n- Key Executives:\n  - Alex Lloyd: Head of Growth\n  - Caroline Clark: CEO & Co-Founder\n  - Christophe CASSARD: Directeur général\n  - Francis P.: Head of Sales\n  - JJ Xia: Head of Product Marketing\n  - Joanne Chen: Board Member & Investor (seed lead)\n  - Mamoon Hamid: Board Director\n  - Raul Dronca: Founding Design Engineer\n  - Sydney Palumbo: Head of Engineering\n- Breakdown:\n  - By Country: United States: 29 (32%), France: 3 (3%), United Kingdom: 2 (2%), Belgium: 1 (1%), Poland: 1 (1%), Romania: 1 (1%)\n  - By Department: Technical: 9 (10%), General Management: 6 (7%), Marketing: 5 (5%), Consulting: 3 (3%), Other Department: 3 (3%), Customer Service: 2 (2%), Operations: 2 (2%), Sales: 2 (2%), Administrative: 1 (1%), Design: 1 (1%) (+5 more)\n  - By Seniority: Specialist: 12 (13%), Manager: 8 (9%), Other Management: 8 (9%), Head: 3 (3%), Director: 2 (2%), Clevel: 1 (1%), Founder: 1 (1%), Intern: 1 (1%), Owner: 1 (1%), Partner: 1 (1%)\n- Active job postings: 4\n- Talent Sources: AngelList (2), inKind (1), Zuora (1), Weekend Health (1), Superhuman Mail (1), Luminai (1), GOWANDA BTI (1), Explo (1), Cox Automotive Inc. (1), Bank of America Merrill Lynch (1)\n- Alumni Go To: Coworker.ai (2), TLDR (1), Scalisi Consulting (1), Netflix (1), Mexx (1), Hippocratic AI (1), EveTools (1), Ebryx (Pvt.) Ltd. (1), Bobyard (1), Automat (1)\n\n## Products & Technology\n- Tech Stack: algolia, clickhouse, firebase, rds, typescript, adobe, adobe creative suite, angellist, canva, figma, hugging face, launchdarkly, linkedin, prototype, python, pytorch, react, salesforce, shopify, superhuman, asana, google workspace, hubspot, vercel, viral loops, chrome, new relic, red hat, zapier, ahrefs, clearscope, atlassian, greenhouse, impact, lever, notion, swift, zoom, ease, mix, well, carta, sentry, twitter\n\n## Web presence\n\n- Twitter: twitter.com/arcade_demo\n- Crunchbase: crunchbase.com/organization/arcade-1b6a\n- Web traffic:\n  - Monthly visits: 296,144\n  - Global rank: 155,964\n  - Bounce rate: 48.0%\n  - Pages per visit: 2.4\n  - Average visit duration: 109s\n\n## Categories\n\nagents, ai product videos, ai video, ai videos, business-services, computers_electronics_and_technology/graphics_multimedia_and_web_design, customer-experience, interactive demos, interactive product demos, on-brand videos, platform, product demos, product design, product management, product marketing, product research, technology/software\n\n## Competitors\n\nvengo labs, testingtime, bigblue, acuigen\n\n## Recent News\n- [2026-10-13] stupidDOPE: Rivian x Ghostbusters Brings Ecto-1 to Life With a Halloween Software Update\n- [2026-10-10] Bioengineer.org: New Open-Source Tool Turns River Gauges Into Reliable Flow Data Machines\n- [2026-10-06] Howl.Link: 🚀 New Games, New Arcade Systems Emulated & Rollback Online Multiplayer\n- [2026-09-26] Time Extension: SGDK Fan Project Ports Capcom's 1987 Fantasy Arcade Actioner Black Tiger to Sega Mega Drive\n- [2026-09-23] https://tech-insider.org/: Mednafen vs Ootake vs Magic Engine: PC Engine Emulator\n- [2026-09-21] Zee Business: Siri AI to iCloud+ Bundle: What's new for Apple users in India after latest update\n- [2026-09-17] Sarkaritel.com: Apple Launches Siri AI, ICloud+ Bundle With TV, Arcade In India\n- [2026-09-07]\n  - https://tech-insider.org/: Flycast Setup: 5 Sega Systems in 12 Steps \\[2026\\]\n  - GetLatka: Quartzy Revenue 2024: $14.1M Est. ARR\n- [2026-08-26] Technetbook: Crazy Taxi World Tour Revives Arcade Classic with High-Speed Multiplayer Chaos\n- [2026-08-21]\n  - BGR: 11 Of The Best Retro Emulators For PC Gamers\n  - KitGuru: Apple Arcade exclusive ‘Castlevania: Grimoire of Souls’ is being delisted\n- [2026-08-14]\n  - GetLatka: Intellinum Revenue 2024: $14.1M ARR \\(Bootstrapped\\)\n  - News-Press NOW: Lucra Partners with Shift Arcade to Power Network-Wide Prize Competition Across ShiftOS and Apex Club\n  - GetLatka: Quartzy Revenue 2024: $14.1M Est. ARR \\(Bootstrapped\\)\n- [2026-08-13] Techgenyz: Apple Arcade Reveals Exciting Puzzle Games Update With Block Blast\\!+ and Art of Fauna+\n- [2026-07-29] Outlook Respawn: Capcom Q1 Earnings Surge 81% Driven by Pragmata and Resident Evil \\| Outlook Respawn\n- [2026-07-06] [Arcade Fire und die Geschichte ihrer Live-Ära](https://www.ad-hoc-news.de/unterhaltung/musik/arcade-fire-und-die-geschichte-ihrer-live-aera/69705847)\n- [2026-07-03] [Arcade AI's Remi Mouton on Why Gaming Is the Last Creative Medium Waiting for Its YouTube Moment](https://aijourn.com/arcade-ais-remi-mouton-on-why-gaming-is-the-last-creative-medium-waiting-for-its-youtube-moment/)\n- [2026-06-25] [MSI Claw 8 EX AI+: Die Leistungsfähigkeit der Arc B390-Grafikkarte und ein Durchbruch in der Software-Erfahrung.](https://www.vietnam.vn/de/msi-claw-8-ex-ai-suc-manh-do-hoa-arc-b390-va-buoc-dot-pha-ve-trai-nghiem-phan-mem)\n- [2026-05-03] PCMag Australia: I Played NBA The Run for 1 Hour: It's Arcade Fun, But It's No NBA Street \\(Yet\\)\n- [2026-04-25] Not a Tesla App: Tesla to Add the Game Go to Tesla Arcade\n- [2026-04-19] Hackaday: Three-Monitor Ridge Racer Machine Emulated In MAME\n\n## Social\n\n### Linkedin\n\n- [2026-10-01 · Posted · 10 reactions] [Most product videos start in three places at once: a screen...](https://www.linkedin.com/posts/arcadehq_most-product-videos-start-in-three-places-activity-7511494285695987712-nfOv)\n  > Most product videos start in three places at once: a screen recorder, a webcam app, and a script doc you're furiously editing.\n  >\n  > Our new Chrome extension puts it all in one tab. Point it at any webpage, record your screen, and add camera and voice. It plans the video with you as you go, and Arcade builds the rest: script, scenes, music, and narration.\n  >\n  > A few ways to use it:\n  >\n  > 🚀 Launches: capture a new feature in your product and get a polished launch video\n  > 🤝 Sales follow-ups: record a quick hello and walkthrough, then send every prospect a personal video\n  > 🎓 How-tos: walk through any workflow once, and it becomes a step-by-step tutorial\n  > 📣 Social: turn your landing page into a short, on-brand clip\n  >\n  > Try it from the Chrome Web Store (link in comments).\n\n- [2026-09-30 · Posted · 13 reactions] [The headline of our new State of AI Video 2026 report: AI video is...](https://www.linkedin.com/posts/arcadehq_state-of-ai-video-2026-activity-7511134390857453568-H8Lh)\n  > The headline of our new State of AI Video 2026 report: AI video is a high-adoption, low-trust category.\n  >\n  > Hundreds of marketers and creatives who use these tools every week told us why. Quality decides which tool sticks, well ahead of price, speed, or brand match. And most say their own go-to tool doesn't clear the bar. Their top complaint? The output still looks obviously AI-generated.\n  >\n  > ➡️ Swipe through. Full report at the link.\n\n- [2026-09-29 · Posted · 6 reactions] [Your brand videos should feel like a cohesive set. Same look, same...](https://www.linkedin.com/posts/arcadehq_your-brand-videos-should-feel-like-a-cohesive-activity-7510744574080782336-MiP8)\n  > Your brand videos should feel like a cohesive set. Same look, same style, every time.\n  >\n  > Now with Arcade, you can point to a video you already like and say \"more like this.\" Upload any video file or pick an Arcade video, even a draft. Arcade breaks down its pacing, transitions, and camera work, then carries that look into your next one.\n  >\n  > Keep every video on-brand, or build on a style that's already working, without starting from scratch.\n  >\n  > Also new this week: fine-tune footage with clip controls, preview narrator voices, fix pronunciations from chat, and quote-reply to the AI.\n  >\n  > See everything that shipped in the latest changelog.\n\n- [2026-09-22 · Posted · 11 reactions] [Twenty AI video tools already have real usage. None of them have...](https://www.linkedin.com/posts/arcadehq_twenty-ai-video-tools-already-have-real-usage-activity-7508194059367137280-IxWm)\n  > Twenty AI video tools already have real usage. None of them have earned real trust.\n  >\n  > We surveyed 243 marketers and creatives who use AI video tools for work. Here's what stood out.\n  >\n  > The category leader converts nearly three out of four people who try it into a go-to tool, yet still can't earn a real recommendation from them.\n  >\n  > Output quality decides which tool wins, well ahead of other factors like edit control, speed, and cost.\n  >\n  > And most tellingly, 60% say their own go-to tool still looks obviously AI-made. Womp.\n  >\n  > Money doesn't fix it either. The segments spending the most on video are consistently the least satisfied with what they're getting.\n  >\n  > We put the full findings into State of AI Video 2026: the shape of the market, what quality actually means, and a six-point checklist for evaluating any AI video tool.\n  >\n  > Get the full report → https://lnkd.in/gHwiX5tp/?utm_campaign=Boost_Post_WebsiteVisits_Sep22,2026&utm_source=linkedin&utm_medium=paid&utm_id=1216017086&hsa_acc=521970316&hsa_cam=1216017086&hsa_grp=907020466&hsa_ad=1627887626&hsa_net=linkedin&hsa_ver=3\n\n- [2026-09-22 · 8 reactions, 1 comment] Twenty AI video tools already have real usage. None of them have earned real trust. We surveyed 243 marketers and creatives who use AI video tools for work. Here's what stood out. The category lead...\n\n- [2026-09-17 · Posted · 5 reactions] [Make enough videos and you start noticing the same handful of...](https://www.linkedin.com/posts/arcadehq_make-enough-videos-and-you-start-noticing-activity-7506457179051204608-XL8k)\n  > Make enough videos and you start noticing the same handful of scenes you need over and over. An intro, a transition, a closer. Rebuilding them from scratch every time gets old fast.\n  >\n  > Now you don't have to. Pick from a library of scenes already built and perfectly matched to your brand. A Logo Reveal for your outro. A Word Build for your open. Whatever the moment calls for, drop it in anywhere in your timeline, and make it yours by hand or by just asking the agent.\n  >\n  > The latest changelog is up now.\n\n- [2026-09-17 · 4 reactions, 2 comments] Make enough videos and you start noticing the same handful of scenes you need over and over. An intro, a transition, a closer. Rebuilding them from scratch every time gets old fast. Now you don't h...\n\n- [2026-09-10 · Posted · 12 reactions] [AI made your product team fast. Now, your marketing team is backed...](https://www.linkedin.com/posts/arcadehq_ai-made-your-product-team-fast-now-your-activity-7503851139487137793-BMbN)\n  > AI made your product team fast. Now, your marketing team is backed up for weeks. Sound familiar?\n\n- [2026-09-08 · Posted · 3 reactions] [Every generative AI tool has the same dead zone: you hit submit...](https://www.linkedin.com/posts/arcadehq_every-generative-ai-tool-has-the-same-dead-activity-7503136186019008513-K-2T)\n  > Every generative AI tool has the same dead zone: you hit submit, and then you wait, with no idea what's actually happening behind the spinner.\n  >\n  > That gap is where trust either builds or breaks. If a tool can't show its work, it's hard to trust what comes out the other side.\n  >\n  > Now with Arcade, you don’t have to guess. While your first video builds, you’ll watch the agent’s reasoning happening live in the chat, and see tips on how to edit the output, instead of staring at a blank spinner.\n  >\n  > Building a video should feel like something's happening, not like a black box.\n  >\n  > Details in the changelog.\n\n- [2026-09-08 · 3 reactions, 1 comment] Every generative AI tool has the same dead zone: you hit submit, and then you wait, with no idea what's actually happening behind the spinner. That gap is where trust either builds or breaks. If a...\n\n- [2026-09-02 · Posted · 7 reactions] [Most AI video generators treat your first prompt as the whole...](https://www.linkedin.com/posts/arcadehq_most-ai-video-generators-treat-your-first-activity-7501035038835314689-rJxA)\n  > Most AI video generators treat your first prompt as the whole brief.\n  >\n  > If it's vague, they fill in the blanks themselves, and you only find out what they assumed after the video's already built.\n  >\n  > We changed how Arcade handles that gap. Instead of key questions getting buried in the chat, Arcade now asks everything up front, in one clean flow. Tap an answer, type your own, or skip ahead if you already know what you want.\n  >\n  > Say \"create a marketing video for our product launch,\" and Arcade asks which product to feature, what story to tell, what tone to set, and whether you want narration or text on screen, before it builds a single scene.\n  >\n  > No more guesswork. Just better videos.\n  >\n  > Catch up on this week's changelog.\n\n- [2026-09-02 · 7 reactions, 2 comments] Most AI video generators treat your first prompt as the whole brief. If it's vague, they fill in the blanks themselves, and you only find out what they assumed after the video's already built. We c...\n\n- [2026-08-27 · Posted · 6 reactions] [AI video has gotten better at generating. But it hasn’t gotten...](https://www.linkedin.com/posts/arcadehq_whats-new-in-arcade-august-2026-activity-7498837428728893441-3eYZ)\n  > AI video has gotten better at generating. But it hasn’t gotten better at listening.\n  >\n  > You'd describe a change and hope the AI understood you. You'd rewrite a whole scene to fix one line.\n  >\n  > This month, we shipped five changes to hand control back to you.\n  >\n  > 🎯 Point, don't describe. Click any element, a line, a label, a chart, and say \"make this bigger.\" No more explaining where \"this\" is.\n  >\n  > 🗣 Say it right, every time. Tell Arcade once how to pronounce your product name. It holds across every video.\n  >\n  > 🔊 Fine-tune sound effects. Move them, swap them, adjust the volume. Every click, pop, and slide is your call.\n  >\n  > 📝 One continuous script. Open your full voiceover and edit it top to bottom, like a real script.\n  >\n  > 🧠 Arcade remembers. A voice, a style, a brand rule, tell it once and it sticks. See every preference saved in the Memory panel.\n  >\n  > Full details in the changelog.\n\n- [2026-08-27 · 6 reactions, 1 comment] AI video has gotten better at generating. But it hasn’t gotten better at listening. You'd describe a change and hope the AI understood you. You'd rewrite a whole scene to fix one line. This month,...\n\n- [2026-08-04 · Posted · 16 reactions] [One Arcade library. Seven demos. An automated customer success...](https://www.linkedin.com/posts/arcadehq_webflow-activity-7490438539667619841-Zq3W)\n  > One Arcade library. Seven demos. An automated customer success program influencing over $1M in pipeline and a solutions engineering team self-servicing over 900 demos in the past year.\n  >\n  > Kayla Rasmussen leads growth solutions engineering pre-sale at Webflow. Scott Cappuzzo runs scaled customer success post-sale. Two different teams. One problem.\n  >\n  > How do you give customers the support they need without a product expert on every call?\n  >\n  > Their answer: pre-sale and post-sale building on the same foundation.\n  >\n  > Check out the full story:\n  > https://lnkd.in/dTE49-XA\n\n- [2026-08-04 · 20 reactions, 3 comments] One Arcade library. Seven demos. An automated customer success program influencing over $1M in pipeline and a solutions engineering team self-servicing over 900 demos in the past year. Kayla Rasmus...\n\n- [2026-07-30 · Posted · 5 reactions] [You told us pretty quickly: chat editing is powerful, but sometimes...](https://www.linkedin.com/posts/arcadehq_you-told-us-pretty-quickly-chat-editing-activity-7488665858278367232-XoxT)\n  > You told us pretty quickly: chat editing is powerful, but sometimes you just want to fine-tune the details yourself.\n  >\n  > This week, we brought back manual editing to AI videos. Reorder content and trim clips directly from the timeline in the editor.\n  >\n  > We're building Arcade's AI video capabilities with your help. Keep the feedback coming. Let us know what you want to see next in the comments 👇\n\n- [2026-07-30 · 7 reactions] You told us pretty quickly: chat editing is powerful, but sometimes you just want to fine-tune the details yourself. This week, we brought back manual editing to AI videos. Reorder content and trim...\n\n- [2026-07-29 · Posted · 7 reactions] [Here at Arcade, we live in Notion for documentation and project...](https://www.linkedin.com/posts/arcadehq_here-at-arcade-we-live-in-notion-for-documentation-activity-7488323552333602820-E01U)\n  > Here at Arcade, we live in Notion for documentation and project management.\n  >\n  > Their Markdown Import launch video has some interesting animations and a few pan and zoom shots, so we decided to see if our AI video model could recreate it.\n  >\n  > We handed Arcade the actual Notion launch video and asked it to match the animation style, pacing, and pan and zoom. What came back matched the motion graphics, picked up the rhythm of the score, and moved the camera through the product almost shot for shot.\n  >\n  > The real unlock isn't that Arcade can copy a video exactly. It's that a reference video gives the model something tangible to work from. Hand it one effect, one camera move, one pacing choice, and it'll use that as direction instead of guessing.\n  >\n  > It's still early, but this is a real look at where AI-assisted product video is headed.\n  >\n  > Want to know how we got Arcade to use the reference video? Comment below and we’ll DM you the exact prompt.\n\n- [2026-07-29 · 7 reactions, 1 comment] Here at Arcade, we live in Notion for documentation and project management. Their Markdown Import launch video has some interesting animations and a few pan and zoom shots, so we decided to see if...\n\n## Locations\n- Headquarters: san francisco, california, united states (US)\n- Offices: san francisco, california, united states (US)",
+        "summary": "{\"description\":\"Arcade is an AI-powered platform for creating on-brand AI videos with features like agents, interactive demos, personalized storytelling, integrations, and product marketing solutions.\",\"employee_estimate\":92,\"employee_estimate_source\":\"Employees: 92\",\"hiring_first_ops_or_revops\":false,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"San Francisco, United States\",\"hq_quote\":\"Headquartered in San Francisco, California, United States.\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Arcade is a Software Development company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 21,500,000 - Series a (2024-11-21): USD 14.0M; Seed (2022-09-21): USD 5.0M; Seed (2022-01-11): USD 2.5M\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQHMmMohTrKJHg/company-logo_200_200/company-logo_200_200/0/1728045628577/arcadehq_logo?e=2147483647&v=beta&t=1VB8qQTQu-WH4o8mDbSdiANFOc6EbVcO13o5PxrYRMY",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/84cl69ycr4w",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Arcade",
+              "foundedYear": 2021,
+              "description": "Telling the story of your product is hard. In a crowded market, it’s more important than ever to stand out with great storytelling.\n\nArcade is an AI visual storytelling platform that enables GTM teams to create effortlessly beautiful product demos, videos, and visuals - in minutes.\n\nDesigned for ease of use, Arcade removes the creative and technical barriers often felt by teams wanting to showcase their product on a website, in sales calls, or on social media.",
+              "workforce": {
+                "total": 92
+              },
+              "headquarters": {
+                "address": "450 Bush St, Suite 4, San Francisco, California 94108, US",
+                "city": "San Francisco",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 21500000,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2024-11-21",
+                  "amount": 14000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 296144,
+                "countryRank": 113732,
+                "avgDurationSeconds": 109,
+                "history": [
+                  {
+                    "value": 408452,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 353055,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 340889,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 326034,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 305155,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 305155,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 4898.4,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

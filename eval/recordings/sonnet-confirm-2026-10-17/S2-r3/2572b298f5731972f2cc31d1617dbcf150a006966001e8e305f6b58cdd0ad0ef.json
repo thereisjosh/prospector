@@ -1,0 +1,270 @@
+{
+  "request": {
+    "query": "Edra",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "99f6604fb312149429ffea06da23e281",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/0djqnp6jss4",
+        "title": "Edra",
+        "url": "https://edra.ai/",
+        "text": "# Edra\n\nEdra is a Technology, Information and Internet company. edra is a company that helps businesses automate their processes and generate knowledge. Edra employs 38 people (+375.0% YoY, +30 people), founded in 2024. Headquartered in New York, New York, United States, with presence in United Kingdom. Its workforce is distributed across United Kingdom and United States.\n\n## About\n\nWe build AI agents that learn how a business operates, then automate the work.\nAI models are intelligent but generic. Every business runs on specific processes that live in people's heads, stale documents, and ticket histories. Our AI agents reverse-engineer how a business actually runs from existing systems and create executable knowledge: structured, white-box instructions agents can act on.\n\nWe’re a Series A startup, backed by Sequoia and other leading VC firms. And we’re hiring in New York and London.\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Headquarters: New York, United States\n- Founded Year: 2024\n- Homepage: edra.ai\n- Aliases: edra, edra ai\n- LinkedIn: linkedin.com/company/edra-ai\n- Linkedin Followers: 6,102\n- Emails: support@edra.ai\n\n## Financials\n- Total Funding: USD 30,300,000\n  - Series a (2026-03-01): USD 23.8M\n  - Seed (2025-01-01): USD 6.5M\n\n## Workforce\n- Employees: 38\n- Company Size: 11-50 employees\n  - Monthly Growth: +8.6%\n  - Yearly Growth: +375.0%\n- Key Executives:\n  - Eugen Alpeza: CEO & Co-Founder\n  - Filippos Nakas: Founding AI Engineer\n  - Ignacio Perez Pozuelo: Head of Business & Product Development\n  - Kya Shoar: Head of Product Marketing\n  - Panagiotis Papadimitriou: Angel Investor\n  - Shaun Crimmins: Head of GTM\n  - Yannis Karamanlakis: Co-Founder & CTO\n- Breakdown:\n  - By Country: United Kingdom: 17 (45%), United States: 17 (45%)\n  - By Department: Technical: 20 (53%), Other Department: 5 (13%), Marketing: 2 (5%), Administrative: 1 (3%), Consulting: 1 (3%), General Management: 1 (3%), Operations: 1 (3%), Product: 1 (3%), Research: 1 (3%), Sales: 1 (3%)\n  - By Seniority: Other Management: 16 (42%), Specialist: 10 (26%), Founder: 3 (8%), Head: 3 (8%), Clevel: 1 (3%), Intern: 1 (3%), Manager: 1 (3%)\n- Active job postings: 20\n- Salary ranges (20 of 25 roles):\n  - Business Development Manager: median 63,415.28 EUR per year\n  - Marketing Operations Manager: median 51,274.69 EUR per year\n  - Product Manager: median 47,198.34 EUR per year\n  - Informatore medico: median 46,916.99 EUR per year\n  - Responsabile clienti negli Stati Uniti: median 42,813.44 EUR per year\n  - Project manager editoriale: median 42,687.21 EUR per year\n  - Cooordinatore tecnologico periodici: median 42,622.61 EUR per year\n  - Digital Strategist: median 42,516.15 EUR per year\n  - Functional analysis HR Application: median 42,380.15 EUR per year\n  - Impiegato: median 40,495.11 EUR per year\n  - Digital Project Manager: median 39,250 EUR per year\n  - Full Stack Developer: median 27,965.98 EUR per year\n  - Manager: median 27,695.07 EUR per year\n  - Project Manager: median 27,501 EUR per year\n  - Copywriter: median 25,437.91 EUR per year\n  - Generalista Risorse Umane: median 25,003.5 EUR per year\n  - Marketing Specialist: median 23,013.57 EUR per year\n  - Editor: median 22,496.91 EUR per year\n  - Dipendente: median 18,230.89 EUR per year\n  - IT Manager: median 23,866.32 EUR per month\n- Talent Sources: Palantir Technologies (4), Workato (1), Tomoro (1), SafeRide Health (1), HubSpot (1), Gong (1), Encord (1), Charta Health (1), Cartridge (1), Arena Physica (1)\n- Alumni Go To: PayerPrice (1), Meta (1)\n\n## Products & Technology\n- Tech Stack: palantir, python, typescript, figma, first data, harness, jira, lemlist, linkedin, outgrow, prototype, ramp, react, rippling, salesforce, servicenow, sql, twitter, google workspace, stitch, hubspot, zendesk, microsoft, microsoft outlook, terraform\n\n## Web presence\n\n- Twitter: twitter.com/edra_ai\n- Crunchbase: crunchbase.com/organization/edra-d38d\n- Web traffic:\n  - Monthly visits: 22,284\n  - Global rank: 1,296,266\n  - Bounce rate: 52.0%\n  - Pages per visit: 1.5\n  - Average visit duration: 23s\n\n## Reviews & Ratings\n- Employer Rating: 3.2/5.0 (19 reviews)\n  - Breakdown: Work-Life: 3.0, Compensation: 2.8, Culture: 2.9, Career: 2.8\n\n## Categories\n\nartificial intelligence (ai), automation, business, computers_electronics_and_technology/programming_and_developer_software, data, edra ai, enterprise software, knowledge, learning, process automation software, robotic process automation (rpa), robotic process automation (rpa) software, technology/software\n\n## Recent News\n- [2026-09-29] Pulse 2.0: Plug And Play Selects 140 Startups For Silicon Valley Fall 2026 Batches\n- [2026-08-21] Legacy \\| Obituary: Edra Anderson Obituary \\(1931 - 2026\\) - Centerville, OH - Dayton Daily News\n- [2026-04-24] MSN: Two Palantir veterans just came out of stealth with $30 million and a Sequoia stamp of approval\n\n## Social\n\n### Linkedin\n\n- [2026-04-24 · 172 reactions, 16 comments] Coming out of stealth backed by Sequoia Capital was always going to be a big moment. But the reality is, nothing quite prepares you for what happens next. Sat in the pub celebrating with the Edra L...\n\n- [2026-04-23 · 56 reactions] What does continual learning look like in enterprise? It can't be a black box. Every action needs to be traceable. Every edit needs a reviewer. Edra's white box knowledge library is human readable...\n\n- [2026-04-21 · 27 reactions, 1 comment] Welcome to Edra, Ignacio! We're so excited to have you on board.\n\n- [2026-04-17 · 105 reactions, 8 comments] Every emerging technology goes through a phase where habits form that make sense at the time but look absurd in hindsight. Here's one we'll look back on: pointing AI agents at PDFs in SharePoint an...\n\n- [2026-04-15 · 59 reactions, 3 comments] What if you could see exactly how your business operates without a single interview or workshop? Edra's AI agents connect to your existing systems, understand your processes, and reverse-engineer a...\n\n- [2026-04-13 · 67 reactions, 1 comment] Enterprise context is the new source code. The instructions you give your agents about how your business actually runs are your IP. That's why you need to own that context in a white box system you...\n\n- [2026-04-09 · 80 reactions, 5 comments] The knowledge you have for humans is not enough for AI. For humans, concise instructions work. People internalize context over time by asking questions and learning as they go. For AI, the instruct...\n\n- [2026-04-07 · 23 reactions, 1 comment] Happy one year, Filippos! Thanks for joining us a year ago and driving our product forward ever since. It's awesome to have you on board. Filippos' post shows what we believe in at Edra: intellectu...\n\n- [2026-04-06 · 50 reactions, 1 comment] Incredible to see Andrej Karpathy going viral with his tweet on personal LLM knowledge bases (link in the comments). But the jump from a personal research wiki to highly complex enterprise operatio...\n\n- [2026-03-26 · 55 reactions, 1 comment] We’re excited to share what we've been building with ASOS, one of the world's leading online fashion retailers serving 17 million customers across 150+ countries. We connected to ASOS' ServiceNow i...\n\n- [2026-03-18 · 83 reactions, 6 comments] Edra is out of stealth. We're announcing our Series A led by Sequoia Capital, 8VC, A*, and HubSpot Ventures, bringing our total funding to $30M+. Your company is unique. Edra’s AI agents learn how...\n\n## Locations\n- Headquarters: new york, new york, united states (US)\n- Offices: new york, new york, united states (US), new york, united states (US), london, england, united kingdom (GB)",
+        "summary": "{\"description\":\"Edra is a technology, information and internet company that builds AI agents to learn how a business operates and automate work. It is a Series A startup backed by Sequoia and other leading VC firms, with hires in New York and London.\",\"employee_estimate\":38,\"employee_estimate_source\":\"Employees: 38\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"And we’re hiring in New York and London.\",\"hq\":\"New York, United States\",\"hq_quote\":\"Headquartered in New York, New York, United States, with presence in United Kingdom.\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Technology, Information and Internet\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"We’re a Series A startup, backed by Sequoia and other leading VC firms.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQFTxv-FvZ_1-A/company-logo_200_200/B4EZz9Z8pIGkAM-/0/1773777963896/edra_ai_logo?e=2147483647&v=beta&t=ah5sfuEG94Rg41-mpTrT67jh2ijY8MGKVc8yu1dukxA",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/0djqnp6jss4",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Edra",
+              "foundedYear": 2024,
+              "description": "We build AI agents that learn how a business operates, then automate the work.\nAI models are intelligent but generic. Every business runs on specific processes that live in people's heads, stale documents, and ticket histories. Our AI agents reverse-engineer how a business actually runs from existing systems and create executable knowledge: structured, white-box instructions agents can act on.\n\nWe’re a Series A startup, backed by Sequoia and other leading VC firms. And we’re hiring in New York and London.",
+              "workforce": {
+                "total": 38
+              },
+              "headquarters": {
+                "address": "New York, US",
+                "city": "New York",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 30300000,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2026-03-01",
+                  "amount": 23800000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 22284,
+                "countryRank": 585378,
+                "avgDurationSeconds": 23,
+                "history": [
+                  {
+                    "value": 29705,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 40157,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 33567,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 26341,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 22791,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 22284,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/vbh516pjglm",
+        "title": "Edra Media",
+        "url": "https://edramedia.it/",
+        "text": "# Edra Media\n\nEdra Media is a Technology, Information and Media company. Edra Media is a strategic partner for life sciences that offers creative agency, scientific communication, training, advisory, and digital solutions for healthcare. Edra Media employs 216 people. Headquartered in Milan, Lombardy, Italy, with an office in Milano. Its workforce is distributed across 6 countries (including Italy, Albania, Belgium, Poland, and Switzerland).\n\n## About\n\nEdra Media è il partner strategico per le life sciences che affianca aziende, istituzioni e professionisti dell'healthcare nello sviluppo di progetti di comunicazione, formazione e advisory.\nCon oltre vent'anni di esperienza nel settore salute e una leadership consolidata nell'editoria medico-scientifica universitaria e professionale, integriamo competenze scientifiche, creatività, consulenza e innovazione digitale per trasformare obiettivi complessi in soluzioni efficaci.\nLa nostra offerta comprende servizi di creative agency, comunicazione scientifica, medical education, advisory, eventi, contenuti editoriali e soluzioni digitali, sviluppati attraverso un approccio multidisciplinare e personalizzato.\nCrediamo che una comunicazione efficace nasca dall'incontro tra rigore scientifico, visione strategica e linguaggi contemporanei. Per questo accompagniamo i nostri clienti nella progettazione di esperienze e percorsi capaci di generare valore per il mondo della salute e per le persone.\nContemporary Health è il nostro modo di interpretare l'innovazione: con competenza, metodo e uno sguardo costante al futuro.\n\n## Company Details\n- Industry: Technology, Information and Media\n- Type: Privately held\n- Headquarters: Milan, Italy\n- Homepage: edramedia.it\n- Aliases: edra, edra media, edra spa\n- LinkedIn: linkedin.com/company/edra-media-lswr\n- Linkedin Followers: 34,049\n- Emails: direzione@edra3.it\n- Phone: +39 02 881841, 14392280963, 21 20134\n\n## Financials\n- Total Funding: EUR 14,000,000\n  - Debt financing (2023-10-01): EUR 7.0M\n  - Debt financing (2022-11-01): EUR 2.8M\n  - Debt financing (2022-06-01): EUR 4.2M\n\n## Acquisitions\n- Acquired Luzán 5 (2021-07-06)\n\n## Workforce\n- Employees: 216\n- Company Size: 51-200 employees\n  - Monthly Growth: -1.8%\n- Key Executives:\n  - Elisabetta Delfini: Art Director e responsabile grafica periodici\n  - Fabio Norata: Technical Lead\n  - Ivan Nebuloni: Head of Events and Medical Education\n  - Luca Salis: Chief Operating Officer\n  - Maria Vizzarro: Business Development Unit Lead\n  - Norberto Maccagno: Giornalista - Direttore Odontoiatria33\n  - Sabina Sartori: Head of Social Media & Digital Strategy\n  - Sergio Cirimbelli: Direttore Commerciale ADV\n  - Stefania Morandi: Business Development Director\n  - Tiziano Strambini: Director Foreign Relations\n- Breakdown:\n  - By Country: Italy: 141 (65%), Albania: 2 (1%), Belgium: 1, Poland: 1, Switzerland: 1, United States: 1\n  - By Department: Other Department: 33 (15%), Project Management: 18 (8%), Marketing: 14 (6%), Medical: 14 (6%), Sales: 14 (6%), Design: 12 (6%), Technical: 10 (5%), Administrative: 5 (2%), Finance: 5 (2%), General Management: 5 (2%) (+7 more)\n  - By Seniority: Specialist: 65 (30%), Other Management: 36 (17%), Manager: 29 (13%), Senior: 10 (5%), Director: 5 (2%), Head: 5 (2%), Clevel: 1\n- Talent Sources: Elsevier (35), Imagine s.r.l. (9), SPRIM Group - Italy (8), Tecniche Nuove Spa (5), Grupo Asis (5), Edizioni LSWR (5), Università di Pavia (4), Università degli Studi di Milano (4), Edra Edizioni (4), INSANA - the healthy agency (3)\n- Alumni Go To: Elsevier (10), Momento Medico (4), LSWR Group (4), Jakin SA (4), Educom, an IQVIA business (4), BENU Farmacia (4), Summeet (3), Farmadati Italia s.r.l. (3), Edizioni LSWR (3), Digital Solutions (3)\n\n## Products & Technology\n- Tech Stack: avere, bitbucket, bootstrap, canva, css, dell, docker, ecm, facebook, git, google adwords, google analytics, html, informatica, javascript, jquery, kontentino, laravel, linkedin, mailchimp, mailup, mysql, persona, php, quali, tiktok, twitter, wordpress, xampp, delphi, leaflet, mongodb, bibliotheca, blogger, amp, ecc, instagram, well, carta, impact, microsoft, zoom, aos\n\n## Web presence\n\n- Twitter: twitter.com/edralswr\n- Facebook: facebook.com/edralswr\n- Crunchbase: crunchbase.com/organization/edra-spa\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Categories\n\nadvertising, advisory, business-services, contemporary health, content-management, creative agency, healthcare, imaging, publishing, scientific communication, training\n\n## Competitors\n\nuse all five, the brooklyn brothers, prn, lockwood, livity, butchershop, blue lions\n\n## Social\n\n### Linkedin\n\n- [2026-10-02 · Posted · 35 reactions] [La salute evolve insieme al mondo che la circonda. Cambiano i...](https://www.linkedin.com/posts/edra-media-lswr_edramedia-contemporaryhealth-activity-7511779919291457536-jyJK)\n  > La salute evolve insieme al mondo che la circonda. Cambiano i bisogni delle persone, si trasformano le conoscenze e si moltiplicano i luoghi in cui la salute prende forma.\n  > Comprendere questa complessità significa saper leggere le connessioni tra scienza, persone, informazione e cura.\n  > Contemporary Health è il punto di vista con cui Edra interpreta il presente e mette in relazione i diversi mondi della salute.\n  >\n  > #EdraMedia #ContemporaryHealth\n\n- [2026-09-22 · Posted · 1 reaction] [Dalla prevenzione alla programmazione: misurare il valore delle...](https://www.linkedin.com/posts/edra-media-lswr_prevenzione-vaccinazioni-sanit%C3%A0-activity-7508065217461813249-Kx6U)\n  > Dalla prevenzione alla programmazione: misurare il valore delle vaccinazioni\n  >\n  > La prevenzione vaccinale produce benefici che vanno oltre la dimensione strettamente sanitaria: riduce i costi sociali, tutela la produttività e contribuisce alla sostenibilità del Ssn.\n  >\n  > Nel secondo carosello post-evento, Edra Media raccoglie i contributi dei Professori Francesco Saverio Mennini,PhD, Giovanna Elisa CALABRO', Eugenio Di Brino e sul ruolo dell’Health Technology Assessment, sul ritorno degli investimenti in immunizzazione e sull’importanza di utilizzare dati ed evidenze per orientare la programmazione.\n  >\n  > Un confronto che invita a considerare la vaccinazione antinfluenzale e quella antipneumococcica non soltanto come interventi di prevenzione, ma come investimenti capaci di generare valore per i cittadini e per il Ssn.\n  >\n  > Scarica il fascicolo di approfondimento:\n  > https://lnkd.in/ep5PebTD\n  > Rivivi l’evento:\n  > https://lnkd.in/evH7JMiN\n  >\n  > L’evento “Vaccinazione antinfluenzale e antipneumococcica nell’adulto: stato dell’arte e prospettive future” è stato realizzato da Edra Media con il supporto non condizionante di MSD Italia e CSL Seqirus.\n  >\n  > #Prevenzione #Vaccinazioni #Sanità #SalutePubblica #HTA #SSN #Influenza #Pneumococco\n\n- [2026-09-22] Dalla prevenzione alla programmazione: misurare il valore delle vaccinazioni La prevenzione vaccinale produce benefici che vanno oltre la dimensione strettamente sanitaria: riduce i costi sociali,...\n\n- [2026-09-17 · Posted · 15 reactions] [Conoscere il fenomeno è il primo passo per prevenirne le...](https://www.linkedin.com/posts/edra-media-lswr_strategievaccinali-edramedia-activity-7506292150381260800-dRxF)\n  > Conoscere il fenomeno è il primo passo per prevenirne le conseguenze.\n  > L’influenza e la malattia pneumococcica continuano a rappresentare una sfida rilevante per la salute della popolazione adulta, in particolare per le persone anziane, fragili o affette da patologie croniche.\n  >\n  > In questo primo approfondimento dedicato all’evento “Vaccinazione antinfluenzale e antipneumococcica nell’adulto: stato dell’arte e prospettive future” ripercorriamo alcuni dei temi affrontati attraverso le parole degli esperti intervenuti.\n  >\n  > Dati epidemiologici affidabili, sistemi di sorveglianza tempestivi, appropriatezza e innovazione sono strumenti essenziali per orientare la programmazione, individuare le popolazioni prioritarie e costruire #strategievaccinali sempre più efficaci.\n  >\n  > Un confronto promosso da #EdraMedia per contribuire a trasformare le evidenze scientifiche in scelte concrete di prevenzione.\n  >\n  > 🔴Scorri il carosello per approfondire.\n  > 🔴Scarica il fascicolo dell’evento:\n  > https://lnkd.in/dgqG-DPb\n  > 🔴Rivedi la diretta integrale dell’evento:\n  > https://lnkd.in/evH7JMiN\n  >\n  > L’iniziativa è stata realizzata da Edra Media con il supporto non condizionante di MSD Italia e CSL Seqirus.\n\n- [2026-09-17 · 15 reactions] Conoscere il fenomeno è il primo passo per prevenirne le conseguenze. L’influenza e la malattia pneumococcica continuano a rappresentare una sfida rilevante per la salute della popolazione adulta,...\n\n- [2026-09-11 · Posted · 18 reactions] [Rafforzare le strategie di vaccinazione dell’adulto, aumentare le...](https://www.linkedin.com/posts/edra-media-lswr_rivivi-levento-activity-7504137087017803776-gcBe)\n  > Rafforzare le strategie di vaccinazione dell’adulto, aumentare le coperture contro l’influenza e la malattia pneumococcica e garantire un accesso più uniforme sul territorio nazionale: questi i temi al centro dell’evento istituzionale “Vaccinazione antinfluenzale e antipneumococcica nell’adulto: stato dell’arte e prospettive future”, che si è svolto ieri a Roma, presso il Centro Studi Americani.\n  >\n  > L’iniziativa, moderata da Annalisa Manduca e realizzata da Edra Media con il supporto non condizionante di MSD Italia e CSL Seqirus, ha riunito rappresentanti delle istituzioni della comunità scientifica e delle associazioni di cittadini e pazienti, tra cui: Mara Campitiello, Vincenzo Baldo, Giovanna Elisa CALABRO', Giancarlo Icardi, Fortunato D'Ancona,  Eugenio Di Brino (video), Alfredo Procaccini e Francesco Saverio Mennini,PhD\n  >\n  > Dal confronto è emersa la necessità di trasformare le #raccomandazionivaccinali in percorsi strutturati e realmente accessibili, attraverso una programmazione stabile, la chiamata attiva, sistemi informativi interoperabili e una rete territoriale capace di integrare servizi vaccinali, mmg, specialisti, farmacie e Case della Comunità.\n  >\n  > #Influenza e #malattiapneumococcica rappresentano due priorità distinte e complementari, che richiedono strategie appropriate, continuità dell’offerta e una comunicazione efficace e autorevole.\n  >\n  > Il messaggio è chiaro: proteggere la popolazione adulta dall’influenza e dalla malattia pneumococcica significa investire in #salute, #invecchiamento attivo e sostenibilità del #Ssn\n  >\n  > Per rivedere l'evento: https://lnkd.in/evH7JMiN\n  >\n  > HappyAgeing; RESPIRIAMO INSIEME APS; Federfarma; Fimmg Nazionale\n\n- [2026-09-11 · 21 reactions] Rafforzare le strategie di vaccinazione dell’adulto, aumentare le coperture contro l’influenza e la malattia pneumococcica e garantire un accesso più uniforme sul territorio nazionale: questi i tem...\n\n- [2026-09-09 · Posted · 5 reactions] [Istituzioni, comunità scientifica, professionisti sanitari...](https://www.linkedin.com/posts/edra-media-lswr_evento-10-settembre-2026-activity-7503331485714919425-hJIQ)\n  > Istituzioni, comunità scientifica, professionisti sanitari, associazioni e stakeholder si incontreranno per discutere il futuro dell’immunizzazione nell’adulto, domani all'evento: “Vaccinazione antinfluenzale e antipneumococcica nell’adulto: stato dell’arte e prospettive future”\n  >\n  > Dalle evidenze epidemiologiche alla sostenibilità del Servizio sanitario nazionale, fino ai modelli territoriali e alle prospettive della programmazione vaccinale: una mattinata di confronto dedicata alla sanità pubblica.\n  >\n  > 🔴10 settembre 2026 | 10.00–13.30\n  > 🔴Centro Studi Americani, Roma\n  >\n  > Evento realizzato da Edra con il contributo non condizionante di [MSD Italia  e CSL Seqirus.\n  >\n  > Per informazioni e accrediti: v.sbacco@lswr.it\n  > Per seguire l'evento in diretta: https://lnkd.in/evH7JMiN\n  >\n  > #Evento #Prevenzione #ImmunizzazioneAdulto #SanitàPubblica #SSN\n\n- [2026-09-09 · 5 reactions] Istituzioni, comunità scientifica, professionisti sanitari, associazioni e stakeholder si incontreranno per discutere il futuro dell’immunizzazione nell’adulto, domani all'evento: “Vaccinazione ant...\n\n- [2026-09-07 · Posted · 17 reactions] [Il 10 settembre 2026, a Roma, istituzioni, comunità scientifica...](https://www.linkedin.com/posts/edra-media-lswr_programma-evento-10-settembre-2026-activity-7502749560562204672-ZLt8)\n  > Il 10 settembre 2026, a Roma, istituzioni, comunità scientifica, professionisti sanitari, associazioni e stakeholder si confronteranno sul futuro dell’immunizzazione nell’adulto.\n  >\n  > “Vaccinazione antinfluenzale e antipneumococcica nell’adulto: stato dell’arte e prospettive future”: un appuntamento dedicato alle evidenze, alle politiche sanitarie e ai modelli organizzativi della prevenzione vaccinale.\n  >\n  > 🚩10 settembre 2026 10.00–13.30  | Centro Studi Americani, Roma\n  >\n  > Tra i protagonisti, interverranno: Mara Campitiello, Vincenzo Baldo, Giovanna Elisa CALABRO', Giancarlo Icardi, Pietro Luigi Lopalco, Massimo Andreoni, Antonino Bella, Fortunato D'Ancona, Michele Conversano, Eugenio Di Brino (video), Rosa Ioren Napoli, Elisabetta Alti, Alfredo Procaccini, Elio Rosati, Francesco Saverio Mennini,PhD\n  > Modererà l’incontro: Annalisa Manduca\n  >\n  > Evento realizzato da Edra con il contributo non condizionante di MSD Italia S.r.l. e CSL Seqirus.\n  >\n  > Per informazioni e accrediti: v.sbacco@lswr.it\n  >\n  > #Prevenzione #ImmunizzazioneAdulto #SanitàPubblica #SSN #PoliticheSanitarie\n  >\n  > HappyAgeing; RESPIRIAMO INSIEME APS; Federfarma; Fimmg Nazionale\n\n- [2026-09-07 · 19 reactions] Il 10 settembre 2026, a Roma, istituzioni, comunità scientifica, professionisti sanitari, associazioni e stakeholder si confronteranno sul futuro dell’immunizzazione nell’adulto. “Vaccinazione anti...\n\n- [2026-09-04 · Posted · 6 reactions] [Sorveglianza epidemiologica, monitoraggio delle coperture e...](https://www.linkedin.com/posts/edra-media-lswr_hta-prevenzione-sanit%C3%A0pubblica-activity-7501622295120056320-lzYg)\n  > Sorveglianza epidemiologica, monitoraggio delle coperture e disponibilità di dati omogenei sono elementi centrali per orientare la programmazione sanitaria.\n  >\n  > Nel corso dell’evento “Vaccinazione antinfluenzale e antipneumococcica nell’adulto: stato dell’arte e prospettive future” si discuterà anche del contributo dell’Health Technology Assessment, delle prospettive del Piano Nazionale di Prevenzione Vaccinale e del valore sanitario, economico, organizzativo e sociale della prevenzione.\n  >\n  > Istituzioni ed esperti si confronteranno sugli strumenti utili a sostenere decisioni di sanità pubblica basate sulle evidenze.\n  >\n  > 🔴10 settembre 2026 | 10.00–13.30\n  > 🔴Centro Studi Americani, Roma\n  >\n  > Evento realizzato da Edra con il contributo non condizionante di MSD Italia  e CSL Seqirus.\n  >\n  > Per informazioni e accrediti: v.sbacco@lswr.it\n  >\n  > #HTA #Prevenzione #SanitàPubblica #ProgrammazioneSanitaria #SSN\n\n- [2026-09-04 · 6 reactions] Sorveglianza epidemiologica, monitoraggio delle coperture e disponibilità di dati omogenei sono elementi centrali per orientare la programmazione sanitaria. Nel corso dell’evento “Vaccinazione anti...\n\n- [2026-09-02 · Posted · 10 reactions] [Qual è il burden dell’influenza e della malattia pneumococcica...](https://www.linkedin.com/posts/edra-media-lswr_evento-10-settembre-2026-activity-7500818997253222400-7Ga0)\n  > Qual è il burden dell’influenza e della malattia pneumococcica nella popolazione adulta e quale impatto assumono complicanze, ospedalizzazioni e fragilità?\n  >\n  > Il ruolo dell’immunosenescenza e le implicazioni dell’invecchiamento del sistema immunitario saranno approfonditi durante l’evento:\n  > “Vaccinazione antinfluenzale e antipneumococcica nell’adulto: stato dell’arte e prospettive future”\n  >\n  > Un’occasione di confronto scientifico e istituzionale sulle evidenze disponibili e sulle esigenze della popolazione anziana e fragile.\n  > 🚩10 settembre 2026 | 10.00–13.30\n  > 🚩Centro Studi Americani, Roma\n  >\n  > Evento realizzato da Edra con il contributo non condizionante di MSD Italia  e CSL Seqirus.\n  >\n  > Per informazioni e accrediti: v.sbacco@lswr.it\n  > Scarica il programma👇\n  >\n  > #Immunosenescenza #Burden #Prevenzione #HealthyAgeing #SanitàPubblica\n\n- [2026-09-02 · 10 reactions] Qual è il burden dell’influenza e della malattia pneumococcica nella popolazione adulta e quale impatto assumono complicanze, ospedalizzazioni e fragilità? Il ruolo dell’immunosenescenza e le impli...\n\n- [2026-08-27 · Posted · 10 reactions] [Evidenze epidemiologiche, programmazione, sostenibilità, equità e...](https://www.linkedin.com/posts/edra-media-lswr_savethedate-prevenzione-sanit%C3%A0pubblica-activity-7498650601841618944-UepN)\n  > Evidenze epidemiologiche, programmazione, sostenibilità, equità e modelli territoriali sono alcuni degli ambiti che verranno approfonditi durante l’evento: “Vaccinazione antinfluenzale e antipneumococcica nell’adulto: stato dell’arte e prospettive future”\n  >\n  > Il confronto coinvolgerà rappresentanti istituzionali, esperti di sanità pubblica, professionisti sanitari e associazioni, con l’obiettivo di analizzare criticità e prospettive della prevenzione vaccinale nell’adulto.\n  >\n  > SAVE THE DATE\n  > 🔴10 settembre | 10.00–13.30\n  > 🔴Centro Studi Americani, Roma\n  >\n  > Evento realizzato da Edra con il contributo non condizionante di MSD Italia e CSL Seqirus.\n  >\n  > Per informazioni e accrediti:\n  > v.sbacco@lswr.it\n  >\n  > #SaveTheDate #Prevenzione #SanitàPubblica #PoliticheSanitarie #SSN\n\n- [2026-08-27 · 15 reactions] Evidenze epidemiologiche, programmazione, sostenibilità, equità e modelli territoriali sono alcuni degli ambiti che verranno approfonditi durante l’evento: “Vaccinazione antinfluenzale e antipneumo...\n\n- [2026-08-25 · Posted · 12 reactions] [Il 10 settembre torna al centro del confronto istituzionale il tema...](https://www.linkedin.com/posts/edra-media-lswr_savethedate-prevenzione-sanit%C3%A0pubblica-activity-7497918236710150144-mKY6)\n  > Il 10 settembre torna al centro del confronto istituzionale il tema dell’immunizzazione dell’adulto:  “Vaccinazione antinfluenzale e antipneumococcica nell’adulto: stato dell’arte e prospettive future”\n  >\n  > L’incontro affronterà il valore della prevenzione, la sostenibilità del Servizio sanitario nazionale, l’equità di accesso e l’organizzazione dell’offerta sul territorio.\n  >\n  > SAVE THE DATE\n  > 🔴10 settembre | 10.00–13.30\n  > 🔴Centro Studi Americani, Roma\n  >\n  > Evento realizzato da Edra con il contributo non condizionante di MSD Italia e CSL Seqirus.\n  >\n  > Per partecipare è possibile richiedere l’accredito scrivendo all’indirizzo indicato: v.sbacco@lswr.it\n  >\n  > #SaveTheDate #Prevenzione #SanitàPubblica #SSN #ImmunizzazioneAdulto\n\n- [2026-08-25 · 14 reactions] Il 10 settembre torna al centro del confronto istituzionale il tema dell’immunizzazione dell’adulto: “Vaccinazione antinfluenzale e antipneumococcica nell’adulto: stato dell’arte e prospettive futu...\n\n- [2026-08-06 · Posted · 20 reactions] [Il 10 settembre, a Roma, istituzioni, comunità scientifica...](https://www.linkedin.com/posts/edra-media-lswr_prevenzione-immunizzazioneadulto-sanit%C3%A0pubblica-activity-7491061529878933505-t-67)\n  > Il 10 settembre, a Roma, istituzioni, comunità scientifica, professionisti sanitari, associazioni e stakeholder si confronteranno sul futuro dell’immunizzazione nell’adulto.\n  >\n  > “Vaccinazione antinfluenzale e antipneumococcica nell’adulto: stato dell’arte e prospettive future”: un appuntamento dedicato alle evidenze, alle politiche sanitarie e ai modelli organizzativi della prevenzione vaccinale.\n  >\n  > SAVE THE DATE\n  > 🔴10 settembre | 10.00 – 13.30\n  > 🔴Centro Studi Americani, Roma\n  >\n  > Evento realizzato da Edra con il contributo non condizionante di MSD Italia e CSL Seqirus\n  >\n  > Per informazioni e accrediti: v.sbacc",
+        "summary": "{\"description\":\"Edra Media is a Technology, Information and Media company that acts as a strategic partner for life sciences, offering creative agency, scientific communication, training, advisory and digital solutions for healthcare. It employs 216 people and is headquartered in Milan, Italy, with offices in Milano and distributed across 6 countries.\",\"employee_estimate\":216,\"employee_estimate_source\":\"Employees: 216\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Milan, Italy\",\"hq_quote\":\"Headquartered in Milan, Lombardy, Italy, with an office in Milano.\",\"industry\":\"Technology, Information and Media\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Edra Media is a Technology, Information and Media company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":false,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: EUR 14,000,000 - Debt financing (2023-10-01): EUR 7.0M - Debt financing (2022-11-01): EUR 2.8M - Debt financing (2022-06-01): EUR 4.2M...\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4D0BAQH-yx3Fa8L-Zw/company-logo_200_200/B4DZ9G_OdiJsAE-/0/1783602407491/edra_media_lswr_logo?e=2147483647&v=beta&t=RaAPp0sZY3578Vgk82v50hQy1PT5AS9Y8vIKE3hJGBQ",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/vbh516pjglm",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Edra Media",
+              "foundedYear": null,
+              "description": "Edra Media è il partner strategico per le life sciences che affianca aziende, istituzioni e professionisti dell'healthcare nello sviluppo di progetti di comunicazione, formazione e advisory.\nCon oltre vent'anni di esperienza nel settore salute e una leadership consolidata nell'editoria medico-scientifica universitaria e professionale, integriamo competenze scientifiche, creatività, consulenza e innovazione digitale per trasformare obiettivi complessi in soluzioni efficaci.\nLa nostra offerta comprende servizi di creative agency, comunicazione scientifica, medical education, advisory, eventi, contenuti editoriali e soluzioni digitali, sviluppati attraverso un approccio multidisciplinare e personalizzato.\nCrediamo che una comunicazione efficace nasca dall'incontro tra rigore scientifico, visione strategica e linguaggi contemporanei. Per questo accompagniamo i nostri clienti nella progettazione di esperienze e percorsi capaci di generare valore per il mondo della salute e per le persone.\nContemporary Health è il nostro modo di interpretare l'innovazione: con competenza, metodo e uno sguardo costante al futuro.",
+              "workforce": {
+                "total": 216
+              },
+              "headquarters": {
+                "address": "Viale Enrico Forlanini, Milan, Lombardy 20134, IT",
+                "city": "Milan",
+                "postalCode": null,
+                "country": "Italy"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": null,
+                "fundingLatestRound": {
+                  "name": "Debt financing",
+                  "date": "2023-10-01",
+                  "amount": null
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": 31680,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 29188,
+                    "dateFrom": "2026-02",
+                    "dateTo": "2026-02"
+                  },
+                  {
+                    "value": 16682,
+                    "dateFrom": "2026-03",
+                    "dateTo": "2026-03"
+                  },
+                  {
+                    "value": 15746,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 19102,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 17625,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 23432,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 9316.1,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

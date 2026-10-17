@@ -1,0 +1,249 @@
+{
+  "request": {
+    "query": "ProLine",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "f55c223c4b9c9199a81a362d959c10ec",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/s41k59r0h7z",
+        "title": "ProLine S.A.",
+        "url": "https://proline.pl/",
+        "text": "# ProLine S.A.\n\nProLine S.A. is a Computer Hardware Manufacturing company. ProLine is an internet store that offers a wide range of products including computers, laptops, accessories, gaming and streaming devices, small appliances, TVs and audio equipment, photography and cameras, office and company products, sports and hobby products, health and beauty products, children and mother products, home and garden products, and motorization. They provide services and guarantees. ProLine S.A. employs 18 people (+5.9% YoY, +1 person), founded in 1993. Headquartered in Mirków, Dolnośląskie, Poland.\n\n## About\n\nFirma ProLine od 1993 roku kieruje swoją ofertę do entuzjastów komputerów, graczy i nie tylko. ProLine to zespół utalentowanych i kompetentnych ludzi, dzięki którym jest w stanie niezawodnie spełniać marzenia naszych klientów. Należy do ścisłej czołówki e-commerce, zawsze plasując się pośród najlepszych firm i wielokrotnie otrzymując nagrody w różnego rodzaju rankingach.\n\n## Company Details\n- Industry: Computer Hardware Manufacturing\n- Type: Public company\n- Headquarters: Mirków, Poland\n- Founded Year: 1993\n- Homepage: proline.pl\n- Aliases: proline, proline s.a.\n- LinkedIn: linkedin.com/company/proline-pl\n- Linkedin Followers: 78\n- Emails: pomoc@proline.pl\n- Phone: +48 664 999 933, +48664999933, 761345-10253-7\n\n## Workforce\n- Employees: 18\n- Company Size: 51-200 employees\n  - Yearly Growth: +5.9%\n- Key Executives:\n  - Radosław Patelski: Dyrektor Regionalny\n- Breakdown:\n  - By Country: Poland: 4 (22%)\n  - By Department: Technical: 2 (11%), General Management: 1 (6%), Marketing: 1 (6%)\n  - By Seniority: Specialist: 3 (17%), Director: 1 (6%)\n- Talent Sources: ServoCode Sp. z o.o. (1), RST Software (1), Multipolisa.pl SA (1), MediaMarkt España (1), Kompania Piwowarska (1), Komenda Miejska Policji (1), ICL, International Computers Ltd (1), Gamedia.pl (1), Freelance | Self-Employed (1), Dr Irena Eris S.A. (1)\n- Alumni Go To: WASKO (1), Teddy Sell Bricks (1), Talex S.A. (1), SmartLunch (1), Oltre Solutions Srl (1), Mercus Logistyka sp. z o.o. (1), Link Group (1), Internet Mall Polska Sp. z o. o. (1), Entire M Sp. z o. o. (1), Amazon Logistics (1)\n\n## Products & Technology\n- Tech Stack: ahrefs, facebook, facebook ads, google ads, google analytics, google search console, screaming frog, semrush\n\n## Web presence\n\n- Twitter: twitter.com/prolinepl\n- Facebook: facebook.com/najlepszy.sklep\n- Instagram: instagram.com/proline.pl\n- YouTube: youtube.com/c/proline\n- Crunchbase: crunchbase.com/organization/proline-79f0\n- Web traffic:\n  - Monthly visits: 113,008\n  - Global rank: 301,242\n  - Bounce rate: 38.0%\n  - Pages per visit: 3.3\n  - Average visit duration: 100s\n\n## Categories\n\naccessories, computer, computers, computers_electronics_and_technology/consumer_electronics, e-commece, ehandel, electronics, elektronika, gaming, komputery, laptops, laptopy, sklep internetowy, sklep komputerowy, sprzęt komputerowy, streaming, tablety\n\n## Recent News\n- [2026-09-08] ITHardware: 10/10 i wszystko w tym temacie. Test be quiet\\! Dark Power Pro 14 IO 1600 W\n- [2026-07-21] Vietnam.vn: Jak mała firma rozwinęła się na arenie międzynarodowej, sprzedając swoje produkty w Stanach Zjednoczonych, Wielkiej Brytanii, Japonii i innych krajach.\n- [2026-04-05] TVP Bydgoszcz: Siatkarze BKS Visła Proline zrobili krok w stronę powrotu do Plusligi\n- [2026-02-18] Express Bydgoski: Siatkarze BKS Bydgoszcz i ich kibice uradowani. Czekali na to 45 dni i pięć meczów. Mamy zdjęcia i wideo\n- [2026-02-13] Benchmark.pl: AMD rozdaje Crimson Desert. Sprawdź, jaki sprzęt musisz kupić\n- [2025-12-14] Tygodnik Bydgoski: Czy Visła Proline w końcu przerwie złą passę? Kluczowy mecz z KPS Siedlce\n- [2025-12-03] halogorlice.info: Eyeliner popularnej marki wycofany z rynku. GIS ostrzega przed niebezpiecznym składnikiem \\[FOTO\\]\n- [2025-11-30] GazetaPrawna.pl: Popularny kosmetykwycofany z obrotu. GIS ostrzega przed przekroczonym stężeniem tego składnika\n- [2025-11-29] PiasecznoNEWS: Nie używaj tych kosmetyków. GIS ostrzega przed produktami\n- [2025-08-23] Bydgoszcz Nasze Miasto: Bydgoska Wyspa Siatkówki. Wspólne granie, konkursy i dobra zabawa. Nudy nie było - zdjęcia\n- [2025-08-04] Gazeta Pomorska: Dobre wieści. Siatkarze BKS Bydgoszcz przystąpią do sezonu w PLS 1. Lidze\n- [2025-07-29] Telepolis.pl: Asystent Google pomoże zrobić zakupy przez Internet\n- [2025-06-27] Gazeta Pomorska: Siatkarze BKS Bydgoszcz w bardzo trudnej sytuacji. Pomoc jest niezbędna\n- [2025-05-10] Metropolia Bydgoska: Siatkarze szukają sponsora tytularnego. Rozmowy z firmami trwają\n- [2025-04-24] Telepolis.pl: AMD Ryzen 9 9950X3D i 9900X3D debiutują. Sprawdzamy polskie ceny\n- [2025-04-22]\n  - Gazeta Pomorska: BKS Visła Proline Bydgoszcz znowu się postawił ChKS Chełm. Decydowały niuanse\n  - North Shore News: Battle of Ontario going the way Proline bettors expected it would so far\n  - Super Tydzień Chełmski: ChKS Chełm - Visła Proline Bydgoszcz\n  - Dziennik Wschodni: ChKS Chełm powalczy o awans do półfinału play-off PLS 1. Ligi z BKS Visłą Proline Bydgoszcz\n  - Super Tydzień Chełmski: ChKS Chełm w półfinale play-off\\! PlusLiga coraz bliżej\n\n## Locations\n- Headquarters: mirków, dolnośląskie, poland (PL)\n- Offices: mirków, lodzkie, poland (PL), mirków, dolnośląskie 55-095, poland (PL), mirków, lower silesian voivodeship 55-095, poland (PL)",
+        "summary": "{\"description\":\"ProLine S.A. is a Computer Hardware Manufacturing company and an internet store offering a wide range of consumer electronics and related products.\",\"employee_estimate\":18,\"employee_estimate_source\":\"Employees: 18\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Mirków, Dolnośląskie, Poland\",\"hq_quote\":\"Headquarters: mirków, dolnośląskie, poland (PL)\",\"industry\":\"Computer Hardware Manufacturing\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Business to business (B2B) details are implied through the company profile and product distribution\",\"is_public_or_enterprise\":true,\"recently_funded_seed_or_series_a\":null,\"recently_funded_seed_or_series_a_quote\":\"There is no information about seed or Series A funding on the page\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4D0BAQFsu-9BGY_11w/company-logo_200_200/B4DZk40JLCHsAI-/0/1757594817561/proline_pl_logo?e=2147483647&v=beta&t=L70Yn3HmJubxetPnIdM3TqAhjnhrc23AQNISBkHlu7o",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/s41k59r0h7z",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "ProLine S.A.",
+              "foundedYear": 1993,
+              "description": "Firma ProLine od 1993 roku kieruje swoją ofertę do entuzjastów komputerów, graczy i nie tylko. ProLine to zespół utalentowanych i kompetentnych ludzi, dzięki którym jest w stanie niezawodnie spełniać marzenia naszych klientów. Należy do ścisłej czołówki e-commerce, zawsze plasując się pośród najlepszych firm i wielokrotnie otrzymując nagrody w różnego rodzaju rankingach.",
+              "workforce": {
+                "total": 18
+              },
+              "headquarters": {
+                "address": "Brzozowa 5, Mirków, Dolnośląskie 55-095, PL",
+                "city": "Mirków",
+                "postalCode": null,
+                "country": "Poland"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 113008,
+                "countryRank": 5819,
+                "avgDurationSeconds": 100,
+                "history": [
+                  {
+                    "value": 120167,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 99510,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 88217,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 88640,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 116370,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 135495,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/dlykppwcqd0",
+        "title": "PT Prodia Diagnostic Line Tbk",
+        "url": "https://proline.co.id/",
+        "text": "# PT Prodia Diagnostic Line Tbk\n\nPT Prodia Diagnostic Line Tbk is a Medical and Diagnostic Laboratories company. PT Prodia Diagnostic Line is a company that specializes in clinical chemistry and reagents. They offer a range of products including controls/calibrators/standards, kit lines, instruments, hematology, immunoassay, snibe maglumi x3i, proline xi800 automatic chemiluminensce analyzer, and biomolecular. PT Prodia Diagnostic Line Tbk employs 22 people, founded in 2010. Headquartered in Bekasi, West Java, Indonesia, with presence in Australia and United States.\n\n## About\n\nSince its establishment in 2010, Proline has been manufacturing and supplying in vitro diagnostic products to more than 7.000 healthcare facilities in Indonesia. Striving to be Indonesia’s one stop solution IVD manufacturer, Proline key products range from clinical chemistry reagents, hematology reagents, immunology products, urinalysis system, lateral flow tests for drug test and infectious diseases as well as IVD instruments, with local content more than 40% for most products. Proline is ISO 13485:2016, GMPMD, GDPMD certified. Providing extensive support service for over 15 years of experience, Proline has become trusted medical device provider with expertise in IVD products.\n\n## Company Details\n- Industry: Medical and Diagnostic Laboratories\n- Type: Public company\n- Headquarters: Bekasi, Indonesia\n- Founded Year: 2010\n- Homepage: proline.co.id\n- Aliases: proline, pt prodia diagnostic line tbk\n- LinkedIn: linkedin.com/company/pt-prodia-diagnostic-line-tbk\n- Linkedin Followers: 419\n- Emails: corporate.secretary@proline.co.id, marketing@proline.co.id\n- Phone: +62 21 8984 2722\n\n## Workforce\n- Employees: 22\n- Company Size: 51-200 employees\n- Breakdown:\n  - By Country: Indonesia: 16 (73%)\n  - By Department: Operations: 5 (23%), Marketing: 3 (14%), Administrative: 2 (9%), Technical: 2 (9%), Customer Service: 1 (5%), Finance: 1 (5%), Product: 1 (5%), Sales: 1 (5%)\n  - By Seniority: Specialist: 12 (55%), Other Management: 3 (14%), Manager: 1 (5%)\n- Talent Sources: Soonchunhyang University (1), RSUD dr. Dradjat Prawiranegara (1), PT Kalbe Farma, Tbk (1), PT Askara Tekno Pangan (1), Murti Indah Sentosa (1), Maju Motor (1), MPG (1), Institut Teknologi Bandung (1), Bio Farma - Indonesia (1), Badan Riset dan Inovasi Nasional RI (BRIN RI) (1)\n- Alumni Go To: Virtue Diagnostics Indonesia (2), PT Lotus Lingga Pratama (1), NIPSEA Group I Nippon Paint (1), Fapon (1), BUCHI Laboratory Equipment (1)\n\n## Products & Technology\n- Tech Stack: acumatica, agilent, ns1, whatsapp\n\n## Web presence\n\n- Facebook: facebook.com/prodia-diagnostic-line-111113507325918\n- Instagram: instagram.com/proline_id\n- Web traffic:\n  - Monthly visits: 9,714\n  - Global rank: 2,064,572\n  - Bounce rate: 47.0%\n  - Pages per visit: 2.3\n  - Average visit duration: 55s\n\n## Categories\n\ncalibrators, clinical chemistry, controls, instruments, ivd industry, medical equipment, reagents\n\n## Recent News\n- [2026-08-28] [Prodia Diagnostic Line Tbk PT \\(PRDL\\) Balance Sheet - Investing UK](https://uk.investing.com/equities/prodia-diagnostic-line-tbk-pt-balance-sheet)\n- [2026-08-14] [PT Prodia Diagnostic Line Tbk: Company Events Publications and Financial Calendar](https://www.marketscreener.com/quote/stock/PT-PRODIA-DIAGNOSTIC-LINE-211888638/calendar/)\n- [2026-08-05] [Indonesia stocks higher at close of trade; IDX Composite Index up 0.57% By Investing](https://m.investing.com/news/stock-market-news/indonesia-stocks-higher-at-close-of-trade-idx-composite-index-up-057-4836624?ampMode=1)\n- [2026-07-11] [Prodia Diagnostic Line Tbk PT Stock Price Today](https://www.investing.com/equities/prodia-diagnostic-line-tbk-pt)\n- [2026-07-10]\n  - [PT Prodia Diagnostic Line Tbk: Connections & Networks - List of connected companies](https://www.marketscreener.com/quote/stock/PT-PRODIA-DIAGNOSTIC-LINE-211888638/company-network/)\n  - [PT Prodia Diagnostic Line Tbk: Sector comparison of financial health \\(Other Medical Equipment, Supplies & Distribution \\)](https://www.marketscreener.com/quote/stock/PT-PRODIA-DIAGNOSTIC-LINE-211888638/sector-finances/)\n  - [PT Prodia Diagnostic Line Tbk : Gouvernance, Administrateurs, Dirigeants et Comités - Zonebourse](https://www.zonebourse.com/cours/action/PT-PRODIA-DIAGNOSTIC-LINE-211888638/societe-gouvernance/)\n  - [Prodia Diagnostic Line Tbk PT Earnings Date \\(PRDL\\) - Investing Canada](https://ca.investing.com/equities/prodia-diagnostic-line-tbk-pt-earnings)\n  - [Prodia Diagnostic Line Tbk PT Stock Price History \\(PRDL\\) - Investing Canada](https://ca.investing.com/equities/prodia-diagnostic-line-tbk-pt-historical-data)\n  - [Prodia Diagnostic Line Tbk PT Income Statement - Investing](https://www.investing.com/equities/prodia-diagnostic-line-tbk-pt-income-statement)\n  - [Prodia Diagnostic Line Tbk PT \\(PRDL\\) Stock Forums - Investing](https://www.investing.com/equities/prodia-diagnostic-line-tbk-pt-commentary)\n  - [Prodia Diagnostic Line Tbk PT \\(PRDL\\) Stock Chart - Investing.com](https://www.investing.com/equities/prodia-diagnostic-line-tbk-pt-chart)\n\n## Social\n\n### Linkedin\n\n- [2026-09-23 · Posted · 5 reactions] [💫 Ayo Manfaatkan Cek Kesehatan Gratis dengan Produk Proline di...](https://www.linkedin.com/posts/pt-prodia-diagnostic-line-tbk_prolinereagent-reagenakdproline-banggabuatanindonesia-activity-7508351185645441024-FKAd)\n  > 💫 Ayo Manfaatkan Cek Kesehatan Gratis dengan Produk Proline di Halal Indonesia International Industry Expo 2026!\n  >\n  > Acara ini mengusung tema “Smart Healthcare Facilities Financing: Building Affordable Access for All.”\n  >\n  > Lokasi: Hall 2, 3 & 3A\n  > INDONESIA CONVENTION EXHIBITION\n  > (ICE) BSD Tangerang, Indonesia\n  > Waktu: 24 - 27 September 2026\n  > Booth 1-149\n  >\n  > #Prolinereagent #ReagenAKDProline #BanggaBuatanIndonesia\n\n- [2026-09-09 · Posted · 1 reaction] [Temukan Produk PROLINE di Event IACC Goes to Surabaya dan CME-CP...](https://www.linkedin.com/posts/pt-prodia-diagnostic-line-tbk_iacc-cme-prolinereagent-activity-7503376181572993024-HMmz)\n  > Temukan Produk PROLINE di Event IACC Goes to Surabaya dan CME-CP 2026: Scientific Symposium and Workshop\n  >\n  > Acara ini mengusung tema “Penguatan Regulasi Nasional dan Penyusunan Kebijakan di Era Pembaruan : Peran Kedokteran laboratorium dari Pencegahan Hingga Pemantauan Penyakit Akut dan Kronis.”\n  >\n  > Lokasi: Vasa Hotel Surabaya\n  > Waktu: 10 - 12 September 2026\n  > Booth 1\n  >\n  > #IACC #CME #Prolinereagent #ReagenAKDProline #BanggaBuatanIndonesia\n\n- [2026-09-09 · Posted · 4 reactions] [Selamat memperingati Hari Olahraga Nasional (Haornas) ke-43 Tahun...](https://www.linkedin.com/posts/pt-prodia-diagnostic-line-tbk_hariolahraganasional-haornas2026-prolinereagent-activity-7503256458076037120-El2p)\n  > Selamat memperingati Hari Olahraga Nasional (Haornas) ke-43 Tahun. Tahun ini mengusung tema “Menuju Masyarakat Aktif dan Bugar!” #HariOlahragaNasional #Haornas2026 #Prolinereagent #ReagenAKDProline #BanggaBuatanIndonesia\n\n- [2026-09-04 · Posted · 1 reaction] [PT Prodia Diagnostic Line Tbk (PRDL) kembali menegaskan komitmennya...](https://www.linkedin.com/posts/pt-prodia-diagnostic-line-tbk_proline-ptprodiadiagnosticlinetbk-budayak3-activity-7501566593978601473-AvP3)\n  > PT Prodia Diagnostic Line Tbk (PRDL) kembali menegaskan komitmennya dalam menerapkan budaya Keselamatan dan Kesehatan Kerja (K3) serta mendukung penerapan Good Corporate Governance (GCG).\n  >\n  > Pada 20 Agustus 2026, Proline menyelenggarakan Pelatihan Simulasi Tanggap Darurat Mitigasi Gempa Bumi dan Kebakaran di area fasilitas produksi Cikarang. Menggandeng instruktur profesional dari Dinas Pemadam Kebakaran dan Penyelamatan (DISDAMKARMAT) Kota Bekasi, seluruh karyawan dari berbagai divisi dibekali materi pertolongan pertama (CPR, penanganan cedera, evakuasi korban), mitigasi gempa bumi, hingga praktik langsung pemadaman api menggunakan Alat Pemadam Api Ringan (APAR) sesuai SOP.\n  >\n  > Kegiatan ini mendukung penerapan GCG, khususnya dalam aspek tanggung jawab terhadap keselamatan pekerja, kepatuhan terhadap peraturan K3, serta penguatan sistem manajemen risiko operasional Proline.\n  > CTA: Melalui simulasi berkala ini, Proline berupaya menciptakan lingkungan kerja yang aman, responsif, dan berstandar tinggi di seluruh area operasionalnya.\n  >\n  > #Proline #PTProdiaDiagnosticLineTbk #BudayaK3 #SafetyFirst #OccupationalHealthAndSafety\n\n- [2026-09-04 · Posted · 1 reaction] [Selamat memperingati Hari Pelanggan Nasional (Harpelnas) 2026...](https://www.linkedin.com/posts/pt-prodia-diagnostic-line-tbk_thinkcustomer-harpernas2026-prolinereagent-activity-7501566341175443456-_Sm_)\n  > Selamat memperingati Hari Pelanggan Nasional (Harpelnas) 2026. Tahun ini mengusung tema “Senyum Pelanggan, Senyumku Juga”\n  >\n  > Terima kasih atas kepercayaan dan loyalitas yang telah diberikan. Bagi kami, kepuasan dan kepercayaan pelanggan adalah motivasi untuk terus memberikan pelayanan dan produk terbaik.\n  >\n  > #ThinkCustomer #Harpernas2026 #Prolinereagent #ReagenAKDProline #BanggaBuatanIndonesia\n\n- [2026-09-04 · Posted] [Akurasi laboratorium kesehatan berawal dari kualitas alat dan...](https://www.linkedin.com/posts/pt-prodia-diagnostic-line-tbk_prolineindonesia-alkeslokal-dinkesdonggala-activity-7501565756724178944-HGM_)\n  > Akurasi laboratorium kesehatan berawal dari kualitas alat dan tingkat presisi instrumen yang digunakan. Setuju? 💯\n  >\n  > Pada 27 Juli 2026, Proline Cikarang mendapat kehormatan menerima kunjungan resmi (company visit) dari tim Dinas Kesehatan Kab. Donggala, didampingi oleh PT Intergastra Nusantara selaku distributor resmi area Sulawesi.\n  >\n  > Dalam kunjungan ini, perwakilan Dinkes Donggala melihat langsung seluruh tahapan manufaktur alkes lokal berstandar tinggi, mulai dari penerimaan bahan baku, produksi, pengemasan, hingga distribusi.\n  >\n  > Tak hanya itu, diskusi interaktif juga menyoroti krusialnya layanan Lab Kalibrasi Proline untuk instrumen strategis seperti mikropipet dan fotometer agar hasil pengujian diagnostik di faskes selalu valid dan dapat dipertanggungjawabkan! 🎯\n  >\n  > Apresiasi setinggi-tingginya kepada Ibu Rika Yulianti (PPTK P2P) dan Bapak Ivan (Staf Kefarmasian, BMHP & Belanja Modal) dari Dinkes Kab. Donggala atas kunjungannya ke fasilitas kami.\n  >\n  > Ingin tahu lebih banyak tentang lini alkes lokal Proline atau butuh layanan kalibrasi instrumen laboratorium?\n  > 👉 Klik link di bio untuk konsultasi langsung dengan tim kami!\n  >\n  > #ProlineIndonesia #AlkesLokal #DinkesDonggala #KalibrasiLaboratorium #AlatKesehatanIndonesia #CompanyVisit #ManufakturAlkes #BanggaBuatanIndonesia\n\n- [2026-09-04 · 1 reaction] Selamat memperingati Hari Pelanggan Nasional (Harpelnas) 2026. Tahun ini mengusung tema “Senyum Pelanggan, Senyumku Juga” Terima kasih atas kepercayaan dan loyalitas yang telah diberikan. Bagi kami...\n\n- [2026-09-04 · 1 reaction] PT Prodia Diagnostic Line Tbk (PRDL) kembali menegaskan komitmennya dalam menerapkan budaya Keselamatan dan Kesehatan Kerja (K3) serta mendukung penerapan Good Corporate Governance (GCG). Pada 20 A...\n\n- [2026-09-04] Akurasi laboratorium kesehatan berawal dari kualitas alat dan tingkat presisi instrumen yang digunakan. Setuju? 💯 Pada 27 Juli 2026, Proline Cikarang mendapat kehormatan menerima kunjungan resmi (c...\n\n- [2026-07-28 · Posted · 4 reactions] [Selamat Memperingati Hari Hepatitis Sedunia Tahun ini mengusung...](https://www.linkedin.com/posts/pt-prodia-diagnostic-line-tbk_worldhepatitisday2026-whd2026-prolinereagent-activity-7487685684183322624-m7e7)\n  > Selamat Memperingati Hari Hepatitis Sedunia\n  >\n  > Tahun ini mengusung Tema \"Hepatitis: Mari kita atasi hambatannya\" (\"Hepatitis: Let's Break It Down\"), sedangkan untuk tema nasional Indonesia adalah \"Bergerak Bersama, Putuskan Penularan Hepatitis\"\n  >\n  > #WorldHepatitisDay2026 #WHD2026 #Prolinereagent #ReagenAKDProline #BanggaBuatanIndonesia\n\n- [2026-07-28 · 4 reactions] Selamat Memperingati Hari Hepatitis Sedunia Tahun ini mengusung Tema \"Hepatitis: Mari kita atasi hambatannya\" (\"Hepatitis: Let's Break It Down\"), sedangkan untuk tema nasional Indonesia adalah \"Ber...\n\n- [2026-07-16 · Posted · 43 reactions] [Kami adalah industri alat kesehatan bagian dari Prodia Group...](https://www.linkedin.com/posts/pt-prodia-diagnostic-line-tbk_job-activity-7483450452030746624-9KO8)\n  > Kami adalah industri alat kesehatan bagian dari Prodia Group, berlokasi di Kawasan Industri Jababeka Cikarang, sedang membuka lowongan untuk posisi berikut :\n  >\n  > Procurement Exim Officer\n  > Uraian pekerjaan:\n  > - Menerima dan mereview permintaan barang dari seluruh bagian, berkoordinasi dengan bagian terkait untuk kesesuaian spesifikasi barang dan waktu pengiriman.\n  > - Melakukan seleksi Supplier sesuai kriteria perusahaan.\n  > - Memastikan pembelian barang dan/ jasa sesuai Budget, sesuai waktu yang dibutuhkan, sesuai spesifikasi dan kualitas yang diinginkan.\n  > - Melakukan review hasil pengadaan.\n  > - Menyiapkan, memantau tahapan eskpor impor dan menindaklanjuti dengan efektif dan efisien apabila ada masalah terkait ekspor impor.\n  >\n  > Kualifikasi:\n  >\n  > - Pria maksimal usia 28 tahun.\n  > - Pendidikan minimal D3/S1 jurusan administrasi bisnis, teknik industri.\n  > - Pengalaman di bidang Procurement minimal 1 tahun.\n  > - Memiliki penguasaan bahasa inggris lisan dan tulisan minimal pasif.\n  >\n  > Catatan lain :\n  > *Teliti, Komunikatif, dapat bekerja mandiri, inisiatif & disiplin, memiliki keahlian dalam penggunaan Microsoft Office.\n  >\n  > Kirim lamaran dengan lampiran\n  > CV, Transkrip Nilai, dan Ijazah ke hr@proline.co.id\n  > dengan subyek : LAMARAN KERJA - POSISI - NAMA\n  > atau bisa ke Website - https://lnkd.in/gZTha9QV\n  >\n  > Kenali Proline lebih lanjut di:\n  > YouTube : Prodia Diagnostic Line\n  > Instagram : @proline_id\n  > E-mail : hr@proline.co.id\n  > Website : www.proline.co.id\n  >\n  > #job\n\n- [2026-07-16 · 50 reactions] Kami adalah industri alat kesehatan bagian dari Prodia Group, berlokasi di Kawasan Industri Jababeka Cikarang, sedang membuka lowongan untuk posisi berikut : Procurement Exim Officer Uraian pekerja...\n\n- [2026-07-15 · Reshared · 128 reactions] [PT Prodia Diagnostic Line Tbk, bagian dari Prodia Group, resmi...](https://www.linkedin.com/posts/pt-prodia-diagnostic-line-tbk_activity-7483058309999030272-ZTgT): PT Prodia Diagnostic Line Tbk, bagian dari Prodia Group, resmi mencatatkan saham perdananya di Bursa Efek Indonesia (IDX: PRDL) pada 9 Juli 2026, menandai langkah strategis dalam penguatan industri...\n\n- [2026-07-14 · Posted · 2 reactions] [PROLINE Menerima Company Visit dari Mahasiswa dan Mahasiswi...](https://www.linkedin.com/posts/pt-prodia-diagnostic-line-tbk_prolinereagent-reagenakdproline-proline-activity-7482703178694553600-C30v)\n  > PROLINE Menerima Company Visit dari Mahasiswa dan Mahasiswi Teknologi Laboratorium Medis POLTEKKES KEMENKES Jakarta III.\n  >\n  > #Prolinereagent #ReagenAKDProline #Proline #ProdiaDiagnosticLineTbk #companyvisit\n\n- [2026-07-14 · 2 reactions] PROLINE Menerima Company Visit dari Mahasiswa dan Mahasiswi Teknologi Laboratorium Medis POLTEKKES KEMENKES Jakarta III. #Prolinereagent #ReagenAKDProline #Proline #ProdiaDiagnosticLineTbk #company...\n\n- [2026-07-10 · Posted · 4 reactions] [Proline resmi melantai di Bursa Efek Indonesia! Terima kasih dan...](https://www.linkedin.com/posts/pt-prodia-diagnostic-line-tbk_prdl-prolineipo-prodiagroup-activity-7481288186535518208-bB_Q)\n  > Proline resmi melantai di Bursa Efek Indonesia!\n  >\n  > Terima kasih dan apresiasi setinggi - tingginya atas antusiasme & dukungan para investor kepada PRDL. Mari bergabung menjadi bagian penting dalam ekosistem layanan kesehatan di Indonesia!\n  >\n  > Kenali Proline lebih lanjut di:\n  > YouTube : Prodia Diagnostic Line Tbk\n  > Instagram : @proline_id\n  > Website : www.proline.co.id\n  > Linkedin : PT Prodia Diagnostic Line Tbk\n  >\n  > Pertanyaan seputar perusahaan, silakan hubungi : corporate.secretary@proline.co.id\n  >\n  > #PRDL\n  > #PROLINEIPO\n  > #ProdiaGroup\n  > #IPOIndonesia\n  > #AkuInvestorSahamPRDL\n  > #BursaEfekIndonesia\n  > #DiagnostikIndonesia\n  > #HealthcareIndonesia\n  >\n  > Postingan you can see at Instagram : https://lnkd.in/gnJFKUCv\n\n- [2026-07-10 · Posted · 4 reactions] [Waktu : 8 Juli 2026 Lokasi : Auditorium - PT Prodia Diagnostic Line...](https://www.linkedin.com/posts/pt-prodia-diagnostic-line-tbk_prolinereagent-reagenakdproline-banggabuatanindonesia-activity-7481289100537405440-1VfT)\n  > Waktu : 8 Juli 2026\n  > Lokasi : Auditorium - PT Prodia Diagnostic Line Tbk\n  > PROLINE Hosting a Company Visit from Prodi Magister Ilmu Farmasi Bhakti Kencana University.\n  > #Prolinereagent #ReagenAKDProline #BanggaBuatanIndonesia #Proline #ProdiaDiagnosticLineTbk #Cikarang #companyvisit\n  >\n  > You can see on website : https://lnkd.in/gzK6MSFh\n\n- [2026-07-10 · 10 reactions] Waktu : 8 Juli 2026 Lokasi : Auditorium - PT Prodia Diagnostic Line Tbk PROLINE Hosting a Company Visit from Prodi Magister Ilmu Farmasi Bhakti Kencana University. #Prolinereagent #ReagenAKDProline...\n\n- [2026-07-10 · 4 reactions] Proline resmi melantai di Bursa Efek Indonesia! Terima kasih dan apresiasi setinggi - tingginya atas antusiasme & dukungan para investor kepada PRDL. Mari bergabung menjadi bagian penting dalam eko...\n\n## Locations\n- Headquarters: bekasi, west java, indonesia (ID)\n- Offices: dokumen teknis lainnya. telp. +6221 8984 2722, australia, bekasi regency, west java, indonesia (ID)",
+        "summary": "{\"description\":\"PT Prodia Diagnostic Line Tbk is a Medical and Diagnostic Laboratories company that specializes in clinical chemistry and reagents, offering products such as controls/calibrators/standards, kits, instruments, hematology, immunoassay, SNIBE/MagLumi X3i, Proline Xi800 analyzer, and biomolecular offerings.\",\"employee_estimate\":22,\"employee_estimate_source\":\"Employees: 22\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Kami adalah industri alat kesehatan bagian dari Prodia Group... sedang membuka lowongan untuk posisi berikut : Procurement Exim Officer\",\"hq\":\"Bekasi, West Java, Indonesia\",\"hq_quote\":\"Headquartered in Bekasi, West Java, Indonesia\",\"industry\":\"Medical and Diagnostic Laboratories\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"PT Prodia Diagnostic Line Tbk is a Medical and Diagnostic Laboratories company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":false,\"recently_funded_seed_or_series_a_quote\":\"- No explicit seed/Series A funding information stated on page; appears not recently funded in provided text.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQHsJfxZcnil9A/company-logo_200_200/B56Zz09c98JIAI-/0/1773636276940?e=2147483647&v=beta&t=InzB41c57Xulwph5XIKol1i1pztVHPACishyD4_YkMs",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/dlykppwcqd0",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "PT Prodia Diagnostic Line Tbk",
+              "foundedYear": 2010,
+              "description": "Since its establishment in 2010, Proline has been manufacturing and supplying in vitro diagnostic products to more than 7.000 healthcare facilities in Indonesia. Striving to be Indonesia’s one stop solution IVD manufacturer, Proline key products range from clinical chemistry reagents, hematology reagents, immunology products, urinalysis system, lateral flow tests for drug test and infectious diseases as well as IVD instruments, with local content more than 40% for most products. Proline is ISO 13485:2016, GMPMD, GDPMD certified. Providing extensive support service for over 15 years of experience, Proline has become trusted medical device provider with expertise in IVD products.",
+              "workforce": {
+                "total": 22
+              },
+              "headquarters": {
+                "address": "Kawasan Industri Jababeka III Jl. Tekno Boulevard Blok A3 Unit 3A-5-6, North Cikarang Subdistrict, Bekasi Regency, West Java 17530, ID",
+                "city": "Bekasi",
+                "postalCode": null,
+                "country": "Indonesia"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 9714,
+                "countryRank": 71073,
+                "avgDurationSeconds": 55,
+                "history": [
+                  {
+                    "value": 2820,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 3882,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 30431,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 36741,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 9714,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 5873,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

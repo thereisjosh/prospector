@@ -1,0 +1,270 @@
+{
+  "request": {
+    "query": "Convey",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "9fd9b766b4eca64c260d481a75f8adce",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/6tr8h9btt9m",
+        "title": "Convey",
+        "url": "https://convey.dev/",
+        "text": "# Convey\n\nConvey is a Technology, Information and Internet company. Convey is an all-in-one platform to train, ship, and manage enterprise-grade digital teammates that work autonomously in the background. Convey employs 21 people (+162.5% YoY, +13 people), founded in 2024. Headquartered in San Francisco, California, United States. Its workforce is distributed across United States and Brazil.\n\n## About\n\nConvey helps leading enterprises deploy digital teammates that run autonomously in the background. Since Q3 2025, Convey teammates have completed over 900k+ hours of work for companies like NBCUniversal, Samsara, Faire, Unity, and Univision.\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Headquarters: San Francisco, United States\n- Founded Year: 2024\n- Homepage: convey.dev\n- Aliases: Convey, Inc., convey\n- LinkedIn: linkedin.com/company/conveyai\n- Linkedin Followers: 1,571\n- Emails: carojb@acme.com, frank@acme.com, larry@acme.com, larry@app.convey.dev, mary@acme.com, ozzy@acme.com, ralph@acme.com, sales@convey.dev\n\n## Financials\n- Total Funding: USD 38,000,000\n  - Series a (2026-06-01): USD 38.0M\n\n## Workforce\n- Employees: 21\n- Company Size: 11-50 employees\n  - Monthly Growth: +5.0%\n  - Yearly Growth: +162.5%\n- Key Executives:\n  - Andrew Miller: Head of Marketing\n  - Diego Canales: Co-founder\n  - Penn Daniel: Head of Growth & Ops\n  - Rohan Chopra: Co-founder & CEO\n  - Sean Duggan: Head of Strategic Deployments\n  - Will Harvey: Co-Founder\n- Breakdown:\n  - By Country: United States: 15 (71%), Brazil: 1 (5%)\n  - By Department: Technical: 6 (29%), Consulting: 3 (14%), General Management: 2 (10%), Customer Service: 1 (5%), Marketing: 1 (5%), Operations: 1 (5%), Other Department: 1 (5%), Product: 1 (5%)\n  - By Seniority: Other Management: 6 (29%), Founder: 3 (14%), Head: 3 (14%), Specialist: 3 (14%), Senior: 1 (5%)\n- Talent Sources: DoorDash (4), project44 (3), WRITER (1), Nullspace Partners (1), Momentum.io (1), Meta (1), Lumos (1), Klickly (1), Databricks (1), Autoblocks AI (1)\n- Alumni Go To: Quince (1), Minerva (1)\n\n## Products & Technology\n- Tech Stack: doordash, mongodb, playwright, python, samsara\n\n## Web presence\n\n- Twitter: twitter.com/conveyai\n- Crunchbase: crunchbase.com/organization/convey-bb05\n- Web traffic:\n  - Monthly visits: 8,839\n  - Global rank: 2,019,773\n  - Bounce rate: 45.0%\n  - Pages per visit: 2.7\n  - Average visit duration: 134s\n\n## Categories\n\nagentic ai, ai infrastructure, artificial intelligence (ai), autonomously, digital teammates, enterprise-grade, identity management, ship, technology/it, training\n\n## Recent News\n- [2026-09-29] News India Times: Why Is Dev Anand Forever Young?\n- [2026-09-28] Devdiscourse: Iran says Qatar to convey US response after talks on ideas, IRNA reports\n- [2026-08-06] Devdiscourse: FCRA Amendment Bill likely on Aug 12; Rajya Sabha Chair suggests Rijiju convey Opposition concerns to Amit Shah amid Christian delegation's objections\n- [2026-07-02] [Convey has raised $38 Million in new Series A funding - intelligence360](https://www.intelligence360.news/convey-has-raised-38-million-in-new-series-a-funding/)\n- [2026-06-26] [Influential Women Spotlights Caleigh Gold: Digital Marketing Manager At Convey – News Radio KOTA](https://lifestyle.kotaradio.com/story/297165/influential-women-spotlights-caleigh-gold-digital-marketing-manager-at-convey/)\n- [2026-06-18]\n  - [Convey Raises $38M Series A for AI Teammates That Learn Team Context](https://www.webpronews.com/convey-raises-38m-series-a-for-ai-teammates-that-learn-team-context/)\n  - [Enterprise AI Agent Security Startups Raise $98M: Convey and Arcade Tackle Production Gap](https://www.techtimes.com/articles/318616/20260618/enterprise-ai-agent-security-startups-raise-98m-convey-arcade-tackle-production-gap.htm)\n- [2026-06-17]\n  - [Convey closes on $38M funding round to help companies automate repetitive work with AI teammates - SiliconANGLE](https://siliconangle.com/2026/06/17/convey-closes-38m-funding-round-help-companies-automate-repetitive-work-ai-teammates/)\n  - [Convey Lands $38 Million Series A](https://vcnewsdaily.com/convey-ai/venture-capital-funding/tptqcqcmyd)\n  - [Investing in Convey \\| Andreessen Horowitz](https://a16z.com/announcement/investing-in-convey/)\n  - [Convey Raises $38 Million Series A Led by Andreessen Horowitz to Automate Enterprise Operations with ... - Worldnews.com](https://article.wn.com/view/2026/06/17/Convey_Raises_38_Million_Series_A_Led_by_Andreessen_Horowitz_k/)\n- [2026-06-12] The Times of India: Haunted 3D: Echoes Of The Past Movie Review: A dated horror sequel that struggles to haunt\n\n## Social\n\n### Linkedin\n\n- [2026-09-14 · 160 reactions, 18 comments] Whenever people talk about AI taking jobs, I immediately bring up this IKEA example. Shockingly, almost no one has heard of it, so I wanted to share it here along with my perspective. When IKEA’s A...\n\n- [2026-08-18 · 156 reactions, 16 comments] Excited to share how TelevisaUnivision used Convey AI teammates to reclaim hundreds of thousands of hours in 7mo, without engineers or consultants. Jeremy Varner onboarded his AI teammate Geoff, wh...\n\n- [2026-06-24 · 25 reactions, 2 comments] Most enterprise AI starts with a rollout. Convey starts with a result. We don't just track AI adoption. We help teams deploy AI teammates that own the outcome, not just a task. Less repetitive work...\n\n- [2026-06-22 · 68 reactions, 6 comments] We’re announcing a $38M Series A led by Andreessen Horowitz, with continued participation from Khosla Ventures, and Pear VC. Our Co-Founder and CEO, Rohan Chopra, sat down with Ben Bergman to talk...\n\n- [2026-06-22 · 39 reactions, 3 comments] Our mission is simple: give every department its own fleet of fully autonomous AI teammates. Not assistants. Not copilots. Teammates that own the work. We're announcing a $38M Series A led by Andre...\n\n- [2026-04-22 · 145 reactions, 2 comments] When Samsara needed to optimize its accounting team, Scott Hume made a bold choice: hire AI. His team has since delegated 13 recurring tasks and counting to Convey digital teammates, and is saving...\n\n- [2026-04-17 · 9 reactions] What if your team could train an AI teammate by just doing their job? Convey makes that possible. In our latest demo, a staff accountant processes invoices as usual while their AI teammate learns i...\n\n- [2026-04-14 · 7 reactions] 40% YoY EBITDA growth. Not from a new product line. Not from a price increase. From introducing and truly adopting digital teammates. Savoya went all-in on AI across the organization - inbound orde...\n\n- [2026-04-09 · 22 reactions, 1 comment] The story behind Convey starts with a guy named Steve: a smart operator manually executing repetitive processes that should've already be automated. That insight came from the early days at DoorDas...\n\n- [2026-04-09 · 13 reactions, 1 comment] Heroics don’t scale. Most teams are still held together by your best teammates manually running critical workflows. We built Convey to change that. Our AI teammates learn your workflows and fully t...\n\n## Locations\n- Headquarters: san francisco, california, united states (US)\n- Offices: san francisco, california, united states (US)",
+        "summary": "{\"description\":\"Convey is an all-in-one platform to train, ship, and manage enterprise-grade digital teammates that work autonomously in the background.\",\"employee_estimate\":\"21\",\"employee_estimate_source\":\"Employees: 21\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"\\\"Head of Marketing\\\" (Andrew Miller) and other roles listed; not explicit about RevOps but indicates leadership roles including Head of Growth & Ops suggesting ops focus; however the page lists multiple executive roles and a dedicated Head of Growth & Ops which implies OpS focus in leadership)\",\"hq\":\"San Francisco, United States\",\"hq_quote\":\"Headquartered in San Francisco, California, United States.\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Technology, Information and Internet\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 38,000,000 - Series a (2026-06-01): USD 38.0M\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQGbX2yubCjLSQ/company-logo_200_200/B56Z1w3lCeIsAI-/0/1775715111315/conveyai_logo?e=2147483647&v=beta&t=n1qzHLy459vXKPnbriqDNLCg7f0-vfKf6WvmaWh7MFA",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/6tr8h9btt9m",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Convey",
+              "foundedYear": 2024,
+              "description": "Convey helps leading enterprises deploy digital teammates that run autonomously in the background. Since Q3 2025, Convey teammates have completed over 900k+ hours of work for companies like NBCUniversal, Samsara, Faire, Unity, and Univision. ",
+              "workforce": {
+                "total": 21
+              },
+              "headquarters": {
+                "address": "San Francisco, CA 94123, US",
+                "city": "San Francisco",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 38000000,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2026-06-01",
+                  "amount": 38000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 8839,
+                "countryRank": 678677,
+                "avgDurationSeconds": 134,
+                "history": [
+                  {
+                    "value": 1049,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 2661,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 16042,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 26168,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 9697,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 8839,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/8sy00dtbkxf",
+        "title": "Convey",
+        "url": "https://www.goconvey.com/",
+        "text": "# Convey\n\nConvey is a Software Development company. Convey is a customer engagement operating system for utilities and regulated industries. Convey employs 189 people (+28.6% YoY, +42 people) and has an annual revenue of $34.5M. Headquartered in Denver, Colorado, United States, with an office in Newport Beach. Its workforce is distributed across 12 countries (including United States, India, Argentina, Philippines, and Bangladesh).\n\n## About\n\nConvey is the engagement operating system for Utilities and regulated industries, delivering intelligent customer workflows that transform compliance into seamless, human-centered experiences. Purpose-built for complex environments, Convey enables timely, accurate, and personalized communication during critical moments, helping organizations reduce costs, mitigate compliance risk, and strengthen customer trust at scale. Learn more at goconvey.com.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: Denver, United States\n- Homepage: goconvey.com\n- Aliases: Message Broadcast, LLC., convey, message broadcast, message broadcast, llc\n- LinkedIn: linkedin.com/company/goconvey\n- Linkedin Followers: 5,020\n- Emails: info@goconvey.com\n- Phone: (888) 749-8000, 888-749-8\n\n## Financials\n- Annual Revenue: USD 34,482,604\n- Total Funding: USD 260,000,000\n  - Private equity (2023-11-01): USD 260.0M\n\n## Acquisitions\n- Acquired by: OceanSound Partners (2024-04-11)\n- Acquired West Utilities (2024-11-19)\n- Acquired West Corporation (2024-11-19)\n- Acquired West Technology Group’s CX360 Division Utilities Business (2024-11-01)\n- Acquired AGENT511 (2024-09-26)\n- Acquired Good Egg Media LLC (2024-09-01)\n\n## Workforce\n- Employees: 189\n- Company Size: 201-500 employees\n  - Monthly Growth: +2.2%\n  - Yearly Growth: +28.6%\n- Key Executives:\n  - Abhi Hazra: Vice President - Cloud Operations Transformation\n  - Amit Mondal: Group Chief Technology Officer\n  - Ashish Tondon: Technical Lead\n  - Ashley Gordon: Head of Marketing\n  - Brian Lawrence: Enterprise Sales Director\n  - Corey Posten: Sales Director, West\n  - Deepak Yadav: Director, Systems Development\n  - Ian SirLouis: Director of Software Engineering\n  - Jennifer Glassburn MS, SHRM-SCP: Vice President Human Resources\n  - Jim Hansen: Chief Product Officer\n- Breakdown:\n  - By Country: United States: 105 (56%), India: 26 (14%), Argentina: 3 (2%), Philippines: 3 (2%), Bangladesh: 2 (1%), Brazil: 1 (1%), Canada: 1 (1%), Colombia: 1 (1%), Costa Rica: 1 (1%), Italy: 1 (1%) (+2 more)\n  - By Department: Technical: 47 (25%), Customer Service: 16 (8%), Sales: 15 (8%), Consulting: 10 (5%), Project Management: 10 (5%), Finance: 8 (4%), Marketing: 7 (4%), Operations: 6 (3%), Other Department: 6 (3%), Product: 6 (3%) (+5 more)\n  - By Seniority: Specialist: 45 (24%), Manager: 31 (16%), Senior: 27 (14%), Director: 13 (7%), Other Management: 13 (7%), Head: 9 (5%), Vp: 7 (4%), Clevel: 5 (3%)\n- Active job postings: 3\n- Salary ranges (20 of 28 roles):\n  - Chief of Staff: median $281,156.48 per year\n  - Sr Director: median $255,339.62 per year\n  - Sr. Director: median $238,921.11 per year\n  - Senior Linux Engineer: median $220,154.69 per year\n  - Senior Software Engineer: median $218,070.81 per year\n  - Director: median $207,637.64 per year\n  - Tech Lead: median $185,328.42 per year\n  - Software Engineer: median $171,950.95 per year\n  - Technical Lead: median $157,829.06 per year\n  - Systems Engineer: median $156,900.79 per year\n  - Software Developer: median $156,364.27 per year\n  - Product Owner: median $153,277.1 per year\n  - Sr. Growth Marketing Manager: median $148,052.24 per year\n  - Linux Administrator: median $144,873.71 per year\n  - Technical Project Manager: median $144,441.63 per year\n  - Sales: median $120,084.37 per year\n  - Automation QA Engineer: median $117,905.12 per year\n  - Customer Success: median $111,797.84 per year\n  - QA Engineer: median $107,572.43 per year\n  - Business Analyst: median $106,579.21 per year\n- Talent Sources: Mosaicx (9), Selectron Technologies, Inc. (6), Powerley (5), iconectiv (3), Wright Finlay & Zak, LLP (3), PowerSchool (3), LightBox (3), Infosys (2), Enterprise (2), Cyara (2)\n- Alumni Go To: Turion Space (3), Voxtelesys (2), Indegene (2), Automated Financial Systems, LLC (2), Unity (1), Simplicity Media Group (1), Omnidian (1), Meetingflow (1), Helios Learning Solutions LLC (1), CVS Health (1)\n\n## Products & Technology\n- Tech Stack (showing 50 of 114): ansible, aws lambda, confluence, css, flutter, git, google sheets, hibernate, html, hubspot, java, javascript, jira, jquery, json, kotlin, looker, microservices, mvc, mysql, nodejs, pci, power bi, ramp, react, salesforce, salesforce crm, spring boot, spring mvc, tableau, terraform, twilio, unify, zoominfo, boolean, hireez, linkedin, linkedin recruiter, ajax, bootstrap, php, sql, docker, onetrust, rabbitmq, typescript, datadog, sqs, ssh, zendesk\n\n## Web presence\n\n- Twitter: twitter.com/go_convey\n- YouTube: youtube.com/@go_convey\n- Crunchbase: crunchbase.com/organization/messagebroadcast\n- Web traffic:\n  - Monthly visits: 23,974\n  - Global rank: 1,207,654\n  - Bounce rate: 41.0%\n  - Pages per visit: 2.8\n  - Average visit duration: 294s\n\n## Reviews & Ratings\n- Employer Rating: 3.0/5.0 (30 reviews)\n  - Breakdown: Work-Life: 3.4, Compensation: 3.0, Culture: 3.0, Career: 3.0\n\n## Categories\n\nai agents, automation, call deflection, communications, critical communications, csat improvements, customer engagement, email, engagement os, high volume call answering, information technology, ivr, journey orchestration, platform, proactive communications, rcs, regulated industries, sms, technology/telecommunications, text, utilities, voice, wireless\n\n## Competitors\n\nmoengage, leanplum, resulticks, xinertel, idi billing, hikari tsushin, devyce\n\n## Recent News\n- [2026-08-20] [Convey Named to the 2026 Inc. 5000 List, the Most Prestigious Ranking of America’s Fastest-Growing Private Companies – News Radio KOTA](https://lifestyle.kotaradio.com/story/379852/convey-named-to-the-2026-inc-5000-list-the-most-prestigious-ranking-of-americas-fastest-growing-private-companies/)\n- [2026-08-09] Business Wire: Convey Named to the 2026 Inc. 5000 List, the Most Prestigious Ranking of America’s Fastest-Growing Private Companies\n- [2026-08-08] Yahoo Finance: Convey Acquires Selectron, Expanding Its Engagement Operating System With Citizen Engagement, Field Operations and Payments\n- [2026-08-04] [EIP and OceanSound-backed Convey acquires government and utility software Selectron](https://www.pehub.com/eip-and-oceansound-backed-convey-acquires-government-and-utility-software-selectron/)\n- [2026-07-07]\n  - Yahoo Finance: [Convey appoints Jim Hansen as Chief Product Officer and Britta Hormann as Chief of Staff to strengthen executive leadership team](https://www.businesswire.com/news/home/20260707404232/en/Convey-appoints-Jim-Hansen-as-Chief-Product-Officer-and-Britta-Hormann-as-Chief-of-Staff-to-strengthen-executive-leadership-team)\n  - [Convey Adds Jim Hansen and Britta Hormann to Executive Leadership Team \\| citybiz](https://www.citybiz.co/article/870543/convey-adds-jim-hansen-and-britta-hormann-to-executive-leadership-team/)\n- [2026-07-02] [Convey Gets $38M Series A to Expand AI Teammate Platform](https://www.startupresearcher.com/news/convey-lands-38-million-series-a-to-expand-ai-teammate-platform)\n- [2026-06-18] [Convey Raises $38 Million Series A To Automate Enterprise Operations With AI Teammates](https://pulse2.com/convey-raises-38-million-series-a-to-automate-enterprise-operations-with-ai-teammates/)\n- [2025-09-16] FinancialContent: Convey and Hawaiian Electric Deliver Industry-Leading Emergency Communication at Scale\n- [2025-01-21] Business Wire: Message Broadcast Appoints Jen Glassburn as Vice President of Human Resources\n- [2024-12-12] MarTech Series: Message Broadcast Appoints Raed Adhami as Chief Innovation Officer\n- [2024-09-26] VentureCapital.com: Message Broadcast Strengthens Position in Utility Industry with Acquisition of AGENT511\n- [2024-07-15] Business Wire: Message Broadcast Expands Leadership Team with Key Hires\n- [2024-05-26] Yahoo Finance: Message Broadcast Strengthens Executive Leadership Team with Key Hires\n- [2024-05-16] Business Wire: Tech News \\| American Press Technology News\n- [2024-04-21] Yahoo Finance: OceanSound Acquires Message Broadcast in Partnership with EIP\n\n## Social\n\n### Linkedin\n\n- [2026-10-08 · Posted · 6 reactions] [Budget season forces utilities to make difficult decisions. Which...](https://www.linkedin.com/posts/goconvey_budgeting-season-why-utilities-should-invest-activity-7513999156391337987-fYpJ)\n  > Budget season forces utilities to make difficult decisions. Which investments are essential? Which can wait? And, perhaps most importantly, which technologies can deliver measurable value without adding another layer of cost and complexity?\n  >\n  > The pressure is not simply to modernize. It is to modernize in a way that makes financial sense. For many utilities, the biggest opportunity is moving from reactive service to proactive communication.\n  >\n  > Read the blog to understand how communication technology often pays for itself: https://lnkd.in/gsYEhmrF\n\n- [2026-09-29 · Posted · 14 reactions] [We’re heading to APPA Customer Connections! Our team is looking...](https://www.linkedin.com/posts/goconvey_were-heading-to-appa-customer-connections-activity-7510707977054662656-0wb7)\n  > We’re heading to APPA Customer Connections!\n  > Our team is looking forward to connecting with utility leaders, sharing ideas, and talking about what’s next for customer engagement.\n  > If you’ll be there, come say hi. We’d love to see you!\n\n- [2026-09-24 · Posted · 18 reactions] [High bills lead to high call volumes. Extreme weather only adds to...](https://www.linkedin.com/posts/goconvey_utilitycx-utilitybilling-customerexperience-activity-7508880512187371520-3Q2V)\n  > High bills lead to high call volumes. Extreme weather only adds to the pressure.\n  > For utilities, helping customers understand why their bills are changing has become a strategic priority.\n  >\n  > Hear from DTE Energy, E Source, and Convey, with Smart Energy Consumer Collaborative (SECC), on how personalized bill insights can help customers get answers before they need to call.\n  >\n  > Register for the webinar: https://hubs.li/Q04y2g2L0\n  >\n  > #UtilityCX #UtilityBilling #CustomerExperience\n\n- [2026-09-21 · Posted · 17 reactions] [Two conferences. One big week for utility innovation. We’re heading...](https://www.linkedin.com/posts/goconvey_two-conferences-one-big-week-for-utility-activity-7507801107721609216-VQl3)\n  > Two conferences. One big week for utility innovation.\n  >\n  > We’re heading to Chartwell, Inc.'s EMACS and PowerUp Conferences and looking forward to connecting with utility leaders, sharing ideas, and talking about what’s next for customer engagement.\n  >\n  > From smarter communications to better customer experiences, there’s a lot happening across the industry, and we’re excited to be part of the conversation.\n  >\n  > If you’re attending EMACS or PowerUp, come say hello! We’d love to connect at booth 309!  https://hubs.li/Q04xy-BC0\n\n- [2026-09-17 · Reshared · 13 reactions] [We hope you join us with DTE Energy in our upcoming webinar with...](https://www.linkedin.com/posts/goconvey_we-hope-you-join-us-with-dte-energy-in-our-activity-7506416413096534016-IAjZ): We hope you join us with DTE Energy in our upcoming webinar with Smart Energy Consumer Collaborative (SECC) on October 15th. We're incredibly proud of the work we've done with them and we're excite...\n\n- [2026-09-17 · Posted · 9 reactions] [When severe weather hits, how quickly and clearly a utility...](https://www.linkedin.com/posts/goconvey_storm-readiness-a-storm-preparedness-checklist-activity-7506343768757825537-6X2W)\n  > When severe weather hits, how quickly and clearly a utility communicates can make a real difference for customers.\n  >\n  > Strong storm communication starts well before an event. Proactive planning, tested workflows, and a consistent communication strategy can help utilities keep customers informed, reduce uncertainty, and respond more effectively as conditions change.\n  >\n  > We created a Storm readiness checklist to help utilities strengthen their communication strategy before, during, and after a severe weather event.\n  >\n  > Get the checklist: https://hubs.li/Q04xgW-L0\n  >\n  > #StormReadiness #UtilityCommunications #CustomerEngagement #Utilities\n\n- [2026-09-15 · Posted · 15 reactions] [What does more personalized utility communication look like in...](https://www.linkedin.com/posts/goconvey_emacs-utilitycommunications-customerengagement-activity-7505619109250981889-2k6G)\n  > What does more personalized utility communication look like in practice?\n  >\n  > Join Paul Watkins and Susan DeClerck at EMACS for a closer look at how utilities are using ConveyIQ to modernize customer engagement.\n  >\n  > The session will explore how personalized, intelligent communications can help utilities:\n  > • Deliver more relevant customer experiences\n  > • Streamline communications and operations\n  > • Connect engagement across the utility journey\n  > • Drive better outcomes for both customers and utilities\n  >\n  > If you’re at EMACS, come see how the award-winning engagement operating system for utilities can help transform the way you connect with customers:  https://hubs.li/Q04vp3nZ0\n  >\n  > We’ll see you there!\n  >\n  > #EMACS #UtilityCommunications #CustomerEngagement #Utilities #ConveyIQ\n\n- [2026-09-14 · Posted · 15 reactions] [What’s one customer expectation utilities can’t afford to ignore...](https://www.linkedin.com/posts/goconvey_utilityindustry-customerexperience-customerengagement-activity-7505256608638177281-raPe)\n  > What’s one customer expectation utilities can’t afford to ignore?\n  > Real-time communication.\n  >\n  > We expect timely updates from our banks, airlines, delivery apps, and just about everything else. If your flight is delayed, you usually know before you get to the gate.\n  >\n  > So why should utility communication feel any different?\n  > As Michael Francioni puts it, customers want that same timely, no-surprises experience from their utility.\n  >\n  > It’s not about sending more messages. It’s about sending the right message, at the right time.\n  >\n  > What’s one customer expectation you think utilities can’t afford to ignore?\n  >\n  > #UtilityIndustry #CustomerExperience #CustomerEngagement\n\n- [2026-09-11 · Reshared · 7 reactions] [What if utility communications stopped being treated as messages...](https://www.linkedin.com/posts/goconvey_conveyiq-engagementos-emacs2026-activity-7504241052787089410-vTG-): What if utility communications stopped being treated as messages and started being treated as customer journeys? For years, utilities have relied on static, one-size-fits-all communications. But th...\n\n- [2026-09-10 · Posted · 10 reactions] [What does a more connected customer and citizen experience look...](https://www.linkedin.com/posts/goconvey_better-together-convey-and-selectron-unite-activity-7503822295526928385-7bQj)\n  > What does a more connected customer and citizen experience look like?\n  >\n  > In our latest webinar, Convey and Selectron take a closer look at how organizations can bring together communications, payments, field operations, citizen services, and more to create a more seamless experience from one interaction to the next.\n  >\n  > The conversation explores how connected capabilities can help organizations simplify processes, meet people where they are, and create better experiences across the moments that matter.\n  >\n  > Missed the live session? The on-demand recording is now available https://hubs.li/Q04w-pJ10\n\n- [2026-09-09 · Posted · 8 reactions] [It's hard to believe but winter weather is right around the corner...](https://www.linkedin.com/posts/goconvey_winterstormpreparedness-utilityplaybook-activity-7503470217243566080-S4TG)\n  > It's hard to believe but winter weather is right around the corner.\n  >\n  > For utilities, being proactive now can make everything easier when the first storm hits. From preparing customers with timely information to aligning internal teams and communication channels, the work you do before an event can make a big difference during it.\n  >\n  > Take a look at our comprehensive winter prep playbook and learn what your teams can do today to help your community in the future: https://hubs.li/Q04w-s440\n  >\n  > #winterstormpreparedness #utilityplaybook #proactivecustomercomms #customerengagement #engagementOS\n\n- [2026-09-08 · Posted · 14 reactions] [Last chance to join us live! Our upcoming webinar is almost here...](https://www.linkedin.com/posts/goconvey_last-chance-to-join-us-live-our-upcoming-activity-7503082251258245120-S-nn)\n  > Last chance to join us live!\n  > Our upcoming webinar is almost here. Join Convey and Selectron for a conversation about what’s possible when engagement, payments, citizen services, and field operations come together to create more connected experiences.\n  >\n  > If you’ve been meaning to register, now’s the time.\n  >\n  > Can’t make it live? Register anyway and we’ll send you the on-demand recording after the webinar.\n  >\n  > Save your spot: https://hubs.li/Q04v4z7y0\n\n- [2026-09-07 · Posted · 20 reactions] [Happy Labor Day from Convey. Today, we’re taking a moment to...](https://www.linkedin.com/posts/goconvey_happy-labor-day-from-convey-today-were-activity-7502712743343333376-m-ga)\n  > Happy Labor Day from Convey.\n  > Today, we’re taking a moment to recognize and appreciate the people whose hard work keeps our communities moving forward.\n  >\n  > While many of our team members are taking time to observe the holiday, our Customer Support team remains available for emergency situations. If you need assistance, call 1-866-9-CONVEY or email support@goconvey.com.\n\n- [2026-09-04 · Posted · 18 reactions] [What does it take to make customers feel genuinely taken care of...](https://www.linkedin.com/posts/goconvey_what-does-it-take-to-make-customers-feel-activity-7501647873315414016-x93b)\n  > What does it take to make customers feel genuinely taken care of when they need their utility most?\n  > We asked Nicole Biffle, Lead Customer Success Manager at Convey, for her perspective.\n  >\n  > “To make customers feel genuinely taken care of when it matters most, utilities can help customers feel confident that they're not navigating challenges alone. During high-stress moments like outages, severe weather, or billing questions, proactive communication and a seamless customer experience can make all the difference. While technology enables those touchpoints, the utilities that stand out are the ones that use it to make customers feel informed, supported, and valued when they need it most.”\n  >\n  > From outages and severe weather to billing questions, Nicole sees firsthand how proactive communication and a seamless customer experience can make a difference.\n  >\n  > We’re proud to have customer success experts like Nicole bringing that perspective to the utilities we work with every day.\n\n- [2026-09-03 · Posted · 18 reactions] [What makes the J.D. Power Utility Client Conference so valuable is...](https://www.linkedin.com/posts/goconvey_what-makes-the-jd-power-utility-client-activity-7501324631241490432-hWFM)\n  > What makes the J.D. Power Utility Client Conference so valuable is the opportunity to learn from the people shaping the future of the utility industry.\n  >\n  > From thoughtful conversations around customer experience and innovation to sharing ideas and perspectives with utility leaders from across the industry, the conference was a great reminder of how much we can accomplish when we come together.\n  >\n  > And, of course, the conversations didn’t stop when the sessions ended. We were thrilled to continue making connections over dinner with so many great industry peers.\n  >\n  > Thank you to everyone who spent time with t",
+        "summary": "{\"description\":\"Convey is a customer engagement operating system for utilities and regulated industries, delivering intelligent customer workflows that transform compliance into seamless, human-centered experiences.\",\"employee_estimate\":189,\"employee_estimate_source\":\"Employees: 189\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Active job postings: 3\",\"hq\":\"Denver, United States\",\"hq_quote\":\"Headquartered in Denver, Colorado, United States, with an office in Newport Beach.\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Convey is a Software Development company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 260,000,000 - Private equity (2023-11-01): USD 260.0M\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQHBybpGG7lxag/company-logo_200_200/B56Za2AnaeH0AM-/0/1746810337202/goconvey_logo?e=2147483647&v=beta&t=KRGA3GYAzvMJ_9Pd_D3ehAucMFGnLKz5GRwu9xVWv_g",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/8sy00dtbkxf",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Convey",
+              "foundedYear": null,
+              "description": "Convey is the engagement operating system for Utilities and regulated industries, delivering intelligent customer workflows that transform compliance into seamless, human-centered experiences. Purpose-built for complex environments, Convey enables timely, accurate, and personalized communication during critical moments, helping organizations reduce costs, mitigate compliance risk, and strengthen customer trust at scale. Learn more at goconvey.com.",
+              "workforce": {
+                "total": 189
+              },
+              "headquarters": {
+                "address": "410 17th St, Suite 1375, Denver, Colorado 80202, US",
+                "city": "Denver",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 34482604,
+                "fundingTotal": 260000000,
+                "fundingLatestRound": {
+                  "name": "Private equity",
+                  "date": "2023-11-01",
+                  "amount": 260000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 23974,
+                "countryRank": 149985,
+                "avgDurationSeconds": 294,
+                "history": [
+                  {
+                    "value": 12097,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 13927,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 19453,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 24980,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 28582,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 28582,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 6659.5,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

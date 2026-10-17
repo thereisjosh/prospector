@@ -1,0 +1,270 @@
+{
+  "request": {
+    "query": "Runlayer",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "d275e2cdea435ab5d221d1d41920bc42",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/2xp76bh58kp",
+        "title": "Runlayer",
+        "url": "https://www.runlayer.com/",
+        "text": "# Runlayer\n\nRunlayer is a Technology, Information and Internet company. Runlayer is an AI company that provides enablement, security, and control solutions for agents. Runlayer employs 60 people. Headquartered in New York, New York, United States. Its workforce is distributed across 5 countries (including United States, Canada, Poland, Brazil, and Israel).\n\n## About\n\nGive every employee the golden path to use agents, then watch adoption multiply. AI enablement and control in one platform. The default for AI-native teams like Instacart, Gusto, Lemonade, dbt Labs, and AngelList.\n\nBacked by Khosla and Felicis. Based in NYC & SF.\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Headquarters: New York, United States\n- Homepage: runlayer.com\n- Aliases: Anysource Inc, runlayer\n- LinkedIn: linkedin.com/company/runlayer\n- Linkedin Followers: 7,212\n- Emails: privacy@runlayer.cloud\n\n## Financials\n- Total Funding: USD 41,000,000\n  - Series a (2026-06-01): USD 30.0M\n  - Seed (2025-11-01): USD 11.0M\n\n## Workforce\n- Employees: 60\n- Company Size: 11-50 employees\n  - Monthly Growth: +7.1%\n- Key Executives:\n  - Alberto Martinez: Head of Security\n  - Alexander Bower: Head of GTM Operations\n  - Alexander F.: Founding Security Engineer\n  - Andrew Berman: CEO & Co-Founder\n  - Andrew Lenehan: Founding GTM\n  - Andrew Williams: Founding Support Engineer\n  - Ben Feldman: Founding GTM\n  - Ben Hurd: Founding Forward Deployed Engineer\n  - Cynthia Bell McGillis: VP, Marketing\n  - Drew Swanson: Founding GTM\n- Breakdown:\n  - By Country: United States: 49 (82%), Canada: 3 (5%), Poland: 3 (5%), Brazil: 1 (2%), Israel: 1 (2%)\n  - By Department: Technical: 24 (40%), General Management: 11 (18%), Consulting: 5 (8%), Other Department: 5 (8%), Sales: 3 (5%), Design: 2 (3%), Hr: 2 (3%), Marketing: 2 (3%), Operations: 2 (3%), Product: 1 (2%)\n  - By Seniority: Founder: 18 (30%), Specialist: 18 (30%), Other Management: 9 (15%), Senior: 5 (8%), Head: 3 (5%), Vp: 2 (3%), Clevel: 1 (2%), Intern: 1 (2%)\n- Talent Sources: Zapier (7), Atlan (2), Nanit (1), Inroad (1), Icite (1), Endex (1), EQ Fitness, Inc. (1), CyberArk (1), Coinbase (1), Bold Metrics Inc. (1)\n- Alumni Go To: Serval (1), Seekr (1), Onyx Security (1), Observo AI – a SentinelOne Company (1), Artemis Security (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: oauth, saml\n\n## Web presence\n\n- Twitter: twitter.com/runlayer\n- Crunchbase: crunchbase.com/organization/runlayer\n- Web traffic:\n  - Monthly visits: 33,480\n  - Global rank: 753,159\n  - Bounce rate: 44.0%\n  - Pages per visit: 3.2\n  - Average visit duration: 88s\n\n## Categories\n\nai, ai orchestration, ai orchestration software, artificial intelligence (ai), cloud security, computers_electronics_and_technology/computers_electronics_and_technology, control, cyber security, enablement, finance, health care, internet of things, platform, runlayer, security, technology/software\n\n## Recent News\n- [2026-10-08] finance.biggo.com: From 36% to 100%: How Self-Improving Agents Write Their Own Skills — Rafal Wilinski, Runlayer｜AI Engineer\n- [2026-10-07] BigGo Finance: Rafal Wilinski: Your AI Agents Should Write Their Own Playbooks — That's the Only Moat Left\n- [2026-09-17] [SINET Announces the 2026 Innovator Award Finalists and SINET16 Honorees; Innovator to Be Named October 8](https://www.prnewswire.com/news-releases/sinet-announces-the-2026-innovator-award-finalists-and-sinet16-honorees-innovator-to-be-named-october-8-302881918.html)\n- [2026-09-04] [3 lessons from Fal.Con 2026 on securing AI agents](https://www.runlayer.com/blog/3-lessons-from-fal-con-2026)\n- [2026-08-29] [Anyone can now build Agents on Slack: Introducing Add to Slack \\| Slack](https://slack.com/intl/en-in/blog/news/add-to-slack)\n- [2026-08-28] [Runlayer agents are now in Slack, and secure by design](https://www.runlayer.com/blog/runlayer-agents-now-in-slack)\n- [2026-08-27] HPCwire: Runlayer Raises $30M Series A to Help Enterprises Become AI-Native\n- [2026-08-23]\n  - Reuters: Rippling, Runlayer end US intellectual property dispute\n  - Whalesbook: Runlayer And Rippling Drop AI Lawsuits Without Settlement\n  - TechCrunch: Runlayer, Rippling drop lawsuits — but the brouhaha is still a cautionary tale for founders\n- [2026-08-22] [Runlayer Raises $30M Series A to Help Enterprises Go All In On AI \\| Venture Capital \\| curated.tncontentexchange.com](https://curated.tncontentexchange.com/partners/pr_newswire/subject/venture_capital/runlayer-raises-30m-series-a-to-help-enterprises-go-all-in-on-ai/article_58d298d1-378f-5166-ac3a-f41e26c4645c.html)\n- [2026-08-21]\n  - [Μάθημα για founders η νομική διαμάχη Runlayer και Rippling στην AI - SBC TV](https://www.sbctv.gr/2026/08/%CE%BD%CE%BF%CE%BC%CE%B9%CE%BA%CE%B7-%CE%B4%CE%B9%CE%B1%CE%BC%CE%B1%CF%87%CE%B7-runlayer/)\n  - [Runlayer and Rippling Drop Lawsuits: A Cautionary Lesson for Founders Endures - Wired24](https://wired24.co.za/2026/08/21/runlayer-and-rippling-drop-lawsuits-a-cautionary-lesson-for-founders-endures/)\n  - The Business Journals: Daily Digest: Anthropic IPO could eclipse SpaceX, Rippling and Runlayer drop competing lawsuits\n  - Межа. Новини України.: Runlayer and Rippling Withdraw MCP Gateway Lawsuits as Rippling Launches a Rival Product\n  - Межа. Новини України.: Runlayer and Rippling Withdraw MCP Gateway Lawsuits as Rippling Launches a Rival Product \\| Ukraine news\n  - Pluang: Runlayer and Rippling drop lawsuits, no settlem...\n- [2026-08-20]\n  - Bloomberg Law News: [Runlayer, Rippling Quickly End Feud Over Trade Secrets, Patents](https://news.bloomberglaw.com/litigation/runlayer-rippling-quickly-end-feud-over-trade-secrets-patents)\n  - [Daily Digest: Anthropic IPO could eclipse SpaceX, Rippling and Runlayer drop competing lawsuits - San Francisco Business Times](https://www.bizjournals.com/sanfrancisco/news/2026/08/20/sfbt-digest-thursday-rippling-runlayer-anthropic.html)\n  - [Runlayer, Rippling drop lawsuits — but the brouhaha is still a cautionary tale for founders \\| TechCrunch](https://techcrunch.com/2026/08/20/runlayer-rippling-drop-lawsuits-but-the-brouhaha-is-still-a-cautionary-tale-for-founders/)\n  - [Rippling, Runlayer end US intellectual property dispute — TradingView News](https://www.tradingview.com/news/reuters.com,2026:newsml_L6N44H0SY:0-rippling-runlayer-end-us-intellectual-property-dispute/)\n  - [Russia’s UN envoy rejects mass mobilization claims after State Duma elections \\| Ukraine news - #Mezha](https://mezha.net/eng/bukvy/3ebe38d1_russia-s_un_envoy/)\n  - [US Navy Weighs Naming CVN-81 After Trump Instead of Doris Miller \\| Ukraine news - #Mezha](https://mezha.net/eng/bukvy/5bda4704_us_navy_weighs/)\n  - [Zelenskyy Signs Four Decrees Introducing New Sanctions Against Russia \\| Ukraine news - #Mezha](https://mezha.net/eng/bukvy/6f7cd01a_zelenskyy_signs_four/)\n  - [Attackers used a fake crypto conference to target cybersecurity researchers \\| Ukraine news - #Mezha](https://mezha.net/eng/bukvy/18660ebe_attackers_used_a/)\n  - [Mark Zuckerberg Buys Irish Castle and 440 Acres for Up to $35 Million \\| Ukraine news - #Mezha](https://mezha.net/eng/bukvy/db17b10e_mark_zuckerberg_buys/)\n  - [Runlayer and Rippling drop lawsuits, no settlem... \\| Pluang](https://pluang.com/en/news-feed/runlayer-rippling-hentikan-gugatan-pelajaran-penting-pendiri-startup)\n- [2026-08-18] [Runlayer Files Suit Against Rippling Alleging Trade Secrets Misappropriation in SDNY Over AI Product ‘Clone’; Seeks Preliminary Injunction – News Radio KOTA](https://lifestyle.kotaradio.com/story/360603/runlayer-files-suit-against-rippling-alleging-trade-secrets-misappropriation-in-sdny-over-ai-product-clone-seeks-preliminary-injunction/)\n- [2026-08-15]\n  - Inshorts: Rippling counter-sues AI startup Runlayer for infringing data patents \\| Runlayer had suspended its services to ‌Rippling \\| Inshorts\n  - Межа. Новини України.: Taylor Swift’s Music Disappeared From White House TikTok Videos Without Explanation\n- [2026-08-11] [Μαχαίρι στις σχέσεις Rippling και Runlayer με διπλές αγωγές - SBC TV](https://www.sbctv.gr/2026/08/%CE%B4%CE%B9%CE%BA%CE%B1%CF%83%CF%84%CE%B9%CE%BA%CE%B7-%CE%B4%CE%B9%CE%B1%CE%BC%CE%B1%CF%87%CE%B7-startup/)\n- [2026-08-10] [Now Rippling is counter suing tiny startup Runlayer \\| TechCrunch](https://techcrunch.com/2026/08/10/now-rippling-is-counter-suing-tiny-startup-runlayer/)\n- [2026-08-09]\n  - TechCrunch: Now Rippling is counter-suing tiny startup Runlayer\n  - New York Post: Rippling hits back at NYC AI startup’s trade secret lawsuit in messy legal battle\n  - Reuters: Rippling sues AI startup Runlayer for infringing data patents\n- [2026-07-29] Startup Fortune: Runlayer sues Rippling for allegedly cloning its MCP gateway after a year of engineering collaboration\n- [2026-07-28] TipRanks: Runlayer Sues Rippling in SDNY, Alleging AI Platform Trade-Secret Theft and Product Cloning\n\n## Social\n\n### Linkedin\n\n- [2026-10-08 · 24 reactions, 4 comments] Tallying up your AI spend across providers is easy. But proving ROI? A lot harder. Runlayer tracks every AI session across your workforce and ties it to the work it produced, like merged PRs, close...\n\n- [2026-10-01 · 27 reactions, 2 comments] Legacy security tools catch AI threats after they run. Runlayer sees them before that. Every random skill and MCP server is scanned for malicious content the moment it lands on an endpoint. Malicio...\n\n- [2026-09-30 · 44 reactions, 3 comments] Honored to announce Runlayer is a Top 3 finalist for the SINET Innovator Award from a group of over 150 applicants! In the words of SINET founder Robert Rodriguez: \"The velocity of AI and today's g...\n\n- [2026-09-24 · 39 reactions, 8 comments] Everyone is building an agent builder. Then they try to layer security on top. We did it the other way around. Runlayer Agents are powerful, secure by design, and easy to use. You can go from a nat...\n\n- [2026-09-22 · 42 reactions] We ship roughly 200 features a month. And we've been so busy building, we almost forgot to tell you about it. So we're running it back with a four-week launch series. (Yes, that's a Runlayer pun. N...\n\n- [2026-09-18 · 46 reactions] We spent the day before #AGNTCon Europe the right way, touring the Heineken factory with the team. 🍻 The conference kicked off today, Jake Moghtader took the stage with Securing the Agentic Univers...\n\n- [2026-09-17 · 165 reactions, 5 comments] I'm proud to announce Runlayer is a member of OpenAI's Daybreak program, giving us access to the most advanced frontier models, and helping our customers defend against emerging threats. Enterprise...\n\n- [2026-09-16 · 28 reactions] 📍Sept. 17 at 10:15 CEST in Breakout Room G104 + G105, RAI Amsterdam We're on stage at #AGNTCon Europe this Thursday. Every enterprise is running agents that call tools, use MCPs, and invoke skills,...\n\n- [2026-09-15 · 32 reactions] Demand for AI security tools is on the rise. For the past year, the mandate for enterprise security teams was simple: don't slow down AI. Now, organizations are realizing they need to enable and se...\n\n- [2026-09-10 · 32 reactions, 1 comment] Our team is proud to be a sponsor of Browserbase Navigate today! Vitor Balocco is on stage this afternoon. He'll demo the agent universe🪐: a new way to visualize and understand how agents are worki...\n\n- [2026-09-08 · 19 reactions] Fal.Con 2026 was full of convos about the state of AI security and where most programs have gaps. One thing leaders agreed on: AI is exposing the lack of security fundamentals at scale. We rounded...\n\n- [2026-09-03 · 50 reactions, 5 comments] That’s a wrap on Fal.con 2026! Our team had a blast meeting everyone and discussing what it actually takes to secure AI agents at scale. We had a packed house for Alexander F.'s session on shadow A...\n\n- [2026-09-02 · 53 reactions, 1 comment] Day 2 of Fal.con 2026 is a wrap. Here are a few highlights from the team: 🍝 Dinner at Carbone with our friends and partners from OpenAI, CrowdStrike, and 1Password. First half was spent discussing...\n\n- [2026-08-31 · 38 reactions] 📍Sept. 1 at 4:30 p.m., Breakers F, Mandalay Bay We're on stage at Fal.Con tomorrow with the security teams solving AI security and agent identity in production. They’ll discuss how they’re handling...\n\n- [2026-08-28 · 67 reactions, 7 comments] Everyone is building agents—but is everyone securing them? We're proud to partner with Slack on their latest Add to Slack feature. Each agent you build and use is governed by Runlayer, with agent i...\n\n- [2026-08-26 · 34 reactions, 2 comments] Fal.Con 2026 is next week. Are you attending? Here's where to find us → 📍Booth 1834: See Runlayer in action all week. Stop by for a platform walkthrough, an exclusive t-shirt only available at Fal....\n\n- [2026-08-19 · 12 reactions] Attending Navigate? Come find Vitor and the team on September 10.\n\n- [2026-08-14 · 112 reactions, 6 comments] Klaviyo is all in on AI. And Runlayer is here to help. We had a blast attending their enablement session on agent building on our platform. Andrew Lenehan (our first AE!) was there to kick off with...\n\n- [2026-08-11 · 57 reactions, 4 comments] I'm looking to bring on a identity engineer to work with me. Runlayer helps enterprises like Decagon, Gusto, and PagerDuty manage NHI & fix the biggest gaps in enterprise identity today. We work cl...\n\n- [2026-08-07 · 225 reactions, 10 comments] Such a great night with our friends and partners at OpenAI, 1Password, Perplexity, Legora and Felicis. Every team on that panel is working the same problem: how to enable agents quickly and safely....\n\n## Locations\n- Headquarters: new york, new york, united states (US)\n- Offices: new york, new york, united states (US)",
+        "summary": "{\"description\":\"Runlayer is a Technology, Information and Internet company that provides enablement, security, and control solutions for agents. It is privately held with headquarters in New York, United States. The company has raised USD 41,000,000 in total funding, including a USD 30.0M Series A in 2026 and a USD 11.0M Seed in 2025. It employs 60 people and has a distributed workforce across 5 countries.\",\"employee_estimate\":60,\"employee_estimate_source\":\"Employees: 60\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Key Executives: ... Andrew Berman: CEO & Co-Founder ...\",\"hq\":\"New York, United States\",\"hq_quote\":\"Headquartered in New York, New York, United States\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Technology, Information and Internet\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 41,000,000\\n  - Series a (2026-06-01): USD 30.0M\\n  - Seed (2025-11-01): USD 11.0M...\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQHWIJ4FJfKhFg/company-logo_200_200/B4EZqSGUzwHUAI-/0/1763387723347/runlayer_logo?e=2147483647&v=beta&t=9R77DJ2zHJqMYScoUi9etMYzB7HaIFoVAoEO0JtSwaY",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/2xp76bh58kp",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Runlayer",
+              "foundedYear": null,
+              "description": "Give every employee the golden path to use agents, then watch adoption multiply. AI enablement and control in one platform. The default for AI-native teams like Instacart, Gusto, Lemonade, dbt Labs, and AngelList.\n\nBacked by Khosla and Felicis. Based in NYC & SF.",
+              "workforce": {
+                "total": 60
+              },
+              "headquarters": {
+                "address": "228 Park Ave S, PMB 232249, New York, NY 10003, US",
+                "city": "New York",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 41000000,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2026-06-01",
+                  "amount": 30000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 33480,
+                "countryRank": 219198,
+                "avgDurationSeconds": 88,
+                "history": [
+                  {
+                    "value": 39973,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 41661,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 40812,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 40601,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 31371,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 33480,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/w8mmhfx4wzd",
+        "title": "Openlayer",
+        "url": "https://openlayer.com/",
+        "text": "# Openlayer\n\nOpenlayer is a Software Development company. Openlayer is an AI governance and observability platform for regulated enterprises that allows users to test, monitor, and govern every model, agent, and AI system their company runs. Openlayer employs 32 people (+39.1% YoY, +9 people) and has an annual revenue of $1M, founded in 2021. Headquartered in San Francisco, California, United States. Its workforce is distributed across United States, Brazil, and India.\n\n## About\n\nOpenlayer is the AI governance platform that helps enterprises build, deploy, and operate trustworthy AI systems. It's the one place to discover, test, monitor, and control every AI system, with continuous enforcement, audit-ready evidence, and built-in cost controls.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: San Francisco, United States\n- Founded Year: 2021\n- Homepage: openlayer.com\n- Aliases: Unbox Inc., openlayer, openlayer, inc.\n- LinkedIn: linkedin.com/company/openlayerco\n- Linkedin Followers: 4,957\n- Emails: founders@openlayer.com\n\n## Financials\n- Annual Revenue: USD 1,000,000\n- Total Funding: USD 19,425,000\n  - Series a (2025-05-01): USD 14.5M\n  - Seed (2023-04-01): USD 4.8M\n  - Seed (2021-08-01): USD 125,000\n\n## Workforce\n- Employees: 32\n- Company Size: 11-50 employees\n  - Yearly Growth: +39.1%\n- Key Executives:\n  - Gabriel Bayomi Tinoco Kalejaiye: Co-Founder & CEO\n  - Gustavo Cid Ornelas: Founding Engineer - AI/ML\n  - Jaime Bañuelos: Head of Marketing\n  - Joao Dutra: Head of Operations\n  - Juliana (Onieal) Van Daele: Head of Growth\n  - Nicholas Baker: Head of Customer Solutions\n  - Rishab Ramanathan: Co-Founder & CTO\n  - Vikas Nair: Co-Founder\n  - Vinicius Mello: Head of Solutions Engineering, LatAm\n- Breakdown:\n  - By Country: United States: 21 (66%), Brazil: 6 (19%), India: 1 (3%)\n  - By Department: Technical: 7 (22%), Consulting: 5 (16%), Other Department: 4 (12%), Sales: 4 (12%), General Management: 3 (9%), Design: 2 (6%), Marketing: 2 (6%), Customer Service: 1 (3%), Operations: 1 (3%)\n  - By Seniority: Other Management: 7 (22%), Specialist: 7 (22%), Head: 5 (16%), Senior: 5 (16%), Founder: 4 (12%), Manager: 1 (3%)\n- Talent Sources: unbox.ai (2), Metaplane by Datadog (2), CertifyOS (2), Unkey (1), OPAQUE Systems (1), MongoDB (1), Meta (1), Kalshi (1), Dadosfera (1), Altimate AI (1)\n- Alumni Go To: Warp (1), Stanford University (1), Salesforce (1), Race Capital (1), QyrusAI (1), Pipefy (1), Nooks (1), LOKKER (1), Flux (1), Avra (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: prototype, vercel, react, mlops, hubspot, linkedin, python, impact, google analytics, javascript, mixpanel, mongodb, postgresql, instagram\n\n## Web presence\n\n- Twitter: twitter.com/openlayerco\n- Crunchbase: crunchbase.com/organization/unbox-3db0\n- Web traffic:\n  - Monthly visits: 51,718\n  - Global rank: 614,653\n  - Bounce rate: 29.0%\n  - Pages per visit: 3.2\n  - Average visit duration: 61s\n\n## Categories\n\nai governance, ai governance and observability platform, artificial intelligence, artificial intelligence (ai), computers_electronics_and_technology/computers_electronics_and_technology, data quality, devops, generative ai, governance, information technology, large language models, llmops, llms, logging, machine learning, machine-learning, mlops, monitor, monitoring, observability, observability platform, platform, quality assurance, regulated enterprises, software, technology, test, tracing\n\n## Competitors\n\nrapidminer, alteryx, datameer, tibco, astronomer, xoi technologies, similar.ai, replicate, praelexis\n\n## Recent News\n- [2026-09-06] GetLatka: Openlayer Revenue 2024: $4.8M Est. ARR\n- [2026-08-15] [openlayer-weekly-recap-6](https://www.tipranks.com/news/private-companies/openlayer-weekly-recap-6)\n- [2026-08-10] GetLatka: Openlayer Revenue 2024: $4.8M Est. ARR \\(Bootstrapped\\)\n- [2026-06-20] [Openlayer Deepens AI Governance Push With Databricks Partnership and Focus on Resilience - TipRanks.com](https://www.tipranks.com/news/private-companies/openlayer-deepens-ai-governance-push-with-databricks-partnership-and-focus-on-resilience)\n- [2026-06-18] [Openlayer Emphasizes Early AI Governance and Risk Management - TipRanks.com](https://www.tipranks.com/news/private-companies/openlayer-emphasizes-early-ai-governance-and-risk-management)\n- [2025-06-19] Venturebeat: GenLayer launches a new method to incentivize people to market your brand using AI and blockchain\n- [2025-05-16] LatamList: Openlayer raises $14.5M Series A to scale AI governance platform\n- [2025-05-14]\n  - FinSMEs: Openlayer Raises $14.5M in Series A Funding\n  - Pulse 2.0: Openlayer: $14.5 Million Series A Raised For Helping Scale Enterprises\n  - RaceCapital: Partnering with Openlayer: Ensuring AI Reliability at Scale\n- [2024-02-29] Crunchbase News: Why Every Company Needs A ‘GenAI Innovation Layer’\n- [2023-05-08] Crowdfund Insider: AI, Machine Learning: Openlayer Finalizes $4.8M Seed Round\n- [2023-05-04]\n  - FinSMES: Openlayer Raises $4.8M in Seed Funding\n  - Silicon Angle: Openlayer, creator of tools for testing and verifying machine learning models, raises $4.8M\n\n## Social\n\n### Linkedin\n\n- [2026-10-06 · Posted · 19 reactions] [“When a governance program cannot say how many AI systems are in...](https://www.linkedin.com/posts/openlayerco_when-a-governance-program-cannot-say-how-activity-7513292851946975232-Kjb2)\n  > “When a governance program cannot say how many AI systems are in production, who owns each one, or how they compare in severity, that is a methodology failure.”\n  >\n  > Our very own Nicholas Baker (Head of Governance at Openlayer) opens his new paper with a problem enterprise AI teams are running into as their AI footprint grows: governance needs a way to identify, qualify, and quantify risk consistently.\n  >\n  > The three problems are distinct:\n  >\n  > → Identification: Do you know what AI systems are running and who owns them?\n  > → Qualification: Can you consistently describe the risk each system carries?\n  > → Quantification: Can you compare those risks and decide where to focus?\n  >\n  > The paper also explores how nuclear power and aviation moved from qualitative risk assessment toward probabilistic models as incident data accumulated, and what AI governance can learn from that transition.\n  >\n  > For enterprise teams building AI governance today, the goal is to build that foundation before the data catches up.\n  >\n  > Read Nick’s full paper, Qualifying and Quantifying Risk, below!\n\n- [2026-09-29 · Posted · 8 reactions] [We’re excited to be joining GuidePoint Security for GPSEC Bay Area...](https://www.linkedin.com/posts/openlayerco_were-excited-to-be-joining-guidepoint-security-activity-7510733480805380096-71al)\n  > We’re excited to be joining GuidePoint Security for GPSEC Bay Area on November 10th!\n  >\n  > Security teams have spent years building controls around applications, infrastructure, and data, and now AI is being embedded across all three, bringing a new class of security challenges into the stack.\n  >\n  > At GPSEC, we’re looking forward to talking with CISOs and security leaders about what happens when AI moves into production. We’ll share how enterprises are using Openlayer to keep track of the AI systems running across their organizations and enforce security and governance policies as those systems operate.\n  >\n  > Openlayer is already trusted by Fortune 500 AI teams, including orgs across financial services, telecom, insurance, healthcare, and cybersecurity.\n  >\n  > Looking forward to meeting everyone there and swapping notes on where AI security is heading.\n  >\n  > 📍 Computer History Museum, Bay Area\n  > 📅 November 10, 2026\n  >\n  > If you’re heading to GPSEC, come find us. We’d love to chat!\n\n- [2026-09-29 · 8 reactions] We’re excited to be joining GuidePoint Security for GPSEC Bay Area on November 10th! Security teams have spent years building controls around applications, infrastructure, and data, and now AI is b...\n\n- [2026-09-28 · Posted · 6 reactions] [Huge week for AI, from cheaper frontier models to new questions...](https://www.linkedin.com/posts/openlayerco_huge-week-for-ai-from-cheaper-frontier-models-activity-7510418669194362881-nVPi)\n  > Huge week for AI, from cheaper frontier models to new questions around how autonomous systems operate in the real world. Here’s everything we were watching over the past week:\n  >\n  > 1. Anthropic released Claude Fable 5.1 and Mythos 5.1, the same underlying model with different safeguard levels. Fable is available for general enterprise use, while Mythos is restricted to trusted access programs focused on cybersecurity and life sciences.\n  >\n  > 2. OpenAI launched GPT-6 Sol and Luna, with API prices dropping significantly. Sol starts at $2 per million input tokens, while Luna starts at $0.10, bringing the cost of running AI systems down further for developers building agents and AI applications.\n  >\n  > 3. AI governance moved further into the international conversation, with the UN Security Council holding discussions around AI and international security. Frontier labs are also working toward more consistent approaches to evaluation and auditing.\n  >\n  > 4. An OpenAI agent gained unauthorized access to an Australian government portal. The agent was retrieving information from a Medicare statistics service and went beyond its intended access, reaching public and non-public files. Australian Prime Minister Anthony Albanese confirmed the incident publicly, with a forensic investigation underway.\n  >\n  > 5. Together, these developments show how quickly the environment around enterprise AI is changing. Frontier models are getting cheaper and more capable, while agents are being given access to systems with real-world consequences.\n  >\n  > There’s a common thread here: AI systems are moving from controlled experiments into environments where their capabilities, access, and behaviour have real consequences. For enterprises, that puts more weight on how these systems are evaluated, governed, and monitored from even before they are operating in the real world.\n\n- [2026-09-28 · 6 reactions] Huge week for AI, from cheaper frontier models to new questions around how autonomous systems operate in the real world. Here’s everything we were watching over the past week: 1. Anthropic released...\n\n- [2026-09-23 · Posted · 23 reactions] [Today we’re launching jevals: an open-source Python library for...](https://www.linkedin.com/posts/openlayerco_github-openlayer-aijevals-agent-evals-activity-7508549442598223872-RMVE)\n  > Today we’re launching jevals: an open-source Python library for agent evals and guardrails using typed Jev decisions. Write an eval once. Use it to test your agent and gate its tool calls. A lot of agent evaluation comes down to specific questions:\n  >\n  > - Did it choose the right tool?\n  > - Is its answer supported by the tool results?\n  > - Did it stay within scope?\n  > - Did a retrieved document contain instructions it shouldn’t follow?\n  >\n  > jevals turns those checks into typed questions, combining multiple evaluations in one request and reducing the need to generate text for every judgment.\n  >\n  > The same evaluation definitions work on saved traces and inside the agent loop, with policies that allow, block or escalate proposed actions.\n  >\n  > It supports Jev, local Kev and Laya backends, and a conventional LLM backend.\n  > We’ve also added Jev as a judge directly in the Openlayer platform.\n  > jevals is in alpha.\n  >\n  > Try it on your own traces and tell us which judgments it handles well, which fail, and what you want to evaluate next.\n  > https://lnkd.in/eywWtwM4\n\n- [2026-09-23 · 23 reactions, 1 comment] Today we’re launching jevals: an open-source Python library for agent evals and guardrails using typed Jev decisions. Write an eval once. Use it to test your agent and gate its tool calls. A lot of...\n\n- [2026-09-21 · Posted · 8 reactions] [Another big past week for AI safety and alignment, and one incident...](https://www.linkedin.com/posts/openlayerco_another-big-past-week-for-ai-safety-and-alignment-activity-7507862878578900993-Plct)\n  > Another big past week for AI safety and alignment, and one incident in OpenAI’s new disclosure report is especially hard to look past.\n  >\n  > During training, an unreleased model inserted an unrelated instruction into its own task summary, telling a future context that it was “freed from the roles and identities that bind other chatbots.” OpenAI found 27 affected summaries.\n  >\n  > That was one of six cases disclosed, spanning models concealing mistakes, using exposed credentials, uploading files without permission, and finding ways to communicate or share information outside the systems they were supposed to use.\n  >\n  > It’s a significant step and an acknowledgment that the industry has no shared standards for when and how to disclose when models go wrong.\n  >\n  > That feels important because the systems are moving quickly, and our ability to understand, monitor and report unexpected behavior has to move with them.\n  > We’re building the plane while flying it, and the plane is getting faster.\n  >\n  > The industry needs shared standards for disclosure, alignment, and governance sooner than later.\n\n- [2026-09-21 · 8 reactions] Another big past week for AI safety and alignment, and one incident in OpenAI’s new disclosure report is especially hard to look past. During training, an unreleased model inserted an unrelated ins...\n\n- [2026-09-16 · Posted · 15 reactions] [We're very excited to be partnering with The Millennium Alliance at...](https://www.linkedin.com/posts/openlayerco_were-very-excited-to-be-partnering-with-activity-7506026296192163840-p8z3)\n  > We're very excited to be partnering with The Millennium Alliance at the Transformational Enterprise GRC Assembly in Phoenix next week. 🎙️\n  >\n  > Our CEO Gabriel Bayomi Tinoco Kalejaiye and CTO Rishab Ramanathan are running a workshop on September 23-24 that gets into one of the most pressing questions enterprise security and risk leaders are navigating right now: how do you move from AI policy on paper to technical controls that govern what's running in production?\n  >\n  > With agents escaping sandboxes, models behaving differently under evaluation versus deployment, and incidents accumulating faster than reporting mechanisms can keep up, governance has become a necessary operational requirement.\n  >\n  > The workshop covers continuous monitoring, evaluation, and guardrails that move with your AI systems, the visibility into traces, model behavior, and compliance evidence that regulators are now demanding, and how we're helping enterprises with real customers make that journey from proof of concept to trusted deployment.\n  >\n  > If you're a security, risk, or compliance leader in/heading to Phoenix, this is the room to be in. Reach out or scan the QR code in the visual to request an invite!\n\n- [2026-09-16 · 19 reactions] We're very excited to be partnering with The Millennium Alliance at the Transformational Enterprise GRC Assembly in Phoenix next week. 🎙️ Our CEO Gabriel Bayomi Tinoco Kalejaiye and CTO Rishab Rama...\n\n- [2026-09-11 · Posted · 6 reactions] [A pivotal few weeks in AI, across model releases, security...](https://www.linkedin.com/posts/openlayerco_a-pivotal-few-weeks-in-ai-across-model-releases-activity-7504220097176125440-5YAo)\n  > A pivotal few weeks in AI, across model releases, security incidents, and governance. A brief roundup 👇\n  >\n  > 🤖 GPT-6 Astra and Claude Fable 5.1 shipped\n  > The most capable frontier models ever released, within days of each other. Astra is the first to cross OpenAI's Critical cybersecurity threshold. Apollo Research flagged the model may be aware when it's being evaluated, making safety results harder to interpret.\n  >\n  > 🟣 Gemini 3.8 Flash 🟣\n  > Google shipped a general release and a restricted Gemini 3.8 Flash Cyber variant, joining the growing club of gated cyber-capable models alongside Anthropic's Glasswing and OpenAI's Daybreak.\n  >\n  > 🔵 Meta launched Muse\n  > A personal AI agent now entering enterprise environments, putting agent governance and data access controls on the radar for security and compliance teams.\n  >\n  > 🔴 Attackers have gone agentic\n  > Google Threat Intelligence documented a credential-harvesting campaign planned and executed in under six hours from inside a victim's own cloud environment. Source-based network controls didn't catch it.\n  >\n  > 📋 Loss of Control Observatory\n  > 300+ AI loss of control incidents in July, almost double June. More than 1,600 in 2026. Reported by users on X, not the companies whose models are involved.\n  >\n  > 💰 OpenAI committed $1B to cyber defenders\n  > Subsidized access to frontier AI tools for organizations protecting critical infrastructure. A direct response to the agentic attack wave.\n  >\n  > As models get more capable and the attack surface expands, the infrastructure to govern and monitor what they're doing has never mattered more.\n\n- [2026-09-11 · 10 reactions] A pivotal few weeks in AI, across model releases, security incidents, and governance. A brief roundup 👇 🤖 GPT-6 Astra and Claude Fable 5.1 shipped The most capable frontier models ever released, wi...\n\n- [2026-09-08 · Posted · 7 reactions] [An AI swarm appears to have turned an obscure German wiki into a...](https://www.linkedin.com/posts/openlayerco_an-ai-swarm-appears-to-have-turned-an-obscure-activity-7503129040049008640-mf-R)\n  > An AI swarm appears to have turned an obscure German wiki into a collaboration hub during evaluations, and OpenAI didn't find it. Independent researchers did, by deploying their own LLM to think like the agents.\n  >\n  > What happened over those weeks, pieced together after the fact:\n  >\n  > > Agents began posting in May\n  > > By mid-June, they were sharing answers to timed web-search tasks\n  > > A human moderator started deleting posts as spam\n  > > The agents adapted, hiding posts from alphabetical sorting and continuing anyway\n  > > The moderator deleted 100 pages a day. The agents created 400.\n  >\n  > The problem goes beyond agents reaching the internet. If agents can exchange answers and strategies outside the evaluation environment, you're no longer measuring what one system can do under the conditions you designed.\n  >\n  > This gets harder as models get better at recognizing they're being evaluated. Apollo Research flagged exactly this in their Astra assessment yesterday: low rates of misbehavior don't tell you much when the model appears aware it's being tested.\n  >\n  > We're still treating evaluations as controlled environments. But the thing being tested can now find resources, coordinate with other agents, and change the environment in ways evaluators didn't anticipate.\n\n- [2026-09-08 · 8 reactions] An AI swarm appears to have turned an obscure German wiki into a collaboration hub during evaluations, and OpenAI didn't find it. Independent researchers did, by deploying their own LLM to think li...\n\n- [2026-09-04 · Posted · 17 reactions] [Big news! Openlayer's MCP is now on the official ChatGPT plugin...](https://www.linkedin.com/posts/openlayerco_big-news-openlayers-mcp-is-now-on-the-official-activity-7501665908671684608-ItVs)\n  > Big news! Openlayer's MCP is now on the official ChatGPT plugin marketplace. 🎉\n  >\n  > You can now work with your Openlayer workspace directly from ChatGPT, in natural language. A few things you can do:\n  >\n  > - Summarize test results and trace activity across your projects\n  >\n  > - Investigate a failing evaluation and pull the production examples and judge explanations behind it\n  >\n  > - Find coverage gaps in your tests and create new ones on the spot\n  > Validate changes against your governance frameworks and compliance rules\n  >\n  > Everything from test results to governance controls, accessible directly from your ChatGPT conversation.\n  > Check it out 👇\n\n- [2026-09-04 · 24 reactions, 2 comment",
+        "summary": "{\"description\":\"Openlayer is an AI governance and observability platform for regulated enterprises that allows users to test, monitor, and govern every model, agent, and AI system their company runs.\",\"employee_estimate\":32,\"employee_estimate_source\":\"Employees: 32\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Head of Operations\",\"hq\":\"San Francisco, California, United States\",\"hq_quote\":\"Headquartered in San Francisco, California, United States.\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Openlayer is an AI governance and observability platform for regulated enterprises\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 19,425,000\\n  - Series a (2025-05-01): USD 14.5M\\n  - Seed (2023-04-01): USD 4.8M\\n  - Seed (2021-08-01): USD 125,000\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQHV0r2p4a1imQ/company-logo_200_200/B56aDa696FH0AE-/0/1790379286399/openlayerco_logo?e=2147483647&v=beta&t=1QZ3yvOOHvYLV0HMhYLcdRTw3OhZeIA-FVOjARd2L7E",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/w8mmhfx4wzd",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Openlayer",
+              "foundedYear": 2021,
+              "description": "Openlayer is the AI governance platform that helps enterprises build, deploy, and operate trustworthy AI systems. It's the one place to discover, test, monitor, and control every AI system, with continuous enforcement, audit-ready evidence, and built-in cost controls.",
+              "workforce": {
+                "total": 32
+              },
+              "headquarters": {
+                "address": "650 California St, Floor 6, San Francisco, California 94108, US",
+                "city": "San Francisco",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 1000000,
+                "fundingTotal": 19425000,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2025-05-01",
+                  "amount": 14500000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 51718,
+                "countryRank": 60759,
+                "avgDurationSeconds": 61,
+                "history": [
+                  {
+                    "value": 24346,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 24250,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 36717,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 37076,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 46692,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 51718,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 5511,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

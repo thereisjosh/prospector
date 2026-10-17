@@ -1,0 +1,224 @@
+{
+  "request": {
+    "query": "SJH Fulfilment",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "6b39993365139d5a09d0cc0f7aaf5c2c",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/fdzhfxhfzyn",
+        "title": "SJH Fulfilment",
+        "url": "https://sjhfulfilment.com/",
+        "text": "# SJH Fulfilment\n\nSJH Fulfilment is a Warehousing company. SJH Fulfilment employs 5 people, founded in 2016. Headquartered in Kilkeel, Northern Ireland, United Kingdom.\n\n## About\n\nWe are an order fulfilment (or e-fulfilment) company based in Northern Ireland offering receiving, warehousing, picking, packing and delivery solutions.\n\nOur software connects to your e-commerce platforms and in real time sends us your orders, allowing us to pick, pack and ship your orders without the need for you to lift a box or open your laptop.\n\nWant to know more about how we can help you? Get in touch to talk more.\n\n## Company Details\n- Industry: Warehousing\n- Type: Privately held\n- Headquarters: Kilkeel, United Kingdom\n- Founded Year: 2016\n- Homepage: sjhfulfilment.com\n- Aliases: SJ Henderson Fulfilment Ltd, sj henderson fulfilment, sjh fulfilment\n- LinkedIn: linkedin.com/company/sj-henderson-fulfilment\n- Linkedin Followers: 578\n- Emails: info@sjhfulfilment.com\n- Phone: +44 28 417 69 222, 44 28 417 69 222\n\n## Workforce\n- Employees: 5\n- Company Size: 1-10 employees\n- Key Executives:\n  - Stephen Henderson: Chief Executive Officer\n- Breakdown:\n  - By Country: United Kingdom: 3 (60%)\n  - By Department: General Management: 1 (20%), Operations: 1 (20%), Other Department: 1 (20%)\n  - By Seniority: Clevel: 1 (20%), Manager: 1 (20%), Other Management: 1 (20%)\n- Talent Sources: Collins Aerospace (2), Ruach Music Ltd (1), Live Here Love Here (1), CATAGEN LIMITED - a Net Zero Technologies company (1)\n- Alumni Go To: The Mummy MOT (1)\n\n## Products & Technology\n- Tech Stack: medium\n\n## Web presence\n\n- Facebook: facebook.com/sjhendersonfulfilment\n- Crunchbase: crunchbase.com/organization/sj-henderson-fulfilment\n- Web traffic:\n  - Monthly visits: 1,708\n  - Global rank: 8,453,626\n  - Bounce rate: 35.0%\n  - Pages per visit: 2.2\n  - Average visit duration: 35s\n\n## Categories\n\nlogistics, order fulfillment, packing, picking, receiving, transportation, warehousing\n\n## Recent News\n- [2026-09-10] Business First Online: SJH Fulfilment invests £3.5m in Greater Belfast expansion\n- [2026-09-08] NorthernIrelandWorld: [SJH Fulfilment invests £3.5m in Greater Belfast expansion supporting 25 permanent jobs](https://www.northernirelandworld.com/your-world/sjh-fulfilment-invests-ps35m-in-greater-belfast-expansion-supporting-25-permanent-jobs-8991085)\n- [2026-09-07] ['Biggest step we’ve taken': New 46,000 sq ft facility more than doubles the Northern Ireland firm’s warehousing capacity as it targets £50m revenues](https://www.newsletter.co.uk/business/it-couldnt-come-at-a-better-time-northern-ireland-logistics-firm-invests-ps35m-in-new-facility-after-securing-mayor-contract-with-a-multi-billion-dollar-us-brand-8970158)\n- [2026-09-05] The Irish News: Kilkeel logistics firm’s £3.5m expansion will create 25 jobs\n- [2026-09-04]\n  - [Kilkeel logistics firm’s £3.5m expansion will create 25 jobs – The Irish News](https://www.irishnews.com/news/business/kilkeel-logistics-firms-35m-expansion-will-create-25-jobs-6YZFL3PS5ZFV7IB6JXRWV7OPFY/)\n  - [SJH Fulfilment Invests £3.5m In Greater Belfast Expansion - Business Eye](https://www.businesseye.co.uk/news/sjh-fulfilment-invests-3-5m-in-greater-belfast-expansion/)\n\n## Social\n\n### Linkedin\n\n- [2026-10-05 · 5 reactions] What if Northern Ireland could be the launchpad for American brands looking to enter UK and EU markets? In this clip from Freedom to Grow, Stephen and Adrian discuss an opportunity they’re already...\n\n- [2026-10-02 · 7 reactions] 📦 We’re hiring at SJH Fulfilment! As SJH continues to grow, we’re growing our team too, with opportunities currently available across Kilkeel and Belfast. We’re looking for great people to come and...\n\n- [2026-09-28 · 2 reactions] The opportunity to sell into the US isn’t limited to one type of brand. Fashion. Accessories. Consumer products. If you’re selling something here that has potential in the US market, the bigger que...\n\n- [2026-09-25 · 1 reaction] Every order that leaves our warehouse has been picked, packed and prepared with care. 📦 At SJH Fulfilment, we take care of the details behind every order, making sure it’s ready to get where it nee...\n\n- [2026-09-24 · 5 reactions] If you're thinking about expanding into the US market, this conversation is well worth your time. In Episode 8 of Freedom to Grow, Stephen Henderson sits down with Adrian O'Reilly from PCA to discu...\n\n- [2026-09-22 · 5 reactions] Most businesses think scaling internationally means finding distributors. It doesn't. It means finding the right infrastructure. Our next episode of Freedom to Grow features Adrian O'Reilly from PC...\n\n- [2026-09-18 · 11 reactions] Hard to believe this was our new warehouse before we started filling it with stock! A little look back at the work that went into getting our new premises ready, including the installation of our a...\n\n- [2026-09-17 · 1 reaction] “The order comes in, the order goes out, and you forget about it.” For Mary Leonard from Learning SPACE, that’s how fulfilment should feel. Running it yourself comes with much more than picking and...\n\n- [2026-09-16 · 12 reactions] Incoming 🚛 ... A sizeable stock delivery arriving at SJH and getting ready to make itself at home in the warehouse. For our clients, growth often means more products, more stock and more orders to...\n\n- [2026-09-15 · 1 reaction] Are you still wearing every hat in your business? Picking. Packing. Shipping. Managing the warehouse. Maybe even getting family involved when things get busy. Learning SPACE has been there. So when...\n\n- [2026-09-14 · 2 reactions] Price matters. But it’s only part of the cost. Incorrect orders. Customer complaints. Returns. Hours spent chasing problems. A fulfilment provider that still needs managing. None of these will appe...\n\n- [2026-09-11] “Why would you not reuse the boxes?” For Mary Leonard and Learning SPACE, sustainability isn’t a box-ticking exercise. It’s part of how they operate. So finding a fulfilment partner with similar va...\n\n- [2026-09-10 · 16 reactions] A little look behind the scenes of a big day for SJH 👀 We recently welcomed the cameras in as we shared the news of our new warehouse. There’s plenty that goes on behind the scenes of an announceme...\n\n- [2026-09-09 · 2 reactions] “Our heads were not in the warehouse anymore.” After a flood forced Learning SPACE to rethink its fulfilment, the team made the decision to outsource. The difference was immediate. They no longer h...\n\n- [2026-09-08 · 25 reactions] SJH Fulfilment in the press! 📰 Great to see the News Letter covering our investment in our new Greater Belfast facility and our plans for growth. It’s a proud moment for the team to see this next c...\n\n- [2026-09-07 · 72 reactions, 4 comments] A big step forward for SJH Fulfilment. Today, we’re announcing a £3.5 million investment in our new 46,000 sq ft Greater Belfast fulfilment facility. The expansion more than doubles our warehousing...\n\n- [2026-09-04] What happens when you remove something that’s been limiting your growth? For Learning SPACE, outsourcing fulfilment gave the team the confidence to think bigger. They started going after bigger ten...\n\n- [2026-09-03 · 6 reactions] More customers. More orders. More products. More markets. All good signs of growth. But as a business gets bigger, there’s an important question to ask: Is it becoming easier to run, or harder? Gro...\n\n- [2026-09-02] What does the freedom to grow actually look like? For Mary Leonard from Learning SPACE, outsourcing fulfilment didn’t just free up time in the business. It gave her the freedom to move from Belfast...\n\n- [2026-08-27 · 4 reactions] This month's edition of the Freedom to Grow newsletter is now live. Every month, we go beyond fulfilment to explore what really helps businesses grow. This edition features: 📦 A preview of this wee...\n\n## Locations\n- Headquarters: kilkeel, northern ireland, united kingdom (GB)\n- Offices: kilkeel, northern ireland bt34 4jn, united kingdom (GB), kilkeel, newry and mourne, united kingdom (GB)",
+        "summary": "{\"description\":\"SJH Fulfilment is an order fulfilment (or e-fulfilment) company based in Northern Ireland offering receiving, warehousing, picking, packing and delivery solutions.\",\"employee_estimate\":5,\"employee_estimate_source\":\"Employees: 5\",\"hq\":\"Kilkeel, United Kingdom\",\"hq_quote\":\"Headquartered in Kilkeel, Northern Ireland, United Kingdom.\",\"industry\":\"Warehousing\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"We are an order fulfilment (or e-fulfilment) company based in Northern Ireland offering receiving, warehousing, picking, packing and delivery solutions.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQEMvlFx-O3tYw/company-logo_200_200/B4EaAoFP0OHYAI-/0/1787378859602/sj_henderson_fulfilment_logo?e=2147483647&v=beta&t=e846wxkBeZ8FH3nnZQHEOlb7GctF5-wxK0Zem9Ky3qM",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/fdzhfxhfzyn",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "SJH Fulfilment",
+              "foundedYear": 2016,
+              "description": "We are an order fulfilment (or e-fulfilment) company based in Northern Ireland offering receiving, warehousing, picking, packing and delivery solutions.\n\nOur software connects to your e-commerce platforms and in real time sends us your orders, allowing us to pick, pack and ship your orders without the need for you to lift a box or open your laptop.\n\nWant to know more about how we can help you? Get in touch to talk more.",
+              "workforce": {
+                "total": 5
+              },
+              "headquarters": {
+                "address": "10 Nicholsons Road, Kilkeel, Northern Ireland BT34 4JN, GB",
+                "city": "Kilkeel",
+                "postalCode": null,
+                "country": "United Kingdom"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 1708,
+                "countryRank": 720364,
+                "avgDurationSeconds": 35,
+                "history": [
+                  {
+                    "value": 2032,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 1621,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 3807,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 3070,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 2646,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 2646,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/5ldtr4m7mhs",
+        "title": "SJH, Inc. - Sino-Japan Heaters",
+        "url": "https://sjh-us.com/",
+        "text": "# SJH, Inc. - Sino-Japan Heaters\n\nSJH, Inc. - Sino-Japan Heaters is a Appliances, Electrical, and Electronics Manufacturing company. SJH Electric Heating Solutions is a trusted provider of quality heating solutions worldwide. They offer tubular heaters, flexible heaters, and more. They have service centers, manufacturing sites, and custom solutions. They prioritize reliability and excellent service. SJH, Inc. - Sino-Japan Heaters employs 86 people (-1.1% YoY, -1 person), founded in 1965. Headquartered in Chula Vista, California, United States, operates in 7 countries (including China, Japan, Mexico, Taiwan, and Malaysia). Its workforce is distributed across 5 countries (including United States, Mexico, China, India, and Malaysia).\n\n## About\n\nSJH Inc is one of the world's largest producers of electric heating elements. We been committed to producing first-class heating solutions of the highest standard for more than 50 years. Supplying heating solutions to customers all over the world across multiple industries. With a new manufacturing facility in Mexico and 3 manufacturing facilities in China, we are ready to meet global demands.\n\nSJH strives to increase our range of products to cover all types of heater constructions. If a new kind of heater is needed, the SJH R&D department will endeavor to come up with a solution. Some of the different products SJH produces are:\n\nSheath Heaters\nCartridge Heaters\nFlat-bar Heaters\nSilicone Flexible Heaters\nThermocouples\nOpen Coil Heaters\nThick Film Heaters\nFoil Heaters\nGravity-cast Heaters\nDie-cast Heaters\nFinned Heaters\nDeep Drawn Products\nMetal Tubing\nMetal Stamped Components\nHigh-Frequency Welded Products\n\nContact our USA sales office for more information. www.SJH-US.com\n\n## Company Details\n- Industry: Appliances, Electrical, and Electronics Manufacturing\n- Type: Privately held\n- Headquarters: Chula Vista, United States\n- Founded Year: 1965\n- Homepage: sjh-us.com\n- Aliases: SJH, Inc., sino-japan heaters, sjh, inc. - sino-japan heaters\n- LinkedIn: linkedin.com/company/sjh-inc.\n- Linkedin Followers: 1,960\n- Emails: info@sjh-us.com\n- Phone: +1 619 349 3858, 619-349-3858\n\n## Workforce\n- Employees: 86\n- Company Size: 1001-5000 employees\n  - Monthly Growth: -1.1%\n  - Yearly Growth: -1.1%\n- Key Executives:\n  - Keith Huff: Director of Sales & Business Development\n- Breakdown:\n  - By Country: United States: 7 (8%), Mexico: 6 (7%), China: 1 (1%), India: 1 (1%), Malaysia: 1 (1%)\n  - By Department: Sales: 9 (10%), Technical: 3 (3%), Operations: 2 (2%), Administrative: 1 (1%), General Management: 1 (1%)\n  - By Seniority: Specialist: 9 (10%), Manager: 4 (5%), Director: 1 (1%), Other Management: 1 (1%), Senior: 1 (1%)\n- Talent Sources: Schneider Electric (3), Sodexo (2), Universidad Autónoma de Baja California (1), Saginaw Valley State University (1), JD Group Logistics (1), JCPenney (1), Honeywell Technologies (1), Chicago Air Cargo (1), Chase Winters Worldwide (1), CODAN US Corporation (1)\n- Alumni Go To: 華泰電子股份有限公司 Orient Semiconductor Electronics (1), ams AG (1), Sunrun (1), Stratus (1), Seiko Corporation of America (1), Medtronic (1), Honeywell Technologies (1), GemPharmatech (1), Calimax (1), British Council (1)\n\n## Products & Technology\n- Tech Stack: electric, amp\n\n## Web presence\n\n- Facebook: facebook.com/sjhinc\n- YouTube: youtube.com/channel/ucqbz4mv-cvdewfihqqhk8wg\n- Crunchbase: crunchbase.com/organization/sino-japan-heaters\n- Web traffic:\n  - Monthly visits: 71\n  - Global rank: 11,106,967\n  - Bounce rate: 52.0%\n  - Pages per visit: 1.0\n  - Average visit duration: 0s\n\n## Categories\n\ncartridge heaters, deep drawing, die-casting, electric heater, electric heating solutions, electronics, engineering, excellent service, finned heaters, flexible heaters, foil heaters, high-frequency welding, industrial, manufacturing, metal forming, metal stamped components, open coil, pet heates, pi heaters, ptc, reliable, sheath heaters, silicone rubber products, tempsensor, thermocouple, tubular heaters\n\n## Recent News\n- [2026-09-07]\n  - Business First Online: SJH Fulfilment invests £3.5m in Greater Belfast expansion\n  - NorthernIrelandWorld: SJH Fulfilment invests £3.5m in Greater Belfast expansion supporting 25 permanent jobs\n\n## Social\n\n### Linkedin\n\n- [2026-09-16 · 5 reactions] Looking for precise, compact, and customizable heating? Our Thick Film Heaters are engineered to fit the needs of demanding applications across industries including food & beverage, EV battery syst...\n\n- [2026-05-22 · 4 reactions] Memorial Day We remember and honor the brave men and women who gave their lives in service to our country. Their sacrifice and courage will never be forgotten. In observance of Memorial Day, the SJ...\n\n- [2026-05-01 · 4 reactions] Happy International Labor Day! Today, we recognize the hard work, dedication, and effort of workers everywhere. Every role, every task, and every contribution matters,and it’s what keeps everything...\n\n- [2026-04-02 · 7 reactions] 🌷 Wishing Everyone a Happy Easter! 🐣 As Easter weekend approaches, we hope everyone has the opportunity to spend time with family, friends, and loved ones. In observance of the holiday, the SJH off...\n\n- [2026-03-09 · 7 reactions] 🌸 Happy International Women’s Day! 🌸 Today we celebrate the incredible women who inspire progress, leadership, creativity, and resilience every single day. At SJH, we’re proud to recognize the wome...\n\n- [2026-02-13 · 5 reactions] Happy Presidents Day This Monday, we honor the leadership, legacy, and vision of the presidents who have shaped our nation and continue to inspire progress for future generations. In observance of...\n\n- [2026-02-06 · 5 reactions] Trade Show Season 2026 Is Officially Underway! The SJH team kicked off the year on the road, attending two major industry events this past week: AHR Expo in Las Vegas and MD&M in Anaheim. It’s been...\n\n- [2026-01-19 · 4 reactions] Honoring Martin Luther King Jr. Day Today, we remember and reflect on the life and legacy of Dr. Martin Luther King Jr. His message of equality, justice, and compassion continues to inspire us to l...\n\n- [2025-11-11 · 7 reactions] Today, we pause to honor the brave men and women who have served and sacrificed for our country. Their courage, dedication, and commitment to protecting our freedoms will never be forgotten. At SJH...\n\n- [2025-08-29 · 7 reactions] We celebrate the hard work, dedication, and achievements of workers everywhere, the true backbone of progress and innovation. 💪 In observance of the holiday, our office will be closed on Monday, Se...\n\n- [2025-07-29 · 8 reactions] Great job, SJH Mexico facility!\n\n- [2025-07-16 · 15 reactions, 4 comments] Congratulations to Jenaro Nicolas Martinez – Employee of the Quarter! SJH Mexico Facility Please join us in recognizing Jenaro, a dedicated Quality Inspector whose commitment to continuous improvem...\n\n## Locations\n- Headquarters: chula vista, california, united states (US)\n- Offices: xiamen, fujian, china (CN), shah alam, selangor, malaysia (MY), chula vista, california, united states (US), kaohsiung city, taiwan 806, taiwan (TW), tijuana, baja california c.p., mexico (MX), tokyo, kanto 108-, japan (JP), kowloon, hong kong (HK), shenzhen, guangdong, china (CN)",
+        "summary": "{\"description\":\"SJH, Inc. - Sino-Japan Heaters is an Appliances, Electrical, and Electronics Manufacturing company that provides heating solutions and has manufacturing facilities and service centers worldwide.\",\"employee_estimate\":86,\"employee_estimate_source\":\"Employees: 86\",\"hq\":\"Headquartered in Chula Vista, California, United States\",\"hq_quote\":\"Headquartered in Chula Vista, California, United States, operates in 7 countries (including China, Japan, Mexico, Taiwan, and Malaysia).\",\"industry\":\"Appliances, Electrical, and Electronics Manufacturing\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":false,\"is_third_party_logistics_quote\":\"The page describes SJH as an Appliances, Electrical, and Electronics Manufacturing company and highlights its manufacturing facilities; it does not describe third-party logistics services as its core business.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4D0BAQHArZ3QTf7Mdw/company-logo_200_200/company-logo_200_200/0/1630556777835/sjh_inc_logo?e=2147483647&v=beta&t=Sfk9MXhcAAfm3Ry06Ht60jO18dgchFqZ6Ata_dLDQYE",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/5ldtr4m7mhs",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "SJH, Inc. - Sino-Japan Heaters",
+              "foundedYear": 1965,
+              "description": "SJH Inc is one of the world's largest producers of electric heating elements. We been committed to producing first-class heating solutions of the highest standard for more than 50 years. Supplying heating solutions to customers all over the world across multiple industries. With a new manufacturing facility in Mexico and 3 manufacturing facilities in China, we are ready to meet global demands.\n\nSJH strives to increase our range of products to cover all types of heater constructions. If a new kind of heater is needed, the SJH R&D department will endeavor to come up with a solution. Some of the different products SJH produces are:\n\nSheath Heaters\nCartridge Heaters\nFlat-bar Heaters\nSilicone Flexible Heaters\nThermocouples\nOpen Coil Heaters\nThick Film Heaters\nFoil Heaters\nGravity-cast Heaters\nDie-cast Heaters\nFinned Heaters\nDeep Drawn Products\nMetal Tubing\nMetal Stamped Components\nHigh-Frequency Welded Products\n\nContact our USA sales office for more information. www.SJH-US.com",
+              "workforce": {
+                "total": 86
+              },
+              "headquarters": {
+                "address": "2530 Catamaran Way, Chula Vista, California 91914, US",
+                "city": "Chula Vista",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 71,
+                "countryRank": 378479,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 2383,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 3567,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 2696,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 1338,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 69,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 71,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 5852.4,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

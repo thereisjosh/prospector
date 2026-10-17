@@ -1,0 +1,226 @@
+{
+  "request": {
+    "query": "Centralize",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "7ce9fe282ef0bde3643b526c40c85014",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/d9gm81sp7qd",
+        "title": "Centralize",
+        "url": "https://usecentralize.com/",
+        "text": "# Centralize\n\nCentralize is a Technology, Information and Internet company. Centralize is a company that provides account mapping for enterprise sales. They offer a GPS for automatic mapping buying committees, finding missing stakeholders, and getting the next best move to close. Centralize employs 26 people, founded in 2023. Headquartered in San Francisco, California, United States. Its workforce is distributed across United States and Canada.\n\n## About\n\nCentralize is the AI-powered relationship intelligence platform for enterprise sales teams. We've created automated stakeholder maps that help reps proactively multithread across departments, use conversation insights to say the right thing, and run pipeline reviews in minutes. We expedite the account planning process ahead of conversations to qualify deals in half the time and improve win rates by up to 56%.\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Headquarters: San Francisco, United States\n- Founded Year: 2023\n- Homepage: usecentralize.com\n- Aliases: Collate Labs, Inc., centralize\n- LinkedIn: linkedin.com/company/use-centralize\n- Linkedin Followers: 3,573\n- Emails: founders@usecentralize.com\n\n## Financials\n- Total Funding: USD 19,625,000\n  - Series a (2026-07-01): USD 15.0M\n  - Seed (2025-10-01): USD 4.0M\n  - Pre seed (2024-04-03): USD 500,000\n  - Seed (2024-03-01): USD 125,000\n\n## Workforce\n- Employees: 26\n- Company Size: 11-50 employees\n- Key Executives:\n  - Nitin Prasad: Founding Engineer, Applied AI\n  - Rachit Kataria: Co-Founder & CEO\n  - Shaunak Tulshibagwale: Founding Engineer/CSM\n  - Wilhelm Willie: Product Engineering Lead\n  - William Wang: Co-Founder\n- Breakdown:\n  - By Country: United States: 20 (77%), Canada: 1 (4%)\n  - By Department: Technical: 7 (27%), Consulting: 4 (15%), Sales: 4 (15%), General Management: 3 (12%), Customer Service: 1 (4%), Marketing: 1 (4%), Other Department: 1 (4%)\n  - By Seniority: Specialist: 9 (35%), Founder: 4 (15%), Other Management: 3 (12%), Manager: 2 (8%), Head: 1 (4%), Intern: 1 (4%), Senior: 1 (4%)\n- Active job postings: 2\n- Talent Sources: TipTop Technologies (1), Stealth Startup (1), Rokt mParticle (1), Pipeline Catalyst (1), Modern Treasury (1), HiBob (1), Capture (1), Asana (1), Apartment Snapshot (1), 3Four Labs (1)\n- Alumni Go To: Vapi (1), Stage 2 Capital (1), Salesforce (1), Redcar (1), Outset (1), Discloze (1)\n\n## Products & Technology\n- Features: Free Trial, Demo Available\n- Tech Stack: gps, redis, typescript, coinbase, slack, react\n\n## Web presence\n\n- Twitter: twitter.com/usecentralize\n- Crunchbase: crunchbase.com/organization/centralize-3890\n- Web traffic:\n  - Monthly visits: 12,186\n  - Global rank: 1,578,461\n  - Bounce rate: 62.0%\n  - Pages per visit: 3.1\n  - Average visit duration: 171s\n\n## Categories\n\naccount mapping, agentic ai, artificial intelligence (ai), buying committees, crm, enterprise sales, enterprise software, sales enablement, stakeholders, turn-by-turn directions\n\n## Recent News\n- [2026-09-04] GetLatka: Centralize Revenue 2025: $440K Est. ARR\n- [2026-08-14] GetLatka: Centralize Revenue 2025: $440K Est. ARR \\(Bootstrapped\\)\n- [2026-07-31] Business Wire: Centralize Raises $19M Led by NEA to Bring Relationship Intelligence to the Core of Enterprise Sales\n\n## Social\n\n### Linkedin\n\n- [2026-09-30 · Reshared · 5 reactions] [No map, no deal.](https://www.linkedin.com/posts/use-centralize_no-map-no-deal-activity-7511056833915199488-0xZL): No map, no deal.\n\n- [2026-09-29 · Reshared · 53 reactions] [Taking the stage with Sam Jacobs in 5 minutes at Pavilion ’s...](https://www.linkedin.com/posts/use-centralize_activity-7510692668105043968-eUfn): Taking the stage with Sam Jacobs in 5 minutes at Pavilion ’s GTM2026, talking about what SHOULDN’T be automated with AI in GTM. If you’re in NY this week or early next, comment below or DM me - wou...\n\n- [2026-09-28 · Reshared · 3 reactions] [I spent 21 hours in Cancun at ElevenLabs' CKO, teaching their...](https://www.linkedin.com/posts/use-centralize_i-spent-21-hours-in-cancun-at-elevenlabs-activity-7510332039636623360-mLx3): I spent 21 hours in Cancun at ElevenLabs' CKO, teaching their revenue team how we closed ElevenLabs. Yes, it was as meta as it sounds. Hundreds of reps and leaders in one room, and nobody was there...\n\n- [2026-09-24 · Reshared · 5 reactions] [William Wang and I met the first week of our freshman year at USC...](https://www.linkedin.com/posts/use-centralize_william-wang-and-i-met-the-first-week-of-activity-7508890838509244416-d7B2): William Wang and I met the first week of our freshman year at USC. Ten years later we run a company together. Being best friends first helped. But there are better tests of whether a co-founder par...\n\n- [2026-09-22 · Reshared · 7 reactions] [We signed Amplitude and LangChain without a sales deck. A top rep...](https://www.linkedin.com/posts/use-centralize_we-signed-amplitude-and-langchain-without-activity-7508170782221549568-eeGm): We signed Amplitude and LangChain without a sales deck. A top rep felt the pain of navigating relationships, became a power user, and sold it up the chain. Leadership took the demo seriously becaus...\n\n- [2026-09-17 · Reshared · 4 reactions] [Most founders overengineer culture-fit interviews. I still...](https://www.linkedin.com/posts/use-centralize_most-founders-overengineer-culture-fit-interviews-activity-7506354899975204864-y6Va): Most founders overengineer culture-fit interviews. I still interview every candidate at Centralize , and I can usually tell within the first conversation whether someone's a fit. You don't need a s...\n\n- [2026-09-16 · Reshared · 4 reactions] [My good friend, 🏒 Don Otvos , gave me one of the best litmus tests...](https://www.linkedin.com/posts/use-centralize_my-good-friend-don-otvos-gave-me-one-activity-7505983366484140032-nz6b): My good friend, 🏒 Don Otvos , gave me one of the best litmus tests for RevOps leadership: Your best rep asks for a new tool. What's your first reaction? For most leaders, it's immediate defense. →...\n\n- [2026-09-15 · Reshared · 10 reactions] [Dreamforce kicks off today. Salesforce Ventures backed our Seed and...](https://www.linkedin.com/posts/use-centralize_dreamforce-kicks-off-today-salesforce-ventures-activity-7505638654715777025-UV7z): Dreamforce kicks off today. Salesforce Ventures backed our Seed and doubled down on our Series A because they believed the same thing William Wang and I believed from day one: Enterprise deals are...\n\n- [2026-09-10 · Reshared · 5 reactions] [\"AI companies belong in SF.\" \"No, they belong in NYC.\" What if…they...](https://www.linkedin.com/posts/use-centralize_ai-companies-belong-in-sf-no-they-belong-activity-7503807522311421952-Ol6t): \"AI companies belong in SF.\" \"No, they belong in NYC.\" What if…they belong wherever your customers are? Being bicoastal - our team primarily split across SF and NY - has closed deals for us that di...\n\n- [2026-09-08 · Reshared · 11 reactions] [I get 10 minutes to demo Centralize live in front of a group of...](https://www.linkedin.com/posts/use-centralize_i-get-10-minutes-to-demo-centralize-live-activity-7503089152620503040-bdGN): I get 10 minutes to demo Centralize live in front of a group of seasoned sales operators on Thursday at Pavilion 's demo day. It’s free to sign up, and there will be a live Q&A at the end of our se...\n\n- [2026-09-03 · Reshared · 6 reactions] [I took Sora, my 2 year old Shiba Inu, to the dog park yesterday 🐕...](https://www.linkedin.com/posts/use-centralize_i-took-sora-my-2-year-old-shiba-inu-to-activity-7501271824203296768-cW8z): I took Sora, my 2 year old Shiba Inu, to the dog park yesterday 🐕 Here's what it taught me about enterprise sales: 🐾 He maps the room before making a move Sora never runs straight into the action....\n\n- [2026-09-02 · Reshared] [Maybe it’s because multithreading is always top of mind for me, but...](https://www.linkedin.com/posts/use-centralize_maybe-its-because-multithreading-is-always-activity-7500909186638036993-5N3P): Maybe it’s because multithreading is always top of mind for me, but I view Stripe 's $7B OpenRouter 's acquisition last month as a perfect parallel for relationship navigation. OpenRouter is all ab...\n\n- [2026-09-01 · Reshared · 3 reactions] [2 weeks ago, I attended a revenue exec dinner in SF and dogfooded...](https://www.linkedin.com/posts/use-centralize_2-weeks-ago-i-attended-a-revenue-exec-dinner-activity-7500546829227290624-hfeK): 2 weeks ago, I attended a revenue exec dinner in SF and dogfooded my way into a demo using Centralize . I'm still thinking about it. Confession: I still feel pressure when walking into a room full...\n\n- [2026-08-31 · Reshared · 7 reactions] [I'd say our NYC Series A launch party with Brex and Profound was a...](https://www.linkedin.com/posts/use-centralize_id-say-our-nyc-series-a-launch-party-with-activity-7500185226611011584-4EBV): I'd say our NYC Series A launch party with Brex and Profound was a success. Mission accomplished 🥂 Last week, we turned Brex's HQ into the Centralize Intelligence Agency for a proper GTM crossover...\n\n- [2026-08-28 · Reshared · 2 reactions] [CRM data tells reps what happened. I analyzed 100s of questions...](https://www.linkedin.com/posts/use-centralize_crm-data-tells-reps-what-happened-i-analyzed-activity-7499114244831997952-k1lN): CRM data tells reps what happened. I analyzed 100s of questions reps are asking Centra, our AI deal strategist, to figure out what information they’re not getting from CRM. The short answer: where...\n\n- [2026-07-29 · Reshared · 1,240 reactions] [$15M Series A led by NEA. Salesforce Ventures and YC doubling down...](https://www.linkedin.com/posts/use-centralize_activity-7488236382461513728-4I0b): $15M Series A led by NEA. Salesforce Ventures and YC doubling down. I've been sitting on these words for weeks and I still can't quite believe I get to write them. William Wang 👨🌾 and I started Cen...\n\n- [2026-07-29 · Reshared · 166 reactions] [At a moment when most GTM leaders are seeking to automate anything...](https://www.linkedin.com/posts/use-centralize_activity-7488293740403421184-NZa0): At a moment when most GTM leaders are seeking to automate anything and everything, enterprise selling remains primarily a people problem. That's exactly why I'm so excited about Centralize , and wh...\n\n- [2026-07-16 · Reshared · 49 reactions] [There's finally data confirming that AI hasn't actually changed...](https://www.linkedin.com/posts/use-centralize_activity-7483514226884583425-dgTK): There's finally data confirming that AI hasn't actually changed sales. According to Salesforce and Forrester, AEs still spend 60% of their time on admin and manual research. Reps spend hours piecin...\n\n- [2026-07-15 · Reshared · 127 reactions] [One of my favorite parts about building in SF is how easy it is to...](https://www.linkedin.com/posts/use-centralize_activity-7483166946322972674--COx): One of my favorite parts about building in SF is how easy it is to end up in a room full of people who make you think bigger. Shoutout to Eric Eyken-Sluyters and Reggie Marable for bringing togethe...\n\n- [2026-07-13 · Reshared · 232 reactions] [Will and I never picked our job titles. A dropdown on our YC...](https://www.linkedin.com/posts/use-centralize_activity-7482426710580228097-QFk8): Will and I never picked our job titles. A dropdown on our YC application did. There's a field that asks who the CEO is. We were sitting next to each other filling it out and realized we'd never act...\n\n## Locations\n- Headquarters: san francisco, california, united states (US)\n- Offices: san francisco, california, united states (US)",
+        "summary": "{\"description\":\"Centralize is the AI-powered relationship intelligence platform for enterprise sales teams. Automated stakeholder maps help reps multithread, use insights, and accelerate account planning to qualify deals faster and improve win rates.\",\"employee_estimate\":26,\"employee_estimate_source\":\"Employees: 26\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Active job postings: 2\",\"hq\":\"San Francisco, California, United States\",\"hq_quote\":\"Headquartered in San Francisco, California, United States.\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Technology, Information and Internet\\n- Type: Privately held\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 19,625,000\\n  - Series a (2026-07-01): USD 15.0M\\n  - Seed (2025-10-01): USD 4.0M\\n  - Pre seed (2024-04-03): USD 500,000\\n  - Seed (2024-03-01): USD 125,000\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQG9V2zzFGTeig/company-logo_200_200/B56ZlV3e6KG0AI-/0/1758082233024/use_centralize_logo?e=2147483647&v=beta&t=9nsQh3cLA5Ra1UcsMuK7AN8Nhq7Tt8jI-weIXD4-rVo",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/d9gm81sp7qd",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Centralize",
+              "foundedYear": 2023,
+              "description": "Centralize is the AI-powered relationship intelligence platform for enterprise sales teams. We've created automated stakeholder maps that help reps proactively multithread across departments, use conversation insights to say the right thing, and run pipeline reviews in minutes. We expedite the account planning process ahead of conversations to qualify deals in half the time and improve win rates by up to 56%.",
+              "workforce": {
+                "total": 26
+              },
+              "headquarters": {
+                "address": "San Francisco, California, United States",
+                "city": "San Francisco",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 19625000,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2026-07-01",
+                  "amount": 15000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 12186,
+                "countryRank": 422536,
+                "avgDurationSeconds": 171,
+                "history": [
+                  {
+                    "value": 8495,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 10104,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 12641,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 6663,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 10665,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 12186,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/d5jc0st3gw4",
+        "title": "Centralize",
+        "url": "https://centralize.uk/",
+        "text": "# Centralize\n\nCentralize is a Technology, Information and Internet company. Centralize employs 16 people (-11.1% YoY, -2 people), founded in 2023. Headquartered in Colorado Springs, Colorado, United States, with presence in South Africa.\n\n## About\n\nCentralizing the Workplace in a Decentralized World.\n\nYour performance partner, where technology can make you faster, leaner, and more effective. Our mandate is to provide you with a toolset of technology-enhanced solutions that boost operational efficiency at the local level, all while aligning with our broader global objectives. \n\nOur mission is to create a unified platform that brings workplaces together, enabling organizations to excel in their operations and project execution amidst the ongoing decentralization movement across various interconnected domains, including energy generation, transportation, manufacturing, and agriculture.\n\nWe believe that the future belongs to those who can seamlessly integrate complex systems. We are committed to bridging the gap between decentralization and efficiency by harnessing the power of technology. Our focus is on integrating ERP systems, communication software, and CRM tools to foster collaboration, nurture effective teams, and drive productivity.\n\nAt the heart of our mission lies a vision of a workplace where boundaries vanish, and information flows effortlessly. We are dedicated to simplifying the complexities of the modern workplace, allowing organizations to adapt, innovate, and succeed in an ever-changing world.\n\nOur commitment is to empower businesses with the tools they need to centralize their operations, streamline their processes, and achieve excellence. By uniting these diverse elements into a single, cohesive hub, we enable teams to work smarter, not harder.\n\nIn the face of decentralization, we are the beacon of centralization, guiding organizations toward a future where collaboration knows no boundaries.\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Partnership\n- Headquarters: Colorado Springs, United States\n- Founded Year: 2023\n- Aliases: centralize\n- LinkedIn: linkedin.com/company/centralizer\n- Linkedin Followers: 167\n\n## Workforce\n- Employees: 16\n- Company Size: 11-50 employees\n  - Yearly Growth: -11.1%\n\n## Categories\n\ncommunication, crm, erp\n\n## Social\n\n### Linkedin\n\n- [2023-11-23 · 4 reactions] #entrepreneurship 3green1brown Centralize #venturecapital #VC #Moneytraps #funding #raisingcapital\n\n- [2023-09-24 · 2 reactions] #data #data-driven organization #centralize #datascience #centralization Partnerships & Purpose\n\n- [2023-09-22] Welcome to Centralize! Centralizing the Workplace in a Decentralized World: Our mission is to create a unified platform that brings workplaces together, enabling organizations to excel in their ope...\n\n## Locations\n- Headquarters: colorado springs, colorado, united states (US)\n- Offices: durban, kwazulu-natal, south africa (ZA), colorado springs, colorado, united states (US)",
+        "summary": "{\"description\":\"Centralize is a Technology, Information and Internet company focused on centralizing workplace operations through technology-enabled solutions, integrating ERP, CRM, and communication tools to improve efficiency.\",\"employee_estimate\":16,\"employee_estimate_source\":\"Employees: 16\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Colorado Springs, United States\",\"hq_quote\":\"Headquarters: Colorado Springs, United States\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Categories: communication, crm, erp (implied B2B focus)\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":null,\"recently_funded_seed_or_series_a_quote\":\"The page does not state seed or Series A fundraising activity.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQEStMP2vqF_8g/company-logo_200_200/company-logo_200_200/0/1696116278100/centralizer_logo?e=2147483647&v=beta&t=XlY_cKI_0TGYids6hMbDh4ZcMffGpsDlQDw5QfBU4qA",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/d5jc0st3gw4",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Centralize",
+              "foundedYear": 2023,
+              "description": "Centralizing the Workplace in a Decentralized World.\n\nYour performance partner, where technology can make you faster, leaner, and more effective. Our mandate is to provide you with a toolset of technology-enhanced solutions that boost operational efficiency at the local level, all while aligning with our broader global objectives. \n\nOur mission is to create a unified platform that brings workplaces together, enabling organizations to excel in their operations and project execution amidst the ongoing decentralization movement across various interconnected domains, including energy generation, transportation, manufacturing, and agriculture.\n\nWe believe that the future belongs to those who can seamlessly integrate complex systems. We are committed to bridging the gap between decentralization and efficiency by harnessing the power of technology. Our focus is on integrating ERP systems, communication software, and CRM tools to foster collaboration, nurture effective teams, and drive productivity.\n\nAt the heart of our mission lies a vision of a workplace where boundaries vanish, and information flows effortlessly. We are dedicated to simplifying the complexities of the modern workplace, allowing organizations to adapt, innovate, and succeed in an ever-changing world.\n\nOur commitment is to empower businesses with the tools they need to centralize their operations, streamline their processes, and achieve excellence. By uniting these diverse elements into a single, cohesive hub, we enable teams to work smarter, not harder.\n\nIn the face of decentralization, we are the beacon of centralization, guiding organizations toward a future where collaboration knows no boundaries. ",
+              "workforce": {
+                "total": 16
+              },
+              "headquarters": {
+                "address": "Boulder Ct, Colorado Springs, Colorado 80903, US",
+                "city": "Colorado Springs",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": null,
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 2993.2,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

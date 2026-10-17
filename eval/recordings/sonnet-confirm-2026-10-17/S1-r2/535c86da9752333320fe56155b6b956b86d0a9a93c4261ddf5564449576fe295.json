@@ -1,0 +1,165 @@
+{
+  "request": {
+    "query": "Verst Logistics",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "72f99ae5816af3395c3e5d5f75bc2751",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/9tfbtn1cj5x",
+        "title": "Verst Logistics",
+        "url": "https://verstlogistics.com/",
+        "text": "# Verst Logistics\n\nVerst Logistics is a Transportation, Logistics, Supply Chain and Storage company. Verst Logistics provides 3PL, contract packaging, omnichannel fulfillment, and warehousing solutions built around the supply chain. Verst Logistics employs 512 people (+7.8% YoY, +37 people) and has an annual revenue of $230M, founded in 1966. Headquartered in Walton, Kentucky, United States, with offices including Florence, Cincinnati, Hebron, Lincoln, and Batavia. Its workforce is distributed across United States and India.\n\n## About\n\nVerst Logistics, a leading third-party logistics provider, specializes in a wide range of services including omnichannel fulfillment, shrink sleeve labeling, dedicated transportation, and brokerage with warehouses strategically located nationwide. Our extensive network spans across sites nationwide, collectively covering an impressive total area exceeding 8 million square feet. This expansive infrastructure enables us to effectively serve our clients and meet their unique logistical requirements.\n\nWith a legacy of over 60 years as a family-owned company, Verst combines industry expertise, technical knowledge, and a strong commitment to building seamless customer relationships. Headquartered in Walton, KY, Verst Logistics takes pride in employing over 2,200 professionals across all divisions. For more information about Verst Logistics and their comprehensive logistics solutions, please visit www.verstlogistics.com\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Privately held\n- Headquarters: Walton, United States\n- Founded Year: 1966\n- Homepage: verstlogistics.com\n- Aliases: verst logistics, verst logistics, inc.\n- LinkedIn: linkedin.com/company/verst-logistics\n- Linkedin Followers: 5,655\n- Phone: %20859.485.1212, 1-859-485-1212, 1094-9328, 859-485-1212, 859.485.121\n\n## Financials\n- Annual Revenue: USD 230,000,000\n\n## Acquisitions\n- Acquired Loth Logistics' Managed Transportation and Freight Brokerage business (2023-07-01)\n\n## Workforce\n- Employees: 512\n- Company Size: 1001-5000 employees\n  - Monthly Growth: +1.0%\n  - Yearly Growth: +7.8%\n- Key Executives:\n  - Andrea Ackerman SHRM-CP: Human Resources Director\n  - Brian Bockrath: Vice President of Information Technology\n  - Brian Robinson: Director Of Logistics\n  - Bryan McCauley: Accounting Clerk - Director of Accounting\n  - Cameron Bergoon: Director Data Engineering\n  - Carlos Andujar: Director, Solutions Design and Pricing\n  - Chris Taylor: Director of Logistics\n  - Chris Verst: Director of Transportation\n  - David Huber: Senior Director of Business Development\n  - Dwight Workman: Director of Maintenance and Property Management\n- Breakdown:\n  - By Country: United States: 196 (38%), India: 2\n  - By Department: Operations: 89 (17%), Finance: 18 (4%), Sales: 17 (3%), Hr: 12 (2%), Other Department: 12 (2%), Technical: 10 (2%), Trades: 10 (2%), Customer Service: 8 (2%), Administrative: 7 (1%), General Management: 7 (1%) (+6 more)\n  - By Seniority: Specialist: 76 (15%), Manager: 62 (12%), Other Management: 27 (5%), Director: 16 (3%), Senior: 14 (3%), Vp: 6 (1%), Clevel: 3 (1%), Intern: 1, Partner: 1\n- Talent Sources: Radial Inc. (7), Amazon (5), Zenith Logistics (4), United States Air Force (4), DHL Supply Chain (4), US Army (3), Penske Logistics (3), Fort Dearborn Company (3), DHL (3), Express Employment International (2)\n- Alumni Go To: DHL Supply Chain (4), Mazak North America (3), Levi Strauss & Co. (3), Harris Distributing Company (3), EY (3), Divisions Maintenance Group (3), DAV (Disabled American Veterans) (3), Amazon (3), Mitsubishi Electric US – Industrial Automation (2), Georgia-Pacific LLC (2)\n\n## Products & Technology\n- Tech Stack (showing 50 of 70): coupa, deposco, gps, hp procurve, power bi, python, ramp, sonicwall, sql, watchguard, windows 7, workato, coupa procurement, function point, jira, kronos, linkedin, linux, mac os, mcleod software, microsoft, microsoft excel, microsoft office, mitel, oracle, pci, recognize, salesforce, salesforce crm, smartsheet, sophos, ukg, ultipro, veeam, vmware, windows server, amazon aws, azure sql, microsoft azure, sage x3, tableau, json, ultimate kronos group, component control, hubspot, semrush, legal files, facebook, microsoft visual studio, twitter\n\n## Web presence\n\n- Twitter: twitter.com/verstlogistics\n- Facebook: facebook.com/verstgroup\n- Instagram: instagram.com/verstlogistics\n\n## Categories\n\n3pl, a culture dedicated to safety, automotive-transportation, cincinnati warehouse, columbus warehouse, contract packaging, dedicated trucking, dedicated warehousing, distribution, fleet maintenance, fulfillment, inventory management systems, logistics, louisville warehouse, memphis warehouse, multi-client warehousing, packaging, shrink sleeve decorating, supply chain, supply chain management, transportation management systems, transportation: asset based & brokerage, warehouse management systems, warehousing\n\n## Competitors\n\ncincinnati copacking  warehousing co, contract transport services, llc, wagner logistics, tql, kingsgate logistics, llc, intxlog, taylor logistics, western express, tfi international, jas worldwide, a & a\n\n## Recent News\n- [2026-09-16] [Susie Wiles says she has no evidence of cancer after treatment \\| FOX 10 Phoenix](https://www.fox10phoenix.com/news/susie-wiles-cancer-white-house)\n- [2026-08-22] [Lloyd Memorial launches supply chain career pilot for seniors](https://linknky.com/news/education/2026/08/22/lloyd-memorial-hs-community-orgs-to-pilot-supply-chain-career-program/)\n- [2026-08-21]\n  - [Verst Logistics relocates executive team to new CirclePort office](https://linknky.com/news/2026/08/21/verst-logistics-relocates-executive-team-to-new-circleport-office/)\n  - [Verst Logistics hosts grand opening, ribbon-cutting at new ‘Excellence Center’ in CirclePort - NewsBreak](https://www.newsbreak.com/northern-kentucky-tribune-1710159/4841360266633-verst-logistics-hosts-grand-opening-ribbon-cutting-at-new-excellence-center-in-circleport)\n- [2026-07-23]\n  - ['Spider-Man' helps man in wheelchair across street: video](https://local12.com/news/nation-world/spider-man-costume-jonesboro-arkansas-good-samaritan-helps-person-wheelchair-busy-intersection-traffic-camera-red-jeep-crosswalk-trampoline-park-superhero-day-toddlers-kindness-caught-video-cincinnati-incident)\n  - [Mom killed during child custody exchange: police](https://local12.com/news/nation-world/randall-lenyard-kiana-pliska-wisconsin-man-charged-fatal-custody-exchange-shooting-stalking-restraining-order-airtag-son-witness-st-francis-wauwatosa-arrest-homicide-criminal-complaint-july-cincinnati-crime-criminal-acts-investigation)\n  - [Teen leads child from birthday party, batters, stuffs him into wedding dress bag: docs](https://local12.com/news/nation-world/teen-leads-child-from-birthday-party-batters-stuffs-him-into-wedding-dress-bag-docs-crime-criminal-activity-cincinnati-willfully-tortured-victim-allegations-law-enforcement-investigation-missing-children-predator-aggravated-child-abuse-false-imprisonment)\n  - [Indiana woman raped 2-year-old child in videos she sold to men on social media: cops](https://local12.com/news/nation-world/indiana-woman-raped-2-year-old-child-in-videos-she-sold-to-men-on-social-media-cops-cincinnati-crime-criminal-activity-rape-child-molesting-child-exploitation-charges-filed-law-enforcement-investigation-technology-accounts-search-warrant-execute)\n  - [Indiana man convicted of beating grandmother, arrested again for beating his mother: cops](https://local12.com/news/nation-world/randall-lennis-accused-beating-mother-drunk-kicking-bedroom-door-punching-her-repeatedly-breaking-phone-arrested-muncie-indiana-battery-interference-reporting-crime-held-without-bond-after-hospital-incident-cincinnati-crime-criminal-acts-alcohol)\n  - [One common mortgage mistake could cost homeowners thousands of dollars](https://local12.com/community/its-your-money/one-common-mortgage-mistake-could-cost-homeowners-thousands-of-dollars-rob-de-lessio-strategic-wealth-designers-cincinnati)\n- [2026-07-22]\n  - [Todd Johnson named CEO of Verst Logistics - Cincinnati Business Courier](https://www.bizjournals.com/cincinnati/news/2026/07/22/verst-logistics-new-ceo-todd-johnson-paul-verst.html)\n  - [Verst Logistics Names Todd Johnson Next CEO](https://www.inboundlogistics.com/articles/verst-logistics-names-todd-johnson-next-ceo/)\n- [2026-07-21] [Account Specialist - ERP, Forecasts & Logistics Job in Porter, NY at Verst Logistics](https://www.mediabistro.com/jobs/3542232543-account-specialist-erp-forecasts-logistics)\n\n## Social\n\n### Linkedin\n\n- [2026-10-07 · Posted · 50 reactions] [We're excited to be at DELIVER America 2026 in Las Vegas this week...](https://www.linkedin.com/posts/verst-logistics_verstlogistics-deliveramerica-logistics-activity-7513721646197764096-JRSO)\n  > We're excited to be at DELIVER America 2026 in Las Vegas this week! Visit Booth P08 to connect with Dino Moler and Adam Zaranski to learn how Verst Logistics provides customized logistics and packaging solutions for brands that need more than standard fulfillment.\n  >\n  > E-commerce, Retail, B2B, Omnichannel - Verst Logistics fulfillment services are built for scale, speed, and accuracy. If you're attending DELIVER America, we'd love to discuss your fulfillment needs!\n  >\n  > #VerstLogistics #DeliverAmerica #Logistics #SupplyChain #Fulfillment #Warehousing #Transportation #3PL\n\n- [2026-10-07 · Posted · 97 reactions] [Last week, we had the privilege of bringing our team together for...](https://www.linkedin.com/posts/verst-logistics_verstlogistics-logistics-fulfillment-activity-7513586703517876225-luBG)\n  > Last week, we had the privilege of bringing our team together for our 60th Anniversary Celebration and Annual Leadership Conference. The event was an opportunity to reflect on the legacy that began in 1966 with William G. Verst, celebrate the values that have guided Verst Logistics for six decades, and recognize the people and the Verst Family who make our success possible every day.\n  >\n  > One of the highlights of the event was honoring employees with 20 or more years of service. Their loyalty, hard work, and dedication have played a vital role in our company's growth over the years.\n  >\n  > We were also proud to recognize Angelo Carpenter as this year's recipient of the William G. Verst Award, one of the highest honors within our organization.\n  >\n  > Congratulations to all our award recipients and to the entire Verst team on this amazing milestone.\n  >\n  > #VerstLogistics #Logistics #Fulfillment #Packaging #Transportation #Warehousing\n\n- [2026-09-18 · Posted · 9 reactions] [In honor of National Truck Driver Appreciation Week, we're proud to...](https://www.linkedin.com/posts/verst-logistics_verstlogistics-truckdriverappreciationweek-activity-7506791810632007680-aVgt)\n  > In honor of National Truck Driver Appreciation Week, we're proud to highlight Gustavo Acuna, a driver with Verst Logistics.\n  > Known on the CB as \"The Cuban Missile Crisis,\" you'll likely find him on the road enjoying a bag of Doritos, listening to Cuban music and salsa, and making a stop at 5-Star along his route. If he weren't a professional driver, he says he'd be a Wall Street broker. One thing he never hits the road without? His lunchbox, because, as Acuna puts it, \"Food is king!\"\n  >\n  > Thank you, Gustavo, and all professional drivers, for your dedication, hard work, and commitment to keeping supply chains moving every day.\n  >\n  > #VerstLogistics #TruckDriverAppreciationWeek #Transportation\n\n- [2026-09-18 · 7 reactions] In honor of National Truck Driver Appreciation Week, we're proud to highlight Gustavo Acuna, a driver with Verst Logistics. Known on the CB as \"The Cuban Missile Crisis,\" you'll likely find him on...\n\n- [2026-09-17 · Posted · 24 reactions] [In honor of National Truck Driver Appreciation Week, we're proud to...](https://www.linkedin.com/posts/verst-logistics_verstlogistics-truckdriverappreciationweek-activity-7506407891688443904-6qUw)\n  > In honor of National Truck Driver Appreciation Week, we're proud to highlight Lacy Graves, a driver with Verst Logistics.\n  > Lacy has been part of the Verst Logistics family for 16 years and currently drives on a dedicated account.\n  > When asked what he values most about Verst, Lacy's answer was simple: \"Being treated like family.\" He shared that it's the reason he's stayed with the company all these years.\n  >\n  > Thank you, Lacy, and all professional drivers, for your dedication, hard work, and commitment to keeping supply chains moving every day.\n  >\n  > #VerstLogistics #TruckDriverAppreciationWeek #Transportation\n\n- [2026-09-17 · 24 reactions] In honor of National Truck Driver Appreciation Week, we're proud to highlight Lacy Graves, a driver with Verst Logistics. Lacy has been part of the Verst Logistics family for 16 years and currently...\n\n- [2026-09-16 · Posted · 18 reactions] [In honor of National Truck Driver Appreciation Week, we're proud to...](https://www.linkedin.com/posts/verst-logistics_verstlogistics-truckdriverappreciationweek-activity-7506010645255888896-Cjt9)\n  > In honor of National Truck Driver Appreciation Week, we're proud to highlight John Lightner, a driver with Verst Logistics.\n  > John has been a dedicated member of the Verst Logistics family for 9 years. When asked what he enjoys most about working at Verst, John highlighted his teammates, leadership team, and the flexibility his role provides. Known for his positive attitude, reliability, and willingness to take on any task without hesitation, John is a valued member of the Verst family.\n  >\n  > Thank you, John, and all professional drivers, for your dedication, hard work, and commitment to keeping supply chains moving every day.\n  >\n  > #VerstLogistics #TruckDriverAppreciationWeek #Transportation\n\n- [2026-09-16 · 18 reactions] In honor of National Truck Driver Appreciation Week, we're proud to highlight John Lightner, a driver with Verst Logistics. John has been a dedicated member of the Verst Logistics family for 9 year...\n\n- [2026-09-15 · Posted · 22 reactions] [In honor of National Truck Driver Appreciation Week, we're proud to...](https://www.linkedin.com/posts/verst-logistics_verstlogistics-truckdriverappreciationweek-activity-7505698839006355456-SAfl)\n  > In honor of National Truck Driver Appreciation Week, we're proud to highlight David Reynolds, a driver with Verst Logistics.\n  > Known on the CB as \"Inspector\" due to his background in law enforcement, David enjoys a bag of potato chips on the road and tunes in to 700WLW. When asked about his favorite truck stop, his answer was simple: whichever one has the best food. We're grateful for David's professionalism, commitment to safety, and the positive attitude he brings to every mile.\n  >\n  > Thank you, David, and all professional drivers, for your dedication, hard work, and commitment to keeping supply chains moving every day.\n  >\n  > #VerstLogistics #TruckDriverAppreciationWeek #Transportation\n\n- [2026-09-15 · 26 reactions] In honor of National Truck Driver Appreciation Week, we're proud to highlight David Reynolds, a driver with Verst Logistics. Known on the CB as \"Inspector\" due to his background in law enforcement,...\n\n- [2026-09-14 · Posted · 24 reactions] [In honor of National Truck Driver Appreciation Week, we're proud to...](https://www.linkedin.com/posts/verst-logistics_verstlogistics-truckdriverappreciationweek-activity-7505286210836131840-O3Wr)\n  > In honor of National Truck Driver Appreciation Week, we're proud to highlight Rick Mullins, a driver with Verst Logistics.\n  > Rick began his trucking career in 2013, inspired by his father's 25-year career behind the wheel. This November marks five years with Verst Logistics. When asked what advice he would give to new drivers, Rick shared, \"Keep your eyes open and on the road.\" And as his dad always told him, \"Be cool in the stool.\"\n  >\n  > Thank you, Rick, and all professional drivers, for your dedication, hard work, and commitment to keeping supply chains moving every day.\n  >\n  > #VerstLogistics #TruckDriverAppreciationWeek #Transportation\n\n- [2026-09-14 · 33 reactions, 1 comment] In honor of National Truck Driver Appreciation Week, we're proud to highlight Rick Mullins, a driver with Verst Logistics. Rick began his trucking career in 2013, inspired by his father's 25-year c...\n\n- [2026-08-25 · Posted · 183 reactions] [We are incredibly grateful to everyone who joined us to celebrate...](https://www.linkedin.com/posts/verst-logistics_verstlogistics-openhouse-ribboncuttingceremony-activity-7498055878932168705-t5n-)\n  > We are incredibly grateful to everyone who joined us to celebrate the opening of the Verst Logistics Excellence Center and this exciting new chapter for our company. The Open House Celebration and Ribbon Cutting Ceremony provided a wonderful opportunity to come together with employees, customers, partners, community leaders, and friends to showcase a space designed to foster collaboration, innovation, and excellence across our organization.\n  >\n  > We were honored to hear remarks from Judge Gary Moore and Lee Crume, President & CEO of BeNKY, whose support and leadership continue to make Northern Kentucky a thriving place for businesses to grow. Lee presented Verst Logistics with a 60-Year Business Anniversary Award, recognizing six decades of commitment to our customers, employees, and community. Since 1966, we have remained committed to building a customer-first, no-nonsense logistics company.\n  >\n  > A sincere thank you to everyone who attended, supported, and helped make this celebration such a memorable success. We are proud of how far we've come over the past 60 years and excited for what lies ahead as we continue building strong partnerships, investing in our people, and shaping the future of logistics together.\n  >\n  > #VerstLogistics #OpenHouse #RibbonCuttingCeremony #ExcellenceCenter\n\n- [2026-08-25 · 200 reactions, 19 comments] We are incredibly grateful to everyone who joined us to celebrate the opening of the Verst Logistics Excellence Center and this exciting new chapter for our company. The Open House Celebration and...\n\n- [2026-07-20 · Posted · 259 reactions] [We're excited to announce Todd Johnson as our next CEO! Effective...](https://www.linkedin.com/posts/verst-logistics_verstlogistics-chiefexecutiveofficer-leadership-activity-7484986479547674624-Niai)\n  > We're excited to announce Todd Johnson as our next CEO!\n  > Effective August 1, 2026, Todd will assume the role of CEO while continuing to serve as President. As Paul Verst transitions to Executive Chairman, this leadership change reflects a thoughtful succession plan that builds on Verst's strong foundation and positions the company for continued success.\n  >\n  > Read more about this exciting leadership transition here: https://lnkd.in/gG2dj_Jn\n  >\n  > #VerstLogistics #ChiefExecutiveOfficer #Leadership\n\n- [2026-07-20 · 362 reactions, 64 comments] We're excited to announce Todd Johnson as our next CEO! Effective August 1, 2026, Todd will assume the role of CEO while continuing to serve as President. As Paul Verst transitions to Executive Cha...\n\n- [2026-07-14 · Posted · 60 reactions] [We're excited to announce that Verst Logistics has been recognized...](https://www.linkedin.com/posts/verst-logistics_verstlogistics-inboundlogistics-supplychainsolutions-activity-7482847190495690752-HVWq)\n  > We're excited to announce that Verst Logistics has been recognized as one of Inbound Logistics' Top 100 3PL Providers!\n  > This recognition reflects our commitment to delivering innovative supply chain solutions that help businesses operate more efficiently. Whether you need warehousing, packaging, transportation, or fulfillment services, our team is dedicated to providing reliable, customized solutions that support your success.\n  >\n  > See how Verst can help take your supply chain to the next level: https://lnkd.in/g3",
+        "summary": "{\"description\":\"Verst Logistics is a Transportation, Logistics, Supply Chain and Storage company offering 3PL, contract packaging, omnichannel fulfillment, and warehousing solutions built around the supply chain.\",\"employee_estimate\":512,\"employee_estimate_source\":\"Employees: 512\",\"hq\":\"Walton, Kentucky, United States\",\"hq_quote\":\"Headquartered in Walton, Kentucky, United States\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"Verst Logistics, a leading third-party logistics provider, specializes in a wide range of services including omnichannel fulfillment, shrink sleeve labeling, dedicated transportation, and brokerage with warehouses strategically located nationwide.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQHp6Cs6WqKAtw/company-logo_200_200/B56Z15Rw58HAAI-/0/1775856193554/verst_logistics_logo?e=2147483647&v=beta&t=_qZ452NxivfmTVZO1sxEYHtL7UneHvvJzuQnBFZ4n_k",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/9tfbtn1cj5x",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Verst Logistics",
+              "foundedYear": 1966,
+              "description": "Verst Logistics, a leading third-party logistics provider, specializes in a wide range of services including omnichannel fulfillment, shrink sleeve labeling, dedicated transportation, and brokerage with warehouses strategically located nationwide. Our extensive network spans across sites nationwide, collectively covering an impressive total area exceeding 8 million square feet. This expansive infrastructure enables us to effectively serve our clients and meet their unique logistical requirements.\n\nWith a legacy of over 60 years as a family-owned company, Verst combines industry expertise, technical knowledge, and a strong commitment to building seamless customer relationships. Headquartered in Walton, KY, Verst Logistics takes pride in employing over 2,200 professionals across all divisions. For more information about Verst Logistics and their comprehensive logistics solutions, please visit www.verstlogistics.com",
+              "workforce": {
+                "total": 512
+              },
+              "headquarters": {
+                "address": "300 Shorland Drive, Walton, KY 41094, US",
+                "city": "Walton",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 230000000,
+                "fundingTotal": null,
+                "fundingLatestRound": null
+              },
+              "webTraffic": null,
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/295rk0xpl8f",
+        "title": "Verst Group Logistics, Inc.",
+        "url": "https://verstgroup.com/",
+        "text": "# Verst Group Logistics, Inc.\n\nVerst Group Logistics, Inc. is a Freight and Package Transportation company. Verst Group Logistics, Inc. employs 27 people (+28.6% YoY, +6 people) and has an annual revenue of $315M, founded in 1966. Headquartered in Walton, Kentucky, United States.\n\n## About\n\nVerst Logistics is a third party logistics, or 3PL, service provider to the top global brands: dedicated warehousing, transportation, shrink sleeve labeling & warehouse fulfillment\n\n## Company Details\n- Industry: Freight and Package Transportation\n- Headquarters: Walton, United States\n- Founded Year: 1966\n- Homepage: verstgroup.com\n- Aliases: verst group logistics, inc.\n- LinkedIn: linkedin.com/company/verst-group-logistics-inc.\n- Linkedin Followers: 71\n- Phone: 1-859-485-1212\n\n## Financials\n- Annual Revenue: USD 315,000,000\n\n## Workforce\n- Employees: 27\n- Company Size: 201-500 employees\n  - Yearly Growth: +28.6%\n- Breakdown:\n  - By Country: United States: 4 (15%)\n  - By Department: Administrative: 1 (4%), Finance: 1 (4%), Operations: 1 (4%), Sales: 1 (4%)\n  - By Seniority: Specialist: 3 (11%), Manager: 1 (4%)\n- Talent Sources: Radial Inc. (2), Xavier University (1), Thomas More University (1), Ohio Attorney General's Office (1), Newport Aquarium (1), Divisions Maintenance Group (1), DJJ-The David J Joseph Company (1), Cincinnati Children's (1), CJ Schwan's (1), BLS TRUCKING, INC. (1)\n- Alumni Go To: Verst Logistics (2), Tiffany & Bosco, P.A. - Central (1), Thomas More University (1), Sibcy Cline (1), PeopleFirst Staffing (1), Mercy Health (1), McDonald's (1), JPMorganChase (1), FEG Investment Advisors (1), Amazon (1)\n\n## Products & Technology\n- Tech Stack: coupa\n\n## Web presence\n\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Competitors\n\ncommonwealth, inc., kenco, reliable transportation solutions, xpo, saddle creek, taylor distributing co, bluegrace, vogt warehouse, kane logistics, freightquote, c.h. robinson, ceva logistics, integrity express logistics, llc, tql, freightos, nulogy, american portfolios financial, unishippers, nrsc, frc logistics, trinity logistics, odfl, freightpros\n\n## Locations\n- Headquarters: walton, kentucky, united states (US)\n- Offices: walton, kentucky, united states (US)",
+        "summary": "{\"description\":\"Verst Group Logistics, Inc. is a Freight and Package Transportation company offering third-party logistics services including warehousing, transportation, and fulfillment.\",\"employee_estimate\":27,\"employee_estimate_source\":\"Employees: 27\",\"hq\":\"Walton, Kentucky, United States\",\"hq_quote\":\"Headquartered in Walton, Kentucky, United States.\",\"industry\":\"Freight and Package Transportation\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"Verst Logistics is a third party logistics, or 3PL, service provider to the top global brands: dedicated warehousing, transportation, shrink sleeve labeling & warehouse fulfillment\"}",
+        "image": "https://static.licdn.com/aero-v1/sc/h/cs8pjfgyw96g44ln9r7tct85f",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/295rk0xpl8f",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Verst Group Logistics, Inc.",
+              "foundedYear": 1966,
+              "description": "Verst Logistics is a third party logistics, or 3PL, service provider to the top global brands: dedicated warehousing, transportation, shrink sleeve labeling & warehouse fulfillment",
+              "workforce": {
+                "total": 27
+              },
+              "headquarters": {
+                "address": "300 SHORLAND DR, Walton, Kentucky 41094, us",
+                "city": "Walton",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 315000000,
+                "fundingTotal": null,
+                "fundingLatestRound": null
+              },
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": 0,
+                "avgDurationSeconds": 0,
+                "history": []
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 4218.5,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

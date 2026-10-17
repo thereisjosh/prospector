@@ -1,0 +1,232 @@
+{
+  "request": {
+    "query": "GXP-Storage",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "363c64b067685f1f433a8424aeda3715",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/29fh2bnzqvv",
+        "title": "GXP-Storage",
+        "url": "https://gxp-storage.com/",
+        "text": "# GXP-Storage\n\nGXP-Storage is a Warehousing and Storage company. GXP-Storage® is an integrated regulated research and manufacturing material lifecycle management leader. They transform fragmented storage into strategic lifecycle regulated material management, with a capacity for millions of cubic feet. They have partnerships with 1,000+ organizations and offer expertise and leadership in various areas. GXP-Storage employs 17 people (+6.2% YoY, +1 person), founded in 1995. Headquartered in Middlesex, North Carolina, United States, with presence in United Kingdom. Its workforce is distributed across United States and United Kingdom.\n\n## About\n\nGXP-Storage® is a regulated material management company helping life sciences organizations reduce the complexity and risk associated with fragmented regulated storage. We provide temperature-controlled storage, lifecycle management services, and validated technology solutions supporting physical materials & electronic records across preclinical, clinical, manufacturing, and healthcare operations.\n\nWe manage a broad range of regulated and environmentally sensitive materials – from preclinical research materials and clinical trial samples to APIs and retention samples. Our purpose-built, ISO-certified facilities support storage conditions ranging from controlled ambient to cryogenic. \n\nOur international network of regulated material management facilities is strategically located near major life sciences hubs, manufacturing centers, and logistics infrastructure, including Research Triangle Park in the US and the UK’s Golden Triangle. Together, these facilities provide millions of cubic feet of secure, temperature and access-controlled storage designed to support long-term lifecycle continuity.\n\nOur digital-native GXP-Guardian® platform was developed specifically for regulated material management, unifying physical inventory, electronic records, and lifecycle data within a single validated system. The platform provides chain-of-custody visibility, audit-ready documentation, and operational oversight from discovery through commercialization.\n\nWith more than 100 years of combined industry experience, our leadership team supports biopharma, life sciences, and healthcare organizations consolidate and right-size storage using a proven framework that rationalizes legacy materials across the lifecycle – reducing compliance risk and eliminating the hidden costs of fragmented storage. \n\nVisit us on online to learn more about how to gain complete visibility, total control, and proven compliance with GXP-Storage.\n\n## Company Details\n- Industry: Warehousing and Storage\n- Type: Privately held\n- Headquarters: Middlesex, United States\n- Founded Year: 1995\n- Homepage: gxp-storage.com\n- Aliases: GXP Storage, LLC, gxp-storage\n- LinkedIn: linkedin.com/company/gxp-storage\n- Linkedin Followers: 1,018\n- Emails: contact@gxp-storage.com\n- Phone: (984) 348-4977, +1 984-348-(4977), +19843484977, +44 (0)1933 357953, +4401933357953\n\n## Financials\n  - Private equity (2024-12-16)\n\n## Workforce\n- Employees: 17\n- Company Size: 11-50 employees\n  - Yearly Growth: +6.2%\n- Key Executives:\n  - Benjamin Bolloré: Director of Service Delivery\n  - Christopher Otto: Independent Director\n  - Jas Johal, MBA: Director of Business Development\n  - Jeff Johnson: Chief Executive Officer & Board Member\n  - Kate Peters: Director of Quality Assurance\n  - Leigh Morris: Director Service Delivery, Archivist\n  - Nicholas Bruck: Director of Business Development\n- Breakdown:\n  - By Country: United States: 11 (65%), United Kingdom: 4 (24%)\n  - By Department: Other Department: 6 (35%), General Management: 5 (29%), Operations: 2 (12%), Hr: 1 (6%), Technical: 1 (6%)\n  - By Seniority: Director: 6 (35%), Other Management: 6 (35%), Clevel: 1 (6%), Senior: 1 (6%), Specialist: 1 (6%)\n- Talent Sources: GXP-Storage Ltd (2), Avantor (2), Win In The Turns (1), Lassa Life Sciences Consultancy (1), Hygenix, Inc. (1), Heart + Paw (1), GXP Development LLC (1), Cutera, Inc. (1), Corteva Agriscience (1), AIMA (1)\n- Alumni Go To: Whistler Capital Partners LLC (2), ISPE-CaSA (1), Brillio (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: intruder, git, github, jira, salesforce, hubspot, microsoft, microsoft office, deputy, segment, impact\n\n## Web presence\n\n- Twitter: twitter.com/gxpstorage\n- Crunchbase: crunchbase.com/organization/gxp-storage\n- Web traffic:\n  - Monthly visits: 16\n  - Global rank: 12,311,001\n  - Bounce rate: 56.0%\n  - Pages per visit: 2.6\n  - Average visit duration: 128s\n\n## Categories\n\ncgmp supply chain, digital chain of custody, electronic records archiving, gcp archiving, glp archiving, gxp compliance, gxp-guardian®, health care, healthcare materials management, lifecycle materials management, manufacturing, material lifecycle management, partnerships, regulated materials management, regulated research, regulatory compliance, temperature controlled storage, warehousing\n\n## Recent News\n- [2026-08-17] Insider Media Ltd: Life sciences logistics company agrees deal for facility of more than 40k sq ft\n- [2026-08-11]\n  - [GXP-Storage Expands UK Capacity with Third Restricted-Access Facility at Raunds, Northamptonshire](https://uk.finance.yahoo.com/news/gxp-storage-expands-uk-capacity-113500019.html)\n  - CoStar: News \\| Hillwood leases up Northamptonshire warehouse\n- [2026-08-10] Hillwood, a Perot Company.: Hillwood lets Q40 at Quattro, Raunds, to GXP-Storage Ltd\n- [2025-09-09] The Joplin Globe: GXP-Storage® Expands Global Reach with New U.K. Site\n- [2025-04-04] Seattle TechFlash: Eastern North Carolina prepares for billions in investments\n\n## Social\n\n### Linkedin\n\n- [2026-10-08 · Posted · 13 reactions] [In life sciences, regulated materials don’t simply disappear into...](https://www.linkedin.com/posts/gxp-storage_lifesciences-gxp-regulatedstorage-activity-7513973603747524610-cNTu)\n  > In life sciences, regulated materials don’t simply disappear into storage. Clinical trial samples, preclinical specimens, manufacturing retains, reference standards and regulated records may remain tied to scientific, quality and regulatory obligations for years—or even decades.\n  >\n  > As portfolios grow, materials can become distributed across laboratories, internal archives, CROs, CDMOs and external storage providers. Different systems and processes can make it harder to maintain visibility into where materials are, what conditions they’ve experienced and why they’re still being retained.\n  >\n  > The impact goes beyond storage costs. Fragmentation can lead to duplicate purchases, excess inventory, slow retrieval, documentation gaps and greater inspection-preparation burden.\n  >\n  > Storage can do more than provide capacity. It can support smarter lifecycle management.\n  >\n  > Learn how in our new eBook, Beyond the Freezer: Turning Storage Lifecycle Management into a Competitive Advantage. https://lnkd.in/epHqRZzA\n  >\n  > #LifeSciences #GxP #RegulatedStorage #LifecycleManagement\n\n- [2026-10-02 · Reshared · 9 reactions] [At last month's NC Life Sciences Organization Annual Meeting, the...](https://www.linkedin.com/posts/gxp-storage_at-last-months-nc-life-sciences-organization-activity-7511811977565093889-f6Rn): At last month's NC Life Sciences Organization Annual Meeting, the conversation around the future of North Carolina’s life sciences ecosystem was inspiring and exciting. What really stood out to us...\n\n- [2026-10-01 · Posted · 12 reactions] [Behind every new possibility in breast cancer care is years of...](https://www.linkedin.com/posts/gxp-storage_breastcancerawarenessmonth-breastcancerresearch-activity-7511416376163561472-urKg)\n  > Behind every new possibility in breast cancer care is years of research — and the people and infrastructure that make it possible.\n  >\n  > From discovery and clinical trials to new oncology biologics and the study of biological samples, progress is built one step at a time. GXP-Storage® supports this work with purpose-built facilities and validated systems designed to protect the integrity, traceability and continuity of the materials behind critical research.\n  >\n  > This Breast Cancer Awareness Month, we recognize everyone contributing to that progress — researchers, clinicians, patients and families — and the continued pursuit of better outcomes.\n  >\n  > #BreastCancerAwarenessMonth #BreastCancerResearch #Oncology #ClinicalTrials #LifeSciences\n\n- [2026-10-01 · 9 reactions] Behind every new possibility in breast cancer care is years of research — and the people and infrastructure that make it possible. From discovery and clinical trials to new oncology biologics and t...\n\n- [2026-09-23 · Posted · 14 reactions] [Last week's NCLifeSci Annual Meeting marked 50 years of innovation...](https://www.linkedin.com/posts/gxp-storage_nclifesciences-lifesciences-biotech-activity-7508551978310922241-9Uie)\n  > Last week's NCLifeSci Annual Meeting marked 50 years of innovation for North Carolina's life sciences ecosystem. One word came up again and again: \"trialblazer.\"\n  >\n  > Speakers from BIO, Pfizer, Genentech, IQVIA, and others zeroed in on the federal and state push to speed up clinical trials through smarter regulation. The message was clear: the industry is racing to move faster, without cutting corners on compliance.\n  >\n  > That trend is exactly why GXP-Storage® exists. As trials accelerate, the materials, records, and data behind them can't become the bottleneck. Our GxP-compliant lifecycle management — built on the GXP-Guardian® platform, to 21 CFR Part 11 and Annex 11 standards — keeps clinical research materials audit-ready and accessible, so speed never comes at the expense of compliance.\n  >\n  > We are proud to be part of a community pushing NC Life Sciences forward for the next 50 years.\n  >\n  > Learn how we support faster, compliant clinical research: https://lnkd.in/eXmiFzJX\n  >\n  > #NCLifeSciences #LifeSciences #Biotech #Pharma #NorthCarolina\n\n- [2026-09-23 · 14 reactions] Last week's NCLifeSci Annual Meeting marked 50 years of innovation for North Carolina's life sciences ecosystem. One word came up again and again: \"trialblazer.\" Speakers from BIO, Pfizer, Genentec...\n\n- [2026-09-17 · Posted · 10 reactions] [Scientific breakthroughs begin with discovery, but turning...](https://www.linkedin.com/posts/gxp-storage_lifesciences-healthcareinnovation-regulatedmaterials-activity-7506363393734451200-OvL-)\n  > Scientific breakthroughs begin with discovery, but turning scientific progress into patient impact takes an ecosystem of research, innovation, expertise, and infrastructure working together.\n  >\n  > Over the last few weeks, we’ve spotlighted four important health areas—sickle cell disease, childhood cancer, prostate cancer, and blood cancer—and explored how advances in cell and gene therapy, precision medicine, and research are creating new possibilities for patients and new demands on the infrastructure that supports them.\n  >\n  > While each program and therapeutic approach is different, they share a common need: infrastructure capable of supporting increasingly complex material journeys while maintaining the control, traceability, and visibility required across the product lifecycle.\n  >\n  > At GXP-Storage®, we help life sciences organizations manage those complexities through purpose-built, temperature-controlled storage environments and our validated GXP-Guardian® platform, unifying physical and electronic records across the regulated material lifecycle—from research and clinical development through manufacturing and beyond.\n  >\n  > Because behind every breakthrough is the infrastructure that helps make progress possible. gxp-storage.com\n  >\n  > #LifeSciences #HealthcareInnovation #RegulatedMaterials #CellAndGeneTherapy #BehindEveryBreakthrough #GxP\n\n- [2026-09-17 · 11 reactions] Scientific breakthroughs begin with discovery, but turning scientific progress into patient impact takes an ecosystem of research, innovation, expertise, and infrastructure working together. Over t...\n\n- [2026-09-15 · Posted · 4 reactions] [Blood cancer treatment has been transformed by advances in cell and...](https://www.linkedin.com/posts/gxp-storage_bloodcancerawarenessmonth-bloodcancer-activity-7505635742946181120-hPAQ)\n  > Blood cancer treatment has been transformed by advances in cell and gene therapy, with survival rates more than doubling since the late 20th century. Among the most significant breakthroughs is CAR-T cell therapy, which uses a patient’s own cells to create a unique treatment designed to target specific cancer cells.\n  >\n  > This personalized approach creates a particularly complex regulated material journey. Patient-derived materials must be carefully managed from collection through processing, cryopreservation, transportation, manufacturing, and reinfusion—with chain of custody and traceability maintained throughout. FACT accreditation helps establish rigorous standards for the collection, processing, and administration of cellular therapies, underscoring the importance of specialized infrastructure throughout the journey.\n  >\n  > At GXP-Storage®, we provide purpose-built infrastructure and validated systems to help life sciences organizations protect, manage, and maintain visibility across regulated materials, including temperature-critical materials and associated physical and electronic records, throughout the cell and gene therapy lifecycle.\n  >\n  > Because behind every breakthrough is the infrastructure that helps make progress possible. gxp-storage.com\n  > Learn more about blood cancer awareness month: https://lnkd.in/gvcSZEpe\n  >\n  > #BloodCancerAwarenessMonth #BloodCancer #CART #CellAndGeneTherapy #PrecisionMedicine #LifeSciences #HealthcareInnovation #BehindEveryBreakthrough #GxP\n\n- [2026-09-15 · 4 reactions] Blood cancer treatment has been transformed by advances in cell and gene therapy, with survival rates more than doubling since the late 20th century. Among the most significant breakthroughs is CAR...\n\n- [2026-09-11 · Posted · 5 reactions] [North Carolina’s life sciences ecosystem continues to grow, evolve...](https://www.linkedin.com/posts/gxp-storage_nclifesciences-lifesciences-biotech-activity-7504178175091060738-7WcA)\n  > North Carolina’s life sciences ecosystem continues to grow, evolve, and create new possibilities—and the NCLifeSci Annual Meeting is one of the best places to hear where the industry is headed.\n  >\n  > We’ll be there to listen, learn, and connect with scientists, operations leaders, supply chain professionals, regulatory teams, and others helping shape the state’s life sciences community.\n  >\n  > The most valuable insights often come from candid, peer-to-peer conversations about what’s changing, what’s challenging, and what’s next.\n  >\n  > If you’re attending, we’d love to connect.\n  >\n  > Learn more and register: https://lnkd.in/eE7FHb8j\n  >\n  > #NCLifeSciences #LifeSciences #Biotech #Pharma #NorthCarolina\n\n- [2026-09-11 · 9 reactions] North Carolina’s life sciences ecosystem continues to grow, evolve, and create new possibilities—and the NCLifeSci Annual Meeting is one of the best places to hear where the industry is headed. We’...\n\n- [2026-09-10 · Posted · 10 reactions] [Prostate cancer is one of the most common cancers diagnosed in...](https://www.linkedin.com/posts/gxp-storage_prostatecancerawarenessmonth-prostatecancer-activity-7503816088216932352-dpUc)\n  > Prostate cancer is one of the most common cancers diagnosed in American men. In fact, approximately 1 in 8 men will be diagnosed with prostate cancer during their lifetime. Due to advances in biomarker testing and genetic profiling, prostate cancer treatment is becoming increasingly personalized. Precision oncology is helping researchers and clinicians better understand individual cancers and identify treatment approaches tailored to specific patients.\n  >\n  > That progress depends on more than the science. Clinical tissue samples, biospecimens, and the data associated with them must be carefully managed, preserved, tracked, and accessible throughout research and clinical development. A well-managed repository helps protect these critical materials and supports the research needed to advance more targeted approaches to care.\n  >\n  > At GXP-Storage®, we provide purpose-built infrastructure and validated systems to help life sciences organizations protect, manage, and maintain visibility across regulated materials and associated physical and electronic records—from research and clinical development through commercialization.\n  >\n  > Because behind every breakthrough is the infrastructure that helps make progress possible. gxp-storage.com\n  > Learn more about Prostate Cancer Awareness Month: https://www.pcf.org/pcam/\n  >\n  > #ProstateCancerAwarenessMonth #ProstateCancer #PrecisionOncology #ClinicalResearch #Biomarkers #LifeSciences #HealthcareInnovation #BehindEveryBreakthrough #GxP\n\n- [2026-09-10 · 11 reactions] Prostate cancer is one of the most common cancers diagnosed in American men. In fact, approximately 1 in 8 men will be diagnosed with prostate cancer during their lifetime. Due to advances in bioma...\n\n- [2026-09-08 · Posted · 9 reactions] [For children facing cancer, advances in treatment can mean more...](https://www.linkedin.com/posts/gxp-storage_childhoodcancerawarenessmonth-childhoodcancer-activity-7503090219168985090-pvLU)\n  > For children facing cancer, advances in treatment can mean more than a new therapy—they can mean new possibilities for a longer, healthier life. While survival rates for childhood cancer have improved significantly, some aggressive cancers remain difficult to treat, underscoring the need for continued innovation.\n  >\n  > Cell and gene therapies, including CAR-T, are helping open new avenues for pediatric oncology. By harnessing or modifying cells to target cancer, these therapies represent a significant shift in how some childhood cancers can be treated.\n  >\n  > But advancing these therapies requires infrastructure built to support increasingly complex programs comprised of materials that require careful management, traceability, and visibility across the lifecycle.\n  >\n  > At GXP-Storage®, we provide purpose-built infrastructure and validated systems to help life sciences organizations protect, manage, and maintain visibility across regulated materials throughout the cell & gene therapy lifecycle.\n  >\n  > Because behind every breakthrough is the infrastructure that helps make progress possible. gxp-storage.com\n  > To learn more about Childhood Cancer Awareness Month, visit: https://lnkd.in/e3nXxbG\n  >\n  > #ChildhoodCancerAwarenessMonth #ChildhoodCancer #PediatricOncology #CellAndGeneTherapy #CART #LifeSciences #HealthcareInnovation #BehindEveryBreakthrough #GxP\n\n- [2026-09-08 · 13 reactions] For children facing cancer, advances in treatment can mean more than a new therapy—they can mean new possibilities for a longer, healthier life. While survival rates for childhood cancer have impro...\n\n- [2026-09-03 · Posted · 11 reactions] [The science behind today’s gene therapies for sickle cell disease...](https://www.linkedin.com/posts/gxp-storage_sicklecellawarenessmonth-sicklecelldisease-activity-7501294452334854145-hk8N)\n  > The science behind today’s gene therapies for sickle cell disease has been decades in the making. Foundational research dating back to 1949 helped lay the groundwork for today’s treatments, followed by years of drug development. The FDA approvals of Casgevy® and Lyfgenia® mark important milestones in that journey—and new possibilities for people living with sickle cell disease.\n  >\n  > But for advanced therapies, the journey doesn’t end at approval. Long-term follow-up requirements underscore the importance of infrastructure that can support regulated materials, records, traceability, and compliance throughout the full product lifecycle.\n  >\n  > At GXP-Storage®, we provide purpose-built infrastructure and validated systems to help life sciences orga",
+        "summary": "{\"description\":\"GXP-Storage is a regulated material management company providing temperature-controlled storage, lifecycle management services, and validated technology solutions for physical materials and electronic records across life sciences operations.\",\"employee_estimate\":17,\"employee_estimate_source\":\"Employees: 17\",\"hq\":\"Middlesex, United States\",\"hq_quote\":\"Headquartered in Middlesex, North Carolina, United States, with presence in United Kingdom.\",\"industry\":\"Warehousing and Storage\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"GXP-Storage is a regulated material management company helping life sciences organizations reduce the complexity and risk associated with fragmented regulated storage. We provide temperature-controlled storage, lifecycle management services, and validated technology solutions supporting physical materials & electronic records across preclinical, clinical, manufacturing, and healthcare operations.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQEuROVq4Xy_RA/company-logo_200_200/B4EZ5vdipFG8AE-/0/1779986476202/gxp_storage_logo?e=2147483647&v=beta&t=19wPa4EceBtx8lytTMe4lZmYhQHmdC0QCYNVkB5ux_I",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/29fh2bnzqvv",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "GXP-Storage",
+              "foundedYear": 1995,
+              "description": "GXP-Storage® is a regulated material management company helping life sciences organizations reduce the complexity and risk associated with fragmented regulated storage. We provide temperature-controlled storage, lifecycle management services, and validated technology solutions supporting physical materials & electronic records across preclinical, clinical, manufacturing, and healthcare operations.\n\nWe manage a broad range of regulated and environmentally sensitive materials – from preclinical research materials and clinical trial samples to APIs and retention samples. Our purpose-built, ISO-certified facilities support storage conditions ranging from controlled ambient to cryogenic. \n\nOur international network of regulated material management facilities is strategically located near major life sciences hubs, manufacturing centers, and logistics infrastructure, including Research Triangle Park in the US and the UK’s Golden Triangle. Together, these facilities provide millions of cubic feet of secure, temperature and access-controlled storage designed to support long-term lifecycle continuity.\n\nOur digital-native GXP-Guardian® platform was developed specifically for regulated material management, unifying physical inventory, electronic records, and lifecycle data within a single validated system. The platform provides chain-of-custody visibility, audit-ready documentation, and operational oversight from discovery through commercialization.\n\nWith more than 100 years of combined industry experience, our leadership team supports biopharma, life sciences, and healthcare organizations consolidate and right-size storage using a proven framework that rationalizes legacy materials across the lifecycle – reducing compliance risk and eliminating the hidden costs of fragmented storage. \n\nVisit us on online to learn more about how to gain complete visibility, total control, and proven compliance with GXP-Storage.",
+              "workforce": {
+                "total": 17
+              },
+              "headquarters": {
+                "address": "8078 Middlesex Corporate Pkwy, Middlesex, North Carolina 27557, US",
+                "city": "Middlesex",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": null,
+                "fundingLatestRound": {
+                  "name": "Private equity",
+                  "date": "2024-12-16",
+                  "amount": null
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 16,
+                "countryRank": null,
+                "avgDurationSeconds": 128,
+                "history": [
+                  {
+                    "value": 1260,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 1322,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 899,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 1156,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 458,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 16,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/1wkk4w10dsy",
+        "title": "GXP-Storage Ltd",
+        "url": "https://linkedin.com/company/qualogy-limited",
+        "text": "# GXP-Storage Ltd\n\nGXP-Storage Ltd is a Pharmaceutical Manufacturing company. GXP-Storage® is an integrated regulated research and manufacturing material lifecycle management leader. They transform fragmented storage into strategic lifecycle regulated material management, with a capacity for millions of cubic feet. They have partnerships with 1,000+ organizations and offer expertise and leadership in various areas. GXP-Storage Ltd employs 4 people (-33.3% YoY, -2 people), founded in 1995. Headquartered in Kettering, Northamptonshire, United Kingdom, with an office in Glasgow.\n\n## About\n\nQualogy’s Regulatory Archive Service is a fast growing, professional archive, providing high quality archive services in compliance with the Good Laboratory Practice (GLP) and Good Clinical Practice (GCP) regulations. Dedicated solely to the archiving of GxP regulated material we offer a personal service for each client based upon knowledge of the requirements, which are then geared to the needs of individual clients. \r\nArchive security and preventative measures are key to running a exceptional regulatory archive business.\r\nFire monitoring and security alarms, fire suppression system, laser beam smoke detection, CCTV, temperature and humidity control and continuous monitoring are all in place within the archive facilities.\r\nWith separate buildings on one site we are able to archive Investigator Site Files (ISF’s) and Trial Master Files (TMF’s) or back up material in separate buildings. Qualogy runs GCP and GLP archive training course twice throughout the year.\r\n\r\nThrough Qualogy’s long experience working with clients from around the world Qualogy has an unsurpassed expertise in assisting organisations improve the quality systems implemented for compliance with the global GxP regulations. \r\nProviding through its consultancy service guidance and expertise in the implementation and operation with Good Clinical Practice (GCP), Good Laboratory Practice (GLP) and Good Clinical Laboratory Practice (GCLP). \r\n\r\nQualogy designed an accreditation scheme to access a laboratories compliance with the standards of GCLP.\r\nThe Qualogy GCLP accreditation scheme involves the assessment of a clinical laboratory against the Good Clinical Laboratory (GCLP) standard as published by RQA, formerly the British Association of Research Quality Assurance (BARQA).\r\n\r\nThe Good Clinical Laboratory Practice guideline ISBN 978-1-904610-00-7, which has been adopted by the World Health Organisation (WHO), can be freely obtained from the RQA web site at www.therqa.com\n\n## Company Details\n- Industry: Pharmaceutical Manufacturing\n- Type: Privately held\n- Headquarters: Kettering, United Kingdom\n- Founded Year: 1995\n- Aliases: gxp-storage ltd, qualogy\n- LinkedIn: linkedin.com/company/qualogy-limited\n- Linkedin Followers: 177\n- Phone: (984) 348-4977, +19843484977, +44 (0)1933 35795, +4401933357953\n\n## Workforce\n- Employees: 4\n- Company Size: 1-10 employees\n  - Yearly Growth: -33.3%\n- Breakdown:\n  - By Country: United Kingdom: 2 (50%)\n  - By Department: Administrative: 2 (50%)\n  - By Seniority: Manager: 1 (25%), Other Management: 1 (25%), Specialist: 1 (25%)\n- Talent Sources: BCC Telemarketing (1)\n- Alumni Go To: GXP-Storage (2), IFM (1), Berlitz (1)\n\n## Products & Technology\n- Features: Demo Available\n\n## Web presence\n\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Categories\n\narchiving, auditing, compliance, consultancy, good clinical laboratory practice, good clinical laboratory practice accreditation, good clinical practice, good laboratory practice, gxp-guardian®, manufacturing, material lifecycle management, mock inspections, partnerships, quality assurance, regulated research, regulatory archive, sop's, training\n\n## Recent News\n- [2026-08-24] [Hillwood lets Q40 at Quattro, Raunds, to GXP-Storage Ltd](https://bdcmagazine.com/2026/08/hillwood-lets-q40-at-quattro-raunds-to-gxp-storage-ltd/)\n- [2026-08-13] [Life sciences logistics company agrees deal for facility of more than 40k sq ft](https://www.insidermedia.com/news/midlands/life-sciences-logistics-company-agrees-deal-for-facility-of-more-than-40k-sq-ft)\n- [2026-08-11] [GXP-Storage Expands UK Capacity with Third Restricted-Access Facility at Raunds, Northamptonshire](https://uk.finance.yahoo.com/news/gxp-storage-expands-uk-capacity-113500019.html)\n\n## Social\n\n### Linkedin\n\n- [2025-04-30 · 6 reactions] We still have spaces available on our Regulatory Archiving Training Course on Tuesday 3rd June 2025. Have any questions? Email or call for further information. #archiving\n\n- [2024-11-04 · 1 reaction] Looking forward to the RQA conference Quality Reconstructed from 6th - 8th November 2024 in Brighton. Visit stand 3 and meet Leigh Tate and julie jones to answer your questions on your GxP Archivin...\n\n- [2024-10-08 · 4 reactions] Qualogy will be exhibiting at #RQA2024 in Brighton 6th - 8th November 2024. Leigh and Julie will be at Stand 3 to answer any questions on your GxP Archiving.\n\n- [2024-05-31 · 2 reactions] Final days to book your archive training course with Qualogy. https://lnkd.in/euJb2vw2\n\n- [2024-05-28 · 2 reactions] We still have spaces available on our Regulatory Archiving Training Courses on 11th and 13th June 2024. Please contact us for further information or visit our website. #GLP #GCP #Archive #Archiving...\n\n- [2024-02-21 · 4 reactions] We have spaces available on our Archive Training Courses in June 2024, please visit our website or contact Julie or Leigh for further information. #GLP #GCP #Archive #training\n\n- [2024-02-21 · 4 reactions] We have spaces available on our Archive Training Courses in June 2024, please visit our website or contact Julie or Leigh for further information.\n\n- [2023-11-03 · 2 reactions] Belfast was fantastic rqa2023\n\n- [2023-10-04 · 4 reactions] Looking forward to seeing everybody in Belfast #RQA2023, only 4 weeks to go!!! Come and have a chat with Leigh and Julie in Booth 20 if you have any questions on Regulatory Archiving #Archive #Qual...\n\n- [2023-04-18] We still have spaces available on our Regulatory Archiving Training courses for 2023. GLP - 4th July 2023 GCP - 6th July 2023 Please contact Julie or Leigh for further information at training@qualo...\n\n- [2023-03-17 · 2 reactions] Qualogy are excited to have booked our exhibition stand at the RQA International QA Conference at the ICC in Belfast, 1st - 3rd November 2023. Hope to see you there. #RQA\n\n## Locations\n- Headquarters: kettering, northamptonshire, united kingdom (GB)\n- Offices: glasgow, glasgow, united kingdom (GB), kettering, northamptonshire nn14 4zl, united kingdom (GB)",
+        "summary": "{\"description\":\"GXP-Storage Ltd is a Pharmaceutical Manufacturing company. GXP-Storage® is an integrated regulated research and manufacturing material lifecycle management leader. They transform fragmented storage into strategic lifecycle regulated material management, with a capacity for millions of cubic feet.\",\"employee_estimate\":4,\"employee_estimate_source\":\"Employees: 4\",\"hq\":\"Headquartered in Kettering, Northamptonshire, United Kingdom, with an office in Glasgow.\",\"hq_quote\":\"Headquartered in Kettering, Northamptonshire, United Kingdom, with an office in Glasgow.\",\"industry\":\"Pharmaceutical Manufacturing\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"GXP-Storage Ltd employs 4 people (-33.3% YoY, -2 people), founded in 1995. Headquartered in Kettering, Northamptonshire, United Kingdom, with an office in Glasgow.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQE0--fa33MUYQ/company-logo_200_200/B4EZolwevuIMAI-/0/1761570058269/qualogy_limited_logo?e=2147483647&v=beta&t=9lAB20M8_dv3Q2G7OFqT4aifPLdL-ChveZBkdTq80pk",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/1wkk4w10dsy",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "GXP-Storage Ltd",
+              "foundedYear": 1995,
+              "description": "Qualogy’s Regulatory Archive Service is a fast growing, professional archive, providing high quality archive services in compliance with the Good Laboratory Practice (GLP) and Good Clinical Practice (GCP) regulations. Dedicated solely to the archiving of GxP regulated material we offer a personal service for each client based upon knowledge of the requirements, which are then geared to the needs of individual clients. \r\nArchive security and preventative measures are key to running a exceptional regulatory archive business.\r\nFire monitoring and security alarms, fire suppression system, laser beam smoke detection, CCTV, temperature and humidity control and continuous monitoring are all in place within the archive facilities.\r\nWith separate buildings on one site we are able to archive Investigator Site Files (ISF’s) and Trial Master Files (TMF’s) or back up material in separate buildings. Qualogy runs GCP and GLP archive training course twice throughout the year.\r\n\r\nThrough Qualogy’s long experience working with clients from around the world Qualogy has an unsurpassed expertise in assisting organisations improve the quality systems implemented for compliance with the global GxP regulations. \r\nProviding through its consultancy service guidance and expertise in the implementation and operation with Good Clinical Practice (GCP), Good Laboratory Practice (GLP) and Good Clinical Laboratory Practice (GCLP). \r\n\r\nQualogy designed an accreditation scheme to access a laboratories compliance with the standards of GCLP.\r\nThe Qualogy GCLP accreditation scheme involves the assessment of a clinical laboratory against the Good Clinical Laboratory (GCLP) standard as published by RQA, formerly the British Association of Research Quality Assurance (BARQA).\r\n\r\nThe Good Clinical Laboratory Practice guideline ISBN 978-1-904610-00-7, which has been adopted by the World Health Organisation (WHO), can be freely obtained from the RQA web site at www.therqa.com",
+              "workforce": {
+                "total": 4
+              },
+              "headquarters": {
+                "address": "PO Box 6255, Thrapston, Kettering, Northamptonshire NN14 4ZL, GB",
+                "city": "Kettering",
+                "postalCode": null,
+                "country": "United Kingdom"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": 0,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 268,
+                    "dateFrom": "2024-10",
+                    "dateTo": "2024-10"
+                  },
+                  {
+                    "value": 73,
+                    "dateFrom": "2024-11",
+                    "dateTo": "2024-11"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2024-12",
+                    "dateTo": "2024-12"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2025-01",
+                    "dateTo": "2025-01"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2025-06",
+                    "dateTo": "2025-06"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 5359.1,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

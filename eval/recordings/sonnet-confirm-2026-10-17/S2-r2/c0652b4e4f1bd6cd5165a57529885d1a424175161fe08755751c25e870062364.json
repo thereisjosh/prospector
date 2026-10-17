@@ -1,0 +1,232 @@
+{
+  "request": {
+    "query": "Avarra.ai",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "085f40d68f5ae4f6667a49c25303fd74",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/wm339gwx24f",
+        "title": "Avarra",
+        "url": "https://avarra.ai/",
+        "text": "# Avarra\n\nAvarra is a Software Development company. Avarra is an AI avatar platform that turns your team's expertise into avatars who train teams, support deals, and help customers. Avarra employs 31 people (+55.0% YoY, +11 people). Headquartered in San Mateo, California, United States. Its workforce is distributed across United States, Canada, and South Korea.\n\n## About\n\nThe Avatar Platform to Scale Your People, Plays, and Revenue\nBuild and deploy AI avatar coaches, product experts, sellers, CSMs and more in less than​ 1 hour.\n\nCoaching & Ramp Execution.\nTrain and reinforcing your methodologies and best practices while accelerating ramp time and reducing manager oversight. \n\nOnboarding & Implementation Support.\nAvatars guide internal teams and customers through onboarding and implementation, ensuring consistent execution. \n\nProduct, Pricing & Competitive Expertise.\nPut product, pricing, and competitive experts on every deal so teams act with confidence and consistency in live situations.\n\nCustomer Success & Retention Execution.\nAvatars support CSMs through renewals, expansions, and escalations to navigate sensitive moments.\n\nMeeting Preparation & Execution Readiness.\nPrepare for critical meetings with the right context, deep research, guidance, and execution focus. \n\nExecution Visibility & Consistency at Scale.\nTrack real execution across the revenue org so you can find what works, fix what doesn’t, and scale consistency.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: San Mateo, United States\n- Homepage: avarra.ai\n- Aliases: avarra\n- LinkedIn: linkedin.com/company/avarra\n- Linkedin Followers: 1,108\n- Emails: david@avarra.org\n\n## Financials\n- Total Funding: USD 8,000,000\n  - Seed (2024-10-03): USD 8.0M\n\n## Workforce\n- Employees: 31\n- Company Size: 11-50 employees\n  - Yearly Growth: +55.0%\n- Key Executives:\n  - Arlo Rose: Head of Design\n  - Bruce Bonke: Director of Sales\n  - Christopher Iezzoni: Head of Artificial Intelligence, Co-Founder\n  - Christy Archuleta: Regional Sales Director\n  - Dan Strauss: VP Sales\n  - Daniel Cmejla: VP of Marketing (Fractional)\n  - David Knight: Co-Founder and CEO\n  - Matt Huang: Co-Founder, COO and Head of Product\n  - Michael Rucker: Head of Customer Support\n  - Nate Perrine: Founding Account Executive\n- Breakdown:\n  - By Country: United States: 24 (77%), Canada: 1 (3%), South Korea: 1 (3%)\n  - By Department: Technical: 11 (35%), Sales: 4 (13%), General Management: 3 (10%), Marketing: 2 (6%), Other Department: 2 (6%), Consulting: 1 (3%), Customer Service: 1 (3%), Design: 1 (3%), Legal: 1 (3%), Product: 1 (3%)\n  - By Seniority: Other Management: 8 (26%), Specialist: 6 (19%), Founder: 4 (13%), Head: 3 (10%), Director: 2 (6%), Manager: 2 (6%), Vp: 2 (6%)\n- Talent Sources: Veza (2), Proofpoint (2), TuneIn (1), The Community Marketing Company (1), Responsive (1), Productiv (1), Pavilion (1), PORCH Community💚 (1), Outbound Squad (1), Lacework (1)\n- Alumni Go To: Pebble (1), Opre (1), BayCare Health System (1), Amazon (1), Almanac (1)\n\n## Products & Technology\n- Features: Demo Available\n- Tech Stack: emotive, ramp, transunion, verizon\n\n## Web presence\n\n- Crunchbase: crunchbase.com/organization/avarra\n- Web traffic:\n  - Monthly visits: 4,231\n  - Global rank: 3,231,730\n  - Bounce rate: 33.0%\n  - Pages per visit: 3.1\n  - Average visit duration: 197s\n\n## Categories\n\nai avatar platform, ar training simulator, artificial intelligence (ai), augmented reality (ar) training simulator software, augmented reality software, avarra, gtm performance, help customers, simulation, support deals, teams, technology/gaming, training\n\n## Recent News\n- [2026-10-08] InfotechLead: VC funding deals: Aventra Defense, Avarra, Siena, Noah\n- [2026-10-07]\n  - Pulse 2.0: Avarra Raises $17 Million Series A To Scale AI Avatar Platform For Go-To-Market Teams\n  - Yahoo Finance: Avarra Raises $17 Million on a Contrarian Bet: AI that rapidly upskills GTM teams rather than simply automating routine work\n  - TradingView: Avarra Raises $17 Mln In Series A Funding\n  - Dealroom: Avarra raises $17M to upskill sales teams, not replace them\n- [2026-07-18] TipRanks: Avarra Deepens AI-Driven Sales Training Efforts and Academic Partnerships\n- [2026-07-12] TipRanks: Avarra – Weekly Recap\n- [2026-05-24] TipRanks: Avarra Showcases Sales Enablement Consistency and Faster Ramp Times in New Case Studies\n- [2026-05-14] TipRanks: Avarra Engages With Evolving Go-To-Market Strategies Amid Tighter Budgets\n- [2024-10-04] The SaaS News: Avarra Raises $8 Million in Seed Round\n- [2024-10-03]\n  - VentureCapital.com: Avarra Secures $8M Seed Funding Led by Lightspeed Venture Partners\n  - Venture Capital Access Online: Avarra exits stealth, announces $8M seed funding and general availability of industry's first AI-avatar-based enterprise application\n\n## Social\n\n### Linkedin\n\n- [2026-10-06 · Posted · 66 reactions] [Huge news, we just raised a $17M Series A funding round 🎉 Zoom...](https://www.linkedin.com/posts/avarra_funding-bignews-ai-activity-7513245585416765440-pTgS)\n  > Huge news, we just raised a $17M Series A funding round 🎉\n  >\n  > Zoom provided a strategic investment. Duration Ventures, Lightspeed, GTMfund, Draper Venture Network, and Alumni Ventures all participated.\n  >\n  > The round is accompanied by an entirely new website and an evolution from an interactive Sales Simulation tool to a full-on Avatar platform for GTM teams.\n  >\n  > Avarra can now not only train and coach your reps, but our avatars can join calls as ride-along experts in pricing, product expertise and beyond. We can greet visitors to your website at 1am, onboard new customers, and beyond.\n  >\n  > The dissemination of knowledge and expertise between humans and AI is one of the most important tasks of our age and we are honored to be at the frontier of this movement by making your expertise infinitely deployable.\n  >\n  > Over the last year, we've grown over 400%, scaled to the point where 10,000+ simulations are run on our platform each week, and have witnessed our incredible enterprise customers roll out new playbooks to thousands of reps at once. Many of our customers, like Owner.com, Proofpoint, Netskope and, Elastic have effectively cut their ramp in half using our platform.\n  >\n  > At Avarra, we stand firmly on the side of using AI to make humans better, instead of replace them. This is enabled by making world-class training accessible and on-demand to all reps within a company at any time.\n  >\n  > Check out our new website where you can chat with an avatar directly, and huge congrats to all involved, especially our customers, investors and team.\n  >\n  > Onwards. Now back to work!\n  >\n  > #funding #bignews #AI\n\n- [2026-08-26 · Posted · 68 reactions] [Our very own Christy Archuleta is hosting a Pavilion event TODAY...](https://www.linkedin.com/posts/avarra_our-very-own-christy-archuleta-is-hosting-activity-7498413352688271360-64bA)\n  > Our very own Christy Archuleta is hosting a Pavilion event TODAY (August 26th) in San Mateo with Jessica Ashar and Leela Gill on, \"What's working in AI Adoption\" for women leaders in GTM.\n  >\n  > Huge thanks to Pavilion for making these happen!\n  >\n  > Want more details, or to attend? RSVP link in the comments\n\n- [2026-08-26 · 70 reactions, 5 comments] Our very own Christy Archuleta is hosting a Pavilion event TODAY (August 26th) in San Mateo with Jessica Ashar and Leela Gill on, \"What's working in AI Adoption\" for women leaders in GTM. Huge than...\n\n- [2026-08-19 · Posted · 2 reactions] [Scale sales coaching & enablement so your reps nail the...](https://www.linkedin.com/posts/avarra_request-a-demo-ai-sales-training-platform-activity-7495966552572231680-wAK1)\n  > Scale sales coaching & enablement so your reps nail the conversations that matter.\n\n- [2026-08-07 · Posted · 7 reactions] [What you get when you don't run the sales play... Sellers, IYKYK...](https://www.linkedin.com/posts/avarra_what-you-get-when-you-dont-run-the-sales-activity-7491552215782825986-NWaz)\n  > What you get when you don't run the sales play...\n  >\n  > Sellers, IYKYK re: Tommy Boy. ALSO, we are hiring FIVE account executives!\n  >\n  > Join Dan Strauss, featured below, to help sellers at enterprise companies learn faster, and run the right plays with preparation and context for every call.\n\n- [2026-08-07 · 9 reactions, 1 comment] What you get when you don't run the sales play... Sellers, IYKYK re: Tommy Boy. ALSO, we are hiring FIVE account executives! Join Dan Strauss, featured below, to help sellers at enterprise companie...\n\n- [2026-07-31 · Posted · 3 reactions] [Last day of the month and we wonder... would you have hit your...](https://www.linkedin.com/posts/avarra_ramp-enablement-activity-7488958653467713536--sOk)\n  > Last day of the month and we wonder... would you have hit your revenue goals is new rep ramp had been cut by 50%?\n  >\n  > - Extrerro cut their ramp from 18 months to 6 months using our interactive coaching simulations.\n  > -Owner(dot)com cut their ramp 25%\n  > - Mangomint cut their ramp by 50%\n  >\n  > The list goes on.\n  >\n  > The results of cutting ramp are not only company-wide revenue and growth. It's about a culture of investing in your people... people who stick around and grow.\n  >\n  > Time to consider this for your August priorities?\n  >\n  > #ramp #enablement\n\n- [2026-07-31 · 3 reactions, 1 comment] Last day of the month and we wonder... would you have hit your revenue goals is new rep ramp had been cut by 50%? - Extrerro cut their ramp from 18 months to 6 months using our interactive coaching...\n\n- [2026-07-29 · Posted · 3 reactions] [One week until our battle of the Sox event with QuotaPath at...](https://www.linkedin.com/posts/avarra_one-week-until-our-battle-of-the-sox-event-activity-7488265641498607616-jHju)\n  > One week until our battle of the Sox event with QuotaPath at Fenway!\n  >\n  > 🚨 Boston Area Customers & Enablement Leaders🚨 comment below if you want an invite or tag a friend to send a friend our way.  Lobster Rolls on us.\n  >\n  > Red Soxs versus White Soxs, August 4th!\n\n- [2026-07-29 · 3 reactions, 1 comment] One week until our battle of the Sox event with QuotaPath at Fenway! 🚨 Boston Area Customers & Enablement Leaders🚨 comment below if you want an invite or tag a friend to send a friend our way. Lobs...\n\n- [2026-07-22 · Posted · 11 reactions] [We had a multi-department meeting the other day to share exciting...](https://www.linkedin.com/posts/avarra_hiring-growing-activity-7485743176729690112-PyRl)\n  > We had a multi-department meeting the other day to share exciting news.\n  >\n  > Perfect 5X5 square. 100% of participants on camera by default.\n  >\n  > All of us pointing AI at up-leveling humans like us.\n  >\n  > #hiring #growing\n\n- [2026-07-22 · 18 reactions, 3 comments] We had a multi-department meeting the other day to share exciting news. Perfect 5X5 square. 100% of participants on camera by default. All of us pointing AI at up-leveling humans like us. #hiring #...\n\n- [2026-07-17 · Posted · 11 reactions] [Avarra is going to Bean-Town for a battle of the Soxs on August...](https://www.linkedin.com/posts/avarra_event-boston-lobsterrolls-activity-7483870831572459521-5zss)\n  > Avarra is going to Bean-Town for a battle of the Soxs on August 4th!\n  >\n  > Partnering with our friends at QuotaPath, we are bringing 10 lucky GTM practitioners to a Red Sox versus White Soxs. Attendees joining us in the our private suite will all be senior RevOps or Enablement folks.\n  >\n  > Nominate Boston area folks in the comments and we will extend out some invites.\n  >\n  > #event #boston #lobsterrolls\n\n- [2026-07-17 · 11 reactions, 5 comments] Avarra is going to Bean-Town for a battle of the Soxs on August 4th! Partnering with our friends at QuotaPath, we are bringing 10 lucky GTM practitioners to a Red Sox versus White Soxs. Attendees j...\n\n- [2026-07-16 · Posted · 5 reactions] [Dan Strauss is hiring AEs. Avarra is hiring AEs Our current reps...](https://www.linkedin.com/posts/avarra_dan-strauss-is-hiring-aes-avarra-is-hiring-activity-7483474681899966464-eWu9)\n  > Dan Strauss is hiring AEs.\n  >\n  > Avarra is hiring AEs\n  >\n  > Our current reps are out here closing six and seven figure deals.\n  >\n  > If you are an AE and reading this, we are hiring.\n  >\n  > Apply by emailing hiring @ avarra(dot)ai\n\n- [2026-07-16 · 5 reactions, 2 comments] Dan Strauss is hiring AEs. Avarra is hiring AEs Our current reps are out here closing six and seven figure deals. If you are an AE and reading this, we are hiring. Apply by emailing hiring @ avarra...\n\n- [2026-07-14 · Posted · 18 reactions] [At Avarra we firmly believe that AI Agents should up-level humans...](https://www.linkedin.com/posts/avarra_ai-humans-activity-7482795813174259713-TtTZ)\n  > At Avarra we firmly believe that AI Agents should up-level humans, instead of replace them. The TCU Sales Center agrees...\n  >\n  > The TCU Neeley School of Business, and the TCU Sales Center trains the next generation of sales leaders and Avarra plays a key role in that.\n  >\n  > \"In just one year, students completed:\n  > - 2,000+ practice sessions\n  > - 500+ hours of AI-powered skill development\n  > - 30+ custom simulations\"\n  >\n  > Graduating into today's workforce is daunting. Folks are competing with each other, the existing workforce, and now AI agents as well.\n  >\n  > Avarra gives those in sales realistic, interactive experience, so they are ready to rock, ramp faster, and achieve more.\n  >\n  > We are enormously grateful to partner with folks like Corey Hutchison and Zachary Hall at TCU who help provide inputs into the Avarra model enabling us to level up aspiring salespeople alongside folks across our entire customer base, which includes some largest enterprise companies in the world.\n  >\n  > Can't wait to expand this partnership, more on that soon!\n  >\n  > Here is to the future.\n  >\n  > #AI #Humans\n\n- [2026-07-14 · 20 reactions, 6 comments] At Avarra we firmly believe that AI Agents should up-level humans, instead of replace them. The TCU Sales Center agrees... The TCU Neeley School of Business, and the TCU Sales Center trains the nex...\n\n- [2026-07-09 · Posted · 2 reactions] [Hot take... Most LLMs won't work as trainers because they are...](https://www.linkedin.com/posts/avarra_honest-training-activity-7480993909578395648-DhJ1)\n  > Hot take... Most LLMs won't work as trainers because they are obsequious sycophants.\n  >\n  > They will just tell you that, \"you did great\" because humans love to be validated, and that validation loop has trained AI to lie.\n  >\n  > Avarra isn't like that. We are able to up-level humans by challenging them directly in our 1:1 coaching sims. And the delta from that means millions in quota attaiment. It means people getting promoted where they would have gotten fired.\n  >\n  > It means a true transfer of knowledge and expertise instead of a false pat on the back.\n  >\n  > This is why many of our clients cut ramp for their thousands of reps in HALF shortly after using Avarra.\n  >\n  > We need to have realistic adult conversations with LLMs. Avarra does that.\n  >\n  > We'd welcome other perspectives here... do LLMs lie? And if so, why?\n  >\n  > #honest #training\n\n- [2026-07-09 · 4 reactions, 1 comment] Hot take... Most LLMs won't work as trainers because they are obsequious sycophants. They will just tell you that, \"you did great\" because humans love to be validated, and that validation loop has...\n\n## Locations\n- Headquarters: san mateo, california, united states (US)\n- Offices: san mateo, california, united states (US)",
+        "summary": "{\"description\":\"Avarra is a Software Development company and an AI avatar platform that turns your team's expertise into avatars who train teams, support deals, and help customers.\",\"employee_estimate\":31,\"employee_estimate_source\":\"Employees: 31\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Dan Strauss is hiring AEs. Avarra is hiring AEs\",\"hq\":\"San Mateo, United States\",\"hq_quote\":\"Headquartered in San Mateo, California, United States.\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Avarra is a Software Development company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 8,000,000\\n  - Seed (2024-10-03): USD 8.0M\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQFV930zSKgZfg/company-logo_200_200/company-logo_200_200/0/1727930385118/avarra_logo?e=2147483647&v=beta&t=hjkvVinaeMsgQskyOtnDxamfk1-b2Ujcjfw2gmlak6Q",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/wm339gwx24f",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Avarra",
+              "foundedYear": null,
+              "description": "The Avatar Platform to Scale Your People, Plays, and Revenue\nBuild and deploy AI avatar coaches, product experts, sellers, CSMs and more in less than​ 1 hour.\n\nCoaching & Ramp Execution.\nTrain and reinforcing your methodologies and best practices while accelerating ramp time and reducing manager oversight. \n\nOnboarding & Implementation Support.\nAvatars guide internal teams and customers through onboarding and implementation, ensuring consistent execution. \n\nProduct, Pricing & Competitive Expertise.\nPut product, pricing, and competitive experts on every deal so teams act with confidence and consistency in live situations.\n\nCustomer Success & Retention Execution.\nAvatars support CSMs through renewals, expansions, and escalations to navigate sensitive moments.\n\nMeeting Preparation & Execution Readiness.\nPrepare for critical meetings with the right context, deep research, guidance, and execution focus. \n\nExecution Visibility & Consistency at Scale.\nTrack real execution across the revenue org so you can find what works, fix what doesn’t, and scale consistency.",
+              "workforce": {
+                "total": 31
+              },
+              "headquarters": {
+                "address": "., San Mateo, California, US",
+                "city": "San Mateo",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 8000000,
+                "fundingLatestRound": {
+                  "name": "Seed",
+                  "date": "2024-10-03",
+                  "amount": 8000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 4231,
+                "countryRank": 939720,
+                "avgDurationSeconds": 197,
+                "history": [
+                  {
+                    "value": 7216,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 16214,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 12100,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 4446,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 1319,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 4231,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/rtp77r0fk3v",
+        "title": "Avarra",
+        "url": "https://avarra.net/",
+        "text": "# Avarra\n\nAvarra is a Information Services company. Avarra places pre-vetted Filipino sales professionals into US teams, SDRs, BDRs, and account managers. They provide role-play tested, English-fluent, and embedded in their team in 7 days. Avarra employs 2 people.\n\n## About\n\nAvarra places pre-vetted Philippines-based talent for US growth teams.\nWe staff sales, marketing, operations, and support roles. SDRs, BDRs, account managers, customer success, SEO specialists, social media managers, automation specialists, and more. Every candidate passes a structured screening and live assessment before you see their profile. Standard turnaround is 7 to 10 business days. 70% less than a US hire. No long-term contracts. Start in days.\n\n## Company Details\n- Industry: Information Services\n- Type: Self-owned\n- Homepage: avarra.net\n- Aliases: avarra\n- LinkedIn: linkedin.com/company/avarraai\n- Linkedin Followers: 4\n- Emails: business@avarra.net\n- Phone: +17473301466\n\n## Workforce\n- Employees: 2\n- Company Size: 1-10 employees\n\n## Web presence\n\n- Instagram: instagram.com/avarra.hq\n- Web traffic:\n  - Monthly visits: 303\n  - Global rank: 9,191,272\n  - Bounce rate: 37.0%\n  - Pages per visit: 1.2\n  - Average visit duration: 0s\n\n## Categories\n\nfilipino sales professionals, marketing, operations, role-play tested, sales, sales and marketing\n\n## Social\n\n### Linkedin\n\n- [2026-06-19] Today, we honor a defining moment in history and celebrate the enduring spirit, resilience, and contributions of the Black community. Juneteenth is more than a commemoration of freedom it is a remi...\n\n- [2026-06-18] Growth doesn't break because of bad ideas. It breaks because operations can't keep up. Here are five numbers every founder should know this year: • Admin VAs account for 31.5% of all VA demand. • A...\n\n- [2026-06-18] Every growing business hits a bottleneck. The difference between companies that stall and companies that scale often comes down to one thing: Getting the right support at the right time. If you cou...\n\n- [2026-05-26] Today, we honor and remember the brave men and women who made the ultimate sacrifice for our freedom. This Memorial Day, we pause to reflect on the courage, service, and legacy of our fallen heroes...\n\n- [2026-05-26] BUSINESS TIP OF THE WEEK #BusinessTips #BusinessGrowth #Avarra #ProfessionalServices #Leadership #GrowthStrategy #BusinessDevelopment #BusinessSupport\n\n- [2026-05-10 · 1 reaction] We built Avarra because the old way of hiring is broken. Too slow. Too expensive. Too many wrong fits. We just launched Avarra. Businesses in the US, Canada, and the UK are losing time and money on...\n\n- [2026-05-06 · 2 reactions] Launching something built for growth, creativity, and results. 🚀 Welcome to Avarra your trusted partner for digital solutions, branding, and business growth. We help businesses stand out online wit...",
+        "summary": "{\"description\":\"Avarra places pre-vetted Philippines-based talent for US growth teams including SDRs, BDRs, and account managers; offers role-play tested, English-fluent candidates with quick turnaround and no long-term contracts.\",\"employee_estimate\":2,\"employee_estimate_source\":\"Employees: 2\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Avarra employs 2 people.\",\"hq\":\"avarra.net\",\"hq_quote\":\"\",\"industry\":\"Information Services\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Avarra is an Information Services company.\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":null,\"recently_funded_seed_or_series_a_quote\":\"\\\"About\\\"\\\\n\\\\nAvarra places pre-vetted Philippines-based talent for US growth teams.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQFcDn5gKnSmzw/company-logo_200_200/B56Z0wfvXzH0AI-/0/1774635121257?e=2147483647&v=beta&t=M_J0_x1wfLrffY98xxGzJ_QcKGHW3ikbL18viCnsgWQ",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/rtp77r0fk3v",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Avarra",
+              "foundedYear": null,
+              "description": "Avarra places pre-vetted Philippines-based talent for US growth teams.\nWe staff sales, marketing, operations, and support roles. SDRs, BDRs, account managers, customer success, SEO specialists, social media managers, automation specialists, and more. Every candidate passes a structured screening and live assessment before you see their profile. Standard turnaround is 7 to 10 business days. 70% less than a US hire. No long-term contracts. Start in days.",
+              "workforce": {
+                "total": 2
+              },
+              "headquarters": null,
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 303,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 303,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 6744.4,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

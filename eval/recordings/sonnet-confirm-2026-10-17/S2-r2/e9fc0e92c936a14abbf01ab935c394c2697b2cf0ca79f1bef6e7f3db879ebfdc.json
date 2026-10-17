@@ -1,0 +1,270 @@
+{
+  "request": {
+    "query": "Hadrius",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "0b9a9ff377a53cd8057222f216ea00c8",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/7qcck13br6k",
+        "title": "Hadrius",
+        "url": "https://www.hadrius.com/",
+        "text": "# Hadrius\n\nHadrius is a Financial Services company. Hadrius is an AI-native compliance platform for financial firms that provides solutions such as marketing review, e-comms surveillance, transaction monitoring, firm oversight, filings, and continuing education. Hadrius employs 85 people and has an annual revenue of $23.1K, founded in 2023. Headquartered in New York, New York, United States, with an office in San Francisco. Its workforce is distributed across United States and Hong Kong.\n\n## About\n\nHadrius is the agentic compliance infrastructure for SEC- and FINRA-regulated firms. We help compliance teams scale without adding operational complexity by executing routine compliance work under human governance. \n\nBuilt on one system of records, Hadrius replaces fragmented compliance systems and the operational burden required to manage them, allowing teams to spend less time administering compliance and more time exercising judgment.\n\n## Company Details\n- Industry: Financial Services\n- Type: Privately held\n- Headquarters: New York, United States\n- Founded Year: 2023\n- Homepage: hadrius.com\n- Aliases: Quantbase Investments, Inc., hadrius\n- LinkedIn: linkedin.com/company/hadrius\n- Linkedin Followers: 7,753\n- Emails: hello@hadrius.com\n- Phone: (917) 473-2620, (917)473-262\n\n## Financials\n- Annual Revenue: USD 23,100\n- Total Funding: USD 24,500,000\n  - Series a (2026-07-01): USD 22.0M\n  - Seed (2023-09-11): USD 2.0M\n  - Seed (2023-04-05): USD 500,000\n\n## Workforce\n- Employees: 85\n- Company Size: 51-200 employees\n  - Monthly Growth: -1.2%\n- Key Executives:\n  - Allen Calderwood: Co-Founder & CTO\n  - Benjamin Huber: Head of Customer Experience\n  - Brian Zou: VP, Finance\n  - Dhruv Jain: Founding Forward Deployed Engineer\n  - Diego Nuñez: Founding AE\n  - Frederick (Trey) Thomas III: Executive Business Partner\n  - Jackson Yellen: Director of Partnerships\n  - Jackson Yellen: Strategic Partnerships Lead\n  - Jacob Bass: Founding Product Support Engineer\n  - James Antolino: Founding GTM Manager\n- Breakdown:\n  - By Country: United States: 68 (80%), Hong Kong: 1 (1%)\n  - By Department: Technical: 16 (19%), Sales: 15 (18%), Other Department: 10 (12%), General Management: 9 (11%), Product: 6 (7%), Marketing: 4 (5%), Consulting: 3 (4%), Customer Service: 3 (4%), Design: 2 (2%), Operations: 2 (2%) (+2 more)\n  - By Seniority: Specialist: 18 (21%), Other Management: 16 (19%), Founder: 13 (15%), Manager: 12 (14%), Senior: 4 (5%), Head: 2 (2%), Vp: 2 (2%), Clevel: 1 (1%), Director: 1 (1%), Intern: 1 (1%) (+1 more)\n- Active job postings: 6\n- Talent Sources: AlphaSights (3), Traba (2), Ramp (2), Quantbase (2), ScholiumAI (1), Runwise (1), ForUsAll (1), Fiserv (1), BlackRock (1), ACA Group (1)\n- Alumni Go To: Nua (S26) (4), Stealth AI Startup (2), Compyle (2), SmartAsset (1), M1 (1), Kanu AI (1), ExtensisHR (1), Endex (1), DesignLit (1), Antimetal (1)\n\n## Products & Technology\n- Features: Demo Available\n\n## Web presence\n\n- Twitter: twitter.com/hadriuscomply\n- Crunchbase: crunchbase.com/organization/hadrius\n- Web traffic:\n  - Monthly visits: 14,735\n  - Global rank: 1,134,975\n  - Bounce rate: 33.0%\n  - Pages per visit: 5.4\n  - Average visit duration: 97s\n\n## Categories\n\n17(a)-4, ai compliance tech, ai-native compliance platform, archiving, artificial intelligence (ai), artificial-intelligence, audits, automation, compliance, compliance efficiency, compliance management, compliance processes, compliance strategy, compliance technology, e-comms surveillance, electronic communications, emerging ai software, employee oversight, enterprise-software, finance/investing, financial services, financial technology, finra, fintech, firm oversight, hadrius, investment management, marketing compliance, marketing review, off-channel communications monitoring, platform, real-time compliance oversight, regtech, regulatory compliance, regulatory risk management, risk mitigation, saas, sec, software, technology, trade surveillance, transaction monitoring, website monitoring, worm compliance\n\n## Competitors\n\nreged, red marker, compliance.ai, cleversoft, perr&knight, rippling media, csi, digital agent, ascentai, ascent, navex global, milkbar digital, 360factors, vertafore, tesla, clausematch, elite risk services, bmw group, secureworks, alert logic, ff, faraday future, processunity, delphi technologies, arctic wolf, lg, zywave, uber, ford, apple, applied systems, applied, gm, lockpath, hyundai, quantivate, trustarc, tourmo, litlingo\n\n## Recent News\n- [2026-09-18] PR Newswire: Hadrius AI Governance Selected by Ritholtz Wealth Management to Enable Firmwide Claude Deployment\n- [2026-09-15] [Hadrius Launches AI Governance Platform in RIA-Wide Claude Deployment with Ritholtz Wealth - TipRanks.com](https://www.tipranks.com/news/private-companies/hadrius-launches-ai-governance-platform-in-ria-wide-claude-deployment-with-ritholtz-wealth)\n- [2026-07-28]\n  - [Hadrius Adds Claude to Its Communications Archive, Bringing Enterprise AI Under Compliance Oversight](https://uk.advfn.com/stock-market/share-news/Hadrius-Adds-Claude-to-Its-Communications-Archive/98993499)\n  - [hadrius-extends-ai-communications-archiving-with-claude-integration-for-financial-firms](https://www.tipranks.com/news/private-companies/hadrius-extends-ai-communications-archiving-with-claude-integration-for-financial-firms)\n- [2026-07-16] [Hadrius secures $27m to scale agentic compliance](https://fintech.global/2026/07/16/hadrius-secures-27m-to-scale-agentic-compliance/)\n- [2026-07-15] [Techmeme: NYC-based Hadrius, which provides AI-native compliance tools for financial services, raised a $22M Series A led by CRV with participation from Y Combinator \\(Ryan Lawler/Axios\\)](https://www.techmeme.com/260715/p1)\n- [2026-07-14]\n  - [Hadrius raises $22M for compliance software](https://www.axios.com/pro/fintech-deals/2026/07/14/hadrius-22m-series-a-crv)\n  - [Hadrius Raises $27M in Seed and Series A Funding](https://www.finsmes.com/2026/07/hadrius-raises-27m-in-funding.html)\n  - [Hadrius Secures $27 Million to Scale AI-Native Compliance Infrastructure - TipRanks.com](https://www.tipranks.com/news/private-companies/hadrius-secures-27-million-to-scale-ai-native-compliance-infrastructure)\n  - [Hadrius Raises $27 Million to Build Agentic Compliance Infrastructure](https://www.streetinsider.com/PRNewswire/Hadrius+Raises+%2427+Million+to+Build+Agentic+Compliance+Infrastructure/26766129.html)\n- [2025-07-22] PR Newswire: Hadrius Introduces Client Trade Surveillance -- Enterprise-Scale Monitoring for Managed Accounts, Powered by Zero Data Retention AI\n- [2025-04-16] KARK: HADRIUS REVOLUTIONIZES COMPLIANCE WITH AI-POWERED TECHNOLOGY SUITE, RECOGNIZED AS A 2025 GLOBAL TECH AWARD WINNER IN REGTECH\n- [2025-01-28] PR Newswire: Hadrius Launches Groundbreaking Firm Oversight Solution to Further Reduce Regulatory Risks and Transform Compliance Programs\n- [2023-09-15] FinTech Global: FinTech funding rounds pass $1bn – Here are the 23 deals\n- [2023-09-12]\n  - FinTech firm Hadrius nets $2m seed round for AI-powered SEC compliance\n  - FinTech Global: Unique hardware cybersecurity player Goldilock snags $1.7m ...\n- [2023-09-11]\n  - VC News Daily: Hadrius Raises $2M in Seed Round\n  - Silicon Valley Journals: YC-backed Hadrius $2M Seed Round to Revolutionize SEC Compliance Using AI\n  - PR Newswire: YC-backed Hadrius raises $2m seed round to power SEC compliance using AI\n\n## Social\n\n### Linkedin\n\n- [2026-10-05 · Posted · 30 reactions] [“By next year, the job of the compliance analyst will be less...](https://www.linkedin.com/posts/hadrius_by-next-year-the-job-of-the-compliance-activity-7512866326563078144-uzkO)\n  > “By next year, the job of the compliance analyst will be less checking the work, and more steering the work.”\n  >\n  > That’s co-founder Som Mohapatra previewing the future of agentic compliance last week at the Global RegTech Summit — a conference where we had a great time connecting with compliance leaders and getting hyped for the future of our space.\n  >\n  > Want to catch Hadrius at an upcoming conference? We’ll be at Money20/20, Financial Planning's Advise AI, and the National Society of Compliance Professionals' National Conference this month. Schedule to meet with us at the links in the comments.\n  >\n  > See you out there!\n\n- [2026-10-01 · Reshared · 34 reactions] [Aside from Som Mohapatra embarrassing me at chess, I had an awesome...](https://www.linkedin.com/posts/hadrius_activity-7511538908707536898-HpHv): Aside from Som Mohapatra embarrassing me at chess, I had an awesome time at the Global RegTech Summit this week. They put on a great event, with excellent panels, great people, and a great environm...\n\n- [2026-09-30 · Reshared · 35 reactions] [Up first on the Innovation Showcase: Surveillance, Regulatory...](https://www.linkedin.com/posts/hadrius_activity-7511065910313410560-Ac9z): Up first on the Innovation Showcase: Surveillance, Regulatory Change & Risk demo stage is Hadrius . Hadrius is AI-powered compliance technology for financial services firms, helping compliance team...\n\n- [2026-09-30 · Reshared · 14 reactions] [Introducing our Headline Sponsor at the Global RegTech Summit USA...](https://www.linkedin.com/posts/hadrius_activity-7511065806781435904-vN5w): Introducing our Headline Sponsor at the Global RegTech Summit USA 2026, Hadrius ! Come join them at booth 13 to chat with some of the leading innovators in the RegTech industry! Hadrius is the agen...\n\n- [2026-09-28 · Posted · 29 reactions] [What happens to the work of compliance when software no longer...](https://www.linkedin.com/posts/hadrius_what-happens-to-the-work-of-compliance-when-activity-7510373980130942976-nPnl)\n  > What happens to the work of compliance when software no longer offers a process, but an outcome?\n  >\n  > At the Global RegTech Summit, Co-Founder & CEO Thomas Stewart will explore this question in the day’s keynote:\n  >\n  > 🎤 THE OWNER OF FIRM INTEGRITY: How Agentic Compliance Redefines Oversight\n  > 🕙 Tuesday, September 29, 10:05 AM ET\n  >\n  > Plus, learn more about agentic compliance at three other sessions throughout the day:\n  >\n  > → 9:20 AM | Som Mohapatra appears on the keynote panel, \"Compliance 2030: Thriving in an Era of Relentless Disruption\"\n  >\n  > → 11:20 AM | Som leads a demo of Hadrius’ LLM governance\n  >\n  > → 3:15 PM | Ryan Stevenson hosts a roundtable on “Scaling Compliance Without Scaling Headcount”\n  >\n  > And join us at Booth 13 all day, where each badge scan enters you into a raffle to win an iPad Air.\n  >\n  > If you're heading to RegTech, come find us. We'd love to hear how we can transform your compliance.\n\n- [2026-09-24 · Posted · 25 reactions] [On Tuesday the Hadrius team is heading to the Global RegTech Summit...](https://www.linkedin.com/posts/hadrius_on-tuesday-the-hadrius-team-is-heading-to-activity-7508928051498647552-aH7-)\n  > On Tuesday the Hadrius team is heading to the Global RegTech Summit in New York — and we're coming in hot 🔥 on the future of compliance.\n  >\n  > Catch the conference's keynote speech at 10 AM, “The Owner of Firm Integrity: How Agentic Compliance Redefines Oversight,” in which CEO Thomas Stewart will put all the day's conversations about compliance AI into perspective, and present a bold vision for where our function is heading.\n  >\n  > Before that, Som Mohapatra joins the opening panel at 9:20 AM for “Compliance 2030 – Thriving in an Era of Relentless Disruption.” Hear how fragmented federal and state enforcement are intersecting with new priorities like AI governance and digital assets.\n  >\n  > And at 3:15 PM, pull up a chair with founding sales lead Ryan Stevenson for his roundtable discussion, “Scaling Compliance Without Scaling Headcount,” helping your team get more coverage out of the people you already have.\n  >\n  > Grab a coffee, get a seat early, and come find us afterward. We'd love to hear what you think.\n  >\n  > See you September 29.\n\n- [2026-09-23 · Reshared · 53 reactions] [Tomorrow, XLoD Global-New York opens its doors at the Javits...](https://www.linkedin.com/posts/hadrius_activity-7508599175404507138-H2k9): Tomorrow, XLoD Global-New York opens its doors at the Javits Center, and one of the first discussions on stage is the Q&A Plenary Discussion: The Next Generation 3 Lines Model: What Stays, What Goe...\n\n- [2026-09-22 · Posted · 29 reactions] [Hadrius: “We archive and monitor everything.” #newtagline...](https://www.linkedin.com/posts/hadrius_newtagline-llmgovernance-marketing-activity-7508226301682401281-tXIm)\n  > Hadrius: “We archive and monitor everything.”\n  >\n  > #newtagline #LLMgovernance #marketing #advertising #dondraper 🥃🧊\n\n- [2026-09-22 · Reshared · 24 reactions] [XLoD Global- New York is excited to welcome Hadrius to the Javits...](https://www.linkedin.com/posts/hadrius_activity-7508155254840926209-OMrX): XLoD Global- New York is excited to welcome Hadrius to the Javits Center on September 24 See agentic compliance infrastructure for yourself at Booth #4 and add these sessions to your agenda: → Co-f...\n\n- [2026-09-21 · Posted · 26 reactions] [Take a look at Hadrius Marketing Review before and after. See the...](https://www.linkedin.com/posts/hadrius_take-a-look-at-hadrius-marketing-review-before-activity-7507802913092784129-MIF6)\n  > Take a look at Hadrius Marketing Review before and after.\n  >\n  > See the difference?\n  >\n  > (See how much time you’re wasting guessing what changed?)\n  >\n  > That’s why Marketing Review now lets you view a side-by-side comparison of any document with changes. You select the versions to compare, and AI spotlights the differences before and after a round of edits.\n  >\n  > No more locating the old file yourself, comparing edits by sight, or trying to remember what you changed.\n  >\n  > Just another way Hadrius powers faster, smoother Marketing Review.\n\n- [2026-09-17 · Posted · 13 reactions] [Next stop: Javits Center, NYC, for 1LoD's XLoD Global. Want to see...](https://www.linkedin.com/posts/hadrius_next-stop-javits-center-nyc-for-1lods-activity-7506467241521999872-rjI-)\n  > Next stop: Javits Center, NYC, for 1LoD's XLoD Global.\n  >\n  > Want to see agentic compliance infrastructure for yourself? Stop by Booth #4 and catch our two speaking sessions:\n  >\n  > → Co-founder & CEO Thomas Stewart kicks off the day on the 9am plenary, weighing in on what the three lines model would look like if you could rebuild it without legacy structures. He'll be alongside senior leaders from Citi, Morgan Stanley, RBC, and Wells Fargo.\n  >\n  > → Co-founder Som Mohapatra joins “Re-thinking Governance in an AI Landscape” at 4:10pm to make the case for where ownership of AI risk should sit inside a firm, with leaders from Bank of America, ING Americas, Barclays, and BNY.\n  >\n  > Come find us at Booth #4, meet the team, and see our agentic compliance infrastructure live.\n  >\n  > Want to set up a meeting ahead of time? Visit our event page here: https://lnkd.in/gDR6GZ9x\n\n- [2026-09-15 · Reshared · 96 reactions] [Every compliance officer I've talked to this year has had some...](https://www.linkedin.com/posts/hadrius_activity-7505658039849365505-I692): Every compliance officer I've talked to this year has had some version of the same problem: Their firm wants to deploy an LLM. Legal asks how it will be supervised. Nobody has a good answer, becaus...\n\n- [2026-09-15 · Reshared · 67 reactions] [AI adoption in financial services is accelerating fast, but...](https://www.linkedin.com/posts/hadrius_activity-7505645383251890176-heKg): AI adoption in financial services is accelerating fast, but deploying it is the easy part. The real challenge is doing it safely, responsibly, and at scale. Today, we announced that Hadrius and Rit...\n\n- [2026-09-15 · Posted · 57 reactions] [When Ritholtz Wealth decided to give every employee access to...](https://www.linkedin.com/posts/hadrius_when-ritholtz-wealth-decided-to-give-every-activity-7505627181721657345-_hja)\n  > When Ritholtz Wealth decided to give every employee access to Claude, they needed someone to build the supervision layer underneath it.\n  >\n  > No regulator had — or has yet — written the monitoring standards for LLM deployment. But Joshua Brown and team didn’t want to roll out any technology without oversight that was exam-ready under SEC and FINRA recordkeeping rules.\n  >\n  > So they came to us.\n  >\n  > Today, Hadrius is proud to announce the launch of the first AI governance module tailored specifically to financial services. Leveraging our integration with the Claude Compliance API, this oversight enables Ritholtz to safely deploy Anthropic's enterprise Claude chatbot across its entire workforce.\n  >\n  > Joshua Brown, CEO of Ritholtz:\n  >\n  > “AI is coming to every wealth management firm whether they have a strategy for it or not. The question was, how do we give everyone access to Claude while giving our compliance team the visibility and controls they need? Hadrius understood that immediately.”\n  >\n  > Full announcement here:\n  >\n  > https://lnkd.in/gbBbN6Rz\n\n- [2026-09-14 · Reshared · 2 reactions] [Heading to Future Proof? Set up a meeting with Bill Donnell (and...](https://www.linkedin.com/posts/hadrius_heading-to-future-proof-set-up-a-meeting-activity-7505291266088329217-6dnP): Heading to Future Proof? Set up a meeting with Bill Donnell (and the rest of the Hadrius team) directly at this link: https://lnkd.in/gqGBdugF\n\n- [2026-09-14 · Posted · 37 reactions] [👏 Congratulations to Stirlingshire Investments, who are building...](https://www.linkedin.com/posts/hadrius_congratulations-to-stirlingshire-investments-activity-7505292235526287360-2cTn)\n  > 👏 Congratulations to Stirlingshire Investments, who are building for serious growth.\n  >\n  > Last week, the firm announced:\n  >\n  > → Industry legend Dan Arnold would be joining as Executive Chairman.\n  >\n  > → Candice Gilman, who built the compliance program for SoFi's multibillion-dollar RIA, is joining as Chief Compliance Officer.\n  >\n  > → Stirling One, their AI-native wealth management operating platform, now runs prospecting, trading, rebalancing, reporting, and execution through a single login for advisors.\n  >\n  > The one thing not changing? Compliance will stay with Hadrius.\n  >\n  > “Hadrius is at the tip of the spear when it comes to compliance technology,” says Founder & CEO Steven Woods. “Whenever we think about all the other products in the market, we say, ‘We're going to build that capability ourselves.’ But Hadrius is amazing. We're going to run with it.”\n  >\n  > That's the foundation as they scale toward 5,000 advisors. We’re thrilled to be part of the ride.\n  >\n  > See what Stirlingshire is building here: https://lnkd.in/gG92eiYU\n\n- [2026-09-04 · Posted · 58 reactions] [Former bartender and current Hadrius Account Manager Declan Toomey...](https://www.linkedin.com/posts/hadrius_former-bartender-and-current-hadrius-account-activity-7501649556045037568-p9bW)\n  > Former bartender and current Hadrius Account Manager Declan Toomey debuts our latest innovation:\n  >\n  > The OBA (Outside Beverage Activity)\n  >\n  > ‣ 2oz vodka\n  > ‣ 0.5oz lavender syrup\n  > ‣ 0.5oz Cointreau\n  > ‣ 0.75oz citrus\n  >\n  > Happy Labor Day from the team bringing you agentic compliance.\n\n- [2026-09-03 · Reshared · 27 reactions] [Hadrius devs are polishing off an agent right now that I am...](https://www.linkedin.com/posts/hadrius_activity-7501277707012296705-fZFn): Hadrius devs are polishing off an agent right now that I am extremely excited about. I ran a sample prompt through it last night saying \"Identify the trends across my account surveillance flags, wh...\n\n- [2026-08-27 · Posted · 26 reactions] [“Artificial intelligence in compliance.” If those words sent a...](https://www.linkedin.com/posts/hadrius_artificial-intelligence-in-compliance-activity-7498761669272129536-YEhb)\n  > “Artificial intelligence in compliance.”\n  >\n  > If those words sent a shiver down your spine, you’re not alone.\n  >\n  > Many CCOs feel they’re not up to speed on AI: what exactly it is, wh",
+        "summary": "{\"description\":\"Hadrius is an AI-native compliance platform for financial firms providing solutions such as marketing review, e-comms surveillance, transaction monitoring, firm oversight, filings, and continuing education.\",\"employee_estimate\":85,\"employee_estimate_source\":\"Employees: 85\",\"hiring_first_ops_or_revops\":true,\"hiring_first_ops_or_revops_quote\":\"Key Executives: ... Founding GTM Manager\",\"hq\":\"New York, United States\",\"hq_quote\":\"Headquartered in New York, New York, United States, with an office in San Francisco.\",\"industry\":\"Financial Services\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Financial Services\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Total Funding: USD 24,500,000\\n  - Series a (2026-07-01): USD 22.0M\\n  - Seed (2023-09-11): USD 2.0M\\n  - Seed (2023-04-05): USD 500,000\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQGmPHVaN8rRhA/company-logo_200_200/B4EZ0r7ugqHgAM-/0/1774558570990/hadrius_logo?e=2147483647&v=beta&t=ug7S9H1i0w1i_SERzE2FwgZMLNlI5M3D1wcUaPJOBeg",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/7qcck13br6k",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Hadrius",
+              "foundedYear": 2023,
+              "description": "Hadrius is the agentic compliance infrastructure for SEC- and FINRA-regulated firms. We help compliance teams scale without adding operational complexity by executing routine compliance work under human governance. \n\nBuilt on one system of records, Hadrius replaces fragmented compliance systems and the operational burden required to manage them, allowing teams to spend less time administering compliance and more time exercising judgment.\n",
+              "workforce": {
+                "total": 85
+              },
+              "headquarters": {
+                "address": "123 William St, Floor 22, New York, NY 10038, US",
+                "city": "New York",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 23100,
+                "fundingTotal": 24500000,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2026-07-01",
+                  "amount": 22000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 14735,
+                "countryRank": 292423,
+                "avgDurationSeconds": 97,
+                "history": [
+                  {
+                    "value": 11129,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 16299,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 17582,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 41780,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 31326,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 14735,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/t3g9gbfj8c9",
+        "title": "Ardius",
+        "url": "https://ardius.com/",
+        "text": "# Ardius\n\nArdius is a Software Development company. Ardius employs 15 people (-6.2% YoY, -1 person) and has an annual revenue of $1M, founded in 2018. Headquartered in Brea, California, United States.\n\n## About\n\nWe maximize your R&D tax credits with our combination of technology and big 4 tax expertise.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: Brea, United States\n- Founded Year: 2018\n- Homepage: ardius.com\n- Aliases: Ardius, Inc., ardius\n- LinkedIn: linkedin.com/company/ardius\n- Linkedin Followers: 999\n- Emails: hello@ardius.com\n\n## Financials\n- Annual Revenue: USD 1,000,000\n  - Seed (2021-01-01)\n  - Seed (2018-09-01)\n  - Pre seed (2018-08-15)\n\n## Acquisitions\n- Acquired by: Gusto (2021-06-17)\n\n## Workforce\n- Employees: 15\n- Company Size: 51-200 employees\n  - Yearly Growth: -6.2%\n- Breakdown:\n  - By Country: United States: 8 (53%)\n  - By Department: Technical: 4 (27%), Finance: 3 (20%), Operations: 1 (7%)\n  - By Seniority: Specialist: 5 (33%), Manager: 1 (7%), Other Management: 1 (7%), Senior: 1 (7%)\n- Talent Sources: Liferay (4), FabFitFun (3), Pasadena Tournament of Roses (2), KPMG (2), HSBC (2), Reliant Capital (1), Niagara Bottling (1), Harbor Freight Tools (1), HITRECORD (1), Ayzenberg (1)\n- Alumni Go To: Gusto (17), Soapbox (1), Pinecone41 (1), Oaktree (1), Live Action (1), Gamevice (1), EasyMate AI (1), Deliveroo (1), BETA TECHNOLOGIES (1), Ascendify Marketing Solutions (1)\n\n## Products & Technology\n- Tech Stack: confluence, impact, amp\n\n## Web presence\n\n- Twitter: twitter.com/ardiustech\n- Facebook: facebook.com/ardiustech\n- Instagram: instagram.com/ardiustech\n- Crunchbase: crunchbase.com/organization/ardius\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Categories\n\nardius, artificial intelligence (ai), automation, business finance  providers, cloud-platforms, credits, enterprise-software, fintech, incentives, machine learning, r&d, saas, software, start-up, tax, tax credit providers, technology\n\n## Competitors\n\nneo.tax, taxjar, sovos, pmba, taxspanner, hypergrid, billingplatform\n\n## Recent News\n- [2025-05-31] Business Insider: Business Insider: Here are the 5 lessons I learned from my Big Four career.\n- [2024-05-16] DeepCast: Mastering Your Cap Table with Joshua Lee of Ardius\n- [2024-02-13] Chief Executives Council: 2023 CEO Pinnacle Awards - Winners Announced - Chief Executives Council\n- [2023-10-12] LA Times: LA Times B2B OC Visionary\n- [2023-05-03] Oh Ship\\! Podcast: Oh Ship Show\\! Episode 110 with Joshua Lee\n- [2023-04-07] The Nasdaq Entrepreneurial Center: NASDAQ Faces of Entrepreneurship: Joshua Y. Lee\n- [2023-03-23] Silicon Valley Insider: Get Money Back For Your Start-up\\(s\\)\\!\n- [2022-10-09] OCTANE: Octane OC’S High Tech Award for Best Tech CEO \\(22'\\): Joshua Lee\n- [2022-07-04] NBC Bay Area: NBC: Press Here with Scott McGrew \\(Should Your Company Be Receiving Tax Credit?\\)\n- [2022-07-01] Seattle TechFlash: Many small businesses are missing out on this potential tax credit\n- [2022-06-01] Strategic Finance: Taxes: Unlocking Cash Flow with the R&D Tax Credit\n\n## Social\n\n### Linkedin\n\n- [2026-04-10 · 15 reactions, 2 comments] Congrats to Alex Kehayias and the entire Mosey team! Keep the good news a comin, Tomer London !! Acquiring #withgusto\n\n- [2026-02-15] Small Business Technology News #4 – Gusto's ChatGPT gambit: Payroll goes conversational. https://lnkd.in/gYed2KBT\n\n- [2025-09-15 · 174 reactions, 7 comments] I got to meet the Y Combinator S25 batch last week at our YC boba event. Here's what stood out compared w previous batches: 1. Founders are more technical than ever. I absolutely love that. 2. Obvi...\n\n- [2025-09-11 · 21 reactions, 2 comments] Boba x Startups = Winning #withgusto\n\n- [2025-09-01 · 68 reactions, 9 comments] Early in my career, I was too afraid of the perceived risks and unknowns of startups to take the leap. Back then, I had convinced myself that the only path to success was through a corporate career...\n\n- [2025-08-27 · 68 reactions, 4 comments] And in other news, Gusto agrees to buy retirement plan provider Guideline !! Congrats to Kevin Busque and all the Guideline + Gusto teams! Here’s to serving even more businesses better together! ht...\n\n- [2025-08-20 · 79 reactions, 28 comments] We often try to build for others what was (or is still) a problem for our very own selves...am I right?! I remember graduating from UCLA and University of Southern California (#uscbruin) and trying...\n\n- [2025-08-02 · 22 reactions, 1 comment] You’ll get to work with the best in the business…\n\n- [2025-07-25 · 32 reactions, 2 comments] 🎙️ Another exciting episode of the Conductive Ventures Conversations podcast just dropped! This time, we are joined by repeat entrepreneur Joshua Y. Lee, who shares his inspiring journey from start...\n\n- [2025-07-18 · 25 reactions, 4 comments] Amazing that we are here! I love working on this policy and advocating for all small innovative businesses, and I'm grateful for all the support I had over the last 3.5 years. Looking at you Joshua...\n\n- [2025-06-17 · 78 reactions, 18 comments] My heart is full of gratitude and appreciation to the entire Business Insider team (Kaila Yu Jamie Heller Jane Zhang) for highlighting some my earlier years at EY! They've created such an amazing p...\n\n## Locations\n- Headquarters: brea, california, united states (US)\n- Offices: brea, california, united states (US)\n\n## Parent organization\n\n- Gusto",
+        "summary": "{\"description\":\"Ardius is a Software Development company.\",\"employee_estimate\":15,\"employee_estimate_source\":\"Employees: 15\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"Brea, California, United States\",\"hq_quote\":\"Headquarters: brea, california, united states (US)\",\"industry\":\"Software Development\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"- Industry: Software Development\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"Seed (2021-01-01)\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C560BAQFwH1jBk9ycnA/company-logo_200_200/company-logo_200_200/0/1632260259881/ardius_logo?e=2147483647&v=beta&t=1qN329eIJTLnY1mCPFFRYMRWFbP6QwyIwjwx3XMOwnw",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/t3g9gbfj8c9",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Ardius",
+              "foundedYear": 2018,
+              "description": "We maximize your R&D tax credits with our combination of technology and big 4 tax expertise. \n",
+              "workforce": {
+                "total": 15
+              },
+              "headquarters": {
+                "address": "407 W Imperial Hwy, Ste #H345, Brea, California 92821, US",
+                "city": "Brea",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 1000000,
+                "fundingTotal": null,
+                "fundingLatestRound": {
+                  "name": "Seed",
+                  "date": "2021-01-01",
+                  "amount": null
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 1200,
+                    "dateFrom": "2025-04",
+                    "dateTo": "2025-04"
+                  },
+                  {
+                    "value": 1600,
+                    "dateFrom": "2025-05",
+                    "dateTo": "2025-05"
+                  },
+                  {
+                    "value": 1400,
+                    "dateFrom": "2025-06",
+                    "dateTo": "2025-06"
+                  },
+                  {
+                    "value": 1100,
+                    "dateFrom": "2025-07",
+                    "dateTo": "2025-07"
+                  },
+                  {
+                    "value": 88,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 5357.4,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

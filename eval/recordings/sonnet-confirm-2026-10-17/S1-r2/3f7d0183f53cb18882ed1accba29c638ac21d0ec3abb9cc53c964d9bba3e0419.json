@@ -1,0 +1,178 @@
+{
+  "request": {
+    "query": "VB Distribution",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "cce658a81ec1a20364c6b16d074fbefa",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/8t8kn8bgfbn",
+        "title": "VB Distribution",
+        "url": "https://vb-distro.com/",
+        "text": "# VB Distribution\n\nVB Distribution is a Wholesale company. VB Distribution is a market-leading, multi-category master wholesaler and distributor built for speed and scale. We supply all channels: retail, wholesale and e-commerce, delivering reliable availability, leading brands, and sell-through focused commercial execution across FMCG categories. VB Distribution employs 44 people (+18.9% YoY, +7 people), founded in 2021. Headquartered in London, United Kingdom. Its workforce is distributed across United Arab Emirates, United Kingdom, India, and Italy.\n\n## About\n\nVB Distribution is a market-leading, multi-category master wholesaler and distributor built for speed and scale. We supply all channels: retail, wholesale and e-commerce, delivering reliable availability, leading brands, and sell-through focused commercial execution across FMCG categories.\n\n## Company Details\n- Industry: Wholesale\n- Type: Privately held\n- Headquarters: London, United Kingdom\n- Founded Year: 2021\n- Homepage: vb-distro.com\n- Aliases: vb distribution\n- LinkedIn: linkedin.com/company/vbdistro\n- Linkedin Followers: 2,964\n- Emails: info@vb-distro.com\n- Phone: +44 207 692 8713, +44 7777 381 746, +44 7777 381746\n\n## Workforce\n- Employees: 44\n- Company Size: 201-500 employees\n  - Monthly Growth: -2.2%\n  - Yearly Growth: +18.9%\n- Key Executives:\n  - Abhishek Trivedi: Group Finance Director\n  - Adam Matliwala: Chairman\n  - Adeeb Noor Mahomed: Head of Regulatory Affairs\n  - Ahsan Abbasi: Brand Design & Partnerships Lead\n  - Anas Mėmber: Head of Sales - Middle East and Africa\n  - Ankita Acharya: Head of Compliance\n  - John Benedick Amo: Head of Research And Development\n  - Mohamad Member: International Accounts Director\n  - Natalia G.: Chief Executive Officer\n  - Nisamudeen Abdulnasar: Brand Visualisation Lead\n- Breakdown:\n  - By Country: United Arab Emirates: 29 (66%), United Kingdom: 4 (9%), India: 1 (2%), Italy: 1 (2%)\n  - By Department: Sales: 6 (14%), Marketing: 5 (11%), Operations: 5 (11%), Design: 4 (9%), Finance: 4 (9%), General Management: 2 (5%), Legal: 2 (5%), Other Department: 2 (5%), Technical: 2 (5%), Administrative: 1 (2%) (+3 more)\n  - By Seniority: Specialist: 14 (32%), Head: 9 (20%), Manager: 5 (11%), Director: 4 (9%), Other Management: 2 (5%), Clevel: 1 (2%), Senior: 1 (2%), Vp: 1 (2%)\n- Talent Sources: HM Revenue & Customs (2), GIOVANNI (2), Xentrix Studios (1), Unity Foods Limited (1), Techmax Technologies (1), Royal Sanders (1), Pod Show (1), Lulu Retail (1), Apptrick Technologies (1), Al Afdhal Trading WLL (1)\n- Alumni Go To: Octoboss - Marketing Agency (2), Synergy Project Management LLC (1), RANEX Trading (1), PIPA MEDIA (1), MOTUS | ONE (1), Lancashire County Council (1), International Vision Investments (1), Dubai World Trade Centre (1), BrandMade Studio (1), Autorun - OMODA JAECOO Dubai (1)\n\n## Products & Technology\n- Tech Stack: linkedin, paypal, shopify, stripe, wordpress, zoho, zoho books, css, microsoft, microsoft office, youtube, adobe, adobe creative suite, amp, instagram, xero, impact, zoom\n\n## Web presence\n\n- Web traffic:\n  - Monthly visits: 4,869\n  - Global rank: 3,548,219\n  - Bounce rate: 40.0%\n  - Pages per visit: 1.8\n  - Average visit duration: 21s\n\n## Categories\n\ndistributor, e-cigarettes, fmcg, nic salts, retail, vapes, wholesale and distribution, wholesaler\n\n## Recent News\n- [2026-09-08] [Matalan COO Phil Hackney steps down after three years \\| Retail Sector](https://www.retailsector.co.uk/744363-matalan-coo-phil-hackney-steps-down-after-three-years/)\n\n## Social\n\n### Linkedin\n\n- [2026-10-01 · 12 reactions] VPD is now live, and the transition into stamped stock has already started. Our first duty-stamped Hayati Pro Ultra+ 25K and Hayati Pro Max+ 6K products are scheduled to arrive from mid-October. Re...\n\n- [2026-10-01 · 4 reactions] If you sell vapes, the next six months matter. VPD is now live, and retailers are entering a period where eligible unstamped stock, duty-stamped products, supplier checks, pricing changes and key c...\n\n- [2026-09-30 · 8 reactions, 2 comments] The UK is currently consulting on tighter rules around vape packaging, device appearance and retail display. Belgium may offer a glimpse of what could come next. Belgium already requires vape produ...\n\n- [2026-09-29 · 44 reactions, 4 comments] “Compliance only works if non-compliance has consequences.” - Adeeb Noor Mahomed, Regulatory Affairs Manager. As the UK prepares for Vaping Products Duty, that point is becoming increasingly import...\n\n- [2026-09-28 · 8 reactions] With less than a week to go until Vaping Products Duty, one thing is already becoming clear: the market is growing, but the format is changing. At VB Distribution, we have been watching that shift...\n\n- [2026-09-23 · 22 reactions, 8 comments] The business is growing, but the real story is the people behind it. Meet the people who shape our success, challenge our thinking and build what comes next at VB Distribution. Natalia Gosciniak, C...\n\n- [2026-09-18 · 2 reactions] 569 voices saying ‘enough is enough’ – and counting… Vaping has helped millions of adults cut down on or completely ditch cigarettes in the UK. But a whirlwind of new policies and proposals risks m...\n\n- [2026-09-14 · 10 reactions] We completely agree: rogue traders selling to under-18s must be dealt with. But responsible retailers and adult consumers should not be penalised for the actions of those breaking the rules. We can...\n\n- [2026-09-04 · 13 reactions, 1 comment] HMRC has now published the transitional vaping duty stamps that retailers and wholesalers will start seeing from 1 October 2026. The key message for retail teams: know what valid stock should look...\n\n- [2026-09-01 · 16 reactions] 📅 30 days to Vaping Products Duty. For retailers and wholesalers, the next month is about making sure every product you receive is compliant, traceable and ready for the duty-paid market from 1 Oct...\n\n- [2026-08-25 · 15 reactions] Four dates every UK vape retailer and wholesaler should have on their radar. The Vaping Duty Stamps Scheme is moving from preparation to implementation, changing how vaping products are stamped, au...\n\n- [2026-08-14 · 19 reactions, 1 comment] The UK duty-paid supply chain. All Milestones Checked. 😊 From 1 October 2026, every vaping product sold in the UK must move through an approved duty route. That route has to be built before the dat...\n\n- [2026-08-12 · 17 reactions] 🚨 New Government Guidance on Tobacco and Vapes Act 2026 The Department of Health and Social Care has published new guidance outlining upcoming requirements under the Tobacco and Vapes Act 2026, wit...\n\n- [2026-08-10 · 18 reactions, 1 comment] Great to see Convenience Store featuring our latest milestone. Our HMRC approval is another important step in ensuring retailers, wholesalers, and brand partners have access to a fully compliant, d...\n\n- [2026-08-04 · 29 reactions, 3 comments] Every milestone in our growth reflects the dedication of our people. 😊 VB Distribution is pleased to share a behind-the-scenes look at our new business park in Lancashire, and the people behind it....\n\n- [2026-07-31 · 52 reactions] We are proud to announce that VB Distribution is now HMRC authorised under the Vaping Products Duty and Vaping Duty Stamps Scheme, making us one of the first UK distributors able to supply stamped,...\n\n- [2026-07-29 · 25 reactions] Great to see Wholesale News highlighting our latest milestone. With 500,000 sq. ft. of distribution capacity nationwide, including HMRC-approved bonded warehousing, we’re investing in the infrastru...\n\n- [2026-07-28 · 42 reactions, 1 comment] You can build an advanced, customs-bonded distribution facility, but the heartbeat of the operation will always be our people.😊 Following our recent expansion, our capability to handle complex stoc...\n\n- [2026-07-23 · 13 reactions, 3 comments] Great to see our 500,000 sq. ft. network expansion featured in Better Wholesaling Scaling our infrastructure to this level means stronger support and faster service for our partners as we head towa...\n\n- [2026-07-20 · 38 reactions, 4 comments] We're pleased to share a first look at our new Lancashire business park.🎊 HMRC-approved, with 100,000 sq. ft of bonded warehousing, taking our network to 500,000 sq. ft across the country, and infr...\n\n## Locations\n- Headquarters: london, sw1y 4rg, united kingdom (GB)\n- Offices: london, sw1y 4rg, united kingdom (GB)",
+        "summary": "{\"description\":\"VB Distribution is a Wholesale company and multi-category master wholesaler/distributor serving retail, wholesale and e-commerce with 44 employees, founded in 2021, headquartered in London, United Kingdom.\",\"employee_estimate\":44,\"employee_estimate_source\":\"Employees: 44\",\"hq\":\"London, United Kingdom\",\"hq_quote\":\"Headquartered in London, United Kingdom.\",\"industry\":\"Wholesale\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"We supply all channels: retail, wholesale and e-commerce, delivering reliable availability, leading brands, and sell-through focused commercial execution across FMCG categories.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4E0BAQGT2OQr-MO3hA/company-logo_200_200/B4EZnnX.xAIQAI-/0/1760523447958/vapes_bars_logo?e=2147483647&v=beta&t=mHJTeGZAX8J-6G92lkTvoTwzXvcgPwz4NhAd1pD9R38",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/8t8kn8bgfbn",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "VB Distribution",
+              "foundedYear": 2021,
+              "description": "VB Distribution is a market-leading, multi-category master wholesaler and distributor built for speed and scale. We supply all channels: retail, wholesale and e-commerce, delivering reliable availability, leading brands, and sell-through focused commercial execution across FMCG categories.",
+              "workforce": {
+                "total": 44
+              },
+              "headquarters": {
+                "address": "St. James Building, Rex House 4 – 12 Regent Street, Office No. 440, 4th Floor, London, SW1Y 4RG, GB",
+                "city": "London",
+                "postalCode": null,
+                "country": "United Kingdom"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 4869,
+                "countryRank": 1470711,
+                "avgDurationSeconds": 21,
+                "history": [
+                  {
+                    "value": 144,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 3596,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 4869,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/7chngygkgs3",
+        "title": "variety brands distribution",
+        "url": "https://vbdistribution.net/",
+        "text": "# variety brands distribution\n\nvariety brands distribution. Variety brands distribution employs 2 people (+100.0% YoY, +1 person). Headquartered in Dhaka, Bangladesh.\n\n## About\n\nVB distribution is a company that sells a wide range of cleaning equipment, cleaning items, disposable items, automotive items, household items, kitchenware, laundry products, food items, and miscellaneous items.\n\n## Company Details\n- Headquarters: Dhaka, Bangladesh\n- Homepage: vbdistribution.net\n- Aliases: variety brands distribution\n- LinkedIn: linkedin.com/company/variety-brands-distribution\n- Linkedin Followers: 2\n\n## Workforce\n- Employees: 2\n  - Yearly Growth: +100.0%\n\n## Web presence\n\n- Web traffic:\n  - Bounce rate: 0.0%\n  - Pages per visit: 0.0\n  - Average visit duration: 0s\n\n## Locations\n- Headquarters: dhaka, bangladesh (CA)\n- Offices: dhaka, canada",
+        "summary": "{\"description\":\"variety brands distribution is a company that sells a wide range of cleaning equipment, cleaning items, disposable items, automotive items, household items, kitchenware, laundry products, food items, and miscellaneous items.\",\"employee_estimate\":2,\"employee_estimate_source\":\"Employees: 2\",\"hq\":\"Headquartered in Dhaka, Bangladesh\",\"hq_quote\":\"Headquartered in Dhaka, Bangladesh.\",\"industry\":\"Not explicitly stated as an industry; appears as a general distributor/retailer of diverse products\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":null,\"is_third_party_logistics_quote\":\"null\"}",
+        "image": "https://static.licdn.com/aero-v1/sc/h/cs8pjfgyw96g44ln9r7tct85f",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/7chngygkgs3",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "variety brands distribution",
+              "foundedYear": null,
+              "description": "VB distribution is a company that sells a wide range of cleaning equipment, cleaning items, disposable items, automotive items, household items, kitchenware, laundry products, food items, and miscellaneous items.",
+              "workforce": {
+                "total": 2
+              },
+              "headquarters": {
+                "address": "89/2 Panthapath, Dhaka, 1205, ca",
+                "city": "Dhaka",
+                "postalCode": null,
+                "country": "Bangladesh"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": 0,
+                "avgDurationSeconds": 0,
+                "history": []
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 4637.5,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

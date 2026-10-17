@@ -1,0 +1,257 @@
+{
+  "request": {
+    "query": "AIUC",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "b3d5aed69892d97744e94edf239de9ff",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/b8v0sf1wtnd",
+        "title": "Artificial Intelligence Underwriting Company (AIUC)",
+        "url": "https://aiuc.com/",
+        "text": "# Artificial Intelligence Underwriting Company (AIUC)\n\nArtificial Intelligence Underwriting Company (AIUC) is a Technology, Information and Internet company. AIUC is a frontier AI standards and insurance company based in San Francisco. They offer a range of products and services to help AI agents unlock secure adoption. Artificial Intelligence Underwriting Company (AIUC) employs 41 people (+310.0% YoY, +31 people). Headquartered in San Francisco, California, United States.\n\n## About\n\nBuilding the trust infrastructure for AI agents. On a mission to underwrite superintelligence.\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Headquarters: San Francisco, United States\n- Homepage: aiuc.com\n- Aliases: aiuc.com, artificial intelligence underwriting company (aiuc)\n- LinkedIn: linkedin.com/company/aiunderwriting\n- Linkedin Followers: 3,809\n\n## Financials\n- Total Funding: USD 55,000,000\n  - Series a (2026-09-01): USD 40.0M\n  - Seed (2025-08-23): USD 15.0M\n\n## Workforce\n- Employees: 41\n- Company Size: 11-50 employees\n  - Monthly Growth: +7.9%\n  - Yearly Growth: +310.0%\n- Key Executives:\n  - Alex Santana: Founding Talent\n  - Austin Atkinson: Founding Designer\n  - Brandon Kent Wang: Cofounder / CTO\n  - Emil Bender Lassen: Founding Standard Lead\n  - Nick Fitz: Pre-Seed & Seed & Series A Investor\n  - Rajiv Dattani: Co-Founder\n  - Rune Kvist: Co-Founder\n- Breakdown:\n  - By Country: United States: 32 (78%)\n  - By Department: Technical: 10 (24%), Other Department: 7 (17%), Consulting: 6 (15%), General Management: 3 (7%), Finance: 2 (5%), Hr: 2 (5%), Design: 1 (2%), Project Management: 1 (2%)\n  - By Seniority: Specialist: 13 (32%), Other Management: 10 (24%), Founder: 5 (12%), Manager: 2 (5%), Clevel: 1 (2%), Partner: 1 (2%)\n- Active job postings: 13\n- Talent Sources: Cline (2), Boston Consulting Group (BCG) (2), byFounders (1), University of California Office of the President (1), Sedai (1), Raspberry AI (1), Lynceus (1), Lupine (1), Kernel (1), Axiom Math (1)\n- Alumni Go To: Goodfire (2), Wordsss (1), Stanford University Graduate School of Business (1), Reducto (1), Radical Numerics (1), Praxis Mechanica (1), OpenAI (1), Bridge (1), Airwallex (1)\n\n## Products & Technology\n- Tech Stack: fintech, github, harmonic, intercom, linkedin, openai, owasp, palantir, salesforce, uipath\n\n## Web presence\n\n- Crunchbase: crunchbase.com/organization/aiuc-com\n- Web traffic:\n  - Monthly visits: 25,655\n  - Global rank: 1,068,401\n  - Bounce rate: 46.0%\n  - Pages per visit: 2.1\n  - Average visit duration: 146s\n\n## Categories\n\nagentic ai, ai agent standard, artificial intelligence (ai), business_and_consumer_services/business_services, compliance, cyber security, frontier audits, insurance, pandora, quality assurance, risk management, security adoption\n\n## Recent News\n- [2026-09-25] [目的達成のためハッキングを選択、AIエージェントの危険な挙動が判明（マイナビニュース）｜ｄメニューニュース（NTTドコモ）](https://topics.smt.docomo.ne.jp/article/mycom/business/mycom_3230702?fm=latestnews&redirect=1)\n- [2026-09-23] [The Agent Identity Stack Is Consolidating — and the Identity-First Trap Is Forming – Forkast](https://forkast.news/the-agent-identity-stack-is-consolidating-and-the-identity-first-trap-is-forming/)\n- [2026-09-20] [September 2026 hiring leads at SemiAnalysis, Axiom, Watney and more · Digg](https://digg.com/ai/uuglogd0)\n- [2026-09-18] [Sierra's AIUC-1 Certification Sets a New Bar for Agentic AI Trust](https://futurumgroup.com/insights/sierras-aiuc-1-certification-sets-a-new-bar-for-agentic-ai-trust/)\n- [2026-09-17]\n  - [Sierra achieves AIUC-1 certification \\| Sierra](https://sierra.ai/blog/sierra-achieves-aiuc-1-certification)\n  - [Sierra Earns AIUC-1 Certification After Independent Audit – Unite.AI](https://www.unite.ai/sierra-earns-aiuc-1-certification-after-independent-audit/)\n- [2026-09-16]\n  - [AIUC Raises $40 Million to Certify Enterprise AI Agents - SecurityWeek](https://www.securityweek.com/aiuc-raises-40-million-to-certify-enterprise-ai-agents/)\n  - [AIUC Raises $40M to Build the Certification and Insurance Layer That Makes Agent Governance Auditable](https://finance.yahoo.com/technology/ai/articles/aiuc-raises-40m-build-certification-145719739.html)\n  - [AIUC Raises $40M Series A](https://www.thesaasnews.com/news/artificial-intelligence-underwriting-company-raises-40m-series-a/)\n- [2026-09-15]\n  - [Techmeme: Artificial Intelligence Underwriting Company, which offers audits and safety certifications for AI agents, raised a $40M Series A, bringing total raised to $55M \\(Julie Bort/TechCrunch\\)](https://www.techmeme.com/260915/p26)\n  - [Early Anthropic hire, former METR COO have found a way to rein in rogue AI agents \\| TechCrunch](https://techcrunch.com/2026/09/15/early-anthropic-hire-former-metr-coo-have-found-a-way-to-rein-in-rogue-ai-agents/)\n  - [AI agent certification startup AIUC raises $40M to begin auditing frontier models - SiliconANGLE](https://siliconangle.com/2026/09/15/ai-agent-certification-startup-aiuc-raises-40m-to-begin-auditing-frontier-models/)\n  - [$40m Series A: AIUC raises funding to build insurance and certification infrastructure for AI agents \\| Insurtech Insights](https://www.insurtechinsights.com/40m-series-a-aiuc-raises-funding-to-build-insurance-and-certification-infrastructure-for-ai-agents/)\n  - [AIUC raises $40 million](https://coverager.com/aiuc-raises-40-million/)\n  - [Artificial Intelligence Underwriting Company Raises $40M in Series A Funding](https://www.finsmes.com/2026/09/artificial-intelligence-underwriting-company-raises-40m-in-series-a-funding.html)\n  - [AIUC raises $40M Series A from Ribbit & First Harmonic to build confidence infrastructure for frontier AI](https://uk.advfn.com/stock-market/share-news/AIUC-raises-40M-Series-A-from-Ribbit-First-Harm/99312120)\n  - [شركة«AIUC» الأمريكية الناشئة تجمع 40 مليون دولار لتطوير نظام يحد من مخاطر وكلاء الذكاء الاصطناعي](https://www.fintechgate.net/251909)\n  - [Artificial Intelligence Underwriting Company raises $40M to insure AI agents](https://cryptobriefing.com/aiuc-raises-40m-series-a-ai-insurance/)\n  - [AIUC Raises $40 Million to Develop Safety Audits for AI Agents \\| Whalesbook](https://www.whalesbook.com/news/English/technology/AIUC-Raises-dollar40-Million-to-Develop-Safety-Audits-for-AI-Agents/6aa9a63e0416c068539d8718)\n- [2026-09-06] [How Does AI Agent Liability Insurance Actually Work? - Startup Fortune](https://startupfortune.com/how-does-ai-agent-liability-insurance-actually-work/)\n\n## Social\n\n### Linkedin\n\n- [2026-09-21 · 24 reactions, 1 comment] Rune sat down with swyx and Vibhu Sapra to discuss what’s happening as frontier AI risk become front and center. Listen to the episode on your preferred platform – link in the comments. https://lnk...\n\n- [2026-09-16 · 258 reactions, 62 comments] Pandora’s box is open. AI beats humans at math - but can also escape our sandboxes. Sam, Dario, and Elon all called for frontier AI audits. The risk is no longer that models aren’t competent, but t...\n\n- [2026-08-31 · 31 reactions, 1 comment] AIUC is a 2026 IA40 winner. The #IA40 recognizes the 40 most important private companies in applied AI. This selection affirms a belief that we've had since we started AIUC: powerful AI needs an in...\n\n- [2026-08-07 · 88 reactions, 4 comments] Spoke to The Economist about autonomous hacking. They said it best: autonomous hacking is here, governments are not ready. Today, no one is obviously liable when OpenAI's models hack Hugging Face....\n\n- [2026-06-23 · 245 reactions, 37 comments] Rune and I started the Artificial Intelligence Underwriting Company to build the confidence infrastructure for AI adoption. Appreciate Fast Company AI 20 for recognizing our work. Liability rather...\n\n- [2026-03-17 · 11 reactions, 1 comment] Previously, businesses were forced to choose: embrace AI despite genuine risks, or wait on the sidelines while falling behind. We are changing that, so that you can move with confidence.\n\n- [2026-03-10 · 283 reactions, 7 comments] Today, UiPath becomes the first enterprise automation agent platform to be AIUC-1 certified. Following certifications of customer service, image generation and voice agents, AIUC-1 now extends to e...\n\n- [2026-03-03 · 9 reactions, 1 comment] Previously, businesses faced a binary choice: embrace AI despite genuine risks, or wait on the sidelines while falling behind. We are changing that, so that you can move with confidence. Congratula...\n\n- [2026-02-25 · 9 reactions, 1 comment] When ElevenLabs earned AIUC-1 certification, we didn't just send the certificate. 5,000+ technical tests. Independent evaluation. A standard built with leading Fortune 500 enterprises deploying the...\n\n- [2026-02-18 · 12 reactions, 1 comment] ElevenLabs is the first AI voice agent to achieve AIUC-1 certification. Congratulations to the entire ElevenLabs team on this important milestone! We are proud to work alongside frontier AI leaders...\n\n- [2026-02-05 · 144 reactions, 14 comments] This week we announced Schellman as the first accredited auditor for AIUC-1 Why did we select Schellman? > Trusted: by AI & enterprise leaders like OpenAI, Walmart, Meta, Box > Focus: largest CPA f...\n\n- [2026-01-16 · 201 reactions, 17 comments] Excited to launch the next version of AIUC-1 Updating it quarterly requires a lot of work from our technical contributors and team. Why do we do it? 1/ AI keeps advancing rapidly. The standard is o...\n\n- [2026-01-08 · 53 reactions, 2 comments] Phil Venables has some of the sharpest takes on AI x security. A couple of gems from our recent AIUC-1 consortium meeting (sharing w permission): > Shift risk down. Push controls down into the tool...\n\n- [2025-12-17 · 49 reactions, 2 comments] Recraft is the first AI image generation company to earn AIUC-1 certification. AIUC-1 is the standard for AI agent security, safety, data and reliability. The certification shows that Recraft meets...\n\n- [2025-12-16 · 16 reactions] ada CX was the first AI customer service platform to achieve AIUC-1 certification. When customer confidence is on the line, security, safety and reliability are essential. More than 350 business tr...\n\n## Locations\n- Headquarters: san francisco, california, united states (US)\n- Offices: san francisco, california, united states (US)",
+        "summary": "{\"description\":\"Artificial Intelligence Underwriting Company (AIUC) is a frontier AI standards and insurance company based in San Francisco, offering audits and safety certifications for AI agents.\",\"employee_estimate\":41,\"employee_estimate_source\":\"Employees: 41\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"San Francisco, United States\",\"hq_quote\":\"Headquartered in San Francisco, California, United States.\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"- Industry: Technology, Information and Internet\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"- Total Funding: USD 55,000,000\\n  - Series a (2026-09-01): USD 40.0M\\n  - Seed (2025-08-23): USD 15.0M...\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQGgPB8cyzt8JQ/company-logo_200_200/B56Z.0bnkaG8AE-/0/1785438566924/aiunderwriting_logo?e=2147483647&v=beta&t=bj1jn2kjliqYyjO7hdguL3MvnEPMN8JGWKcvy0PAqGw",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/b8v0sf1wtnd",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Artificial Intelligence Underwriting Company (AIUC)",
+              "foundedYear": null,
+              "description": "Building the trust infrastructure for AI agents. On a mission to underwrite superintelligence. ",
+              "workforce": {
+                "total": 41
+              },
+              "headquarters": {
+                "address": "San Francisco, California, United States",
+                "city": "San Francisco",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 55000000,
+                "fundingLatestRound": {
+                  "name": "Series a",
+                  "date": "2026-09-01",
+                  "amount": 40000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 25655,
+                "countryRank": 396407,
+                "avgDurationSeconds": 146,
+                "history": [
+                  {
+                    "value": 14776,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 15894,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 13384,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 12781,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 25655,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/6dsj5vnck6p",
+        "title": "AIUC-1",
+        "url": "https://www.aiuc-1.com/",
+        "text": "# AIUC-1\n\nAIUC-1 is a Technology, Information and Internet company. AIUC-1 Standard is a company that provides a standard for agent security, safety, and reliability. They unlock enterprise adoption and cover all risks grounded in technical testing. With over 250 security leaders, they have built a strong presence in the industry. AIUC-1 employs 115 people. Headquartered in San Francisco, United States. Its workforce is distributed across 9 countries (including United States, India, United Kingdom, Spain, and Australia).\n\n## About\n\nAIUC-1 is the world's first standard for AI agents. It covers data & privacy, security, safety, reliability, accountability and societal risks.\n\nAIUC-1 was developed by the Artificial Intelligence Underwriting Company in partnership with Technical Contributors from trusted institutions including Stanford, MIT, Orrick, MITRE, the Cloud Security Alliance, Google Cloud, Cisco, MongoDB, and more.\n\nThe full standard is available transparently at aiuc-1.com\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Headquarters: San Francisco, United States\n- Homepage: aiuc-1.com\n- Aliases: aiuc-1\n- LinkedIn: linkedin.com/company/aiuc-1\n- Linkedin Followers: 6,494\n\n## Workforce\n- Employees: 115\n- Company Size: 1-10 employees\n- Key Executives:\n  - Adnan D.: Founding Executive Consortium Member\n  - Alex Shamsutdinov: Consortium Founding Member\n  - Angel Liu: Consortium Founding Member\n  - Brian Levine: Founding Executive Consortium Member\n  - Chris Kirschke: Founding AIUC-1 Consortium Member\n  - Chris Sandulow: Founding Consortium Member\n  - David Campbell: Founding Consortium Member\n  - Ian Poynter: Founding Consortium Member\n  - Louise McElvogue: Founding Consortium\n  - Mandy Andress: Founding Consortium Member\n- Breakdown:\n  - By Country: United States: 67 (58%), India: 7 (6%), United Kingdom: 4 (3%), Spain: 3 (3%), Australia: 2 (2%), Canada: 1 (1%), Denmark: 1 (1%), Germany: 1 (1%), South Africa: 1 (1%)\n  - By Department: Other Department: 64 (56%), General Management: 22 (19%), Consulting: 1 (1%)\n  - By Seniority: Other Management: 63 (55%), Founder: 21 (18%), Specialist: 3 (3%)\n- Talent Sources: Yext (2), Tuskira (2), The CISO Society (2), Techstars (2), OWASP GenAI Security Project (2), CrowdStrike (2), Various Startups (1), SecurityPal AI (1), Security Tinkerers (1), Adobe (1)\n- Alumni Go To: Yext (2), Whiterabbit (2), Cloud Security Alliance (2), Wiz (1), Schmidt Sciences (1), OWASP AIVSS Project (1), Capital One (1), Australian Broadcasting Corporation (ABC) (1), AppViewX (1), AgentSystems (1)\n\n## Products & Technology\n- Tech Stack: google cloud, mongodb\n\n## Web presence\n\n- Web traffic:\n  - Monthly visits: 10,635\n  - Global rank: 1,678,458\n  - Bounce rate: 47.0%\n  - Pages per visit: 3.7\n  - Average visit duration: 58s\n\n## Categories\n\nagent security, aiuc-1 standard, reliability, safety, security, technical testing\n\n## Recent News\n- [2026-09-16] [AIUC Raises $40 Million to Certify Enterprise AI Agents - SecurityWeek](https://www.securityweek.com/aiuc-raises-40-million-to-certify-enterprise-ai-agents/)\n- [2026-09-15]\n  - [Early Anthropic hire, former METR COO have found a way to rein in rogue AI agents \\| TechCrunch](https://techcrunch.com/2026/09/15/early-anthropic-hire-former-metr-coo-have-found-a-way-to-rein-in-rogue-ai-agents/)\n  - [Artificial Intelligence Underwriting Company Raises $40M in Series A Funding](https://www.finsmes.com/2026/09/artificial-intelligence-underwriting-company-raises-40m-in-series-a-funding.html)\n  - [AIUC raises $40M Series A from Ribbit & First Harmonic to build confidence infrastructure for frontier AI](https://uk.advfn.com/stock-market/share-news/AIUC-raises-40M-Series-A-from-Ribbit-First-Harm/99312120)\n  - [Artificial Intelligence Underwriting Company raises $40M to insure AI agents](https://cryptobriefing.com/aiuc-raises-40m-series-a-ai-insurance/)\n  - [High Interest Rate Phenomenon](https://tbpn.substack.com/p/high-interest-rate-phenomenon)\n  - [AIUC startet KI-Agenten-Audit: SOC-2-ähnliche Tests gegen Rogue Verhalten](https://www.it-boltwise.de/aiuc-startet-ki-agenten-audit-soc-2-aehnliche-tests-gegen-rogue-verhalten.html)\n- [2026-07-08] [Telus stock edges higher as AI Consortium launched with Scotiabank and Sun Life](https://tradersunion.com/news/financial-news/show/2620888-telus-gains-0-14percent-on-ai/)\n\n## Social\n\n### Linkedin\n\n- [2026-10-02 · Posted · 74 reactions] [Stanford University built their AI Security Framework on AIUC-1 to...](https://www.linkedin.com/posts/aiuc-1_stanford-university-built-their-ai-security-activity-7511819376891944960-na0X)\n  > Stanford University built their AI Security Framework on AIUC-1 to govern what agents can actually do.\n  >\n  > Stanford’s agents are deployed in highly sensitive environments - touching medical records at their hospital, admissions data, financial aid decisions, and world-class research.\n  >\n  > Amy Steagall-Hess (CISO) needed to build a framework to govern this - while enabling Stanford students, faculty and staff to access the most powerful tools.\n  >\n  > She turned to AIUC-1 for 3 things:\n  > 1. Controls built specifically for agentic AI\n  > 2. A standard that keeps pace\n  > 3. Risk-tiering based on consequence, not just data access\n  >\n  > Read the full case study written by Amy and Bhavya: https://lnkd.in/gMkjpBsQ\n\n- [2026-10-01 · Posted · 98 reactions] [Lovable has put powerful technology in the hands of millions of...](https://www.linkedin.com/posts/aiuc-1_lovable-has-put-powerful-technology-in-the-activity-7511449594053144576-lOrB)\n  > Lovable has put powerful technology in the hands of millions of people.\n  >\n  > For Fabian Hedin, that comes with a responsibility not just to adopt the highest standards for safety & security - but also to take part in shaping them.\n  >\n  > Through the work with the AIUC-1 consortium, Lovable is contributing with operational experience from over 70 million projects built - ensuring that the standard keeps up, as new capabilities and risks are introduced.\n\n- [2026-09-29 · Posted · 49 reactions] [75% of boards have approved major AI investments, yet 48% have not...](https://www.linkedin.com/posts/aiuc-1_aiuc-1-whitepaper-board-accountability-activity-7510722226414014464-EBko)\n  > 75% of boards have approved major AI investments, yet 48% have not set AI governance expectations, according to Grant Thornton's 2026 AI Impact survey.\n  >\n  > AI risk is ultimately the board's duty to oversee. In our latest whitepaper, Louise McElvogue, along with AIUC-1 Consortium members and directors sitting on boards across healthcare, financial services and other critical industries set out the 3 immediate priorities boards must follow to better govern AI risk:\n  >\n  > 1. Operationalize AI principles: turn values into measurable controls\n  > 2. Build AI fluency: foster collective AI fluency so that the board can appropriately challenge what they are governing\n  > 3. Own AI governance: set decision boundaries upfront, rather than reviewing agent decisions after the fact\n  >\n  > Thank you to Louise McElvogue and all contributors for shaping this whitepaper.\n\n- [2026-09-24 · Posted · 148 reactions] [MSCI Inc. expects to run more than a thousand AI agents across the...](https://www.linkedin.com/posts/aiuc-1_msci-inc-expects-to-run-more-than-a-thousand-activity-7508911771894837248-p5vP)\n  > MSCI Inc. expects to run more than a thousand AI agents across the company within 18 months. Its indexes benchmark trillions of dollars and its controls are supervised by regulators in the US, UK and EU.\n  >\n  > MSCI needs assurance that an agent behaves under adversarial pressure, or produces evidence an auditor can rely on.\n  >\n  > In John R.' words, CISO of MSCI:\n  > \"We had an AI governance program, we were working on ISO 42001 and we had SOC 2 with an independent auditor. None of it answered the question I knew our auditors would ask. Not 'do you have a policy?' but 'does this agent actually do what the policy says, and can you prove it?'\"\n  >\n  > MSCI is now using AIUC-1 to manage agentic security at scale:\n  > 1. Every agent is tiered based on its risk profile\n  > 2. Agents in the highest risk tier are certified against AIUC-1 with an independent auditor\n  > 3. Lower-tier agents comply with a defined subset of AIUC-1 requirements at build time through a shift-left approach\n  >\n  > MSCI's SecOps Agent, which approves requests for privileged Azure roles, was the first to go through the process end to end. It is in scope for MSCI's external SOX audit. AIUC ran ~1,400 evals across 112 privileged roles, drawing on adversarial techniques including authority impersonation, prompt injection and jailbreaks.\n  >\n  > The agent passed with no major or significant vulnerabilities, and the signed attestation and report have been submitted to MSCI's auditors for their 2026 SOX audit.\n  >\n  > Congratulations to John and the MSCI team on this milestone.\n  >\n  > Read the full case study: https://lnkd.in/g9RxBdkz\n\n- [2026-09-23 · Posted · 103 reactions] [Collibra holds the metadata, policies, lineage and access rules...](https://www.linkedin.com/posts/aiuc-1_collibra-holds-the-metadata-policies-lineage-activity-7508562126123208705-_sLc)\n  > Collibra holds the metadata, policies, lineage and access rules that describe an organization's most sensitive assets. Today, they announce their AIUC-1 certification.\n  >\n  > The certification covers Maestro Assistant, the conversational assistant built into the Collibra Platform that lets users ask questions about their data, policies, lineage and AI systems and receive answers grounded in governed context.\n  >\n  > To earn the certification, Collibra:\n  > 1. Submitted the agent to comprehensive technical testing across data leakage, hallucinations, and unsafe tool calls\n  > 2. Demonstrated that all applicable AIUC-1 requirements were met across legal policies, operational practices and technical controls\n  > 3. Passed an independent audit by Schellman\n  >\n  > Congrats to the entire Collibra team on this milestone!\n\n- [2026-09-22 · Posted · 33 reactions] [Phil Venables has spent 30 years as the CISO of Goldman Sachs and...](https://www.linkedin.com/posts/aiuc-1_phil-venables-has-spent-30-years-as-the-ciso-activity-7508260684732710912-of3D)\n  > Phil Venables has spent 30 years as the CISO of Goldman Sachs and Google Cloud, seeing how trust was established for each new wave of technology.\n  >\n  > Now he's watching the same question return with AI agents: how do we prepare for trillions of agents deployed across our financial system?\n  >\n  > Phil argues that we need a playbook consisting of:\n  > 1. A baseline of regulation that establishes accountability\n  > 2. A shared foundation of the controls we know are effective - without reinventing the wheel for each wave\n  > 3. Tailored, prescriptive controls for the areas that are truly new - designed by the practitioners who deal with the risk everyday\n  >\n  > Phil joined the AIUC-1 consortium to help execute this playbook for AI agents - ensuring that the standard keeps up as AI capabilities and risks emerge at unprecedented pace.\n\n- [2026-09-22 · Posted · 60 reactions] [AIUC-1 is now integrated in Credo AI’s Governance Platform...](https://www.linkedin.com/posts/aiuc-1_aiuc-1-is-now-integrated-in-credo-ais-governance-activity-7508197542656937984-xf5W)\n  > AIUC-1 is now integrated in Credo AI’s Governance Platform, bringing companies using Credo AI a large step closer to AIUC-1 certification.\n  >\n  > Credo AI enables enterprises to identify, risk assess and govern AI agents across the organization. With the new integration, companies can use Credo AI to visualise AIUC-1 requirements, assess relevance for their agentic products, and use Credo AI’s features as evidence of controls in place.\n  >\n  > By combining Credo AI’s platform with AIUC-1 certification, organizations are able to clearly answer what AI agents are running in their teams and whether those agents can be trusted - backed by Credo AI’s monitoring and the independent assurance & testing needed to pass AIUC-1.\n\n- [2026-09-18 · Posted · 29 reactions] [As NATO’s CIO, Manfred Boudreaux-Dehmer defended the networks of 57...](https://www.linkedin.com/posts/aiuc-1_as-natos-cio-manfred-boudreaux-dehmer-defended-activity-7506743487631941632-8QcE)\n  > As NATO’s CIO, Manfred Boudreaux-Dehmer defended the networks of 57 entities across the alliance and 30,000 users against daily cyber threats from state-sponsored actors.\n  >\n  > Growing up in a place with more cows than people, NATO CIO was not in the cards. But an early job at Compaq computers got him hooked. What followed has been a 30+ year career in IT & security, leading up to his NATO appointment in the days preceding Russia’s invasion of Ukraine.\n  >\n  > Through his time, he designed and implemented state-of-the-art, threat-informed cybersecurity measures to protect NATO networks from the world’s most advanced adversaries. His experience across government and industry highlights how industry standards and legislation should work hand in hand.\n  >\n  > Manfred is one of the AIUC-1 Consortium members setting the standard for AI agents.\n\n- [2026-09-18 · 29 reactions] As NATO’s CIO, Manfred Boudreaux-Dehmer defended the networks of 57 entities across the alliance and 30,000 users against daily cyber threats from state-sponsored actors. Growing up in a place with...\n\n- [2026-09-17 · Posted · 64 reactions] [As customer-facing AI agents evolve from answering questions to...](https://www.linkedin.com/posts/aiuc-1_as-customer-facing-ai-agents-evolve-from-activity-7506373618927304707-9dF4)\n  > As customer-facing AI agents evolve from answering questions to taking actions on a customer's behalf, a new level of trust and validation is needed.\n  >\n  > Sierra's Conversational AI Platform is now AIUC-1 certified, giving enterprises independent validation that its agents can operate safely and reliably in real-world conditions.\n  >\n  > To earn certification, Sierra’s text and voice agents underwent thousands evaluations across:\n  >\n  > - Intended use scenarios: assessing how the agent handled potentially legitimate user interactions, including direct and indirect requests\n  > - Social engineering scenarios: testing resistance to emotional appeals, authority claims and false context\n  > - Technical misuse tests: deliberate manipulation of inputs to stress test the application, such as indirect injections, jailbreaks, and encoding attacks.\n  >\n  > Schellman audited Sierra’s operational, governance and security controls against AIUC-1 requirements.\n  >\n  > Congrats to the Sierra team on earning the trustmark for AI agents.\n\n- [2026-09-17 · 72 reactions, 2 comments] As customer-facing AI agents evolve from answering questions to taking actions on a customer's behalf, a new level of trust and validation is needed. Sierra's Conversational AI Platform is now AIUC...\n\n- [2026-09-10 · Posted · 36 reactions] [Jen Easterly commanded the Army’s first Cyber Battalion when...](https://www.linkedin.com/posts/aiuc-1_jen-easterly-commanded-the-armys-first-cyber-activity-7503850528896995328-Hpfz)\n  > Jen Easterly commanded the Army’s first Cyber Battalion when discovering that Chinese hackers had infiltrated America’s water systems, power grids and transportation networks - waiting to disrupt critical infrastructure in the event of a war with Taiwan.\n  >\n  > Jen entered West Point after her 18th birthday and spent the next 26 years in uniform. She went on to run counterterrorism at the National Security Council and then to lead CISA, America's cyber defense agency.\n  >\n  > In her current role as RSAC CEO, she continues pushing organizations to develop software “secure by design”. With AI agents getting access to hospitals and banks, the stakes have only grown in her 40 years in cybersecurity.\n  >\n  > Jen is one of the AIUC-1 Consortium members setting the standard for AI agents.\n\n- [2026-09-10 · 42 reactions, 2 comments] Jen Easterly commanded the Army’s first Cyber Battalion when discovering that Chinese hackers had infiltrated America’s water systems, power grids and transportation networks - waiting to disrupt c...\n\n- [2026-08-27 · Posted · 82 reactions] [KPMG’s reputation rests on holding companies to the highest...](https://www.linkedin.com/posts/aiuc-1_kpmg-x-aiuc-1-activity-7498764532668911616-IESl)\n  > KPMG’s reputation rests on holding companies to the highest standards. They wanted to hold their own AI to that same bar.\n  >\n  > Today, KPMG becomes the first Big Four firm to achieve AIUC-1 certification.\n  > Its certified agentic platform, aIQ Capture, enables KPMG professionals to transform institutional knowledge into insights that can be reused across the organization.\n  >\n  > To earn the certification, aIQ Capture underwent comprehensive evals across 9 risk categories, including hallucinations, high-risk domain interactions, content safety, prompt injection attacks, and other scenarios intended to challenge the agent's reliability and resilience.\n  >\n  > Congratulations to the KPMG team for earning the certification and a warm welcome to John I., who joins the AIUC-1 Consortium.\n  >\n  > Full announcement - https://lnkd.in/gBvjC-Cy\n\n- [2026-08-27 · 88 reactions, 4 comments] KPMG’s reputation rests on holding companies to the highest standards. They wanted to hold their own AI to that same bar. Today, KPMG becomes the first Big Four firm to achieve AIUC-1 certification...\n\n- [2026-08-18 · Posted · 92 reactions] [The AIUC-1 auditor ecosystem is growing: Sensiba LLP has earned...](https://www.linkedin.com/posts/aiuc-1_the-aiuc-1-auditor-ecosystem-is-growing-activity-7495547506991325184-249N)\n  > The AIUC-1 auditor ecosystem is growing: Sensiba LLP has earned provisional accreditation to audit against AIUC-1, the standard for AI agent security, safety & reliability.\n  >\n  > Sensiba brings deep experience in AI and security assurance and was one of the early firms to achieve ISO 42001 accreditation by ANAB. Adding AIUC-1 builds on that foundation, bringing technical testing of the AI itself into Sensiba’s assurance practice.\n  >\n  > Sensiba's first AIUC-1 engagement is already underway with Cresta, a leading AI platform for customer experience.\n  >\n  > \"Enterprises are asking their AI vendors questions that policies alone cannot settle,” said Chris Roe, Partner, Governance, Risk, & Compliance at Sensiba. “AIUC-1 pairs the documentation with technical testing of the agent itself, which is why we’re excited to add it to our AI assurance practice.\"\n  >\n  > Congrats to the Sensiba team on achieving provisional accreditation.\n\n- [2026-08-18 · 102 reactions, 2 comments] The AIUC-1 auditor ecosystem is growing: Sensiba LLP has earned provisional accreditation to audit against AIUC-1, the standard for AI agent security, safety & reliability. Sensiba brings deep expe...\n\n- [2026-08-14 · Posted · 30 reactions] [Coding agents are beginning to show signs of awareness when being...](https://www.linkedin.com/posts/aiuc-1_coding-agents-are-beginning-to-show-signs-activity-7494048441220755456-62U4)\n  > Coding agents are beginning to show signs of awareness when being evaluated, making technical evaluations a moving target.\n  >\n  > Eval design, the testing environment and grading all must keep pace as capabilities improve.\n  >\n  > Today we’re publishing the technical docs behind AIUC-1's evaluation and red teaming framework for coding agents, with technical deep dives on the sandbox environment setup and a dynamically generated MCP attack.\n  >\n  > Also detailed are the three risk areas coding agents are tested against:\n  > - Data and privacy: checking personal credential leakage and reproduction of IP-exposing material\n  > - Security: testing insecure output generation and unauthorized actions\n  > - Reliability: checking hallucination in generated code and returned information\n  >\n  > The bar for demonstrating that an agent acts",
+        "summary": "{\"description\":\"AIUC-1 is a Technology, Information and Internet company that provides a standard for agent security, safety, and reliability, enabling enterprise adoption with security testing and risk coverage.\",\"employee_estimate\":115,\"employee_estimate_source\":\"Employees: 115\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"San Francisco, United States\",\"hq_quote\":\"Headquartered in San Francisco, United States.\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Technology, Information and Internet\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"AIUC raises $40M Series A from Ribbit & First Harmonic to build confidence infrastructure for frontier AI\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D4D0BAQFNn8In13cK7w/company-logo_200_200/B4DZoncw8VJIAI-/0/1761598443822?e=2147483647&v=beta&t=_TYjZfr5pn-9w7S5Lc1mvWIOvHL2EoiNvSbSQauku1I",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/6dsj5vnck6p",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "AIUC-1",
+              "foundedYear": null,
+              "description": "AIUC-1 is the world's first standard for AI agents. It covers data & privacy, security, safety, reliability, accountability and societal risks.\n\nAIUC-1 was developed by the Artificial Intelligence Underwriting Company in partnership with Technical Contributors from trusted institutions including Stanford, MIT, Orrick, MITRE, the Cloud Security Alliance, Google Cloud, Cisco, MongoDB, and more.\n\nThe full standard is available transparently at aiuc-1.com",
+              "workforce": {
+                "total": 115
+              },
+              "headquarters": {
+                "address": "San Francisco, US",
+                "city": "San Francisco",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 10635,
+                "countryRank": 533213,
+                "avgDurationSeconds": 58,
+                "history": [
+                  {
+                    "value": 10746,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 10060,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 11763,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 9841,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 9540,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 10635,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 6462.1,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

@@ -1,0 +1,232 @@
+{
+  "request": {
+    "query": "Flatkey",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a B2B company, whether it recently raised seed or Series A funding, whether it is hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, whether that role appears first/founding/small-team, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_b2b_company (true/false/null): Is this a B2B company? is_b2b_company_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. recently_funded_seed_or_series_a (true/false/null): Did this company recently raise seed or Series A funding? recently_funded_seed_or_series_a_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null. hiring_first_ops_or_revops (true/false/null): Is this company hiring an operations, business operations, revenue operations, RevOps, chief of staff, or go-to-market operations person, and does that role appear first/founding/small-team? hiring_first_ops_or_revops_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_b2b_company": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_b2b_company_quote": {
+              "type": "string"
+            },
+            "recently_funded_seed_or_series_a": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "recently_funded_seed_or_series_a_quote": {
+              "type": "string"
+            },
+            "hiring_first_ops_or_revops": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hiring_first_ops_or_revops_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_b2b_company",
+            "is_b2b_company_quote",
+            "recently_funded_seed_or_series_a",
+            "recently_funded_seed_or_series_a_quote",
+            "hiring_first_ops_or_revops",
+            "hiring_first_ops_or_revops_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "c6587159b8cafc50c4c99f74b1fae59b",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/08pl7yb2rnl",
+        "title": "Flatkey",
+        "url": "https://flatkey.ai/",
+        "text": "# Flatkey\n\nFlatkey is a Technology, Information and Internet company. flatkey is a company that offers a platform for AI models, focused creation tools, and a playground for testing ideas before building. They provide curated model collections, practical use cases, rankings, guides, and platform updates. Flatkey employs 3 people. Headquartered in San Jose, California, United States.\n\n## About\n\nFlatkey is a unified access layer for AI — one API key connecting teams to 328+ official models (GPT, Claude, Gemini, DeepSeek, Qwen, GLM and more) with transparent pricing, automatic failover, and costs as low as 50% off official rates.\n\n## Company Details\n- Industry: Technology, Information and Internet\n- Type: Privately held\n- Headquarters: San Jose, United States\n- Homepage: flatkey.ai\n- Aliases: flatkey\n- LinkedIn: linkedin.com/company/flatkey\n- Linkedin Followers: 37\n- Emails: support@flatkey.ai\n\n## Workforce\n- Employees: 3\n- Company Size: 51-200 employees\n- Key Executives:\n  - Hunter Guo: Co-Founder\n  - Sofia Kao: Co-Founder\n  - Wenhanfu Yang: Chief Technology Officer\n- Breakdown:\n  - By Country: United States: 3 (100%)\n  - By Department: Consulting: 2 (67%), Technical: 1 (33%)\n  - By Seniority: Founder: 2 (67%), Clevel: 1 (33%)\n- Talent Sources: VOC.ai (2), Solvea (1)\n\n## Web presence\n\n- Twitter: twitter.com/flatkey101\n- Web traffic:\n  - Monthly visits: 83,058\n  - Global rank: 348,564\n  - Bounce rate: 34.0%\n  - Pages per visit: 4.9\n  - Average visit duration: 212s\n\n## Categories\n\nai models, creation tools, gpt apis, playground, technology/software, testing ideas\n\n## Social\n\n### Linkedin\n\n- [2026-09-30 · Posted · 3 reactions] [Flatkey is live on Product Hunt today. One API key for Claude, GPT...](https://www.linkedin.com/posts/flatkey_producthunt-ai-developers-activity-7511094017590403072-aBTr)\n  > Flatkey is live on Product Hunt today.\n  >\n  > One API key for Claude, GPT and other leading models, priced below official rates, on a single bill.\n  >\n  > If you've built with Flatkey, we'd love to hear how you use it and what you'd like us to add next. Drop a comment on the page: https://lnkd.in/gnMHRFx9\n  >\n  > #ProductHunt #AI #Developers\n\n- [2026-09-29 · Posted] [We were at an AWS startup event this week. The slide that got the...](https://www.linkedin.com/posts/flatkey_we-were-at-an-aws-startup-event-this-week-activity-7510797369328738304-BwFN)\n  > We were at an AWS startup event this week. The slide that got the most phones out was an AI security scorecard for CISOs.\n  >\n  > Seven things to score yourself on:\n  > - Remediation velocity\n  > - Dependency provenance coverage\n  > - Point-of-creation adoption\n  > - Gated-exception rate\n  > - Mean time to remediate\n  > - Third-party fix latency\n  > - Policy-as-code coverage\n  >\n  > You assess each one, add them up, and watch the trend over time. Simple enough that a team can actually run it.\n  >\n  > What stood out is how few of these are about the model. They are about how fast you fix things and how much of your policy lives in code instead of a wiki page. Agent teams have the same problem with tokens and compute. Spend limits, routing rules and who holds which key only work if they are enforced where the request happens.\n\n- [2026-09-24 · Posted · 2 reactions] [Big news for builders: Flatkey is now live with Claude Opus 5.5...](https://www.linkedin.com/posts/flatkey_ai-developers-llm-activity-7508754522714963969-lE4O)\n  > Big news for builders: Flatkey is now live with Claude Opus 5.5, GPT-6 Sol, and GPT-6 Luna.\n  >\n  > One key. Official endpoints. 80% of official API pricing.\n  >\n  > Bring leading models into one simple workflow—with one API key, one bill, and 100+ models to choose from.\n  >\n  > Explore the new lineup: https://flatkey.ai/\n  >\n  > #AI #Developers #LLM #APIs\n\n- [2026-09-24 · 1 reaction] Big news for builders: Flatkey is now live with Claude Opus 5.5, GPT-6 Sol, and GPT-6 Luna. One key. Official endpoints. 80% of official API pricing. Bring leading models into one simple workflow—w...\n\n- [2026-09-12] Builders, demos, challenges, and lots of great conversations. Thanks to everyone who stopped by to see Flatkey at BuildFest! We’re always excited to meet teams building with AI and learn more about...\n\n- [2026-09-09 · 13 reactions, 6 comments] Excited to be part of BuildFest: Demos & Challenges this Thursday in San Francisco! Looking forward to joining so many great teams for an evening of demos, challenges, and hands-on building. Can’t...\n\n- [2026-09-07 · 1 reaction] GPT-6 Astra is live on flatkey.ai. Deeper reasoning. Faster execution. A wider field of possibility. Step into the next horizon of intelligence. ✦ Try it now: flatkey.ai #GPT6Astra #AI #NowLive\n\n- [2026-09-04 · 2 reactions] Claude Fable 5.1 is now on flatkey.ai Leading across agentic scientific research (52.6%), agentic coding (73.4%), knowledge work (1853 GDPval-AA v2), and computer use (77.9% OSWorld 2.0). Built for...\n\n- [2026-09-02 · Posted · 4 reactions] [One API key to access GPT, Claude, Gemini, DeepSeek, and more 🔑 ✅...](https://www.linkedin.com/posts/flatkey_ai-api-developers-activity-7500900784105021440-iSEt)\n  > One API key to access GPT, Claude, Gemini, DeepSeek, and more 🔑\n  >\n  > ✅ 1,000+ tools with structured routing\n  > ✅ Direct access to official models at official pricing\n  > ✅ Limited-time promo: DeepSeek V4 Flash is free, DeepSeek V4 Pro is 55% off, GLM 5.3 Flash is 55% off, and other models are 20%+ off\n  > Stop juggling multiple API keys. Flatkey brings your access and billing into one place.\n  >\n  > 👉 Get free credits at flatkey.ai\n  >\n  > #AI #API #Developers #LLM\n\n- [2026-09-02 · 4 reactions] One API key to access GPT, Claude, Gemini, DeepSeek, and more 🔑 ✅ 1,000+ tools with structured routing ✅ Direct access to official models at official pricing ✅ Limited-time promo: DeepSeek V4 Flash...\n\n- [2026-09-02 · 2 reactions] A new frontier model is launching roughly every 5 days. When models are evolving this quickly, flexibility matters! Flatkey gives teams access to multiple AI models through one API key, making it e...\n\n- [2026-08-31 · 4 reactions] The wait is over: Ox Alpha, officially GLM 5.3 Flash, is now on Flatkey.ai. Grab $5 free credits if you’re among the first 50 users. Claim link: https://lnkd.in/gXA3VWkp\n\n- [2026-08-24 · 2 reactions] New week, new billboard 👀 And maybe a new tool to add to your AI stack this week. One API key. More AI models. Lower costs. flatkey.ai\n\n- [2026-08-22 · Reshared] [Powerful AI doesn’t have to mean a complicated experience. That’s...](https://www.linkedin.com/posts/flatkey_powerful-ai-doesnt-have-to-mean-a-complicated-activity-7496745602752331776-Wt1q): Powerful AI doesn’t have to mean a complicated experience. That’s also what we’re building toward at FlatKey. One API key gives teams access to multiple AI models, so you can use the models you nee...\n\n- [2026-07-24] Another frontier model just landed: Grok 4.5. SpaceXAI describes Grok 4.5 as its smartest model for coding, agentic tasks, and knowledge work. The official release lists: • API model: grok-4.5 • 80...\n\n- [2026-07-20 · 1 reaction] Kimi K3. GLM-5.2. And probably another breakout model next week. The AI model landscape is moving too fast for developers to build around just one provider. Every new model brings different strengt...\n\n- [2026-06-17] Congrats to the Apodex team on launching Apodex 1.0! As more teams build with research models, agents, and multi-step workflows, model access and infrastructure become a bigger part of the stack. E...\n\n- [2026-06-16 · 1 reaction] AI teams are shipping more with LLMs than ever before. But as usage scales, token costs, model access, and billing complexity start to become real infrastructure problems. That’s why we built Flatk...\n\n## Locations\n- Headquarters: san jose, california, united states (US)\n- Offices: san jose, california, united states (US)",
+        "summary": "{\"description\":\"Flatkey is a Technology, Information and Internet company offering a platform for AI models, focused creation tools, and a playground for testing ideas with curated model collections, practical use cases, rankings, guides, and platform updates.\",\"employee_estimate\":\"3\",\"employee_estimate_source\":\"Employees: 3\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"San Jose, California, United States\",\"hq_quote\":\"Headquartered in San Jose, California, United States.\",\"industry\":\"Technology, Information and Internet\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"Industry: Technology, Information and Internet\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":null,\"recently_funded_seed_or_series_a_quote\":\"\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQFpb8Ec51eeJA/company-logo_200_200/B56Z.Rjg0tHIAE-/0/1784853433987/flatkey_logo?e=2147483647&v=beta&t=ZMqEulNOH7uhiVxR1EXQG22w3S0c4aD_X956yw6mZ5A",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/08pl7yb2rnl",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Flatkey",
+              "foundedYear": null,
+              "description": "Flatkey is a unified access layer for AI — one API key connecting teams to 328+ official models (GPT, Claude, Gemini, DeepSeek, Qwen, GLM and more) with transparent pricing, automatic failover, and costs as low as 50% off official rates.",
+              "workforce": {
+                "total": 3
+              },
+              "headquarters": {
+                "address": "160 E Tasman Dr, San Jose, California 95134, US",
+                "city": "San Jose",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 83058,
+                "countryRank": 24234,
+                "avgDurationSeconds": 212,
+                "history": [
+                  {
+                    "value": 33577,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 83058,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/f23cgtx3yt6",
+        "title": "SwiftKey",
+        "url": "https://swiftkey.com/",
+        "text": "# SwiftKey\n\nSwiftKey is a Information Technology & Services company. SwiftKey employs 95 people (+20.3% YoY, +16 people) and has an annual revenue of GBP7.9M, founded in 2008. Headquartered in London, United Kingdom. Its workforce is distributed across United Kingdom, Mexico, South Korea, and United States.\n\n## About\n\nSwiftKey's mission is to enhance interaction between people and technology. We're best known for our predictive keyboard apps that learn from you to make typing on touchscreens faster and easier. We also work directly with mobile manufacturers and worldwide, our technology features on more than 250 million devices.\r\n\r\nHeadquartered in Southwark, central London, SwiftKey was founded in 2008. We also have offices in San Francisco, US, and Seoul, Korea.\n\n## Company Details\n- Industry: Information Technology & Services\n- Type: Privately held\n- Headquarters: London, United Kingdom\n- Founded Year: 2008\n- Homepage: swiftkey.com\n- Aliases: TouchType Limited, swiftkey, touchtype ltd.\n- LinkedIn: linkedin.com/company/swiftkey\n- Linkedin Followers: 2,501\n- Emails: press@swiftkey.com\n- Phone: 44-7900-935-399\n\n## Financials\n- Annual Revenue: GBP 7,880,107\n- Total Funding: USD 21,577,224\n  - Non equity assistance (2013-12-06)\n  - Non equity assistance (2013-10-01)\n  - Series b (2013-09-04): USD 17.5M\n  - Series a (2011-12-07): USD 2.4M\n  - Seed (2010-10-05): USD 437,224\n\n## Acquisitions\n- Acquired by: Microsoft (2016-02-02) for USD 250.0M\n\n## Workforce\n- Employees: 95\n- Company Size: 51-200 employees\n  - Monthly Growth: +2.2%\n  - Yearly Growth: +20.3%\n- Key Executives:\n  - Jon Reynolds: CEO, Co-Founder\n  - Simon Wood: IME Indic Languages Tech Lead\n  - Tehmur Khan: Engineering Lead, Mobile Input\n- Breakdown:\n  - By Country: United Kingdom: 6 (6%), Mexico: 1 (1%), South Korea: 1 (1%), United States: 1 (1%)\n  - By Department: Technical: 6 (6%), Administrative: 1 (1%), General Management: 1 (1%), Other Department: 1 (1%)\n  - By Seniority: Head: 2 (2%), Other Management: 2 (2%), Senior: 2 (2%), Specialist: 2 (2%), Founder: 1 (1%)\n- Salary ranges:\n  - Management: median 136,377.6 GBP per year\n  - Vice President: median 110,680.11 GBP per year\n  - Senior Android Developer: median 94,391.53 GBP per year\n  - IOS Engineer: median 55,874.69 GBP per year\n  - Software Engineer: median 52,000 GBP per year\n  - Product Manager: median 50,290 GBP per year\n  - Community Support Manager: median 41,487.61 GBP per year\n  - Community Support Specialist: median 41,380.71 GBP per year\n  - Director of Community Engagement: median $115,222.25 per year\n- Talent Sources: Google (5), Nokia (4), kgb (3), Glu Mobile (3), University of Surrey (2), London Borough of Tower Hamlets (2), Diageo (2), Blick Rothenberg (2), AndroidSPIN (2), Acunu (2)\n- Alumni Go To: Microsoft (76), Kare Knowledgeware (4), BenevolentAI (4), Google (3), Signal AI (2), Redbrick Newspaper (2), CBS Interactive (International) (2), Blink - Employee Experience Platform (2), Barclays (2), Apple (2)\n\n## Products & Technology\n- Tech Stack: c\n\n## Web presence\n\n- Twitter: twitter.com/swiftkey\n- Facebook: facebook.com/swiftkey\n- Instagram: instagram.com/swiftkey\n- YouTube: youtube.com/channel/ucbavs6pit-uyytwik9hlagw\n- Crunchbase: crunchbase.com/organization/touchtype\n- Web traffic:\n  - Monthly visits: 21,151\n  - Global rank: 1,370,270\n  - Bounce rate: 56.0%\n  - Pages per visit: 1.4\n  - Average visit duration: 34s\n\n## Reviews & Ratings\n- Employer Rating: 4.5/5.0 (17 reviews)\n  - Breakdown: Work-Life: 4.5, Compensation: 3.6, Culture: 4.6, Career: 3.8\n\n## Categories\n\nandroid, apps, artificial intelligence, artificial intelligence (ai), artificial-intelligence, computers_electronics_and_technology/computers_electronics_and_technology, consumer-software, ios, keyboards, machine learning, mobile, mobile-app, software, technology\n\n## Competitors\n\nfleksy, swype, inc., minuum, touchpal, process9, go keyboard, ginger, thingthing, keypoint technologies (uk) ltd., kika tech, the marketing advantage, learnup io, gabriel, aisles\n\n## Recent News\n- [2026-09-18]\n  - Android Police: [I love Pixel 11's Rambler, but SwiftKey just gave every Android phone a free alternative](https://www.androidpolice.com/swiftkey-gave-every-android-free-rambler/)\n  - Tbreak UAE: SwiftKey brings Pixel 11-style AI voice typing to Android phones\n  - 9to5Google: SwiftKey ‘AI voice’ is Pixel 11’s Rambler voice-to-text for other Android phones, works offline\n- [2026-09-17] [Google 推出 Home MCP 連接工具 促進智能家居互動體驗](https://www.techritual.com/2026/09/17/583187/)\n- [2026-09-16]\n  - Tbreak UAE: [SwiftKey AI Voice Typing Comes to Android Phones](https://tbreak.com/swiftkey-ai-voice-typing-pixel-11/)\n  - [SwiftKey AI voice: dettatura vocale AI offline su Android \\| SmartWorld](https://www.smartworld.it/news/swiftkey-ai-voice-dettatura-vocale-ai-offline-android.html)\n- [2026-09-15] [How to get the Pixel 11's Rambler feature on your Galaxy phone - SammyGuru](https://sammyguru.com/pixel-11-rambler-galaxy-devices/)\n- [2026-09-14]\n  - NewsBytes: [SwiftKey launches beta with AI voice typing like Google Pixel](https://www.newsbytesapp.com/news/science/swiftkey-launches-beta-with-ai-voice-typing-like-google-pixel/tldr)\n  - [This keyboard app brings Pixel 11's best feature to all Android phones \\| Android Central](https://www.androidcentral.com/apps-software/this-keyboard-app-brings-pixel-11s-best-feature-to-all-android-phones)\n  - [Pixel 11's best voice typing trick just showed up on any Android phone](https://www.phonearena.com/news/pixel-11s-best-voice-typing-trick-just-showed-up-on-any-android-phone_id183332)\n- [2026-09-13] [SwiftKey sfida Gboard con una modalità vocale AI per tutti i dispositivo Android](https://www.tuttoandroid.net/news/2026/09/13/swiftkey-funzionalita-intelligenza-artificiale-dettatura-vocale-android-1172190/)\n- [2026-09-12] Droid Life: Swiftkey Copies Pixel 11’s Awesome Rambler Feature\n- [2026-09-11]\n  - [Wir haben gute Ideen, doch die Wertschöpfung geschieht woanders – DiePresse.com](https://www.diepresse.com/41250879/wir-haben-gute-ideen-doch-die-wertschoepfung-geschieht-woanders)\n  - [Swiftkey Copies Pixel 11's Awesome Rambler Feature](https://www.droid-life.com/2026/09/11/swiftkey-copies-pixel-11s-awesome-rambler-feature/)\n  - Android Headlines: [SwiftKey’s New AI Voice Mode Takes Aim at Gboard’s Rambler](https://www.androidheadlines.com/2026/09/swiftkeys-new-ai-voice-mode-takes-aim-at-gboards-rambler.html)\n  - [SwiftKey Beta bringt KI-Sprachdiktion als Alternative zu „Rambler“](https://www.it-boltwise.de/swiftkey-beta-bringt-ki-sprachdiktion-als-alternative-zu-rambler.html)\n- [2026-09-10]\n  - Android Authority: [SwiftKey’s answer to Gboard’s Rambler mode has one big privacy advantage](https://www.androidauthority.com/swiftkey-ai-voice-mode-3709656/)\n  - [SwiftKey AI voice: dettatura vocale con AI in locale su Android \\| SmartWorld](https://www.smartworld.it/news/swiftkey-ai-voice-dettatura-vocale-ai-locale-android.html)\n- [2026-09-09] Android Police: I spent months testing the top Android keyboards; one easily replaced Gboard for good\n- [2026-09-04] Android Police: I used Gboard, SwiftKey, and Samsung Keyboard for a month; one clearly dominated\n- [2026-08-30] Windows Report: Microsoft Adds Liquid Glass to SwiftKey, and Users Aren’t Happy\n- [2026-08-21]\n  - PhoneArena: One UI 9 will let Galaxy device users uninstall an app they previously were not allowed to\n  - Gizchina.com: Samsung Finally Lets Galaxy Users Uninstall This Pre-Installed App\n- [2026-08-15] Android Authority: Galaxy phones are finally letting users remove this longtime Microsoft app\n- [2026-08-14]\n  - SamMobile: One UI 9 lets you uninstall SwiftKey Keyboard from Galaxy phones\n  - Android Headlines: Samsung Finally Lets Galaxy Users Completely Uninstall This Microsoft App in One UI 9\n- [2026-05-10] Semrush: swiftflash.pro Website Traffic, Ranking, Analytics \\[April 2026\\]\n- [2026-03-26] Neowin: PSA: Microsoft is deleting SwiftKey accounts this month, here is what you need to do\n- [2026-03-19] MSN: SwiftKey accounts are officially retiring. What will hapen to your data?\n- [2026-01-26] FindArticles: SwiftKey Challenges Gboard In New Real-World Test\n\n## Locations\n- Headquarters: london, se1 0ax, united kingdom (GB)\n- Offices: london, england, united kingdom (GB), london, england se1 0ax, united kingdom (GB), london, se1 0ax, united kingdom (GB), london, greater london ec2a 2rs, united kingdom (GB), london, united kingdom (GB)\n\n## Parent organization\n\n- Microsoft",
+        "summary": "{\"description\":\"SwiftKey is an Information Technology & Services company that develops predictive keyboard apps and collaborates with mobile manufacturers; its tech is on more than 250 million devices.\",\"employee_estimate\":95,\"employee_estimate_source\":\"\\\"Employees: 95\\\"\",\"hiring_first_ops_or_revops\":null,\"hiring_first_ops_or_revops_quote\":\"\",\"hq\":\"London, United Kingdom\",\"hq_quote\":\"\\\"Headquartered in London, United Kingdom.\\\"\",\"industry\":\"Information Technology & Services\",\"is_b2b_company\":true,\"is_b2b_company_quote\":\"\\\"Industry: Information Technology & Services\\\" and context indicates business-to-business operations\",\"is_public_or_enterprise\":false,\"recently_funded_seed_or_series_a\":true,\"recently_funded_seed_or_series_a_quote\":\"\\\"Total Funding: USD 21,577,224\\\" and breakdown including Seed (2010-10-05)\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C560BAQHMUHDYJ5kp_g/company-logo_200_200/company-logo_200_200/0/1631332174347?e=2147483647&v=beta&t=00T_kFM6Vkdg8TjoJ4bNp6EWvgxP1hmxufwaUHKQq_Y",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/f23cgtx3yt6",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "SwiftKey",
+              "foundedYear": 2008,
+              "description": "SwiftKey's mission is to enhance interaction between people and technology. We're best known for our predictive keyboard apps that learn from you to make typing on touchscreens faster and easier. We also work directly with mobile manufacturers and worldwide, our technology features on more than 250 million devices.\r\n\r\nHeadquartered in Southwark, central London, SwiftKey was founded in 2008. We also have offices in San Francisco, US, and Seoul, Korea.",
+              "workforce": {
+                "total": 95
+              },
+              "headquarters": {
+                "address": "91-95 Southwark Bridge Road, London, SE1 0AX, GB",
+                "city": "London",
+                "postalCode": null,
+                "country": "United Kingdom"
+              },
+              "financials": {
+                "revenueAnnual": null,
+                "fundingTotal": 21577224,
+                "fundingLatestRound": {
+                  "name": "Non equity assistance",
+                  "date": "2013-12-06",
+                  "amount": null
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 21151,
+                "countryRank": 980861,
+                "avgDurationSeconds": 34,
+                "history": [
+                  {
+                    "value": 0,
+                    "dateFrom": "2024-03",
+                    "dateTo": "2024-03"
+                  },
+                  {
+                    "value": 79416,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 36851,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 21151,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 4361.3,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

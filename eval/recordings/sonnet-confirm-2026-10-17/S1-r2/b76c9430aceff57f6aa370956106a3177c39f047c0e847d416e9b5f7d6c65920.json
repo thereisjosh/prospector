@@ -1,0 +1,240 @@
+{
+  "request": {
+    "query": "Stord",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. For employee_estimate_source, quote the phrase that contains the number exactly as written on the page (e.g. \"Employees: 281\"), or an empty string if no page states a headcount. For hq_quote, quote the exact phrase from the page that states the headquarters/location, or an empty string if not stated. Every quote must be ONE contiguous span copied verbatim from the page, at most 200 characters, never joined from different lines or sections; use \"\" when the page does not state it. Answer each gate as true only when the page states it, false only when the page contradicts it, and null when not stated. is_third_party_logistics (true/false/null): provides warehousing, fulfillment, freight or last-mile logistics services to other companies as its primary business (not a brand/retailer running its own warehouses) is_third_party_logistics_quote: copy the page's own words that support the answer; never add commentary, explanation, or words like 'described as'; if the page does not state it, use \"\" and set the gate to null.",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "employee_estimate_source": {
+              "type": "string"
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "hq_quote": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "is_third_party_logistics_quote": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "employee_estimate_source",
+            "is_public_or_enterprise",
+            "hq",
+            "hq_quote",
+            "is_third_party_logistics",
+            "is_third_party_logistics_quote"
+          ]
+        }
+      },
+      "text": {
+        "maxCharacters": 20000
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "652842792ab4e6ca384f08efea4877f1",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/3g9vg194s0q",
+        "title": "Stord",
+        "url": "https://www.stord.com/",
+        "text": "# Stord\n\nStord is a Transportation, Logistics, Supply Chain and Storage company. Stord offers fulfillment, warehousing, and transportation for DTC and B2B, plus the integrated software you need to provide your end consumers with the best pre-purchase and post-delivery consumer experience. Stord employs 2,109 people (+226.0% YoY, +1462 people) and has an annual revenue of $109.8M, founded in 2015. Headquartered in Atlanta, Georgia, United States, with an office in Union City. Its workforce is distributed across 12 countries (including United States, United Kingdom, Canada, Brazil, and India).\n\n## About\n\nStord is the physical intelligence layer for independent commerce, giving brands the fulfillment network, software, AI, and robotics they need to own the entire relationship with their customer, from checkout to delivery to returns.\n\nPrime reset what consumers expect from delivery, and every brand competing against it pays with margin, data, and the relationship with their own customer. Stord gives independent brands that same infrastructure advantage, without the trade-off. With Stord, brands grow revenue, reduce costs, and delight every customer they ship to.\n\nToday Stord serves 1,000+ brands. Our network spans nearly 100 fulfillment locations worldwide, processes $15B+ in GMV annually, and reaches nearly one in four U.S. households.\n\nStord Labs, our physical intelligence lab in Atlanta, builds and tests AI and robotics on live orders before rolling proven systems out across the full network. The result is intelligence that compounds with every order that runs through it.\n\nBacked by Kleiner Perkins, Founders Fund, Strike Capital, Franklin Templeton, and other leading investors, Stord has raised $250M in Series F equity funding at a $3B valuation.\n\nThe physical intelligence layer for independent commerce is here.\n\nThis is a place for people who want to work at the edge of commerce and applied AI on real, physical problems, not simulations. The pace is intense and the systems you ship move real freight for real brands within days. If you want to build the infrastructure that defines the next era of commerce, this is where you do it.\n\n\nJoin our team: https://www.stord.com/careers/.\n\n## Company Details\n- Industry: Transportation, Logistics, Supply Chain and Storage\n- Type: Privately held\n- Headquarters: Atlanta, United States\n- Founded Year: 2015\n- Homepage: stord.com\n- Aliases: Stord, Inc., stord\n- LinkedIn: linkedin.com/company/stord\n- Linkedin Followers: 35,767\n- Emails: sales@stord.com\n- Phone: (833) 700 - 2025, +1 (833) 700 - 2025, 1-866-502-9278\n\n## Financials\n- Annual Revenue: USD 109,800,000\n- Total Funding: USD 997,539,990\n  - Series f (2026-05-01): USD 250.0M\n  - Series e (2025-06-15): USD 80.0M\n  - Debt financing (2025-05-01): USD 120.0M\n  - Series e (2025-05-01): USD 100.0M\n  - Venture (2022-08-01): USD 122.5M\n\n## Acquisitions\n- Acquired Shipwire, Inc. (2026-01-01)\n- Acquired Penny Black (2025-07-10)\n- Acquired Ware2Go (2025-05-19)\n- Acquired Ware2Go, Inc. (2025-05-01)\n- Acquired Pitney Bowes’ E-Commerce Fulfillment  Business (2024-07-01)\n\n## Workforce\n- Employees: 2,109\n- Company Size: 1001-5000 employees\n  - Monthly Growth: +0.2%\n  - Yearly Growth: +226.0%\n- Key Executives:\n  - Aaron Curtis: Director of Fulfillment Operations - East\n  - Adam Ross: Director of Business Development\n  - Alex Gerber: Director\n  - Alisa Stone, MBA: Regional ICQA Leader\n  - Andrew Namkoong: Sr. Director, FP&A\n  - Andrew Thiesing: Vice President of Mergers and Acquisitions\n  - Ben Daugherty: Senior Director of Business Development\n  - Brad Obert: Vice President of Transportation\n  - Brian Rach, ECRE: Senior Talent Acquisition Partner\n  - Calvin Xu: Vice President, Corporate Development\n- Breakdown:\n  - By Country: United States: 562 (27%), United Kingdom: 19 (1%), Canada: 12 (1%), Brazil: 5, India: 2, Colombia: 1, Dominican Republic: 1, El Salvador: 1, Mexico: 1, Pakistan: 1 (+2 more)\n  - By Department: Technical: 126 (6%), Operations: 122 (6%), Customer Service: 70 (3%), Sales: 44 (2%), Other Department: 41 (2%), General Management: 39 (2%), Hr: 38 (2%), Finance: 32 (2%), Project Management: 27 (1%), Consulting: 21 (1%) (+8 more)\n  - By Seniority: Manager: 204 (10%), Specialist: 164 (8%), Senior: 102 (5%), Other Management: 78 (4%), Director: 38 (2%), Head: 17 (1%), Partner: 11 (1%), Vp: 8, Clevel: 3, Intern: 2 (+1 more)\n- Active job postings: 64\n- Salary ranges (20 of 45 roles):\n  - Head of Sales: median $197,726.41 per year\n  - Software Engineering Manager: median $190,890.44 per year\n  - Senior Machine Learning Engineer: median $182,554.89 per year\n  - Engineering Manager: median $181,970.94 per year\n  - Director: median $174,839.67 per year\n  - Senior Site Reliability Engineer: median $171,475.14 per year\n  - Senior Product Manager: median $168,955.55 per year\n  - Senior Software Engineer: median $167,273.46 per year\n  - Enterprise Account Executive: median $164,704.21 per year\n  - Integration Lead: median $161,069.24 per year\n  - SRE Engineer: median $141,632.24 per year\n  - Solutions Engineer: median $131,224.77 per year\n  - Finance Manager: median $130,418.55 per year\n  - Integrations Engineer: median $129,999.19 per year\n  - Business Development: median $124,483.01 per year\n  - Talent Acquisition Manager: median $119,653.74 per year\n  - Accounting Manager: median $116,507.25 per year\n  - Implementation Manager: median $107,568.41 per year\n  - Procurement Manager: median $106,098.89 per year\n  - Account Executive: median $100,852.29 per year\n- Talent Sources: Amazon (41), Ware2Go (40), Pitney Bowes (38), ProPack Logistics (27), Flexport (17), CEVA Logistics (14), Coyote Logistics (13), Quiet (11), Convoy Inc (8), Europa Sports Partners (7)\n- Alumni Go To: Amazon (7), Deel (6), RetailReady (4), Flexport (4), Emerge (4), DHL Supply Chain (4), Kenco Group (3), GoodShip (3), Fosdick Fulfillment (3), Delta Air Lines (3)\n\n## Products & Technology\n- Tech Stack (showing 50 of 229): angular, armor, auth0, autocad, aws security hub, celigo, cloudflare, confluence, coupa, crowdstrike, datadog, dbt, dell, dell boomi, dell boomi atomsphere, domo, elixir, freshdesk, github, google bigquery, google cloud, google workspace, iam, jamf, jamf pro, javascript, jira, json, jumpcloud, kaseya, logicmonitor, microservices, microsoft, microsoft 365, netsuite, okta, oracle, postman, prometheus, ptc windchill, q4, quickbooks, quip, ramp, react, salesforce, shipwire, shopify, site24x7, sketchup\n\n## Web presence\n\n- Twitter: twitter.com/getstord\n- Facebook: facebook.com/getstord\n- Instagram: instagram.com/getstord\n- YouTube: youtube.com/@getstord\n- Crunchbase: crunchbase.com/organization/stord\n- Web traffic:\n  - Monthly visits: 113,456\n  - Global rank: 292,034\n  - Bounce rate: 30.0%\n  - Pages per visit: 4.1\n  - Average visit duration: 238s\n\n## Reviews & Ratings\n- Employer Rating: 2.9/5.0 (326 reviews)\n  - Breakdown: Work-Life: 2.2, Compensation: 3.0, Culture: 2.9, Career: 3.2\n\n## Categories\n\n3pl management, accounting & finance software, business_and_consumer_services/business_services, cloud, commerce, consumer goods, distribution, e-commerce, ecommerce, enterprise-software, freight, freight service, fulfillment, integrated software, inventory management, last mile transportation, logistics, logistics technology, material handling solutions, order management, order management software, order management system, parcel, platform, pre-purchase, retail, saas, shipping, software as a service, storage, stord, supply chain, supply chain management, supply chain optimization, technology, third party logistics, transportation, warehouse management, warehouse management system, warehousing\n\n## Competitors\n\nflexe, fareye, prozo, flowspace, ware2go, darkstore, cargomatic, sparefoot, leading point software, guiyang trucks, convargo, clutter, shipsy, shipbob, project44, fourkites\n\n## Recent News\n- [2026-10-09]\n  - PR Newswire: Stord Secures $400 Million Credit Facility Led by Citi to Scale Its Network, Robotics, and AI Investment, Expands Leadership Team\n  - Stock Titan: Stord's $400 million credit line drew nearly twice its target.\n- [2026-09-25] [Stord Highlights Underused E-Commerce Packaging Opportunities - TipRanks.com](https://www.tipranks.com/news/private-companies/stord-highlights-underused-e-commerce-packaging-opportunities)\n- [2026-09-19] [Stord Highlights Integrated Approach to Reducing Subscription Churn - TipRanks.com](https://www.tipranks.com/news/private-companies/stord-highlights-integrated-approach-to-reducing-subscription-churn)\n- [2026-09-12]\n  - [🚚 Atlanta Supply Chain Jobs: Several Open Roles Across the Area - NewsBreak](https://www.newsbreak.com/atlanta-ga-daily-brief-373181462/4882728907300-atlanta-supply-chain-jobs-several-open-roles-across-the-area)\n  - GetLatka: Stord Revenue 2025: $147M ARR, $1.5B Valuation\n- [2026-09-11] [🚚 Hebron, KY Supply Chain Jobs – Several Roles Now Hiring - NewsBreak](https://www.newsbreak.com/hebron-ky-daily-brief-373336764/4879744558380-hebron-ky-supply-chain-jobs-several-roles-now-hiring)\n- [2026-08-21]\n  - [Stord, Walmart & Cyber Risk: Top Supply Chain News This Week \\| Supply Chain Digital](https://supplychaindigital.com/news/stord-walmart-cyber-risk-top-supply-chain-news-this-week)\n  - [6 Best All-in-One Packaging Suppliers - CCR-Mag.com](https://ccr-mag.com/6-best-all-in-one-packaging-suppliers/)\n- [2026-08-17] [Stord: How a $3bn Logistics Platform is Driving Commerce \\| Supply Chain Digital](https://supplychaindigital.com/news/stord-how-a-3bn-logistics-platform-is-driving-commerce)\n- [2026-08-13] [stord-highlights-cart-abandonment-as-ecommerce-growth-opportunity](https://www.tipranks.com/news/private-companies/stord-highlights-cart-abandonment-as-ecommerce-growth-opportunity)\n- [2026-07-29] [I Quit College to Build a $3B Business Competing With Amazon - United States](https://www.europesays.com/us/967156/)\n- [2026-07-24] [How This 29-Year-Old Founder Is Taking On Amazon Prime](https://finance.yahoo.com/small-business/articles/29-old-founder-taking-amazon-162023143.html)\n- [2026-07-10] [Stord Expands Partner Ecosystem With New Tools for E-Commerce Brands - TipRanks.com](https://www.tipranks.com/news/private-companies/stord-expands-partner-ecosystem-with-new-tools-for-e-commerce-brands)\n- [2026-07-03] [Stord Emphasizes Engineering Talent and Technical Leadership - TipRanks.com](https://www.tipranks.com/news/private-companies/stord-emphasizes-engineering-talent-and-technical-leadership)\n- [2026-06-30]\n  - [supplytard 錢包：supplytard 最佳儲存、發送和使用錢包（2026 年指南）\\| Bitget Wallet](https://web3.bitget.com/zh-TC/wallet/supplytard-wallet)\n  - [supplytard Wallet: Wallet ที่ดีที่สุดสำหรับการจัดเก็บ ส่ง และใช้งาน supplytard \\(คู่มือปี 2026\\) \\| Bitget Wallet](https://web3.bitget.com/th/wallet/supplytard-wallet)\n  - [Billetera de supplytard: la mejor billetera para almacenar, enviar y usar supplytard \\(Guía 2026\\) \\| Bitget Wallet](https://web3.bitget.com/es-AR/wallet/supplytard-wallet)\n- [2026-06-27] [Stord Highlights AI-Driven Access to Live Fulfillment Data With Model Context Protocol - TipRanks.com](https://www.tipranks.com/news/private-companies/stord-highlights-ai-driven-access-to-live-fulfillment-data-with-model-context-protocol)\n- [2026-06-26] [Stord has raised $250 Million in new Series F funding - intelligence360](https://www.intelligence360.news/stord-has-raised-250-million-in-new-series-f-funding/)\n- [2025-11-23] KRON4: Stord Named to Deloitte Technology Fast 500™ List of Fastest-Growing Companies in North America for Third Time\n- [2025-08-30] Crowdfund Insider: Digital Commerce Enablement Sector Secured $3.3B in Venture Capital in Q2 2025 : Research\n- [2025-08-29]\n  - CBS News: Buyer beware: End of de minimis exemption means higher prices for overseas goods, experts say\n  - Business Insider: Small businesses worldwide — from sticker shops in Japan to beret sellers in New Zealand — are scrambling after Trump's tariff rule on small packages\n- [2025-08-27] EIN Presswire: Stord Launches Collective with Industry Leaders To Help Brands Save Money and Accelerate Growth\n- [2025-08-12] EIN Presswire: Stord Recognized As One of the Fastest Growing Companies in America for the 5th Consecutive Year on the Inc. 5000 List\n- [2025-07-11] SalesTech Star: Stord Expands AI-Driven Consumer Experience Technology Suite with Acquisition of Penny Black\n- [2025-06-10] Tech Startups - Startups and Technology news: Top AI Companies to Invest In\n- [2025-05-23] Hypepotamus: Friday Fund Day: Startup News From The Southeast For The Week Of May 19, 2025\n- [2025-05-20] CBS 42: Stord Expands Market-Leading E-Commerce Platform with Acquisition of Ware2Go from UPS\n- [2025-05-16]\n  - EIN Presswire: Stord Raises $200M+ at a $1.5B Valuation to Power Fast, Seamless E-Commerce Experiences at Scale\n  - Crunchbase News: The Week’s Biggest Funding Rounds: Pathos, Addepar Top Busy Week For Health And Fintech\n- [2025-04-26]\n  - Business Insider: I'm a former Thiel fellow who dropped out of college. I now run a $1.3 billion logistics company.\n  - Business Insider: The worst is yet to come: Trump's tariffs could mean even higher prices and empty shelves within weeks\n- [2025-04-22] Business Wire: e-Commerce Logistics & e-Fulfilment Market Report 2025 \\| GXO, DPDHL, bpost, CEVA, Maersk and Ryder Lead Consolidation in Booming E-Commerce Fulfilment Market - ResearchAndMarkets.com\n- [2025-01-30] EIN Presswire: True Classic Avoids Increased Fees and Massive Delays on DTC and B2B with Stord\n- [2025-01-07] EIN Presswire: Stord Brings Enterprise-level Fulfillment and Software Capabilities to Emerging, High Growth DTC Brands\n\n## Social\n\n### Linkedin\n\n- [2026-10-08 · Posted · 99 reactions] [Stord, the physical intelligence layer for independent commerce...](https://www.linkedin.com/posts/stord_stord-the-physical-intelligence-layer-for-activity-7513955694677561344-ikQz)\n  > Stord, the physical intelligence layer for independent commerce, has closed a $400 million credit facility led by Citi and joined by Morgan Stanley, JPMorgan, and others, closing at nearly double the target Stord originally sought. The scale of this capital and quality of the partners are a signal of Stord’s strong foundation and where the company is headed.\n  >\n  > Combined with our Series F, this facility is the firepower behind the massive physical AI opportunity that exists in commerce, and Stord is leading that charge with its infrastructure, commerce software, AI, and applied robotics. These funds will be used in Stord’s next phase of growth: expanding the fulfillment network, accelerating the automation and robotics work at Stord Labs, and deepening the commerce software and AI that more than 1,000 brands rely on to grow revenue, reduce costs, and delight their consumers. This will help Stord spin that flywheel faster and grow even quicker.\n  >\n  > Alongside the facility, Bill Zerella joins as Chief Financial Officer and Mark Wayland joins as Chief Revenue Officer.\n  >\n  > Zerella has led finance at three public companies, all of which he brought to the public equity markets, including Fitbit's in 2015, where the company grew from roughly $300 million to more than $2 billion in revenue and a market capitalization of approximately $12 billion. He comes to Stord from ACV Auctions, where he served as Chief Financial Officer. He understands brands the way Stord's customers do, and he has spent his career building finance inside complex, physical AI businesses like Stord's own.\n  >\n  > Wayland brings more than three decades of enterprise sales and revenue leadership, most recently as a public-company CRO at Box, and before that CRO of Tanium, and more than a decade at Salesforce, where he rose to Senior Vice President of the Marketing Cloud.\n  >\n  > \"This facility gives us the balance sheet to match the scale of what we're building, and Bill and Mark add to Stord’s world-class leadership team in this next phase of growth. We're scaling our network globally, deploying robotics faster, and adopting AI at all levels of our network through Stord Labs,\" said Sean Henry, CEO and Co-Founder of Stord.\n  >\n  > Stord Labs, our physical intelligence lab in Atlanta, is where this next phase gets built: agentic robotics and AI trained on real orders, deployed across nearly 100 facilities. If building the physical intelligence layer for commerce sounds like your kind of problem, we're hiring.\n  >\n  > Learn more: https://lnkd.in/giFnBeP7\n\n- [2026-10-06 · Posted · 31 reactions] [The people running some of the best independent brands in commerce...](https://www.linkedin.com/posts/stord_the-people-running-some-of-the-best-independent-activity-7513242845525315585-yRKb)\n  > The people running some of the best independent brands in commerce filled a room at Cipriani Wall Street last month.\n  >\n  > Stord was proud to be a supporting partner at the inaugural Golden Cart Awards, presented by Klaviyo and curated by CartStars, recognizing leaders and teams across e-commerce and retail.\n  >\n  > The room was almost entirely brand-side: Black tie, seated dinner, and hosted tables built around curated introductions.\n  >\n  > These are the operators and founders we build for. Sharing a table with the folks who actually own growth and customer experience at their brands made for a better conversation than any booth could.\n  >\n  > 🥂Congratulations to every honoree, and thank you to Klaviyo and CartStars for a first edition that set the bar for those to come.\n\n- [2026-10-05 · Posted · 178 reactions] [We’re hiring for 4 VP roles! Building something at this scale...](https://www.linkedin.com/posts/stord_were-hiring-for-4-vp-roles-building-something-activity-7512876347841552384-TEcG)\n  > We’re hiring for 4 VP roles!\n  >\n  > Building something at this scale doesn't run on generalists. Every function inside Stord is either compounding the network, the software, or the AI on top of it. Right now four seats are open at the level that shapes how those three things move together.\n  >\n  > ✔️VP, Fulfillment Planning and Optimization: Sets the labor, equipment, & readiness plan across nearly 100 facilities, ahead of demand instead of reacting to it.\n  > ✔️VP Product, Commerce: Owns the products now sitting inside the checkout itself, & the revenue attached to them.\n  > ✔️VP, Internal Systems and IT: Designs the internal architecture for a company adding people & physical sites every month.\n  > ✔️VP, Customer Experience: Runs a defined slice of our brand portfolio as the next thousand brands come onto the network.\n  >\n  > Is this you, or do you know someone who’s a perfect fit? Get the full job descriptions and links to apply in the comments.\n\n- [2026-09-30 · Posted · 60 reactions] [The UK just got a new home for e-commerce. On 12 November, we're...](https://www.linkedin.com/posts/stord_stord-the-experience-2026-activity-7511015269104910337-IwE6)\n  > The UK just got a new home for e-commerce.\n  >\n  > On 12 November, we're bringing The Stord Experience to Mercedes-Benz World, and we're gathering the founders and leaders behind the UK's fastest-growing e-commerce brands to be part of it.\n  >\n  > One day, built for the operators running the UK's fastest-growing e-commerce brands.\n  >\n  > ✇ Real growth stories from leading e-commerce founders\n  > ✇ Networking & workshops with operators solving the same problems\n  > ✇ Behind the wheel: The Grid F1 Simulator, the Pit Stop Challenge, and the Mercedes-AMG Ultimate Ride\n  >\n  > This is Stord's official UK launch: one platform for fulfillment, software, AI, and robotics, built to grow revenue, reduce costs, and give every customer a delivery experience worth coming back for.\n  >\n  > Spaces are limited and by invitation. https://lnkd.in/eNmuefwb/?utm_campaign=LI%257CStordExperience2026%257CBoostedPost%257CUK&utm_source=linkedin&utm_medium=paid&utm_id=1228108753&hsa_acc=506661651&hsa_cam=1228108753&hsa_grp=895765873&hsa_ad=1572987093&hsa_net=linkedin&hsa_ver=3\n\n- [2026-09-30 · 43 reactions, 1 comment] ",
+        "summary": "{\"description\":\"Stord is a Transportation, Logistics, Supply Chain and Storage company offering fulfillment, warehousing, and transportation for DTC and B2B, with integrated software to enhance pre-purchase and post-delivery consumer experience.\",\"employee_estimate\":2109,\"employee_estimate_source\":\"Employees: 2,109\",\"hq\":\"Atlanta, Georgia, United States\",\"hq_quote\":\"Headquartered in Atlanta, Georgia, United States, with an office in Union City.\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"is_public_or_enterprise\":true,\"is_third_party_logistics\":true,\"is_third_party_logistics_quote\":\"Stord offers fulfillment, warehousing, and transportation for DTC and B2B, plus the integrated software you need to provide your end consumers with the best pre-purchase and post-delivery consumer experience.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/C4D0BAQHUwfvk8-o99A/company-logo_200_200/company-logo_200_200/0/1639057890423/stord_logo?e=2147483647&v=beta&t=SLDja9e63WZyd4XPOldaYTRT4bQdR3XSg4QmbuNAL0E",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/3g9vg194s0q",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Stord",
+              "foundedYear": 2015,
+              "description": "Stord is the physical intelligence layer for independent commerce, giving brands the fulfillment network, software, AI, and robotics they need to own the entire relationship with their customer, from checkout to delivery to returns.\n\nPrime reset what consumers expect from delivery, and every brand competing against it pays with margin, data, and the relationship with their own customer. Stord gives independent brands that same infrastructure advantage, without the trade-off. With Stord, brands grow revenue, reduce costs, and delight every customer they ship to.\n\nToday Stord serves 1,000+ brands. Our network spans nearly 100 fulfillment locations worldwide, processes $15B+ in GMV annually, and reaches nearly one in four U.S. households.\n\nStord Labs, our physical intelligence lab in Atlanta, builds and tests AI and robotics on live orders before rolling proven systems out across the full network. The result is intelligence that compounds with every order that runs through it.\n\nBacked by Kleiner Perkins, Founders Fund, Strike Capital, Franklin Templeton, and other leading investors, Stord has raised $250M in Series F equity funding at a $3B valuation.\n\nThe physical intelligence layer for independent commerce is here.\n\nThis is a place for people who want to work at the edge of commerce and applied AI on real, physical problems, not simulations. The pace is intense and the systems you ship move real freight for real brands within days. If you want to build the infrastructure that defines the next era of commerce, this is where you do it.\n\n\nJoin our team: https://www.stord.com/careers/.",
+              "workforce": {
+                "total": 2109
+              },
+              "headquarters": {
+                "address": "5195 Mason Rd, Atlanta, Georgia 30349, US",
+                "city": "Atlanta",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 109800000,
+                "fundingTotal": 997539990,
+                "fundingLatestRound": {
+                  "name": "Series f",
+                  "date": "2026-05-01",
+                  "amount": 250000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 113456,
+                "countryRank": 102295,
+                "avgDurationSeconds": 238,
+                "history": [
+                  {
+                    "value": 94120,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 93107,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 109303,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 106498,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 118863,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 113456,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/n8xmt8lfwft",
+        "title": "Stord Labs",
+        "url": "https://stord.com/labs",
+        "text": "# Stord Labs\n\nStord Labs is a Software Development company. Stord Labs is a micro-fulfillment environment that tests AI, robotics, and operational innovations against real orders and real workflows before deploying them across their network of nearly 100 fulfillment locations worldwide. Stord Labs employs 22 people (-37.1% YoY, -13 people) and has an annual revenue of $25M, founded in 2026. Headquartered in Atlanta, Georgia, United States, with an office in Santa Clara. Its workforce is distributed across United States, Philippines, Canada, and Guatemala.\n\n## About\n\nMost AI built for commerce is trained in a clean lab, on controlled data, in ideal conditions. Then it meets a real warehouse with live orders, variable SKU profiles, carrier disruptions, shifting demand, and it fails.\n\nStord Labs exists because we refuse to accept that gap.\n\nStord Labs is a working fulfillment environment at Stord's Atlanta headquarters. We run AI, robotics, and advanced operational designs against real orders on the same software that powers Stord's production network across nearly 100 facilities worldwide. Not a simulation. Not a demo. Real complexity, measured results, and defined performance gates, before anything touches a live operation.\n\nThe moment something clears the performance gate here, it deploys everywhere at once.\n\nWe are building the physical intelligence layer for commerce. The AI and automation infrastructure that makes \n\nAnyone can buy a robot. Not everyone has a decade of operational data telling it what to do and nearly 100 facilities to deploy it across the moment it's validated.\n\nStord Labs is where that advantage gets built.\n\nStord is The Consumer Experience Company. Learn more at stord.com.\n\n## Company Details\n- Industry: Software Development\n- Type: Privately held\n- Headquarters: Atlanta, United States\n- Founded Year: 2026\n- Homepage: stord.com/labs\n- Aliases: Shipwire, Inc., shipwire, stord labs\n- LinkedIn: linkedin.com/company/shipwire-inc-\n- Linkedin Followers: 9,688\n- Emails: info@shipwire.com, sales@stord.com\n- Phone: +1 650-561-4800, 1-650-561-48\n\n## Financials\n- Annual Revenue: USD 25,000,000\n- Total Funding: USD 10,000,000\n  - Venture (2011-07-13): USD 6.0M\n  - Series a (2007-10-01): USD 4.0M\n\n## Acquisitions\n- Acquired by: Stord (2013-10-28)\n- Acquired Egl.inc.\n- Acquired Ceva Logistics U.S., Inc.\n- Acquired Ceva Logistics U.S. Group, Inc.\n- Acquired CEVA Servicios de México, S.A. de C.V.\n- Acquired CEVA Logística de México, S.A. de C.V.\n\n## Workforce\n- Employees: 22\n- Company Size: 1001-5000 employees\n  - Yearly Growth: -37.1%\n- Breakdown:\n  - By Country: United States: 10 (45%), Philippines: 3 (14%), Canada: 1 (5%), Guatemala: 1 (5%)\n  - By Department: Technical: 6 (27%), Finance: 3 (14%), Administrative: 2 (9%), Operations: 2 (9%), Product: 1 (5%), Project Management: 1 (5%)\n  - By Seniority: Manager: 7 (32%), Specialist: 5 (23%), Senior: 3 (14%)\n- Talent Sources: Ingram Micro Commerce & Lifecycle Services (9), CEVA Logistics (4), Shipwire Inc., an Ingram Micro Brand (3), Symantec (2), Lattice (2), Ingram Micro (2), Rafter, Inc. (1), Conduent (1), Cataweb Online S.L (1), Apple (1)\n- Alumni Go To: Ingram Micro (7), CEVA Logistics (7), Stord (6), QuickBox Fulfillment (2), Engine (2), Zinc Partners LLC (1), Xiaomi Technology (1), Weavenn (1), UKG (1), Purdue University (1)\n\n## Products & Technology\n- Tech Stack: argocd, kubernetes, php, python, sandbox, shipwire, terraform, microservices, linkedin, magento, shopify, domo, google bigquery, looker, microsoft, microsoft excel, microsoft office, mysql, impact, google cloud, slack, amp\n\n## Web presence\n\n- Twitter: twitter.com/shipwire\n- Facebook: facebook.com/shipwire\n- YouTube: youtube.com/user/shipwirefulfillment\n- Crunchbase: crunchbase.com/organization/shipwire\n- Web traffic:\n  - Monthly visits: 6,631\n  - Global rank: 2,853,637\n  - Bounce rate: 37.0%\n  - Pages per visit: 1.8\n  - Average visit duration: 43s\n\n## Categories\n\nagentic robotics, ai, automation r&d, automotive-transportation, autonomous mobile robots, business_and_consumer_services/business_services, commerce infrastructure, computer vision, e-commerce, e-commerce operations, ecommerce, fulfillment automation, fulfillment locations, fulfillment technology, industrial ai, labor optimization, last-mile optimization, logistics, logistics technology, micro-fulfillment, monitoring, operational innovations, operations research, physical intelligence, robotics, robotics integration, shipping, sortation technology, supply chain ai, supply chain management, supply-chain-management, transportation, warehouse innovation, warehouse robotics, warehousing\n\n## Competitors\n\namware, efulfillment service, abc fulfillment, webgility, order management systems, acutrack, rithum, shippingeasy, floship, shiphawk, dcl inc., endicia, solar transport, ogoship, freshlinc, ership\n\n## Recent News\n- [2021-09-12] The Loadstar: CMA CGM in $3bn contract logistics boost for Ceva with Ingram Micro buy\n- [2021-08-18] Yahoo News: Ingram Micro Commerce & Lifecycle Services Adds Shipwire Logistics Platform to Sweden Warehouse\n- [2020-01-08] Tweak Your Biz: How Technology Makes it Easier for Introvert Entrepreneurs to be Successful\n- [2019-12-19] Business Wire: Ingram Micro Commerce & Lifecycle Services’ Order Management Platform, Shipwire, Reports Record Holiday Growth\n- [2018-03-28] Floship: 13 Best Crowdfunding Websites and Kickstarter Alternatives for 2018\n- [2017-12-21] Pymnts: An API To Track Packages, Payments\n- [2017-01-26] Market Wired - Top: Ingram Micro Commerce & Fulfillment Achieves Projected Holiday Volume Expectation and Exceeds in Customer Experience and Transparency\n- [2016-10-03] Alley Watch: E-Commerce Fulfillment Strategies\n- [2016-09-13] 24-7 Press Releases: Fat Burner Plus Strategically Positions To Penetrate $206 Billion Global Market\n\n## Social\n\n### Linkedin\n\n- [2026-06-25 · 229 reactions, 9 comments] Today we are launching Stord MCP. The question is never whether the data exists. It is who can get to it. Every fulfillment operation generates massive amounts of operational data — orders, invento...\n\n- [2026-06-22 · 725 reactions, 50 comments] Over 10 years in, and I am still finding ways to be humbled. On Friday EY named Jacob and me Entrepreneur of the Year for the Southeast. We couldn't be more honored, and more than anything, this be...\n\n- [2026-06-09 · 69 reactions, 1 comment] Most AI and robotics for commerce is never tested in the field. We have always tested everything in our Stord fulfillment centers with real orders and real data. Stord Labs is where we take that pr...\n\n- [2026-06-02 · 52 reactions, 1 comment] Bloomberg. TechCrunch. Reuters. Fortune Term Sheet. Axios. Sourcing Journal. WSJ Pro VC. They all covered the same story. Not because of a funding round. Because they recognized that something genu...\n\n- [2026-05-29 · 525 reactions, 32 comments] $3 billion vs $2.92 trillion. Nearly 1,000x different in valuation. This week TechCrunch and many others called Stord an \"Amazon competitor.\" Here's what most people get wrong about that. Amazon ha...\n\n- [2026-05-27 · 184 reactions, 6 comments] Proud to see Stord Labs covered in Sourcing Journal today. The premise behind the lab came from a hard-earned lesson. \"Vendor demonstrations are a poor proxy for real performance. A robotics system...\n\n- [2026-05-26 · 1,191 reactions, 136 comments] Ten years ago I started Stord with a simple belief: that the physical experience of receiving an order was as important to the consumer experience as the product itself, and that nobody had built t...\n\n- [2026-05-07 · 206 reactions, 14 comments] 𝗦𝘁𝗼𝗿𝗱𝗔𝗜 𝗷𝘂𝘀𝘁 𝘁𝗼𝗼𝗸 𝗮𝗻𝗼𝘁𝗵𝗲𝗿 𝘀𝘁𝗲𝗽 𝗳𝗼𝗿𝘄𝗮𝗿𝗱. For years, e-commerce operations have run on a fundamentally broken model: something goes wrong, a dashboard eventually shows it, a team finally acts. By the...\n\n- [2026-05-05 · 156 reactions, 9 comments] Mark Wang's team used to spend nights in a San Francisco office manually printing labels to ship the first Capture Clips to Peak Design's Kickstarter backers. That was 2011. Scrappy, founder-energy...\n\n- [2026-04-29 · 20 reactions, 1 comment] Fulfillment operations tend to break at the point of change. A system update rolled out too fast. A new workflow introduced without structured training. A carrier switch made before validating the...\n\n- [2026-04-15 · 193 reactions, 16 comments] The first thing Brenda Enney does every morning is open Stord’s OMS. Not email. Not Slack. Stord’s OMS. She's the head of fulfillment for Cann, a cannabis-infused social tonic brand that started in...\n\n- [2026-04-09 · 154 reactions, 12 comments] 84% of carts abandoned. 93% of brands never follow up. 38% of retailers cancel one in ten orders from inventory errors alone. These aren't fulfillment failures. They're information failures. Brands...\n\n- [2026-04-01 · 170 reactions, 7 comments] When's the last time you left a conference with something you actually used? We built Stord Summit because we kept asking that question and not having a great answer. April 22–24. The Mansion at Gl...\n\n- [2026-02-27 · 106 reactions, 7 comments] We can’t wait to show you what we’ve been working on. 3.3.26\n\n- [2026-02-27 · 144 reactions, 7 comments] We can’t wait to show you what we’ve been working on.\n\n- [2026-02-25 · 28 reactions, 1 comment] The US is the growth milestone every EU and UK brand talks about. And for good reason! It offers scale, momentum, and the kind of upside that can redefine a company’s trajectory. For many, it’s the...\n\n- [2023-06-26 · 30 reactions] We are happy to be a Happy Returns a PayPal company Preferred Partner!\n\n## Locations\n- Headquarters: atlanta, georgia, united states (US)\n- Offices: santa clara, california, united states (US), atlanta, united states (US)\n\n## Parent organization\n\n- Stord",
+        "summary": "{\"description\":\"Stord Labs is a micro-fulfillment environment that tests AI, robotics, and operational innovations against real orders and real workflows before deploying them across Stord’s network.\",\"employee_estimate\":22,\"employee_estimate_source\":\"Employees: 22\",\"hq\":\"Atlanta, Georgia, United States\",\"hq_quote\":\"Headquartered in Atlanta, Georgia, United States, with an office in Santa Clara.\",\"industry\":\"Software Development\",\"is_public_or_enterprise\":false,\"is_third_party_logistics\":false,\"is_third_party_logistics_quote\":\"Not a simulation. Not a demo. Real complexity, measured results, and defined performance gates, before anything touches a live operation.\"}",
+        "image": "https://media.licdn.com/dms/image/v2/D560BAQGuard5lZpXVQ/company-logo_200_200/B56Z6zUvwzG0AE-/0/1781125020933/shipwire_inc__logo?e=2147483647&v=beta&t=F2R_EKQw36VlsVXx32wNSEhAWzVLa3x-uCRwIWv3Qak",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/n8xmt8lfwft",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Stord Labs",
+              "foundedYear": 2026,
+              "description": "Most AI built for commerce is trained in a clean lab, on controlled data, in ideal conditions. Then it meets a real warehouse with live orders, variable SKU profiles, carrier disruptions, shifting demand, and it fails.\n\nStord Labs exists because we refuse to accept that gap.\n\nStord Labs is a working fulfillment environment at Stord's Atlanta headquarters. We run AI, robotics, and advanced operational designs against real orders on the same software that powers Stord's production network across nearly 100 facilities worldwide. Not a simulation. Not a demo. Real complexity, measured results, and defined performance gates, before anything touches a live operation.\n\nThe moment something clears the performance gate here, it deploys everywhere at once.\n\nWe are building the physical intelligence layer for commerce. The AI and automation infrastructure that makes \n\nAnyone can buy a robot. Not everyone has a decade of operational data telling it what to do and nearly 100 facilities to deploy it across the moment it's validated.\n\nStord Labs is where that advantage gets built.\n\nStord is The Consumer Experience Company. Learn more at stord.com.",
+              "workforce": {
+                "total": 22
+              },
+              "headquarters": {
+                "address": "5195 Mason Rd, Atlanta, Georgia 30349, US",
+                "city": "Atlanta",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": {
+                "revenueAnnual": 25000000,
+                "fundingTotal": 10000000,
+                "fundingLatestRound": {
+                  "name": "Venture",
+                  "date": "2011-07-13",
+                  "amount": 6000000
+                }
+              },
+              "webTraffic": {
+                "visitsMonthly": 6631,
+                "countryRank": 1886637,
+                "avgDurationSeconds": 43,
+                "history": [
+                  {
+                    "value": 14182,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 7821,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 8041,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 8589,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 8949,
+                    "dateFrom": "2026-09",
+                    "dateTo": "2026-09"
+                  },
+                  {
+                    "value": 6631,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 4401.2,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}
