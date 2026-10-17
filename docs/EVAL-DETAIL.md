@@ -216,7 +216,7 @@ Companies with zero contacts: Hollingsworth Logistics. Companies with only infer
 
 ## Smallest model per job (2026-10-16)
 
-Question: which model is the smallest that does each job well enough? Measured where it was cheap to measure, and marked "not evaluated" where it was not. Defaults are **unchanged** (Opus 5.5 everywhere) until a 3-rep confirmation. Every number below comes from the file named next to it.
+Question: which model is the smallest that does each job well enough? Measured where it was cheap to measure, and marked "not evaluated" where it was not. Defaults were unchanged (Opus 5.5 everywhere) until the 3-rep confirmation below; **the agent loop default became Sonnet 5.5 on 2026-10-17** (DECISIONS #26). Every number below comes from the file named next to it.
 
 ### Agent loop: Sonnet 5.5 vs Opus 5.5 vs Kimi K2.6
 
@@ -245,6 +245,26 @@ Opus rows are medians (p50) and means from `eval/results/pilot-2026-10-12/report
 - Judge cost for the 20 new leads: $6.7566 (`costDollars` summed over the 20 verdict files), $0.34 per lead.
 
 **Recommendation: agent loop to Sonnet, pending a 3-rep confirmation.** The evidence is one cell per scenario; it is enough to say Sonnet is worth confirming, not enough to switch (reversible, so the cost of waiting is low; a wrong switch that quietly lowers precision on a 98% product bar is not). Kimi is not recommended on this evidence: it does not finish inside the 6-minute limit at the account tier used, and the cost advantage disappears per good lead. Whether Kimi's slowness is the model or the Moonshot tier (Tier0 is 3 RPM, concurrency 1 per `docs/RESEARCH-kimi.md` §1) is **unknown**: the account's tier was not checked.
+
+### Agent loop: 3-rep confirmation of Sonnet 5.5 (2026-10-17)
+
+Set `sonnet-confirm-2026-10-17` (reps 2 and 3 of arm C_agent_sonnet, S1 and S2, $1.00 cap; report `eval/results/sonnet-confirm-2026-10-17/report.md`) plus rep 1 from `kimi-vs-sonnet-2026-10-16`. Same gates as rep 1; leads judged blind by the Opus judge (18 new verdicts, $5.66 judge spend).
+
+| Scenario | Rep | Leads | Good | Precision | $/good | Spend (Exa + Claude) | Stop | Passes 6-good bar |
+|---|---|---|---|---|---|---|---|---|
+| S1 | 1 | 8 | 7 | 0.88 | $0.126 | $0.881 ($0.621 + $0.260) | budget | yes |
+| S1 | 2 | 9 | 8 | 0.89 | $0.109 | $0.875 ($0.614 + $0.261) | budget | yes |
+| S1 | 3 | 6 | **5** | 0.83 | $0.176 | $0.879 ($0.629 + $0.250) | budget | **no** |
+| S2 | 1 | 10 | 9 | 0.90 | $0.068 | $0.609 ($0.454 + $0.155) | target_leads | yes |
+| S2 | 2 | 10 | 9 | 0.90 | $0.048 | $0.432 ($0.332 + $0.100) | target_leads | yes |
+| S2 | 3 | 10 | 9 | 0.90 | $0.060 | $0.542 ($0.411 + $0.131) | target_leads | yes |
+
+- **S1: good 7, 8, 5; pass^3 = 0.** Rep 3 delivered 5 good (6 leads), under the 6-good bar, and S1 stopped on the budget guard in all three reps. Precision stayed at or above 0.83. **S2: good 9, 9, 9; pass^3 = 1**, precision 0.90, target reached 3 of 3, $0.05 to $0.07 per good lead.
+- **Comparison, same gates, this week (Opus):** S1 4/4, 5/6 (live-quotes), 3/7, 8/8, 6/6 (memory-eval 15b A/B/B'); S2 0/0, 3/3 (live-quotes). Pilot Opus (pre-gates): S1 9 / 7 / 6, S2 8 / 8 / 8. The sets differ in gates and, for the memory-eval runs, in workspace memory, so this is indicative, not a controlled A/B. Sonnet is not worse on S1 than Opus under the current gates, and it is better on S2, but it does not clear pass^3 on S1.
+- **Cost:** Claude spend per Sonnet run was $0.25 to $0.26 (S1) and $0.100 to $0.155 (S2) against $0.21 to $0.42 for Opus pilot runs (`state.json` spend). The six recorded Sonnet runs reprice exactly from their `model_call` token counts at the Sonnet table in `src/agent/config.ts` (`eval/graders.test.ts`), and `cost_reconciles` passes on all six. Exa is still 70 to 77% of a run.
+- **Latency:** model call p50 about 4 s for Sonnet against about 6 s for Opus.
+- **Decision:** agent loop default = Sonnet 5.5 (DECISIONS #26); Opus selectable; the offline lead judge stays Opus; online judges are on Jev (#25).
+- **Not shown:** S3/S4; whether S1's rep-3 shortfall is variance or a Sonnet-specific recall limit (n = 3, one miss).
 
 ### Offline lead judge (web_search + web_fetch)
 

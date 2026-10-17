@@ -3,6 +3,7 @@ import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import type { AgentEvent } from "../src/agent/events";
 import { UNVERIFIABLE_WHY, codeHandback } from "../src/agent/loop";
+import { claudeCostDollars } from "../src/agent/config";
 import { createRunState, type RunState } from "../src/agent/state";
 import { getV1Plan } from "./fixtures/v1-plans";
 import { GRADER_NAMES, GRADERS, gradeRun, runGrader, secretHits } from "./graders";
@@ -68,6 +69,27 @@ describe("code graders (eval/graders)", () => {
         const { state, events } = load(`eval/results/pilot-2026-10-12/${s}/B_agent_opus/${r}`);
         const report = gradeRun(state, events);
         expect({ cell: `${s}/${r}`, failed: report.failed }).toEqual({ cell: `${s}/${r}`, failed: [] });
+      }
+    }
+  });
+
+  it("recorded Sonnet runs: every grader passes and each model_call cost reprices exactly at the Sonnet table", () => {
+    const cells = [
+      "kimi-vs-sonnet-2026-10-16/S1/C_agent_sonnet/1",
+      "kimi-vs-sonnet-2026-10-16/S2/C_agent_sonnet/1",
+      "sonnet-confirm-2026-10-17/S1/C_agent_sonnet/2",
+      "sonnet-confirm-2026-10-17/S1/C_agent_sonnet/3",
+      "sonnet-confirm-2026-10-17/S2/C_agent_sonnet/2",
+      "sonnet-confirm-2026-10-17/S2/C_agent_sonnet/3",
+    ];
+    for (const cell of cells) {
+      const { state, events } = load(`eval/results/${cell}`);
+      expect(state.model).toBe("claude-sonnet-5-5");
+      expect({ cell, failed: gradeRun(state, events).failed }).toEqual({ cell, failed: [] });
+      for (const e of events.filter((x) => x.kind === "model_call")) {
+        const t = e.tokens as { input: number; output: number; cache_read: number; cache_creation: number };
+        const priced = claudeCostDollars(state.model, { input_tokens: t.input, output_tokens: t.output, cache_read_input_tokens: t.cache_read, cache_creation_input_tokens: t.cache_creation });
+        expect(priced).toBeCloseTo(e.claudeCost as number, 6);
       }
     }
   });

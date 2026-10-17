@@ -77,9 +77,9 @@ describe("visitor allowance on the LAST permitted run", () => {
     const { loadQuota, visitorDollarLimit } = await import("../src/agent/quota");
     const { loadState } = await import("../src/agent/state");
 
-    const first = await create(jsonRequest("http://x/api/runs", { workspaceId, plan: plan() }));
+    const first = await create(jsonRequest("http://x/api/runs", { workspaceId, plan: plan(), model: "claude-opus-5-5" }));
     expect(first.status).toBe(200);
-    const second = await create(jsonRequest("http://x/api/runs", { workspaceId, plan: plan() }));
+    const second = await create(jsonRequest("http://x/api/runs", { workspaceId, plan: plan(), model: "claude-opus-5-5" }));
     expect(second.status).toBe(200);
     const { id } = (await second.json()) as { id: string };
     expect((await loadQuota(workspaceId)).liveRuns).toBe(2); // slot consumed: liveRuns === limit
@@ -106,7 +106,7 @@ describe("visitor allowance on the LAST permitted run", () => {
     expect(final.handback?.top_reasons).toEqual([{ code: "visitor_allowance", count: 1 }]);
     expect(final.handback?.shortfall).toMatch(/^0 of /);
 
-    const third = await create(jsonRequest("http://x/api/runs", { workspaceId, plan: plan() }));
+    const third = await create(jsonRequest("http://x/api/runs", { workspaceId, plan: plan(), model: "claude-opus-5-5" }));
     expect(third.status).toBe(402);
   });
 
@@ -135,6 +135,6 @@ describe("visitor allowance on the LAST permitted run", () => {
     expect((await planRoute(jsonRequest("http://x/api/planner/plan", { workspaceId, cards }))).status).toBe(200);
 
     const { POST: runs } = await import("../app/api/runs/route");
-    expect((await runs(jsonRequest("http://x/api/runs", { workspaceId, plan: plan() }))).status).toBe(402);
+    expect((await runs(jsonRequest("http://x/api/runs", { workspaceId, plan: plan(), model: "claude-opus-5-5" }))).status).toBe(402);
   });
 });

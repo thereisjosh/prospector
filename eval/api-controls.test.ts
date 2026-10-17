@@ -159,6 +159,18 @@ describe("R1 public controls", () => {
     expect(await second.json()).toEqual({ error: "allowance_exhausted", remainingRuns: 0, remainingDollars: 2.5 });
   });
 
+  it("POST /api/runs defaults to Sonnet 5.5 and honours an explicit model: opus", async () => {
+    process.env.VISITOR_MAX_LIVE_RUNS = "5";
+    const { POST } = await import("../app/api/runs/route");
+    const { loadState } = await import("../src/agent/state");
+    const a = (await (await POST(jsonRequest("http://x/api/runs", { workspaceId: "visitor-model-a", plan: plan() }))).json()) as { id: string };
+    expect((await loadState(a.id)).model).toBe("claude-sonnet-5-5");
+    const b = (await (await POST(jsonRequest("http://x/api/runs", { workspaceId: "visitor-model-b", plan: plan(), model: "claude-opus-5-5" }))).json()) as { id: string };
+    expect((await loadState(b.id)).model).toBe("claude-opus-5-5");
+    const c = (await (await POST(jsonRequest("http://x/api/runs", { workspaceId: "visitor-model-c", plan: plan(), model: "kimi-k2.6" }))).json()) as { id: string };
+    expect((await loadState(c.id)).model).toBe("claude-sonnet-5-5"); // public app: Anthropic only, falls to the default
+  });
+
   it("live POST /api/runs requires a workspace id so allowance cannot be bypassed", async () => {
     const { POST } = await import("../app/api/runs/route");
     const res = await POST(jsonRequest("http://x/api/runs", { plan: plan() }));

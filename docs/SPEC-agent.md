@@ -99,7 +99,7 @@ What the model decides that the workflow cannot, each logged as an **adaptive ac
 ## 3. Architecture
 
 - **Harness:** TypeScript, server-side Next.js routes; the UI drives the run one turn per `POST /step` and reads the turn's events live over SSE as they are written (`GET /api/runs/:id/events`, §2a), with each step response's events as the fallback. A manual tool-use loop on `@anthropic-ai/sdk` `messages.stream` (non-streaming `messages.create` as the one retry). No agent framework, so every part of the loop is visible and explainable.
-- **Model:** `claude-opus-5-5`, effort `medium`, adaptive thinking (always on for this model), server-side `fallbacks: "default"` for refusals. The model is a config value, and **Opus 5.5 vs Sonnet 5.5 is an eval arm** (§9), because cost per lead is a headline metric.
+- **Model:** default `claude-sonnet-5-5` since 2026-10-17 (`AGENT_DEFAULT_MODEL` in `src/agent/config.ts`; 3 reps per scenario, DECISIONS #26); `claude-opus-5-5` stays selectable per run. Effort `medium`, adaptive thinking (always on for these models), server-side `fallbacks: "default"` for refusals. The model is a config value, and **Opus 5.5 vs Sonnet 5.5 is an eval arm** (§9), because cost per lead is a headline metric. The cost guide in the first message states the per-turn price of the model that runs, so the approval card's "estimate for the whole run" (the model's own `est_cost_dollars`) is Sonnet-based by default.
 - **API constraints:**
   - forced `tool_choice` returns a 400 on this model, so use `auto` and steer from the prompt
   - history must be **append-only**, because Opus 5.5 thinking blocks are bound to the conversation; never edit or trim earlier turns

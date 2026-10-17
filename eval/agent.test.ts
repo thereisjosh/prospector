@@ -17,6 +17,7 @@ const tmp = vi.hoisted(() => {
   return { root, runs: join(root, "runs"), workspaces: join(root, "workspaces") };
 });
 import type { SearchPlan } from "../src/plan";
+import { AGENT_DEFAULT_MODEL, AGENT_MODELS } from "../src/agent/config";
 import { createRunState, loadState, saveState, screenedByCode, StaleStateError, type RunState } from "../src/agent/state";
 import { codeHandback, UNVERIFIABLE_WHY, decide, rejectionCounts, step, stopRun } from "../src/agent/loop";
 import { candidateReason } from "../app/ui/copy";
@@ -351,10 +352,14 @@ describe("agent loop", () => {
     expect(s.leads).toEqual([]);
   });
 
-  it("accounts Claude cost from usage including cache tokens", async () => {
-    const s = state();
-    await step(s, { client: client(msg("end_turn", [text("done")], { input_tokens: 1_000_000, output_tokens: 1_000_000, cache_read_input_tokens: 1_000_000, cache_creation_input_tokens: 1_000_000 })) as never, checkLead: checker, now: NOW });
-    expect(s.spend.claude).toBeCloseTo(29.2, 6);
+  it("accounts Claude cost from usage including cache tokens, priced by the model the run uses", async () => {
+    const usage = { input_tokens: 1_000_000, output_tokens: 1_000_000, cache_read_input_tokens: 1_000_000, cache_creation_input_tokens: 1_000_000 };
+    const opus = state({ model: AGENT_MODELS.opus });
+    await step(opus, { client: client(msg("end_turn", [text("done")], usage)) as never, checkLead: checker, now: NOW });
+    expect(opus.spend.claude).toBeCloseTo(29.2, 6);
+    const sonnet = state(); // the default model
+    await step(sonnet, { client: client(msg("end_turn", [text("done")], usage)) as never, checkLead: checker, now: NOW });
+    expect(sonnet.spend.claude).toBeCloseTo(14.7, 6); // 2 + 10 + 0.2 + 2.5
   });
 
   it("memory feeds seen names, appends run outcomes, and preference notes enter the first message", async () => {
@@ -608,6 +613,16 @@ describe("agent loop", () => {
     };
     await step(submit, { client: client(msg("tool_use", [tool("sub", "submit_lead", { company: "GoodCo", signal_url: "https://news.example/good", why_now: "opened warehouse" })])) as never, checkLead: check, now: NOW });
     expect(seenUrls).toEqual(["https://good.example"]);
+  });
+
+  it("agent-loop default is Sonnet 5.5; explicit opus stays Opus; the cost guide follows the model", () => {
+    const dflt = createRunState({ id: "m-default", workspaceId: "w", plan: plan() });
+    expect(dflt.model).toBe("claude-sonnet-5-5");
+    expect(AGENT_DEFAULT_MODEL).toBe(AGENT_MODELS.sonnet);
+    expect(String(dflt.messages[0]?.content)).toContain("each of your turns ≈ $0.01–0.03");
+    const opus = createRunState({ id: "m-opus", workspaceId: "w", plan: plan(), model: AGENT_MODELS.opus });
+    expect(opus.model).toBe("claude-opus-5-5");
+    expect(String(opus.messages[0]?.content)).toContain("each of your turns ≈ $0.03–0.10");
   });
 
   it("A2b #14 createRunState includes the created date in the first user message", async () => {

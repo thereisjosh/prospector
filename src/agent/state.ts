@@ -1,7 +1,7 @@
 import { mkdir, open, readFile, rename, rm, stat, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import type Anthropic from "@anthropic-ai/sdk";
-import { DEFAULT_LIMITS, DEFAULT_MODEL, RUNS_DIR, type AgentModel } from "./config";
+import { AGENT_DEFAULT_MODEL, DEFAULT_LIMITS, RUNS_DIR, type AgentModel } from "./config";
 import { assertRunId } from "./ids";
 import { firstUserMessage } from "./prompts";
 import type { PinnedPrompt } from "./prompt-store";
@@ -157,15 +157,16 @@ export function createRunState(args: {
     preferenceNotes: args.recalled ? args.recalled.prompt.preferences.map(renderPreference) : args.preferenceNotes ?? [],
     ...(args.recalled && args.recalled.prompt.notes.length > 0 ? { recalledNotes: args.recalled.prompt.notes.map(renderNote) } : {}),
   };
+  const model = args.model ?? AGENT_DEFAULT_MODEL;
   return {
     id: args.id,
     version: 0,
     createdAt,
     workspaceId: args.workspaceId,
-    model: args.model ?? DEFAULT_MODEL,
+    model,
     contract,
     initialContract: structuredClone(contract),
-    messages: [{ role: "user", content: firstUserMessage(contract, { today: createdAt.slice(0, 10) }) }],
+    messages: [{ role: "user", content: firstUserMessage(contract, { today: createdAt.slice(0, 10), model }) }],
     status: "running",
     strategyApproved: false,
     spend: { exa: 0, claude: 0, total: 0 },

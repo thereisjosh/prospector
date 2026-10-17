@@ -10,14 +10,14 @@ import "dotenv/config";
 import Anthropic from "@anthropic-ai/sdk";
 import { agentTools } from "../src/agent/tools";
 import { systemPrompt } from "../src/agent/prompts";
-import { DEFAULT_MODEL } from "../src/agent/config";
+import { AGENT_DEFAULT_MODEL } from "../src/agent/config";
 
 async function main() {
   const client = new Anthropic();
   const tools = agentTools();
   try {
     const r = await client.messages.countTokens({
-      model: DEFAULT_MODEL,
+      model: AGENT_DEFAULT_MODEL,
       system: systemPrompt(),
       tools,
       messages: [{ role: "user", content: "ping" }],

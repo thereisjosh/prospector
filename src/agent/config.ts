@@ -7,7 +7,18 @@ export const AGENT_MODELS = {
 
 export type AgentModel = (typeof AGENT_MODELS)[keyof typeof AGENT_MODELS];
 
+/**
+ * Planner / prompt-config default (cards, compile, the Langfuse prompt configs). Stays Opus; the agent loop
+ * has its own default below.
+ */
 export const DEFAULT_MODEL: AgentModel = AGENT_MODELS.opus;
+
+/**
+ * Agent-loop default for live runs (POST /api/runs, eval/run-agent.ts, createRunState): Sonnet 5.5 since
+ * 2026-10-17, after three reps per scenario (docs/DECISIONS.md row 26, docs/EVAL-DETAIL.md). Opus stays
+ * selectable (`model: "opus"` / `--model opus`); the offline lead judge stays Opus.
+ */
+export const AGENT_DEFAULT_MODEL: AgentModel = AGENT_MODELS.sonnet;
 
 /** Moonshot's Anthropic-compatible Messages endpoint (platform.kimi.ai/docs/api/messages; POST {base}/v1/messages). */
 export const KIMI_DEFAULT_BASE_URL = "https://api.moonshot.ai/anthropic";
@@ -54,7 +65,8 @@ export const CLAUDE_PRICES_PER_MILLION: Record<AgentModel, ModelPrices> = Object
 
 /**
  * Context window per model, in tokens. The Claude values are NOT confirmed from the Anthropic docs (nothing in
- * node_modules or docs/ states it for these ids); 200,000 is the conservative assumption. Raise it when verified.
+ * node_modules or docs/ states it for these ids); 200,000 is the conservative assumption for both Opus and
+ * Sonnet. Raise it when verified.
  * kimi-k2.6: 262,144 (Moonshot pricing table; the K2.6 quickstart says "256K").
  */
 export const CONTEXT_WINDOW_TOKENS: Record<AgentModel, number> = Object.fromEntries(

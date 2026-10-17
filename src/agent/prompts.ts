@@ -1,4 +1,4 @@
-import { DEFAULT_LIMITS } from "./config";
+import { AGENT_MODELS, DEFAULT_LIMITS, type AgentModel } from "./config";
 import type { SearchPlan } from "../plan";
 import { repoPin, resolvePrompt, type PinnedPrompt, type PromptConfig, type PromptDef } from "./prompt-store";
 import type { RunState } from "./state";
@@ -107,13 +107,18 @@ type Contract = SearchPlan & {
 
 const list = (items: string[], empty: string) => (items.length > 0 ? items.join(", ") : empty);
 
+/** Per-turn model cost shown in the cost guide, so the approval-card estimate reflects the model that runs. Sonnet: measured 0.004-0.026 per call over six recorded runs (mean about 0.015). */
+function turnCost(model: AgentModel | undefined): string {
+  return model === AGENT_MODELS.sonnet ? "$0.01–0.03" : "$0.03–0.10";
+}
+
 /**
  * Run-specific content: the approved contract, memory from earlier runs, the
  * limits and a cost guide. Plain markdown, because the model reasons about it
  * rather than parsing it. `today` should be passed by the caller (the run's
  * createdAt) so the message is deterministic for replay.
  */
-export function firstUserMessage(contract: Contract, opts: { today?: string } = {}): string {
+export function firstUserMessage(contract: Contract, opts: { today?: string; model?: AgentModel } = {}): string {
   const { employeeRange: size } = contract;
   const required = contract.gateFields.filter((g) => g.required);
   const optional = contract.gateFields.filter((g) => !g.required);
@@ -172,7 +177,7 @@ export function firstUserMessage(contract: Contract, opts: { today?: string } = 
     "## Limits and costs",
     `- Run stops at ${DEFAULT_LIMITS.maxTurns} turns, ${Math.round(DEFAULT_LIMITS.maxActiveMs / 60000)} minutes of work, the budget, or ${DEFAULT_LIMITS.noProgressTurns} turns in a row without a new candidate or accepted lead.`,
     `- At most ${DEFAULT_LIMITS.maxParallelTools} tool calls per turn; extra calls are refused.`,
-    "- Approximate costs: search ≈ $0.02 (10 results) to $0.04 (25 results); company lookup ≈ $0.011 (repeat lookups of the same name are free); page read ≈ $0.002; each of your turns ≈ $0.03–0.10, rising as the conversation grows.",
+    `- Approximate costs: search ≈ $0.02 (10 results) to $0.04 (25 results); company lookup ≈ $0.011 (repeat lookups of the same name are free); page read ≈ $0.002; each of your turns ≈ ${turnCost(opts.model)}, rising as the conversation grows.`,
     "",
     "Start by calling `propose_strategy`.",
   ];
