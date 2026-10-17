@@ -219,6 +219,8 @@ export type TraceScore = {
   value: number | string;
   dataType: "NUMERIC" | "CATEGORICAL" | "BOOLEAN";
   comment?: string;
+  /** Arbitrary score metadata (masked on send). */
+  metadata?: Record<string, unknown>;
 };
 
 export type TurnTrace = {
@@ -968,6 +970,7 @@ function sendScore(sdk: Sdk, s: TraceScore, maskOptions: MaskOptions): void {
     ...(s.observationId ? { observationId: s.observationId } : {}),
     ...(s.sessionId ? { sessionId: s.sessionId } : {}),
     ...(s.comment ? { comment: maskString(s.comment, maskOptions).slice(0, 500) } : {}),
+    ...(s.metadata ? { metadata: mask(s.metadata, maskOptions) } : {}),
   };
   if (sdk.hooks?.onScore) {
     sdk.hooks.onScore({ ...body, environment: process.env.LANGFUSE_TRACING_ENVIRONMENT });
@@ -1037,7 +1040,7 @@ export function score(
   target: { traceId?: string; observationId?: string; sessionId?: string },
   name: string,
   value: number | string,
-  options: { id?: string; comment?: string; dataType?: TraceScore["dataType"]; workspaceId?: string } = {},
+  options: { id?: string; comment?: string; dataType?: TraceScore["dataType"]; workspaceId?: string; metadata?: Record<string, unknown> } = {},
 ): void {
   try {
     if (!enabled()) return;
@@ -1053,6 +1056,7 @@ export function score(
             dataType: options.dataType ?? (typeof value === "string" ? "CATEGORICAL" : "NUMERIC"),
             ...target,
             ...(options.comment ? { comment: options.comment } : {}),
+            ...(options.metadata ? { metadata: options.metadata } : {}),
           },
           { workspaceId: options.workspaceId },
         );
@@ -1085,9 +1089,11 @@ export function emitLeadJudge(request: {
   turn: number;
   toolUseId: string;
   input: unknown;
-  metadata: Record<string, string>;
+  metadata: Record<string, unknown>;
   state?: unknown;
   ts?: string;
+  /** The in-process judge's result: shown as the observation's output, model, usage and cost (a "generation" then, so Langfuse keeps the cost). */
+  judged?: { output: unknown; model: string; inputTokens: number; outputTokens: number; costDollars: number; level?: TraceObservation["level"]; statusMessage?: string };
 }): { traceId: string; observationId: string } | undefined {
   try {
     if (!enabled()) return undefined;
@@ -1106,11 +1112,21 @@ export function emitLeadJudge(request: {
           traceId,
           parentId: observationIdFor(traceId, toolObservationKey(request.toolUseId)),
           name: LEAD_JUDGE_OBSERVATION,
-          type: "event",
+          type: request.judged ? "generation" : "event",
           startTime: ts,
           endTime: ts,
           input: request.input,
           metadata: request.metadata,
+          ...(request.judged
+            ? {
+                output: request.judged.output,
+                model: request.judged.model,
+                usageDetails: { input: request.judged.inputTokens, output: request.judged.outputTokens },
+                costDetails: { total: request.judged.costDollars },
+                ...(request.judged.level ? { level: request.judged.level } : {}),
+                ...(request.judged.statusMessage ? { statusMessage: request.judged.statusMessage } : {}),
+              }
+            : {}),
         },
       ],
       scores: [],

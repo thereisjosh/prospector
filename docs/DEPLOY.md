@@ -32,8 +32,9 @@ Environment variables:
 | `LANGFUSE_PROMPT_LABEL` | `production` | Langfuse prompt label the app fetches (docs/prompts.md). Set `staging` on a staging service to run the staged prompts. |
 | `LANGFUSE_PROMPTS` | unset | Set `off` to ignore Langfuse prompts and run the in-repo text (kill switch; tracing is unaffected). |
 | `TRACE_HMAC_SECRET` | unset | HMAC key that turns the workspace id into the trace `userId`. Without it traces carry no user. Keep it stable: rotating it splits users. |
-| `ONLINE_JUDGE_DAILY_CAP_DOLLARS` | `3` | Daily cap for the managed online judge. `0` turns online judging off. |
-| `ONLINE_JUDGE_COST_PER_LEAD_DOLLARS` | `0.34` | Cost per judged lead used to turn the cap into a daily lead count (cap ÷ cost; samples get at most half). $0.34 is the offline fetch judge's measured cost, an upper bound for the three tool-less managed calls (estimated ≤ $0.07 per lead); lower it once Langfuse shows the real evaluator cost. |
+| `ONLINE_JUDGE_DAILY_CAP_DOLLARS` | `3` | Daily cap, in Jev dollars (real per-call cost), for the in-process online judge. `0` turns online judging off. |
+| `ONLINE_JUDGE_COST_PER_LEAD_DOLLARS` | `0.001` | Dollars reserved per judged lead against the cap; replaced by the real Jev cost when the call returns (about $0.0001 to $0.0003). |
+| `JEV_API_KEY` | unset | Required for online judging in production (Jev, console.typesafe.ai/keys). Unset = no online judge, one warning per process, no fallback. `JEV_BASE_URL` only if proxied. |
 
 Tracing (SPEC-observability §2–§3): every line appended to `runs/<id>/events.jsonl` is also sent to Langfuse, masked, from `src/agent/trace.ts`. Spans are flushed every second; Next.js exits on SIGTERM without waiting, so a redeploy can drop up to about the last second of spans. `npx tsx eval/trace-backfill.ts <run-dir> --environment production` restores a run's missing observations and scores without duplicating the ones Langfuse already has.
 

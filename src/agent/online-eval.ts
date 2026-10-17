@@ -4,12 +4,17 @@
  * At run end, in-process and fire-and-forget:
  *  1. the code graders (`gradeRun`, eval/graders) and outcome scores are posted on the run's
  *     last trace (deterministic score ids, so the hourly worker's re-post is an upsert);
- *  2. accepted leads are selected for the managed LLM-as-a-judge evaluators in Langfuse:
- *     every lead of a run that ended with a handback or an error (priority), else a
- *     deterministic 20% sample, while the day's judged count is under
- *     ONLINE_JUDGE_DAILY_CAP_DOLLARS ÷ ONLINE_JUDGE_COST_PER_LEAD_DOLLARS. A selected lead
- *     gets a `lead-judge` observation; the Langfuse rule matches only that name, so Langfuse
- *     never judges anything we did not select (it has no dollar cap of its own);
+ *  2. accepted leads are selected for the online judge: every lead of a run that ended with a
+ *     handback or an error (priority), else a deterministic 20% sample, while the day's judge
+ *     spend is under ONLINE_JUDGE_DAILY_CAP_DOLLARS. The judge runs IN-PROCESS on Jev
+ *     (src/judges/jev.ts: Langfuse managed evaluators cannot call Jev): one call per selected
+ *     lead asks Q1/Q2/Q3 over the judge payload (with evidence); an answer whose confidence is
+ *     below ONLINE_JUDGE_MIN_CONFIDENCE (0.4) becomes `cannot_verify`. The result is a
+ *     `lead-judge` observation (output, model, usage, costDetails) plus `judge_q1..q3` scores on
+ *     it (source API, metadata.judge = "jev"); the hourly worker derives `judge_good` and queues
+ *     "no" traces. With JEV_API_KEY unset nothing is judged (one warning per process, no
+ *     fallback to another model). The Langfuse rule stays disabled; the managed evaluators are
+ *     for comparison runs only. The offline Opus judge remains the ground truth;
  *  3. runs with a handback, an error or a failed must-pass grader go to the review queue.
  * A 👎 on a lead (feedback route) selects that lead for judging (priority) and queues its trace.
  *
@@ -28,6 +33,8 @@ import { withFileLock, writeFileAtomic } from "./fslock";
 import { judgeContractFromPlan, judgeLeadFromState, judgePayload } from "./judge-input";
 import type { AcceptedLead, RunState } from "./state";
 import { cacheShare } from "./cache-share";
+import { jevLeadJudge, LEAD_QUESTION_IDS, type JevLeadVerdict, type LeadQuestionId } from "../judges/jev";
+import type { JudgeAnswer } from "../../eval/online/judge-prompt";
 import { emitLeadJudge, enabled, trackBackground, enqueueForReview, score, traceIdFor, tracingEnvironment, type TraceScore } from "./trace";
 import type { GradeReport, GraderState } from "../../eval/graders/types";
 
@@ -41,20 +48,23 @@ export const ONLINE_JUDGE_ENVIRONMENTS = ["production"];
 export const ONLINE_JUDGE_SAMPLE_RATE = 0.2;
 /** Samples may use at most this share of the day's judge budget, so flagged leads are never crowded out. */
 export const ONLINE_JUDGE_SAMPLE_SHARE = 0.5;
+/** Jev answers below this confidence count as cannot_verify (decision 2026-10-17; the raw answer stays in the score metadata). Not calibrated on our data. */
+export const ONLINE_JUDGE_MIN_CONFIDENCE = 0.4;
 
 export type JudgeBudget = { capDollars: number; costPerLeadDollars: number; maxPerDay: number; maxSamplesPerDay: number };
 
 /**
- * ONLINE_JUDGE_DAILY_CAP_DOLLARS (default $3; 0 turns online judging off) ÷
- * ONLINE_JUDGE_COST_PER_LEAD_DOLLARS (default $0.34: the measured cost of one offline
- * fetch verdict, an upper bound for the three tool-less managed evaluator calls per lead
- * until their real cost is measured in Langfuse).
+ * ONLINE_JUDGE_DAILY_CAP_DOLLARS (default $3; 0 turns online judging off). The cap is spent in
+ * Jev dollars: a selection reserves ONLINE_JUDGE_COST_PER_LEAD_DOLLARS (default $0.001, a
+ * pessimistic reservation: one Jev call over the payload is ~$0.0003), and once the call
+ * returns the ledger holds the real cost computed from its usage (input tokens x $42/1e9).
+ * `maxPerDay` is the number of reservations the cap allows, used for the samples' share.
  */
 export function judgeBudget(env: Record<string, string | undefined> = process.env): JudgeBudget {
   const capRaw = Number(env.ONLINE_JUDGE_DAILY_CAP_DOLLARS ?? 3);
-  const costRaw = Number(env.ONLINE_JUDGE_COST_PER_LEAD_DOLLARS ?? 0.34);
+  const costRaw = Number(env.ONLINE_JUDGE_COST_PER_LEAD_DOLLARS ?? 0.001);
   const capDollars = Number.isFinite(capRaw) ? Math.max(0, capRaw) : 3;
-  const costPerLeadDollars = Number.isFinite(costRaw) && costRaw > 0 ? costRaw : 0.34;
+  const costPerLeadDollars = Number.isFinite(costRaw) && costRaw > 0 ? costRaw : 0.001;
   const maxPerDay = Math.floor(capDollars / costPerLeadDollars + 1e-9);
   return { capDollars, costPerLeadDollars, maxPerDay, maxSamplesPerDay: Math.floor(maxPerDay * ONLINE_JUDGE_SAMPLE_SHARE) };
 }
@@ -144,7 +154,7 @@ export type JudgeReason = "thumbs_down" | "handback" | "error" | "sample";
 export type OnlineEvalRecord =
   | { kind: "run_end"; ts: string; scores: number; pass: boolean }
   | { kind: "judge_request"; ts: string; lead: string; reason: JudgeReason; priority: "high" | "sample"; traceId: string; observationId: string }
-  | { kind: "judge_skipped"; ts: string; lead: string; reason: JudgeReason; why: "daily_cap" | "no_submit" }
+  | { kind: "judge_skipped"; ts: string; lead: string; reason: JudgeReason; why: "daily_cap" | "no_submit" | "jev_error" }
   | { kind: "review"; ts: string; objectId: string; why: string };
 
 function recordsFile(runId: string): string {
@@ -170,19 +180,21 @@ function ledgerFile(date: Date, dataDir: string): string {
   return join(dataDir, `online-judge-${date.toISOString().slice(0, 10)}.json`);
 }
 
-export type JudgeLedger = { judged: number; samples: number };
+/** `dollars` = Jev spend so far today (reservations replaced by real cost as calls finish). */
+export type JudgeLedger = { judged: number; samples: number; dollars: number };
 
 export async function readJudgeLedger(date = new Date(), dataDir = resolveDataDirs().data): Promise<JudgeLedger> {
   try {
     const raw = JSON.parse(await readFile(ledgerFile(date, dataDir), "utf8")) as Partial<JudgeLedger>;
-    return { judged: Number(raw.judged) || 0, samples: Number(raw.samples) || 0 };
+    return { judged: Number(raw.judged) || 0, samples: Number(raw.samples) || 0, dollars: Number(raw.dollars) || 0 };
   } catch {
-    return { judged: 0, samples: 0 };
+    return { judged: 0, samples: 0, dollars: 0 };
   }
 }
 
 /**
- * Take one judge slot for today (UTC) if the cap allows it. Priority leads may use the whole
+ * Take one judge slot for today (UTC) if the cap allows it: reserves the per-lead estimate in
+ * dollars (`settleJudgeSpend` swaps it for the real cost). Priority leads may use the whole
  * budget; samples only `ONLINE_JUDGE_SAMPLE_SHARE` of it. Read-modify-write under a file lock.
  */
 export async function reserveJudgeSlot(
@@ -195,12 +207,62 @@ export async function reserveJudgeSlot(
   if (budget.maxPerDay <= 0) return false;
   return withFileLock(join(dataDir, ".online-judge.lock"), async () => {
     const ledger = await readJudgeLedger(date, dataDir);
-    if (ledger.judged >= budget.maxPerDay) return false;
+    if (ledger.dollars + budget.costPerLeadDollars > budget.capDollars + 1e-9) return false;
     if (priority === "sample" && ledger.samples >= budget.maxSamplesPerDay) return false;
-    const next = { judged: ledger.judged + 1, samples: ledger.samples + (priority === "sample" ? 1 : 0) };
+    const next: JudgeLedger = { judged: ledger.judged + 1, samples: ledger.samples + (priority === "sample" ? 1 : 0), dollars: ledger.dollars + budget.costPerLeadDollars };
     await writeFileAtomic(ledgerFile(date, dataDir), JSON.stringify(next, null, 2));
     return true;
   });
+}
+
+/** Replace a slot's reserved estimate with what the Jev call really cost (0 when it failed). */
+export async function settleJudgeSpend(
+  actualDollars: number,
+  options: { date?: Date; dataDir?: string; env?: Record<string, string | undefined> } = {},
+): Promise<void> {
+  const date = options.date ?? new Date();
+  const dataDir = options.dataDir ?? resolveDataDirs().data;
+  const { costPerLeadDollars } = judgeBudget(options.env);
+  await withFileLock(join(dataDir, ".online-judge.lock"), async () => {
+    const ledger = await readJudgeLedger(date, dataDir);
+    const dollars = Math.max(0, ledger.dollars - costPerLeadDollars + actualDollars);
+    await writeFileAtomic(ledgerFile(date, dataDir), JSON.stringify({ ...ledger, dollars }, null, 2));
+  });
+}
+
+/* ------------------------------------------------------------------ */
+/* The Jev verdict -> the three scores                                 */
+/* ------------------------------------------------------------------ */
+
+export type ThresholdedAnswer = {
+  question: LeadQuestionId;
+  /** What is written as `judge_<q>`: the raw answer, or cannot_verify when confidence < min. */
+  answer: JudgeAnswer;
+  raw: JudgeAnswer;
+  confidence: number;
+  probabilities: Record<string, number>;
+  thresholded: boolean;
+};
+
+const fmtProbs = (p: Record<string, number>) => `yes ${p.yes?.toFixed(2) ?? "?"} / no ${p.no?.toFixed(2) ?? "?"} / cv ${p.cannot_verify?.toFixed(2) ?? "?"}`;
+
+/** Apply the confidence threshold to a Jev verdict: below `min` the answer is cannot_verify, whatever was raw. */
+export function thresholdVerdict(verdict: JevLeadVerdict, min = ONLINE_JUDGE_MIN_CONFIDENCE): ThresholdedAnswer[] {
+  return LEAD_QUESTION_IDS.map((question) => {
+    const raw = verdict[question]!;
+    const confidence = verdict.confidence[question] ?? 0;
+    const thresholded = confidence < min;
+    return { question, answer: thresholded ? "cannot_verify" : raw, raw, confidence, probabilities: verdict.probabilities[question] ?? {}, thresholded };
+  });
+}
+
+/** The injectable Jev call (tests use a fake fetch instead; this exists so the call site is one line). */
+const judgeCall = (payload: Parameters<typeof jevLeadJudge>[0]) => jevLeadJudge(payload);
+
+let warnedNoKey = false;
+/** Tests: forget that the missing-key warning was printed. */
+export function resetOnlineJudgeWarning(): void {
+  warnedNoKey = false;
 }
 
 /* ------------------------------------------------------------------ */
@@ -239,8 +301,17 @@ function snapshot(state: RunState): RunState {
   return structuredClone({ ...rest, messages: [], caches: { signalsByUrl: {}, enrichmentByName: {}, candidateCompanies: [], searchQueries: [], seenKeys: [] } }) as RunState;
 }
 
+/** Production, a non-zero cap, and a Jev key. Without the key: one warning per process, nothing judged, no other model. */
 function judgeEnabled(): boolean {
-  return ONLINE_JUDGE_ENVIRONMENTS.includes(tracingEnvironment()) && judgeBudget().maxPerDay > 0;
+  if (!ONLINE_JUDGE_ENVIRONMENTS.includes(tracingEnvironment()) || judgeBudget().maxPerDay <= 0) return false;
+  if (!process.env.JEV_API_KEY?.trim()) {
+    if (!warnedNoKey) {
+      warnedNoKey = true;
+      console.warn("[online-eval] JEV_API_KEY is not set: the online lead judge is off (no fallback to another judge). Set it to judge production leads on Jev.");
+    }
+    return false;
+  }
+  return true;
 }
 
 async function requestJudge(
@@ -256,17 +327,50 @@ async function requestJudge(
   const toolUseId = findAcceptedSubmit(events, lead);
   const ts = new Date().toISOString();
   if (!toolUseId) return { kind: "judge_skipped", ts, lead: key, reason, why: "no_submit" };
-  if (!(await reserveJudgeSlot(priority))) return { kind: "judge_skipped", ts, lead: key, reason, why: "daily_cap" };
+  const day = new Date();
+  if (!(await reserveJudgeSlot(priority, { date: day }))) return { kind: "judge_skipped", ts, lead: key, reason, why: "daily_cap" };
   const contract = judgeContractFromPlan(state.contract, new Date(state.createdAt));
+  const input = judgePayload({ ...judgeLeadFromState(lead), contract });
+  const metadata = { eval_priority: priority, eval_reason: reason, lead_key: key, judge: "jev" };
+  let verdict: JevLeadVerdict;
+  try {
+    verdict = await judgeCall(input);
+  } catch (error) {
+    // Nothing was billed (or we cannot tell): release the reservation, record why, never throw into the loop.
+    await settleJudgeSpend(0, { date: day }).catch(() => undefined);
+    const message = error instanceof Error ? error.message : String(error);
+    console.warn(`[online-eval] Jev judge failed for ${key}: ${message.slice(0, 300)}`);
+    emitLeadJudge({ runId: state.id, turn: lead.turn, toolUseId, input, metadata: { ...metadata, jev_error: message.slice(0, 300) }, state, ts });
+    return { kind: "judge_skipped", ts, lead: key, reason, why: "jev_error" };
+  }
+  await settleJudgeSpend(verdict.costDollars, { date: day }).catch(() => undefined);
+  const answers = thresholdVerdict(verdict);
   const emitted = emitLeadJudge({
     runId: state.id,
     turn: lead.turn,
     toolUseId,
-    input: judgePayload({ ...judgeLeadFromState(lead), contract }),
-    metadata: { eval_priority: priority, eval_reason: reason, lead_key: key },
+    input,
+    metadata: { ...metadata, jev_cost_dollars: verdict.costDollars },
     state,
     ts,
+    judged: {
+      output: Object.fromEntries(answers.map((a) => [`judge_${a.question}`, { answer: a.answer, raw: a.raw, confidence: a.confidence, probabilities: a.probabilities }])),
+      model: verdict.model,
+      inputTokens: verdict.inputTokens,
+      outputTokens: 0,
+      costDollars: verdict.costDollars,
+    },
   });
+  if (emitted) {
+    for (const a of answers) {
+      score({ traceId: emitted.traceId, observationId: emitted.observationId }, `judge_${a.question}`, a.answer, {
+        dataType: "CATEGORICAL",
+        workspaceId: state.workspaceId,
+        comment: `jev ${verdict.model}: raw ${a.raw}, confidence ${a.confidence.toFixed(2)}${a.thresholded ? ` < ${ONLINE_JUDGE_MIN_CONFIDENCE} -> cannot_verify` : ""}; ${fmtProbs(a.probabilities)}`,
+        metadata: { judge: "jev", model: verdict.model, question: a.question, raw_answer: a.raw, confidence: a.confidence, probabilities: a.probabilities, threshold: ONLINE_JUDGE_MIN_CONFIDENCE, thresholded: a.thresholded, cost_dollars: verdict.costDollars },
+      });
+    }
+  }
   if (!emitted) return undefined;
   done.add(key);
   return { kind: "judge_request", ts, lead: key, reason, priority, ...emitted };

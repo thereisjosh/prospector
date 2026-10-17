@@ -212,8 +212,11 @@ async function processJudgeScores(deps: Required<Pick<WorkerDeps, "langfuse" | "
       const page = rec(
         await deps.langfuse.api.scoresV3.getManyV3({
           name,
-          // Only the managed evaluators' verdicts: human labels in review-queue share these names.
-          source: "EVAL",
+          // The online verdicts only: the in-process Jev judge writes source API (EVAL is reserved
+          // for Langfuse's own evaluators and cannot be created through the API) and the managed
+          // evaluators, when run for comparison, write EVAL. Human labels in review-queue are
+          // ANNOTATION and share these names, so they are excluded.
+          source: "EVAL,API",
           environment: "production",
           fromTimestamp: deps.since,
           limit: 100,
@@ -255,7 +258,7 @@ async function processJudgeScores(deps: Required<Pick<WorkerDeps, "langfuse" | "
       value,
       dataType: "BOOLEAN",
       environment: "production",
-      comment: `managed judge: q1=${q1} q2=${q2} q3=${q3}`,
+      comment: `online judge: q1=${q1} q2=${q2} q3=${q3}`,
     };
     if (deps.dryRun) deps.log.log(`[dry-run] score judge_good ${observationId}`);
     else deps.langfuse.score.create(body);

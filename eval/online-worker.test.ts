@@ -195,6 +195,8 @@ describe("online evals worker", () => {
     };
     const first = makeDeps({ scores });
     const summary = await runWorker(first.deps);
+    // Online verdicts only: API (in-process Jev judge) and EVAL (managed evaluators); never ANNOTATION (human labels).
+    for (const [req] of first.langfuse.api.scoresV3.getManyV3.mock.calls) expect(req).toMatchObject({ source: "EVAL,API", environment: "production" });
     expect(summary.judgeGoodPosted).toBe(2);
     expect(first.postedScores.filter((body) => body.name === "judge_good").map((body) => body.value)).toEqual([0, 1]);
     expect(first.queueCreates).toEqual([{ objectId: traceNo, objectType: "TRACE", status: "PENDING" }]);

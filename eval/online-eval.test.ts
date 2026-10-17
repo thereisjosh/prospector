@@ -33,6 +33,10 @@ import {
   readJudgeLedger,
   readOnlineEvalRecords,
   reserveJudgeSlot,
+  resetOnlineJudgeWarning,
+  settleJudgeSpend,
+  thresholdVerdict,
+  ONLINE_JUDGE_MIN_CONFIDENCE,
   runEnded,
   runEndScores,
   runScoreId,
@@ -42,6 +46,8 @@ import { gradeRun } from "./graders";
 import { userPrompt } from "./harness/judge";
 import type { BlindLead } from "./harness/blind";
 import type { AgentEvent } from "../src/agent/events";
+import { runWorker } from "./online/worker";
+import { jevCostDollars, type JevLeadVerdict } from "../src/judges/jev";
 import { POST as feedbackPOST } from "../app/api/workspaces/[id]/feedback/route";
 
 const WS = "ws-online-eval-01";
@@ -133,6 +139,36 @@ class FakeExporter implements SpanExporter {
   async forceFlush(): Promise<void> {}
 }
 
+/** A fake Jev server: answers per question from `jevAnswers`, bills 2,500 input tokens per call. */
+type JevPlan = { choice: string; probs?: Record<string, number>; confidence: number };
+let jevPlans: Record<string, JevPlan>;
+let jevCalls: Array<{ url: string; auth: string; body: { state: unknown; questions: Record<string, unknown> } }>;
+let jevFail: { status: number } | undefined;
+const yes: JevPlan = { choice: "yes", confidence: 0.95 };
+
+function installFakeJev() {
+  jevCalls = [];
+  jevFail = undefined;
+  jevPlans = { q1: yes, q2: yes, q3: yes };
+  vi.stubGlobal(
+    "fetch",
+    vi.fn(async (url: string, init: { headers: Record<string, string>; body: string }) => {
+      const body = JSON.parse(init.body) as { state: unknown; questions: Record<string, unknown> };
+      jevCalls.push({ url: String(url), auth: init.headers.Authorization!, body });
+      if (jevFail) return new Response("boom", { status: jevFail.status });
+      const answers = Object.fromEntries(
+        Object.keys(body.questions).map((id) => {
+          const plan = jevPlans[id]!;
+          const probabilities = plan.probs ?? { yes: plan.choice === "yes" ? 0.9 : 0.05, no: plan.choice === "no" ? 0.9 : 0.05, cannot_verify: plan.choice === "cannot_verify" ? 0.9 : 0.05 };
+          return [id, { type: "choice", choice: plan.choice, probabilities, confidence: plan.confidence }];
+        }),
+      );
+      return new Response(JSON.stringify({ model: "jev-1.13.0", answers, usage: { input_tokens: 2500, output_tokens: 0 } }), { status: 200 });
+    }),
+  );
+}
+const JEV_COST = jevCostDollars(2500);
+
 let exporter: FakeExporter;
 let scores: Array<Record<string, unknown>>;
 let queued: Array<{ queue: string; objectId: string; objectType: string }>;
@@ -160,7 +196,7 @@ async function judgedOnRunDays() {
   const a = await readJudgeLedger(NOW, tmp.root);
   if (new Date().toISOString().slice(0, 10) === NOW.toISOString().slice(0, 10)) return a;
   const b = await readJudgeLedger(new Date(), tmp.root);
-  return { judged: a.judged + b.judged, samples: a.samples + b.samples };
+  return { judged: a.judged + b.judged, samples: a.samples + b.samples, dollars: a.dollars + b.dollars };
 }
 
 async function clearLedgers() {
@@ -171,9 +207,14 @@ beforeEach(async () => {
   await clearLedgers();
   delete process.env.ONLINE_JUDGE_DAILY_CAP_DOLLARS;
   delete process.env.ONLINE_JUDGE_COST_PER_LEAD_DOLLARS;
+  process.env.JEV_API_KEY = "jev-test-key";
+  resetOnlineJudgeWarning();
+  installFakeJev();
 });
 
 afterEach(async () => {
+  vi.unstubAllGlobals();
+  delete process.env.JEV_API_KEY;
   process.env.LANGFUSE_PUBLIC_KEY = "";
   process.env.LANGFUSE_SECRET_KEY = "";
   process.env.LANGFUSE_TRACING_ENVIRONMENT = "ci";
@@ -242,7 +283,12 @@ describe("run-end scores (code graders + outcomes)", () => {
     expect(span.attributes["langfuse.observation.metadata.eval_reason"]).toBe("handback");
     expect(span.attributes["langfuse.environment"]).toBe("production");
 
-    expect(await judgedOnRunDays()).toEqual({ judged: 1, samples: 0 });
+    expect(span.attributes["langfuse.observation.metadata.judge"]).toBe("jev");
+    expect(jevCalls).toHaveLength(1);
+    expect(jevCalls[0]!.auth).toBe("Bearer jev-test-key");
+    expect(jevCalls[0]!.body.state).toEqual(input);
+    expect(Object.keys(jevCalls[0]!.body.questions)).toEqual(["q1", "q2", "q3"]);
+    expect(await judgedOnRunDays()).toMatchObject({ judged: 1, samples: 0 });
     const lastTrace = traceIdFor(runId, Math.max(...events.map((e) => e.turn)), "production");
     expect(queued).toEqual([{ queue: "review-queue", objectId: lastTrace, objectType: "TRACE" }]);
 
@@ -265,7 +311,8 @@ describe("run-end scores (code graders + outcomes)", () => {
 
   it("a 👎 selects an unjudged lead (thumbs_down, priority); a 👍 does nothing", async () => {
     await tracingOn();
-    process.env.ONLINE_JUDGE_DAILY_CAP_DOLLARS = "0.5"; // one lead per day at $0.34
+    process.env.ONLINE_JUDGE_DAILY_CAP_DOLLARS = "0.5";
+    process.env.ONLINE_JUDGE_COST_PER_LEAD_DOLLARS = "0.34"; // one lead per day
     const runId = "0e0e0e0e-0000-4000-8000-000000000003";
     // Use up today's only slot first, so the run-end selection is skipped (daily_cap)… (the
     // background work may see the faked run date or the real one: fill both days).
@@ -277,6 +324,7 @@ describe("run-end scores (code graders + outcomes)", () => {
     expect((await readOnlineEvalRecords(runId)).find((r) => r.kind === "judge_skipped")).toMatchObject({ why: "daily_cap", reason: "handback" });
     // …then a new day: the 👎 gets judged.
     await clearLedgers();
+    delete process.env.ONLINE_JUDGE_COST_PER_LEAD_DOLLARS;
     const lead = s.leads[0]!;
     const post = (verdict: "up" | "down") =>
       feedbackPOST(
@@ -319,7 +367,8 @@ describe("never on demo runs, never without Langfuse, never outside production f
     await settle();
     expect(sink).toHaveLength(0);
     expect(existsSync(join(tmp.runs, runId, "online-evals.jsonl"))).toBe(false);
-    expect(await judgedOnRunDays()).toEqual({ judged: 0, samples: 0 });
+    expect(await judgedOnRunDays()).toEqual({ judged: 0, samples: 0, dollars: 0 });
+    expect(jevCalls).toHaveLength(0);
   });
 
   it("outside the production environment the graders still score, but no lead is selected for the judge", async () => {
@@ -329,12 +378,13 @@ describe("never on demo runs, never without Langfuse, never outside production f
     await settle();
     expect(scores.some((b) => b.name === "must_pass")).toBe(true);
     expect(exporter.spans.filter((sp) => sp.name === LEAD_JUDGE_OBSERVATION)).toHaveLength(0);
+    expect(jevCalls).toHaveLength(0);
   });
 });
 
 describe("daily judge cap", () => {
-  it("is ONLINE_JUDGE_DAILY_CAP_DOLLARS ÷ ONLINE_JUDGE_COST_PER_LEAD_DOLLARS, with samples limited to half", () => {
-    expect(judgeBudget({})).toEqual({ capDollars: 3, costPerLeadDollars: 0.34, maxPerDay: 8, maxSamplesPerDay: 4 });
+  it("is ONLINE_JUDGE_DAILY_CAP_DOLLARS in Jev dollars; the per-lead reservation sets the samples' share", () => {
+    expect(judgeBudget({})).toEqual({ capDollars: 3, costPerLeadDollars: 0.001, maxPerDay: 3000, maxSamplesPerDay: 1500 });
     expect(judgeBudget({ ONLINE_JUDGE_DAILY_CAP_DOLLARS: "0" }).maxPerDay).toBe(0);
     expect(judgeBudget({ ONLINE_JUDGE_DAILY_CAP_DOLLARS: "1", ONLINE_JUDGE_COST_PER_LEAD_DOLLARS: "0.25" })).toMatchObject({ maxPerDay: 4, maxSamplesPerDay: 2 });
   });
@@ -349,7 +399,7 @@ describe("daily judge cap", () => {
     const high = [];
     for (let i = 0; i < 3; i += 1) high.push(await reserveJudgeSlot("high", opts));
     expect(high).toEqual([true, true, false]);
-    expect(await readJudgeLedger(date, tmp.root)).toEqual({ judged: 4, samples: 2 });
+    expect(await readJudgeLedger(date, tmp.root)).toEqual({ judged: 4, samples: 2, dollars: 1 });
     // Concurrent reservations never overshoot (file lock).
     const date2 = new Date("2026-11-02T12:00:00Z");
     const results = await Promise.all(Array.from({ length: 10 }, () => reserveJudgeSlot("high", { ...opts, date: date2 })));
@@ -362,6 +412,175 @@ describe("daily judge cap", () => {
     expect(share).toBeGreaterThan(0.17);
     expect(share).toBeLessThan(0.23);
     expect(keys.map((k) => inJudgeSample("run-x", k))).toEqual(keys.map((k) => inJudgeSample("run-x", k)));
+  });
+});
+
+describe("online judge on Jev (in-process)", () => {
+  const judgeSpans = () => exporter.spans.filter((sp) => sp.name === LEAD_JUDGE_OBSERVATION);
+  const judgeScores = () => scores.filter((b) => String(b.name).startsWith("judge_q"));
+
+  it("writes judge_q1..q3 on the lead-judge observation with the raw verdict in metadata, logs cost, and applies the 0.4 confidence threshold", async () => {
+    await tracingOn();
+    jevPlans = { q1: yes, q2: { choice: "no", confidence: 0.7 }, q3: { choice: "yes", confidence: 0.31 } };
+    const runId = "0e0e0e0e-0000-4000-8000-000000000011";
+    const s = await runScenario(runId);
+    await settle();
+    const lead = s.leads[0]!;
+    const leadTrace = traceIdFor(runId, lead.turn, "production");
+    const obs = judgeSpans()[0]!;
+    const obsId = obs.spanContext().spanId;
+
+    const byName = Object.fromEntries(judgeScores().map((b) => [b.name, b]));
+    expect(Object.keys(byName).sort()).toEqual(["judge_q1", "judge_q2", "judge_q3"]);
+    for (const b of Object.values(byName)) expect(b).toMatchObject({ dataType: "CATEGORICAL", traceId: leadTrace, observationId: obsId });
+    expect(byName.judge_q1).toMatchObject({ value: "yes" });
+    expect(byName.judge_q2).toMatchObject({ value: "no" });
+    // 0.31 < 0.4: a "yes" the judge was not sure of is cannot_verify; the raw answer is kept.
+    expect(byName.judge_q3).toMatchObject({ value: "cannot_verify" });
+    expect(byName.judge_q3!.metadata).toMatchObject({ judge: "jev", model: "jev-1.13.0", question: "q3", raw_answer: "yes", confidence: 0.31, threshold: 0.4, thresholded: true });
+    expect((byName.judge_q3!.metadata as { probabilities: Record<string, number> }).probabilities.yes).toBe(0.9);
+    expect(String(byName.judge_q3!.comment)).toContain("raw yes");
+    expect(byName.judge_q2!.metadata).toMatchObject({ raw_answer: "no", thresholded: false });
+
+    // Cost is on the observation (a generation with model, usage and costDetails).
+    expect(obs.attributes["langfuse.observation.type"]).toBe("generation");
+    expect(obs.attributes["langfuse.observation.model.name"]).toBe("jev-1.13.0");
+    expect(JSON.parse(String(obs.attributes["langfuse.observation.cost_details"]))).toEqual({ total: JEV_COST });
+    expect(JSON.parse(String(obs.attributes["langfuse.observation.usage_details"]))).toEqual({ input: 2500, output: 0 });
+    const out = JSON.parse(String(obs.attributes["langfuse.observation.output"]));
+    expect(out.judge_q3).toMatchObject({ answer: "cannot_verify", raw: "yes" });
+
+    // The ledger holds the real cost, not the reservation.
+    const ledger = await judgedOnRunDays();
+    expect(ledger.judged).toBe(1);
+    expect(ledger.dollars).toBeCloseTo(JEV_COST, 10);
+  });
+
+  it("thresholdVerdict: below 0.4 is cannot_verify, at 0.4 the raw answer stands", () => {
+    const verdict: JevLeadVerdict = {
+      q1: "yes", q2: "no", q3: "cannot_verify",
+      probabilities: { q1: { yes: 0.5 }, q2: { no: 0.4 }, q3: { cannot_verify: 0.9 } },
+      confidence: { q1: 0.399, q2: 0.4, q3: 0.1 },
+      costDollars: 0, inputTokens: 0, model: "m",
+    };
+    expect(ONLINE_JUDGE_MIN_CONFIDENCE).toBe(0.4);
+    expect(thresholdVerdict(verdict).map((a) => [a.answer, a.raw, a.thresholded])).toEqual([["cannot_verify", "yes", true], ["no", "no", false], ["cannot_verify", "cannot_verify", true]]);
+  });
+
+  it("the hourly worker picks these scores up (source EVAL,API), derives judge_good and queues the trace of a no", async () => {
+    await tracingOn();
+    jevPlans = { q1: yes, q2: { choice: "no", confidence: 0.8 }, q3: yes };
+    const runId = "0e0e0e0e-0000-4000-8000-000000000012";
+    const s = await runScenario(runId);
+    await settle();
+    const leadTrace = traceIdFor(runId, s.leads[0]!.turn, "production");
+    const obsId = judgeSpans()[0]!.spanContext().spanId;
+    const stored = judgeScores();
+    expect(stored).toHaveLength(3);
+
+    const posted: Array<Record<string, unknown>> = [];
+    const queueCreates: Array<Record<string, unknown>> = [];
+    const requests: Array<Record<string, unknown>> = [];
+    const json = (d: unknown) => new Response(JSON.stringify(d), { status: 200, headers: { "content-type": "application/json" } });
+    const summary = await runWorker({
+      fetch: (async (url: string | URL) => (String(url).includes("/runs/export") ? json({ runs: [] }) : json([]))) as never,
+      env: { APP_URL: "https://app.example.com", ADMIN_TOKEN: "t".repeat(32), GITHUB_TOKEN: "g", GITHUB_REPOSITORY: "o/r" },
+      now: () => NOW,
+      log: { log: () => undefined, warn: () => undefined, error: () => undefined },
+      langfuse: {
+        score: { create: (b: Record<string, unknown>) => posted.push(b), flush: async () => undefined },
+        api: {
+          projects: { get: async () => ({ id: "p" }) },
+          scoresV3: {
+            getManyV3: async (req?: Record<string, unknown>) => {
+              requests.push(req ?? {});
+              if (req?.cursor) return { data: [], meta: {} };
+              // What Langfuse returns for API-source scores: value as string, subject = the observation.
+              return { data: stored.filter((b) => b.name === req?.name).map((b) => ({ name: b.name, value: b.value, source: "API", subject: { kind: "observation", id: b.observationId, traceId: b.traceId } })), meta: {} };
+            },
+          },
+          annotationQueues: {
+            listQueues: async () => ({ data: [{ id: "q", name: "review-queue" }], meta: { totalPages: 1 } }),
+            listQueueItems: async () => ({ data: [], meta: { totalPages: 1 } }),
+            createQueueItem: async (_q: string, b: Record<string, unknown>) => (queueCreates.push(b), {}),
+          },
+        },
+      },
+    });
+    expect(requests.every((r) => r.source === "EVAL,API")).toBe(true);
+    expect(summary).toMatchObject({ judgeGoodPosted: 1, queued: 1 });
+    expect(posted.find((b) => b.name === "judge_good")).toMatchObject({ value: 0, observationId: obsId, traceId: leadTrace });
+    expect(queueCreates).toEqual([{ objectId: leadTrace, objectType: "TRACE", status: "PENDING" }]);
+  });
+
+  it("the cap is enforced in Jev dollars: reservations count until the real cost replaces them", async () => {
+    const env = { ONLINE_JUDGE_DAILY_CAP_DOLLARS: "0.001", ONLINE_JUDGE_COST_PER_LEAD_DOLLARS: "0.0004" };
+    const date = new Date("2026-11-05T12:00:00Z");
+    const opts = { date, dataDir: tmp.root, env };
+    expect(await reserveJudgeSlot("high", opts)).toBe(true);
+    expect(await reserveJudgeSlot("high", opts)).toBe(true);
+    expect(await reserveJudgeSlot("high", opts)).toBe(false); // 0.0012 > 0.001
+    // Both calls came back cheaper than the reservation: room for another.
+    await settleJudgeSpend(0.0001, opts);
+    await settleJudgeSpend(0.0001, opts);
+    expect((await readJudgeLedger(date, tmp.root)).dollars).toBeCloseTo(0.0002, 10);
+    expect(await reserveJudgeSlot("high", opts)).toBe(true);
+    expect(await reserveJudgeSlot("high", opts)).toBe(true);
+    expect(await reserveJudgeSlot("high", opts)).toBe(false);
+  });
+
+  it("with the daily cap spent no Jev call is made and the lead is logged as skipped", async () => {
+    await tracingOn();
+    process.env.ONLINE_JUDGE_DAILY_CAP_DOLLARS = "0.001";
+    process.env.ONLINE_JUDGE_COST_PER_LEAD_DOLLARS = "0.001";
+    for (const d of [NOW, new Date()]) expect(await reserveJudgeSlot("high", { date: d, dataDir: tmp.root })).toBe(true);
+    const runId = "0e0e0e0e-0000-4000-8000-000000000013";
+    await runScenario(runId);
+    await settle();
+    expect(jevCalls).toHaveLength(0);
+    expect(judgeScores()).toHaveLength(0);
+    expect((await readOnlineEvalRecords(runId)).find((r) => r.kind === "judge_skipped")).toMatchObject({ why: "daily_cap" });
+  });
+
+  it("without JEV_API_KEY nothing is judged, nothing falls back, and the warning prints once per process", async () => {
+    await tracingOn();
+    delete process.env.JEV_API_KEY;
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => undefined);
+    try {
+      await runScenario("0e0e0e0e-0000-4000-8000-000000000014");
+      await settle();
+      await runScenario("0e0e0e0e-0000-4000-8000-000000000015");
+      await settle();
+      expect(jevCalls).toHaveLength(0);
+      expect(judgeSpans()).toHaveLength(0);
+      expect(judgeScores()).toHaveLength(0);
+      expect(scores.some((b) => b.name === "must_pass")).toBe(true); // the code graders still ran
+      expect(await judgedOnRunDays()).toEqual({ judged: 0, samples: 0, dollars: 0 });
+      expect(warn.mock.calls.filter((c) => String(c[0]).includes("JEV_API_KEY is not set"))).toHaveLength(1);
+    } finally {
+      warn.mockRestore();
+    }
+  });
+
+  it("a Jev error never fails the run: it is logged, no scores are written, the reservation is released", async () => {
+    await tracingOn();
+    jevFail = { status: 500 };
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => undefined);
+    try {
+      const runId = "0e0e0e0e-0000-4000-8000-000000000016";
+      const s = await runScenario(runId);
+      expect(s.status).toBe("done");
+      await settle();
+      expect(jevCalls.length).toBeGreaterThan(0);
+      expect(judgeScores()).toHaveLength(0);
+      expect((await readOnlineEvalRecords(runId)).find((r) => r.kind === "judge_skipped")).toMatchObject({ why: "jev_error" });
+      expect((await judgedOnRunDays()).dollars).toBeCloseTo(0, 10);
+      expect(scores.some((b) => b.name === "must_pass")).toBe(true);
+      expect(queued.length).toBe(1); // the handback still queues the run
+      expect(warn.mock.calls.some((c) => String(c[0]).includes("Jev judge failed"))).toBe(true);
+    } finally {
+      warn.mockRestore();
+    }
   });
 });
 

@@ -307,6 +307,8 @@ export async function setupLangfuse(options: { dryRun?: boolean; enableRule?: bo
   const rule = await ensureRule(client.api, evaluators, !!options.enableRule, dryRun, log);
   await ensureCalibration(client, rubric, dryRun, log);
   log("");
+  log("note: the online lead judge runs in-process on Jev (src/agent/online-eval.ts, needs JEV_API_KEY): it writes judge_q1..q3 itself, so keep this rule DISABLED (it would judge the same leads a second time on Opus).");
+  log("      The managed evaluators above are for comparison runs only.");
   log(`evaluators:   ${uiLink(project, "evals")}`);
   for (const [q, e] of evaluators) log(`  ${q}: ${uiLink(project, `evals/${e.id}`)}`);
   if (rule) log(`rule:         ${RULE_NAME} (${rule.id}), enabled ${rule.enabled}`);
