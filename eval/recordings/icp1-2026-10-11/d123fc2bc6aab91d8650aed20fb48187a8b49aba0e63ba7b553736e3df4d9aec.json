@@ -1,0 +1,159 @@
+{
+  "request": {
+    "query": "Davidson Logistics",
+    "category": "company",
+    "numResults": 2,
+    "contents": {
+      "summary": {
+        "query": "Firmographics for this company: description, industry, employee estimate, whether it is a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator, whether it is public or enterprise scale, and headquarters. Answer each as a boolean. is_third_party_logistics (true/false): Is this company itself a third-party logistics/3PL, freight, warehousing, fulfillment, last-mile, or logistics operator (not a retailer, consumer brand, manufacturer, or software/robotics vendor)?",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "employee_estimate": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "is_public_or_enterprise": {
+              "type": "boolean"
+            },
+            "hq": {
+              "type": "string"
+            },
+            "is_third_party_logistics": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "description",
+            "industry",
+            "employee_estimate",
+            "is_public_or_enterprise",
+            "hq",
+            "is_third_party_logistics"
+          ]
+        }
+      },
+      "livecrawl": "fallback"
+    }
+  },
+  "response": {
+    "requestId": "902f868b995019d2f3dc4ff55800aa65",
+    "resolvedSearchType": "",
+    "results": [
+      {
+        "id": "https://exa.ai/library/organization/c7fgm29kn45",
+        "title": "Davidson Logistics",
+        "url": "https://davidsonsurfaceair.com/",
+        "summary": "{\"description\":\"Davidson Logistics is a Transportation, Logistics, Supply Chain and Storage company.\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"employee_estimate\":50,\"is_public_or_enterprise\":false,\"hq\":\"Saint Louis, Missouri, United States\",\"is_third_party_logistics\":true}",
+        "image": "https://media.licdn.com/dms/image/v2/C4E0BAQEtp4lKQ-hAqw/company-logo_200_200/company-logo_200_200/0/1631335783578?e=2147483647&v=beta&t=369naBn6uMQ-Ne0R3fnUMsqDseigAel_0xjLQ_AZl4k",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/c7fgm29kn45",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Davidson Logistics",
+              "foundedYear": 1981,
+              "description": null,
+              "workforce": {
+                "total": 50
+              },
+              "headquarters": {
+                "address": "11990 Missouri Bottom Road, Saint Louis, Missouri 63042, US",
+                "city": "Saint Louis",
+                "postalCode": null,
+                "country": "United States"
+              },
+              "financials": null,
+              "webTraffic": null,
+              "research": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "https://exa.ai/library/organization/zgqpfh0zgtj",
+        "title": "Davidson Logistics, Inc.",
+        "url": "https://davidson-logistics-inc.breezy.hr/",
+        "summary": "{\"description\":\"Davidson Logistics, Inc. is a Transportation, Logistics, Supply Chain and Storage company aiming to recruit team players with a can-do attitude.\",\"industry\":\"Transportation, Logistics, Supply Chain and Storage\",\"employee_estimate\":1,\"is_public_or_enterprise\":false,\"hq\":\"Nigeria (implied by workforce breakdown)\",\"is_third_party_logistics\":true}",
+        "image": "https://static.licdn.com/aero-v1/sc/h/cs8pjfgyw96g44ln9r7tct85f",
+        "entities": [
+          {
+            "id": "https://exa.ai/library/organization/zgqpfh0zgtj",
+            "type": "company",
+            "version": 1,
+            "properties": {
+              "name": "Davidson Logistics, Inc.",
+              "foundedYear": null,
+              "description": "Davidson Logistics is a company that is looking for team players with a \"can-do\" attitude to join their growing team.",
+              "workforce": {
+                "total": 1
+              },
+              "headquarters": null,
+              "financials": null,
+              "webTraffic": {
+                "visitsMonthly": 0,
+                "countryRank": null,
+                "avgDurationSeconds": 0,
+                "history": [
+                  {
+                    "value": 18823,
+                    "dateFrom": "2026-04",
+                    "dateTo": "2026-04"
+                  },
+                  {
+                    "value": 17507,
+                    "dateFrom": "2026-05",
+                    "dateTo": "2026-05"
+                  },
+                  {
+                    "value": 21332,
+                    "dateFrom": "2026-06",
+                    "dateTo": "2026-06"
+                  },
+                  {
+                    "value": 18675,
+                    "dateFrom": "2026-07",
+                    "dateTo": "2026-07"
+                  },
+                  {
+                    "value": 2470,
+                    "dateFrom": "2026-08",
+                    "dateTo": "2026-08"
+                  },
+                  {
+                    "value": 0,
+                    "dateFrom": "2026-10",
+                    "dateTo": "2026-10"
+                  }
+                ]
+              },
+              "research": null
+            }
+          }
+        ]
+      }
+    ],
+    "searchTime": 3320.4,
+    "costDollars": {
+      "total": 0.009,
+      "search": {
+        "neural": 0.007
+      },
+      "summary": 0.002
+    }
+  }
+}

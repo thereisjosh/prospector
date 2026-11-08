@@ -53,6 +53,16 @@ function host(url: string): string {
   }
 }
 
+/** Only http(s) URLs may become links; anything else (javascript:, data:, ...) renders as text. */
+function isHttpUrl(url: string): boolean {
+  try {
+    const { protocol } = new URL(url);
+    return protocol === "http:" || protocol === "https:";
+  } catch {
+    return false;
+  }
+}
+
 function barWidth(value: number): string {
   return `${Math.round(Math.max(0, Math.min(1, value)) * 100)}%`;
 }
@@ -402,10 +412,12 @@ function ResultRow({ row, index }: { row: ProspectRow; index: number }) {
         <span className="conf-value">{row.confidence_score.toFixed(2)}</span>
       </div>
       <div className="cell-source">
-        {row.signal_source_url ? (
+        {row.signal_source_url && isHttpUrl(row.signal_source_url) ? (
           <a href={row.signal_source_url} target="_blank" rel="noopener noreferrer">
             {host(row.signal_source_url)} <ArrowUpRight />
           </a>
+        ) : row.signal_source_url ? (
+          <span className="no-source">{host(row.signal_source_url) || "unsafe link"}</span>
         ) : (
           <span className="no-source">—</span>
         )}

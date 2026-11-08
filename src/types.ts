@@ -5,40 +5,22 @@ export type SignalSummary = {
   signal_type: string;
   signal_summary: string;
   signal_date: string;
+  /** Pre-screen answers from the signal summary (see buildSignalSchema). */
+  company_scale_guess?: string;
+  prescreen?: Record<string, string>;
 };
 
 export type CompanySummary = {
   description?: string;
   industry?: string;
   employee_estimate?: number | string;
-  is_third_party_logistics?: boolean;
-  is_b2b_saas_or_marketplace?: boolean;
-  is_payments_company_or_psp?: boolean;
-  is_b2b_company?: boolean;
-  recently_funded_seed_or_series_a?: boolean;
-  hiring_first_ops_or_revops?: boolean;
   is_public_or_enterprise?: boolean;
   hq?: string;
+  /** Plan-generated boolean gates (see SearchPlan.gateFields). */
+  [gateKey: string]: unknown;
 };
 
 export type IcpId = 1 | 2 | 3;
-
-export type IcpConfig = {
-  id: IcpId;
-  name: string;
-  months: number;
-  employeeRange: {
-    min: number;
-    max: number;
-    unknownPolicy: "allow-if-not-enterprise" | "reject";
-  };
-  allowedHqCountries: string[];
-  signalQueries: string[];
-  summaryQuery: string;
-  companySummaryQuery: string;
-  baseline: readonly string[];
-  enrichmentLimit: number;
-};
 
 export type ExaCostDollars = {
   total?: number;
@@ -78,6 +60,8 @@ export type ProspectRow = {
   signal_strength: string;
   signal_source_url: string;
   signal_date: string;
+  /** "signal" = the model's event date was plausible; "published_fallback" = it was not, so publishedDate was used. */
+  date_source?: "signal" | "published_fallback";
   confidence_score: number;
   freshness_score: number;
   net_new: boolean;

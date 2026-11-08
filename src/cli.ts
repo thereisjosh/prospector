@@ -1,10 +1,12 @@
-import { getIcpConfig, ICP_CONFIGS, parseSearchType, requireEnv } from "./config";
+import { parseSearchType, requireEnv } from "./config";
 import { runProspect } from "./pipeline";
-import type { IcpId, ProspectRow } from "./types";
+import { V1_PLANS } from "../eval/fixtures/v1-plans";
+import type { ProspectRow } from "./types";
 
 type Args = {
   icp: string;
   type?: string;
+  maxCost?: string;
 };
 
 async function main() {
@@ -18,10 +20,11 @@ async function main() {
       exaKey,
       type: searchType,
       numResults: 50,
-      maxCandidates: icp.enrichmentLimit,
+      maxCandidates: 15,
+      maxCostDollars: args.maxCost ? Number(args.maxCost) : 1.5,
     });
     const rows = run.rows.slice(0, 15);
-    console.log(`\nICP ${icp.id}: ${icp.name}`);
+    console.log(`\nICP ${icp.id}: ${icp.plan.label}`);
     printTable(rows.slice(0, Math.max(10, Math.min(15, rows.length))));
     console.log(`costDollars.icp${icp.id}: ${run.costDollars.toFixed(3)}`);
   }
@@ -33,14 +36,16 @@ function parseArgs(argv: string[]): Args {
     const arg = argv[i];
     if (arg === "--icp") args.icp = argv[++i] ?? "";
     if (arg === "--type") args.type = argv[++i];
+    if (arg === "--max-cost") args.maxCost = argv[++i];
   }
   return args;
 }
 
 function parseIcpSelection(value: string) {
-  if (value === "all") return [...ICP_CONFIGS];
+  const all = ([1, 2, 3] as const).map((id) => ({ id, plan: V1_PLANS[id] }));
+  if (value === "all") return all;
   const id = Number(value);
-  if (id === 1 || id === 2 || id === 3) return [getIcpConfig(id as IcpId)];
+  if (id === 1 || id === 2 || id === 3) return all.filter((icp) => icp.id === id);
   throw new Error("Run with --icp 1, --icp 2, --icp 3, or --icp all.");
 }
 

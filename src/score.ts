@@ -1,14 +1,15 @@
-import { ENTERPRISE_DENYLIST } from "./config";
+import { nameMatchesSignal, netNew, normalizeName } from "./eval";
+import { textInCountries } from "./geo";
 import {
-  companyFitChecks,
-  nameMatchesSignal,
-  netNew,
-  normalizeName,
-} from "./eval";
+  normalizeNullish,
+  normalizeSignalDate,
+  OTHER_SIGNAL_TYPE,
+  PRESCREEN_PREFIX,
+  type SearchPlan,
+} from "./plan";
 import type {
   CompanySummary,
   ExaResult,
-  IcpConfig,
   ProspectRow,
   SignalSummary,
 } from "./types";
@@ -24,247 +25,170 @@ export type CompanyEnrichment = {
   summary: CompanySummary;
 };
 
-const SIGNAL_WEIGHTS: Array<[RegExp, number]> = [
-  [
-    /\b(opening|opened|new|launch|announced).{0,40}\b(warehouse|facility|fulfillment|dc|distribution|center)\b/i,
-    0.96,
-  ],
-  [/\b(funding|funded|series [abc]|raises?|investment)\b/i, 0.95],
-  [/\b(embedded payments|payments launch|billing|monetization|reconciliation|revenue operations|revops)\b/i, 0.92],
-  [/\b(first|founding).{0,24}\b(ops|operations|revops|revenue operations|business operations)\b/i, 0.93],
-  [/\b(hiring wave|multiple roles|add \d+|expanding|expansion|scale|scaling)\b/i, 0.9],
-  [/\b(operations manager|senior operations manager|vp.?ops|head of operations)\b/i, 0.78],
-  [/\b(growth|volume|ramp|network)\b/i, 0.7],
+export type Rejection = { company: string; reason: string; signal_url: string };
+
+export type Funnel = {
+  rawSignalResults: number;
+  withCompanyName: number;
+  afterDedupeByCompany: number;
+  droppedStaleOrUnparseableDate: number;
+  selectedForEnrichment: number;
+  cutByEnrichmentLimit: number;
+  enrichmentNoResult: number;
+  /** Company lookups missing from a lenient replay (eval script only). */
+  replayMiss: number;
+  /** Where the cost budget stopped the run, e.g. "signal_search:7" or "enrichment:12"; null if it never did. */
+  budgetStoppedAt: string | null;
+  spentDollars: number;
+  /** Rejection counts keyed by reason: excludeDomains, excludeNames, no_enrichment,
+   * enterprise, hq, unknown_size, size, required_gate:<key>, weak_why_now. */
+  rejections: Record<string, number>;
+  /** Not a rejection: confidence penalty applied when the company is absent from its own signal text. */
+  entityMismatchPenalised: number;
+  finalRows: number;
+};
+
+export type Trace = { funnel: Funnel; rejected: Rejection[] };
+
+export function createTrace(): Trace {
+  return {
+    funnel: {
+      rawSignalResults: 0,
+      withCompanyName: 0,
+      afterDedupeByCompany: 0,
+      droppedStaleOrUnparseableDate: 0,
+      selectedForEnrichment: 0,
+      cutByEnrichmentLimit: 0,
+      enrichmentNoResult: 0,
+      replayMiss: 0,
+      budgetStoppedAt: null,
+      spentDollars: 0,
+      rejections: {},
+      entityMismatchPenalised: 0,
+      finalRows: 0,
+    },
+    rejected: [],
+  };
+}
+
+function reject(trace: Trace | undefined, codes: string[], company: string, url: string, detail: string) {
+  if (!trace) return;
+  for (const code of codes) {
+    trace.funnel.rejections[code] = (trace.funnel.rejections[code] ?? 0) + 1;
+  }
+  trace.rejected.push({ company, reason: detail, signal_url: url });
+}
+
+/**
+ * Generic, plan-independent wording cues. Used ONLY as a tie-breaker between
+ * candidates of the same signal_type; the plan's signalTypes order is what
+ * decides signal strength.
+ */
+const TIE_BREAK_WEIGHTS: Array<[RegExp, number]> = [
+  [/\b(funding|funded|series [abc]|raises?|raised|investment)\b/i, 0.95],
+  [/\b(opening|opened|new|launch(?:ed)?|announced)\b/i, 0.9],
+  [/\b(first|founding)\b/i, 0.85],
+  [/\b(hiring wave|multiple roles|expanding|expansion|scal(?:e|ing))\b/i, 0.8],
+  [/\b(hiring|hires?|appointed|joins?)\b/i, 0.6],
 ];
 
-const FIRMOGRAPHIC_TERMS = [
-  "3pl",
-  "logistics",
-  "fulfillment",
-  "warehouse",
-  "warehousing",
-  "freight",
-  "supply chain",
-  "transportation",
-  "last-mile",
-  "distribution",
-];
-
-const EXCLUDED_COMPANIES = new Set([
-  "amazon",
-  "chewy",
-  "gxo logistics",
-  "gxo",
-  "keurig dr pepper",
-  "kdp",
-  "ihirelogistics",
-  "quince",
-  "emiza",
-  "symbotic",
-  "a p moller maersk",
-  "maersk",
-  "medvantx",
-  "parts town",
-  "parts town unlimited",
-  "rsa properties and camco chemical",
-  "camco chemical",
-  "the wonderful company",
-  "weee",
-  "tractor supply",
-  "tractor supply company",
-  "jingdong logistics",
-  "jd logistics",
-  "sansone group",
-  "shein",
-  "cj logistics",
-  "cj logistics and kobc",
-  "averitt",
-  "rockefeller group",
-  "bertelsmann",
-  "qe dynamics",
-  "qe dynamics llc",
-  "qedynamics",
-  "seko logistics",
-  "spreetail",
-  "flexport",
-  "diakon",
-  "fcp euro",
-  ...ENTERPRISE_DENYLIST.map((name) => normalizeName(name)),
-]);
-
-const ENTERPRISE_TERMS = [
-  "global leader",
-  "fortune 500",
-  "publicly traded",
-  "multinational",
-  "mega cap",
-];
-
-const NON_OPERATOR_TERMS = [
-  "consumer brand",
-  "retail brand",
-  "retailer",
-  "consumer services",
-  "beverage",
-  "cpg",
-  "coffee",
-  "pharmaceutical",
-  "pharmacy",
-  "healthcare",
-  "medical",
-  "chemical",
-  "manufacturer",
-  "restaurant equipment",
-  "replacement parts",
-  "auto parts",
-  "car parts",
-  "real estate",
-  "property",
-  "developer",
-  "grocery",
-  "marketplace",
-  "e-commerce grocery",
-  "robotics",
-  "automation technology",
-  "software",
-  "platform",
-  "systems integrator",
-  "apparel",
-  "retail",
-  "retail distribution",
-  "safety equipment",
-  "industrial supplies",
-];
-
-const PAYMENTS_COMPANY_TERMS = [
-  "payment processor",
-  "payments infrastructure",
-  "payment service provider",
-  "psp",
-  "merchant acquirer",
-  "acquiring bank",
-  "card issuing",
-  "stripe",
-  "adyen",
-  "checkout.com",
-  "worldpay",
-  "paypal",
-  "payments platform",
-  "payment technology",
-  "billing platform",
-  "billing and invoicing platform",
-  "revenue automation",
-  "order-to-revenue automation",
-  "accounts receivable automation",
-  "tax compliance platform",
-  "invoice platform",
-  "invoicing platform",
-  "billtrust",
-  "ordway",
-  "zenskar",
-  "zoiko",
-  "highradius",
-  "alacriti",
-  "numeral",
-];
-
-const B2B_SAAS_TERMS = [
-  "b2b",
-  "saas",
-  "software",
-  "marketplace",
-  "platform",
-  "vertical software",
-  "enterprise software",
-  "business software",
-];
-
-const FIRST_OPS_TERMS = [
-  "first revops",
-  "first revenue operations",
-  "first operations",
-  "founding revops",
-  "founding operations",
-  "first bizops",
-  "founding business operations",
-  "first business operations",
-];
-
-const OPS_ROLE_TERMS = [
-  "revops",
-  "revenue operations",
-  "business operations",
-  "bizops",
-  "operations lead",
-  "head of operations",
-  "operations manager",
-  "operations associate",
-  "operations generalist",
-  "chief of staff",
-];
+const TIE_BREAK_SHARE = 0.04;
 
 export function parseSignalSummary(
   summary: ExaResult["summary"],
   fallback: ExaResult,
 ): SignalSummary {
+  const build = (raw: Record<string, unknown>): SignalSummary => {
+    const str = (v: unknown) => (typeof v === "string" ? normalizeNullish(v) : undefined);
+    const prescreen: Record<string, string> = {};
+    for (const [k, v] of Object.entries(raw)) {
+      const val = typeof v === "string" ? normalizeNullish(v)?.toLowerCase() : undefined;
+      if (k.startsWith(PRESCREEN_PREFIX) && val) prescreen[k.slice(PRESCREEN_PREFIX.length)] = val;
+    }
+    const scale = str(raw.company_scale_guess)?.toLowerCase();
+    return {
+      company_name: str(raw.company_name) ?? extractCompanyName(fallback),
+      signal_type: str(raw.signal_type) ?? OTHER_SIGNAL_TYPE,
+      signal_summary: str(raw.signal_summary) ?? fallback.title ?? "",
+      signal_date: str(raw.signal_date) ?? "",
+      ...(scale ? { company_scale_guess: scale } : {}),
+      ...(Object.keys(prescreen).length > 0 ? { prescreen } : {}),
+    };
+  };
+
   if (
     typeof summary === "object" &&
     summary &&
     ("company_name" in summary || "signal_summary" in summary)
   ) {
-    return summary as SignalSummary;
+    return build(summary as Record<string, unknown>);
   }
   if (typeof summary === "string") {
     const trimmed = summary.trim();
     try {
-      const parsed = JSON.parse(trimmed) as Partial<SignalSummary>;
-      if (parsed.company_name || parsed.signal_summary) {
-        return {
-          company_name: parsed.company_name ?? extractCompanyName(fallback),
-          signal_type: parsed.signal_type ?? "operations scaling",
-          signal_summary: parsed.signal_summary ?? trimmed,
-          signal_date: parsed.signal_date ?? fallback.publishedDate ?? "",
-        };
+      const parsed = JSON.parse(trimmed) as Record<string, unknown>;
+      if (parsed && typeof parsed === "object" && (parsed.company_name || parsed.signal_summary)) {
+        return build(parsed);
       }
     } catch {
       // Exa may fall back to prose summaries; keep the row and score it lower.
     }
-    return {
-      company_name: extractCompanyName(fallback),
-      signal_type: "operations scaling",
-      signal_summary: trimmed,
-      signal_date: fallback.publishedDate ?? "",
-    };
+    return build({ signal_summary: normalizeNullish(trimmed) });
   }
-  return {
-    company_name: extractCompanyName(fallback),
-    signal_type: "operations scaling",
-    signal_summary: fallback.title ?? "Recent logistics operations signal",
-    signal_date: fallback.publishedDate ?? "",
-  };
+  return build({});
+}
+
+/**
+ * Rank companies for enrichment (best first), before any lookup is paid for.
+ * Enterprise-looking companies and any pre-screen "no" go to the back of the
+ * queue (not dropped); within each tier: signal strength + freshness.
+ */
+export function rankCompaniesForEnrichment(
+  plan: SearchPlan,
+  candidates: Candidate[],
+  startIso: string,
+  now = new Date(),
+): string[] {
+  return aggregateCandidates(plan, candidates, startIso, now)
+    .map((group) => ({
+      group,
+      demoted: prescreenDemoted(group),
+      score: preliminaryScore(plan, group, startIso, now),
+    }))
+    .sort((a, b) => Number(a.demoted) - Number(b.demoted) || b.score - a.score)
+    .map(({ group }) => group.company);
 }
 
 export function selectCompaniesForEnrichment(
-  icp: IcpConfig,
+  plan: SearchPlan,
   candidates: Candidate[],
   startIso: string,
   now = new Date(),
   limit = 20,
+  trace?: Trace,
 ): string[] {
-  return aggregateCandidates(icp, candidates, startIso, now)
-    .sort((a, b) => preliminaryScore(icp, b, startIso, now) - preliminaryScore(icp, a, startIso, now))
-    .slice(0, limit)
-    .map((group) => group.company);
+  const ranked = rankCompaniesForEnrichment(plan, candidates, startIso, now);
+  if (trace) trace.funnel.cutByEnrichmentLimit = Math.max(0, ranked.length - limit);
+  return ranked.slice(0, limit);
+}
+
+function prescreenDemoted(group: CandidateGroup): boolean {
+  return group.candidates.some(
+    (c) =>
+      c.summary.company_scale_guess === "enterprise" ||
+      Object.values(c.summary.prescreen ?? {}).includes("no"),
+  );
 }
 
 export function scoreAndRank(
-  icp: IcpConfig,
+  plan: SearchPlan,
   candidates: Candidate[],
   startIso: string,
   now = new Date(),
+  trace?: Trace,
 ): ProspectRow[] {
-  return aggregateCandidates(icp, candidates, startIso, now)
-    .map((group) => toRow(icp, group, startIso, now))
+  return aggregateCandidates(plan, candidates, startIso, now, trace)
+    .map((group) => toRow(plan, group, startIso, now, trace))
     .filter((row): row is ProspectRow => Boolean(row))
     .sort((a, b) => {
       const bScore = b.confidence_score * 0.75 + b.freshness_score * 0.25;
@@ -280,29 +204,89 @@ type CandidateGroup = {
   companyEnrichment?: CompanyEnrichment;
 };
 
+const DAY_MS = 86_400_000;
+
+function addMonthsIso(iso: string, months: number): number {
+  const d = new Date(`${iso}T00:00:00.000Z`);
+  d.setUTCMonth(d.getUTCMonth() + months);
+  return d.getTime();
+}
+
+/**
+ * Resolve the EVENT date. Exa summaries sometimes hallucinate the year, so
+ * signal_date is trusted only if publishedDate - 12 months <= signal_date <=
+ * publishedDate + 7 days (and not after now + 1 day). Otherwise publishedDate
+ * is used and date_source is "published_fallback". With no publishedDate, an
+ * implausible signal_date (future, or > 24 months before now) is unparseable.
+ */
+export function resolveEventDate(
+  candidate: Candidate,
+  now: Date,
+): { date: string; source: "signal" | "published_fallback" | "" } {
+  const sig = normalizeSignalDate(candidate.summary.signal_date);
+  const pub = normalizeSignalDate(candidate.result.publishedDate);
+  const sigMs = sig ? Date.parse(`${sig}T00:00:00.000Z`) : undefined;
+  const notFuture = sigMs !== undefined && sigMs <= now.getTime() + DAY_MS;
+
+  if (pub) {
+    const pubMs = Date.parse(`${pub}T00:00:00.000Z`);
+    const plausible =
+      sigMs !== undefined &&
+      notFuture &&
+      sigMs >= addMonthsIso(pub, -12) &&
+      sigMs <= pubMs + 7 * DAY_MS;
+    return plausible ? { date: sig!, source: "signal" } : { date: pub, source: "published_fallback" };
+  }
+  if (sig && notFuture && sigMs! >= addMonthsIso(now.toISOString().slice(0, 10), -24)) {
+    return { date: sig, source: "signal" };
+  }
+  return { date: "", source: "" };
+}
+
+/** The resolved event date (ISO) or "" if unparseable/implausible. */
+export function eventDate(candidate: Candidate, now: Date = new Date()): string {
+  return resolveEventDate(candidate, now).date;
+}
+
 function aggregateCandidates(
-  icp: IcpConfig,
+  plan: SearchPlan,
   candidates: Candidate[],
   startIso: string,
   now: Date,
+  trace?: Trace,
 ): CandidateGroup[] {
   const groups = new Map<string, CandidateGroup>();
+  const excluded = plan.excludeNames.map(nameTokens).filter((t) => t.length > 0);
 
   for (const candidate of candidates) {
-    if (isRejectedSourceUrl(candidate.result.url)) continue;
-
+    const url = candidate.result.url;
+    if (isRejectedSourceUrl(url)) continue;
     const company = cleanCompanyName(
       candidate.summary.company_name || extractCompanyName(candidate.result),
     );
+    if (domainExcluded(url, plan.excludeDomains)) {
+      reject(trace, ["excludeDomains"], company, url, "excludeDomains: signal source domain excluded");
+      continue;
+    }
     if (!company) continue;
 
-    const signalDate = normalizeDate(
-      candidate.summary.signal_date || candidate.result.publishedDate,
-    );
-    if (freshnessScore(signalDate, startIso, now) <= 0) continue;
+    // Freshness is judged on the event date, not the article's publish date.
+    if (freshnessScore(eventDate(candidate, now), startIso, now) <= 0) {
+      if (trace) trace.funnel.droppedStaleOrUnparseableDate += 1;
+      reject(trace, [], company, url, `stale_or_unparseable_date: "${candidate.summary.signal_date}" / published ${candidate.result.publishedDate ?? "n/a"}`);
+      continue;
+    }
 
     const key = normalizeName(company);
-    if (!key || (icp.id === 1 && EXCLUDED_COMPANIES.has(key))) continue;
+    if (!key) continue;
+    if (isNonCompanyName(company)) {
+      reject(trace, ["non_company"], company, url, "non_company: placeholder, staffing or job-board name");
+      continue;
+    }
+    if (nameExcluded(company, excluded)) {
+      reject(trace, ["excludeNames"], company, url, "excludeNames: company on plan denylist");
+      continue;
+    }
 
     const group = groups.get(key) ?? { company, candidates: [] };
     group.candidates.push(candidate);
@@ -314,36 +298,48 @@ function aggregateCandidates(
     const byUrl = new Map<string, Candidate>();
     for (const candidate of group.candidates) {
       const existing = byUrl.get(candidate.result.url);
-      if (!existing || candidateScore(candidate) > candidateScore(existing)) {
+      if (
+        !existing ||
+        candidateStrength(plan, candidate) > candidateStrength(plan, existing)
+      ) {
         byUrl.set(candidate.result.url, candidate);
       }
     }
     group.candidates = [...byUrl.values()];
   }
 
+  if (trace) trace.funnel.afterDedupeByCompany = groups.size;
   return [...groups.values()];
 }
 
 function toRow(
-  icp: IcpConfig,
+  plan: SearchPlan,
   group: CandidateGroup,
   startIso: string,
   now: Date,
+  trace?: Trace,
 ): ProspectRow | undefined {
-  const best = bestCandidateForIcp(icp, group.candidates);
+  const best = bestCandidate(plan, group.candidates);
   if (!best) return undefined;
 
   const { result, summary } = best;
-  const signalDate = normalizeDate(summary.signal_date || result.publishedDate);
-  const allText = [
-    result.title,
-    result.text,
-    result.highlights?.join(" "),
-    summary.signal_type,
-    summary.signal_summary,
-  ]
-    .filter(Boolean)
-    .join(" ");
+  const resolved = resolveEventDate(best, now);
+  const signalDate = resolved.date;
+  const company = group.company;
+  const enrichment = group.companyEnrichment;
+
+  if (
+    enrichment?.result &&
+    domainExcluded(enrichment.result.url, plan.excludeDomains)
+  ) {
+    reject(trace, ["excludeDomains"], group.company, best.result.url, "excludeDomains: company domain excluded");
+    return undefined;
+  }
+  if (enrichment?.result && isNonCompanyDomain(enrichment.result.url)) {
+    reject(trace, ["non_company"], group.company, best.result.url, "non_company: lookup resolved to a job-board/staffing domain");
+    return undefined;
+  }
+
   const groupSourceText = group.candidates
     .map((candidate) =>
       [
@@ -356,29 +352,20 @@ function toRow(
         .join(" "),
     )
     .join(" ");
-  const company = group.company;
-  const companyText = companyProfileText(group.companyEnrichment);
-  const fit = firmographicFit(
-    icp,
-    company,
-    companyText || allText,
-    groupSourceText,
-    group.companyEnrichment,
-  );
-  if (!fit.keep) return undefined;
-  if (icp.id === 2 && !hasPaymentsBillingSignal(groupSourceText)) {
+
+  const fit = evaluateFit(plan, enrichment, groupSourceText);
+  if (!fit.keep) {
+    reject(trace, fit.codes, company, result.url, fit.reason);
     return undefined;
   }
 
   const aggregateCount = distinctSignalCount(group.candidates);
-  const signalStrength = signalScore(icp, `${allText} ${groupSourceText} ${companyText}`, aggregateCount);
-  if (isWeakWhyNow(summary.signal_summary) && (aggregateCount < 2 || icp.id === 3)) return undefined;
-  if (
-    icp.id === 3 &&
-    !hasFundingSignal(`${groupSourceText} ${companyText}`)
-  ) {
+  if (isWeakWhyNow(summary.signal_summary) && aggregateCount < 2) {
+    reject(trace, ["weak_why_now"], company, result.url, "weak_why_now: summary has no explicit signal");
     return undefined;
   }
+
+  const strength = groupStrength(plan, group.candidates, aggregateCount);
   const wrongCompanyPenalty = nameMatchesSignal({
     company,
     title: result.title,
@@ -387,23 +374,25 @@ function toRow(
   })
     ? 1
     : 0.72;
-  const confidence = clamp(fit.multiplier * signalStrength.score * wrongCompanyPenalty);
+  if (wrongCompanyPenalty < 1 && trace) trace.funnel.entityMismatchPenalised += 1;
+  const confidence = clamp(fit.multiplier * strength.score * wrongCompanyPenalty);
   const whyNow =
     isWeakWhyNow(summary.signal_summary) && aggregateCount >= 2
-      ? `${company} has ${aggregateCount} distinct recent operations or last-mile hiring signals; strongest dated source is ${result.title ?? result.url}.`
+      ? `${company} has ${aggregateCount} distinct recent signals; strongest dated source is ${result.title ?? result.url}.`
       : summary.signal_summary || result.title || "";
 
   return {
     company,
-    one_liner: oneLiner(icp, company, allText),
+    one_liner: oneLiner(company, enrichment, strength.label),
     fit_reason: fit.reason,
     why_now_signal: whyNow,
-    signal_strength: signalStrength.label,
+    signal_strength: strength.label,
     signal_source_url: result.url,
     signal_date: signalDate,
+    ...(resolved.source ? { date_source: resolved.source } : {}),
     confidence_score: round(confidence),
     freshness_score: round(freshnessScore(signalDate, startIso, now)),
-    net_new: netNew(company, icp.baseline),
+    net_new: netNew(company, plan.excludeNames),
   };
 }
 
@@ -412,109 +401,157 @@ function isWeakWhyNow(value: string | undefined): boolean {
 }
 
 function preliminaryScore(
-  icp: IcpConfig,
+  plan: SearchPlan,
   group: CandidateGroup,
   startIso: string,
   now: Date,
 ): number {
-  const best = bestCandidate(group.candidates);
+  const best = bestCandidate(plan, group.candidates);
   if (!best) return 0;
-  const allText = [
-    ...group.candidates.flatMap((candidate) => [
-      candidate.result.title,
-      candidate.result.text,
-      candidate.result.highlights?.join(" "),
-      candidate.summary.signal_type,
-      candidate.summary.signal_summary,
-    ]),
-  ]
-    .filter(Boolean)
-    .join(" ");
-  const fitHint = preliminaryFitHint(icp, allText, group.company);
   return (
-    signalScore(icp, allText, distinctSignalCount(group.candidates)).score * 0.65 +
-    freshnessScore(
-      normalizeDate(best.summary.signal_date || best.result.publishedDate),
-      startIso,
-      now,
-    ) *
-      0.2 +
-    fitHint +
-    (icp.id === 3 && hasFundingAndOpsSignal(allText, "") ? 0.12 : 0)
+    groupStrength(plan, group.candidates, distinctSignalCount(group.candidates)).score * 0.75 +
+    freshnessScore(eventDate(best, now), startIso, now) * 0.25
   );
 }
 
-function preliminaryFitHint(
-  icp: IcpConfig,
-  text: string,
-  company: string,
-): number {
-  const normalized = normalizeName(`${company} ${text}`);
-  if (icp.id === 1) {
-    if (EXCLUDED_COMPANIES.has(normalizeName(company))) return -1;
-    const logistics = FIRMOGRAPHIC_TERMS.some((term) =>
-      normalized.includes(normalizeName(term)),
-    );
-    const nonOperator = NON_OPERATOR_TERMS.some((term) =>
-      normalized.includes(normalizeName(term)),
-    );
-    return (logistics ? 0.18 : 0) + (nonOperator ? -0.2 : 0);
+// ---------------------------------------------------------------------------
+// Generic fit: required gates + size + geo + not enterprise.
+// ---------------------------------------------------------------------------
+
+function evaluateFit(
+  plan: SearchPlan,
+  enrichment: CompanyEnrichment | undefined,
+  signalText: string,
+): { keep: boolean; multiplier: number; reason: string; codes: string[] } {
+  const reject = (reason: string, ...codes: string[]) => ({
+    keep: false,
+    multiplier: 0,
+    reason: `Excluded: ${reason}`,
+    codes,
+  });
+
+  if (!enrichment || Object.keys(enrichment.summary).length === 0) {
+    return reject("no company lookup available to verify the fit gates.", "no_enrichment");
   }
-  if (icp.id === 2) {
-    const paymentSignal = hasPaymentsBillingSignal(text);
-    const psp = PAYMENTS_COMPANY_TERMS.some((term) =>
-      normalized.includes(normalizeName(term)),
-    );
-    const b2bSoftware = B2B_SAAS_TERMS.some((term) =>
-      normalized.includes(normalizeName(term)),
-    );
-    return (paymentSignal ? 0.18 : -0.25) + (b2bSoftware ? 0.08 : 0) + (psp ? -0.35 : 0);
+  const summary = enrichment.summary;
+
+  if (summary.is_public_or_enterprise === true) {
+    return reject("company appears public/enterprise scale.", "enterprise");
   }
-  if (icp.id === 3) {
-    return hasFundingSignal(text) ? 0.2 : -0.35;
+
+  const hq = typeof summary.hq === "string" ? summary.hq : "";
+  if (
+    !textInCountries(hq, plan.hqCountries, true) &&
+    !textInCountries(signalText, plan.hqCountries, false)
+  ) {
+    return reject(`HQ "${hq || "unknown"}" is outside ${plan.hqCountries.join("/")}.`, "hq");
   }
-  return 0;
+
+  const employees = parseEmployeeEstimate(summary.employee_estimate);
+  const { min, max, unknownPolicy } = plan.employeeRange;
+  if (employees === undefined) {
+    if (unknownPolicy === "reject") return reject("employee estimate unknown.", "unknown_size");
+  } else if (employees < min || employees > max) {
+    return reject(
+      `employee estimate ${employees.toLocaleString()} is outside the approximate ${min}-${max} target.`,
+      "size",
+    );
+  }
+
+  const required = plan.gateFields.filter((g) => g.required);
+  const optional = plan.gateFields.filter((g) => !g.required);
+  const failed = required.filter((g) => summary[g.key] !== true);
+  if (failed.length > 0) {
+    return reject(
+      `required gate(s) not satisfied: ${failed.map((g) => g.key).join(", ")}.`,
+      ...failed.map((g) => `required_gate:${g.key}`),
+    );
+  }
+
+  const optionalPassed = optional.filter((g) => summary[g.key] === true);
+  const optionalFrac = optional.length > 0 ? optionalPassed.length / optional.length : 1;
+  const multiplier = (employees === undefined ? 0.82 : 1) * (0.9 + 0.1 * optionalFrac);
+
+  const parts = [
+    required.length > 0
+      ? `required gates passed: ${required.map((g) => g.key).join(", ")}`
+      : "no required gates",
+  ];
+  if (optional.length > 0) {
+    parts.push(
+      optionalPassed.length > 0
+        ? `optional gates passed: ${optionalPassed.map((g) => g.key).join(", ")}`
+        : "no optional gates passed",
+    );
+  }
+  parts.push(
+    employees === undefined
+      ? "employee count not exposed by lookup"
+      : `${employees.toLocaleString()} estimated employees`,
+  );
+  parts.push(`HQ ${hq || "inferred from signal text"}`);
+  return { keep: true, multiplier, reason: `${parts.join("; ")}.`, codes: [] };
 }
 
-function bestCandidate(candidates: Candidate[]): Candidate | undefined {
-  return [...candidates].sort((a, b) => candidateScore(b) - candidateScore(a))[0];
+// ---------------------------------------------------------------------------
+// Signal strength: rank of signal_type within plan.signalTypes.
+// ---------------------------------------------------------------------------
+
+function normalizeSignalType(plan: SearchPlan, value: string | undefined): string {
+  const t = (value ?? "").trim().toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, "");
+  return plan.signalTypes.includes(t) ? t : OTHER_SIGNAL_TYPE;
 }
 
-function bestCandidateForIcp(
-  icp: IcpConfig,
-  candidates: Candidate[],
-): Candidate | undefined {
-  if (icp.id === 3) {
-    const fundingCandidates = candidates.filter((candidate) =>
-      hasFundingSignal(
-        [
-          candidate.result.title,
-          candidate.result.text,
-          candidate.result.highlights?.join(" "),
-          candidate.summary.signal_type,
-          candidate.summary.signal_summary,
-        ]
-          .filter(Boolean)
-          .join(" "),
-      ),
-    );
-    if (fundingCandidates.length > 0) return bestCandidate(fundingCandidates);
-  }
-  return bestCandidate(candidates);
-}
-
-function candidateScore(candidate: Candidate): number {
-  const text = [
+function candidateText(candidate: Candidate): string {
+  return [
     candidate.result.title,
     candidate.result.text,
     candidate.result.highlights?.join(" "),
-    candidate.summary.signal_type,
     candidate.summary.signal_summary,
   ]
     .filter(Boolean)
     .join(" ");
-  return signalScore({ id: 1 } as IcpConfig, text, 1).score + (candidate.result.score ?? 0) / 100;
 }
+
+function candidateStrength(plan: SearchPlan, candidate: Candidate): number {
+  const type = normalizeSignalType(plan, candidate.summary.signal_type);
+  const rank = plan.signalTypes.indexOf(type);
+  const n = plan.signalTypes.length;
+  // First type -> 0.95, last listed type -> 0.55, "other"/unknown -> 0.5.
+  const base = rank < 0 ? 0.5 : 0.95 - 0.4 * (rank / Math.max(n - 1, 1));
+  const text = candidateText(candidate);
+  let tie = 0;
+  for (const [pattern, weight] of TIE_BREAK_WEIGHTS) {
+    if (pattern.test(text)) tie = Math.max(tie, weight);
+  }
+  return base * (1 - TIE_BREAK_SHARE) + tie * TIE_BREAK_SHARE + (candidate.result.score ?? 0) / 1e4;
+}
+
+function bestCandidate(plan: SearchPlan, candidates: Candidate[]): Candidate | undefined {
+  return [...candidates].sort(
+    (a, b) => candidateStrength(plan, b) - candidateStrength(plan, a),
+  )[0];
+}
+
+function groupStrength(
+  plan: SearchPlan,
+  candidates: Candidate[],
+  aggregateCount: number,
+): { score: number; label: string } {
+  const best = bestCandidate(plan, candidates);
+  if (!best) return { score: 0, label: "no signal" };
+  const bonus = Math.min(0.03 * (aggregateCount - 1), 0.06);
+  const type = normalizeSignalType(plan, best.summary.signal_type);
+  const label = type === OTHER_SIGNAL_TYPE ? "other signal" : type.replace(/_/g, " ");
+  return {
+    score: clamp(candidateStrength(plan, best) + bonus),
+    label: aggregateCount >= 2 ? `${label} (${aggregateCount} signals)` : label,
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
 
 function extractCompanyName(result: ExaResult): string {
   const title = result.title ?? "";
@@ -527,7 +564,7 @@ function extractCompanyName(result: ExaResult): string {
     const match = title.match(pattern);
     if (match?.[1]) return cleanCompanyName(match[1]);
   }
-  return title.split(/[|–—-]/)[0]?.trim() || new URL(result.url).hostname;
+  return title.split(/[|–—-]/)[0]?.trim() || safeDomain(result.url) || "";
 }
 
 function cleanCompanyName(value: string): string {
@@ -538,251 +575,12 @@ function cleanCompanyName(value: string): string {
     .trim();
 }
 
-function firmographicFit(
-  icp: IcpConfig,
-  company: string,
-  text: string,
-  signalText: string,
-  enrichment: CompanyEnrichment | undefined,
-): { keep: boolean; multiplier: number; reason: string } {
-  const normalized = text.toLowerCase();
-  const employeeEstimate = parseEmployeeEstimate(
-    enrichment?.summary.employee_estimate,
-  );
-  const enterprise = isEnterpriseCompany(company, normalized, enrichment);
-  const hq = enrichment?.summary.hq ?? "";
-  if (!hqInAllowedCountries(hq, icp.allowedHqCountries) && !textInAllowedCountries(signalText, icp.allowedHqCountries)) {
-    return {
-      keep: false,
-      multiplier: 0,
-      reason: `Excluded: HQ "${hq || "unknown"}" is outside ${icp.allowedHqCountries.join("/")}.`,
-    };
-  }
-
-  if (employeeEstimate === undefined) {
-    if (icp.employeeRange.unknownPolicy === "reject" || enterprise) {
-      return {
-        keep: false,
-        multiplier: 0,
-        reason: `Excluded: employee estimate unknown${enterprise ? " and company appears public/enterprise scale" : ""}.`,
-      };
-    }
-  } else if (
-    employeeEstimate < icp.employeeRange.min ||
-    employeeEstimate > icp.employeeRange.max
-  ) {
-    return {
-      keep: false,
-      multiplier: 0,
-      reason: `Excluded: employee estimate ${employeeEstimate.toLocaleString()} is outside the approximate ${icp.employeeRange.min}-${icp.employeeRange.max} target.`,
-    };
-  }
-
-  if (enterprise && employeeEstimate === undefined) {
-    return {
-      keep: false,
-      multiplier: 0,
-      reason: "Excluded: known public/enterprise company with unknown employee estimate.",
-    };
-  }
-
-  if (icp.id === 2) {
-    return icp2Fit(company, normalized, enrichment, employeeEstimate);
-  }
-
-  if (icp.id === 3) {
-    return icp3Fit(company, normalized, signalText, enrichment, employeeEstimate);
-  }
-
-  const checks = companyFitChecks({
-    icp,
-    company,
-    description: normalized,
-    industry: enrichment?.summary.industry,
-    employeeEstimate,
-    isThirdPartyLogistics: enrichment?.summary.is_third_party_logistics,
-  });
-
-  if (!checks.is_3pl) {
-    return {
-      keep: false,
-      multiplier: 0,
-      reason: "Excluded: company lookup did not support logistics/3PL operator fit.",
-    };
-  }
-  if (!enrichment && !hasStrongLogisticsOperatorSignal(`${company} ${text} ${signalText}`)) {
-    return {
-      keep: false,
-      multiplier: 0,
-      reason: "Excluded: fallback signal had generic warehouse language without clear logistics/3PL operator fit.",
-    };
-  }
-  if (EXCLUDED_COMPANIES.has(normalizeName(company))) {
-    return {
-      keep: false,
-      multiplier: 0,
-      reason: "Excluded: known enterprise, vendor, or non-ICP company.",
-    };
-  }
-  if (
-    ENTERPRISE_TERMS.some((term) => normalized.includes(term)) ||
-    ENTERPRISE_DENYLIST.some((name) => normalizeName(name) === normalizeName(company))
-  ) {
-    return {
-      keep: false,
-      multiplier: 0,
-      reason: "Excluded: known enterprise-scale logistics company.",
-    };
-  }
-  if (NON_OPERATOR_TERMS.some((term) => normalized.includes(term))) {
-    return {
-      keep: false,
-      multiplier: 0,
-      reason: "Excluded: company appears to be a brand, CPG, software, robotics, or vendor profile.",
-    };
-  }
-
-  const sizePhrase = employeeEstimate
-    ? `${employeeEstimate.toLocaleString()} estimated employees`
-    : "company lookup did not expose a precise employee count";
-  return {
-    keep: true,
-    multiplier: employeeEstimate ? 1 : 0.82,
-    reason: `${enrichment ? "Company lookup" : "Signal text"} supports logistics/3PL operator fit; ${sizePhrase}; ${enrichment?.summary.hq ?? "HQ inferred from signal/source"}.`,
-  };
-}
-
-function hasStrongLogisticsOperatorSignal(text: string): boolean {
-  return /\b(3pl|third[-\s]party logistics|logistics provider|logistics company|freight|fulfillment|last[-\s]mile|final[-\s]mile|delivery operations|moving and storage|terminal facility|distribution facility|transportation|supply chain)\b/i.test(text);
-}
-
-function icp2Fit(
-  company: string,
-  normalized: string,
-  enrichment: CompanyEnrichment | undefined,
-  employeeEstimate: number | undefined,
-): { keep: boolean; multiplier: number; reason: string } {
-  if (
-    enrichment?.summary.is_payments_company_or_psp === true ||
-    PAYMENTS_COMPANY_TERMS.some((term) => normalized.includes(term))
-  ) {
-    return {
-      keep: false,
-      multiplier: 0,
-      reason: "Excluded: company appears to be a payments company, processor, or PSP.",
-    };
-  }
-  const b2bSaas =
-    enrichment?.summary.is_b2b_saas_or_marketplace === true ||
-    B2B_SAAS_TERMS.some((term) => normalized.includes(term));
-  if (!b2bSaas) {
-    return {
-      keep: false,
-      multiplier: 0,
-      reason: "Excluded: company lookup did not support B2B SaaS/marketplace fit.",
-    };
-  }
-  return {
-    keep: true,
-    multiplier: 1,
-    reason: `${enrichment ? "Company lookup" : "Signal text"} supports B2B SaaS/marketplace fit; ${employeeEstimate ? `${employeeEstimate.toLocaleString()} estimated employees` : "company lookup did not expose a precise employee count"}; ${enrichment?.summary.hq ?? "HQ inferred from signal/source"}.`,
-  };
-}
-
-function icp3Fit(
-  company: string,
-  normalized: string,
-  signalText: string,
-  enrichment: CompanyEnrichment | undefined,
-  employeeEstimate: number | undefined,
-): { keep: boolean; multiplier: number; reason: string } {
-  const b2b =
-    enrichment?.summary.is_b2b_company === true ||
-    B2B_SAAS_TERMS.some((term) => normalized.includes(term));
-  if (!b2b) {
-    return {
-      keep: false,
-      multiplier: 0,
-      reason: "Excluded: company lookup did not support B2B company fit.",
-    };
-  }
-  if (!hasFundingSignal(`${signalText} ${normalized}`)) {
-    return {
-      keep: false,
-      multiplier: 0,
-      reason: "Excluded: missing recent seed or Series A funding signal.",
-    };
-  }
-  const opsSignal = hasOpsHiringSignal(signalText) || enrichment?.summary.hiring_first_ops_or_revops === true;
-  return {
-    keep: true,
-    multiplier: opsSignal ? 1 : 0.82,
-    reason: `${enrichment ? "Company lookup" : "Signal text"} supports recently funded B2B fit${opsSignal ? " plus Ops/RevOps hiring evidence" : ""}; ${employeeEstimate ? `${employeeEstimate.toLocaleString()} estimated employees` : "company lookup did not expose a precise employee count"}; ${enrichment?.summary.hq ?? "HQ inferred from signal/source"}.`,
-  };
-}
-
-function signalScore(
-  icp: Pick<IcpConfig, "id">,
-  text: string,
-  aggregateCount: number,
-): { score: number; label: string } {
-  if (icp.id === 2) {
-    if (/\b(embedded payments|payment launch|payments launch|launched payments|expanded payments|billing feature|usage-based billing|usage based billing|monetization|monetisation|reconciliation|wallets?|stored-value|stored value)\b/i.test(text)) {
-      return { score: 0.94, label: "payments/billing launch" };
-    }
-    if (/\b(billing operations|billing ops|revenue operations|revops|finance operations|finance ops|order-to-cash|o2c|accounts receivable|invoic(?:e|ing))\b/i.test(text)) {
-      return { score: 0.87, label: "billing/revenue-ops hire" };
-    }
-    if (hasPaymentsBillingSignal(text)) {
-      return { score: 0.72, label: "single payments/billing mention" };
-    }
-  }
-
-  if (icp.id === 3) {
-    const funding = hasFundingSignal(text);
-    const firstOps = hasFirstOpsText(text);
-    const ops = hasOpsHiringSignal(text);
-    if (funding && firstOps) return { score: 0.96, label: "funding + first-ops hire" };
-    if (funding && ops) return { score: 0.9, label: "funding + ops hire" };
-    if (funding) return { score: 0.78, label: "funding only" };
-  }
-
-  for (const [pattern, weight] of SIGNAL_WEIGHTS) {
-    if (pattern.test(text)) {
-      if (/\b(first|founding).{0,24}\b(ops|operations|revops|revenue operations|business operations)\b/i.test(text)) {
-        return { score: weight, label: "first-ops/revops hire" };
-      }
-      if (/\b(funding|funded|series [abc]|raises?|investment|opening|opened|new|launch|announced)\b/i.test(text)) {
-        return { score: weight, label: "new-facility/expansion/funding" };
-      }
-      if (aggregateCount >= 2) {
-        return {
-          score: Math.min(0.93, weight + 0.08),
-          label: `multi-post hiring wave (${aggregateCount} signals)`,
-        };
-      }
-      return { score: weight, label: "single operations signal" };
-    }
-  }
-  if (aggregateCount >= 2) {
-    return { score: 0.82, label: `multi-post hiring wave (${aggregateCount} signals)` };
-  }
-  return { score: 0.55, label: "single weak signal" };
-}
-
 function freshnessScore(value: string, startIso: string, now: Date): number {
   const signal = new Date(value).getTime();
   const start = new Date(startIso).getTime();
   const end = now.getTime();
   if (!Number.isFinite(signal) || signal < start || signal > end) return 0;
   return clamp((signal - start) / (end - start));
-}
-
-function normalizeDate(value: string | undefined): string {
-  if (!value || value === "null") return "";
-  const date = new Date(value);
-  if (!Number.isFinite(date.getTime())) return value.slice(0, 10);
-  return date.toISOString().slice(0, 10);
 }
 
 function safeDomain(url: string): string | undefined {
@@ -793,95 +591,83 @@ function safeDomain(url: string): string | undefined {
   }
 }
 
+function nameTokens(name: string): string[] {
+  return normalizeName(name).split(" ").filter(Boolean);
+}
+
+/**
+ * Fuzzy denylist match on normalised tokens: the whole name, or its leading
+ * token(s), equals a denylisted name ("RXO (formerly XPO Logistics)" and
+ * "RXO CORPORATE SOLUTIONS, LLC" vs "RXO"), or the strings are equal with all
+ * spaces/punctuation stripped ("Chrobinson" vs "C.H. Robinson").
+ */
+export function nameExcluded(company: string, excluded: string[][]): boolean {
+  const tokens = nameTokens(company);
+  if (tokens.length === 0) return false;
+  const squashed = tokens.join("");
+  return excluded.some(
+    (ex) =>
+      ex.join("") === squashed ||
+      (ex.length <= tokens.length && ex.every((t, i) => tokens[i] === t)),
+  );
+}
+
+// Generic non-company filter (not ICP-specific): staffing agencies and job
+// boards that show up as the "company" on hiring posts, plus placeholder
+// names the summariser emits when it finds no real company.
+const NON_COMPANY_NAME_PATTERNS: RegExp[] = [
+  /\bihire/,
+  /jobline/,
+  /\bjobrapido\b/,
+  /\bindeed\b/,
+  /\bziprecruiter\b/,
+  /\bglassdoor\b/,
+  /\blinkedin\b/,
+  /\bremote rush\b/,
+  /\bpeople group\b/,
+];
+const PLACEHOLDER_NAMES = new Set([
+  "", "unknown", "na", "none", "null", "role", "final mile", "last mile",
+  "company", "employer", "confidential", "undisclosed", "various", "multiple",
+]);
+// Job-board / staffing domains, checked against a company's own lookup domain.
+const NON_COMPANY_DOMAIN_PATTERNS: RegExp[] = [
+  /(^|\.)ihirelogistics\.com$/,
+  /jobline/,
+  /(^|\.)jobrapido\./,
+  /(^|\.)indeed\./,
+  /(^|\.)ziprecruiter\./,
+  /(^|\.)glassdoor\./,
+  /(^|\.)linkedin\.com$/,
+];
+
+export function isNonCompanyName(name: string): boolean {
+  const n = normalizeName(name);
+  return PLACEHOLDER_NAMES.has(n) || NON_COMPANY_NAME_PATTERNS.some((p) => p.test(n));
+}
+
+function isNonCompanyDomain(url: string): boolean {
+  const d = safeDomain(url);
+  return !!d && NON_COMPANY_DOMAIN_PATTERNS.some((p) => p.test(d));
+}
+
+function domainExcluded(url: string, excluded: readonly string[]): boolean {
+  const domain = safeDomain(url);
+  if (!domain) return false;
+  return excluded.some((d) => domain === d || domain.endsWith(`.${d}`));
+}
+
 function dedupeKey(url: string, companyKey: string): string {
   const domain = safeDomain(url) ?? companyKey;
   return isAggregatorDomain(domain) ? `${domain}:${companyKey}` : domain;
 }
 
 function distinctSignalCount(candidates: Candidate[]): number {
-  return new Set(candidates.map((candidate) => dedupeKey(candidate.result.url, normalizeName(candidate.summary.company_name)))).size;
-}
-
-function companyProfileText(enrichment: CompanyEnrichment | undefined): string {
-  if (!enrichment) return "";
-  return [
-    enrichment.summary.description,
-    enrichment.summary.industry,
-    enrichment.summary.hq,
-    enrichment.result?.title,
-    enrichment.result?.text,
-    enrichment.result?.entities?.map((entity) => entity.name).join(" "),
-  ]
-    .filter(Boolean)
-    .join(" ");
-}
-
-function isEnterpriseCompany(
-  company: string,
-  normalizedText: string,
-  enrichment: CompanyEnrichment | undefined,
-): boolean {
-  const companyKey = normalizeName(company);
-  return (
-    enrichment?.summary.is_public_or_enterprise === true ||
-    ENTERPRISE_DENYLIST.some((name) => normalizeName(name) === companyKey) ||
-    ENTERPRISE_TERMS.some((term) => normalizedText.includes(term))
-  );
-}
-
-function hqInAllowedCountries(hq: string, allowed: readonly string[]): boolean {
-  const normalized = normalizeName(hq);
-  if (!normalized) return false;
-  const us = /\b(united states|usa|u s|us|alabama|alaska|arizona|arkansas|california|colorado|connecticut|delaware|florida|georgia|illinois|massachusetts|new york|texas|washington|ohio|michigan|pennsylvania|north carolina|south carolina|tennessee|utah|virginia|wisconsin|minnesota|missouri|indiana|iowa|nevada|oregon|new jersey|maryland|dc|al|ak|az|ar|ca|co|ct|de|fl|ga|il|ma|ny|tx|wa|oh|mi|pa|nc|sc|tn|ut|va|wi|mn|mo|in|ia|nv|or|nj|md)\b/.test(normalized);
-  const uk = /\b(united kingdom|uk|england|scotland|wales|london|manchester|birmingham|bristol)\b/.test(normalized);
-  return (allowed.includes("US") && us) || (allowed.includes("UK") && uk);
-}
-
-function textInAllowedCountries(text: string, allowed: readonly string[]): boolean {
-  const normalized = normalizeName(text);
-  const us = /\b(united states|usa|alabama|alaska|arizona|arkansas|california|colorado|connecticut|delaware|florida|georgia|illinois|massachusetts|new york|texas|washington|ohio|michigan|pennsylvania|north carolina|south carolina|tennessee|utah|virginia|wisconsin|minnesota|missouri|indiana|iowa|nevada|oregon|new jersey|maryland|colorado springs|long island city|albany|wichita|kansas|kentucky|michigan|las vegas|boone county)\b/.test(normalized);
-  const uk = /\b(united kingdom|england|scotland|wales|london|manchester|birmingham|bristol)\b/.test(normalized);
-  return (allowed.includes("US") && us) || (allowed.includes("UK") && uk);
-}
-
-function hasFundingAndOpsSignal(signalText: string, companyText: string): boolean {
-  const text = `${signalText} ${companyText}`
-    .toLowerCase()
-    .replace(/first operations\/revops hire signal requested/g, "")
-    .replace(/first operations\/revops-related expansion/g, "")
-    .replace(/recent seed or series a funding signal and first operations\/revops hire signal/g, "");
-  return hasFundingSignal(text) && hasOpsHiringSignal(text);
-}
-
-function hasFundingSignal(text: string): boolean {
-  return /\b(seed|series a|pre-seed|raised|raises|funding|funded|financing|investment)\b/i.test(text);
-}
-
-function hasFirstOpsText(text: string): boolean {
-  const normalized = text.toLowerCase();
-  if (/requested|not explicitly|not provided|null|not determinable|cannot be determined/.test(normalized)) {
-    return false;
-  }
-  return (
-    FIRST_OPS_TERMS.some((term) => normalized.includes(term)) ||
-    (/\b(first|founding|founder-led)\b/.test(normalized) &&
-      OPS_ROLE_TERMS.some((term) => normalized.includes(term))) ||
-    /\b(first|founding).{0,36}\b(ops|operations|revops|revenue operations|business operations|bizops)\b/.test(normalized)
-  );
-}
-
-function hasOpsHiringSignal(text: string): boolean {
-  const normalized = text.toLowerCase();
-  if (/requested|not explicitly|not provided|null|not determinable|cannot be determined/.test(normalized)) {
-    return false;
-  }
-  const hasOpsRole = OPS_ROLE_TERMS.some((term) => normalized.includes(term));
-  const hasHiringToken = /\b(hiring|hire|role|job|career|opening|position|recruiting|posted|seeking|join our team)\b/.test(normalized);
-  return hasOpsRole && hasHiringToken;
-}
-
-function hasPaymentsBillingSignal(text: string): boolean {
-  return /\b(embedded payments|payment launch|payments launch|launched payments|expanded payments|billing operations|billing ops|billing platform|billing feature|usage-based billing|usage based pricing|subscription billing|prepaid credit|wallets?|stored-value|stored value|revenue automation|revenue operations|revops|finance operations|finance ops|monetization|monetisation|reconciliation|order-to-cash|o2c|accounts receivable|invoice|invoicing)\b/i.test(text);
+  return new Set(
+    candidates.map((candidate) =>
+      dedupeKey(candidate.result.url, normalizeName(candidate.summary.company_name)),
+    ),
+  ).size;
 }
 
 export function parseEmployeeEstimate(value: CompanySummary["employee_estimate"]): number | undefined {
@@ -905,12 +691,8 @@ function isAggregatorDomain(domain: string): boolean {
   return [
     "greenhouse.io",
     "smartrecruiters.com",
-    "energyjobline.com",
     "themuse.com",
-    "ihirelogistics.com",
     "venturefizz.com",
-    "emploive.com",
-    "zerogtalent.com",
   ].some((aggregator) => domain === aggregator || domain.endsWith(`.${aggregator}`));
 }
 
@@ -923,19 +705,17 @@ function isRejectedSourceUrl(url: string): boolean {
   }
 }
 
-function oneLiner(icp: IcpConfig, company: string, text: string): string {
-  if (icp.id === 2) {
-    return `${company} shows a recent payments, billing, or revenue-operations signal.`;
+function oneLiner(
+  company: string,
+  enrichment: CompanyEnrichment | undefined,
+  label: string,
+): string {
+  const description = enrichment?.summary.description;
+  if (typeof description === "string" && description.trim()) {
+    const d = description.trim();
+    return d.length > 160 ? `${d.slice(0, 157)}...` : d;
   }
-  if (icp.id === 3) {
-    return `${company} shows recent funding plus a first Ops/RevOps hiring signal.`;
-  }
-  const descriptor = FIRMOGRAPHIC_TERMS.find((term) =>
-    text.toLowerCase().includes(term),
-  );
-  return descriptor
-    ? `${company} shows a recent ${descriptor} operations-scaling signal.`
-    : `${company} shows a recent operations-scaling signal.`;
+  return `${company} shows a recent ${label} signal.`;
 }
 
 function clamp(value: number): number {

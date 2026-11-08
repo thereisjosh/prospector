@@ -55,7 +55,8 @@ export async function POST(request: Request) {
       );
     }
 
-    const message = error instanceof Error ? error.message : "Request failed.";
-    return NextResponse.json({ error: message }, { status: 500 });
+    // Never echo internal error text to the client; log it server-side.
+    console.error("[api/prospect] request failed:", error);
+    return NextResponse.json({ error: "Request failed." }, { status: 500 });
   }
 }

@@ -1,5 +1,5 @@
-import { ICP_1 } from "./config";
-import type { IcpConfig } from "./types";
+import { ENTERPRISE_DENYLIST } from "./config";
+import type { SearchPlan } from "./plan";
 
 export function normalizeName(value: string): string {
   return value
@@ -34,72 +34,31 @@ export function nameMatchesSignal(args: {
   return haystack.includes(company);
 }
 
-export function netNew(company: string, baseline = ICP_1.baseline): boolean {
+export function netNew(
+  company: string,
+  baseline: readonly string[] = ENTERPRISE_DENYLIST,
+): boolean {
   const normalized = normalizeName(company);
   return !baseline.some((name) => normalizeName(name) === normalized);
 }
 
+/**
+ * Best-effort ICP fit from company firmographics, driven entirely by the plan:
+ * employee estimate vs plan.employeeRange, and every `required` gate true.
+ */
 export function companyFitChecks(args: {
-  icp?: IcpConfig;
-  company: string;
-  description?: string;
-  industry?: string;
+  plan: Pick<SearchPlan, "employeeRange" | "gateFields">;
   employeeEstimate?: number;
-  isThirdPartyLogistics?: boolean;
-}): { size_in_range: boolean; is_3pl: boolean } {
-  const text = normalizeName(
-    [args.description, args.industry, args.company].filter(Boolean).join(" "),
-  );
-  const logisticsTerms = [
-    "3pl",
-    "third party logistics",
-    "logistics",
-    "logistics provider",
-    "contract logistics",
-    "freight",
-    "freight forwarding",
-    "freight brokerage",
-    "fulfillment",
-    "fulfillment services",
-    "warehouse",
-    "warehousing",
-    "last mile",
-    "final mile",
-    "transportation",
-    "supply chain",
-    "supply chain solutions",
-  ];
-  const nonOperatorTerms = [
-    "consumer brand",
-    "retail brand",
-    "retailer",
-    "beverage",
-    "pharmaceutical",
-    "pharmacy",
-    "healthcare",
-    "chemical",
-    "manufacturer",
-    "real estate",
-    "property",
-    "grocery",
-    "marketplace",
-    "robotics",
-    "software",
-    "automation",
-  ];
-  const is3pl =
-    args.isThirdPartyLogistics === true ||
-    (logisticsTerms.some((term) => text.includes(normalizeName(term))) &&
-      !nonOperatorTerms.some((term) => text.includes(normalizeName(term))));
-  const range = args.icp?.employeeRange ?? { min: 75, max: 1500 };
+  gates: Record<string, unknown>;
+}): { size_in_range: boolean; required_gates_pass: boolean } {
+  const { min, max } = args.plan.employeeRange;
   const sizeInRange =
     args.employeeEstimate === undefined ||
-    (args.employeeEstimate >= range.min && args.employeeEstimate <= range.max);
-
-  return {
-    size_in_range: sizeInRange,
-    is_3pl: is3pl,
-  };
+    (args.employeeEstimate >= min && args.employeeEstimate <= max);
+  const requiredGatesPass = args.plan.gateFields
+    .filter((gate) => gate.required)
+    .every((gate) => args.gates[gate.key] === true);
+  return { size_in_range: sizeInRange, required_gates_pass: requiredGatesPass };
 }
 
 export async function urlResolves(url: string): Promise<boolean> {
