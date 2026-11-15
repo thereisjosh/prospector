@@ -52,7 +52,7 @@ export type StepResponse = {
 
 export type Feedback = { verdict?: "up" | "down"; reason?: string; open?: boolean; sending?: boolean; sent?: boolean; error?: boolean };
 
-/** GET /api/workspaces/:id/memory: the lists themselves, newest first, with provenance. */
+/** GET /api/workspace/memory: the lists themselves, newest first, with provenance. */
 export type MemoryView = {
   /** Unique companies remembered across all searches (live ones, under 90 days). */
   seenCount: number;
@@ -67,13 +67,27 @@ export type MemoryView = {
 export type InstagramCandidate = SiteCandidate;
 export type { SellerProfile, SiteCandidate, ResolveSource, UnusableReason };
 
-/** The anonymous workspace id the page stores; live routes use it for the visitor allowance. */
-function workspaceHeader(): Record<string, string> {
+/** One-release migration: send a legacy browser id once, then forget it after a successful response. */
+const LEGACY_WORKSPACE_KEY = "prospector.workspaceId";
+let legacyWorkspaceSent = false;
+
+function legacyWorkspaceHeader(): Record<string, string> {
   try {
-    const id = typeof window !== "undefined" ? window.localStorage.getItem("prospector.workspaceId") : null;
-    return id ? { "x-workspace-id": id } : {};
+    if (legacyWorkspaceSent || typeof window === "undefined") return {};
+    const id = window.localStorage.getItem(LEGACY_WORKSPACE_KEY);
+    return id && /^[A-Za-z0-9_-]{1,64}$/.test(id) ? { "x-legacy-workspace-id": id } : {};
   } catch {
     return {};
+  }
+}
+
+function clearLegacyWorkspaceAfterSuccess(): void {
+  if (legacyWorkspaceSent || typeof window === "undefined") return;
+  legacyWorkspaceSent = true;
+  try {
+    window.localStorage.removeItem(LEGACY_WORKSPACE_KEY);
+  } catch {
+    // Browser privacy settings may deny storage; the cookie remains authoritative.
   }
 }
 
@@ -91,7 +105,7 @@ export async function api<T>(url: string, init?: { method?: string; body?: unkno
   const response = await fetch(url, {
     method: init?.method ?? (init?.body !== undefined ? "POST" : "GET"),
     headers: {
-      ...workspaceHeader(),
+      ...legacyWorkspaceHeader(),
       ...localeHeader(),
       ...(init?.body !== undefined ? { "content-type": "application/json" } : {}),
     },
@@ -108,6 +122,7 @@ export async function api<T>(url: string, init?: { method?: string; body?: unkno
     const code = data && typeof data === "object" && typeof (data as { error?: unknown }).error === "string" ? (data as { error: string }).error : undefined;
     throw new HttpError(response.status, code);
   }
+  clearLegacyWorkspaceAfterSuccess();
   return data as T;
 }
 
@@ -137,12 +152,9 @@ export async function withRateLimitRetry<T>(call: () => Promise<T>, tries = 8): 
 export type UnverifiedCandidate = { company: string; signal_url: string; why_now: string; code: string; missing: string };
 
 /**
- * URL of a run's live event stream (GET /api/runs/:id/events). EventSource cannot send headers,
- * so the workspace id the other calls send as `x-workspace-id` goes in the query.
+ * URL of a run's live event stream (GET /api/runs/:id/events). Same-origin EventSource sends cookies.
  */
 export function runEventsUrl(runId: string, after: number): string {
-  const ws = workspaceHeader()["x-workspace-id"];
   const query = new URLSearchParams({ after: String(Math.max(0, Math.trunc(after))) });
-  if (ws) query.set("workspaceId", ws);
   return `/api/runs/${encodeURIComponent(runId)}/events?${query.toString()}`;
 }

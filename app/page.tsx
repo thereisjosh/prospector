@@ -42,37 +42,15 @@ const STEPS: Array<{ id: Step; label: string; title: string; sub: string }> = [
 
 const DEMO_INPUT = "We sell labor-scheduling software to mid-sized 3PL warehouses in the US and UK";
 const STEP_PAUSE_MS = 400;
-const WS_KEY = "prospector.workspaceId";
-
-function newId(): string {
-  try {
-    return crypto.randomUUID();
-  } catch {
-    return `ws-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
-  }
-}
-
-function readWorkspaceId(): string {
-  try {
-    const existing = localStorage.getItem(WS_KEY);
-    if (existing && /^[A-Za-z0-9_-]{1,64}$/.test(existing)) return existing;
-    const id = newId();
-    localStorage.setItem(WS_KEY, id);
-    return id;
-  } catch {
-    return newId();
-  }
-}
-
 type Caps = { visitorRuns: number; visitorDollars: number };
-type StatusResponse = { visitor?: AllowanceView; caps?: Caps };
+type StatusResponse = { visitor?: AllowanceView; caps?: Caps; liveAvailable?: boolean };
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 export default function Page() {
   const [demo, setDemo] = useState(false);
   const [dark, setDark] = useState(false);
-  const [workspaceId, setWorkspaceId] = useState("");
+  const [liveAvailable, setLiveAvailable] = useState(true);
   const [memory, setMemory] = useState<MemoryView | null>(null);
   const [memoryError, setMemoryError] = useState(false);
 
@@ -136,7 +114,6 @@ export default function Page() {
     const root = document.documentElement;
     const current = root.getAttribute("data-theme") ?? (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
     setDark(current === "dark");
-    setWorkspaceId(readWorkspaceId());
     api<{ demo: boolean }>("/api/mode")
       .then((m) => {
         setDemo(m.demo);
@@ -147,19 +124,16 @@ export default function Page() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const refreshMemory = useCallback(async (id: string) => {
-    if (!id) return;
+  const refreshMemory = useCallback(async () => {
     try {
-      setMemory(await api<MemoryView>(`/api/workspaces/${encodeURIComponent(id)}/memory`));
+      setMemory(await api<MemoryView>("/api/workspace/memory"));
       setMemoryError(false);
     } catch {
       setMemoryError(true);
     }
   }, []);
 
-  useEffect(() => {
-    void refreshMemory(workspaceId);
-  }, [workspaceId, refreshMemory]);
+  useEffect(() => { void refreshMemory(); }, [refreshMemory]);
 
   useEffect(() => {
     headingRef.current?.focus({ preventScroll: false });
@@ -170,6 +144,7 @@ export default function Page() {
       const s = await api<StatusResponse>("/api/status");
       if (s.visitor) setVisitor(s.visitor);
       if (s.caps) setCaps(s.caps);
+      if (s.liveAvailable !== undefined) setLiveAvailable(s.liveAvailable);
     } catch {
       // the allowance line is informational; the routes enforce it
     }
@@ -332,10 +307,10 @@ export default function Page() {
       } finally {
         loopRef.current = false;
         setStepping(false);
-        if (finished) void refreshMemory(workspaceId);
+        if (finished) void refreshMemory();
       }
     },
-    [pushEvents, refreshSnapshot, refreshMemory, workspaceId],
+    [pushEvents, refreshSnapshot, refreshMemory],
   );
 
   async function startRun() {
@@ -344,7 +319,7 @@ export default function Page() {
     setCreateError("");
     try {
       const res = await api<{ id: string }>("/api/runs", {
-        body: { plan: plan.plan, workspaceId, targetLeads, maxCostDollars: maxSpend },
+        body: { plan: plan.plan, targetLeads, maxCostDollars: maxSpend },
       });
       setRunId(res.id);
       setSnapshot(null);
@@ -388,7 +363,7 @@ export default function Page() {
     setFeedback((f) => ({ ...f, [company]: { ...next, sending: true } }));
     const lead = snapshot?.leads.find((l) => l.company === company);
     try {
-      await api(`/api/workspaces/${encodeURIComponent(workspaceId)}/feedback`, {
+      await api("/api/workspace/feedback", {
         body: {
           company,
           verdict: next.verdict,
@@ -398,7 +373,7 @@ export default function Page() {
         },
       });
       setFeedback((f) => ({ ...f, [company]: { ...next, sending: false, sent: true, open: false } }));
-      void refreshMemory(workspaceId);
+      void refreshMemory();
     } catch {
       setFeedback((f) => ({ ...f, [company]: { ...next, sending: false, error: true } }));
     }
@@ -433,8 +408,8 @@ export default function Page() {
 
   async function clearMemory() {
     try {
-      await api(`/api/workspaces/${encodeURIComponent(workspaceId)}/memory`, { method: "DELETE" });
-      await refreshMemory(workspaceId);
+      await api("/api/workspace/memory", { method: "DELETE" });
+      await refreshMemory();
     } catch {
       setMemoryError(true);
     }
@@ -442,8 +417,8 @@ export default function Page() {
 
   async function forgetMemoryItem(itemId: string) {
     try {
-      await api(`/api/workspaces/${encodeURIComponent(workspaceId)}/memory/items/${encodeURIComponent(itemId)}`, { method: "DELETE" });
-      await refreshMemory(workspaceId);
+      await api(`/api/workspace/memory/items/${encodeURIComponent(itemId)}`, { method: "DELETE" });
+      await refreshMemory();
     } catch {
       setMemoryError(true);
     }
@@ -451,8 +426,8 @@ export default function Page() {
 
   async function forgetMemoryGroup(planKey: string) {
     try {
-      await api(`/api/workspaces/${encodeURIComponent(workspaceId)}/memory?search=${encodeURIComponent(planKey)}`, { method: "DELETE" });
-      await refreshMemory(workspaceId);
+      await api(`/api/workspace/memory?search=${encodeURIComponent(planKey)}`, { method: "DELETE" });
+      await refreshMemory();
     } catch {
       setMemoryError(true);
     }
@@ -552,6 +527,7 @@ export default function Page() {
         {step === "start" && (
           <StartStep
             demo={demo}
+            liveUnavailable={!demo && !liveAvailable}
             input={input}
             setInput={setInput}
             busy={profileBusy}

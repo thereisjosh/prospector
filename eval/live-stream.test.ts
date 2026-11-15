@@ -396,13 +396,14 @@ describe("GET /api/runs/:id/events (SSE)", () => {
     expect(body.text).toContain('event: end\ndata: {"status":"stopped"}');
   });
 
-  it("rejects a wrong or missing workspace, accepts it in the query (EventSource cannot send headers)", async () => {
+  it("rejects a wrong or missing workspace and does not accept a query workspace id", async () => {
     const s = await liveRun();
     expect((await get(s.id, "?after=0", { "x-workspace-id": "someone-else" })).status).toBe(403);
     expect((await get(s.id, "?after=0")).status).toBe(400);
     expect((await get(crypto.randomUUID(), "?after=0", { "x-workspace-id": s.workspaceId })).status).toBe(404);
     expect((await get("../etc", "?after=0", { "x-workspace-id": s.workspaceId })).status).toBe(400);
-    const ok = await get(s.id, `?after=3&workspaceId=${s.workspaceId}`);
+    expect((await get(s.id, `?after=3&workspaceId=${s.workspaceId}`)).status).toBe(400);
+    const ok = await get(s.id, "?after=3", { "x-workspace-id": s.workspaceId });
     expect(ok.status).toBe(200);
     await ok.body!.cancel();
   });
@@ -439,7 +440,7 @@ describe("demo run: the replay writes its events as it paces them", () => {
     expect(out.status).toBe("awaiting_approval");
     const { demoDecide } = await import("../src/demo/replay");
     await demoDecide(id, { approve: true });
-    const res = await get(id, `?after=0&workspaceId=${workspace}`);
+    const res = await get(id, "?after=0", { "x-workspace-id": workspace });
     expect(res.status).toBe(200);
     const body = await reader(res);
     const arrivals: Array<{ at: number; kind: string }> = [];

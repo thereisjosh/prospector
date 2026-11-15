@@ -12,7 +12,7 @@ import type { CardSet } from "../../src/planner/cards";
 import { CardsStep } from "./CardsStep";
 import { EvidenceBlock } from "./RunTrace";
 import { RunView, WhoToReach } from "./RunView";
-import { evidenceFor, traceModel } from "./trace-model";
+import { evidenceFor, traceModel, turnReason } from "./trace-model";
 import type { RunSnapshot } from "./types";
 
 const ROOT = join(import.meta.dirname, "..", "..");
@@ -189,5 +189,35 @@ describe("Target: Who to reach card", () => {
   it("no roles: says contacts won't be looked up", () => {
     const html = renderToStaticMarkup(h(CardsStep, { cards: { ...cards, buyerRoles: [] }, base: cards, activeAlt: -1, onPickAlt: noop, onChange: noop, onContinue: noop, onBack: noop, busy: false, error: "" }));
     expect(html).toContain("No roles: contacts won&#x27;t be looked up");
+  });
+});
+
+describe("Visible agency (docs/SPEC-visible-agency.md B2, B3)", () => {
+  it("a turn carries the model's first line of text as its reason, clipped and markdown-free", () => {
+    const tree = traceModel(
+      [
+        { kind: "model_call", turn: 3, ts: "2026-11-15T09:00:00.000Z", runId: "r", response: { text: "**Reading** Northgate's site to check it ships for other brands.\nMore detail.", tool_uses: [] } } as never,
+        { kind: "model_call", turn: 4, ts: "2026-11-15T09:00:05.000Z", runId: "r", response: { text: "", tool_uses: [] } } as never,
+      ],
+      { status: "done", leads: [], rejected: [], todo: "", contract } as never,
+    );
+    expect(tree.turns.find((t) => t.turn === 3)?.reason).toBe("Reading Northgate's site to check it ships for other brands.");
+    expect(tree.turns.find((t) => t.turn === 4)?.reason).toBeUndefined();
+    expect(turnReason("x".repeat(300))).toHaveLength(200);
+  });
+
+  it("the evidence block shows the decisive check first, with the page it was read on", () => {
+    const lead = {
+      company: "Northgate",
+      signal_url: "https://news.example/northgate",
+      why_now: "Opened a new warehouse",
+      summary: { company_name: "Northgate", signal_type: "new_facility", signal_summary: "x", signal_date: "2026-10-01", signal_quote: "Northgate opened a 200,000 sq ft warehouse." },
+      details: {},
+      turn: 5,
+      decisive_check: { question: "Does Northgate store and ship goods for other companies?", answer_quote: "Northgate provides fulfilment for more than 40 brands.", page_url: "https://northgate.example/about" },
+    };
+    const detail = evidenceFor(lead as never, contract);
+    expect(detail.quotes[0]).toEqual({ label: "It checked: Does Northgate store and ship goods for other companies?", quote: "Northgate provides fulfilment for more than 40 brands.", source: "northgate.example" });
+    expect(detail.quotes[1]?.label).toBe("Why now");
   });
 });

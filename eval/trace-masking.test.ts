@@ -42,7 +42,7 @@ import {
   tracePlanner,
   traceStats,
 } from "../src/agent/trace";
-import { POST as feedbackPOST } from "../app/api/workspaces/[id]/feedback/route";
+import { POST as feedbackPOST } from "../app/api/workspace/feedback/route";
 import { score } from "../src/agent/trace";
 import { pagePrefixHash } from "../src/agent/tools";
 import { __promptHashCacheStats } from "../src/agent/loop";
@@ -89,6 +89,7 @@ function msg(id: string, stop_reason: string, content: unknown[]) {
 }
 
 const tool = (id: string, name: string, input: Record<string, unknown>) => ({ type: "tool_use", id, name, input });
+const decisiveCheck = (pageUrl: string, answerQuote: string) => ({ question: "Is this company an operator?", answer_quote: answerQuote, page_url: pageUrl });
 
 function scriptedClient() {
   const responses: unknown[] = [
@@ -102,7 +103,7 @@ function scriptedClient() {
     msg("msg_04", "tool_use", [
       tool("tu_read", "read_page", { url: "https://news.example.com/acme" }),
       tool("tu_bad", "read_page", { url: "https://bad.example.com/page" }),
-      tool("tu_submit", "submit_lead", { company: "Acme Logistics", signal_url: "https://news.example.com/acme", why_now: "Opened a warehouse." }),
+      tool("tu_submit", "submit_lead", { company: "Acme Logistics", signal_url: "https://news.example.com/acme", why_now: "Opened a warehouse.", decisive_check: decisiveCheck("https://news.example.com/acme", "Acme Logistics serves other businesses.") }),
     ]),
     new Error(`upstream rejected ${ANTH} for ${EMAIL} from ${IP}`),
   ];
@@ -155,7 +156,7 @@ async function readExaContents(url: string) {
   return {
     title: `Acme page ${ANTH}`,
     publishedDate: "2026-10-01",
-    text: `Full page text with ${EMAIL}, ${PHONE}, ${IP}, ${ANTH}, ${ADMIN}, ${EXA} and ${WS}.`,
+    text: `Acme Logistics serves other businesses. Full page text with ${EMAIL}, ${PHONE}, ${IP}, ${ANTH}, ${ADMIN}, ${EXA} and ${WS}.`,
     costDollars: { total: 0.001 },
   };
 }
@@ -191,7 +192,7 @@ async function scenario(): Promise<{ state: string; events: string }> {
     const response = await feedbackPOST(
       new Request(`http://x/api/workspaces/${WS}/feedback`, {
         method: "POST",
-        headers: { "content-type": "application/json" },
+        headers: { "content-type": "application/json", "x-workspace-id": WS },
         body: JSON.stringify({
           company: "Acme Logistics",
           verdict: "down",

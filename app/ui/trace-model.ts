@@ -97,6 +97,8 @@ export type TraceLive = { streaming?: { turn: number; text: string } | null };
 export type TraceTurn = {
   turn: number;
   title: string;
+  /** The agent's own one-line reason for this step, from the model's recorded text (first line, clipped). */
+  reason?: string;
   description?: string;
   status: "running" | "error" | "pending" | undefined;
   lines: TraceLine[];
@@ -156,6 +158,12 @@ export function evidenceFor(lead: AcceptedLead, contract?: ContractView): Eviden
     if (q) quotes.push({ label, quote: q, ...(extra.source ? { source: extra.source } : {}), ...(extra.date ? { date: extra.date } : {}) });
     else missing.push(label);
   };
+  // The agent's own deciding check, code-verified against a page it read this run (src/gates.ts checkDecisiveCheck). Shown first.
+  const check = lead.decisive_check;
+  if (check && str(check.question) && str(check.answer_quote)) {
+    const checkSource = isHttpUrl(check.page_url) ? host(check.page_url) : undefined;
+    quotes.push({ label: TRACE.quoteLabels.checked(check.question), quote: check.answer_quote, ...(checkSource ? { source: checkSource } : {}) });
+  }
   row(TRACE.quoteLabels.whyNow, summary.signal_quote, { source, date: published });
   row(TRACE.quoteLabels.when, summary.signal_date_quote, { source, date: published });
   row(TRACE.quoteLabels.size, enrichment.employee_estimate_source);
@@ -329,7 +337,7 @@ function startedLine(event: AgentEvent, id: string): TraceLine {
 
 export function traceModel(events: AgentEvent[], snapshot: TraceSnapshot, live: TraceLive = {}): TraceTree {
   const ctx: Ctx = { contract: snapshot.contract, leads: snapshot.leads ?? [], candidates: snapshot.candidates ?? [] };
-  const byTurn = new Map<number, { turn: number; lines: TraceLine[]; searches: number; lookups: number; added: number; cost: number; ms: number; error: boolean }>();
+  const byTurn = new Map<number, { turn: number; lines: TraceLine[]; searches: number; lookups: number; added: number; cost: number; ms: number; error: boolean; reason?: string }>();
   const turnOf = (n: number) => {
     let t = byTurn.get(n);
     if (!t) byTurn.set(n, (t = { turn: n, lines: [], searches: 0, lookups: 0, added: 0, cost: 0, ms: 0, error: false }));
@@ -359,7 +367,11 @@ export function traceModel(events: AgentEvent[], snapshot: TraceSnapshot, live: 
     t.cost += num(event.claudeCost) + num(event.exaCost);
     switch (event.kind) {
       case "model_call": {
-        if (event.handback !== true) modelCalled.add(t.turn);
+        if (event.handback !== true) {
+          modelCalled.add(t.turn);
+          const reason = turnReason(str(rec(event.response).text));
+          if (reason && !t.reason) t.reason = reason;
+        }
         t.ms += num(event.latencyMs);
         const tokens = rec(event.tokens);
         if (event.tokens !== undefined) {
@@ -527,6 +539,7 @@ export function traceModel(events: AgentEvent[], snapshot: TraceSnapshot, live: 
       return {
         turn: t.turn,
         title: TRACE.step(t.turn),
+        ...(t.reason ? { reason: t.reason } : {}),
         ...(description ? { description } : {}),
         status: running && last ? "running" : waiting && last ? "pending" : t.error ? "error" : undefined,
         lines,
@@ -576,6 +589,13 @@ export type ChecklistModel = {
   stale: boolean;
   staleLine?: string;
 };
+
+/** First non-empty line of the model's visible text, plain and clipped: the agent's stated reason for the step. */
+export function turnReason(text: string | undefined, max = 200): string | undefined {
+  const first = (text ?? "").split(/\r?\n/).map((l) => stripMd(l).trim()).find(Boolean);
+  if (!first) return undefined;
+  return first.length > max ? `${first.slice(0, max - 1).trimEnd()}…` : first;
+}
 
 function stripMd(text: string): string {
   return text.replace(/\*\*([^*]+)\*\*/g, "$1").replace(/`/g, "").trim();

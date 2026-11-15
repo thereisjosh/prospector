@@ -43,6 +43,8 @@ export type WorkerSummary = {
   queued: number;
 };
 
+type HealthPayload = { liveReady?: unknown; keys?: { anthropic?: unknown; exa?: unknown } };
+
 const JUDGE_SCORE_NAMES = ["judge_q1", "judge_q2", "judge_q3"] as const;
 
 const rec = (v: unknown): Record<string, unknown> => (v && typeof v === "object" && !Array.isArray(v) ? (v as Record<string, unknown>) : {});
@@ -98,6 +100,17 @@ async function getJson(fetcher: FetchLike, url: string, init: RequestInit): Prom
   const res = await fetcher(url, init);
   if (!res.ok) throw new Error(`GET ${url} failed: ${res.status}`);
   return res.json() as Promise<unknown>;
+}
+
+/** Fail the scheduled job visibly when deployment credentials are invalid/missing. */
+export async function requireHealthyKeys(fetcher: FetchLike, env: Record<string, string | undefined>): Promise<void> {
+  const health = rec(await getJson(fetcher, `${baseUrl(env)}/api/health`, {})) as HealthPayload;
+  if (health.liveReady !== false) return;
+  const keys = health.keys ?? {};
+  for (const name of ["anthropic", "exa"] as const) {
+    const state = keys[name];
+    if (state === "invalid" || state === "missing") throw new Error(`${name} key ${state}`);
+  }
 }
 
 function scoreValue(score: Record<string, unknown>): string | undefined {
@@ -288,6 +301,7 @@ export async function runWorker(deps: WorkerDeps): Promise<WorkerSummary> {
   const since = deps.since ?? defaultSince(now);
   const gradeFrom = deps.since ? Date.parse(deps.since) : now.getTime() - GRADE_WINDOW_MS;
   const dryRun = deps.dryRun ?? false;
+  await requireHealthyKeys(deps.fetch, env);
   const exported = rec(
     await getJson(deps.fetch, `${baseUrl(env)}/api/admin/runs/export?since=${encodeURIComponent(since)}`, {
       headers: { authorization: bearer(env, "ADMIN_TOKEN") },

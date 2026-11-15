@@ -20,9 +20,10 @@ const plan = () => ({
 });
 
 function jsonRequest(url: string, body: unknown) {
+  const workspaceId = (body as { workspaceId?: string }).workspaceId;
   return new Request(url, {
     method: "POST",
-    headers: { "content-type": "application/json", "x-forwarded-for": crypto.randomUUID() },
+    headers: { "content-type": "application/json", "x-forwarded-for": crypto.randomUUID(), ...(workspaceId ? { "x-workspace-id": workspaceId } : {}) },
     body: JSON.stringify(body),
   });
 }

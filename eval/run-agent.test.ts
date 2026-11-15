@@ -41,6 +41,7 @@ const msg = (stop_reason: string, content: unknown[]) => ({
   usage: { input_tokens: 100, output_tokens: 50, cache_read_input_tokens: 0, cache_creation_input_tokens: 0 },
 });
 const tool = (id: string, name: string, input: Record<string, unknown>) => ({ type: "tool_use", id, name, input });
+const decisiveCheck = (pageUrl: string, answerQuote: string) => ({ question: "Is this company an operator?", answer_quote: answerQuote, page_url: pageUrl });
 const client = (...responses: unknown[]) => ({ messages: { create: vi.fn(async () => {
   const next = responses.shift();
   if (next instanceof Error) throw next;
@@ -76,13 +77,17 @@ const deps = (c: unknown): LoopDeps => ({
   lookupCompany: vi.fn(async () => lookupResult) as never,
 });
 
-const newState = (over = {}) => createRunState({ id: crypto.randomUUID(), workspaceId: "ws", plan, ...over });
+const newState = (over = {}) => {
+  const state = createRunState({ id: crypto.randomUUID(), workspaceId: "ws", plan, ...over });
+  state.caches.readPages["https://news.example/good"] = { title: "GoodCo expands", text: "GoodCo expands its network." };
+  return state;
+};
 
 const happyPath = () => [
   msg("tool_use", [tool("p", "propose_strategy", { angles: ["a"], first_queries: ["q"], est_cost_dollars: 0.1 })]),
   msg("tool_use", [tool("s", "search_signals", { query: "warehouse expansion", num_results: 10 })]),
   msg("tool_use", [tool("l", "lookup_company", { name: "GoodCo" })]),
-  msg("tool_use", [tool("sub", "submit_lead", { company: "GoodCo", signal_url: "https://news.example/good", why_now: "opened warehouse" })]),
+  msg("tool_use", [tool("sub", "submit_lead", { company: "GoodCo", signal_url: "https://news.example/good", why_now: "opened warehouse", decisive_check: decisiveCheck("https://news.example/good", "GoodCo expands its network.") })]),
   msg("tool_use", [tool("f", "finish", { summary: "done" })]), // held once: offers `remember`
   msg("tool_use", [tool("r", "remember", { text: "New-warehouse news surfaced mid-size operators.", tags: ["expansion", "warehouse"] })]),
   msg("tool_use", [tool("f2", "finish", { summary: "done" })]),

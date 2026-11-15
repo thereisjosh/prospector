@@ -2,11 +2,47 @@
 
 Prospector finds B2B sales leads. A seller pastes their website and approves a short plan; an agent (Claude Sonnet 5.5 by default, Opus 5.5 selectable, over the Exa search API) looks for companies with a recent, cited "why now" event such as a new warehouse, a funding round or an operations hire. Code, not the model, checks each company against the plan. The output is leads with source links, the companies turned down and why, up to three named people to reach at each lead (each marked verified or inferred), and a CSV. It is aimed at sellers whose buyers are mid-market companies with a public footprint (press, trade news, LinkedIn headcounts): logistics, SaaS, funded startups, manufacturers. The repo also holds a fixed-query workflow as a control arm.
 
-**Result.** On 2 scenarios × 3 reps, judged blind, the agent passed every rep (pass^3 = 1) at $0.07–$0.14 per good lead. The workflow, with the same contract and the same $1.00 cap, passed none. The agent's S2 precision sits exactly on the 0.80 bar, and the agent has flaws the pass rate hides: it almost never checks pages (1 read in 9 runs), rarely changes tactics, and lets its checklist go stale. [§2](#2-whats-wrong-with-the-agent-observed) lists them with evidence. Everything built after the pilot (live streaming, the input resolver, search-scoped memory, the contacts step, the new visual system) has tests but no judged run: the pilot numbers above predate it, and [§9](#9-what-is-not-built) lists what is still missing.
+**Result.** On 2 scenarios × 3 reps, judged blind, the agent passed every rep (pass^3 = 1) at $0.07–$0.14 per good lead. The workflow, with the same contract and the same $1.00 cap, passed none. The agent's S2 precision sits exactly on the 0.80 bar, and the agent has flaws the pass rate hides: until 2026-11-15 it almost never checked pages (1 read in 9 runs; now required, see [How the agent works](#how-the-agent-works)), it rarely changes tactics, and it lets its checklist go stale. [§2](#2-whats-wrong-with-the-agent-observed) lists them with evidence. Everything built after the pilot (live streaming, the input resolver, search-scoped memory, the contacts step, the new visual system) has tests but no judged run: the pilot numbers above predate it, and [§9](#9-what-is-not-built) lists what is still missing.
+
+## How the agent works
+
+The model decides what to do; code decides what counts. Each turn the model writes one plain sentence saying what it is doing next and why, then calls tools. Their handlers run the code checks, and the results go back to the model for the next turn.
+
+**Tools the model can call (10):**
+
+| Tool | What it does |
+|---|---|
+| `search_signals` | Exa search for "why now" events (new warehouse, funding, ops hiring) |
+| `lookup_company` | Firmographics: size, HQ, what the company does, each with a quote |
+| `read_page` | Fetches a page's full text; only pages read this way can back a deciding check |
+| `submit_lead` | Proposes a lead with its deciding check (below) |
+| `find_contacts` | Up to three named people per lead, each verified or inferred |
+| `update_todo` | The agent's own checklist |
+| `propose_strategy` | Pauses for the seller to approve the search plan |
+| `request_scope_change` | Pauses to ask for a wider contract (size, window, region) |
+| `remember` | Saves a note for the next run in this workspace |
+| `finish` | Stops with a handback: shortfall, top reasons, suggestions |
+
+**Code checks (the model can't call or skip them):** `checkLead` (source is a real company or news page, event inside the window, quote verbatim on the page, size, HQ, not enterprise, not seen before), `checkDecisiveCheck`, and `checkContact`. A failed check rejects the lead with a named code (`size`, `quote_not_in_page`, `check_page_not_read`, …) that the model sees and the run trace shows. The results table is built only from accepted `submit_lead` records, never from the model's text.
+
+**The deciding check.** Every `submit_lead` carries `decisive_check`: the one question that decides whether this company fits ("Does it run warehouses for other companies, or only its own?"), the sentence that answers it, and the URL it came from. Code rejects it unless that URL was read with `read_page` in this run and the sentence is on the page, word for word. The model can't skip the check or write its own evidence. The run trace shows the question, the sentence and the verdict for each lead.
+
+**Stops:** target reached, budget (the $1.00 cap less a handback reserve), max turns, no progress, or `finish`.
+
+**Measured on 2026-11-15** (Sonnet 5.5, $1.00 cap, 1 rep per cell unless noted; [FAILURES #33](docs/FAILURES.md), results in `eval/results/visible-agency-2026-11-15/`):
+
+| | Leads | With a code-checked deciding check | `read_page` calls | Spend |
+|---|---|---|---|---|
+| S2 (funded B2B), Oct 17 baseline | 10 | n/a | 0 | $0.54 |
+| S2, deciding check required | 10 | 10 of 10 | 12 | $0.83 |
+| S1 (logistics), Oct 17 baseline (2 reps) | 9, 6 | n/a | 0, 1 | $0.88, $0.88 |
+| S1, deciding check required (2 reps) | 3, 5 | 3 of 3, 5 of 5 | 6, 9 | $0.87, $0.84 |
+
+Hand check of all 18 checks: 16 answer their question (in S2, Arcade.dev reused its signal sentence and Agave asked a question the signal already settled). The short S1 rep was a thin batch of search results, not the check: it rejected nothing, and 23 of 28 companies were turned down before submission, 14 on size. These counts are by hand, against Opus-judged baselines, and one or two reps per cell are not a precision result.
 
 | Document | What it is |
 |---|---|
-| [docs/FAILURES.md](docs/FAILURES.md) | 30 failures found in this build: symptom, layer, cause, fix, before → after |
+| [docs/FAILURES.md](docs/FAILURES.md) | 33 failures found in this build: symptom, layer, cause, fix, before → after |
 | [docs/EVAL-DETAIL.md](docs/EVAL-DETAIL.md) | Pre-pilot smoke run, S2 miss breakdown, judge history, build cost |
 | [docs/DECISIONS.md](docs/DECISIONS.md) | 22 decisions with alternatives, evidence and what would change them |
 | [docs/SPEC-agent.md](docs/SPEC-agent.md) | Agent spec: loop, tools, autonomy (§5a), guardrails, evals, rollout (§14) |

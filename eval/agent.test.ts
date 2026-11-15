@@ -1,4 +1,5 @@
-import { rm } from "node:fs/promises";
+import { readFile, rm, writeFile } from "node:fs/promises";
+import { join } from "node:path";
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 // Every test that writes state uses a temp RUNS_DIR / WORKSPACES_DIR, never the real ./runs.
@@ -68,6 +69,10 @@ function text(value: string) {
 
 function tool(id: string, name: string, input: Record<string, unknown>) {
   return { type: "tool_use", id, name, input };
+}
+
+function decisiveCheck(pageUrl: string, answerQuote: string) {
+  return { question: "Is this company an operator?", answer_quote: answerQuote, page_url: pageUrl };
 }
 
 function client(...responses: unknown[]) {
@@ -161,7 +166,7 @@ describe("agent loop", () => {
       msg("tool_use", [tool("p", "propose_strategy", { angles: ["expansion"], first_queries: ["warehouse"], est_cost_dollars: 0.1 })]),
       msg("tool_use", [tool("s", "search_signals", { query: "warehouse expansion", num_results: 10 })]),
       msg("tool_use", [tool("l", "lookup_company", { name: "GoodCo" })]),
-      msg("tool_use", [tool("sub", "submit_lead", { company: "GoodCo", signal_url: "https://news.example/good", why_now: "opened warehouse" })]),
+      msg("tool_use", [tool("sub", "submit_lead", { company: "GoodCo", signal_url: "https://news.example/good", why_now: "opened warehouse", decisive_check: decisiveCheck("https://news.example/good", "GoodCo expands its network.") })]),
       msg("tool_use", [tool("f", "finish", { summary: "done" })]),
       msg("tool_use", [tool("r", "remember", { text: "Warehouse-opening news surfaced mid-size operators.", tags: ["Expansion"] })]),
       msg("tool_use", [tool("f2", "finish", { summary: "done" })]),
@@ -171,6 +176,7 @@ describe("agent loop", () => {
     expect(s.messages.at(-1)?.role).toBe("assistant");
     await decide(s, { approve: true });
     await step(s, { client: c as never, checkLead: checker, now: NOW, exaSearch: vi.fn(async () => signalResult) as never });
+    s.caches.readPages["https://news.example/good"] = { title: "GoodCo expands", text: "GoodCo expands its network." };
     await step(s, { client: c as never, checkLead: checker, now: NOW, lookupCompany: vi.fn(async () => lookupResult) as never });
     await step(s, { client: c as never, checkLead: checker, now: NOW });
     await step(s, { client: c as never, checkLead: checker, now: NOW }); // finish: held once to offer remember
@@ -280,7 +286,8 @@ describe("agent loop", () => {
       summary: { company_name: "BadCo", signal_type: "expansion", signal_summary: "BadCo expands.", signal_date: "2026-10-01" },
     };
     s.caches.enrichmentByName.badco = { summary: { description: "BadCo" } };
-    await step(s, { client: client(msg("tool_use", [tool("sub", "submit_lead", { company: "BadCo", signal_url: "https://news.example/bad", why_now: "x" })])) as never, checkLead: checker, now: NOW });
+    s.caches.readPages["https://news.example/bad"] = { title: "BadCo expands", text: "BadCo expands its network." };
+    await step(s, { client: client(msg("tool_use", [tool("sub", "submit_lead", { company: "BadCo", signal_url: "https://news.example/bad", why_now: "x", decisive_check: decisiveCheck("https://news.example/bad", "BadCo expands its network.") })])) as never, checkLead: checker, now: NOW });
     expect(s.rejected[0]).toMatchObject({ company: "BadCo", code: "required_gate:is_operator" });
     expect(JSON.stringify(s.messages.at(-1))).toContain("rejected: required_gate:is_operator");
   });
@@ -301,11 +308,63 @@ describe("agent loop", () => {
       summary: { company_name: "CandidateCo", signal_type: "expansion", signal_summary: "CandidateCo expands its network.", signal_date: "2026-10-01", signal_quote: "CandidateCo expands its network.", signal_date_quote: "" },
     };
     s.caches.enrichmentByName.candidateco = { summary: { description: "CandidateCo" } };
-    await step(s, { client: client(msg("tool_use", [tool("sub", "submit_lead", { company: "CandidateCo", signal_url: "https://news.example/candidate", why_now: "x" })])) as never, checkLead: candidateChecker, now: NOW });
+    s.caches.readPages["https://news.example/candidate"] = { title: "CandidateCo expands", text: "CandidateCo expands its network." };
+    await step(s, { client: client(msg("tool_use", [tool("sub", "submit_lead", { company: "CandidateCo", signal_url: "https://news.example/candidate", why_now: "x", decisive_check: decisiveCheck("https://news.example/candidate", "CandidateCo expands its network.") })])) as never, checkLead: candidateChecker, now: NOW });
     expect(s.leads).toHaveLength(0);
     expect(s.rejected).toHaveLength(0);
     expect(s.candidates[0]).toMatchObject({ company: "CandidateCo", code: "unquoted_gate", missing: '"is it an operator?" not stated on the lookup page' });
     expect(toolResults(s)[0]?.content).toContain('"unverified":"\\"is it an operator?\\" not stated on the lookup page"');
+  });
+
+  it("rejects a deciding quote from the signal when that page was not read", async () => {
+    const s = state();
+    s.caches.signalsByUrl["https://news.example/good"] = signalResult.results[0] as never;
+    s.caches.enrichmentByName.goodco = { summary: lookupResult.summary };
+    await step(s, {
+      client: client(msg("tool_use", [tool("sub", "submit_lead", {
+        company: "GoodCo",
+        signal_url: "https://news.example/good",
+        why_now: "opened warehouse",
+        decisive_check: decisiveCheck("https://news.example/good", "GoodCo expands its network."),
+      })])) as never,
+      checkLead: checker,
+      now: NOW,
+    });
+    expect(s.rejected).toMatchObject([{ company: "GoodCo", code: "check_page_not_read" }]);
+    expect(s.leads).toHaveLength(0);
+  });
+
+  it("reads a page before submission and stores the decisive check on an accepted lead", async () => {
+    const s = state({ strategyApproved: true });
+    s.caches.signalsByUrl["https://news.example/good"] = signalResult.results[0] as never;
+    s.caches.enrichmentByName.goodco = { summary: lookupResult.summary };
+    const check = decisiveCheck("https://company.example/about", "GoodCo provides logistics services for other companies.");
+    const c = client(
+      msg("tool_use", [tool("read", "read_page", { url: check.page_url })]),
+      msg("tool_use", [tool("submit", "submit_lead", { company: "GoodCo", signal_url: "https://news.example/good", why_now: "opened warehouse", decisive_check: check })]),
+    );
+    await step(s, {
+      client: c as never,
+      checkLead: checker,
+      now: NOW,
+      readExaContents: vi.fn(async () => ({ url: check.page_url, title: "About GoodCo", text: "GoodCo provides logistics services for other companies." })) as never,
+    });
+    await step(s, { client: c as never, checkLead: checker, now: NOW });
+    expect(s.leads).toHaveLength(1);
+    expect(s.leads[0]?.decisive_check).toEqual(check);
+  });
+
+  it("loads older state without readPages and initializes the cache", async () => {
+    const s = state();
+    await saveState(s);
+    const statePath = join(tmp.runs, s.id, "state.json");
+    const older = JSON.parse(await readFile(statePath, "utf8")) as { caches: Record<string, unknown> };
+    delete older.caches.readPages;
+    await writeFile(statePath, JSON.stringify(older), "utf8");
+    const loaded = await loadState(s.id);
+    expect(loaded.caches.readPages).toEqual({});
+    loaded.caches.readPages["https://example.com"] = { text: "read page" };
+    expect(loaded.caches.readPages["https://example.com"]?.text).toBe("read page");
   });
 
   it("candidate reasons are human: gate question + page host, per code", () => {
@@ -421,9 +480,10 @@ describe("agent loop", () => {
   it("A2b #2 runs lookup before submit in the same turn while preserving original result order", async () => {
     const s = state({ strategyApproved: true });
     s.caches.signalsByUrl["https://news.example/good"] = signalResult.results[0] as never;
+    s.caches.readPages["https://news.example/good"] = { title: "GoodCo expands", text: "GoodCo expands its network." };
     await step(s, { client: client(msg("tool_use", [
       tool("lookup", "lookup_company", { name: "GoodCo" }),
-      tool("submit", "submit_lead", { company: "GoodCo", signal_url: "https://news.example/good", why_now: "opened warehouse" }),
+      tool("submit", "submit_lead", { company: "GoodCo", signal_url: "https://news.example/good", why_now: "opened warehouse", decisive_check: decisiveCheck("https://news.example/good", "GoodCo expands its network.") }),
     ])) as never, checkLead: checker, now: NOW, lookupCompany: vi.fn(async () => lookupResult) as never });
     expect(s.leads.map((lead) => lead.company)).toEqual(["GoodCo"]);
     expect(toolResults(s).map((r) => r.tool_use_id)).toEqual(["lookup", "submit"]);
@@ -439,9 +499,10 @@ describe("agent loop", () => {
       summary: { company_name: "Acme Logistics", signal_type: "expansion", signal_summary: "Acme Logistics opens a warehouse.", signal_date: "2026-10-01" },
     };
     const acmeLookup = { result: { url: "https://acme.example" }, summary: { ...lookupResult.summary, description: "Acme", hq: "Austin, United States" } };
+    s.caches.readPages["https://news.example/acme"] = { title: "Acme Logistics opens", text: "Acme Logistics opens a warehouse." };
     await step(s, { client: client(msg("tool_use", [
       tool("lookup", "lookup_company", { name: "Acme Logistics Inc" }),
-      tool("submit", "submit_lead", { company: "Acme Logistics", signal_url: "https://news.example/acme", why_now: "opened warehouse" }),
+      tool("submit", "submit_lead", { company: "Acme Logistics", signal_url: "https://news.example/acme", why_now: "opened warehouse", decisive_check: decisiveCheck("https://news.example/acme", "Acme Logistics opens a warehouse.") }),
     ])) as never, checkLead: checker, now: NOW, lookupCompany: vi.fn(async () => acmeLookup) as never });
     expect(Object.keys(s.caches.enrichmentByName)).toEqual([squashName("Acme Logistics Inc")]);
     expect(s.leads).toHaveLength(1);
@@ -605,13 +666,14 @@ describe("agent loop", () => {
 
     const submit = state();
     submit.caches.signalsByUrl["https://news.example/good"] = signalResult.results[0] as never;
+    submit.caches.readPages["https://news.example/good"] = { title: "GoodCo expands", text: "GoodCo expands its network." };
     submit.caches.enrichmentByName[squashName("GoodCo")] = { summary: lookupResult.summary, url: "https://good.example" };
     const seenUrls: unknown[] = [];
     const check: LeadChecker = (_p, input) => {
       seenUrls.push(input.companyUrl);
       return checker(_p, input);
     };
-    await step(submit, { client: client(msg("tool_use", [tool("sub", "submit_lead", { company: "GoodCo", signal_url: "https://news.example/good", why_now: "opened warehouse" })])) as never, checkLead: check, now: NOW });
+    await step(submit, { client: client(msg("tool_use", [tool("sub", "submit_lead", { company: "GoodCo", signal_url: "https://news.example/good", why_now: "opened warehouse", decisive_check: decisiveCheck("https://news.example/good", "GoodCo expands its network.") })])) as never, checkLead: check, now: NOW });
     expect(seenUrls).toEqual(["https://good.example"]);
   });
 
@@ -754,6 +816,15 @@ describe("agent loop", () => {
       expect(sug.properties.field.enum).toEqual(["employeeRange", "months", "hqCountries", "industry", "maxCostDollars", "none"]);
       expect(sug.properties.value.type).toBe("string");
       expect(JSON.stringify(handback)).not.toMatch(/maxItems|minItems/);
+    });
+
+    it("submit_lead requires a strict decisive check object", () => {
+      const submit = agentTools().find((t) => t.name === "submit_lead")!;
+      const schema = submit.input_schema as { required: string[]; properties: { decisive_check: Record<string, any> } };
+      expect(schema.required).toContain("decisive_check");
+      const check = schema.properties.decisive_check;
+      expect(check).toMatchObject({ type: "object", additionalProperties: false, required: ["question", "answer_quote", "page_url"] });
+      expect(Object.keys(check.properties)).toEqual(["question", "answer_quote", "page_url"]);
     });
 
     it("stores a structured handback (value JSON decoded) without a second model call", async () => {
@@ -1032,7 +1103,7 @@ describe("agent loop", () => {
       const { POST } = await import("../app/api/runs/route");
       const res = await POST(new Request("http://x/api/runs", {
         method: "POST",
-        headers: { "x-forwarded-for": "198.51.100.10, 10.0.0.1" },
+        headers: { "x-forwarded-for": "198.51.100.10, 10.0.0.1", "x-workspace-id": "route_ws" },
         body: JSON.stringify({ plan: plan(), targetLeads: 99, workspaceId: "route_ws" }),
       }));
       expect(res.status).toBe(200);
@@ -1040,16 +1111,16 @@ describe("agent loop", () => {
       expect((await loadState(created.id)).contract.targetLeads).toBe(50);
 
       for (let i = 0; i < 30; i += 1) {
-        await POST(new Request("http://x/api/runs", { method: "POST", headers: { "x-forwarded-for": "203.0.113.77" }, body: JSON.stringify({ plan: plan(), workspaceId: `rl_${i}` }) }));
+        await POST(new Request("http://x/api/runs", { method: "POST", headers: { "x-forwarded-for": "203.0.113.77", "x-workspace-id": `rl_${i}` }, body: JSON.stringify({ plan: plan(), workspaceId: `rl_${i}` }) }));
       }
-      const limited = await POST(new Request("http://x/api/runs", { method: "POST", headers: { "x-forwarded-for": "203.0.113.77" }, body: JSON.stringify({ plan: plan(), workspaceId: "rl_x" }) }));
+      const limited = await POST(new Request("http://x/api/runs", { method: "POST", headers: { "x-forwarded-for": "203.0.113.77", "x-workspace-id": "rl_x" }, body: JSON.stringify({ plan: plan(), workspaceId: "rl_x" }) }));
       expect(limited.status).toBe(429);
 
       const oldCap = process.env.DAILY_SPEND_CAP_DOLLARS;
       process.env.DAILY_SPEND_CAP_DOLLARS = "0";
-      const capped = await POST(new Request("http://x/api/runs", { method: "POST", headers: { "x-forwarded-for": "192.0.2.55" }, body: JSON.stringify({ plan: plan(), workspaceId: "cap_ws" }) }));
-      expect(capped.status).toBe(200);
-      expect(await capped.json()).toMatchObject({ id: expect.stringMatching(/^demo-/) });
+      const capped = await POST(new Request("http://x/api/runs", { method: "POST", headers: { "x-forwarded-for": "192.0.2.55", "x-workspace-id": "cap_ws" }, body: JSON.stringify({ plan: plan(), workspaceId: "cap_ws" }) }));
+      expect(capped.status).toBe(503);
+      expect(await capped.json()).toEqual({ error: "paused" });
       process.env.DAILY_SPEND_CAP_DOLLARS = oldCap;
     });
   });

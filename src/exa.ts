@@ -5,6 +5,7 @@ import { requireEnv } from "./config";
 import { normalizeNullish } from "./plan";
 import type { CompanySummary, ExaSearchResponse } from "./types";
 import { EXCERPT_MAX } from "./evidence";
+import { noteExaResponse } from "./key-health";
 
 export type ExaCredentials = {
   apiKey?: string;
@@ -204,6 +205,7 @@ async function exaPostUnguarded(
   };
   const endpoint = path.startsWith("/") ? path : `/${path}`;
   const { status, text } = await fetchWithRetry(`${baseUrl}${endpoint}`, request);
+  noteExaResponse(status);
   let json: unknown;
   try {
     json = text ? JSON.parse(text) : {};

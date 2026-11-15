@@ -5,14 +5,12 @@ import { resolveDataDirs } from "../agent/config";
 
 /**
  * Demo mode: the product runs on recorded data so a reviewer can use it with
- * no API keys. On when DEMO_MODE=1 or NEXT_PUBLIC_DEMO=1, or when either key
- * is missing (a live call could not succeed anyway).
+ * no API keys. It is explicit in production; local development can replay
+ * without keys so reviewers can run the app from a clean checkout.
  */
 export function isDemoMode(): boolean {
-  if (isPausedByFile()) return true;
   if (process.env.DEMO_MODE === "1" || process.env.NEXT_PUBLIC_DEMO === "1") return true;
-  if (process.env.LIVE_MODE === "off" || Number(process.env.DAILY_SPEND_CAP_DOLLARS) === 0) return true;
-  return !process.env.ANTHROPIC_API_KEY || !process.env.EXA_API_KEY;
+  return process.env.NODE_ENV !== "production" && (!process.env.ANTHROPIC_API_KEY || !process.env.EXA_API_KEY);
 }
 
 export function pausedFile(): string {

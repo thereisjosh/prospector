@@ -10,7 +10,7 @@ import {
   type ExaCredentials,
 } from "../exa";
 import { signalEvidence } from "../evidence";
-import { quoteInText, squashName } from "../gates";
+import { checkDecisiveCheck, quoteInText, squashName } from "../gates";
 import {
   buildCompanySchema,
   buildSignalSchema,
@@ -83,10 +83,22 @@ export function agentTools(): Anthropic.Tool[] {
     },
     {
       name: "submit_lead",
-      description: "Submit one company as a lead. Code checks it against the contract and is the only way a lead reaches the results. Call it only after this company's lookup_company result is back (separate, earlier turn) and looks like a fit. `company`: exactly the name you looked up. `signal_url`: a URL returned by search_signals that names this company (any other URL is an error). `why_now`: one plain sentence a salesperson could use. Returns `accepted`, `rejected: <code> — <reason>`, or a structured candidate result with `unverified` when a required fact was not stated. Codes include size, stale_date, unparseable_date, hq, enterprise, unknown_size, entity_mismatch, no_enrichment, required_gate:<key>, unquoted_gate, quote_not_in_page, non_event_page, weak_hiring_signal, exclude_name, exclude_domain, non_company, already_seen, duplicate. Act on the reason; never resubmit a rejected company.",
+      description: "Submit one company as a lead. Code checks it against the contract and is the only way a lead reaches the results. Call it only after this company's lookup_company result is back (separate, earlier turn) and looks like a fit. `company`: exactly the name you looked up. `signal_url`: a URL returned by search_signals that names this company (any other URL is an error). `why_now`: one plain sentence a salesperson could use. Returns `accepted`, `rejected: <code> — <reason>`, or a structured candidate result with `unverified` when a required fact was not stated. Codes include size, stale_date, unparseable_date, hq, enterprise, unknown_size, entity_mismatch, no_enrichment, required_gate:<key>, unquoted_gate, quote_not_in_page, non_event_page, weak_hiring_signal, exclude_name, exclude_domain, non_company, already_seen, duplicate. Act on the reason; never resubmit a rejected company. `decisive_check` (required): the one question that decides whether this company fits the contract, answered from a page you read with `read_page` in this run. `question`: plain words, under 160 characters, e.g. \"Does Acme run warehouses for other companies, or only its own?\". `answer_quote`: the exact sentence from that page that answers it, copied verbatim. `page_url`: the URL you read; it can be the signal page or another page. Code rejects the lead if you did not read that page in this run or the sentence is not on it.",
       input_schema: objectSchema(
-        { company: { type: "string" }, signal_url: { type: "string" }, why_now: { type: "string" } },
-        ["company", "signal_url", "why_now"],
+        {
+          company: { type: "string" },
+          signal_url: { type: "string" },
+          why_now: { type: "string" },
+          decisive_check: objectSchema(
+            {
+              question: { type: "string" },
+              answer_quote: { type: "string" },
+              page_url: { type: "string" },
+            },
+            ["question", "answer_quote", "page_url"],
+          ),
+        },
+        ["company", "signal_url", "why_now", "decisive_check"],
       ),
       strict: true,
     },
@@ -813,9 +825,11 @@ async function executeToolInner(
       const page = await (deps.readExaContents ?? readExaContents)(url, deps.credentials, guard);
       exaCost = actualCost(page);
       state.adaptive.verificationReads += 1;
+      state.caches.readPages ??= {};
       if (state.caches.signalsByUrl[url]) {
         state.caches.signalsByUrl[url] = { ...state.caches.signalsByUrl[url]!, text: page.text ?? state.caches.signalsByUrl[url]!.text };
       }
+      state.caches.readPages[url] = { title: page.title, text: (page.text ?? "").slice(0, 50_000) };
       content = [`title=${page.title ?? ""}`, `date=${page.publishedDate ?? ""}`, (page.text ?? "").slice(0, 3000)].join("\n");
       const text = page.text ?? "";
       summary = `${url} · title=${(page.title ?? "").slice(0, 80)} · date=${page.publishedDate ?? ""} · chars=${text.length} · sha256_4k=${pagePrefixHash(text)}`;
@@ -823,44 +837,51 @@ async function executeToolInner(
       const company = String(input.company ?? "").trim();
       const signalUrl = String(input.signal_url ?? "").trim();
       const whyNow = String(input.why_now ?? "").trim();
-      const signal = state.caches.signalsByUrl[signalUrl];
-      const cached = state.caches.enrichmentByName[squashName(company)];
-      const enrichment = cached?.summary;
-      if (!signal) throw new Error("signal_url was not returned by search_signals");
-      const verdict = deps.checkLead(state.contract, {
-        company,
-        signal,
-        enrichment,
-        companyUrl: cached?.url,
-        lookupText: typeof (cached?.result as { text?: unknown } | undefined)?.text === "string" ? (cached!.result as { text: string }).text : undefined,
-        now: deps.now ?? new Date(),
-        seen: new Set(state.caches.seenKeys),
-        submitted: new Set(state.leads.map((lead) => squashName(lead.company))),
-      });
-      if (verdict.ok) {
-        // The evidence is the page text the gate just checked (title + text), bounded for state size and the judge.
-        const evidence = signalEvidence(signal, company, whyNow);
-        state.leads.push({ company, signal_url: signalUrl, why_now: whyNow, summary: signal.summary, enrichment, details: verdict.details, evidence, turn: state.counters.turns });
-        content = "accepted";
-        acceptedLead = true;
-        verdictEvent = { company, code: "accepted", reason: "accepted", ok: true };
-      } else if (verdict.tier === "candidate") {
-        const evidence = signalEvidence(signal, company, whyNow);
-        const missing = missingFromCandidateVerdict(verdict, { plan: state.contract, lookupUrl: cached?.url, signalUrl });
-        const added = rememberCandidate(
-          state,
-          { company, signal_url: signalUrl, why_now: whyNow, summary: signal.summary, enrichment, details: verdict.details ?? {}, evidence, turn: state.counters.turns },
-          verdict.code,
-          missing,
-        );
-        content = JSON.stringify({ accepted: false, candidate: true, unverified: missing });
-        newCandidate = added;
-        verdictEvent = { company, code: verdict.code, reason: verdict.reason, ok: false };
+      const decisive = checkDecisiveCheck(input.decisive_check as { question?: unknown; answer_quote?: unknown; page_url?: unknown } | undefined, state.caches.readPages ?? {});
+      if (!decisive.ok) {
+        state.rejected.push({ company, code: decisive.code, reason: decisive.reason, turn: state.counters.turns });
+        content = `rejected: ${decisive.code} — ${decisive.reason}`;
+        verdictEvent = { company, code: decisive.code, reason: decisive.reason, ok: false };
       } else {
-        state.rejected.push({ company, code: verdict.code, reason: verdict.reason, turn: state.counters.turns });
-        content = `rejected: ${verdict.code} — ${verdict.reason}`;
-        const seenInfo = verdict.code === "already_seen" ? state.caches.seenInfo?.[squashName(company)] : undefined;
-        verdictEvent = { company, code: verdict.code, reason: verdict.reason, ok: false, ...(seenInfo ? { seen: seenInfo, lookupSaved: false } : {}) };
+        const signal = state.caches.signalsByUrl[signalUrl];
+        const cached = state.caches.enrichmentByName[squashName(company)];
+        const enrichment = cached?.summary;
+        if (!signal) throw new Error("signal_url was not returned by search_signals");
+        const verdict = deps.checkLead(state.contract, {
+          company,
+          signal,
+          enrichment,
+          companyUrl: cached?.url,
+          lookupText: typeof (cached?.result as { text?: unknown } | undefined)?.text === "string" ? (cached!.result as { text: string }).text : undefined,
+          now: deps.now ?? new Date(),
+          seen: new Set(state.caches.seenKeys),
+          submitted: new Set(state.leads.map((lead) => squashName(lead.company))),
+        });
+        if (verdict.ok) {
+          // The evidence is the page text the gate just checked (title + text), bounded for state size and the judge.
+          const evidence = signalEvidence(signal, company, whyNow);
+          state.leads.push({ company, signal_url: signalUrl, why_now: whyNow, summary: signal.summary, enrichment, details: verdict.details, evidence, decisive_check: decisive.check, turn: state.counters.turns });
+          content = "accepted";
+          acceptedLead = true;
+          verdictEvent = { company, code: "accepted", reason: "accepted", ok: true };
+        } else if (verdict.tier === "candidate") {
+          const evidence = signalEvidence(signal, company, whyNow);
+          const missing = missingFromCandidateVerdict(verdict, { plan: state.contract, lookupUrl: cached?.url, signalUrl });
+          const added = rememberCandidate(
+            state,
+            { company, signal_url: signalUrl, why_now: whyNow, summary: signal.summary, enrichment, details: verdict.details ?? {}, evidence, turn: state.counters.turns },
+            verdict.code,
+            missing,
+          );
+          content = JSON.stringify({ accepted: false, candidate: true, unverified: missing });
+          newCandidate = added;
+          verdictEvent = { company, code: verdict.code, reason: verdict.reason, ok: false };
+        } else {
+          state.rejected.push({ company, code: verdict.code, reason: verdict.reason, turn: state.counters.turns });
+          content = `rejected: ${verdict.code} — ${verdict.reason}`;
+          const seenInfo = verdict.code === "already_seen" ? state.caches.seenInfo?.[squashName(company)] : undefined;
+          verdictEvent = { company, code: verdict.code, reason: verdict.reason, ok: false, ...(seenInfo ? { seen: seenInfo, lookupSaved: false } : {}) };
+        }
       }
     } else if (tool.name === "find_contacts") {
       const company = String(input.company ?? "").trim();

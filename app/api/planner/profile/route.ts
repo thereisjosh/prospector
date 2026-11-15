@@ -33,7 +33,7 @@ export async function POST(request: Request) {
       return NextResponse.json(await readDemoJson("planner/profile.json"));
     }
     if (await dailyBudgetReached()) return dailyBudgetResponse();
-    const workspaceId = workspaceIdFromRequest(request, body as Record<string, unknown>);
+    const workspaceId = workspaceIdFromRequest(request);
     if (!workspaceId) return missingWorkspaceResponse();
     const exhausted = await allowanceResponse(workspaceId);
     if (exhausted) return exhausted;

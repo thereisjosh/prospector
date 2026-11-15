@@ -25,6 +25,9 @@ export type GateCode =
   | "unquoted_signal"
   | "unquoted_gate"
   | "quote_not_in_page"
+  | "check_missing"
+  | "check_page_not_read"
+  | "check_quote_not_in_page"
   | "entity_mismatch"
   | "no_enrichment"
   | "already_seen"
@@ -218,7 +221,20 @@ export function safeDomain(url: string): string | undefined {
 
 export function isNonCompanyDomain(url: string): boolean {
   const d = safeDomain(url);
-  return !!d && NON_COMPANY_DOMAIN_PATTERNS.some((p) => p.test(d));
+  if (!d) return false;
+  // A LinkedIn company page (linkedin.com/company/<slug>) identifies the company itself; Exa lookups
+  // started resolving to these in Nov 2026 (13 of 42 S1 lookups, vs 0-1 of ~55 in Oct) and every one
+  // was wrongly ruled out as a job board. Job listings and other LinkedIn pages still are not a company.
+  if (/(^|\.)linkedin\.com$/.test(d) && isLinkedInCompanyPage(url)) return false;
+  return NON_COMPANY_DOMAIN_PATTERNS.some((p) => p.test(d));
+}
+
+function isLinkedInCompanyPage(url: string): boolean {
+  try {
+    return /^\/company\/[^/]+\/?$/i.test(new URL(url).pathname);
+  } catch {
+    return false;
+  }
 }
 
 export function domainExcluded(url: string, excluded: readonly string[]): boolean {
@@ -443,6 +459,35 @@ export function quoteInText(
   opts?: QuoteMatchOptions,
 ): boolean {
   return quoteMatch(quote, text, opts).ok;
+}
+
+export type DecisiveCheckCode = "check_missing" | "check_page_not_read" | "check_quote_not_in_page";
+
+export type DecisiveCheck = { question: string; answer_quote: string; page_url: string };
+
+/**
+ * Check the agent's stated deciding question against a page it read during this
+ * run. This deliberately uses the same quote normalizer as checkLead.
+ */
+export function checkDecisiveCheck(
+  input: { question?: unknown; answer_quote?: unknown; page_url?: unknown } | undefined,
+  readPages: Record<string, { title?: string; text: string }>,
+): { ok: true; check: DecisiveCheck } | { ok: false; code: DecisiveCheckCode; reason: string } {
+  const question = typeof input?.question === "string" ? input.question.trim() : "";
+  const answerQuote = typeof input?.answer_quote === "string" ? input.answer_quote.trim() : "";
+  if (!question || question.length > 160 || !answerQuote) {
+    return { ok: false, code: "check_missing", reason: "decisive_check needs a question under 160 characters and a quoted answer" };
+  }
+
+  const pageUrl = typeof input?.page_url === "string" ? input.page_url.trim() : "";
+  const page = readPages[pageUrl];
+  if (!page) {
+    return { ok: false, code: "check_page_not_read", reason: "call read_page on the cited page_url before submitting this lead" };
+  }
+  if (!quoteInText(answerQuote, [page.title, page.text].join(" "))) {
+    return { ok: false, code: "check_quote_not_in_page", reason: "the decisive answer_quote was not found on the page you read" };
+  }
+  return { ok: true, check: { question, answer_quote: answerQuote, page_url: pageUrl } };
 }
 
 const ADJACENT_EMPLOYEE_WORD = /employee|employees|staff|headcount|people/i;

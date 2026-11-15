@@ -48,7 +48,7 @@ import type { BlindLead } from "./harness/blind";
 import type { AgentEvent } from "../src/agent/events";
 import { runWorker } from "./online/worker";
 import { jevCostDollars, type JevLeadVerdict } from "../src/judges/jev";
-import { POST as feedbackPOST } from "../app/api/workspaces/[id]/feedback/route";
+import { POST as feedbackPOST } from "../app/api/workspace/feedback/route";
 
 const WS = "ws-online-eval-01";
 const NOW = new Date("2026-10-12T09:00:00.000Z");
@@ -71,6 +71,7 @@ function msg(id: string, stop_reason: string, content: unknown[]) {
   return { id, type: "message", role: "assistant", model: "claude-opus-5-5", content, stop_reason, stop_sequence: null, usage: { input_tokens: 100, output_tokens: 50 } };
 }
 const tool = (id: string, name: string, input: Record<string, unknown>) => ({ type: "tool_use", id, name, input });
+const decisiveCheck = (pageUrl: string, answerQuote: string) => ({ question: "Is this company an operator?", answer_quote: answerQuote, page_url: pageUrl });
 
 /** propose → (approve) → lookup → submit → end_turn (1 of 2 leads → handback). */
 function scriptedClient() {
@@ -78,7 +79,7 @@ function scriptedClient() {
     msg("m1", "tool_use", [tool("tu_strategy", "propose_strategy", { angles: ["expansion"], first_queries: ["warehouse"], est_cost_dollars: 0.1 })]),
     msg("m2", "tool_use", [tool("tu_search", "search_signals", { query: "3PL warehouse" })]),
     msg("m2b", "tool_use", [tool("tu_lookup", "lookup_company", { name: "Acme Logistics" })]),
-    msg("m3", "tool_use", [tool("tu_submit", "submit_lead", { company: "Acme Logistics", signal_url: "https://news.example.com/acme", why_now: "Opened a warehouse." })]),
+    msg("m3", "tool_use", [tool("tu_submit", "submit_lead", { company: "Acme Logistics", signal_url: "https://news.example.com/acme", why_now: "Opened a warehouse.", decisive_check: decisiveCheck("https://news.example.com/acme", "Acme Logistics opened a warehouse.") })]),
     msg("m4", "end_turn", [{ type: "text", text: "Done." }]),
     msg("m5", "end_turn", [{ type: "text", text: JSON.stringify({ shortfall: "1 of 2", top_reasons: [], suggestions: [{ field: "months", value: 6, why: "few recent events" }] }) }]),
   ];
@@ -113,6 +114,7 @@ async function runScenario(runId: string): Promise<RunState> {
   try {
     const s: RunState = createRunState({ id: runId, workspaceId: WS, plan: plan(), createdAt: NOW.toISOString(), targetLeads: 2 } as never);
     s.contract.targetLeads = 2;
+    s.caches.readPages["https://news.example.com/acme"] = { title: "Acme Logistics expands", text: "Acme Logistics opened a warehouse." };
     await saveState(s);
     const deps = { client: scriptedClient() as never, checkLead: checker, now: NOW, exaSearch: vi.fn(async () => searchResult) as never, lookupCompany: vi.fn(async () => lookupResult) as never, readExaContents: vi.fn() as never };
     await step(s, deps);
@@ -296,7 +298,7 @@ describe("run-end scores (code graders + outcomes)", () => {
     const response = await feedbackPOST(
       new Request(`http://x/api/workspaces/${WS}/feedback`, {
         method: "POST",
-        headers: { "content-type": "application/json" },
+        headers: { "content-type": "application/json", "x-workspace-id": WS },
         body: JSON.stringify({ company: lead.company, verdict: "down", reason: "wrong company", runId, signal_url: lead.signal_url }),
       }),
       { params: { id: WS } },
@@ -328,7 +330,7 @@ describe("run-end scores (code graders + outcomes)", () => {
     const lead = s.leads[0]!;
     const post = (verdict: "up" | "down") =>
       feedbackPOST(
-        new Request(`http://x/api/workspaces/${WS}/feedback`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ company: lead.company, verdict, runId, signal_url: lead.signal_url }) }),
+        new Request(`http://x/api/workspace/feedback`, { method: "POST", headers: { "content-type": "application/json", "x-workspace-id": WS }, body: JSON.stringify({ company: lead.company, verdict, runId, signal_url: lead.signal_url }) }),
         { params: { id: WS } },
       );
     await post("up");

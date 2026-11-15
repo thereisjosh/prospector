@@ -19,6 +19,8 @@ Environment variables:
 | `WORKSPACES_DIR` | `<DATA_DIR>/workspaces` or `./workspaces` | Explicit value wins over `DATA_DIR`. |
 | `ANTHROPIC_API_KEY` | unset | Required for live mode. |
 | `EXA_API_KEY` | unset | Required for live mode. |
+| `WORKSPACE_COOKIE_SECRET` | unset | Production required. Generate 64 random hex characters (`openssl rand -hex 32`); signs the HttpOnly anonymous workspace cookie. |
+| `NEXT_PUBLIC_CF_BEACON_TOKEN` | unset | Cloudflare Web Analytics beacon token; public and rendered into the page when set. |
 | `ADMIN_TOKEN` | unset | At least 32 random characters. Enables `/api/admin/*`; without it admin routes answer 503. Set the same value on Railway and in GitHub Actions secrets. |
 | `DAILY_SPEND_CAP_DOLLARS` | `10` | Global daily live spend cap. |
 | `VISITOR_MAX_LIVE_RUNS` | `2` (production: `3`) | Per anonymous workspace live-run allowance. Production decision: 3 runs or $2.50, whichever comes first. |
@@ -40,7 +42,7 @@ Tracing (SPEC-observability §2–§3): every line appended to `runs/<id>/events
 
 Prompts (docs/prompts.md): with the Langfuse keys set, the agent and planner prompts come from Langfuse Prompt Management (label `LANGFUSE_PROMPT_LABEL`), cached in-process for 60 s; promoting a version in Langfuse reaches the service within about a minute, without a deploy. Runs already in flight keep the version they started with. If Langfuse is unreachable on a cold start the service runs the in-repo text, so a deploy must never ship a repo copy that differs from `production`: run `npx tsx eval/langfuse-prompts.ts diff` before deploying (exit 1 = out of sync).
 
-Kill switch: set `DAILY_SPEND_CAP_DOLLARS=0` or `LIVE_MODE=off`. The API behaves as demo-only, `/api/status` reports `{ "mode": "demo", "reason": "paused" }`, and `POST /api/runs/<id>/step` answers 503 `{ "error": "paused" }`, so runs already in flight stop spending too (they continue once live mode is back). `POST /api/admin/pause` with `Authorization: Bearer <ADMIN_TOKEN>` writes `/data/paused`; the hourly online-evals worker calls it when the day's event cost exceeds `DAILY_SPEND_CAP_DOLLARS`. To resume, remove the file from the volume:
+Kill switch: set `DAILY_SPEND_CAP_DOLLARS=0` or `LIVE_MODE=off`. Production returns 503 for new live runs (and never substitutes a recorded replay), `/api/status` reports why live is unavailable, and `POST /api/runs/<id>/step` answers 503 `{ "error": "paused" }`, so runs already in flight stop spending too (they continue once live mode is back). `POST /api/admin/pause` with `Authorization: Bearer <ADMIN_TOKEN>` writes `/data/paused`; the hourly online-evals worker calls it when the day's event cost exceeds `DAILY_SPEND_CAP_DOLLARS`. To resume, remove the file from the volume:
 
 ```sh
 rm /data/paused
@@ -65,6 +67,8 @@ Worker: `.github/workflows/online-evals.yml` runs hourly and exports recent prod
   "today": { "spentDollars": 0 }
 }
 ```
+
+Workspace identity is an HttpOnly signed `pw_ws` cookie; clients must not send a workspace id in a header, body, or URL. Existing browser `prospector.workspaceId` values are adopted once through `x-legacy-workspace-id` until 2026-12-31, then ignored.
 
 `GET /api/health` is not rate-limited and returns:
 

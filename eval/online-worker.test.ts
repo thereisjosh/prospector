@@ -67,6 +67,7 @@ function makeDeps(options: {
   const issues = options.issues ?? {};
   const fetch = vi.fn(async (input: string | URL, init?: RequestInit) => {
     const url = String(input);
+    if (url.endsWith("/api/health")) return json({ ok: true, liveReady: true, keys: { anthropic: "ok", exa: "ok" } });
     if (url.includes("/api/admin/runs/export")) return json({ runs: options.runs ?? [] });
     if (url.includes("/api/admin/pause")) {
       pauses.push(JSON.parse(String(init?.body ?? "{}")) as Record<string, unknown>);

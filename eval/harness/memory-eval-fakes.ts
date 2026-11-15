@@ -24,6 +24,7 @@ const call = (...blocks: unknown[]) => msg("tool_use", blocks);
 
 const slug = (company: string) => squashName(company);
 const signalUrl = (company: string) => `https://news.example/${slug(company)}`;
+const decisiveCheck = (company: string) => ({ question: "Is this company an operator?", answer_quote: `${company} expands its network.`, page_url: signalUrl(company) });
 
 /** query (exact) -> companies it returns. Anything else returns nothing. */
 export const FAKE_SEARCHES: Record<string, string[]> = {
@@ -38,8 +39,8 @@ const freshScript = () => [
   call(use("s2", "search_signals", { query: "obscure shipping dock permit filings", num_results: 10 })),
   call(use("l1", "lookup_company", { name: "GoodCo" }), use("l2", "lookup_company", { name: "SecondCo" })),
   call(
-    use("u1", "submit_lead", { company: "GoodCo", signal_url: signalUrl("GoodCo"), why_now: "opened a warehouse" }),
-    use("u2", "submit_lead", { company: "SecondCo", signal_url: signalUrl("SecondCo"), why_now: "opened a depot" }),
+    use("u1", "submit_lead", { company: "GoodCo", signal_url: signalUrl("GoodCo"), why_now: "opened a warehouse", decisive_check: decisiveCheck("GoodCo") }),
+    use("u2", "submit_lead", { company: "SecondCo", signal_url: signalUrl("SecondCo"), why_now: "opened a depot", decisive_check: decisiveCheck("SecondCo") }),
   ),
   call(use("f1", "finish", { summary: "done" })), // held once: offers `remember`
   call(use("r", "remember", { text: "Facility-opening news surfaced mid-size operators; permit-filing queries returned nothing.", tags: ["expansion", "warehouse"] })),
@@ -56,8 +57,8 @@ const informedScript = () => [
     use("l4", "lookup_company", { name: "FourthCo" }),
   ),
   call(
-    use("u1", "submit_lead", { company: "ThirdCo", signal_url: signalUrl("ThirdCo"), why_now: "opened a distribution center" }),
-    use("u2", "submit_lead", { company: "FourthCo", signal_url: signalUrl("FourthCo"), why_now: "opened a hub" }),
+    use("u1", "submit_lead", { company: "ThirdCo", signal_url: signalUrl("ThirdCo"), why_now: "opened a distribution center", decisive_check: decisiveCheck("ThirdCo") }),
+    use("u2", "submit_lead", { company: "FourthCo", signal_url: signalUrl("FourthCo"), why_now: "opened a hub", decisive_check: decisiveCheck("FourthCo") }),
   ),
   call(use("f1", "finish", { summary: "done" })),
   call(use("r", "remember", { text: "Distribution-center opening queries find companies the earlier warehouse queries missed.", tags: ["expansion", "distribution"] })),
@@ -105,6 +106,9 @@ export const fakeCheckLead: LeadChecker = (_plan, input) => ({
 /** Replaces driveRun in runCell: the real loop with a scripted model and canned Exa. */
 export const fakeDriveRun: NonNullable<RunCellDeps["driveRun"]> = (state: RunState, deps: LoopDeps, policy, options) => {
   const informed = state.caches.seenKeys.length > 0;
+  for (const company of ["GoodCo", "SecondCo", "ThirdCo", "FourthCo"]) {
+    state.caches.readPages[signalUrl(company)] = { title: `${company} expands`, text: `${company} expands its network.` };
+  }
   return driveRun(
     state,
     { ...deps, client: scriptedClient(informed ? informedScript() : freshScript()), exaSearch: fakeExaSearch, lookupCompany: fakeLookupCompany },

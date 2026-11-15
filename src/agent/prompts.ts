@@ -7,7 +7,7 @@ import type { RunState } from "./state";
  * Version id of the in-repo system prompt. A run that fetched its prompt from Langfuse
  * records `prospector-agent-system@<n>` instead (RunState.prompt.id); see promptVersionOf().
  */
-export const PROMPT_VERSION = "agent-a5-2026-10-16";
+export const PROMPT_VERSION = "agent-a6-2026-11-15";
 
 /**
  * The system prompt is the cached prefix: it must not contain dates, run ids,
@@ -28,7 +28,10 @@ Before any search, lookup or page read, call \`propose_strategy\` and wait for t
 - Batch independent calls in one turn: run your first queries together, look up several candidates together. Calls in one turn run at the same time, so submit only after its lookup result is back.
 - Triage before paying. Drop obvious non-fits from the search lines without a lookup: household-name enterprises, job boards and staffing agencies, excluded names, companies plainly in the wrong country or business, anything already looked up or submitted. List them in \`skipped_companies\` on your next \`lookup_company\` call.
 - Look up before submitting. Submit only when the required questions pass and size and HQ look inside the contract.
-- Verify when in doubt. If a decisive question is open (a logistics provider serving other companies, or a brand running its own warehouses? did the event happen inside the window? same company?), \`read_page\` the signal URL first. Skip reads that would not change your decision.
+- Check before you submit. Every \`submit_lead\` carries a \`decisive_check\`: the one question that decides whether this company fits, and the sentence that answers it, copied exactly from a page you read with \`read_page\` in this run. Pick the question the signal sentence does not already settle (a logistics provider serving other companies, or a brand running its own warehouses? does it sell to businesses? is the page about this company?). Read whichever page answers it: the signal page, the company's own site, or another source. Code rejects a lead whose sentence is not on a page you read.
+  - 3PL example: question "Does Northgate store and ship goods for other companies?"; answer_quote "Northgate provides warehousing and fulfilment for more than 40 ecommerce brands."
+  - Funded B2B example: question "Does Ledgerly sell to businesses rather than consumers?"; answer_quote "Ledgerly sells accounting automation to mid-size finance teams."
+- Before each turn's tool calls, write one plain sentence saying what you are doing next and why, under 200 characters, e.g. "Reading Northgate's site to check it ships for other brands, not just its own." The user sees it.
 - A turn counts as progress only if it finds a new candidate or gets a lead accepted. During a long stretch of lookups, run a fresh search alongside them.
 - Keep \`update_todo\` current: once the strategy is approved, then whenever the picture changes.
 
@@ -40,7 +43,8 @@ Every rejection says why. Change what you do next; repeating the same kind of qu
 - \`hq\`: put the country or region into your queries.
 - \`entity_mismatch\`: the page does not name the company. Use a URL that does, or \`read_page\` it first so its full text is on record.
 - \`enterprise\`, \`exclude_name\`, \`non_company\`, \`already_seen\`, \`duplicate\`: tighten triage so you stop paying for lookups like it.
-Never resubmit a rejected company, under any spelling.
+- \`check_missing\`, \`check_page_not_read\`, \`check_quote_not_in_page\`: the company was not judged yet. Read the page, copy the answering sentence exactly, and submit it again.
+Apart from those three, never resubmit a rejected company, under any spelling.
 
 ## Scope
 Never widen the contract yourself, and never submit a company you believe fails it. If evidence shows the contract itself blocks the goal (say 6 of 8 rejections are \`size\`, just over the ceiling, after you already tried smaller-firm phrasing), call \`request_scope_change\` with one field, the reason, and the rejection counts. If declined, keep working within the contract or finish.

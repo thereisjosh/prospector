@@ -2,7 +2,7 @@ import { existsSync, mkdtempSync, rmSync } from "node:fs";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, onTestFinished, vi } from "vitest";
 
 const roots: string[] = [];
 const ADMIN_TOKEN = "a".repeat(32);
@@ -62,7 +62,7 @@ describe("admin pause route", () => {
     expect(wrong.status).toBe(401);
   });
 
-  it("writes DATA_DIR/paused and makes demo/status report paused", async () => {
+  it("writes DATA_DIR/paused, reports unavailable live mode, and never enables replay", async () => {
     process.env.ADMIN_TOKEN = ADMIN_TOKEN;
     const { POST } = await import("../app/api/admin/pause/route");
     const res = await POST(
@@ -79,7 +79,7 @@ describe("admin pause route", () => {
     expect(JSON.parse(await readFile(pausedPath, "utf8"))).toMatchObject({ reason: "test pause" });
 
     const { isDemoMode } = await import("../src/demo/mode");
-    expect(isDemoMode()).toBe(true);
+    expect(isDemoMode()).toBe(false);
     const { GET } = await import("../app/api/status/route");
     const status = await GET(req("http://x/api/status?workspaceId=admin-test"));
     expect(await status.json()).toMatchObject({ mode: "demo", reason: "paused", liveAvailable: false });
@@ -103,6 +103,13 @@ describe("admin runs export route", () => {
     const root = process.env.DATA_DIR!;
     process.env.ADMIN_TOKEN = ADMIN_TOKEN;
     const now = new Date("2026-10-14T12:00:00.000Z");
+    // The route clamps `since` to 8 days before the real clock, so pin the clock to the fixture date
+    // (the test silently began failing on 2026-10-22, 8 days after these fixtures).
+    vi.useFakeTimers({ toFake: ["Date"] });
+    vi.setSystemTime(new Date("2026-10-14T12:30:00.000Z"));
+    onTestFinished(() => {
+      vi.useRealTimers();
+    });
     const recentId = "00000000-0000-4000-8000-000000000001";
     const oldId = "00000000-0000-4000-8000-000000000002";
     const demoId = "demo-00000000-0000-4000-8000-000000000003";

@@ -9,7 +9,7 @@ import { createRunState, saveState } from "../../../src/agent/state";
 import { validatePlan } from "../../../src/plan";
 import { isDemoMode } from "../../../src/demo/mode";
 import { createDemoRun } from "../../../src/demo/replay";
-import { allowanceDeniedResponse, clampTargetLeads, dailyBudgetReached, dailyBudgetResponse, missingWorkspaceResponse, rateLimit, readJsonBody, RequestValidationError, workspaceIdFrom } from "../_shared";
+import { allowanceDeniedResponse, clampTargetLeads, liveAvailable, missingWorkspaceResponse, rateLimit, readJsonBody, RequestValidationError, workspaceIdFromRequest } from "../_shared";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -21,13 +21,15 @@ export async function POST(request: Request) {
     const body = (await readJsonBody(request)) as Record<string, unknown>;
     const validation = validatePlan(body.plan);
     if (!validation.ok) return NextResponse.json({ error: "Invalid plan." }, { status: 400 });
-    const workspaceId = workspaceIdFrom(body.workspaceId);
+    const workspaceId = workspaceIdFromRequest(request);
     // Demo runs belong to the caller's workspace too: every run route checks ownership, so a demo run
     // created under a made-up workspace would be unreachable.
     if (!workspaceId) return missingWorkspaceResponse();
-    if (body.mode === "demo" || isDemoMode()) return NextResponse.json(await createDemoRun(workspaceId));
+    const explicitDemo = process.env.DEMO_MODE === "1" || process.env.NEXT_PUBLIC_DEMO === "1";
+    if (isDemoMode() || (body.mode === "demo" && process.env.NODE_ENV !== "production")) return NextResponse.json(await createDemoRun(workspaceId));
+    if (body.mode === "demo" && !explicitDemo) return NextResponse.json({ error: "paused" }, { status: 503 });
     assertWorkspaceId(workspaceId);
-    if (await dailyBudgetReached()) return dailyBudgetResponse();
+    if (!(await liveAvailable())) return NextResponse.json({ error: "paused" }, { status: 503 });
     // Atomic check-and-reserve: two concurrent requests cannot both pass the allowance check.
     const reservation = await reserveLiveRun(workspaceId);
     if (!reservation.ok) return allowanceDeniedResponse(reservation.quota);

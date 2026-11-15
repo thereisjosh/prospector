@@ -172,6 +172,9 @@ const REASON_GROUPS: Record<string, string> = {
   unquoted_signal: "Why-now event not quoted from the page",
   unquoted_gate: "A required fact not quoted from the page",
   quote_not_in_page: "Quote not found on the source page",
+  check_missing: "It gave no deciding check",
+  check_page_not_read: "It hadn't read the page it cited",
+  check_quote_not_in_page: "Its deciding sentence wasn't on the page",
 };
 
 /**
@@ -733,7 +736,7 @@ export const TRACE = {
   /* evidence block */
   evidenceTitle: "Evidence",
   noQuote: "No quote captured",
-  quoteLabels: { whyNow: "Why now", when: "When", size: "Size", basedIn: "Based in" },
+  quoteLabels: { whyNow: "Why now", when: "When", size: "Size", basedIn: "Based in", checked: (question: string): string => `It checked: ${question}` },
   published: (date: string): string => `published ${date}`,
 
   /* checklist (Queue) */

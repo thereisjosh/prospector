@@ -30,6 +30,7 @@ export type JudgeLead = {
   why_now: string;
   event_date: string;
   size_basis: string;
+  decisive_check?: AcceptedLead["decisive_check"];
   evidence?: JudgeEvidence;
 };
 
@@ -42,6 +43,7 @@ export type JudgePayload = {
   why_now: string;
   contract?: JudgeContract;
   contract_summary: { event_date: string; size_basis: string };
+  decisive_check?: AcceptedLead["decisive_check"];
   evidence: JudgeEvidence;
 };
 
@@ -65,6 +67,7 @@ export function normalizeJudgeLead(fields: JudgeLead): JudgeLead {
     why_now: fields.why_now.trim().slice(0, WHY_NOW_MAX),
     event_date: fields.event_date,
     size_basis: fields.size_basis === "quoted" ? "quoted" : "unverified",
+    ...(fields.decisive_check ? { decisive_check: fields.decisive_check } : {}),
     ...(fields.evidence ? { evidence: fields.evidence } : {}),
   };
 }
@@ -74,7 +77,7 @@ export function normalizeJudgeLead(fields: JudgeLead): JudgeLead {
  * the submit path stored (`AcceptedLead.evidence`); the lookup and gate result come from the
  * lead's `enrichment` and `details`. A lead persisted before evidence existed gets empty signal fields.
  */
-export function judgeLeadFromState(lead: Pick<AcceptedLead, "company" | "signal_url" | "why_now" | "details" | "enrichment" | "evidence">): JudgeLead {
+export function judgeLeadFromState(lead: Pick<AcceptedLead, "company" | "signal_url" | "why_now" | "details" | "enrichment" | "evidence" | "decisive_check">): JudgeLead {
   const details = (lead.details ?? {}) as { event_date?: unknown; size_basis?: unknown };
   return normalizeJudgeLead({
     company: lead.company,
@@ -82,6 +85,7 @@ export function judgeLeadFromState(lead: Pick<AcceptedLead, "company" | "signal_
     why_now: lead.why_now,
     event_date: typeof details.event_date === "string" ? details.event_date : "",
     size_basis: typeof details.size_basis === "string" ? details.size_basis : "unverified",
+    decisive_check: lead.decisive_check,
     evidence: judgeEvidence({ signal: lead.evidence, enrichment: lead.enrichment, details: lead.details }),
   });
 }
@@ -97,6 +101,7 @@ export function judgePayload(lead: JudgeLead & { contract?: JudgeContract }): Ju
       event_date: lead.event_date,
       size_basis: lead.size_basis,
     },
+    ...(lead.decisive_check ? { decisive_check: lead.decisive_check } : {}),
     evidence: lead.evidence ?? emptyJudgeEvidence(),
   };
 }
