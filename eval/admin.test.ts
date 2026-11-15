@@ -2,7 +2,7 @@ import { existsSync, mkdtempSync, rmSync } from "node:fs";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, onTestFinished, vi } from "vitest";
 
 const roots: string[] = [];
 const ADMIN_TOKEN = "a".repeat(32);
@@ -103,6 +103,11 @@ describe("admin runs export route", () => {
     const root = process.env.DATA_DIR!;
     process.env.ADMIN_TOKEN = ADMIN_TOKEN;
     const now = new Date("2026-10-14T12:00:00.000Z");
+    // The route clamps `since` to 8 days before the real clock, so pin the clock to the fixture date
+    // (the test silently began failing on 2026-10-22, 8 days after these fixtures).
+    vi.useFakeTimers({ toFake: ["Date"] });
+    vi.setSystemTime(new Date("2026-10-14T12:30:00.000Z"));
+    onTestFinished(() => vi.useRealTimers());
     const recentId = "00000000-0000-4000-8000-000000000001";
     const oldId = "00000000-0000-4000-8000-000000000002";
     const demoId = "demo-00000000-0000-4000-8000-000000000003";
