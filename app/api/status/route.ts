@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { DEFAULT_LIMITS } from "../../../src/agent/config";
 import { readVisitorAllowance, visitorDollarLimit, visitorRunLimit } from "../../../src/agent/quota";
-import { dailySpendCapDollars, liveAvailable, livePaused, rateLimit, readDailySpend, roundCents, workspaceIdFromRequest } from "../_shared";
+import { dailySpendCapDollars, liveAvailable, liveUnavailableReason, rateLimit, readDailySpend, roundCents, workspaceIdFromRequest } from "../_shared";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -14,10 +14,10 @@ export async function GET(request: Request) {
     ? await readVisitorAllowance(workspaceId)
     : { remainingRuns: visitorRunLimit(), remainingDollars: visitorDollarLimit() };
   const available = await liveAvailable();
-  const paused = livePaused();
+  const reason = await liveUnavailableReason();
   return NextResponse.json({
     mode: available ? "live" : "demo",
-    ...(paused ? { reason: "paused" } : {}),
+    ...(reason ? { reason } : {}),
     liveAvailable: available,
     visitor: {
       remainingRuns: visitor.remainingRuns,

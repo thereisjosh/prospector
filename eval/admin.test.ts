@@ -62,7 +62,7 @@ describe("admin pause route", () => {
     expect(wrong.status).toBe(401);
   });
 
-  it("writes DATA_DIR/paused and makes demo/status report paused", async () => {
+  it("writes DATA_DIR/paused, reports unavailable live mode, and never enables replay", async () => {
     process.env.ADMIN_TOKEN = ADMIN_TOKEN;
     const { POST } = await import("../app/api/admin/pause/route");
     const res = await POST(
@@ -79,7 +79,7 @@ describe("admin pause route", () => {
     expect(JSON.parse(await readFile(pausedPath, "utf8"))).toMatchObject({ reason: "test pause" });
 
     const { isDemoMode } = await import("../src/demo/mode");
-    expect(isDemoMode()).toBe(true);
+    expect(isDemoMode()).toBe(false);
     const { GET } = await import("../app/api/status/route");
     const status = await GET(req("http://x/api/status?workspaceId=admin-test"));
     expect(await status.json()).toMatchObject({ mode: "demo", reason: "paused", liveAvailable: false });

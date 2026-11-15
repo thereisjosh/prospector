@@ -10,6 +10,7 @@ import { withFileLock, writeFileAtomic } from "../../src/agent/fslock";
 import { dollarsExhausted, loadQuota, remainingAllowance, type VisitorQuota } from "../../src/agent/quota";
 import { isDemoRunId, isPausedByFile } from "../../src/demo/mode";
 import { demoRunAccess } from "../../src/demo/replay";
+import { workspaceCookieSecretMissing } from "../../src/workspace-cookie";
 
 const buckets = new Map<string, { tokens: number; updated: number }>();
 const CAPACITY = 30;
@@ -109,6 +110,13 @@ export async function liveAvailable(): Promise<boolean> {
   return liveKeysPresent() && !livePaused() && !(await dailyBudgetReached());
 }
 
+export async function liveUnavailableReason(): Promise<"paused" | "daily_cap" | "keys_missing" | undefined> {
+  if (livePaused()) return "paused";
+  if (await dailyBudgetReached()) return "daily_cap";
+  if (!liveKeysPresent()) return "keys_missing";
+  return undefined;
+}
+
 export function roundCents(value: number): number {
   return Math.round(value * 100) / 100;
 }
@@ -117,24 +125,21 @@ export function workspaceIdFrom(value: unknown): string | undefined {
   return typeof value === "string" && isWorkspaceId(value) ? value : undefined;
 }
 
-export function workspaceIdFromRequest(request: Request, body?: Record<string, unknown>): string | undefined {
-  const url = new URL(request.url);
-  return workspaceIdFrom(body?.workspaceId) ?? workspaceIdFrom(request.headers.get("x-workspace-id")) ?? workspaceIdFrom(url.searchParams.get("workspaceId"));
+export function workspaceIdFromRequest(request: Request): string | undefined {
+  return workspaceIdFrom(request.headers.get("x-workspace-id"));
 }
 
 export type RunAccess = { workspaceId: string; status: string };
 
 /**
  * Run-route authorization, one code path for every route that takes a run id. The caller's workspace
- * (the `x-workspace-id` header; `?workspaceId=` too only when `allowQuery`, for EventSource, which
- * cannot set headers) must own the run: 400 without a valid workspace, 404 for an unknown run,
+ * (the middleware-set `x-workspace-id` header) must own the run: 400 without a valid workspace, 404 for an unknown run,
  * 403 for another workspace's run. Returns the run's owner and status (demo runs: from the demo
  * session), or the response to send. Throws InvalidIdError for a malformed run id.
  */
-export async function requireRunOwner(request: Request, runId: string, options: { allowQuery?: boolean } = {}): Promise<RunAccess | NextResponse> {
+export async function requireRunOwner(request: Request, runId: string): Promise<RunAccess | NextResponse> {
   assertRunId(runId);
-  const workspaceId = workspaceIdFrom(request.headers.get("x-workspace-id"))
-    ?? (options.allowQuery ? workspaceIdFrom(new URL(request.url).searchParams.get("workspaceId")) : undefined);
+  const workspaceId = workspaceIdFrom(request.headers.get("x-workspace-id"));
   if (!workspaceId) return missingWorkspaceResponse() as NextResponse;
   const access = isDemoRunId(runId) ? await demoRunAccess(runId) : await readRunAccess(runId);
   if (!access) return NextResponse.json({ error: "Not found." }, { status: 404 });
@@ -162,6 +167,7 @@ export function allowanceDeniedResponse(quota: VisitorQuota): Response {
 }
 
 export function missingWorkspaceResponse(): Response {
+  if (workspaceCookieSecretMissing()) return NextResponse.json({ error: "workspace cookie secret not set" }, { status: 503 });
   return NextResponse.json({ error: "Invalid request." }, { status: 400 });
 }
 

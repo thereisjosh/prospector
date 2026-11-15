@@ -23,7 +23,7 @@ export async function POST(request: Request) {
     if (!validCards.ok) return NextResponse.json({ error: "Invalid request." }, { status: 400 });
     if (isDemoMode()) return NextResponse.json(await demoPlan(body.cards as CardSet));
     if (await dailyBudgetReached()) return dailyBudgetResponse();
-    const workspaceId = workspaceIdFromRequest(request, body as Record<string, unknown>);
+    const workspaceId = workspaceIdFromRequest(request);
     if (!workspaceId) return missingWorkspaceResponse();
     const exhausted = await allowanceResponse(workspaceId);
     if (exhausted) return exhausted;

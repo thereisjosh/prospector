@@ -268,7 +268,7 @@ describe("POST /api/planner/profile response shapes", () => {
     return (await import("../app/api/planner/profile/route")).POST;
   }
   const req = (body: unknown) => new Request("http://x/api/planner/profile", {
-    method: "POST", headers: { "content-type": "application/json", "x-forwarded-for": crypto.randomUUID() }, body: JSON.stringify(body),
+    method: "POST", headers: { "content-type": "application/json", "x-forwarded-for": crypto.randomUUID(), ...((body as { workspaceId?: string }).workspaceId ? { "x-workspace-id": (body as { workspaceId: string }).workspaceId } : {}) }, body: JSON.stringify(body),
   });
 
   it("candidates: unified shape for social, bio link, maps and name; guard is CostGuard(0.10)", async () => {
@@ -305,7 +305,7 @@ describe("POST /api/planner/profile response shapes", () => {
     const POST = await route(true, { resolveToSite: resolve });
     const withLocale = (locale?: string) => new Request("http://x/api/planner/profile", {
       method: "POST",
-      headers: { "content-type": "application/json", "x-forwarded-for": crypto.randomUUID(), ...(locale ? { "x-locale": locale } : {}) },
+      headers: { "content-type": "application/json", "x-forwarded-for": crypto.randomUUID(), "x-workspace-id": "w9", ...(locale ? { "x-locale": locale } : {}) },
       body: JSON.stringify({ workspaceId: "w9", input: FB }),
     });
     await POST(withLocale("en-SG"));

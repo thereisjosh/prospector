@@ -42,7 +42,7 @@ import {
   tracePlanner,
   traceStats,
 } from "../src/agent/trace";
-import { POST as feedbackPOST } from "../app/api/workspaces/[id]/feedback/route";
+import { POST as feedbackPOST } from "../app/api/workspace/feedback/route";
 import { score } from "../src/agent/trace";
 import { pagePrefixHash } from "../src/agent/tools";
 import { __promptHashCacheStats } from "../src/agent/loop";
@@ -192,7 +192,7 @@ async function scenario(): Promise<{ state: string; events: string }> {
     const response = await feedbackPOST(
       new Request(`http://x/api/workspaces/${WS}/feedback`, {
         method: "POST",
-        headers: { "content-type": "application/json" },
+        headers: { "content-type": "application/json", "x-workspace-id": WS },
         body: JSON.stringify({
           company: "Acme Logistics",
           verdict: "down",

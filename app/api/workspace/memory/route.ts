@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
-import { InvalidIdError } from "../../../../../src/agent/ids";
-import { clearMemory, deleteSeenGroup, groupSeen, isActiveNote, isActivePreference, isWorkspaceId, loadMemory, type Note, type Preference, type SeenGroup } from "../../../../../src/agent/memory";
-import { isDemoMode } from "../../../../../src/demo/mode";
-import { seedDemoMemory } from "../../../../../src/demo/memory";
+import { InvalidIdError } from "../../../../src/agent/ids";
+import { clearMemory, deleteSeenGroup, groupSeen, isActiveNote, isActivePreference, loadMemory, type Note, type Preference, type SeenGroup } from "../../../../src/agent/memory";
+import { isDemoMode } from "../../../../src/demo/mode";
+import { seedDemoMemory } from "../../../../src/demo/memory";
+import { missingWorkspaceResponse, workspaceIdFromRequest } from "../../_shared";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -23,11 +24,12 @@ export type MemoryResponse = {
 };
 
 /** What the UI's "What I remember" panel shows: the lists themselves, with provenance. */
-export async function GET(request: Request, { params }: { params: { id: string } }) {
+export async function GET(request: Request, _context?: unknown) {
   try {
-    if (!isWorkspaceId(params.id)) return NextResponse.json({ error: "Invalid request." }, { status: 400 });
-    if (isDemoMode()) await seedDemoMemory(params.id);
-    const memory = await loadMemory(params.id);
+    const workspaceId = workspaceIdFromRequest(request);
+    if (!workspaceId) return missingWorkspaceResponse();
+    if (isDemoMode()) await seedDemoMemory(workspaceId);
+    const memory = await loadMemory(workspaceId);
     const now = new Date();
     // `?planKey=` names the search the user is on; without it the most recently touched group is current.
     const asked = new URL(request.url).searchParams.get("planKey");
@@ -42,26 +44,27 @@ export async function GET(request: Request, { params }: { params: { id: string }
     return NextResponse.json(body);
   } catch (error) {
     if (error instanceof InvalidIdError) return NextResponse.json({ error: "Invalid request." }, { status: 400 });
-    console.error("[api/workspaces/:id/memory] read failed:", error);
+    console.error("[api/workspace/memory] read failed:", error);
     return NextResponse.json({ error: "Request failed." }, { status: 500 });
   }
 }
 
 /** DELETE clears everything; DELETE ?search=<planKey> forgets only that search's companies. */
-export async function DELETE(request: Request, { params }: { params: { id: string } }) {
+export async function DELETE(request: Request, _context?: unknown) {
   try {
-    if (!isWorkspaceId(params.id)) return NextResponse.json({ error: "Invalid request." }, { status: 400 });
+    const workspaceId = workspaceIdFromRequest(request);
+    if (!workspaceId) return missingWorkspaceResponse();
     const search = new URL(request.url).searchParams.get("search");
     if (search !== null) {
       if (!KEY.test(search)) return NextResponse.json({ error: "Invalid request." }, { status: 400 });
-      const removed = await deleteSeenGroup(params.id, search);
+      const removed = await deleteSeenGroup(workspaceId, search);
       return removed > 0 ? NextResponse.json({ ok: true, removed }) : NextResponse.json({ error: "Not found." }, { status: 404 });
     }
-    await clearMemory(params.id);
+    await clearMemory(workspaceId);
     return NextResponse.json({ ok: true });
   } catch (error) {
     if (error instanceof InvalidIdError) return NextResponse.json({ error: "Invalid request." }, { status: 400 });
-    console.error("[api/workspaces/:id/memory] failed:", error);
+    console.error("[api/workspace/memory] failed:", error);
     return NextResponse.json({ error: "Request failed." }, { status: 500 });
   }
 }

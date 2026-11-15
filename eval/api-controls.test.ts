@@ -21,9 +21,10 @@ const plan = () => ({
 });
 
 function jsonRequest(url: string, body: unknown, ip = crypto.randomUUID()) {
+  const workspaceId = body && typeof body === "object" && typeof (body as { workspaceId?: unknown }).workspaceId === "string" ? (body as { workspaceId: string }).workspaceId : undefined;
   return new Request(url, {
     method: "POST",
-    headers: { "content-type": "application/json", "x-forwarded-for": ip },
+    headers: { "content-type": "application/json", "x-forwarded-for": ip, ...(workspaceId ? { "x-workspace-id": workspaceId } : {}) },
     body: JSON.stringify(body),
   });
 }
@@ -185,7 +186,7 @@ describe("R1 public controls", () => {
     const { POST } = await import("../app/api/runs/route");
     const res = await POST(jsonRequest("http://x/api/runs", { workspaceId: "cap-visitor", plan: plan() }));
     expect(res.status).toBe(503);
-    expect(await res.json()).toEqual({ error: "daily_budget_reached" });
+    expect(await res.json()).toEqual({ error: "paused" });
   });
 
   it("POST /api/runs accepts mode demo even when live keys are available", async () => {
@@ -195,12 +196,12 @@ describe("R1 public controls", () => {
     expect(await res.json()).toMatchObject({ id: expect.stringMatching(/^demo-/) });
   });
 
-  it("POST /api/runs behaves demo-only when LIVE_MODE is off", async () => {
+  it("POST /api/runs refuses replay when LIVE_MODE is off", async () => {
     process.env.LIVE_MODE = "off";
     const { POST } = await import("../app/api/runs/route");
     const res = await POST(jsonRequest("http://x/api/runs", { workspaceId: "paused-choice", plan: plan() }));
-    expect(res.status).toBe(200);
-    expect(await res.json()).toMatchObject({ id: expect.stringMatching(/^demo-/) });
+    expect(res.status).toBe(503);
+    expect(await res.json()).toEqual({ error: "paused" });
   });
 
   it("/api/status reports live availability, visitor allowance, caps, and rounded daily spend", async () => {
@@ -210,7 +211,7 @@ describe("R1 public controls", () => {
     await addVisitorSpend("status-visitor", 0.126);
     await addDailySpend(1.234);
     const { GET } = await import("../app/api/status/route");
-    const res = await GET(new Request("http://x/api/status?workspaceId=status-visitor", { headers: { "x-forwarded-for": crypto.randomUUID() } }));
+    const res = await GET(new Request("http://x/api/status?workspaceId=status-visitor", { headers: { "x-forwarded-for": crypto.randomUUID(), "x-workspace-id": "status-visitor" } }));
     expect(await res.json()).toEqual({
       mode: "live",
       liveAvailable: true,

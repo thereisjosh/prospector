@@ -24,9 +24,9 @@ vi.mock("../src/demo/mode", async (original) => ({ ...(await original<typeof imp
 import { MemoryPanel } from "../app/ui/Memory";
 import { eventLine, seenWhen, screenedFrom } from "../app/ui/copy";
 import type { MemoryView } from "../app/ui/types";
-import { DELETE as memoryDELETE, GET as memoryGET } from "../app/api/workspaces/[id]/memory/route";
-import { DELETE as itemDELETE } from "../app/api/workspaces/[id]/memory/items/[itemId]/route";
-import { POST as feedbackPOST } from "../app/api/workspaces/[id]/feedback/route";
+import { DELETE as memoryDELETE, GET as memoryGET } from "../app/api/workspace/memory/route";
+import { DELETE as itemDELETE } from "../app/api/workspace/memory/items/[itemId]/route";
+import { POST as feedbackPOST } from "../app/api/workspace/feedback/route";
 import { readLastEvents } from "../src/agent/events";
 import { step, type LoopDeps } from "../src/agent/loop";
 import {
@@ -493,6 +493,7 @@ describe("already_seen provenance", () => {
 
 describe("memory API", () => {
   const params = (id: string, itemId?: string) => ({ params: { id, ...(itemId ? { itemId } : {}) } }) as never;
+  const request = (url: string, init: RequestInit | undefined, workspaceId: string) => new Request(url, { ...init, headers: { ...(init?.headers ?? {}), "x-workspace-id": workspaceId } });
 
   it("GET returns the lists with provenance (active only, seen bounded to the last 50); DELETE removes one item and nothing else", async () => {
     const w = ws();
@@ -503,7 +504,7 @@ describe("memory API", () => {
       notes: [note({ id: "n-live", text: "live note", expiresAt: iso(Date.now() + DAY) }), note({ id: "n-old", expiresAt: iso(Date.now() - DAY) })],
     }) as WorkspaceMemory);
 
-    const res = await memoryGET(new Request("http://x"), params(w));
+    const res = await memoryGET(request("http://x", undefined, w), params(w));
     const body = await res.json();
     expect(body.seenCount).toBe(60);
     expect(body.groups).toHaveLength(1); // 60 legacy entries, one group
@@ -515,7 +516,7 @@ describe("memory API", () => {
     expect(body.notes.map((n: Note) => n.id)).toEqual(["n-live"]);
     expect(body.preferenceNotes).toEqual(["User liked Acme: not a 3pl"]);
 
-    const del = await itemDELETE(new Request("http://x", { method: "DELETE" }), params(w, "seen-3"));
+    const del = await itemDELETE(request("http://x", { method: "DELETE" }, w), params(w, "seen-3"));
     expect(del.status).toBe(200);
     const after = await loadMemory(w);
     expect(after.seen).toHaveLength(59);
@@ -523,8 +524,8 @@ describe("memory API", () => {
     expect(after.preferences).toHaveLength(2);
     expect(after.notes).toHaveLength(2);
 
-    expect((await itemDELETE(new Request("http://x", { method: "DELETE" }), params(w, "seen-3"))).status).toBe(404);
-    expect((await itemDELETE(new Request("http://x", { method: "DELETE" }), params(w, "bad id!"))).status).toBe(400);
+    expect((await itemDELETE(request("http://x", { method: "DELETE" }, w), params(w, "seen-3"))).status).toBe(404);
+    expect((await itemDELETE(request("http://x", { method: "DELETE" }, w), params(w, "bad id!"))).status).toBe(400);
     expect((await itemDELETE(new Request("http://x", { method: "DELETE" }), params("../x", "p-new"))).status).toBe(400);
     expect(await deleteMemoryItem(w, "n-live")).toBe(true);
     expect((await loadMemory(w)).notes.map((n) => n.id)).toEqual(["n-old"]);
@@ -534,7 +535,7 @@ describe("memory API", () => {
   it("feedback keeps run and signal provenance and supersedes an earlier vote", async () => {
     const w = ws();
     const runId = crypto.randomUUID();
-    const post = (b: unknown) => feedbackPOST(new Request("http://x", { method: "POST", body: JSON.stringify(b) }), params(w));
+    const post = (b: unknown) => feedbackPOST(request("http://x", { method: "POST", body: JSON.stringify(b) }, w), params(w));
     expect((await post({ company: "Acme", verdict: "down", reason: "no", runId, signal_url: "https://n.example/a" })).status).toBe(200);
     expect((await post({ company: "Acme", verdict: "up" })).status).toBe(200);
     const m = await loadMemory(w);
@@ -604,7 +605,7 @@ describe("demo: second workspace state and the skipped line", () => {
     const { before } = await recorded();
     process.env.DEMO_MODE = "1";
     try {
-      const body = await (await memoryGET(new Request("http://x"), { params: { id: w } } as never)).json();
+      const body = await (await memoryGET(new Request("http://x", { headers: { "x-workspace-id": w } }), { params: { id: w } } as never)).json();
       expect(body.groups).toHaveLength(1);
       expect(body.groups[0].items).toHaveLength(before.length);
       expect(body.seenCount).toBe(7);
@@ -674,7 +675,7 @@ describe("demo: second workspace state and the skipped line", () => {
     expect(rec.notes).toHaveLength(1);
     expect(after.notes.map((n) => [n.text, n.tags, n.runId])).toEqual([[rec.notes[0].text, rec.notes[0].tags, id]]);
     expect(Date.parse(after.notes[0]!.expiresAt)).toBeGreaterThan(Date.now() + 50 * 24 * 3600 * 1000);
-    const body = await (await memoryGET(new Request("http://x"), { params: { id: w2 } } as never)).json();
+    const body = await (await memoryGET(new Request("http://x", { headers: { "x-workspace-id": w2 } }), { params: { id: w2 } } as never)).json();
     expect(body.notes.map((n: { text: string }) => n.text)).toEqual([rec.notes[0].text]);
   });
 });
@@ -765,7 +766,7 @@ describe("search-scoped constraints", () => {
       preferences: [pref()],
       notes: [note({ expiresAt: iso(now + DAY) })],
     }) as WorkspaceMemory);
-    const get = async (q = "") => (await memoryGET(new Request(`http://x${q}`), { params: { id: w } } as never)).json();
+    const get = async (q = "") => (await memoryGET(new Request(`http://x${q}`, { headers: { "x-workspace-id": w } }), { params: { id: w } } as never)).json();
     const body = await get();
     expect(body.groups.map((g: { label: string; count: number; current: boolean }) => [g.label, g.count, g.current])).toEqual([
       ["Logistics ops scaling now", 1, true], // newest group is current by default; the expired entry is not listed
@@ -777,7 +778,7 @@ describe("search-scoped constraints", () => {
     expect(body.groups[1].items.map((i: SeenItem) => i.name)).toEqual(["Pet B", "Pet A"]);
     expect((await get(`?planKey=${planSignature(pets())}`)).groups[0].label).toBe("Pet shops in Singapore");
 
-    const del = (q: string) => memoryDELETE(new Request(`http://x${q}`, { method: "DELETE" }), { params: { id: w } } as never);
+    const del = (q: string) => memoryDELETE(new Request(`http://x${q}`, { method: "DELETE", headers: { "x-workspace-id": w } }), { params: { id: w } } as never);
     expect((await del("?search=bad key!")).status).toBe(400);
     expect((await del("?search=plan_nothere")).status).toBe(404);
     expect((await del(`?search=${planSignature(pets())}`)).status).toBe(200);

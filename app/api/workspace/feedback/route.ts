@@ -1,18 +1,20 @@
 import { NextResponse } from "next/server";
-import { appendEvents, readLastEvents, type AgentEvent } from "../../../../../src/agent/events";
-import { InvalidIdError, isRunId } from "../../../../../src/agent/ids";
-import { addFeedback, isWorkspaceId } from "../../../../../src/agent/memory";
-import { PROMPT_VERSION } from "../../../../../src/agent/prompts";
-import { loadState } from "../../../../../src/agent/state";
-import { findAcceptedSubmit, leadFeedback } from "../../../../../src/agent/online-eval";
+import { appendEvents, readLastEvents, type AgentEvent } from "../../../../src/agent/events";
+import { InvalidIdError, isRunId } from "../../../../src/agent/ids";
+import { addFeedback } from "../../../../src/agent/memory";
+import { PROMPT_VERSION } from "../../../../src/agent/prompts";
+import { loadState } from "../../../../src/agent/state";
+import { findAcceptedSubmit, leadFeedback } from "../../../../src/agent/online-eval";
+import { missingWorkspaceResponse, workspaceIdFromRequest } from "../../_shared";
 
 export const runtime = "nodejs";
 
 const REASON_LIMIT = 500;
 
-export async function POST(request: Request, { params }: { params: { id: string } }) {
+export async function POST(request: Request, _context?: unknown) {
   try {
-    if (!isWorkspaceId(params.id)) return NextResponse.json({ error: "Invalid request." }, { status: 400 });
+    const workspaceId = workspaceIdFromRequest(request);
+    if (!workspaceId) return missingWorkspaceResponse();
     const body = (await request.json()) as { company?: unknown; verdict?: unknown; reason?: unknown; runId?: unknown; signal_url?: unknown };
     if (typeof body.company !== "string" || !body.company.trim() || (body.verdict !== "up" && body.verdict !== "down")) {
       return NextResponse.json({ error: "Invalid request." }, { status: 400 });
@@ -21,14 +23,14 @@ export async function POST(request: Request, { params }: { params: { id: string 
       return NextResponse.json({ error: "Invalid request." }, { status: 400 });
     }
     const reason = typeof body.reason === "string" ? body.reason : undefined;
-    const memory = await addFeedback(params.id, {
+    const memory = await addFeedback(workspaceId, {
       company: body.company,
       verdict: body.verdict,
       reason,
       ...(typeof body.runId === "string" ? { runId: body.runId, signalUrl: String(body.signal_url) } : {}),
     });
     if (typeof body.runId === "string" && typeof body.signal_url === "string") {
-      await recordLeadFeedback(params.id, body.runId, {
+      await recordLeadFeedback(workspaceId, body.runId, {
         company: body.company,
         signalUrl: body.signal_url,
         verdict: body.verdict,
@@ -38,7 +40,7 @@ export async function POST(request: Request, { params }: { params: { id: string 
     return NextResponse.json({ ok: true, preferenceNotes: memory.preferenceNotes });
   } catch (error) {
     if (error instanceof InvalidIdError) return NextResponse.json({ error: "Invalid request." }, { status: 400 });
-    console.error("[api/workspaces/:id/feedback] failed:", error);
+    console.error("[api/workspace/feedback] failed:", error);
     return NextResponse.json({ error: "Request failed." }, { status: 500 });
   }
 }

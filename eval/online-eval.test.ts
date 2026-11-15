@@ -48,7 +48,7 @@ import type { BlindLead } from "./harness/blind";
 import type { AgentEvent } from "../src/agent/events";
 import { runWorker } from "./online/worker";
 import { jevCostDollars, type JevLeadVerdict } from "../src/judges/jev";
-import { POST as feedbackPOST } from "../app/api/workspaces/[id]/feedback/route";
+import { POST as feedbackPOST } from "../app/api/workspace/feedback/route";
 
 const WS = "ws-online-eval-01";
 const NOW = new Date("2026-10-12T09:00:00.000Z");
@@ -298,7 +298,7 @@ describe("run-end scores (code graders + outcomes)", () => {
     const response = await feedbackPOST(
       new Request(`http://x/api/workspaces/${WS}/feedback`, {
         method: "POST",
-        headers: { "content-type": "application/json" },
+        headers: { "content-type": "application/json", "x-workspace-id": WS },
         body: JSON.stringify({ company: lead.company, verdict: "down", reason: "wrong company", runId, signal_url: lead.signal_url }),
       }),
       { params: { id: WS } },
@@ -330,7 +330,7 @@ describe("run-end scores (code graders + outcomes)", () => {
     const lead = s.leads[0]!;
     const post = (verdict: "up" | "down") =>
       feedbackPOST(
-        new Request(`http://x/api/workspaces/${WS}/feedback`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ company: lead.company, verdict, runId, signal_url: lead.signal_url }) }),
+        new Request(`http://x/api/workspace/feedback`, { method: "POST", headers: { "content-type": "application/json", "x-workspace-id": WS }, body: JSON.stringify({ company: lead.company, verdict, runId, signal_url: lead.signal_url }) }),
         { params: { id: WS } },
       );
     await post("up");

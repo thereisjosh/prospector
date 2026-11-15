@@ -32,6 +32,8 @@ function splitList(text: string): string[] {
 
 export type StartStepProps = {
   demo: boolean;
+  /** Production is paused/capped/missing keys: do not offer a run-starting flow. */
+  liveUnavailable?: boolean;
   input: string;
   setInput: (v: string) => void;
   busy: boolean;
@@ -74,6 +76,9 @@ export function StartStep(props: StartStepProps) {
 
   return (
     <div className="step narrow pr-describe">
+      {props.liveUnavailable && (
+        <p className="inline-error" role="status">Live trials are paused for today. Try again tomorrow.</p>
+      )}
       {showInput ? (
         <div className="pr-prompt-block">
           <form
@@ -101,7 +106,7 @@ export function StartStep(props: StartStepProps) {
                 }}
               />
               <InputGroupAddon align="block-end" className="pr-prompt-foot">
-                <InputGroupButton type="submit" variant="default" className="pr-prompt-go pr-press" disabled={props.busy || !props.input.trim()}>
+                <InputGroupButton type="submit" variant="default" className="pr-prompt-go pr-press" disabled={props.liveUnavailable || props.busy || !props.input.trim()}>
                   {props.busy ? "Reading…" : "Continue"}
                 </InputGroupButton>
               </InputGroupAddon>

@@ -11,15 +11,14 @@ export const dynamic = "force-dynamic";
 export const maxDuration = 300;
 
 /**
- * GET /api/runs/:id/events?after=<seq>[&workspaceId=<id>]: Server-Sent Events (src/agent/live.ts).
- * The workspace must own the run: `x-workspace-id` header, or `workspaceId` in the query because
- * EventSource cannot set headers. A reconnecting EventSource's Last-Event-ID wins when it is later.
+ * GET /api/runs/:id/events?after=<seq>: Server-Sent Events (src/agent/live.ts).
+ * EventSource is same-origin and sends the signed workspace cookie; middleware forwards its id.
  */
 export async function GET(request: Request, { params }: { params: { id: string } }) {
   try {
     const limited = rateLimit(request);
     if (limited) return limited;
-    const owner = await requireRunOwner(request, params.id, { allowQuery: true });
+    const owner = await requireRunOwner(request, params.id);
     if (owner instanceof NextResponse) return owner;
     const url = new URL(request.url);
     const after = Math.max(seqParam(url.searchParams.get("after")), seqParam(request.headers.get("last-event-id")));

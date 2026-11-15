@@ -1103,7 +1103,7 @@ describe("agent loop", () => {
       const { POST } = await import("../app/api/runs/route");
       const res = await POST(new Request("http://x/api/runs", {
         method: "POST",
-        headers: { "x-forwarded-for": "198.51.100.10, 10.0.0.1" },
+        headers: { "x-forwarded-for": "198.51.100.10, 10.0.0.1", "x-workspace-id": "route_ws" },
         body: JSON.stringify({ plan: plan(), targetLeads: 99, workspaceId: "route_ws" }),
       }));
       expect(res.status).toBe(200);
@@ -1111,16 +1111,16 @@ describe("agent loop", () => {
       expect((await loadState(created.id)).contract.targetLeads).toBe(50);
 
       for (let i = 0; i < 30; i += 1) {
-        await POST(new Request("http://x/api/runs", { method: "POST", headers: { "x-forwarded-for": "203.0.113.77" }, body: JSON.stringify({ plan: plan(), workspaceId: `rl_${i}` }) }));
+        await POST(new Request("http://x/api/runs", { method: "POST", headers: { "x-forwarded-for": "203.0.113.77", "x-workspace-id": `rl_${i}` }, body: JSON.stringify({ plan: plan(), workspaceId: `rl_${i}` }) }));
       }
-      const limited = await POST(new Request("http://x/api/runs", { method: "POST", headers: { "x-forwarded-for": "203.0.113.77" }, body: JSON.stringify({ plan: plan(), workspaceId: "rl_x" }) }));
+      const limited = await POST(new Request("http://x/api/runs", { method: "POST", headers: { "x-forwarded-for": "203.0.113.77", "x-workspace-id": "rl_x" }, body: JSON.stringify({ plan: plan(), workspaceId: "rl_x" }) }));
       expect(limited.status).toBe(429);
 
       const oldCap = process.env.DAILY_SPEND_CAP_DOLLARS;
       process.env.DAILY_SPEND_CAP_DOLLARS = "0";
-      const capped = await POST(new Request("http://x/api/runs", { method: "POST", headers: { "x-forwarded-for": "192.0.2.55" }, body: JSON.stringify({ plan: plan(), workspaceId: "cap_ws" }) }));
-      expect(capped.status).toBe(200);
-      expect(await capped.json()).toMatchObject({ id: expect.stringMatching(/^demo-/) });
+      const capped = await POST(new Request("http://x/api/runs", { method: "POST", headers: { "x-forwarded-for": "192.0.2.55", "x-workspace-id": "cap_ws" }, body: JSON.stringify({ plan: plan(), workspaceId: "cap_ws" }) }));
+      expect(capped.status).toBe(503);
+      expect(await capped.json()).toEqual({ error: "paused" });
       process.env.DAILY_SPEND_CAP_DOLLARS = oldCap;
     });
   });
