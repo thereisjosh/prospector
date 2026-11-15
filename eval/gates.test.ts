@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   checkLead,
+  checkDecisiveCheck,
   parseEmployeeEstimate,
   quoteInText,
   quoteMatch,
@@ -155,6 +156,12 @@ describe("checkLead: one test per gate code", () => {
     expect(code(lead({ company: "Remote Rush" }))).toBe("non_company");
     expect(code(lead({ company: "Role, Inc." }))).toBe("non_company");
     expect(code(lead({ companyUrl: "https://www.indeed.com/cmp/x" }))).toBe("non_company");
+    expect(code(lead({ companyUrl: "https://www.linkedin.com/jobs/view/123" }))).toBe("non_company");
+  });
+
+  it("a LinkedIn company page is the company itself, not a job board (Exa lookups, Nov 2026)", () => {
+    expect(code(lead({ companyUrl: "https://www.linkedin.com/company/verst-logistics" }))).not.toBe("non_company");
+    expect(code(lead({ companyUrl: "https://uk.linkedin.com/company/sjh-fulfilment/" }))).not.toBe("non_company");
   });
 
   it("entity_mismatch", () => {
@@ -360,6 +367,32 @@ describe("checkLead: one test per gate code", () => {
     const submitted = new Set<string>();
     checkLead(plan(), lead({ seen, submitted }));
     expect(seen.size + submitted.size).toBe(0);
+  });
+});
+
+describe("checkDecisiveCheck", () => {
+  const page = "https://example.com/about";
+  const readPages = { [page]: { title: "ShipCo services", text: "ShipCo provides third-party logistics services for other companies." } };
+
+  it("rejects missing, empty, and overlong checks", () => {
+    expect(checkDecisiveCheck(undefined, readPages)).toMatchObject({ ok: false, code: "check_missing" });
+    expect(checkDecisiveCheck({ question: " ", answer_quote: "ShipCo provides third-party logistics services for other companies.", page_url: page }, readPages)).toMatchObject({ ok: false, code: "check_missing" });
+    expect(checkDecisiveCheck({ question: "x".repeat(161), answer_quote: "ShipCo provides third-party logistics services for other companies.", page_url: page }, readPages)).toMatchObject({ ok: false, code: "check_missing" });
+  });
+
+  it("requires the cited page to have been read", () => {
+    expect(checkDecisiveCheck({ question: "Does ShipCo serve other companies?", answer_quote: "ShipCo provides third-party logistics services for other companies.", page_url: "https://example.com/unread" }, readPages)).toMatchObject({ ok: false, code: "check_page_not_read" });
+  });
+
+  it("requires the deciding sentence to be on that page", () => {
+    expect(checkDecisiveCheck({ question: "Does ShipCo serve other companies?", answer_quote: "ShipCo owns its own retail stores.", page_url: page }, readPages)).toMatchObject({ ok: false, code: "check_quote_not_in_page" });
+  });
+
+  it("uses the existing whitespace and case-tolerant quote normalizer", () => {
+    expect(checkDecisiveCheck({ question: "Does ShipCo serve other companies?", answer_quote: "shipco PROVIDES third-party logistics   services for other companies", page_url: page }, readPages)).toEqual({
+      ok: true,
+      check: { question: "Does ShipCo serve other companies?", answer_quote: "shipco PROVIDES third-party logistics   services for other companies", page_url: page },
+    });
   });
 });
 

@@ -298,7 +298,7 @@ async function readAllEvents(runId: string): Promise<AgentEvent[]> {
 /** The grader-relevant part of the state, copied so later mutations by the caller cannot race the background work. */
 function snapshot(state: RunState): RunState {
   const { messages: _messages, caches: _caches, ...rest } = state;
-  return structuredClone({ ...rest, messages: [], caches: { signalsByUrl: {}, enrichmentByName: {}, candidateCompanies: [], searchQueries: [], seenKeys: [] } }) as RunState;
+  return structuredClone({ ...rest, messages: [], caches: { signalsByUrl: {}, readPages: {}, enrichmentByName: {}, candidateCompanies: [], searchQueries: [], seenKeys: [] } }) as RunState;
 }
 
 /** Production, a non-zero cap, and a Jev key. Without the key: one warning per process, nothing judged, no other model. */

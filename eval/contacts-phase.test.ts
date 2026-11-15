@@ -54,6 +54,7 @@ const msg = (content: unknown[], stop_reason = "tool_use") => ({
   usage: { input_tokens: 100, output_tokens: 50, cache_read_input_tokens: 0, cache_creation_input_tokens: 0 },
 });
 const tool = (id: string, name: string, input: Record<string, unknown>) => ({ type: "tool_use", id, name, input });
+const decisiveCheck = (pageUrl: string, answerQuote: string) => ({ question: "Is this company an operator?", answer_quote: answerQuote, page_url: pageUrl });
 
 /** What each model call was sent, serialised at call time (the history array keeps growing after). */
 const sentAt: string[] = [];
@@ -98,6 +99,7 @@ function runState(leads: AcceptedLead[], over: Partial<SearchPlan> = {}, targetL
     summary: { company_name: "C Co", signal_type: "expansion", signal_summary: "opened", signal_date: "2026-10-01" },
   };
   s.caches.enrichmentByName.cco = { summary: { description: "C Co" }, url: "https://cco.example" };
+  s.caches.readPages["https://news.example/cco"] = { title: "C Co opens a warehouse", text: "C Co opens a warehouse for customers." };
   // The model's last turn was answered: history ends on a user message, as after any tool turn.
   s.messages.push({ role: "assistant", content: [{ type: "text", text: "working" }] }, { role: "user", content: [{ type: "text", text: "Spend: $0.10" }] });
   return s;
@@ -129,7 +131,7 @@ describe("contacts phase", () => {
       return found(1);
     });
     const c = client(
-      msg([tool("sub", "submit_lead", { company: "C Co", signal_url: "https://news.example/cco", why_now: "new warehouse" })]),
+      msg([tool("sub", "submit_lead", { company: "C Co", signal_url: "https://news.example/cco", why_now: "new warehouse", decisive_check: decisiveCheck("https://news.example/cco", "C Co opens a warehouse for customers.") })]),
       msg([tool("c1", "find_contacts", { company: "A Co" }), tool("c2", "find_contacts", { company: "B Co" }), tool("c3", "find_contacts", { company: "C Co" })]),
     );
     const deps = { client: c as never, checkLead: checker, now: NOW, findContacts: findContacts as never };

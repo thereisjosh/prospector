@@ -9,7 +9,7 @@ import type { SearchPlan } from "../plan";
 import type { SignalEvidence } from "../evidence";
 import type { LeadContacts } from "../contacts";
 import type { CompanySummary, SignalSummary } from "../types";
-import type { GateCode } from "../gates";
+import type { DecisiveCheck, GateCode } from "../gates";
 import { renderPreference, squashName, type Note } from "./memory";
 import { renderNote, type RecallLogEntry, type RecallResult, type SeenInfo } from "./recall";
 
@@ -41,6 +41,8 @@ export type AcceptedLead = {
    * Absent = not looked up. Lives and dies with the run; never written to workspace memory.
    */
   contacts?: LeadContacts;
+  /** The agent's code-checked deciding question and its answer from a page read in this run. */
+  decisive_check?: DecisiveCheck;
 };
 
 export type CandidateLead = AcceptedLead & { code: GateCode; missing: string };
@@ -127,6 +129,8 @@ export type RunState = {
   adaptive: { queryRewrites: number; lookupsSkipped: number; verificationReads: number };
   caches: {
     signalsByUrl: Record<string, { url: string; title?: string; text?: string; publishedDate?: string; summary: SignalSummary }>;
+    /** Full-text pages read during this run, keyed by the URL the agent supplied. */
+    readPages: Record<string, { title?: string; text: string }>;
     enrichmentByName: Record<string, { result?: unknown; summary: CompanySummary; url?: string }>;
     candidateCompanies: string[];
     searchQueries: string[];
@@ -180,6 +184,7 @@ export function createRunState(args: {
     adaptive: { queryRewrites: 0, lookupsSkipped: 0, verificationReads: 0 },
     caches: {
       signalsByUrl: {},
+      readPages: {},
       enrichmentByName: {},
       candidateCompanies: [],
       searchQueries: [],
@@ -231,6 +236,7 @@ export async function loadState(id: string): Promise<RunState> {
   state.version = typeof state.version === "number" ? state.version : 0;
   state.counters.consecutiveErrors ??= 0;
   state.candidates ??= [];
+  state.caches.readPages ??= {};
   const repaired = repairDanglingToolUses(state);
   if (repaired.length > 0) state.repairedToolUseIds = [...(state.repairedToolUseIds ?? []), ...repaired];
   return state;

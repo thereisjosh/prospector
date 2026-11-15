@@ -252,6 +252,36 @@ Also fixed: Exa 429s under load (aac0a20: ≤ 4 in flight, jittered retry); an u
 - **Not covered:** whether Exa's news category returns the press pages that used to verify is unmeasured until a live run (that is the one number to check: verified press contacts per company before/after). A company page on a different registrable domain than the lookup URL (a rebrand, a separate careers domain) is no longer company-owned and falls to inferred. The bio rule is URL-segment based and will miss conference pages with other path names (safe direction). A mirror hosted on the company's own domain, or a wire-hosted copy of a mirror, still verifies.
 - **Earlier:** FAILURES #29 and #30 were each verified against the probe that found them; running the gate over a larger recording (the 25-company eval) before declaring "mirrors cannot verify" would have found prospeo. The structural fix (an allowlist) was available at #29.
 
+## 32. Exa lookups started resolving to LinkedIn company pages; the non_company gate ruled every one out [measured]
+
+- **Symptom:** 2026-11-15, set `visible-agency-2026-11-15`, S1 rep 1 (Sonnet 5.5, $0.50): 0 leads. 12 of 42 lookups were screened `non_company`, "lookup resolved to a job-board/staffing domain", including Verst Logistics and Spartan Logistics (real 3PLs, Verst a judged good lead in earlier sets). 13 of the 42 lookups resolved to a `linkedin.com/company/<slug>` URL. The October Sonnet S1 runs had 0 and 1 LinkedIn lookups out of 54 and 56.
+- **Layer:** identity gate (`isNonCompanyDomain`, `src/gates.ts`). **Cause:** `NON_COMPANY_DOMAIN_PATTERNS` listed all of `linkedin.com`, meant for "LinkedIn" posted as the hiring company. When Exa's company lookup began returning the LinkedIn company page as the company URL (external drift, not a code change), every such company failed.
+- **Fix:** a `linkedin.com/company/<slug>` URL is the company itself and is not a non-company domain; `/jobs/` and every other LinkedIn path still are.
+- **Before -> after (live, same set):** S1 rep 2 after the fix: 17 of 58 lookups resolved to LinkedIn, 0 screened `non_company`; 3 leads accepted (see #33 for why that is still short).
+- **Test:** `eval/gates.test.ts` ("a LinkedIn company page is the company itself", and `/jobs/view/123` still `non_company`).
+- **Not covered:** a LinkedIn company page as the lookup URL means the same-domain hiring rule (`weak_hiring_signal`) can never match the company's own careers page. Lookup size and HQ now come from LinkedIn's own summary more often; their accuracy against the company site is unmeasured.
+
+## 33. Visible agency: the agent now checks its own deciding question [measured, shipped]
+
+- **What changed (docs/SPEC-visible-agency.md):** `submit_lead` requires a `decisive_check` (question, verbatim answer sentence, page URL). Code (`checkDecisiveCheck`) rejects it unless the page was read with `read_page` in this run and the sentence is on it. The prompt asks for the check and a one-line reason per turn; the trace shows both.
+- **Result, set `visible-agency-2026-11-15`, Sonnet 5.5, $1 cap, 1 rep each, $2.26 total incl. a dead S1 rep 1 (#32) and $0.06 lost to revoked keys:**
+
+| | S1 baseline (10-17, reps 2-3) | S1 new (rep 2) | S2 baseline (10-17 rep 3) | S2 new |
+|---|---|---|---|---|
+| Accepted leads | 9, 6 | **3** (stopped on budget) | 10 | 10 |
+| Leads with a code-checked deciding check | n/a | 3 of 3 | n/a | 10 of 10 |
+| `read_page` calls | 0, 1 | 6 | 0 | 12 |
+| Spend | $0.88, $0.88 | $0.87 | $0.54 | $0.83 |
+| Turns with a stated reason | n/a | 5 of 16 | 2 of 10 | 6 of 19 |
+
+- **Hand check of all 13 checks (does the quote answer the question?):** S2 8 of 10 (Arcade.dev copied the signal sentence as its answer; Agave asked about funding, which the signal already settles). S1 3 of 3 (States, Spartan, FreezPak each quote "third-party logistics provider" or "logistics solutions" text). Every check used the signal page; none read a second source.
+- **Ship rule (spec §2 C4):** S2 passes (10 leads, under cap, 8 of 10). S1 fails: 3 accepted against a 5-lead floor. Exa and Claude spend split matches the baseline almost exactly ($0.61 / $0.26 vs $0.61-0.63 / $0.25-0.26), so the reads did not cost the leads in money; S1 screened 14 companies on `size` (baseline 9 and 11) and the October and November Exa results differ (#32). One rep cannot separate the gate's effect from the drift.
+- **S1 rep 3 (same code, same day, $0.84):** 5 leads (States Logistics, Spartan Logistics, The Nearshore Company, FreezPak, Koola), stopped on `finish` under the cap, 9 reads, 0 `check_*` rejections, 16 screened (7 on `size`). Hand check 5 of 5: each is a logistics operator serving other companies, each event is inside the 3-month window, and third-party headcount estimates put States, Spartan and FreezPak inside 100-1,000. All 5 checks answer their question from a page the agent read (The Nearshore Company's is the strongest: the page says the warehouse serves both its own manufacturing and 3PL customers). Not Opus-judged; the baseline "good" counts were, so this is a hand count against an Opus count.
+- **Why rep 2 was short:** in rep 2 the check rejected nothing and no company that passed screening was held back; 23 of 28 lookups were screened out before `submit_lead` (14 on `size`) against 16 of 26 and 21 of 28 in October. The shortfall was the candidate pool Exa returned, not the gate. The remaining lever is spending fewer lookups on companies the signal already shows are too small, which applies to the old agent too.
+- **Shipped as default 2026-11-15** on S2 (10 of 10) and S1 rep 3 (5 of 5, meets the 5-lead floor); S1 across reps is 3 and 5.
+- **Also found:** the harness reports a cell whose model calls or Exa calls all failed with 401 as `cells ok/error: 2/0` (`eval/harness/run-cell.ts`); a dead-key run looks like a clean 0-lead run. Not fixed.
+- **Prompt adherence:** asked for a one-line reason before every turn's tool calls, Sonnet wrote one on about a third of turns.
+
 ## What we would monitor weekly
 
 Extends SPEC-agent §14; a breach rolls back one stage.

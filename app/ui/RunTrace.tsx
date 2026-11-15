@@ -239,6 +239,7 @@ function TurnView({ turn, open, onOpenChange }: { turn: TraceTurn; open: boolean
   const header = (
     <TraceLine status={turn.status === "error" ? "error" : undefined} className="pr-trace-line pr-turn">
       <TraceTitle className="pr-trace-title font-medium text-foreground">{turn.title}</TraceTitle>
+      {turn.reason && <TraceDescription className="pr-trace-desc pr-trace-reason text-foreground">{turn.reason}</TraceDescription>}
       {turn.description && <TraceDescription className="pr-trace-desc">{turn.description}</TraceDescription>}
     </TraceLine>
   );

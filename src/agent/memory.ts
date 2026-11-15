@@ -524,6 +524,9 @@ export async function appendRunToMemory(state: RunState): Promise<void> {
       });
     });
     for (const rejection of state.rejected) {
+      // A decisive-check rejection (check_*) is about the agent's own homework, not the company's fit:
+      // the company was never judged, so it must not be remembered as rejected and skipped by later runs.
+      if (rejection.code.startsWith("check_")) continue;
       const squashed = squashName(rejection.company);
       if (known.has(squashed)) continue;
       known.add(squashed);

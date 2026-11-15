@@ -191,6 +191,15 @@ describe("memory schema and migration", () => {
     expect(m.notes).toHaveLength(1);
   });
 
+  it("appendRunToMemory does not remember decisive-check rejections: the company was never judged on fit", async () => {
+    const w = ws();
+    const s = createRunState({ id: crypto.randomUUID(), workspaceId: w, plan: plan() });
+    s.rejected.push({ company: "UnreadCo", code: "check_page_not_read", reason: "call read_page first", turn: 1 });
+    s.rejected.push({ company: "BadCo", code: "size", reason: "too big", turn: 2 });
+    await appendRunToMemory(s);
+    expect((await loadMemory(w)).seen.map((x) => x.name)).toEqual(["BadCo"]);
+  });
+
   it("clear-all still works", async () => {
     const w = ws();
     await addFeedback(w, { company: "X", verdict: "down" });
