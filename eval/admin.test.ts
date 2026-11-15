@@ -107,7 +107,9 @@ describe("admin runs export route", () => {
     // (the test silently began failing on 2026-10-22, 8 days after these fixtures).
     vi.useFakeTimers({ toFake: ["Date"] });
     vi.setSystemTime(new Date("2026-10-14T12:30:00.000Z"));
-    onTestFinished(() => vi.useRealTimers());
+    onTestFinished(() => {
+      vi.useRealTimers();
+    });
     const recentId = "00000000-0000-4000-8000-000000000001";
     const oldId = "00000000-0000-4000-8000-000000000002";
     const demoId = "demo-00000000-0000-4000-8000-000000000003";
