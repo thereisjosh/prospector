@@ -826,7 +826,9 @@ export async function handback(state: RunState, deps: LoopDeps, events?: AgentEv
       if (events) events.push(event);
       else await appendEvents(state.id, [event]);
       const text = response.content.find((b) => b.type === "text")?.text ?? "";
-      state.handback = parseHandback(text) ?? fallback;
+      const parsed = parseHandback(text);
+      // The shortfall is code's count (leads found of target), never the model's wording of it.
+      state.handback = parsed ? { ...parsed, shortfall: fallback.shortfall } : fallback;
       return state.handback;
     } catch {
       state.handback = fallback;

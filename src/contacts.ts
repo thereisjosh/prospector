@@ -66,6 +66,8 @@ export const CONTACT_LIMITS = {
   /** The `category: "news"` search (call C). */
   newsResults: 3,
   pageTextMax: 20_000,
+  /** Max age of Exa's cached copy of a page used as contact evidence (calls B and C); older copies are re-crawled. */
+  pageMaxAgeHours: 168,
   /** Roles named in a query. */
   queryRoles: 3,
 } as const;
@@ -141,7 +143,9 @@ export function pageSearchBody(company: string, roles: string[], names: string[]
         query: `List the people this page names who work at ${company}, each with their job title copied exactly as the page writes it (title_quote, one contiguous phrase of at most ${CONTACT_TITLE_MAX} characters). Only people the page itself names; an empty list if none.${known}`,
         schema: PEOPLE_SCHEMA,
       },
-      livecrawl: "fallback",
+      // A cached copy older than this is re-crawled (FAILURES #35): a team page deleted after its person left must
+      // not verify them from Exa's cache. Exa replaced `livecrawl` with `maxAgeHours`; never send both.
+      maxAgeHours: CONTACT_LIMITS.pageMaxAgeHours,
     },
   };
 }

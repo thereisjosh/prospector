@@ -120,13 +120,13 @@ describe("Who to reach on a lead row", () => {
   it("the demo recording (2026-11-21) has contacts on every lead: the verified people from their sources, no 'not looked up' line", () => {
     const html = run(state.leads, true);
     expect(html).not.toContain("No contacts looked up in this recording");
-    expect(html.split(">Who to reach</span>").length - 1).toBe(5);
+    expect(html.split(">Who to reach</span>").length - 1).toBe(8);
     // J&J's first verified contact: name, the page's own title wording, and the host of the page that says it
-    expect(html).toMatch(/data-tier="verified"[\s\S]*?>Stuart Runchman<[\s\S]*?“Group Head of Operations at J&amp;J Global Fulfilment”[\s\S]*?ecommercefulfilment.com<\/button>/);
-    // Hollingsworth was looked up and no one was found: said so, nothing invented
-    expect(html).toContain("Looked for people in your roles; no one found");
-    expect(html.split('data-tier="verified"').length - 1).toBe(10);
-    expect(html.split('data-tier="inferred"').length - 1).toBe(2);
+    expect(html).toMatch(/data-tier="verified"[\s\S]*?>Stuart Runchman<[\s\S]*?“Group Head of Operations”[\s\S]*?ecommercefulfilment.com<\/button>/);
+    // Porter and Hollingsworth were looked up and no one was found: said so, nothing invented
+    expect(html.split("Looked for people in your roles; no one found").length - 1).toBe(2);
+    expect(html.split('data-tier="verified"').length - 1).toBe(11);
+    expect(html.split('data-tier="inferred"').length - 1).toBe(5);
   });
 
   it("a demo lead without a contacts entry shows the muted line once the replay has ended, nothing fabricated; none while it is still running", () => {
@@ -226,13 +226,13 @@ describe("Trace line for find_contacts", () => {
 describe("Trace line for find_contacts in the demo recording", () => {
   it("the recorded calls carry no input (the tool takes none), so each line takes its company from the result summary", () => {
     const calls = (JSON.parse(`[${readFileSync(join(ROOT, "eval", "demo", "run", "events.jsonl"), "utf8").trim().split("\n").join(",")}]`) as Array<{ kind: string; tool?: string; input?: unknown }>).filter((e) => e.kind === "tool_call" && e.tool === "find_contacts");
-    expect(calls).toHaveLength(5);
+    expect(calls).toHaveLength(8);
     const tree = traceModel(calls as never, { status: "running", leads: [], rejected: [], todo: "", contract } as never);
     const lines = tree.turns.flatMap((t) => t.lines).filter((l) => l.kind === "contacts");
     expect(lines.map((l) => l.title).sort()).toEqual(
-      ["Hollingsworth Logistics", "J&J Global Fulfilment", "RGL Logistics", "Spartan Logistics", "Wagner Logistics"].map((c) => `Looking for people to reach at ${c}`).sort(),
+      ["G10 Fulfillment", "Hollingsworth Logistics", "J&J Global Fulfilment", "Jay Group", "Legacy Supply Chain", "Porter Logistics", "Spartan Logistics", "Wagner Logistics"].map((c) => `Looking for people to reach at ${c}`).sort(),
     );
-    expect(lines.find((l) => l.title.endsWith("Hollingsworth Logistics"))!.description).toBe("No one found in your roles");
+    for (const none of ["Porter Logistics", "Hollingsworth Logistics"]) expect(lines.find((l) => l.title.endsWith(none))!.description).toBe("No one found in your roles");
     expect(lines.find((l) => l.title.endsWith("Spartan Logistics"))!.description).toBe("3 verified");
   });
 });

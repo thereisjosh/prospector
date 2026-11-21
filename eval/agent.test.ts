@@ -832,8 +832,11 @@ describe("agent loop", () => {
       const c = client(msg("tool_use", [tool("f", "finish", { summary: "done", handback: structured })]));
       await step(s, { client: c as never, checkLead: checker, now: NOW });
       expect(s.status).toBe("done");
+      // The model wrote "6 of 10"; code stores its own count (leads found of target): run f19e666c's model wrote
+      // "2 of 10" meaning 2 missing with 8 leads on screen.
+      expect(s.leads.length).not.toBe(6);
       expect(s.handback).toEqual({
-        shortfall: "6 of 10",
+        shortfall: `${s.leads.length} of 10`,
         top_reasons: [{ code: "Too small", count: 10 }, { code: "Too big", count: 20 }],
         suggestions: [
           { field: "employeeRange", value: { min: 25, max: 500 }, why: "many small" },

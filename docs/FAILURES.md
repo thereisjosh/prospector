@@ -293,6 +293,14 @@ Also fixed: Exa 429s under load (aac0a20: ≤ 4 in flight, jittered retry); an u
 - **Not covered:** the reserve is checked at turn boundaries; one discovery turn's Claude and Exa spend can still run past it (the turn guard is the run cap, so it cannot break the cap, but it can leave the phase fewer lookups than leads). The job-noun list is finite: an unlisted job word ("steward", "concierge") makes a real title name no job (safe direction: inferred, not verified). "Chief of Staff" ranks as C-suite. The rank floor means a role written as "VP of Operations" no longer reaches the Operations Manager who often runs a 3PL site; a seller who wants them adds "Operations Manager" as a role. `dateNearSpan` does not read numeric dates like "09/12/11", so such pages count as undated (now the safe direction). Undated press-only contacts are dropped, not shown as inferred.
 - **Earlier:** #29 listed the undated gap and #30 noted that an "Operations Coordinator" would fit "VP of Operations"; both were written down and left open. Running the replay over the 25-company eval would have shown Peter Puchnowski ("IT Operations Engineer" verified as VP of Operations) at #30.
 
+## 35. A deleted team page verified a contact from Exa's cache [measured]
+
+- **Symptom:** Live run `a7310beb-79fd-4a04-aa1c-9009122a0032`, 2026-11-21 (demo plan with `employeeRange.min` 50, buyer roles VP of Operations + Warehouse general manager, $1 cap): Red Lab Logistics, Aubry Dupree VERIFIED as "Vice President of Drayage Operations" from `redlablogistics.com/team/aubry-dupree/`. Fetched the same day, that URL is "Page Not Found", `/team/` is gone, and the About page lists Nick Macuch but not Dupree: the person has most likely left.
+- **Layer:** contact page search (`pageSearchBody`, `src/contacts.ts`). **Cause:** calls B and C asked Exa for `livecrawl: "fallback"`, which serves the cached copy whenever one exists. Company-domain pages have no age rule (#29), so a cached copy of a since-deleted bio page proved a current title.
+- **Fix:** calls B and C send `maxAgeHours: CONTACT_LIMITS.pageMaxAgeHours` (168): Exa re-crawls any cached copy older than 7 days (`livecrawl` is deprecated; the two must not be sent together). A deleted page then has no name on it, so the person fails the quote check and at most stays inferred from the people index.
+- **Before -> after:** the same lookup run live after the fix: Nick Macuch verified from his current page; Aubry DuPree inferred (people index only, `contact_unverified`), not verified. Cost unchanged ($0.028).
+- **Test:** `eval/contacts.test.ts` "evidence pages are fresh (FAILURES #35)".
+- **Not covered:** a page that still exists after the person left (an un-updated team page) still verifies; only a fresh crawl of a page that no longer names them catches it. The people index (call A) is not re-crawled.
 ## What we would monitor weekly
 
 Extends SPEC-agent §14; a breach rolls back one stage.

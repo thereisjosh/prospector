@@ -11,7 +11,7 @@ import type { AgentEvent } from "../../src/agent/events";
 import { codeHandback } from "../../src/agent/loop";
 import type { RunState } from "../../src/agent/state";
 import type { CardSet } from "../../src/planner/cards";
-import { HANDBACK, MEMORY_COPY, REASON_CODES, handbackReason, handbackWhy, plainText, reasonGroup } from "./copy";
+import { HANDBACK, MEMORY_COPY, REASON_CODES, handbackReason, handbackWhy, plainText, reasonGroup, shortfallHeadline } from "./copy";
 import { MemoryPanel, budgetStoppedWithoutNote, type LastRun } from "./Memory";
 import { RunView } from "./RunView";
 import type { MemoryView, RunSnapshot } from "./types";
@@ -100,8 +100,11 @@ describe("handback: gate codes are translated, never shown", () => {
     expect(leaks(why)).toEqual([]);
   });
 
-  it("the current demo recording\u0027s handback (5 of 10, model-worded reasons) renders without codes", () => {
-    expect(state.handback.shortfall).toBe("5 of 10");
+  it("the current demo recording\u0027s handback (model-worded reasons, no patch to apply) renders without codes", () => {
+    expect(state.handback.shortfall).toBe("2 of 10"); // recorded before code wrote the count: the model wrote the missing count
+    // The headline counts the leads on screen whenever the target is known, whatever the stored string says.
+    expect(shortfallHeadline(state.handback.shortfall, state.leads.length, 10)).toBe(`Found ${state.leads.length} of the 10 leads you asked for`);
+    expect(shortfallHeadline("2 of 10", 8)).toBe("Found 2 of the 10 leads you asked for"); // no target: the stored string is all there is
     expect(state.handback.suggestions.length).toBeGreaterThan(0);
     for (const s of state.handback.suggestions) expect(leaks(handbackWhy(s, contract, state.handback)), s.why).toEqual([]);
   });
@@ -146,7 +149,9 @@ describe("handback: gate codes are translated, never shown", () => {
   });
 
   it("handback suggestions are Suggestion rows: one-click when a patch exists, never a primary button per row", () => {
-    const html = run(snapshot(), events, { cards });
+    // The 2026-11-21 recording's only suggestion is advice with no plan change, so the one-click case is shown on a handback that carries a patch.
+    const withPatch = { ...state.handback, suggestions: [{ field: "employeeRange", value: { min: 30, max: 1000 }, why: "Many candidates turned down on size were smaller than 50 employees." }] };
+    const html = run(snapshot({ handback: withPatch }), events, { cards });
     expect(html).toContain('class="pr-handback-row"');
     expect(html).toMatch(/pr-suggestion[^"]*"[^>]*>Apply and run again<\/button>/);
     const outcome = html.slice(html.indexOf('id="outcome-h"'), html.indexOf('id="leads-h"'));
@@ -231,12 +236,13 @@ describe("MemoryPanel (SSR): groups, provenance, budget-stop line", () => {
     expect(budgetStoppedWithoutNote({ stopReason: "budget", selfNotes: 0 })).toBe(true);
   });
 
-  it("the demo recording saved one note, so the demo shows no budget line", () => {
+  it("the demo recording stopped on budget and saved no note, so the demo shows the budget line", () => {
     const selfNotes = events.filter((e) => e.kind === "tool_call" && e.tool === "remember" && e.is_error !== true).length;
-    expect(state.stopReason).toBe("finish"); // the 2026-11-21 recording ended on its own, not on the budget
-    expect(selfNotes).toBe(1);
-    expect(budgetStoppedWithoutNote({ stopReason: state.stopReason, selfNotes })).toBe(false);
-    // and a note saved on a budget stop still suppresses the line (the old recording's case)
-    expect(budgetStoppedWithoutNote({ stopReason: "budget", selfNotes })).toBe(false);
+    expect(state.stopReason).toBe("budget");
+    expect(selfNotes).toBe(0);
+    expect(budgetStoppedWithoutNote({ stopReason: state.stopReason, selfNotes })).toBe(true);
+    // a note saved on a budget stop suppresses the line, and so does finishing on its own
+    expect(budgetStoppedWithoutNote({ stopReason: "budget", selfNotes: 1 })).toBe(false);
+    expect(budgetStoppedWithoutNote({ stopReason: "finish", selfNotes })).toBe(false);
   });
 });

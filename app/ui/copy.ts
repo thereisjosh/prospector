@@ -524,10 +524,11 @@ export function suggestionPatch(s: Handback["suggestions"][number], cards: CardS
   }
 }
 
+/** The results headline counts the leads on screen. A stored shortfall string is only a fallback when the target is unknown (runs saved before code wrote it may say leads missing, not found). */
 export function shortfallHeadline(shortfall: string, leadsFound: number, target?: number): string {
+  if (target !== undefined) return `Found ${leadsFound} of the ${target} leads you asked for`;
   const m = /^(\d+)\s+of\s+(\d+)$/.exec(shortfall.trim());
   if (m) return `Found ${m[1]} of the ${m[2]} leads you asked for`;
-  if (target !== undefined) return `Found ${leadsFound} of the ${target} leads you asked for`;
   return shortfall;
 }
 

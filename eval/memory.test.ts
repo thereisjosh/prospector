@@ -694,7 +694,7 @@ describe("demo: second workspace state and the skipped line", () => {
 });
 
 describe("demo: the current recording (2026-11-21, named contacts, fresh workspace)", () => {
-  it("seeds nothing, pauses at the strategy approval, shows contacts only after find_contacts, and ends with 5 leads that each have a contacts entry", async () => {
+  it("seeds nothing, pauses at the strategy approval, shows contacts only after find_contacts, and ends on the budget with 8 leads that each have a contacts entry", async () => {
     const state = JSON.parse(await readFile(join(process.cwd(), "eval", "demo", "run", "state.json"), "utf8"));
     const w = ws();
     const { id } = await createDemoRun(w);
@@ -724,21 +724,22 @@ describe("demo: the current recording (2026-11-21, named contacts, fresh workspa
         expect(snap.leads.filter((l) => l.contacts)).toEqual([]);
         leadsBeforeContacts = Math.max(leadsBeforeContacts, snap.leads.length);
       }
-    }    expect(status).toBe("done");
+    }
+    expect(status).toBe("stopped");
     expect(kinds).toContain("memory_recalled");
     expect(feed.filter((t) => t.startsWith("Skipped "))).toEqual([]); // nothing remembered, nothing skipped
-    expect(leadsBeforeContacts).toBe(5);
+    expect(leadsBeforeContacts).toBe(4); // four of the eight were accepted at turn 5, before the first find_contacts call (turn 6)
     const snap = await demoSnapshot(id);
     expect(snap.leads.map((l) => l.company)).toEqual(state.leads.map((l: { company: string }) => l.company));
-    expect(snap.leads.map((l) => l.company)).toEqual(["J&J Global Fulfilment", "Wagner Logistics", "Spartan Logistics", "Hollingsworth Logistics", "RGL Logistics"]);
+    expect(snap.leads.map((l) => l.company)).toEqual(["Jay Group", "J&J Global Fulfilment", "Porter Logistics", "G10 Fulfillment", "Hollingsworth Logistics", "Wagner Logistics", "Spartan Logistics", "Legacy Supply Chain"]);
     expect(snap.leads.every((l) => l.contacts)).toBe(true);
-    expect(snap.leads.flatMap((l) => l.contacts!.contacts).filter((c) => c.tier === "verified")).toHaveLength(10);
-    expect(snap.leads.flatMap((l) => l.contacts!.contacts).filter((c) => c.tier === "inferred")).toHaveLength(2);
-    expect(snap.leads.find((l) => l.company === "Hollingsworth Logistics")!.contacts!.contacts).toEqual([]); // looked up, found no one
+    expect(snap.leads.flatMap((l) => l.contacts!.contacts).filter((c) => c.tier === "verified")).toHaveLength(11);
+    expect(snap.leads.flatMap((l) => l.contacts!.contacts).filter((c) => c.tier === "inferred")).toHaveLength(5);
+    for (const none of ["Porter Logistics", "Hollingsworth Logistics"]) expect(snap.leads.find((l) => l.company === none)!.contacts!.contacts).toEqual([]); // looked up, found no one
     expect(snap.contract.buyerRoles).toEqual(["VP of Operations", "Warehouse general manager"]);
-    expect(snap.handback?.shortfall).toBe("5 of 10");
+    expect(snap.handback?.shortfall).toBe("8 of 10"); // the recording says "2 of 10" (the model wrote the missing count); the replay rewrites it to the leads found
     expect(snap.spend.total).toBeCloseTo(state.spend.total, 10);
-    expect(snap.stopReason).toBe("finish");
+    expect(snap.stopReason).toBe("budget");
   });
 });
 

@@ -415,6 +415,17 @@ describe("findContacts", () => {
     expect(r.contacts).toHaveLength(CONTACT_LIMITS.maxContacts);
   });
 
+  it("evidence pages are fresh (FAILURES #35): calls B and C ask Exa to re-crawl copies older than pageMaxAgeHours, never with livecrawl", () => {
+    for (const body of [pageSearchBody("Red Lab Logistics", ROLES, []), pageSearchBody("Red Lab Logistics", ROLES, [], { news: true })]) {
+      const contents = body.contents as Record<string, unknown>;
+      expect(contents.maxAgeHours).toBe(CONTACT_LIMITS.pageMaxAgeHours);
+      expect(contents).not.toHaveProperty("livecrawl");
+      expect(body.type).not.toBe("lite"); // Exa rejects maxAgeHours on lite search
+    }
+    expect(CONTACT_LIMITS.pageMaxAgeHours).toBeGreaterThan(0);
+    expect(CONTACT_LIMITS.pageMaxAgeHours).toBeLessThanOrEqual(720); // Exa's accepted range is -1..720
+  });
+
   it("cost cap: the three calls' worst case is at most CONTACT_LIMITS.maxCostDollars, and a run guard without room refuses before any call", async () => {
     expect(estimateContactCost("Verst Logistics", ROLES)).toBeLessThanOrEqual(CONTACT_LIMITS.maxCostDollars + 1e-9);
     expect(estimateExaCost(pageSearchBody("X", ROLES, ["A B", "C D"]))).toBe(estimateExaCost(pageSearchBody("X", ROLES, [])));

@@ -95,11 +95,12 @@ describe("RunView (SSR)", () => {
   });
 
   it("after the run: outcome first, no shimmer, provenance trace with the step count", () => {
-    const html = render(snapshot({ status: "stopped", stopReason: state.stopReason, leads: state.leads, rejected: state.rejected, spend: state.spend, handback: state.handback }), events, { stepping: false });
+    const html = render(snapshot({ status: "stopped", stopReason: state.stopReason, leads: state.leads, rejected: state.rejected, spend: state.spend, handback: { ...state.handback, shortfall: `${state.leads.length} of 10` } }), events, { stepping: false }); // the replay rewrites the recording's "2 of 10" (missing count) to the leads found (src/demo/replay.ts)
     expect(count(html, 'data-status="running"')).toBe(0);
-    expect(html.indexOf("Found 5 of the 10 leads you asked for")).toBeLessThan(html.indexOf('id="leads-h"'));
+    expect(html.indexOf("Found 8 of the 10 leads you asked for")).toBeLessThan(html.indexOf('id="leads-h"'));
     expect(html).toContain("How it got here");
-    expect(html).toContain("19 steps · $0.86");
+    expect(html).toContain("20 steps · $0.91");
+    expect(html).toContain("$0.91 of $1.00 spent");
     expect(html).toContain("Considered but not added");
   });
 
@@ -135,10 +136,10 @@ describe("evidence Code Block (SSR)", () => {
     const lead = state.leads[0];
     const html = renderToStaticMarkup(h(EvidenceBlock, { detail: evidenceFor(lead, contract) }));
     expect(html).toContain('data-slot="code-block"');
-    expect(html).toContain("Evidence · pressat.co.uk · published Nov 17, 2026");
+    expect(html).toContain("Evidence · prnewswire.com · published Oct 29, 2026");
     for (const label of ["Why now", "When", "Size", "Based in", "Must be true"]) expect(html).toContain(`>${label}<`);
     expect(html).toContain(`“${lead.summary.signal_quote}”`.replace(/&/g, "&amp;").replace(/'/g, "&#x27;").replace(/"/g, "&quot;"));
-    expect(html).toContain("quoted · within 100–1,000");
+    expect(html).toContain("quoted · within 50–1,000");
   });
 
   it("says so when a quote is missing, and never makes one up", () => {

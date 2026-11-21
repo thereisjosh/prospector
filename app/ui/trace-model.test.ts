@@ -265,7 +265,7 @@ describe("the demo fixture", () => {
   it("is the 2026-11-21 contacts recording: run.json, state.json and events.jsonl agree on the run", () => {
     const runJson = JSON.parse(readFileSync(join(DEMO_NOW, "run.json"), "utf8"));
     const state = JSON.parse(readFileSync(join(DEMO_NOW, "state.json"), "utf8"));
-    expect(state.id).toBe("37c59dac-a58c-49eb-9a36-96da071328f2");
+    expect(state.id).toBe("f19e666c-ad27-4e03-bdd3-19de2aea6363");
     expect(runJson.runId).toBe(state.id);
     expect(new Set(rec.events.map((e) => e.runId))).toEqual(new Set([state.id]));
     expect(runJson.leads.map((l: { company: string }) => l.company)).toEqual(state.leads.map((l: { company: string }) => l.company));
