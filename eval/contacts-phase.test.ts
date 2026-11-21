@@ -18,7 +18,7 @@ const tmp = vi.hoisted(() => {
 
 import type { AgentEvent } from "../src/agent/events";
 import type { LeadChecker } from "../src/agent/gate-port";
-import { contactsPhaseTurn, step } from "../src/agent/loop";
+import { contactsPhaseTurn, contactsReserveDollars, limitReason, step } from "../src/agent/loop";
 import { createRunState, type AcceptedLead, type RunState } from "../src/agent/state";
 import { CONTACT_LIMITS, type FindContactsInput, type FindContactsResult } from "../src/contacts";
 import { squashName } from "../src/gates";
@@ -89,7 +89,7 @@ const lead = (company: string, withContacts = false): AcceptedLead => ({
 
 /** A run past its strategy, with `leads` accepted and the fourth company ready to submit. */
 function runState(leads: AcceptedLead[], over: Partial<SearchPlan> = {}, targetLeads = 3): RunState {
-  const s = createRunState({ id: crypto.randomUUID(), workspaceId: crypto.randomUUID(), plan: plan(over), targetLeads, createdAt: NOW.toISOString() });
+  const s = createRunState({ id: crypto.randomUUID(), workspaceId: crypto.randomUUID(), plan: plan(over), targetLeads, maxCostDollars: 1, createdAt: NOW.toISOString() });
   s.strategyApproved = true;
   s.leads.push(...leads);
   s.caches.signalsByUrl["https://news.example/cco"] = {
@@ -223,5 +223,123 @@ describe("contacts phase", () => {
     expect(s.contactsPhase).toMatchObject({ maxTurns: 3, budgetDollars: 7 * CONTACT_LIMITS.maxCostDollars });
     s.spend.exa += 7 * CONTACT_LIMITS.maxCostDollars - 0.02; // budget minus 0.02: under one lookup left
     expect(contactsPhaseTurn(s)).toBeUndefined();
+  });
+});
+
+/* ---------- FAILURES #34: discovery leaves money for contacts ---------- */
+
+describe("discovery budget holds back the contact lookups (FAILURES #34)", () => {
+  const lastUserText = (s: RunState): string => {
+    const last = s.messages.at(-1)!;
+    const blocks = typeof last.content === "string" ? [{ type: "text", text: last.content }] : (last.content as Array<{ type: string; text?: string }>);
+    return blocks.filter((b) => b.type === "text").map((b) => b.text ?? "").join("\n");
+  };
+  const spend = (s: RunState, total: number) => {
+    s.spend = { exa: total - 0.2, claude: 0.2, total };
+  };
+
+  it("the reserve is (leads without contacts + 1) × the per-lead cap with roles, 0 without", () => {
+    const s = runState([lead("A Co"), lead("B Co"), lead("Done Co", true)], {}, 10);
+    expect(contactsReserveDollars(s)).toBeCloseTo(3 * CONTACT_LIMITS.maxCostDollars, 9);
+    // A failed lookup has an entry: its one call is spent, nothing is held for it.
+    s.leads[0]!.contacts = { at: NOW.toISOString(), roles: ROLES, contacts: [], cost: 0, error: "network" };
+    expect(contactsReserveDollars(s)).toBeCloseTo(2 * CONTACT_LIMITS.maxCostDollars, 9);
+    expect(contactsReserveDollars(runState([lead("A Co")], { buyerRoles: undefined }, 10))).toBe(0);
+  });
+
+  it("limitReason: with roles, discovery stops on budget once spend + handback reserve + held lookups reaches the cap", () => {
+    // $1 cap, 2 leads without contacts: hold 3 × $0.045 = $0.135, plus the $0.05 handback reserve.
+    const s = runState([lead("A Co"), lead("B Co")], {}, 10);
+    spend(s, 0.81); // 0.81 + 0.05 + 0.135 = 0.995
+    expect(limitReason(s)).toBeUndefined();
+    spend(s, 0.82); // 1.005
+    expect(limitReason(s)).toEqual({ status: "stopped", reason: "budget", discoveryBudget: true });
+    // Without roles the same spend keeps searching; only the old line (spend + handback reserve) stops it.
+    const plain = runState([lead("A Co"), lead("B Co")], { buyerRoles: undefined }, 10);
+    spend(plain, 0.82);
+    expect(limitReason(plain)).toBeUndefined();
+    spend(plain, 0.95);
+    expect(limitReason(plain)).toEqual({ status: "stopped", reason: "budget" });
+    // The hard line is unchanged with roles and is not a discovery stop: no contacts phase past it.
+    spend(s, 0.95);
+    expect(limitReason(s)).toEqual({ status: "stopped", reason: "budget" });
+  });
+
+  it("the live run's shape: discovery stops with 2 leads unlooked-up, the contacts phase runs on the budget stop, then the run stops on budget", async () => {
+    const s = runState([lead("A Co"), lead("B Co")], {}, 10);
+    spend(s, 0.82);
+    const remaining: number[] = [];
+    const findContacts = vi.fn(async (input: FindContactsInput) => {
+      remaining.push(input.guard!.remaining);
+      input.guard!.reserve(CONTACT_LIMITS.maxCostDollars);
+      input.guard!.settle(CONTACT_LIMITS.maxCostDollars, 0.02);
+      return found(1);
+    });
+    const c = client(
+      msg([tool("c1", "find_contacts", { company: "A Co" }), tool("c2", "find_contacts", { company: "B Co" })]),
+      msg([{ type: "text", text: JSON.stringify({ shortfall: "2 of 10", top_reasons: [], suggestions: [] }) }], "end_turn"),
+    );
+    const deps = { client: c as never, checkLead: checker, now: NOW, findContacts: findContacts as never };
+
+    const phase = await step(s, deps);
+    const [entered] = phaseEvents(phase.events);
+    expect(entered).toMatchObject({ outcome: "pass", reason: "budget_contacts_pending", leadsWithoutContacts: 2, phaseTurn: 1, maxTurns: 1, budgetDollars: 2 * CONTACT_LIMITS.maxCostDollars });
+    expect(s.contactsPhase).toMatchObject({ trigger: "budget", maxTurns: 1, turnsUsed: 1 });
+    expect(sentAt.at(-1)).toContain("The budget for finding leads is used up; what is left is held for contact lookups. Look up contacts for the 2 leads without them (A Co, B Co) with find_contacts, then finish.");
+    expect(sentAt.at(-1)).not.toContain("Target reached");
+    expect(findContacts).toHaveBeenCalledTimes(2);
+    expect(Math.max(...remaining)).toBeLessThanOrEqual(2 * CONTACT_LIMITS.maxCostDollars + 1e-9);
+    expect(s.leads.every((l) => l.contacts && l.contacts.contacts.length === 1)).toBe(true);
+    expect(s.status).toBe("running");
+    // CostGuard: the run cap stays a hard ceiling.
+    expect(s.spend.total).toBeLessThan(1);
+
+    const end = await step(s, deps);
+    expect(s).toMatchObject({ status: "stopped", stopReason: "budget" });
+    expect(end.events.find((e) => e.kind === "stop")).toMatchObject({ reason: "budget", status: "stopped" });
+    expect(phaseEvents(end.events)).toHaveLength(0);
+    expect(s.handback).toBeDefined();
+    expect(s.spend.total).toBeLessThan(1);
+  });
+
+  it("a phase begun on the budget stop ends the run when it ends: discovery does not resume on money the lookups left over", async () => {
+    const s = runState([lead("A Co"), lead("B Co")], {}, 10);
+    spend(s, 0.82);
+    const c = client(msg([tool("c1", "find_contacts", { company: "A Co" }), tool("c2", "find_contacts", { company: "B Co" })]), msg([{ type: "text", text: "{}" }], "end_turn"));
+    // Lookups that cost nothing: by the reserve line alone discovery could start again.
+    const deps = { client: c as never, checkLead: checker, now: NOW, findContacts: vi.fn(async () => ({ ...found(1), cost: 0 })) as never };
+    await step(s, deps);
+    s.spend = { exa: 0.5, claude: 0.2, total: 0.7 };
+    await step(s, deps);
+    expect(s).toMatchObject({ status: "stopped", stopReason: "budget" });
+  });
+
+  it("with roles and every lead looked up, the stop still holds one lookup for the next lead, and no phase runs", async () => {
+    const s = runState([lead("A Co", true)], {}, 10);
+    spend(s, 0.91); // 0.91 + 0.05 + 1 × 0.045 = 1.005
+    const c = client(msg([{ type: "text", text: "{}" }], "end_turn"));
+    const r = await step(s, { client: c as never, checkLead: checker, now: NOW });
+    expect(s).toMatchObject({ status: "stopped", stopReason: "budget" });
+    expect(phaseEvents(r.events)).toHaveLength(0);
+    expect(s.contactsPhase).toBeUndefined();
+  });
+
+  it("without roles, the same spend runs an ordinary discovery turn (no phase, no held money on the spend line)", async () => {
+    const s = runState([lead("A Co"), lead("B Co")], { buyerRoles: undefined }, 10);
+    spend(s, 0.82);
+    const c = client(msg([tool("t", "update_todo", { markdown: "searching" })]));
+    const r = await step(s, { client: c as never, checkLead: checker, now: NOW });
+    expect(s.status).toBe("running");
+    expect(phaseEvents(r.events)).toHaveLength(0);
+    expect(c.messages.create).toHaveBeenCalledTimes(1);
+    expect(lastUserText(s)).toMatch(/^Spend: \$0\.82 of \$1\.00 · Leads: 2\/10 · Turn 1\/\d+$/m);
+  });
+
+  it("with roles, the spend line tells the model how much is held for lookups", async () => {
+    const s = runState([lead("A Co"), lead("B Co")], {}, 10);
+    spend(s, 0.5);
+    const c = client(msg([tool("t", "update_todo", { markdown: "searching" })]));
+    await step(s, { client: c as never, checkLead: checker, now: NOW });
+    expect(lastUserText(s)).toMatch(/^Spend: \$0\.50 of \$1\.00 \(\$0\.1[34] of it held for contact lookups\) · Leads: 2\/10 · Turn 1\/\d+$/m);
   });
 });

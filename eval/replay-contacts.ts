@@ -116,7 +116,10 @@ for (const { name, load } of [{ name: "agent run", load: loadAgentRun }, { name:
         }
         flips.push(label);
         const protectedBefore = b.tier === "verified" && b.evidence && (ownDomain(b.evidence.url, c.companyUrl) || isWirePressUrl(b.evidence.url));
-        if (protectedBefore && a?.tier !== "verified" && !/Finney|Paul Taylor/.test(b.name)) {
+        // Intended flips on protected sources: Finney (directory, #30), Paul Taylor (former role, #30), and the rank
+        // floor (#34) on ePost Global's own pages: Erik Fernandez "Operations Manager" and Peter Puchnowski "IT
+        // Operations Engineer" against VP of Operations / COO / Head of Warehousing / Director of Logistics.
+        if (protectedBefore && a?.tier !== "verified" && !/Finney|Paul Taylor|Erik Fernandez|Peter Puchnowski/.test(b.name)) {
           protectedFlips += 1;
           flips.push(`  ^^ PROTECTED FLIP: a company-page or wire contact lost its verification`);
         }

@@ -1,5 +1,6 @@
 import { AGENT_MODELS, DEFAULT_LIMITS, type AgentModel } from "./config";
 import type { SearchPlan } from "../plan";
+import { CONTACT_LIMITS } from "../contacts";
 import { repoPin, resolvePrompt, type PinnedPrompt, type PromptConfig, type PromptDef } from "./prompt-store";
 import type { RunState } from "./state";
 
@@ -157,6 +158,7 @@ export function firstUserMessage(contract: Contract, opts: { today?: string; mod
           "## Who to reach",
           `- Approved buyer roles: ${contract.buyerRoles.join("; ")}.`,
           "- After a lead is accepted, `find_contacts` looks for up to 3 people in these roles at it (about $0.04 per lead).",
+          `- That money is held back from searching: about $${CONTACT_LIMITS.maxCostDollars.toFixed(3)} for each accepted lead not yet looked up, plus one more for the next lead. The spend line shows how much is held. When only the held money is left, searching stops and the run looks up contacts before it ends.`,
         ]
       : []),
     "",

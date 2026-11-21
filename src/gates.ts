@@ -1234,17 +1234,74 @@ function titleTokens(text: string): string[] {
 }
 
 /**
- * Does a page title fit one approved buyer role phrase? Deterministic token overlap, case-insensitive:
+ * Folded tokens that name a job or a rank (FAILURES #34): a title must hold one. "Operations Team", "Sales Group",
+ * "Logistics Department", "the Board" name a unit, not a person's job. Unit words (team, group, department,
+ * division, board, staff, member) are deliberately absent.
+ */
+const JOB_NOUNS = new Set([
+  "vp", "president", "director", "head", "chief", "officer", "manager", "lead", "leader", "gm", "md",
+  "ceo", "coo", "cfo", "cto", "cmo", "cro", "cio", "ciso", "cso", "cpo", "cdo", "cco", "chro", "cxo",
+  "founder", "owner", "proprietor", "partner", "principal", "chair", "chairman", "chairwoman", "chairperson", "trustee",
+  "coordinator", "supervisor", "superintendent", "foreman", "specialist", "administrator", "analyst", "consultant",
+  "advisor", "adviser", "executive", "associate", "assistant", "buyer", "planner", "controller", "comptroller",
+  "treasurer", "secretary", "scheduler", "dispatcher", "technician", "representative", "rep", "agent", "clerk",
+  "estimator", "architect", "designer", "developer", "scientist", "strategist", "auditor", "accountant", "counsel",
+  "attorney", "inspector", "driver", "marketer", "intern", "captain",
+  // Common non-English job words (accents are folded: "Geschäftsführer" -> geschaftsfuhrer). Function words already
+  // fold across languages ("logística" -> logistics), so without these "Jefe de logística" would name no job.
+  "jefe", "jefa", "responsable", "gerente", "gerant", "gerante", "directeur", "directrice", "directora", "diretor",
+  "diretora", "direktor", "direktorin", "leiter", "leiterin", "presidente", "presidenta", "prasident", "fondateur",
+  "fondatrice", "fundador", "fundadora", "grunder", "geschaftsfuhrer",
+]);
+
+/** Job words a TITLE_STEMS fold turns into a function word ("engineer" -> engineering, "operator" -> operations): checked on the raw text. */
+const STEMMED_JOB_NOUN = /\b(?:engineers?|operators?|purchasers?|recruiters?|logisticians?|financiers?)\b/i;
+
+/** Does the title name a job (a job or rank noun), not only a unit ("Operations Team")? */
+export function titleNamesJob(title: string): boolean {
+  return titleTokens(title).some((t) => JOB_NOUNS.has(t)) || STEMMED_JOB_NOUN.test(title.normalize("NFKD"));
+}
+
+/**
+ * Rank levels on folded tokens: C-suite / president / founder / owner / managing director (md) = 4; VP (svp, evp
+ * fold to vp) = 3; head / director / general manager (gm) = 2; manager / lead / leader / supervisor = 1; else 0.
+ */
+const RANK_LEVELS: Record<string, number> = {
+  ceo: 4, coo: 4, cfo: 4, cto: 4, cmo: 4, cro: 4, cio: 4, ciso: 4, cso: 4, cpo: 4, cdo: 4, cco: 4, chro: 4, cxo: 4,
+  chief: 4, president: 4, founder: 4, owner: 4, md: 4,
+  vp: 3,
+  head: 2, director: 2, gm: 2,
+  manager: 1, lead: 1, leader: 1, supervisor: 1,
+  // Non-English equivalents of the words above (see JOB_NOUNS).
+  presidente: 4, presidenta: 4, prasident: 4, fondateur: 4, fondatrice: 4, fundador: 4, fundadora: 4, grunder: 4, geschaftsfuhrer: 4,
+  directeur: 2, directrice: 2, directora: 2, diretor: 2, diretora: 2, direktor: 2, direktorin: 2, jefe: 2, jefa: 2, leiter: 2, leiterin: 2,
+  gerente: 1, gerant: 1, gerante: 1, responsable: 1,
+};
+
+/** The highest rank level a title or role phrase carries (0 when it names no rank). */
+export function titleRankLevel(text: string): number {
+  return titleTokens(text).reduce((best, t) => Math.max(best, RANK_LEVELS[t] ?? 0), 0);
+}
+
+/**
+ * Does a page title fit one approved buyer role phrase? Deterministic, case-insensitive:
  * - both sides are folded (abbreviations, "Vice President" -> vp, "Chief Operating Officer" -> coo + operations,
  *   word stems: "operational" -> operations);
+ * - the title must name a job (titleNamesJob): "Operations Team" is a unit, not a title;
  * - when the role names a function (any word that is not a rank or filler word, e.g. "operations",
  *   "warehouse", "logistics"), the title must share at least one of those function words;
- * - when the role is rank only ("CEO", "Founder", "VP"), the title must share one of its rank words.
+ * - when the role is rank only ("CEO", "Founder", "VP"), the title must share one of its rank words;
+ * - rank floor: when the role carries a rank (titleRankLevel >= 1), the title's rank must be at least one level
+ *   below it ("VP of Operations" accepts a Head or Director of Operations, not an Operations Manager;
+ *   "Warehouse general manager" accepts a Warehouse Manager). A role with no rank word sets no floor.
  */
 export function titleMatchesRole(title: string, role: string): boolean {
   const roleTokens = titleTokens(role);
   const titleSet = new Set(titleTokens(title));
   if (roleTokens.length === 0 || titleSet.size === 0) return false;
+  if (!titleNamesJob(title)) return false;
+  const roleLevel = titleRankLevel(role);
+  if (roleLevel >= 1 && titleRankLevel(title) < roleLevel - 1) return false;
   const functions = roleTokens.filter((t) => !TITLE_RANK_WORDS.has(t));
   if (functions.length > 0) return functions.some((t) => titleSet.has(t));
   const ranks = roleTokens.filter((t) => !["of", "the", "and", "for", "at", "in", "to", "a", "an", "on", "with", "s"].includes(t));
@@ -1451,18 +1508,23 @@ export function formerRoleNear(text: string, start: number, end: number, surname
  * 3. a title quote of at most 120 characters;
  * 4. the full name, and the title quote verbatim (quoteMatch), both on the page text,
  *    the title within CONTACT_PROXIMITY characters of the name;
- * 5. the title fits an approved buyer role (titleMatchesRole).
- * 6. recency: a press/news page older than CONTACT_MAX_PAGE_AGE_MONTHS (Exa `publishedDate`, else a date
- *    written near the quote; no date = no age rule) verifies only with `ctx.currentInIndex` (the people index
- *    lists the same person in a current approved role at the company). Otherwise `contact_stale` (inferred),
- *    carrying `stale` so the caller can say "last confirmed <year>". Company-domain pages have no age rule.
+ * 5. the title names a job (titleNamesJob: a job or rank noun; "Operations Team" is a unit heading, so the
+ *    verdict is `contact_unverified`, inferred) and fits an approved buyer role (titleMatchesRole, which includes
+ *    the rank floor: a "VP of Operations" role does not accept an "Operations Manager").
+ * 6. recency, off the company's own domain (press, news, bio pages): the page date is Exa's `publishedDate`, else
+ *    a date written near the quote. A page older than CONTACT_MAX_PAGE_AGE_MONTHS verifies only with
+ *    `ctx.currentInIndex` (the people index lists the same person in a current approved role at the company);
+ *    otherwise `contact_stale` (inferred), carrying `stale` so the caller can say "last confirmed <year>". A page
+ *    with NO known date also verifies only with `ctx.currentInIndex`; otherwise `contact_unverified` (inferred,
+ *    no `stale`: there is no year to show). Company-domain pages have no age rule, dated or not.
  *    The evidence records the page date when one is known.
  * 7. the title is current: a former-role phrase ("previous role", "former", "stepping up from", "retired",
  *    "until 2024", "was COO", ...) in the quote or within CONTACT_FORMER_WINDOW characters of the title (inside its
  *    paragraph) makes the matched role not current. A quote that splits on such a phrase is judged on the part
  *    before it (the new title); if that fits no role the verdict is `contact_role_changed` (inferred, `changed`).
  * Failing 1-3 is `contact_unverified` (tier inferred: nothing on the page contradicts the person);
- * failing 4 is `contact_quote_not_in_page` and 5 is `contact_role_mismatch` (tier rejected).
+ * failing 4 is `contact_quote_not_in_page` and 5 is `contact_role_mismatch` (tier rejected), except a quote that
+ * names no job at all, which is `contact_unverified` (inferred).
  */
 export function checkContact(
   contact: ContactCheckInput,
@@ -1514,6 +1576,9 @@ export function checkContact(
     const para = paragraphAround(text, best.start, best.end);
     if (mentionOffsets(contact.company, para, 1).length === 0) return badSource(`${safeDomain(page.url)}: the company, the name and the title are not in one paragraph`);
   }
+  // A unit heading is not a job title (FAILURES #34): "Operations Team is at the beating heart of ... Damian Gould".
+  // The person is on the page; the page just does not say what they do.
+  if (!titleNamesJob(title)) return inferred(`the page gives no job title for this person, only "${title}"`);
   // Former roles are not current (FAILURES #30). A phrase in the title quote that splits it ("Managing Director,
   // stepping up from his previous role as COO"): the part before it is the person's NEW title and must fit a role
   // itself; otherwise the fitting part is the old one and the contact is "role changed", never verified.
@@ -1558,6 +1623,9 @@ export function checkContact(
       stale: { role, title_quote: roleTitle, published, url: page.url },
     };
   }
+  // Off the company's domain a page with no date cannot show the title is current (FAILURES #34: a 2016 case-study
+  // PDF from the news search, no publishedDate, no date near the quote). Only the people index can vouch for it.
+  if (!ownDomain && !published && !ctx.currentInIndex) return inferred("the page has no date, so it cannot show the title is current");
   const onPage = text.slice(best.nameStart, best.nameEnd).replace(/\s+/g, " ").trim();
   return { ok: true, tier: "verified", role, evidence, name: onPage ? properCaseName(onPage) : properCaseName(contact.name) };
 }

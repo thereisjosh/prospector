@@ -109,7 +109,7 @@ function asOwner(s: RunState, method = "GET") {
 
 function state(over: Partial<RunState> = {}) {
   return {
-    ...createRunState({ id: crypto.randomUUID(), workspaceId: crypto.randomUUID(), plan: plan(), createdAt: "2026-10-12T00:00:00.000Z" }),
+    ...createRunState({ id: crypto.randomUUID(), workspaceId: crypto.randomUUID(), plan: plan(), maxCostDollars: 1, createdAt: "2026-10-12T00:00:00.000Z" }),
     ...over,
   } as RunState;
 }

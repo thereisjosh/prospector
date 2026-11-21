@@ -10,7 +10,7 @@ import { agentTools, executeTool, validateNote, type ToolDeps } from "../src/age
 import { contactCounts, toObservations } from "../src/agent/trace";
 import { CONTACT_LIMITS, contactsToolResult, dedupeContacts, estimateContactCost, findContacts, pageSearchBody, peopleSearchBody, personKey, type Contact, type FindContactsResult } from "../src/contacts";
 import { BudgetExceededError, CostGuard, estimateExaCost } from "../src/exa";
-import { CONTACT_NON_EVIDENCE_DOMAINS, checkContact, formerRoleMarker, isAggregatorShapedUrl, normalizePageDate, personNameTokens, properCaseName, titleMatchesRole } from "../src/gates";
+import { CONTACT_NON_EVIDENCE_DOMAINS, checkContact, formerRoleMarker, isAggregatorShapedUrl, normalizePageDate, personNameTokens, properCaseName, titleMatchesRole, titleNamesJob, titleRankLevel } from "../src/gates";
 import { validatePlan, type SearchPlan } from "../src/plan";
 import { validateCards, withBuyerRoles, type CardSet } from "../src/planner/cards";
 import { demoPlan } from "../src/demo/planner";
@@ -92,7 +92,8 @@ describe("checkContact: code decides the tier", () => {
   });
 
   it("verified on another site only when it names the company", () => {
-    const press = { url: "https://news.example.com/verst", text: PRESS_TEXT, news: true };
+    // Dated: off the company's domain an undated page cannot verify without the index (FAILURES #34).
+    const press = { url: "https://news.example.com/verst", text: PRESS_TEXT, news: true, publishedDate: "2026-09-01" };
     expect(checkContact(base, { ...ctx, page: press }).ok).toBe(true);
     const unnamed = { url: "https://news.example.com/x", text: PRESS_TEXT.replace(/Verst Logistics/g, "the company"), news: true };
     expect(checkContact(base, { ...ctx, page: unnamed })).toMatchObject({ ok: false, tier: "inferred", code: "contact_unverified" });
@@ -206,12 +207,17 @@ describe("checkContact: only the company's own site or real press can verify; ol
     expect(v).toMatchObject({ ok: false, tier: "inferred", code: "contact_stale", stale: { title_quote: "President and COO", published: "2019-06-03", role: "VP of Operations" } });
   });
 
-  it("the date comes from the text near the quote when Exa gave none; no date at all means the age rule has nothing to apply", () => {
+  it("the date comes from the text near the quote when Exa gave none; off the company's domain no date at all verifies only with the index (FAILURES #34)", () => {
     const fromText = checkContact(todd, { ...base, page: { url: PRESS_URL, text: press("June 3, 2019") } });
     expect(fromText).toMatchObject({ ok: false, code: "contact_stale", stale: { published: "2019-06-03" } });
-    const undated = checkContact(todd, { ...base, page: { url: "https://news.example.com/a", text: press(""), news: true } });
-    expect(undated).toMatchObject({ ok: true });
-    if (undated.ok) expect(undated.evidence.published).toBeUndefined();
+    const page = { url: "https://news.example.com/a", text: press(""), news: true };
+    const undated = checkContact(todd, { ...base, page });
+    expect(undated).toEqual({ ok: false, tier: "inferred", code: "contact_unverified", reason: "the page has no date, so it cannot show the title is current" });
+    // Undated on a newswire: same rule.
+    expect(checkContact(todd, { ...base, page: { url: PRESS_URL, text: press("") } })).toMatchObject({ ok: false, code: "contact_unverified", reason: expect.stringContaining("no date") });
+    const vouched = checkContact(todd, { ...base, page, currentInIndex: true });
+    expect(vouched).toMatchObject({ ok: true, tier: "verified", evidence: { sourceKind: "news" } });
+    if (vouched.ok) expect(vouched.evidence.published).toBeUndefined();
   });
 
   it("24 months is the line: 23 months old verifies, 25 does not", () => {
@@ -272,7 +278,10 @@ describe("checkContact: only the company's own site or real press can verify; ol
     it("(c) a bio page verifies only with company, name and title in one paragraph; sourceKind other", () => {
       const url = "https://conference.example/speakers/mira-patel";
       const together = "Speakers\n\n" + MIRROR_PROSE;
-      expect(checkContact(mira, { ...ctx, page: { url, text: together } })).toMatchObject({ ok: true, evidence: { sourceKind: "other" } });
+      // Dated: a bio page is off the company's domain, so undated it needs the index (FAILURES #34).
+      expect(checkContact(mira, { ...ctx, page: { url, text: together, publishedDate: "2026-09-01" } })).toMatchObject({ ok: true, evidence: { sourceKind: "other" } });
+      expect(checkContact(mira, { ...ctx, page: { url, text: together } })).toMatchObject({ ok: false, code: "contact_unverified", reason: expect.stringContaining("no date") });
+      expect(checkContact(mira, { ...ctx, page: { url, text: together }, currentInIndex: true })).toMatchObject({ ok: true, evidence: { sourceKind: "other" } });
       // Company in a different paragraph from the name and title.
       const apart = "Mira Patel, Head of Sales, runs the revenue team and talks to customers across the region about how to grow the pipeline every quarter. She also advises several other teams on how to plan their territories and hire well.\n\nAvarra Revenue sponsors the conference.";
       expect(checkContact(mira, { ...ctx, page: { url, text: apart } })).toMatchObject({ ok: false, code: "contact_unverified", note: SOURCE_NOTE });
@@ -866,6 +875,139 @@ describe("FAILURES #30: a former role is not a current one", () => {
     expect(r.contacts.find((c) => c.name === "Neil Midgley")).toMatchObject({ tier: "verified" });
     expect(r.contacts.find((c) => c.name === "Paul Taylor")).toMatchObject({ tier: "inferred", code: "contact_role_changed", note: "role changed", role: "VP of Operations" });
     expect(r.contacts.filter((c) => c.tier === "verified").map((c) => c.name)).toEqual(["Neil Midgley"]);
+  });
+});
+
+/* ---------- FAILURES #34: a unit heading is not a title; rank floor; undated off-domain pages ---------- */
+
+describe("FAILURES #34: a title must name a job", () => {
+  it.each([
+    ["Operations Team", false],
+    ["Sales Group", false],
+    ["Logistics Department", false],
+    ["Warehouse Division", false],
+    ["The Board", false],
+    ["Operations Staff", false],
+    ["Operations Manager", true],
+    ["Senior Engineer", true],
+    ["Equipment Operator", true],
+    ["Co-Founder", true],
+    ["SVP Operations", true],
+    ["Chief Operating Officer", true],
+    ["Ops Lead", true],
+    ["Warehouse GM", true],
+    ["Buyer", true],
+  ])("titleNamesJob(%s) -> %s", (title, expected) => {
+    expect(titleNamesJob(title)).toBe(expected);
+  });
+
+  it("titleMatchesRole refuses a unit heading even when it shares the function word, whatever the role", () => {
+    expect(titleMatchesRole("Operations Team", "VP of Operations")).toBe(false);
+    expect(titleMatchesRole("Operations Team", "Operations")).toBe(false);
+    expect(titleMatchesRole("Operations Team Lead", "Operations")).toBe(true);
+  });
+
+  // The live run: careers.ecommercefulfilment.com/our-people, title_quote "Operations Team" verified as VP of Operations.
+  const URL_JJ = "https://careers.ecommercefulfilment.com/our-people";
+  const TEXT_JJ =
+    "## Our People\n\nOperations Team is at the beating heart of J&J Global Fulfilment, making sure every order is picked, packed and shipped on time. " +
+    "Damian Gould and the rest of the team work across our sites so that every customer gets what they were promised, every day of the year.";
+  const damian = { name: "Damian Gould", company: "J&J Global Fulfilment", title_quote: "Operations Team" };
+  const ctxJJ = { buyerRoles: ROLES, companyUrl: "https://www.ecommercefulfilment.com/", now: NOW };
+
+  it("Damian Gould, 'Operations Team' on the company's careers page: inferred, not verified", () => {
+    const v = checkContact(damian, { ...ctxJJ, page: { url: URL_JJ, text: TEXT_JJ } });
+    expect(v).toEqual({ ok: false, tier: "inferred", code: "contact_unverified", reason: 'the page gives no job title for this person, only "Operations Team"' });
+  });
+
+  it("findContacts: Damian Gould from the page alone is dropped; an index entry titled 'Operations Team' gives no role bucket", async () => {
+    const pages = [page(URL_JJ, TEXT_JJ, [{ name: "Damian Gould", title_quote: "Operations Team" }])];
+    const alone = await findContacts({ company: damian.company, companyUrl: ctxJJ.companyUrl, buyerRoles: ROLES }, { exaSearch: fakeExa([], pages).fn as never });
+    expect(alone.contacts).toEqual([]);
+    expect(alone.checked).toEqual([{ name: "Damian Gould", outcome: "dropped", code: "contact_unverified" }]);
+    const indexed = [person("https://www.linkedin.com/in/damian-gould", "Damian Gould", [{ title: "Operations Team", company: "J&J Global Fulfilment" }])];
+    const withIndex = await findContacts({ company: damian.company, companyUrl: ctxJJ.companyUrl, buyerRoles: ROLES }, { exaSearch: fakeExa(indexed, pages).fn as never });
+    expect(withIndex.contacts).toEqual([]);
+  });
+});
+
+describe("FAILURES #34: rank floor", () => {
+  it.each([
+    ["Group Head of Operations", "VP of Operations", true],
+    ["vice president of sales, marketing and operations", "VP of Operations", true],
+    ["Director of Operations", "VP of Operations", true],
+    ["Chief Operating Officer", "VP of Operations", true],
+    ["COO", "VP of Operations", true],
+    ["President and COO", "VP of Operations", true],
+    ["Operations Manager", "VP of Operations", false],
+    ["Senior Operations Manager", "VP of Operations", false],
+    ["Operations Supervisor", "VP of Operations", false],
+    ["Operations Lead", "VP of Operations", false],
+    ["Operations Coordinator", "VP of Operations", false],
+    ["Warehouse Manager", "Warehouse general manager", true],
+    ["Warehouse Supervisor", "Warehouse general manager", true],
+    ["Warehouse Director", "Warehouse general manager", true],
+    ["Warehouse Associate", "Warehouse general manager", false],
+    ["Head of Operations", "COO", false],
+    ["VP Operations", "COO", true],
+    // A role with no rank word sets no floor; a manager-level role accepts anything that names the function.
+    ["Operations Coordinator", "Operations", true],
+    ["Operations Coordinator", "Operations Manager", true],
+    // Recorded eval index titles: non-English job words count, and carry a rank.
+    ["Jefe de logística", "Director of Logistics", true],
+    ["co Responsable des opérations", "VP of Operations", false],
+    // Recorded eval titles the old rule let through on the function word alone.
+    ["IT Operations Engineer at ePost Global", "VP of Operations", false],
+    ["Logistics Coor", "Director of Logistics", false],
+  ])("%s vs %s -> %s", (title, role, expected) => {
+    expect(titleMatchesRole(title, role)).toBe(expected);
+  });
+
+  it("rank levels: C-suite / president / founder / owner / MD 4, VP 3, head / director / GM 2, manager / lead / supervisor 1", () => {
+    expect(titleRankLevel("Chief Operating Officer")).toBe(4);
+    expect(titleRankLevel("Managing Director")).toBe(4);
+    expect(titleRankLevel("Co-Founder")).toBe(4);
+    expect(titleRankLevel("Executive Vice President")).toBe(3);
+    expect(titleRankLevel("SVP Operations")).toBe(3);
+    expect(titleRankLevel("General Manager")).toBe(2);
+    expect(titleRankLevel("Group Head of Operations")).toBe(2);
+    expect(titleRankLevel("Operations Manager")).toBe(1);
+    expect(titleRankLevel("Operations Coordinator")).toBe(0);
+    expect(titleRankLevel("Operations")).toBe(0);
+  });
+
+  // The live run: an undated 2016 Plug Power case study (Exa news search, no publishedDate, no date near the quote).
+  const URL_FP = "https://www.plugpower.com/wp-content/uploads/2020/07/2016_CaseStudy_FreezPak_F.pdf";
+  const TEXT_FP =
+    "CASE STUDY: FreezPak Logistics\n\nFreezPak Logistics runs temperature-controlled warehouses for food companies across the Northeast and moved its lift truck fleet to fuel cells. " +
+    "\"The trucks run a full shift without a battery change,\" said Phil DeMedici, Operations Manager, FreezPak Paterson, NJ facility. " +
+    "The company says the switch removed the battery room and gave the floor back to storage for its customers.";
+  const phil = { name: "Phil DeMedici", company: "FreezPak Logistics", title_quote: "Operations Manager, FreezPak Paterson, NJ facility" };
+  const pageFP = { url: URL_FP, text: TEXT_FP, news: true };
+
+  it("Phil DeMedici, 'Operations Manager' against VP of Operations: rejected on rank (contact_role_mismatch)", () => {
+    expect(checkContact(phil, { page: pageFP, buyerRoles: ROLES, companyUrl: "https://freezpak.com", now: NOW })).toMatchObject({ ok: false, tier: "rejected", code: "contact_role_mismatch" });
+  });
+
+  it("the same undated page against a role the title fits: inferred for want of a date; the index vouches for it", () => {
+    const ctx = { page: pageFP, buyerRoles: ["Operations Manager"], companyUrl: "https://freezpak.com", now: NOW };
+    expect(checkContact(phil, ctx)).toEqual({ ok: false, tier: "inferred", code: "contact_unverified", reason: "the page has no date, so it cannot show the title is current" });
+    expect(checkContact(phil, { ...ctx, currentInIndex: true })).toMatchObject({ ok: true, tier: "verified", evidence: { sourceKind: "news" } });
+  });
+
+  it("findContacts: Phil DeMedici from the news result is dropped as a role mismatch", async () => {
+    const r = await findContacts(
+      { company: "FreezPak Logistics", companyUrl: "https://freezpak.com", buyerRoles: ROLES },
+      { exaSearch: fakeExa([], [], [page(URL_FP, TEXT_FP, [{ name: phil.name, title_quote: phil.title_quote }])]).fn as never },
+    );
+    expect(r.contacts).toEqual([]);
+    expect(r.checked).toEqual([{ name: "Phil DeMedici", outcome: "dropped", code: "contact_role_mismatch" }]);
+  });
+
+  it("the company's own domain still verifies undated", () => {
+    const own = checkContact(phil, { page: { url: "https://www.freezpak.com/about/team", text: TEXT_FP }, buyerRoles: ["Operations Manager"], companyUrl: "https://freezpak.com", now: NOW });
+    expect(own).toMatchObject({ ok: true, tier: "verified", evidence: { sourceKind: "company" } });
+    if (own.ok) expect(own.evidence.published).toBeUndefined();
   });
 });
 
