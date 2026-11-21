@@ -7,6 +7,7 @@ import { TraceCollapsible, TraceCollapsibleContent, TraceCollapsibleTrigger, Tra
 import type { AgentEvent } from "../../src/agent/events";
 import type { AcceptedLead, Handback } from "../../src/agent/state";
 import type { CardSet } from "../../src/planner/cards";
+import { track } from "../analytics";
 import { Candidates } from "./Candidates";
 import {
   CONTACTS,
@@ -331,10 +332,24 @@ function Outcome({
       {snapshot.summary && <p className="outcome-summary">{snapshot.summary}</p>}
       {handback && <HandbackView handback={handback} contract={contract} cards={cards} maxSpend={maxSpend} onApply={onApply} applying={applying} onEditTargeting={onEditTargeting} />}
       <div className="actions">
-        <button type="button" className="ghost-btn" onClick={onEditTargeting}>
+        <button
+          type="button"
+          className="ghost-btn"
+          onClick={() => {
+            track("adjust_targeting", { run_id: snapshot.id });
+            onEditTargeting();
+          }}
+        >
           Adjust targeting and run again
         </button>
-        <button type="button" className="link-btn" onClick={onNewSearch}>
+        <button
+          type="button"
+          className="link-btn"
+          onClick={() => {
+            track("new_search", { run_id: snapshot.id });
+            onNewSearch();
+          }}
+        >
           Start a new search
         </button>
       </div>
@@ -440,6 +455,7 @@ function Leads({
     document.body.appendChild(a);
     a.click();
     a.remove();
+    track("csv_downloaded", { leads: leads.length });
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   };
 
@@ -502,7 +518,11 @@ function LeadRow({
   // M6 only for a row that lands while the run is live; a finished table appears as it is.
   const [isNew] = useState(live);
   // Controlled so a verified contact's source link can open the evidence on its "Who to reach" row.
-  const [evidenceOpen, setEvidenceOpen] = useState(false);
+  const [evidenceOpen, setEvidenceOpenState] = useState(false);
+  const setEvidenceOpen = (next: boolean) => {
+    if (next && !evidenceOpen) track("evidence_opened", { company: lead.company });
+    setEvidenceOpenState(next);
+  };
   const showContact = (index: number) => {
     setEvidenceOpen(true);
     if (typeof window === "undefined") return;
@@ -640,7 +660,7 @@ export function WhoToReach({ lead, demo, onShowEvidence }: { lead: AcceptedLead;
       {list.length === 0 ? (
         <span className="muted">{looked.error ? CONTACTS.failed : CONTACTS.none}</span>
       ) : (
-        <ul className="pr-contacts">
+        <ul className="pr-contacts ph-no-capture">
           {list.map((c) => {
             const index = verifiedIndex.get(c);
             if (index !== undefined && c.evidence) {

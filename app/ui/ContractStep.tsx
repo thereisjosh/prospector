@@ -57,14 +57,14 @@ export function ContractStep(props: ContractStepProps) {
               onChange={(e) => props.setTargetLeads(Number(e.target.value))} aria-describedby="target-sub" />
             <span id="target-sub">companies that are</span>
           </div>
-          <p className="pr-contract-who">
+          <p className="pr-contract-who ph-no-capture">
             <b>{cards.who.descriptor}</b> <span className="muted">({cards.who.industry})</span>
           </p>
         </div>
         <dl className="pr-terms">
           <div>
             <dt>Why now</dt>
-            <dd>{cards.whyNow.description}, in the last {p.months} month{p.months === 1 ? "" : "s"}</dd>
+            <dd className="ph-no-capture">{cards.whyNow.description}, in the last {p.months} month{p.months === 1 ? "" : "s"}</dd>
           </div>
           <div>
             <dt>Size</dt>

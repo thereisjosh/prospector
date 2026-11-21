@@ -169,7 +169,7 @@ export function MemoryPanel({ memory, error, onClear, onForget, onForgetGroup, d
                     <div className="pr-mem-search-head">
                       <CollapsibleTrigger className="pr-mem-trigger pr-press">
                         <ChevronRightIcon aria-hidden="true" className="pr-mem-chevron" />
-                        <span>{MEMORY_COPY.groupTitle(group.label, group.firstAt, group.lastAt, group.count)}</span>
+                        <span className="ph-no-capture">{MEMORY_COPY.groupTitle(group.label, group.firstAt, group.lastAt, group.count)}</span>
                       </CollapsibleTrigger>
                       {onForgetGroup && (
                         <button

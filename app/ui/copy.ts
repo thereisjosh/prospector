@@ -754,6 +754,11 @@ export const TRACE = {
 } as const;
 
 /** Strings of the run view itself (app/ui/RunView.tsx and its parts). Same voice as TRACE. */
+/** Shown in the page footer only when analytics is on. */
+export const ANALYTICS_COPY = {
+  disclosure: "We log what you search to improve the tool.",
+};
+
 export const RUN = {
   /* run header and checkpoint */
   pausedAt: (step: number, spent: number): string => (step > 0 ? `Paused by you at step ${int(step)} · ${money(spent)} spent` : `Paused by you · ${money(spent)} spent`),
