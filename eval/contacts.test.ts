@@ -942,6 +942,41 @@ describe("FAILURES #34: a title must name a job", () => {
   });
 });
 
+describe("FAILURES #36: a caption is not a title; hyphenated names are one person", () => {
+  // Live run ed7d9c8d (video capture, freelance Shopify developer): Lil Luv Dog, a Vogue photo caption verified as a title.
+  const URL_VOGUE = "https://www.vogue.com/article/is-petcare-the-next-luxury-opportunity";
+  const TEXT_VOGUE =
+    "Pet care is having a moment, and Lil Luv Dog is one of the brands leading it. " +
+    "Founders Stephanie Suganami and Cara Santana Leto, with their dogs, Binx, Sheppy and Mercer. " +
+    "The pair started Lil Luv Dog after years of looking for grooming products that worked as well for dogs as their own routines did for them.";
+  const ctx = { buyerRoles: ["Founder", "Head of Ecommerce"], companyUrl: "https://lilluvdog.com/", now: NOW };
+
+  it("a title quote that names the person is a caption about them: inferred, not verified", () => {
+    const v = checkContact(
+      { name: "Cara Santana Leto", company: "Lil Luv Dog", title_quote: "Founders Stephanie Suganami and Cara Santana Leto, with their dogs, Binx, Sheppy and Mercer." },
+      { ...ctx, page: { url: URL_VOGUE, text: TEXT_VOGUE, publishedDate: "2026-10-01", news: true } },
+    );
+    expect(v).toMatchObject({ ok: false, tier: "inferred", code: "contact_unverified", reason: "the quote is a sentence that names Cara Santana Leto, not a job title" });
+  });
+
+  it("a title written around the name still verifies: 'Lil Luv Dog co-founder Stephanie Suganami'", () => {
+    const text = `${TEXT_VOGUE} "We wanted something we would use ourselves," said Lil Luv Dog co-founder Stephanie Suganami, who runs product.`;
+    const v = checkContact(
+      { name: "Stephanie Suganami", company: "Lil Luv Dog", title_quote: "Lil Luv Dog co-founder Stephanie Suganami" },
+      { ...ctx, page: { url: URL_VOGUE, text, publishedDate: "2026-10-01", news: true } },
+    );
+    expect(v).toMatchObject({ ok: true, tier: "verified", role: "Founder" });
+  });
+
+  it("personKey treats hyphens as spaces, so the two spellings dedupe to one contact", () => {
+    expect(personKey("Cara Santana-Leto")).toBe(personKey("Cara Santana Leto"));
+    expect(personKey("Mary-Kate Olsen")).toBe(personKey("Mary Kate Olsen"));
+    const a: Contact = { name: "Cara Santana-Leto", tier: "verified", role: "Founder", why: "Lil Luv Dog founder", found_via: "web_page", evidence: { url: "https://example.com/a", quote: "Lil Luv Dog founder Cara Santana-Leto", title_quote: "Lil Luv Dog founder" } };
+    const b: Contact = { ...a, name: "Cara Santana Leto", evidence: { ...a.evidence!, url: "https://example.com/b" } };
+    expect(dedupeContacts([a, b])).toHaveLength(1);
+  });
+});
+
 describe("FAILURES #34: rank floor", () => {
   it.each([
     ["Group Head of Operations", "VP of Operations", true],

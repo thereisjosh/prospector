@@ -301,6 +301,14 @@ Also fixed: Exa 429s under load (aac0a20: ≤ 4 in flight, jittered retry); an u
 - **Before -> after:** the same lookup run live after the fix: Nick Macuch verified from his current page; Aubry DuPree inferred (people index only, `contact_unverified`), not verified. Cost unchanged ($0.028).
 - **Test:** `eval/contacts.test.ts` "evidence pages are fresh (FAILURES #35)".
 - **Not covered:** a page that still exists after the person left (an un-updated team page) still verifies; only a fresh crawl of a page that no longer names them catches it. The people index (call A) is not re-crawled.
+## 36. A photo caption verified as a title; one person listed twice under two spellings [measured]
+
+- **Symptom:** Live run `ed7d9c8d` (2026-11-21, launch-video capture: "I'm a freelance Shopify developer…", buyer roles Founder / Head of Ecommerce / Marketing Manager): Lil Luv Dog listed Cara Santana Leto VERIFIED with the title "Founders Stephanie Suganami and Cara Santana Leto, with their dogs, Binx, Sheppy and Mercer." (a Vogue photo caption), and the same person again as "Cara Santana-Leto".
+- **Layer:** contact gate (`checkContact`, `src/gates.ts`) and dedupe (`personKey`, `src/contacts.ts`). **Cause:** (1) the job-noun rule (#34) accepted the caption because it contains "Founders"; nothing asked whether the quote was a title or a sentence about the person. (2) `personNameTokens` keeps hyphens inside a token, so "Santana-Leto" and "Santana Leto" gave different keys.
+- **Fix:** (1) when the title quote contains the person's own name, the name is taken out and what is left must still name a job in at most `CONTACT_TITLE_WITH_NAME_MAX_WORDS` (8) words ("Lil Luv Dog co-founder" passes; the caption does not), else `contact_unverified` (inferred). (2) `personKey` treats hyphens as spaces.
+- **Before -> after:** the caption: verified -> inferred; the two spellings: two contacts -> one. `eval/replay-contacts.ts` output is unchanged by the fix (no recorded contact flips).
+- **Test:** `eval/contacts.test.ts` "FAILURES #36" block (caption inferred, title around the name verified, hyphenated names dedupe).
+- **Not covered:** a caption that does not contain the person's name (it names only someone else) is caught only by proximity and role fit.
 ## What we would monitor weekly
 
 Extends SPEC-agent §14; a breach rolls back one stage.

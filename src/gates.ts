@@ -1392,6 +1392,9 @@ function strippedSpans(phrase: string, text: string): Array<[number, number]> {
   return out;
 }
 
+/** Max words left in a title quote once the person's own name is taken out ("Digs co-founder and CEO" fits; a caption does not). */
+export const CONTACT_TITLE_WITH_NAME_MAX_WORDS = 8;
+
 /** Max characters between the name and the title on the page; further apart, the title may be someone else's. */
 export const CONTACT_PROXIMITY = 200;
 /** Page text window the contact gate reads (the contact page search asks for up to this much). */
@@ -1579,6 +1582,18 @@ export function checkContact(
   // A unit heading is not a job title (FAILURES #34): "Operations Team is at the beating heart of ... Damian Gould".
   // The person is on the page; the page just does not say what they do.
   if (!titleNamesJob(title)) return inferred(`the page gives no job title for this person, only "${title}"`);
+  // A quote that names the person may be "Digs co-founder Ty Frackiewicz" (a title around the name) or a caption
+  // about them (FAILURES #36: "Founders Stephanie Suganami and Cara Santana Leto, with their dogs, Binx, Sheppy and
+  // Mercer."). With the name taken out, what is left must still be a short job title.
+  const nameSpans = personNameSpans(contact.name, title);
+  if (nameSpans.length > 0) {
+    let rest = title;
+    for (const [s, e] of [...nameSpans].reverse()) rest = `${rest.slice(0, s)} ${rest.slice(e)}`;
+    rest = rest.replace(/\s+/g, " ").replace(/^[\s,;:–—-]+|[\s,;:–—-]+$/g, "").trim();
+    if (!rest || !titleNamesJob(rest) || rest.split(" ").length > CONTACT_TITLE_WITH_NAME_MAX_WORDS) {
+      return inferred(`the quote is a sentence that names ${contact.name}, not a job title`);
+    }
+  }
   // Former roles are not current (FAILURES #30). A phrase in the title quote that splits it ("Managing Director,
   // stepping up from his previous role as COO"): the part before it is the person's NEW title and must fit a role
   // itself; otherwise the fitting part is the old one and the contact is "role changed", never verified.

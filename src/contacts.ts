@@ -178,7 +178,8 @@ function isLinkedInProfile(url: string): boolean {
 export function personKey(name: string): string {
   const tokens = personNameTokens(name).map((t) => t.normalize("NFKD").replace(/[̀-ͯ]/g, "").toLowerCase());
   const kept = tokens.filter((t, i) => i === 0 || i === tokens.length - 1 || t.replace(/\./g, "").length > 1);
-  return kept.join(" ");
+  // "Cara Santana-Leto" and "Cara Santana Leto" are one person (FAILURES #36): hyphens are spaces for the key.
+  return kept.join(" ").replace(/[-‐‑–]+/g, " ").replace(/\s+/g, " ").trim();
 }
 
 function plausibleName(name: string | undefined): name is string {
