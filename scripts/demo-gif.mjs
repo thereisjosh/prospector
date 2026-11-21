@@ -8,7 +8,8 @@
 // Needs Playwright (resolved from the project, PLAYWRIGHT_DIR, or the npx cache; `npx playwright install chromium`)
 // and ffmpeg on PATH. Not a dependency of the app: nothing here ships.
 import { spawn, spawnSync } from "node:child_process";
-import { existsSync, mkdtempSync, readdirSync, rmSync, statSync } from "node:fs";
+import { randomBytes } from "node:crypto";
+import { existsSync, mkdtempSync, readdirSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { createServer } from "node:net";
 import { homedir, tmpdir } from "node:os";
@@ -59,17 +60,23 @@ async function startServer() {
   if (!existsSync(join(ROOT, ".next", "BUILD_ID"))) throw new Error("No production build: run `npx next build` first.");
   const port = await freePort();
   const data = mkdtempSync(join(tmpdir(), "prospector-gif-")); // a fresh workspace store: the demo seeds its memory
-  const child = spawn(join(ROOT, "node_modules", ".bin", "next"), ["start", "-p", String(port)], {
+  // On Windows the .bin shim is next.cmd, and .cmd files only run through a shell.
+  const win = process.platform === "win32";
+  const child = spawn(join(ROOT, "node_modules", ".bin", win ? "next.cmd" : "next"), ["start", "-p", String(port)], {
     cwd: ROOT,
-    env: { ...process.env, DEMO_MODE: "1", DATA_DIR: data },
+    // `next start` is production: the middleware refuses API calls without a cookie secret, so the throwaway
+    // local server gets a random one (nothing it signs outlives the recording).
+    env: { ...process.env, DEMO_MODE: "1", DATA_DIR: data, WORKSPACE_COOKIE_SECRET: process.env.WORKSPACE_COOKIE_SECRET ?? randomBytes(32).toString("hex") },
     stdio: ["ignore", "ignore", "inherit"],
+    shell: win,
   });
   const base = `http://localhost:${port}`;
   for (let i = 0; i < 60; i += 1) {
     try {
       const r = await fetch(`${base}/api/mode`);
-      if ((await r.json()).demo === true) break;
-      throw new Error("server is not in demo mode");
+      const body = await r.json();
+      if (body.demo === true) break;
+      throw new Error(`server is not in demo mode (/api/mode ${r.status}: ${JSON.stringify(body)})`);
     } catch (error) {
       if (String(error).includes("demo mode")) throw error;
       await new Promise((r) => setTimeout(r, 500));
@@ -134,7 +141,7 @@ async function walk(page, base) {
   await pause(page, 900);
   // Memory panel
   await page.evaluate(() => scrollTo({ top: 0 }));
-  const trigger = page.locator(".pr-mem-trigger");
+  const trigger = page.getByRole("button", { name: "What I remember" });
   if ((await trigger.getAttribute("aria-expanded")) !== "true") await press(page, trigger);
   await pause(page, 900);
   // The memory row sits under the nav: bring the learned note whole into view for the last frames.
@@ -142,9 +149,23 @@ async function walk(page, base) {
   await pause(page, 2400);
 }
 
+/** Screenshot to a file, retrying while Windows briefly locks a just-written file (indexer/AV: open → UNKNOWN). */
+async function shotTo(page, path) {
+  const buffer = await page.screenshot();
+  for (let attempt = 1; ; attempt += 1) {
+    try {
+      writeFileSync(path, buffer);
+      return;
+    } catch (error) {
+      if (attempt >= 10) throw error;
+      await new Promise((r) => setTimeout(r, 300 * attempt));
+    }
+  }
+}
+
 /** One 1280 still per screen (light), plus the results screen in dark. */
 async function stills(browser, base) {
-  const snap = (page, name) => page.screenshot({ path: join(OUT, `${name}.png`) });
+  const snap = (page, name) => shotTo(page, join(OUT, `${name}.png`));
   for (const scheme of ["light", "dark"]) {
     const ctx = await context(browser, base, { viewport: VIEW, colorScheme: scheme, deviceScaleFactor: 1 });
     const page = await ctx.newPage();
@@ -176,7 +197,7 @@ async function stills(browser, base) {
     await page.locator(".pr-outcome").waitFor({ timeout: 120000 });
     await page.evaluate(() => scrollTo({ top: 0 }));
     await pause(page, 800);
-    await page.screenshot({ path: join(OUT, `demo-${scheme}.png`) });
+    await shotTo(page, join(OUT, `demo-${scheme}.png`));
     if (light) {
       await snap(page, "screen-6-results");
       await page.locator(".lrow-evidence [data-slot=trace-collapsible-trigger]").first().click();
@@ -185,7 +206,7 @@ async function stills(browser, base) {
       await pause(page, 300);
       await snap(page, "screen-7-evidence");
       await page.evaluate(() => scrollTo({ top: 0 }));
-      const trigger = page.locator(".pr-mem-trigger");
+      const trigger = page.getByRole("button", { name: "What I remember" });
       if ((await trigger.getAttribute("aria-expanded")) !== "true") await trigger.click();
       await pause(page, 400);
       await snap(page, "screen-8-memory");
@@ -209,7 +230,8 @@ function toGif(video) {
 
 const { chromium } = loadPlaywright();
 const server = await startServer();
-const browser = await chromium.launch();
+// PW_CHANNEL=msedge (or chrome) uses an installed browser instead of Playwright's downloaded Chromium.
+const browser = await chromium.launch(process.env.PW_CHANNEL ? { channel: process.env.PW_CHANNEL } : {});
 const videoDir = mkdtempSync(join(tmpdir(), "prospector-video-"));
 try {
   const ctx = await context(browser, server.base, { viewport: VIEW, colorScheme: "light", recordVideo: { dir: videoDir, size: VIEW } });

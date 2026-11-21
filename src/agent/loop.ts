@@ -12,7 +12,7 @@ import { appendRunToMemory, squashName } from "./memory";
 import { ensureAgentPrompt } from "./prompts";
 import { promptLink } from "./prompt-store";
 import { runEnded } from "./online-eval";
-import { rejectionCounts, type RunState, type Handback } from "./state";
+import { HANDBACK_TOP_REASONS, rejectionCounts, type RunState, type Handback } from "./state";
 import { APPROVAL_TOOLS, agentTools, executeTool, type ToolDeps } from "./tools";
 import { CONTACT_LIMITS } from "../contacts";
 
@@ -250,7 +250,10 @@ function stop(state: RunState, status: "done" | "stopped" | "error", reason: str
 }
 
 function spendLine(state: RunState): string {
-  return `Spend: $${state.spend.total.toFixed(2)} of $${state.contract.maxCostDollars.toFixed(2)} · Leads: ${state.leads.length}/${state.contract.targetLeads} · Turn ${state.counters.turns}/${DEFAULT_LIMITS.maxTurns}`;
+  // With buyer roles, the money held for contact lookups is not discovery's to spend: say so (FAILURES #34).
+  const held = contactsReserveDollars(state);
+  const reserve = held > 0 ? ` ($${held.toFixed(2)} of it held for contact lookups)` : "";
+  return `Spend: $${state.spend.total.toFixed(2)} of $${state.contract.maxCostDollars.toFixed(2)}${reserve} · Leads: ${state.leads.length}/${state.contract.targetLeads} · Turn ${state.counters.turns}/${DEFAULT_LIMITS.maxTurns}`;
 }
 
 function userToolResultsMessage(state: RunState, results: ToolResultBlockParam[]): Anthropic.MessageParam {
@@ -295,24 +298,48 @@ function madeProgress(state: RunState, before: ReturnType<typeof noProgressSnaps
   );
 }
 
-function limitReason(state: RunState): { status: "done" | "stopped"; reason: string } | undefined {
+function hasBuyerRoles(state: RunState): boolean {
+  return !!state.contract.buyerRoles && state.contract.buyerRoles.length > 0;
+}
+
+/**
+ * Dollars discovery leaves for contact lookups (FAILURES #34): with approved buyer roles, one
+ * CONTACT_LIMITS.maxCostDollars per accepted lead without a `contacts` entry, plus one for the next lead
+ * discovery accepts. 0 without roles. A failed lookup has an entry: its one call is spent.
+ */
+export function contactsReserveDollars(state: RunState): number {
+  if (!hasBuyerRoles(state)) return 0;
+  const pending = state.leads.filter((lead) => !lead.contacts).length;
+  return (pending + 1) * CONTACT_LIMITS.maxCostDollars;
+}
+
+type LimitHit = { status: "done" | "stopped"; reason: string; /** Discovery's own budget stop: the contacts phase may still run. */ discoveryBudget?: true };
+
+export function limitReason(state: RunState): LimitHit | undefined {
   if (state.spend.total + DEFAULT_LIMITS.handbackReserveDollars >= state.contract.maxCostDollars) return { status: "stopped", reason: "budget" };
   if (state.counters.turns >= DEFAULT_LIMITS.maxTurns) return { status: "stopped", reason: "max_turns" };
   if (state.counters.activeMs >= DEFAULT_LIMITS.maxActiveMs) return { status: "stopped", reason: "max_active_ms" };
   if (state.counters.noProgressTurns >= DEFAULT_LIMITS.noProgressTurns) return { status: "stopped", reason: "no_progress" };
   if (state.leads.length >= state.contract.targetLeads) return { status: "done", reason: "target_leads" };
+  // Discovery stops while the money left would only pay for the lookups its accepted leads are owed (plus the
+  // next lead's). A contacts phase begun on this stop ends the run when it ends: discovery does not resume.
+  if (hasBuyerRoles(state)) {
+    const reserved = state.spend.total + DEFAULT_LIMITS.handbackReserveDollars + contactsReserveDollars(state) >= state.contract.maxCostDollars;
+    if (reserved || state.contactsPhase?.trigger === "budget") return { status: "stopped", reason: "budget", discoveryBudget: true };
+  }
   return undefined;
 }
 
 /**
- * Contacts phase. When the run would stop on `target_leads` while some accepted lead has no `contacts`
- * entry, the plan has approved buyer roles, and budget remains for at least one lookup, the run gets up to
- * ceil(leads / 3) more turns to call `find_contacts` (several per turn). The phase's Exa spend is capped at
- * leads × CONTACT_LIMITS.maxCostDollars and never passes the run cap (the turn's CostGuard is lowered to it).
- * Returns the leads still without contacts when this turn belongs to the phase, else undefined (stop).
+ * Contacts phase. When the run would stop on `target_leads`, or on discovery's budget stop (the rest is held
+ * for lookups), while some accepted lead has no `contacts` entry, the plan has approved buyer roles, and budget
+ * remains for at least one lookup, the run gets up to ceil(leads / 3) more turns to call `find_contacts`
+ * (several per turn). The phase's Exa spend is capped at leads × CONTACT_LIMITS.maxCostDollars and never passes
+ * the run cap (the turn's CostGuard is lowered to it). Returns the leads still without contacts when this turn
+ * belongs to the phase, else undefined (stop, with the reason that triggered it).
  */
-export function contactsPhaseTurn(state: RunState): { pending: string[] } | undefined {
-  if (!(state.contract.buyerRoles && state.contract.buyerRoles.length > 0)) return undefined;
+export function contactsPhaseTurn(state: RunState, trigger: "target_leads" | "budget" = "target_leads"): { pending: string[] } | undefined {
+  if (!hasBuyerRoles(state)) return undefined;
   const pending = state.leads.filter((lead) => !lead.contacts).map((lead) => lead.company);
   if (pending.length === 0) return undefined;
   const runRoom = state.contract.maxCostDollars - state.spend.total - DEFAULT_LIMITS.handbackReserveDollars;
@@ -324,6 +351,7 @@ export function contactsPhaseTurn(state: RunState): { pending: string[] } | unde
       turnsUsed: 0,
       budgetDollars: state.leads.length * CONTACT_LIMITS.maxCostDollars,
       exaAtStart: state.spend.exa,
+      trigger,
     };
   }
   const phase = state.contactsPhase;
@@ -333,8 +361,12 @@ export function contactsPhaseTurn(state: RunState): { pending: string[] } | unde
 }
 
 /** The turn nudge: appended to the user message the model is about to read (it has not been sent yet). */
-function appendContactsNudge(state: RunState, pending: string[]): void {
-  const text = `Target reached: look up contacts for the ${pending.length} lead${pending.length === 1 ? "" : "s"} without them (${pending.join(", ")}) with find_contacts, then finish.`;
+function appendContactsNudge(state: RunState, pending: string[], trigger: "target_leads" | "budget"): void {
+  const leads = `the ${pending.length} lead${pending.length === 1 ? "" : "s"} without them (${pending.join(", ")})`;
+  const text =
+    trigger === "budget"
+      ? `The budget for finding leads is used up; what is left is held for contact lookups. Look up contacts for ${leads} with find_contacts, then finish. Do not search for more leads.`
+      : `Target reached: look up contacts for ${leads} with find_contacts, then finish.`;
   const last = state.messages[state.messages.length - 1];
   if (last && last.role === "user") {
     const content = typeof last.content === "string" ? [{ type: "text", text: last.content }] : [...last.content];
@@ -395,7 +427,9 @@ async function stepTurn(state: RunState, deps: LoopDeps): Promise<StepResult> {
   }
 
   let hit = limitReason(state);
-  const contactsTurn = hit?.reason === "target_leads" ? contactsPhaseTurn(state) : undefined;
+  // The target, or discovery's budget stop (money held for lookups), hands the run to the contacts phase first.
+  const phaseTrigger = hit?.reason === "target_leads" ? "target_leads" : hit?.discoveryBudget ? "budget" : undefined;
+  const contactsTurn = phaseTrigger ? contactsPhaseTurn(state, phaseTrigger) : undefined;
   if (contactsTurn) hit = undefined;
   if (hit) {
     events.push(makeEvent(state, "policy", { scope: "loop", check: "limits", outcome: "stop", reason: hit.reason, status: hit.status, snapshot: policySnapshot(state) }));
@@ -414,18 +448,19 @@ async function stepTurn(state: RunState, deps: LoopDeps): Promise<StepResult> {
   if (contactsTurn && state.contactsPhase) {
     state.contactsPhase.turnsUsed += 1;
     const phase = state.contactsPhase;
+    const trigger = phase.trigger ?? "target_leads";
     events.push(makeEvent(state, "policy", {
       scope: "loop",
       check: "contacts_phase",
       outcome: "pass",
-      reason: "target_reached_contacts_pending",
+      reason: trigger === "budget" ? "budget_contacts_pending" : "target_reached_contacts_pending",
       leadsWithoutContacts: contactsTurn.pending.length,
       phaseTurn: phase.turnsUsed,
       maxTurns: phase.maxTurns,
       budgetDollars: phase.budgetDollars,
       snapshot: { ...policySnapshot(state), leadsWithoutContacts: contactsTurn.pending.length, phaseTurn: phase.turnsUsed, phaseMaxTurns: phase.maxTurns },
     }));
-    appendContactsNudge(state, contactsTurn.pending);
+    appendContactsNudge(state, contactsTurn.pending, trigger);
   }
   if (state.memoryRecall && !state.memoryRecallEmitted) {
     // Written once, on the run's first turn: which memories (by id) were put in front of the model.
@@ -791,7 +826,9 @@ export async function handback(state: RunState, deps: LoopDeps, events?: AgentEv
       if (events) events.push(event);
       else await appendEvents(state.id, [event]);
       const text = response.content.find((b) => b.type === "text")?.text ?? "";
-      state.handback = parseHandback(text) ?? fallback;
+      const parsed = parseHandback(text);
+      // The shortfall is code's count (leads found of target), never the model's wording of it.
+      state.handback = parsed ? { ...parsed, shortfall: fallback.shortfall, top_reasons: rejectionCounts(state).slice(0, HANDBACK_TOP_REASONS) } : fallback;
       return state.handback;
     } catch {
       state.handback = fallback;

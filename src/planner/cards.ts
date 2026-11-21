@@ -7,11 +7,11 @@ import { cleanBuyerRoles } from "../plan";
 // <langfuse-prompt name="prospector-planner-cards"> repo copy and runtime fallback; sync with `npx tsx eval/langfuse-prompts.ts push|pull|diff` (docs/prompts.md)
 export const CARDS_SYSTEM_PROMPT = `You suggest lead-search cards for a B2B prospecting tool.
 Reply with ONE JSON object and nothing else.
-Cards: who describes target industry and company descriptor; whyNow lists ordered snake_case signal types and a human description; size is employee range and unknown-size policy; stage is optional and must be exactly one of any | seed | series_a | series_b_plus | bootstrapped (use any when funding stage does not matter for this buyer); geo is HQ ISO-2 countries; recency is months; exclusions are customer/competitor names and domains.
+Cards: who describes target industry and company descriptor; whyNow lists ordered snake_case signal types and a human description; size is employee range and unknown-size policy; stage is optional and must be exactly one of any | seed | series_a | series_b_plus | bootstrapped (use any when funding stage does not matter for this buyer); geo is HQ ISO-2 countries; recency is months; exclusions are customer/competitor names and domains; suggestedBuyerRoles is 2-3 job titles of the people at the TARGET company who would buy or decide on this offering (e.g. "VP of Operations", "Head of Growth"): plain titles, no person names, no company names, short phrases.
 Exa levers: recency is a hard startPublishedDate filter; size, geo, and stage are estimated from retrieved company evidence; signal types become search and summary prompts.
 Output must be realistic for a B2B seller of this offering.
 Reply with one JSON object with exactly these keys; arrays of plain strings where shown; no markdown fences.
-Enums: stage is one of any | seed | series_a | series_b_plus | bootstrapped; size.unknownPolicy is one of allow-if-not-enterprise | reject; geo.hqCountries are uppercase ISO-2 codes; whyNow.signalTypes is 2-6 snake_case strings (plain strings, not objects); size.min and size.max and recency.months are integers (months 1-12); alternatives is an array of at most 2 items (use [] if none).
+Enums: stage is one of any | seed | series_a | series_b_plus | bootstrapped; size.unknownPolicy is one of allow-if-not-enterprise | reject; geo.hqCountries are uppercase ISO-2 codes; whyNow.signalTypes is 2-6 snake_case strings (plain strings, not objects); size.min and size.max and recency.months are integers (months 1-12); alternatives is an array of at most 2 items (use [] if none); suggestedBuyerRoles is an array of 2-3 plain job-title strings.
 EXAMPLE (shape and enum values only; use values that fit this seller):
 {
   "who": {
@@ -49,6 +49,10 @@ EXAMPLE (shape and enum values only; use values that fit this seller):
       "starbucks.com"
     ]
   },
+  "suggestedBuyerRoles": [
+    "Owner",
+    "Operations manager"
+  ],
   "rationale": {
     "who": "why this buyer fits the offering",
     "whyNow": "why these signals mean they are buying now",
@@ -82,21 +86,44 @@ export type CardSet = {
   alternatives: { label: string; cards: Partial<CardSet> }[];
   /**
    * "Who to reach": buyer roles the user approves for contact lookups. Filled by code from the seller
-   * profile's buyer_roles (never by the cards model), edited as chips, copied to SearchPlan.buyerRoles.
+   * profile's buyer_roles or, when the profile has none (a typed sentence), from the cards model's
+   * suggestedBuyerRoles; the user edits them as chips and they are copied to SearchPlan.buyerRoles.
    */
   buyerRoles?: string[];
 };
 
-/** Cards with the "Who to reach" roles pre-filled from the profile, unless the cards already carry them. */
-export function withBuyerRoles(cards: CardSet, profile: Pick<SellerProfile, "buyer_roles"> | null | undefined): CardSet {
+/**
+ * Cards with the "Who to reach" roles filled. Precedence: roles the cards already carry (even an empty
+ * array the user saved), then the profile's buyer_roles, then the cards model's suggestion, then [].
+ */
+export function withBuyerRoles(
+  cards: CardSet,
+  profile: Pick<SellerProfile, "buyer_roles"> | null | undefined,
+  suggested?: readonly string[],
+): CardSet {
   if (Array.isArray(cards.buyerRoles)) return cards;
-  return { ...cards, buyerRoles: cleanBuyerRoles(profile?.buyer_roles) };
+  const fromProfile = cleanBuyerRoles(profile?.buyer_roles);
+  if (fromProfile.length) return { ...cards, buyerRoles: fromProfile };
+  return { ...cards, buyerRoles: cleanBuyerRoles(suggested) };
 }
+
+/** The model's optional suggestedBuyerRoles: cleaned, capped at 3; anything malformed is dropped, never an error. */
+function suggestedRoles(value: unknown): string[] {
+  return cleanBuyerRoles(value).slice(0, MAX_SUGGESTED_BUYER_ROLES);
+}
+
+/** Most roles the cards model's suggestion may contribute. */
+const MAX_SUGGESTED_BUYER_ROLES = 3;
 
 export async function suggestCards(profile: SellerProfile, deps: PlannerModelDeps): Promise<{ cards: CardSet; cost: number }> {
   const prompt = await resolvePrompt(CARDS_PROMPT_DEF);
-  const { value, cost } = await callClaudeJson(deps, prompt, JSON.stringify(profile), validateCards);
-  return { cards: withBuyerRoles(value, profile), cost };
+  let suggested: string[] = [];
+  const { value, cost } = await callClaudeJson(deps, prompt, JSON.stringify(profile), (json) => {
+    const result = validateCards(json);
+    suggested = result.ok ? result.suggestedBuyerRoles : [];
+    return result;
+  });
+  return { cards: withBuyerRoles(value, profile, suggested), cost };
 }
 
 export function validateCards(raw: unknown) {
@@ -174,7 +201,8 @@ export function validateCards(raw: unknown) {
     })),
     ...(buyerRoles ? { buyerRoles } : {}),
   };
-  return { ok: true as const, value: cards };
+  // Kept beside the CardSet (not on it) so it never reaches the client or the plan route.
+  return { ok: true as const, value: cards, suggestedBuyerRoles: suggestedRoles(input.suggestedBuyerRoles) };
 }
 
 function object(value: unknown, path: string, errors: string[]): Record<string, unknown> | undefined {

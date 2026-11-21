@@ -88,6 +88,8 @@ export function contextBudgetTokens(model: AgentModel): number {
 }
 
 export const DEFAULT_LIMITS = {
+  // Tried $1.50 on 2026-11-21 (FAILURES #34): the demo plan found 4 companies at $1.50 vs 5 at $1, both runs
+  // finishing on their own with money left ("results are repeating"). Supply, not budget, limited them.
   maxCostDollars: 1,
   targetLeads: 10,
   maxTurns: 30,

@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { NextResponse } from "next/server";
 import { InvalidIdError, assertWorkspaceId } from "../../../src/agent/ids";
-import { isAgentModel, providerOf } from "../../../src/agent/config";
+import { DEFAULT_LIMITS, isAgentModel, providerOf } from "../../../src/agent/config";
 import { loadMemory } from "../../../src/agent/memory";
 import { RECALL_BUDGET_TOKENS, recall } from "../../../src/agent/recall";
 import { releaseLiveRun, reserveLiveRun } from "../../../src/agent/quota";
@@ -35,7 +35,7 @@ export async function POST(request: Request) {
     if (!reservation.ok) return allowanceDeniedResponse(reservation.quota);
     try {
       const memory = await loadMemory(workspaceId);
-      const maxCost = Math.min(5, typeof body.maxCostDollars === "number" ? body.maxCostDollars : 1);
+      const maxCost = Math.min(5, typeof body.maxCostDollars === "number" ? body.maxCostDollars : DEFAULT_LIMITS.maxCostDollars);
       const state = createRunState({
         id: randomUUID(),
         workspaceId,

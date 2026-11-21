@@ -7,6 +7,7 @@ import { TraceCollapsible, TraceCollapsibleContent, TraceCollapsibleTrigger, Tra
 import type { AgentEvent } from "../../src/agent/events";
 import type { AcceptedLead, Handback } from "../../src/agent/state";
 import type { CardSet } from "../../src/planner/cards";
+import { track } from "../analytics";
 import { Candidates } from "./Candidates";
 import {
   CONTACTS,
@@ -331,10 +332,24 @@ function Outcome({
       {snapshot.summary && <p className="outcome-summary">{snapshot.summary}</p>}
       {handback && <HandbackView handback={handback} contract={contract} cards={cards} maxSpend={maxSpend} onApply={onApply} applying={applying} onEditTargeting={onEditTargeting} />}
       <div className="actions">
-        <button type="button" className="ghost-btn" onClick={onEditTargeting}>
+        <button
+          type="button"
+          className="ghost-btn"
+          onClick={() => {
+            track("adjust_targeting", { run_id: snapshot.id });
+            onEditTargeting();
+          }}
+        >
           Adjust targeting and run again
         </button>
-        <button type="button" className="link-btn" onClick={onNewSearch}>
+        <button
+          type="button"
+          className="link-btn"
+          onClick={() => {
+            track("new_search", { run_id: snapshot.id });
+            onNewSearch();
+          }}
+        >
           Start a new search
         </button>
       </div>
@@ -440,6 +455,7 @@ function Leads({
     document.body.appendChild(a);
     a.click();
     a.remove();
+    track("csv_downloaded", { leads: leads.length });
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   };
 
@@ -502,7 +518,11 @@ function LeadRow({
   // M6 only for a row that lands while the run is live; a finished table appears as it is.
   const [isNew] = useState(live);
   // Controlled so a verified contact's source link can open the evidence on its "Who to reach" row.
-  const [evidenceOpen, setEvidenceOpen] = useState(false);
+  const [evidenceOpen, setEvidenceOpenState] = useState(false);
+  const setEvidenceOpen = (next: boolean) => {
+    if (next && !evidenceOpen) track("evidence_opened", { company: lead.company });
+    setEvidenceOpenState(next);
+  };
   const showContact = (index: number) => {
     setEvidenceOpen(true);
     if (typeof window === "undefined") return;
@@ -594,7 +614,7 @@ function LeadRow({
           <span className="muted small">After the run</span>
         )}
       </div>
-      <WhoToReach lead={lead} demo={demo} onShowEvidence={showContact} />
+      <WhoToReach lead={lead} demo={demo && finished} onShowEvidence={showContact} />
       <div className="lrow-evidence">
         <TraceCollapsible open={evidenceOpen} onOpenChange={(next) => setEvidenceOpen(next)}>
           <TraceCollapsibleTrigger className="pr-press">
@@ -619,7 +639,7 @@ function LeadRow({
 /**
  * One line under a lead: verified contacts as name · “quoted title” · source host (opens the evidence row),
  * inferred ones as name · profile link · "inferred from a public profile". Never a LinkedIn snippet.
- * Nothing when contacts were not looked up, except the demo's one muted line (the recording has none).
+ * Nothing when contacts were not looked up, except the demo's one muted line once the replay has ended (a recording whose leads have no contacts entry).
  */
 export function WhoToReach({ lead, demo, onShowEvidence }: { lead: AcceptedLead; demo: boolean; onShowEvidence: (index: number) => void }) {
   const looked = lead.contacts;
@@ -640,7 +660,7 @@ export function WhoToReach({ lead, demo, onShowEvidence }: { lead: AcceptedLead;
       {list.length === 0 ? (
         <span className="muted">{looked.error ? CONTACTS.failed : CONTACTS.none}</span>
       ) : (
-        <ul className="pr-contacts">
+        <ul className="pr-contacts ph-no-capture">
           {list.map((c) => {
             const index = verifiedIndex.get(c);
             if (index !== undefined && c.evidence) {
@@ -660,13 +680,26 @@ export function WhoToReach({ lead, demo, onShowEvidence }: { lead: AcceptedLead;
                       <span className="muted pr-contact-date">{contactDate(c.evidence.published)}</span>
                     </>
                   )}
+                  <span className="pr-contact-sep" aria-hidden="true">·</span>
+                  {c.profile_url && isHttpUrl(c.profile_url) ? (
+                    <a href={c.profile_url} target="_blank" rel="noopener noreferrer nofollow">
+                      {CONTACTS.profile} <ArrowUpRight />
+                    </a>
+                  ) : (
+                    <a href={linkedInSearchUrl(c.name, lead.company)} target="_blank" rel="noopener noreferrer nofollow" aria-label={CONTACTS.searchProfileLabel(c.name, lead.company)}>
+                      {CONTACTS.searchProfile} <ArrowUpRight />
+                    </a>
+                  )}
                 </li>
               );
             }
+            // Only a stale or role-changed contact carries a title a page actually wrote; for the others `why` is the
+            // role bucket they were listed under, which must not be shown in quotation marks as if quoted.
+            const pageTitle = c.code === "contact_stale" || c.code === "contact_role_changed";
             return (
-              <li key={`${c.tier}:${c.name}`} className="pr-contact" data-tier="inferred" title={c.note ? CONTACTS.staleTitle(c.role) : CONTACTS.inferredTitle(c.role)}>
+              <li key={`${c.tier}:${c.name}`} className="pr-contact" data-tier="inferred" title={pageTitle ? CONTACTS.staleTitle(c.role) : CONTACTS.inferredTitle(c.role)}>
                 <span className="pr-contact-name">{c.name}</span>
-                {c.note && (
+                {pageTitle && (
                   <>
                     <span className="pr-contact-sep" aria-hidden="true">·</span>
                     <span className="pr-mono pr-contact-title">“{c.why}”</span>
@@ -689,6 +722,11 @@ export function WhoToReach({ lead, demo, onShowEvidence }: { lead: AcceptedLead;
       )}
     </div>
   );
+}
+
+/** LinkedIn people search for a verified contact with no profile link: a plain link, nothing fetched or stored. */
+export function linkedInSearchUrl(name: string, company: string): string {
+  return `https://www.linkedin.com/search/results/people/?keywords=${encodeURIComponent(`${name} ${company}`)}`;
 }
 
 /* ---------- considered but not added ---------- */

@@ -127,7 +127,7 @@ describe("assembleMessages", () => {
   });
 
   it("drops the oldest turns by token size, keeps the contract, and writes the summary from state", () => {
-    const s = withTurns(newState(), 8, 4000);
+    const s = withTurns(newState({ contract: { ...newState().contract, maxCostDollars: 1 } }), 8, 4000); // the $1 run this test models, not the default cap
     s.leads.push({ company: "Acme Freight", signal_url: "https://www.news.example/acme", why_now: "w", summary: { company_name: "Acme Freight", signal_type: "expansion", signal_summary: "s", signal_date: "2026-09-30" }, details: { event_date: "2026-10-01" }, turn: 2 });
     s.rejected.push({ company: "BigCo", code: "size", reason: "r", turn: 1 }, { company: "Other", code: "size", reason: "r", turn: 2 }, { company: "Far", code: "hq", reason: "r", turn: 3 });
     s.caches.searchQueries.push("warehouse expansion Texas");

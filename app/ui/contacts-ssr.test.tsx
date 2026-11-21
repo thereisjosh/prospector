@@ -22,7 +22,9 @@ const cards = JSON.parse(readFileSync(join(ROOT, "eval", "demo", "planner", "car
 const noop = () => undefined;
 
 const TEAM_URL = "https://www.verstlogistics.com/about-us/our-team/travis-french";
-const base: AcceptedLead = state.leads[0];
+// The recording's first lead without its contacts: the "never looked up" case (the recording itself has contacts on every lead).
+const { contacts: _recorded, ...bareFirst } = state.leads[0];
+const base: AcceptedLead = bareFirst;
 const withContacts: AcceptedLead = {
   ...base,
   contacts: {
@@ -93,9 +95,18 @@ describe("Who to reach on a lead row", () => {
     expect(html).toMatch(/data-tier="inferred" title="Listed in a public people index under a role you approved \(VP of Operations\)\. Title not confirmed on a public page\."/);
     expect(html).toMatch(/>Jane Ops<[\s\S]*?<a href="https:\/\/www.linkedin.com\/in\/jane-ops" target="_blank" rel="noopener noreferrer nofollow">profile/);
     expect(html).toContain(">inferred from a public profile</span>");
-    // A verified contact is shown by its page, never by its LinkedIn profile; no demo line on a live run.
-    expect(html).not.toContain("linkedin.com/in/travis-french");
+    // A verified contact is proven by its page; the people index's profile link rides along (SPEC-agent §5b). No demo line on a live run.
+    expect(html).toMatch(/>Travis French<[\s\S]*?verstlogistics.com<\/button>[\s\S]*?<a href="https:\/\/www.linkedin.com\/in\/travis-french"[^>]*>profile/);
     expect(html).not.toContain("No contacts looked up in this recording");
+  });
+
+  it("a verified contact with no profile link gets a LinkedIn people search by name and company, nothing fetched", () => {
+    const first = withContacts.contacts!.contacts[0]!;
+    const { profile_url: _drop, ...noProfile } = first;
+    const lead: AcceptedLead = { ...withContacts, contacts: { ...withContacts.contacts!, contacts: [noProfile] } };
+    const html = renderToStaticMarkup(h(WhoToReach, { lead, demo: false, onShowEvidence: noop }));
+    const q = encodeURIComponent(`Travis French ${lead.company}`).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    expect(html).toMatch(new RegExp(`<a href="https://www.linkedin.com/search/results/people/\\?keywords=${q}" target="_blank" rel="noopener noreferrer nofollow" aria-label="Search LinkedIn for Travis French at [^"]+">find on LinkedIn`));
   });
 
   it("nothing for a live lead that was not looked up; a muted line when the lookup found no one or failed", () => {
@@ -106,10 +117,48 @@ describe("Who to reach on a lead row", () => {
     expect(failed).toContain("Couldn&#x27;t look up people this time");
   });
 
-  it("the demo recording has no contacts: one muted line, nothing fabricated", () => {
-    const html = run(state.leads.slice(0, 2), true);
+  it("the demo recording (2026-11-21) has contacts on every lead: the verified people from their sources, no 'not looked up' line", () => {
+    const html = run(state.leads, true);
+    expect(html).not.toContain("No contacts looked up in this recording");
+    expect(html.split(">Who to reach</span>").length - 1).toBe(8);
+    // J&J's first verified contact: name, the page's own title wording, and the host of the page that says it
+    expect(html).toMatch(/data-tier="verified"[\s\S]*?>Stuart Runchman<[\s\S]*?“Group Head of Operations”[\s\S]*?ecommercefulfilment.com<\/button>/);
+    // Porter and Hollingsworth were looked up and no one was found: said so, nothing invented
+    expect(html.split("Looked for people in your roles; no one found").length - 1).toBe(2);
+    expect(html.split('data-tier="verified"').length - 1).toBe(11);
+    expect(html.split('data-tier="inferred"').length - 1).toBe(5);
+  });
+
+  it("a demo lead without a contacts entry shows the muted line once the replay has ended, nothing fabricated; none while it is still running", () => {
+    const html = run([base, { ...base, company: "Other Co" }], true);
     expect(html.split("No contacts looked up in this recording").length - 1).toBe(2);
     expect(html).not.toContain("pr-contact-name");
+    const running = renderToStaticMarkup(
+      h(RunView, {
+        demo: true,
+        snapshot: { id: "run-x", status: "running", spend: { claude: 0, exa: 0, total: 0 }, counters: { turns: 5 }, contract, leads: [base], candidates: [], rejected: [], screened: [], todo: "" } as RunSnapshot,
+        events: [],
+        screened: { skipped: [], lookedUp: [] },
+        stepping: false,
+        pausedByUser: false,
+        runError: "",
+        deciding: false,
+        decisionError: "",
+        onStop: noop,
+        onResume: noop,
+        onDecide: noop,
+        feedback: {},
+        onFeedback: noop,
+        cards: null,
+        maxSpend: 1,
+        onApply: noop,
+        applying: false,
+        onEditTargeting: noop,
+        onNewSearch: noop,
+      }),
+    );
+    expect(running).toContain("lrow");
+    expect(running).not.toContain("No contacts looked up in this recording");
   });
 });
 
@@ -139,6 +188,21 @@ describe("Who to reach: evidence date and stale press", () => {
     expect(html).toMatch(/Todd Johnson[\s\S]*?“President and COO”[\s\S]*?prnewswire.com<\/button>[\s\S]*?<span class="muted pr-contact-date">Jun 2019<\/span>/);
     expect(html).toMatch(/Pat Old[\s\S]*?“VP of Operations”[\s\S]*?<span class="muted">last confirmed 2018<\/span>/);
     expect(html).not.toContain("inferred from a public profile");
+  });
+
+  it("an index-only contact with a source note shows its role bucket unquoted: no page wrote that title", () => {
+    const lead: AcceptedLead = {
+      ...dated,
+      contacts: {
+        ...dated.contacts!,
+        contacts: [{ name: "Bob Lee", tier: "inferred", role: "VP of Operations", why: "VP of Operations", profile_url: "https://www.linkedin.com/in/bob-lee", found_via: "people_index", code: "contact_unverified", note: "source not a company or news page" }],
+      },
+    };
+    const html = renderToStaticMarkup(h(WhoToReach, { lead, demo: false, onShowEvidence: noop }));
+    expect(html).toContain(">Bob Lee<");
+    expect(html).not.toContain("“VP of Operations”");
+    expect(html).toContain(">source not a company or news page</span>");
+    expect(html).toMatch(/title="Listed in a public people index under a role you approved \(VP of Operations\)/);
   });
 
   it("the evidence row carries the page date next to the host; an undated page shows only the host", () => {
@@ -171,6 +235,20 @@ describe("Trace line for find_contacts", () => {
     const line = tree.turns.flatMap((t) => t.lines).find((l) => l.kind === "contacts")!;
     expect(line).toMatchObject({ title: "Looking for people to reach at Verst Logistics", description: "1 verified · 2 inferred" });
     expect(tree.unmapped).toBe(0);
+  });
+});
+
+describe("Trace line for find_contacts in the demo recording", () => {
+  it("the recorded calls carry no input (the tool takes none), so each line takes its company from the result summary", () => {
+    const calls = (JSON.parse(`[${readFileSync(join(ROOT, "eval", "demo", "run", "events.jsonl"), "utf8").trim().split("\n").join(",")}]`) as Array<{ kind: string; tool?: string; input?: unknown }>).filter((e) => e.kind === "tool_call" && e.tool === "find_contacts");
+    expect(calls).toHaveLength(8);
+    const tree = traceModel(calls as never, { status: "running", leads: [], rejected: [], todo: "", contract } as never);
+    const lines = tree.turns.flatMap((t) => t.lines).filter((l) => l.kind === "contacts");
+    expect(lines.map((l) => l.title).sort()).toEqual(
+      ["G10 Fulfillment", "Hollingsworth Logistics", "J&J Global Fulfilment", "Jay Group", "Legacy Supply Chain", "Porter Logistics", "Spartan Logistics", "Wagner Logistics"].map((c) => `Looking for people to reach at ${c}`).sort(),
+    );
+    for (const none of ["Porter Logistics", "Hollingsworth Logistics"]) expect(lines.find((l) => l.title.endsWith(none))!.description).toBe("No one found in your roles");
+    expect(lines.find((l) => l.title.endsWith("Spartan Logistics"))!.description).toBe("3 verified");
   });
 });
 

@@ -121,7 +121,8 @@ export function StartStep(props: StartStepProps) {
         <Message align="end" className="pr-you">
           <MessageContent>
             <Bubble variant="secondary" align="end" className="pr-bubble">
-              <BubbleContent>{props.input}</BubbleContent>
+              {/* ph-no-capture: the seller's own text is blocked from session replay and autocapture. */}
+              <BubbleContent className="ph-no-capture">{props.input}</BubbleContent>
             </Bubble>
           </MessageContent>
           <MessageFooter className="pr-you-foot">
@@ -250,7 +251,7 @@ export function StartStep(props: StartStepProps) {
                     </div>
                   </div>
                 ) : (
-                  <p className="pr-profile-line">
+                  <p className="pr-profile-line ph-no-capture">
                     {profileSentence(profile)}{" "}
                     <button type="button" className="link-btn" onClick={() => props.setEditing(true)}>Edit</button>
                   </p>

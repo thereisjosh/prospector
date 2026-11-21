@@ -6,6 +6,8 @@ Live deployment: project `prospector`, service `web`, volume mounted at `/data`,
 
 `/api/health` reports `version: "dev"` on directory deploys (`railway up`), because `RAILWAY_GIT_COMMIT_SHA` is only set for GitHub-connected deploys. Set the version by hand with `railway variables --set APP_VERSION=<sha>`; the health route reads `RAILWAY_GIT_COMMIT_SHA ?? VERCEL_GIT_COMMIT_SHA ?? APP_VERSION ?? "dev"`.
 
+Service settings (builder, start command, health check, the `/data` volume) live in `.railway/railway.ts` (Railway IaC; `railway.json` Config as Code was retired 2026-12-01). Preview with `railway config plan`, apply with `railway config apply`; variables are unmanaged, so IaC never touches them. On Windows the `railway` SDK's CLI check fails unless `_` holds the full path to `railway.exe` (`$env:_ = (Get-Command railway.exe -All)[0].Source` or the `@railway/cli` `bin\railway.exe`).
+
 `railway up` uploads the working directory minus `.railwayignore`. The ignore file excludes `.agents/`, `.impeccable/`, `eval/recordings/`, `eval/results/`, `eval/truth/`, `docs/screenshots/` and `*.gif` (plus secrets, `node_modules`, `.next`, `runs`, `workspaces`) because nothing at runtime reads them: they are agent scratch, eval recordings and judge output, and README images. A directory upload that included them was ~1.7 GB and failed with "error sending request"; it is now ~5.5 MB. `eval/demo/` must stay uploaded: `src/demo/*` reads it for the demo replay (override with `DEMO_DIR`). Runs and workspaces live on the volume (`DATA_DIR`), not in the upload.
 
 Mount a persistent Railway volume at `/data` and set `DATA_DIR=/data`. The app stores runs in `/data/runs`, anonymous workspace memory and quota in `/data/workspaces`, and the daily spend ledger at `/data/spend-YYYY-MM-DD.json`.
@@ -21,6 +23,7 @@ Environment variables:
 | `EXA_API_KEY` | unset | Required for live mode. |
 | `WORKSPACE_COOKIE_SECRET` | unset | Production required. Generate 64 random hex characters (`openssl rand -hex 32`); signs the HttpOnly anonymous workspace cookie. |
 | `NEXT_PUBLIC_CF_BEACON_TOKEN` | unset | Cloudflare Web Analytics beacon token; public and rendered into the page when set. |
+| `NEXT_PUBLIC_POSTHOG_KEY` | unset | PostHog public project key (US region; the proxy in `next.config.mjs` points at the US hosts). Read at runtime by the server layout, so no rebuild is needed. Unset or empty = analytics fully off: no script, no requests. Set = PostHog US analytics through the same-origin `/ingest` proxy, session replay with masked inputs, and the events in [Analytics events](#analytics-events). |
 | `ADMIN_TOKEN` | unset | At least 32 random characters. Enables `/api/admin/*`; without it admin routes answer 503. Set the same value on Railway and in GitHub Actions secrets. |
 | `DAILY_SPEND_CAP_DOLLARS` | `10` | Global daily live spend cap. |
 | `VISITOR_MAX_LIVE_RUNS` | `2` (production: `3`) | Per anonymous workspace live-run allowance. Production decision: 3 runs or $2.50, whichever comes first. |
@@ -38,7 +41,7 @@ Environment variables:
 | `ONLINE_JUDGE_COST_PER_LEAD_DOLLARS` | `0.001` | Dollars reserved per judged lead against the cap; replaced by the real Jev cost when the call returns (about $0.0001 to $0.0003). |
 | `JEV_API_KEY` | unset | Required for online judging in production (Jev, console.typesafe.ai/keys). Unset = no online judge, one warning per process, no fallback. `JEV_BASE_URL` only if proxied. |
 
-Tracing (SPEC-observability §2–§3): every line appended to `runs/<id>/events.jsonl` is also sent to Langfuse, masked, from `src/agent/trace.ts`. Spans are flushed every second; Next.js exits on SIGTERM without waiting, so a redeploy can drop up to about the last second of spans. `npx tsx eval/trace-backfill.ts <run-dir> --environment production` restores a run's missing observations and scores without duplicating the ones Langfuse already has.
+Tracing (SPEC-observability Â§2â€“Â§3): every line appended to `runs/<id>/events.jsonl` is also sent to Langfuse, masked, from `src/agent/trace.ts`. Spans are flushed every second; Next.js exits on SIGTERM without waiting, so a redeploy can drop up to about the last second of spans. `npx tsx eval/trace-backfill.ts <run-dir> --environment production` restores a run's missing observations and scores without duplicating the ones Langfuse already has.
 
 Prompts (docs/prompts.md): with the Langfuse keys set, the agent and planner prompts come from Langfuse Prompt Management (label `LANGFUSE_PROMPT_LABEL`), cached in-process for 60 s; promoting a version in Langfuse reaches the service within about a minute, without a deploy. Runs already in flight keep the version they started with. If Langfuse is unreachable on a cold start the service runs the in-repo text, so a deploy must never ship a repo copy that differs from `production`: run `npx tsx eval/langfuse-prompts.ts diff` before deploying (exit 1 = out of sync).
 
@@ -48,13 +51,31 @@ Kill switch: set `DAILY_SPEND_CAP_DOLLARS=0` or `LIVE_MODE=off`. Production retu
 rm /data/paused
 ```
 
+## Analytics events
+
+Only when `NEXT_PUBLIC_POSTHOG_KEY` is set (`app/analytics.ts`; the footer then says "We log what you search to improve the tool."). Visitors stay anonymous (`person_profiles: "identified_only"`, never identified). Pageviews are captured on load and on client-side navigation. Replay masks all inputs, and the seller's own text, the plan text derived from it and the contact lines are blocked from replay and autocapture (`ph-no-capture`). No API keys, workspace id, cookies or contact details go in event properties.
+
+| event | where | properties |
+|---|---|---|
+| `seller_submitted` | profile read succeeds (app/page.tsx `submitProfile`) | `text` (trimmed, first 500 chars), `kind` (`url` / `handle` / `sentence`), `length` |
+| `profile_confirmed` | Continue on the profile step | none |
+| `plan_built` | plan built | `target_leads`, `max_cost` |
+| `run_started` | run created | `run_id` |
+| `run_decision` | approval answered | `decision` (`approve` / `approve_edited` / `decline`) |
+| `run_finished` | run reaches a terminal state in the UI, once per run id | `run_id`, `status`, `stop_reason`, `leads`, `spend_shown`, `duration_s` |
+| `run_error` | the "Lost contact" state shows | `run_id`, `message` |
+| `evidence_opened` | a lead's evidence opens | `company` |
+| `csv_downloaded` | Download CSV | `leads` |
+| `lead_feedback` | a lead vote is saved | `verdict` (`up` / `down`), `has_note` |
+| `new_search` / `adjust_targeting` | the two buttons on the results outcome | `run_id` |
+
 ## Online evals
 
-Design: SPEC-observability §5. With the Langfuse keys set and `LANGFUSE_TRACING_ENVIRONMENT=production`, every finished run gets its code-grader and outcome scores on its last trace, selected leads get a `lead-judge` observation for the managed judges, and handback/error/must-pass-failure/👎 traces go to the `review-queue` annotation queue. Selections are logged in `runs/<id>/online-evals.jsonl`, the judge budget in `/data/online-judge-<UTC date>.json`.
+Design: SPEC-observability Â§5. With the Langfuse keys set and `LANGFUSE_TRACING_ENVIRONMENT=production`, every finished run gets its code-grader and outcome scores on its last trace, selected leads get a `lead-judge` observation for the managed judges, and handback/error/must-pass-failure/ðŸ‘Ž traces go to the `review-queue` annotation queue. Selections are logged in `runs/<id>/online-evals.jsonl`, the judge budget in `/data/online-judge-<UTC date>.json`.
 
-Langfuse side (evaluators `judge_q1..q3`, rule `lead-judge (production)`, score configs, `review-queue`, calibration datasets and prompts) is configuration as code: `npx tsx eval/online/setup-langfuse.ts [--dry-run]` creates or updates it idempotently. The evaluators need an Anthropic LLM connection in Langfuse (Settings → LLM Connections); until one exists they stay paused (`LLM_CONNECTION_MISSING`). The rule is created disabled; enable it with `--enable-rule` only after the judge calibration is approved (`npx tsx eval/online/calibrate-judge.ts`, then `--run --max-dollars <n>`; paid).
+Langfuse side (evaluators `judge_q1..q3`, rule `lead-judge (production)`, score configs, `review-queue`, calibration datasets and prompts) is configuration as code: `npx tsx eval/online/setup-langfuse.ts [--dry-run]` creates or updates it idempotently. The evaluators need an Anthropic LLM connection in Langfuse (Settings â†’ LLM Connections); until one exists they stay paused (`LLM_CONNECTION_MISSING`). The rule is created disabled; enable it with `--enable-rule` only after the judge calibration is approved (`npx tsx eval/online/calibrate-judge.ts`, then `--run --max-dollars <n>`; paid).
 
-Worker: `.github/workflows/online-evals.yml` runs hourly and exports recent production runs through `/api/admin/runs/export`. It needs GitHub repository secrets `ADMIN_TOKEN`, `LANGFUSE_PUBLIC_KEY`, and `LANGFUSE_SECRET_KEY`. It needs repository variable `APP_URL`, plus optional `LANGFUSE_BASE_URL` and `DAILY_SPEND_CAP_DOLLARS`. `ADMIN_TOKEN` must be identical on Railway and in GitHub. Dry run against the live app: `APP_URL=… ADMIN_TOKEN=… GITHUB_TOKEN=… GITHUB_REPOSITORY=owner/repo npx tsx eval/online/worker.ts --dry-run`.
+Worker: `.github/workflows/online-evals.yml` runs hourly and exports recent production runs through `/api/admin/runs/export`. It needs GitHub repository secrets `ADMIN_TOKEN`, `LANGFUSE_PUBLIC_KEY`, and `LANGFUSE_SECRET_KEY`. It needs repository variable `APP_URL`, plus optional `LANGFUSE_BASE_URL` and `DAILY_SPEND_CAP_DOLLARS`. `ADMIN_TOKEN` must be identical on Railway and in GitHub. Dry run against the live app: `APP_URL=â€¦ ADMIN_TOKEN=â€¦ GITHUB_TOKEN=â€¦ GITHUB_REPOSITORY=owner/repo npx tsx eval/online/worker.ts --dry-run`.
 
 `GET /api/status?workspaceId=<anonymous-id>` is rate-limited and returns:
 

@@ -115,10 +115,12 @@ export type RunState = {
   /** `finish` was held back once to offer `remember`. */
   rememberNudged?: boolean;
   /**
-   * The contacts phase (src/agent/loop.ts contactsPhaseTurn): entered when the target is reached while some
-   * accepted lead has no `contacts` yet. Bounded by turns and by Exa dollars spent since it started.
+   * The contacts phase (src/agent/loop.ts contactsPhaseTurn): entered when the target is reached, or when discovery
+   * stops on its budget (the money left is held for lookups), while some accepted lead has no `contacts` yet.
+   * Bounded by turns and by Exa dollars spent since it started. `trigger` is why it began (absent on state written
+   * before the budget trigger existed: target_leads). A phase begun on "budget" ends the run when it ends.
    */
-  contactsPhase?: { startedAtTurn: number; maxTurns: number; turnsUsed: number; budgetDollars: number; exaAtStart: number };
+  contactsPhase?: { startedAtTurn: number; maxTurns: number; turnsUsed: number; budgetDollars: number; exaAtStart: number; trigger?: "target_leads" | "budget" };
   /**
    * The last real count_tokens result, keyed by model + message count + system/tools hash, so a resumed
    * or retried step does not measure the same request twice (src/agent/context.ts).
@@ -266,6 +268,9 @@ export function repairDanglingToolUses(state: Pick<RunState, "messages" | "statu
 }
 
 /** Submit-stage rejections plus lookup-stage screening, one count per (company, code). */
+/** Most rejection reasons a handback lists (validHandback accepts up to 4 from the model). */
+export const HANDBACK_TOP_REASONS = 4;
+
 export function rejectionCounts(state: Pick<RunState, "rejected" | "screened">): Array<{ code: string; count: number }> {
   const seen = new Set<string>();
   const map = new Map<string, number>();

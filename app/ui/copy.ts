@@ -524,10 +524,11 @@ export function suggestionPatch(s: Handback["suggestions"][number], cards: CardS
   }
 }
 
+/** The results headline counts the leads on screen. A stored shortfall string is only a fallback when the target is unknown (runs saved before code wrote it may say leads missing, not found). */
 export function shortfallHeadline(shortfall: string, leadsFound: number, target?: number): string {
+  if (target !== undefined) return `Found ${leadsFound} of the ${target} leads you asked for`;
   const m = /^(\d+)\s+of\s+(\d+)$/.exec(shortfall.trim());
   if (m) return `Found ${m[1]} of the ${m[2]} leads you asked for`;
-  if (target !== undefined) return `Found ${leadsFound} of the ${target} leads you asked for`;
   return shortfall;
 }
 
@@ -754,6 +755,11 @@ export const TRACE = {
 } as const;
 
 /** Strings of the run view itself (app/ui/RunView.tsx and its parts). Same voice as TRACE. */
+/** Shown in the page footer only when analytics is on. */
+export const ANALYTICS_COPY = {
+  disclosure: "We log what you search to improve the tool.",
+};
+
 export const RUN = {
   /* run header and checkpoint */
   pausedAt: (step: number, spent: number): string => (step > 0 ? `Paused by you at step ${int(step)} · ${money(spent)} spent` : `Paused by you · ${money(spent)} spent`),
@@ -810,6 +816,9 @@ export const CONTACTS = {
   /* lead row */
   heading: "Who to reach",
   profile: "profile",
+  /** No profile link was found: a LinkedIn people search by name and company (a plain link; nothing is fetched). */
+  searchProfile: "find on LinkedIn",
+  searchProfileLabel: (name: string, company: string): string => `Search LinkedIn for ${name} at ${company}`,
   inferred: "inferred from a public profile",
   /** Tooltip on an inferred contact that only an old press page names: the title is as that page wrote it. */
   staleTitle: (role: string): string => `An old public page gave this title (fits ${role}); nothing recent confirms it.`,

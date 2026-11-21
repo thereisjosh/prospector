@@ -5,14 +5,17 @@ import { flushSync } from "react-dom";
 import { Trace, TraceLine, TraceTitle } from "@/components/ui/trace";
 import type { AgentEvent } from "../src/agent/events";
 import type { CardSet } from "../src/planner/cards";
+import { sellerSubmittedProps, track } from "./analytics";
 import { AboutDialog } from "./ui/AboutDialog";
+import { useAnalyticsOn } from "./ui/AnalyticsProvider";
 import { mergeBySeq, subscribeRunEvents } from "./ui/live-events";
 import { CardsStep, applyAlternative, withBuyerRoles } from "./ui/CardsStep";
 import { ContractStep } from "./ui/ContractStep";
 import { MemoryPanel, type LastRun } from "./ui/Memory";
 import { RunView, type Decision } from "./ui/RunView";
+import { shownSpend } from "./ui/RunSide";
 import { StartStep } from "./ui/StartStep";
-import { allowanceLine, DESCRIBE_COPY, httpErrorMessage, screenedFrom, uniq, type AllowanceView, type HttpErrorKind, type Screened } from "./ui/copy";
+import { ANALYTICS_COPY, allowanceLine, DESCRIBE_COPY, httpErrorMessage, screenedFrom, uniq, type AllowanceView, type HttpErrorKind, type Screened } from "./ui/copy";
 import { type ContractView, type SuggestionPatch } from "./ui/copy";
 import { AlertIcon, ArrowUpRight, Crosshair, Moon, Sun } from "./ui/parts";
 import {
@@ -45,9 +48,12 @@ const STEP_PAUSE_MS = 400;
 type Caps = { visitorRuns: number; visitorDollars: number };
 type StatusResponse = { visitor?: AllowanceView; caps?: Caps; liveAvailable?: boolean };
 
+const LOST_CONTACT = "Lost contact with the agent. Your results so far are safe.";
+
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 export default function Page() {
+  const analyticsOn = useAnalyticsOn();
   const [demo, setDemo] = useState(false);
   const [dark, setDark] = useState(false);
   const [liveAvailable, setLiveAvailable] = useState(true);
@@ -107,6 +113,8 @@ export default function Page() {
   const headingRef = useRef<HTMLHeadingElement>(null);
   // Seqs already in runEvents: the live feed and the step responses deliver the same events.
   const seenSeqRef = useRef<Set<number>>(new Set());
+  // When this page created the run, for run_finished's duration.
+  const runStartedAtRef = useRef<number | null>(null);
 
   /* ---------- boot ---------- */
 
@@ -175,13 +183,15 @@ export default function Page() {
 
   /* ---------- step 1: profile ---------- */
 
-  async function submitProfile(text: string, opts: { fromDescription?: boolean; asName?: boolean } = {}) {
+  async function submitProfile(text: string, opts: { fromDescription?: boolean; asName?: boolean; skipTrack?: boolean } = {}) {
     const value = text.trim();
     if (!value) return;
     setProfileBusy(true);
     setProfileError("");
     try {
       const res = await api<ProfileResponse>("/api/planner/profile", { body: { input: value, ...(opts.asName ? { asName: true } : {}) } });
+      // What the seller typed (not a candidate they picked, nor a business name they were asked for).
+      if (!opts.asName && !opts.skipTrack) track("seller_submitted", sellerSubmittedProps(value));
       setAskName(false);
       if (res.kind === "candidates" || res.kind === "instagram") {
         setCandidates(res.candidates);
@@ -249,6 +259,7 @@ export default function Page() {
       const res = await api<PlanResult>("/api/planner/plan", { body: { cards: from } });
       setPlan(res);
       setStep("contract");
+      track("plan_built", { target_leads: targetLeads, max_cost: maxSpend });
       return true;
     } catch (error) {
       setPlanError(errorCopy(error, "planner", "We couldn't turn these cards into a plan. Try again, or loosen a card."));
@@ -303,7 +314,8 @@ export default function Page() {
         }
         if (stopRef.current) setPausedByUser(true);
       } catch {
-        setRunError("Lost contact with the agent. Your results so far are safe.");
+        setRunError(LOST_CONTACT);
+        track("run_error", { run_id: id, message: LOST_CONTACT });
       } finally {
         loopRef.current = false;
         setStepping(false);
@@ -322,6 +334,8 @@ export default function Page() {
         body: { plan: plan.plan, targetLeads, maxCostDollars: maxSpend },
       });
       setRunId(res.id);
+      runStartedAtRef.current = Date.now();
+      track("run_started", { run_id: res.id });
       setSnapshot(null);
       setRunEvents([]);
       setStreaming(null);
@@ -347,6 +361,7 @@ export default function Page() {
       // The decision route binds the answer to the specific pending request.
       const toolUseId = snapshot?.pendingApproval?.toolUseId;
       const res = await api<StepResponse>(`/api/runs/${encodeURIComponent(runId)}/decision`, { body: { ...decision, toolUseId } });
+      track("run_decision", { decision: !decision.approve ? "decline" : decision.revisedValue !== undefined ? "approve_edited" : "approve" });
       pushEvents(res.events);
       await refreshSnapshot(runId);
       void runLoop(runId);
@@ -373,6 +388,7 @@ export default function Page() {
         },
       });
       setFeedback((f) => ({ ...f, [company]: { ...next, sending: false, sent: true, open: false } }));
+      track("lead_feedback", { verdict: next.verdict, has_note: !!next.reason?.trim() });
       void refreshMemory();
     } catch {
       setFeedback((f) => ({ ...f, [company]: { ...next, sending: false, error: true } }));
@@ -465,6 +481,19 @@ export default function Page() {
 
   const resultsHead = step === "run" && !!finishedRun;
 
+  // One run_finished per run id (track dedupes), however often the snapshot refreshes.
+  useEffect(() => {
+    if (!snapshot || !finishedRun) return;
+    track("run_finished", {
+      run_id: snapshot.id,
+      status: snapshot.status,
+      stop_reason: snapshot.stopReason,
+      leads: snapshot.leads.length,
+      spend_shown: shownSpend(snapshot.spend),
+      duration_s: runStartedAtRef.current === null ? undefined : Math.round((Date.now() - runStartedAtRef.current) / 1000),
+    });
+  }, [snapshot, finishedRun]);
+
   return (
     <div className="app">
       <header className="nav">
@@ -544,13 +573,16 @@ export default function Page() {
             editing={editingProfile}
             setEditing={setEditingProfile}
             onSubmit={() => submitProfile(input)}
-            onPickCandidate={(domain) => submitProfile(domain)}
+            onPickCandidate={(domain) => submitProfile(domain, { skipTrack: true })}
             onDescribeInstead={() => {
               setCandidates(null);
               setAskDescription(true);
             }}
             onDescribe={() => submitProfile(description, { fromDescription: true })}
-            onContinue={loadCards}
+            onContinue={() => {
+              track("profile_confirmed");
+              void loadCards();
+            }}
           />
         )}
 
@@ -641,6 +673,7 @@ export default function Page() {
         <a className="rail-link" href="https://github.com/thereisjosh/prospector" target="_blank" rel="noopener noreferrer">
           View source <ArrowUpRight />
         </a>
+        {analyticsOn && <span className="muted small">{ANALYTICS_COPY.disclosure}</span>}
       </footer>
     </div>
   );

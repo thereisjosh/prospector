@@ -25,7 +25,7 @@ import { contactsToolResult, findContacts, type LeadContacts } from "../contacts
 import type { LeadChecker } from "./gate-port";
 import { NOTE_TAG_LIMIT, NOTE_TEXT_LIMIT, NOTE_TTL_MS, type Note } from "./memory";
 import type { SeenInfo } from "./recall";
-import type { Handback, RunState } from "./state";
+import { HANDBACK_TOP_REASONS, rejectionCounts, type Handback, type RunState } from "./state";
 
 export type ToolDeps = {
   checkLead: LeadChecker;
@@ -934,7 +934,14 @@ async function executeToolInner(
       summary = `remembered ${notes.length}/${REMEMBER_MAX_PER_RUN} · tags=${note.tags.join(",")} · ${note.text.slice(0, 120)}`;
     } else if (tool.name === "finish") {
       state.summary = String(input.summary ?? "");
-      const handback = validHandback(input.handback);
+      const parsed = validHandback(input.handback);
+      // The shortfall is a count code knows: the model has written it both as leads found and as leads missing
+      // ("2 of 10" with 8 leads, run f19e666c), so code overwrites it.
+      // Same for the reasons: the model's own labels ("too small (under 50 employees)") are not codes the UI can
+      // word, so all of them showed as "didn't pass the checks"; code's counts of its own rejection codes replace them.
+      const handback = parsed
+        ? { ...parsed, shortfall: `${state.leads.length} of ${state.contract.targetLeads}`, top_reasons: rejectionCounts(state).slice(0, HANDBACK_TOP_REASONS) }
+        : undefined;
       if (handback) state.handback = handback;
       if (!state.rememberNudged && (state.notes?.length ?? 0) === 0 && (state.leads.length > 0 || state.handback)) {
         // One-time offer: the run is about to end without leaving a lesson. The summary and handback above are kept.

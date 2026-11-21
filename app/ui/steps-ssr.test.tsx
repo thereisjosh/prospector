@@ -125,7 +125,7 @@ describe("Approve: the contract surface", () => {
     const html = render();
     expect(html).toContain("Starting search ideas");
     expect(html).toContain('data-slot="trace-collapsible-trigger"');
-    expect(html).toContain("Estimated cost: about $0.84");
+    expect(html).toContain("Estimated cost: about $0.90");
     expect(html).toContain('<label for="spend">Stop spending at</label>');
     expect(html).toContain('<label for="target">Find</label>');
     expect(html).not.toMatch(/class="[^"]*\bpanel\b/);

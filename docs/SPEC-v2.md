@@ -56,7 +56,7 @@ Response shapes: `{ kind: "candidates", source: "social"|"biolink"|"maps"|"name"
 | Funding stage | trigger (hard-ish) or extracted gate (estimated) | estimated |
 | Geography | query text + HQ gate | estimated |
 | Exclusions (customers, competitors, giants) | `excludeDomains` + name denylist | **hard** |
-| Who to reach (buyer roles; pre-filled by code from the profile's `buyer_roles`) | not a search lever: `buyerRoles` on the plan; contact titles are checked against it by code (`titleMatchesRole`, docs/SPEC-agent.md §5b). Why-text: "Code checks titles against these roles; nothing is scraped from LinkedIn." | code check |
+| Who to reach (buyer roles; from the profile's `buyer_roles`, or, when the profile has none (a typed sentence), from the cards model's `suggestedBuyerRoles`; shown as chips the user edits on the Target step before anything runs) | not a search lever: `buyerRoles` on the plan; contact titles are checked against it by code (`titleMatchesRole`, docs/SPEC-agent.md §5b). Why-text: "Code checks titles against these roles; nothing is scraped from LinkedIn." | code check |
 
 ## 4. SearchPlan (replaces hand-written IcpConfig)
 

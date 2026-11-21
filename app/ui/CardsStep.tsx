@@ -228,7 +228,7 @@ function Row({ title, kind, why, children }: { title: string; kind?: "hard" | "e
               Why this?
             </CollapsibleTrigger>
             <CollapsibleContent className="pr-why-panel">
-              <p>{why}</p>
+              <p className="ph-no-capture">{why}</p>
             </CollapsibleContent>
           </Collapsible>
         )}

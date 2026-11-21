@@ -11,7 +11,7 @@ import type { AgentEvent } from "../../src/agent/events";
 import { codeHandback } from "../../src/agent/loop";
 import type { RunState } from "../../src/agent/state";
 import type { CardSet } from "../../src/planner/cards";
-import { HANDBACK, MEMORY_COPY, REASON_CODES, handbackReason, handbackWhy, plainText, reasonGroup } from "./copy";
+import { HANDBACK, MEMORY_COPY, REASON_CODES, handbackReason, handbackWhy, plainText, reasonGroup, shortfallHeadline } from "./copy";
 import { MemoryPanel, budgetStoppedWithoutNote, type LastRun } from "./Memory";
 import { RunView } from "./RunView";
 import type { MemoryView, RunSnapshot } from "./types";
@@ -20,7 +20,10 @@ const ROOT = join(import.meta.dirname, "..", "..");
 const DEMO = join(ROOT, "eval", "demo", "run");
 const events = readFileSync(join(DEMO, "events.jsonl"), "utf8").trim().split("\n").map((l) => JSON.parse(l) as AgentEvent);
 const state = JSON.parse(readFileSync(join(DEMO, "state.json"), "utf8"));
+// The memory-eval 2026-10-15b run the demo replayed until 2026-11-21: its handback carries the legacy prose these tests cover.
+const legacyRun = JSON.parse(readFileSync(join(ROOT, "eval", "results", "memory-eval-2026-10-15b", "S1", "B_agent_opus", "2", "state.json"), "utf8"));
 const contract = state.initialContract ?? state.contract;
+const legacyContract = legacyRun.initialContract ?? legacyRun.contract;
 const cards = JSON.parse(readFileSync(join(ROOT, "eval", "demo", "planner", "cards.json"), "utf8")).cards as CardSet;
 const noop = () => undefined;
 
@@ -89,20 +92,29 @@ describe("handback: gate codes are translated, never shown", () => {
   });
 
   it("the demo recording's legacy prose renders as words (the leak that shipped)", () => {
-    const legacy = state.handback.suggestions.find((s: { why: string }) => s.why.includes("quote_not_in_page"));
+    const legacy = legacyRun.handback.suggestions.find((s: { why: string }) => s.why.includes("quote_not_in_page"));
     expect(legacy).toBeDefined(); // the fixture still carries the old prose: this is the backwards-compatible path
-    expect(handbackReason(legacy, state.handback)).toEqual({ code: "quote_not_in_page", count: 3 });
-    const why = handbackWhy(legacy, contract, state.handback);
+    expect(handbackReason(legacy, legacyRun.handback)).toEqual({ code: "quote_not_in_page", count: 3 });
+    const why = handbackWhy(legacy, legacyContract, legacyRun.handback);
     expect(why).toBe("3 candidates were turned down because: quote not found on the source page. No single change to the plan addresses that.");
     expect(leaks(why)).toEqual([]);
   });
 
+  it("the current demo recording\u0027s handback (model-worded reasons, no patch to apply) renders without codes", () => {
+    expect(state.handback.shortfall).toBe("2 of 10"); // recorded before code wrote the count: the model wrote the missing count
+    // The headline counts the leads on screen whenever the target is known, whatever the stored string says.
+    expect(shortfallHeadline(state.handback.shortfall, state.leads.length, 10)).toBe(`Found ${state.leads.length} of the 10 leads you asked for`);
+    expect(shortfallHeadline("2 of 10", 8)).toBe("Found 2 of the 10 leads you asked for"); // no target: the stored string is all there is
+    expect(state.handback.suggestions.length).toBeGreaterThan(0);
+    for (const s of state.handback.suggestions) expect(leaks(handbackWhy(s, contract, state.handback)), s.why).toEqual([]);
+  });
+
   it("the loop emits { code, count } next to the prose, and the UI words it from the code", () => {
-    const hb = codeHandback(state as RunState);
+    const hb = codeHandback(legacyRun as RunState);
     const generic = hb.suggestions.find((s) => s.reason?.code === "quote_not_in_page");
     expect(generic).toMatchObject({ field: "none", reason: { code: "quote_not_in_page", count: 3 } });
     expect(generic!.why).toContain("quote_not_in_page"); // kept for older readers
-    expect(handbackWhy(generic!, contract, hb)).toBe(HANDBACK.reasonWhy({ code: "quote_not_in_page", count: 3 }, contract));
+    expect(handbackWhy(generic!, legacyContract, hb)).toBe(HANDBACK.reasonWhy({ code: "quote_not_in_page", count: 3 }, legacyContract));
     // A required gate is worded from the contract's own question.
     const gate = contract.gateFields[0];
     const gateWhy = HANDBACK.reasonWhy({ code: `required_gate:${gate.key}`, count: 4 }, contract);
@@ -137,7 +149,9 @@ describe("handback: gate codes are translated, never shown", () => {
   });
 
   it("handback suggestions are Suggestion rows: one-click when a patch exists, never a primary button per row", () => {
-    const html = run(snapshot(), events, { cards });
+    // The 2026-11-21 recording's only suggestion is advice with no plan change, so the one-click case is shown on a handback that carries a patch.
+    const withPatch = { ...state.handback, suggestions: [{ field: "employeeRange", value: { min: 30, max: 1000 }, why: "Many candidates turned down on size were smaller than 50 employees." }] };
+    const html = run(snapshot({ handback: withPatch }), events, { cards });
     expect(html).toContain('class="pr-handback-row"');
     expect(html).toMatch(/pr-suggestion[^"]*"[^>]*>Apply and run again<\/button>/);
     const outcome = html.slice(html.indexOf('id="outcome-h"'), html.indexOf('id="leads-h"'));
@@ -222,10 +236,13 @@ describe("MemoryPanel (SSR): groups, provenance, budget-stop line", () => {
     expect(budgetStoppedWithoutNote({ stopReason: "budget", selfNotes: 0 })).toBe(true);
   });
 
-  it("the demo recording saved one note, so the demo shows no budget line", () => {
+  it("the demo recording stopped on budget and saved no note, so the demo shows the budget line", () => {
     const selfNotes = events.filter((e) => e.kind === "tool_call" && e.tool === "remember" && e.is_error !== true).length;
     expect(state.stopReason).toBe("budget");
-    expect(selfNotes).toBe(1);
-    expect(budgetStoppedWithoutNote({ stopReason: state.stopReason, selfNotes })).toBe(false);
+    expect(selfNotes).toBe(0);
+    expect(budgetStoppedWithoutNote({ stopReason: state.stopReason, selfNotes })).toBe(true);
+    // a note saved on a budget stop suppresses the line, and so does finishing on its own
+    expect(budgetStoppedWithoutNote({ stopReason: "budget", selfNotes: 1 })).toBe(false);
+    expect(budgetStoppedWithoutNote({ stopReason: "finish", selfNotes })).toBe(false);
   });
 });
