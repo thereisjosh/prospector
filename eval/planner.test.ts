@@ -4,6 +4,7 @@ import { validatePlan } from "../src/plan";
 import { CostGuard } from "../src/exa";
 import { classifyInput, compilePlan, profileSeller, resolveToSite, suggestCards, type CardSet } from "../src/planner";
 import { extractFirstJsonObject, PlannerTokenLimitError } from "../src/planner/claude";
+import { CARDS_SYSTEM_PROMPT, validateCards } from "../src/planner/cards";
 
 function probeUrls(id: string): string[] {
   const p = probe.probes.find((item) => item.id === id);
@@ -115,6 +116,51 @@ describe("suggestCards", () => {
     expect(client.messages.create).toHaveBeenCalledTimes(2);
     expect(result.cards.whyNow.signalTypes).toEqual(["new_location", "hiring_ops"]);
     expect(result.cost).toBeCloseTo(0.028, 6);
+  });
+});
+
+describe("suggestCards buyer roles", () => {
+  const profileWith = (buyer_roles: string[]) => ({ offering: "WMS for 3PLs", buyer_roles, geo_served: [], competitors: [], existing_customers: [] });
+  const run = async (raw: unknown, buyer_roles: string[] = []) => {
+    const client = fakeClient([raw]);
+    const result = await suggestCards(profileWith(buyer_roles), { client });
+    expect(client.messages.create).toHaveBeenCalledTimes(1);
+    return result.cards;
+  };
+
+  it("profile roles win over the model's suggestion", async () => {
+    const cards = await run({ ...validCards(), suggestedBuyerRoles: ["Owner"] }, ["COO", "VP of Operations"]);
+    expect(cards.buyerRoles).toEqual(["COO", "VP of Operations"]);
+  });
+
+  it("empty profile roles use the suggestion, cleaned, deduped and capped at 3", async () => {
+    const cards = await run({ ...validCards(), suggestedBuyerRoles: ["  VP of  Operations ", "vp of operations", "", "123", "Head of Growth", "Owner", "CFO"] });
+    expect(cards.buyerRoles).toEqual(["VP of Operations", "Head of Growth", "Owner"]);
+  });
+
+  it.each([["a string", "Owner"], ["numbers", [1, 2]], ["an object", { a: "Owner" }], ["null", null]])("a malformed suggestion (%s) is dropped without error", async (_label, bad) => {
+    const cards = await run({ ...validCards(), suggestedBuyerRoles: bad });
+    expect(cards.buyerRoles).toEqual([]);
+  });
+
+  it("a missing suggestion gives []", async () => {
+    expect((await run(validCards())).buyerRoles).toEqual([]);
+  });
+
+  it("explicit empty buyerRoles on the cards stay empty", async () => {
+    const cards = await run({ ...validCards(), buyerRoles: [], suggestedBuyerRoles: ["Owner"] });
+    expect(cards.buyerRoles).toEqual([]);
+  });
+
+  it("suggestedBuyerRoles never appears on the returned CardSet or the validated value", async () => {
+    const cards = await run({ ...validCards(), suggestedBuyerRoles: ["Owner"] });
+    expect("suggestedBuyerRoles" in cards).toBe(false);
+    const validated = validateCards({ ...validCards(), suggestedBuyerRoles: ["Owner"] });
+    expect(validated.ok && "suggestedBuyerRoles" in validated.value).toBe(false);
+  });
+
+  it("the prompt asks for suggestedBuyerRoles in the example", () => {
+    expect(CARDS_SYSTEM_PROMPT).toContain('"suggestedBuyerRoles"');
   });
 });
 
