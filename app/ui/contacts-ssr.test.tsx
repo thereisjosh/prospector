@@ -190,6 +190,21 @@ describe("Who to reach: evidence date and stale press", () => {
     expect(html).not.toContain("inferred from a public profile");
   });
 
+  it("an index-only contact with a source note shows its role bucket unquoted: no page wrote that title", () => {
+    const lead: AcceptedLead = {
+      ...dated,
+      contacts: {
+        ...dated.contacts!,
+        contacts: [{ name: "Bob Lee", tier: "inferred", role: "VP of Operations", why: "VP of Operations", profile_url: "https://www.linkedin.com/in/bob-lee", found_via: "people_index", code: "contact_unverified", note: "source not a company or news page" }],
+      },
+    };
+    const html = renderToStaticMarkup(h(WhoToReach, { lead, demo: false, onShowEvidence: noop }));
+    expect(html).toContain(">Bob Lee<");
+    expect(html).not.toContain("“VP of Operations”");
+    expect(html).toContain(">source not a company or news page</span>");
+    expect(html).toMatch(/title="Listed in a public people index under a role you approved \(VP of Operations\)/);
+  });
+
   it("the evidence row carries the page date next to the host; an undated page shows only the host", () => {
     const detail = evidenceFor(dated, contract);
     expect(detail.contacts).toEqual([expect.objectContaining({ source: "prnewswire.com", published: "2019-06-03" })]);

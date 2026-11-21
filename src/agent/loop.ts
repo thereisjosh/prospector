@@ -12,7 +12,7 @@ import { appendRunToMemory, squashName } from "./memory";
 import { ensureAgentPrompt } from "./prompts";
 import { promptLink } from "./prompt-store";
 import { runEnded } from "./online-eval";
-import { rejectionCounts, type RunState, type Handback } from "./state";
+import { HANDBACK_TOP_REASONS, rejectionCounts, type RunState, type Handback } from "./state";
 import { APPROVAL_TOOLS, agentTools, executeTool, type ToolDeps } from "./tools";
 import { CONTACT_LIMITS } from "../contacts";
 
@@ -828,7 +828,7 @@ export async function handback(state: RunState, deps: LoopDeps, events?: AgentEv
       const text = response.content.find((b) => b.type === "text")?.text ?? "";
       const parsed = parseHandback(text);
       // The shortfall is code's count (leads found of target), never the model's wording of it.
-      state.handback = parsed ? { ...parsed, shortfall: fallback.shortfall } : fallback;
+      state.handback = parsed ? { ...parsed, shortfall: fallback.shortfall, top_reasons: rejectionCounts(state).slice(0, HANDBACK_TOP_REASONS) } : fallback;
       return state.handback;
     } catch {
       state.handback = fallback;

@@ -25,7 +25,7 @@ import { RUNS_DIR } from "../agent/config";
 import { appendEventLines, type AgentEvent } from "../agent/events";
 import { appendRunToMemory, loadMemory, NOTE_TTL_MS, squashName } from "../agent/memory";
 import type { SeenInfo } from "../agent/recall";
-import { screenedByCode, type AcceptedLead, type CandidateLead, type Handback, type RunState, type RunStatus } from "../agent/state";
+import { HANDBACK_TOP_REASONS, rejectionCounts, screenedByCode, type AcceptedLead, type CandidateLead, type Handback, type RunState, type RunStatus } from "../agent/state";
 import { seedDemoMemory } from "./memory";
 import { DEMO_RUN_PREFIX, demoDelay, demoDir } from "./mode";
 
@@ -308,7 +308,12 @@ function snapshotAt(session: Session, rec: { state: RecordedState; events: Agent
     : { claude, exa, total: claude + exa };
   const handback =
     finished && rec.state.handback
-      ? { ...rec.state.handback, shortfall: rec.state.handback.shortfall.replace(/^\d+(?= of \d+$)/, String(finishedLeads.length)) }
+      ? {
+          ...rec.state.handback,
+          shortfall: rec.state.handback.shortfall.replace(/^\d+(?= of \d+$)/, String(finishedLeads.length)),
+          // Recordings made before code wrote the reasons carry the model's own labels; recount from the recording.
+          top_reasons: rejectionCounts(rec.state).slice(0, HANDBACK_TOP_REASONS),
+        }
       : undefined;
   return {
     id: session.id,

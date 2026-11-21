@@ -738,6 +738,12 @@ describe("demo: the current recording (2026-11-21, named contacts, fresh workspa
     for (const none of ["Porter Logistics", "Hollingsworth Logistics"]) expect(snap.leads.find((l) => l.company === none)!.contacts!.contacts).toEqual([]); // looked up, found no one
     expect(snap.contract.buyerRoles).toEqual(["VP of Operations", "Warehouse general manager"]);
     expect(snap.handback?.shortfall).toBe("8 of 10"); // the recording says "2 of 10" (the model wrote the missing count); the replay rewrites it to the leads found
+    // The recording's reasons are the model's own labels; the replay recounts code's rejection codes, so the results
+    // line names distinct reasons instead of four "didn't pass the checks".
+    const codes = (snap.handback?.top_reasons ?? []).map((r) => r.code);
+    expect(codes.length).toBeGreaterThan(1);
+    expect(new Set(codes).size).toBe(codes.length);
+    expect(codes.every((c) => /^[a-z_]+$/.test(c))).toBe(true);
     expect(snap.spend.total).toBeCloseTo(state.spend.total, 10);
     expect(snap.stopReason).toBe("budget");
   });

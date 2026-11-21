@@ -835,9 +835,11 @@ describe("agent loop", () => {
       // The model wrote "6 of 10"; code stores its own count (leads found of target): run f19e666c's model wrote
       // "2 of 10" meaning 2 missing with 8 leads on screen.
       expect(s.leads.length).not.toBe(6);
+      // The reasons are code's counts of its own rejection codes (the model wrote "Too small"/"Too big", labels the UI
+      // cannot word: the demo showed four "didn't pass the checks" in a row). This state rejected nothing.
       expect(s.handback).toEqual({
         shortfall: `${s.leads.length} of 10`,
-        top_reasons: [{ code: "Too small", count: 10 }, { code: "Too big", count: 20 }],
+        top_reasons: [],
         suggestions: [
           { field: "employeeRange", value: { min: 25, max: 500 }, why: "many small" },
           { field: "none", value: "n/a", why: "nothing else helps" },

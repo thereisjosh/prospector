@@ -693,10 +693,13 @@ export function WhoToReach({ lead, demo, onShowEvidence }: { lead: AcceptedLead;
                 </li>
               );
             }
+            // Only a stale or role-changed contact carries a title a page actually wrote; for the others `why` is the
+            // role bucket they were listed under, which must not be shown in quotation marks as if quoted.
+            const pageTitle = c.code === "contact_stale" || c.code === "contact_role_changed";
             return (
-              <li key={`${c.tier}:${c.name}`} className="pr-contact" data-tier="inferred" title={c.note ? CONTACTS.staleTitle(c.role) : CONTACTS.inferredTitle(c.role)}>
+              <li key={`${c.tier}:${c.name}`} className="pr-contact" data-tier="inferred" title={pageTitle ? CONTACTS.staleTitle(c.role) : CONTACTS.inferredTitle(c.role)}>
                 <span className="pr-contact-name">{c.name}</span>
-                {c.note && (
+                {pageTitle && (
                   <>
                     <span className="pr-contact-sep" aria-hidden="true">·</span>
                     <span className="pr-mono pr-contact-title">“{c.why}”</span>

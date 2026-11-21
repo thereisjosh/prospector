@@ -268,6 +268,9 @@ export function repairDanglingToolUses(state: Pick<RunState, "messages" | "statu
 }
 
 /** Submit-stage rejections plus lookup-stage screening, one count per (company, code). */
+/** Most rejection reasons a handback lists (validHandback accepts up to 4 from the model). */
+export const HANDBACK_TOP_REASONS = 4;
+
 export function rejectionCounts(state: Pick<RunState, "rejected" | "screened">): Array<{ code: string; count: number }> {
   const seen = new Set<string>();
   const map = new Map<string, number>();
