@@ -95,11 +95,11 @@ describe("RunView (SSR)", () => {
   });
 
   it("after the run: outcome first, no shimmer, provenance trace with the step count", () => {
-    const html = render(snapshot({ status: "stopped", stopReason: "budget", leads: state.leads, rejected: state.rejected, spend: state.spend, handback: state.handback }), events, { stepping: false });
+    const html = render(snapshot({ status: "stopped", stopReason: state.stopReason, leads: state.leads, rejected: state.rejected, spend: state.spend, handback: state.handback }), events, { stepping: false });
     expect(count(html, 'data-status="running"')).toBe(0);
-    expect(html.indexOf("Found 8 of the 10 leads you asked for")).toBeLessThan(html.indexOf('id="leads-h"'));
+    expect(html.indexOf("Found 5 of the 10 leads you asked for")).toBeLessThan(html.indexOf('id="leads-h"'));
     expect(html).toContain("How it got here");
-    expect(html).toContain("15 steps · $0.85");
+    expect(html).toContain("19 steps · $0.86");
     expect(html).toContain("Considered but not added");
   });
 
@@ -135,9 +135,9 @@ describe("evidence Code Block (SSR)", () => {
     const lead = state.leads[0];
     const html = renderToStaticMarkup(h(EvidenceBlock, { detail: evidenceFor(lead, contract) }));
     expect(html).toContain('data-slot="code-block"');
-    expect(html).toContain("Evidence · choosealbany.com · published Sep 18, 2026");
+    expect(html).toContain("Evidence · pressat.co.uk · published Nov 17, 2026");
     for (const label of ["Why now", "When", "Size", "Based in", "Must be true"]) expect(html).toContain(`>${label}<`);
-    expect(html).toContain(`“${lead.summary.signal_quote}”`.replace(/'/g, "&#x27;").replace(/"/g, "&quot;"));
+    expect(html).toContain(`“${lead.summary.signal_quote}”`.replace(/&/g, "&amp;").replace(/'/g, "&#x27;").replace(/"/g, "&quot;"));
     expect(html).toContain("quoted · within 100–1,000");
   });
 

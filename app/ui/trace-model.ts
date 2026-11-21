@@ -277,7 +277,8 @@ function toolCallLine(event: AgentEvent, id: string, ctx: Ctx): { line: TraceLin
     case "find_contacts": {
       const m = summary ? /verified=(\d+) · inferred=(\d+)/.exec(summary) : null;
       return {
-        line: line(id, "contacts", "search", CONTACTS.looking(str(input.company)), m ? { description: CONTACTS.found(Number(m[1]), Number(m[2])) } : {}),
+        // find_contacts takes no arguments (one lead per call, picked by the loop), so a result's summary is what names the company.
+        line: line(id, "contacts", "search", CONTACTS.looking(str(input.company) ?? (summary && summary.includes(": verified=") ? summary.slice(0, summary.lastIndexOf(": verified=")) : undefined)), m ? { description: CONTACTS.found(Number(m[1]), Number(m[2])) } : {}),
       };
     }
     case "submit_lead":

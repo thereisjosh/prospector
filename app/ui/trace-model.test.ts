@@ -37,6 +37,7 @@ function load(dir: string) {
 
 const demo = load(DEMO);
 const mem = load(MEM);
+const rec = load(DEMO_NOW);
 
 function all(lines: TraceLine[]): TraceLine[] {
   return lines.flatMap((l) => [l, ...all(l.children ?? [])]);
@@ -55,6 +56,7 @@ function statusAt(events: AgentEvent[], k: number): TraceSnapshot["status"] {
 describe.each([
   ["pilot 2026-10-12 S1/B_agent_opus/2 (the pre-quote recording)", demo],
   ["memory-eval 2026-10-15b S1/B_agent_opus/2", mem],
+  ["the demo recording (2026-11-21, with find_contacts)", rec],
 ])("traceModel: %s", (_name, { events, snapshot }) => {
   const tree = traceModel(events, snapshot);
 
@@ -259,8 +261,16 @@ describe("turn cost", () => {
 });
 
 describe("the demo fixture", () => {
-  it("is the memory-eval run, byte for byte", () => {
-    for (const f of ["events.jsonl", "state.json"]) expect(readFileSync(join(DEMO_NOW, f), "utf8")).toBe(readFileSync(join(MEM, f), "utf8"));
+  // eval/demo/run/ is the 2026-11-21 live run with named contacts (no longer the memory-eval run: that recording is MEM above).
+  it("is the 2026-11-21 contacts recording: run.json, state.json and events.jsonl agree on the run", () => {
+    const runJson = JSON.parse(readFileSync(join(DEMO_NOW, "run.json"), "utf8"));
+    const state = JSON.parse(readFileSync(join(DEMO_NOW, "state.json"), "utf8"));
+    expect(state.id).toBe("37c59dac-a58c-49eb-9a36-96da071328f2");
+    expect(runJson.runId).toBe(state.id);
+    expect(new Set(rec.events.map((e) => e.runId))).toEqual(new Set([state.id]));
+    expect(runJson.leads.map((l: { company: string }) => l.company)).toEqual(state.leads.map((l: { company: string }) => l.company));
+    expect(runJson.memoryBefore.seen).toEqual([]);
+    expect(state.leads.every((l: { contacts?: unknown }) => l.contacts !== undefined)).toBe(true);
   });
 });
 
@@ -361,7 +371,7 @@ describe("traceModel: tool_started (live ledger)", () => {
   });
 
   /** The demo recording as the live view receives it: the replay's tool_started lines included. */
-  const demoLive = pacedSchedule(mem.events).flatMap((s) => s.events);
+  const demoLive = pacedSchedule(rec.events).flatMap((s) => s.events);
 
   it.each([
     ["synthetic log", log],
@@ -370,16 +380,16 @@ describe("traceModel: tool_started (live ledger)", () => {
     expect(events.filter((e) => e.kind === "tool_started").length).toBeGreaterThan(0);
     for (let k = 1; k <= events.length; k += 1) {
       const status = statusAt(events, k);
-      const t = traceModel(events.slice(0, k), { ...mem.snapshot, status, ...(events === log ? { handback: undefined } : {}) });
+      const t = traceModel(events.slice(0, k), { ...rec.snapshot, status, ...(events === log ? { handback: undefined } : {}) });
       const running = flat(t).filter((l) => l.status === "running");
       expect(running.length, `after ${k} events (${status})`).toBe(status === "running" ? 1 : 0);
     }
   });
 
   it("the replayed demo log maps every event: nothing unmapped, every start resolved by the end", () => {
-    const tree = traceModel(demoLive, mem.snapshot);
+    const tree = traceModel(demoLive, rec.snapshot);
     expect(tree.unmapped).toBe(0);
     expect(flat(tree).filter((l) => l.inflight)).toHaveLength(0);
-    expect(demoLive.filter((e) => e.kind === "tool_started")).toHaveLength(mem.events.filter((e) => e.kind === "tool_call").length);
+    expect(demoLive.filter((e) => e.kind === "tool_started")).toHaveLength(rec.events.filter((e) => e.kind === "tool_call").length);
   });
 });

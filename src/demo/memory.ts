@@ -8,12 +8,13 @@ import { demoDir } from "./mode";
 /**
  * The demo workspace's memory: what the recorded run's workspace remembered when the run started.
  *
- * The recording (eval/demo/run/, memory-eval 2026-10-15b S1 rep 2) was the SECOND run in its workspace,
- * so it started with the companies the first run delivered. The harness saved that memory in
- * eval/demo/run/run.json (`memoryBefore`). Seeding a demo workspace with exactly those items makes the
- * replay and the rail agree with the recording: the run recalls the same 7 companies, its two
- * "Skipped …, delivered … in an earlier run" lookups are the recorded ones, and all 8 recorded leads
- * are delivered. Nothing is invented: every item, run id and date is the recording's own.
+ * The harness saves that memory in eval/demo/run/run.json (`memoryBefore`). Seeding a demo workspace
+ * with exactly those items makes the replay and the rail agree with the recording. The current recording
+ * (2026-11-21, a live run in a fresh workspace) started with no memory, so nothing is seeded and the
+ * replay recalls and skips nothing. A recording made as a later run in its workspace (memory-eval
+ * 2026-10-15b S1 rep 2 was the demo's until 2026-11-21: it recalled 7 companies and skipped 2 lookups)
+ * seeds those items. Nothing is invented: every item, run id and date is the recording's own.
+ * Pinned against that older recording in eval/memory.test.ts (via DEMO_DIR).
  * Seeded once per workspace (marker file), so "Clear memory" stays cleared.
  */
 

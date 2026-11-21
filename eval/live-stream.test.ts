@@ -453,14 +453,14 @@ describe("demo run: the replay writes its events as it paces them", () => {
         await sleep(5);
       }
     })();
-    const stepped = await demoStep(id); // turn 2 of the recording: three searches
+    const stepped = await demoStep(id); // turn 2 of the recording: two searches
     await sleep(400);
     await body.cancel().catch(() => undefined);
     await watch;
     const toolCalls = arrivals.filter((a) => a.kind.startsWith("tool_call"));
     const starts = arrivals.filter((a) => a.kind.startsWith("tool_started"));
     expect(starts.length).toBe(toolCalls.length);
-    expect(toolCalls.length).toBeGreaterThanOrEqual(3);
+    expect(toolCalls.length).toBeGreaterThanOrEqual(2);
     // Every start lands before the first result, and results arrive spread out, not in one burst.
     expect(Math.max(...starts.map((s) => s.at))).toBeLessThanOrEqual(toolCalls[0]!.at);
     const gaps = toolCalls.slice(1).map((c, i) => c.at - toolCalls[i]!.at);

@@ -815,6 +815,9 @@ export const CONTACTS = {
   /* lead row */
   heading: "Who to reach",
   profile: "profile",
+  /** No profile link was found: a LinkedIn people search by name and company (a plain link; nothing is fetched). */
+  searchProfile: "find on LinkedIn",
+  searchProfileLabel: (name: string, company: string): string => `Search LinkedIn for ${name} at ${company}`,
   inferred: "inferred from a public profile",
   /** Tooltip on an inferred contact that only an old press page names: the title is as that page wrote it. */
   staleTitle: (role: string): string => `An old public page gave this title (fits ${role}); nothing recent confirms it.`,

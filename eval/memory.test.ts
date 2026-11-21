@@ -1,8 +1,8 @@
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { cp, mkdir, readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import { describe, expect, it, vi } from "vitest";
+import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 
 // Temp RUNS_DIR / WORKSPACES_DIR before any module reads them; never the real ./runs or ./workspaces.
 const tmp = vi.hoisted(() => {
@@ -592,9 +592,22 @@ describe("MemoryPanel", () => {
 });
 
 describe("demo: second workspace state and the skipped line", () => {
-  // The recording is the second run of its workspace; run.json keeps the memory it started with.
+  // The memory-recall recording (memory-eval 2026-10-15b S1 rep 2) was the demo's recording until 2026-11-21 (eval/demo/run/ is now
+  // a run with no memory). Seeding and recall still ship, so this describe pins that run as the demo fixture via DEMO_DIR.
+  // It was the second run of its workspace; its run.json keeps the memory it started with.
+  const fixture = join(tmp.root, "demo-memory-recording");
+  const savedDemoDir = process.env.DEMO_DIR;
+  beforeAll(async () => {
+    await mkdir(join(fixture, "run"), { recursive: true });
+    for (const f of ["state.json", "events.jsonl", "run.json"]) await cp(join(process.cwd(), "eval", "results", "memory-eval-2026-10-15b", "S1", "B_agent_opus", "2", f), join(fixture, "run", f));
+    process.env.DEMO_DIR = fixture;
+  });
+  afterAll(() => {
+    if (savedDemoDir === undefined) delete process.env.DEMO_DIR;
+    else process.env.DEMO_DIR = savedDemoDir;
+  });
   const recorded = async () => {
-    const dir = join(process.cwd(), "eval", "demo", "run");
+    const dir = join(fixture, "run");
     const rec = JSON.parse(await readFile(join(dir, "state.json"), "utf8"));
     const run = JSON.parse(await readFile(join(dir, "run.json"), "utf8"));
     return { rec, before: run.memoryBefore.seen as Array<{ name: string; runId: string; at: string; signalUrl: string }> };
@@ -680,6 +693,54 @@ describe("demo: second workspace state and the skipped line", () => {
   });
 });
 
+describe("demo: the current recording (2026-11-21, named contacts, fresh workspace)", () => {
+  it("seeds nothing, pauses at the strategy approval, shows contacts only after find_contacts, and ends with 5 leads that each have a contacts entry", async () => {
+    const state = JSON.parse(await readFile(join(process.cwd(), "eval", "demo", "run", "state.json"), "utf8"));
+    const w = ws();
+    const { id } = await createDemoRun(w);
+    expect(await loadMemory(w)).toMatchObject({ seen: [], notes: [], preferences: [] }); // the recording ran in a fresh workspace
+    const { demoDecide } = await import("../src/demo/replay");
+    const first = await demoStep(id);
+    expect(first.status).toBe("awaiting_approval");
+    expect(first.pendingApproval).toMatchObject({ tool: "propose_strategy" });
+    await demoDecide(id, { approve: true });
+    const feed: string[] = [];
+    const kinds: string[] = first.events.map((e) => e.kind);
+    let status = "running";
+    let leadsBeforeContacts = 0;
+    let contactsReplayed = false;
+    for (let i = 0; i < 60 && status === "running"; i += 1) {
+      const out = await demoStep(id);
+      status = out.status;
+      for (const e of out.events) {
+        kinds.push(e.kind);
+        const line = eventLine(e)?.text;
+        if (line) feed.push(line);
+      }
+      if (out.events.some((e) => e.tool === "find_contacts")) contactsReplayed = true;
+      if (status === "running" && out.leadsCount > 0 && !contactsReplayed) {
+        // leads are submitted before the contacts phase: no contacts on their rows yet
+        const snap = await demoSnapshot(id);
+        expect(snap.leads.filter((l) => l.contacts)).toEqual([]);
+        leadsBeforeContacts = Math.max(leadsBeforeContacts, snap.leads.length);
+      }
+    }    expect(status).toBe("done");
+    expect(kinds).toContain("memory_recalled");
+    expect(feed.filter((t) => t.startsWith("Skipped "))).toEqual([]); // nothing remembered, nothing skipped
+    expect(leadsBeforeContacts).toBe(5);
+    const snap = await demoSnapshot(id);
+    expect(snap.leads.map((l) => l.company)).toEqual(state.leads.map((l: { company: string }) => l.company));
+    expect(snap.leads.map((l) => l.company)).toEqual(["J&J Global Fulfilment", "Wagner Logistics", "Spartan Logistics", "Hollingsworth Logistics", "RGL Logistics"]);
+    expect(snap.leads.every((l) => l.contacts)).toBe(true);
+    expect(snap.leads.flatMap((l) => l.contacts!.contacts).filter((c) => c.tier === "verified")).toHaveLength(10);
+    expect(snap.leads.flatMap((l) => l.contacts!.contacts).filter((c) => c.tier === "inferred")).toHaveLength(2);
+    expect(snap.leads.find((l) => l.company === "Hollingsworth Logistics")!.contacts!.contacts).toEqual([]); // looked up, found no one
+    expect(snap.contract.buyerRoles).toEqual(["VP of Operations", "Warehouse general manager"]);
+    expect(snap.handback?.shortfall).toBe("5 of 10");
+    expect(snap.spend.total).toBeCloseTo(state.spend.total, 10);
+    expect(snap.stopReason).toBe("finish");
+  });
+});
 
 describe("search-scoped constraints", () => {
   const pets = () => plan({ label: "Pet shops in Singapore", gateFields: [{ key: "is_pet_shop", question: "Pet shop?", required: true }], signalTypes: ["new_outlet"], hqCountries: ["SG"] });

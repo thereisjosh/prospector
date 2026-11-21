@@ -614,7 +614,7 @@ function LeadRow({
           <span className="muted small">After the run</span>
         )}
       </div>
-      <WhoToReach lead={lead} demo={demo} onShowEvidence={showContact} />
+      <WhoToReach lead={lead} demo={demo && finished} onShowEvidence={showContact} />
       <div className="lrow-evidence">
         <TraceCollapsible open={evidenceOpen} onOpenChange={(next) => setEvidenceOpen(next)}>
           <TraceCollapsibleTrigger className="pr-press">
@@ -639,7 +639,7 @@ function LeadRow({
 /**
  * One line under a lead: verified contacts as name · “quoted title” · source host (opens the evidence row),
  * inferred ones as name · profile link · "inferred from a public profile". Never a LinkedIn snippet.
- * Nothing when contacts were not looked up, except the demo's one muted line (the recording has none).
+ * Nothing when contacts were not looked up, except the demo's one muted line once the replay has ended (a recording whose leads have no contacts entry).
  */
 export function WhoToReach({ lead, demo, onShowEvidence }: { lead: AcceptedLead; demo: boolean; onShowEvidence: (index: number) => void }) {
   const looked = lead.contacts;
@@ -680,6 +680,16 @@ export function WhoToReach({ lead, demo, onShowEvidence }: { lead: AcceptedLead;
                       <span className="muted pr-contact-date">{contactDate(c.evidence.published)}</span>
                     </>
                   )}
+                  <span className="pr-contact-sep" aria-hidden="true">·</span>
+                  {c.profile_url && isHttpUrl(c.profile_url) ? (
+                    <a href={c.profile_url} target="_blank" rel="noopener noreferrer nofollow">
+                      {CONTACTS.profile} <ArrowUpRight />
+                    </a>
+                  ) : (
+                    <a href={linkedInSearchUrl(c.name, lead.company)} target="_blank" rel="noopener noreferrer nofollow" aria-label={CONTACTS.searchProfileLabel(c.name, lead.company)}>
+                      {CONTACTS.searchProfile} <ArrowUpRight />
+                    </a>
+                  )}
                 </li>
               );
             }
@@ -709,6 +719,11 @@ export function WhoToReach({ lead, demo, onShowEvidence }: { lead: AcceptedLead;
       )}
     </div>
   );
+}
+
+/** LinkedIn people search for a verified contact with no profile link: a plain link, nothing fetched or stored. */
+export function linkedInSearchUrl(name: string, company: string): string {
+  return `https://www.linkedin.com/search/results/people/?keywords=${encodeURIComponent(`${name} ${company}`)}`;
 }
 
 /* ---------- considered but not added ---------- */

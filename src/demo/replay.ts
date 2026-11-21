@@ -1,13 +1,16 @@
 /**
- * Demo replay of one recorded agent run (today: memory-eval 2026-10-15b S1 rep 2, see docs/DEMO.md).
+ * Demo replay of one recorded agent run (today: the 2026-11-21 live run with named contacts, see docs/DEMO.md).
  *
  * Inputs (drop-in, no code changes): eval/demo/run/state.json (the run's final
  * RunState) and eval/demo/run/events.jsonl (every AgentEvent, in order), as
  * written by `eval/run-agent.ts --record`. Each POST /step advances one turn
  * (up to the next model_call, or up to and including an approval_request,
- * which pauses the replay until POST /decision). The snapshot GET /runs/:id
- * returns is rebuilt from the events consumed so far, so leads, rejections and
- * spend appear in the order they were recorded.
+ * which pauses the replay until POST /decision; the recorded decision is skipped,
+ * whatever the viewer picks). The snapshot GET /runs/:id returns is rebuilt from
+ * the events consumed so far, so leads, rejections and spend appear in the order
+ * they were recorded. Leads carry their `contacts` (find_contacts phase); mid-run
+ * a lead shows them once its find_contacts call has been replayed. run.json is
+ * read only by seedDemoMemory (`memoryBefore.seen`; empty for a fresh-workspace run).
  *
  * Live view: a step writes the events it replays to the demo run's own events.jsonl as it paces
  * them (runs/<demo-id>/events.jsonl, with seq), so GET /api/runs/:id/events streams the demo line
@@ -259,7 +262,13 @@ function snapshotAt(session: Session, rec: { state: RecordedState; events: Agent
   let sawTodoCall = false;
   let contract = rec.state.initialContract ?? rec.state.contract;
   let lastApproval: AgentEvent | undefined;
+  /** Companies whose find_contacts call has been replayed so far ("<Company>: verified=… ·" is its summary). */
+  const contactsDone = new Set<string>();
   for (const event of consumed) {
+    if (event.kind === "tool_call" && event.tool === "find_contacts" && event.is_error !== true && typeof event.resultSummary === "string") {
+      const at = event.resultSummary.lastIndexOf(": verified=");
+      if (at > 0) contactsDone.add(squashName(event.resultSummary.slice(0, at)));
+    }
     if (event.kind === "approval_request") lastApproval = event;
     if (event.kind === "decision" && event.approve === true && lastApproval?.tool === "request_scope_change" && rec.state.initialContract) {
       const change = (lastApproval.input as { change?: { field?: unknown; value?: unknown } } | undefined)?.change;
@@ -285,6 +294,12 @@ function snapshotAt(session: Session, rec: { state: RecordedState; events: Agent
       }
     }
   }
+  // Contacts are looked up after the leads are in (find_contacts phase): mid-run, a lead shows them once its call has been replayed.
+  const withContactsSoFar = (lead: AcceptedLead): AcceptedLead => {
+    if (!lead.contacts || contactsDone.has(squashName(lead.company))) return lead;
+    const { contacts: _later, ...bare } = lead;
+    return bare;
+  };
   // Recordings without per-call todo text fall back to the final checklist.
   if (!todo && (sawTodoCall || finished)) todo = rec.state.todo;
   const finishedLeads = rec.state.leads.filter((l) => !(session.seen ?? {})[squashName(l.company)]);
@@ -306,7 +321,7 @@ function snapshotAt(session: Session, rec: { state: RecordedState; events: Agent
     summary: finished ? rec.state.summary : undefined,
     spend,
     counters: { turns },
-    leads: finished ? finishedLeads : leads,
+    leads: finished ? finishedLeads : leads.map(withContactsSoFar),
     candidates: finished ? rec.state.candidates ?? [] : candidates,
     rejected: finished ? rec.state.rejected : rejected,
     // Same grouped shape as the live GET /api/runs/:id.
